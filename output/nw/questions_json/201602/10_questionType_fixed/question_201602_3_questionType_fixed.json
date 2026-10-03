@@ -9,7 +9,11 @@
     ],
     "questionType": "true_false",
     "original_question_id": "61ebb8d2b7d5b334",
-    "question_url": "https://www.nw-siken.com/kakomon/28_aki/am2_21.html"
+    "question_url": "https://www.nw-siken.com/kakomon/28_aki/am2_21.html",
+    "sourceQuestionKey": "nw:201602:61ebb8d2b7d5b334",
+    "reviewQuestionId": "61ebb8d2b7d5b334",
+    "sourceRecordRef": "question_201602_3.json#0",
+    "isCalculationQuestion": false
   },
   {
     "questionBodyText": "ユーザープログラムの実行中に割込みが発生した場合のプロセッサの処理として，適切なものはどれか。\nプログラムレジスタ(プログラムカウンター)などの退避\nユーザーモードから特権モードへの移行\n割込み処理ルーチンの開始番地の決定\n割込み処理ルーチンの実行",
@@ -19,9 +23,13 @@
       "②→③→④→①",
       "③→④→①→②"
     ],
-    "questionType": "true_false",
+    "questionType": "flash_card",
     "original_question_id": "28adffbb5b75fb6e",
-    "question_url": "https://www.nw-siken.com/kakomon/28_aki/am2_22.html"
+    "question_url": "https://www.nw-siken.com/kakomon/28_aki/am2_22.html",
+    "sourceQuestionKey": "nw:201602:28adffbb5b75fb6e",
+    "reviewQuestionId": "28adffbb5b75fb6e",
+    "sourceRecordRef": "question_201602_3.json#1",
+    "isCalculationQuestion": false
   },
   {
     "questionBodyText": "Webサーバ，アプリケーション(AP)サーバ及びDBサーバ各1台で構成されるWebシステムにおいて，次の3種類のタイムアウトを設定した。タイムアウトに設定する時間の長い順に並べたものはどれか。ここで，トランザクションはWebリクエスト内で処理を完了するものとする。\n〔タイムアウトの種類〕\nAPサーバのAPが，処理を開始してから終了するまで\nAPサーバのAPにおいて，DBアクセスなどのトランザクションを開始してから終了するまで\nWebサーバが，APサーバにリクエストを送信してから返信を受けるまで",

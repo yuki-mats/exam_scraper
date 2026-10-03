@@ -421,33 +421,36 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n宛先 IP アドレスは IP ヘッダの項目であり、TCP/UDP ヘッダには存在しない。",
-      "間違い。\n\n宛先 MAC アドレスは Ethernet などの MAC ヘッダの項目であり、TCP/UDP ヘッダには含まれない。",
-      "間違い。\n\nTTL は IP ヘッダの項目であり、TCP/UDP 共通ヘッダには存在しない。",
-      "正しい。\n\n送信元ポート番号は、TCP と UDP の両方のヘッダに共通して含まれる項目である。"
-    ],
-    "suggestedQuestions": [
-      "TCP と UDP に共通する項目は何ですか？",
-      "IP ヘッダとの違いは何ですか？",
-      "ポート番号は何のために使いますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "TCP と UDP に共通する項目は何ですか？",
-        "answer": "送信元ポート番号、宛先ポート番号、長さなどが共通する。"
-      },
-      {
-        "question": "IP ヘッダとの違いは何ですか？",
-        "answer": "IP ヘッダは経路配送、TCP/UDP ヘッダはアプリケーション間通信の識別や制御を担う。"
-      },
-      {
-        "question": "ポート番号は何のために使いますか？",
-        "answer": "同じホスト内でどのアプリケーションへ届けるかを識別するためである。"
-      }
+      "間違い。正しくは、宛先IPアドレスはIPヘッダーに含まれる。選択肢はTCPとUDPのヘッダーに含まれるとしているため誤りである。",
+      "間違い。正しくは、宛先MACアドレスはデータリンク層のヘッダーで扱われる。選択肢はTCPとUDPのヘッダーに含まれるとしているため誤りである。",
+      "間違い。正しくは、生存時間（TTL）はIPヘッダーの項目である。選択肢はTCPとUDPの共通ヘッダーに含まれるとしているため誤りである。",
+      "正しい。"
     ],
     "original_question_id": "0bf8903208d5eb2b",
     "question_url": "https://www.nw-siken.com/kakomon/28_aki/am2_10.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201602:0bf8903208d5eb2b",
+    "reviewQuestionId": "0bf8903208d5eb2b",
+    "sourceRecordRef": "question_201602_2.json#14",
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-10-03",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc9293.html",
+        "title": "Transmission Control Protocol (TCP), RFC 9293"
+      },
+      {
+        "referenceDate": "2026-10-03",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc768.html",
+        "title": "User Datagram Protocol, RFC 768"
+      },
+      {
+        "referenceDate": "2026-10-03",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc791.html",
+        "title": "Internet Protocol, RFC 791"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [

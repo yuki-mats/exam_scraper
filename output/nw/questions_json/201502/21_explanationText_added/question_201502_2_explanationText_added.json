@@ -61,33 +61,20 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nかんばん方式は後工程引取りが前提であり、前工程が作り終えたらすぐ押し込む方式ではない。",
-      "正しい。\n\n前工程は後工程から戻るかんばんの指示量に合わせて補充生産する。過剰在庫を避けつつ欠品しないよう、在庫を最小限で維持する運用になる。",
-      "間違い。\n\n大きな余剰能力を持つ考え方は、平準化とムダ排除を重視するかんばん方式に合わない。",
-      "間違い。\n\n安全在庫を含む運用量はかんばん枚数で管理するので、故障時間分を独自に上乗せして供給する考え方ではない。"
-    ],
-    "suggestedQuestions": [
-      "かんばん方式はどちらが引き取るのですか？",
-      "なぜ在庫を最小限に抑えるのですか？",
-      "安全在庫はどう管理しますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "かんばん方式はどちらが引き取るのですか？",
-        "answer": "後工程が必要になったときに前工程や部品置場から引き取る。"
-      },
-      {
-        "question": "なぜ在庫を最小限に抑えるのですか？",
-        "answer": "滞留在庫やムダを減らし、必要量だけを流すためである。"
-      },
-      {
-        "question": "安全在庫はどう管理しますか？",
-        "answer": "通常はかんばん枚数やロット運用の中で必要量を調整して管理する。"
-      }
+      "間違い。後工程の引取りに応じて前工程が補充するのが、かんばん方式の基本である。選択肢は前工程が生産を完了した後に部品を後工程へ供給するとしているため誤りである。",
+      "正しい。後工程から戻るかんばんの指示量に合わせて前工程が補充生産するため、在庫を必要最小限に保ちながら供給する。",
+      "間違い。かんばん方式では生産量や引取り時期を平準化し、大きな変動を前提にしない。選択肢は大きな変動に対応するための生産能力の余力を持つ必要があるとしているため誤りである。",
+      "間違い。故障による不足に備える場合も、平均故障時間に相当する量を一律に上乗せして供給するのではなく、かんばんの枚数や在庫水準で補充量を管理する。選択肢は故障時間分の部品をかんばんの指示量へ加算するとしているため誤りである。"
     ],
     "original_question_id": "36e3eb66d83c2397",
     "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_28.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201502:36e3eb66d83c2397",
+    "reviewQuestionId": "36e3eb66d83c2397",
+    "sourceRecordRef": "question_201502_2.json#2",
+    "explanationReferences": [],
+    "questionLearningPatternId": "sequence_flow",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -181,63 +168,56 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n2.4GHz 帯で 1 マスタ 7 スレーブのスター型を構成するのは Bluetooth の説明である。",
-      "間違い。\n\n5.8GHz 帯で ETC などに使われるのは DSRC の説明である。",
-      "正しい。\n\nZigBee は IEEE 802.15.4 を下位層に用いる低消費電力無線通信方式で、センサーネットワークやスマートメーターなどで利用される。",
-      "間違い。\n\n広帯域へ拡散して高速伝送を行う近距離無線は UWB の説明である。"
-    ],
-    "suggestedQuestions": [
-      "ZigBee の特徴は何ですか？",
-      "Bluetooth との違いは何ですか？",
-      "どのような用途に向いていますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ZigBee の特徴は何ですか？",
-        "answer": "低消費電力・低速通信に向き、多数のセンサー接続に適している。"
-      },
-      {
-        "question": "Bluetooth との違いは何ですか？",
-        "answer": "Bluetooth は機器間接続用途が多く、ZigBee はセンサーネットワークや制御系に向く。"
-      },
-      {
-        "question": "どのような用途に向いていますか？",
-        "answer": "スマートメーター、ホームオートメーション、各種センサー網などである。"
-      }
+      "間違い。1台のマスタと最大7台のスレーブによるスター型ネットワークは、Bluetoothの基本的なピコネットの説明である。選択肢はこの特徴をZigBeeのものとしているため誤りである。",
+      "間違い。5.8GHz帯を使い、ETCなどに利用される近距離無線通信はDSRCの説明である。選択肢はこの特徴をZigBeeのものとしているため誤りである。",
+      "正しい。ZigBeeはIEEE 802.15.4を下位層に用いる低消費電力の無線通信方式で、センサーネットワークやスマートメーターなどに利用される。",
+      "間違い。広い周波数帯に信号を拡散して高速伝送を行う近距離無線通信はUWBの説明である。選択肢はこの特徴をZigBeeのものとしているため誤りである。"
     ],
     "original_question_id": "e36edb54bc28a68f",
     "question_url": "https://www.nw-siken.com/kakomon/27_aki/am2_2.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201502:e36edb54bc28a68f",
+    "reviewQuestionId": "e36edb54bc28a68f",
+    "sourceRecordRef": "question_201502_2.json#6",
+    "explanationReferences": [
+      {
+        "choiceIndex": 0,
+        "referenceDate": "2026-10-03",
+        "sourceUrl": "https://www.bluetooth.com/learn-about-bluetooth/topology-options/",
+        "title": "Bluetooth Topology Options"
+      },
+      {
+        "choiceIndex": 2,
+        "referenceDate": "2026-10-03",
+        "sourceUrl": "https://csa-iot.org/all-solutions/zigbee/",
+        "title": "Zigbee Standard: Full-Stack Wireless IoT Solution | Connectivity Standards Alliance"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "間違い。\n\n経路選択や中継はネットワーク層の役割であり、トランスポート層の機能ではない。",
-      "間違い。\n\nフレーム化や誤り検出ビットの付加はデータリンク層が担当する。",
-      "正しい。\n\nトランスポート層は下位の通信網差異を吸収し、エンドツーエンドで透過的にデータを届ける役割を持つ。",
-      "間違い。\n\nルータでのパケット中継処理はネットワーク層に属する。"
-    ],
-    "suggestedQuestions": [
-      "トランスポート層は何をしますか？",
-      "データリンク層との違いは何ですか？",
-      "ネットワーク層との違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "トランスポート層は何をしますか？",
-        "answer": "端末間のデータ配送制御、信頼性確保、ポートによる多重化などを担う。"
-      },
-      {
-        "question": "データリンク層との違いは何ですか？",
-        "answer": "データリンク層は隣接機器間の伝送、トランスポート層は端末間の論理的な配送を扱う。"
-      },
-      {
-        "question": "ネットワーク層との違いは何ですか？",
-        "answer": "ネットワーク層は経路選択と中継、トランスポート層はその上でのエンドツーエンド通信品質を扱う。"
-      }
+      "間違い。正しくは、経路選択や中継はネットワーク層の役割である。選択肢はこれらをトランスポート層の機能としているため誤りである。",
+      "間違い。正しくは、フレーム化や伝送誤りを検出するためのビット列の付加はデータリンク層の役割である。選択肢はこれらをトランスポート層の機能としているため誤りである。",
+      "正しい。",
+      "間違い。正しくは、下位の通信網の品質差を補い、エンドツーエンドで透過的にデータを転送するのはトランスポート層の役割である。選択肢はこの役割をルータのパケット中継処理としているため誤りである。"
     ],
     "original_question_id": "3c22a662aeb5fff4",
     "question_url": "https://www.nw-siken.com/kakomon/27_aki/am2_3.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201502:3c22a662aeb5fff4",
+    "reviewQuestionId": "3c22a662aeb5fff4",
+    "sourceRecordRef": "question_201502_2.json#7",
+    "explanationReferences": [
+      {
+        "referenceDate": "1994-07-01",
+        "sourceUrl": "https://www.itu.int/rec/T-REC-X.200/en/",
+        "title": "ITU-T Recommendation X.200 (07/94) Information technology - Open Systems Interconnection - Basic Reference Model: The basic model"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -271,33 +251,17 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n2 では少な過ぎる。総ビット数に対する平均誤りビット数から考えると、誤りのある電文はもっと多く見積もられる。",
-      "間違い。\n\n4 も平均誤り個数を過小評価している。データ全体のビット数を先に計算する必要がある。",
-      "間違い。\n\n8 は途中計算の半分程度であり、総誤りビット数を正しく反映していない。",
-      "正しい。\n\n200,000 バイトは 1,600,000 ビットであり、平均ビット誤り率 10^-5 を掛けると平均誤りビット数は 16 になる。電文数 2,000 個に対して誤りは十分まばらなので、平均して誤りが含まれる電文数も約 16 個とみなせる。"
-    ],
-    "suggestedQuestions": [
-      "なぜ誤り電文数を 16 個と近似できますか？",
-      "まず何を計算すればよいですか？",
-      "この問題で『誤り』という語があっても intent が select_correct なのはなぜですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "なぜ誤り電文数を 16 個と近似できますか？",
-        "answer": "電文は 2,000 個あり、平均誤りビット数は 16 個と十分少ない。1 電文に複数誤りが重なる確率は低いため、誤りビット数と誤り電文数をほぼ同一視できる。"
-      },
-      {
-        "question": "まず何を計算すればよいですか？",
-        "answer": "総データ量をビットへ直し、ビット誤り率を掛けて平均誤りビット数を出す。今回は 200,000×8×10^-5=16 である。"
-      },
-      {
-        "question": "この問題で『誤り』という語があっても intent が select_correct なのはなぜですか？",
-        "answer": "設問は『適切なもの』や『平均して幾つか』の正答選択であり、『誤っているものを選べ』ではないからである。文中の名詞としての誤りと出題意図は別である。"
-      }
+      "正しい。電文に誤りが発生する確率は、1電文のビット数を\\(L\\)、ビット誤り率を\\(p\\)とすると、\\(1-(1-p)^L\\)で求められる。200,000バイトは2,000電文で、1電文は\\(100\\times8=800\\)ビットである。したがって、誤りが発生する電文の平均個数は\\(2,000\\{1-(1-10^{-5})^{800}\\}\\approx15.94\\)個となり、最も近い値は16である。単純化して平均誤りビット数を求めても、\\(200,000\\times8\\times10^{-5}=16\\)となる。"
     ],
     "original_question_id": "b0c67fba6eb0597f",
     "question_url": "https://www.nw-siken.com/kakomon/27_aki/am2_5.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201502:b0c67fba6eb0597f",
+    "reviewQuestionId": "b0c67fba6eb0597f",
+    "sourceRecordRef": "question_201502_2.json#9",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -331,93 +295,65 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nソースルーティング失敗時に返すのはEcho Replyではなく、別のエラー通知系メッセージである。",
-      "正しい。\n\nルータがより適切な次ホップを送信元へ知らせて経路変更を促すときはICMP Redirectを使う。",
-      "間違い。\n\n再組立てタイムアウト時に返るのは一般にTime Exceeded系であり、Parameter Problemではない。",
-      "間違い。\n\nバッファあふれで送信抑制を促す説明は古いSource Quench寄りであり、Time Exceededではない。"
-    ],
-    "suggestedQuestions": [
-      "ICMP Redirectはいつ送られますか？",
-      "Time Exceededは何を通知しますか？",
-      "Echo Replyはどんな用途ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ICMP Redirectはいつ送られますか？",
-        "answer": "送信元が選んだ経路より同一ネットワーク内にもっと適切な次ホップがあると、ルータが通知する。"
-      },
-      {
-        "question": "Time Exceededは何を通知しますか？",
-        "answer": "TTL切れや再組立て時間超過など、時間に関する超過を知らせる。"
-      },
-      {
-        "question": "Echo Replyはどんな用途ですか？",
-        "answer": "Echo Requestへの応答で、疎通確認などに使われる。"
-      }
+      "間違い。ソースルーティングの失敗時に返すのはEcho Replyではなく、ICMP Destination Unreachable（Source Route Failed）である。選択肢はEcho Replyを返すとしているため誤りである。",
+      "正しい。ルータが送信元に、より適切な次のルータを知らせて経路変更を促す場合は、ICMP Redirectを使用する。",
+      "間違い。フラグメントの再組立てがタイムアウトした場合は、データグラムを破棄してICMP Time Exceededを返す。選択肢はParameter Problemを返すとしているため誤りである。",
+      "間違い。転送処理中のバッファあふれによる送信抑制は、Time Exceededの用途ではない。選択肢はTime Exceededを送るとしているため誤りであり、かつてこの目的で使われたのはSource Quenchである。"
     ],
     "original_question_id": "6fdf90b1e7667e49",
     "question_url": "https://www.nw-siken.com/kakomon/27_aki/am2_7.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201502:6fdf90b1e7667e49",
+    "reviewQuestionId": "6fdf90b1e7667e49",
+    "sourceRecordRef": "question_201502_2.json#11",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "間違い。\n\nARPはIPv4でIPアドレスからMACアドレスを求めるプロトコルであり、マルチキャスト参加管理には使わない。",
-      "正しい。\n\nIGMPはホストがマルチキャストグループへの参加・離脱をルータへ通知し、ルータが参加有無を確認するために使う。",
-      "間違い。\n\nLDAPはディレクトリサービス問い合わせ用プロトコルであり、マルチキャストグループ管理ではない。",
-      "間違い。\n\nRIPはルーティング情報交換プロトコルであり、ホストのマルチキャスト参加通知には用いない。"
-    ],
-    "suggestedQuestions": [
-      "IGMPは誰と誰の間で使いますか？",
-      "IGMPとマルチキャスト転送はどう関係しますか？",
-      "ARPとの違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "IGMPは誰と誰の間で使いますか？",
-        "answer": "主に同一ローカルセグメント内のホストとルータの間で使う。"
-      },
-      {
-        "question": "IGMPとマルチキャスト転送はどう関係しますか？",
-        "answer": "ルータはIGMPで受信希望ホストの有無を把握し、必要なセグメントへだけマルチキャストを流す。"
-      },
-      {
-        "question": "ARPとの違いは何ですか？",
-        "answer": "ARPはアドレス解決、IGMPはマルチキャストグループ参加管理であり用途が全く異なる。"
-      }
+      "間違い。正しくは、ARPはIPv4アドレスから対応するMACアドレスを求めるために使う。選択肢はARPをマルチキャストグループの参加管理に使うとしているため誤りである。",
+      "正しい。IGMPは、ホストがマルチキャストグループへの参加や離脱をルータへ通知し、ルータが参加中のホストの有無を確認するために使う。",
+      "間違い。正しくは、LDAPはディレクトリサービスの情報を検索・参照するために使う。選択肢はLDAPをマルチキャストグループの参加管理に使うとしているため誤りである。",
+      "間違い。正しくは、RIPはルータ同士が経路情報を交換するために使う。選択肢はRIPをマルチキャストグループの参加管理に使うとしているため誤りである。"
     ],
     "original_question_id": "4e9ace9d71bc430b",
     "question_url": "https://www.nw-siken.com/kakomon/27_aki/am2_8.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201502:4e9ace9d71bc430b",
+    "reviewQuestionId": "4e9ace9d71bc430b",
+    "sourceRecordRef": "question_201502_2.json#12",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "間違い。\n\nIPv4 の TOS は IPv6 ではそのまま残っておらず、トラフィッククラスへ整理された。資源予約のために TOS を使う説明ではない。",
-      "間違い。\n\nIPv6 のアドレス長は 128 ビットであり、64 ビットではない。",
-      "間違い。\n\nIPv6 はヘッダ簡素化のため、IPv4 にあったヘッダチェックサムを廃止している。",
-      "正しい。\n\nIPv6 では IPsec の実装サポートが必須とされ、IP 層での認証や暗号化を扱えるようにした。"
-    ],
-    "suggestedQuestions": [
-      "IPv6 でアドレス長はどう変わりましたか？",
-      "なぜチェックサムを廃止したのですか？",
-      "IPsec は何を提供しますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "IPv6 でアドレス長はどう変わりましたか？",
-        "answer": "IPv4 の 32 ビットから 128 ビットへ拡張され、アドレス空間が大幅に広がった。"
-      },
-      {
-        "question": "なぜチェックサムを廃止したのですか？",
-        "answer": "中継処理を簡素化し高速化するためで、誤り検出は下位層や上位層にも任せる考え方である。"
-      },
-      {
-        "question": "IPsec は何を提供しますか？",
-        "answer": "認証、完全性保護、必要に応じた暗号化によって IP レベルのセキュリティを提供する。"
-      }
+      "間違い。正しくは、IPv6ではIPv4のTOSフィールドをそのまま使わず、Traffic Classフィールドでパケットの扱いを区別する。選択肢はTOSを使って特定クラスの資源予約ができるとしているため誤りである。",
+      "間違い。正しくは、IPv6のアドレスは128ビットである。選択肢は32ビットから64ビットに拡張されたとしているため誤りである。",
+      "間違い。正しくは、IPv6では基本ヘッダーのチェックサムフィールドを設けず、ヘッダーを簡素化している。選択肢はチェックサムを追加したとしているため誤りである。",
+      "正しい。この問題では、IPv6の仕様変更として、IPsecの実装が必須とされ、IP層で認証、改ざん検出、暗号化を扱えることを問うている。"
     ],
     "original_question_id": "31740501436c1716",
     "question_url": "https://www.nw-siken.com/kakomon/27_aki/am2_9.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201502:31740501436c1716",
+    "reviewQuestionId": "31740501436c1716",
+    "sourceRecordRef": "question_201502_2.json#13",
+    "explanationReferences": [
+      {
+        "referenceDate": "1998-12-01",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc2460.html",
+        "title": "RFC 2460: Internet Protocol, Version 6 (IPv6) Specification"
+      },
+      {
+        "referenceDate": "2006-04-01",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc4294.html",
+        "title": "RFC 4294: IPv6 Node Requirements"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -451,63 +387,31 @@
   },
   {
     "explanationText": [
-      "正しい。\n\nDHCP はサーバ探索やアドレス配布のために UDP を用いる。",
-      "間違い。\n\nFTP は TCP を使用する。",
-      "間違い。\n\nHTTP は TCP を使用する。",
-      "間違い。\n\nSMTP は通常 TCP を使用する。"
-    ],
-    "suggestedQuestions": [
-      "DHCP が UDP を使う理由は何ですか？",
-      "UDP と TCP の使い分けは何ですか？",
-      "UDP を使う代表的なプロトコルには何がありますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "DHCP が UDP を使う理由は何ですか？",
-        "answer": "初期状態で相手先が未確定でもブロードキャストを使ってやり取りできるためである。"
-      },
-      {
-        "question": "UDP と TCP の使い分けは何ですか？",
-        "answer": "UDP は軽量・コネクションレス、TCP は信頼性重視のコネクション型である。"
-      },
-      {
-        "question": "UDP を使う代表的なプロトコルには何がありますか？",
-        "answer": "DHCP、DNS、SNMP、NTP、RIP などがある。"
-      }
+      "正しい。UDPを使用するプロトコルはDHCPである。DHCPは、IPアドレスなどのネットワーク設定を自動配布するためにUDPを使う。一方、FTP、HTTP、SMTPは通常TCPを使用する。"
     ],
     "original_question_id": "45f9753725ff44e8",
     "question_url": "https://www.nw-siken.com/kakomon/27_aki/am2_11.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201502:45f9753725ff44e8",
+    "reviewQuestionId": "45f9753725ff44e8",
+    "sourceRecordRef": "question_201502_2.json#15",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "間違い。\n\nRARP は MAC アドレスから IP アドレスを得る古い仕組みであり、デフォルトゲートウェイ冗長化には使わない。",
-      "間違い。\n\nRSTP はレイヤ 2 ループ防止のためのプロトコルである。",
-      "間違い。\n\nRTSP はストリーミング制御用プロトコルであり、ゲートウェイ障害回避とは無関係である。",
-      "正しい。\n\nVRRP は複数ルータで仮想ルータを構成し、クライアント設定を変えずにデフォルトゲートウェイの冗長化を実現する。"
-    ],
-    "suggestedQuestions": [
-      "VRRP はどう動作しますか？",
-      "HSRP との違いは何ですか？",
-      "なぜクライアント設定を変えずに済みますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "VRRP はどう動作しますか？",
-        "answer": "複数の実ルータが 1 つの仮想 IP と仮想 MAC を共有し、故障時は待機系が引き継ぐ。"
-      },
-      {
-        "question": "HSRP との違いは何ですか？",
-        "answer": "どちらも FHRP だが、VRRP は標準化された方式、HSRP は Cisco 独自方式として知られる。"
-      },
-      {
-        "question": "なぜクライアント設定を変えずに済みますか？",
-        "answer": "端末は常に仮想 IP をデフォルトゲートウェイとして使うため、背後の実ルータ交代を意識しない。"
-      }
+      "正しい。VRRPは、複数のルータを一つの仮想ルータとして扱い、クライアントのデフォルトゲートウェイ設定を変更せずに、障害時には別のルータへ切り替えられるプロトコルである。RARPはMACアドレスからIPアドレスを取得する仕組み、RSTPはレイヤ2ネットワークのループを防ぐ仕組み、RTSPはストリーミング配信を制御するプロトコルであり、デフォルトゲートウェイの冗長化には用いない。"
     ],
     "original_question_id": "ac0d85ed1af377d4",
     "question_url": "https://www.nw-siken.com/kakomon/27_aki/am2_12.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201502:ac0d85ed1af377d4",
+    "reviewQuestionId": "ac0d85ed1af377d4",
+    "sourceRecordRef": "question_201502_2.json#16",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -631,63 +535,43 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nAH と ESP は IPsec の機能であり、WPA2 の無線区間暗号化方式ではない。",
-      "正しい。\n\nWPA2 は AES を用いる CCMP を標準的に採用し、無線 LAN の暗号化と完全性保護を行う。",
-      "間違い。\n\nWPA2 の認証手順は TLS Handshake を前提にしたものではない。802.1X/EAP などを用いる場合でも設問の表現とは異なる。",
-      "間違い。\n\nRC4 と IV を用いる方式は WEP 系の説明であり、WPA2 の特徴ではない。"
-    ],
-    "suggestedQuestions": [
-      "CCMP とは何ですか？",
-      "WEP との違いは何ですか？",
-      "WPA2 で 802.1X を使う場合は何が起きますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "CCMP とは何ですか？",
-        "answer": "AES を使った無線 LAN 向けの暗号化と完全性保護の方式である。"
-      },
-      {
-        "question": "WEP との違いは何ですか？",
-        "answer": "WEP は RC4 ベースで脆弱性が多く、WPA2 は AES/CCMP により大幅に強化されている。"
-      },
-      {
-        "question": "WPA2 で 802.1X を使う場合は何が起きますか？",
-        "answer": "認証サーバと連携して利用者や端末を認証し、その後に無線区間の鍵共有が行われる。"
-      }
+      "間違い。正しくは、WPA2はIEEE 802.11iのRSNの仕組みで無線区間を保護する。AHとESPはIPsecで用いる機能である。選択肢はWPA2がAHとESPによって認証と暗号化を実現するとしているため誤りである。",
+      "正しい。WPA2はAESを使うCCMP（Counter-mode with CBC-MAC Protocol）を採用し、無線LANのデータを暗号化するとともに改ざんを検出する。",
+      "間違い。正しくは、WPA2の無線区間の保護はIEEE 802.11iのRSNの仕組みで行う。企業向けの構成でEAP-TLSを使う場合はあるが、端末とアクセスポイントの通信でTLS Handshake Protocolを用いて相互認証することがWPA2の一般的な特徴ではない。選択肢はWPA2の特徴をTLS Handshake Protocolによる相互認証としているため誤りである。",
+      "間違い。正しくは、WPA2はAES-CCMPを使い、RC4とIVを使う方式ではない。RC4でフレームごとに暗号化する方式はWEPの説明である。選択肢はWPA2が利用者の秘密鍵とIVを基にRC4で暗号化するとしているため誤りである。"
     ],
     "original_question_id": "ec310e4ff2cddcf5",
     "question_url": "https://www.nw-siken.com/kakomon/27_aki/am2_17.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201502:ec310e4ff2cddcf5",
+    "reviewQuestionId": "ec310e4ff2cddcf5",
+    "sourceRecordRef": "question_201502_2.json#21",
+    "explanationReferences": [
+      {
+        "referenceDate": "2007-02-07",
+        "sourceUrl": "https://csrc.nist.gov/pubs/sp/800/97/final",
+        "title": "NIST SP 800-97 Establishing Wireless Robust Security Networks: A Guide to IEEE 802.11i"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "間違い。\n\nリバースプロキシを置いただけでは通信路暗号化は行われないので、インターネット上の盗聴そのものは防げない。",
-      "正しい。\n\n外部公開側にリバースプロキシを置き、実サーバを外部から直接届かない別 DMZ に退避させれば、外部から Web サーバのコンテンツを直接改ざんされる経路を減らせる。",
-      "間違い。\n\n社内向けプロキシはアクセス制御には有効でも、通信路上の盗聴防止には暗号化が別途必要である。",
-      "間違い。\n\n参照コンテンツの改ざん防止は HTTPS などの完全性保護によるもので、単なるプロキシ配置だけでは足りない。"
-    ],
-    "suggestedQuestions": [
-      "リバースプロキシは何を守りますか？",
-      "DMZ を分ける効果は何ですか？",
-      "盗聴防止には何が必要ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "リバースプロキシは何を守りますか？",
-        "answer": "外部からの要求を代理受けし、内部の実サーバを直接露出させないことで防御層を増やす。"
-      },
-      {
-        "question": "DMZ を分ける効果は何ですか？",
-        "answer": "公開系と実サーバ系を分離し、侵入されても横展開や直接到達を難しくできる。"
-      },
-      {
-        "question": "盗聴防止には何が必要ですか？",
-        "answer": "HTTPS や VPN など、通信内容を暗号化する仕組みが必要である。"
-      }
+      "間違い。通信路の盗聴を防ぐには、TLSなどで通信を暗号化する必要がある。選択肢は、リバースプロキシを設置するだけでインターネット上の盗聴を防げるとしているため誤りである。",
+      "正しい。外部公開用のリバースプロキシを窓口にし、実サーバを外部から直接接続できない領域に置くことで、実サーバへ直接到達してコンテンツを改ざんする経路を遮断できる。",
+      "間違い。社内PCとWebサーバ間の盗聴を防ぐには通信の暗号化が必要であり、プロキシは主に通信の中継やアクセス制御を担う。選択肢は、DMZにプロキシを設置するだけで盗聴を防げるとしているため誤りである。",
+      "間違い。インターネット上でコンテンツの改ざんを防ぐには、HTTPSなどで通信内容の完全性を確認する必要がある。選択肢は、プロキシを設置するだけでコンテンツの改ざんを防げるとしているため誤りである。"
     ],
     "original_question_id": "a18a033bd17cc4d3",
     "question_url": "https://www.nw-siken.com/kakomon/27_aki/am2_18.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201502:a18a033bd17cc4d3",
+    "reviewQuestionId": "a18a033bd17cc4d3",
+    "sourceRecordRef": "question_201502_2.json#22",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [

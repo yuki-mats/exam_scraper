@@ -1,63 +1,249 @@
 [
   {
     "explanationText": [
-      "間違い。\n\n1 の数で誤りを検出するのはパリティチェックの考え方であり、2 の補数を使う理由ではない。",
-      "正しい。\n\n2 の補数表現を使うと、減算を『引く数の負数を作って加算する』処理へ統一でき、加算回路をそのまま利用しやすい。",
-      "間違い。\n\n除算を減算の繰返しで考えることはできるが、それは 2 の補数を採用する主目的ではない。",
-      "間違い。\n\nビット反転だけで負数を表すのは 1 の補数であり、2 の補数では反転後にさらに 1 を加える。"
-    ],
-    "suggestedQuestions": [
-      "2の補数を使う主な利点は何ですか？",
-      "1の補数との違いは何ですか？",
-      "なぜ減算を加算に置き換えられますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "2の補数を使う主な利点は何ですか？",
-        "answer": "減算を加算回路で処理でき、0 の表現も一意になるため、ハードウェア設計を単純化しやすい。"
-      },
-      {
-        "question": "1の補数との違いは何ですか？",
-        "answer": "1 の補数は単なるビット反転、2 の補数は反転後に 1 を加える。2 の補数では 0 が一つだけになる。"
-      },
-      {
-        "question": "なぜ減算を加算に置き換えられますか？",
-        "answer": "A - B を A + (-B) として扱い、-B を 2 の補数で表せるからである。"
-      }
+      "間違い。正しくは、ビット誤りの検出にはパリティビットなどを用いる。選択肢は、1のビットを数えるだけで誤りを検出できるとしているため、2の補数を使う理由とは異なる。",
+      "正しい。2の補数表現を使うと、減算を引く数の負数を作って加算する処理に置き換えられるため、加算回路を利用して減算を実行できる。",
+      "間違い。正しくは、2の補数を使う主な理由は、減算を負数の加算に置き換えられることである。除算を減算の組合せで行う考え方は、2の補数を使う理由を示していない。",
+      "間違い。正しくは、ビットを反転しただけで得られるのは1の補数であり、2の補数では反転後に1を加える。選択肢は、ビットの反転だけで負数を求められるとしているため誤りである。"
     ],
     "original_question_id": "105863ac47e724c7",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_1.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:200902:105863ac47e724c7",
+    "reviewQuestionId": "105863ac47e724c7",
+    "sourceRecordRef": "question_200902_1.json#0",
+    "explanationReferences": [],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "2の補数を用いる理由を問う基礎理論の問題で、法令・制度上の根拠はない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ビット誤りの検出は2の補数を使う理由ではない。",
+          "promptContext": "2の補数の利用目的に関する技術問題。",
+          "refs": [],
+          "verdict": "法令非関連。選択肢は間違い。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "2の補数を使うと、減算を負数の加算に置き換えられる。",
+          "promptContext": "2の補数の利用目的に関する技術問題。",
+          "refs": [],
+          "verdict": "法令非関連。選択肢は正しい。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "除算を減算の組合せで行うことは、2の補数を使う主な理由ではない。",
+          "promptContext": "2の補数の利用目的に関する技術問題。",
+          "refs": [],
+          "verdict": "法令非関連。選択肢は間違い。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ビット反転だけで得られるのは1の補数であり、2の補数には反転後の1の加算が必要である。",
+          "promptContext": "2の補数の利用目的に関する技術問題。",
+          "refs": [],
+          "verdict": "法令非関連。選択肢は間違い。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\nCRC の検査用データは 1 ビットではなく、生成多項式の次数に応じた複数ビットの余りとして求められる。",
-      "間違い。\n\n受信側は『受信データを検査用データで割る』のではなく、受信データと CRC を合わせたビット列を送信側と同じ生成多項式で検査する。",
-      "正しい。\n\n送信側は生成多項式を使って検査用データを作成し、それを元のデータへ付加して送信する。",
-      "間違い。\n\nCRC では送信側と受信側で同じ生成多項式を使わなければ、同じ誤り検査を行えない。"
-    ],
-    "suggestedQuestions": [
-      "CRCでは何を余りとして付けますか？",
-      "受信側はどのように検査しますか？",
-      "パリティとの違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "CRCでは何を余りとして付けますか？",
-        "answer": "送信データを生成多項式で割ったときの余りビット列を付加する。"
-      },
-      {
-        "question": "受信側はどのように検査しますか？",
-        "answer": "受信したデータ本体と CRC を合わせたビット列を同じ生成多項式で割り、余りが 0 かを確かめる。"
-      },
-      {
-        "question": "パリティとの違いは何ですか？",
-        "answer": "CRC は複数ビットの余りを使うため、単一パリティより強い誤り検出能力を持つ。"
-      }
+      "間違い。正しくは、検査用データは生成多項式の次数に応じた複数ビットの余りである。選択肢は検査用データを1ビットの値としているため誤りである。",
+      "間違い。正しくは、受信側は受信したビット列を送信側と同じ生成多項式で割り、余りを確認する。選択肢は受信データを検査用データで割るとしているため誤りである。",
+      "正しい。送信側は生成多項式を用いて検査用データを作り、元のデータに付加して送信する。",
+      "間違い。正しくは、送信側と受信側は同じ生成多項式を用いる。選択肢は異なる生成多項式を用いるとしているため誤りである。"
     ],
     "original_question_id": "eaee0a7209e61a01",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_2.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:200902:eaee0a7209e61a01",
+    "reviewQuestionId": "eaee0a7209e61a01",
+    "sourceRecordRef": "question_200902_1.json#1",
+    "explanationReferences": [],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "CRCの生成多項式、検査用データ、送受信時の処理に関する通信技術の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "CRCの検査用データは生成多項式による余りであり、送受信側は同じ生成多項式を用いる。",
+          "promptContext": "CRCに関する技術肢。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "通信技術の知識で判断できるため、法令改正差分の監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "受信側は受信したビット列を同じ生成多項式で割り、余りを確認する。",
+          "promptContext": "CRCに関する技術肢。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "通信技術の知識で判断できるため、法令改正差分の監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "送信側は生成多項式から検査用データを作り、元のデータに付加して送信する。",
+          "promptContext": "CRCに関する技術肢。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "通信技術の知識で判断できるため、法令改正差分の監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "送信側と受信側は同じ生成多項式を用いる。",
+          "promptContext": "CRCに関する技術肢。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "通信技術の知識で判断できるため、法令改正差分の監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -91,63 +277,137 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nパイプライン完了時間は最初の命令が流れ切る D ピッチと、その後の I-1 命令分を足して求めるので、この式では 1 ピッチ多い。",
-      "正しい。\n\nパイプラインの完了時間は、最初の命令で D ピッチ、残り I-1 命令で 1 ピッチずつ進むため、(I + D - 1) × P となる。",
-      "間違い。\n\nD と I を単純に掛けるのは直列実行に近い考え方であり、パイプラインの並列性を反映していない。",
-      "間違い。\n\n単位も式の形も不適切で、P を加えるだけでは各ピッチの時間を表せない。"
-    ],
-    "suggestedQuestions": [
-      "なぜ D-1 を足す形になりますか？",
-      "パイプラインハザードを考えるとどう変わりますか？",
-      "直列実行と比べると何が違いますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "なぜ D-1 を足す形になりますか？",
-        "answer": "1 命令目が全段を通過するまで D ピッチ必要で、その後は新しい命令が 1 ピッチごとに完了するからである。"
-      },
-      {
-        "question": "パイプラインハザードを考えるとどう変わりますか？",
-        "answer": "待ちや空きが発生するため、理想式より完了時間が長くなることがある。"
-      },
-      {
-        "question": "直列実行と比べると何が違いますか？",
-        "answer": "直列では各命令が全段を順番に占有するが、パイプラインでは段ごとに並行して処理できる。"
-      }
+      "正しい。パイプラインの実行時間は、最初の命令が全段を通過する時間と、後続の命令が1ピッチずつ完了する時間を合わせて求める。式は \\[T=(I+D-1)P\\] である。\\(I\\)は命令数、\\(D\\)はパイプラインの段数、\\(P\\)は1ステージを処理する時間（ピッチ）を表す。最初の命令には\\(D\\)ピッチかかり、残りの\\(I-1\\)命令はそれぞれ1ピッチずつ追加されるため、合計は\\((I+D-1)P\\)となる。したがって、正しい選択肢は「(I＋D－1)×P」である。"
     ],
     "original_question_id": "2484c9ae41884c25",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_4.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:200902:2484c9ae41884c25",
+    "reviewQuestionId": "2484c9ae41884c25",
+    "sourceRecordRef": "question_200902_1.json#3",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "法令ではなく、パイプラインの段数・ピッチ・命令数に基づく工学的な計算問題である。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を要しない技術計算問題である。",
+          "promptContext": "パイプライン実行時間の式の選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令関連性なし。技術計算として判定。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を要しない技術計算問題である。",
+          "promptContext": "パイプライン実行時間の式の選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令関連性なし。技術計算として判定。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を要しない技術計算問題である。",
+          "promptContext": "パイプライン実行時間の式の選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令関連性なし。技術計算として判定。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を要しない技術計算問題である。",
+          "promptContext": "パイプライン実行時間の式の選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令関連性なし。技術計算として判定。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "正しい。\n\nフェールセーフは、障害や誤動作が起きても危険側ではなく安全側へ移行するように設計する考え方である。",
-      "間違い。\n\n機能を縮退させながら継続運転するのはフェールソフトの考え方である。",
-      "間違い。\n\n重要部分を多重化して故障に強くするのはフォールトトレラントの考え方である。",
-      "間違い。\n\n誤操作しにくい設計はフールプルーフの考え方であり、フェールセーフとは目的が異なる。"
-    ],
-    "suggestedQuestions": [
-      "フェールセーフとフェールソフトの違いは何ですか？",
-      "フォールトトレラントとは何ですか？",
-      "フールプルーフとの違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "フェールセーフとフェールソフトの違いは何ですか？",
-        "answer": "フェールセーフは安全側へ止めること、フェールソフトは機能を落としてでも運転継続することを重視する。"
-      },
-      {
-        "question": "フォールトトレラントとは何ですか？",
-        "answer": "構成要素の冗長化などで、故障が起きてもサービスを継続できるようにする考え方である。"
-      },
-      {
-        "question": "フールプルーフとの違いは何ですか？",
-        "answer": "フールプルーフは誤操作予防、フェールセーフは故障時の安全確保に主眼がある。"
-      }
+      "正しい。フェールセーフは、障害や誤動作が起きても危険な状態へ進まず、安全側に移行するように設計する考え方である。機能を縮退させて運用を続けるのはフェールソフト、重要な構成要素を多重化して故障後も機能を維持するのはフォールトトレラント、誤操作を起こしにくくするのはフールプルーフであり、それぞれ目的が異なる。"
     ],
     "original_question_id": "67f9e0c8b31f845a",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_5.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:200902:67f9e0c8b31f845a",
+    "reviewQuestionId": "67f9e0c8b31f845a",
+    "sourceRecordRef": "question_200902_1.json#4",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -181,33 +441,132 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nOSS と一緒に配布される別ソフトウェアまで必ずソース公開させることは、OSI の定義要件ではない。",
-      "間違い。\n\nOSS は再頒布の自由が重視されるため、有償配布を禁止していない。",
-      "正しい。\n\nOSS の定義では、営利利用や研究利用など特定分野での利用を制限してはならない。",
-      "間違い。\n\n改変版の再頒布条件に一定の条件を設けるライセンスもあり、常に無制約とは限らない。"
-    ],
-    "suggestedQuestions": [
-      "OSSで有償配布はできますか？",
-      "利用分野差別の禁止とは何ですか？",
-      "コピーレフトとの関係は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "OSSで有償配布はできますか？",
-        "answer": "できる。無償であることは OSS の必須条件ではなく、再頒布の自由が重要である。"
-      },
-      {
-        "question": "利用分野差別の禁止とは何ですか？",
-        "answer": "研究、教育、商用など、特定の用途や業種だけを禁止してはならないという考え方である。"
-      },
-      {
-        "question": "コピーレフトとの関係は何ですか？",
-        "answer": "GPL などのコピーレフト系ライセンスは OSS の一種で、改変版にも同じ条件を求めることがある。"
-      }
+      "間違い。OSSライセンスは、同じ媒体で配布する別のソフトウェアまでオープンソースにするよう求めてはならない。選択肢は、ほかのソフトウェアのソースコードも公開しなければならないとしているため誤りである。",
+      "間違い。OSSは再頒布時の販売を禁止せず、無償配布だけに限定されない。選択肢は、再頒布を無料にしなくてはならないとしているため誤りである。",
+      "正しい。OSIの定義は、営利利用や研究利用など特定の分野での利用を制限してはならないとしている。",
+      "間違い。OSSライセンスは改変や派生物の再頒布を認める必要があるが、同じ条件での再頒布や、改変版に別の名称を付けることなどの条件は認められる。選択肢は、改変版の再頒布条件に制約があってはならないとしているため誤りである。"
     ],
     "original_question_id": "61adfbb9357b6082",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_7.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:200902:61adfbb9357b6082",
+    "reviewQuestionId": "61adfbb9357b6082",
+    "sourceRecordRef": "question_200902_1.json#6",
+    "explanationReferences": [
+      {
+        "referenceDate": "2024-02-16",
+        "sourceUrl": "https://opensource.org/osd",
+        "title": "The Open Source Definition"
+      }
+    ],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "OSSライセンスの定義と利用許諾条件に関する技術問題で、法令条文を根拠にしない。営利目的を含む使用を許可することがOSSの特徴である。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に差分なし。",
+          "displayRefIds": [],
+          "explanationText": "選択肢1は、同時配布する別ソフトウェアのソースコード公開まで要求しているため間違い。",
+          "promptContext": "OSSライセンスの定義に基づく判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "OSSライセンスの定義に基づく技術判定であり、法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に差分なし。",
+          "displayRefIds": [],
+          "explanationText": "選択肢2は、再頒布を無料に限定しているため間違い。OSSは再頒布時の販売を禁止しない。",
+          "promptContext": "OSSライセンスの定義に基づく判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "OSSライセンスの定義に基づく技術判定であり、法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に差分なし。",
+          "displayRefIds": [],
+          "explanationText": "選択肢3は、営利目的や研究分野での使用を許可するというOSSの特徴に合致するため正しい。",
+          "promptContext": "OSSライセンスの定義に基づく判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "OSSライセンスの定義に基づく技術判定であり、法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に差分なし。",
+          "displayRefIds": [],
+          "explanationText": "選択肢4は、改変版の再頒布条件に一切の制約を認めないとしているため間違い。OSSライセンスでは一定の条件を付けられる。",
+          "promptContext": "OSSライセンスの定義に基づく判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "OSSライセンスの定義に基づく技術判定であり、法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -301,33 +660,126 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n参加者はフェーズ 1 で可否を返しても、最終的なコミットかロールバックかは調停者の指示を待つ必要がある。",
-      "正しい。\n\nフェーズ 1 後に調停者が停止すると、参加者は中間状態で待たされ、回復するまでコミットもロールバックも確定できないことがある。",
-      "間違い。\n\n1 つの分散トランザクションをまとめる調停者は 1 つであり、複数調停者前提ではない。",
-      "間違い。\n\nフェーズ 1 で返答のない参加者がいれば、調停者は一貫性維持のため強制コミットせず、通常はロールバック側へ倒す。"
-    ],
-    "suggestedQuestions": [
-      "2相コミットの二つのフェーズは何ですか？",
-      "なぜ調停者障害で待ち状態になりますか？",
-      "3相コミットとの違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "2相コミットの二つのフェーズは何ですか？",
-        "answer": "第 1 フェーズで各参加者へコミット可否を問い合わせ、第 2 フェーズでコミットまたはロールバックを確定指示する。"
-      },
-      {
-        "question": "なぜ調停者障害で待ち状態になりますか？",
-        "answer": "参加者は最終決定権を持たず、最終指示が来るまで一貫性維持のため確定動作を止めるからである。"
-      },
-      {
-        "question": "3相コミットとの違いは何ですか？",
-        "answer": "3 相コミットは待ち状態を減らすため中間段階を増やすが、実装はより複雑になる。"
-      }
+      "間違い。参加者はフェーズ1でコミット可能と応答しても、フェーズ2で調停者からコミット指示を受けるまでコミットを確定できない。選択肢はフェーズ2の要求を受信しなくてもコミット処理を進められるとしているため誤りである。",
+      "正しい。調停者がフェーズ1の後に障害で停止すると、参加者は調停者の最終指示を受け取れず、コミットかロールバックかを決められないまま待機することがある。この状態は、調停者の回復処理が終わるまで続く場合がある。",
+      "間違い。通常、一つの分散トランザクションを最終的にまとめて判断する調停者は一つである。選択肢は、五つのシステムが関与する場合に調停者が二つになるとしているため誤りである。",
+      "間違い。フェーズ1で参加者から応答がない場合、調停者は全参加者の合意を確認できないため、トランザクションをコミットできない。選択肢は、応答がなくても強制的にコミットできるとしているため誤りである。"
     ],
     "original_question_id": "302187478bc2a8de",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_11.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:200902:302187478bc2a8de",
+    "reviewQuestionId": "302187478bc2a8de",
+    "sourceRecordRef": "question_200902_1.json#10",
+    "explanationReferences": [],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "2相コミットプロトコルに関する技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は2相コミットのフェーズ1・フェーズ2の動作に関する技術内容であり、法令根拠を必要としない。",
+          "promptContext": "技術問題として確認。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。2相コミットプロトコルの技術知識で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は調停者障害時に参加者が最終指示を待つ2相コミットの技術内容であり、法令根拠を必要としない。",
+          "promptContext": "技術問題として確認。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外。2相コミットプロトコルの技術知識で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は2相コミットにおける調停者の構成に関する技術内容であり、法令根拠を必要としない。",
+          "promptContext": "技術問題として確認。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。2相コミットプロトコルの技術知識で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は参加者の応答がない場合の2相コミットの動作に関する技術内容であり、法令根拠を必要としない。",
+          "promptContext": "技術問題として確認。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。2相コミットプロトコルの技術知識で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -481,33 +933,17 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nCMMI は組織のプロセス改善成熟度モデルであり、取得者と供給者の二者間取引を包括的に定義する規格ではない。",
-      "間違い。\n\nPMBOK はプロジェクトマネジメント知識体系であり、業務分析から保守までの取引枠組みを示すものではない。",
-      "正しい。\n\n共通フレームは、企画、要件定義、開発、運用、保守などの作業を国際規格と整合させて整理した枠組みである。",
-      "間違い。\n\nソフトウェア保守に関する規格はあるが、設問のような全工程を扱うものとして『ソフトウェア保守規格』を選ぶのは不適切である。"
-    ],
-    "suggestedQuestions": [
-      "共通フレームは何を整理する規格ですか？",
-      "CMMIとの違いは何ですか？",
-      "PMBOKとの違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "共通フレームは何を整理する規格ですか？",
-        "answer": "システムやソフトウェアの企画、開発、運用、保守における作業と責任分担を整理する。"
-      },
-      {
-        "question": "CMMIとの違いは何ですか？",
-        "answer": "CMMI は成熟度によるプロセス改善モデル、共通フレームは工程や役割を定義する枠組みである。"
-      },
-      {
-        "question": "PMBOKとの違いは何ですか？",
-        "answer": "PMBOK はプロジェクト管理知識体系であり、共通フレームのように発注者・受注者間の作業体系を直接規定するものではない。"
-      }
+      "正しい。該当するのは共通フレームである。共通フレームは、取得者と供給者の間で、企画、要件定義、開発、運用、保守などのライフサイクル全体に関わる作業を共通の基準で整理する枠組みで、国際規格と整合している。CMMIはプロセス改善の成熟度モデル、PMBOKはプロジェクトマネジメントの知識体系であり、共通フレームのようにシステムのライフサイクル全体を二者間の取引として整理するものではない。ソフトウェア保守規格は保守を対象とする規格であり、企画から運用までの全工程を扱うものではない。"
     ],
     "original_question_id": "bf92963e12925b2e",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_17.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:200902:bf92963e12925b2e",
+    "reviewQuestionId": "bf92963e12925b2e",
+    "sourceRecordRef": "question_200902_1.json#16",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -571,33 +1007,126 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n機能単位で順次切り替えるのは順次移行方式の説明であり、パイロット移行ではない。",
-      "正しい。\n\nパイロット移行方式は、限定した部門や拠点で先行導入して問題点を確認し、その後に全体へ展開する方式である。",
-      "間違い。\n\n新旧を同時並行で動かすのは並行運用移行方式の説明である。",
-      "間違い。\n\n短期間で一気に切り替える説明は一斉移行方式に対応する。"
-    ],
-    "suggestedQuestions": [
-      "パイロット移行の利点は何ですか？",
-      "順次移行との違いは何ですか？",
-      "並行運用移行はいつ有効ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "パイロット移行の利点は何ですか？",
-        "answer": "本番影響を小さく抑えながら、新システムの課題を限定範囲で洗い出せる。"
-      },
-      {
-        "question": "順次移行との違いは何ですか？",
-        "answer": "パイロット移行は限定部門で試す方式、順次移行は機能や拠点を順番に切り替える方式である。"
-      },
-      {
-        "question": "並行運用移行はいつ有効ですか？",
-        "answer": "業務停止リスクが高く、新旧の結果照合を行いたいときに有効である。"
-      }
+      "間違い。正しくは、機能的に閉じたサブシステム単位で順次移行するのは順次移行方式である。選択肢は、サブシステム単位で順次移行する方式をパイロット移行方式としているため誤りである。",
+      "正しい。パイロット移行方式は、限定した部門や拠点で新システムを先行導入して問題を確認し、その後にほかの部門へ展開する。問題が発生しても、影響を先行導入した範囲に抑えられる。",
+      "間違い。正しくは、新旧両システムを同時に動かして業務への影響を抑えるのは並行運用移行方式である。選択肢は、新旧システムを並行稼動させる方式をパイロット移行方式としているため誤りである。",
+      "間違い。正しくは、全体を短期間で一気に切り替えるのは一斉移行方式である。選択肢は、一斉移行方式の特徴をパイロット移行方式としているため誤りである。"
     ],
     "original_question_id": "6ffc97afbaf50d16",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_20.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:200902:6ffc97afbaf50d16",
+    "reviewQuestionId": "6ffc97afbaf50d16",
+    "sourceRecordRef": "question_200902_1.json#19",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "システム移行方式の技術・運用上の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の比較対象となる法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "選択肢1は順次移行方式の説明であり、パイロット移行方式ではない。",
+          "promptContext": "システム移行方式の定義を確認した。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術・運用知識。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の比較対象となる法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "選択肢2は限定した部門で先行導入してから展開するパイロット移行方式の説明である。",
+          "promptContext": "システム移行方式の定義を確認した。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外の技術・運用知識。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の比較対象となる法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "選択肢3は新旧システムを並行稼動させる並行運用移行方式の説明である。",
+          "promptContext": "システム移行方式の定義を確認した。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術・運用知識。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の比較対象となる法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "選択肢4は全体を短期間で切り替える一斉移行方式の説明である。",
+          "promptContext": "システム移行方式の定義を確認した。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術・運用知識。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [

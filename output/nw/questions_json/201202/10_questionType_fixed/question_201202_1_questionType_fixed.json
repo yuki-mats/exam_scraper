@@ -7,9 +7,13 @@
       "(S－A)∪(S－B)",
       "S－(A∩B)"
     ],
-    "questionType": "true_false",
+    "questionType": "flash_card",
     "original_question_id": "c8b72abda1adf2e9",
-    "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_1.html"
+    "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_1.html",
+    "sourceQuestionKey": "nw:201202:c8b72abda1adf2e9",
+    "reviewQuestionId": "c8b72abda1adf2e9",
+    "sourceRecordRef": "question_201202_1.json#0",
+    "isCalculationQuestion": false
   },
   {
     "questionBodyText": "4ビットから成る情報ビット x1\nx2\nx3\nx4に対して，\n(x1\n＋x2\n＋x3\n＋x5\n) mod 2＝0\n(x1\n＋x2\n＋x4\n＋x6\n) mod 2＝0\n(x2\n＋x3\n＋x4\n＋x7\n) mod 2＝0を満たす冗長ビット x5\nx6\nx7を付加した符号 x1\nx2\nx3\nx4\nx5\nx6\nx7を送信する。\n受信符号 y1\ny2\ny3\ny4\ny5\ny6\ny7が，送信符号と高々1ビットしか異ならないとき，\n(y1\n＋y2\n＋y3\n＋y5\n) mod 2\n(y1\n＋y2\n＋y4\n＋y6\n) mod 2\n(y2\n＋y3\n＋y4\n＋y7\n) mod 2がそれぞれ0になるかどうかによって，正しい情報ビット x1\nx2\nx3\nx4を求めることが可能である。y1\ny2\ny3\ny4\ny5\ny6\ny7\n＝1100010 であるとき，正しい情報ビットはどれか。ここで，a mod b は，aをbで割った余りを表す。",
@@ -19,9 +23,13 @@
       "1100",
       "1101"
     ],
-    "questionType": "true_false",
+    "questionType": "flash_card",
     "original_question_id": "0d0963721ee1a1f9",
-    "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_2.html"
+    "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_2.html",
+    "sourceQuestionKey": "nw:201202:0d0963721ee1a1f9",
+    "reviewQuestionId": "0d0963721ee1a1f9",
+    "sourceRecordRef": "question_201202_1.json#1",
+    "isCalculationQuestion": true
   },
   {
     "questionBodyText": "配列を用いてスタックを実現する場合の構成要素として，最低限必要なものはどれか。",
@@ -43,9 +51,13 @@
       "スーパースカラ",
       "スーパーパイプライン"
     ],
-    "questionType": "true_false",
+    "questionType": "flash_card",
     "original_question_id": "8a8c78a6d2812180",
-    "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_4.html"
+    "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_4.html",
+    "sourceQuestionKey": "nw:201202:8a8c78a6d2812180",
+    "reviewQuestionId": "8a8c78a6d2812180",
+    "sourceRecordRef": "question_201202_1.json#3",
+    "isCalculationQuestion": false
   },
   {
     "questionBodyText": "キャッシュメモリへの書込み動作には，ライトスルー方式とライトバック方式がある。それぞれの特徴のうち，適切なものはどれか。",
@@ -105,7 +117,11 @@
     ],
     "questionType": "true_false",
     "original_question_id": "551d332c64c4d66e",
-    "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_9.html"
+    "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_9.html",
+    "sourceQuestionKey": "nw:201202:551d332c64c4d66e",
+    "reviewQuestionId": "551d332c64c4d66e",
+    "sourceRecordRef": "question_201202_1.json#8",
+    "isCalculationQuestion": false
   },
   {
     "questionBodyText": "データウェアハウスに業務データを取り込むとき，データを抽出して加工し，データベースに書き出すツールはどれか。",
@@ -127,9 +143,13 @@
       "DOM",
       "SAX"
     ],
-    "questionType": "true_false",
+    "questionType": "flash_card",
     "original_question_id": "f91de57762320e69",
-    "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_11.html"
+    "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_11.html",
+    "sourceQuestionKey": "nw:201202:f91de57762320e69",
+    "reviewQuestionId": "f91de57762320e69",
+    "sourceRecordRef": "question_201202_1.json#10",
+    "isCalculationQuestion": false
   },
   {
     "questionBodyText": "SSLによるクライアントとWebサーバ間の通信手順(1)～(5)において，a，bに入る適切な組合せはどれか。ここで，記述した手順は，一部簡略化している。\nクライアントからのSSLによる接続要求に対し，Webサーバは証明書をクライアントに送付する。\nクライアントは，保持している\naによってこのサーバ証明書の正当性を確認する。\nクライアントは，共通鍵生成用のデータを作成し，サーバ証明書に添付された\nbによってこの共通鍵生成用データを暗号化し，Webサーバに送付する。\n受け取ったWebサーバは，自らの秘密鍵によって暗号化された共通鍵生成用データを復号する。\nクライアントとWebサーバの両者は，同一の共通鍵生成用データによって共通鍵を作成し，これ以降の両者間の通信は，この共通鍵による暗号化通信を行う。",
@@ -165,7 +185,11 @@
     ],
     "questionType": "true_false",
     "original_question_id": "0b89fa7a517d94bb",
-    "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_14.html"
+    "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_14.html",
+    "sourceQuestionKey": "nw:201202:0b89fa7a517d94bb",
+    "reviewQuestionId": "0b89fa7a517d94bb",
+    "sourceRecordRef": "question_201202_1.json#13",
+    "isCalculationQuestion": false
   },
   {
     "questionBodyText": "安全なWebアプリケーションの作り方について，攻撃と対策の適切な組合せはどれか。",
@@ -189,7 +213,11 @@
     ],
     "questionType": "true_false",
     "original_question_id": "3b0dc0cd3d245047",
-    "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_16.html"
+    "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_16.html",
+    "sourceQuestionKey": "nw:201202:3b0dc0cd3d245047",
+    "reviewQuestionId": "3b0dc0cd3d245047",
+    "sourceRecordRef": "question_201202_1.json#15",
+    "isCalculationQuestion": false
   },
   {
     "questionBodyText": "プログラムの著作権侵害に該当するものはどれか。",
@@ -201,7 +229,11 @@
     ],
     "questionType": "true_false",
     "original_question_id": "fd136c861466184d",
-    "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_17.html"
+    "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_17.html",
+    "sourceQuestionKey": "nw:201202:fd136c861466184d",
+    "reviewQuestionId": "fd136c861466184d",
+    "sourceRecordRef": "question_201202_1.json#16",
+    "isCalculationQuestion": false
   },
   {
     "questionBodyText": "図のアローダイアグラムから読み取れることのうち，適切なものはどれか。ここで，プロジェクトの開始日は0日目とする。",
@@ -223,9 +255,13 @@
       "スケジュール，品質",
       "品質，リスク"
     ],
-    "questionType": "true_false",
+    "questionType": "group_choice",
     "original_question_id": "293af8c999db603b",
-    "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_19.html"
+    "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_19.html",
+    "sourceQuestionKey": "nw:201202:293af8c999db603b",
+    "reviewQuestionId": "293af8c999db603b",
+    "sourceRecordRef": "question_201202_1.json#18",
+    "isCalculationQuestion": false
   },
   {
     "questionBodyText": "ITサービスマネジメントにおけるインシデント管理の主な活動はどれか。",
@@ -237,7 +273,11 @@
     ],
     "questionType": "true_false",
     "original_question_id": "ce2c792f4d8affa8",
-    "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_20.html"
+    "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_20.html",
+    "sourceQuestionKey": "nw:201202:ce2c792f4d8affa8",
+    "reviewQuestionId": "ce2c792f4d8affa8",
+    "sourceRecordRef": "question_201202_1.json#19",
+    "isCalculationQuestion": false
   },
   {
     "questionBodyText": "ITサービスマネジメントの可用性管理のKPIとして用いるものはどれか。",
@@ -261,7 +301,11 @@
     ],
     "questionType": "true_false",
     "original_question_id": "7c625d8696ef0c22",
-    "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_22.html"
+    "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_22.html",
+    "sourceQuestionKey": "nw:201202:7c625d8696ef0c22",
+    "reviewQuestionId": "7c625d8696ef0c22",
+    "sourceRecordRef": "question_201202_1.json#21",
+    "isCalculationQuestion": false
   },
   {
     "questionBodyText": "BPOを説明したものはどれか。",
@@ -273,7 +317,11 @@
     ],
     "questionType": "true_false",
     "original_question_id": "27e3af67c4959ed4",
-    "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_23.html"
+    "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_23.html",
+    "sourceQuestionKey": "nw:201202:27e3af67c4959ed4",
+    "reviewQuestionId": "27e3af67c4959ed4",
+    "sourceRecordRef": "question_201202_1.json#22",
+    "isCalculationQuestion": false
   },
   {
     "questionBodyText": "非機能要件に該当するものはどれか。",
@@ -285,7 +333,11 @@
     ],
     "questionType": "true_false",
     "original_question_id": "80e8cea7c8c53a7c",
-    "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_24.html"
+    "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_24.html",
+    "sourceQuestionKey": "nw:201202:80e8cea7c8c53a7c",
+    "reviewQuestionId": "80e8cea7c8c53a7c",
+    "sourceRecordRef": "question_201202_1.json#23",
+    "isCalculationQuestion": false
   },
   {
     "questionBodyText": "RFIを説明したものはどれか。",

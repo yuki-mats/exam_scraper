@@ -91,33 +91,126 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n主記憶と常に一致させながら書く考え方はライトスルー方式の特徴である。",
-      "間違い。\n\nライトバック方式でも、必要時には変更内容を主記憶へ書き戻す必要がある。",
-      "間違い。\n\nマルチプロセッサでの管理回路を簡単にする目的なら、ライトバックよりライトスルーの方が扱いやすい。",
-      "正しい。\n\nライトバック方式は変更をいったんキャッシュへとどめ、追い出し時などにまとめて主記憶へ反映するため、主記憶への書込み頻度を減らせる。"
-    ],
-    "suggestedQuestions": [
-      "ライトスルーとライトバックの違いは何ですか？",
-      "ライトバックの利点は何ですか？",
-      "ライトバックの注意点は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ライトスルーとライトバックの違いは何ですか？",
-        "answer": "ライトスルーは即時に主記憶へも書込み、ライトバックは主記憶への反映を後回しにする。"
-      },
-      {
-        "question": "ライトバックの利点は何ですか？",
-        "answer": "主記憶へのアクセス回数を減らし、書込み性能を高めやすい。"
-      },
-      {
-        "question": "ライトバックの注意点は何ですか？",
-        "answer": "キャッシュと主記憶の内容が一時的に不一致になるため、管理が複雑になる。"
-      }
+      "間違い。主記憶と常に一致させながら書き込むのはライトスルー方式である。選択肢は、ライトバック方式の目的をライトスルー方式の特徴としているため誤りである。",
+      "間違い。ライトバック方式でも、変更されたデータをキャッシュから追い出すときなどに主記憶へ書き戻す必要がある。選択肢は、キャッシュミス時に書き戻しが不要になるとしているため誤りである。",
+      "間違い。マルチプロセッサシステムでキャッシュ管理の回路構成を簡単にしやすいのはライトスルー方式である。選択肢は、ライトバック方式の方がライトスルー方式より簡単だとしているため誤りである。",
+      "正しい。ライトバック方式は、書込み内容をいったんキャッシュに保持し、必要な時点でまとめて主記憶へ反映する。そのため、プロセッサから主記憶へ直接書き込む頻度を減らせる。"
     ],
     "original_question_id": "1b5036fa881ae095",
     "question_url": "https://www.nw-siken.com/kakomon/26_aki/am1_4.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201402:1b5036fa881ae095",
+    "reviewQuestionId": "1b5036fa881ae095",
+    "sourceRecordRef": "question_201402_1.json#3",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "キャッシュ書込み方式の技術的な比較問題で、法令・制度上の根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ライトスルー方式とライトバック方式の技術的特徴を確認した。",
+          "promptContext": "キャッシュ書込み方式の技術問題。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定し、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ライトバック方式でも、変更データの主記憶への書戻しは必要である。",
+          "promptContext": "キャッシュ書込み方式の技術問題。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定し、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "マルチプロセッサでキャッシュ管理を簡単にしやすいのはライトスルー方式である。",
+          "promptContext": "キャッシュ書込み方式の技術問題。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定し、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ライトバック方式は主記憶への書込み頻度を減らせる。",
+          "promptContext": "キャッシュ書込み方式の技術問題。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定し、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -241,33 +334,123 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nA だけでは B は決まっても C、D、E、F を一意に定められず、候補キーにならない。",
-      "間違い。\n\nC だけでは D と E は決まるが、A 側の属性や F を決められない。",
-      "正しい。\n\nA→B、C→D・E、そして {A,C}→F なので、A と C を持てば全属性を決定でき、{A,C} が候補キーになる。",
-      "間違い。\n\nE は C から導けるため、{A,C,E} は一意性はあっても最小性を失う。"
-    ],
-    "suggestedQuestions": [
-      "候補キーとは何ですか？",
-      "最小性はどう判断しますか？",
-      "E を含めるとだめな理由は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "候補キーとは何ですか？",
-        "answer": "全属性を一意に決定でき、かつそれ以上削れない最小の属性集合である。"
-      },
-      {
-        "question": "最小性はどう判断しますか？",
-        "answer": "集合から1属性を外したときに全属性を決められなくなるなら最小である。"
-      },
-      {
-        "question": "E を含めるとだめな理由は何ですか？",
-        "answer": "E は C から求まるので、キーへ含める必要がないからである。"
-      }
+      "正しい。候補キーは{A，C}である。A→B、C→D・E、{A，C}→Fより、AとCを合わせるとA、B、C、D、E、Fの全属性を決定できる。一方、AだけではC・D・E・Fを、CだけではA・B・Fを決定できないため、{A，C}は全属性を決定できる最小の属性集合である。"
     ],
     "original_question_id": "7edd74eb1ea6e6de",
     "question_url": "https://www.nw-siken.com/kakomon/26_aki/am1_9.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201402:7edd74eb1ea6e6de",
+    "reviewQuestionId": "7edd74eb1ea6e6de",
+    "sourceRecordRef": "question_201402_1.json#8",
+    "explanationReferences": [],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "関数従属と候補キーを判定するデータベース理論の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "関数従属に基づくデータベース理論で判定し、法令根拠は不要である。",
+          "promptContext": "候補キーの判定問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術問題として確認した。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "関数従属に基づくデータベース理論で判定し、法令根拠は不要である。",
+          "promptContext": "候補キーの判定問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術問題として確認した。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "関数従属に基づくデータベース理論で判定し、法令根拠は不要である。",
+          "promptContext": "候補キーの判定問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外の技術問題として確認した。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "関数従属に基づくデータベース理論で判定し、法令根拠は不要である。",
+          "promptContext": "候補キーの判定問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術問題として確認した。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -301,33 +484,17 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n255.255.252.0 は /22 なので第三オクテットが 4 ずつ区切られ、3.0 は該当しない。",
-      "正しい。\n\n255.255.252.0 は /22 で第三オクテットのブロック幅は 4。123 は 120〜123 の範囲に入るため、サブネットワークアドレスは 172.30.120.0 である。",
-      "間違い。\n\n123.0 は末尾を 0 にしただけで、/22 の正しい境界ではない。",
-      "間違い。\n\n252.0 は別ブロックであり、123 を含む範囲ではない。"
-    ],
-    "suggestedQuestions": [
-      "/22 のブロック幅はどう求めますか？",
-      "なぜ 120〜123 が同じサブネットですか？",
-      "ホスト部を0にするだけではだめですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "/22 のブロック幅はどう求めますか？",
-        "answer": "第三オクテットで 256-252=4 と計算し、4 ごとのブロックに分かれると判断する。"
-      },
-      {
-        "question": "なぜ 120〜123 が同じサブネットですか？",
-        "answer": "/22 では第三オクテットが 4 刻みの範囲となり、123 は 120 開始ブロックへ入るからである。"
-      },
-      {
-        "question": "ホスト部を0にするだけではだめですか？",
-        "answer": "先にサブネット境界を正しく見極めないと、誤ったネットワークアドレスになることがある。"
-      }
+      "正しい。サブネットワークアドレスは、IPアドレスとサブネットマスクの論理積で求める。255.255.252.0はプレフィックス長が/22で、第三オクテットのブロック幅は次のように4となる。\n\\[256-252=4\\]\n第三オクテット123を4で割った整数部分は30なので、サブネットワークの第三オクテットは次のように求められる。\n\\[\\lfloor 123/4\\rfloor\\times4=30\\times4=120\\]\nしたがって、IPアドレス172.30.123.45が属するサブネットワークアドレスは172.30.120.0である。"
     ],
     "original_question_id": "fba3015fe9cd7c79",
     "question_url": "https://www.nw-siken.com/kakomon/26_aki/am1_11.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201402:fba3015fe9cd7c79",
+    "reviewQuestionId": "fba3015fe9cd7c79",
+    "sourceRecordRef": "question_201402_1.json#10",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -571,123 +738,177 @@
   },
   {
     "explanationText": [
-      "正しい。\n\nSLA はサービス提供者と顧客の間で、提供サービスの内容と目標水準を合意した文書である。",
-      "間違い。\n\n全サービスの特徴や料金一覧はサービスカタログ寄りの内容であり、SLA 自体の定義ではない。",
-      "間違い。\n\n内部グループとの合意は OLA など内部合意の説明であり、顧客との SLA ではない。",
-      "間違い。\n\n利用者からの業務要件はサービス設計の入力であって、SLA 自体の記載内容ではない。"
-    ],
-    "suggestedQuestions": [
-      "SLA とサービスカタログの違いは何ですか？",
-      "OLA とは何ですか？",
-      "SLA では何を数値化しますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "SLA とサービスカタログの違いは何ですか？",
-        "answer": "SLA は個別顧客との品質合意、サービスカタログは提供サービス全体の一覧整理である。"
-      },
-      {
-        "question": "OLA とは何ですか？",
-        "answer": "SLA を支えるために、サービス提供者内部で交わす運用レベル合意である。"
-      },
-      {
-        "question": "SLA では何を数値化しますか？",
-        "answer": "可用性、応答時間、復旧時間などのサービス目標を客観的に測れる形で定める。"
-      }
+      "正しい。SLAは、サービス提供者と顧客の間で、提供するサービスと達成すべきサービス目標を合意する文書である。",
+      "間違い。サービス提供者が提供する全サービスの特徴、構成要素、料金を一覧にするのは、サービスカタログに当たる。選択肢はこの一覧をSLAの記載内容としているため誤りである。",
+      "間違い。サービスデスクなどの内部グループとサービス提供者との合意は、OLAなどの内部合意に当たる。選択肢は顧客との合意であるSLAと、内部グループとの合意を取り違えているため誤りである。",
+      "間違い。利用者から出されたITサービスに対する業務要件は、サービスを設計する際の要求事項である。選択肢は設計の入力となる業務要件を、SLAの記載内容としているため誤りである。"
     ],
     "original_question_id": "edfdc530da9b5b3c",
     "question_url": "https://www.nw-siken.com/kakomon/26_aki/am1_20.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201402:edfdc530da9b5b3c",
+    "reviewQuestionId": "edfdc530da9b5b3c",
+    "sourceRecordRef": "question_201402_1.json#19",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "間違い。\n\n24時間以内のリリースや停止許容時間の話であり、復旧時点の目標ではない。",
-      "間違い。\n\n障害発生から何時間で復旧を完了するかは RTO の考え方である。",
-      "正しい。\n\nRPO はどの時点までデータを戻せればよいかを示す指標で、24時間なら障害時点の24時間前までのデータ回復を保証する意味である。",
-      "間違い。\n\nITサービスを24時間以内に復旧させる目標は RTO の説明である。"
-    ],
-    "suggestedQuestions": [
-      "RPO と RTO の違いは何ですか？",
-      "RPO が 24 時間だと何を意味しますか？",
-      "RPO を短くするには何が必要ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "RPO と RTO の違いは何ですか？",
-        "answer": "RPO はどの時点まで戻せるか、RTO はどれだけ早く再開するかを示す。"
-      },
-      {
-        "question": "RPO が 24 時間だと何を意味しますか？",
-        "answer": "障害時には最大で24時間分のデータ損失まで許容し、その時点まで復旧できる体制を意味する。"
-      },
-      {
-        "question": "RPO を短くするには何が必要ですか？",
-        "answer": "バックアップ頻度向上やレプリケーションなどで失うデータ量を減らす必要がある。"
-      }
+      "間違い。RPOは、障害発生時点からどこまで過去の業務データを復旧できればよいかを示す指標である。選択肢はアプリケーションのリリースを中断できる時間を示しているため、RPOの説明ではない。",
+      "間違い。RPOは復旧を完了するまでの時間ではなく、復旧するデータの時点を示す。選択肢は障害発生から24時間以内に復旧を完了する目標を示しているため、RTOの説明である。",
+      "正しい。RPOが24時間の場合、障害発生時点から最大24時間前の業務データまで復旧できることを目標とする。",
+      "間違い。RPOは復旧するデータの時点を示す指標である。選択肢は中断したITサービスを24時間以内に復旧する目標を示しているため、RTOの説明である。"
     ],
     "original_question_id": "1e7c864b60e5524c",
     "question_url": "https://www.nw-siken.com/kakomon/26_aki/am1_21.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201402:1e7c864b60e5524c",
+    "reviewQuestionId": "1e7c864b60e5524c",
+    "sourceRecordRef": "question_201402_1.json#20",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "RPOの定義に関する技術・サービスマネジメントの問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はRPOの定義に関する技術知識で判定でき、法令根拠を要しない。",
+          "promptContext": "RPOの定義に関する技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術選択肢。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はRPOとRTOの区別に関する技術知識で判定でき、法令根拠を要しない。",
+          "promptContext": "RPOの定義に関する技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術選択肢。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はRPOの定義に関する技術知識で判定でき、法令根拠を要しない。",
+          "promptContext": "RPOの定義に関する技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外の技術選択肢。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はRPOとRTOの区別に関する技術知識で判定でき、法令根拠を要しない。",
+          "promptContext": "RPOの定義に関する技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術選択肢。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n購入業者の自動選定は妥当性や効率性の観点であり、在庫記録の網羅性を直接担保しない。",
-      "間違い。\n\n責任者承認は統制として有効でも、全ての入出庫記録が漏れなく記録されている証拠にはならない。",
-      "間違い。\n\n自動発注は適正在庫維持のための制御であり、記録の漏れや重複を防ぐ網羅性チェックそのものではない。",
-      "正しい。\n\n入出庫記録に自動連番を付与すれば、欠番や重複の有無を確認でき、記録漏れや二重計上を見つけやすくなるので網羅性の確認に有効である。"
-    ],
-    "suggestedQuestions": [
-      "網羅性のチェックポイントとは何ですか？",
-      "連番管理で何を検出できますか？",
-      "妥当性や承認管理との違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "網羅性のチェックポイントとは何ですか？",
-        "answer": "必要な記録が漏れなく、重複なく登録されているかを確認する観点である。"
-      },
-      {
-        "question": "連番管理で何を検出できますか？",
-        "answer": "欠番や重複番号から記録漏れや二重計上の可能性を検出できる。"
-      },
-      {
-        "question": "妥当性や承認管理との違いは何ですか？",
-        "answer": "妥当性は内容の正しさ、承認管理は権限統制であり、網羅性は記録が抜けなくそろっているかを見る。"
-      }
+      "間違い。正しくは、購入業者の自動選定は調達の妥当性や効率性を確認するチェックである。選択肢は購入業者の選定を確認しているため、在庫データが漏れなく記録されているかという網羅性のチェックにはならない。",
+      "間違い。正しくは、適正在庫量の承認は在庫水準の妥当性や承認手続を確認するチェックである。選択肢は責任者による在庫量の承認を確認しているため、入出庫記録の漏れや重複を確認する網羅性のチェックにはならない。",
+      "間違い。正しくは、発注点に達したときの自動発注は適正在庫量を維持するための在庫管理上の制御である。選択肢は発注処理の自動化を確認しているため、入出庫記録が網羅されているかを確認するチェックにはならない。",
+      "正しい。入庫及び出庫記録に自動連番を付けると、欠番や重複を確認でき、記録漏れや二重計上を見つけやすくなるため、在庫データの網羅性を確認できる。"
     ],
     "original_question_id": "f10d75f8ec65680f",
     "question_url": "https://www.nw-siken.com/kakomon/26_aki/am1_22.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201402:f10d75f8ec65680f",
+    "reviewQuestionId": "f10d75f8ec65680f",
+    "sourceRecordRef": "question_201402_1.json#21",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "間違い。\n\n正味現在価値を使うのは財務的評価手法であり、バランススコアカードの説明ではない。",
-      "間違い。\n\n投資をカテゴリ分けして比率評価するのは IT ポートフォリオ分析の考え方である。",
-      "正しい。\n\nバランススコアカードは財務・顧客・内部業務プロセス・学習と成長など複数視点で指標を設定し、戦略との整合を多面的に評価する。",
-      "間違い。\n\nオプション価格付け理論で評価するのはリアルオプション評価の説明である。"
-    ],
-    "suggestedQuestions": [
-      "バランススコアカードの4視点は何ですか？",
-      "ITポートフォリオとの違いは何ですか？",
-      "なぜ多面的評価が必要ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "バランススコアカードの4視点は何ですか？",
-        "answer": "財務、顧客、内部業務プロセス、学習と成長の4視点が基本である。"
-      },
-      {
-        "question": "ITポートフォリオとの違いは何ですか？",
-        "answer": "バランススコアカードは戦略評価指標の枠組み、ITポートフォリオは投資配分の管理手法である。"
-      },
-      {
-        "question": "なぜ多面的評価が必要ですか？",
-        "answer": "財務だけでは捉えにくい顧客価値や業務改善、人材成長も含めて投資効果を見るためである。"
-      }
+      "間違い。正しくは、正味現在価値などのキャッシュフローを使う方法は、投資による金銭的な収益性を評価する財務的評価である。選択肢はこの財務的評価をバランススコアカードの説明としているため誤りである。",
+      "間違い。正しくは、投資を性質やリスクで分類し、カテゴリごとの投資配分を評価する方法はITポートフォリオ分析である。選択肢はITポートフォリオ分析をバランススコアカードの説明としているため誤りである。",
+      "正しい。バランススコアカードは、財務、顧客、内部業務プロセス、学習と成長など複数の視点で指標を設定し、経営戦略との適合性を多面的に評価する。",
+      "間違い。正しくは、金融市場のオプション価格付け理論を使い、将来の選択肢や不確実性の価値を評価する方法はリアルオプション評価である。選択肢はリアルオプション評価をバランススコアカードの説明としているため誤りである。"
     ],
     "original_question_id": "4183c5b5b7885f41",
     "question_url": "https://www.nw-siken.com/kakomon/26_aki/am1_23.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201402:4183c5b5b7885f41",
+    "reviewQuestionId": "4183c5b5b7885f41",
+    "sourceRecordRef": "question_201402_1.json#22",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [

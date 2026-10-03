@@ -1,33 +1,17 @@
 [
   {
     "explanationText": [
-      "間違い。\n\n(C−(D÷E)) の部分は CDE÷− と後置表記する必要があり、この並びでは演算順が崩れる。",
-      "正しい。\n\n(A＋B) は AB＋、(D÷E) は DE÷、それを C−(DE÷) とみて CDE÷−、最後に両者を掛けて AB＋CDE÷−× とし、Y と = を付けて YAB＋CDE÷−×＝ となる。",
-      "間違い。\n\nD÷E を ED÷ のように逆順には書かないため不適切である。",
-      "間違い。\n\n(C−D)÷E のような別の式に近い並びになっており、元の式の構造を表していない。"
-    ],
-    "suggestedQuestions": [
-      "後置換記法ではどの順で変換しますか？",
-      "なぜ CDE÷− になりますか？",
-      "逆ポーランド表記の利点は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "後置換記法ではどの順で変換しますか？",
-        "answer": "通常の演算順と同じく、括弧内や優先順位の高い演算から順にひとかたまりとして変換する。"
-      },
-      {
-        "question": "なぜ CDE÷− になりますか？",
-        "answer": "まず D÷E を DE÷ とし、それを 1 項として C から引くので CDE÷− となる。"
-      },
-      {
-        "question": "逆ポーランド表記の利点は何ですか？",
-        "answer": "括弧なしでも演算順を一意に表しやすく、スタックで評価しやすい。"
-      }
+      "正しい。後置記法では、各部分式を「左オペランド、右オペランド、演算子」の順に並べる。(A＋B)はAB＋、(D÷E)はDE÷、C−(D÷E)はCDE÷−となる。二つの部分式を掛けるとAB＋CDE÷−×となり、最後に代入先のYと「＝」を置いてYAB＋CDE÷−×＝となる。"
     ],
     "original_question_id": "c4c34a095e454ab8",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_1.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201002:c4c34a095e454ab8",
+    "reviewQuestionId": "c4c34a095e454ab8",
+    "sourceRecordRef": "question_201002_1.json#0",
+    "explanationReferences": [],
+    "questionLearningPatternId": "sequence_flow",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -91,63 +75,252 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n平均アクセス時間は容量比ではなく、ヒット率と各アクセス時間の重み付き平均で求める。",
-      "正しい。\n\nヒット率は 1−r、ミス率は r なので、平均アクセス時間は (1−r)・x + r・y である。",
-      "間違い。\n\nヒット率とミス率の掛け先が逆で、主記憶アクセス時間に 1−r を掛けている点が不適切である。",
-      "間違い。\n\nr は『存在しない確率』であり、キャッシュヒット時の重みではない。"
-    ],
-    "suggestedQuestions": [
-      "平均アクセス時間はどう考えますか？",
-      "r は何を表しますか？",
-      "なぜ容量 a,b は式に不要ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "平均アクセス時間はどう考えますか？",
-        "answer": "起こり得る各事象のアクセス時間を、その発生確率で重み付けして足し合わせる。"
-      },
-      {
-        "question": "r は何を表しますか？",
-        "answer": "読みたいデータがキャッシュに存在しない、すなわちミスする確率を表す。"
-      },
-      {
-        "question": "なぜ容量 a,b は式に不要ですか？",
-        "answer": "設問ではミス率 r が既知なので、容量からヒット率を推定する必要がないからである。"
-      }
+      "正しい。キャッシュメモリにデータが存在する確率はヒット率の\\(1-r\\)、存在しない確率はミス率の\\(r\\)である。キャッシュに存在する場合は\\(x\\)ナノ秒、存在しない場合は主記憶へアクセスするため\\(y\\)ナノ秒かかる。したがって、平均アクセス時間は各場合の確率で重み付けして求める。\\n\\[平均アクセス時間=(1-r)x+ry\\]\\nキャッシュと主記憶の容量\\(a\\)、\\(b\\)は、この確率が与えられている場合の平均アクセス時間の計算には使わない。"
     ],
     "original_question_id": "d4377e9ecd8542fa",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_4.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201002:d4377e9ecd8542fa",
+    "reviewQuestionId": "d4377e9ecd8542fa",
+    "sourceRecordRef": "question_201002_1.json#3",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "キャッシュメモリと主記憶の平均アクセス時間を確率で求めるコンピュータ構成要素の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の正誤は平均アクセス時間の計算で決まり、法令根拠を要しない。",
+          "promptContext": "キャッシュメモリと主記憶の平均アクセス時間。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・計算問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の正誤はヒット率とミス率による加重平均の計算で決まり、法令根拠を要しない。",
+          "promptContext": "キャッシュメモリと主記憶の平均アクセス時間。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術・計算問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の正誤は平均アクセス時間の計算で決まり、法令根拠を要しない。",
+          "promptContext": "キャッシュメモリと主記憶の平均アクセス時間。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・計算問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の正誤は平均アクセス時間の計算で決まり、法令根拠を要しない。",
+          "promptContext": "キャッシュメモリと主記憶の平均アクセス時間。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・計算問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n故障時に安全側へ保つのはフェールセーフであり、フェールソフトではない。",
-      "間違い。\n\n縮小した範囲のサービス提供はフェールソフトの考え方であり、フォールトマスキングではない。",
-      "間違い。\n\n外部へ誤りを出さないよう内部で吸収・訂正するのはフォールトマスキングの考え方である。",
-      "正しい。\n\nフォールトアボイダンスは、故障発生後の対処ではなく、品質管理や設計改善で故障しにくくする予防的な考え方である。"
-    ],
-    "suggestedQuestions": [
-      "フォールトアボイダンスとは何ですか？",
-      "フェールセーフとの違いは何ですか？",
-      "フォールトマスキングとは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "フォールトアボイダンスとは何ですか？",
-        "answer": "故障が起きにくいように設計・製造・管理の品質を高める考え方である。"
-      },
-      {
-        "question": "フェールセーフとの違いは何ですか？",
-        "answer": "フェールセーフは故障後に安全側へ制御する考え方、フォールトアボイダンスはそもそも故障を避ける考え方である。"
-      },
-      {
-        "question": "フォールトマスキングとは何ですか？",
-        "answer": "冗長化などを用い、故障が起きても外部からは正常に見えるようにする考え方である。"
-      }
+      "間違い。正しくは、故障時にあらかじめ指定した安全な状態にシステムを保つのはフェールセーフである。選択肢はこの機能をフェールソフトとしているため誤りである。",
+      "間違い。正しくは、故障時に縮小した範囲のサービスを提供して稼働を続けるのはフェールソフトである。選択肢はこれをフォールトマスキングとしているため誤りである。",
+      "間違い。正しくは、故障の影響が誤りとして外部に出ないよう内部で吸収・訂正するのはフォールトマスキングである。選択肢はこれをフェールセーフとしているため誤りである。",
+      "正しい。フォールトアボイダンスは、故障が発生してから影響を抑えるのではなく、設計や品質管理によって故障そのものを避ける考え方である。"
     ],
     "original_question_id": "1401ed41e3fe2653",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_5.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201002:1401ed41e3fe2653",
+    "reviewQuestionId": "1401ed41e3fe2653",
+    "sourceRecordRef": "question_201002_1.json#4",
+    "explanationReferences": [
+      {
+        "referenceDate": "2010-10-17",
+        "sourceUrl": "https://www.ipa.go.jp/shiken/mondai-kaiotu/ug65p90000004d6f-att/2010h22a_koudo_am1_qs.pdf",
+        "title": "平成22年度秋期 高度試験共通 午前Ⅰ 問題"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "信頼性向上技術の用語定義を問う技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "フェールセーフの定義と一致しないため間違い。",
+          "promptContext": "技術知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術用語の定義に基づく判定であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "フェールソフトの定義をフォールトマスキングとしているため間違い。",
+          "promptContext": "技術知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術用語の定義に基づく判定であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "フォールトマスキングの定義をフェールセーフとしているため間違い。",
+          "promptContext": "技術知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術用語の定義に基づく判定であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "フォールトアボイダンスの定義と一致するため正しい。",
+          "promptContext": "技術知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術用語の定義に基づく判定であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -181,33 +354,126 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nデュアルライセンスだからといって、利用者がすべてのライセンス条件へ同時に同意する必要はない。",
-      "正しい。\n\nデュアルライセンスでは、利用者は提示された複数ライセンスのうち、利用目的に合う一つを選んでその条件に従う。",
-      "間違い。\n\n複数あるうち二つを選んで同意する方式ではなく、通常は一つを選択して利用する。",
-      "間違い。\n\n複数ライセンスを混ぜた一つの条件ではなく、選択肢として別々のライセンスが用意されている。"
-    ],
-    "suggestedQuestions": [
-      "デュアルライセンスとは何ですか？",
-      "なぜ一つを選択するのですか？",
-      "OSSと商用版の併存例はありますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "デュアルライセンスとは何ですか？",
-        "answer": "同じソフトウェアを、異なる二つ以上のライセンス条件で提供する形態である。"
-      },
-      {
-        "question": "なぜ一つを選択するのですか？",
-        "answer": "利用者は自分の利用形態に合う条件を一つ選び、そのライセンスに基づいて利用するからである。"
-      },
-      {
-        "question": "OSSと商用版の併存例はありますか？",
-        "answer": "ある。無償の OSS ライセンスと、別途商用ライセンスを併存させる例がある。"
-      }
+      "間違い。正しくは、利用者は複数のライセンスのうち一つを選択して、その条件に同意する。選択肢はすべてのライセンスに同意するとしているため誤りである。",
+      "正しい。",
+      "間違い。正しくは、利用者は複数のライセンスのうち一つを選択して、その条件に同意する。選択肢は二つのライセンスを選択するとしているため誤りである。",
+      "間違い。正しくは、複数のライセンスが別々の選択肢として用意されている。選択肢は複数のライセンスを組み合わせた一つのライセンスが設定されているとしているため誤りである。"
     ],
     "original_question_id": "c3392ccd3ff62291",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_7.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201002:c3392ccd3ff62291",
+    "reviewQuestionId": "c3392ccd3ff62291",
+    "sourceRecordRef": "question_201002_1.json#6",
+    "explanationReferences": [],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "デュアルライセンスは、複数のライセンスから利用者が一つを選択して同意するソフトウェアライセンス方式を問う概念問題であり、特定の法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の正誤は、デュアルライセンスにおけるライセンス選択の概念知識で判定する。",
+          "promptContext": "法令根拠を用いない技術肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "デュアルライセンスの概念知識で判定する技術肢であり、法令監査対象ではない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の正誤は、複数のライセンスから一つを選択して同意するというデュアルライセンスの概念知識で判定する。",
+          "promptContext": "法令根拠を用いない技術肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "デュアルライセンスの概念知識で判定する技術肢であり、法令監査対象ではない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の正誤は、利用者が二つのライセンスを選択するというデュアルライセンスの説明が誤っていることから判定する。",
+          "promptContext": "法令根拠を用いない技術肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "デュアルライセンスの概念知識で判定する技術肢であり、法令監査対象ではない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の正誤は、複数のライセンスを組み合わせた一つのライセンスと説明している点がデュアルライセンスの概念と異なることから判定する。",
+          "promptContext": "法令根拠を用いない技術肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "デュアルライセンスの概念知識で判定する技術肢であり、法令監査対象ではない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -361,33 +627,23 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nCORBA は分散オブジェクト間連携の仕様であり、XML ヘッダーとボディを持つメッセージ仕様ではない。",
-      "間違い。\n\nDCOM は Microsoft 系の分散コンポーネント技術であり、SOAP メッセージ形式とは異なる。",
-      "間違い。\n\nSIP はセッション確立・変更・終了のためのプロトコルであり、設問の XML メッセージ仕様ではない。",
-      "正しい。\n\nSOAP は XML で表現されたヘッダーとボディから成るメッセージを用いて、他コンピュータ上のサービスを呼び出すためのプロトコルである。"
-    ],
-    "suggestedQuestions": [
-      "SOAPはどんな場面で使いますか？",
-      "SOAPメッセージの構造は何ですか？",
-      "RESTとの違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "SOAPはどんな場面で使いますか？",
-        "answer": "Web サービス連携で、形式化された XML メッセージにより機能呼出しを行いたい場面で使う。"
-      },
-      {
-        "question": "SOAPメッセージの構造は何ですか？",
-        "answer": "Envelope の中に Header と Body を持つ XML 形式で表される。"
-      },
-      {
-        "question": "RESTとの違いは何ですか？",
-        "answer": "SOAP はメッセージ仕様中心、REST は HTTP 資源操作中心という設計思想の違いがある。"
-      }
+      "正しい。SOAPは、分散環境で他のコンピュータ上のデータやサービスを呼び出すために使えるXMLベースのプロトコルである。SOAPメッセージはEnvelopeを外枠とし、その中に必要に応じてHeader、必ずBodyを持つ。"
     ],
     "original_question_id": "006cc766227389a9",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_13.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201002:006cc766227389a9",
+    "reviewQuestionId": "006cc766227389a9",
+    "sourceRecordRef": "question_201002_1.json#12",
+    "explanationReferences": [
+      {
+        "referenceDate": "2000-05-08",
+        "sourceUrl": "https://www.w3.org/TR/soap11/",
+        "title": "Simple Object Access Protocol (SOAP) 1.1"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -421,63 +677,249 @@
   },
   {
     "explanationText": [
-      "正しい。\n\nアサーションチェックは、プログラムの特定時点で満たされるべき条件式を埋め込み、実行時や検証時に正当性を確認する手法である。",
-      "間違い。\n\nコード追跡は命令実行を逐次追って状態変化を観察する手法であり、条件式埋め込みによる検証ではない。",
-      "間違い。\n\nスナップショットダンプは特定時点のメモリ内容などを出力するもので、論理式による正当性検証とは異なる。",
-      "間違い。\n\nテストカバレッジ分析は網羅率を測る手法であり、変数間関係の正しさを直接表現するものではない。"
-    ],
-    "suggestedQuestions": [
-      "アサーションとは何ですか？",
-      "どんな場面で使いますか？",
-      "テストカバレッジとの違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "アサーションとは何ですか？",
-        "answer": "その地点で真であるべき前提条件・事後条件・不変条件などを表す論理式である。"
-      },
-      {
-        "question": "どんな場面で使いますか？",
-        "answer": "デバッグや設計検証で、想定外状態を早期に検出したい場面で使う。"
-      },
-      {
-        "question": "テストカバレッジとの違いは何ですか？",
-        "answer": "カバレッジはどこを通ったか、アサーションは通ったとき内容が正しいかを見る点が違う。"
-      }
+      "正しい。アサーションチェックは、プログラムの実行中に特定の時点で成立すべき条件を論理式として組み込み、その条件が満たされるかを確認する手法である。変数間の関係や処理結果の正しさを、あらかじめ定めた条件に基づいて検証できる。"
     ],
     "original_question_id": "0a21007b02b5992b",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_15.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201002:0a21007b02b5992b",
+    "reviewQuestionId": "0a21007b02b5992b",
+    "sourceRecordRef": "question_201002_1.json#14",
+    "explanationReferences": [],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "アサーションチェックなど、プログラムの正当性検証に関する技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "アサーションチェックに関する技術知識で判定できる。",
+          "promptContext": "法令監査対象外の技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外。技術知識のみで判定した。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "コード追跡に関する技術知識で判定できる。",
+          "promptContext": "法令監査対象外の技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。技術知識のみで判定した。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "スナップショットダンプに関する技術知識で判定できる。",
+          "promptContext": "法令監査対象外の技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。技術知識のみで判定した。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "テストカバレッジ分析に関する技術知識で判定できる。",
+          "promptContext": "法令監査対象外の技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。技術知識のみで判定した。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n既存プログラムから仕様を導くのはリバースエンジニアリングの説明である。",
-      "間違い。\n\n部品化した既存プログラムを組み合わせるのはコンポーネント再利用の説明に近い。",
-      "間違い。\n\nクラスライブラリ利用は一般的な再利用開発であり、マッシュアップ特有の説明ではない。",
-      "正しい。\n\n公開されている複数のサービスや API を組み合わせ、新しいサービスを提供するのがマッシュアップである。"
-    ],
-    "suggestedQuestions": [
-      "マッシュアップとは何ですか？",
-      "API連携とどう関係しますか？",
-      "どんな例がありますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "マッシュアップとは何ですか？",
-        "answer": "既存の公開サービスやデータを組み合わせて、新しい価値を持つサービスを作る手法である。"
-      },
-      {
-        "question": "API連携とどう関係しますか？",
-        "answer": "多くの場合、公開 API や Web サービスを呼び出して情報や機能を組み合わせる。"
-      },
-      {
-        "question": "どんな例がありますか？",
-        "answer": "地図サービスと店舗情報サービスを組み合わせて、近隣店舗を地図上に表示するような例がある。"
-      }
+      "正しい。マッシュアップは、複数の提供元が公開するサービスやAPIを組み合わせ、新しいサービスを構築する手法である。既存プログラムから仕様を導くのはリバースエンジニアリング、既存プログラムを部品化して組み合わせるのはソフトウェア再利用の説明であり、マッシュアップとは区別される。"
     ],
     "original_question_id": "08105478263200f0",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_16.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201002:08105478263200f0",
+    "reviewQuestionId": "08105478263200f0",
+    "sourceRecordRef": "question_201002_1.json#15",
+    "explanationReferences": [
+      {
+        "referenceDate": "2023-08-01",
+        "sourceUrl": "https://www.ipa.go.jp/shiken/syllabus/t6hhco000000imdb-att/syllabus_sc_am2_tsuiho3_3.pdf",
+        "title": "情報処理安全確保支援士試験 シラバス追補版（午前Ⅱ）Ver.3.3"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "ソフトウェア開発手法の知識問題であり、正誤を直接決める法令根拠はない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はマッシュアップの定義に該当せず、法令根拠を必要としない。",
+          "promptContext": "ソフトウェア開発手法として判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術知識問題。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は既存プログラムの部品化と再利用の説明であり、法令根拠を必要としない。",
+          "promptContext": "ソフトウェア開発手法として判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術知識問題。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はクラスライブラリを利用した開発の説明であり、法令根拠を必要としない。",
+          "promptContext": "ソフトウェア開発手法として判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術知識問題。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "公開されている複数のサービスを組み合わせて新たなサービスを提供する説明であり、マッシュアップに該当する。",
+          "promptContext": "ソフトウェア開発手法として判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外の技術知識問題。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -511,33 +953,126 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nWBS に担当組織や人員を対応付けたものは OBS 側の考え方であり、ワークパッケージそのものではない。",
-      "間違い。\n\nワークパッケージは『まとめたもの』というより、WBS の最下位で管理可能な作業単位である。",
-      "正しい。\n\nワークパッケージは、工程管理のためにさらに 1 つ以上のアクティビティへ分解して扱われる。",
-      "間違い。\n\n上位成果物と 1 対 1 に対応するとは限らず、1 つの成果物の下に複数のワークパッケージがぶら下がる。"
-    ],
-    "suggestedQuestions": [
-      "ワークパッケージとは何ですか？",
-      "WBSとOBSの違いは何ですか？",
-      "アクティビティとの関係は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ワークパッケージとは何ですか？",
-        "answer": "WBS の最下位に置かれる、見積りや管理が可能な作業成果物単位である。"
-      },
-      {
-        "question": "WBSとOBSの違いは何ですか？",
-        "answer": "WBS は作業・成果物の分解、OBS は組織や担当体制の分解である。"
-      },
-      {
-        "question": "アクティビティとの関係は何ですか？",
-        "answer": "ワークパッケージを実行管理するため、さらに具体的な作業であるアクティビティへ分解する。"
-      }
+      "間違い。正しくは、ワークパッケージはWBSで作業を管理できる単位まで分解したものであり、担当組織や人員を割り当てたものではない。選択肢は、OBSのチームへの人員割当てをワークパッケージの説明としているため誤りである。",
+      "間違い。正しくは、ワークパッケージはWBSの最下位で管理可能な作業単位である。選択肢は、関連する要素成果物をまとめたものとしているため誤りである。",
+      "正しい。ワークパッケージは、実際に実施するアクティビティへ分解して、作業の予定や進捗を管理する。",
+      "間違い。正しくは、一つの上位要素成果物の下に複数のワークパッケージを置くことができる。選択肢は、上位の要素成果物とワークパッケージが1対1に対応するとしているため誤りである。"
     ],
     "original_question_id": "8a9f73af4e8152c8",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_18.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201002:8a9f73af4e8152c8",
+    "reviewQuestionId": "8a9f73af4e8152c8",
+    "sourceRecordRef": "question_201002_1.json#17",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "WBSとワークパッケージの定義に関するプロジェクトマネジメント上の一般知識で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ワークパッケージは担当人員の割当てを表すものではない。",
+          "promptContext": "技術知識による判定。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "WBSとワークパッケージの定義に関する技術問題であり、法令監査の対象ではない。"
+        ],
+        "reconciliationStatus": "not_applicable_non_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ワークパッケージは関連する要素成果物の集合ではなく、管理可能な作業単位である。",
+          "promptContext": "技術知識による判定。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "WBSとワークパッケージの定義に関する技術問題であり、法令監査の対象ではない。"
+        ],
+        "reconciliationStatus": "not_applicable_non_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ワークパッケージは、実施するアクティビティへ分解できる管理単位である。",
+          "promptContext": "技術知識による判定。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "WBSとワークパッケージの定義に関する技術問題であり、法令監査の対象ではない。"
+        ],
+        "reconciliationStatus": "not_applicable_non_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ワークパッケージと上位の要素成果物は1対1に対応するとは限らず、複数のワークパッケージを置くことができる。",
+          "promptContext": "技術知識による判定。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "WBSとワークパッケージの定義に関する技術問題であり、法令監査の対象ではない。"
+        ],
+        "reconciliationStatus": "not_applicable_non_law_related",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -601,123 +1136,499 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nサービス提供時間は 12 時間あり、停止は 3 時間なので可用性 25% にはならない。",
-      "間違い。\n\n停止 3 時間なら稼働 9 時間なので、60% では計算が合わない。",
-      "間違い。\n\n64% は 9/14 など別の分母を使った誤りに近い。",
-      "正しい。\n\n提供時間帯 7:00〜19:00 は 12 時間、障害は 16:00 から終了時刻 19:00 までの 3 時間影響するので、可用性は (12−3)/12 = 75% である。"
-    ],
-    "suggestedQuestions": [
-      "可用性はどう計算しますか？",
-      "なぜ21:00までの修理でも3時間停止ですか？",
-      "SLAの可用性計算で何を分母にしますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "可用性はどう計算しますか？",
-        "answer": "対象サービス時間に対する実際の提供可能時間の割合として計算する。"
-      },
-      {
-        "question": "なぜ21:00までの修理でも3時間停止ですか？",
-        "answer": "19:00 以降はサービス提供時間外なので、その日の可用性計算対象に含めないからである。"
-      },
-      {
-        "question": "SLAの可用性計算で何を分母にしますか？",
-        "answer": "通常は契約で定められたサービス提供時間帯の総時間を分母にする。"
-      }
+      "正しい。可用性は、サービス提供時間のうちサービスが利用できた割合である。サービス提供時間は7:00〜19:00の12時間で、障害の影響は16:00から19:00までの3時間に限られる。したがって、可用性は \\((12-3)÷12×100=75\\)％であり、答えは75である。"
     ],
     "original_question_id": "4d40b79ac29f39f6",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_21.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201002:4d40b79ac29f39f6",
+    "reviewQuestionId": "4d40b79ac29f39f6",
+    "sourceRecordRef": "question_201002_1.json#20",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "サービス提供時間と停止時間から可用性を計算する技術問題で、法令根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第1選択肢は可用性75%の計算結果と一致しない。",
+          "promptContext": "サービス提供時間12時間、停止時間3時間。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令根拠を要しない技術問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第2選択肢は可用性75%の計算結果と一致しない。",
+          "promptContext": "サービス提供時間12時間、停止時間3時間。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令根拠を要しない技術問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第3選択肢は可用性75%の計算結果と一致しない。",
+          "promptContext": "サービス提供時間12時間、停止時間3時間。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令根拠を要しない技術問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第4選択肢は可用性75%の計算結果と一致する。",
+          "promptContext": "サービス提供時間12時間、停止時間3時間。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令根拠を要しない技術問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\nコンピュータウイルス対策基準の説明であり、システム管理基準ではない。",
-      "間違い。\n\n不正アクセス対策基準の説明であり、組織的なシステム管理全般を扱うものではない。",
-      "正しい。\n\nシステム管理基準は、情報システムの企画、開発、運用、保守、評価などを適切に管理するための基準である。",
-      "間違い。\n\nソフトウェア管理ガイドラインの説明であり、システム管理基準そのものではない。"
-    ],
-    "suggestedQuestions": [
-      "システム管理基準は何を対象にしますか？",
-      "セキュリティ基準との違いは何ですか？",
-      "なぜ計画・運用・評価まで含みますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "システム管理基準は何を対象にしますか？",
-        "answer": "情報システムのライフサイクル全体にわたる管理活動を対象にする。"
-      },
-      {
-        "question": "セキュリティ基準との違いは何ですか？",
-        "answer": "セキュリティだけでなく、企画、運用、評価、統制など管理全般を広く扱う。"
-      },
-      {
-        "question": "なぜ計画・運用・評価まで含みますか？",
-        "answer": "情報システムは導入だけでなく継続運用と改善まで含めて統制する必要があるからである. "
-      }
+      "間違い。コンピュータウイルス対策基準に関する説明であり、情報システム全体の管理を扱うシステム管理基準とは対象が異なる。",
+      "間違い。不正アクセス対策基準に関する説明であり、不正アクセスの防止に対象を絞っている。情報システムの企画や運用などを組織的に管理する基準ではない。",
+      "正しい。システム管理基準は、情報戦略に基づいて情報システムの企画、開発、運用、保守、評価などを適切に管理するための基準である。",
+      "間違い。ソフトウェアの違法複製を防ぐためのソフトウェア管理ガイドラインに関する説明であり、情報システム全体の管理を扱うシステム管理基準とは対象が異なる。"
     ],
     "original_question_id": "a38f3a196c9513b3",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_22.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201002:a38f3a196c9513b3",
+    "reviewQuestionId": "a38f3a196c9513b3",
+    "sourceRecordRef": "question_201002_1.json#21",
+    "explanationReferences": [
+      {
+        "choiceIndex": 2,
+        "referenceDate": "2018-04-20",
+        "sourceUrl": "https://www.meti.go.jp/policy/netsecurity/downloadfiles/system_kanri_h30r.pdf",
+        "title": "システム管理基準（平成30年4月20日改訂）"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "システム管理基準に関する管理・監査上の知識問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第1選択肢はコンピュータウイルス対策に関する説明であり、システム管理基準の説明ではない。",
+          "promptContext": "システム監査・管理知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令条文による正誤判定ではない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第2選択肢は不正アクセス対策に関する説明であり、システム管理基準の説明ではない。",
+          "promptContext": "システム監査・管理知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令条文による正誤判定ではない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第3選択肢は、情報戦略に基づく情報システムの管理事項をまとめたシステム管理基準の説明である。",
+          "promptContext": "システム監査・管理知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令条文による正誤判定ではない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第4選択肢はソフトウェアの違法複製防止に関する説明であり、システム管理基準の説明ではない。",
+          "promptContext": "システム監査・管理知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令条文による正誤判定ではない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n企業をあるべき方向へ導く組織能力という説明は IT ガバナンスに近い。",
-      "間違い。\n\n承認された業務が正確に処理されるよう業務へ組み込まれた統制は業務処理統制の説明である。",
-      "正しい。\n\nエンタープライズアーキテクチャは、組織全体の業務とシステムを統一的にモデル化し、全体最適を目指すための手法である。",
-      "間違い。\n\n出来高で進捗やコストを評価するのは EVM の説明である。"
-    ],
-    "suggestedQuestions": [
-      "エンタープライズアーキテクチャの目的は何ですか？",
-      "ITガバナンスとの違いは何ですか？",
-      "EVMとの違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "エンタープライズアーキテクチャの目的は何ですか？",
-        "answer": "業務とシステムの全体像を整合的に整理し、組織全体の最適化を進めることである。"
-      },
-      {
-        "question": "ITガバナンスとの違いは何ですか？",
-        "answer": "IT ガバナンスは統制と方向付け、EA は業務とシステムの構造モデル化に重点がある。"
-      },
-      {
-        "question": "EVMとの違いは何ですか？",
-        "answer": "EVM はプロジェクト進捗管理手法であり、EA のような全社アーキテクチャ手法ではない。"
-      }
+      "間違い。IT戦略を策定・実行し、企業をあるべき方向へ導く組織能力は、ITガバナンスの説明である。選択肢はこれをエンタープライズアーキテクチャとしているため誤りである。",
+      "間違い。承認された業務が正確に処理・記録されるよう業務プロセスに組み込む統制は、業務処理統制の説明である。選択肢はこの内部統制をエンタープライズアーキテクチャとしているため誤りである。",
+      "正しい。エンタープライズアーキテクチャは、組織全体の業務とシステムを統一的にモデル化し、業務とシステムの全体最適を図る手法である。",
+      "間違い。出来高の価値によって進捗や作業実績を定量化し、プロジェクトの状況を評価する手法はEVMである。選択肢はEVMをエンタープライズアーキテクチャとしているため誤りである。"
     ],
     "original_question_id": "55452c8624db3bb9",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_23.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201002:55452c8624db3bb9",
+    "reviewQuestionId": "55452c8624db3bb9",
+    "sourceRecordRef": "question_201002_1.json#22",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "エンタープライズアーキテクチャの定義と、ITガバナンス、業務処理統制、EVMなどの関連概念を区別する技術・共通知識問題であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ITガバナンスとエンタープライズアーキテクチャの概念区別で判定し、法令根拠は不要である。",
+          "promptContext": "選択肢1の技術・共通知識判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。ITガバナンスの説明をエンタープライズアーキテクチャとしているため間違い。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "業務処理統制とエンタープライズアーキテクチャの概念区別で判定し、法令根拠は不要である。",
+          "promptContext": "選択肢2の技術・共通知識判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。業務処理統制の説明をエンタープライズアーキテクチャとしているため間違い。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "エンタープライズアーキテクチャの定義に関する技術・共通知識で判定し、法令根拠は不要である。",
+          "promptContext": "選択肢3の技術・共通知識判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外。組織全体の業務とシステムを統一的にモデル化し全体最適を図る説明であり、エンタープライズアーキテクチャに該当する。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "EVMとエンタープライズアーキテクチャの概念区別で判定し、法令根拠は不要である。",
+          "promptContext": "選択肢4の技術・共通知識判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。EVMの説明をエンタープライズアーキテクチャとしているため間違い。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n既存組織やルールを抜本見直しして再構築するのは BPR の説明である。",
-      "間違い。\n\n部門横断で基幹業務を統合管理するシステムは ERP の説明である。",
-      "間違い。\n\nサービス品質についての合意文書は SLA の説明である。",
-      "正しい。\n\nSOA は、業務機能や IT 基盤機能を独立したサービスとして提供し、それらを組み合わせてシステムを構成するアーキテクチャである。"
-    ],
-    "suggestedQuestions": [
-      "SOAとは何ですか？",
-      "ERPやBPRとの違いは何ですか？",
-      "サービスとして分ける利点は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "SOAとは何ですか？",
-        "answer": "業務機能を再利用可能なサービス単位で提供し、組み合わせてシステムを構築する考え方である。"
-      },
-      {
-        "question": "ERPやBPRとの違いは何ですか？",
-        "answer": "ERP は統合基幹業務システム、BPR は業務改革手法であり、SOA はシステム構築のアーキテクチャである。"
-      },
-      {
-        "question": "サービスとして分ける利点は何ですか？",
-        "answer": "再利用しやすくなり、変更の影響範囲を抑えながら柔軟に連携しやすい。"
-      }
+      "間違い。正しくは、既存の組織や業務ルールを抜本的に見直して業務プロセスを再構築する手法はBPRである。選択肢はBPRをSOAとしているため誤りである。",
+      "間違い。正しくは、部門ごとの業務を統合的に管理する基幹業務システムはERPである。選択肢はERPをSOAとしているため誤りである。",
+      "間違い。正しくは、発注者とサービス提供者がサービス品質について合意した文書はSLAである。選択肢はSLAをSOAとしているため誤りである。",
+      "正しい。"
     ],
     "original_question_id": "a0ba471b94586dff",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_24.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201002:a0ba471b94586dff",
+    "reviewQuestionId": "a0ba471b94586dff",
+    "sourceRecordRef": "question_201002_1.json#23",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "サービス指向アーキテクチャに関する技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "BPRの定義に基づき、選択肢は間違いと判定した。",
+          "promptContext": "SOAを説明したものはどれか。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定した。法令監査対象外である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "ERPの定義に基づき、選択肢は間違いと判定した。",
+          "promptContext": "SOAを説明したものはどれか。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定した。法令監査対象外である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "SLAの定義に基づき、選択肢は間違いと判定した。",
+          "promptContext": "SOAを説明したものはどれか。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定した。法令監査対象外である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "SOAの定義に基づき、選択肢は正しいと判定した。",
+          "promptContext": "SOAを説明したものはどれか。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで判定した。法令監査対象外である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [

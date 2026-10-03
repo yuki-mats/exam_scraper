@@ -31,33 +31,132 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nキーボード、マウス、プリンタなど多様な周辺機器を接続する説明は USB に近く、シリアル ATA ではない。",
-      "正しい。\n\nシリアル ATA は、磁気ディスク装置や光学ドライブなど高速な記憶装置を PC へ接続するためのシリアルインタフェースである。",
-      "間違い。\n\nルータやモデムの接続に使う説明は RS-232C などのシリアル通信インタフェースの話である。",
-      "間違い。\n\nデジタル AV 機器を接続する説明は IEEE 1394 などに近く、シリアル ATA の説明ではない。"
-    ],
-    "suggestedQuestions": [
-      "シリアルATAは主に何を接続しますか？",
-      "USBとの違いは何ですか？",
-      "SATAとPATAの違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "シリアルATAは主に何を接続しますか？",
-        "answer": "HDD、SSD、DVD ドライブなどの高速な内部ストレージ機器を接続する。"
-      },
-      {
-        "question": "USBとの違いは何ですか？",
-        "answer": "USB は汎用周辺機器向け、SATA は主にストレージ接続向けのインタフェースである。"
-      },
-      {
-        "question": "SATAとPATAの違いは何ですか？",
-        "answer": "SATA はシリアル伝送、PATA はパラレル伝送であり、配線や速度面の特性が異なる。"
-      }
+      "間違い。正しくは、キーボード、マウス、スピーカー、プリンターなど多様な周辺機器を接続する代表的なシリアルインタフェースはUSBである。選択肢はそのような機器をシリアルATAの接続対象としているため誤りである。",
+      "正しい。シリアルATAは、磁気ディスク装置やDVDドライブなど、主に高速な記憶装置をPCに接続するためのシリアルインタフェースである。",
+      "間違い。正しくは、ルータやモデムの接続にはRS-232Cなどのシリアル通信インタフェースが用いられる。選択肢は通信機器をシリアルATAの接続対象としているため誤りである。",
+      "間違い。正しくは、セットトップボックスやDVDプレーヤなどのデジタルAV機器を接続するインタフェースにはIEEE 1394などがある。選択肢はデジタルAV機器向けのインタフェースをシリアルATAとしているため誤りである。"
     ],
     "original_question_id": "8c3ff89b4f244490",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am2_22.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:200902:8c3ff89b4f244490",
+    "reviewQuestionId": "8c3ff89b4f244490",
+    "sourceRecordRef": "question_200902_3.json#1",
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-10-03",
+        "sourceUrl": "https://sata-io.org/sites/default/files/specifications/SerialATA_Revision_3_4_Gold_0.pdf",
+        "title": "Serial ATA Revision 3.4 Specification"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "シリアルATAの用途は技術知識で判断できるため、法令根拠は不要である。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の差分なし。",
+          "displayRefIds": [],
+          "explanationText": "シリアルATAの用途に関する技術問題であり、法令根拠を要しない。",
+          "promptContext": "選択肢1の技術内容を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の差分なし。",
+          "displayRefIds": [],
+          "explanationText": "磁気ディスク装置やDVDドライブを接続するシリアルATAの説明として妥当であり、法令根拠を要しない。",
+          "promptContext": "選択肢2の技術内容を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ルータやモデムの接続に関する説明であり、シリアルATAの用途ではない。法令根拠を要しない。",
+          "promptContext": "選択肢3の技術内容を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の差分なし。",
+          "displayRefIds": [],
+          "explanationText": "デジタルAV機器を接続するインタフェースに関する説明であり、シリアルATAの用途ではない。法令根拠を要しない。",
+          "promptContext": "選択肢4の技術内容を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -91,33 +190,133 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nブラックボックステストでは無作為抽出した実データよりも、仕様上の入力条件を漏れなく代表できるデータを設計することが重要である。",
-      "正しい。\n\nブラックボックステストでは内部構造ではなく機能仕様に基づいて、同値クラスや限界値を識別し、それらを代表するテストデータを作成するのが適切である。",
-      "間違い。\n\n業務データの発生頻度分析は参考になるが、ブラックボックステストの基本的なテストデータ設計手法そのものではない。",
-      "間違い。\n\nプログラムの流れ図や分岐条件を基にするのはホワイトボックステスト寄りの考え方であり、ブラックボックステストの主眼ではない。"
-    ],
-    "suggestedQuestions": [
-      "同値クラスとは何ですか？",
-      "限界値分析は何を狙いますか？",
-      "ホワイトボックステストとの違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "同値クラスとは何ですか？",
-        "answer": "同じように処理されると期待できる入力値集合を一つのグループとして扱う考え方である。"
-      },
-      {
-        "question": "限界値分析は何を狙いますか？",
-        "answer": "境界付近で不具合が起きやすいため、最小値・最大値やその前後の値を重点的に確認する。"
-      },
-      {
-        "question": "ホワイトボックステストとの違いは何ですか？",
-        "answer": "ブラックボックスは仕様中心、ホワイトボックスは内部構造や分岐網羅中心である。"
-      }
+      "間違い。正しくは、ブラックボックステストでは機能仕様から入力条件を整理し、代表値や境界値を選んでテストデータを作成する。選択肢は稼動中のシステムから実データを無作為に抽出するとしているため、仕様上の同値クラスや限界値を意識して網羅できず、最も適切な方法とはいえない。",
+      "正しい。機能仕様に基づいて入力を同値クラスに分け、限界値を含む代表的なデータを作る方法は、内部構造を使わずに外部から機能を確認するブラックボックステストに適している。",
+      "間違い。正しくは、テストデータは業務データの発生頻度だけでなく、機能仕様上の入力条件を基準に作成する。選択肢は発生頻度を分析してテストデータを作成するとしているため、同値クラスや限界値を識別できず、最も適切な方法とはいえない。",
+      "間違い。正しくは、ブラックボックステストでは機能仕様から入力条件を整理してテストデータを作成する。選択肢はプログラムの流れ図から分岐条件に基づくとしているため、内部構造を基準にするホワイトボックステストの方法であり、不適切である。"
     ],
     "original_question_id": "7f75db5d659279aa",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am2_24.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:200902:7f75db5d659279aa",
+    "reviewQuestionId": "7f75db5d659279aa",
+    "sourceRecordRef": "question_200902_3.json#3",
+    "explanationReferences": [
+      {
+        "choiceIndex": 1,
+        "referenceDate": "2009-10-18",
+        "sourceUrl": "https://www.ipa.go.jp/shiken/mondai-kaiotu/gmcbt8000000f3yi-att/2009h21a_nw_am2_ans.pdf",
+        "title": "平成21年度秋期ネットワークスペシャリスト試験 解答例（午前Ⅱ）"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "ブラックボックステストのテストデータ設計に関する技術論点で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠は不要であり、ブラックボックステストの技術知識で判定する。",
+          "promptContext": "ブラックボックステストのテストデータ作成方法。",
+          "refs": [],
+          "verdict": "技術問題"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。技術知識に基づき判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠は不要であり、ブラックボックステストの技術知識で判定する。",
+          "promptContext": "ブラックボックステストのテストデータ作成方法。",
+          "refs": [],
+          "verdict": "技術問題"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外。技術知識に基づき判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠は不要であり、ブラックボックステストの技術知識で判定する。",
+          "promptContext": "ブラックボックステストのテストデータ作成方法。",
+          "refs": [],
+          "verdict": "技術問題"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。技術知識に基づき判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠は不要であり、ブラックボックステストの技術知識で判定する。",
+          "promptContext": "ブラックボックステストのテストデータ作成方法。",
+          "refs": [],
+          "verdict": "技術問題"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。技術知識に基づき判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [

@@ -1,93 +1,279 @@
 [
   {
     "explanationText": [
-      "間違い。\n\nEAP は認証方式を拡張するための枠組みであり、あらかじめ登録した共通鍵による無線区間の暗号化そのものを定めるものではない。",
-      "間違い。\n\nRADIUS は認証・認可・アカウンティングを集中管理するためのプロトコルであり、クライアント PC とアクセスポイント間の公開鍵暗号通信を実現する仕組みではない。",
-      "間違い。\n\nSSID は無線 LAN の識別子であり、秘密鍵や公開鍵暗号方式を定めるものではない。",
-      "正しい。\n\nWPA2 は IEEE 802.1X を用いた利用者認証と、動的に更新される暗号鍵を使った無線通信の暗号化を実現できる。企業向け無線 LAN で広く使われる構成である。"
-    ],
-    "suggestedQuestions": [
-      "EAPとIEEE802.1Xの関係は何ですか？",
-      "RADIUSは何を担当しますか？",
-      "WPA2で鍵が動的更新される利点は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "EAPとIEEE802.1Xの関係は何ですか？",
-        "answer": "IEEE 802.1X はポートベース認証の枠組みで、その内部で EAP を使って利用者認証方式をやり取りする。"
-      },
-      {
-        "question": "RADIUSは何を担当しますか？",
-        "answer": "認証サーバとして利用者情報を管理し、認証結果や認可情報をアクセスポイント側へ返す。"
-      },
-      {
-        "question": "WPA2で鍵が動的更新される利点は何ですか？",
-        "answer": "同じ鍵を長く使い続けるリスクを減らし、盗聴や解析への耐性を高められる。"
-      }
+      "間違い。正しくは、EAPは認証方式を組み合わせるための認証フレームワークであり、あらかじめ登録した共通鍵による無線区間の暗号化通信そのものを定めるものではない。選択肢はEAPを共通鍵による暗号化通信の仕組みとしているため誤りである。",
+      "間違い。正しくは、RADIUSはネットワークアクセス装置と認証サーバーの間で、認証・認可などの情報をやり取りするプロトコルである。選択肢はRADIUSがクライアントPCとアクセスポイントの間で公開鍵暗号通信を実現するとしているため誤りである。",
+      "間違い。正しくは、SSIDは無線LANやネットワークを識別する名前であり、暗号鍵や暗号方式を定めるものではない。選択肢はSSIDをクライアントPCごとの秘密鍵としているため誤りである。",
+      "正しい。WPA2-Enterpriseでは、IEEE 802.1Xによる利用者認証と、認証に基づいて動的に設定される暗号鍵を用いて無線通信を保護できる。"
     ],
     "original_question_id": "2daed2c2922924b6",
     "question_url": "https://www.nw-siken.com/kakomon/24_aki/am2_21.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201202:2daed2c2922924b6",
+    "reviewQuestionId": "2daed2c2922924b6",
+    "sourceRecordRef": "question_201202_3.json#0",
+    "explanationReferences": [
+      {
+        "referenceDate": "2004-06-01",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc3748/",
+        "title": "RFC 3748: Extensible Authentication Protocol (EAP)"
+      },
+      {
+        "referenceDate": "2000-06-01",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc2865/",
+        "title": "RFC 2865: Remote Authentication Dial In User Service (RADIUS)"
+      },
+      {
+        "referenceDate": "2007-02-01",
+        "sourceUrl": "https://csrc.nist.gov/pubs/sp/800/97/final",
+        "title": "NIST SP 800-97: Establishing Wireless Robust Security Networks: A Guide to IEEE 802.11i"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "EAP、RADIUS、SSID、WPA2及びIEEE 802.1Xの技術的な役割を問う問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "EAPは認証フレームワークであり、共通鍵による無線通信暗号化そのものではない。",
+          "promptContext": "EAPの役割を問う技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令改正監査の対象外とした。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "RADIUSは認証・認可情報を認証サーバーとネットワークアクセス装置の間で扱うプロトコルであり、クライアントPCとアクセスポイント間の公開鍵暗号通信そのものではない。",
+          "promptContext": "RADIUSの役割を問う技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令改正監査の対象外とした。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "SSIDは無線LANやネットワークを識別する名前であり、クライアントPCごとの秘密鍵ではない。",
+          "promptContext": "SSIDの役割を問う技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令改正監査の対象外とした。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "WPA2-EnterpriseはIEEE 802.1Xによる利用者認証と動的な暗号鍵を用いて無線通信を保護できる。",
+          "promptContext": "WPA2及びIEEE 802.1Xの役割を問う技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令改正監査の対象外とした。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n同じデータを複数ディスクへ書いて冗長化するのはミラーリングの説明であり、シンプロビジョニングではない。",
-      "間違い。\n\n一つのディスクを OS 領域とデータ領域へ分割するのはパーティション分割の説明である。",
-      "間違い。\n\nファイバチャネルなどでストレージをネットワーク化するのは SAN の説明である。",
-      "正しい。\n\nシンプロビジョニングは、利用者へ大きな仮想ボリュームを提示しつつ、物理ディスク容量は実際に使用された分だけ後から割り当てる方式である。"
-    ],
-    "suggestedQuestions": [
-      "シンプロビジョニングの利点は何ですか？",
-      "SANとの違いは何ですか？",
-      "物理容量を後から割り当てるときの注意点は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "シンプロビジョニングの利点は何ですか？",
-        "answer": "未使用容量を見越して物理ディスクを先に全部確保せずに済み、ストレージ利用効率を高められる。"
-      },
-      {
-        "question": "SANとの違いは何ですか？",
-        "answer": "SAN は接続形態、シンプロビジョニングは容量割当て方式であり、別の観点の技術である。"
-      },
-      {
-        "question": "物理容量を後から割り当てるときの注意点は何ですか？",
-        "answer": "仮想容量の割当て総量が物理容量を超え過ぎないよう、実使用量を継続監視する必要がある。"
-      }
+      "間違い。複数台のディスクに同じデータを書き込んで冗長化するのは、ミラーリングの説明である。選択肢は同じデータを複数台のハードディスクに書き込む方式としているため、シンプロビジョニングの説明として誤りである。",
+      "間違い。一つのディスクを複数の領域に分けるのは、パーティション分割の説明である。選択肢はOS用とデータ用にディスクを分割する方式としているため、シンプロビジョニングの説明として誤りである。",
+      "間違い。ファイバチャネルなどでストレージをネットワーク化するのは、SANの説明である。選択肢はストレージをネットワーク化する方式としているため、シンプロビジョニングの説明として誤りである。",
+      "正しい。シンプロビジョニングは、利用者に仮想ボリュームを提供し、物理ディスクの容量を実際のデータ使用量に応じて割り当てる方式である。"
     ],
     "original_question_id": "f1e6fbdb2289864d",
     "question_url": "https://www.nw-siken.com/kakomon/24_aki/am2_22.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201202:f1e6fbdb2289864d",
+    "reviewQuestionId": "f1e6fbdb2289864d",
+    "sourceRecordRef": "question_201202_3.json#1",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "ストレージ技術の定義で判定する問題であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定の差なし。法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ミラーリングの説明であり、シンプロビジョニングではない。",
+          "promptContext": "選択肢1の技術定義を確認した。",
+          "refs": [],
+          "verdict": "技術判定維持"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判定できるため、法令監査の対象外とした。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定の差なし。法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "パーティション分割の説明であり、シンプロビジョニングではない。",
+          "promptContext": "選択肢2の技術定義を確認した。",
+          "refs": [],
+          "verdict": "技術判定維持"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判定できるため、法令監査の対象外とした。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定の差なし。法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "SANの説明であり、シンプロビジョニングではない。",
+          "promptContext": "選択肢3の技術定義を確認した。",
+          "refs": [],
+          "verdict": "技術判定維持"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判定できるため、法令監査の対象外とした。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定の差なし。法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "仮想ボリュームを提供し、物理ディスクを使用量に応じて割り当てる説明はシンプロビジョニングに一致する。",
+          "promptContext": "選択肢4の技術定義を確認した。",
+          "refs": [],
+          "verdict": "技術判定維持"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識で判定できるため、法令監査の対象外とした。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\nn=3 のとき、r=0.9 の高速化率は 1/(0.1+0.9/3)=2.5、r=0.3 は 1/(0.7+0.3/3)=1.25 で、比は 2 倍にとどまる。",
-      "間違い。\n\nn=4 のときの比は 1/(0.1+0.9/4) と 1/(0.7+0.3/4) の比較で約 2.4 倍であり、3 倍には届かない。",
-      "間違い。\n\nn=5 のときも比は 3 倍未満で、条件をまだ満たさない。",
-      "正しい。\n\n高速化率 E=1/{(1-r)+r/n} に r=0.9 と r=0.3 を代入し、前者が後者の 3 倍と置くと、1/(0.1+0.9/n)=3/(0.7+0.3/n) となる。これを解くと n=6 になり、条件を満たす。"
-    ],
-    "suggestedQuestions": [
-      "この式は何の法則に基づいていますか？",
-      "なぜrが大きいほど高速化しやすいですか？",
-      "n=6をどう計算で出しますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "この式は何の法則に基づいていますか？",
-        "answer": "並列化できない部分が高速化の上限を決めるというアムダールの法則に基づく評価式である。"
-      },
-      {
-        "question": "なぜrが大きいほど高速化しやすいですか？",
-        "answer": "並列実行へ回せる処理割合が増え、複数プロセッサを有効活用できるためである。"
-      },
-      {
-        "question": "n=6をどう計算で出しますか？",
-        "answer": "r=0.9 と r=0.3 の式を立てて 3 倍条件で等式化し、分母を整理して n を解く。"
-      }
+      "正しい。高速化率は、並列化できない部分と並列化できる部分を合わせて、\\(E=1/\\{(1-r)+r/n\\}\\)で求める。\\(r\\)は並列化できる割合、\\(n\\)はプロセッサの台数である。\\(r=0.9\\)の高速化率が\\(r=0.3\\)の3倍になる条件は、\\[\\frac{1}{0.1+0.9/n}=3\\times\\frac{1}{0.7+0.3/n}\\]である。整理すると\\(0.7+0.3/n=0.3+2.7/n\\)、したがって\\(n=6\\)となる。よって、該当する選択肢は6である。"
     ],
     "original_question_id": "58d980747dd2be46",
     "question_url": "https://www.nw-siken.com/kakomon/24_aki/am2_23.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201202:58d980747dd2be46",
+    "reviewQuestionId": "58d980747dd2be46",
+    "sourceRecordRef": "question_201202_3.json#2",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [

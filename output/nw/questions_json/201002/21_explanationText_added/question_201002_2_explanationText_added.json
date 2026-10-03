@@ -31,63 +31,249 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nフラッシュメモリを採用しても、プログラムのコード量そのものが小さくなるわけではない。",
-      "正しい。\n\nフラッシュメモリは電気的に再書込みできるため、出荷後でもソフトウェア更新や修正を行いやすい。",
-      "間違い。\n\n処理性能はCPUやバス構成などに左右され、フラッシュメモリ採用自体で直接向上するものではない。",
-      "間違い。\n\n採用理由の中心は再書換え可能である点であり、マスクROMより常に信頼性が高いことを理由にはしない。"
-    ],
-    "suggestedQuestions": [
-      "フラッシュメモリの利点は何ですか？",
-      "ISPとは何ですか？",
-      "マスクROMとの違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "フラッシュメモリの利点は何ですか？",
-        "answer": "電気的に内容を書き換えられるため、出荷後の更新や保守が容易になる。"
-      },
-      {
-        "question": "ISPとは何ですか？",
-        "answer": "機器を分解せず、搭載したままプログラムを書き換える方式である。"
-      },
-      {
-        "question": "マスクROMとの違いは何ですか？",
-        "answer": "マスクROMは量産向きだが書換えできず、フラッシュメモリは再書換えできる。"
-      }
+      "間違い。フラッシュメモリを採用しても、ソフトウェアのコードサイズそのものは小さくならない。選択肢は、メモリの種類によってコードサイズを縮小できるとしているため誤りである。",
+      "正しい。フラッシュメモリは電気的に内容を書き換えられるため、マイコンを出荷した後でもソフトウェアの更新や修正ができる。",
+      "間違い。マイコンの処理性能は、主にCPUの性能やバス構成などで決まる。選択肢は、フラッシュメモリを採用すれば処理性能が向上するとしているため誤りである。",
+      "間違い。フラッシュメモリには書換え回数の制限があり、マスクROMより常に信頼性が高いとはいえない。選択肢は、フラッシュメモリの採用によってマスクROMより信頼性が向上するとしているため誤りである。"
     ],
     "original_question_id": "9e121451199270c7",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_27.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201002:9e121451199270c7",
+    "reviewQuestionId": "9e121451199270c7",
+    "sourceRecordRef": "question_201002_2.json#1",
+    "explanationReferences": [],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "ワンチップマイコンの内蔵メモリに関する技術問題であり、法令・制度上の根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分の対象外。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を要しない技術問題として確認した。",
+          "promptContext": "選択肢1の技術的正誤",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令関連性なし。フラッシュメモリのコードサイズに関する技術知識で判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分の対象外。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を要しない技術問題として確認した。",
+          "promptContext": "選択肢2の技術的正誤",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令関連性なし。フラッシュメモリの電気的書換え可能性で判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分の対象外。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を要しない技術問題として確認した。",
+          "promptContext": "選択肢3の技術的正誤",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令関連性なし。マイコンの処理性能に関する技術知識で判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分の対象外。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を要しない技術問題として確認した。",
+          "promptContext": "選択肢4の技術的正誤",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令関連性なし。フラッシュメモリの書換え回数制限と信頼性に関する技術知識で判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n企業間契約の内容は取引条件の取り決めであり、情報表現規約が直接規定する対象ではない。",
-      "間違い。\n\n運用時間は業務運用上の取り決めであり、データ表現の規約ではない。",
-      "間違い。\n\n伝送制御手順は通信手順の規約であり、EDIの情報表現規約の中心ではない。",
-      "正しい。\n\nEDIの情報表現規約では、企業間で交換するデータ項目やメッセージ形式を統一して定める必要がある。"
-    ],
-    "suggestedQuestions": [
-      "EDIの情報表現規約は何を定めますか？",
-      "伝送制御手順との違いは何ですか？",
-      "EDI導入で重要な標準化対象は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "EDIの情報表現規約は何を定めますか？",
-        "answer": "取引データの項目、並び、コード体系、メッセージ形式などを定める。"
-      },
-      {
-        "question": "伝送制御手順との違いは何ですか？",
-        "answer": "伝送制御手順は通信のやり取り方法、情報表現規約は送るデータの形を定める。"
-      },
-      {
-        "question": "EDI導入で重要な標準化対象は何ですか？",
-        "answer": "相手先と共通に解釈できるメッセージ形式やデータコードの標準化が重要である。"
-      }
+      "間違い。企業間の取引条件や契約内容は、取引上の取り決めであり、情報表現規約が定めるデータの表し方ではない。選択肢は契約内容を情報表現規約の対象としているため誤りである。",
+      "間違い。システムの運用時間は、業務運用上の取り決めであり、情報表現規約が定めるデータの表し方ではない。選択肢は運用時間を情報表現規約の対象としているため誤りである。",
+      "間違い。伝送制御手順は、データを送受信する通信手順に関する規約である。選択肢は通信手順を情報表現規約の対象としているため誤りである。",
+      "正しい。情報表現規約は、企業間で交換するデータ項目やメッセージの形式を定め、異なるシステム間でデータを同じ意味で扱えるようにする。"
     ],
     "original_question_id": "2c825fc0aaabed5d",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_28.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201002:2c825fc0aaabed5d",
+    "reviewQuestionId": "2c825fc0aaabed5d",
+    "sourceRecordRef": "question_201002_2.json#2",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "法令・制度ではなく、EDIの情報表現規約が定めるメッセージ形式に関する技術論点である。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による出題時・現行時の差分はない。",
+          "displayRefIds": [],
+          "explanationText": "企業間取引の契約内容ではなく、EDIで交換するデータの表現を定める規約に関する選択肢である。",
+          "promptContext": "EDIの情報表現規約に関する技術知識で判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で正誤を判断するため、法令監査の対象外である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による出題時・現行時の差分はない。",
+          "displayRefIds": [],
+          "explanationText": "システムの運用時間は、EDIの情報表現規約が定めるデータ表現ではなく、業務運用上の取り決めである。",
+          "promptContext": "EDIの情報表現規約に関する技術知識で判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で正誤を判断するため、法令監査の対象外である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による出題時・現行時の差分はない。",
+          "displayRefIds": [],
+          "explanationText": "伝送制御手順は通信手順に関する規約であり、情報表現規約が定めるメッセージ形式とは異なる。",
+          "promptContext": "EDIの情報表現規約に関する技術知識で判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で正誤を判断するため、法令監査の対象外である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による出題時・現行時の差分はない。",
+          "displayRefIds": [],
+          "explanationText": "情報表現規約は、企業間で交換するデータ項目やメッセージの形式を定める。",
+          "promptContext": "EDIの情報表現規約に関する技術知識で判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識で正誤を判断するため、法令監査の対象外である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -211,33 +397,17 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nCCK は無線LANで用いられる符号化方式であり、複数サブキャリアを直交配置する方式ではない。",
-      "間違い。\n\nCDM は符号分割多重の考え方であり、サブキャリアを分割して直交配置する方式ではない。",
-      "正しい。\n\nOFDM はデータを複数のサブキャリアに分け、互いに直交するよう配置して効率よく伝送する方式である。",
-      "間違い。\n\nTDM は時間分割多重であり、周波数軸上にサブキャリアを並べる方式ではない。"
-    ],
-    "suggestedQuestions": [
-      "OFDMの特徴は何ですか？",
-      "TDMとの違いは何ですか？",
-      "なぜサブキャリアを分けるのですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "OFDMの特徴は何ですか？",
-        "answer": "多数のサブキャリアを直交配置し、耐マルチパス性と周波数利用効率を高める点にある。"
-      },
-      {
-        "question": "TDMとの違いは何ですか？",
-        "answer": "TDM は時間で分け、OFDM は周波数上の複数搬送波へ分けて送る。"
-      },
-      {
-        "question": "なぜサブキャリアを分けるのですか？",
-        "answer": "各搬送波の伝送速度を下げて干渉に強くし、高速通信を実現しやすくするためである。"
-      }
+      "正しい。該当するのはOFDMである。OFDMはデータ信号を互いに直交する複数のサブキャリアに分けて同時に伝送する方式である。CDMは符号、TDMは時間で信号を分け、CCKは無線LANで使われる符号化方式である。"
     ],
     "original_question_id": "fa482581f90917df",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_3.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201002:fa482581f90917df",
+    "reviewQuestionId": "fa482581f90917df",
+    "sourceRecordRef": "question_201002_2.json#7",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -271,153 +441,331 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nCDMA は符号分割多元接続であり、無線LANの代表的な媒体アクセス制御方式ではない。",
-      "正しい。\n\n無線LANでは衝突を直接検出しにくいため、送信前に回避動作を行う CSMA/CA を用いる。",
-      "間違い。\n\nCSMA/CD は有線 Ethernet で使われた方式で、無線LANのように衝突検出が難しい環境には向かない。",
-      "間違い。\n\nFDMA は周波数分割多元接続であり、この設問の媒体アクセス制御方式ではない。"
-    ],
-    "suggestedQuestions": [
-      "なぜ無線LANはCSMA/CAを使いますか？",
-      "CSMA/CDとの違いは何ですか？",
-      "衝突回避はどう行いますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "なぜ無線LANはCSMA/CAを使いますか？",
-        "answer": "送信中に自分の電波と他者の電波を同時に検出しにくく、衝突検出より回避が現実的だからである。"
-      },
-      {
-        "question": "CSMA/CDとの違いは何ですか？",
-        "answer": "CSMA/CD は衝突を検出して再送し、CSMA/CA は送信前の待機や制御で衝突を避ける。"
-      },
-      {
-        "question": "衝突回避はどう行いますか？",
-        "answer": "チャネル監視、ランダムバックオフ、ACK 確認などで衝突を抑える。"
-      }
+      "正しい。無線LANで使われる媒体アクセス制御方式はCSMA/CAである。CSMA/CAは、端末が送信前に無線チャネルを確認し、ほかの通信との衝突をできるだけ避ける方式である。CSMA/CDは衝突を検出する有線LAN向けの方式であり、CDMAやFDMAはそれぞれ符号や周波数で複数の通信を分ける方式で、問われている媒体アクセス制御方式とは異なる。"
     ],
     "original_question_id": "ffbeeca6c18eb191",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_5.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201002:ffbeeca6c18eb191",
+    "reviewQuestionId": "ffbeeca6c18eb191",
+    "sourceRecordRef": "question_201002_2.json#9",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "間違い。\n\nこれは CSMA/CD の説明であり、FDDI の送信権制御ではない。",
-      "正しい。\n\nFDDI はトークンパッシング方式を採用し、トークンを受け取ったノードが送信権を得る。",
-      "間違い。\n\nFDDI は中央のマスタコントローラを前提とせず、リング上の各ノードが自律的に動作する。",
-      "間違い。\n\nこれはポーリング方式の説明であり、FDDI の方式とは異なる。"
-    ],
-    "suggestedQuestions": [
-      "FDDIはどの方式で送信権を制御しますか？",
-      "トークンパッシングとは何ですか？",
-      "CSMA/CDとの違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "FDDIはどの方式で送信権を制御しますか？",
-        "answer": "トークンパッシング方式である。"
-      },
-      {
-        "question": "トークンパッシングとは何ですか？",
-        "answer": "送信権を表すトークンを順番に回し、受け取ったノードだけが送信する方式である。"
-      },
-      {
-        "question": "CSMA/CDとの違いは何ですか？",
-        "answer": "CSMA/CD は競合前提、トークンパッシングは競合を起こしにくい制御方式である。"
-      }
+      "間違い。正しくは、FDDIはトークンを用いて送信権を制御する。選択肢は、媒体が空いていることを確認して送信するCSMA/CDの方式を示しているため誤りである。",
+      "正しい。FDDIはトークンパッシング方式を採用している。トークンを受信したノードが送信権を得て、送信を終えるとトークンを次のノードへ渡す。",
+      "間違い。正しくは、FDDIではリング上の各ノードがトークンを受け取って送信権を判断する。選択肢は、中央のマスタコントローラーがメッセージを中継する方式としているため誤りである。",
+      "間違い。正しくは、FDDIではトークンの受信によって送信権が決まる。選択肢は、中央の装置が各ノードへ送信要求を問い合わせるポーリング方式としているため誤りである。"
     ],
     "original_question_id": "5df3761d0f54de96",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_6.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201002:5df3761d0f54de96",
+    "reviewQuestionId": "5df3761d0f54de96",
+    "sourceRecordRef": "question_201002_2.json#10",
+    "explanationReferences": [],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "間違い。\n\nMIME は電子メールで非 ASCII データを扱うための拡張であり、ポート束ねとは無関係である。",
-      "間違い。\n\nMIMO は複数アンテナによる無線通信技術であり、スイッチポートを束ねる技術ではない。",
-      "間違い。\n\nマルチパートは電子メール本文の構成方式であり、ネットワーク機器の論理ポート化とは関係しない。",
-      "正しい。\n\nリンクアグリゲーションは複数の物理ポートを束ねて一つの論理ポートとして扱い、帯域向上や冗長化に利用する。"
-    ],
-    "suggestedQuestions": [
-      "リンクアグリゲーションの目的は何ですか？",
-      "MIMOとの違いは何ですか？",
-      "ポートを束ねる利点は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "リンクアグリゲーションの目的は何ですか？",
-        "answer": "帯域増強と冗長化を両立させるためである。"
-      },
-      {
-        "question": "MIMOとの違いは何ですか？",
-        "answer": "MIMO は無線アンテナ技術、リンクアグリゲーションは有線ポート束ねの技術である。"
-      },
-      {
-        "question": "ポートを束ねる利点は何ですか？",
-        "answer": "単一障害の影響を減らしつつ、論理的には一つの高速リンクとして使える。"
-      }
+      "正しい。複数の物理ポートを束ねて一つの論理ポートとして扱う技術はリンクアグリゲーションである。通信帯域を拡大したり、リンク障害時の冗長性を高めたりできる。MIMEは電子メールなどでデータ形式を扱う仕組み、マルチパートは一つのメッセージに複数のデータ部分を含める形式、MIMOは複数アンテナを使う無線通信技術であり、スイッチングハブのポートを束ねる技術ではない。"
     ],
     "original_question_id": "6ae6d2f4e6327f52",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_7.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201002:6ae6d2f4e6327f52",
+    "reviewQuestionId": "6ae6d2f4e6327f52",
+    "sourceRecordRef": "question_201002_2.json#11",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "正しい。\n\nBGP-4 は自律システム間で経路情報に付加されたパス属性を用い、ポリシーに基づいて経路選択するパスベクター方式のプロトコルである。",
-      "間違い。\n\nこれはリンク状態型プロトコルである OSPF などの説明である。",
-      "間違い。\n\nこれはホップ数を指標とする距離ベクター型プロトコルである RIP の説明に近い。",
-      "間違い。\n\n送信元が経路上ノードを明示するのはソースルーティングの考え方であり、BGP-4 の説明ではない。"
-    ],
-    "suggestedQuestions": [
-      "BGP-4はどこで使いますか？",
-      "パスベクター方式とは何ですか？",
-      "OSPFやRIPとの違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "BGP-4はどこで使いますか？",
-        "answer": "主に自律システム同士を接続するインターネットの経路制御で使う。"
-      },
-      {
-        "question": "パスベクター方式とは何ですか？",
-        "answer": "到達経路に含まれる AS 列などの属性を見て経路選択する方式である。"
-      },
-      {
-        "question": "OSPFやRIPとの違いは何ですか？",
-        "answer": "OSPF はリンク状態型、RIP は距離ベクター型、BGP-4 はパスベクター型である。"
-      }
+      "正しい。BGP-4は、自律システム間で経路情報とパス属性を交換し、経路選択に各組織のポリシーを反映するパスベクター方式のプロトコルである。",
+      "間違い。リンク状態データベースを各ルータが持ち、そこから最短経路を計算するのは、OSPFなどのリンク状態方式である。選択肢はこの方式をBGP-4の説明としているため誤りである。",
+      "間違い。宛先までのホップ数を主な指標として経路を選ぶのは、RIPなどの距離ベクター方式である。選択肢はホップ数が最小の経路を選ぶ方式をBGP-4の説明としているため誤りである。",
+      "間違い。送信元が経路上の中継ノードを指定するのは、ソースルーティングの考え方である。選択肢は送信元による経路指定をBGP-4の説明としているため誤りである。"
     ],
     "original_question_id": "58abe5216156f6ca",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_8.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201002:58abe5216156f6ca",
+    "reviewQuestionId": "58abe5216156f6ca",
+    "sourceRecordRef": "question_201002_2.json#12",
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-10-03",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc4271.html",
+        "title": "RFC 4271 BGP-4"
+      },
+      {
+        "choiceIndex": 1,
+        "referenceDate": "2026-10-03",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc2328.html",
+        "title": "RFC 2328 OSPF Version 2"
+      },
+      {
+        "choiceIndex": 2,
+        "referenceDate": "2026-10-03",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc2453.html",
+        "title": "RFC 2453 RIP Version 2"
+      },
+      {
+        "choiceIndex": 3,
+        "referenceDate": "2026-10-03",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc791.html",
+        "title": "RFC 791 Internet Protocol"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "BGP-4のパスベクター方式と、リンク状態方式・距離ベクター方式・ソースルーティング方式を区別する技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "BGP-4はパス属性とポリシーに基づくパスベクター方式を使用する。",
+          "promptContext": "BGP-4の方式分類を確認した。",
+          "refs": [],
+          "verdict": "技術的に正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識により正誤を判断でき、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "リンク状態データベースから最短経路を計算する説明は、OSPFなどのリンク状態方式に該当する。",
+          "promptContext": "BGP-4とリンク状態方式の相違を確認した。",
+          "refs": [],
+          "verdict": "技術的に間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識により正誤を判断でき、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ホップ数が最小の経路を選ぶ説明は、RIPなどの距離ベクター方式に該当する。",
+          "promptContext": "BGP-4と距離ベクター方式の相違を確認した。",
+          "refs": [],
+          "verdict": "技術的に間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識により正誤を判断でき、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "送信元が経路上の中継ノードを指定する説明は、ソースルーティングに該当する。",
+          "promptContext": "BGP-4とソースルーティングの相違を確認した。",
+          "refs": [],
+          "verdict": "技術的に間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識により正誤を判断でき、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\nARP は IP アドレスから MAC アドレスを求めるためのプロトコルであり、PPP の認証には使わない。",
-      "正しい。\n\nCHAP はチャレンジに対してハッシュ値を返す challenge-response 方式で認証する PPP の認証プロトコルである。",
-      "間違い。\n\nPAP も PPP 認証に使うが、ID とパスワードをそのまま送る方式であり設問の動作とは一致しない。",
-      "間違い。\n\nPPTP は PPP フレームをカプセル化して VPN を構成する方式であり、認証方式そのものではない。"
-    ],
-    "suggestedQuestions": [
-      "CHAPはどのように認証しますか？",
-      "PAPとの違いは何ですか？",
-      "challenge-response方式の利点は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "CHAPはどのように認証しますか？",
-        "answer": "認証要求側が送るチャレンジ値に対し、共有秘密情報から計算したハッシュ値を返して認証する。"
-      },
-      {
-        "question": "PAPとの違いは何ですか？",
-        "answer": "PAP は平文に近い形で認証情報を送るが、CHAP はハッシュ値で応答する。"
-      },
-      {
-        "question": "challenge-response方式の利点は何ですか？",
-        "answer": "秘密そのものを通信路へ流さずに認証でき、盗聴に比較的強い。"
-      }
+      "正しい。該当するプロトコルはCHAPである。CHAPは、PPPのリンク確立後にサーバがチャレンジを送り、相手がチャレンジと共有秘密から計算したハッシュ値を返すことで認証する。IDとパスワードをそのまま送るPAPや、PPPフレームをカプセル化するPPTPとは役割が異なる。"
     ],
     "original_question_id": "1f2f7e2121eccf7e",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_9.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201002:1f2f7e2121eccf7e",
+    "reviewQuestionId": "1f2f7e2121eccf7e",
+    "sourceRecordRef": "question_201002_2.json#13",
+    "explanationReferences": [],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "PPPのリンク確立後にチャレンジとハッシュ値で相手を認証する技術仕様の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [
+          "この選択肢はCHAPではないため、問題の正答に該当しない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "法令改正による差分なし。技術知識問題のため法令監査対象外。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ARPはアドレス解決プロトコルであり、チャレンジ応答による認証プロトコルではない。",
+          "promptContext": "技術知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "PPP認証プロトコルの技術知識として判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "CHAPが問題文の認証方式に該当する。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [
+          "法令改正による差分なし。技術知識問題のため法令監査対象外。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "CHAPはPPPリンク確立後にチャレンジを送り、相手が共有秘密に基づくハッシュ値を返すことで認証する。",
+          "promptContext": "技術知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "PPP認証プロトコルの技術知識として判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "PAPはチャレンジ応答とハッシュ値による認証方式ではない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "法令改正による差分なし。技術知識問題のため法令監査対象外。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "PAPはユーザーIDとパスワードを用いる認証方式であり、CHAPのようなチャレンジ応答方式ではない。",
+          "promptContext": "技術知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "PPP認証プロトコルの技術知識として判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "PPTPはPPPフレームをカプセル化するトンネリングプロトコルであり、問題文の認証プロトコルではない。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "法令改正による差分なし。技術知識問題のため法令監査対象外。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "PPTPはPPPフレームをカプセル化してトンネル転送するプロトコルであり、チャレンジ応答による認証プロトコルではない。",
+          "promptContext": "技術知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "PPP認証プロトコルの技術知識として判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -451,33 +799,26 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nIPv4 の TOS は IPv6 でそのまま資源予約用途へ強化されたわけではなく、Traffic Class など別の形に整理されている。",
-      "間違い。\n\nIPv6 のアドレス長は 64 ビットではなく 128 ビットである。",
-      "間違い。\n\nIPv6 ではヘッダ簡素化のため、IPv4 にあったヘッダチェックサムは廃止されている。",
-      "正しい。\n\nIPv6 では IPsec のサポートが必須とされ、認証や改ざん検出、暗号化による通信保護を行える。"
-    ],
-    "suggestedQuestions": [
-      "IPv6のアドレス長は何ビットですか？",
-      "IPv6でヘッダチェックサムがない理由は何ですか？",
-      "IPsecは何を提供しますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "IPv6のアドレス長は何ビットですか？",
-        "answer": "128 ビットである。"
-      },
-      {
-        "question": "IPv6でヘッダチェックサムがない理由は何ですか？",
-        "answer": "処理を簡素化し、下位層や上位層での誤り検出と役割分担するためである。"
-      },
-      {
-        "question": "IPsecは何を提供しますか？",
-        "answer": "認証、完全性保護、必要に応じた暗号化による機密性を提供する。"
-      }
+      "間違い。IPv6で特別な扱いを求めるフローを識別するのは、TOSフィールドではなく20ビットのFlow Labelである。選択肢はTOSフィールドで資源予約を行うとしているため誤りである。",
+      "間違い。正しくは、IPv6のIPアドレスは32ビットから128ビットへ拡張されている。選択肢は64ビットに拡張されたとしているため誤りである。",
+      "間違い。IPv6ではヘッダを簡素化するため、IPv4にあったIPヘッダーのチェックサムは廃止されている。選択肢はチェックサムを追加するとしているため誤りである。",
+      "正しい。この問題の出題当時のIPv6仕様では、IPsecの認証ヘッダーとEncapsulating Security Payload（ESP）の実装が求められていた。これにより、送信元の認証、改ざん検出、通信内容の暗号化を行える。"
     ],
     "original_question_id": "b042a7b47ddef4ce",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_11.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201002:b042a7b47ddef4ce",
+    "reviewQuestionId": "b042a7b47ddef4ce",
+    "sourceRecordRef": "question_201002_2.json#15",
+    "explanationReferences": [
+      {
+        "referenceDate": "1998-12-01",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc2460.html",
+        "title": "RFC 2460: Internet Protocol, Version 6 (IPv6) Specification"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -511,33 +852,151 @@
   },
   {
     "explanationText": [
-      "正しい。\n\nRSVP は IP ネットワークで通信に必要な帯域などの資源予約を行い、QoS を支援するためのプロトコルである。",
-      "間違い。\n\nこれは VLAN の説明であり、RSVP ではない。",
-      "間違い。\n\nこれは MLPPP の説明であり、RSVP の役割とは異なる。",
-      "間違い。\n\n利用者認証を行うプロトコルではなく、伝送帯域などの予約を扱う。"
-    ],
-    "suggestedQuestions": [
-      "RSVPは何を予約しますか？",
-      "QoSとの関係は何ですか？",
-      "VLANやMLPPPとの違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "RSVPは何を予約しますか？",
-        "answer": "通信経路上で必要な帯域などの資源を予約する。"
-      },
-      {
-        "question": "QoSとの関係は何ですか？",
-        "answer": "遅延や帯域要求を満たしやすくするための QoS 実現手段の一つである。"
-      },
-      {
-        "question": "VLANやMLPPPとの違いは何ですか？",
-        "answer": "VLAN は論理分割、MLPPP は回線束ね、RSVP は資源予約で役割が異なる。"
-      }
+      "正しい。RSVPは、IPネットワークで通信に必要な資源を予約し、要求したQoSを実現するためのプロトコルである。",
+      "間違い。これはVLANの説明であり、RSVPではない。VLANは、物理的な接続形態とは別に、LAN内の機器を論理的なグループに分ける。",
+      "間違い。これはPPP Multilink Protocol（MLPPP）の説明であり、RSVPではない。MLPPPは、複数のPPPリンクを束ねて一つの論理的なリンクとして扱う。",
+      "間違い。これはRADIUSなどのリモートアクセス認証プロトコルの説明であり、RSVPではない。RSVPは利用者を認証するのではなく、通信のQoSに必要な資源を予約する。"
     ],
     "original_question_id": "65a295ab23f110d5",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_13.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201002:65a295ab23f110d5",
+    "reviewQuestionId": "65a295ab23f110d5",
+    "sourceRecordRef": "question_201002_2.json#17",
+    "explanationReferences": [
+      {
+        "choiceIndex": 0,
+        "referenceDate": "2026-10-03",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc2205/",
+        "title": "RFC 2205: Resource ReSerVation Protocol (RSVP) — Version 1 Functional Specification"
+      },
+      {
+        "choiceIndex": 1,
+        "referenceDate": "2026-10-03",
+        "sourceUrl": "https://standards.ieee.org/ieee/802.1Q/10323/",
+        "title": "IEEE 802.1Q-2022: IEEE Standard for Local and Metropolitan Area Networks—Bridges and Bridged Networks"
+      },
+      {
+        "choiceIndex": 2,
+        "referenceDate": "2026-10-03",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc1990/",
+        "title": "RFC 1990: The PPP Multilink Protocol (MP)"
+      },
+      {
+        "choiceIndex": 3,
+        "referenceDate": "2026-10-03",
+        "sourceUrl": "https://www.rfc-editor.org/info/rfc2865/",
+        "title": "RFC 2865: Remote Authentication Dial In User Service (RADIUS)"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "IPネットワークの通信プロトコルに関する技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "RSVPの機能に関する技術知識で判断する。",
+          "promptContext": "ネットワーク通信プロトコルの技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外の技術選択肢。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "VLANの機能とRSVPの機能の区別に関する技術知識で判断する。",
+          "promptContext": "ネットワーク通信プロトコルの技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術選択肢。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "MLPPPの機能とRSVPの機能の区別に関する技術知識で判断する。",
+          "promptContext": "ネットワーク通信プロトコルの技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術選択肢。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "リモートアクセス認証プロトコルとRSVPの機能の区別に関する技術知識で判断する。",
+          "promptContext": "ネットワーク通信プロトコルの技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術選択肢。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -601,93 +1060,288 @@
   },
   {
     "explanationText": [
-      "正しい。\n\nSDP は音声・映像などのメディア種別、使用プロトコル、ポート番号、コーデックなどセッション内容を記述する。",
-      "間違い。\n\nこれは RTP の説明であり、実際のリアルタイムデータ配送で使う情報である。",
-      "間違い。\n\nこれは RTCP の説明であり、品質統計や制御情報の交換に使う。",
-      "間違い。\n\nこれは SIP の説明であり、セッションの確立や変更、切断を行う。"
-    ],
-    "suggestedQuestions": [
-      "SDPは何を記述しますか？",
-      "SIPやRTPとの違いは何ですか？",
-      "ポート番号はなぜ重要ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "SDPは何を記述しますか？",
-        "answer": "メディア種別、利用プロトコル、ポート番号、コーデックなどのセッション属性を記述する。"
-      },
-      {
-        "question": "SIPやRTPとの違いは何ですか？",
-        "answer": "SIP はセッション制御、RTP はメディア配送、SDP はその内容記述を担う。"
-      },
-      {
-        "question": "ポート番号はなぜ重要ですか？",
-        "answer": "どのアプリケーションやストリームへデータを届けるかを受信側が判断するためである。"
-      }
+      "正しい。SDPは、音声・映像などのメディア種別、使用するプロトコル、ポート番号、コーデックなど、通信セッションの内容を記述する。",
+      "間違い。正しくは、RTPがリアルタイムの音声や映像を配送し、ペイロード種別、シーケンス番号、タイムスタンプなどを扱う。選択肢は、SDPがRTPのパケット情報を記述するとしているため誤りである。",
+      "間違い。正しくは、RTCPがパケット損失数や到着間隔のばらつきなど、通信品質の統計情報を交換する。選択肢は、SDPが品質統計を交換するとしているため誤りである。",
+      "間違い。正しくは、SIPがユーザーエージェント間の音声・映像などのセッションを確立、変更、切断する。選択肢は、SDPがセッションの制御を行うとしているため誤りである。"
     ],
     "original_question_id": "b04360d982ab16bc",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_16.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201002:b04360d982ab16bc",
+    "reviewQuestionId": "b04360d982ab16bc",
+    "sourceRecordRef": "question_201002_2.json#20",
+    "explanationReferences": [
+      {
+        "choiceIndex": 0,
+        "referenceDate": "2026-10-03",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc4566.html",
+        "title": "RFC 4566: SDP: Session Description Protocol"
+      },
+      {
+        "choiceIndex": 1,
+        "referenceDate": "2026-10-03",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc3550.html",
+        "title": "RFC 3550: RTP: A Transport Protocol for Real-Time Applications"
+      },
+      {
+        "choiceIndex": 2,
+        "referenceDate": "2026-10-03",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc3550.html",
+        "title": "RFC 3550: RTP: A Transport Protocol for Real-Time Applications"
+      },
+      {
+        "choiceIndex": 3,
+        "referenceDate": "2026-10-03",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc3261.html",
+        "title": "RFC 3261: SIP: Session Initiation Protocol"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "間違い。\n\nget-request はマネージャからエージェントへ情報取得を要求するメッセージであり、自発通知ではない。",
-      "間違い。\n\nget-response は問い合わせに対する応答であり、事象発生を自発的に知らせる用途ではない。",
-      "間違い。\n\nset-request はマネージャからエージェントへ値設定を要求するメッセージである。",
-      "正しい。\n\ntrap は SNMP エージェントが障害や状態変化の発生を自発的にマネージャへ通知するときに使う。"
-    ],
-    "suggestedQuestions": [
-      "SNMPのtrapは何を通知しますか？",
-      "get-requestとの違いは何ですか？",
-      "SNMPの役割は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "SNMPのtrapは何を通知しますか？",
-        "answer": "障害発生やしきい値超過など、機器側で起きたイベントを自発的に通知する。"
-      },
-      {
-        "question": "get-requestとの違いは何ですか？",
-        "answer": "get-request はマネージャからの問い合わせ、trap はエージェントからの自発通知である。"
-      },
-      {
-        "question": "SNMPの役割は何ですか？",
-        "answer": "ネットワーク機器の監視や簡易制御を行うための管理プロトコルである。"
-      }
+      "正しい。該当するメッセージタイプはtrapである。trapは、エージェントが障害や状態変化などの事象を検知したとき、マネージャからの要求を待たずに通知するために使われる。get-request、get-response、set-requestは、マネージャからの取得・設定要求又はその応答に用いる。"
     ],
     "original_question_id": "ad34b10140b1ac20",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_17.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201002:ad34b10140b1ac20",
+    "reviewQuestionId": "ad34b10140b1ac20",
+    "sourceRecordRef": "question_201002_2.json#21",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "SNMPv1の各メッセージタイプとtrapの役割を問う技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分の対象外である。",
+          "displayRefIds": [],
+          "explanationText": "技術知識で正誤を判断する選択肢であり、法令根拠を要しない。",
+          "promptContext": "get-requestはエージェント自身が自発的に通知するメッセージではない。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "SNMPv1のget-requestはマネージャからの取得要求である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分の対象外である。",
+          "displayRefIds": [],
+          "explanationText": "技術知識で正誤を判断する選択肢であり、法令根拠を要しない。",
+          "promptContext": "get-responseはエージェント自身が自発的に通知するメッセージではない。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "SNMPv1のget-responseはマネージャからの取得要求に対する応答である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分の対象外である。",
+          "displayRefIds": [],
+          "explanationText": "技術知識で正誤を判断する選択肢であり、法令根拠を要しない。",
+          "promptContext": "set-requestはエージェント自身が自発的に通知するメッセージではない。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "SNMPv1のset-requestはマネージャからの設定要求である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分の対象外である。",
+          "displayRefIds": [],
+          "explanationText": "技術知識で正誤を判断する選択肢であり、法令根拠を要しない。",
+          "promptContext": "trapはマネージャからの要求を待たずにエージェントが送信する通知である。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "SNMPv1のtrapは、エージェントが事象を検知したときにマネージャへ自発的に通知する。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\nクッキーは通常サーバ側で発行されてクライアントへ保存されるもので、クライアントが各サーバごとの認証情報入りクッキーを生成する説明は不適切である。",
-      "間違い。\n\nクッキー方式では同一ドメイン配下で使いやすく、異なるドメイン配置を必須とするものではない。",
-      "間違い。\n\nリバースプロキシ方式はドメイン制約が比較的少なく、各 Web サーバを異なるドメインにする必要はない。",
-      "正しい。\n\nリバースプロキシ型のシングルサインオンでは、パスワード以外にデジタル証明書を使った利用者認証も可能である。"
-    ],
-    "suggestedQuestions": [
-      "リバースプロキシ型SSOの特徴は何ですか？",
-      "クッキー型SSOの制約は何ですか？",
-      "デジタル証明書認証はどう使いますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "リバースプロキシ型SSOの特徴は何ですか？",
-        "answer": "利用者はプロキシで一度認証され、その後は背後の複数 Web サーバへ再ログインなしでアクセスできる。"
-      },
-      {
-        "question": "クッキー型SSOの制約は何ですか？",
-        "answer": "クッキーの有効範囲がドメインに依存するため、マルチドメイン環境では扱いに制約がある。"
-      },
-      {
-        "question": "デジタル証明書認証はどう使いますか？",
-        "answer": "クライアント証明書を用いて利用者や端末を識別し、パスワードの代替または補強として使う。"
-      }
+      "間違い。クッキーはサーバが発行し、クライアントに保存される。クライアントが各サーバ用の認証情報を生成し、各サーバ上でクッキーを管理する方式ではない。",
+      "間違い。クッキー方式は、同一ドメイン配下などでクッキーを共有して利用できる。認証対象の各サーバを異なるインターネットドメインに配置する必要はない。",
+      "間違い。リバースプロキシ方式では、利用者からの要求をプロキシが受けて認証し、背後のWebサーバへ中継する。認証対象の各Webサーバを異なるインターネットドメインにする必要はない。",
+      "正しい。リバースプロキシ型のシングルサインオンでは、パスワードの代わりにデジタル証明書を用いて利用者を認証できる。"
     ],
     "original_question_id": "eb17990db473968b",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_18.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201002:eb17990db473968b",
+    "reviewQuestionId": "eb17990db473968b",
+    "sourceRecordRef": "question_201002_2.json#22",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "シングルサインオンの実装方式と認証手段を問う技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "クッキーはサーバが発行し、クライアントに保存される。",
+          "promptContext": "クッキー方式の認証情報の生成・保存主体を判定。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判定できるため、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "一致",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "クッキー方式は同一ドメイン配下などでクッキーを共有して利用でき、異なるインターネットドメインは必須ではない。",
+          "promptContext": "クッキー方式におけるドメイン配置の要否を判定。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判定できるため、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "一致",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "リバースプロキシ方式ではプロキシが認証し、背後のWebサーバへ要求を中継するため、各Webサーバを異なるインターネットドメインにする必要はない。",
+          "promptContext": "リバースプロキシ方式におけるWebサーバのドメイン配置の要否を判定。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判定できるため、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "一致",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "リバースプロキシ型のシングルサインオンでは、パスワードの代わりにデジタル証明書を用いて利用者を認証できる。",
+          "promptContext": "リバースプロキシ方式で利用可能な認証手段を判定。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識で判定できるため、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "一致",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -721,32 +1375,19 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nこれは不要な外部向けサービス公開を抑える対策であり、送信元 IP の偽装を見抜く IP スプーフィング対策そのものではない。",
-      "間違い。\n\n不要な UDP パケットを遮断する方針ではあるが、偽装送信元アドレスの検出に直接着目していない。",
-      "間違い。\n\nあて先 IP アドレスで内部保護対象を制限する考え方であり、IP スプーフィング対策の本質ではない。",
-      "正しい。\n\nIP スプーフィング対策では、外部から入るパケットの送信元 IP アドレスが自ネットワーク内部のものなら偽装とみなし破棄する。"
-    ],
-    "suggestedQuestions": [
-      "IPスプーフィングとは何ですか？",
-      "なぜ送信元IPアドレスを見るのですか？",
-      "ingress filteringとは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "IPスプーフィングとは何ですか？",
-        "answer": "攻撃者が送信元 IP アドレスを偽装して通信元を装う攻撃手法である。"
-      },
-      {
-        "question": "なぜ送信元IPアドレスを見るのですか？",
-        "answer": "内部アドレスを名乗る外部パケットは不自然であり、偽装検知の重要な手掛かりになるからである。"
-      },
-      {
-        "question": "ingress filteringとは何ですか？",
-        "answer": "受信インタフェースで許可されない送信元アドレスを持つパケットを遮断する考え方である。"
-      }
+      "間違い。正しくは、外部向けTCPサービスへの接続要求を制限する対策である。選択肢は、外部へのサービス提供に必要なTCPコネクション確立要求以外を破棄するとしているため、送信元IPアドレスの偽装を検出するIPスプーフィング対策ではない。",
+      "間違い。正しくは、外部向けサービスに必要なUDP通信だけを許可する対策である。選択肢は、不要なUDPパケットを破棄するとしているため、送信元IPアドレスが偽装されているかを確認するIPスプーフィング対策には当たらない。",
+      "間違い。正しくは、宛先IPアドレスによって外部からの通信を許可する内部ホストを制限する対策である。選択肢は、宛先が内部ホストのパケットを破棄するとしているため、送信元IPアドレスの偽装を防ぐIPスプーフィング対策とは異なる。",
+      "正しい。"
     ],
     "original_question_id": "ec78f6be79f12bf0",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_20.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201002:ec78f6be79f12bf0",
+    "reviewQuestionId": "ec78f6be79f12bf0",
+    "sourceRecordRef": "question_201002_2.json#24",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   }
 ]

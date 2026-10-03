@@ -91,63 +91,34 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n同一バンクへの連続アクセスでは、そのバンク自体が律速になるのでインターリーブの利点は出にくい。",
-      "間違い。\n\nキャッシュミス時に同一バンクへ連続アクセスする場合の高速化が目的ではない。バンクをまたいで並列性を上げる仕組みである。",
-      "間違い。\n\nバンク故障時の継続運転は冗長化や ECC の論点であり、メモリインターリーブの主目的ではない。",
-      "正しい。\n\n連続アドレスを複数バンクへ分散配置し、交互にアクセスできるようにして実効的なアクセス時間を短縮するのがメモリインターリーブである。"
-    ],
-    "suggestedQuestions": [
-      "メモリインターリーブは何を高速化しますか？",
-      "なぜ複数バンクに分けると速くなりますか？",
-      "冗長化との違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "メモリインターリーブは何を高速化しますか？",
-        "answer": "連続したメモリアクセスを複数バンクへ分散し、待ち時間を隠して実効速度を高める。"
-      },
-      {
-        "question": "なぜ複数バンクに分けると速くなりますか？",
-        "answer": "あるバンクのアクセス中に別バンクを使えるため、連続アクセスを重ねやすくなるからである。"
-      },
-      {
-        "question": "冗長化との違いは何ですか？",
-        "answer": "インターリーブは速度向上、冗長化は故障耐性向上が主目的である。"
-      }
+      "間違い。メモリインターリーブは、連続するアドレスを複数のバンクに分散し、並列にアクセスして実効的なアクセス時間を短縮する。選択肢は同一のバンクに連続してアクセスするとしているため誤りである。",
+      "間違い。キャッシュミス発生時のアクセス時間を短縮できる場合でも、メモリインターリーブの前提は連続するアドレスを複数のバンクに分散してアクセスできることである。選択肢は同一のバンクの連続したアドレスへのアクセスを対象としているため誤りである。",
+      "間違い。一つのバンクが故障してもシステムを継続させるには、冗長化やECCなどの仕組みが必要である。選択肢はメモリインターリーブにバンク故障時の継続運転機能があるとしているため誤りである。",
+      "正しい。連続するアドレスを複数のバンクに分散して配置し、複数のバンクへ交互にアクセスすることで、アクセスを並列化して時間を短縮する。"
     ],
     "original_question_id": "4a514e01e7ceca82",
     "question_url": "https://www.nw-siken.com/kakomon/28_aki/am1_4.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201602:4a514e01e7ceca82",
+    "reviewQuestionId": "4a514e01e7ceca82",
+    "sourceRecordRef": "question_201602_1.json#3",
+    "explanationReferences": [],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "間違い。\n\n2/3 倍になることはない。MTBF と MTTR を同倍率で拡大すると、比率は変わらず稼働率も変わらない。",
-      "間違い。\n\n1.5 倍にはならない。稼働率は MTBF / (MTBF + MTTR) で表され、分子分母が同じ倍率なら値は不変である。",
-      "間違い。\n\n2.25 倍になるわけではない。両者を掛け算的に評価する指標ではなく、比で決まる指標である。",
-      "正しい。\n\nアベイラビリティは MTBF / (MTBF + MTTR) である。MTBF と MTTR をともに 1.5 倍しても分子分母に共通因子 1.5 が掛かるだけなので値は変わらない。"
-    ],
-    "suggestedQuestions": [
-      "アベイラビリティの式は何ですか？",
-      "MTBF と MTTR を同倍率で変えるとどうなりますか？",
-      "MTBF と MTTR は何を表しますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "アベイラビリティの式は何ですか？",
-        "answer": "MTBF / (MTBF + MTTR) で表す。"
-      },
-      {
-        "question": "MTBF と MTTR を同倍率で変えるとどうなりますか？",
-        "answer": "比率が変わらないのでアベイラビリティも変わらない。"
-      },
-      {
-        "question": "MTBF と MTTR は何を表しますか？",
-        "answer": "MTBF は平均故障間隔、MTTR は平均修復時間である。"
-      }
+      "正しい。アベイラビリティ（稼働率）は、平均故障間隔MTBFと平均修復時間MTTRを使って、次の式で求める。\n\\[A=\\frac{\\mathrm{MTBF}}{\\mathrm{MTBF}+\\mathrm{MTTR}}\\]\nMTBFは故障から次の故障までの平均稼働時間、MTTRは故障してから復旧するまでの平均修復時間である。両方が1.5倍になると、\\[A'=\\frac{1.5\\mathrm{MTBF}}{1.5\\mathrm{MTBF}+1.5\\mathrm{MTTR}}=\\frac{\\mathrm{MTBF}}{\\mathrm{MTBF}+\\mathrm{MTTR}}\\]となるため、アベイラビリティは変わらない。"
     ],
     "original_question_id": "2c74d74e053c7acd",
     "question_url": "https://www.nw-siken.com/kakomon/28_aki/am1_5.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201602:2c74d74e053c7acd",
+    "reviewQuestionId": "2c74d74e053c7acd",
+    "sourceRecordRef": "question_201602_1.json#4",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [

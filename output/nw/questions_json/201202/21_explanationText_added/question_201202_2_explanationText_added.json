@@ -31,63 +31,37 @@
   },
   {
     "explanationText": [
-      "正しい。\n\n技術のSカーブは、導入期から成長・成熟を経て限界に近づく技術進化の典型的な軌跡を表す。",
-      "間違い。\n\n需要曲線は価格と需要量の関係を表すもので、技術の進化段階そのものは示さない。",
-      "間違い。\n\nバスタブ曲線は故障率の時間変化を表す曲線であり、技術世代交代の説明ではない。",
-      "間違い。\n\nラーニングカーブは習熟に伴う効率向上を示す概念で、技術ライフサイクルとは別である。"
-    ],
-    "suggestedQuestions": [
-      "技術のSカーブは何がS字になりますか？",
-      "バスタブ曲線は何を表しますか？",
-      "技術フェーズ移行は何を意味しますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "技術のSカーブは何がS字になりますか？",
-        "answer": "時間経過に対する性能向上や成果の伸びが、初期は緩やか、中盤で急伸し、成熟で頭打ちになる。"
-      },
-      {
-        "question": "バスタブ曲線は何を表しますか？",
-        "answer": "初期故障期・偶発故障期・摩耗故障期という故障率の推移を表す。"
-      },
-      {
-        "question": "技術フェーズ移行は何を意味しますか？",
-        "answer": "既存技術が成熟限界へ近づき、新しい原理や方式の技術へ置き換わっていくことを指す。"
-      }
+      "正しい。技術のSカーブは、技術の導入期から成長期、成熟期を経て、性能や普及が限界に近づくまでの進化過程を表す。",
+      "間違い。正しくは、需要曲線は価格と需要量の関係を表す。選択肢は需要曲線が技術の進化過程を表すとしているため誤りである。",
+      "間違い。正しくは、バスタブ曲線は製品や設備の故障率が時間とともにどう変化するかを表す。選択肢はバスタブ曲線が技術の進化過程を表すとしているため誤りである。",
+      "間違い。正しくは、ラーニングカーブは、経験や習熟によって作業時間やコストが低下する関係を表す。選択肢はラーニングカーブが技術の進化過程を表すとしているため誤りである。"
     ],
     "original_question_id": "d0a79da13027e2ba",
     "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_27.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201202:d0a79da13027e2ba",
+    "reviewQuestionId": "d0a79da13027e2ba",
+    "sourceRecordRef": "question_201202_2.json#1",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "間違い。\n\nNC工作機械や搬送装置を統合制御して自動化する説明はFMSなど生産システム寄りであり、PLMの目的そのものではない。",
-      "正しい。\n\nPLMは製品ライフサイクル全体で製品関連情報を一元管理し、品質向上やコスト低減、開発効率向上を図る。",
-      "間違い。\n\n生産計画から必要資材量と発注時期を求めるのはMRPの説明である。",
-      "間違い。\n\n供給から販売までの情報連携で在庫削減やリードタイム短縮を図る考え方はSCMの説明に近い。"
-    ],
-    "suggestedQuestions": [
-      "PLMとSCMの違いは何ですか？",
-      "PLMでは何を一元管理しますか？",
-      "MRPは何を計算しますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "PLMとSCMの違いは何ですか？",
-        "answer": "PLMは製品情報と開発から保守までのライフサイクル管理、SCMは調達から供給までのサプライチェーン最適化に重点がある。"
-      },
-      {
-        "question": "PLMでは何を一元管理しますか？",
-        "answer": "設計情報、部品表、変更履歴、製造・保守関連情報など製品に関わる情報全体を扱う。"
-      },
-      {
-        "question": "MRPは何を計算しますか？",
-        "answer": "生産計画を基に必要資材量とその手配時期を展開する。"
-      }
+      "間違い。正しくは、NC工作機械や搬送装置などを統合して生産を自動化する仕組みはFMSの説明である。選択肢は生産設備の自動化をPLMの目的としているため誤りである。",
+      "正しい。PLMは、製品の企画・開発から製造、販売、保守、リサイクルまでのライフサイクル全体で製品情報を一元管理し、商品力の向上やコスト低減を図る。",
+      "間違い。正しくは、生産計画に基づいて必要な資材の量や発注時期を算出する仕組みはMRPである。選択肢は資材所要量計画をPLMの目的としているため誤りである。",
+      "間違い。正しくは、部品の供給から製品の販売までを連携させ、在庫削減やリードタイム短縮を図る考え方はSCMである。選択肢はサプライチェーン全体の管理をPLMの目的としているため誤りである。"
     ],
     "original_question_id": "c30d3ac18f2684c2",
     "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_28.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201202:c30d3ac18f2684c2",
+    "reviewQuestionId": "c30d3ac18f2684c2",
+    "sourceRecordRef": "question_201202_2.json#2",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -121,33 +95,33 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nGAAPは各国の一般に公正妥当と認められた会計原則の総称であり、設問の国際統一基準そのものではない。",
-      "間違い。\n\nIASBはIFRSを策定する国際会計基準審議会であって、会計基準そのものの名称ではない。",
-      "正しい。\n\nIFRSは国際財務報告基準であり、国際的な会計情報の比較可能性や均質性を高めるために用いられる。",
-      "間違い。\n\nSECは米国証券取引委員会であり、会計基準の名称ではない。"
-    ],
-    "suggestedQuestions": [
-      "IFRSとIASBの違いは何ですか？",
-      "GAAPは何の総称ですか？",
-      "なぜ国際会計基準が必要ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "IFRSとIASBの違いは何ですか？",
-        "answer": "IFRSは会計基準、IASBはその基準を策定する組織である。"
-      },
-      {
-        "question": "GAAPは何の総称ですか？",
-        "answer": "一般に公正妥当と認められた会計原則の総称で、国や制度により内容が異なる。"
-      },
-      {
-        "question": "なぜ国際会計基準が必要ですか？",
-        "answer": "国境を越える投資や企業比較で、財務情報を同じ物差しで見られるようにするためである。"
-      }
+      "正しい。国際的な会計基準に該当するのはIFRSである。GAAPは一般に公正妥当と認められた会計原則の総称、IASBはIFRSを策定する機関、SECは米国の証券規制当局であり、いずれも会計基準そのものの名称ではない。"
     ],
     "original_question_id": "224d941b13971c6e",
     "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_30.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201202:224d941b13971c6e",
+    "reviewQuestionId": "224d941b13971c6e",
+    "sourceRecordRef": "question_201202_2.json#4",
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-10-03",
+        "sourceUrl": "https://www.ifrs.org/about-us/who-we-are/",
+        "title": "IFRS Foundation: Who we are"
+      },
+      {
+        "referenceDate": "2026-10-03",
+        "sourceUrl": "https://fasb.org/Page/PageContent?PageId=%2Fstaticpages%2Fstandards.html",
+        "title": "FASB: Standards"
+      },
+      {
+        "referenceDate": "2026-10-03",
+        "sourceUrl": "https://www.sec.gov/about",
+        "title": "U.S. Securities and Exchange Commission: About"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -181,33 +155,17 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nCCKはIEEE 802.11bで用いられる符号化・変調方式であり、サブキャリアを直交配置する多重化方式ではない。",
-      "間違い。\n\nCDMは符号分割多重であり、複数サブキャリアを互いに干渉しないよう並べる方式とは異なる。",
-      "正しい。\n\nOFDMはデータ信号を多数のサブキャリアへ分け、それらを直交させて高速無線通信を行う方式である。",
-      "間違い。\n\nTDMは時間軸で多重化する方式であり、周波数上のサブキャリア分割ではない。"
-    ],
-    "suggestedQuestions": [
-      "OFDMの直交とは何ですか？",
-      "TDMとOFDMの違いは何ですか？",
-      "なぜOFDMは高速無線に向きますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "OFDMの直交とは何ですか？",
-        "answer": "各サブキャリア同士が互いに干渉しにくい数学的関係を持ち、周波数利用効率を高められることを指す。"
-      },
-      {
-        "question": "TDMとOFDMの違いは何ですか？",
-        "answer": "TDMは時間で分け、OFDMは周波数上の多数サブキャリアへ分割して同時送信する。"
-      },
-      {
-        "question": "なぜOFDMは高速無線に向きますか？",
-        "answer": "周波数利用効率が高く、多重経路の影響にも比較的強いため、高速伝送へ適用しやすい。"
-      }
+      "正しい。正答はOFDMである。OFDMはデータ信号を複数のサブキャリアに分け、各サブキャリアを互いに直交するように配置して同時に伝送する多重化方式である。"
     ],
     "original_question_id": "142c5133b3aa703c",
     "question_url": "https://www.nw-siken.com/kakomon/24_aki/am2_2.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201202:142c5133b3aa703c",
+    "reviewQuestionId": "142c5133b3aa703c",
+    "sourceRecordRef": "question_201202_2.json#6",
+    "explanationReferences": [],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -571,33 +529,45 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nIPプロトコルへ暗号化や認証を付加する規格はIPsecであり、MPLSではない。",
-      "間違い。\n\nL2FとPPTPを統合して改良したのはL2TPであり、MPLSの説明ではない。",
-      "間違い。\n\nPPPフレームをIPでカプセル化するトンネリング方式はPPPoEやL2TP系の文脈であり、MPLSではない。",
-      "正しい。\n\nMPLSはラベルを付けて転送することで、IPアドレスだけに依存しないラベルスイッチング型のパケット転送を実現する。"
-    ],
-    "suggestedQuestions": [
-      "MPLSのラベルは何のために使いますか？",
-      "IPsecやL2TPとの違いは何ですか？",
-      "MPLSはどんな場面で有効ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "MPLSのラベルは何のために使いますか？",
-        "answer": "ルータが宛先IPの詳細検索を繰り返さず、ラベルを見て高速に転送経路を選べるようにするためである。"
-      },
-      {
-        "question": "IPsecやL2TPとの違いは何ですか？",
-        "answer": "IPsecやL2TPは主にセキュリティやトンネリング、MPLSは転送制御と経路制御のための仕組みである。"
-      },
-      {
-        "question": "MPLSはどんな場面で有効ですか？",
-        "answer": "VPN提供やトラフィックエンジニアリングなど、広域ネットワークの柔軟な経路制御で有効である。"
-      }
+      "間違い。IPプロトコルに暗号化や認証などのセキュリティ機能を付加する規格はIPsecである。選択肢はこの機能をMPLSの説明としているため誤りである。",
+      "間違い。L2FとPPTPを統合して改良したデータリンク層のトンネリングプロトコルはL2TPである。選択肢はL2TPの説明をMPLSの説明としているため誤りである。",
+      "間違い。PPPデータフレームをトンネルで運び、IPネットワークを通過させるプロトコルはL2TPである。選択肢はこのPPPのトンネリング機能をMPLSの説明としているため誤りである。",
+      "正しい。MPLSはパケットにラベルを付け、そのラベルに基づいて転送する。転送処理をIPアドレスだけに依存しないラベルスイッチング方式で実現する技術である。"
     ],
     "original_question_id": "7071e83e94e28d95",
     "question_url": "https://www.nw-siken.com/kakomon/24_aki/am2_15.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201202:7071e83e94e28d95",
+    "reviewQuestionId": "7071e83e94e28d95",
+    "sourceRecordRef": "question_201202_2.json#19",
+    "explanationReferences": [
+      {
+        "choiceIndex": 0,
+        "referenceDate": "2005-12-01",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc4301.html",
+        "title": "Security Architecture for the Internet Protocol"
+      },
+      {
+        "choiceIndex": 1,
+        "referenceDate": "1999-08-01",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc2661.html",
+        "title": "Layer Two Tunneling Protocol (L2TP)"
+      },
+      {
+        "choiceIndex": 2,
+        "referenceDate": "1999-08-01",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc2661.html",
+        "title": "Layer Two Tunneling Protocol (L2TP)"
+      },
+      {
+        "choiceIndex": 3,
+        "referenceDate": "2001-01-01",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc3031.html",
+        "title": "Multiprotocol Label Switching Architecture"
+      }
+    ],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -631,122 +601,187 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nダイジェスト認証は単純にID:パスワードだけをMD5化して送るのではなく、チャレンジ値なども使って応答を作る。",
-      "間違い。\n\nHTTPダイジェスト認証の代表的な説明はMD5ベースであり、ここでSHAとするのは不適切である。",
-      "正しい。\n\nベーシック認証では利用者IDとパスワードをコロンで連結し、Base64でエンコードしてAuthorizationヘッダへ載せる。",
-      "間違い。\n\nベーシック認証でもそのまま平文記載するのではなく、少なくともBase64エンコードして送る。"
-    ],
-    "suggestedQuestions": [
-      "ベーシック認証が危険と言われるのはなぜですか？",
-      "ダイジェスト認証は何を改善しますか？",
-      "Base64は暗号化ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ベーシック認証が危険と言われるのはなぜですか？",
-        "answer": "Base64は可逆な表現変換に過ぎず、TLSなしでは認証情報を容易に復元され得るからである。"
-      },
-      {
-        "question": "ダイジェスト認証は何を改善しますか？",
-        "answer": "認証のたびに異なるチャレンジ値を使い、パスワードそのものを直接送らずに済むようにする。"
-      },
-      {
-        "question": "Base64は暗号化ですか？",
-        "answer": "暗号化ではなくエンコードであり、秘密性を保証しない。"
-      }
+      "間違い。ダイジェスト認証は、利用者IDとパスワードだけをMD5で処理する方式ではない。サーバーから受け取ったnonceやHTTPメソッド、要求URIなどを用いてチャレンジへの応答を計算するため、選択肢は認証情報の作り方を単純化しすぎている。",
+      "間違い。ダイジェスト認証は、利用者IDとパスワードをコロンで連結したものだけをSHAで処理して送る方式ではない。nonceなどを含むチャレンジレスポンスを計算してAuthorizationヘッダーに指定する。",
+      "正しい。ベーシック認証では、利用者IDとパスワードをコロンで連結し、そのバイト列をBase64でエンコードしてAuthorizationヘッダーに指定する。Base64は暗号化ではないため、通常はTLSと併用する。",
+      "間違い。ベーシック認証では、利用者IDとパスワードをコロンで連結した後、Base64でエンコードしてAuthorizationヘッダーに指定する。エンコードせずにそのまま送る方式ではない。"
     ],
     "original_question_id": "1816cbb00cf00322",
     "question_url": "https://www.nw-siken.com/kakomon/24_aki/am2_17.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201202:1816cbb00cf00322",
+    "reviewQuestionId": "1816cbb00cf00322",
+    "sourceRecordRef": "question_201202_2.json#21",
+    "explanationReferences": [
+      {
+        "referenceDate": "2015-09-30",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc7616",
+        "title": "HTTP Digest Access Authentication (RFC 7616)"
+      },
+      {
+        "referenceDate": "2015-09-30",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc7617",
+        "title": "The 'Basic' HTTP Authentication Scheme (RFC 7617)"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "間違い。\n\nCSSは表示スタイルを定義する仕組みであり、Webサーバ上のコンテンツ更新プロトコルではない。",
-      "間違い。\n\nMIMEはメールなどでデータ型を表現する仕組みであり、HTTP上の編集更新機能ではない。",
-      "間違い。\n\nSSLは通信路を保護するセキュアプロトコルであって、コンテンツのアップロードや更新手順を定めるものではない。",
-      "正しい。\n\nWebDAVはHTTPを拡張し、アップロードや属性変更、移動などのコンテンツ管理操作を可能にする。"
-    ],
-    "suggestedQuestions": [
-      "WebDAVはHTTPをどう拡張しますか？",
-      "MIMEとWebDAVの違いは何ですか？",
-      "WebDAVでできる操作は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "WebDAVはHTTPをどう拡張しますか？",
-        "answer": "PUTやPROPFINDなどのメソッドや属性操作の考え方を用い、Webコンテンツ管理をしやすくする。"
-      },
-      {
-        "question": "MIMEとWebDAVの違いは何ですか？",
-        "answer": "MIMEはデータ形式の表現、WebDAVはHTTP上のファイル操作・管理機能の拡張である。"
-      },
-      {
-        "question": "WebDAVでできる操作は何ですか？",
-        "answer": "ファイルのアップロード、更新、コピー、移動、属性取得・変更などが行える。"
-      }
+      "正しい。答えはWebDAVである。WebDAVはHTTPを拡張したプロトコルで、Webサーバ上のコンテンツのアップロードや更新、移動などを可能にする。"
     ],
     "original_question_id": "ef160d76b1c55967",
     "question_url": "https://www.nw-siken.com/kakomon/24_aki/am2_18.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201202:ef160d76b1c55967",
+    "reviewQuestionId": "ef160d76b1c55967",
+    "sourceRecordRef": "question_201202_2.json#22",
+    "explanationReferences": [],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "間違い。\n\nCRLは有効期限が切れた証明書ではなく、有効期間内に失効した証明書を扱う。",
-      "間違い。\n\n失効管理に用いる識別情報は公開鍵そのものではなく、証明書のシリアル番号で管理する。",
-      "間違い。\n\n有効期間内に失効した証明書を対象とする点は合っても、公開鍵リストとするのは不適切である。",
-      "正しい。\n\nCRLは有効期限内に失効したデジタル証明書のシリアル番号を列挙した失効リストである。"
-    ],
-    "suggestedQuestions": [
-      "CRLはなぜシリアル番号で管理しますか？",
-      "OCSPとの違いは何ですか？",
-      "有効期限切れと失効はどう違いますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "CRLはなぜシリアル番号で管理しますか？",
-        "answer": "証明書ごとに一意な識別子として扱いやすく、公開鍵全文を列挙するより効率的だからである。"
-      },
-      {
-        "question": "OCSPとの違いは何ですか？",
-        "answer": "CRLは失効証明書一覧を配布し、OCSPは個別証明書の状態をオンライン照会する。"
-      },
-      {
-        "question": "有効期限切れと失効はどう違いますか？",
-        "answer": "有効期限切れは予定された終了、失効は漏えいなどで有効期間中に信用を取り消すことを指す。"
-      }
+      "正しい。CRLは、認証局が発行する証明書失効リストであり、有効期間内に失効した証明書をシリアル番号で識別する。証明書の有効期限が切れたかどうかや公開鍵そのものを列挙するリストではない。"
     ],
     "original_question_id": "9982296279adabd5",
     "question_url": "https://www.nw-siken.com/kakomon/24_aki/am2_19.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201202:9982296279adabd5",
+    "reviewQuestionId": "9982296279adabd5",
+    "sourceRecordRef": "question_201202_2.json#23",
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-10-03",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc5280.html",
+        "title": "RFC 5280: Internet X.509 Public Key Infrastructure Certificate and CRL Profile"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "CRLは、有効期限内に失効したデジタル証明書をシリアル番号で示す技術上のリストであり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "有効期限切れではなく、有効期間内に失効した証明書を対象とするため誤り。",
+          "promptContext": "CRLの対象期間と識別子を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判定したため、法令根拠は使用していない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "CRLは公開鍵のリストではなく、証明書をシリアル番号で識別するため誤り。",
+          "promptContext": "CRLが列挙する情報の種類を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判定したため、法令根拠は使用していない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "有効期間内に失効した証明書を対象とするが、公開鍵のリストではないため誤り。",
+          "promptContext": "失効対象とリスト要素の両方を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判定したため、法令根拠は使用していない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "CRLは、有効期間内に失効したデジタル証明書をシリアル番号で識別するリストであるため正しい。",
+          "promptContext": "CRLの対象と識別方法を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識で判定したため、法令根拠は使用していない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n固定パスワードをSSLで保護して送るだけでは、毎回異なるチャレンジ値を使うチャレンジレスポンス方式の説明にならない。",
-      "間違い。\n\n端末シリアル番号を秘密鍵で暗号化して送る説明は公開鍵認証に近く、チャレンジレスポンス方式の本質ではない。",
-      "間違い。\n\nトークンが毎回異なる値を表示する方式はワンタイムパスワード方式の説明であり、チャレンジレスポンスそのものではない。",
-      "正しい。\n\nサーバが送る乱数と利用者の秘密情報をクライアント側で演算し、その結果だけを返すのがチャレンジレスポンス方式である。"
-    ],
-    "suggestedQuestions": [
-      "チャレンジレスポンス方式の利点は何ですか？",
-      "ワンタイムパスワードとの違いは何ですか？",
-      "なぜ乱数を使うのですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "チャレンジレスポンス方式の利点は何ですか？",
-        "answer": "秘密情報そのものを通信路へ流さず、かつ毎回異なる応答にできるため盗聴やリプレイに強い。"
-      },
-      {
-        "question": "ワンタイムパスワードとの違いは何ですか？",
-        "answer": "ワンタイムパスワードは使い捨て値自体を送るのに対し、チャレンジレスポンスはサーバの乱数に対する計算結果を返す。"
-      },
-      {
-        "question": "なぜ乱数を使うのですか？",
-        "answer": "毎回異なる応答を作り、過去の応答を再送しても通用しないようにするためである。"
-      }
+      "間違い。正しくは、サーバが毎回送るランダムなデータと秘密情報を組み合わせて応答する方式である。選択肢は固定のパスワードをSSLで暗号化して送るとしているため、チャレンジ値に応じて応答を変えるチャレンジレスポンス方式ではない。",
+      "間違い。正しくは、サーバから受け取った毎回異なるデータと秘密情報を使って応答を作る方式である。選択肢は端末のシリアル番号を暗号化して送るとしており、サーバが送るランダムなチャレンジへの応答を説明していない。",
+      "間違い。正しくは、サーバから送られたランダムなデータを利用して応答を計算する方式である。選択肢はトークンが毎回異なる値を表示し、それをパスワードとして送るワンタイムパスワード方式を説明している。",
+      "正しい。サーバが送るランダムなデータと利用者だけが知る秘密情報をクライアント側で演算し、その結果を送信する。秘密のパスワード自体を送らず、チャレンジごとに異なる応答を返すことで認証する。"
     ],
     "original_question_id": "7aade85d7c63b504",
     "question_url": "https://www.nw-siken.com/kakomon/24_aki/am2_20.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201202:7aade85d7c63b504",
+    "reviewQuestionId": "7aade85d7c63b504",
+    "sourceRecordRef": "question_201202_2.json#24",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   }
 ]

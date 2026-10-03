@@ -1,93 +1,157 @@
 [
   {
     "explanationText": [
-      "間違い。\n\nCRM は顧客との関係を強化して満足度や売上を高める考え方であり、企業間をまたぐモノの流れ全体を最適化する手法ではない。",
-      "間違い。\n\nERP は会計、人事、生産など社内の経営資源を統合管理する仕組みであり、調達から販売までのサプライチェーン全体最適化とは別である。",
-      "間違い。\n\nMRP は生産に必要な資材所要量を計画する手法で、対象は主に製造工程内の資材管理である。SCM より範囲が狭い。",
-      "正しい。\n\nSCM は調達、生産、物流、販売までの流れを企業間も含めて統合的に管理し、リードタイム短縮や在庫・物流コスト削減を図る。"
-    ],
-    "suggestedQuestions": [
-      "SCMとMRPの違いは何ですか？",
-      "SCMとERPの違いは何ですか？",
-      "SCMの主な狙いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "SCMとMRPの違いは何ですか？",
-        "answer": "MRP は資材所要量計画が中心で、SCM は調達から販売までの供給連鎖全体を対象にする。"
-      },
-      {
-        "question": "SCMとERPの違いは何ですか？",
-        "answer": "ERP は社内資源の統合管理、SCM は企業間も含めたモノと情報の流れの最適化である。"
-      },
-      {
-        "question": "SCMの主な狙いは何ですか？",
-        "answer": "リードタイム短縮、在庫削減、物流コスト削減などによりサプライチェーン全体の効率を高めること。"
-      }
+      "正しい。SCMは、調達・生産・流通・販売までのサプライチェーン全体を企業間で連携して管理し、リードタイムや在庫・流通コストの削減を目指す考え方である。CRMは顧客関係、ERPは社内の経営資源、MRPは生産に必要な資材所要量を主に管理する点で異なる。"
     ],
     "original_question_id": "91bb3dd7800ff904",
     "question_url": "https://www.nw-siken.com/kakomon/26_aki/am1_26.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201402:91bb3dd7800ff904",
+    "reviewQuestionId": "91bb3dd7800ff904",
+    "sourceRecordRef": "question_201402_2.json#0",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "間違い。\n\n業界で共通利用するためのインタフェース策定は標準化やアライアンスの話であり、自社固有で模倣しにくいコア技術とは言いにくい。",
-      "正しい。\n\n競合が簡単にまねできず、製品競争力の源泉になる自動車エンジンのアイドリングストップ技術は、典型的なコア技術の例である。",
-      "間違い。\n\n競合と同じ CPU コアを採用するのは移植性確保には有効でも、希少性や模倣困難性を備えたコア技術とはいえない。",
-      "間違い。\n\n汎用部品を組み合わせて早期投入するのは開発効率化の工夫であり、企業競争力の核となる独自技術そのものではない。"
-    ],
-    "suggestedQuestions": [
-      "コア技術の条件は何ですか？",
-      "標準化技術がコア技術になりにくいのはなぜですか？",
-      "汎用部品活用との違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "コア技術の条件は何ですか？",
-        "answer": "企業競争力の源泉となり、希少で模倣されにくく、経済的価値を生むことが重要である。"
-      },
-      {
-        "question": "標準化技術がコア技術になりにくいのはなぜですか？",
-        "answer": "共通利用を前提とするため差別化しにくく、自社独自の優位性につながりにくいからである。"
-      },
-      {
-        "question": "汎用部品活用との違いは何ですか？",
-        "answer": "汎用部品活用は開発効率化の手段であり、コア技術は企業固有の強みそのものを指す。"
-      }
+      "間違い。正しくは、業界共通で利用するための標準化技術は、企業固有で模倣しにくいコア技術とは区別される。選択肢は、インタフェースを共通利用するための技術をコア技術としているため誤りである。",
+      "正しい。コア技術とは、競合他社が簡単にはまねできず、製品やサービスの競争力の源になる独自技術である。自動車エンジンのアイドリングストップ技術は、その例に当たる。",
+      "間違い。正しくは、競合他社と同じCPUコアを採用してソフトウェアの移植性を高める技術は、共通仕様を利用するための技術であり、独自性の高いコア技術とはいえない。選択肢は、共通のCPUコアを使う技術をコア技術としているため誤りである。",
+      "間違い。正しくは、汎用部品を組み合わせて製品を早く開発・投入する技術は、開発効率を高めるための方法である。選択肢は、汎用部品の組合せによる開発方法をコア技術としているため誤りである。"
     ],
     "original_question_id": "9f6129cd798a2b4d",
     "question_url": "https://www.nw-siken.com/kakomon/26_aki/am1_27.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201402:9f6129cd798a2b4d",
+    "reviewQuestionId": "9f6129cd798a2b4d",
+    "sourceRecordRef": "question_201402_2.json#1",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "コア技術の概念理解を問う経営戦略上の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第1選択肢は標準化技術をコア技術としており、法令ではなく経営戦略上の概念で誤りと判定する。",
+          "promptContext": "技術・経営戦略問題として確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "コア技術の概念知識で判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第2選択肢は競合他社がまねしにくい独自技術を示しており、コア技術の定義に合致する。",
+          "promptContext": "技術・経営戦略問題として確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "コア技術の概念知識で判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第3選択肢は競合他社と同じCPUコアを採用する共通仕様の利用を示しており、独自性の高いコア技術とはいえない。",
+          "promptContext": "技術・経営戦略問題として確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "コア技術の概念知識で判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第4選択肢は汎用部品を組み合わせる開発方法を示しており、独自性の高いコア技術とは異なる。",
+          "promptContext": "技術・経営戦略問題として確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "コア技術の概念知識で判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\nCAD の設計データから NC データを作るのは CAM の説明であり、工程の同時並行化を指すコンカレントエンジニアリングではない。",
-      "間違い。\n\n生産時点情報を収集して改善に生かすのは POP などの生産管理の考え方であり、設計から製造までの並行処理とは異なる。",
-      "間違い。\n\n開発・生産情報の内容や表現形式を標準化するのは PDM などのデータ管理の話である。",
-      "正しい。\n\nコンカレントエンジニアリングは企画、設計、製造などを同時並行で進め、全体リードタイム短縮と品質向上を図る手法である。"
-    ],
-    "suggestedQuestions": [
-      "コンカレントエンジニアリングの目的は何ですか？",
-      "CAMやPDMとの違いは何ですか？",
-      "同時並行化で得られる効果は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "コンカレントエンジニアリングの目的は何ですか？",
-        "answer": "設計から製造までの工程を並行して進め、開発期間短縮や手戻り削減を図ること。"
-      },
-      {
-        "question": "CAMやPDMとの違いは何ですか？",
-        "answer": "CAM や PDM は個別の設計・製造支援やデータ管理の仕組みで、コンカレントエンジニアリングは開発プロセス全体の進め方である。"
-      },
-      {
-        "question": "同時並行化で得られる効果は何ですか？",
-        "answer": "市場投入の早期化、部門間連携の向上、手戻りや総コストの削減が期待できる。"
-      }
+      "間違い。正しくは、CADで設計した図形データからNCデータを作成するのはCAMである。選択肢はこの処理をCEとしているため誤りである。",
+      "間違い。正しくは、生産時点で収集した情報を分析して生産効率を高めるのは、POPなどの生産管理の考え方である。選択肢はこの情報活用をCEとしているため誤りである。",
+      "間違い。正しくは、製品の開発や生産に関する情報の内容・表現形式の標準化は、製品情報を標準化する考え方である。選択肢はこの標準化をCEとしているため誤りである。",
+      "正しい。"
     ],
     "original_question_id": "2ada44f04b1c3dbf",
     "question_url": "https://www.nw-siken.com/kakomon/26_aki/am1_28.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201402:2ada44f04b1c3dbf",
+    "reviewQuestionId": "2ada44f04b1c3dbf",
+    "sourceRecordRef": "question_201402_2.json#2",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -301,33 +365,28 @@
   },
   {
     "explanationText": [
-      "正しい。\n\nAAAA レコードはホスト名に対応する IPv6 アドレスを登録するための DNS レコードである。",
-      "間違い。\n\nCNAME レコードは別名を正規名へ対応付けるエイリアス用レコードであり、IP アドレス自体は保持しない。",
-      "間違い。\n\nMX レコードはメール配送先となるメールサーバを示すレコードである。",
-      "間違い。\n\nSOA レコードはゾーンの開始情報や管理情報を持つレコードであり、IPv6 アドレス登録用ではない。"
-    ],
-    "suggestedQuestions": [
-      "AAAAレコードは何を登録しますか？",
-      "Aレコードとの違いは何ですか？",
-      "CNAMEレコードは何に使いますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "AAAAレコードは何を登録しますか？",
-        "answer": "ホスト名と IPv6 アドレスの対応を登録する。"
-      },
-      {
-        "question": "Aレコードとの違いは何ですか？",
-        "answer": "A レコードは IPv4、AAAA レコードは IPv6 の正引きに使う。"
-      },
-      {
-        "question": "CNAMEレコードは何に使いますか？",
-        "answer": "あるホスト名を別の正規ホスト名の別名として扱いたいときに使う。"
-      }
+      "正しい。DNSでは、ホスト名に対応するIPv6アドレスを登録するためにAAAAレコードを使う。CNAMEレコードは別名から正規名への対応付け、MXレコードはメール配送先の指定、SOAレコードはゾーンの開始情報や管理情報の指定に用いるため、IPv6アドレスの登録には使わない。"
     ],
     "original_question_id": "4441b25ec793baf5",
     "question_url": "https://www.nw-siken.com/kakomon/26_aki/am2_6.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201402:4441b25ec793baf5",
+    "reviewQuestionId": "4441b25ec793baf5",
+    "sourceRecordRef": "question_201402_2.json#10",
+    "explanationReferences": [
+      {
+        "referenceDate": "2003-10-01",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc3596.html",
+        "title": "RFC 3596: DNS Extensions to Support IP Version 6"
+      },
+      {
+        "referenceDate": "1987-11-01",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc1035.html",
+        "title": "RFC 1035: Domain Names - Implementation and Specification"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -361,33 +420,20 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n一つのホスト名に複数 IP を対応させることも、複数ホスト名に同一 IP を対応させることも可能である。後半が誤りである。",
-      "正しい。\n\nDNS では一つのホスト名へ複数 IP を割り当てることも、複数ホスト名を同じ IP へ対応付けることもできる。ラウンドロビンやバーチャルホスト構成が例である。",
-      "間違い。\n\n複数ホスト名を同じ IP へ対応させられるが、一つのホスト名に複数 IP を対応させることもできるため前半だけの説明では不十分である。",
-      "間違い。\n\nDNS の対応関係は常に 1 対 1 ではない。多対多的な運用も可能である。"
-    ],
-    "suggestedQuestions": [
-      "DNS ラウンドロビンとは何ですか？",
-      "一つの IP に複数ホスト名を割り当てる例はありますか？",
-      "CNAME はどんなときに使いますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "DNS ラウンドロビンとは何ですか？",
-        "answer": "一つのホスト名に複数 IP アドレスを登録し、応答順序などで負荷分散を図る方法である。"
-      },
-      {
-        "question": "一つの IP に複数ホスト名を割り当てる例はありますか？",
-        "answer": "一台の Web サーバで複数ドメインや複数サービス名を運用するバーチャルホスト構成が例である。"
-      },
-      {
-        "question": "CNAME はどんなときに使いますか？",
-        "answer": "別名を付けたいときや、実体ホスト名へ参照を集約したいときに使う。"
-      }
+      "間違い。正しくは、一つのホスト名に複数のIPアドレスを対応させることも、複数のホスト名に同じIPアドレスを対応させることもできる。選択肢は、複数のホスト名に同じIPアドレスを対応させられないとしているため誤りである。",
+      "正しい。",
+      "間違い。正しくは、一つのホスト名に複数のIPアドレスを対応させることも、複数のホスト名に同じIPアドレスを対応させることもできる。選択肢は、一つのホスト名に複数のIPアドレスを対応させられないとしているため誤りである。",
+      "間違い。正しくは、DNSでは一つのホスト名に複数のIPアドレスを対応させたり、複数のホスト名に同じIPアドレスを対応させたりできる。選択肢は対応関係が常に1対1であるとしているため誤りである。"
     ],
     "original_question_id": "4489c44c1d5d7c0c",
     "question_url": "https://www.nw-siken.com/kakomon/26_aki/am2_8.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201402:4489c44c1d5d7c0c",
+    "reviewQuestionId": "4489c44c1d5d7c0c",
+    "sourceRecordRef": "question_201402_2.json#12",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -451,33 +497,23 @@
   },
   {
     "explanationText": [
-      "正しい。\n\nRIP では経路メトリックとしてホップ数を使い、到達可能とみなす最大ホップ数は 15 である。16 は到達不能を表す。",
-      "間違い。\n\n31 という値は RIP の到達可能上限ではない。RIP は 15 ホップまでしか扱えない。",
-      "間違い。\n\n63 は RIP の仕様上の最大ホップ数ではない。",
-      "間違い。\n\n127 のような大きなホップ数は RIP では扱わない。経路が 16 以上になると到達不能として扱う。"
-    ],
-    "suggestedQuestions": [
-      "RIPで16ホップはどう扱いますか？",
-      "RIPが大規模ネットワークに向かない理由は何ですか？",
-      "RIPのメトリックは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "RIPで16ホップはどう扱いますか？",
-        "answer": "到達不能を表す値として扱う。"
-      },
-      {
-        "question": "RIPが大規模ネットワークに向かない理由は何ですか？",
-        "answer": "ホップ数上限が低く、収束も遅いため大規模・複雑な経路制御に向きにくい。"
-      },
-      {
-        "question": "RIPのメトリックは何ですか？",
-        "answer": "宛先までに経由するルータ数、すなわちホップ数である。"
-      }
+      "正しい。RIPは経路メトリックにホップ数を用い、1～15を到達可能な値として扱う。16は到達不能を示すため、宛先に到達可能な最大ホップ数は15である。"
     ],
     "original_question_id": "2f3da765b2867a51",
     "question_url": "https://www.nw-siken.com/kakomon/26_aki/am2_11.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201402:2f3da765b2867a51",
+    "reviewQuestionId": "2f3da765b2867a51",
+    "sourceRecordRef": "question_201402_2.json#15",
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-10-03",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc2453.html",
+        "title": "RFC 2453: RIP Version 2"
+      }
+    ],
+    "questionLearningPatternId": "conditions_scope",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -571,63 +607,60 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n全角英数字は IDN の処理過程で正規化されるため、全角表記と半角表記を別ドメインとして扱う説明は不適切である。",
-      "正しい。\n\nIDN では漢字やアラビア文字などを含むドメイン名を、通信時には ASCII 文字だけから成る Punycode 表現へ一定規則で変換して扱う。",
-      "間違い。\n\n.com や .net は gTLD の説明であり、IDN そのものの説明ではない。",
-      "間違い。\n\n.jp や .uk は ccTLD の説明であり、ASCII 以外の文字利用を可能にする IDN の定義とは別である。"
-    ],
-    "suggestedQuestions": [
-      "IDNでPunycode変換を行う理由は何ですか？",
-      "gTLDやccTLDとの違いは何ですか？",
-      "IDNで使える文字の考え方は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "IDNでPunycode変換を行う理由は何ですか？",
-        "answer": "既存 DNS が ASCII ベースで動作するため、Unicode を ASCII の互換表現へ変換して運ぶ必要がある。"
-      },
-      {
-        "question": "gTLDやccTLDとの違いは何ですか？",
-        "answer": "gTLD や ccTLD はトップレベルドメインの分類、IDN はラベル部分で非 ASCII 文字を扱える仕組みである。"
-      },
-      {
-        "question": "IDNで使える文字の考え方は何ですか？",
-        "answer": "利用者は漢字などで入力できるが、実際の通信では ASCII の互換表現へ変換して扱う。"
-      }
+      "間違い。正しくは、全角英数字は正規化の対象となり、半角英数字と同じドメイン名として扱われる。選択肢は全角表記と半角表記を異なるドメイン名として扱うとしているため誤りである。",
+      "正しい。IDNでは、漢字やアラビア文字などを含むドメイン名を、通信時にASCII文字だけから成るA-labelへ一定の規則で変換して扱う。この変換にはPunycodeが用いられる。",
+      "間違い。正しくは、IDNはASCII以外の文字をドメイン名に利用するための仕組みである。.comや.netは、国を限定せずに利用できるgTLDの例であり、IDNそのものを指さない。選択肢はgTLDの説明をIDNの定義としているため誤りである。",
+      "間違い。正しくは、IDNは国別トップレベルドメインを使うかどうかではなく、ドメイン名に国際化文字を利用できるようにする仕組みである。.jpや.ukはccTLDの例であり、IDNの定義とは別である。選択肢はccTLDの説明をIDNの定義としているため誤りである。"
     ],
     "original_question_id": "f8b90d6ca5d8e3a2",
     "question_url": "https://www.nw-siken.com/kakomon/26_aki/am2_15.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201402:f8b90d6ca5d8e3a2",
+    "reviewQuestionId": "f8b90d6ca5d8e3a2",
+    "sourceRecordRef": "question_201402_2.json#19",
+    "explanationReferences": [
+      {
+        "referenceDate": "2010-08-04",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc5890",
+        "title": "RFC 5890: Internationalized Domain Names for Applications (IDNA): Definitions and Document Framework"
+      },
+      {
+        "referenceDate": "2003-03-07",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc3492",
+        "title": "RFC 3492: Punycode: A Bootstring encoding of Unicode for Internationalized Domain Names in Applications (IDNA)"
+      }
+    ],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "間違い。\n\n再帰問い合わせの受付範囲を広げる設定はオープンリゾルバ化につながる運用の話であり、DNSSEC の機能ではない。",
-      "正しい。\n\nDNSSEC は応答レコードへ付いたデジタル署名を検証し、送信者の正当性とデータ完全性を確認する拡張仕様である。",
-      "間違い。\n\nセカンダリ DNS の利用は可用性向上策であって、DNSSEC の署名検証機能ではない。",
-      "間違い。\n\n記述は動的 DNS 更新要求の認証に関するものであり、DNSSEC の本質ではない。"
-    ],
-    "suggestedQuestions": [
-      "DNSSECは何を守りますか？",
-      "DNSSECと可用性向上策の違いは何ですか？",
-      "オープンリゾルバ問題とは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "DNSSECは何を守りますか？",
-        "answer": "DNS 応答が改ざんされていないことと、正当な権威サーバ由来であることを検証する。"
-      },
-      {
-        "question": "DNSSECと可用性向上策の違いは何ですか？",
-        "answer": "DNSSEC は正当性と完全性の検証、セカンダリ DNS は可用性向上が目的である。"
-      },
-      {
-        "question": "オープンリゾルバ問題とは何ですか？",
-        "answer": "誰からでも再帰問い合わせを受け付ける DNS サーバが悪用され、増幅攻撃などに使われる問題である。"
-      }
+      "間違い。再帰問い合わせを受け付ける範囲の設定は、DNSキャッシュサーバのアクセス制御や運用に関するものである。選択肢は受付範囲を最大にすることをDNSSECの機能としているため誤りである。",
+      "正しい。DNSSECは、DNSデータに付されたデジタル署名を検証し、データの送信元認証と完全性を確認する。",
+      "間違い。セカンダリDNSサーバを利用したコンテンツサーバの二重化は、名前解決の可用性を高める構成である。選択肢はこの可用性向上策をDNSSECの機能としているため誤りである。",
+      "間違い。DNS更新要求の認証は、動的DNS更新における認証方式の役割である。選択肢は動的DNS更新要求の認証をDNSSECの機能としているため誤りである。"
     ],
     "original_question_id": "da3369a5a3357b4b",
     "question_url": "https://www.nw-siken.com/kakomon/26_aki/am2_16.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201402:da3369a5a3357b4b",
+    "reviewQuestionId": "da3369a5a3357b4b",
+    "sourceRecordRef": "question_201402_2.json#20",
+    "explanationReferences": [
+      {
+        "referenceDate": "2005-03-01",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc4033.html",
+        "title": "RFC 4033: DNS Security Introduction and Requirements"
+      },
+      {
+        "choiceIndex": 3,
+        "referenceDate": "2000-11-01",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc3007.html",
+        "title": "RFC 3007: Secure Domain Name System (DNS) Dynamic Update"
+      }
+    ],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -661,63 +694,56 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nサプリカントはクライアント PC 側の役割であり、RADIUS クライアント機能を PC へ持たせる構成ではない。",
-      "正しい。\n\nIEEE 802.1X では、アクセスポイントがオーセンティケータとなって認証メッセージを中継し、RADIUS クライアントとして認証サーバへ問い合わせる。",
-      "間違い。\n\nアクセスポイントはサプリカントではなくオーセンティケータであり、RADIUS サーバ機能を持つわけでもない。",
-      "間違い。\n\nサーバは認証サーバとして動作し、IEEE 802.1X のオーセンティケータ役はアクセスポイント側が担う。"
-    ],
-    "suggestedQuestions": [
-      "802.1X の三者の役割は何ですか？",
-      "RADIUS クライアントはどこに実装しますか？",
-      "サプリカントとは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "802.1X の三者の役割は何ですか？",
-        "answer": "クライアントがサプリカント、アクセスポイントがオーセンティケータ、サーバが認証サーバとなる。"
-      },
-      {
-        "question": "RADIUS クライアントはどこに実装しますか？",
-        "answer": "認証要求をサーバへ中継するアクセスポイントやスイッチ側に実装する。"
-      },
-      {
-        "question": "サプリカントとは何ですか？",
-        "answer": "ネットワーク利用のため認証を受ける端末側ソフトウェアのことである。"
-      }
+      "間違い。正しくは、PCにはIEEE 802.1Xのサプリカントを実装するが、RADIUSクライアントとして動作するのはアクセスポイントである。選択肢はPCにRADIUSクライアント機能をもたせるとしているため誤りである。",
+      "正しい。アクセスポイントはIEEE 802.1XのオーセンティケータとしてPCの認証を受け付け、RADIUSクライアントとして認証サーバへ問い合わせる。",
+      "間違い。正しくは、アクセスポイントにはIEEE 802.1XのオーセンティケータとRADIUSクライアントの機能をもたせる。選択肢はアクセスポイントをサプリカントかつRADIUSサーバとしているため誤りである。",
+      "間違い。正しくは、サーバはRADIUSサーバとして認証情報を管理し、IEEE 802.1Xのオーセンティケータはアクセスポイントが担う。選択肢はサーバをオーセンティケータとしているため誤りである。"
     ],
     "original_question_id": "6a57f81aee2f13dd",
     "question_url": "https://www.nw-siken.com/kakomon/26_aki/am2_18.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201402:6a57f81aee2f13dd",
+    "reviewQuestionId": "6a57f81aee2f13dd",
+    "sourceRecordRef": "question_201402_2.json#22",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "間違い。\n\nIP アドレス割当て方針や DNS 管理調整を世界規模で行う組織は ICANN の説明である。",
-      "間違い。\n\nインターネット技術文書を作成し標準化を進めるのは IETF の説明である。",
-      "正しい。\n\nCSIRT は組織内や政府機関などに設置され、セキュリティインシデントの受付、分析、対応、再発防止支援を行うチームや組織の総称である。",
-      "間違い。\n\n宗教的・政治的目的で情報技術を使う人や組織はハクティビストの説明であり、CSIRT ではない。"
-    ],
-    "suggestedQuestions": [
-      "CSIRTの主な役割は何ですか？",
-      "SOCとの違いは何ですか？",
-      "IETFやICANNは何をする組織ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "CSIRTの主な役割は何ですか？",
-        "answer": "インシデント報告受付、調査、封じ込め支援、情報共有、再発防止策の検討などを行う。"
-      },
-      {
-        "question": "SOCとの違いは何ですか？",
-        "answer": "SOC は監視中心、CSIRT は発生後の分析・対応調整や改善まで含めて担うことが多い。"
-      },
-      {
-        "question": "IETFやICANNは何をする組織ですか？",
-        "answer": "IETF は標準化検討、ICANN は名前や番号資源の全体調整を行う組織である。"
-      }
+      "間違い。IPアドレスの割当て方針やDNSルートサーバの運用、DNS管理の調整を世界規模で担う組織はICANNである。選択肢はその説明をCSIRTとしているため誤りである。",
+      "間違い。インターネットに関する技術文書を作成し、標準化を検討する組織はIETFである。選択肢はIETFの説明をCSIRTとしているため誤りである。",
+      "正しい。CSIRTは、企業・組織や政府機関などに設置され、コンピュータセキュリティインシデントの報告を受け付け、調査や対応を行うチームまたは組織の総称である。",
+      "間違い。情報技術を利用して宗教的・政治的な目標を達成しようとする人や組織は、ハクティビストと呼ばれる。選択肢はハクティビストの説明をCSIRTとしているため誤りである。"
     ],
     "original_question_id": "f271e1a707aa7045",
     "question_url": "https://www.nw-siken.com/kakomon/26_aki/am2_19.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201402:f271e1a707aa7045",
+    "reviewQuestionId": "f271e1a707aa7045",
+    "sourceRecordRef": "question_201402_2.json#23",
+    "explanationReferences": [
+      {
+        "choiceIndex": 0,
+        "referenceDate": "2006-06-22",
+        "sourceUrl": "https://www.icann.org/resources/unthemed-pages/strategic-plan-2006-2009-2006-06-22-en",
+        "title": "ICANN Strategic Plan 2006-2009"
+      },
+      {
+        "choiceIndex": 1,
+        "referenceDate": "2026-10-03",
+        "sourceUrl": "https://www.ietf.org/process/rfcs/",
+        "title": "IETF RFCs"
+      },
+      {
+        "choiceIndex": 2,
+        "referenceDate": "1998-08-01",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc2350.html",
+        "title": "Expectations for Computer Security Incident Response"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [

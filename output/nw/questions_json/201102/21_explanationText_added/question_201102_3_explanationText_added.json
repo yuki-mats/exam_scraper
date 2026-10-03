@@ -61,33 +61,126 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n役割を固定した複数プロセッサへ処理を分散する説明は非対称型マルチプロセッサに近く、グリッドコンピューティングの説明ではない。",
-      "正しい。\n\nグリッドコンピューティングは、PC から大型計算機までネットワーク上の多数の計算資源を束ねて、大規模な一つの処理を分散実行する方式である。",
-      "間違い。\n\n同等な役割の複数プロセッサへ処理を分散する説明は対称型マルチプロセッサの説明である。",
-      "間違い。\n\nスレッドレベル並列化で単一プロセッサの利用効率を高める説明はマルチスレッドの話であり、グリッドコンピューティングではない。"
-    ],
-    "suggestedQuestions": [
-      "グリッドコンピューティングとクラスタの違いは何ですか？",
-      "なぜ異種計算機もまとめて使えますか？",
-      "どのような処理に向いていますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "グリッドコンピューティングとクラスタの違いは何ですか？",
-        "answer": "クラスタは比較的統一的な環境を密結合で束ねることが多いが、グリッドはネットワーク越しの分散資源を広く活用する。"
-      },
-      {
-        "question": "なぜ異種計算機もまとめて使えますか？",
-        "answer": "ネットワーク越しに計算資源を抽象化し、ジョブを分配する仕組みで全体を一つの資源のように扱うためである。"
-      },
-      {
-        "question": "どのような処理に向いていますか？",
-        "answer": "多数の計算ノードへ分割しやすい大規模科学技術計算や探索処理に向いている。"
-      }
+      "間違い。役割を固定した複数のプロセッサに処理を分担させる方式は、非対称型マルチプロセッサの説明であり、ネットワーク上の計算資源を束ねるグリッドコンピューティングとは異なる。",
+      "正しい。グリッドコンピューティングは、PCから大型コンピュータまで、ネットワーク上の複数の計算資源を束ね、大規模な処理を分散して実行する方式である。",
+      "間違い。同等の役割を持つ複数のプロセッサに処理を分散する方式は、対称型マルチプロセッサの説明であり、ネットワーク上の計算資源を束ねるグリッドコンピューティングとは異なる。",
+      "間違い。プロセッサ上でスレッド単位の並列化を行う説明は、マルチスレッドの説明である。複数の計算機をネットワークで結び、大規模な処理を分散するグリッドコンピューティングとは異なる。"
     ],
     "original_question_id": "c05d1305bc569421",
     "question_url": "https://www.nw-siken.com/kakomon/23_aki/am2_23.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201102:c05d1305bc569421",
+    "reviewQuestionId": "c05d1305bc569421",
+    "sourceRecordRef": "question_201102_3.json#2",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "グリッドコンピューティングの技術概念を問う問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第1選択肢は非対称型マルチプロセッサの説明であり、グリッドコンピューティングではない。",
+          "promptContext": "技術概念として確認。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定でき、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第2選択肢は、ネットワーク上の複数の計算資源へ処理を分散するグリッドコンピューティングの説明である。",
+          "promptContext": "技術概念として確認。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで判定でき、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第3選択肢は対称型マルチプロセッサの説明であり、グリッドコンピューティングではない。",
+          "promptContext": "技術概念として確認。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定でき、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第4選択肢はマルチスレッドの説明であり、グリッドコンピューティングではない。",
+          "promptContext": "技術概念として確認。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定でき、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -121,32 +214,125 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n主要タスク完了時点で成果物の状況が見えるのは、管理された状態に近く、最も成熟度が高い段階ではない。",
-      "間違い。\n\n実績を定量的に把握して組織的に管理している状態は CMMI のレベル4に相当し、最上位ではない。",
-      "間違い。\n\nプロセスが明文化され全員が利用している状態は CMMI のレベル3に相当する。",
-      "正しい。\n\nプロセス自体を継続的に改善する仕組みが機能している状態は、CMMI の最上位であるレベル5『最適化』に相当する。"
-    ],
-    "suggestedQuestions": [
-      "CMMIの5段階は何ですか？",
-      "レベル4とレベル5の違いは何ですか？",
-      "なぜ継続的改善が最上位ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "CMMIの5段階は何ですか？",
-        "answer": "初期、管理された、定義された、定量的に管理された、最適化している、の5段階である。"
-      },
-      {
-        "question": "レベル4とレベル5の違いは何ですか？",
-        "answer": "レベル4は定量管理中心、レベル5はそのデータを使ってプロセス自体を継続改善する段階である。"
-      },
-      {
-        "question": "なぜ継続的改善が最上位ですか？",
-        "answer": "標準化や定量管理を前提に、組織が自律的により良いプロセスへ進化し続けられる状態だからである。"
-      }
+      "間違い。正しくは、作業成果物とプロセスが計画に沿って管理され、主要なタスクの完了時に管理層が状況を把握できる状態は、CMMIのレベル2「管理された」に当たる。選択肢はこの段階を最も高い成熟度としているため誤りである。",
+      "間違い。正しくは、実績を定量的に把握し、統計的な手法などでプロセスを管理する状態は、CMMIのレベル4「定量的に管理された」に当たる。選択肢はレベル4を最上位としているため誤りである。",
+      "間違い。正しくは、組織全体で標準化されたプロセスを定め、各プロジェクトがそれを利用する状態は、CMMIのレベル3「定義された」に当たる。選択肢はレベル3を最も高い成熟度としているため誤りである。",
+      "正しい。プロセス自体を継続的に改善する仕組みが機能している状態は、CMMIの最上位であるレベル5「最適化」に当たる。レベル5では、改善の効果を確認しながら、組織のプロセスをさらに向上させる。"
     ],
     "original_question_id": "2f86378f2f365e07",
     "question_url": "https://www.nw-siken.com/kakomon/23_aki/am2_25.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201102:2f86378f2f365e07",
+    "reviewQuestionId": "2f86378f2f365e07",
+    "sourceRecordRef": "question_201102_3.json#4",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "CMMIのプロセス成熟度レベルを問う技術的な問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はCMMIの技術知識で判定し、法令根拠を必要としない。",
+          "promptContext": "CMMI成熟度レベルの説明に関する選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "CMMI成熟度の判定は技術知識によるもので、法令改正差分はない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はCMMIの技術知識で判定し、法令根拠を必要としない。",
+          "promptContext": "CMMI成熟度レベルの説明に関する選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "CMMI成熟度の判定は技術知識によるもので、法令改正差分はない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はCMMIの技術知識で判定し、法令根拠を必要としない。",
+          "promptContext": "CMMI成熟度レベルの説明に関する選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "CMMI成熟度の判定は技術知識によるもので、法令改正差分はない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はCMMIの最上位成熟度に関する技術知識で判定し、法令根拠を必要としない。",
+          "promptContext": "CMMI成熟度レベルの説明に関する選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "CMMI成熟度の判定は技術知識によるもので、法令改正差分はない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   }
 ]

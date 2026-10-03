@@ -1,33 +1,126 @@
 [
   {
     "explanationText": [
-      "正しい。\n\n桁落ちは、ほぼ等しい値同士の減算で有効桁が失われ、結果の相対誤差が大きくなる現象である。",
-      "間違い。\n\n下位桁を切捨てや四捨五入で落とす説明は丸め誤差であり、桁落ちではない。",
-      "間違い。\n\n大きい値と小さい値の加減算で小さい値が反映されにくくなるのは情報落ちの説明である。",
-      "間違い。\n\n無限級数や反復計算を途中で打ち切ることで生じるのは打切り誤差である。"
-    ],
-    "suggestedQuestions": [
-      "桁落ちと情報落ちの違いは何ですか？",
-      "丸め誤差はどんなときに起こりますか？",
-      "桁落ちを避けるにはどうしますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "桁落ちと情報落ちの違いは何ですか？",
-        "answer": "桁落ちは近い値の減算で有効桁が減る現象、情報落ちは桁数差が大きい値の加減算で小さい値が埋もれる現象である。"
-      },
-      {
-        "question": "丸め誤差はどんなときに起こりますか？",
-        "answer": "有限桁で表すために切捨てや四捨五入を行い、真値を完全には保持できないときに起こる。"
-      },
-      {
-        "question": "桁落ちを避けるにはどうしますか？",
-        "answer": "式変形で近い値の差を直接求めないようにしたり、より高い精度で計算したりする。"
-      }
+      "正しい。桁落ちは、ほぼ等しい値同士を減算したときに有効桁が失われ、結果の相対誤差が大きくなる現象である。",
+      "間違い。正しくは、指定した有効桁数に合わせて切捨てや四捨五入で下位桁を削ることによる丸め誤差である。選択肢は丸め誤差を桁落ちとしているため誤りである。",
+      "間違い。正しくは、絶対値が大きく異なる数値を加減算したときに小さい数値の情報が反映されにくくなる情報落ちである。選択肢は情報落ちを桁落ちとしているため誤りである。",
+      "間違い。正しくは、無限級数などの計算を有限項で途中終了することによる打切り誤差である。選択肢は打切り誤差を桁落ちとしているため誤りである。"
     ],
     "original_question_id": "42e3137a588b46a0",
     "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_1.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201302:42e3137a588b46a0",
+    "reviewQuestionId": "42e3137a588b46a0",
+    "sourceRecordRef": "question_201302_1.json#0",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "桁落ち、丸め誤差、情報落ち、打切り誤差の区別は数値計算の技術知識に基づき、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "桁落ちは、ほぼ等しい値同士の減算で有効桁が失われる数値計算上の現象である。",
+          "promptContext": "第1選択肢の判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識による判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "指定桁数に合わせて下位桁を削ることによる誤差は丸め誤差であり、桁落ちではない。",
+          "promptContext": "第2選択肢の判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識による判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "絶対値が大きく異なる数値の加減算で小さい数値が反映されにくくなる現象は情報落ちであり、桁落ちではない。",
+          "promptContext": "第3選択肢の判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識による判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "無限級数などを有限項で打ち切ることによる誤差は打切り誤差であり、桁落ちではない。",
+          "promptContext": "第4選択肢の判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識による判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -121,33 +214,20 @@
   },
   {
     "explanationText": [
-      "正しい。\n\nフェールセーフは故障時でも危険側へ進まないよう、安全側の状態へ制御する考え方である。",
-      "間違い。\n\n機能を縮退させながら運転継続を図るのはフェールソフトの考え方である。",
-      "間違い。\n\n重要要素を冗長化して信頼性を高めるのはフォールトトレラントの説明である。",
-      "間違い。\n\n誰が操作しても誤操作しにくくする設計はフールプルーフである。"
-    ],
-    "suggestedQuestions": [
-      "フェールセーフとフェールソフトの違いは何ですか？",
-      "フォールトトレラントは何を狙いますか？",
-      "フールプルーフとは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "フェールセーフとフェールソフトの違いは何ですか？",
-        "answer": "フェールセーフは安全を優先して停止や遮断へ寄せ、フェールソフトは機能を縮退させて運用継続を図る。"
-      },
-      {
-        "question": "フォールトトレラントは何を狙いますか？",
-        "answer": "一部の故障が起きても全体サービスを継続できるよう、冗長化などで耐障害性を高める。"
-      },
-      {
-        "question": "フールプルーフとは何ですか？",
-        "answer": "利用者の誤操作を前提に、危険や誤動作が起きにくいよう設計する考え方である。"
-      }
+      "正しい。フェールセーフは、故障が発生しても危険側へ進まないよう、安全側の状態に制御する考え方である。",
+      "間違い。正しくは、機能を縮退させながら運用を継続するのはフェールソフトの考え方である。選択肢は、障害時に機能を縮退して運用を継続するとしているため誤りである。",
+      "間違い。正しくは、重要な構成要素を複数備えて信頼性を高めるのはフォールトトレラントの考え方である。選択肢は、信頼性に影響する要素を複数備えるとしているため誤りである。",
+      "間違い。正しくは、誰が操作しても誤操作しにくいように設計するのはフールプルーフの考え方である。選択肢は、操作する人にかかわらず誤動作を起こしにくくするとしているため誤りである。"
     ],
     "original_question_id": "a81b817d7cc9e41c",
     "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_5.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201302:a81b817d7cc9e41c",
+    "reviewQuestionId": "a81b817d7cc9e41c",
+    "sourceRecordRef": "question_201302_1.json#4",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -301,63 +381,37 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nサブネットマスクは 1 が連続した後に 0 が続く形でなければならず、末尾だけ 1 の形は無効である。",
-      "間違い。\n\n32 は 00100000 に相当し、1 が連続して並ぶ形式になっていない。",
-      "間違い。\n\n64 は 01000000 に相当し、先頭から連続した 1 ではないのでサブネットマスクとして使えない。",
-      "正しい。\n\n255.255.255.128 は 11111111.11111111.11111111.10000000 で、1 の連続後に 0 が続く正しい形式である。"
-    ],
-    "suggestedQuestions": [
-      "サブネットマスクの形に条件はありますか？",
-      "255.255.255.128 は何ビットマスクですか？",
-      "なぜ 255.255.255.64 はだめですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "サブネットマスクの形に条件はありますか？",
-        "answer": "左から 1 が連続し、その後ろが全て 0 になる連続ビット列でなければならない。"
-      },
-      {
-        "question": "255.255.255.128 は何ビットマスクですか？",
-        "answer": "最後のオクテットが 10000000 なので /25 である。"
-      },
-      {
-        "question": "なぜ 255.255.255.64 はだめですか？",
-        "answer": "最後のオクテットが 01000000 で、1 が途中から現れるため連続 1 の条件を満たさない。"
-      }
+      "間違い。サブネットマスクは、2進数で左から1が連続し、その後に0が続く形式である。255.255.255.1の末尾は00000001で、1が左から連続していないため、サブネットマスクとして使えない。",
+      "間違い。255.255.255.32の末尾の32は2進数で00100000であり、左から1が連続する形式になっていないため、サブネットマスクとして使えない。",
+      "間違い。255.255.255.64の末尾の64は2進数で01000000であり、左から1が連続する形式になっていないため、サブネットマスクとして使えない。",
+      "正しい。255.255.255.128は2進数で11111111.11111111.11111111.10000000となり、1が連続した後に0が続く正しい形式である。"
     ],
     "original_question_id": "c6e87992015daa38",
     "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_11.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201302:c6e87992015daa38",
+    "reviewQuestionId": "c6e87992015daa38",
+    "sourceRecordRef": "question_201302_1.json#10",
+    "explanationReferences": [],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "間違い。\n\nHTTP はアプリケーション層のプロトコルである。",
-      "間違い。\n\nICMP は IP と同じくネットワーク層で用いられる制御プロトコルである。",
-      "間違い。\n\nSMTP は電子メール送信のためのアプリケーション層プロトコルである。",
-      "正しい。\n\nUDP はポート番号を用いてアプリケーション間の通信を仲介するトランスポート層プロトコルである。"
-    ],
-    "suggestedQuestions": [
-      "トランスポート層の役割は何ですか？",
-      "UDP と TCP の違いは何ですか？",
-      "ICMP はどの層ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "トランスポート層の役割は何ですか？",
-        "answer": "端末間ではなく、端末内のアプリケーション同士を識別してデータを受け渡す役割を持つ。"
-      },
-      {
-        "question": "UDP と TCP の違いは何ですか？",
-        "answer": "UDP は接続確立や再送制御を持たない軽量方式、TCP は信頼性制御を備えた接続型方式である。"
-      },
-      {
-        "question": "ICMP はどの層ですか？",
-        "answer": "IP と同じネットワーク層で、到達不可やエコー要求などの制御通知に使われる。"
-      }
+      "間違い。HTTPはアプリケーション層のプロトコルである。選択肢はHTTPをトランスポート層に位置するものとしているため誤りである。",
+      "間違い。ICMPはネットワーク層で用いられる制御プロトコルである。選択肢はICMPをトランスポート層に位置するものとしているため誤りである。",
+      "間違い。SMTPは電子メールの送信に用いるアプリケーション層のプロトコルである。選択肢はSMTPをトランスポート層に位置するものとしているため誤りである。",
+      "正しい。"
     ],
     "original_question_id": "7adfaf4ba672aea1",
     "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_12.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201302:7adfaf4ba672aea1",
+    "reviewQuestionId": "7adfaf4ba672aea1",
+    "sourceRecordRef": "question_201302_1.json#11",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -391,33 +445,20 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n情報セキュリティ基本方針は社外利害関係者にも示され得る上位方針であり、機密文書として隠す性格のものではない。",
-      "間違い。\n\n基本方針は事業環境や法令、技術の変化に応じて見直すべきであり、不変ではない。",
-      "正しい。\n\nISMS の基本方針は、情報セキュリティに関する経営陣の方向性と支援を示す上位方針として定める。",
-      "間違い。\n\n特定システムの詳細な対策や運用手順は、個別基準や実施手順で定める内容であり、基本方針のレベルではない。"
-    ],
-    "suggestedQuestions": [
-      "情報セキュリティ基本方針には何を書きますか？",
-      "基本方針と実施手順の違いは何ですか？",
-      "基本方針は社外公開されますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "情報セキュリティ基本方針には何を書きますか？",
-        "answer": "組織の情報セキュリティに対する目的、方向性、経営層のコミットメントなど上位方針を示す。"
-      },
-      {
-        "question": "基本方針と実施手順の違いは何ですか？",
-        "answer": "基本方針は何を目指すかを示す上位文書、実施手順は具体的にどう運用するかを定める下位文書である。"
-      },
-      {
-        "question": "基本方針は社外公開されますか？",
-        "answer": "組織の判断によるが、利害関係者へ示せるよう公開する運用が一般的である。"
-      }
+      "間違い。正しくは、情報セキュリティ基本方針は組織の基本的な考え方を示す上位方針であり、機密文書として一律に秘匿するものではない。選択肢は社内関係者以外に見せないとしているため誤りである。",
+      "間違い。正しくは、情報セキュリティ基本方針は、ビジネス環境、法令、技術などの変化に応じて見直す。選択肢は変化しても変更してはならないとしているため誤りである。",
+      "正しい。情報セキュリティ基本方針は、情報セキュリティに関する経営陣の方向性と支持を示す上位方針として定める。",
+      "間違い。正しくは、特定システムのリスク分析結果や詳細な対策、運用手順は、基本方針に基づく個別の基準や手順で定める。選択肢はそれらの詳細を基本方針に記述するとしているため誤りである。"
     ],
     "original_question_id": "a002fac331b5795f",
     "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_14.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201302:a002fac331b5795f",
+    "reviewQuestionId": "a002fac331b5795f",
+    "sourceRecordRef": "question_201302_1.json#13",
+    "explanationReferences": [],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -541,63 +582,143 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n損失を内部で吸収する考え方であり、リスクを他者へ移す転嫁ではなく受容に近い。",
-      "間違い。\n\n個人情報をマスキングして発生確率や影響を下げるのはリスク軽減である。",
-      "正しい。\n\n保険を掛けて損失負担を保険会社へ移すのは、リスクを第三者へ移転する転嫁の典型である。",
-      "間違い。\n\n危険な取引をやめて原因行為自体を避けるのはリスク回避である。"
-    ],
-    "suggestedQuestions": [
-      "リスク転嫁と軽減の違いは何ですか？",
-      "保険が転嫁に当たるのはなぜですか？",
-      "回避と受容の違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "リスク転嫁と軽減の違いは何ですか？",
-        "answer": "軽減は発生確率や影響を下げること、転嫁は損失負担そのものを第三者へ移すことである。"
-      },
-      {
-        "question": "保険が転嫁に当たるのはなぜですか？",
-        "answer": "事故が起きた際の金銭的損失を保険会社が引き受けるため、負担主体が移るからである。"
-      },
-      {
-        "question": "回避と受容の違いは何ですか？",
-        "answer": "回避は危険な活動自体をやめること、受容は対策コストなどを踏まえてリスクを引き受けることである。"
-      }
+      "間違い。損失を内部で吸収する対応は、リスクを第三者へ移す転嫁ではない。選択肢は、あるサブプロジェクトの損失を別のサブプロジェクトの利益で相殺するとしているため、転嫁に該当しない。",
+      "間違い。個人情報をマスキングして、漏えいした場合の影響や発生リスクを小さくする対応はリスク軽減である。選択肢は、システムテストで本番データをマスキングするとしているため、転嫁ではない。",
+      "正しい。損害賠償保険を利用すると、損害が発生した際の金銭的な負担を保険会社へ移せる。これはリスクを第三者へ移転する転嫁の典型例である。",
+      "間違い。危険が予想される取引そのものをやめる対応は、リスク回避である。選択肢は、信用に不安のある取引先との新規取引を止めるとしているため、転嫁ではない。"
     ],
     "original_question_id": "0bdeadb181c05210",
     "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_19.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201302:0bdeadb181c05210",
+    "reviewQuestionId": "0bdeadb181c05210",
+    "sourceRecordRef": "question_201302_1.json#18",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "間違い。\n\nOS のような基盤ソフトは重要だが、ミッションクリティカルの定義そのものは業務影響の重大さで決まる。",
-      "間違い。\n\n性能限界近くで運転しているかどうかは、ミッションクリティカルの意味ではない。",
-      "正しい。\n\n停止や障害が発生すると企業活動や社会的サービスへ重大な影響を及ぼすシステムをミッションクリティカルシステムという。",
-      "間違い。\n\n試験導入用の先行システムを指す語ではない。"
-    ],
-    "suggestedQuestions": [
-      "ミッションクリティカルでは何を重視しますか？",
-      "どんなシステムが該当しますか？",
-      "重要だからといって全部ミッションクリティカルですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ミッションクリティカルでは何を重視しますか？",
-        "answer": "停止時の業務影響、可用性要求、復旧時間、冗長化や障害対策の必要性を重視する。"
-      },
-      {
-        "question": "どんなシステムが該当しますか？",
-        "answer": "決済、交通制御、基幹受発注、医療系など、止まると重大な被害や業務停止を招くシステムが典型である。"
-      },
-      {
-        "question": "重要だからといって全部ミッションクリティカルですか？",
-        "answer": "重要でも停止許容時間が長いものは別であり、障害時の影響度と許容度で判断する。"
-      }
+      "間違い。ミッションクリティカルシステムは、障害や停止が企業活動などに重大な影響を及ぼすシステムを指す。OSのように業務システムの稼働に必要な基盤であることだけでは、この定義にはならない。",
+      "間違い。ミッションクリティカルシステムは、性能限界に近い条件で稼働しているかどうかではなく、障害や停止が及ぼす影響の重大さで判断する。",
+      "正しい。ミッションクリティカルシステムは、障害や停止が起きると企業活動などに重大な影響を及ぼすシステムである。",
+      "間違い。先行して試験導入し、成功後に本格導入するシステムは、パイロットシステムなどと呼ぶ。ミッションクリティカルシステムは、試験導入の段階ではなく、障害時の影響の重大さに着目した用語である。"
     ],
     "original_question_id": "356204cf5465899c",
     "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_20.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201302:356204cf5465899c",
+    "reviewQuestionId": "356204cf5465899c",
+    "sourceRecordRef": "question_201302_1.json#19",
+    "explanationReferences": [],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "ミッションクリティカルシステムの一般的な用語定義を問う問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第1選択肢は、業務システムの稼働に必要不可欠であることだけを述べており、障害時の影響の重大さを定義していない。",
+          "promptContext": "一般的な用語定義による判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の一般的なサービスマネジメント用語問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第2選択肢は、性能限界に近い状態で稼働することを基準としているが、ミッションクリティカルの定義は障害時の影響の重大さである。",
+          "promptContext": "一般的な用語定義による判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の一般的なサービスマネジメント用語問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第3選択肢は、障害が起きると企業活動に重大な影響を及ぼすシステムを示しており、用語の定義に合致する。",
+          "promptContext": "一般的な用語定義による判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外の一般的なサービスマネジメント用語問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第4選択肢は、先行して試験導入するパイロットシステムの説明であり、障害時の影響を示すミッションクリティカルシステムとは異なる。",
+          "promptContext": "一般的な用語定義による判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の一般的なサービスマネジメント用語問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -631,93 +752,171 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n開発計画は個別要望だけでなく全体最適や経営目的との整合を取って策定する必要がある。",
-      "間違い。\n\n計画は着手前に承認されているべきで、作業開始後に承認を得るのはコントロールとして不適切である。",
-      "正しい。\n\n目的達成に向けた複数の実現可能な代替案を作り、比較検討して無駄な投資を抑えるのが適切な開発計画コントロールである。",
-      "間違い。\n\n利用部門とシステム部門の役割分担を曖昧にすると責任所在が不明確になり、統制として弱い。"
-    ],
-    "suggestedQuestions": [
-      "代替案比較はなぜ必要ですか？",
-      "開発計画はいつ承認すべきですか？",
-      "役割分担を明確にする理由は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "代替案比較はなぜ必要ですか？",
-        "answer": "目的達成手段を複数比較することで、費用対効果やリスクを見極めて最適案を選べるからである。"
-      },
-      {
-        "question": "開発計画はいつ承認すべきですか？",
-        "answer": "開発作業へ着手する前に、関係者合意と正式承認を得ておくべきである。"
-      },
-      {
-        "question": "役割分担を明確にする理由は何ですか？",
-        "answer": "責任範囲と意思決定経路を明確にし、手戻りや統制不備を防ぐためである。"
-      }
+      "間違い。システム開発計画は、利用部門の個別要望だけでなく、経営目的や情報システム全体との整合を考えて策定する。選択肢は全体最適よりも業務上の利便性を優先するとしているため誤りである。",
+      "間違い。開発計画は、開発作業に着手する前に組織内の承認を得ておく必要がある。選択肢は開発作業の着手後に承認を得るとしているため、事前承認のコントロールが働かず誤りである。",
+      "正しい。情報システムの目的を達成するために複数の実現可能な代替案を作成し、費用や効果を比較検討することで、不必要な開発コストを抑制できる。",
+      "間違い。開発計画では、利用部門とシステム部門の役割分担を明確にし、責任の所在を定める必要がある。選択肢は役割分担を決めずに策定するとしているため、責任が不明確になり誤りである。"
     ],
     "original_question_id": "47c729fcefc8bba6",
     "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_22.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201302:47c729fcefc8bba6",
+    "reviewQuestionId": "47c729fcefc8bba6",
+    "sourceRecordRef": "question_201302_1.json#21",
+    "explanationReferences": [],
+    "questionLearningPatternId": "principles_exceptions",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "間違い。\n\n間接費を活動単位で配賦するのは ABC 原価計算の考え方であり、IT ポートフォリオではない。",
-      "間違い。\n\n多面的視点で戦略を管理評価する説明はバランススコアカードに近い。",
-      "間違い。\n\n共通尺度で投資効果を測定するベンチマーク的な説明であり、ポートフォリオ管理の本質ではない。",
-      "正しい。\n\nIT ポートフォリオは、情報化投資を価値やリスクの性質で整理し、戦略実現へ向けた最適な資源配分を管理する手法である。"
-    ],
-    "suggestedQuestions": [
-      "IT ポートフォリオでは何を分類しますか？",
-      "バランススコアカードとの違いは何ですか？",
-      "なぜ資源配分に役立つのですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "IT ポートフォリオでは何を分類しますか？",
-        "answer": "情報システム投資案件を戦略価値、リスク、更新目的などの観点でカテゴリ分けする。"
-      },
-      {
-        "question": "バランススコアカードとの違いは何ですか？",
-        "answer": "IT ポートフォリオは投資案件の配分管理、バランススコアカードは戦略実行を複数視点で評価する枠組みである。"
-      },
-      {
-        "question": "なぜ資源配分に役立つのですか？",
-        "answer": "価値の高い投資と維持的投資、リスクの高低を並べて見られるため、限られた予算を戦略的に配分しやすい。"
-      }
+      "間違い。正しくは、活動基準原価計算（ABC）が、活動の種類に基づいて間接費を製品やサービスへ配賦する手法である。選択肢は、ABC原価計算の説明をITポートフォリオとしているため誤りである。",
+      "間違い。正しくは、企業の経営戦略を多面的な視点で管理し、業績を評価する手法はバランススコアカードである。選択肢は、バランススコアカードの説明をITポートフォリオとしているため誤りである。",
+      "間違い。正しくは、統一的な評価尺度を使って自社の実績や投資効果を比較・測定する考え方はベンチマーキングである。選択肢は、ベンチマーキングに当たる説明をITポートフォリオとしているため誤りである。",
+      "正しい。ITポートフォリオは、情報化投資を価値やリスクなどの観点で分類し、ビジネス戦略の実現に向けて資源を適切に配分・管理する手法である。"
     ],
     "original_question_id": "9982f3377195593a",
     "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_23.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201302:9982f3377195593a",
+    "reviewQuestionId": "9982f3377195593a",
+    "sourceRecordRef": "question_201302_1.json#22",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "ITポートフォリオの定義を問う経営・IT戦略の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現在の判定は一致する。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を必要としない経営・IT戦略知識問題である。",
+          "promptContext": "選択肢1の内容は活動基準原価計算（ABC）の説明である。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなく活動基準原価計算の定義で判定する。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現在の判定は一致する。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を必要としない経営・IT戦略知識問題である。",
+          "promptContext": "選択肢2の内容はバランススコアカードの説明である。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなくバランススコアカードの定義で判定する。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現在の判定は一致する。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を必要としない経営・IT戦略知識問題である。",
+          "promptContext": "選択肢3の内容はベンチマーキングの説明である。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなくベンチマーキングの定義で判定する。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現在の判定は一致する。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を必要としない経営・IT戦略知識問題である。",
+          "promptContext": "選択肢4はITポートフォリオの定義に合致する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "ITポートフォリオの定義そのものを述べている。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n現状の主要機能を分析し体系化した説明であり、あるべき姿を示す新論理モデルではない。",
-      "正しい。\n\n経営目標の達成に必要な業務機能を定義して体系化したものが、業務のあるべき姿を表す新論理モデルである。",
-      "間違い。\n\n現状業務と情報システム処理の関係を表す説明であり、現物理モデル寄りの内容である。",
-      "間違い。\n\n現状との差異分析や評価はギャップ分析の内容であり、論理モデルそのものの定義ではない。"
-    ],
-    "suggestedQuestions": [
-      "新論理モデルとは何ですか？",
-      "現論理モデルとの違いは何ですか？",
-      "ギャップ分析はどこで使いますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "新論理モデルとは何ですか？",
-        "answer": "経営目標や業務改革の観点から、本来あるべき業務機能と情報の姿を論理的に整理したモデルである。"
-      },
-      {
-        "question": "現論理モデルとの違いは何ですか？",
-        "answer": "現論理モデルは現状を整理したもの、新論理モデルはあるべき姿を再定義したものである。"
-      },
-      {
-        "question": "ギャップ分析はどこで使いますか？",
-        "answer": "現状モデルとあるべき姿の差を洗い出し、改善課題や施策優先度を整理する場面で使う。"
-      }
+      "間違い。現状の業務機能を分析して体系化する説明であり、経営目標の達成に必要な業務機能を示す、あるべき姿の新論理モデルではない。選択肢は現状の業務機能を表すものとしているため誤りである。",
+      "正しい。業務のあるべき姿を表す新論理モデルは、経営目標の達成に必要な業務機能を定義し、体系化したものである。",
+      "間違い。現状の業務機能と情報システムでの処理の関係を分析する説明は、現物理モデルに当たる。選択肢は現状業務とシステム処理の関係を表すものとしているため誤りである。",
+      "間違い。本来あるべき業務機能と現状との差異を分析して評価するのは、ギャップ分析である。選択肢は差異の分析・評価を論理モデルそのものとしているため誤りである。"
     ],
     "original_question_id": "53a5fb93a664c313",
     "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_24.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201302:53a5fb93a664c313",
+    "reviewQuestionId": "53a5fb93a664c313",
+    "sourceRecordRef": "question_201302_1.json#23",
+    "explanationReferences": [
+      {
+        "referenceDate": "2013-10-20",
+        "sourceUrl": "https://www.ipa.go.jp/shiken/mondai-kaiotu/ug65p900000027za-att/2013h25a_koudo_am1_qs.pdf",
+        "title": "平成25年度 秋期 ネットワークスペシャリスト試験 問題冊子"
+      },
+      {
+        "referenceDate": "2013-10-20",
+        "sourceUrl": "https://www.ipa.go.jp/shiken/mondai-kaiotu/ug65p900000027za-att/2013h25a_nw_am2_ans.pdf",
+        "title": "平成25年度 秋期 ネットワークスペシャリスト試験 解答例"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [

@@ -121,33 +121,20 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nホットプラグは通電中に部品を着脱できる仕組みであり、障害時に処理を予備ノードへ自動切替える機能ではない。",
-      "間違い。\n\n代替ノードを再起動してから再開すると停止時間が伸びる。高可用クラスタでは待機ノードがすぐ引き継げることが重要である。",
-      "正しい。\n\nフェールオーバーは障害ノードを切り離し、待機側ノードで処理を継続させる機能で、クラスタの信頼性向上に直結する。",
-      "間違い。\n\nフェールバックは障害回復後に処理を元の主系へ戻す機能であり、障害発生時の即時継続機能ではない。"
-    ],
-    "suggestedQuestions": [
-      "フェールオーバーとフェールバックの違いは何ですか？",
-      "ホットプラグは何の仕組みですか？",
-      "クラスタで待機系を置く理由は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "フェールオーバーとフェールバックの違いは何ですか？",
-        "answer": "前者は障害時に予備系へ切替える機能、後者は復旧後に主系へ戻す機能である。"
-      },
-      {
-        "question": "ホットプラグは何の仕組みですか？",
-        "answer": "電源を切らずに機器や部品を着脱できる仕組みである。"
-      },
-      {
-        "question": "クラスタで待機系を置く理由は何ですか？",
-        "answer": "主系障害時でも停止時間を短くして処理継続性を確保するためである。"
-      }
+      "間違い。ホットプラグは、システムの電源を切らずに部品を取り付けたり交換したりする機能である。選択肢は、障害時にアプリケーションを代替ノードへ切り替える機能をホットプラグとしているため誤りである。",
+      "間違い。障害時は、稼働可能な代替ノードへアプリケーションを引き継がせて処理を継続する。選択肢は、アプリケーションを再び動かすために代替ノードを再起動する機能としているため誤りである。",
+      "正しい。フェールオーバーは、障害が発生したノードから代替ノードへアプリケーションの処理を切り替え、サービスを継続させる機能である。",
+      "間違い。フェールバックは、障害から復旧した元のノードへ処理を戻す機能である。選択肢は、障害発生時のクラスタ再構成をフェールバックとしているため誤りである。"
     ],
     "original_question_id": "33b8bb4fd4d764ca",
     "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_5.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201502:33b8bb4fd4d764ca",
+    "reviewQuestionId": "33b8bb4fd4d764ca",
+    "sourceRecordRef": "question_201502_1.json#4",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -211,33 +198,17 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nシーケンスコードは順番に番号を振る方式であり、値から対象物の意味を連想しにくい。",
-      "間違い。\n\nデシマルコードは階層的な分類には向くが、文字列自体から対象を直感的に思い浮かべることは難しい。",
-      "正しい。\n\nニモニックコードは略号や意味のある文字列を使うため、コード値から対象物を連想しやすい。",
-      "間違い。\n\nブロックコードは所属グループを表しやすいが、個々の対象を直接連想する方式ではない。"
-    ],
-    "suggestedQuestions": [
-      "ニモニックコードとは何ですか？",
-      "シーケンスコードとの違いは何ですか？",
-      "ブロックコードの用途は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ニモニックコードとは何ですか？",
-        "answer": "意味を連想しやすい文字や略語を使って対象を表すコード方式である。"
-      },
-      {
-        "question": "シーケンスコードとの違いは何ですか？",
-        "answer": "シーケンスコードは単なる連番で、意味づけより管理の一意性を重視する。"
-      },
-      {
-        "question": "ブロックコードの用途は何ですか？",
-        "answer": "部門や分類ごとに範囲を割り当て、上位桁などから所属群を見分けやすくする。"
-      }
+      "正しい。コード値から対象物を連想できるのはニモニックコードである。ニモニックコードは対象の名称や意味を表す略号などを用いる。シーケンスコードは連番、デシマルコードは数字、ブロックコードは分類単位ごとの符号を使うため、コード値から個々の対象を直接連想しにくい。"
     ],
     "original_question_id": "96584671e9054852",
     "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_8.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201502:96584671e9054852",
+    "reviewQuestionId": "96584671e9054852",
+    "sourceRecordRef": "question_201502_1.json#7",
+    "explanationReferences": [],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -331,33 +302,17 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nAES は代表的な共通鍵暗号方式であり、公開鍵暗号ではない。",
-      "間違い。\n\nKCipher-2 もストリーム系の共通鍵暗号方式である。",
-      "正しい。\n\nRSA は公開鍵と秘密鍵の組を使う公開鍵暗号方式で、素因数分解の困難性を安全性の根拠とする。",
-      "間違い。\n\nSHA-256 はハッシュ関数であり、暗号化方式そのものではない。"
-    ],
-    "suggestedQuestions": [
-      "公開鍵暗号方式とは何ですか？",
-      "AESとの違いは何ですか？",
-      "ハッシュ関数は何に使いますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "公開鍵暗号方式とは何ですか？",
-        "answer": "暗号化や署名で公開鍵と秘密鍵を使い分ける方式である。"
-      },
-      {
-        "question": "AESとの違いは何ですか？",
-        "answer": "AES は同じ鍵で暗号化と復号を行う共通鍵暗号である。"
-      },
-      {
-        "question": "ハッシュ関数は何に使いますか？",
-        "answer": "改ざん検知や署名の前処理などで固定長の要約値を得るために使う。"
-      }
+      "正しい。公開鍵暗号方式のアルゴリズムはRSAである。RSAは公開鍵と秘密鍵の組を使うのに対し、AESとKCipher-2は共通鍵暗号方式、SHA-256はデータの要約値を生成するハッシュ関数であり、暗号化方式ではない。"
     ],
     "original_question_id": "bb4b0faa3396a9f5",
     "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_12.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201502:bb4b0faa3396a9f5",
+    "reviewQuestionId": "bb4b0faa3396a9f5",
+    "sourceRecordRef": "question_201502_1.json#11",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -391,63 +346,37 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n認証後のセッション情報を盗むのはセッションハイジャックである。",
-      "正しい。\n\nブルートフォース攻撃は、あり得る文字列の全組合せを順に試してパスワードなどを突破しようとする攻撃である。",
-      "間違い。\n\n全てのキー入力を記録して外部送信するのはキーロガーの説明である。",
-      "間違い。\n\n正当利用者の通信をそのまま再送するのはリプレイ攻撃の説明である。"
-    ],
-    "suggestedQuestions": [
-      "ブルートフォース攻撃とは何ですか？",
-      "リプレイ攻撃との違いは何ですか？",
-      "対策として有効なものは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ブルートフォース攻撃とは何ですか？",
-        "answer": "考えられる候補を総当たりで順に試す攻撃である。"
-      },
-      {
-        "question": "リプレイ攻撃との違いは何ですか？",
-        "answer": "リプレイは既存の認証シーケンスの再送、ブルートフォースは候補の総当たりである。"
-      },
-      {
-        "question": "対策として有効なものは何ですか？",
-        "answer": "長いパスワード、多要素認証、試行回数制限、アカウントロックなどが有効である。"
-      }
+      "間違い。正しくは、認証後のセッション情報を盗む攻撃はセッションハイジャックである。選択肢はセッション情報を盗む攻撃としているため、ブルートフォース攻撃の説明ではない。",
+      "正しい。ブルートフォース攻撃は、可能性のある文字列を組み合わせて、パスワードなどを総当たりで試す攻撃である。",
+      "間違い。正しくは、キーボード入力を記録して外部へ送信する攻撃はキーロガーによる攻撃である。選択肢は入力情報を記録・送信する攻撃としているため、ブルートフォース攻撃の説明ではない。",
+      "間違い。正しくは、正当な利用者の通信を記録してそのまま再送する攻撃はリプレイ攻撃である。選択肢は記録したログインシーケンスを再送する攻撃としているため、ブルートフォース攻撃の説明ではない。"
     ],
     "original_question_id": "5dfb94676b4616bb",
     "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_14.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201502:5dfb94676b4616bb",
+    "reviewQuestionId": "5dfb94676b4616bb",
+    "sourceRecordRef": "question_201502_1.json#13",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "間違い。\n\n暗号方式や鍵長が設計どおりかを確認するのは設定確認やモジュール試験の目的であり、侵入可能性の確認ではない。",
-      "間違い。\n\n入力と出力仕様の一致確認はブラックボックステストの目的である。",
-      "間違い。\n\n単位時間当たりのセッション処理数確認は負荷試験や性能試験の目的である。",
-      "正しい。\n\nペネトレーションテストは、攻撃者視点で実際に侵入や権限取得が可能かを試し、脆弱性の実害を検証するテストである。"
-    ],
-    "suggestedQuestions": [
-      "ペネトレーションテストは何を確かめますか？",
-      "脆弱性診断との違いは何ですか？",
-      "負荷試験との違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ペネトレーションテストは何を確かめますか？",
-        "answer": "脆弱性が実際の侵入や権限奪取につながるかを、攻撃の試行によって確かめる。"
-      },
-      {
-        "question": "脆弱性診断との違いは何ですか？",
-        "answer": "脆弱性診断は弱点の有無確認、ペネトレーションテストはそれを使った侵入可能性の検証に重心がある。"
-      },
-      {
-        "question": "負荷試験との違いは何ですか？",
-        "answer": "負荷試験は性能限界の確認、ペネトレーションテストはセキュリティ侵入可能性の確認である。"
-      }
+      "間違い。暗号方式と鍵長が設計仕様と一致するかを確認するのは、暗号設定のレビューや構成検査の目的である。選択肢は設計値との一致確認を目的としているため、攻撃を試して侵入可能性を確かめるペネトレーションテストの目的とは異なる。",
+      "間違い。入力に対する出力が仕様どおりかを確認するのは、ブラックボックステストの目的である。選択肢は機能仕様との一致確認を目的としているため、侵入可能性を検証するペネトレーションテストの目的とは異なる。",
+      "間違い。ファイアウォールが単位時間当たりに処理できるセッション数を確認するのは、負荷試験や性能試験の目的である。選択肢は処理能力の測定を目的としているため、脆弱性を利用した侵入可能性を検証するペネトレーションテストの目的とは異なる。",
+      "正しい。ペネトレーションテストは攻撃者の視点から、ファイアウォールや公開サーバに実際に侵入したり権限を取得したりできるかを試し、脆弱性が実際の被害につながるかを検証する。"
     ],
     "original_question_id": "893ba896617ca9f1",
     "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_15.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201502:893ba896617ca9f1",
+    "reviewQuestionId": "893ba896617ca9f1",
+    "sourceRecordRef": "question_201502_1.json#14",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -511,33 +440,17 @@
   },
   {
     "explanationText": [
-      "正しい。\n\nEVM は作業の進み具合を金額換算し、コストとスケジュールを同時に管理する手法である。",
-      "間違い。\n\nEVM はリスク管理を直接の管理対象にはしていない。",
-      "間違い。\n\nEVM で見るのは品質ではなく、進捗を金銭換算したコスト差異とスケジュール差異である。",
-      "間違い。\n\n品質やリスクは別管理領域であり、EVM の基本管理対象ではない。"
-    ],
-    "suggestedQuestions": [
-      "EVMは何を管理しますか？",
-      "PV・EV・ACは何ですか？",
-      "品質やリスクはEVMで直接見ますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "EVMは何を管理しますか？",
-        "answer": "コストとスケジュールを、出来高ベースで定量的に管理する。"
-      },
-      {
-        "question": "PV・EV・ACは何ですか？",
-        "answer": "計画値、出来高、実コストを表す主要指標である。"
-      },
-      {
-        "question": "品質やリスクはEVMで直接見ますか？",
-        "answer": "直接の管理対象ではなく、別の品質管理・リスク管理プロセスで扱う。"
-      }
+      "正しい。EVMの管理対象の組合せは、コストとスケジュールである。EVMは作業の進捗を出来高として金額に換算し、計画と実績の差から、費用の超過や進捗の遅れを同時に把握する。品質やリスクは重要な管理領域だが、EVMが直接測定する対象ではない。"
     ],
     "original_question_id": "878a362d9f634c2c",
     "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_18.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201502:878a362d9f634c2c",
+    "reviewQuestionId": "878a362d9f634c2c",
+    "sourceRecordRef": "question_201502_1.json#17",
+    "explanationReferences": [],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -691,33 +604,20 @@
   },
   {
     "explanationText": [
-      "正しい。\n\nRFI は Request for Information の略で、調達者が候補ベンダへ業務内容やシステム化目的を示し、情報提供を求める文書である。",
-      "間違い。\n\n提案書の提出依頼は RFP の説明である。",
-      "間違い。\n\n契約内容の変更要請は RFC の説明である。",
-      "間違い。\n\n契約締結の要請を表すものではなく、RFI はあくまで情報収集段階の依頼である。"
-    ],
-    "suggestedQuestions": [
-      "RFIとRFPの違いは何ですか？",
-      "RFIはいつ使いますか？",
-      "RFCとは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "RFIとRFPの違いは何ですか？",
-        "answer": "RFI は情報収集、RFP は具体的な提案依頼の段階で使う。"
-      },
-      {
-        "question": "RFIはいつ使いますか？",
-        "answer": "調達方針を固める前に、市場やベンダの情報を広く集めたいときに使う。"
-      },
-      {
-        "question": "RFCとは何ですか？",
-        "answer": "Request for Change の略で、変更を求める依頼書を指す。"
-      }
+      "正しい。RFIはRequest for Informationの略で、調達者が候補ベンダーに業務内容やシステム化の目的を示し、提案を検討するための情報提供を求めるものである。",
+      "間違い。提案書の提出を依頼するのはRFP（Request for Proposal）である。選択肢はRFIを提案書の提出依頼としているため誤りである。",
+      "間違い。契約内容の変更を要請するのはRFC（Request for Change）である。選択肢はRFIを契約内容の変更要請としているため誤りである。",
+      "間違い。RFIは契約締結を要請するものではなく、調達の初期段階で候補ベンダーから情報を集めるために使う。選択肢はRFIを契約締結の要請としているため誤りである。"
     ],
     "original_question_id": "62fdd2ee3ed3e706",
     "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_24.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201502:62fdd2ee3ed3e706",
+    "reviewQuestionId": "62fdd2ee3ed3e706",
+    "sourceRecordRef": "question_201502_1.json#23",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [

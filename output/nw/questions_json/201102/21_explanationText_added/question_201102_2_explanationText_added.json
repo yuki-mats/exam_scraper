@@ -1,33 +1,126 @@
 [
   {
     "explanationText": [
-      "間違い。\n\n因果関係分析法は事象間の原因と結果の関係を整理する手法であり、専門家アンケートを繰り返して意見を収束させる方法ではない。",
-      "間違い。\n\nクロスセクション法はある時点での集団比較や断面分析の考え方であり、反復アンケートによる予測手法ではない。",
-      "間違い。\n\n時系列回帰分析法は過去データの推移から回帰式で予測する手法であり、専門家意見の収束を扱うものではない。",
-      "正しい。\n\nデルファイ法は専門家へ複数回アンケートを行い、前回結果をフィードバックしながら意見を収束させる予測・分析手法である。"
-    ],
-    "suggestedQuestions": [
-      "デルファイ法は何に使いますか？",
-      "ブレーンストーミングとの違いは何ですか？",
-      "なぜ複数回調査するのですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "デルファイ法は何に使いますか？",
-        "answer": "将来予測や方針検討などで、専門家意見を集約したいときに使う。"
-      },
-      {
-        "question": "ブレーンストーミングとの違いは何ですか？",
-        "answer": "ブレーンストーミングは自由発想を広げる場、デルファイ法は匿名の反復調査で意見を収束させる手法である。"
-      },
-      {
-        "question": "なぜ複数回調査するのですか？",
-        "answer": "他者意見を踏まえて再回答してもらい、集団としての見解を安定させるためである。"
-      }
+      "間違い。正しくは、因果関係分析法は事象の原因と結果の関係を整理・分析する手法である。選択肢は専門家への反復アンケートで意見を収束させる手法としているため誤りである。",
+      "間違い。正しくは、クロスセクション法は同じ時点における複数の対象を比較する分析手法である。選択肢は専門家への反復アンケートで将来を予測する手法としているため誤りである。",
+      "間違い。正しくは、時系列回帰分析法は過去の時系列データを回帰分析し、将来の値を予測する手法である。選択肢は専門家への反復アンケートで意見を収束させる手法としているため誤りである。",
+      "正しい。デルファイ法は、専門家に複数回アンケートを行い、前回の集計結果を示して回答を繰り返し修正してもらうことで、集団としての意見を収束させる手法である。"
     ],
     "original_question_id": "852ce28ef5582168",
     "question_url": "https://www.nw-siken.com/kakomon/23_aki/am1_26.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201102:852ce28ef5582168",
+    "reviewQuestionId": "852ce28ef5582168",
+    "sourceRecordRef": "question_201102_2.json#0",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "専門家への反復アンケートで意見を収束させる手法の問題であり、法令・制度上の根拠を要しない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "因果関係分析法の定義は技術知識で判定でき、法令根拠を要しない。",
+          "promptContext": "選択肢1の技術知識を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術知識問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "クロスセクション法の定義は技術知識で判定でき、法令根拠を要しない。",
+          "promptContext": "選択肢2の技術知識を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術知識問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "時系列回帰分析法の定義は技術知識で判定でき、法令根拠を要しない。",
+          "promptContext": "選択肢3の技術知識を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術知識問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "デルファイ法の定義は技術知識で判定でき、法令根拠を要しない。",
+          "promptContext": "選択肢4の技術知識を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外の技術知識問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -301,33 +394,126 @@
   },
   {
     "explanationText": [
-      "正しい。\n\nアドミッション制御は、通信開始前に帯域などの資源確保可否を確認し、受け入れ可能な場合だけ通信を許可する制御である。",
-      "間違い。\n\n規定速度超過を監視して破棄や優先度低下を行うのはポリシングの説明であり、シェーピングではない。",
-      "間違い。\n\n送出間隔を調整して平準化するのがシェーピングであり、ポリシングではない。",
-      "間違い。\n\nフレームや宛先に応じて優先度を変えるのは優先制御であり、ベストエフォートは優先度保証をしない方式である。"
-    ],
-    "suggestedQuestions": [
-      "アドミッション制御は何を確認しますか？",
-      "ポリシングとシェーピングの違いは何ですか？",
-      "ベストエフォートとは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "アドミッション制御は何を確認しますか？",
-        "answer": "帯域や遅延保証に必要なネットワーク資源を確保できるかを確認する。"
-      },
-      {
-        "question": "ポリシングとシェーピングの違いは何ですか？",
-        "answer": "ポリシングは超過を検出して破棄やマークダウンを行い、シェーピングは送出タイミングを調整して平準化する。"
-      },
-      {
-        "question": "ベストエフォートとは何ですか？",
-        "answer": "優先度や帯域保証を設けず、可能な範囲で配送する方式である。"
-      }
+      "正しい。",
+      "間違い。正しくは、規定速度の超過を監視し、超過分を破棄したり優先度を下げたりするのはポリシングである。選択肢はこの制御をシェーピングとしているため誤りである。",
+      "間違い。正しくは、パケットの送出間隔を調整してトラフィックを平準化するのはシェーピングである。選択肢はこの制御をポリシングとしているため誤りである。",
+      "間違い。正しくは、フレームの種類や宛先に応じて優先度を変えて中継するのは優先制御である。ベストエフォートは、通信品質や優先度を保証せずに転送する方式である。選択肢は優先制御の説明をベストエフォートとしているため誤りである。"
     ],
     "original_question_id": "60caf6d26b206528",
     "question_url": "https://www.nw-siken.com/kakomon/23_aki/am2_6.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201102:60caf6d26b206528",
+    "reviewQuestionId": "60caf6d26b206528",
+    "sourceRecordRef": "question_201102_2.json#10",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "QoSのアドミッション制御、シェーピング、ポリシング、ベストエフォートの定義を問う技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第1選択肢はアドミッション制御の定義と一致する。",
+          "promptContext": "QoSの資源予約・確保に関する定義。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術定義に基づく判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第2選択肢はポリシングの説明をシェーピングとしているため誤りである。",
+          "promptContext": "QoSの超過トラフィック処理に関する定義。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術定義に基づく判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第3選択肢はシェーピングの説明をポリシングとしているため誤りである。",
+          "promptContext": "QoSの送出間隔調整に関する定義。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術定義に基づく判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第4選択肢は優先制御の説明をベストエフォートとしているため誤りである。",
+          "promptContext": "QoSにおける優先制御とベストエフォートの定義。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術定義に基づく判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -361,33 +547,126 @@
   },
   {
     "explanationText": [
-      "正しい。\n\nプリアンブルは受信側の同期を取るため、イーサネットフレーム先頭に配置される信号列である。",
-      "間違い。\n\nフレーム末尾で誤り検出に使うのは FCS であり、プリアンブルではない。",
-      "間違い。\n\nデータ前後に付けて取り出すための情報ではなく、受信同期を取るために先頭へ置く。",
-      "間違い。\n\nフレーム長調整に使うのはパディング等であり、プリアンブルは長さ調整用ではない。"
-    ],
-    "suggestedQuestions": [
-      "プリアンブルの役割は何ですか？",
-      "FCS との違いは何ですか？",
-      "SFD との関係は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "プリアンブルの役割は何ですか？",
-        "answer": "受信側がビット列へ同期するための前置信号として使う。"
-      },
-      {
-        "question": "FCS との違いは何ですか？",
-        "answer": "FCS は誤り検出、プリアンブルは受信同期用で役割が異なる。"
-      },
-      {
-        "question": "SFD との関係は何ですか？",
-        "answer": "SFD はプリアンブルの後に続き、フレーム本体開始を示す。"
-      }
+      "正しい。プリアンブルは、受信側が信号のタイミングを合わせるため、イーサネットフレームの先頭に置かれる信号列である。",
+      "間違い。正しくは、フレーム内のデータ誤りを検出するためフレーム末尾に置かれるのはFCSである。選択肢は、FCSの役割をプリアンブルの役割としているため誤りである。",
+      "間違い。正しくは、プリアンブルは受信側の同期を取るためにフレーム先頭へ置かれる。選択肢は、データの前後に付けてデータを取り出す情報としているため誤りである。",
+      "間違い。正しくは、フレームの長さを調整する場合はパディングを用いる。選択肢は、長さ調整用の情報をプリアンブルとしてフレーム末尾に置くとしているため誤りである。"
     ],
     "original_question_id": "e1b69f308d56e22a",
     "question_url": "https://www.nw-siken.com/kakomon/23_aki/am2_8.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201102:e1b69f308d56e22a",
+    "reviewQuestionId": "e1b69f308d56e22a",
+    "sourceRecordRef": "question_201102_2.json#12",
+    "explanationReferences": [],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "IEEE 802.3のフレーム構造に関する技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "プリアンブルはフレーム先頭の同期用信号である。",
+          "promptContext": "選択肢1の技術仕様判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで判断できるため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "データ誤りの検出に用いるのはFCSであり、プリアンブルではない。",
+          "promptContext": "選択肢2の技術仕様判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判断できるため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "プリアンブルはデータの前後に置かれる情報ではなく、フレーム先頭の同期用信号である。",
+          "promptContext": "選択肢3の技術仕様判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判断できるため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "フレーム長の調整にはパディングを用い、プリアンブルはフレーム先頭の同期用信号である。",
+          "promptContext": "選択肢4の技術仕様判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判断できるため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -421,33 +700,23 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n2000::/3 は IPv6 グローバルユニキャストアドレスの代表的な範囲であり、マルチキャストではない。",
-      "間違い。\n\nFC00::/7 はユニークローカルアドレスの範囲である。",
-      "間違い。\n\nFE80::/10 はリンクローカルアドレスの範囲である。",
-      "正しい。\n\nIPv6 のマルチキャストアドレスは FF00::/8 をプレフィックスとして持つ。"
-    ],
-    "suggestedQuestions": [
-      "IPv6 マルチキャストアドレスの見分け方は何ですか？",
-      "リンクローカルとの違いは何ですか？",
-      "ユニークローカルとは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "IPv6 マルチキャストアドレスの見分け方は何ですか？",
-        "answer": "先頭 8 ビットが FF で始まるかを見ればよい。"
-      },
-      {
-        "question": "リンクローカルとの違いは何ですか？",
-        "answer": "リンクローカルは同一リンク内通信向け FE80::/10、マルチキャストは複数受信者向け FF00::/8 である。"
-      },
-      {
-        "question": "ユニークローカルとは何ですか？",
-        "answer": "組織内などで使う IPv6 のローカルアドレス範囲 FC00::/7 である。"
-      }
+      "正しい。IPv6のアドレス種別は先頭ビットで判別でき、マルチキャストアドレスのプレフィックスはFF00::/8である。2000::/3はグローバルユニキャスト、FC00::/7はユニークローカル、FE80::/10はリンクローカルの範囲を表す。"
     ],
     "original_question_id": "22373d7591041ce2",
     "question_url": "https://www.nw-siken.com/kakomon/23_aki/am2_10.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201102:22373d7591041ce2",
+    "reviewQuestionId": "22373d7591041ce2",
+    "sourceRecordRef": "question_201102_2.json#14",
+    "explanationReferences": [
+      {
+        "referenceDate": "2006-02-01",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc4291.html",
+        "title": "RFC 4291: IP Version 6 Addressing Architecture"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -541,63 +810,159 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nIPv4 では UDP チェックサムを 0 にできる場合があるが、TCP チェックサムは必須であり、この記述は両者をまとめて誤っている。",
-      "正しい。\n\nIPv4 の IP ヘッダーチェックサムはヘッダー部分だけを対象とする。一方 TCP と UDP のチェックサムはデータ部分も対象に含み、通信内容の整合性を確認する。",
-      "間違い。\n\nIP ヘッダーチェックサムは IPv4 で必須であり、UDP だけをまとめてオプション扱いするこの記述は不適切である。",
-      "間違い。\n\nTCP や UDP のチェックサムはヘッダーだけでなくデータ部も対象とする。"
-    ],
-    "suggestedQuestions": [
-      "IP と TCP/UDP のチェックサム範囲はどう違いますか？",
-      "なぜ TCP/UDP はデータも含めますか？",
-      "UDP チェックサムは必須ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "IP と TCP/UDP のチェックサム範囲はどう違いますか？",
-        "answer": "IPv4 の IP ヘッダーはヘッダー部のみ、TCP/UDP は上位データも含めて検査する。"
-      },
-      {
-        "question": "なぜ TCP/UDP はデータも含めますか？",
-        "answer": "アプリケーションへ渡すペイロードまで含めて破損検知するためである。"
-      },
-      {
-        "question": "UDP チェックサムは必須ですか？",
-        "answer": "IPv4 では省略可能だが、IPv6 では必須である。"
-      }
+      "間違い。IPv4ではIPヘッダーのチェックサムは必須だが、TCPのチェックサムは必須であり、UDPのチェックサムだけが0を指定して省略できる。選択肢はTCPとUDPのチェックサムを一括してオプションとしているため誤りである。",
+      "正しい。IPv4のIPヘッダーのチェックサムはヘッダー部分だけを対象とする。一方、TCPとUDPのチェックサムは、擬似ヘッダーに加えて各ヘッダーとデータ部分も対象に含む。",
+      "間違い。IPv4のIPヘッダーとTCPのチェックサムは必須であり、UDPのチェックサムだけが0を指定して省略できる。選択肢はIPヘッダーのチェックサムをオプションとしているため誤りである。",
+      "間違い。IPv4のIPヘッダーのチェックサムはヘッダー部分だけを対象とするが、TCPとUDPのチェックサムはデータ部分も対象に含む。選択肢はすべてのチェックサムの対象をヘッダー部分だけとしているため誤りである。"
     ],
     "original_question_id": "cb889ea86399856a",
     "question_url": "https://www.nw-siken.com/kakomon/23_aki/am2_14.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201102:cb889ea86399856a",
+    "reviewQuestionId": "cb889ea86399856a",
+    "sourceRecordRef": "question_201102_2.json#18",
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-10-03",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc791",
+        "title": "RFC 791: Internet Protocol"
+      },
+      {
+        "referenceDate": "2026-10-03",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc768",
+        "title": "RFC 768: User Datagram Protocol"
+      },
+      {
+        "referenceDate": "2026-10-03",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc9293.html",
+        "title": "RFC 9293: Transmission Control Protocol (TCP)"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "IPv4、TCP、UDPのチェックサム仕様に関する技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "IPv4、TCP、UDPのチェックサム仕様に基づく技術肢であり、法令根拠を要しない。",
+          "promptContext": "技術知識による判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術仕様のみで判定できるため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "IPv4、TCP、UDPのチェックサム対象範囲に基づく技術肢であり、法令根拠を要しない。",
+          "promptContext": "技術知識による判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術仕様のみで判定できるため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "IPv4、TCP、UDPのチェックサム必須性に基づく技術肢であり、法令根拠を要しない。",
+          "promptContext": "技術知識による判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術仕様のみで判定できるため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "IPv4、TCP、UDPのチェックサム対象範囲に基づく技術肢であり、法令根拠を要しない。",
+          "promptContext": "技術知識による判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術仕様のみで判定できるため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\nカットスルーはスイッチの転送方式であり、IBGP フルメッシュのスケーラビリティ問題を解決しない。",
-      "間違い。\n\nファストリルートは障害時の切替高速化技術であり、IBGP セッション数削減の方法ではない。",
-      "間違い。\n\nラベルスイッチングは MPLS 転送技術であり、IBGP のフルメッシュ問題を直接解決しない。",
-      "正しい。\n\nルートリフレクションは特定ルータが経路を反射して配布することで、AS 内のすべての BGP ルータ間で完全フルメッシュを張る必要を減らし、スケーラビリティ問題を回避する。"
-    ],
-    "suggestedQuestions": [
-      "IBGP フルメッシュ問題とは何ですか？",
-      "ルートリフレクタは何をしますか？",
-      "コンフェデレーションとの違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "IBGP フルメッシュ問題とは何ですか？",
-        "answer": "AS 内の BGP ルータ台数が増えると、必要セッション数が急増して管理が難しくなる問題である。"
-      },
-      {
-        "question": "ルートリフレクタは何をしますか？",
-        "answer": "受け取った経路情報を他の IBGP ピアへ再配布し、全対全接続を不要にする。"
-      },
-      {
-        "question": "コンフェデレーションとの違いは何ですか？",
-        "answer": "コンフェデレーションは AS を論理分割する方式、ルートリフレクションは反射ルータを置く方式である。"
-      }
+      "間違い。正しくは、IBGPのフルメッシュによるスケーラビリティ問題を解決する技術はルートリフレクションである。選択肢はスイッチの転送方式であるカットスルーを挙げているため誤りである。",
+      "間違い。正しくは、障害時の経路切替を高速化するファストリルートは、IBGPセッション数を削減する技術ではない。選択肢はフルメッシュによるスケーラビリティ問題を回避する方法としてファストリルートを挙げているため誤りである。",
+      "間違い。正しくは、MPLSなどで用いるラベルスイッチングは、IBGPのフルメッシュを簡略化する技術ではない。選択肢はIBGPのスケーラビリティ問題を解決する方法としてラベルスイッチングを挙げているため誤りである。",
+      "正しい。ルートリフレクションは、特定のBGPルータが受け取った経路をほかのルータへ反射して配布する。これにより、AS内のすべてのBGPルータが相互にIBGPセッションを張る必要がなくなり、フルメッシュによるセッション数の増大を抑えられる。"
     ],
     "original_question_id": "0812ca46b51e007a",
     "question_url": "https://www.nw-siken.com/kakomon/23_aki/am2_15.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201102:0812ca46b51e007a",
+    "reviewQuestionId": "0812ca46b51e007a",
+    "sourceRecordRef": "question_201102_2.json#19",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -691,33 +1056,137 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nサプリカントはクライアント PC 側の役割であり、RADIUS クライアント機能を PC へ持たせる構成ではない。",
-      "正しい。\n\nIEEE 802.1X では、アクセスポイントがオーセンティケータとなって認証メッセージを中継し、RADIUS クライアントとして認証サーバへ問い合わせる。",
-      "間違い。\n\nアクセスポイントはサプリカントではなくオーセンティケータであり、RADIUS サーバ機能を持つわけでもない。",
-      "間違い。\n\nサーバは認証サーバとして動作し、IEEE 802.1X のオーセンティケータ役はアクセスポイント側が担う。"
-    ],
-    "suggestedQuestions": [
-      "802.1X の三者の役割は何ですか？",
-      "RADIUS クライアントはどこに実装しますか？",
-      "サプリカントとは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "802.1X の三者の役割は何ですか？",
-        "answer": "クライアントがサプリカント、アクセスポイントがオーセンティケータ、サーバが認証サーバとなる。"
-      },
-      {
-        "question": "RADIUS クライアントはどこに実装しますか？",
-        "answer": "認証要求をサーバへ中継するアクセスポイントやスイッチ側に実装する。"
-      },
-      {
-        "question": "サプリカントとは何ですか？",
-        "answer": "ネットワーク利用のため認証を受ける端末側ソフトウェアのことである。"
-      }
+      "間違い。正しくは、PCにはIEEE 802.1Xのサプリカントを実装し、アクセスポイントにRADIUSクライアント機能をもたせる。選択肢はPCにRADIUSクライアント機能ももたせるとしているため誤りである。",
+      "正しい。IEEE 802.1Xでは、アクセスポイントがオーセンティケータとしてPCの認証を受け付け、RADIUSクライアントとして認証サーバへ認証要求を中継する。",
+      "間違い。正しくは、アクセスポイントはIEEE 802.1Xのオーセンティケータであり、RADIUSクライアントとして動作する。選択肢はアクセスポイントをサプリカント、RADIUSサーバとしているため誤りである。",
+      "間違い。正しくは、サーバはRADIUSサーバとして認証情報を管理し、IEEE 802.1Xのオーセンティケータ役はアクセスポイントが担う。選択肢はサーバをオーセンティケータとしているため誤りである。"
     ],
     "original_question_id": "8c3e58a8dfba85d5",
     "question_url": "https://www.nw-siken.com/kakomon/23_aki/am2_19.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201102:8c3e58a8dfba85d5",
+    "reviewQuestionId": "8c3e58a8dfba85d5",
+    "sourceRecordRef": "question_201102_2.json#23",
+    "explanationReferences": [
+      {
+        "referenceDate": "2003-09-01",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc3580.html",
+        "title": "RFC 3580: IEEE 802.1X Remote Authentication Dial In User Service (RADIUS) Usage Guidelines"
+      },
+      {
+        "referenceDate": "2004-12-13",
+        "sourceUrl": "https://standards.ieee.org/ieee/802.1X/3496/",
+        "title": "IEEE 802.1X-2004: IEEE Standard for Local and metropolitan area networks - Port-Based Network Access Control"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "IEEE 802.1XとRADIUSの役割分担を問う技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "IEEE 802.1XとRADIUSの役割分担を問う技術問題で、法令根拠は不要である。",
+          "promptContext": "無線LAN認証における各機器の役割分担。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判断できるため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "IEEE 802.1Xではアクセスポイントがオーセンティケータ及びRADIUSクライアントとして動作する。",
+          "promptContext": "アクセスポイントのIEEE 802.1X及びRADIUS上の役割。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識で判断できるため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "アクセスポイントはサプリカントやRADIUSサーバではなく、オーセンティケータ及びRADIUSクライアントとして動作する。",
+          "promptContext": "選択肢が示すアクセスポイントの役割の正誤。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判断できるため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "サーバはRADIUSサーバとして認証情報を管理するが、IEEE 802.1Xのオーセンティケータはアクセスポイントが担う。",
+          "promptContext": "サーバのIEEE 802.1X及びRADIUS上の役割。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判断できるため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [

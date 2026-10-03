@@ -31,63 +31,37 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n品質向上のために工程管理手法を導入するのは製造工程の改善であり、プロセスイノベーションである。",
-      "間違い。\n\nジャストインタイム方式の導入は在庫や生産工程の改革であり、製品そのものの革新ではない。",
-      "間違い。\n\n製造方法の見直しによるコスト低減は工程改善であり、プロダクトイノベーションとは言いにくい。",
-      "正しい。\n\n新しい CPU 採用によって高性能かつ低消費電力の製品を開発するのは、製品自体の価値を革新するプロダクトイノベーションである。"
-    ],
-    "suggestedQuestions": [
-      "プロダクトイノベーションとプロセスイノベーションの違いは何ですか？",
-      "JIT はどちらに当たりますか？",
-      "製品機能の向上はなぜプロダクトイノベーションですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "プロダクトイノベーションとプロセスイノベーションの違いは何ですか？",
-        "answer": "前者は製品やサービス自体の革新、後者は製造・供給・業務のやり方の革新である。"
-      },
-      {
-        "question": "JIT はどちらに当たりますか？",
-        "answer": "在庫や生産の流れを改善する手法なので、プロセスイノベーションに当たる。"
-      },
-      {
-        "question": "製品機能の向上はなぜプロダクトイノベーションですか？",
-        "answer": "顧客が受け取る製品価値そのものを変えるからである。"
-      }
+      "間違い。シックスシグマによる工程管理は、製品そのものではなく製造工程を改善するプロセスイノベーションである。選択肢は工程管理の導入をプロダクトイノベーションの例としているため誤りである。",
+      "間違い。ジャストインタイム方式は、必要な部品を必要な時に供給して在庫や生産工程を改善する方法であり、プロセスイノベーションに当たる。選択肢は在庫削減をプロダクトイノベーションの例としているため誤りである。",
+      "間違い。製造方法の見直しによるコスト低減は、製品の製造工程を改善するプロセスイノベーションである。選択肢は製造方法の改善をプロダクトイノベーションの例としているため誤りである。",
+      "正しい。マルチコアCPUの採用によって高性能で低消費電力の製品を新たに開発することは、製品そのものの機能や価値を高めるプロダクトイノベーションである。"
     ],
     "original_question_id": "a9f503b559d46fba",
     "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_27.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201302:a9f503b559d46fba",
+    "reviewQuestionId": "a9f503b559d46fba",
+    "sourceRecordRef": "question_201302_2.json#1",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "間違い。\n\n企業間契約の内容は取引条件の取り決めであり、情報表現規約が直接規定する対象ではない。",
-      "間違い。\n\n運用時間は業務運用上の取り決めであり、データ表現の規約ではない。",
-      "間違い。\n\n伝送制御手順は通信手順の規約であり、EDIの情報表現規約の中心ではない。",
-      "正しい。\n\nEDIの情報表現規約では、企業間で交換するデータ項目やメッセージ形式を統一して定める必要がある。"
-    ],
-    "suggestedQuestions": [
-      "EDIの情報表現規約は何を定めますか？",
-      "伝送制御手順との違いは何ですか？",
-      "EDI導入で重要な標準化対象は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "EDIの情報表現規約は何を定めますか？",
-        "answer": "取引データの項目、並び、コード体系、メッセージ形式などを定める。"
-      },
-      {
-        "question": "伝送制御手順との違いは何ですか？",
-        "answer": "伝送制御手順は通信のやり取り方法、情報表現規約は送るデータの形を定める。"
-      },
-      {
-        "question": "EDI導入で重要な標準化対象は何ですか？",
-        "answer": "相手先と共通に解釈できるメッセージ形式やデータコードの標準化が重要である。"
-      }
+      "間違い。企業間の契約内容は取引条件の取り決めであり、情報表現規約が定めるデータの表し方とは異なる。",
+      "間違い。システムの運用時間は業務運用上の取り決めであり、交換するデータの表現方法を定める情報表現規約の対象ではない。",
+      "間違い。伝送制御手順はデータを送受信する通信手順に関する規約であり、データの内容や形式を定める情報表現規約とは異なる。",
+      "正しい。情報表現規約は、企業間で交換するデータ項目やメッセージの形式を統一して定める。"
     ],
     "original_question_id": "524d56ab12a2270a",
     "question_url": "https://www.nw-siken.com/kakomon/25_aki/am1_28.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201302:524d56ab12a2270a",
+    "reviewQuestionId": "524d56ab12a2270a",
+    "sourceRecordRef": "question_201302_2.json#2",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -451,63 +425,55 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nPPPはIP以外のネットワーク層プロトコルも多重化できる。上位プロトコルがIPだけに限られるわけではない。",
-      "間違い。\n\nPPPは全二重通信を前提にしており、半二重方式に限定されない。",
-      "正しい。\n\nPPPではPAPやCHAPなどの認証方式が規定されており、圧縮に関する仕組みも用意されている。",
-      "間違い。\n\nPPPはHDLC手順を基にしたプロトコルであり、ベーシック手順を基にしたものではない。"
-    ],
-    "suggestedQuestions": [
-      "PPPの処理フェーズはどんな順序ですか？",
-      "PPPで使う認証方式には何がありますか？",
-      "PPPが同期と非同期の両方に対応する意味は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "PPPの処理フェーズはどんな順序ですか？",
-        "answer": "リンク確立、認証、ネットワーク層設定・データ交換、リンク終了の順で進む。LCPの後に認証が入る流れを押さえるとよい。"
-      },
-      {
-        "question": "PPPで使う認証方式には何がありますか？",
-        "answer": "代表はPAPとCHAPである。CHAPはチャレンジレスポンス方式で、PAPより安全性が高い。"
-      },
-      {
-        "question": "PPPが同期と非同期の両方に対応する意味は何ですか？",
-        "answer": "使う回線や装置の特性に応じて柔軟に利用できるということである。特定の物理回線だけに縛られない。"
-      }
+      "間違い。正しくは、PPPはIPだけでなく、複数のネットワーク層プロトコルを扱える。選択肢は、上位プロトコルをIPに限定しているため誤りである。",
+      "間違い。正しくは、PPPは全二重の通信路を前提とする。選択肢は、伝送モードを半二重方式としているため誤りである。",
+      "正しい。PPPには、認証用のPAPやCHAP、圧縮制御プロトコルなどが規定されている。",
+      "間違い。正しくは、PPPはHDLCに似たフレーム形式に基づくプロトコルである。選択肢は、ベーシック手順を基にしているとしているため誤りである。"
     ],
     "original_question_id": "04fc2f30f3fd45f7",
     "question_url": "https://www.nw-siken.com/kakomon/25_aki/am2_11.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201302:04fc2f30f3fd45f7",
+    "reviewQuestionId": "04fc2f30f3fd45f7",
+    "sourceRecordRef": "question_201302_2.json#15",
+    "explanationReferences": [],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "間違い。\n\nARP は IP アドレスから MAC アドレスを求めるプロトコルであり、装置起動時の IP 取得目的とは逆である。",
-      "間違い。\n\nDHCP は IP 層以上を使う自動割当てプロトコルで、設問の『データリンク層でブロードキャストを利用する』条件に合わない。",
-      "間違い。\n\nDNS は名前解決の仕組みであり、MAC アドレスから IP アドレスを得る用途ではない。",
-      "正しい。\n\nRARP は、電源投入時に自装置の MAC アドレスを使って対応する IP アドレスを問い合わせるためのデータリンク層プロトコルである。"
-    ],
-    "suggestedQuestions": [
-      "RARPはどんな場面で使われましたか？",
-      "DHCPとの違いは何ですか？",
-      "なぜブロードキャストを使いますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "RARPはどんな場面で使われましたか？",
-        "answer": "ディスクレス端末などが起動時に自分の IP アドレスを知るために使われた。"
-      },
-      {
-        "question": "DHCPとの違いは何ですか？",
-        "answer": "RARP は MAC から IP を知る単純な仕組みで、DHCP はより多くの設定情報を動的配布できる。"
-      },
-      {
-        "question": "なぜブロードキャストを使いますか？",
-        "answer": "起動直後は相手の所在や自分の IP が分からないため、同一セグメント全体へ問い合わせるからである。"
-      }
+      "間違い。正しくは、ARPはIPアドレスから対応するMACアドレスを求めるプロトコルである。選択肢は、MACアドレスからIPアドレスを求めるRARPの役割としているため誤りである。",
+      "間違い。正しくは、DHCPはIPアドレスなどのネットワーク設定を自動取得するためのプロトコルである。選択肢は、DHCPをMACアドレスからIPアドレスを求めるデータリンク層のプロトコルとしているため誤りである。",
+      "間違い。正しくは、DNSはホスト名やドメイン名とIPアドレスなどを対応付ける名前解決のプロトコルである。選択肢は、DNSをMACアドレスからIPアドレスを得るプロトコルとしているため誤りである。",
+      "正しい。RARPは、電源投入時に自装置のMACアドレスを使って対応するIPアドレスを問い合わせるデータリンク層のプロトコルであり、ブロードキャストを利用する。"
     ],
     "original_question_id": "b7a7fab3dc24fc90",
     "question_url": "https://www.nw-siken.com/kakomon/25_aki/am2_12.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201302:b7a7fab3dc24fc90",
+    "reviewQuestionId": "b7a7fab3dc24fc90",
+    "sourceRecordRef": "question_201302_2.json#16",
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-10-03",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc903.html",
+        "title": "RFC 903 - A Reverse Address Resolution Protocol"
+      },
+      {
+        "choiceIndex": 1,
+        "referenceDate": "2026-10-03",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc2131.html",
+        "title": "RFC 2131 - Dynamic Host Configuration Protocol"
+      },
+      {
+        "choiceIndex": 2,
+        "referenceDate": "2026-10-03",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc1034.html",
+        "title": "RFC 1034 - Domain Names - Concepts and Facilities"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -631,63 +597,34 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n広告メールかどうかは OP25B の直接判定条件ではなく、固定 IP 発送ならこの理由だけで遮断されるわけではない。",
-      "間違い。\n\n逆引き不可は別のスパム判定要素にはなり得るが、OP25B が見ているのは主に外向きの 25 番直接送信である。",
-      "間違い。\n\n動的 IP でも ISP のメールサーバを経由する送信は通常許可され、OP25B の遮断対象ではない。",
-      "正しい。\n\nOP25B は動的 IP アドレス端末から外部の SMTP サーバへ直接 25 番送信する通信を遮断し、スパム送信を抑止する。"
-    ],
-    "suggestedQuestions": [
-      "OP25B は何を遮断しますか？",
-      "なぜ ISP のメールサーバ経由なら送れますか？",
-      "SMTP-AUTH は何に使いますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "OP25B は何を遮断しますか？",
-        "answer": "加入者端末が外部の SMTP サーバへ直接送る宛先ポート 25 の通信を主に遮断する。"
-      },
-      {
-        "question": "なぜ ISP のメールサーバ経由なら送れますか？",
-        "answer": "正規利用者向けの中継経路として ISP が管理しており、スパム対策を施した上で送信させるためである。"
-      },
-      {
-        "question": "SMTP-AUTH は何に使いますか？",
-        "answer": "送信者認証を行い、正規利用者だけがメール送信を許可されるようにする。"
-      }
+      "間違い。OP25Bは、固定IPアドレスからの送信か、広告メールについて受信者の承諾があるかだけでは遮断しない。選択肢は広告メールであることを遮断条件としているため誤りである。",
+      "間違い。OP25Bは、送信元の動的IPアドレスから外部のSMTPサーバへ直接送信される通信を主な遮断対象とする。選択肢はDNSの逆引きができないことを遮断条件としているため誤りである。",
+      "間違い。動的IPアドレスからの送信でも、ISPのメールサーバを経由すれば、端末から外部のSMTPサーバへの直接送信にはならない。選択肢はISPのメールサーバを経由する通信まで遮断対象としているため誤りである。",
+      "正しい。OP25Bは、動的IPアドレスの端末から外部のSMTPサーバへ直接送信される通信を、SMTPで通常使われる25番ポートを基準に遮断する。ISPのメールサーバを経由する送信は、この直接送信に当たらない。"
     ],
     "original_question_id": "b61b5e9612fde939",
     "question_url": "https://www.nw-siken.com/kakomon/25_aki/am2_17.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201302:b61b5e9612fde939",
+    "reviewQuestionId": "b61b5e9612fde939",
+    "sourceRecordRef": "question_201302_2.json#21",
+    "explanationReferences": [],
+    "questionLearningPatternId": "conditions_scope",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "間違い。\n\n100 人全員へ 2 本ずつ鍵を配ると 200 だが、相互通信で必要なのは利用者ごとの本数ではなく、利用者ペアごとの鍵である。",
-      "正しい。\n\n共通鍵は通信する 2 者の組合せごとに 1 個必要なので、100 人の場合は 100×99÷2=4,950 個となる。",
-      "間違い。\n\n9,900 は 100×99 で組合せを往復 2 回数えた値であり、同じ相手ペアを重複計上している。",
-      "間違い。\n\n10,000 は 100×100 で自分自身との組合せまで含めた値であり、必要総数ではない。"
-    ],
-    "suggestedQuestions": [
-      "なぜ n(n-1)/2 で求めますか？",
-      "公開鍵暗号方式だと本数はどう変わりますか？",
-      "往復で 2 本必要にならないのはなぜですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "なぜ n(n-1)/2 で求めますか？",
-        "answer": "n 人から 2 人を選ぶ組合せ数に等しく、A-B と B-A を同一の通信ペアとして 1 回だけ数えるからである。"
-      },
-      {
-        "question": "公開鍵暗号方式だと本数はどう変わりますか？",
-        "answer": "各利用者が 1 組の公開鍵・秘密鍵を持てばよく、利用者の増加に対して鍵管理本数を大きく抑えられる。"
-      },
-      {
-        "question": "往復で 2 本必要にならないのはなぜですか？",
-        "answer": "共通鍵暗号では送受信の両方向で同じ鍵を共有して使えるため、1 ペア 1 個で足りる。"
-      }
+      "正しい。共通鍵暗号方式では、通信する2人の組ごとに1本の鍵を共有する。必要な鍵の総数は、人数を\\(n\\)とすると次の組合せで求められる。\n\\[\\frac{n(n-1)}{2}\\]\n\\(n\\)は送受信者の人数であり、各人が自分以外の\\(n-1\\)人と組み合わさるが、同じ2人の組を重複して数えないため2で割る。\\(n=100\\)を代入すると、\\[\\frac{100\\times99}{2}=4,950\\]となる。したがって、必要な共通鍵の総数は4,950個である。"
     ],
     "original_question_id": "e799fbf44aa2ecd5",
     "question_url": "https://www.nw-siken.com/kakomon/25_aki/am2_18.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201302:e799fbf44aa2ecd5",
+    "reviewQuestionId": "e799fbf44aa2ecd5",
+    "sourceRecordRef": "question_201302_2.json#22",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [

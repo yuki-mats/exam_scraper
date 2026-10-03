@@ -61,63 +61,34 @@
   },
   {
     "explanationText": [
-      "間違い。\n\na+b が n の倍数でも、a mod n と b mod n が一致するとは限らず、衝突条件にはならない。",
-      "正しい。\n\n衝突は h(a)=h(b)、すなわち a mod n=b mod n のときに起きる。これは a-b が n の倍数であることと同値である。",
-      "間違い。\n\nn が a+b の倍数かどうかは、二つのキーの余りが一致する条件ではない。",
-      "間違い。\n\nn が a-b の倍数という条件は 1 組の数値では成り立ち得るが、一般に衝突条件として表すなら『a-b が n の倍数』である。"
-    ],
-    "suggestedQuestions": [
-      "ハッシュ衝突はどんなときに起きますか？",
-      "a mod n=b mod n と倍数条件はなぜ同値ですか？",
-      "mod の意味は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ハッシュ衝突はどんなときに起きますか？",
-        "answer": "異なるキーが同じハッシュ値、つまり同じ格納位置へ割り当てられるときに起きる。"
-      },
-      {
-        "question": "a mod n=b mod n と倍数条件はなぜ同値ですか？",
-        "answer": "同じ余りを持つ二数の差は n の整数倍になるからである。"
-      },
-      {
-        "question": "mod の意味は何ですか？",
-        "answer": "整数を n で割ったときの余りを表す。"
-      }
+      "正しい。ハッシュ値が衝突するのは、キーaとbのハッシュ値が等しい、つまりa mod nとb mod nが一致するときである。この条件は、a−bがnの倍数であることと同値なので、正しい選択肢は「a−bがnの倍数」である。"
     ],
     "original_question_id": "26c977a2e7d51f27",
     "question_url": "https://www.nw-siken.com/kakomon/23_aki/am1_3.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201102:26c977a2e7d51f27",
+    "reviewQuestionId": "26c977a2e7d51f27",
+    "sourceRecordRef": "question_201102_1.json#2",
+    "explanationReferences": [],
+    "questionLearningPatternId": "conditions_scope",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "間違い。\n\n不要になったキャッシュ内容を主記憶へ書き戻すのはライトバック方式の説明であり、メモリインターリーブではない。",
-      "間違い。\n\n主記憶と磁気ディスクの速度差を補うのはキャッシュや仮想記憶の役割であり、メモリインターリーブの説明ではない。",
-      "間違い。\n\n主記憶とキャッシュを同時更新するのはライトスルー方式の説明である。",
-      "正しい。\n\nメモリインターリーブは主記憶を複数バンクへ分け、連続アドレスへのアクセスを並列化して実効速度を高める方式である。"
-    ],
-    "suggestedQuestions": [
-      "メモリインターリーブは何を高速化しますか？",
-      "キャッシュ方式との違いは何ですか？",
-      "メモリバンク分割の利点は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "メモリインターリーブは何を高速化しますか？",
-        "answer": "主記憶への連続アクセスの実効速度を高める。"
-      },
-      {
-        "question": "キャッシュ方式との違いは何ですか？",
-        "answer": "キャッシュは高速記憶を間に置く方式、メモリインターリーブは主記憶内部を分割して並列化する方式である。"
-      },
-      {
-        "question": "メモリバンク分割の利点は何ですか？",
-        "answer": "別々のバンクへ交互にアクセスでき、待ち時間を隠しながら処理しやすくなる。"
-      }
+      "間違い。キャッシュから不要な情報を追い出す際に主記憶へ書き戻すのは、ライトバック方式の説明である。メモリインターリーブは主記憶を複数の区画に分けてアクセスを高速化する。",
+      "間違い。主記憶と磁気ディスクのアクセス時間の差に関係するのは、磁気ディスクを補助記憶として利用する仮想記憶などである。メモリインターリーブは主記憶内部を複数の区画に分ける技術であり、磁気ディスクとの速度差を補うものではない。",
+      "間違い。主記憶の更新と同時にキャッシュも更新するのは、ライトスルー方式の説明である。メモリインターリーブは、主記憶を複数の区画に分けてアクセスを分散する技術である。",
+      "正しい。メモリインターリーブは主記憶を複数の区画に分け、連続するデータへのアクセスを複数の区画に分散して処理することで、主記憶への連続アクセスを高速化する。"
     ],
     "original_question_id": "055e17c568b389b8",
     "question_url": "https://www.nw-siken.com/kakomon/23_aki/am1_4.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201102:055e17c568b389b8",
+    "reviewQuestionId": "055e17c568b389b8",
+    "sourceRecordRef": "question_201102_1.json#3",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -391,153 +362,113 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n受信者の公開鍵は受信者向け暗号化に使うもので、発信者が自分の署名を作るときには使わない。",
-      "間違い。\n\n受信者の秘密鍵は受信者しか持たず、発信者の署名生成には使えない。",
-      "間違い。\n\n発信者の公開鍵は受信者が署名を検証するときに使う鍵であり、署名生成には使わない。",
-      "正しい。\n\nデジタル署名は、発信者がメッセージのハッシュ値を自分の秘密鍵で変換して作成し、受信者は発信者の公開鍵で検証する。"
-    ],
-    "suggestedQuestions": [
-      "デジタル署名ではどの鍵を使いますか？",
-      "なぜ秘密鍵で署名するのですか？",
-      "検証時は何を使いますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "デジタル署名ではどの鍵を使いますか？",
-        "answer": "署名生成には送信者の秘密鍵、検証には送信者の公開鍵を使う。"
-      },
-      {
-        "question": "なぜ秘密鍵で署名するのですか？",
-        "answer": "本人だけが持つ鍵で署名することで、送信者本人性を示せるからである。"
-      },
-      {
-        "question": "検証時は何を使いますか？",
-        "answer": "受信者は送信者の公開鍵を使って署名を検証する。"
-      }
+      "正しい。デジタル署名の生成では、発信者がメッセージのハッシュ値を発信者の秘密鍵で変換する。受信者は発信者の公開鍵で署名を検証するため、受信者の鍵や発信者の公開鍵を生成には使わない。"
     ],
     "original_question_id": "b08f76b90706462f",
     "question_url": "https://www.nw-siken.com/kakomon/23_aki/am1_14.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201102:b08f76b90706462f",
+    "reviewQuestionId": "b08f76b90706462f",
+    "sourceRecordRef": "question_201102_1.json#13",
+    "explanationReferences": [
+      {
+        "referenceDate": "2023-02-03",
+        "sourceUrl": "https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-5.pdf",
+        "title": "Digital Signature Standard (DSS) (FIPS 186-5)"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "正しい。\n\nパケットフィルタリングでは宛先ポートや送信元・宛先アドレスに基づき不要な通信を遮断できるため、外部へ公開していないサービスへのアクセスは防げる。",
-      "間違い。\n\nアプリケーションの脆弱性を突く攻撃は、必要なポートを通る正規形式の通信でも成立し得るので、単純なフィルタリングだけでは防げない。",
-      "間違い。\n\nメール添付ファイル内のマクロウイルス検出には、内容解析やウイルス対策機能が必要である。",
-      "間違い。\n\nDoS 攻撃は許可ポートへの大量通信でも成立し、パケットフィルタリングだけで十分に防げない。"
-    ],
-    "suggestedQuestions": [
-      "パケットフィルタリングで何を防げますか？",
-      "アプリケーション脆弱性攻撃を防ぎにくい理由は何ですか？",
-      "コンテンツ検査との違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "パケットフィルタリングで何を防げますか？",
-        "answer": "ポート番号やアドレス条件に合わない不要な通信を遮断できる。"
-      },
-      {
-        "question": "アプリケーション脆弱性攻撃を防ぎにくい理由は何ですか？",
-        "answer": "必要なサービスの正規ポートを通る通信内容までは、単純なフィルタ条件では十分判別できないからである。"
-      },
-      {
-        "question": "コンテンツ検査との違いは何ですか？",
-        "answer": "パケットフィルタリングはヘッダ条件中心、コンテンツ検査は本文や振る舞いまで見る。"
-      }
+      "正しい。宛先ポートや送信元・宛先アドレスを条件に、外部公開しないサービスへの通信だけを遮断できるため、本来必要な公開サービスへの通信に影響を与えずに防げる。",
+      "間違い。正しくは、サーバで動作するソフトウェアの脆弱性を突く攻撃は、必要なサービスへの許可された通信を利用して成立することがある。選択肢は通信を許可するポートなどの条件だけで、サーバソフトウェアの脆弱性を突く攻撃まで防げるとしているため誤りである。",
+      "間違い。正しくは、電子メールの添付ファイルに含まれるマクロウイルスを防ぐには、メールやファイルの内容を検査する機能が必要である。選択肢は通信の宛先やポートなどを制御するパケットフィルタリングだけで、添付ファイルの内容に含まれるウイルスまで防げるとしているため誤りである。",
+      "間違い。正しくは、電子メール爆弾などのDoS攻撃は、必要なメールサービスへの大量の通信によっても発生し得るため、パケットフィルタリングだけでは十分に防げない。選択肢は必要なサービスへの通信を許可したまま、その通信量によるDoS攻撃まで防げるとしているため誤りである。"
     ],
     "original_question_id": "221e7b5aec88735c",
     "question_url": "https://www.nw-siken.com/kakomon/23_aki/am1_15.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201102:221e7b5aec88735c",
+    "reviewQuestionId": "221e7b5aec88735c",
+    "sourceRecordRef": "question_201102_1.json#14",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "間違い。\n\n無作為抽出だけでは仕様上重要な境界や分岐を十分に網羅できず、ブラックボックステストの設計方針としては弱い。",
-      "間違い。\n\n高頻度データだけに偏ると、仕様上重要な例外条件や境界条件を見落とす。",
-      "正しい。\n\nブラックボックステストは内部実装ではなく仕様に基づいて機能を確認するため、仕様書を調べてテストケースを設計する。",
-      "間違い。\n\n全命令を少なくとも 1 回実行させる考え方は、ホワイトボックステストの命令網羅に対応する。"
-    ],
-    "suggestedQuestions": [
-      "ブラックボックステストは何を基準に設計しますか？",
-      "ホワイトボックステストとの違いは何ですか？",
-      "代表的な設計技法は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ブラックボックステストは何を基準に設計しますか？",
-        "answer": "入力条件、出力結果、仕様上の制約など、外から見える振る舞いを基準に設計する。"
-      },
-      {
-        "question": "ホワイトボックステストとの違いは何ですか？",
-        "answer": "ブラックボックスは仕様重視、ホワイトボックスは内部構造や分岐・命令網羅を重視する。"
-      },
-      {
-        "question": "代表的な設計技法は何ですか？",
-        "answer": "同値分割、限界値分析、原因結果グラフなどが代表的である。"
-      }
+      "間違い。ブラックボックステストでは、仕様上重要な条件や境界を確認できるようにテストケースを設計する。選択肢は実データを無作為に抽出するだけとしているため、仕様を十分に確認できない。",
+      "間違い。ブラックボックステストでは、使用頻度だけでなく、仕様上の例外条件や境界条件も確認する。選択肢は使用頻度が高いデータだけを重点的に抽出するとしているため、重要な条件を見落とすおそれがある。",
+      "正しい。ブラックボックステストはプログラムの内部構造ではなく、仕様に基づく入力と出力を確認するため、仕様書を調べてテストケースを設計する。",
+      "間違い。プログラムの内部構造や命令の実行状況に基づいてテストするのはホワイトボックステストである。選択肢は全命令を実行するとしているため、ブラックボックステストの設計方法ではない。"
     ],
     "original_question_id": "afac82f21f90aec5",
     "question_url": "https://www.nw-siken.com/kakomon/23_aki/am1_16.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201102:afac82f21f90aec5",
+    "reviewQuestionId": "afac82f21f90aec5",
+    "sourceRecordRef": "question_201102_1.json#15",
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-10-03",
+        "sourceUrl": "https://www.ipa.go.jp/shiken/mondai-kaiotu/ug65p90000003ojp-att/2011h23a_koudo_am1_qs.pdf",
+        "title": "平成23年度秋期 高度試験 午前I 問題"
+      },
+      {
+        "referenceDate": "2026-10-03",
+        "sourceUrl": "https://www.ipa.go.jp/archive/publish/qv6pgp0000000ysl-att/000005118.pdf",
+        "title": "組込みソフトウェア向けコーディング作法ガイド［C言語版］"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "間違い。\n\n秘密保持体制が弱いならノウハウ秘匿は成立しにくく、むしろ特許化の方が権利保護しやすい。",
-      "正しい。\n\n特許出願すると技術内容が公開される。セキュリティ用アルゴリズムの詳細を公開したくない場合は、ノウハウとして秘匿する戦略が有効になり得る。",
-      "間違い。\n\n他社へ積極的にライセンス収入を得たいなら、権利を明確にできる特許取得の方が適している。",
-      "間違い。\n\n容易にリバースエンジニアリングされる技術は秘匿が難しいため、ノウハウ戦略には向かない。"
-    ],
-    "suggestedQuestions": [
-      "ノウハウ秘匿が向くのはどんな技術ですか？",
-      "特許化との違いは何ですか？",
-      "リバースエンジニアリングされやすい技術はどう考えますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ノウハウ秘匿が向くのはどんな技術ですか？",
-        "answer": "公開すると競争優位を失いやすく、かつ秘密として維持できる技術である。"
-      },
-      {
-        "question": "特許化との違いは何ですか？",
-        "answer": "特許は公開と引換えに独占権を得るが、ノウハウ秘匿は公開せずに秘密管理で優位を守る。"
-      },
-      {
-        "question": "リバースエンジニアリングされやすい技術はどう考えますか？",
-        "answer": "秘密保持が難しいので、秘匿より特許化など別の保護策を検討する。"
-      }
+      "間違い。営業秘密として保護するには、情報が秘密として管理され、公然と知られていないことなどが必要である。社内の秘密保持体制を構築できない場合はこの条件を満たしにくく、選択肢はその状態をノウハウ秘匿に適した例としているため誤りである。",
+      "正しい。特許出願をすると、原則として出願から1年6か月後に、明細書や特許請求の範囲などが出願公開される。セキュリティ分野のアルゴリズムを公開したくない場合は、特許出願をせずノウハウとして管理する方法が適切になり得る。",
+      "間違い。他社へ積極的に技術を利用許諾して収入を得る場合は、特許権に基づく通常実施権を許諾することで、権利の範囲を明確にしやすい。選択肢は特許出願せずにノウハウとして秘匿することを適切な例としているため誤りである。",
+      "間違い。容易にリバースエンジニアリングされる技術は、内容が明らかになりやすく、秘密として維持できないためノウハウによる保護に向かない。選択肢はそのような技術をノウハウ秘匿に適した例としているため誤りである。"
     ],
     "original_question_id": "aed56d5e005a4e5d",
     "question_url": "https://www.nw-siken.com/kakomon/23_aki/am1_17.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201102:aed56d5e005a4e5d",
+    "reviewQuestionId": "aed56d5e005a4e5d",
+    "sourceRecordRef": "question_201102_1.json#16",
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-10-03",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/405AC0000000047?asof=2026-10-03",
+        "title": "不正競争防止法（e-Gov法令検索）"
+      },
+      {
+        "referenceDate": "2026-10-03",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/334AC0000000121?asof=2026-10-03",
+        "title": "特許法（e-Gov法令検索）"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "正しい。\n\nガントチャートは横棒で各作業の期間を示すため、開始時点と終了時点を一目で把握しやすい。",
-      "間違い。\n\n作業の前後関係やクリティカルパスの把握に向くのはアローダイアグラムや PERT である。",
-      "間違い。\n\n余裕日数の計算はアローダイアグラムなどネットワーク工程表の方が適している。",
-      "間違い。\n\n作業を要素へ分解して管理しやすくするのは WBS の役割である。"
-    ],
-    "suggestedQuestions": [
-      "ガントチャートで分かることは何ですか？",
-      "アローダイアグラムとの違いは何ですか？",
-      "WBSとの役割分担はどうなりますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ガントチャートで分かることは何ですか？",
-        "answer": "作業の期間、開始日、終了日、進捗状況などを視覚的に把握できる。"
-      },
-      {
-        "question": "アローダイアグラムとの違いは何ですか？",
-        "answer": "ガントチャートは日程表示に強く、アローダイアグラムは依存関係やクリティカルパス分析に強い。"
-      },
-      {
-        "question": "WBSとの役割分担はどうなりますか？",
-        "answer": "WBS は作業分解、ガントチャートは分解した作業の日程管理に使う。"
-      }
+      "正しい。",
+      "間違い。作業の前後関係やクリティカルパスを把握するには、アローダイアグラムやPERTなどのネットワーク工程表を用いる。ガントチャートは各作業の期間を示すのに適しているため、選択肢はガントチャートで前後関係とクリティカルパスを把握できるとしており誤りである。",
+      "間違い。作業の余裕日数を把握するには、ネットワーク工程表を用いて各作業の最早開始時刻や最遅開始時刻などを計算する。ガントチャートは作業期間を示す図表であり、余裕日数を容易に把握できるとしているため誤りである。",
+      "間違い。作業を要素に分解して管理しやすくするのはWBSの役割である。ガントチャートは分解された作業の期間や進捗を示す図表であるため、選択肢はガントチャートが作業の分解を行うとしており誤りである。"
     ],
     "original_question_id": "21abc8bb93f06d54",
     "question_url": "https://www.nw-siken.com/kakomon/23_aki/am1_18.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201102:21abc8bb93f06d54",
+    "reviewQuestionId": "21abc8bb93f06d54",
+    "sourceRecordRef": "question_201102_1.json#17",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
