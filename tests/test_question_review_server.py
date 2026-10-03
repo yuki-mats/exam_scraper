@@ -1973,12 +1973,12 @@ class QuestionReviewServerTests(unittest.TestCase):
                     "qualification": "sample",
                     "stageIds": ["question_type"],
                     "mode": "remaining",
-                    "questionConcurrency": 50,
+                    "questionConcurrency": 0,
                 },
             )
 
         self.assertEqual(caught.exception.status, 422)
-        self.assertIn("1、5、10", str(caught.exception))
+        self.assertIn("1以上の整数", str(caught.exception))
 
     def test_qualification_run_rejects_unknown_request_field(self):
         with tempfile.TemporaryDirectory() as directory, self.assertRaises(

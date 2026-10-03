@@ -305,6 +305,7 @@ instruction_aliases = ["補足質問", "補足解説"]
 [[stages.update_targets]]
 id = "law_support"
 label = "解説用の法令情報"
+completion_owner_stage_ids = ["law_context", "law_audit"]
 fields = ["isLawRelated", "lawGroundedExplanationNotNeeded", "lawReferences", "lawContextForExplanation", "lawRevisionFacts"]
 read_fields = ["questionBodyText", "choiceTextList", "correctChoiceText"]
 instruction_aliases = ["解説の条文情報", "解説の法令根拠"]

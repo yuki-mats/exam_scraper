@@ -83,6 +83,26 @@ documents = []
 
 
 class WorkflowCatalogTests(unittest.TestCase):
+    def test_completion_owners_are_catalog_defined_and_validated(self):
+        text = (ROOT / "config/question_maintenance_workflow.toml").read_text()
+        owner_line = 'completion_owner_stage_ids = ["law_context", "law_audit"]'
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            path = root / "config/question_maintenance_workflow.toml"
+            path.parent.mkdir()
+            path.write_text(text)
+            stages = WorkflowCatalog(root).load()["stages"]
+            target = next(
+                target for stage in stages for target in stage["updateTargets"]
+                if target["selectionId"] == "explanation.law_support"
+            )
+            self.assertEqual(target["completionOwnerStageIds"], ["law_context", "law_audit"])
+            for owners in ('["missing"]', '["explanation"]', '["source"]', '["law_audit", "law_audit"]'):
+                with self.subTest(owners=owners):
+                    path.write_text(text.replace(owner_line, 'completion_owner_stage_ids = ' + owners))
+                    with self.assertRaisesRegex(ValueError, "完了責務工程"):
+                        WorkflowCatalog(root).load()
+
     def test_qualification_data_loads_groups_concurrently_and_preserves_order(self):
         class ParallelInventory:
             def __init__(self):

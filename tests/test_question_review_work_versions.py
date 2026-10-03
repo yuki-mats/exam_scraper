@@ -45,6 +45,46 @@ def question_for(question_id, *, list_group_id):
 
 
 class QuestionWorkVersionStoreTests(unittest.TestCase):
+    def test_delegated_target_is_checked_at_owners_without_forging_receipt(self):
+        explanation = {
+            **policy("explanation"),
+            "updateTargets": [
+                {"selectionId": "explanation.basic", "fields": ["explanationText"]},
+                {"selectionId": "explanation.law", "fields": ["lawReferences"],
+                 "completionOwnerStageIds": ["law_context", "law_audit"]},
+            ],
+        }
+        owners = [policy("law_context"), policy("law_audit")]
+        with tempfile.TemporaryDirectory() as directory:
+            store = QuestionWorkVersionStore(Path(directory))
+            item = question()
+            store.record_stage(
+                [item], explanation, run_id="explanation-run", source="validated_run",
+                target_ids=["explanation.basic"],
+            )
+            before = store.question_path_for(item).read_bytes()
+            missing_owner = store.status_for(item, [explanation, *owners])
+            self.assertFalse(missing_owner["allCurrent"])
+            self.assertEqual(missing_owner["unrecordedStageIds"], ["law_context", "law_audit"])
+            self.assertEqual(before, store.question_path_for(item).read_bytes())
+            for owner in owners:
+                store.record_stage([item], owner, run_id="law-run", source="validated_run")
+            before = store.question_path_for(item).read_bytes()
+            complete = store.status_for(item, (p for p in [explanation, *owners]))
+            self.assertTrue(complete["allCurrent"])
+            self.assertEqual(before, store.question_path_for(item).read_bytes())
+            # An explicit target request or missing owner in the applicable
+            # workflow must still require that target's own completion.
+            for policies in (
+                [explanation],
+                [explanation, owners[0]],
+                [{**explanation, "selectedUpdateTargetIds": ["explanation.law"]}, *owners],
+                [explanation, {**owners[0], "policyVersion": "2.0"}, owners[1]],
+            ):
+                with self.subTest(policies=policies):
+                    self.assertFalse(store.status_for(item, policies)["allCurrent"])
+            self.assertNotIn("explanation.law", store.record_for(item)["stages"]["explanation"]["targets"])
+
     def test_instruction_aliases_do_not_change_content_policy_fingerprint(self):
         base = {
             "id": "explanation",

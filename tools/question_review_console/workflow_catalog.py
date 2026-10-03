@@ -156,6 +156,10 @@ def _update_targets(value: Any, stage_id: str) -> list[dict[str, Any]]:
             raw.get("instruction_aliases"),
             f"{stage_id}.{target_id}.instruction_aliases",
         )
+        completion_owners = _string_list(
+            raw.get("completion_owner_stage_ids"),
+            f"{stage_id}.{target_id}.completion_owner_stage_ids",
+        )
         if (
             not re.fullmatch(r"[a-z][a-z0-9_]*", target_id)
             or target_id in seen_ids
@@ -201,6 +205,7 @@ def _update_targets(value: Any, stage_id: str) -> list[dict[str, Any]]:
                 "fields": fields,
                 "readFields": read_fields,
                 "instructionAliases": normalized_aliases,
+                **({"completionOwnerStageIds": completion_owners} if completion_owners else {}),
             }
         )
     return targets
@@ -404,6 +409,16 @@ class WorkflowCatalog:
                 stage["patchSuffix"] = patch_suffix
             stages.append(stage)
         stage_by_id = {stage["id"]: stage for stage in stages}
+        for stage in stages:
+            for target in stage["updateTargets"]:
+                owners = target.get("completionOwnerStageIds", [])
+                if len(owners) != len(set(owners)) or any(
+                    owner not in stage_by_id or owner == stage["id"]
+                    or stage_by_id[owner].get("policyVersion") is None
+                    or not stage_by_id[owner].get("supportsGroupScope")
+                    for owner in owners
+                ):
+                    raise ValueError(f"{target['selectionId']}の完了責務工程が不正です。")
         required_kinds = {
             "source": "source",
             "setup": "human",

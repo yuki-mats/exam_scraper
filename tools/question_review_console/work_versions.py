@@ -540,6 +540,12 @@ class QuestionWorkVersionStore:
         record = self.record_for(question) or {}
         recorded_stages = record.get("stages")
         recorded_stages = recorded_stages if isinstance(recorded_stages, Mapping) else {}
+        policies = list(policies)
+        applicable_policy_ids = {
+            str(policy.get("id") or "") for policy in policies
+            if policy.get("policyVersion") is not None
+            and _manual_policy_is_selected(question, policy)
+        }
         stages: list[dict[str, Any]] = []
         for raw_policy in policies:
             policy = dict(raw_policy)
@@ -567,6 +573,16 @@ class QuestionWorkVersionStore:
                     value
                     for value in update_targets
                     if str(value.get("selectionId") or "") in selected_target_ids
+                ]
+            else:
+                # A full workflow checks delegated fields at their owning
+                # stages. Explicit target-only work still checks its own receipt.
+                update_targets = [
+                    value for value in update_targets
+                    if not value.get("completionOwnerStageIds")
+                    or not set(value["completionOwnerStageIds"]).issubset(
+                        applicable_policy_ids
+                    )
                 ]
             target_statuses: list[dict[str, Any]] = []
             if update_targets:
