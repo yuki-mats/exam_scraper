@@ -777,6 +777,8 @@ class SubscriptionGateTests(unittest.TestCase):
         client = self.diagnostic_client()
         limits = rate_limit_response()
         limits["rateLimits"]["credits"] = {"hasCredits": True, "unlimited": False, "balance": "62500"}
+        limits["rateLimits"]["primary"]["usedPercent"] = 100
+        limits["rateLimits"]["rateLimitReachedType"] = "rate_limit_reached"
         client._request = lambda method, _params: account_response() if method == "account/read" else limits
         client.grant_existing_credits_for_run("nw", "approved-run")
         self.assertTrue(client._existing_credits_approved({"qualification": "nw", "runId": "approved-run"}))
@@ -1005,7 +1007,7 @@ class SubscriptionGateTests(unittest.TestCase):
                 with self.assertRaises(SubscriptionGateError):
                     validate_subscription_access(account_response(), limits)
 
-    def test_rejects_fast_and_any_additional_credits(self):
+    def test_rejects_fast_but_allows_subscription_with_existing_credit_balance(self):
         allowed = rate_limit_response()
         allowed["rateLimitResetCredits"] = {
             "availableCount": 1,
@@ -1025,15 +1027,26 @@ class SubscriptionGateTests(unittest.TestCase):
         enabled["rateLimitsByLimitId"]["codex_bengalfox"]["credits"] = {
             "hasCredits": True
         }
-        with self.assertRaisesRegex(SubscriptionGateError, "追加Codex creditsの残高"):
-            validate_subscription_access(account_response(), enabled)
+        status = validate_subscription_access(account_response(), enabled)
+        self.assertTrue(status["allowed"])
+        self.assertTrue(status["creditsEnabled"])
+        self.assertFalse(status["existingCreditsApproved"])
 
         auxiliary_only = copy.deepcopy(allowed)
         auxiliary_only["rateLimitsByLimitId"]["codex_bengalfox"]["credits"] = {
             "hasCredits": True
         }
-        with self.assertRaisesRegex(SubscriptionGateError, "補助Codex creditsの残高"):
-            validate_subscription_access(account_response(), auxiliary_only)
+        self.assertTrue(validate_subscription_access(account_response(), auxiliary_only)["allowed"])
+
+    def test_existing_balance_does_not_allow_exhausted_unapproved_windows(self):
+        for bucket, window_name in (("main", "primary"), ("main", "secondary"), ("auxiliary", "primary"), ("auxiliary", "secondary")):
+            with self.subTest(bucket=bucket, window=window_name):
+                limits = rate_limit_response()
+                limits["rateLimits"]["credits"] = {"hasCredits": True, "unlimited": False, "balance": "62500"}
+                snapshot = limits["rateLimits"] if bucket == "main" else limits["rateLimitsByLimitId"]["codex_bengalfox"]
+                snapshot[window_name] = {"usedPercent": 100}
+                with self.assertRaisesRegex(SubscriptionGateError, "利用上限"):
+                    validate_subscription_access(account_response(), limits)
 
     def test_rejects_missing_or_malformed_auxiliary_spend_fields(self):
         cases = []

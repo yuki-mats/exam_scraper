@@ -471,11 +471,8 @@ def validate_subscription_access(
         if used_percent >= 100 and not approved_balance:
             raise SubscriptionGateError("サブスクリプションの利用上限に達しています。")
 
-    if credits_enabled and not allow_existing_credits:
-        raise SubscriptionGateError(
-            "追加Codex creditsの残高があります。この実行で既存残高を利用する承認が必要です。"
-            "追加購入・自動チャージは行いません。"
-        )
+    # hasCreditsは残高の存在であり、サブスク枠内の実行を妨げない。
+    # 上限到達後の継続だけを、上で検証したrun別承認と残高で許可する。
     if "individualLimit" not in snapshot:
         raise SubscriptionGateError("spend control状態を安全に確認できません。")
     individual_limit = snapshot.get("individualLimit")
@@ -504,11 +501,20 @@ def validate_subscription_access(
             extra_credits.get("hasCredits"), bool
         ):
             raise SubscriptionGateError("補助credit状態を安全に確認できません。")
-        if extra_credits is not None and extra_credits.get("hasCredits") and not approved_balance:
-            raise SubscriptionGateError(
-                "補助Codex creditsの残高があります。"
-                "追加creditsを使用しないことを確認できないため実行を停止しています。"
-            )
+        for window_name in ("primary", "secondary"):
+            window = value.get(window_name)
+            if window is None:
+                continue
+            window = _as_mapping(window, f"補助{window_name}利用上限")
+            used_percent = window.get("usedPercent")
+            if (
+                isinstance(used_percent, bool)
+                or not isinstance(used_percent, (int, float))
+                or not math.isfinite(float(used_percent))
+            ):
+                raise SubscriptionGateError("補助利用率を安全に判定できません。")
+            if used_percent >= 100 and not approved_balance:
+                raise SubscriptionGateError("サブスクリプションの利用上限に達しています。")
         if "individualLimit" not in value:
             raise SubscriptionGateError("補助spend controlを安全に確認できません。")
         extra_limit = value.get("individualLimit")
