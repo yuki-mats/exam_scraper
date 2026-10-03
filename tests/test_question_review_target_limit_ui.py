@@ -86,6 +86,37 @@ if (limited(preview, [], 2, "previous-run").length !== 0) {
             preview_source,
         )
 
+    def test_previous_scope_exclusion_preserves_order_and_rejects_incomplete_identity(self) -> None:
+        script = r"""
+const fs = require("fs");
+const source = fs.readFileSync(process.argv[1], "utf8");
+const helper = source.split("function qualificationRunRemainingQuestionIds", 2)[1]
+  .split("function selectedQualificationRunStageIds", 1)[0];
+const remaining = new Function(`return function qualificationRunRemainingQuestionIds${helper}`)();
+const preview = {targetCount: 4, targetIdentity: {questionIds: ["q1", "q2", "q3", "q4"]}};
+const previous = {questionsIncluded: true, targetQuestionCount: 2,
+  questions: [{questionId: "q2", queueStatus: "blocked"}, {questionId: "q4"}]};
+if (JSON.stringify(remaining(preview, previous, 500)) !== JSON.stringify(["q1", "q3"])) {
+  throw new Error("exclude all previous targets, including blocked ones, without reordering");
+}
+if (JSON.stringify(remaining(preview, previous, 1)) !== JSON.stringify(["q1"])) {
+  throw new Error("limit applies after scope exclusion");
+}
+for (const invalid of [
+  {...previous, questionsIncluded: false},
+  {...previous, targetQuestionCount: 3},
+  {...previous, questions: [{questionId: "q2"}, {questionId: "q2"}]},
+]) {
+  let rejected = false;
+  try { remaining(preview, invalid, 500); } catch (e) { rejected = true; }
+  if (!rejected) throw new Error("incomplete or duplicated previous scope accepted");
+}
+let rejected = false;
+try { remaining({...preview, targetCount: 5}, previous, 500); } catch (e) { rejected = true; }
+if (!rejected) throw new Error("incomplete preview scope accepted");
+"""
+        subprocess.run(["node", "-e", script, str(self.javascript_path)], check=True, capture_output=True, text=True)
+
 
 if __name__ == "__main__":
     unittest.main()

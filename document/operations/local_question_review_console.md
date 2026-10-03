@@ -40,6 +40,7 @@
 - 自然言語の文章自体は整備modelの作業promptへ渡さない。serverが現行catalogのIDと照合した構造化計画だけを既存previewへ渡す。解釈が一意でない場合、未知ID、指示の未反映状態では開始しない。年度・フォルダ、同時処理数及びFirestore反映は文章だけで変更せず、画面の明示選択と既存の確認境界を保つ。
 - 選択又は解釈済みのupdate targetが属する工程をworkflow順で自動実行する。整備できる項目は初期状態ですべて選択し、操作は`すべて選択`と`選択解除`に統一する。前提が未整備のため実行できない項目は、前提を完了するまで選択肢に出さない。
 - 処理する問題は`整備が必要な問題だけ`を初期値とし、未整備、現行の整備基準を適用していない問題、要確認の問題をserverがまとめて抽出する。意図的に全件をやり直す場合だけ`選択年度の全問題を洗い替える`を選ぶ。内部状態ごとの選択肢と問題番号範囲は画面に出さない。
+- 複数runへ分割する場合は、終端となった直近runの対象を除く選択を使える。完了・保留を問わず前回の対象ID全件を除き、問題数上限は除外後へ適用する。不完全な前回一覧では開始せず、残りのIDをserverへ渡してexact preview・開始receiptへ確定する。保留の再整備はこの続きのrunへ混ぜず、原因を是正して別途行う。
 - 年度又はフォルダの識別には`examYear`を使わず、`listGroupId`を使う。独自問題に`examYear`がなくても実行契約は変わらない。ただし、`examYear`がある公式過去問では独自問題専用の`05_originalized`を自動的に非適用とし、`examYear`がない問題だけを05の対象にする。
 - `補足質問と回答`だけを選ぶ場合、`explanationText`は候補判断の参照用であり、更新できるのは`suggestedQuestionDetailsByChoice`だけである。他の工程も、選択したupdate targetの`fields`だけを書き換えられる。相互に整合させる必要があるfieldは一つのupdate targetとして選び、modelが選択外fieldをset又はunsetした候補は問題単位で拒否してpatchへ反映しない。
 - preview tokenとrun receiptには`selectedUpdateTargetIds`、`selectedFieldsByStage`、`readFieldsByStage`を保存し、再開時に実行条件が一つでも違う場合は別runとして確認し直す。APIから問題を厳密に限定する場合は`questionIds`を使う。serverは重複を除いて指定順を保持し、選択した`listGroupIds`内のinventoryにある`question.id`だけを受け入れる。未知IDと選択外年度のIDはpreview前に拒否し、正規化した同じID集合をpreview token、plan、run receipt、再開条件へ保存する。`updateTargetIds`は更新を許可するfieldの選択であり、問題scopeには使わない。

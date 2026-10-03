@@ -1263,6 +1263,7 @@ function bindControls() {
     }
   });
   $("#qualification-run-target-count").addEventListener("change", previewQualificationRun);
+  $("#qualification-run-exclude-previous").addEventListener("change", previewQualificationRun);
   $("#workflow-guide-close").addEventListener("click", closeWorkflowGuide);
   $("#workflow-guide-backdrop").addEventListener("click", closeWorkflowGuide);
   $("#workflow-guide-action").addEventListener("click", executeWorkflowGuideAction);
@@ -3184,6 +3185,22 @@ function selectedQualificationRunSpeedMode() {
   return DEFAULT_QUALIFICATION_SPEED_MODE;
 }
 
+function qualificationRunRemainingQuestionIds(preview, previous, limit) {
+  const previousIds = (previous.questions || []).map((question) => question.questionId);
+  if (!previous.questionsIncluded || previousIds.length !== Number(previous.targetQuestionCount)
+      || previousIds.some((id) => !id) || new Set(previousIds).size !== previousIds.length) {
+    throw new Error("前回の対象一覧が不完全なため、続きの問題を確定できません。");
+  }
+  const ids = preview.targetIdentity?.questionIds || [];
+  if (ids.length !== Number(preview.targetCount) || new Set(ids).size !== ids.length) {
+    throw new Error("server確定対象identityが不完全です。");
+  }
+  const excluded = new Set(previousIds);
+  const remaining = ids.filter((id) => !excluded.has(id));
+  if (!remaining.length) throw new Error("選択範囲に前回以外の問題はありません。");
+  return remaining.slice(0, limit);
+}
+
 function selectedQualificationRunStageIds() {
   if (state.qualificationRunDialog.authoritativeScope) {
     return [...state.qualificationRunDialog.stageIds];
@@ -3700,6 +3717,7 @@ function openQualificationRunDialog(stage, options = {}) {
     listGroupIds: selectedGroupIds,
     updateTargetIds: selectedUpdateTargetIds,
     questionIds: selectedQuestionIds,
+    excludePreviousRunId: "",
     questionLimit: Number(options.questionLimit || DEFAULT_QUALIFICATION_TARGET_COUNT),
     questionConcurrency: AUTO_QUESTION_CONCURRENCY,
     speedMode: DEFAULT_QUALIFICATION_SPEED_MODE,
@@ -3763,6 +3781,15 @@ function openQualificationRunDialog(stage, options = {}) {
       Math.max(1, state.qualificationRunDialog.questionLimit),
     ),
   );
+  const previousRun = displayedQualificationRun();
+  const exclusionAvailable = fieldFirst && !selectedQuestionIds.length
+    && !options.resumedFrom && !authoritativeScope && previousRun?.runId
+    && !["running", "queued", "starting", "stopping"].includes(previousRun.status);
+  $("#qualification-run-exclude-previous-wrap").hidden = !exclusionAvailable;
+  $("#qualification-run-exclude-previous").checked = false;
+  $("#qualification-run-exclude-previous-label").textContent =
+    `前回の対象${previousRun?.targetCount || ""}問を除いて続きから整備する（保留分も除く）`;
+  state.qualificationRunDialog.excludePreviousRunId = exclusionAvailable ? previousRun.runId : "";
   const requestedConcurrency = Number(
     options.questionConcurrency || AUTO_QUESTION_CONCURRENCY,
   );
@@ -3893,7 +3920,9 @@ async function previewQualificationRun() {
     blockedReworkFrom: state.qualificationRunDialog.blockedReworkFrom || undefined,
     resumedFrom: qualificationRunResumedFrom() || undefined,
   };
-  const signature = qualificationRunPreviewSignature({ ...requestBody, questionLimit });
+  const excludePreviousRunId = $("#qualification-run-exclude-previous")?.checked
+    ? state.qualificationRunDialog.excludePreviousRunId : "";
+  const signature = qualificationRunPreviewSignature({ ...requestBody, questionLimit, excludePreviousRunId });
   state.qualificationRunDialog.previewSignature = signature;
   state.qualificationRunDialog.previewController = controller;
   let timedOut = false;
@@ -3909,12 +3938,18 @@ async function previewQualificationRun() {
       body: requestBody,
     });
     const availableTargetCount = Number(preview.targetCount || 0);
-    const limitedQuestionIds = qualificationRunLimitedQuestionIds(
+    let limitedQuestionIds = qualificationRunLimitedQuestionIds(
       preview,
       questionIds,
       questionLimit,
       qualificationRunResumedFrom(),
     );
+    if (excludePreviousRunId) {
+      const params = new URLSearchParams({ qualification: workflow.qualification, includeQuestions: "true" });
+      const previous = await api(`/api/qualification-runs/${encodeURIComponent(excludePreviousRunId)}/progress?${params}`, { signal: controller.signal });
+      if (previous.runId !== excludePreviousRunId) throw new Error("前回のrunが一致しません。");
+      limitedQuestionIds = qualificationRunRemainingQuestionIds(preview, previous, questionLimit);
+    }
     if (limitedQuestionIds.length) {
       preview = await api("/api/qualification-runs/preview", {
         method: "POST",
@@ -4733,6 +4768,7 @@ function enterQualificationProgressView(run) {
   $("#qualification-run-scope-eyebrow").textContent = "問題ごとの作業状況";
   $("#qualification-run-title").textContent = `${qualificationDisplayName(run?.qualification)}の整備進捗`;
   $("#qualification-run-purpose").textContent = "対象問題ごとに、待機・処理中・完了・保留の状態を表示します。";
+  $("#qualification-run-exclude-previous-wrap").hidden = true;
   $("#qualification-run-guide").hidden = true;
   $("#qualification-run-law-setting-fieldset").hidden = true;
   $("#qualification-run-stage-fieldset").hidden = true;
