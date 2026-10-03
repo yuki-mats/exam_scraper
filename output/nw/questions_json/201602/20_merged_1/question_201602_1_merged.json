@@ -565,7 +565,7 @@
         [],
         []
       ],
-      "lawContextForExplanation": "階段の上下にある二つのスイッチで照明を操作する回路は、排他的論理和（XOR）の技術的な論理で説明する。法令根拠は不要である。"
+      "lawContextForExplanation": "二つのスイッチで照明を点灯・消灯する回路は、排他的論理和（XOR）の技術的な論理で説明する。法令根拠は不要である。"
     },
     {
       "questionBodyText": "動画や音声などのマルチメディアコンテンツのレイアウトや再生のタイミングをXMLフォーマットで記述するためのW3C勧告はどれか。",
@@ -1220,7 +1220,7 @@
         [],
         []
       ],
-      "lawContextForExplanation": "公開鍵暗号方式と共通鍵暗号方式を組み合わせる技術上の問題で、法令条文を根拠にしない。"
+      "lawContextForExplanation": "OpenPGPやS/MIMEのハイブリッド暗号方式に関する技術問題で、法令条文を根拠にしない。"
     },
     {
       "questionBodyText": "UMLのユースケース図の説明はどれか。",
@@ -1824,94 +1824,58 @@
       "lawReferences": [
         [
           {
-            "article": "24条の4の4第1項",
+            "article": "第24条の4の4第1項（金融庁実施基準Ⅰ.2.(6)①）",
+            "choiceIndex": 0,
             "lawId": "323AC0000000025",
             "lawTitle": "金融商品取引法",
-            "referenceDate": "2026-10-03",
+            "referenceDate": "2026-10-04",
             "role": "current_basis",
-            "scope": "question",
-            "source": "egov_xml",
-            "verificationStatus": "verified"
-          },
-          {
-            "article": "3",
-            "lawId": "419M60000002062",
-            "lawTitle": "財務計算に関する書類その他の情報の適正性を確保するための体制に関する内閣府令",
-            "referenceDate": "2026-10-03",
-            "role": "current_basis",
-            "scope": "question",
-            "source": "egov_xml",
+            "scope": "choice",
+            "source": "https://www.fsa.go.jp/singi/singi_kigyou/kijun/20230407_naibutousei_kansa.pdf",
             "verificationStatus": "verified"
           }
         ],
         [
           {
-            "article": "24条の4の4第1項",
+            "article": "第24条の4の4第1項（金融庁実施基準Ⅱ.3.(3)⑤ニ）",
+            "choiceIndex": 1,
             "lawId": "323AC0000000025",
             "lawTitle": "金融商品取引法",
-            "referenceDate": "2026-10-03",
+            "referenceDate": "2026-10-04",
             "role": "current_basis",
-            "scope": "question",
-            "source": "egov_xml",
-            "verificationStatus": "verified"
-          },
-          {
-            "article": "3",
-            "lawId": "419M60000002062",
-            "lawTitle": "財務計算に関する書類その他の情報を確保するための体制に関する内閣府令",
-            "referenceDate": "2026-10-03",
-            "role": "current_basis",
-            "scope": "question",
-            "source": "egov_xml",
+            "scope": "choice",
+            "source": "https://www.fsa.go.jp/singi/singi_kigyou/kijun/20230407_naibutousei_kansa.pdf",
             "verificationStatus": "verified"
           }
         ],
         [
           {
-            "article": "24条の4の4第1項",
+            "article": "第24条の4の4第1項（金融庁実施基準Ⅰ.2.(6)②）",
+            "choiceIndex": 2,
             "lawId": "323AC0000000025",
             "lawTitle": "金融商品取引法",
-            "referenceDate": "2026-10-03",
+            "referenceDate": "2026-10-04",
             "role": "current_basis",
-            "scope": "question",
-            "source": "egov_xml",
-            "verificationStatus": "verified"
-          },
-          {
-            "article": "3",
-            "lawId": "419M60000002062",
-            "lawTitle": "財務計算に関する書類その他の情報を確保するための体制に関する内閣府令",
-            "referenceDate": "2026-10-03",
-            "role": "current_basis",
-            "scope": "question",
-            "source": "egov_xml",
+            "scope": "choice",
+            "source": "https://www.fsa.go.jp/singi/singi_kigyou/kijun/20230407_naibutousei_kansa.pdf",
             "verificationStatus": "verified"
           }
         ],
         [
           {
-            "article": "24条の4の4第1項",
+            "article": "第24条の4の4第1項（金融庁実施基準Ⅰ.2.(6)②）",
+            "choiceIndex": 3,
             "lawId": "323AC0000000025",
             "lawTitle": "金融商品取引法",
-            "referenceDate": "2026-10-03",
+            "referenceDate": "2026-10-04",
             "role": "current_basis",
-            "scope": "question",
-            "source": "egov_xml",
-            "verificationStatus": "verified"
-          },
-          {
-            "article": "3",
-            "lawId": "419M60000002062",
-            "lawTitle": "財務計算に関する書類その他の情報を確保するための体制に関する内閣府令",
-            "referenceDate": "2026-10-03",
-            "role": "current_basis",
-            "scope": "question",
-            "source": "egov_xml",
+            "scope": "choice",
+            "source": "https://www.fsa.go.jp/singi/singi_kigyou/kijun/20230407_naibutousei_kansa.pdf",
             "verificationStatus": "verified"
           }
         ]
       ],
-      "lawContextForExplanation": "金融商品取引法第24条の4の4第1項および財務計算に関する書類その他の情報の適正性を確保するための体制に関する内閣府令第3条を制度上の根拠とし、ITへの対応は金融庁の「財務報告に係る内部統制の評価及び監査に関する実施基準」で確認する。"
+      "lawContextForExplanation": "金融商品取引法第24条の4の4第1項に基づく金融庁「財務報告に係る内部統制の評価及び監査に関する実施基準」Ⅰ.2.(6)及びⅡ.3.(3)⑤ニで、IT環境、IT全般統制、IT業務処理統制、自動化及び手作業による統制の扱いを確認する。"
     },
     {
       "questionBodyText": "ITベンダーにおけるソリューションビジネスの推進で用いるバランススコアカードの，学習と成長のKPIの目標例はどれか。ここで，ソリューションとは\"顧客の経営課題の達成に向けて，情報技術と専門家によるプロフェッショナルサービスを通して支援すること\"とする。",
@@ -2151,7 +2115,8 @@
         [],
         [],
         []
-      ]
+      ],
+      "lawContextForExplanation": "本問の正誤は経済産業省の「情報システム・モデル取引・契約書」に基づき、法令監査の対象外とする。"
     }
   ]
 }

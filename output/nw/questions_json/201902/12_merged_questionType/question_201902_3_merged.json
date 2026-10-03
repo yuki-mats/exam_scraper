@@ -70,13 +70,23 @@
       "answer_result_inferred_correct_choice_numbers": [
         1
       ],
-      "source_question_id": "201902:am:問21:https://www.nw-siken.com/kakomon/01_aki/am2_21.html"
+      "source_question_id": "201902:am:問21:https://www.nw-siken.com/kakomon/01_aki/am2_21.html",
+      "isCalculationQuestion": false,
+      "isLawRelated": false,
+      "lawGroundedExplanationNotNeeded": true,
+      "lawReferences": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "lawContextForExplanation": "DNSサーバの構成と公開範囲に関する技術的なセキュリティ対策であり、法令条文を根拠にしない。"
     },
     {
       "questionBodyText": "図はプロセッサによってフェッチされた命令の格納順序を表している。a に該当するプロセッサの構成要素はどれか。",
       "examLabel": "ネットワークスペシャリスト令和元年秋期 午前Ⅱ 問22",
       "questionLabel": "問22",
-      "questionType": "true_false",
+      "questionType": "flash_card",
       "choiceTextList": [
         "アキュムレーター",
         "データキャッシュ",
@@ -114,7 +124,7 @@
         "正しい"
       ],
       "explanation_common_prefix": [
-        "命令フェッチ\nプログラムカウンターが示すアドレスから命令語を\n命令レジスタに取り出す\n。\n命令デコード\n命令デコーダが取り出した命令を解読する。\n実効(有効)アドレス計算\n命令語のオペランド部の値を用いて、演算対象のデータを保持する主記憶のアドレスを計算する。\nオペランドフェッチ\n計算されたアドレス値を用いて主記憶からデータを汎用レジスタに取り出す。\n実行\n解読された命令と演算対象のデータで命令を用いて演算を行う。"
+        "命令フェッチプログラムカウンターが示すアドレスから命令語を命令レジスタに取り出す。命令デコード命令デコーダが取り出した命令を解読する。実効(有効)アドレス計算命令語のオペランド部の値を用いて、演算対象のデータを保持する主記憶のアドレスを計算する。オペランドフェッチ計算されたアドレス値を用いて主記憶からデータを汎用レジスタに取り出す。実行解読された命令と演算対象のデータで命令を用いて演算を行う。"
       ],
       "explanation_common_prefix_inferred_correct_choice": null,
       "explanation_common_summary": [],
@@ -142,7 +152,17 @@
       "answer_result_inferred_correct_choice_numbers": [
         4
       ],
-      "source_question_id": "201902:am:問22:https://www.nw-siken.com/kakomon/01_aki/am2_22.html"
+      "source_question_id": "201902:am:問22:https://www.nw-siken.com/kakomon/01_aki/am2_22.html",
+      "isCalculationQuestion": false,
+      "isLawRelated": false,
+      "lawGroundedExplanationNotNeeded": true,
+      "lawReferences": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "lawContextForExplanation": "主記憶からフェッチした命令を保持するプロセッサ構成要素を問う、コンピュータアーキテクチャ上の技術問題である。法令条文を根拠にしない。"
     },
     {
       "questionBodyText": "ピアツーピアシステムの特徴として，適切なものはどれか。",
@@ -210,7 +230,17 @@
       "answer_result_inferred_correct_choice_numbers": [
         1
       ],
-      "source_question_id": "201902:am:問23:https://www.nw-siken.com/kakomon/01_aki/am2_23.html"
+      "source_question_id": "201902:am:問23:https://www.nw-siken.com/kakomon/01_aki/am2_23.html",
+      "isCalculationQuestion": false,
+      "isLawRelated": false,
+      "lawGroundedExplanationNotNeeded": true,
+      "lawReferences": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "lawContextForExplanation": "技術知識で判断するピアツーピアシステムの構成問題であり、法令条文を根拠にしない。"
     },
     {
       "questionBodyText": "UMLのユースケース図の説明はどれか。",
@@ -253,7 +283,7 @@
       ],
       "explanation_common_prefix": [
         "ユースケース図",
-        "アクタ\nシステムのユーザーが果たす役割を表し、システムと活発に情報交換をしたり、システムから受動的に情報を受け取ったりする。人間、ハードウェア、外部システムがアクタになりえる。\nユースケース\nアクタとシステムとの間の対話をモデル化したもので、アクタによって開始され、システムのある機能を実行する。システムのユーザーがシステムを利用して遂行する単位業務のひとつを抽象化したもの。\n関連\nアクタとユースケースの関連を表す実線\n対象\nシステム化対象範囲を表す長方形"
+        "アクタシステムのユーザーが果たす役割を表し、システムと活発に情報交換をしたり、システムから受動的に情報を受け取ったりする。人間、ハードウェア、外部システムがアクタになりえる。ユースケースアクタとシステムとの間の対話をモデル化したもので、アクタによって開始され、システムのある機能を実行する。システムのユーザーがシステムを利用して遂行する単位業務のひとつを抽象化したもの。関連アクタとユースケースの関連を表す実線対象システム化対象範囲を表す長方形"
       ],
       "explanation_common_prefix_inferred_correct_choice": null,
       "explanation_common_summary": [],
@@ -281,13 +311,23 @@
       "answer_result_inferred_correct_choice_numbers": [
         3
       ],
-      "source_question_id": "201902:am:問24:https://www.nw-siken.com/kakomon/01_aki/am2_24.html"
+      "source_question_id": "201902:am:問24:https://www.nw-siken.com/kakomon/01_aki/am2_24.html",
+      "isCalculationQuestion": false,
+      "isLawRelated": false,
+      "lawGroundedExplanationNotNeeded": true,
+      "lawReferences": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "lawContextForExplanation": "UMLのユースケース図に関する技術・モデリング知識の問題で、法令条文を根拠にしない。"
     },
     {
       "questionBodyText": "SDメモリカードに使用される著作権保護技術はどれか。",
       "examLabel": "ネットワークスペシャリスト令和元年秋期 午前Ⅱ 問25",
       "questionLabel": "問25",
-      "questionType": "true_false",
+      "questionType": "flash_card",
       "choiceTextList": [
         "CPPM(Content Protection for Pre-Recorded Media)",
         "CPRM(Content Protection for Recordable Media)",
@@ -349,7 +389,17 @@
       "answer_result_inferred_correct_choice_numbers": [
         2
       ],
-      "source_question_id": "201902:am:問25:https://www.nw-siken.com/kakomon/01_aki/am2_25.html"
+      "source_question_id": "201902:am:問25:https://www.nw-siken.com/kakomon/01_aki/am2_25.html",
+      "isCalculationQuestion": false,
+      "isLawRelated": false,
+      "lawGroundedExplanationNotNeeded": true,
+      "lawReferences": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "lawContextForExplanation": "SDメモリカードで用いられる著作権保護技術を問う技術・規格問題であり、法令条文を根拠にしない。"
     }
   ]
 }

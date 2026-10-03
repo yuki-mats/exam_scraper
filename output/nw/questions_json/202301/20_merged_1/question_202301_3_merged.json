@@ -43,7 +43,7 @@
       "explanation_common_prefix": [
         "IEEE802.1X",
         "EAP",
-        "サプリカント（Supplicant）\nLANに接続するために認証を受けるクライアント\n認証サーバ（Authentication Server）\n実際に認証を行うサーバ。RADIUSサーバが使用されることが多い\nオーセンティケータ（Authenticator）\nサプリカントと認証サーバ間の認証プロセスを相互に中継する装置。有線接続ではL2SWやL3SW、無線接続ではアクセスポイントがこの役割を担う"
+        "サプリカント（Supplicant）LANに接続するために認証を受けるクライアント認証サーバ（Authentication Server）実際に認証を行うサーバ。RADIUSサーバが使用されることが多いオーセンティケータ（Authenticator）サプリカントと認証サーバ間の認証プロセスを相互に中継する装置。有線接続ではL2SWやL3SW、無線接続ではアクセスポイントがこの役割を担う"
       ],
       "explanation_common_prefix_inferred_correct_choice": null,
       "explanation_common_summary": [],
@@ -52,13 +52,13 @@
           "正しい。IEEE802.1Xは、アクセスポイントと認証サーバが連携し、EAPを使用してクライアント認証を行う仕組みです。"
         ],
         [
-          "無線LANのセキュアプロトコルWPAで使用される\nTKIP\n(Temporal Key Integrity Protocol)に関する記述です。"
+          "無線LANのセキュアプロトコルWPAで使用されるTKIP(Temporal Key Integrity Protocol)に関する記述です。"
         ],
         [
           "WPS(Wi-Fi Protected Setup)は、無線LAN機器同士の接続をワンプッシュで簡単に行うためにWi-Fiアライアンスによって策定された規格です。"
         ],
         [
-          "無線LANでは衝突を検知する方法がないため、衝突回避の通信制御を行うCSMA/\nCA方式が採用されています。CSMA/CAは、IEEE802.11の一部として規定されています。"
+          "無線LANでは衝突を検知する方法がないため、衝突回避の通信制御を行うCSMA/CA方式が採用されています。CSMA/CAは、IEEE802.11の一部として規定されています。"
         ]
       ],
       "explanation_choice_correctness": [
@@ -71,7 +71,17 @@
       "answer_result_inferred_correct_choice_numbers": [
         1
       ],
-      "source_question_id": "202301:am:問21:https://www.nw-siken.com/kakomon/05_haru/am2_21.html"
+      "source_question_id": "202301:am:問21:https://www.nw-siken.com/kakomon/05_haru/am2_21.html",
+      "isCalculationQuestion": false,
+      "isLawRelated": false,
+      "lawGroundedExplanationNotNeeded": true,
+      "lawReferences": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "lawContextForExplanation": "IEEE 802.1Xの技術仕様を問う問題で、法令条文を根拠にしない。"
     },
     {
       "questionBodyText": "メモリインターリーブの説明として，適切なものはどれか。",
@@ -141,7 +151,17 @@
       "answer_result_inferred_correct_choice_numbers": [
         4
       ],
-      "source_question_id": "202301:am:問22:https://www.nw-siken.com/kakomon/05_haru/am2_22.html"
+      "source_question_id": "202301:am:問22:https://www.nw-siken.com/kakomon/05_haru/am2_22.html",
+      "isCalculationQuestion": false,
+      "isLawRelated": false,
+      "lawGroundedExplanationNotNeeded": true,
+      "lawReferences": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "lawContextForExplanation": "メモリインターリーブの技術的な仕組みを問う問題で、法令条文を根拠にしない。"
     },
     {
       "questionBodyText": "クラウドサービスで提供されるFaaSに関する記述のうち，最も適切なものはどれか。",
@@ -212,7 +232,17 @@
       "answer_result_inferred_correct_choice_numbers": [
         4
       ],
-      "source_question_id": "202301:am:問23:https://www.nw-siken.com/kakomon/05_haru/am2_23.html"
+      "source_question_id": "202301:am:問23:https://www.nw-siken.com/kakomon/05_haru/am2_23.html",
+      "isCalculationQuestion": false,
+      "isLawRelated": false,
+      "lawGroundedExplanationNotNeeded": true,
+      "lawReferences": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "lawContextForExplanation": "FaaS、IaaS、DaaS、SaaSのサービスモデルに関する技術問題で、法令条文を根拠にしない。"
     },
     {
       "questionBodyText": "SysMLの説明として，適切なものはどれか。",
@@ -255,7 +285,7 @@
       ],
       "explanation_common_prefix": [
         "SysML",
-        "構造図\nブロック定義図、パッケージ図、内部ブロック図、パラメトリック図\n振る舞い図\nシーケンス図、ユースケース図、アクティビティ図、状態遷移図\n要求図\n要求図"
+        "構造図ブロック定義図、パッケージ図、内部ブロック図、パラメトリック図振る舞い図シーケンス図、ユースケース図、アクティビティ図、状態遷移図要求図要求図"
       ],
       "explanation_common_prefix_inferred_correct_choice": null,
       "explanation_common_summary": [],
@@ -283,7 +313,17 @@
       "answer_result_inferred_correct_choice_numbers": [
         2
       ],
-      "source_question_id": "202301:am:問24:https://www.nw-siken.com/kakomon/05_haru/am2_24.html"
+      "source_question_id": "202301:am:問24:https://www.nw-siken.com/kakomon/05_haru/am2_24.html",
+      "isCalculationQuestion": false,
+      "isLawRelated": false,
+      "lawGroundedExplanationNotNeeded": true,
+      "lawReferences": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "lawContextForExplanation": "SysMLの定義を問う技術・標準知識の問題で、法令条文を根拠にしない。"
     },
     {
       "questionBodyText": "マッシュアップを利用してWebコンテンツを表示している例として，最も適切なものはどれか。",
@@ -354,7 +394,17 @@
       "answer_result_inferred_correct_choice_numbers": [
         4
       ],
-      "source_question_id": "202301:am:問25:https://www.nw-siken.com/kakomon/05_haru/am2_25.html"
+      "source_question_id": "202301:am:問25:https://www.nw-siken.com/kakomon/05_haru/am2_25.html",
+      "isCalculationQuestion": false,
+      "isLawRelated": false,
+      "lawGroundedExplanationNotNeeded": true,
+      "lawReferences": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "lawContextForExplanation": "技術知識のみで判定できるマッシュアップの概念問題であり、法令条文を根拠にしない。"
     }
   ]
 }

@@ -41,9 +41,7 @@
         "間違い"
       ],
       "explanation_common_prefix": [
-        "VLAN",
-        "ポートベースVLANスイッチの接続ポート単位でグルーピングアドレスベースVLANMACアドレスやIPアドレスを基準にグルーピングポリシーベースVLAN IP、IPX、AppleTalkなどのネットワークプロトコルごとにグルーピングタグVLANパケット内の拡張タグに指定された情報によってグルーピング",
-        "認証VLAN"
+        "VLAN(Virtual LAN)は、スイッチングハブ(レイヤー2スイッチ)に接続された端末を物理的な構成に関係なくグループ化する機能、またはその機能で形成されたネットワークのことです。グループ分けに使用される情報により以下の方式があります。ポートベースVLANスイッチの接続ポート単位でグルーピングアドレスベースVLANMACアドレスやIPアドレスを基準にグルーピングポリシーベースVLAN IP、IPX、AppleTalkなどのネットワークプロトコルごとにグルーピングタグVLANパケット内の拡張タグに指定された情報によってグルーピング認証VLANは、VLANの方式の1つで、ネットワークの接続前に「MACアドレス認証」「ID＋パスワードによる認証」「IEEE 802.1x」などでユーザーを特定し、ユーザーごとに所属すべきVLANに振り分けることで端末のグルーピングを行います。これにより接続ポート単位やアドレス単位というグルーピングができない無線アクセスポイントへの接続でもVLANに対応させることができます。"
       ],
       "explanation_common_prefix_inferred_correct_choice": null,
       "explanation_common_summary": [],
@@ -123,7 +121,7 @@
         "間違い"
       ],
       "explanation_common_prefix": [
-        "シリアルATA"
+        "シリアルATA(SATA：Serial AT Attachment)は、コンピュータにハードディスクや光学ドライブなどを接続するためのインタフェース規格です。\nそれまでのパラレルATAが、1本のケーブルにつき2台の機器が接続できるマスタ・スレーブ接続だったのに対して、シリアルATAでは、1本のケーブルに1つの機器を接続するポイントツーポイントの接続形態を採用しています。\nしたがって「イ」が正解です。"
       ],
       "explanation_common_prefix_inferred_correct_choice": null,
       "explanation_common_summary": [],
@@ -152,6 +150,12 @@
         2
       ],
       "source_question_id": "200902:am:問22:https://www.nw-siken.com/kakomon/21_aki/am2_22.html",
+      "explanationImageSourceUrls": [
+        "https://www.nw-siken.com/kakomon/21_aki/img/22.png"
+      ],
+      "explanationImageStorageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq8c3ff89b4f244490_exp_img01.png?alt=media"
+      ],
       "isCalculationQuestion": false,
       "isLawRelated": false,
       "lawGroundedExplanationNotNeeded": true,
@@ -161,7 +165,7 @@
         [],
         []
       ],
-      "lawContextForExplanation": "シリアルATAの用途は技術知識で判断できるため、法令根拠は不要である。"
+      "lawContextForExplanation": "シリアルATAは磁気ディスク装置やDVDドライブなど高速な記憶装置を接続するシリアルインタフェースであり、法令根拠は不要である。"
     },
     {
       "questionBodyText": "シンクライアントシステムの利点のうち，適切なものはどれか。",
@@ -203,10 +207,12 @@
         "間違い"
       ],
       "explanation_common_prefix": [
-        "シンクライアント"
+        "シンクライアント(Thin Client)は、ユーザーが使用する端末にサーバに接続するための必要最小限のネットワーク機能、入出力をするためのGUIなどだけを装備させ、ほとんどの処理をサーバ側で行うシステム設計、またはその端末自体のことを指します。\nコンピュータウィルスなどにより企業内で管理している個人情報などが外部に流出する事件が発生している現在、端末にデータをもたせない特性をもつシンクライアントがセキュリティ対策として注目されています。\nしたがって適切な記述は「イ」です。"
       ],
       "explanation_common_prefix_inferred_correct_choice": null,
-      "explanation_common_summary": [],
+      "explanation_common_summary": [
+        "※シン（Thin）とは「薄い、少ない」の意味。"
+      ],
       "explanation_choice_snippets": [
         [
           "クライアントPC内で処理をせず、その都度サーバから返される結果を取得するので、応答性は低下する可能性があります。"
@@ -283,7 +289,7 @@
         "間違い"
       ],
       "explanation_common_prefix": [
-        "ブラックボックステスト"
+        "ブラックボックステストは、システムの内部構造を考慮せず、システムに与える入力とそれに対する出力だけに着目して、入力に対する出力が仕様書どおりになっているかを検証するテストです。内部でどのような処理が行われているのかは無視するため、システムの内部をブラックボックス(中が見えない箱)に見立てて「ブラックボックステスト」といいます。主にシステムテストや運用テストで用いられます。\nブラックボックステストの具体的なテスト手法としては、同値分割、限界値分析、原因－結果グラフ、エラー推測などがあります。"
       ],
       "explanation_common_prefix_inferred_correct_choice": null,
       "explanation_common_summary": [],
@@ -324,7 +330,7 @@
       "lawContextForExplanation": "ブラックボックステストのテストデータ設計に関する技術論点で、法令条文を根拠にしない。"
     },
     {
-      "questionBodyText": "開発した製品で利用している新規技術に関して特許の出願を行った。日本において特許権の取得ができない可能なものはどれか。",
+      "questionBodyText": "開発した製品で利用している新規技術に関して特許の出願を行った。日本において特許権の取得ができないものはどれか。",
       "examLabel": "ネットワークスペシャリスト平成21年秋期 午前Ⅱ 問25",
       "questionLabel": "問25",
       "questionType": "true_false",
@@ -363,10 +369,12 @@
         "間違い"
       ],
       "explanation_common_prefix": [
-        "特許出願前に日本国内又は外国において公然知られた発明\n特許出願前に日本国内又は外国において公然実施をされた発明\n特許出願前に日本国内又は外国において、頒布された刊行物に記載された発明又は電気通信回線を通じて公衆に利用可能となつた発明\n特許出願前にその発明の属する技術の分野における通常の知識を有する者が上記(1)～(3)に掲げる発明に基いて容易に発明をすることができた発明"
+        "特許法29条によれば、以下の発明は新規性がないとして特許を受けることができません。1. 特許出願前に日本国内又は外国において公然知られた発明\n2. 特許出願前に日本国内又は外国において公然実施をされた発明\n3. 特許出願前に日本国内又は外国において、頒布された刊行物に記載された発明又は電気通信回線を通じて公衆に利用可能となつた発明\n4. 特許出願前にその発明の属する技術の分野における通常の知識を有する者が上記(1)～(3)に掲げる発明に基いて容易に発明をすることができた発明"
       ],
       "explanation_common_prefix_inferred_correct_choice": null,
-      "explanation_common_summary": [],
+      "explanation_common_summary": [
+        "※本問については法改正により新規性喪失の例外が広がり、特許出願できる範囲が増えたことを受け、問題文を「取得が可能なものはどれか」から「取得ができないものはどれか」に改題してあります。"
+      ],
       "explanation_choice_snippets": [
         [
           "日本の特許制度においては、特許出願より前に公開された発明は原則として特許を受けることはできません。しかし、公知・実施された発明であっても、その公知・実施された日から1年以内であれば所定の書面を提出することで特許出願が可能です（30条2項）。本ケースでは公表した日から11か月での出願ですので、特許を受けることができます。"

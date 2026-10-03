@@ -41,8 +41,7 @@
         "間違い"
       ],
       "explanation_common_prefix": [
-        "1010 1010",
-        "1010 1010"
+        "減算を、負数の作成と加算処理で行うことができるとは、以下のようにして処理を行うことです。\n例として 123－86＝37 を考えてみましょう。\nまず式を 8ビットの2進数で表現すると、　\n　0111 1011－0101 0110 となります。\n次に加算処理で減算ができるように引く数 0101 0110を2の補数表現にします。\n　ビット反転して 1010 1001\n　1を加えて 1010 1010 です。\n先程の式の符号を加算に変えて\n　0111 1011＋1010 1010\nこれを計算すると、\n 1 0010 0101  となり最上位の1ビットを桁あふれ扱いすると、\n 0010 0101＝10進数で37という同様の結果が加算で求められることがわかります。"
       ],
       "explanation_common_prefix_inferred_correct_choice": null,
       "explanation_common_summary": [],
@@ -122,8 +121,7 @@
         "間違い"
       ],
       "explanation_common_prefix": [
-        "CRC",
-        "送信側は、検査対象のデータを生成多項式（ビット列）で割り、その余りを検査用データとする\n例）10001000 mod 1010 = 110送信側は、検査対象のデータに検査用データを付加して送信する\n例）検査対象データ：10001000、検査用データ：110受信側は、検査対象データ＋検査用データを、送信側と同じ生成多項式で割る\n例）(10001000 + 110) mod 1010 = 03.で計算した余りが0であれば\"誤りなし\"と判断する"
+        "CRC(Cyclic Redundancy Check：巡回冗長検査)は、ネットワーク伝送やストレージなどにおいて用いられる誤り検出方式です。生成多項式を使用して検査用データの生成と検証を行うことが特徴で、単純なパリティチェックでは検出できない偶数個の誤りやバースト誤りを検出できる特長があります。\nCRCの基本的な原理は次のとおりです。1. 送信側は、検査対象のデータを生成多項式（ビット列）で割り、その余りを検査用データとする\n例）10001000 mod 1010 = 1102. 送信側は、検査対象のデータに検査用データを付加して送信する\n例）検査対象データ：10001000、検査用データ：1103. 受信側は、検査対象データ＋検査用データを、送信側と同じ生成多項式で割る\n例）(10001000 + 110) mod 1010 = 04. 3.で計算した余りが0であれば\"誤りなし\"と判断する"
       ],
       "explanation_common_prefix_inferred_correct_choice": null,
       "explanation_common_summary": [],
@@ -250,7 +248,7 @@
         [],
         []
       ],
-      "lawContextForExplanation": "連結リストのポインタ構成と計算量を問うアルゴリズム上の問題で、法令条文を根拠にしない。"
+      "lawContextForExplanation": "連結リストのポインタ構成と、末尾への追加・削除に要する計算量を問うアルゴリズム上の問題で、法令条文を根拠にしない。"
     },
     {
       "questionBodyText": "パイプラインの深さをD，パイプラインのピッチをP秒とすると，I個の命令をパイプラインで実行するのに要する時間を表す式はどれか。ここで，パイプラインの各ステージは1ピッチで処理されるものとし，パイプラインハザードについては，考慮しなくてよい。",
@@ -291,10 +289,7 @@
         "間違い",
         "間違い"
       ],
-      "explanation_common_prefix": [
-        "パイプライン制御",
-        "(I＋D－1)×P"
-      ],
+      "explanation_common_prefix": [],
       "explanation_common_prefix_inferred_correct_choice": null,
       "explanation_common_summary": [],
       "explanation_choice_snippets": [
@@ -322,6 +317,12 @@
         2
       ],
       "source_question_id": "200902:am:問4:https://www.nw-siken.com/kakomon/21_aki/am1_4.html",
+      "explanationImageSourceUrls": [
+        "https://www.ap-siken.com/kakomon/21_aki/img/09.png"
+      ],
+      "explanationImageStorageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq2484c9ae41884c25_exp_img01.png?alt=media"
+      ],
       "isCalculationQuestion": true,
       "isLawRelated": false,
       "lawGroundedExplanationNotNeeded": true,
@@ -373,7 +374,7 @@
         "間違い"
       ],
       "explanation_common_prefix": [
-        "フェールセーフ"
+        "フェールセーフは、システムの不具合や故障が発生したときでも、障害の影響範囲を最小限にとどめ、常に安全を最優先にして制御を行う考え方です。例えば、「工業用機械で進入禁止区域をセンサーで監視し、人や物の侵入を感知したときには機械を緊急停止する」、「信号機が故障した時は全てを赤信号にする」というような設計がフェールセーフの実践例です。"
       ],
       "explanation_common_prefix_inferred_correct_choice": null,
       "explanation_common_summary": [],
@@ -452,10 +453,7 @@
         "間違い",
         "正しい"
       ],
-      "explanation_common_prefix": [
-        "片方のみが稼働している割合＝1－両方が稼働している割合－両方が故障している割合",
-        "両方が稼働している割合0.7×0.6＝0.42両方が故障している割合故障率＝1－稼働率なので、{(1－0.7)×(1－0.6)}＝0.3×0.4＝0.12片方だけが稼働している割合1－0.42－0.12＝0.46"
-      ],
+      "explanation_common_prefix": [],
       "explanation_common_prefix_inferred_correct_choice": null,
       "explanation_common_summary": [],
       "explanation_choice_snippets": [
@@ -533,9 +531,13 @@
         "正しい",
         "間違い"
       ],
-      "explanation_common_prefix": [],
+      "explanation_common_prefix": [
+        "OSI(Open Source Initiative)では、オープンソースとして頒布されるプログラムの条件として、①再頒布の自由、②ソースコードの頒布、③派生ソフトウェアの作成・頒布の許可、④作者のソースコードの完全性、⑤個人やグループに対する差別の禁止、⑥利用する分野に対する差別の禁止、⑦ライセンスの分配、⑧特定製品でのみ有効なライセンスの禁止、⑨他のソフトウェアを制限するライセンスの禁止、⑩技術的中立、を規定しています。"
+      ],
       "explanation_common_prefix_inferred_correct_choice": null,
-      "explanation_common_summary": [],
+      "explanation_common_summary": [
+        "参照URL：OSG-JP オープンソースの定義\n　https://opensource.jp/osd/osd19/"
+      ],
       "explanation_choice_snippets": [
         [
           "オープンソースであるプログラムを頒布する際には、プログラムとの同時頒布やインターネット上での公開などにより、ソースコードを容易に入手可能できることを保証しなければなりません。しかし、OSSとともに頒布されるほかのソフトウェアについてはソースコードを公開する必要はありません。"
@@ -570,7 +572,7 @@
         [],
         []
       ],
-      "lawContextForExplanation": "OSSライセンスの定義と利用許諾条件に関する技術問題で、法令条文を根拠にしない。営利目的を含む使用を許可することがOSSの特徴である。"
+      "lawContextForExplanation": "OSIが定義するOSSの特徴に関する技術問題で、法令条文を根拠にしない。営利目的での使用も許可される。"
     },
     {
       "questionBodyText": "図の論理回路において，S＝1，R＝1，X＝0，Y＝1のとき，Sをいったん0にした後，再び1に戻した。この操作を行った後のX，Yの値はどれか。",
@@ -613,9 +615,7 @@
         "正しい",
         "間違い"
       ],
-      "explanation_common_prefix": [
-        "フリップフロップ"
-      ],
+      "explanation_common_prefix": [],
       "explanation_common_prefix_inferred_correct_choice": null,
       "explanation_common_summary": [],
       "explanation_choice_snippets": [
@@ -643,7 +643,17 @@
         3
       ],
       "source_question_id": "200902:am:問8:https://www.nw-siken.com/kakomon/21_aki/am1_8.html",
-      "isCalculationQuestion": true,
+      "explanationImageSourceUrls": [
+        "https://www.ap-siken.com/kakomon/21_aki/img/23_1.png",
+        "https://www.ap-siken.com/kakomon/21_aki/img/23_2.png",
+        "https://www.ap-siken.com/kakomon/21_aki/img/23_3.png"
+      ],
+      "explanationImageStorageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq2bfb20e7dbd61e86_exp_img01.png?alt=media",
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq2bfb20e7dbd61e86_exp_img02.png?alt=media",
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq2bfb20e7dbd61e86_exp_img03.png?alt=media"
+      ],
+      "isCalculationQuestion": false,
       "isLawRelated": false,
       "lawGroundedExplanationNotNeeded": true,
       "lawReferences": [
@@ -694,7 +704,7 @@
         "間違い"
       ],
       "explanation_common_prefix": [
-        "Webアクセシビリティ"
+        "Webアクセシビリティは、Webページを利用する際に、年齢や身体的制約・利用環境などにかかわらず、すべての人が情報や機能にアクセスできるように設計することを指します。"
       ],
       "explanation_common_prefix_inferred_correct_choice": null,
       "explanation_common_summary": [],
@@ -774,7 +784,7 @@
         "間違い"
       ],
       "explanation_common_prefix": [
-        "アンチエイリアシング"
+        "アンチエイリアシング(anti-aliasing)は、デジタル画像の物体の輪郭に現れるピクセルのギザギザ（ジャギー）を、なめらかに見せるために周囲(背景)の画素値と平均化処理をして描画するCG技法です。"
       ],
       "explanation_common_prefix_inferred_correct_choice": null,
       "explanation_common_summary": [],
@@ -803,6 +813,12 @@
         1
       ],
       "source_question_id": "200902:am:問10:https://www.nw-siken.com/kakomon/21_aki/am1_10.html",
+      "explanationImageSourceUrls": [
+        "https://www.ap-siken.com/kakomon/21_aki/img/28.png"
+      ],
+      "explanationImageStorageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fqb006d50aa27e2d50_exp_img01.png?alt=media"
+      ],
       "isCalculationQuestion": false,
       "isLawRelated": false,
       "lawGroundedExplanationNotNeeded": true,
@@ -854,9 +870,7 @@
         "間違い"
       ],
       "explanation_common_prefix": [
-        "2相コミットプロトコル",
-        "調停者となったノードはネットワーク上の他のノードにコミットの可否を問い合わせる。\n全参加者は調停者にコミットの可否を応答する。",
-        "全参加者からコミットの合意を得られた場合は、全参加者にコミットの実行要求を発行する。コミットの停止を応答した参加者がいた場合、またはタイムアウトとなった場合は、全参加者にロールバックの実行要求を発行する。\n各参加者は、コミット(またはロールバック)の完了とともに調停者に処理完了のメッセージを送る。\n調停者が、全参加者からの処理完了メッセージを受け取り、トランザクションの完了となる。"
+        "2相コミットプロトコルは、トランザクションを他のサイトに更新可能かどうかを確認する第1相と、更新を確定する第2相の2つのフェーズに分け、各サイトのトランザクションをコミットもロールバックも可能な中間状態(セキュア状態)にした後、全サイトがコミットできる場合だけトランザクションをコミットするという方法で分散データベース環境でのトランザクションの原子性・一貫性を保証する手法です。\n具体的には、コミットの調整を行う1つのノードを「調停者」、ネットワーク上の他のノードを「参加者」として、次の手順でコミットが行われます。\n[第1相(投票層)]1. 調停者となったノードはネットワーク上の他のノードにコミットの可否を問い合わせる。2. 全参加者は調停者にコミットの可否を応答する。\n[第2相(決定相)]\n3. 全参加者からコミットの合意を得られた場合は、全参加者にコミットの実行要求を発行する。コミットの停止を応答した参加者がいた場合、またはタイムアウトとなった場合は、全参加者にロールバックの実行要求を発行する。4. 各参加者は、コミット(またはロールバック)の完了とともに調停者に処理完了のメッセージを送る。5. 調停者が、全参加者からの処理完了メッセージを受け取り、トランザクションの完了となる。"
       ],
       "explanation_common_prefix_inferred_correct_choice": null,
       "explanation_common_summary": [],
@@ -885,6 +899,12 @@
         2
       ],
       "source_question_id": "200902:am:問11:https://www.nw-siken.com/kakomon/21_aki/am1_11.html",
+      "explanationImageSourceUrls": [
+        "https://www.ap-siken.com/kakomon/21_aki/img/31.png"
+      ],
+      "explanationImageStorageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq302187478bc2a8de_exp_img01.png?alt=media"
+      ],
       "isCalculationQuestion": false,
       "isLawRelated": false,
       "lawGroundedExplanationNotNeeded": true,
@@ -1023,13 +1043,7 @@
         "間違い",
         "間違い"
       ],
-      "explanation_common_prefix": [
-        "VoIP",
-        "PBX(Private Branch eXchange)複数の構内電話機を、公衆電話回線網に接続して使用する際の中継装置のこと。VoIPゲートウェイ電話網とIPネットワークの境界に置かれ、音声とIPパケットの相互変換を行う。ルータ他のIPネットワークとの境界に設置され、パケットのIPアドレスを見て最適な経路に中継する通信装置。",
-        "a",
-        "c",
-        "b"
-      ],
+      "explanation_common_prefix": [],
       "explanation_common_prefix_inferred_correct_choice": null,
       "explanation_common_summary": [],
       "explanation_choice_snippets": [
@@ -1057,6 +1071,12 @@
         1
       ],
       "source_question_id": "200902:am:問13:https://www.nw-siken.com/kakomon/21_aki/am1_13.html",
+      "explanationImageSourceUrls": [
+        "https://www.ap-siken.com/kakomon/21_aki/img/37_1.png"
+      ],
+      "explanationImageStorageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq8afbad1e3b0b5073_exp_img01.png?alt=media"
+      ],
       "isCalculationQuestion": false,
       "isLawRelated": false,
       "lawGroundedExplanationNotNeeded": true,
@@ -1107,23 +1127,21 @@
         "間違い",
         "間違い"
       ],
-      "explanation_common_prefix": [
-        "送信者は、送信するメッセージのハッシュ値（メッセージダイジェスト）を生成し、それに送信者の秘密鍵で署名して、署名データを作成する\n送信者は、署名データをメッセージに付加して送信する\n受信者は、署名データ付きのメッセージを受信する\n受信者は、受信したメッセージのハッシュ値と送信者の公開鍵を使用して、署名データを検証する\n検証は、送信されたメッセージと受信したメッセージが同じであり、鍵ペアが正しい場合に限り成功する。これにより、通信内容が改ざんされていないことと送信者の正当性が確認できる"
-      ],
+      "explanation_common_prefix": [],
       "explanation_common_prefix_inferred_correct_choice": null,
       "explanation_common_summary": [],
       "explanation_choice_snippets": [
         [
-          "デジタル署名の生成と検証の手順は次のとおりです。送信者は、送信するメッセージのハッシュ値（メッセージダイジェスト）を生成し、それに送信者の秘密鍵で署名して、署名データを作成する\n送信者は、署名データをメッセージに付加して送信する\n受信者は、署名データ付きのメッセージを受信する\n受信者は、受信したメッセージのハッシュ値と送信者の公開鍵を使用して、署名データを検証する\n検証は、送信されたメッセージと受信したメッセージが同じであり、鍵ペアが正しい場合に限り成功する。これにより、通信内容が改ざんされていないことと送信者の正当性が確認できる\nデジタル署名で使用される鍵は、送信者の秘密鍵と送信者の公開鍵です。送信者の秘密鍵は署名の生成、送信者の公開鍵は署名の検証に使用されます。したがって、適切な手順は「イ」です。"
+          "デジタル署名の生成と検証の手順は次のとおりです。1. 送信者は、送信するメッセージのハッシュ値（メッセージダイジェスト）を生成し、それに送信者の秘密鍵で署名して、署名データを作成する\n2. 送信者は、署名データをメッセージに付加して送信する\n3. 受信者は、署名データ付きのメッセージを受信する\n4. 受信者は、受信したメッセージのハッシュ値と送信者の公開鍵を使用して、署名データを検証する\n5. 検証は、送信されたメッセージと受信したメッセージが同じであり、鍵ペアが正しい場合に限り成功する。これにより、通信内容が改ざんされていないことと送信者の正当性が確認できる\nデジタル署名で使用される鍵は、送信者の秘密鍵と送信者の公開鍵です。送信者の秘密鍵は署名の生成、送信者の公開鍵は署名の検証に使用されます。したがって、適切な手順は「イ」です。"
         ],
         [
-          "デジタル署名の生成と検証の手順は次のとおりです。送信者は、送信するメッセージのハッシュ値（メッセージダイジェスト）を生成し、それに送信者の秘密鍵で署名して、署名データを作成する\n送信者は、署名データをメッセージに付加して送信する\n受信者は、署名データ付きのメッセージを受信する\n受信者は、受信したメッセージのハッシュ値と送信者の公開鍵を使用して、署名データを検証する\n検証は、送信されたメッセージと受信したメッセージが同じであり、鍵ペアが正しい場合に限り成功する。これにより、通信内容が改ざんされていないことと送信者の正当性が確認できる\nデジタル署名で使用される鍵は、送信者の秘密鍵と送信者の公開鍵です。送信者の秘密鍵は署名の生成、送信者の公開鍵は署名の検証に使用されます。したがって、適切な手順は「イ」です。"
+          "デジタル署名の生成と検証の手順は次のとおりです。1. 送信者は、送信するメッセージのハッシュ値（メッセージダイジェスト）を生成し、それに送信者の秘密鍵で署名して、署名データを作成する\n2. 送信者は、署名データをメッセージに付加して送信する\n3. 受信者は、署名データ付きのメッセージを受信する\n4. 受信者は、受信したメッセージのハッシュ値と送信者の公開鍵を使用して、署名データを検証する\n5. 検証は、送信されたメッセージと受信したメッセージが同じであり、鍵ペアが正しい場合に限り成功する。これにより、通信内容が改ざんされていないことと送信者の正当性が確認できる\nデジタル署名で使用される鍵は、送信者の秘密鍵と送信者の公開鍵です。送信者の秘密鍵は署名の生成、送信者の公開鍵は署名の検証に使用されます。したがって、適切な手順は「イ」です。"
         ],
         [
-          "デジタル署名の生成と検証の手順は次のとおりです。送信者は、送信するメッセージのハッシュ値（メッセージダイジェスト）を生成し、それに送信者の秘密鍵で署名して、署名データを作成する\n送信者は、署名データをメッセージに付加して送信する\n受信者は、署名データ付きのメッセージを受信する\n受信者は、受信したメッセージのハッシュ値と送信者の公開鍵を使用して、署名データを検証する\n検証は、送信されたメッセージと受信したメッセージが同じであり、鍵ペアが正しい場合に限り成功する。これにより、通信内容が改ざんされていないことと送信者の正当性が確認できる\nデジタル署名で使用される鍵は、送信者の秘密鍵と送信者の公開鍵です。送信者の秘密鍵は署名の生成、送信者の公開鍵は署名の検証に使用されます。したがって、適切な手順は「イ」です。"
+          "デジタル署名の生成と検証の手順は次のとおりです。1. 送信者は、送信するメッセージのハッシュ値（メッセージダイジェスト）を生成し、それに送信者の秘密鍵で署名して、署名データを作成する\n2. 送信者は、署名データをメッセージに付加して送信する\n3. 受信者は、署名データ付きのメッセージを受信する\n4. 受信者は、受信したメッセージのハッシュ値と送信者の公開鍵を使用して、署名データを検証する\n5. 検証は、送信されたメッセージと受信したメッセージが同じであり、鍵ペアが正しい場合に限り成功する。これにより、通信内容が改ざんされていないことと送信者の正当性が確認できる\nデジタル署名で使用される鍵は、送信者の秘密鍵と送信者の公開鍵です。送信者の秘密鍵は署名の生成、送信者の公開鍵は署名の検証に使用されます。したがって、適切な手順は「イ」です。"
         ],
         [
-          "デジタル署名の生成と検証の手順は次のとおりです。送信者は、送信するメッセージのハッシュ値（メッセージダイジェスト）を生成し、それに送信者の秘密鍵で署名して、署名データを作成する\n送信者は、署名データをメッセージに付加して送信する\n受信者は、署名データ付きのメッセージを受信する\n受信者は、受信したメッセージのハッシュ値と送信者の公開鍵を使用して、署名データを検証する\n検証は、送信されたメッセージと受信したメッセージが同じであり、鍵ペアが正しい場合に限り成功する。これにより、通信内容が改ざんされていないことと送信者の正当性が確認できる\nデジタル署名で使用される鍵は、送信者の秘密鍵と送信者の公開鍵です。送信者の秘密鍵は署名の生成、送信者の公開鍵は署名の検証に使用されます。したがって、適切な手順は「イ」です。"
+          "デジタル署名の生成と検証の手順は次のとおりです。1. 送信者は、送信するメッセージのハッシュ値（メッセージダイジェスト）を生成し、それに送信者の秘密鍵で署名して、署名データを作成する\n2. 送信者は、署名データをメッセージに付加して送信する\n3. 受信者は、署名データ付きのメッセージを受信する\n4. 受信者は、受信したメッセージのハッシュ値と送信者の公開鍵を使用して、署名データを検証する\n5. 検証は、送信されたメッセージと受信したメッセージが同じであり、鍵ペアが正しい場合に限り成功する。これにより、通信内容が改ざんされていないことと送信者の正当性が確認できる\nデジタル署名で使用される鍵は、送信者の秘密鍵と送信者の公開鍵です。送信者の秘密鍵は署名の生成、送信者の公開鍵は署名の検証に使用されます。したがって、適切な手順は「イ」です。"
         ]
       ],
       "explanation_choice_correctness": [
@@ -1137,6 +1155,12 @@
         2
       ],
       "source_question_id": "200902:am:問14:https://www.nw-siken.com/kakomon/21_aki/am1_14.html",
+      "explanationImageSourceUrls": [
+        "https://www.ap-siken.com/kakomon/21_aki/img/38.png"
+      ],
+      "explanationImageStorageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fqc0d6384c8d5e43b7_exp_img01.png?alt=media"
+      ],
       "isCalculationQuestion": false,
       "isLawRelated": false,
       "lawGroundedExplanationNotNeeded": true,
@@ -1188,8 +1212,7 @@
         "正しい"
       ],
       "explanation_common_prefix": [
-        "定量的評価",
-        "定性的評価"
+        "定量的評価とは、リスクの大きさを金額(数値)で表す評価手法です。これに対して定性的評価はランク付けやレベルなどの金額以外で表す手法になります。"
       ],
       "explanation_common_prefix_inferred_correct_choice": null,
       "explanation_common_summary": [],
@@ -1269,9 +1292,7 @@
         "間違い"
       ],
       "explanation_common_prefix": [
-        "ソフトウェアの品質特性",
-        "ISO/IEC 9126",
-        "機能性(Functionality)目的から求められる必要な機能の実装の度合い\n副特性として合目的性，正確性，相互運用性，標準適合性，セキュリティが含まれる。信頼性(Reliability)機能が正常動作し続ける度合い，障害の起こりにくさの度合い\n副特性として成熟性，障害許容性，回復性が含まれる。使用性（Usability）分かりやすさ、使いやすさの度合い\n副特性として理解性，習得性，運用性，魅力性が含まれる。効率性(Efficiency)目的達成のために使用する時間や資源の度合い\n副特性として時間効率性，資源効率性が含まれる。保守性(Maintainability)保守(改訂)作業に必要な労力の度合い\n副特性として解析性，変更性，安定性，試験性が含まれる。移植性（Portability）移植のしやすさ，別の環境へ移した際そのまま動作する度合い\n副特性として環境適用性，設置性，規格適合性，置換性が含まれる。"
+        "ソフトウェアの品質特性とは、ソフトウェアの品質を評価する基準となるものです。\nISO/IEC 9126(JIS X 0129)において、機能性，信頼性，使用性，効率性，保守性，移植性の６つの特性と、それぞれの品質特性をさらに細分化した21の副特性が定められています。各品質特性の意味については以下の通りです。機能性(Functionality)目的から求められる必要な機能の実装の度合い\n副特性として合目的性，正確性，相互運用性，標準適合性，セキュリティが含まれる。信頼性(Reliability)機能が正常動作し続ける度合い，障害の起こりにくさの度合い\n副特性として成熟性，障害許容性，回復性が含まれる。使用性（Usability）分かりやすさ、使いやすさの度合い\n副特性として理解性，習得性，運用性，魅力性が含まれる。効率性(Efficiency)目的達成のために使用する時間や資源の度合い\n副特性として時間効率性，資源効率性が含まれる。保守性(Maintainability)保守(改訂)作業に必要な労力の度合い\n副特性として解析性，変更性，安定性，試験性が含まれる。移植性（Portability）移植のしやすさ，別の環境へ移した際そのまま動作する度合い\n副特性として環境適用性，設置性，規格適合性，置換性が含まれる。\n選択肢の記述が、どの特性に当てはまるかを考えてみると、"
       ],
       "explanation_common_prefix_inferred_correct_choice": null,
       "explanation_common_summary": [],
@@ -1300,6 +1321,12 @@
         1
       ],
       "source_question_id": "200902:am:問16:https://www.nw-siken.com/kakomon/21_aki/am1_16.html",
+      "explanationImageSourceUrls": [
+        "https://www.ap-siken.com/kakomon/21_aki/img/48.png"
+      ],
+      "explanationImageStorageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq30267738c3170ba6_exp_img01.png?alt=media"
+      ],
       "isCalculationQuestion": false,
       "isLawRelated": false,
       "lawGroundedExplanationNotNeeded": true,
@@ -1351,7 +1378,7 @@
         "間違い"
       ],
       "explanation_common_prefix": [
-        "共通フレーム"
+        "共通フレームは、ソフトウェア産業界においての\"共通の物差し\"となることを目的として作成された規格です。取得者と供給者双方、またはシステム開発に関わる全ての人が、ソフトウェアを中心としたシステムの企画、要件定義、開発、運用、保守の作業内容を共通に参照できるよう詳細に表現したり、ソフトウェア取引を明確化したりするための基準が記述されています。国際規格であるISO/IEC 12207をベースにしています。"
       ],
       "explanation_common_prefix_inferred_correct_choice": null,
       "explanation_common_summary": [],
@@ -1432,12 +1459,7 @@
         "間違い",
         "正しい"
       ],
-      "explanation_common_prefix": [
-        "アーンドバリュー分析",
-        "PV（Planned Value）プロジェクト開始当初、現時点までに計画されていた作業に対する予算EV（Earned Value）現時点までに完了した作業に割り当てられていた予算AC（Actual Cost）現時点までに完了した作業に対して実際に投入した総コスト",
-        "完成時総コスト見積り",
-        "150"
-      ],
+      "explanation_common_prefix": [],
       "explanation_common_prefix_inferred_correct_choice": null,
       "explanation_common_summary": [],
       "explanation_choice_snippets": [
@@ -1602,7 +1624,7 @@
         "間違い"
       ],
       "explanation_common_prefix": [
-        "パイロット移行方式"
+        "パイロット移行方式は、すべての部門を同時に新システムに切り替えるのではなく、まず限定的な部門だけに新システムを導入し、その運用状況や移行経験を生かして全体的なシステムの移行につなげていく方式です。\n一斉移行方式と比較して、トラブル発生時の影響を局所化できることや、順次移行方式と比較して移行のスケジュールを短くできるメリットがあります。"
       ],
       "explanation_common_prefix_inferred_correct_choice": null,
       "explanation_common_summary": [],
@@ -1681,10 +1703,7 @@
         "間違い",
         "正しい"
       ],
-      "explanation_common_prefix": [
-        "ITIL",
-        "RFC"
-      ],
+      "explanation_common_prefix": [],
       "explanation_common_prefix_inferred_correct_choice": null,
       "explanation_common_summary": [],
       "explanation_choice_snippets": [
@@ -1763,8 +1782,7 @@
         "間違い"
       ],
       "explanation_common_prefix": [
-        "監査調書",
-        "監査計画、監査手続き、レビューを文書化する\n監査報告書に記載する監査結果などの裏付けとなること\n次回の監査や別のシステム監査人による監査のための基礎資料となること"
+        "監査調書は、実施した監査手続の結果の裏付けとなるため、監査の結論に至った過程がわかるように記述されたとその関連資料をまとめた文書です。\n監査調書の作成には、1. 監査計画、監査手続き、レビューを文書化する\n2. 監査報告書に記載する監査結果などの裏付けとなること\n3. 次回の監査や別のシステム監査人による監査のための基礎資料となること\nなどの目的があります。"
       ],
       "explanation_common_prefix_inferred_correct_choice": null,
       "explanation_common_summary": [],
@@ -1844,7 +1862,7 @@
         "間違い"
       ],
       "explanation_common_prefix": [
-        "ビジネス・アーキテクチャ（政策・業務体系）政策・業務の内容、実施主体、業務フロー等について、 共通化・合理化など実現すべき姿を体系的に示したもの。\n構成要素：業務説明書、機能構成図、機能情報関連図、業務フローなどデータ・アーキテクチャ（データ体系）各業務・システムにおいて利用される情報すなわちシステム上のデータの内容、 各情報（データ）間の関連性を体系的に示したもの。\n構成要素：情報体系クラス図、エンティティ・リレーション図、データ定義表などアプリケーション・アーキテクチャ（処理体系）業務処理に最適な情報システムの形態を体系的に示したもの。\n構成要素：情報システム関連図、情報システム機能構成図などテクノロジ・アーキテクチャ（技術体系）実際にシステムを構築する際に利用する諸々の技術的構成要素 （ハード・ソフト・ ネットワーク等）を体系的に示したもの。\n構成要素：ネットワーク構成図、ソフトウェア構成図、ハードウェア構成図など"
+        "エンタープライズアーキテクチャを構成する4つの体系と成果物の関係は次のとおりです。ビジネス・アーキテクチャ（政策・業務体系）政策・業務の内容、実施主体、業務フロー等について、 共通化・合理化など実現すべき姿を体系的に示したもの。\n構成要素：業務説明書、機能構成図、機能情報関連図、業務フローなどデータ・アーキテクチャ（データ体系）各業務・システムにおいて利用される情報すなわちシステム上のデータの内容、 各情報（データ）間の関連性を体系的に示したもの。\n構成要素：情報体系クラス図、エンティティ・リレーション図、データ定義表などアプリケーション・アーキテクチャ（処理体系）業務処理に最適な情報システムの形態を体系的に示したもの。\n構成要素：情報システム関連図、情報システム機能構成図などテクノロジ・アーキテクチャ（技術体系）実際にシステムを構築する際に利用する諸々の技術的構成要素 （ハード・ソフト・ ネットワーク等）を体系的に示したもの。\n構成要素：ネットワーク構成図、ソフトウェア構成図、ハードウェア構成図など"
       ],
       "explanation_common_prefix_inferred_correct_choice": null,
       "explanation_common_summary": [],
@@ -1873,6 +1891,12 @@
         1
       ],
       "source_question_id": "200902:am:問23:https://www.nw-siken.com/kakomon/21_aki/am1_23.html",
+      "explanationImageSourceUrls": [
+        "https://www.ap-siken.com/kakomon/21_aki/img/62.png"
+      ],
+      "explanationImageStorageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fqc6ae2cf3c917cbaa_exp_img01.png?alt=media"
+      ],
       "isCalculationQuestion": false,
       "isLawRelated": false,
       "lawGroundedExplanationNotNeeded": true,
@@ -2002,7 +2026,7 @@
         "間違い"
       ],
       "explanation_common_prefix": [
-        "RFI"
+        "RFI(Request for Information，情報提供依頼書)は、企業・組織がシステム調達や業務委託をする場合や、初めての取引となるベンダー企業に対して情報の提供を依頼すること、またはその際に提出される文書のことをいいます。RFIを発行することによって相手方が保有する技術・経験や、情報技術動向、及び導入予定のシステムが技術的に実現可能であるかなどを確認することができます。この情報は要件定義や発注先候補の選定に利用できます。その後、自社の要求を取りまとめたRFP(Request for Proposal：提案依頼書)が発注先候補に対して発行されることになります。\nしたがって「ウ」がRFIの説明に該当します。"
       ],
       "explanation_common_prefix_inferred_correct_choice": null,
       "explanation_common_summary": [],
