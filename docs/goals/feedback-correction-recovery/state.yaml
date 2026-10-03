@@ -27,6 +27,7 @@ goal:
       - 本番公開は別明示判断を要する
       - 4件のprivate提案とcase記録を引き継ぐ
       - 常設UIの既存goalは別scopeで維持する
+      - 2026-10-03 user explicitly approved questionIntent null→select_correct; correct_answer vector and questionIntent approved, Firestore unapproved
 rules:
   pm_owns_state: true
   one_active_task: true
@@ -58,7 +59,7 @@ visual_board:
     url: http://goalbuddy.localhost:41737/feedback-correction-recovery/
     command: node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs
       --goal docs/goals/feedback-correction-recovery
-active_task: T014
+active_task: T015
 tasks:
   - id: T001
     type: scout
@@ -660,69 +661,77 @@ tasks:
       - unrecoverable gaps with evidence
     receipt:
       result: done
-      summary: "既存4件の原本・監査証跡を両checkoutと全Git refsで確認。2025欠損一次/二次sidecar・bundleはGit objectにもなく、exact identity監査は集計ledgerで代替できない。2018/2024は対象原本がGit履歴にもなく、旧mergedと21patchの取得URLから標準scraperで再取得可能な入口がある。ただし現在scraperのcanonical IDと旧公開IDの一致は実測が必要。2020は00_sourceのみ存在し、改題正本・legacy publicIDへの対応記録は探索範囲で存在しない。既存成果からの真正復旧は未証明。"
+      summary: 既存4件の原本・監査証跡を両checkoutと全Git refsで確認。2025欠損一次/二次sidecar・bundleはGit objectにもなく、exact identity監査は集計ledgerで代替できない。2018/2024は対象原本がGit履歴にもなく、旧mergedと21patchの取得URLから標準scraperで再取得可能な入口がある。ただし現在scraperのcanonical
+        IDと旧公開IDの一致は実測が必要。2020は00_sourceのみ存在し、改題正本・legacy publicIDへの対応記録は探索範囲で存在しない。既存成果からの真正復旧は未証明。
       evidence:
-        - scope: "両checkout・全refs"
-          finding: "git log --allの85004/85010/00_sourceと94006/05_originalizedは履歴0件。git rev-list --all --objectsのraw filenames、85011_primary/secondary audit filenames、94006 source/convert/originalized pathsも0件。現在の既知raw filesはGit追跡外。"
-          command: "git rev-list --all --objects | rg '85011_(primary_law|secondary_law|primary_current)|question_85004_empty_1.json$|question_85010_empty_1.json$|kanrigyo-2020|condominiummanager|94006.*(05_originalized|convert|upload|source)'"
-          limitation: "ローカルGitに存在する全refsを検査。未取得remote refsや外部backupは未検査。"
+        - scope: 両checkout・全refs
+          finding: git log --allの85004/85010/00_sourceと94006/05_originalizedは履歴0件。git rev-list --all --objectsのraw filenames、85011_primary/secondary
+            audit filenames、94006 source/convert/originalized pathsも0件。現在の既知raw filesはGit追跡外。
+          command: git rev-list --all --objects | rg '85011_(primary_law|secondary_law|primary_current)|question_85004_empty_1.json$|question_85010_empty_1.json$|kanrigyo-2020|condominiummanager|94006.*(05_originalized|convert|upload|source)'
+          limitation: ローカルGitに存在する全refsを検査。未取得remote refsや外部backupは未検査。
         - path: output/2nd-class-kenchikushi/review/law_revision_audit/final_law_revision_fact_coverage_85011_20260705_2300.json
           sha256: 68509f4452d7dbf0a0f47027784e18ba861d17c1e575b794abe79ad41efd2781
           commit: 3f62524b900fc379dc9d7fccd4975a80b8c72ca4
-          finding: "履歴から読める85011成果はcoverage集計。個別命題・raw evidence・review独立性の復元物ではない。"
-          read_command: "git show 3f62524b900fc379dc9d7fccd4975a80b8c72ca4:output/2nd-class-kenchikushi/review/law_revision_audit/final_law_revision_fact_coverage_85011_20260705_2300.json"
+          finding: 履歴から読める85011成果はcoverage集計。個別命題・raw evidence・review独立性の復元物ではない。
+          read_command: git show 3f62524b900fc379dc9d7fccd4975a80b8c72ca4:output/2nd-class-kenchikushi/review/law_revision_audit/final_law_revision_fact_coverage_85011_20260705_2300.json
         - path: WORK/output/2nd-class-kenchikushi/review/law_revision_audit/2017_2025_secondary_law_revision_audit_ledger_20260705_2104.jsonl
           sha256: 4a277a18b69158df5dcef250370e1be7e6c3847c262362ae0cfc083f8a929d06
-          finding: "追跡外の集計ledgerあり。85011は26件集計、15 secondary_verified等。85011個別primary/secondaryファイルはroot全ファイル名探索でも0件。sourceQuestionKey/sourceRecordRef又は対象IDのgrepは集計2ファイルだけ。"
+          finding: 追跡外の集計ledgerあり。85011は26件集計、15 secondary_verified等。85011個別primary/secondaryファイルはroot全ファイル名探索でも0件。sourceQuestionKey/sourceRecordRef又は対象IDのgrepは集計2ファイルだけ。
         - path: WORK/output/2nd-class-kenchikushi/questions_json/85004/00_source
-          finding: "現行raw2ファイル question_85004_1.json/question_85004_4.json、対象ea5e6c25871a58deなし。資格output配下のquestion_85004_empty_1関連24ファイルは全て後続成果でrawなし。"
+          finding: 現行raw2ファイル question_85004_1.json/question_85004_4.json、対象ea5e6c25871a58deなし。資格output配下のquestion_85004_empty_1関連24ファイルは全て後続成果でrawなし。
         - path: output/2nd-class-kenchikushi/questions_json/85004/21_explanationText_added/question_85004_empty_1_merged_explanationText_added_20260528_0446.json
           sha256: 216e08505ca78528d97ad3ec1cd8354161b72a046e3198f027c9cfe3aceed124
           commit: 5fe4c4518a7e01f7532d5477ef688660eccf6bfb
           record_index: 3
-          finding: "取得元URL https://2kenchikushi.kakomonn.com/questions/43661 と旧original/public ID ea5e6c25871a58deが結び付く後続成果。原本と偽って00_sourceへ戻してはいけない。"
+          finding: 取得元URL https://2kenchikushi.kakomonn.com/questions/43661 と旧original/public ID ea5e6c25871a58deが結び付く後続成果。原本と偽って00_sourceへ戻してはいけない。
         - path: WORK/output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_empty_1_merged.json
           sha256: 579941a1a1a1be4ee7b0c67148d557d21f3cbe5847fdc198b40ee9356deef272
           record_index: 0
-          finding: "取得URL https://2kenchikushi.kakomonn.com/questions/80353、旧ID 3b60f717695e7472。現行00_source2ファイルはquestion_85010_3.json/question_85010_2.jsonで対象なし、資格rootのempty_1関連9ファイルにrawなし。"
+          finding: 取得URL https://2kenchikushi.kakomonn.com/questions/80353、旧ID 3b60f717695e7472。現行00_source2ファイルはquestion_85010_3.json/question_85010_2.jsonで対象なし、資格rootのempty_1関連9ファイルにrawなし。
         - path: WORK/output/kanrigyoumu/questions_json/94006/00_source/question_94006_1.json
           sha256: 9d4425e83d351444605a22e5fbc4a866995becc7f66642c7a6e7acd11f9e2200
           record_index: 7
-          finding: "source_question_id=kanrigyoumu:kakomonn:questions:57462、public/original=ee8135114d92e847、取得URL https://kanrigyoumu.kakomonn.com/questions/57462。94006はsource2ファイルのみ、資格questions_jsonにも05_originalized/40_convert/upload/mapping/manifest候補なし。live kanrigyo-2020-8への一意mappingは確認できない。"
-        - path: "code.py:2068"
-          finding: "標準kakomonn scraper mainがsecure.envロード後env override、TARGET_URLかlist URLで取得。UPDATE_JSON_MODE=True/TARGET_URLの分岐が一問指定を提供。直接一問URL CLI引数はなく第一引数はgroup置換。"
-          candidate_command: "SCRAPER_QUALIFICATION_CODE=2nd-class-kenchikushi SCRAPER_QUALIFICATION_NAME=二級建築士 SCRAPER_OUTPUT_LIST_GROUP_ID=85004 SCRAPER_OUTPUT_DIR=<private-staging-output> /Users/yuki/development/exam_scraper_work/.venv/bin/python -c 'import code; code.TARGET_URL=\"https://2kenchikushi.kakomonn.com/questions/43661\"; code.UPDATE_JSON_MODE=True; code.main()'"
-          2024_substitutions: "group=85010、TARGET_URL=https://2kenchikushi.kakomonn.com/questions/80353"
-          limitation: "実行していない。staging先だけに再取得し、record追加/変更reportと旧ID対応を確認後に正本導入を判断。"
-        - path: "scripts/scrape/common.py:137; code.py:2190; code.py:2257"
-          finding: "IDはQUESTION_ID_SECRET_KEYによるHMAC-SHA256先頭16hex。source key=資格:kakomonn:questions:<site-number>。現在code.pyはsource-key hashを初期値にし、試験回・問番号からcanonical keyが得られればcanonical hashへ置換。kanrigyo-2020-8及びcondominiummanager-C-13289のlegacy文字列IDをこの標準生成規則は生成しない。"
-          risk: "2018/2024再取得で旧publicIDが維持されるかは秘匿keyを出さず実測照合が必要。違えば正本identity migration契約が先。"
+          finding: source_question_id=kanrigyoumu:kakomonn:questions:57462、public/original=ee8135114d92e847、取得URL https://kanrigyoumu.kakomonn.com/questions/57462。94006はsource2ファイルのみ、資格questions_jsonにも05_originalized/40_convert/upload/mapping/manifest候補なし。live
+            kanrigyo-2020-8への一意mappingは確認できない。
+        - path: code.py:2068
+          finding: 標準kakomonn scraper mainがsecure.envロード後env override、TARGET_URLかlist URLで取得。UPDATE_JSON_MODE=True/TARGET_URLの分岐が一問指定を提供。直接一問URL
+            CLI引数はなく第一引数はgroup置換。
+          candidate_command: SCRAPER_QUALIFICATION_CODE=2nd-class-kenchikushi SCRAPER_QUALIFICATION_NAME=二級建築士 SCRAPER_OUTPUT_LIST_GROUP_ID=85004
+            SCRAPER_OUTPUT_DIR=<private-staging-output> /Users/yuki/development/exam_scraper_work/.venv/bin/python -c 'import code; code.TARGET_URL="https://2kenchikushi.kakomonn.com/questions/43661";
+            code.UPDATE_JSON_MODE=True; code.main()'
+          2024_substitutions: group=85010、TARGET_URL=https://2kenchikushi.kakomonn.com/questions/80353
+          limitation: 実行していない。staging先だけに再取得し、record追加/変更reportと旧ID対応を確認後に正本導入を判断。
+        - path: scripts/scrape/common.py:137; code.py:2190; code.py:2257
+          finding: IDはQUESTION_ID_SECRET_KEYによるHMAC-SHA256先頭16hex。source key=資格:kakomonn:questions:<site-number>。現在code.pyはsource-key hashを初期値にし、試験回・問番号からcanonical
+            keyが得られればcanonical hashへ置換。kanrigyo-2020-8及びcondominiummanager-C-13289のlegacy文字列IDをこの標準生成規則は生成しない。
+          risk: 2018/2024再取得で旧publicIDが維持されるかは秘匿keyを出さず実測照合が必要。違えば正本identity migration契約が先。
       facts:
-        - candidate_slice: "2025を現在の一次法令evidenceから一問exact identity監査として正直に新規実行する。既存secondary_verified metadataを新監査の証拠として扱わず、個別命題・choiceIndex・試験時/現在差・rawResponseHash・primary/secondary/必要なtertiaryの証跡を新規保存する。旧bundleと同一hashだと宣言しない。"
-        - candidate_slice: "2018/2024を上記標準scraper一問指定で別private stagingへ再取得。source acquisition reportとファイルhash、source/public/canonical IDsを旧21/merged取得URLと照合。原本本文をmergedから合成しない。"
-        - candidate_slice: "2020はlive legacy originalIDを標準scraper再取得だけで保持できない。改題正本の取得又は明示的legacy snapshot導入・mapping契約を設計し、原問sourceは保持する。既知元問再取得は原問の正しさを再確認できるがlive typoの上流修正先にはならない。"
+        - candidate_slice: 2025を現在の一次法令evidenceから一問exact identity監査として正直に新規実行する。既存secondary_verified metadataを新監査の証拠として扱わず、個別命題・choiceIndex・試験時/現在差・rawResponseHash・primary/secondary/必要なtertiaryの証跡を新規保存する。旧bundleと同一hashだと宣言しない。
+        - candidate_slice: 2018/2024を上記標準scraper一問指定で別private stagingへ再取得。source acquisition reportとファイルhash、source/public/canonical IDsを旧21/merged取得URLと照合。原本本文をmergedから合成しない。
+        - candidate_slice: 2020はlive legacy originalIDを標準scraper再取得だけで保持できない。改題正本の取得又は明示的legacy snapshot導入・mapping契約を設計し、原問sourceは保持する。既知元問再取得は原問の正しさを再確認できるがlive
+            typoの上流修正先にはならない。
       contradictions:
-        - claim: "secondary_verified集計ledgerがあるため個別監査ファイルも復元できる。"
-          finding: "個別85011 sidecar/bundleは両checkout及びローカル全refsにない。集計だけでは個別review/evidence hashを復元できない。"
-        - claim: "旧mergedからraw sourceを復旧できる。"
-          finding: "後続patchで変更済みの値を含む。取得URLと旧IDの証拠として利用できるが取得原本の代用品ではない。"
+        - claim: secondary_verified集計ledgerがあるため個別監査ファイルも復元できる。
+          finding: 個別85011 sidecar/bundleは両checkout及びローカル全refsにない。集計だけでは個別review/evidence hashを復元できない。
+        - claim: 旧mergedからraw sourceを復旧できる。
+          finding: 後続patchで変更済みの値を含む。取得URLと旧IDの証拠として利用できるが取得原本の代用品ではない。
       ambiguity_requiring_judge:
-        - "再取得canonical IDが旧publicIDと違った場合、既存source alias追加による追跡可能な移行と単なるID書換えを区別する契約が必要。"
-        - "2020 legacy snapshotを新規正本sourceとして導入する際のprovenanceと既存原問sourceとの併存・公開ID保持を明文化する必要がある。"
+        - 再取得canonical IDが旧publicIDと違った場合、既存source alias追加による追跡可能な移行と単なるID書換えを区別する契約が必要。
+        - 2020 legacy snapshotを新規正本sourceとして導入する際のprovenanceと既存原問sourceとの併存・公開ID保持を明文化する必要がある。
       commands:
-        - "board T013とT012 receipt読取り"
-        - "両checkoutのtarget git ls-files/git log --allとknown root filename探索"
-        - "両checkout全refs object path探索"
-        - "WORK対象group record identity/hashのみ照合"
-        - "WORK2018/2024 raw filename inventoryとtarget match count"
-        - "WORK85011 ledger及びcoverage hash/追跡状態照合"
-        - "取得URL関連patch commit履歴読取り"
-        - "標準code.py one-question分岐とHMAC/canonical ID規則読取り"
+        - board T013とT012 receipt読取り
+        - 両checkoutのtarget git ls-files/git log --allとknown root filename探索
+        - 両checkout全refs object path探索
+        - WORK対象group record identity/hashのみ照合
+        - WORK2018/2024 raw filename inventoryとtarget match count
+        - WORK85011 ledger及びcoverage hash/追跡状態照合
+        - 取得URL関連patch commit履歴読取り
+        - 標準code.py one-question分岐とHMAC/canonical ID規則読取り
       note_needed: false
   - id: T014
     type: judge
     assignee: Judge
-    status: active
+    status: done
     objective: 欠損証跡とsource identityの復旧を監査し、private標準再取得・2025新監査・legacy導入の最大安全sliceを承認する
     constraints:
       - Read-only
@@ -731,7 +740,535 @@ tasks:
     expected_output:
       - bounded PM/Worker package with exact allowed files, verify, stop_if
       - source reacquisition and legacy mapping contract
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: 欠損原本と監査履歴は集計や旧mergedから復元済みとは言えない。標準scraperによるprivate再取得、固定一次本文による正直な新監査、legacy snapshot導入契約案、検証済みproposalの台帳登録は既存正本を変えず進められる。再取得ID不一致は移行判断へ戻し、aliasを捏造しない。2025の解説及びlocator疑義は命題単位で再監査し、根拠本文不変だけで監査通過とは扱わない。追加承認と公開判断は維持する。
+      evidence:
+        - path: docs/goals/feedback-correction-recovery/notes/T013-receipt.json
+          finding: 対象source及び個別監査artifactは両checkoutとローカル全refsで未復旧。2018/2024の取得URLは後続成果から特定できるが、現在scraperと旧公開IDの対応は未測定。
+        - path: docs/goals/feedback-correction-recovery/notes/T012-receipt.json
+          finding: 7参照の試験時点及び現在の一次本文は完全取得かつ一致。旧hashとの同一性及び個別命題監査の証跡は未証明。
+        - path: docs/goals/feedback-correction-recovery/notes/T011-receipt.json
+          finding: 真正reviewと隔離24候補は検証済み。questionIntent追加承認及び公開判断は未完了。
+        - path: code.py:2068
+          finding: 標準scraperはenvによるprivate出力先とTARGET_URL一問指定を利用できる。取得値のpublic IDには現在のcanonical key規則が適用される。
+        - path: document/operations/current_law_question_maintenance_workflow.md:35
+          finding: 完全命題、固定bundle、一次及び二次、正答変更・不一致・高リスク時の三次を要求する。
+        - path: prompt/03b_prompt_audit_current_law_and_patch.md:81
+          finding: v2 sidecarは完全source identity、選択肢順の判定、入力及び根拠hash、監査run IDを要求する。
+        - path: tools/question_bank/feedback_daily.py:508
+          finding: proposeはcase-level fix_requiredを持つ対象taskへ固定proposal hash/refだけを登録し、patch_refを設定しない。
+      next_allowed_task:
+        package_type: pm
+        objective: 2018/2024の標準再取得とidentity照合、2025の一次本文に基づく新しい一問監査及び候補差分、2020のlegacy snapshot導入契約案をprivate成果物として完成させる。2025の検証済み正答proposalを既存propose入口で台帳へ登録し、承認及び公開阻害条件を追跡する。製品実装は編集しない。
+        allowed_files:
+          - output/user_feedback_response_system/staging/recovery-source-2018/**
+          - output/user_feedback_response_system/staging/recovery-source-2024/**
+          - output/user_feedback_response_system/staging/recovery-law-2025/**
+          - output/user_feedback_response_system/staging/recovery-legacy-2020/**
+          - output/user_feedback_response_system/proposals/2026-10-03/recovery-slice/**
+          - /Users/yuki/Library/Application Support/Repaso/feedback-ops/ledger.sqlite3
+          - /Users/yuki/Library/Application Support/Repaso/feedback-ops/ledger.sqlite3-wal
+          - /Users/yuki/Library/Application Support/Repaso/feedback-ops/ledger.sqlite3-shm
+        source_reacquisition_contract:
+          2018:
+            qualification: 2nd-class-kenchikushi
+            list_group_id: 85004
+            target_url: https://2kenchikushi.kakomonn.com/questions/43661
+            legacy_public_id: ea5e6c25871a58de
+            output_root: output/user_feedback_response_system/staging/recovery-source-2018
+          2024:
+            qualification: 2nd-class-kenchikushi
+            list_group_id: 85010
+            target_url: https://2kenchikushi.kakomonn.com/questions/80353
+            legacy_public_id: 3b60f717695e7472
+            output_root: output/user_feedback_response_system/staging/recovery-source-2024
+          method: 標準code.pyのTARGET_URL一問指定、UPDATE_JSON_MODE=True、SCRAPER_OUTPUT_DIR及び資格・groupの既存env overrideを利用する。freshな別privateディレクトリへ保存し、取得原本を手編集しない。
+          proof:
+            - 取得URL、時刻、標準scraper版、ファイルhash、source_question_id、sourceQuestionKey、canonical key、public及びoriginal IDを実測値として保存する。
+            - 資格、年度、科目、問番号、本文及び選択肢順を同年度公式PDFと照合する。
+            - 旧取得URL及び旧公開IDとの対応を別のprivate identity-comparisonへ記録する。本文一致だけを一意対応の証明にしない。
+            - 画像はprivateローカルダウンロードのみ。生成Storage URLを画像公開済みとは扱わない。
+          identity_boundary: 再取得IDが旧公開IDと違う場合、rawへalias追加、original ID書換え、旧sourceQuestionKeyの注入を行わない。測定結果と移行候補だけを保存し、正本導入は別のidentity契約判断へ戻す。
+        new_law_audit_contract:
+          target_identity:
+            sourceQuestionKey: 2nd-class-kenchikushi:85011:12c59a4c014e49de
+            reviewQuestionId: 12c59a4c014e49de
+            sourceRecordRef: question_85011_empty_1.json#0
+          inputs:
+            - 現行sourceにexact joinした本文、選択肢、questionIntent、解説及び既存law metadataを含む監査対象snapshot。
+            - 2025-current-law-freshnessの固定primary-law-evidence、取得原response及び完全な試験時点・現在時点本文。
+            - 公式問題冊子及び公式正答ページ、試験日根拠、現在基準日。
+            - 現行03b promptとcurrent_law_question_maintenance_workflowの固定版及びhash。
+          provenance: 旧監査の復元とは記録せず、現在の固定一次本文から実行する新監査とする。旧JSON hashとfresh XML hashの同一性を宣言しない。
+          review_phases:
+            - PrimaryとSecondaryを別の新規native read-only task、fork_turns=noneで実行する。同一固定bundleを渡し、Secondaryの初回判断へPrimary結論を渡さない。
+            - 両reviewerが全5肢の完全命題について試験時点の判定、現在の判定、正答選択との関係、解説及び条・項・号の対応を本人のreview objectへ記録する。
+            - 今回の肢4解説及びparagraph locatorの疑義は第三者の新規no-fork read-only Tertiaryで確認する。一次・二次不一致、正答又は法令判定変更、高リスク判断も三次へ回す。
+            - Tertiaryは固定bundleと真正Primary/Secondaryを受け、相違点と根拠を判定する。PMは実質的結論を代作しない。
+          output_contract:
+            - native goal_judgeの最終出力はgoalbuddy_receipt_v1を維持し、本人作成の完全audit objectをevidence内に保存する。PMは無修正で抽出する。
+            - 各phaseの実task ID、生の応答、prompt及びinput hash、一次本文及び資料hash、受信と検証の証跡をprivateに保存する。
+            - law-revision-audit/v2の識別、examYear、auditedAt、nextAuditDueAt、auditMethodVersion、auditInputHash、lawCorpusSnapshotId、実run ID、reconciliationStatus、auditStatus、reviewStateを生成する。
+            - examTimeDecisionとcurrentLawDecisionを元の選択肢順で保存し、根拠locator、sourceSummary、remainingRiskを記録する。
+            - schema-validなlawRevisionFacts、必要なlawReferences及び解説の候補をprivate差分にまとめる。old reviewStateの機械昇格は行わない。
+            - same_as_currentは真正な二次確認以上、updated_to_current_lawは真正な三次確認を条件とする。疑義が解消しない場合はhonestなholdにする。
+          critical_checks:
+            - 条文全体のhash一致を個別命題の正しさの代用にしない。
+            - 大規模修繕の対象区分と区域要件を混同せず、肢4の解説と第6条第1項の適用条件を一次本文へ直接対応させる。
+            - lawFactsのparagraph=9と参照第1項の疑義を、表示位置と法令項番号の仕様も確認して判定する。推測で1へ置換しない。
+            - group_choice等のトップレベル正答と記述自体の真偽を直接同一視しない。
+            - 追加fieldの訂正が必要なら承認可能なbefore/after、根拠及び影響範囲を保存し、正式patchへ反映しない。
+        legacy_snapshot_contract:
+          scope: 2020年公開問題の読み取りsnapshotをprivate取得資料として保存し、新規正本導入の契約案だけを作る。
+          preserve_ids:
+            - condominiummanager-C-13289
+            - kanrigyo-2020-8
+            - 原問sourceのee8135114d92e847及びkanrigyoumu:kakomonn:questions:57462を別のidentityとして保持する。
+          requirements:
+            - Firestore path、updateTime、取得時刻、必要な問題field及びcontent hashを固定し、sourceKindをproduction_snapshotと明記する。
+            - 改題された公開本文を公式原問又は取得原本と偽らない。元の00_sourceへ戻さない。
+            - 公開ID保持、原問とのvariant関係、改題差分、future overwrite防止及びprovenanceを契約案として記録する。
+            - 既存snapshot導入の先例は保存方式の参考に限定し、資格固有のmappingやID規則を流用しない。
+            - 一意対応が証明できない場合はその欠落を保持し、snapshotから新しいcanonical sourceを自動作成しない。
+        ledger_contract:
+          method: 既存feedback_daily.proposeだけを使用する。
+          scope: 2025年対象の既存case-level fix_requiredに対応する一つのtaskのproposal_hash及びproposal_refのみ。
+          steps:
+            - 対象taskと現在のproposal/patch参照を読み、SQLite backup APIでprivateな変更前backupを保存する。
+            - T011のverifier成功済みproposalを固定ファイルとしてhash計算する。正答候補の追加questionIntent承認待ちと法令監査pendingを追跡receiptへ明記する。
+            - 既存の異なるproposalがある場合は上書き前に対応関係を確認し、旧参照とhashをprivate履歴へ保存する。
+            - propose後にsummary及びlist-reportsを再読し、対象がfixesAwaitingProposalからproposal登録済みへ移ったことを確認する。
+            - patch_ref、承認情報及び公開完了を登録しない。法令候補を未検証のまま既存正答proposalへ合成しない。
+        verify:
+          - /Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/proposals/2026-10-03/recovery-slice/verify_recovery_slice.py
+          - /Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/proposals/2026-10-03/verify_2025_isolated_review.py
+          - /Users/yuki/development/exam_scraper_work/.venv/bin/python -m tools.question_bank.feedback_daily summary
+          - /Users/yuki/development/exam_scraper_work/.venv/bin/python -m tools.question_bank.feedback_daily list-reports --limit 100
+          - git diff --check
+          - git status --short
+        verification_requirements:
+          - private再取得と監査のsource identity、取得資料、response及びreview hashが実物へ解決できる。
+          - 新監査sidecarと候補lawFactsを既存v2 schema及びlawFacts validatorで検証する。validator変更は行わない。
+          - 全5肢の配列長、順序、choiceIndex、locator、試験時及び現在判定と候補差分が対応する。
+          - 正本00_source、stage patch、24、merged、converted、upload-ready及び既存監査ファイルの前後fingerprintが一致する。
+          - 台帳更新は対象taskのproposal hash/refだけで、他task及びcase判断が変わっていない。
+          - Firestore writes及びStorage uploadsがなく、credentials又は追加credits関連設定を変更していない。
+        stop_if:
+          - 実装編集、永久doc追加、gate緩和、外部provider、追加credits許可又はallowed_files外の変更が必要。
+          - scraperがprivate出力先以外へ保存又は公開しようとする。
+          - 再取得ID不一致をraw alias追加又はID書換えで解消する必要がある。
+          - 同じsource identity又は固定監査入力へ一意に対応できない。
+          - 必要な法令本文がtruncate、根拠不足又は版競合で、追加取得を安全に固定できない。
+          - 真正reviewの改作、旧監査run IDの再利用、旧hashとの架空対応又は機械的reviewState昇格が必要。
+          - case-level fix_requiredがない、既存patch_refがある、又は異なる台帳proposalの対応が不明。
+          - canonical00、正式24、Firestore又はStorageの変更が必要。
+      subgoal_contract: null
+      parallel_safety:
+        approved: true
+        scope: 2025 Primary/Secondaryのread-only独立reviewのみ。
+        reason: 書込みはPM一人が上記private成果物と限定台帳更新を所有する。scraperは2018と2024を別ディレクトリで順次実行し、Tertiaryは依存phase完了後に実行する。
+      blocked_tasks:
+        - task: 正式patch反映
+          reason: questionIntent及び新監査で発見された追加差分の具体的承認が必要。
+        - task: 2018/2024 source正本導入
+          reason: 再取得identity実測と導入契約が未確定。
+        - task: 2020 legacy正本導入
+          reason: 公開variantと原問sourceの対応及びID保持契約が未確定。
+        - task: Firestore公開
+          reason: 別公開判断、監査整合性、一問artifact及びevaluation、readback準備が未完了。
+      missing_evidence:
+        - 2018/2024の真正再取得原本と旧公開IDの対応測定。
+        - 2025の個別完全命題に対する新しい監査及びlocator疑義の解決。
+        - 2020 production_snapshotの正直なprovenanceと導入契約。
+        - 2025検証済みproposalの台帳登録及び登録後readback。
+      required_board_updates:
+        - 上記を実装編集不要の一つのPM sliceとして登録する。active taskの選択はPMが行う。
+        - 旧監査欠損と新監査実行を区別し、fresh本文一致だけで個別監査完了としない。
+        - 追加承認、identity導入、公開及び台帳proposal登録を個別の状態として維持する。
+        - safeなlocal成果を完了receiptへ記録しても、原依頼の全成果完了とは扱わない。
+  - id: T016
+    type: judge
+    assignee: Judge
+    status: done
+    objective: questionIntent追加承認後、2025の検証済み24候補を正式反映する正確な移送契約と公開前条件を確認する
+    constraints:
+      - Read-only
+      - 限定artifact/publicationは未承認かつ検証前
+      - 新法令候補の追加fieldは正式反映しない
+    expected_output:
+      - exact promotion PM package
+    receipt:
+      result: done
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: 承認済み正答vectorとquestionIntentだけを含む真正24候補は移送可能。read-onlyでmanifest全8file、WORKのexact source bindingと現行expectedBeforeHash、review hash、公式PDF
+        hash、fresh live全5肢及び旧fingerprintの一致を再確認した。feedback checkoutは00_sourceを持たないためWORKを検証根拠とし、ROOTへ原本をコピーしない。正式overlay保存と公開完了は区別する。法令監査候補、他stage、artifact及びFirestoreは今回変更しない。
+      evidence:
+        - path: output/user_feedback_response_system/proposals/2026-10-03/2025-review-promotion-manifest.json
+          finding: 列挙8fileの実bytes hashを再確認。24候補SHA256は53fa1d74d0955f005327b81cf6bcf94d321ee9a8cfeb1d302922b7db66b4d9ce。
+        - path: output/user_feedback_response_system/proposals/2026-10-03/2025-review-approval-comparison.json
+          finding: 候補changesは承認済みcorrectChoiceText vectorとquestionIntent=select_correctだけ。answer_result_textは既に1で変更不要。
+        - path: /Users/yuki/development/exam_scraper_work/output/2nd-class-kenchikushi/questions_json/85011
+          finding: 現行Inventory stateHashは0baa6d1ddc975106c3215c5b45ebbe57a55195cb0ad1e6e727b8ed14449d3515。exact bindingとexpectedBeforeHash=7d5db63d3f78d48c330c873533d03c83070649d56de75ea75ddbbdbd03e74142及び既存patch
+            verifierを再確認。
+        - path: output/user_feedback_response_system/proposals/2026-10-03/2025-review-canonical-fingerprint.json
+          finding: ROOT及びWORKの対象4groupの現在fingerprintはT011保存値と一致。
+        - path: output/user_feedback_response_system/official_sources/2025-answer.pdf
+          finding: 既存canonical相対pathに存在し、SHA256は1ff7ce618cbdfabe09130829119b50ce8e8b6ad0f65d6bea66a3889b3e217d4d。
+        - scope: read-only fresh Firestore query
+          finding: originalQuestionId=12c59a4c014e49deの全5documentが承認時本文hash及び正誤に一致し、questionIntentは全てnull。
+        - path: tools/question_bank/feedback_daily.py:432
+          finding: patch_refあり・published_atなしを公開待ちとして区別するschemaとsummaryがある。
+      next_allowed_task:
+        package_type: pm
+        objective: 承認済み2025年一問の24候補を無修正で正式保存し、真正review及び公式根拠のcanonical相対pathを解決可能にする。対象24だけをcommit/pushし、非公開状態と追加fileだけの新baselineを保存する。
+        allowed_files:
+          - output/2nd-class-kenchikushi/questions_json/85011/24_questionIssueCorrections/ui-qir-20261003065857-3ee52438fc_official-12c59a4c014e49de_12c59a4c014e49de.json
+          - output/question_issue_reports/ui_official_source/ui-qir-20261003065857-3ee52438fc/official-12c59a4c014e49de/blind_a.json
+          - output/question_issue_reports/ui_official_source/ui-qir-20261003065857-3ee52438fc/official-12c59a4c014e49de/blind_b.json
+          - output/question_issue_reports/ui_official_source/ui-qir-20261003065857-3ee52438fc/official-12c59a4c014e49de/blind_input.json
+          - output/question_issue_reports/ui_official_source/ui-qir-20261003065857-3ee52438fc/official-12c59a4c014e49de/blind_resume_binding.json
+          - output/question_issue_reports/ui_official_source/ui-qir-20261003065857-3ee52438fc/official-12c59a4c014e49de/challenge.json
+          - output/question_issue_reports/ui_official_source/ui-qir-20261003065857-3ee52438fc/official-12c59a4c014e49de/challenge_input.json
+          - output/question_issue_reports/ui_official_source/ui-qir-20261003065857-3ee52438fc/official-12c59a4c014e49de/official-12c59a4c014e49de/official_page_0001.png
+          - output/question_issue_reports/ui_official_source/ui-qir-20261003065857-3ee52438fc/official-12c59a4c014e49de/official_page_0001.png
+          - output/user_feedback_response_system/proposals/2026-10-03/promotion-2025/**
+          - output/user_feedback_response_system/cases/bc3f782815feeff4d523e71c7ee580fa3328f2fc22fd61ccde9abfc82cfb53cd/case_review.json
+          - /Users/yuki/Library/Application Support/Repaso/feedback-ops/ledger.sqlite3
+          - /Users/yuki/Library/Application Support/Repaso/feedback-ops/ledger.sqlite3-wal
+          - /Users/yuki/Library/Application Support/Repaso/feedback-ops/ledger.sqlite3-shm
+        file_scope_note: 実際の移送先はmanifest列挙の8fileだけ。allowed_filesの重複したofficial-12c59a4c014e49de階層の画像pathは使用せず、manifestのofficial_page_0001.png相対pathだけを採用する。
+        preconditions:
+          - 再度T011 verifierを正式24追加前に実行し、PASSと旧fingerprintをpromotion-2025へ固定する。
+          - 移送直前にWORKのsource及び全stage projectionを読み、exact binding、stateHash、expectedBeforeHash及び候補changesが同じことを確認する。
+          - manifest各sourceのbytes hash、genuine review hash、公式PDF及び固定ページ画像を再確認する。
+          - fresh live全5siblingの本文、正誤及びintentが承認時baselineに一致することを確認する。
+          - 対象24の新規保存先が未存在、又は既に同じhashの場合だけ実行する。異なる既存fileを上書きしない。
+          - 新しいquestionIntent承認の実際のユーザー応答をpromotion receiptへ対応付ける。
+        promotion_method:
+          - manifestのreview7fileをcanonical相対pathへ無修正コピーし、private file権限を0600とする。native task provenanceと旧holdは既存private保存先で維持する。
+          - canonical相対pathの公式PDFは既に存在するためhash確認だけを行う。PDFをreview resultに合わせて再生成しない。
+          - blind_resume_bindingの元workDirectoryを履歴として保持し、canonical resume用に書き換えない。移送receiptへoriginal runtime rootとcanonical evidence rootの対応を記録する。
+          - 全参照とhashの解決を確認してから24を新規に原子的保存し、manifestのSHA256と一致させる。
+          - feedback ROOTに00_sourceを追加しない。WORK又は同内容隔離sourceへ既存verifierを適用し、overlay単体の正式保存として記録する。
+          - Gitへ載せるのは公式内容由来の対象24fileのみ。必要ならこの正確なpathをforce-addし、既存stage差分を巻き込まずmainへcommit/pushする。
+          - private review、公式PDF、native provenance、生の利用者report及び識別情報はGitへ載せない。
+        tracking_contract:
+          case: 既存判断を変更せず、formalCorrection metadataへpatch_ref、patch hash、commit SHA、approved fields及びcanonical_patch_saved_unpublishedを追加する。
+          ledger:
+            - SQLite backup APIでpromotion-2025内へ変更前backupを保存する。
+            - 対象caseをexactに含む一つの既存taskとcase-level fix_requiredを確認する。対象行が曖昧ならDB更新を行わない。
+            - 既存入口でpatch_refを記録できるならそれを使う。現在CLIに専用入口がない場合は既存schemaを変えず、guardedな一行transactionでpatch_refとcommit_shaだけを記録してよい。
+            - transactionは対象task ID、既存decision、既存patch_ref及びpublished_atが変更前値に一致する条件を付け、更新行数1を要求する。
+            - published_atはNULLのまま維持し、承認又は公開完了を捏造しない。
+            - summaryの公開待ちは正式patch保存済みを示す。品質検査、法令監査及び公開承認が未完了であることをprivate receiptへ明記する。
+        baseline_contract:
+          - 旧T011 fingerprintは上書きしない。
+          - 新fingerprintとの差分がROOTの承認済み24file一つの追加だけであり、既存fileのhash変更及びWORK変更がないことを証明する。
+          - review及びprivate追跡fileの追加は別manifestでhash記録する。
+          - T015の新baselineへこの承認済み24追加を含める。以降はpostpromotion verifierを使い、旧verifierのfingerprint条件を緩めない。
+        verify:
+          - /Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/proposals/2026-10-03/verify_2025_isolated_review.py
+          - /Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/proposals/2026-10-03/promotion-2025/verify_promoted_patch.py
+          - /Users/yuki/development/exam_scraper_work/.venv/bin/python -m tools.question_bank.feedback_daily summary
+          - /Users/yuki/development/exam_scraper_work/.venv/bin/python -m tools.question_bank.feedback_daily list-reports --limit 100
+          - git diff --check
+          - git diff --cached --name-only
+          - git status --short
+        verify_order_note: 旧isolated verifierは移送前だけ実行する。移送後は追加fileだけの差分を検査する新private verifierを実行する。
+        stop_if:
+          - candidate、source binding、expectedBeforeHash、live内容、manifest file又はreview hashが変化している。
+          - 候補changesがcorrectChoiceText vector及びquestionIntent以外を含む。
+          - 追加24以外の正本file変更、00_sourceコピー、19 orphan除去又は他6問修正が必要。
+          - review provenanceを書き換えないとhash参照が解決できない。
+          - T015の解説、lawReferences又はlawRevisionFacts候補を正式保存する必要がある。
+          - DB対象行が一意でない、既存異なるpatch_refがある、又は公開済みとしての記録が必要。
+          - 無関係な既存Git差分を分離できない、push競合で無関係な変更を巻き込む必要がある。
+          - merge、convert、upload-ready、Firestore又はStorageの変更が必要。
+        supplemental_T015_acquisition_contract:
+          decision: approve_private_adapter
+          reason: UPDATE_JSON_MODEは既存URLを持つfileの更新専用であり、fresh directoryへ保存しない。標準parser、取得値及びIDを保持して標準writerへ渡すprivate callback adapterは、raw seedを合成する方法よりも正直な新規取得となる。
+          allowed_scope:
+            - output/user_feedback_response_system/staging/recovery-source-2018/**
+            - output/user_feedback_response_system/staging/recovery-source-2024/**
+            - output/user_feedback_response_system/proposals/2026-10-03/recovery-slice/**
+          method:
+            - TARGET_URL、UPDATE_JSON_MODE=True及び既存env overrideによる標準mainの一問取得を維持する。
+            - private runner内でupdate_existing_files callbackだけをfresh writerへ置き換える。
+            - callbackが受け取るnormal及びempty bodydictを無修正で既存save_question_body_chunksへ渡し、base_filename_suffixとchunk_size=25を標準mainと一致させる。
+            - private出力先、唯一のtarget URL及び受信record数を保存前に確認し、payloadをコピーする場合も値を変更しない。
+            - 元callback、adapter及び標準writerのsource hash、code版、実run、受信payload hash及び保存raw hashを記録する。
+          verify:
+            - 保存されたquestion_bodiesがcallback受信bodydictの値と完全一致する。
+            - private出力先以外に書込みがない。
+            - 取得IDが旧公開IDと不一致なら比較結果のみを保存し、alias又は旧IDをrawへ注入していない。
+          stop_if:
+            - parser、ID生成、取得本文又はchoice順の変更が必要。
+            - oldmerged又は手作業seedをrawとして導入する必要がある。
+            - callbackに複数target又は予期しないrecordが渡され、一問取得を確認できない。
+            - 標準writerがpayloadを保存できず、製品実装変更が必要。
+      subgoal_contract: null
+      parallel_safety:
+        approved: false
+        reason: 正式24保存と新baseline確定をPM一人が先に完了し、T015はそのbaseline確定後に継続する。
+      blocked_tasks:
+        - task: Firestore公開
+          reason: 別公開判断、法令監査、限定artifact契約及び一問evaluationは未完了。
+        - task: T015追加fieldの正式保存
+          reason: 解説、refs、factsの具体的差分は未承認。
+      missing_evidence:
+        - 正式24保存及び対象fileだけのcommit/push receipt。
+        - 移送後のprovenance解決と追加fileだけの新baseline証明。
+        - 正式保存済み・非公開としてのcase及び台帳readback。
+      required_board_updates:
+        - 2025の正答vector及びquestionIntentは具体的承認済み、Firestoreは未承認と更新する。
+        - 正式24保存と本番公開を区別してreceiptを記録する。
+        - T015のbaselineを承認済み正式24追加後へ切り替え、旧baseline及び事前PASSを保持する。
+        - T015の標準再取得methodを上記private fresh-writer adapterへ修正する。active taskの選択はPMが行う。
+  - id: T017
+    type: pm
+    assignee: PM
+    status: done
+    objective: 承認済み2025年一問の24候補を無修正で正式保存し、真正review及び公式根拠のcanonical相対pathを解決可能にする。対象24だけをcommit/pushし、非公開状態と追加fileだけの新baselineを保存する。
+    allowed_files:
+      - output/2nd-class-kenchikushi/questions_json/85011/24_questionIssueCorrections/ui-qir-20261003065857-3ee52438fc_official-12c59a4c014e49de_12c59a4c014e49de.json
+      - output/question_issue_reports/ui_official_source/ui-qir-20261003065857-3ee52438fc/official-12c59a4c014e49de/blind_a.json
+      - output/question_issue_reports/ui_official_source/ui-qir-20261003065857-3ee52438fc/official-12c59a4c014e49de/blind_b.json
+      - output/question_issue_reports/ui_official_source/ui-qir-20261003065857-3ee52438fc/official-12c59a4c014e49de/blind_input.json
+      - output/question_issue_reports/ui_official_source/ui-qir-20261003065857-3ee52438fc/official-12c59a4c014e49de/blind_resume_binding.json
+      - output/question_issue_reports/ui_official_source/ui-qir-20261003065857-3ee52438fc/official-12c59a4c014e49de/challenge.json
+      - output/question_issue_reports/ui_official_source/ui-qir-20261003065857-3ee52438fc/official-12c59a4c014e49de/challenge_input.json
+      - output/question_issue_reports/ui_official_source/ui-qir-20261003065857-3ee52438fc/official-12c59a4c014e49de/official-12c59a4c014e49de/official_page_0001.png
+      - output/question_issue_reports/ui_official_source/ui-qir-20261003065857-3ee52438fc/official-12c59a4c014e49de/official_page_0001.png
+      - output/user_feedback_response_system/proposals/2026-10-03/promotion-2025/**
+      - output/user_feedback_response_system/cases/bc3f782815feeff4d523e71c7ee580fa3328f2fc22fd61ccde9abfc82cfb53cd/case_review.json
+      - /Users/yuki/Library/Application Support/Repaso/feedback-ops/ledger.sqlite3
+      - /Users/yuki/Library/Application Support/Repaso/feedback-ops/ledger.sqlite3-wal
+      - /Users/yuki/Library/Application Support/Repaso/feedback-ops/ledger.sqlite3-shm
+    file_scope_note: 実際の移送先はmanifest列挙の8fileだけ。allowed_filesの重複したofficial-12c59a4c014e49de階層の画像pathは使用せず、manifestのofficial_page_0001.png相対pathだけを採用する。
+    preconditions:
+      - 再度T011 verifierを正式24追加前に実行し、PASSと旧fingerprintをpromotion-2025へ固定する。
+      - 移送直前にWORKのsource及び全stage projectionを読み、exact binding、stateHash、expectedBeforeHash及び候補changesが同じことを確認する。
+      - manifest各sourceのbytes hash、genuine review hash、公式PDF及び固定ページ画像を再確認する。
+      - fresh live全5siblingの本文、正誤及びintentが承認時baselineに一致することを確認する。
+      - 対象24の新規保存先が未存在、又は既に同じhashの場合だけ実行する。異なる既存fileを上書きしない。
+      - 新しいquestionIntent承認の実際のユーザー応答をpromotion receiptへ対応付ける。
+    promotion_method:
+      - manifestのreview7fileをcanonical相対pathへ無修正コピーし、private file権限を0600とする。native task provenanceと旧holdは既存private保存先で維持する。
+      - canonical相対pathの公式PDFは既に存在するためhash確認だけを行う。PDFをreview resultに合わせて再生成しない。
+      - blind_resume_bindingの元workDirectoryを履歴として保持し、canonical resume用に書き換えない。移送receiptへoriginal runtime rootとcanonical evidence rootの対応を記録する。
+      - 全参照とhashの解決を確認してから24を新規に原子的保存し、manifestのSHA256と一致させる。
+      - feedback ROOTに00_sourceを追加しない。WORK又は同内容隔離sourceへ既存verifierを適用し、overlay単体の正式保存として記録する。
+      - Gitへ載せるのは公式内容由来の対象24fileのみ。必要ならこの正確なpathをforce-addし、既存stage差分を巻き込まずmainへcommit/pushする。
+      - private review、公式PDF、native provenance、生の利用者report及び識別情報はGitへ載せない。
+    tracking_contract:
+      case: 既存判断を変更せず、formalCorrection metadataへpatch_ref、patch hash、commit SHA、approved fields及びcanonical_patch_saved_unpublishedを追加する。
+      ledger:
+        - SQLite backup APIでpromotion-2025内へ変更前backupを保存する。
+        - 対象caseをexactに含む一つの既存taskとcase-level fix_requiredを確認する。対象行が曖昧ならDB更新を行わない。
+        - 既存入口でpatch_refを記録できるならそれを使う。現在CLIに専用入口がない場合は既存schemaを変えず、guardedな一行transactionでpatch_refとcommit_shaだけを記録してよい。
+        - transactionは対象task ID、既存decision、既存patch_ref及びpublished_atが変更前値に一致する条件を付け、更新行数1を要求する。
+        - published_atはNULLのまま維持し、承認又は公開完了を捏造しない。
+        - summaryの公開待ちは正式patch保存済みを示す。品質検査、法令監査及び公開承認が未完了であることをprivate receiptへ明記する。
+    baseline_contract:
+      - 旧T011 fingerprintは上書きしない。
+      - 新fingerprintとの差分がROOTの承認済み24file一つの追加だけであり、既存fileのhash変更及びWORK変更がないことを証明する。
+      - review及びprivate追跡fileの追加は別manifestでhash記録する。
+      - T015の新baselineへこの承認済み24追加を含める。以降はpostpromotion verifierを使い、旧verifierのfingerprint条件を緩めない。
+    verify:
+      - /Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/proposals/2026-10-03/verify_2025_isolated_review.py
+      - /Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/proposals/2026-10-03/promotion-2025/verify_promoted_patch.py
+      - /Users/yuki/development/exam_scraper_work/.venv/bin/python -m tools.question_bank.feedback_daily summary
+      - /Users/yuki/development/exam_scraper_work/.venv/bin/python -m tools.question_bank.feedback_daily list-reports --limit 100
+      - git diff --check
+      - git diff --cached --name-only
+      - git status --short
+    verify_order_note: 旧isolated verifierは移送前だけ実行する。移送後は追加fileだけの差分を検査する新private verifierを実行する。
+    stop_if:
+      - candidate、source binding、expectedBeforeHash、live内容、manifest file又はreview hashが変化している。
+      - 候補changesがcorrectChoiceText vector及びquestionIntent以外を含む。
+      - 追加24以外の正本file変更、00_sourceコピー、19 orphan除去又は他6問修正が必要。
+      - review provenanceを書き換えないとhash参照が解決できない。
+      - T015の解説、lawReferences又はlawRevisionFacts候補を正式保存する必要がある。
+      - DB対象行が一意でない、既存異なるpatch_refがある、又は公開済みとしての記録が必要。
+      - 無関係な既存Git差分を分離できない、push競合で無関係な変更を巻き込む必要がある。
+      - merge、convert、upload-ready、Firestore又はStorageの変更が必要。
+    supplemental_T015_acquisition_contract:
+      decision: approve_private_adapter
+      reason: UPDATE_JSON_MODEは既存URLを持つfileの更新専用であり、fresh directoryへ保存しない。標準parser、取得値及びIDを保持して標準writerへ渡すprivate callback adapterは、raw seedを合成する方法よりも正直な新規取得となる。
+      allowed_scope:
+        - output/user_feedback_response_system/staging/recovery-source-2018/**
+        - output/user_feedback_response_system/staging/recovery-source-2024/**
+        - output/user_feedback_response_system/proposals/2026-10-03/recovery-slice/**
+      method:
+        - TARGET_URL、UPDATE_JSON_MODE=True及び既存env overrideによる標準mainの一問取得を維持する。
+        - private runner内でupdate_existing_files callbackだけをfresh writerへ置き換える。
+        - callbackが受け取るnormal及びempty bodydictを無修正で既存save_question_body_chunksへ渡し、base_filename_suffixとchunk_size=25を標準mainと一致させる。
+        - private出力先、唯一のtarget URL及び受信record数を保存前に確認し、payloadをコピーする場合も値を変更しない。
+        - 元callback、adapter及び標準writerのsource hash、code版、実run、受信payload hash及び保存raw hashを記録する。
+      verify:
+        - 保存されたquestion_bodiesがcallback受信bodydictの値と完全一致する。
+        - private出力先以外に書込みがない。
+        - 取得IDが旧公開IDと不一致なら比較結果のみを保存し、alias又は旧IDをrawへ注入していない。
+      stop_if:
+        - parser、ID生成、取得本文又はchoice順の変更が必要。
+        - oldmerged又は手作業seedをrawとして導入する必要がある。
+        - callbackに複数target又は予期しないrecordが渡され、一問取得を確認できない。
+        - 標準writerがpayloadを保存できず、製品実装変更が必要。
+    receipt:
+      result: done
+      summary: "明示承認済みの2025正答vectorとquestionIntentを含む真正24候補を無修正で正式保存し、対象1fileのみmainへcommit/push。移送前verifier PASS、WORK source binding/current beforeHash、全5live本文/正誤/intent、8file hashを再検証。移送後も既存ROOT/WORKの4groupは不変で、ROOT24一つの追加だけ。review/固定画像7fileはprivate canonical相対pathへ移送してhash参照を解決。caseのformalCorrectionとSQLiteの唯一のcase-level fix_required taskへpatch_ref/commit_shaだけ記録し、他の全table・row・field・判断は不変、published_at NULLをreadback確認。"
+      evidence:
+        - "commit cfc633f5c pushed origin/main"
+        - "private promotion-2025/promotion-receipt.json"
+        - "private promotion-2025/verification-receipt.json"
+        - "private promotion-2025/ledger-tracking-readback.json"
+        - "feedback_daily.summary: fixesAwaitingProposal 4→3, patchesAwaitingPublication 0→1"
+      verification:
+        prepromotion_genuine_review: pass
+        postpromotion_bytes_binding_beforehash_fingerprint: pass
+        alignment: "pass, 3 merged files in 85011"
+        required_fields: pass
+        correction_coverage: "pass, formal24 format adapter with existing unchanged true_false context; initial partial qtype coverage check failed as checker requires full source, preserved separately"
+        git_diff_check: pass
+      remaining_gates:
+        - "current law statement audit and extra field approval"
+        - "source overlay integration and scoped artifact sync"
+        - "question evaluation"
+        - "separate explicit publication approval"
+        - "live readback"
+      publicationApproved: false
+      firestoreModified: false
+  - id: T015
+    type: pm
+    assignee: PM
+    status: active
+    objective: 2018/2024の標準再取得とidentity照合、2025の一次本文に基づく新しい一問監査及び候補差分、2020のlegacy snapshot導入契約案をprivate成果物として完成させる。2025の検証済み正答proposalを既存propose入口で台帳へ登録し、承認及び公開阻害条件を追跡する。製品実装は編集しない。
+    allowed_files:
+      - output/user_feedback_response_system/staging/recovery-source-2018/**
+      - output/user_feedback_response_system/staging/recovery-source-2024/**
+      - output/user_feedback_response_system/staging/recovery-law-2025/**
+      - output/user_feedback_response_system/staging/recovery-legacy-2020/**
+      - output/user_feedback_response_system/proposals/2026-10-03/recovery-slice/**
+      - /Users/yuki/Library/Application Support/Repaso/feedback-ops/ledger.sqlite3
+      - /Users/yuki/Library/Application Support/Repaso/feedback-ops/ledger.sqlite3-wal
+      - /Users/yuki/Library/Application Support/Repaso/feedback-ops/ledger.sqlite3-shm
+    source_reacquisition_contract:
+      '2018':
+        qualification: 2nd-class-kenchikushi
+        list_group_id: '85004'
+        target_url: https://2kenchikushi.kakomonn.com/questions/43661
+        legacy_public_id: ea5e6c25871a58de
+        output_root: output/user_feedback_response_system/staging/recovery-source-2018
+      '2024':
+        qualification: 2nd-class-kenchikushi
+        list_group_id: '85010'
+        target_url: https://2kenchikushi.kakomonn.com/questions/80353
+        legacy_public_id: 3b60f717695e7472
+        output_root: output/user_feedback_response_system/staging/recovery-source-2024
+      method: &id001
+        - TARGET_URL、UPDATE_JSON_MODE=True及び既存env overrideによる標準mainの一問取得を維持する。
+        - private runner内でupdate_existing_files callbackだけをfresh writerへ置き換える。
+        - callbackが受け取るnormal及びempty bodydictを無修正で既存save_question_body_chunksへ渡し、base_filename_suffixとchunk_size=25を標準mainと一致させる。
+        - private出力先、唯一のtarget URL及び受信record数を保存前に確認し、payloadをコピーする場合も値を変更しない。
+        - 元callback、adapter及び標準writerのsource hash、code版、実run、受信payload hash及び保存raw hashを記録する。
+      proof:
+        - 取得URL、時刻、標準scraper版、ファイルhash、source_question_id、sourceQuestionKey、canonical key、public及びoriginal IDを実測値として保存する。
+        - 資格、年度、科目、問番号、本文及び選択肢順を同年度公式PDFと照合する。
+        - 旧取得URL及び旧公開IDとの対応を別のprivate identity-comparisonへ記録する。本文一致だけを一意対応の証明にしない。
+        - 画像はprivateローカルダウンロードのみ。生成Storage URLを画像公開済みとは扱わない。
+      identity_boundary: 再取得IDが旧公開IDと違う場合、rawへalias追加、original ID書換え、旧sourceQuestionKeyの注入を行わない。測定結果と移行候補だけを保存し、正本導入は別のidentity契約判断へ戻す。
+      adapter_contract:
+        decision: approve_private_adapter
+        reason: UPDATE_JSON_MODEは既存URLを持つfileの更新専用であり、fresh directoryへ保存しない。標準parser、取得値及びIDを保持して標準writerへ渡すprivate callback adapterは、raw seedを合成する方法よりも正直な新規取得となる。
+        allowed_scope:
+          - output/user_feedback_response_system/staging/recovery-source-2018/**
+          - output/user_feedback_response_system/staging/recovery-source-2024/**
+          - output/user_feedback_response_system/proposals/2026-10-03/recovery-slice/**
+        method: *id001
+        verify:
+          - 保存されたquestion_bodiesがcallback受信bodydictの値と完全一致する。
+          - private出力先以外に書込みがない。
+          - 取得IDが旧公開IDと不一致なら比較結果のみを保存し、alias又は旧IDをrawへ注入していない。
+        stop_if:
+          - parser、ID生成、取得本文又はchoice順の変更が必要。
+          - oldmerged又は手作業seedをrawとして導入する必要がある。
+          - callbackに複数target又は予期しないrecordが渡され、一問取得を確認できない。
+          - 標準writerがpayloadを保存できず、製品実装変更が必要。
+    new_law_audit_contract:
+      target_identity:
+        sourceQuestionKey: 2nd-class-kenchikushi:85011:12c59a4c014e49de
+        reviewQuestionId: 12c59a4c014e49de
+        sourceRecordRef: question_85011_empty_1.json#0
+      inputs:
+        - 現行sourceにexact joinした本文、選択肢、questionIntent、解説及び既存law metadataを含む監査対象snapshot。
+        - 2025-current-law-freshnessの固定primary-law-evidence、取得原response及び完全な試験時点・現在時点本文。
+        - 公式問題冊子及び公式正答ページ、試験日根拠、現在基準日。
+        - 現行03b promptとcurrent_law_question_maintenance_workflowの固定版及びhash。
+      provenance: 旧監査の復元とは記録せず、現在の固定一次本文から実行する新監査とする。旧JSON hashとfresh XML hashの同一性を宣言しない。
+      review_phases:
+        - PrimaryとSecondaryを別の新規native read-only task、fork_turns=noneで実行する。同一固定bundleを渡し、Secondaryの初回判断へPrimary結論を渡さない。
+        - 両reviewerが全5肢の完全命題について試験時点の判定、現在の判定、正答選択との関係、解説及び条・項・号の対応を本人のreview objectへ記録する。
+        - 今回の肢4解説及びparagraph locatorの疑義は第三者の新規no-fork read-only Tertiaryで確認する。一次・二次不一致、正答又は法令判定変更、高リスク判断も三次へ回す。
+        - Tertiaryは固定bundleと真正Primary/Secondaryを受け、相違点と根拠を判定する。PMは実質的結論を代作しない。
+      output_contract:
+        - native goal_judgeの最終出力はgoalbuddy_receipt_v1を維持し、本人作成の完全audit objectをevidence内に保存する。PMは無修正で抽出する。
+        - 各phaseの実task ID、生の応答、prompt及びinput hash、一次本文及び資料hash、受信と検証の証跡をprivateに保存する。
+        - law-revision-audit/v2の識別、examYear、auditedAt、nextAuditDueAt、auditMethodVersion、auditInputHash、lawCorpusSnapshotId、実run ID、reconciliationStatus、auditStatus、reviewStateを生成する。
+        - examTimeDecisionとcurrentLawDecisionを元の選択肢順で保存し、根拠locator、sourceSummary、remainingRiskを記録する。
+        - schema-validなlawRevisionFacts、必要なlawReferences及び解説の候補をprivate差分にまとめる。old reviewStateの機械昇格は行わない。
+        - same_as_currentは真正な二次確認以上、updated_to_current_lawは真正な三次確認を条件とする。疑義が解消しない場合はhonestなholdにする。
+      critical_checks:
+        - 条文全体のhash一致を個別命題の正しさの代用にしない。
+        - 大規模修繕の対象区分と区域要件を混同せず、肢4の解説と第6条第1項の適用条件を一次本文へ直接対応させる。
+        - lawFactsのparagraph=9と参照第1項の疑義を、表示位置と法令項番号の仕様も確認して判定する。推測で1へ置換しない。
+        - group_choice等のトップレベル正答と記述自体の真偽を直接同一視しない。
+        - 追加fieldの訂正が必要なら承認可能なbefore/after、根拠及び影響範囲を保存し、正式patchへ反映しない。
+    legacy_snapshot_contract:
+      scope: 2020年公開問題の読み取りsnapshotをprivate取得資料として保存し、新規正本導入の契約案だけを作る。
+      preserve_ids:
+        - condominiummanager-C-13289
+        - kanrigyo-2020-8
+        - 原問sourceのee8135114d92e847及びkanrigyoumu:kakomonn:questions:57462を別のidentityとして保持する。
+      requirements:
+        - Firestore path、updateTime、取得時刻、必要な問題field及びcontent hashを固定し、sourceKindをproduction_snapshotと明記する。
+        - 改題された公開本文を公式原問又は取得原本と偽らない。元の00_sourceへ戻さない。
+        - 公開ID保持、原問とのvariant関係、改題差分、future overwrite防止及びprovenanceを契約案として記録する。
+        - 既存snapshot導入の先例は保存方式の参考に限定し、資格固有のmappingやID規則を流用しない。
+        - 一意対応が証明できない場合はその欠落を保持し、snapshotから新しいcanonical sourceを自動作成しない。
+    ledger_contract:
+      mode: readback_only_superseded_by_formal_patch_tracking
+      reason: actual additional approval and T017 formal24 commit/push completed before T015; propose would now reject existing patch_ref and
+        must not regress status
+      scope: verify existing 2025 target patch_ref/commit_sha and published_at NULL without updating rows
+      proof: promotion-2025/ledger-tracking-readback.json
+    verify:
+      - /Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/proposals/2026-10-03/recovery-slice/verify_recovery_slice.py
+      - /Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/proposals/2026-10-03/promotion-2025/verify_promoted_patch.py
+      - /Users/yuki/development/exam_scraper_work/.venv/bin/python -m tools.question_bank.feedback_daily summary
+      - /Users/yuki/development/exam_scraper_work/.venv/bin/python -m tools.question_bank.feedback_daily list-reports --limit 100
+      - git diff --check
+      - git status --short
+    verification_requirements:
+      - private再取得と監査のsource identity、取得資料、response及びreview hashが実物へ解決できる。
+      - 新監査sidecarと候補lawFactsを既存v2 schema及びlawFacts validatorで検証する。validator変更は行わない。
+      - 全5肢の配列長、順序、choiceIndex、locator、試験時及び現在判定と候補差分が対応する。
+      - 正本00_source、stage patch、24、merged、converted、upload-ready及び既存監査ファイルの前後fingerprintが一致する。
+      - 台帳更新は対象taskのproposal hash/refだけで、他task及びcase判断が変わっていない。
+      - Firestore writes及びStorage uploadsがなく、credentials又は追加credits関連設定を変更していない。
+    stop_if:
+      - 実装編集、永久doc追加、gate緩和、外部provider、追加credits許可又はallowed_files外の変更が必要。
+      - scraperがprivate出力先以外へ保存又は公開しようとする。
+      - 再取得ID不一致をraw alias追加又はID書換えで解消する必要がある。
+      - 同じsource identity又は固定監査入力へ一意に対応できない。
+      - 必要な法令本文がtruncate、根拠不足又は版競合で、追加取得を安全に固定できない。
+      - 真正reviewの改作、旧監査run IDの再利用、旧hashとの架空対応又は機械的reviewState昇格が必要。
+      - canonical00、正式24、Firestore又はStorageの変更が必要。
     receipt: null
+    baseline: promotion-2025/postpromotion-fingerprint.json; old baseline plus exactly the approved 24 file
   - id: T004
     type: pm
     assignee: PM
@@ -764,7 +1301,7 @@ tasks:
       - 根拠付きreceiptと次の具体的slice
     receipt: null
 checks:
-  dirty_fingerprint: clean-at-93e7236e7
+  dirty_fingerprint: old canonical inputs unchanged; approved 24 added at cfc633f5c
   last_verification:
     result: unknown
     task: null
