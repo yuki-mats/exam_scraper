@@ -58,7 +58,7 @@ visual_board:
     url: http://goalbuddy.localhost:41737/feedback-correction-recovery/
     command: node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs
       --goal docs/goals/feedback-correction-recovery
-active_task: T011
+active_task: T014
 tasks:
   - id: T001
     type: scout
@@ -551,28 +551,28 @@ tasks:
         - prompt/question_issue_reports/02_challenge_review.md
         - tests/test_question_issue_reports.py
       commands:
-        - command: "/Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p test_question_issue_reports.py"
+        - command: /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p test_question_issue_reports.py
           exit_code: 0
-          result: "23 tests、0.079秒、OK"
+          result: 23 tests、0.079秒、OK
           status: pass
-        - command: "/Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p test_official_source_correction.py"
+        - command: /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p test_official_source_correction.py
           exit_code: 0
-          result: "14 tests、0.024秒、OK"
+          result: 14 tests、0.024秒、OK
           status: pass
-        - command: "git diff --check"
+        - command: git diff --check
           exit_code: 0
-          result: "指摘なし"
+          result: 指摘なし
           status: pass
-        - command: "git diff -- prompt/question_issue_reports/02_challenge_review.md tests/test_question_issue_reports.py"
+        - command: git diff -- prompt/question_issue_reports/02_challenge_review.md tests/test_question_issue_reports.py
           exit_code: 0
-          result: "指定2ファイルの変更を確認"
+          result: 指定2ファイルの変更を確認
           status: pass
-        - command: "git status --short"
+        - command: git status --short
           exit_code: 0
-          result: "指定2ファイルの変更と既存のboard・T006〜T009 receipt差分のみ"
+          result: 指定2ファイルの変更と既存のboard・T006〜T009 receipt差分のみ
           status: pass
-      summary: "Challengeプロンプトの三次監査facts必須条件をoutdated_law_or_informationへ限定。correct_answerの公式正答照合、未許可facts禁止、現行法矛盾時のhold、監査・公開判断との責務を明記した。same_as_current/secondary_verified自体を不備扱いしない。カテゴリ通過・拒否、facts欠落・監査不足・空summary・schema不正・A/B不一致・非公式根拠の回帰テストを追加。board更新、receipt保存、commit/pushは実施していない。"
-      rationale: "既存validatorのカテゴリ契約へプロンプトを合わせる修正。validator・config・公開gate・credit gateは変更していない。全検証の実測exit_code=0に対応してstatusをpassへ修正した再提出。追加変更・再検証は行っていない。真正Challenge実行と現行法照合は後続作業。"
+      summary: Challengeプロンプトの三次監査facts必須条件をoutdated_law_or_informationへ限定。correct_answerの公式正答照合、未許可facts禁止、現行法矛盾時のhold、監査・公開判断との責務を明記した。same_as_current/secondary_verified自体を不備扱いしない。カテゴリ通過・拒否、facts欠落・監査不足・空summary・schema不正・A/B不一致・非公式根拠の回帰テストを追加。board更新、receipt保存、commit/pushは実施していない。
+      rationale: 既存validatorのカテゴリ契約へプロンプトを合わせる修正。validator・config・公開gate・credit gateは変更していない。全検証の実測exit_code=0に対応してstatusをpassへ修正した再提出。追加変更・再検証は行っていない。真正Challenge実行と現行法照合は後続作業。
       remaining_blockers: []
       needs_judge: false
       verification_attempts: 1
@@ -580,7 +580,7 @@ tasks:
   - id: T011
     type: pm
     assignee: PM
-    status: active
+    status: done
     objective: 旧holdとA/Bを保存し、修正済みpromptによる新規Challengeを実行してprivateパッチ候補と承認比較を完成する
     allowed_files:
       - output/user_feedback_response_system/staging/goal-recovery-2025-review/**
@@ -598,6 +598,139 @@ tasks:
     stop_if:
       - 正式patch又はFirestore変更が必要
       - 真正reviewの手修正が必要
+    receipt:
+      result: done
+      summary: 修正済みpromptで履歴非共有の新Challengeを実行し、真正fixを受領。旧holdとpromptをattempts/01-original-holdへhash付き保存し、A/B及びinputHashは不変。既存service・validator・patch
+        builder・verifierが隔離24候補を生成・検証した。canonical及びFirestoreは未変更。questionIntent null→select_correctの追加承認を非同期依頼した。
+      evidence:
+        - private 2025-review-approval-comparison.json
+        - private 2025-review-promotion-manifest.json
+        - private native-review/provenance/challenge-02-fix.json
+        - verify_2025_isolated_review.py exit 0
+      checks:
+        app_server_credit_gate: unchanged; still blocked
+        correct_answer_review: validated genuine A/B/Challenge
+        canonical_patch: awaiting exact additional approval
+        publication: not approved
+  - id: T012
+    type: pm
+    assignee: PM
+    status: blocked
+    objective: 2025年対象の既存same_as_current判定を、現在の一次法令根拠及び修正予定の正答vectorと照合する。secondary_verifiedからの機械昇格を目的にしない。
+    allowed_files:
+      - output/user_feedback_response_system/proposals/2026-10-03/2025-current-law-freshness/**
+    constraints:
+      - 同じ完全source identityに対応する現行projected record、lawReferences、lawRevisionFacts及びv2監査sidecar。
+      - 出題時点の公式正答、examTime及びcurrentの判定、確認済み正誤vector。
+      - 既存lawCorpusSnapshotIdと参照条項、取得時点、根拠hash。
+      - 同じ条項の現在の公的一次本文、施行日及び改正情報。
+      - この確認だけで公開許可又は一問evaluationの通過とは扱わない。
+    verify:
+      - 既存same_as_currentの根拠が現在も妥当で、公式正答1と既存examTime/current判定及び予定vectorが整合する。
+      - evidence hashes and exact source identity
+    stop_if:
+      - 法令変更、根拠不足、判定矛盾又はmetadata更新が必要なら公開を止め、既存法令監査工程へ別sliceとして戻す。
+    receipt:
+      result: blocked
+      summary: 2026-10-03の公的e-Gov API v2から建築基準法6/88条と施行令138条を試験日2025-07-06と現在日に取得し、7参照全て完全取得、本文非truncate、試験/現在hash一致を確認。現行revisionも保存済みと一致。旧evidence
+        hashは現在のXML抽出hashと異なり、旧bundleが欠損しているため同一hash正規化は未証明。両checkoutのaudit rootを探索したが対象のexact identity v2 sidecarはなく、legacy集計ledgerが宣言した一次/二次sidecar及びevidence
+        bundleは実ファイル欠損。secondary_verified自体を不備とは判定しない。個別命題監査と欠損証跡復旧が未完了なので公開は停止。
+      blocked_reason: Individual legacy audit files and exact-identity v2 sidecar missing; existing metadata alone cannot prove publishable audit
+        consistency.
+      evidence:
+        - private 2025-current-law-freshness/primary-law-evidence.json
+        - private 2025-current-law-freshness/freshness-receipt.json
+        - private 2025-current-law-freshness/legacy-sidecar-candidates.json
+        - Declared 85011 primary/secondary sidecars and primary evidence bundle absent in both checkouts
+      required_followup: Read-only Git/history recovery of missing source and audit artifacts; if unrecoverable, bounded honest new audit with
+        current primary evidence, no fabricated migration or review promotion.
+      canonical_and_firestore_modified: false
+  - id: T013
+    type: scout
+    assignee: Scout
+    status: done
+    objective: 4件の欠損source・2025監査artifact・2020改題identityについてGit履歴と既存artifactを読み取りで探索し、一意復旧可能な原本と最小safe sliceを確定する
+    constraints:
+      - Read-only
+      - 正本sourceを編集しない
+      - 利用者本文・識別情報を読まない又は出力しない
+      - PM candidateとは別に履歴を証明する
+    expected_output:
+      - exact file/commit/hash/mapping receipt
+      - unrecoverable gaps with evidence
+    receipt:
+      result: done
+      summary: "既存4件の原本・監査証跡を両checkoutと全Git refsで確認。2025欠損一次/二次sidecar・bundleはGit objectにもなく、exact identity監査は集計ledgerで代替できない。2018/2024は対象原本がGit履歴にもなく、旧mergedと21patchの取得URLから標準scraperで再取得可能な入口がある。ただし現在scraperのcanonical IDと旧公開IDの一致は実測が必要。2020は00_sourceのみ存在し、改題正本・legacy publicIDへの対応記録は探索範囲で存在しない。既存成果からの真正復旧は未証明。"
+      evidence:
+        - scope: "両checkout・全refs"
+          finding: "git log --allの85004/85010/00_sourceと94006/05_originalizedは履歴0件。git rev-list --all --objectsのraw filenames、85011_primary/secondary audit filenames、94006 source/convert/originalized pathsも0件。現在の既知raw filesはGit追跡外。"
+          command: "git rev-list --all --objects | rg '85011_(primary_law|secondary_law|primary_current)|question_85004_empty_1.json$|question_85010_empty_1.json$|kanrigyo-2020|condominiummanager|94006.*(05_originalized|convert|upload|source)'"
+          limitation: "ローカルGitに存在する全refsを検査。未取得remote refsや外部backupは未検査。"
+        - path: output/2nd-class-kenchikushi/review/law_revision_audit/final_law_revision_fact_coverage_85011_20260705_2300.json
+          sha256: 68509f4452d7dbf0a0f47027784e18ba861d17c1e575b794abe79ad41efd2781
+          commit: 3f62524b900fc379dc9d7fccd4975a80b8c72ca4
+          finding: "履歴から読める85011成果はcoverage集計。個別命題・raw evidence・review独立性の復元物ではない。"
+          read_command: "git show 3f62524b900fc379dc9d7fccd4975a80b8c72ca4:output/2nd-class-kenchikushi/review/law_revision_audit/final_law_revision_fact_coverage_85011_20260705_2300.json"
+        - path: WORK/output/2nd-class-kenchikushi/review/law_revision_audit/2017_2025_secondary_law_revision_audit_ledger_20260705_2104.jsonl
+          sha256: 4a277a18b69158df5dcef250370e1be7e6c3847c262362ae0cfc083f8a929d06
+          finding: "追跡外の集計ledgerあり。85011は26件集計、15 secondary_verified等。85011個別primary/secondaryファイルはroot全ファイル名探索でも0件。sourceQuestionKey/sourceRecordRef又は対象IDのgrepは集計2ファイルだけ。"
+        - path: WORK/output/2nd-class-kenchikushi/questions_json/85004/00_source
+          finding: "現行raw2ファイル question_85004_1.json/question_85004_4.json、対象ea5e6c25871a58deなし。資格output配下のquestion_85004_empty_1関連24ファイルは全て後続成果でrawなし。"
+        - path: output/2nd-class-kenchikushi/questions_json/85004/21_explanationText_added/question_85004_empty_1_merged_explanationText_added_20260528_0446.json
+          sha256: 216e08505ca78528d97ad3ec1cd8354161b72a046e3198f027c9cfe3aceed124
+          commit: 5fe4c4518a7e01f7532d5477ef688660eccf6bfb
+          record_index: 3
+          finding: "取得元URL https://2kenchikushi.kakomonn.com/questions/43661 と旧original/public ID ea5e6c25871a58deが結び付く後続成果。原本と偽って00_sourceへ戻してはいけない。"
+        - path: WORK/output/2nd-class-kenchikushi/questions_json/85010/20_merged_1/question_85010_empty_1_merged.json
+          sha256: 579941a1a1a1be4ee7b0c67148d557d21f3cbe5847fdc198b40ee9356deef272
+          record_index: 0
+          finding: "取得URL https://2kenchikushi.kakomonn.com/questions/80353、旧ID 3b60f717695e7472。現行00_source2ファイルはquestion_85010_3.json/question_85010_2.jsonで対象なし、資格rootのempty_1関連9ファイルにrawなし。"
+        - path: WORK/output/kanrigyoumu/questions_json/94006/00_source/question_94006_1.json
+          sha256: 9d4425e83d351444605a22e5fbc4a866995becc7f66642c7a6e7acd11f9e2200
+          record_index: 7
+          finding: "source_question_id=kanrigyoumu:kakomonn:questions:57462、public/original=ee8135114d92e847、取得URL https://kanrigyoumu.kakomonn.com/questions/57462。94006はsource2ファイルのみ、資格questions_jsonにも05_originalized/40_convert/upload/mapping/manifest候補なし。live kanrigyo-2020-8への一意mappingは確認できない。"
+        - path: "code.py:2068"
+          finding: "標準kakomonn scraper mainがsecure.envロード後env override、TARGET_URLかlist URLで取得。UPDATE_JSON_MODE=True/TARGET_URLの分岐が一問指定を提供。直接一問URL CLI引数はなく第一引数はgroup置換。"
+          candidate_command: "SCRAPER_QUALIFICATION_CODE=2nd-class-kenchikushi SCRAPER_QUALIFICATION_NAME=二級建築士 SCRAPER_OUTPUT_LIST_GROUP_ID=85004 SCRAPER_OUTPUT_DIR=<private-staging-output> /Users/yuki/development/exam_scraper_work/.venv/bin/python -c 'import code; code.TARGET_URL=\"https://2kenchikushi.kakomonn.com/questions/43661\"; code.UPDATE_JSON_MODE=True; code.main()'"
+          2024_substitutions: "group=85010、TARGET_URL=https://2kenchikushi.kakomonn.com/questions/80353"
+          limitation: "実行していない。staging先だけに再取得し、record追加/変更reportと旧ID対応を確認後に正本導入を判断。"
+        - path: "scripts/scrape/common.py:137; code.py:2190; code.py:2257"
+          finding: "IDはQUESTION_ID_SECRET_KEYによるHMAC-SHA256先頭16hex。source key=資格:kakomonn:questions:<site-number>。現在code.pyはsource-key hashを初期値にし、試験回・問番号からcanonical keyが得られればcanonical hashへ置換。kanrigyo-2020-8及びcondominiummanager-C-13289のlegacy文字列IDをこの標準生成規則は生成しない。"
+          risk: "2018/2024再取得で旧publicIDが維持されるかは秘匿keyを出さず実測照合が必要。違えば正本identity migration契約が先。"
+      facts:
+        - candidate_slice: "2025を現在の一次法令evidenceから一問exact identity監査として正直に新規実行する。既存secondary_verified metadataを新監査の証拠として扱わず、個別命題・choiceIndex・試験時/現在差・rawResponseHash・primary/secondary/必要なtertiaryの証跡を新規保存する。旧bundleと同一hashだと宣言しない。"
+        - candidate_slice: "2018/2024を上記標準scraper一問指定で別private stagingへ再取得。source acquisition reportとファイルhash、source/public/canonical IDsを旧21/merged取得URLと照合。原本本文をmergedから合成しない。"
+        - candidate_slice: "2020はlive legacy originalIDを標準scraper再取得だけで保持できない。改題正本の取得又は明示的legacy snapshot導入・mapping契約を設計し、原問sourceは保持する。既知元問再取得は原問の正しさを再確認できるがlive typoの上流修正先にはならない。"
+      contradictions:
+        - claim: "secondary_verified集計ledgerがあるため個別監査ファイルも復元できる。"
+          finding: "個別85011 sidecar/bundleは両checkout及びローカル全refsにない。集計だけでは個別review/evidence hashを復元できない。"
+        - claim: "旧mergedからraw sourceを復旧できる。"
+          finding: "後続patchで変更済みの値を含む。取得URLと旧IDの証拠として利用できるが取得原本の代用品ではない。"
+      ambiguity_requiring_judge:
+        - "再取得canonical IDが旧publicIDと違った場合、既存source alias追加による追跡可能な移行と単なるID書換えを区別する契約が必要。"
+        - "2020 legacy snapshotを新規正本sourceとして導入する際のprovenanceと既存原問sourceとの併存・公開ID保持を明文化する必要がある。"
+      commands:
+        - "board T013とT012 receipt読取り"
+        - "両checkoutのtarget git ls-files/git log --allとknown root filename探索"
+        - "両checkout全refs object path探索"
+        - "WORK対象group record identity/hashのみ照合"
+        - "WORK2018/2024 raw filename inventoryとtarget match count"
+        - "WORK85011 ledger及びcoverage hash/追跡状態照合"
+        - "取得URL関連patch commit履歴読取り"
+        - "標準code.py one-question分岐とHMAC/canonical ID規則読取り"
+      note_needed: false
+  - id: T014
+    type: judge
+    assignee: Judge
+    status: active
+    objective: 欠損証跡とsource identityの復旧を監査し、private標準再取得・2025新監査・legacy導入の最大安全sliceを承認する
+    constraints:
+      - Read-only
+      - sourceと既存公開IDを保護
+      - 欠損証跡の偽造又は集計からの復元は禁止
+    expected_output:
+      - bounded PM/Worker package with exact allowed files, verify, stop_if
+      - source reacquisition and legacy mapping contract
     receipt: null
   - id: T004
     type: pm
