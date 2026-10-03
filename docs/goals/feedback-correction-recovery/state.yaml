@@ -59,7 +59,7 @@ visual_board:
     url: http://goalbuddy.localhost:41737/feedback-correction-recovery/
     command: node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs
       --goal docs/goals/feedback-correction-recovery
-active_task: T024
+active_task: T025
 tasks:
   - id: T001
     type: scout
@@ -2428,7 +2428,7 @@ tasks:
   - id: T024
     type: worker
     assignee: Worker
-    status: active
+    status: done
     objective: T023の全縦断sliceを引き継ぎ、既存contractで確認済みのfixture修正（補足なしはトップレベル空配列）から実関連回帰・新規生成・strict law・runtime・各entry接続まで完成する。途中保存と既存失敗は保全し、対象inputを変えない別資格の外部差分を明示観測して共存する。
     implementation_root: /Users/yuki/development/exam_scraper_feedback
     canonical_read_only_root: /Users/yuki/development/exam_scraper_work
@@ -2544,11 +2544,175 @@ tasks:
       - notes/T022-recovery-receipt.json
       - 現在のT021/T023途中差分
       - scripts/common/suggested_question_contract.py:46-75
-    receipt: null
+    receipt:
+      result: done
+      task_id: T024
+      board_path: /Users/yuki/development/exam_scraper_feedback/docs/goals/feedback-correction-recovery/state.yaml
+      changed_files:
+        - config/qualification_display_catalog.json
+        - scripts/common/scoped_canonical_context.py
+        - scripts/pipeline/prepare_scoped_question_artifacts.py
+        - scripts/pipeline/prepare_firestore_upload.py
+        - tools/question_review_console/scoped_artifacts.py
+        - tools/question_review_console/validated_evidence_import.py
+        - tools/question_review_console/primary_law_evidence.py
+        - tools/question_review_console/inventory.py
+        - tools/question_review_console/workflow_runner.py
+        - tools/question_review_console/qualification_runs.py
+        - tools/question_review_console/evaluation.py
+        - tools/question_review_console/publisher.py
+        - tests/test_scoped_canonical_context.py
+        - tests/test_question_review_scoped_artifacts.py
+        - tests/test_question_review_validated_evidence_import.py
+        - tests/test_question_review_primary_law_evidence.py
+        - document/operations/artifact_contract.md
+        - document/operations/delivery_workflow.md
+        - document/operations/local_question_review_console.md
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/verify_integration.py
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T024-a3887978f71a/**
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T024-integration-193695ac4029/**
+      commands:
+        - command: /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_scoped_canonical_context.py'
+          status: pass
+          exit_code: 0
+          tests: 8
+        - command: /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_scoped_artifacts.py'
+          status: pass
+          exit_code: 0
+          tests: 5
+        - command: /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_validated_evidence_import.py'
+          status: pass
+          exit_code: 0
+          tests: 2
+        - command: /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_primary_law_evidence.py'
+          status: pass
+          exit_code: 0
+          tests: 17
+        - command: /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_inventory.py'
+          status: pass
+          exit_code: 0
+          tests: 50
+        - command: /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_projection.py'
+          status: pass
+          exit_code: 0
+          tests: 24
+        - command: PYTHONUNBUFFERED=1 /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover
+            -s tests -p 'test_question_review_artifact_sync_e2e.py'
+          status: pass
+          exit_code: 0
+          tests: 1
+          elapsed_seconds: 1.388
+          original_timeout_seconds: 30
+          historical_timeout_cause: unknown
+        - command: /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_evaluation.py'
+          status: pass
+          exit_code: 0
+          tests: 61
+        - command: /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_publisher_safety.py'
+          status: pass
+          exit_code: 0
+          tests: 16
+        - command: /Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/staging/recovery-scoped-2025/verify_integration.py
+          status: pass
+          exit_code: 0
+          result_path: output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T024-integration-193695ac4029/integration-receipt.json
+          source_count: 58
+          outside_proof_count: 103
+          generation_runs:
+            canonical: 2
+            private: 2
+          strict_law_exit_codes:
+            canonical:
+              merged: 1
+              converted: 1
+              uploadReady: 1
+            private:
+              merged: 0
+              converted: 0
+              uploadReady: 0
+          runtime:
+            result: allowed
+            force: true
+            allow_existing_credits: false
+            standard_mode: true
+            configuration_unchanged: true
+            model_turn_performed: false
+          evaluation_performed: false
+          can_publish: false
+          target_inputs_unchanged: true
+          historical_canonical_files_unchanged: 251
+          T015_files_unchanged: 132
+          old_private_and_receipts_unchanged: true
+          external_WORK_status_changed: true
+          external_change_observation: external-work-status-observation.json
+          worker_wrote_WORK: false
+          Firestore_written: false
+          permission_errors: 0
+        - command: git diff --check
+          status: pass
+          exit_code: 0
+        - command: git status --short
+          status: pass
+          exit_code: 0
+          result: 継承した製品差分を保全。追跡対象変更は許可範囲内。新成果は指定runs以下。commit/push未実行。
+      summary: T021/T023途中差分を保全し、既存契約に従ってfixtureを修正。9suiteを直列実行し184tests成功。カテゴリ正本・依存版・103proof、両経路各2生成の全field/5ID/hash一致、真正native
+        import、実Inventory/Synchronizer/Coordinator/Evaluation/Publisher接続を検証した。正式現状のstrict不合格とprivate合格を別保存し、承認/checkpoint不足による評価未実行・公開拒否を維持。対象入力、固定251/132、旧成果不変。対象外WORK変更は別観測。保存先はT024の2新run。実装sliceのみ完了。
+      remaining_blockers:
+        - 追加4field正式18/21反映とsidecarの承認待ち。
+        - 真正current checkpoint不足によりmachineReady=false。真正評価は未実行、passedではない。
+        - 正式現状はstrict lawが3形態とも不合格。private候補の合格で置換していない。
+        - Publisher previewは公開を拒否。Firestore/Storage writeとlive readbackは未実行。
+        - 原goalの2018・2024・2020および全体公開判断は別途残る。
+        - 旧E2E timeout原因はunknownのまま保全。今回の元30秒条件の成功は新しい接続証拠として保存。
+      needs_judge: false
+      verification_attempts: 1
+      stopped_because: null
     clarifications:
       - 旧30秒E2E timeout原因は未確定で保持。今回同じfixtureの元30秒条件・全既存工程が5.23秒成功した事実を区別し、原因未確定を理由に無根拠な修復を作らない。今の元suiteが成功し段階診断を記録できれば現在の工程接続証拠として扱う。再び失敗すれば段階別原因切分けを行う。
       - T023最後の失敗はfixture setUpのsuggestedQuestionDetailsByChoice[0].items=空配列。トップレベル[]は既存contractで受理される。製品validatorの変更は不要。
       - T023終了時にWORK/nw/201302の2 patch行が他者により追加。T015132・canonical基準251・旧private内容は不変確認済み。対象context依存を改めてhash固定し、無関係な別資格変化を対象検証成功と混同しない。
+  - id: T025
+    type: pm
+    assignee: PM
+    status: active
+    objective: 検証済み19製品fileをmainへcommitし、他者remote差分を保全して統合・必要な影響検証・pushを完了する。実装検証・正式追加field承認待ち・checkpoint未済・独立評価・公開を区別し、残る3caseと2025後続を次の最大安全packageへ整理する。
+    allowed_files:
+      - docs/goals/feedback-correction-recovery/state.yaml
+      - docs/goals/feedback-correction-recovery/notes/**
+      - config/qualification_display_catalog.json
+      - scripts/common/scoped_canonical_context.py
+      - scripts/pipeline/prepare_scoped_question_artifacts.py
+      - scripts/pipeline/prepare_firestore_upload.py
+      - tools/question_review_console/scoped_artifacts.py
+      - tools/question_review_console/validated_evidence_import.py
+      - tools/question_review_console/primary_law_evidence.py
+      - tools/question_review_console/inventory.py
+      - tools/question_review_console/workflow_runner.py
+      - tools/question_review_console/qualification_runs.py
+      - tools/question_review_console/evaluation.py
+      - tools/question_review_console/publisher.py
+      - tests/test_scoped_canonical_context.py
+      - tests/test_question_review_scoped_artifacts.py
+      - tests/test_question_review_validated_evidence_import.py
+      - tests/test_question_review_primary_law_evidence.py
+      - document/operations/artifact_contract.md
+      - document/operations/delivery_workflow.md
+      - document/operations/local_question_review_console.md
+      - output/user_feedback_response_system/staging/recovery-scoped-2025/runs/**
+    inputs:
+      - notes/T024-complete-receipt.json
+      - notes/T024-complete-provenance.json
+      - output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T024-a3887978f71a/suite-input-snapshot.json
+      - output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T024-integration-193695ac4029/integration-receipt.json
+      - 現在の未commit own差分とorigin/main
+    constraints:
+      - Gitへstageするのは19検証済み製品fileとPM controlfilesのみ。private output、WORK、正式24、T015固定132は編集/commitしない。
+      - main単一branch、force pushなし。remote統合はWriterが停止したclean treeで行い、重複file変更時は影響testを実施。
+      - 最新ユーザー検証方針:同入力/依存/環境の30分以内successのみ再利用。重いE2E/buildを並列しない。
+      - 追加4field正式反映・独立評価合格・Firestore公開は未完了。原goal全4件を残す。
+    receipt: null
+    verification_note: 9suite snapshotと現在codeはprivate統合oracle scriptだけが異なる。19製品fileとunitの依存hashは一致。統合scriptはunit後に新run対応へ更新されて実行されているため、PMはこの変更の関連検証だけを現在script
+      hash・HEAD・dirty・時刻付きで一度実行し、184unit/E2Eは反復しない。
   - id: T004
     type: pm
     assignee: PM
