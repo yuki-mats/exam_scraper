@@ -58,6 +58,22 @@ class ScrapeSgsikenTests(unittest.TestCase):
         self.assertEqual(extract_text_with_subsup(node), "A")
         self.assertEqual(extract_text_with_subsup(node, overline_classes=("ol",)), "A̅")
 
+    def test_css_fraction_and_radical_keep_grouping_and_nested_math(self):
+        from bs4 import BeautifulSoup
+        from scrape_sgsiken import extract_q_text
+        node = BeautifulSoup('<div>平均時間×<span class="frac"><span>ρ</span>1－ρ</span>。'
+                             '<span class="root"><span class="frac"><span>A<sup>2</sup></span>'
+                             '<span class="ol">B</span>＋1</span></span></div>', 'html.parser').div
+        before = str(node)
+        self.assertEqual(extract_q_text(node), '平均時間×(ρ)/(1－ρ)。√((A²)/(B̅＋1))')
+        self.assertEqual(str(node), before)
+        double = BeautifulSoup('<span class="dol"><span class="ol">A</span></span>', 'html.parser').span
+        self.assertEqual(extract_q_text(double), 'A̅̅')
+        for markup in ('<span class="frac">A</span>',
+                       '<span class="frac"><span>A</span></span>'):
+            with self.subTest(markup=markup), self.assertRaises(ValueError):
+                extract_q_text(BeautifulSoup(markup, 'html.parser').span)
+
     def test_question_number_excludes_heading_tools_and_keeps_existing_ids(self):
         html = """<h2>ネットワークスペシャリスト令和7年春期 午前Ⅰ 問1</h2>
         <h3 class="qno">問1<div class="tool-box">note_alt calculate</div></h3>

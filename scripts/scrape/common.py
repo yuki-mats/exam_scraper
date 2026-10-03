@@ -481,13 +481,16 @@ def to_subscript(text: str) -> str:
 
 
 def extract_text_with_subsup(
-    element: Tag | NavigableString, *, overline_classes: Iterable[str] = ()
+    element: Tag | NavigableString, *, overline_classes: Iterable[str] = (),
+    fraction_classes: Iterable[str] = (), radical_classes: Iterable[str] = ()
 ) -> str:
     """
     Preserve inline mathematical notation and block boundaries as Unicode text.
     """
     block_tags = {"p", "div", "tr", "td", "th", "li"}
     overline_class_set = set(overline_classes)
+    fraction_class_set = set(fraction_classes)
+    radical_class_set = set(radical_classes)
 
     def render(node: Tag | NavigableString) -> str:
         if isinstance(node, NavigableString):
@@ -502,7 +505,23 @@ def extract_text_with_subsup(
             if name == "sup":
                 inner = "".join(render(child) for child in node.children).strip()
                 return to_superscript(inner)
-            text = "".join(render(child) for child in node.children)
+            classes = set(node.get("class") or [])
+            if fraction_class_set.intersection(classes):
+                children = list(node.children)
+                numerator = next((child for child in children if isinstance(child, Tag)
+                                  and child.name == "span" and not child.has_attr("class")), None)
+                if numerator is None:
+                    raise ValueError("fraction markup has no numerator span")
+                numerator_text = render(numerator).strip()
+                denominator_text = "".join(render(child) for child in children
+                                           if child is not numerator).strip()
+                if not numerator_text or not denominator_text:
+                    raise ValueError("fraction markup has an empty numerator or denominator")
+                text = f"({numerator_text})/({denominator_text})"
+            else:
+                text = "".join(render(child) for child in node.children)
+            if radical_class_set.intersection(classes):
+                text = f"√({text.strip()})"
             if (
                 overline_class_set.intersection(node.get("class") or [])
                 or re.search(

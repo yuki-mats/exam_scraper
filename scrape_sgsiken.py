@@ -294,7 +294,10 @@ def marker_list_from_q_page(choice_items: list[Tag]) -> list[str]:
 def extract_q_text(element: Tag | None) -> str:
     # nw/sg-siken の .ol は補集合や論理否定を表す上線であり、装飾ではない。
     return normalize_question_body_text(
-        extract_text_with_subsup(element, overline_classes=("ol",)) if element else ""
+        extract_text_with_subsup(
+            element, overline_classes=("ol", "dol"), fraction_classes=("frac",),
+            radical_classes=("root",),
+        ) if element else ""
     )
 
 
