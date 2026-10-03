@@ -1,0 +1,175 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T015",
+    "board_path": "/Users/yuki/development/exam_scraper_feedback/docs/goals/feedback-correction-recovery/state.yaml",
+    "decision": "approve_next",
+    "full_outcome_complete": false,
+    "rationale": "WORKへの外部追加は承認済み24と同一bytesの一fileだけで、既存対象4groupは不変と再確認した。保存主体不明の観測receiptと新baselineを追加すればprivate作業は継続できる。旧verifierを緩めず、旧beforeと新projectionの両方を検証する。補足法令資料を見ていないA/Bと拡張入力Tertiaryを同一入力の三次完了へ合成しない。新版の確認又は明示的holdを残し、候補、identity契約、実装課題を一つのprivate packageとして完成させる。",
+    "evidence": [
+      {
+        "path": "docs/goals/feedback-correction-recovery/notes/T017-receipt.json",
+        "finding": "ROOT正式24保存、対象一fileのcommit/push、非公開状態の台帳記録及び当時のpostpromotion検証は完了。"
+      },
+      {
+        "path": "output/user_feedback_response_system/proposals/2026-10-03/promotion-2025/postpromotion-fingerprint.json",
+        "finding": "read-only再比較ではWORKの同名24一fileだけ追加。既存hash変更0、削除0。"
+      },
+      {
+        "path": "/Users/yuki/development/exam_scraper_work/output/2nd-class-kenchikushi/questions_json/85011/24_questionIssueCorrections/ui-qir-20261003065857-3ee52438fc_official-12c59a4c014e49de_12c59a4c014e49de.json",
+        "finding": "SHA256=53fa1d74d0955f005327b81cf6bcf94d321ee9a8cfeb1d302922b7db66b4d9ce。mtime=2026-10-03T08:14:53.944893Z。保存主体は未確認。"
+      },
+      {
+        "scope": "read-only WORK projection verification",
+        "finding": "現在projectionは承認済みvectorとintentに一致。stateHash=a553b3a94cb79bdeec298705a29a079fd9ff06e538112868e9e66088a1f13545。旧frozen inputのbeforeHashは正式patchに一致。"
+      },
+      {
+        "path": "output/user_feedback_response_system/proposals/2026-10-03/recovery-slice/2018-acquisition-receipt.json",
+        "finding": "標準取得原本は旧公開IDと不一致。rawへの旧alias追加及び値変更はない。"
+      },
+      {
+        "path": "output/user_feedback_response_system/proposals/2026-10-03/recovery-slice/2024-official-source-comparison.json",
+        "finding": "公式設問の否定方向と公開された完全命題の真偽を、正答選択肢のmembershipから区別する必要がある。"
+      },
+      {
+        "path": "output/user_feedback_response_system/staging/recovery-law-2025/primary-response.json",
+        "finding": "完全命題の正答は承認vectorに一致するが、解説、locator及び根拠表示の追加修正候補がある。"
+      },
+      {
+        "path": "output/user_feedback_response_system/staging/recovery-law-2025/secondary-response.json",
+        "finding": "全5肢の判定は一致。MainProvision限定hashと既存bundleの附則混入hashを区別し、公式指定日snapshot不足も明示している。"
+      },
+      {
+        "path": "output/user_feedback_response_system/staging/recovery-law-2025/supplemental-law-evidence-manifest.json",
+        "finding": "2025-01-01及び2025-04-01資料を追加取得したが、Primary及びSecondaryはこれを見ていないと明記している。"
+      },
+      {
+        "path": "output/user_feedback_response_system/staging/recovery-legacy-2020/import-contract-proposal.json",
+        "finding": "production_snapshotと取得原問を別identityとして保持し、mapping及びsource provider未実装を明記する。"
+      }
+    ],
+    "next_allowed_task": {
+      "package_type": "pm",
+      "objective": "外部追加を観測履歴として固定し、新baselineの下で2025の真正監査、候補差分及びv2 sidecar、他3件のidentity比較と導入契約を一つのprivate evidence packageとして完成させる。製品コード、正本data及び公開状態は変更しない。",
+      "allowed_files": [
+        "output/user_feedback_response_system/proposals/2026-10-03/recovery-slice/**",
+        "output/user_feedback_response_system/staging/recovery-law-2025/**",
+        "output/user_feedback_response_system/staging/recovery-source-2018/*comparison*.json",
+        "output/user_feedback_response_system/staging/recovery-source-2024/*comparison*.json",
+        "output/user_feedback_response_system/staging/recovery-legacy-2020/import-contract-proposal.json"
+      ],
+      "preserved_files": [
+        "旧T011及びpostpromotion fingerprintとverification receipt。",
+        "promotion-2025/verify_promoted_patch.py及び旧isolated verifier。",
+        "既存Primary/Secondary response、review、dispatch、provenance及びaudit-input.json。",
+        "2018/2024取得raw、取得receipt及びproduction snapshot。",
+        "ROOT及びWORKの正本data、既存stage、merge、convert、upload-ready及びFirestore。"
+      ],
+      "external_addition_contract": [
+        "recovery-sliceへexternal-approved-patch-observation.jsonを作り、実path、hash、mtime、観測時刻、旧baseline hash及び保存主体未確認を記録する。PM実施又は自動同期と推測しない。",
+        "旧postpromotionとの差がWORKの当該一file追加だけ、全既存対象4groupJSONのhash不変、削除なしであることを機械検証する。",
+        "ROOT正式patch、WORK追加patch及び隔離候補のbytesが同一であることを確認する。",
+        "旧beforeRecordへ既存verifierを適用し、source binding、expectedBeforeHash及びreview hashを検証する。",
+        "WORK現在projectionが同じsource bindingで承認済みvector及びintentを示し、answer_result_textが1のままであることを確認する。",
+        "これらを満たした場合だけ新private baselineを別fileに保存する。旧baselineを置換しない。",
+        "新private verifierは旧beforeと現在afterを別に検証する。afterをexpectedBeforeHashへ合わせるために変更しない。",
+        "新baselineの受入れはWORKへの追加を書込み許可したこと、保存主体を確認したこと又は公開検証の完了を意味しない。"
+      ],
+      "law_review_completion_contract": {
+        "current_tertiary": [
+          "実行中のno-fork Tertiaryは終了までread-onlyで継続し、本人の全出力と実際の拡張入力hashを無修正保存する。",
+          "同じ旧bundleに補足XMLを加えた本人審査として記録する。旧A/Bが補足資料を確認したとは表現しない。",
+          "附則を含む旧抽出hashは原資料のhashとして保持し、本則単独hashへ無言で置換しない。"
+        ],
+        "same_input_certification": [
+          "最終候補で公式指定日本文の確認まで証明する場合、旧bundleと補足XMLを合わせた新版manifest及び新auditInputHashを固定する。",
+          "Primary/Secondaryに新版bundleの追加根拠と完全命題への影響を本人が確認した新しいresponseを求める。相互結論を渡さず、実task及びphase別入力hashを保存する。",
+          "新しい全phase同一入力の三次確定を主張する場合、Tertiaryにも同じ新版manifestと真正新版Primary/Secondaryを渡して本人の最終確認を得る。",
+          "旧responseを新inputHashへ編集又は付け替えない。本人確認が揃わなければ、旧監査と補足審査を分け、未確認条件を残したhold候補にする。"
+        ],
+        "candidate_construction": [
+          "実質的な解説、refs及びfactsの変更値は本人reviewから採用し、PMが推測で作らない。",
+          "PMが補完するのは実run ID、時刻、source identity、入力及び証拠hash等の実測metadataだけ。",
+          "全5肢の完全命題、試験時及び現在判定、choiceIndex、locator、解説、facts及びevidenceSummaryを対応させる。",
+          "本則ArticleはMainProvision配下に限定し、同番号附則を含めない。XML pathと正規化方式をprivate extraction receiptへ明記する。",
+          "公式指定日、試験実施日、比較snapshot日及び現在日を別の値として保持する。",
+          "law-revision-audit/v2候補は真正phaseの入力と結果へ解決できるようにする。schema合格だけで監査済みとしない。",
+          "未承認の解説、refs及びfactsはbefore/after、一次根拠、影響範囲、予定保存stageを含むprivate proposalに留める。"
+        ],
+        "policy_version_boundary": "歴史的law-review contractとhashは保持する。現行policy 10.9への解説適合は別のprivate検証receiptに記録し、未検証なら後続評価条件として明示する。既存reviewを現行版実行と偽らない。"
+      },
+      "other_case_completion_contract": [
+        "2018/2024の取得原本と公式問題の対応、旧公開IDとの不一致、取得URL及び全5公開siblingとの比較を固定する。新rawへ旧ID又はaliasを追加しない。",
+        "2024は公式正答選択、元設問の否定方向、公開された完全命題の真偽、questionIntent及びFirestore各documentの答えを別項目で比較する。",
+        "公式正答が2であることだけから肢2を正しいへ反転しない。現在の公開vectorが命題真偽として正しい可能性を排除せず、根拠が足りなければ訂正必要性を未確定として残す。",
+        "2018にも同じ選択方向と命題真偽の分離を適用する。",
+        "2020はproduction_snapshotの取得時点、updateTime、contentHash、公開ID、改題本文、元原問の別identityを保持した導入契約案を完成する。",
+        "旧公開ID保持、source provider、variant mapping、future overwrite防止及び限定artifact同期を後続実装の具体的acceptance条件として記録する。実装済みとは扱わない。"
+      ],
+      "deliverables": [
+        "recovery-slice/external-approved-patch-observation.json",
+        "recovery-slice/post-external-addition-fingerprint.json",
+        "recovery-slice/verify_private_evidence_package.py",
+        "recovery-slice/verification-receipt.json",
+        "recovery-slice/package-manifest.json",
+        "recovery-slice/package-receipt.json",
+        "2025の真正review、必要な新版確認、候補diff及びv2 sidecar。",
+        "2018/2024のidentityとselection semantics比較。",
+        "2020のsnapshot導入契約案。",
+        "後続製品sliceのsource provider・旧ID保持・限定artifact同期・MainProvision resolver・2024 selection semanticsの受入条件。"
+      ],
+      "verify": [
+        "/Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/proposals/2026-10-03/recovery-slice/verify_private_evidence_package.py",
+        "git diff --check",
+        "git status --short"
+      ],
+      "verification_requirements": [
+        "新baselineとの差が0で、旧baselineとの差が明示した同一承認patch一fileだけである。",
+        "取得raw、production snapshot、固定一次資料、既存review及び新responseのhashがpackage manifestと一致する。",
+        "新版確認のphase別inputHashと実task provenanceが一致し、旧outputの改変がない。",
+        "候補sidecar及びlawFactsを既存validatorで検証し、命題・choice順・locator・evidence bindingも独立に確認する。",
+        "現行policy適合、監査確定、追加field承認、source identity導入、artifact同期及び公開を区別する。",
+        "WORK書込み、正本patch変更、Firestore write、Storage upload、gate又はprovider設定変更がない。"
+      ],
+      "stop_if": [
+        "新baseline候補に当該一file以外の正本追加、既存hash変更又は削除がある。",
+        "ROOT、WORK又は候補の承認済み24 bytesが一致しない。",
+        "現在projectionが承認済み値又はexact source bindingと一致しない。",
+        "不同のphase入力を同一auditInputHashの確認済み履歴として保存する必要がある。",
+        "PMによるreviewの手修正、架空run ID、機械的reviewState昇格又はraw alias追加が必要。",
+        "正本data、製品code、既存verifier、公開状態又はallowed_files外の変更が必要。"
+      ]
+    },
+    "subgoal_contract": null,
+    "parallel_safety": {
+      "approved": true,
+      "scope": "独立したread-only Primary/Secondary確認のみ。",
+      "reason": "PMだけがprivate成果物を保存する。Tertiaryと候補確定は依存入力が固定された後に実行する。"
+    },
+    "blocked_tasks": [
+      {
+        "task": "製品実装及びartifact同期",
+        "reason": "source provider、旧ID保持、MainProvision resolver及びselection semanticsの契約が未実装。"
+      },
+      {
+        "task": "追加法令fieldの正式保存",
+        "reason": "解説、refs及びfactsの具体的差分は未承認。"
+      },
+      {
+        "task": "Firestore公開",
+        "reason": "別公開判断、正本artifact、一問evaluation及びlive readbackは未完了。"
+      }
+    ],
+    "missing_evidence": [
+      "拡張一次資料を含む真正Tertiary結果と、最終監査chainの入力一致又は正直な未確認条件。",
+      "全候補とidentity比較をまとめたprivate packageの機械検証receipt。",
+      "保存主体不明の外部追加を明示した新baseline及び旧baselineとの差分証明。"
+    ],
+    "required_board_updates": [
+      "T017当時の成功receiptを保持し、後から観測したWORK追加を別履歴として記録する。",
+      "旧verifierのFAILを消さず、観測変化を受けた新private検証経路を区別する。",
+      "T015をprivate evidence packageの完成まで継続し、製品実装及び公開を完了扱いにしない。",
+      "2024の初期反転案はselection semantics再確認中とし、公式正答番号だけで訂正を確定しない。"
+    ]
+  }
+}
