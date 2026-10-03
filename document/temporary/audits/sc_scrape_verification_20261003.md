@@ -39,7 +39,9 @@ IPA正答と同じ選択肢番号だった問題は1,812問。残る3問は、�
 
 精査で見つけた手順番号の欠落、解説前後の文章欠落、添字の文字・大小文字の変化、不可視HTMLコメントの旧文言混入を修正した。すべて標準scraperで再取得し、00_sourceを手作業で編集していない。再取得のreportでは新規・更新・同一のsource IDを区別し、既存IDとchunk内の位置・ファイル名を維持した。
 
-関連106 testsが成功し、通常のlive tests等7件はskipした。最終変更後の支援士用10 testsも成功した。全33回のsource quality gate、独立取得照合、保全manifest照合が成功し、その実行中に99 sourceファイルのhashが変わっていないことを確認した。問題整備のpatch・mergeは行っていないため、merged向けの検査を空のデータへ適用して完了証拠に代えていない。
+補足点検で、22回の33問に解説のCSS丸数字があることも確認した。丸数字と対応する文章を保持する抽出・独立照合を追加し、22回すべてを全55問ずつ再取得した。更新は26 sourceファイル・33問であり、全1,815問のIDとファイル内の配置を維持した。修正前の抽出で解説fieldだけをread-onlyで再構成し、修正前の全ファイルSHA256と一致することを確認したため、解説以外の変更や予期しない内容変更もない。証拠は`reports/circled_steps_change_proof.json`と`reports/circled_steps_refresh_receipt.json`へ保存した。
+
+初回の関連106 testsは成功し、通常のlive tests等7件をskipした。丸数字の補修後に支援士・共通parserの対象27 testsと5 subtestsが成功し、live tests 2件をskipした。その後の全33回のsource quality gate、独立取得照合、保全manifest照合も成功した。source 99ファイルに加えて実装・設定・取得HTML・PDF・画像・依存環境を記録し、検証中に対象入力が変わっていないことを確認した。問題整備のpatch・mergeは行っていないため、merged向けの検査を空のデータへ適用して完了証拠に代えていない。
 
 ## 保存先と次の段階
 

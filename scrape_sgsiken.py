@@ -297,20 +297,22 @@ def extract_q_text(element: Tag | None) -> str:
     # CSS生成の手順番号とHTMLの番号付きリストも問題本文の一部である。
     copied = BeautifulSoup(str(element), "html.parser").find(element.name)
     for item in copied.find_all("li"):
-        number_class = next((c for c in (item.get("class") or []) if re.fullmatch(r"li[0-9]+", c)), None)
+        number_class = next((c for c in (item.get("class") or []) if re.fullmatch(r"(?:li|maru)[0-9]+", c)), None)
         if number_class:
-            # 同じCSS counterはli1でリセットされ、クラス数字そのものではない。
+            # CSS counterはli1/maru1でリセットされ、クラス数字そのものではない。
+            family = "maru" if number_class.startswith("maru") else "li"
             siblings = item.parent.find_all("li", recursive=False)
             counter = 0
             for sibling in siblings:
                 classes = sibling.get("class") or []
-                if "li1" in classes:
+                if f"{family}1" in classes:
                     counter = 0
-                if any(re.fullmatch(r"li[0-9]+", c) for c in classes):
+                if any(re.fullmatch(rf"{family}[0-9]+", c) for c in classes):
                     counter += 1
                 if sibling is item:
                     break
-            item.insert(0, f"({counter}) ")
+            marker = chr(0x2460 + counter - 1) if family == "maru" and 1 <= counter <= 20 else f"({counter})"
+            item.insert(0, marker + " ")
         elif item.parent.name == "ol":
             counter = int(item.parent.get("start", "1"))
             for sibling in item.parent.find_all("li", recursive=False):

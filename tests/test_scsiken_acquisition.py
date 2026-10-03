@@ -5,7 +5,7 @@ import unittest
 from unittest.mock import patch
 import json
 from bs4 import BeautifulSoup
-from scripts.check.check_scsiken_acquisition import assert_text_coverage, discover_targets, document_links, official_answers, visible_source, official_difference_receipt
+from scripts.check.check_scsiken_acquisition import assert_text_coverage, assert_numbered_explanation, discover_targets, document_links, official_answers, visible_source, official_difference_receipt
 from scripts.scrape.qualification_presets import build_list_first_page_url, load_scrape_preset
 from scrape_sgsiken import extract_q_text
 from scripts.scrape.common import to_subscript, to_superscript
@@ -44,6 +44,18 @@ class ScAcquisitionTests(unittest.TestCase):
         node = BeautifulSoup('<div>取得ができない<!--可能な-->もの。<script>hidden()</script><style>hidden</style></div>', "html.parser").div
         self.assertEqual(extract_q_text(node), "取得ができないもの。")
         self.assertEqual(visible_source(node), "取得ができないもの。")
+
+    def test_css_circled_steps_preserve_reference_numbers_and_detect_omission(self):
+        node = BeautifulSoup('<div>②で取得した値を渡す。<ul><li class="maru1">要求する。</li>'
+                             '<li class="maru7">値を取得する。</li><li class="maru1">再開する。</li></ul></div>', 'html.parser').div
+        original = str(node)
+        text = extract_q_text(node)
+        self.assertIn('① 要求する。\n② 値を取得する。\n① 再開する。', text)
+        self.assertEqual(visible_source(node), '2で取得した値を渡す。1要求する。2値を取得する。1再開する。')
+        assert_numbered_explanation(node, text, 'test')
+        with self.assertRaisesRegex(ValueError, '手順番号'):
+            assert_numbered_explanation(node, text.replace('② ', ''), 'test')
+        self.assertEqual(str(node), original)
 
     def test_unreviewed_official_difference_does_not_pass(self):
         with tempfile.TemporaryDirectory() as tmp, self.assertRaisesRegex(ValueError, "目視照合receipt"):

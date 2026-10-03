@@ -7,7 +7,7 @@ goal:
   title: "情報処理安全確保支援士の過去問整備と暗記プラス公開"
   slug: "sc-ankiplus-release"
   kind: specific # specific | open_ended | existing_plan | recovery | audit
-  tranche: "取得・全件精査から整備、独立評価、暗記プラス公開まで。現在は取得・全件精査。"
+  tranche: "取得・全件精査から整備、独立評価、暗記プラス公開まで。取得・全件精査は完了。次は整備scope・公開要件の確認。"
   status: active # active | blocked | done
   oracle:
     signal: "公開回・問題URL集合の全件一致、IPA正答照合、問題ごとの整備・独立評価、実機検証、App Store公開確認。"
@@ -88,6 +88,8 @@ tasks:
         - output/sc/reports/acquisition_verification.json
         - output/sc/reports/validation_receipt.json
         - output/sc/reports/target_tests_receipt.json
+        - output/sc/reports/circled_steps_change_proof.json
+        - output/sc/reports/circled_steps_refresh_receipt.json
         - document/temporary/audits/sc_scrape_verification_20261003.md
       full_outcome_complete: false
       next_task: T002

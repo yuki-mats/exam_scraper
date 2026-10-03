@@ -108,11 +108,16 @@ def visible_source(node) -> str:
     for listing in soup.select('ul, ol'):
         ordinal = int(listing.get('start', '1'))
         css_counter = 0
+        circle_counter = 0
         for item in listing.find_all('li', recursive=False):
             classes = item.get('class', [])
             if any(re.fullmatch(r'li\d+', c) for c in classes):
                 css_counter = 1 if 'li1' in classes else css_counter + 1
                 item.insert(0, f'({css_counter}) ')
+            elif any(re.fullmatch(r'maru\d+', c) for c in classes):
+                circle_counter = 1 if 'maru1' in classes else circle_counter + 1
+                marker = chr(9311 + circle_counter) if 1 <= circle_counter <= 20 else f'({circle_counter})'
+                item.insert(0, marker + ' ')
             elif listing.name == 'ol':
                 ordinal = int(item.get('value', ordinal))
                 style = listing.get('type', '1'); marker = str(ordinal)
@@ -146,6 +151,18 @@ def visible_source(node) -> str:
             text = ''.join(c + '\u0305' if not c.isspace() and not unicodedata.combining(c) else c for c in text)
         tag.replace_with(text)
     return compact(soup.get_text())
+
+
+def assert_numbered_explanation(node, saved: str, context: str) -> None:
+    """CSSで生成される番号を含め、手順ごとの文章が解説に保存されたか確認する。"""
+    for listing in node.select('ul, ol'):
+        if not any(re.fullmatch(r'(?:li|maru)\d+', c)
+                   for item in listing.find_all('li', recursive=False)
+                   for c in item.get('class', [])):
+            continue
+        # リスト全体を独立変換することで、項目番号と対応する文章を一緒に検証する。
+        if visible_source(listing) not in compact(saved):
+            raise ValueError(f'解説の手順番号又は対応する文章が欠落: {context}')
 
 
 def question_content_hash(page: BeautifulSoup) -> str:
@@ -380,6 +397,7 @@ def verify_group(group: str, list_url: str, output: Path) -> dict:
             official_status = 'verified_source_variant_publication_hold'
         explanation = '\n'.join(record.get('explanation_common_prefix', []) + record.get('explanation_common_summary', []) + [s for snippets in record.get('explanation_choice_snippets', []) for s in snippets])
         assert_text_coverage(page.find(id='kaisetsu'), explanation, url + ' 解説')
+        assert_numbered_explanation(page.find(id='kaisetsu'), explanation, url + ' 解説')
         image_groups = [record.get('questionImageStorageUrls', [])] + record['originalQuestionChoiceImageUrls']
         for references in image_groups:
             for reference in references:

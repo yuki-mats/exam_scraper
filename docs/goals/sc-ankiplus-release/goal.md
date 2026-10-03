@@ -6,7 +6,7 @@
 
 ## 完了を判定する証拠
 
-公開回・問題URL集合の全件一致、IPA公式正答の全件一致、問題ごとの現行整備・独立評価receipt、Firestore反映後のreadback、暗記プラスの実機操作証拠、App Storeの公開状態の現行readbackをそろえる。`state.yaml`を進捗・task・receiptの正本とする。
+公開回・問題URL集合の全件一致、公式原問との対応と正答根拠の全件確定、問題ごとの現行整備・独立評価receipt、Firestore反映後のreadback、暗記プラスの実機操作証拠、App Storeの公開状態の現行readbackをそろえる。取得元による改題・選択肢の並べ替えは原問と分けて判断する。`state.yaml`を進捗・task・receiptの正本とする。
 
 ## 制約
 
