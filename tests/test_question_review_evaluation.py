@@ -1669,6 +1669,9 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
         self.assertIn("questionTypeとは独立に評価", prompt)
         self.assertIn("flutter_math_fork対応", prompt)
         self.assertIn("一般式、数値の代入、途中計算、最終値", prompt)
+        self.assertIn("独立した途中計算はflutter_math_fork対応の表示用数式", prompt)
+        self.assertIn("文中の短い数式をinline形式にしたことだけでは減点しない", prompt)
+        self.assertIn("表示用数式が必要な途中計算を具体的に示し", prompt)
         self.assertIn("横幅超過はアプリの横スクロール", prompt)
         self.assertIn('"isCalculationQuestion": false', prompt)
         self.assertIn('"questionImageStorageUrls"', prompt)
@@ -1809,7 +1812,7 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
         self.assertEqual(result["status"], "passed")
         self.assertEqual(result["verifiedChoiceCount"], 2)
         self.assertTrue(current["publishReady"])
-        self.assertEqual(version_record["stages"]["evaluation"]["version"], "5.4")
+        self.assertEqual(version_record["stages"]["evaluation"]["version"], "5.5")
         self.assertEqual(stale["status"], "stale")
         self.assertFalse(stale["publishReady"])
 
