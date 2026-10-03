@@ -43,12 +43,18 @@ def compact(text: str) -> str:
     return re.sub(r"\s+", "", text)
 
 
-def visible(node) -> str:
+def visible(node, *, preserve_choice_labels: bool = False) -> str:
     if node is None:
         return ""
     soup = BeautifulSoup(str(node), "html.parser")
     for button in soup.select("button, .tool-box"):
         button.decompose()
+    if preserve_choice_labels:
+        css_labels = dict(zip(("lia", "lii", "liu", "lie", "lio", "lika", "liki"), "アイウエオカキ"))
+        for item in soup.select("li"):
+            labels = [css_labels[name] for name in item.get("class", []) if name in css_labels]
+            if labels:
+                item.insert(0, labels[0] + " ")
     for listing in soup.select("ul, ol"):
         ordinal = int(listing.get("start", "1")) - 1
         css_ordinal = 0
@@ -140,7 +146,7 @@ def image_bindings(nodes, references: list[str], prefix: str, url: str) -> list[
 
 def audit_explanation(node, record: dict, url: str, prefix: str, *, afternoon: bool) -> list[str]:
     failures = []
-    text = visible(node)
+    text = visible(node, preserve_choice_labels=afternoon)
     if afternoon and "この設問の解説はまだありません" in text:
         text = ""
     snippets = record.get("explanation_choice_snippets", [])
@@ -421,7 +427,7 @@ def main() -> int:
     source_duplicates = [key for key, count in Counter(all_source_ids).items() if count > 1]
     if source_duplicates:
         failures.append({"duplicateSourceIds": source_duplicates})
-    report = {"status": "failed" if failures else "passed", "completedAt": datetime.now(timezone.utc).isoformat(), "liveImageHashesVerified": args.verify_live_images, "liveImageUrlCount": len(live_hashes), "questionCount": len(all_ids), "listGroupIds": [result["group"] for result in results], "groups": results, "failures": failures}
+    report = {"status": "failed" if failures else "passed", "completedAt": datetime.now(timezone.utc).isoformat(), "liveImageHashesVerified": bool(args.verify_live_images and not failures), "liveImageUrlCount": len(live_hashes), "questionCount": len(all_ids), "listGroupIds": [result["group"] for result in results], "groups": results, "failures": failures}
     suffix = "_" + "_".join(args.groups) if args.groups else ""
     report_path = root / "reports" / f"siken_acquisition_audit{suffix}.json"
     report_path.parent.mkdir(parents=True, exist_ok=True)

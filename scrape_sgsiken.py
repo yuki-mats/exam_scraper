@@ -296,11 +296,17 @@ def marker_list_from_q_page(choice_items: list[Tag]) -> list[str]:
     return markers
 
 
-def extract_q_text(element: Tag | None) -> str:
+def extract_q_text(element: Tag | None, *, preserve_choice_labels: bool = False) -> str:
     if element is None:
         return ""
     # CSS生成の手順番号とHTMLの番号付きリストも問題本文の一部である。
     copied = BeautifulSoup(str(element), "html.parser").find(element.name)
+    if preserve_choice_labels:
+        css_labels = {"lia": "ア", "lii": "イ", "liu": "ウ", "lie": "エ", "lio": "オ", "lika": "カ", "liki": "キ"}
+        for item in copied.find_all("li"):
+            label = next((css_labels[name] for name in item.get("class", []) if name in css_labels), None)
+            if label:
+                item.insert(0, label + " ")
     for item in copied.find_all("li"):
         number_class = next((c for c in (item.get("class") or []) if re.fullmatch(r"(?:li|maru)[0-9]+", c)), None)
         if number_class:
@@ -893,7 +899,7 @@ def parse_pm_question_page(
 
         answer_chars, explanation_div = pm_answer_and_explanation(input_box)
         answer_map = parse_answer_map_from_answer_chars(answer_chars)
-        explanation_text = extract_q_text(explanation_div)
+        explanation_text = extract_q_text(explanation_div, preserve_choice_labels=True)
         if "この設問の解説はまだありません" in explanation_text:
             explanation_text = ""
         explanation_source_images = extract_image_urls_from_element(explanation_div, page_url)

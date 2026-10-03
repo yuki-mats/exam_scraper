@@ -47,7 +47,7 @@ class ScrapeSgsikenTests(unittest.TestCase):
         <select name="sel_a"><option>-</option><option>ア A</option><option>イ B</option></select>
         <select name="sel_b"><option>-</option><option>ア C</option><option>イ D</option></select></div>
         <h3>解答 :</h3><div><button>正解</button><div class="answerChars"><span id="ans_a">ア</span><span id="ans_b">イ</span></div></div>
-        <h3>解説 :</h3><div class="kaisetsu">10<sup>4</sup>通り。<ol type="i"><li>理由A。</li><li>理由B。</li></ol><img src="exp.png"></div>
+        <h3>解説 :</h3><div class="kaisetsu">10<sup>4</sup>通り。<ol type="i"><li>理由A。</li><li>理由B。</li></ol><ul><li class="lia">Aの根拠。</li><li class="lii">Bの根拠。</li></ul><img src="exp.png"></div>
         <div class="mondai">(2) 次を答えよ。</div><div class="inputAnswerBox"><select name="sel_2">
         <option>-</option><option>ア E</option><option>イ F</option></select></div>
         <div><div class="answerChars"><span id="ans_2">イ</span></div></div><div class="kaisetsu">次の設問の理由。</div>'''
@@ -57,7 +57,7 @@ class ScrapeSgsikenTests(unittest.TestCase):
         self.assertEqual(len(records), 3)
         self.assertEqual(download.call_count, 1)
         for record in records[:2]:
-            self.assertEqual(record['explanation_common_prefix'], ['10⁴通り。i. 理由A。ii. 理由B。'])
+            self.assertEqual(record['explanation_common_prefix'], ['10⁴通り。i. 理由A。ii. 理由B。\nア Aの根拠。\nイ Bの根拠。'])
             self.assertEqual(record['explanationImageSourceUrls'], ['https://www.sg-siken.com/kakomon/29_aki/exp.png'])
             self.assertTrue(record['explanationImageStorageUrls'][0].endswith('pm201702_q2_s1_1_exp_img01.png?alt=media'))
         self.assertEqual(records[2]['explanation_common_prefix'], ['次の設問の理由。'])

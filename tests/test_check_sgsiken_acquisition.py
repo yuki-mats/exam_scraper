@@ -44,6 +44,8 @@ class SikenAcquisitionAuditTests(unittest.TestCase):
                      patch('scripts.check.check_sgsiken_acquisition.build_list_first_page_url', return_value='https://www.sg-siken.com/kakomon/07_haru/'), \
                      patch('scripts.check.check_sgsiken_acquisition.download_image_with_retry', return_value=remote):
                     self.assertEqual(main(), expected_result)
+                    report = json.loads((root / 'reports/siken_acquisition_audit_202501.json').read_text())
+                    self.assertEqual(report['liveImageHashesVerified'], not expected_result)
 
     def test_explanation_image_missing_or_wrong_question_reference_fails(self):
         html = self.html.replace('定義と根拠。', '定義と根拠。<img src="exp.png">')
@@ -65,13 +67,17 @@ class SikenAcquisitionAuditTests(unittest.TestCase):
         <h3 id="s1">設問1</h3><div class="mondai">(1) 適切なものはどれか。</div><div class="inputAnswerBox">
         <select name="sel_1"><option>-</option><option>ア A</option><option>イ B</option></select></div>
         <div><div class="answerChars"><span id="ans_1">イ</span></div></div>
-        <div class="kaisetsu">10<sup>4</sup>通り。<ol type="i"><li>A。</li><li>B。</li></ol></div>'''
+        <div class="kaisetsu">10<sup>4</sup>通り。<ol type="i"><li>A。</li><li>B。</li></ol><ul><li class="lia">アの説明。</li><li class="lii">イの説明。</li></ul></div>'''
         url = 'https://www.sg-siken.com/kakomon/29_aki/pm02.html'
         import os
         from unittest.mock import patch
         with patch.dict(os.environ, {'QUESTION_ID_SECRET_KEY': 'test-secret'}):
             records = parse_pm_question_page(html, url, http_session=None, download_images=False, output_list_group_id='201702')
         self.assertEqual(audit_page(html, records, url), [])
+        no_kana = records[0]['explanation_common_prefix'][0].replace('ア アの説明。', 'アの説明。').replace('イ イの説明。', 'イの説明。')
+        bad_record = copy.deepcopy(records[0])
+        bad_record['explanation_common_prefix'] = [no_kana]
+        self.assertIn('explanation_text', audit_page(html, [bad_record], url))
         for bad in ['', '104通り。i. A。ii. B。', '10⁴通り。A。B。', '別設問の説明。']:
             record = copy.deepcopy(records[0])
             record['explanation_common_prefix'] = [bad] if bad else []
