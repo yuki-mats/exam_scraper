@@ -18,7 +18,12 @@
 
 `changes` は A/B が完全一致した `proposedChanges` のコピーだけ、`evidence` は blind A/B が先に固定した evidence のコピーだけを使います。報告本文から新しい変更値、URL、根拠、root cause を作ってはいけません。`app_update` は A/B がともに同一 `appRootCauseKey` で `app_behavior_suspected` とした場合だけです。
 
-法令・制度の `fix` は 03b の三段階監査を完了し、`changes.lawRevisionFacts.reviewState=tertiary_verified` でなければならない。分類の新設・名称変更は資格全体 impact の正本根拠がなければ `hold`。
+カテゴリごとに次の責務で判断してください。
+
+- `outdated_law_or_information` の `fix` は、03b の三段階監査を完了し、schema-valid な `changes.lawRevisionFacts` を必須とする。各 facts は `reviewState=tertiary_verified` と非空の `evidenceSummary` を持ち、変更値は A/B と完全一致し、公式・一次根拠に基づいていなければならない。
+- `correct_answer` は、出題時の公式正答の一次根拠と A/B の完全一致に基づき、カテゴリで許可された正答 field と `questionIntent` だけを判定する。`lawRevisionFacts` を追加・更新しない。この `fix` を現行法適合性の新規証明や公開許可として扱わない。現在法との実質的な矛盾を確認した場合は `hold` とし、別の現行法監査へ回す。
+- 既存の `same_as_current` が `secondary_verified` であること自体は不備ではない。三次への機械的な昇格を求めず、[現行法監査の正本](../../document/operations/current_law_question_maintenance_workflow.md)に定めた監査と公開前条件に従う。
+- 分類の新設・名称変更は資格全体 impact の正本根拠がなければ `hold`。
 
 ## 出力
 

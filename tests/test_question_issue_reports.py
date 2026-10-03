@@ -533,6 +533,84 @@ process.stdout.write(JSON.stringify({id: fixture.id, ...state}));
                 credentials_json=None,
             )
 
+    def _validate_category_fix(self, category, changes, *, variant=None):
+        evidence = [{
+            "sourceClass": "official",
+            "locator": "https://official.example/answer",
+            "title": "公式正答",
+            "verifiedAt": "2026-10-03T00:00:00Z",
+            "contentHash": "d" * 64,
+        }]
+        blind_reviews = [
+            {"conclusion": "problem_found", "proposedChanges": changes,
+             "evidence": evidence},
+            {"conclusion": "problem_found", "proposedChanges": changes,
+             "evidence": evidence},
+        ]
+        challenge = {
+            "schemaVersion": "question-issue-challenge-review/v1",
+            "phase": "challenge", "inputHash": "c" * 64,
+            "decision": "fix", "rationale": "公式正答と独立審査が一致する。",
+            "changes": changes, "evidence": evidence,
+        }
+        if variant == "mismatch":
+            blind_reviews[1]["proposedChanges"] = {"correctChoiceText": "別の正答"}
+        elif variant == "unofficial":
+            evidence[0]["sourceClass"] = "secondary"
+        blind_hashes = [sha256_json(review) for review in blind_reviews]
+        challenge["blindReviewHashes"] = blind_hashes
+        validate_challenge_review(
+            challenge, input_hash="c" * 64, blind_reviews=blind_reviews,
+            blind_hashes=blind_hashes, category=category, config=self.config,
+        )
+
+    def test_correct_answer_fix_accepts_answer_and_intent_without_law_facts(self):
+        self._validate_category_fix("correct_answer", {
+            "correctChoiceText": "1", "questionIntent": "select_correct",
+        })
+
+    def test_correct_answer_fix_rejects_law_facts_even_with_blind_consensus(self):
+        with self.assertRaisesRegex(ValueError, "changes not allowed for category"):
+            self._validate_category_fix("correct_answer", {
+                "correctChoiceText": "1", "questionIntent": "select_correct",
+                "lawRevisionFacts": {"reviewState": "secondary_verified"},
+            })
+
+    def test_outdated_law_fix_requires_verified_facts_and_blind_evidence(self):
+        facts = {
+            "auditStatus": "updated_to_current_law",
+            "reviewState": "tertiary_verified",
+            "current": {"correctChoiceText": "正しい",
+                        "verificationStatus": "verified"},
+            "examTime": {"correctChoiceText": "誤り",
+                         "verificationStatus": "from_original_answer"},
+            "evidenceSummary": {"verdict": "correct"},
+        }
+        changes = {"correctChoiceText": "1", "lawRevisionFacts": facts}
+        self._validate_category_fix("outdated_law_or_information", changes)
+        invalid_changes = {
+            "missing": {"correctChoiceText": "1"},
+            "secondary": {**changes, "lawRevisionFacts": {
+                **facts, "reviewState": "secondary_verified"}},
+            "empty_summary": {**changes, "lawRevisionFacts": {
+                **facts, "evidenceSummary": {}}},
+            "invalid_schema": {**changes, "lawRevisionFacts": {
+                **facts, "current": "invalid"}},
+        }
+        for name, invalid in invalid_changes.items():
+            with self.subTest(name=name):
+                with self.assertRaisesRegex(ValueError, "law fix requires schema-valid"):
+                    self._validate_category_fix("outdated_law_or_information", invalid)
+        for variant, error in (
+            ("mismatch", "exactly match both blind"),
+            ("unofficial", "sourceClass must be official/primary"),
+        ):
+            with self.subTest(variant=variant):
+                with self.assertRaisesRegex(ValueError, error):
+                    self._validate_category_fix(
+                        "outdated_law_or_information", changes, variant=variant,
+                    )
+
     def test_challenge_cannot_replace_blind_changes_or_evidence(self) -> None:
         executor = ReviewExecutor(
             command=None,
