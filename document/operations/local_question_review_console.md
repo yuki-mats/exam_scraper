@@ -164,3 +164,7 @@ queueがterminalになった後、`improvement_report.json`へ工程・指摘cod
 
 ## 起動
 `.venv/bin/python tools/question_bank/question_bank.py review-ui`で起動します。serverは`127.0.0.1`だけへbindし、本人端末から使う場合だけTailscale Serveのprivate HTTPSを使います。TCP listenerを確保した後、process全体のfile leaseを取得してから中断回収を始めます。二つ目のserver processはrunを変更せず起動に失敗し、同じ資格のrun writerも資格単位leaseで一つに限定します。`QualificationRunStore`の生成だけでは回収又はfile更新を行いません。起動時の中断回収は、`workflow_runs/*/*/recovery.json`に記録された実行中runだけを読みます。全manifestの索引や初回移行処理は持ちません。回収対象sidecarはrunを実行状態へ保存する前に作成し、terminal状態をmanifestへ保存した後に削除します。
+
+### 保存済みnativeレビューの限定取込
+
+`QualificationRunCoordinator.import_scoped_native_evidence` は、限定artifact manifestと固定package manifestを指定し、保存済みnative本人出力・session event・input・candidate・sidecarを既存validatorで検証します。新しいprivate import runを保存し、元レビューの来歴を保持します。model実行のsession/thread/turnを生成しません。追加fieldの正式承認・保存前の取込では工程checkpointを付与せず、未完了の通常工程と真正評価は既存実行経路で必要条件を満たす必要があります。

@@ -44,8 +44,13 @@ def _source_fingerprint(
     repo_root: Path,
     qualification: str,
     list_group_id: str,
+    *, scoped_question: Mapping[str, Any] | None = None,
 ) -> str:
     """対象groupの00_sourceにあるJSON名と内容を1つのhashに固定する。"""
+    if scoped_question is not None and scoped_question.get("scopedArtifactManifest"):
+        from tools.question_review_console.scoped_artifacts import validate_scoped_question
+        scoped = validate_scoped_question(repo_root, scoped_question)
+        return str(scoped[1].manifest["inputHash"])
     source_dir = (
         repo_root
         / "output"
@@ -80,8 +85,9 @@ def _require_source_fingerprint(
     qualification: str,
     list_group_id: str,
     expected: str,
+    *, scoped_question: Mapping[str, Any] | None = None,
 ) -> str:
-    current = _source_fingerprint(repo_root, qualification, list_group_id)
+    current = _source_fingerprint(repo_root, qualification, list_group_id, scoped_question=scoped_question)
     if not expected or not hmac.compare_digest(current, expected):
         raise PublicationError("確認後に00_sourceが変化したため本番反映を停止しました。")
     return current
@@ -858,6 +864,7 @@ class QuestionPublisher:
             self.repo_root,
             str(current["qualification"]),
             str(current["listGroupId"]),
+            scoped_question=current,
         )
         deleted_document_ids = _deleted_document_ids(documents)
         if deleted_document_ids:
@@ -951,6 +958,7 @@ class QuestionPublisher:
                 str(current["qualification"]),
                 str(current["listGroupId"]),
                 str(preflight.get("sourceHash") or ""),
+                scoped_question=current,
             )
             fresh = self.preview(current)
             if not self.token_matches(fresh, str(preflight.get("preflightToken") or "")):
@@ -965,6 +973,7 @@ class QuestionPublisher:
                 str(current["qualification"]),
                 str(current["listGroupId"]),
                 str(fresh.get("sourceHash") or ""),
+                scoped_question=current,
             )
         except Exception as exc:
             rejected_run_id = self._write_rejected_receipt(
@@ -1052,6 +1061,7 @@ class QuestionPublisher:
                         self.repo_root,
                         str(current["qualification"]),
                         str(current["listGroupId"]),
+                        scoped_question=current,
                     ),
                     "readAt": self._now(),
                 }
@@ -1068,6 +1078,7 @@ class QuestionPublisher:
                 str(current["qualification"]),
                 str(current["listGroupId"]),
                 str(fresh.get("sourceHash") or ""),
+                scoped_question=current,
             )
             if readback["status"] != "match":
                 raise PublicationError("upload後のreadbackで差分が残っています。")
@@ -1229,6 +1240,10 @@ class QuestionPublisher:
         )
 
     def _current_question(self, question: Mapping[str, Any]) -> Mapping[str, Any]:
+        if question.get("scopedArtifactManifest"):
+            from tools.question_review_console.scoped_artifacts import validate_scoped_question
+            validate_scoped_question(self.repo_root, question)
+            return self.inventory.scoped_question(Path(question["scopedArtifactManifest"]))
         qualification = str(question["qualification"])
         list_group_id = str(question["listGroupId"])
         question_id = str(question["id"])
@@ -1252,10 +1267,15 @@ class QuestionPublisher:
         list_group_id = str(question["listGroupId"])
         relative = str(question.get("paths", {}).get("uploadReady") or "")
         path = (self.repo_root / relative).resolve()
+        if question.get("scopedArtifactManifest"):
+            from tools.question_review_console.scoped_artifacts import validate_scoped_question
+            scoped = validate_scoped_question(self.repo_root, question)
+            if scoped[0]["candidate"] is not None:
+                raise PublicationError("追加4fieldは正式反映前のprivate候補です。")
         expected_root = (
             self.repo_root / "output" / qualification / "questions_json" / "upload_to_firestore"
         ).resolve()
-        if not relative or not path.is_relative_to(expected_root) or not path.is_file():
+        if not relative or (not question.get("scopedArtifactManifest") and not path.is_relative_to(expected_root)) or not path.is_file():
             raise PublicationError("upload-ready成果物のパスが不正です。")
         flags = int(getattr(path.stat(), "st_flags", 0))
         if flags & int(getattr(stat, "SF_DATALESS", 0)):

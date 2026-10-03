@@ -366,6 +366,12 @@ class EvaluationStore:
         }
         if audit_batch:
             payload["auditBatch"] = copy.deepcopy(dict(audit_batch))
+        if question.get("scopedArtifactManifest"):
+            from tools.question_review_console.scoped_artifacts import validate_scoped_question
+            scoped = validate_scoped_question(self.repo_root, question)
+            payload["scopedArtifactHash"] = scoped[0]["manifestHash"]
+            payload["scopedInputHash"] = scoped[1].manifest["inputHash"]
+            payload["publicationIds"] = scoped[1].publication_ids
         payload["resultHash"] = _json_hash(payload)
         return payload
 
@@ -1893,6 +1899,8 @@ class QuestionEvaluationService:
         live_status: str | None = None,
         failed_delta_paths: Iterable[str] | None = None,
     ) -> dict[str, Any]:
+        from tools.question_review_console.scoped_artifacts import validate_scoped_question
+        scoped = validate_scoped_question(self.repo_root, question)
         policy = self.current_policy()
         review_key = str(question.get("reviewKey") or "")
         with self._active_lock:
@@ -1939,6 +1947,12 @@ class QuestionEvaluationService:
             status = "stale"
         elif payload.get("stateHash") != question.get("stateHash"):
             status = "stale"
+        elif scoped is not None and (
+            payload.get("scopedArtifactHash") != scoped[0]["manifestHash"]
+            or payload.get("scopedInputHash") != scoped[1].manifest["inputHash"]
+            or payload.get("publicationIds") != scoped[1].publication_ids
+        ):
+            status = "stale"
         elif not same_policy_major(
             payload.get("policyVersion"), policy.get("policyVersion")
         ):
@@ -1957,6 +1971,8 @@ class QuestionEvaluationService:
                 and str(code) not in {"live_mismatch", "firestore_readback_stale"}
             }
         )
+        if scoped is not None and scoped[0]["candidate"] is not None:
+            blocking_issues = sorted(set(blocking_issues) | {"scoped_formal_approval_pending"})
         source_answer_comparison = question.get(
             "sourceCorrectChoiceComparison"
         )
@@ -1988,6 +2004,11 @@ class QuestionEvaluationService:
             else failed_delta_paths
         )
         work_versions = question.get("workVersions")
+        if scoped is not None:
+            from tools.question_review_console.qualification_workflow import QualificationWorkflow
+            workflow = QualificationWorkflow(self.repo_root, None, work_versions=self.work_versions)
+            work_versions = self.work_versions.status_for(
+                question, workflow.versioned_policies(str(question["qualification"])).values())
         if not isinstance(work_versions, Mapping) and self.work_policy_provider is not None:
             raw_policies = self.work_policy_provider(
                 str(question.get("qualification") or "")

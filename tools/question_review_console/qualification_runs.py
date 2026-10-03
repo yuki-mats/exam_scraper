@@ -8937,6 +8937,18 @@ class _PreparedPreviewEntry:
 
 
 class QualificationRunCoordinator:
+    def import_scoped_native_evidence(self, *, artifact_manifest, package_manifest,
+                                      law_directory, destination):
+        """Validate saved output in a private import run, without model execution.
+
+        The native review only proves legal review substance. Before approval
+        and a formal stage save it cannot create current workflow checkpoints.
+        Subsequent maintenance still uses this coordinator's normal run path.
+        """
+        from tools.question_review_console.validated_evidence_import import import_native_evidence
+        return import_native_evidence(self.repo_root, artifact_manifest,
+                                      package_manifest, law_directory, destination)
+
     def __init__(
         self,
         repo_root: Path,

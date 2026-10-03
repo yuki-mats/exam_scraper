@@ -112,3 +112,11 @@ promotion時は`result.json`のhashと問題identity、state、App Server sessio
 - 一問work version JSONはserverだけが検証済みreceipt又は明示的なbackfillから更新し、patch、merged、upload-ready、Firestore question documentへ複製しない。
 - 新fieldを公開artifactへ入れる前に、field契約、repaso schema、convert、upload、quality-gateを同時に更新する。
 - 正誤が02a又は03bで変わった場合は`23`を更新し、`20`と03以降を再生成する。
+
+### 読取専用canonical contextによる限定生成
+
+`scripts/pipeline/prepare_scoped_question_artifacts.py --context <JSON> --output <private-directory>` は、明示したcanonical rootの全source・選択patchとproduct rootの正式24を固定し、一問bindingの全公開IDを生成します。入力JSONは `canonicalRoot`、`overlayRoot`、`qualification`、`listGroupId`、完全な `binding`、`publicationIds`、`referencePaths` を持ちます。保存先は `output/user_feedback_response_system/staging/recovery-scoped-2025/` 配下に限り、manifestには入力・実装・projection・各artifactのhash、候補別対象外証明、全group診断を保存します。通常の全group gateは継続して適用されます。
+
+`--private-candidate` は未承認の4field候補を18/21の責務で投影する検証専用です。正式patchには保存せず、評価・公開を停止します。候補を使わず正式入力から生成した成果物も、自動的に公開可能にはなりません。Inventoryの `scoped_question(manifest_path)`、評価、Publisherは同じmanifestを再検証し、現行工程版・真正評価・failed delta・live fingerprintなど既存条件を適用します。manifestの手編集による昇格は認めません。
+
+限定contextは、canonical rootの `output/<qualification>/category/category.json` とカテゴリ依存集合を固定し、変換documentの `questionSetId` が正本に存在することを確認します。readerのPython依存、資格ID解決config、field要件及び評価schemaも入力fingerprintへ含めます。private JSONは保存前にdirectoryを700、temporary fileを600に設定してatomicに確定し、失敗時も広いpermissionで残しません。再実行は新しい `runs/<run-id>/` へ保存し、既存manifest・証跡の内容を保持します。

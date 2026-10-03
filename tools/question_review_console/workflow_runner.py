@@ -183,6 +183,13 @@ def aggregate_group_workflow(group: Mapping[str, Any]) -> dict[str, Any]:
 
 
 class ArtifactSynchronizer:
+    def prepare_scoped(self, context, output_directory, *, candidate_path=None):
+        """Explicit recovery generation; normal whole-group sync stays unchanged."""
+        from tools.question_review_console.scoped_artifacts import prepare_scoped_artifacts
+        if context.overlay_root != self.repo_root:
+            raise ValueError("scoped context product root differs")
+        return prepare_scoped_artifacts(context, output_directory, candidate_path=candidate_path)
+
     def __init__(
         self,
         repo_root: Path,

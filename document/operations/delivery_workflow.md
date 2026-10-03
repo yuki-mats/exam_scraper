@@ -120,3 +120,5 @@ python3 scripts/upload/upload_questions_to_firestore.py \
 - review artifactの公開flagをFirestore question documentへ追加しない。
 - Firestore実反映はユーザー依頼又はUIの明示確認がある場合だけ行う。
 - upload commandの成功だけで完了にせず、live readback一致を完了条件にする。
+
+限定artifactの検証では、正式入力からの生成と未承認4field候補からの生成を各2回実行し、同入力のprojection・全document・内容hash・公開ID集合を照合します。既存strict law coverageはmerged、converted、upload-readyの各明示入力へ適用し、正式現状の失敗をprivate候補の成功で置き換えません。正式入力のPublisher loaderと候補の拒否、両経路の評価・公開preview、subscription判定を個別に保存します。正しい拒否は接続検証の結果であり、評価合格や公開準備完了の代替にはなりません。
