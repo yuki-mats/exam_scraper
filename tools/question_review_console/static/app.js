@@ -3165,7 +3165,10 @@ function selectedQualificationRunTargetLimit() {
     : null;
 }
 
-function qualificationRunLimitedQuestionIds(preview, explicitQuestionIds, limit) {
+function qualificationRunLimitedQuestionIds(preview, explicitQuestionIds, limit, resumedFrom = "") {
+  // A resume inherits the server-owned queue. Rebinding a subset would turn
+  // continuation into a different selection and fail the scope contract.
+  if (resumedFrom) return [];
   if (explicitQuestionIds.length || !Number.isInteger(limit)) return [];
   if (!["human", "orchestration"].includes(preview.kind)) return [];
   const targetCount = Number(preview.targetCount || 0);
@@ -3753,7 +3756,7 @@ function openQualificationRunDialog(stage, options = {}) {
   const targetCountFieldset = $("#qualification-run-target-count-fieldset");
   const targetCountInput = $("#qualification-run-target-count");
   targetCountFieldset.hidden = !supportsConcurrency || Boolean(selectedQuestionIds.length);
-  targetCountInput.disabled = targetCountFieldset.hidden;
+  targetCountInput.disabled = targetCountFieldset.hidden || Boolean(options.resumedFrom);
   targetCountInput.value = String(
     Math.min(
       MAX_QUALIFICATION_TARGET_COUNT,
@@ -3910,6 +3913,7 @@ async function previewQualificationRun() {
       preview,
       questionIds,
       questionLimit,
+      qualificationRunResumedFrom(),
     );
     if (limitedQuestionIds.length) {
       preview = await api("/api/qualification-runs/preview", {
@@ -4957,6 +4961,7 @@ async function retryBlockedQualificationRun(runOverride = null) {
     questionConcurrency: run.questionConcurrency || AUTO_QUESTION_CONCURRENCY,
     speedMode: DEFAULT_QUALIFICATION_SPEED_MODE,
     resumedFrom: blockedQuestionIds.length ? "" : run.runId,
+    questionLimit: blockedQuestionIds.length ? undefined : run.targetCount,
     blockedReworkFrom: blockedQuestionIds.length ? run.runId : "",
     simplified: true,
     fieldFirst: blockedQuestionIds.length > 0,

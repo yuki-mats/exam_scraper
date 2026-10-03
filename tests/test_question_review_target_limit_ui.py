@@ -58,12 +58,32 @@ if (limited(preview, ["q4"], 2).length !== 0) {
 if (limited({ ...preview, targetCount: 2, targetIdentity: { questionIds: ["q1", "q2"] } }, [], 2).length !== 0) {
   throw new Error("scope at limit must remain unchanged");
 }
+if (limited(preview, [], 2, "previous-run").length !== 0) {
+  throw new Error("resume must inherit the server queue without a new explicit subset");
+}
 """
         subprocess.run(
             ["node", "-e", script, str(self.javascript_path)],
             check=True,
             capture_output=True,
             text=True,
+        )
+
+    def test_resume_displays_original_limit_without_allowing_scope_edits(self) -> None:
+        self.assertIn(
+            "questionLimit: blockedQuestionIds.length ? undefined : run.targetCount",
+            self.javascript,
+        )
+        self.assertIn(
+            "targetCountInput.disabled = targetCountFieldset.hidden || Boolean(options.resumedFrom)",
+            self.javascript,
+        )
+        preview_source = self.javascript.split(
+            "async function previewQualificationRun", 1
+        )[1].split("function renderQualificationRunPreview", 1)[0]
+        self.assertIn(
+            "questionLimit,\n      qualificationRunResumedFrom(),",
+            preview_source,
         )
 
 
