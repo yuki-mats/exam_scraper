@@ -1,0 +1,101 @@
+{
+  "result": "done",
+  "task_id": "T001",
+  "board_path": "/Users/yuki/development/exam_scraper_feedback/docs/goals/feedback-correction-recovery/state.yaml",
+  "summary": "2025対象の正式reviewと年度全体mergeは別の入口。問題詳細projectionは対象bindingのerrorだけを評価するが、physical mergeとstage_current_recordは全patch indexを検証するため19 unmatchedは実障害。一問公開は既存QuestionPublisherが全siblingを抽出・評価・readbackする。別6問のnullは対象問の品質不足とは断定できない。公式reviewの既存サービスは真正なBlind A/B・Challengeと24保存を実装済み。2018/2024はsource復旧、2020は改題identityの正本対応を先に確定する必要がある。",
+  "evidence": [
+    {
+      "path": "scripts/merge/00_merge_all.py:359",
+      "finding": "全stage indexへensure_identity_candidate_index_validを実行してから全sourceをprojectionする。"
+    },
+    {
+      "path": "scripts/merge/patch_views.py:339",
+      "finding": "全binding errorsとunmatched_countを停止条件にする。19 orphanの削除は既存正本変更なので限定公開の代用にならない。"
+    },
+    {
+      "path": "tools/question_review_console/inventory.py:1687",
+      "finding": "一覧・詳細の各問題はproject_record(source_binding=...)で論理projectionし、対象bindingのdownstream errorsを加える。"
+    },
+    {
+      "path": "tools/question_review_console/inventory.py:1299",
+      "finding": "stage_current_record系入口はensure_projection_indexes_validを呼ぶため、一覧の対象projectionが正常でも工程実行は全group orphanで止まり得る。"
+    },
+    {
+      "path": "tools/question_review_console/evaluation.py:1950",
+      "finding": "一問machineReadyはその問題のmerge/convert/upload一致、blockingIssuesなし、failed deltaなし、uploadReadyDocs、work policyを要求する。passed評価も公開条件。"
+    },
+    {
+      "path": "tools/question_review_console/publisher.py:1250",
+      "finding": "_load_question_artifactは対象uploadReadyDocsの全IDを抽出し、single originalQuestionId・資格・group・必須fieldを検証する。対象外6問を直接公開しない。"
+    },
+    {
+      "path": "tools/question_review_console/official_source_correction.py:466",
+      "finding": "OfficialSourceCorrectionService.runはcategory correct_answer/question_content/image、stateHash、資料path/title/locator/確認済み転記を受け、server-owned projected値と00_source exact one bindingを検証する。"
+    },
+    {
+      "path": "tools/question_review_console/official_source_correction.py:650",
+      "finding": "AppServerReviewExecutor→run_objective_review→patch_builder→patch_verifier→24への保存。executorはCodexAppServer read-only turn、changed_files拒否、fixture禁止。"
+    },
+    {
+      "path": "tools/question_bank/question_issue_reports.py:1058",
+      "finding": "run_objective_reviewは独立Blind A/BをThreadPoolExecutorで実行後Challenge。記録済みhash付きreviewの再開を実装。"
+    },
+    {
+      "path": "tools/question_review_console/server.py:2630",
+      "finding": "POST /api/official-source-corrections/startからservice.runへstateHash/category/evidencePath/evidenceTitle/evidenceLocator/verifiedTranscription/resumeWorkDirectoryを渡す。UI以外に専用公式review CLIは確認できなかった。"
+    },
+    {
+      "path": "output/user_feedback_response_system/proposals/2026-10-03",
+      "finding": "4proposalと4case_reviewを照合。2025 exact diff承認済み・公開未承認。2018/2024 sourceRecordRefなし、2020 live original=kanrigyo-2020-8と候補source original=ee8135114d92e847は不一致。"
+    },
+    {
+      "path": "scripts/pipeline/materialize_gas_shunin_firestore_source.py:292",
+      "finding": "Firestore snapshotからsource形式へ復元する先例はあるが甲種ガス主任専用。対象資格へそのまま流用する経路ではない。"
+    }
+  ],
+  "facts": [
+    {
+      "candidate_slice": "2025一問の現行Inventory projected/stateHash/source bindingとwork policyを非変異で取得し、official review serviceを承認済みdiffだけ許可するstaging経由で実行。真正reviewが既承認差分に一致した場合に正式24保存し、対象binding限定artifact同期→一問evaluation→publisher previewまで完成させる。",
+      "bounded_files": [
+        "tools/question_review_console/official_source_correction.py",
+        "tools/question_review_console/inventory.py",
+        "scripts/merge/record_projection.py",
+        "tests/test_official_source_correction.py"
+      ],
+      "risk": "既存serviceはfixなら直ちに正式24へ保存する。独立reviewが未承認fieldを提案した場合の事前比較を追加するか、隔離repoでreview結果だけ先に固定する必要がある。"
+    },
+    {
+      "candidate_recovery": "2018/2024は欠損sourceの既存Git履歴・scraper取得元・manifestをidentity付きで探索し、元取得原本を復旧してから正答・解説・lawRevisionFactsを再生成する。原本復旧不可なら、snapshotを取得原本と偽らず明示的な新規source provenance契約を設計する。"
+    },
+    {
+      "candidate_recovery": "2020は公開IDへの変換履歴、05_originalizedや40_convert/upload artifactに候補source bindingからlive originalへの一意対応があるか探索。対応がなければ公式原問の正しいsourceへ誤字patchを作らず、改題された現行公開問題の正本導入経路を設計する。"
+    }
+  ],
+  "contradictions": [
+    {
+      "claim": "19 unmatchedと別6問nullが正式24生成そのものを必ず停止させる。",
+      "finding": "一覧の対象projectionとserver-owned公式reviewは全index検証を直接要求しない。一方physical merge及びstage_current_recordは停止する。入口ごとの区別が必要。"
+    },
+    {
+      "claim": "年度全体quality-gateを通さなければ一問公開の品質判定経路がない。",
+      "finding": "CLI quality-gateはgroupまでのscopeだが既存QuestionEvaluationServiceとQuestionPublisherは一問scopeを実装済み。artifact同期の安全な限定経路は未確認。"
+    }
+  ],
+  "ambiguity_requiring_judge": [
+    "対象binding限定artifact同期でglobal unmatchedを対象外として扱うことが、既存fail-closed契約と整合するか。限定scopeの独立artifactと対象外不変を証明する実装が必要か判定してほしい。",
+    "ユーザー承認は2025の正答vectorとanswer_result_textだけ。現行projectionのexpectedBeforeHashは歴史的mergedと異なるため、同じ差分を再承認扱いにできる条件及び追加fieldが出た場合の承認gateを確定してほしい。",
+    "2018/2024 missing sourceの新規snapshot導入、2020改題identityのmapping契約は未確定。Firestore直接変更を先行させる根拠はない。"
+  ],
+  "commands": [
+    "state.yamlとquestion_issue_report_workflowのtargeted read",
+    "private proposalsのmetadata・gateNotes・simulationのtargeted read",
+    "4case_reviewのverification20261003照合",
+    "record_projection・patch_views・00_merge_allのgate inspection",
+    "Inventory projection・stage_current_record inspection",
+    "OfficialSourceCorrectionService・AppServerReviewExecutor・run_objective_review inspection",
+    "QuestionEvaluationService・QuestionPublisherの一問scope inspection",
+    "quality-gate CLI arguments inspection",
+    "materialize_gas_shunin_firestore_sourceの復旧先例inspection"
+  ],
+  "note_needed": false
+}

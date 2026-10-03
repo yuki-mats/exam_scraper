@@ -1,0 +1,115 @@
+{
+  "result": "done",
+  "task_id": "T002",
+  "board_path": "/Users/yuki/development/exam_scraper_feedback/docs/goals/feedback-correction-recovery/state.yaml",
+  "decision": "approve_next",
+  "full_outcome_complete": false,
+  "rationale": "2025年一問の正式reviewは既存serviceで進められ、先行するコード変更は不要。19件のorphanは年度全体mergeの実障害だが、一問reviewの停止条件ではない。別6問のnullも対象問reviewを止める根拠にならない。現行projectionへの補正は同一identityと承認済みpost-valuesを厳密に確認する必要がある。限定artifact同期の安全性は未証明なので、今回許可するsliceは隔離review、真正な24候補、承認比較と正式反映manifestの完成までとする.",
+  "evidence": [
+    {
+      "path": "docs/goals/feedback-correction-recovery/notes/T001-receipt.json",
+      "finding": "一問projection、年度全体merge、一問publisherの停止条件は異なる。artifact同期の限定経路は未確認。"
+    },
+    {
+      "path": "tools/question_review_console/official_source_correction.py:263",
+      "finding": "server-owned projected hashと完全source bindingを検証し、00_sourceのexact one recordへ解決する。"
+    },
+    {
+      "path": "tools/question_review_console/official_source_correction.py:466",
+      "finding": "既存serviceは公式資料を固定し、真正なBlind A/B・Challenge、patch builder、verifierを通して24候補を保存できる。"
+    },
+    {
+      "path": "tools/question_review_console/official_source_correction.py:736",
+      "finding": "fix結果をrepo_root配下の24へ直接保存するため、未承認追加fieldの混入を正本保存前に比較するには隔離repo実行が適する。"
+    },
+    {
+      "path": "tests/test_official_source_correction.py:376",
+      "finding": "executorは変更不要fieldを除去する。既にanswer_result_textが1であることは、同じ値を無理に再変更する理由にならない。"
+    },
+    {
+      "path": "scripts/merge/patch_views.py:339",
+      "finding": "physical publication output変更前に全indexの未対応patchを拒否する。orphan削除による迂回は許可できない。"
+    },
+    {
+      "path": "output/user_feedback_response_system/proposals/2026-10-03/2025-12c59a4c014e49de.json",
+      "finding": "承認済み結果は正誤vector [正しい,間違い,間違い,間違い,間違い] と原問正答表示1。Firestore公開承認はない。"
+    }
+  ],
+  "next_allowed_task": {
+    "package_type": "pm",
+    "proposed_task_id": "T003",
+    "objective": "2025年学科II問3について現行projectionとfresh liveを固定し、既存OfficialSourceCorrectionServiceを正本同内容の隔離repoで実行する。真正review付き24候補、承認済みpost-valuesとの機械比較、正本へ反映する正確なファイルmanifestと残るartifact同期条件を完成させる。製品コード変更は行わない。",
+    "allowed_files": [
+      "output/user_feedback_response_system/staging/goal-recovery-2025-review/**",
+      "output/user_feedback_response_system/proposals/2026-10-03/2025-review-current-projection.json",
+      "output/user_feedback_response_system/proposals/2026-10-03/2025-review-live-readback.json",
+      "output/user_feedback_response_system/proposals/2026-10-03/2025-review-canonical-fingerprint.json",
+      "output/user_feedback_response_system/proposals/2026-10-03/2025-review-approval-comparison.json",
+      "output/user_feedback_response_system/proposals/2026-10-03/2025-review-promotion-manifest.json",
+      "output/user_feedback_response_system/proposals/2026-10-03/2025-review-receipt.json",
+      "output/user_feedback_response_system/proposals/2026-10-03/run_2025_isolated_review.py",
+      "output/user_feedback_response_system/proposals/2026-10-03/verify_2025_isolated_review.py"
+    ],
+    "verify": [
+      "/Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p test_official_source_correction.py",
+      "/Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/proposals/2026-10-03/verify_2025_isolated_review.py",
+      "git diff --check",
+      "git status --short"
+    ],
+    "verification_requirements": [
+      "隔離repoへコピーした00_sourceと全stage patchの内容hashが正本と一致し、既存orphanを削除又は除外していない。",
+      "対象bindingが2nd-class-kenchikushi:85011:12c59a4c014e49de、reviewQuestionIdが12c59a4c014e49de、sourceRecordRefがquestion_85011_empty_1.json#0として一意に解決する。",
+      "現行Inventory生成projectionとstateHashを使用し、歴史的mergedのbefore hashを流用しない。",
+      "公式資料のhash、対象ページ画像、真正Blind A/B、Challenge、受信及びvalidation証跡、生成patchのexpectedBeforeHashが一致する。",
+      "承認済み結果との比較はcorrectChoiceTextの5肢vectorとanswer_result_textだけを許可する。既に正答表示1ならno-opの省略を許可する。",
+      "fresh liveの全5sibling identity、本文及び選択肢が承認時対象と一致し、今回の修正結果が肢1/2の承認済み入替に一致する。",
+      "正本へ反映するpatch、review、資料の正確な相対pathとhashをmanifestへ記録し、移送後もprovenanceが解決可能であることを確認する。",
+      "正本00_source、stage patch、merged、converted、uploadReady及び他3件に変更がないことをfingerprintで確認する。"
+    ],
+    "approval_interpretation": {
+      "same_post_values_without_reapproval": "現行projectionのnullを承認済み正誤vectorへ補完することと、既に1のanswer_result_textを変更しないことは、同一問題identity・本文・選択肢・意図を確認し、追加field変更がなく、fresh liveが承認対象と一致する場合に限り既存承認の範囲内。",
+      "requires_new_exact_diff_approval": "questionBodyText、choiceTextList、questionIntent、解説、lawRevisionFacts、画像、その他fieldの変更、別source binding又は承認時と異なる公開本文への適用。",
+      "publication": "Firestore公開は別の明示判断が必要。このsliceに公開権限を含めない。"
+    },
+    "stop_if": [
+      "既存service実行のため製品コード変更、正本00_source編集、orphan除去又は安全gate緩和が必要。",
+      "対象identityが一意に解決しない、stateHashが変わる、fresh liveの本文又は選択肢が承認時から変わる。",
+      "reviewが未承認追加field、異なる正誤vector又は矛盾する一次根拠を提示する。",
+      "fixture、レビューhashの手作業生成、歴史的before hashの流用が必要。",
+      "隔離serviceのprovenanceを正本へ移送した際に証跡が解決不能となる。",
+      "allowed_files外の変更又はFirestore writeが必要。"
+    ],
+    "follow_on_gate": "真正review結果とpromotion manifestが揃った後、正本24保存と対象binding限定artifact同期の契約を判断する。全年度mergeのfail-closed検査を無条件に省略する許可ではない。"
+  },
+  "parallel_safety": {
+    "approved": false,
+    "reason": "このsliceは一人のPMが実行する。2018/2024のsource欠落復旧と2020の改題identity復旧は別sliceとして扱い、今回の書込みscopeへ含めない。"
+  },
+  "blocked_tasks": [
+    {
+      "task": "年度全体physical merge",
+      "reason": "19 orphanは実障害。既存正本の復旧又は正式な限定artifact契約が必要。"
+    },
+    {
+      "task": "一問artifact同期とpublisher preview",
+      "reason": "対象外不変、全5sibling一致及び限定scopeでのfail-closedを証明する既存経路が未確認。"
+    },
+    {
+      "task": "Firestore公開",
+      "reason": "別の明示公開判断と一問evaluation及びreadback準備が未完了。"
+    }
+  ],
+  "missing_evidence": [
+    "真正な2025年一問review結果及び現行projectionに対する24候補。",
+    "承認済みpost-valuesとfresh live及び正式patch候補の一致。",
+    "安全な対象binding限定artifact同期の具体的経路と対象外不変の証明。",
+    "他3件のsource provenance又は改題identityの一意対応。"
+  ],
+  "required_board_updates": [
+    "T003を製品コードWorker実装から既存serviceによる隔離reviewのPM sliceへ変更し、上記allowed_files、verify、stop_ifを転記する。active taskの選択はPMが行う。",
+    "2025年の正式review入口を年度全体merge障害から区別する。",
+    "正本24保存、artifact同期、公開をそれぞれ証跡付きphase gateとして追跡する。",
+    "他3件のsource復旧とidentity復旧は独立した後続sliceとして明記する。",
+    "既存承認は2025年の具体的post-valuesのみ、Firestore公開は未承認として維持する。"
+  ]
+}
