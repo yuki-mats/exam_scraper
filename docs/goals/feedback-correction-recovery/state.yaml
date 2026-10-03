@@ -59,7 +59,7 @@ visual_board:
     url: http://goalbuddy.localhost:41737/feedback-correction-recovery/
     command: node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs
       --goal docs/goals/feedback-correction-recovery
-active_task: T021
+active_task: T022
 tasks:
   - id: T001
     type: scout
@@ -1761,9 +1761,9 @@ tasks:
   - id: T021
     type: worker
     assignee: Worker
-    status: active
-    objective: 元T018の2025対象限定生成・本則抽出・Inventory/checkpoint/真正評価/Publisher接続を新taskで実装する。同source stem共有の判定だけを本receiptの候補別outside proof契約へ明確化し、固定103
-      orphanのproofと既存全group停止を実証する。
+    status: blocked
+    objective: 元T018の2025対象限定生成・本則抽出・Inventory/checkpoint/真正評価/Publisher接続を新taskで実装する。同source stem共有の判定だけを本receiptの候補別outside
+      proof契約へ明確化し、固定103 orphanのproofと既存全group停止を実証する。
     implementation_root: /Users/yuki/development/exam_scraper_feedback
     allowed_files:
       - scripts/common/scoped_canonical_context.py
@@ -1873,8 +1873,8 @@ tasks:
         - legacy IDとURLの組について、固定した全source及び全candidate内の既知対応と矛盾しないことを確認する。同じIDが別URL、同じURLが別IDへ対応する場合は証明不能として残す。
         - このlegacy証明経路では明示sourceQuestionKey/sourceRecordRef/reviewQuestionId及びsnake_case別名を持つpartial bindingを受理しない。明示bindingを持つ場合は、完全で内部矛盾がなく、現在inventoryの別recordへ正確に解決する別の証明が必要。存在しない完全bindingも自動的に対象外扱いにしない。
         - source stemが対象と同じであることはchunk共有情報として保存する。同stemを対象一致とも対象外とも判定する根拠にせず、上記record identity条件で判定する。
-        - 証明recordはstage、相対file path、candidate位置、candidate全内容hash、source stem、legacy ID、URL、rawの明示binding field、alias intersection、resolver結果、inventory
-          hash、候補集合hash、resolver実装版を持つ。candidate位置は証跡識別だけに使い、問題内容の結合には使わない。
+        - 証明recordはstage、相対file path、candidate位置、candidate全内容hash、source stem、legacy ID、URL、rawの明示binding field、alias
+          intersection、resolver結果、inventory hash、候補集合hash、resolver実装版を持つ。candidate位置は証跡識別だけに使い、問題内容の結合には使わない。
         - 生成直前及び結果確定前に入力hashを再照合する。scope外候補は削除・書換えず、限定操作の対象外証明として記録する。通常全group index及びそのfail-closed結果を維持する。
       reject_conditions:
         - 対象のlegacy ID、URL、source key、record ref、review ID又はいずれかの公開IDがcandidate aliasへ含まれる。
@@ -1900,6 +1900,133 @@ tasks:
       - notes/T020-outside-proof-receipt.json
       - notes/T018-product-slice-receipt.json
       - notes/T019-stopped-receipt.json
+    receipt:
+      result: blocked
+      task_id: T021
+      board_path: /Users/yuki/development/exam_scraper_feedback/docs/goals/feedback-correction-recovery/state.yaml
+      changed_files:
+        - scripts/common/scoped_canonical_context.py
+        - scripts/pipeline/prepare_scoped_question_artifacts.py
+        - tools/question_review_console/scoped_artifacts.py
+        - tools/question_review_console/validated_evidence_import.py
+        - tools/question_review_console/primary_law_evidence.py
+        - tools/question_review_console/inventory.py
+        - tools/question_review_console/workflow_runner.py
+        - tools/question_review_console/qualification_runs.py
+        - tools/question_review_console/evaluation.py
+        - tools/question_review_console/publisher.py
+        - tests/test_scoped_canonical_context.py
+        - tests/test_question_review_scoped_artifacts.py
+        - tests/test_question_review_validated_evidence_import.py
+        - tests/test_question_review_primary_law_evidence.py
+        - document/operations/artifact_contract.md
+        - document/operations/local_question_review_console.md
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/verify_integration.py
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/private/merged.json
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/private/converted.json
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/private/uploadReady.json
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/private/manifest.json
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/evidence-import.json
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/unit-verification-attempt-1.json
+      commands:
+        - command: Python YAMLによるT021全定義とT018/T020/T019 receipt読み取り
+          status: pass
+          note: system PythonとWORK PythonにはPyYAMLがなく、/Users/yuki/.pyenv/versions/3.14.0/bin/python3を使用。
+        - command: 既存canonical contextの実入力照合
+          status: pass
+          note: 58原問、103対象外proof、unmatched 19/10/48/26、全group停止を確認。
+        - command: T015 package-manifestの固定132file SHA256照合
+          status: pass
+          note: 実装中の照合で不一致0。停止後の最終再照合は未実施。
+        - command: private候補の限定生成とInventory読み取り
+          status: pass
+          note: 全5公開IDを保持。issueCodesはscoped_formal_approval_pending、実workVersions.allCurrent=false。生成後にコードfingerprintが変わったため、保存manifestは再生成が必要。
+        - command: 保存済みnative証拠の実再生検証
+          status: pass
+          note: 固定package、native4出力、session event、input、candidate、sidecarを照合。importRunId=evidence-import:00866b34-b6c1-440d-a268-6dc76ed08a9b、status=validated_private、checkpointStages=[]。model実行・評価合格を意味しない。
+        - command: /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_scoped_canonical_context.py'
+          status: fail
+          exit_code: 1
+          note: 6tests中2error。macOSのTemporaryDirectoryが/var経由であり、physical root制約に抵触。
+        - command: /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_scoped_artifacts.py'
+          status: pass
+          exit_code: 0
+          note: 1test。
+        - command: /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_validated_evidence_import.py'
+          status: pass
+          exit_code: 0
+          note: 1test。
+        - command: /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_primary_law_evidence.py'
+          status: pass
+          exit_code: 0
+          note: 17tests。本則・附則分離、枝番、欠落、重複、別表、旧hash保持を含む。
+        - command: /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_inventory.py'
+          status: fail
+          exit_code: 1
+          note: 50tests中1failure。output/g-kentei/questions_json配下にsourceが存在するが、config/qualification_display_catalog.jsonにg-kenteiがない。修正configは許可外。
+        - command: /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_projection.py'
+          status: pass
+          exit_code: 0
+          note: 24tests。
+        - command: /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_artifact_sync_e2e.py'
+          status: fail
+          exit_code: 1
+          note: 既存実pipeline prepare_firestore_upload.pyの実行が30秒でTimeoutExpired。原因未確定。
+        - command: /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_evaluation.py'
+          status: pass
+          exit_code: 0
+          note: 61tests。
+        - command: /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_publisher_safety.py'
+          status: pass
+          exit_code: 0
+          note: 16tests。
+        - command: /Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/staging/recovery-scoped-2025/verify_integration.py
+          status: not_run
+          note: 許可外config blockerで停止。新鮮subscription判定、評価preview、Publisher preview、決定的2回生成、最終不変照合は未実施。
+        - command: git diff --check
+          status: pass
+          exit_code: 0
+        - command: git status --short
+          status: pass
+          exit_code: 0
+          note: T021差分を保全。PM所有T021-resumed-worker.mdはWorker変更に含めない。commit/push・board変更なし。
+      summary: 引継ぎ5差分を保全し、context再照合、manifest経由のInventory・評価・Publisher接続、native証拠取込と回帰試験を追加した。実58原問・103proof・全5IDを確認し、native取込はvalidated_privateでcheckpointなし。指定unitは6pass/3fail。Inventoryの許可外catalog欠落により編集停止。category正本漏れ、temp
+        fixture、E2E timeout、再生成・統合検証・runtimeは未完了。正式24・追加4field・WORK・Firestoreへの書込みはしていない。
+      remaining_blockers:
+        - config/qualification_display_catalog.jsonのg-kentei欠落を修正するには新taskの許可範囲設定が必要。
+        - canonical category正本はWORK/output/2nd-class-kenchikushi/category/category.json。現在contextとfixtureはquestions_json/category*.jsonしか覆っていない。所属・追加削除・内容変更のhash固定と回帰試験が未完了。
+        - 新規context fixtureのtemp rootをresolveしたphysical pathへ修正する必要がある。
+        - 既存artifact_sync E2Eの30秒timeout原因を調査する必要がある。
+        - 新規artifact/import試験は限定的。manifest改変、候補削除、同名24衝突、stale beforeHash、strict law coverageと各接続の追加回帰・実統合検証が必要。
+        - private manifestは生成後のコードfingerprint変更でstale。完成コードと正しいcategory依存から再生成し、同入力2回生成と全field一致を検証する必要がある。
+        - verify_integration.pyは保存のみで未実行。runtime判定、真正評価preview、Publisher preview、canonical251file・T015132file・WORK差分の最終前後照合は未完了。
+        - 新鮮assert_subscription_access(force=true, allow_existing_credits=false)は未実行。runtime復旧や真正評価合格の証跡はない。
+        - 追加4field正式承認と真正工程checkpointは未取得。正式反映とFirestore writeは別task・承認境界を維持する。
+        - 既存private成果物のpermission補正は未実施。停止時観測はroot/dir755、生成files644、unit結果のみ600。要求dirs700/files600へ補正が必要。
+        - source fingerprintとcanonical候補不使用の公開経路の新規接続は実装したが、追加の実証が必要。全面slice完了とは扱えない。
+      needs_judge: true
+      verification_attempts: 1
+      stopped_because: 指定Inventory検証が許可外configの表示catalog欠落で失敗。T021のallowed_files外変更が必要という停止条件とPMの編集停止指示に従った。停止後の修正試行は0回。
+  - id: T022
+    type: judge
+    assignee: Judge
+    status: active
+    objective: T021途中実装と実失敗を審査し、catalog欠落・カテゴリ正本・physical path・E2E停止原因を解決して実統合/runtime/各接続まで完成する最大の安全な復旧Worker packageを確定する。
+    inputs:
+      - notes/T021-stopped-receipt.json
+      - notes/T021-stopped-provenance.json
+      - notes/T020-outside-proof-receipt.json
+      - notes/T018-product-slice-receipt.json
+      - 現在の未commit T021全差分
+      - output/user_feedback_response_system/staging/recovery-scoped-2025/unit-verification-attempt-1.json
+    constraints:
+      - Read-only。T021途中変更を保存し、既存verify失敗を隠さない。
+      - 追加4field正式反映とFirestore writeは別の承認境界。正式24・WORK・T015132filesを変更しない。
+      - 同じ法令レビューを再実行しない。checkpointと評価の実行事実を捏造しない。
+      - 表示catalog追加の根拠、E2E timeoutの実原因と適切な検証を確認する。timeout延長だけで成功扱いにしない。
+      - goal全4件は未完了。単独helper又は用意済みprivate候補だけで完成扱いにしない。
+    expected_output:
+      - goalbuddy_receipt_v1、次の具体的Worker package (allowed_files/verify/stop_if)、未完了の公開前oracle、full_outcome_complete=false
     receipt: null
   - id: T004
     type: pm
