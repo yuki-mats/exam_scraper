@@ -1,0 +1,173 @@
+# GoalBuddy v2 state.yaml
+# Board truth lives here. goal.md is the editable charter; notes/ holds long receipts only.
+
+version: 2
+
+goal:
+  title: "情報セキュリティマネジメント 暗記プラス公開"
+  slug: "sg-ankiplus-release"
+  kind: "specific"
+  tranche: "過去問取得と精査、問題整備と独立評価、専用アプリ準備、データ公開とストア公開を証拠で確認する。"
+  status: "active"
+  oracle:
+    signal: "全問取得照合と現行整備・独立評価、公開データreadback、専用アプリ動作とストア公開状態"
+    cadence: "各工程確定時と最終監査時"
+    final_proof: "各工程receiptと公開状態のreadback。公開済み確認後だけfull_outcome_complete=true。"
+  intake:
+    original_request: "情報セキュリティマネジメントの過去問を整備して、暗記プラスの情報セキュリティマネジメントアプリとして公開することを最終目標とします。"
+    interpreted_outcome: "漏れなく正確に取得・整備した問題を使った専用アプリを公開する。"
+    input_shape: "specific"
+    audience: "情報セキュリティマネジメントの受験者"
+    authority: "requested"
+    proof_type: "artifact"
+    completion_proof: "独立評価済み問題の公開readback、アプリ動作確認、ストア公開状態"
+    likely_misfire: "取得又は審査提出だけでアプリ公開を完了と扱うこと。"
+    blind_spots_considered:
+      - "旧形式の午後本文・図表と複数選択"
+      - "欠損sourceのID維持"
+      - "現行試験と旧年度問題"
+      - "アプリ識別子と既存dirty変更"
+      - "iOSを最初の公開先と仮定し設定確認で確定"
+    existing_plan_facts:
+      - "取得元URLはhttps://www.sg-siken.com/sgkakomon.php"
+      - "既存ツールを再利用し精査する"
+      - "今回は定期実行を設定しない"
+
+rules:
+  pm_owns_state: true
+  one_active_task: true
+  max_write_workers: 1
+  no_implementation_without_worker_or_pm_task: true
+  no_completion_without_judge_or_pm_audit: true
+  planning_is_not_completion: true
+  queued_required_worker_blocks_completion: true
+  continuous_until_full_outcome: true
+  missing_input_or_credentials_do_not_stop_goal: true
+  exact_human_approval_can_terminal_wait: true
+  preserve_and_validate_existing_plan: true
+  intake_misfire_must_be_audited: true
+  goal_pressure_requires_oracle: true
+  no_completion_on_weak_proof: true
+  slice_policy:
+    max_consecutive_tiny_tasks: 2
+    prefer_vertical_slices: true
+    judge_picks_largest_safe_slice: true
+    worker_completes_whole_slice: true
+
+agents:
+  scout: "installed"
+  worker: "installed"
+  judge: "installed"
+
+visual_board:
+  selected: "local"
+  local:
+    status: "live"
+    url: "http://goalbuddy.localhost:41737/sg-ankiplus-release/"
+    command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/sg-ankiplus-release"
+
+active_task: T002
+
+tasks:
+  - id: "T001"
+    type: "pm"
+    assignee: "PM"
+    status: "done"
+    objective: "年度別過去問を全件取得し独立HTML照合・画像検証を完了する。"
+    inputs: []
+    constraints: []
+    expected_output:
+      - "証拠と完了状態を区別したreceipt"
+    receipt:
+      result: done
+      summary: "年度別12回・704問・484ページ・画像209ファイルを取得。独立照合とsource gateで不一致0件。"
+      evidence:
+        - "docs/goals/sg-ankiplus-release/notes/T001-acquisition-receipt.md"
+        - "output/sg/reports/siken_acquisition_audit.json"
+        - "tmp/sg_source_quality_gate_20261003.log"
+      commands:
+        - cmd: ".venv/bin/python scripts/check/check_sgsiken_acquisition.py sg"
+          status: pass
+        - cmd: ".venv/bin/python tools/question_bank/question_bank.py quality-gate --qualification sg --mode source"
+          status: pass
+      full_outcome_complete: false
+    allowed_files:
+      - "scrape_sgsiken.py"
+      - "scripts/check/check_sgsiken_acquisition.py"
+      - "tests/test_scrape_sgsiken.py"
+      - "tests/test_check_sgsiken_acquisition.py"
+      - "config/scrape_presets.json (sgだけ)"
+      - "tests/test_scrape_presets.py (sgだけ)"
+      - "docs/contracts/00_source_sha256_manifest.jsonl (sgだけ)"
+      - "output/sg/"
+      - "document/sources/README.md (sgだけ)"
+      - "docs/goals/sg-ankiplus-release/"
+  - id: "T002"
+    type: "scout"
+    assignee: "Scout"
+    status: "active"
+    objective: "整備条件、現行出題範囲、分類、アプリrelease設定をread-onlyで確認する。"
+    inputs:
+      - "T001 receipt"
+      - "config/question_maintenance_workflow.toml"
+      - "prompt/qualification_docs/"
+      - "document/operations/local_question_review_console.md"
+      - "/Users/yuki/StudioProjects/repaso/release/config.json"
+      - "/Users/yuki/StudioProjects/repaso/release/README.md"
+    constraints:
+      - "read-only。既存dirty変更を保持。外部更新を実行しない。"
+    expected_output:
+      - "証拠と完了状態を区別したreceipt"
+    receipt: null
+  - id: "T003"
+    type: "judge"
+    assignee: "Judge"
+    status: "queued"
+    objective: "取得receiptと整備・release条件を審査し実装範囲を確定する。"
+    inputs: []
+    constraints: []
+    expected_output:
+      - "証拠と完了状態を区別したreceipt"
+    receipt: null
+  - id: "T004"
+    type: "worker"
+    assignee: "Worker"
+    status: "queued"
+    objective: "既存整備システムで全問を整備し別session評価まで完了する。"
+    inputs: []
+    constraints: []
+    expected_output:
+      - "証拠と完了状態を区別したreceipt"
+    receipt: null
+    allowed_files: []
+    verify: []
+    stop_if:
+      - "T003でallowed_filesとverifyを確定するまで着手しない。"
+  - id: "T005"
+    type: "pm"
+    assignee: "PM"
+    status: "queued"
+    objective: "専用アプリを準備・検証し検証済みデータとストア公開を進める。"
+    inputs: []
+    constraints: []
+    expected_output:
+      - "証拠と完了状態を区別したreceipt"
+    receipt: null
+  - id: "T999"
+    type: "judge"
+    assignee: "Judge"
+    status: "queued"
+    objective: "全工程receiptを最終目標と照合して公開完了を監査する。"
+    inputs: []
+    constraints:
+      - "必要問題に未取得・未評価があるか、アプリ未公開ならfull_outcome_complete=false。"
+    expected_output:
+      - "証拠と完了状態を区別したreceipt"
+    receipt: null
+
+checks:
+  dirty_fingerprint: "unknown"
+  last_verification:
+    result: "pass"
+    task: "T001"
+    commands: []
