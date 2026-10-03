@@ -1,0 +1,493 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T028",
+    "board_path": "/Users/yuki/development/exam_scraper_feedback/docs/goals/feedback-correction-recovery/state.yaml",
+    "decision": "reject_next",
+    "full_outcome_complete": false,
+    "rationale": "一次資料から3件を独立判定した。2018は両時点とも答4、2024は確認必要命題の真偽が両時点とも真・偽・真・真・真。2020の一文字訂正は妥当。固定候補全体には誤った法改正情報、古い法条、2024原問本文の上書きと解説の過大な断定が残るため、そのままの正式反映は認めない。公開・評価・第二の独立レビューは未完了。",
+    "evidence": [
+      {
+        "type": "input_binding",
+        "run_root": "/Users/yuki/development/exam_scraper_feedback/output/user_feedback_response_system/staging/recovery-three-cases/runs/T027-3a8307ea9d5f",
+        "review_input": "review-input-v2.json",
+        "inputHash": "997316906f577a91b8c7d2cd6db52ac7a1c89b633b94b13ef5f484aa7c47e7df",
+        "package_hashes_match": true,
+        "primary_pdf_and_snapshot_manifest_hashes_match": true,
+        "official_pdf_downloads_match_fixed_files": true,
+        "law_xml_hashes_match": true,
+        "law_read_scope": "LawBody/MainProvision内の本則、および別表第一。附則の同番号条文を判断根拠としていない。",
+        "independent_review_count_this_receipt": 1,
+        "writes_performed": false,
+        "limitations": "他reviewerや保存済みverifiedラベルを実体判断の根拠としていない。2025の法令レビューは実施していない。"
+      },
+      {
+        "type": "primary_sources",
+        "2018_exam": {
+          "path": "output/user_feedback_response_system/official_sources/2018-question.pdf",
+          "sha256": "6f5c1cb0e9c04e8219e3bfcaa569e122057d95568fa8e6b83f64d3be74b97986",
+          "locators": [
+            "PDF第1頁・注意事項6と7",
+            "PDF第13頁・学科II問3"
+          ],
+          "exam_law_reference_date": "2018-01-01",
+          "local_ordinances": "考慮しない",
+          "citation": "[2018年公式問題集](https://www.jaeic.or.jp/assets/pdf/shiken/2k/2k-mondai/2k-2018-1st-gakka1_2.pdf)",
+          "official_answer": "固定2018-answer.pdfの学科II問3は4。各肢の現在真偽は別途条文から判断した。"
+        },
+        "2024_exam": {
+          "path": "output/user_feedback_response_system/official_sources/2024-question.pdf",
+          "sha256": "7a4c4576522ed11a3ee01c73c4ca7e32b2ce3a88727436b07de263b78d3a0b71",
+          "locators": [
+            "PDF第1頁・注意事項6(1)と6(4)",
+            "PDF第12頁・学科II問3"
+          ],
+          "exam_law_reference_date": "2024-01-01",
+          "local_ordinances": "考慮しない",
+          "citation": "[2024年公式問題集](https://www.jaeic.or.jp/assets/pdf/shiken/2k/2k-mondai/2k-2024-1st-gakka1_2.pdf)",
+          "official_answer": "固定2024-answer.pdfの学科II問3は2。肯定命題の真偽は別途条文から判断した。"
+        },
+        "law_revisions": [
+          {
+            "date": "2018-01-01",
+            "act_revision": "325AC0000000201_20170615_429AC0000000026",
+            "decree_revision": "325CO0000000338_20170401_429CO0000000040"
+          },
+          {
+            "date": "2024-01-01",
+            "act_revision": "325AC0000000201_20230616_505AC0000000063",
+            "decree_revision": "325CO0000000338_20230526_504CO0000000393"
+          },
+          {
+            "date": "2026-10-03",
+            "act_revision": "325AC0000000201_20260527_508AC0000000023",
+            "decree_revision": "325CO0000000338_20251201_507CO0000000377"
+          }
+        ],
+        "law_citations": [
+          "[建築基準法](https://laws.e-gov.go.jp/law/325AC0000000201)",
+          "[建築基準法施行令](https://laws.e-gov.go.jp/law/325CO0000000338)"
+        ]
+      },
+      {
+        "type": "case_judgment",
+        "case": "2018",
+        "case_decision": "reject",
+        "accepted_scope": "correctChoiceTextの肢2を間違い、肢4を正しいへ変更し、原問の答表示を4にする判断はaccept。法改正情報と解説を保持した固定候補全体はreject。",
+        "exam_reference_date": "2018-01-01",
+        "current_reference_date": "2026-10-03",
+        "proposition": "この行為について、建築基準法上、全国どの場所においても確認済証の交付を受ける必要がある。",
+        "exam_truth_vector": [
+          "間違い",
+          "間違い",
+          "間違い",
+          "正しい",
+          "間違い"
+        ],
+        "current_truth_vector": [
+          "間違い",
+          "間違い",
+          "間違い",
+          "正しい",
+          "間違い"
+        ],
+        "exam_selection_answer": 4,
+        "current_selection_answer": 4,
+        "questionIntent": "select_correct",
+        "choices": [
+          {
+            "choice": 1,
+            "complete_choice": "鉄筋コンクリート造、高さ２mの擁壁の築造",
+            "exam_truth": "間違い",
+            "current_truth": "間違い",
+            "exam_basis": "法88条1項、施行令138条1項5号",
+            "current_basis": "法88条1項、施行令138条1項5号",
+            "reason": "指定工作物となる擁壁は高さ2mを超えるもの。2mちょうどは含まれない。",
+            "replacement_explanationText": "確認済証の交付は不要です。建築基準法第88条第1項および施行令第138条第1項第5号による対象は高さ2mを超える擁壁であり、高さ2mちょうどの擁壁は含まれません。出題時と2026年10月3日現在で、この結論は同じです。",
+            "reference_correction": "施行令6条を擁壁の根拠とする参照は採用しない。『令第138条1号五項』は『令第138条第1項第5号』へ訂正する。"
+          },
+          {
+            "choice": 2,
+            "complete_choice": "鉄骨造平家建て、延べ面積200m²の診療所（患者の収容施設を有しないもの）の大規模の修繕",
+            "exam_truth": "間違い",
+            "current_truth": "間違い",
+            "exam_basis": "法6条1項本文・1号・3号・4号、別表第一(い)欄(二)項",
+            "current_basis": "法6条1項本文・1号・2号・3号、別表第一(い)欄(二)項",
+            "reason": "患者収容施設のない診療所は別表第一の当該用途に該当しない。平家・200m²ちょうどなので旧3号および現2号の規模にも該当しない。区域内の小規模建築物に関する旧4号・現3号は大規模修繕を確認対象としていない。",
+            "replacement_explanationText": "確認済証の交付は不要です。患者の収容施設がない診療所は、別表第一(い)欄(二)項の診療所に該当しません。また、鉄骨造平家建てで延べ面積200m²ちょうどなので、出題時の法第6条第1項第3号にも、現行法の同項第2号にも該当しません。旧第4号・現第3号に該当する区域内にあっても、この規模の建築物の大規模修繕は同項本文の確認対象ではありません。",
+            "correctChoiceText_diff": {
+              "before": "正しい",
+              "after": "間違い"
+            }
+          },
+          {
+            "choice": 3,
+            "complete_choice": "鉄骨造平家建て、延べ面積300m²の、鉄道のプラットホームの上家の新築",
+            "exam_truth": "間違い",
+            "current_truth": "間違い",
+            "exam_basis": "法2条1号",
+            "current_basis": "法2条1号",
+            "reason": "鉄道のプラットホームの上家は建築物の定義から除かれる。鉄骨造・300m²という規模から法6条の対象へ戻すことはできない。",
+            "replacement_explanationText": "確認済証の交付は不要です。建築基準法第2条第1号は、鉄道のプラットホームの上家を建築物の定義から除いています。したがって、この上家の新築は法第6条の建築物の確認対象ではありません。出題時と現行法で結論は同じです。"
+          },
+          {
+            "choice": 4,
+            "complete_choice": "鉄骨造２階建て、延べ面積100m²の事務所の改築",
+            "exam_truth": "正しい",
+            "current_truth": "正しい",
+            "exam_basis": "法2条13号、法6条1項本文・3号",
+            "current_basis": "法2条13号、法6条1項本文・2号",
+            "reason": "改築は建築に含まれる。鉄骨造2階建ては旧3号、現2号に該当し、区域条件に依存しない。本肢の100m²の事務所の改築は10m²以内の例外に該当しない。",
+            "replacement_explanationText": "確認済証の交付が必要です。改築は法第2条第13号の建築に含まれます。鉄骨造2階建ての事務所は、出題時には法第6条第1項第3号、現行法では同項第2号に該当するため、区域にかかわらず確認を要します。この100m²の改築には同条第2項の10m²以内の例外は適用されません。",
+            "correctChoiceText_diff": {
+              "before": "間違い",
+              "after": "正しい"
+            }
+          },
+          {
+            "choice": 5,
+            "complete_choice": "鉄骨造２階建て、延べ面積400m²の工場における床面積10m²の増築",
+            "exam_truth": "間違い",
+            "current_truth": "間違い",
+            "exam_basis": "法6条1項3号・2項",
+            "current_basis": "法6条1項2号・2項",
+            "reason": "防火・準防火地域外では10m²以内の増築の例外が適用される。防火・準防火地域では例外が適用されず確認が必要。したがって『全国どの場所でも必要』は偽であり、『どこでも不要』でもない。",
+            "replacement_explanationText": "全国どの場所でも確認が必要という記述は誤りです。建築物は出題時の法第6条第1項第3号、現行法の同項第2号の規模に該当しますが、防火地域および準防火地域外では、同条第2項により10m²以内の増築は確認を要しません。防火地域・準防火地域ではこの例外が適用されるため確認が必要です。",
+            "reference_correction": "例外の根拠は『法6条2号』ではなく『法6条第2項』。"
+          }
+        ],
+        "categories": {
+          "correct_answer": {
+            "decision": "fix",
+            "reason": "両時点で答4。公開肢2・肢4の正誤が逆。"
+          },
+          "question_content": {
+            "decision": "no_change",
+            "reason": "元本文と5肢の条件は公式問題に一致しており、今回の法的結論のための改作は不要。"
+          },
+          "explanation": {
+            "decision": "fix",
+            "reason": "上記の時点別説明へ修正。現行法へ旧号番号を流用しない。肢5の地域条件を明示する。"
+          },
+          "outdated_law_or_information": {
+            "decision": "fix",
+            "reason": "lawRevisionFactsの両時点答2、試験日基準、誤った法条参照、解説更新不要の断定を訂正する。"
+          },
+          "answer_format_or_display": {
+            "decision": "fix",
+            "reason": "原問の選択意図select_correct、答表示4、各TF scalarを別責務として保持する。"
+          },
+          "classification": {
+            "decision": "no_change",
+            "reason": "固定snapshotの所属・資格・年度・削除状態を保持する。"
+          },
+          "image": {
+            "decision": "no_change",
+            "reason": "画像を変更する根拠はない。"
+          },
+          "other": {
+            "decision": "hold",
+            "reason": "生成全文差分には監査日時やsuggestedQuestionsの削除、追加fieldが含まれる。法的訂正に必要な差分と同時承認しない。"
+          }
+        },
+        "required_field_values": {
+          "correctChoiceText": [
+            "間違い",
+            "間違い",
+            "間違い",
+            "正しい",
+            "間違い"
+          ],
+          "answer_result_text": "正解は 4 です。",
+          "answer_result_inferred_correct_choice_numbers": [
+            4
+          ],
+          "questionIntent": "select_correct",
+          "lawRevisionFacts_for_all_five": {
+            "examTime.referenceDate": "2018-01-01",
+            "examTime.correctChoiceText": "正解は 4 です。",
+            "examTime.lawRevisionId_for_act": "325AC0000000201_20170615_429AC0000000026",
+            "current.referenceDate": "2026-10-03",
+            "current.correctChoiceText": "正解は 4 です。",
+            "differenceFacts": [
+              "出題基準日は2018年1月1日であり、試験日の2018年7月1日ではない。",
+              "法第6条第1項の区分と特殊建築物の面積基準には両時点で差があるが、この5肢の真偽は間違い・間違い・間違い・正しい・間違いで一致する。",
+              "出題時と現行法の原問正答はともに4。保存されていた答2は誤りであり、今回の公開正誤の訂正は法改正による正答変更ではない。"
+            ],
+            "answerImpactFacts": [
+              "公開肢2を間違い、公開肢4を正しいへ訂正する。",
+              "原問の答表示を4へ訂正する。",
+              "現行法の号番号、工作物の根拠、地域による例外を解説へ反映する。"
+            ]
+          }
+        },
+        "provenance_requirement": "旧auditRunId、evidenceBindingHash、reviewState、approved/verifiedラベルを今回の訂正候補の証明として流用しない。新しい根拠と具体値に対応する真正な監査証跡が必要。",
+        "remaining_hold": "法的真偽のholdはない。正式candidateへの反映・新しい監査証跡・承認・公開はhold。"
+      },
+      {
+        "type": "case_judgment",
+        "case": "2024",
+        "case_decision": "reject",
+        "accepted_scope": "肯定命題への改題案とvector維持は意味としてaccept。固定生成候補は原問本文fieldまで上書きし、古い解説・法改正情報も保持しているため、そのままの正式反映はreject。",
+        "exam_reference_date": "2024-01-01",
+        "current_reference_date": "2026-10-03",
+        "semantics": {
+          "original_selection": "確認済証の交付を受ける必要がない行為を選ぶ。答は2。",
+          "original_selection_membership_truth": [
+            "間違い",
+            "正しい",
+            "間違い",
+            "間違い",
+            "間違い"
+          ],
+          "affirmative_tf_proposition": "この行為には確認済証の交付が必要である。",
+          "affirmative_tf_truth_both_timepoints": [
+            "正しい",
+            "間違い",
+            "正しい",
+            "正しい",
+            "正しい"
+          ],
+          "questionIntent": "select_incorrect",
+          "intent_meaning": "肯定命題のうち誤りである肢2が、元の『必要がないもの』の選択結果に対応するという原問の選択意図。各公開TFの採点値を反転する指示ではない。",
+          "questionType": "true_false",
+          "converted_scalars": [
+            "正しい",
+            "間違い",
+            "正しい",
+            "正しい",
+            "正しい"
+          ],
+          "negative_stem_with_current_scalars": "元の否定選択設問をそのままTF画面に置くと、肢が『不要な行為に該当するか』を答えるのか、『必要であるか』を答えるのかが一致しない。選択結果2だけから現在scalarの一括反転を承認することはできない。"
+        },
+        "accepted_affirmative_body": "準防火地域における次の行為について、建築基準法上、確認済証の交付を受ける必要がある。ただし、建築等に関する確認済証の交付を受ける必要がない区域の指定はないものとする。",
+        "choices": [
+          {
+            "choice": 1,
+            "full_tf_questionText": "準防火地域における次の行為について、建築基準法上、確認済証の交付を受ける必要がある。ただし、建築等に関する確認済証の交付を受ける必要がない区域の指定はないものとする。[quote]木造平家建て、延べ面積300m²の旅館の新築[/quote]",
+            "exam_truth": "正しい",
+            "current_truth": "正しい",
+            "exam_basis": "法6条1項1号、別表第一(い)欄(二)項",
+            "current_basis": "法6条1項1号、別表第一(い)欄(二)項",
+            "reason": "旅館の用途に供する面積300m²は200m²を超える。木造平家であることは、この1号の確認義務を除かない。",
+            "replacement_explanationText": "確認済証の交付が必要です。旅館は別表第一(い)欄(二)項の用途であり、その用途に供する面積300m²は200m²を超えるため、法第6条第1項第1号に該当します。出題時と現行法で結論は同じです。"
+          },
+          {
+            "choice": 2,
+            "full_tf_questionText": "準防火地域における次の行為について、建築基準法上、確認済証の交付を受ける必要がある。ただし、建築等に関する確認済証の交付を受ける必要がない区域の指定はないものとする。[quote]鉄骨造平家建て、延べ面積180m²の事務所から飲食店への用途の変更[/quote]",
+            "exam_truth": "間違い",
+            "current_truth": "間違い",
+            "exam_basis": "法87条1項、法6条1項1号、別表第一(い)欄(四)項、施行令115条の3第3号",
+            "current_basis": "法87条1項、法6条1項1号、別表第一(い)欄(四)項、施行令115条の3第3号",
+            "reason": "飲食店は当該特殊建築物の用途だが、用途変更する部分は180m²で200m²を超えず、法87条1項の確認対象に該当しない。準防火地域であることだけで用途変更に確認義務は生じない。",
+            "replacement_explanationText": "確認済証の交付は不要です。飲食店は別表第一(い)欄(四)項および施行令第115条の3第3号の用途に該当しますが、法第87条第1項による用途変更の確認対象となるのは、法第6条第1項第1号の規模に該当する場合です。本肢の用途変更部分は180m²で200m²を超えないため、確認を要しません。ただし、確認不要でも用途変更に伴って適用される実体規定の確認は必要です。",
+            "rejected_explanation_sentence": "用途変更後も建築物全体を現行の建築基準法令に適合させる義務があります",
+            "rejection_basis": "法3条2項、法87条2項から4項。用途変更で適用される規定と既存不適格の取扱いには区分があり、建築物全体の全規定への遡及適合を一律に断定できない。"
+          },
+          {
+            "choice": 3,
+            "full_tf_questionText": "準防火地域における次の行為について、建築基準法上、確認済証の交付を受ける必要がある。ただし、建築等に関する確認済証の交付を受ける必要がない区域の指定はないものとする。[quote]鉄骨造平家建て、延べ面積300m²の倉庫における床面積10m²の増築[/quote]",
+            "exam_truth": "正しい",
+            "current_truth": "正しい",
+            "exam_basis": "法6条1項1号・3号および2項、別表第一(い)欄(五)項",
+            "current_basis": "法6条1項1号および2項、別表第一(い)欄(五)項",
+            "reason": "倉庫は200m²を超える特殊建築物。準防火地域では10m²以内の増築の例外が適用されない。",
+            "replacement_explanationText": "確認済証の交付が必要です。倉庫は別表第一(い)欄(五)項の用途であり、面積300m²の本建築物は法第6条第1項第1号の規模に該当します。また、準防火地域内なので、同条第2項の10m²以内の増築に関する例外は適用されません。出題時と現行法で結論は同じです。"
+          },
+          {
+            "choice": 4,
+            "full_tf_questionText": "準防火地域における次の行為について、建築基準法上、確認済証の交付を受ける必要がある。ただし、建築等に関する確認済証の交付を受ける必要がない区域の指定はないものとする。[quote]鉄骨造2階建て、延べ面積90m²の一戸建て住宅の大規模の修繕[/quote]",
+            "exam_truth": "正しい",
+            "current_truth": "正しい",
+            "exam_basis": "法2条14号、法6条1項本文・3号",
+            "current_basis": "法2条14号、法6条1項本文・2号",
+            "reason": "鉄骨造2階建ては旧3号・現2号に該当し、その大規模修繕は確認対象。延べ面積90m²でも2階という条件で対象となる。",
+            "replacement_explanationText": "確認済証の交付が必要です。鉄骨造2階建ての住宅は、出題時には法第6条第1項第3号、現行法では同項第2号に該当します。これらの建築物の大規模の修繕は同項本文の確認対象です。大規模の修繕とは、法第2条第14号の主要構造部の一種以上について行う過半の修繕をいいます。"
+          },
+          {
+            "choice": 5,
+            "full_tf_questionText": "準防火地域における次の行為について、建築基準法上、確認済証の交付を受ける必要がある。ただし、建築等に関する確認済証の交付を受ける必要がない区域の指定はないものとする。[quote]鉄骨造、高さ5mの広告塔の築造[/quote]",
+            "exam_truth": "正しい",
+            "current_truth": "正しい",
+            "exam_basis": "法88条1項による法6条1項4号の準用、施行令138条1項3号",
+            "current_basis": "法88条1項による法6条1項3号の準用、施行令138条1項3号",
+            "reason": "高さ5mは広告塔の指定基準4mを超える。設問の区域条件と除外区域指定なしという条件の下で確認対象となる。",
+            "replacement_explanationText": "確認済証の交付が必要です。高さ5mの広告塔は、施行令第138条第1項第3号の高さ4mを超える広告塔に該当します。法第88条第1項により確認に関する規定が準用され、本肢の区域条件では確認を要します。出題時は法第6条第1項第4号、現行法では同項第3号に係る部分の準用です。"
+          }
+        ],
+        "categories": {
+          "correct_answer": {
+            "decision": "no_change",
+            "reason": "明示的な肯定TF命題を採用する場合、既存vector真・偽・真・真・真と原問答2を維持できる。旧否定本文を保持したままの正誤維持は認めない。"
+          },
+          "question_content": {
+            "decision": "fix",
+            "reason": "公開questionBodyTextとquestionTextを上記肯定命題へ変更する具体案は妥当。意味変更として承認が必要。"
+          },
+          "explanation": {
+            "decision": "fix",
+            "reason": "法87条の根拠、準防火地域での例外不適用、現行号番号を補う。肢2の全体現行適合義務の断定を訂正する。"
+          },
+          "outdated_law_or_information": {
+            "decision": "fix",
+            "reason": "出題基準日、現行法6条1項の根拠、実際の命題に対応する監査情報へ訂正する。"
+          },
+          "answer_format_or_display": {
+            "decision": "fix",
+            "reason": "元の選択意図select_incorrectと公開true_false採点を区別し、公開全文が肯定命題であることを明示する。"
+          },
+          "classification": {
+            "decision": "no_change",
+            "reason": "固定snapshotの所属・資格・年度・削除状態を保持する。"
+          },
+          "image": {
+            "decision": "no_change",
+            "reason": "画像を変更する根拠はない。"
+          },
+          "other": {
+            "decision": "hold",
+            "reason": "原問本文fieldの上書き、監査日時やsuggestedQuestionsの削除、追加fieldは、この改題の承認に混ぜない。"
+          }
+        },
+        "required_field_values": {
+          "questionBodyText": "準防火地域における次の行為について、建築基準法上、確認済証の交付を受ける必要がある。ただし、建築等に関する確認済証の交付を受ける必要がない区域の指定はないものとする。",
+          "originalQuestionBodyText": "準防火地域における次の行為のうち、建築基準法上、確認済証の交付を受ける必要がないものはどれか。ただし、建築等に関する確認済証の交付を受ける必要がない区域の指定はないものとする。",
+          "correctChoiceText": [
+            "正しい",
+            "間違い",
+            "正しい",
+            "正しい",
+            "正しい"
+          ],
+          "questionType": "true_false",
+          "questionIntent": "select_incorrect",
+          "answer_result_text": "正解は 2 です。",
+          "answer_result_inferred_correct_choice_numbers": [
+            2
+          ],
+          "lawRevisionFacts_for_all_five": {
+            "examTime.referenceDate": "2024-01-01",
+            "examTime.lawRevisionId_for_act": "325AC0000000201_20230616_505AC0000000063",
+            "examTime.correctChoiceText": "正解は 2 です。",
+            "current.referenceDate": "2026-10-03",
+            "current.correctChoiceText": "正解は 2 です。",
+            "current.article_for_act6_basis": "6条",
+            "current.paragraph_for_act6_basis": "1項",
+            "differenceFacts": [
+              "出題基準日は2024年1月1日であり、試験日の2024年7月7日ではない。",
+              "第6条第1項の区分は両時点で異なるが、この5行為の確認要否は必要・不要・必要・必要・必要で一致する。",
+              "元の否定選択設問の答2と、肯定TF命題の正誤vectorは別の意味を持つ。今回の本文改題は明示的な意味変更である。"
+            ]
+          }
+        },
+        "fixed_candidate_problem": "generation1/documents.jsonとpublicDocumentDiffs.jsonで、全5件のoriginalQuestionBodyTextも肯定命題へ置き換わっている。原問を示すfieldには公式の否定設問を保持すべきであり、この生成差分はreject。",
+        "remaining_hold": "法的真偽のholdはない。本文variantの正式保存契約、具体承認、監査証跡、評価、公開はhold。"
+      },
+      {
+        "type": "case_judgment",
+        "case": "2020",
+        "case_decision": "accept",
+        "accepted_scope": "questionTextの誤字1文字だけを削除する内容候補。正式反映・公開の承認ではない。",
+        "source_kind": "production_snapshot",
+        "question_id": "condominiummanager-C-13289",
+        "before_content_hash": "09e41d11fbc18ae7303e68cc9fc14ab7b47d99942e0656cb3df36f77b0637c23",
+        "updateTime": "2026-06-08T04:07:33.835032+00:00",
+        "field_diff": {
+          "field": "questionText",
+          "before": "次の記述のうち、標準管理委託契約書の定めに従い、正しいかどうか答えよ。（改題）\n[quote]マンション管理業者が管理事務を第三者に再委託する場合、管理委託契約締結時に再委託先の名称が明らかなたときは、管理組合に対して通知することが望ましい。[/quote]",
+          "after": "次の記述のうち、標準管理委託契約書の定めに従い、正しいかどうか答えよ。（改題）\n[quote]マンション管理業者が管理事務を第三者に再委託する場合、管理委託契約締結時に再委託先の名称が明らかなときは、管理組合に対して通知することが望ましい。[/quote]",
+          "operation": "delete",
+          "deleted_character": "た",
+          "zero_based_character_index": 96,
+          "character_count_delta": -1
+        },
+        "direct_comparison": {
+          "changed_selected_fields": [
+            "questionText"
+          ],
+          "other_selected_fields_unchanged": true,
+          "missing_fields_not_assumed_null": true,
+          "originalQuestionChoiceText_typo_remains": true
+        },
+        "separate_unapproved_diff": {
+          "field": "originalQuestionChoiceText",
+          "before_fragment": "名称が明らかなたときは",
+          "after_fragment": "名称が明らかなときは",
+          "included_in_accepted_candidate": false
+        },
+        "categories": {
+          "correct_answer": {
+            "decision": "no_change",
+            "reason": "正答は保持する。本receiptはこの改題の法的真偽を再監査した証明ではない。"
+          },
+          "question_content": {
+            "decision": "fix",
+            "reason": "冗長な『た』1文字の削除は文法上妥当で、命題の意味を変更しない。"
+          },
+          "explanation": {
+            "decision": "no_change",
+            "reason": "解説を変更する訂正候補ではない。"
+          },
+          "outdated_law_or_information": {
+            "decision": "no_change",
+            "reason": "単独誤字訂正へ法令変更を追加しない。"
+          },
+          "answer_format_or_display": {
+            "decision": "no_change",
+            "reason": "既存true_falseと回答形式を保持する。"
+          },
+          "classification": {
+            "decision": "no_change",
+            "reason": "資格・年度・所属・削除状態を保持し、欠落fieldを推測補完しない。"
+          },
+          "image": {
+            "decision": "no_change",
+            "reason": "画像の追加・変更はない。"
+          },
+          "other": {
+            "decision": "no_change",
+            "reason": "originalQuestionChoiceTextを含む他selected fieldは変更しない。"
+          }
+        },
+        "identity_boundary": "元原問候補ee8135114d92e847と公開改題kanrigyo-2020-8を同一raw bindingと断定しない。本候補は固定production_snapshotの全文・hash・updateTimeに束縛する。",
+        "remaining_hold": "production_snapshotの正式保存先、上書き防止、questionTextだけの公開契約、具体承認、公開後readbackは未完了。"
+      },
+      {
+        "type": "completion_boundary",
+        "content_review_completed": true,
+        "three_original_cases_reviewed": 3,
+        "selected_public_documents": 11,
+        "formalDataUpdated": false,
+        "approvalReady": false,
+        "publicationReady": false,
+        "evaluationPerformed": false,
+        "FirestoreWritten": false,
+        "verification_receipt_interpretation": "候補検証のpassは公開合格ではない。2018/2024のstrict lawはmergedとfirestoreの両方でexitCode=1のままであり、本receiptもこれを合格へ変更しない。",
+        "second_independent_native_reviewer": "PM後続dispatchが必要。本receiptだけで独立2名合格としない。"
+      }
+    ],
+    "next_allowed_task": null,
+    "subgoal_contract": null,
+    "parallel_safety": null,
+    "blocked_tasks": [
+      "T004の当該固定候補をそのまま正式反映する部分",
+      "T005の当該3件を公開する部分"
+    ],
+    "missing_evidence": [
+      "訂正された2018/2024の具体candidateと対応する真正な監査証跡",
+      "第二の独立native reviewerによる固定入力レビュー",
+      "具体field差分への正式承認",
+      "正式保存・variant/provider・overwrite防止の適合証拠",
+      "真正current checkpointと評価合格",
+      "別の公開承認、guarded write、対象のlive readback"
+    ],
+    "required_board_updates": [
+      "PMが本receiptをT028の独立レビュー1名分として記録する。",
+      "2018・2024の全肢の出題時/current真偽は確定と記録し、法的真偽の全面holdを解除する。正式候補・承認・公開のholdは維持する。",
+      "2018は答4候補を内容面で受理し、旧lawRevisionFacts答2および試験日基準を残したpackageは不受理と記録する。",
+      "2024は肯定命題とvector維持の意味を受理し、原問本文の上書き・肢2解説の過大な断定を残したpackageは不受理と記録する。",
+      "2020はquestionText一文字訂正のみ内容面で受理し、originalQuestionChoiceTextは別未承認差分として維持する。",
+      "full_outcome_complete=false、approvalReady=false、publicationReady=falseを維持する。"
+    ]
+  }
+}
