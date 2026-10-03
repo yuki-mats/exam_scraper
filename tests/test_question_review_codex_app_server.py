@@ -3128,6 +3128,51 @@ class AppServerTurnTests(unittest.TestCase):
                 _inline_image_url(url, root)
             opener.assert_not_called()
 
+    @patch("tools.question_review_console.codex_app_server.urllib.request.build_opener")
+    def test_registered_image_root_link_supports_external_storage(self, opener):
+        from scripts.common.image_storage_urls import build_public_storage_url
+
+        with tempfile.TemporaryDirectory() as directory:
+            base = Path(directory)
+            repo = base / "repo"
+            images = base / "external/question_images"
+            images.mkdir(parents=True)
+            (images / "image.webp").write_bytes(b"image-bytes")
+            declared = repo / "output/sample/question_images"
+            declared.parent.mkdir(parents=True)
+            declared.symlink_to(images, target_is_directory=True)
+            config = repo / "config/scrape_presets.json"
+            config.parent.mkdir()
+            config.write_text(json.dumps({"sample": {"qualification_name": "Sample"}}))
+            url = build_public_storage_url("sample", "image.webp")
+            self.assertEqual(_inline_image_url(url, repo), "data:image/webp;base64,aW1hZ2UtYnl0ZXM=")
+            opener.assert_not_called()
+            config.write_text("{}")
+            with self.assertRaisesRegex(ValueError, "登録済み資格"):
+                _inline_image_url(url, repo)
+
+    @patch("tools.question_review_console.codex_app_server.urllib.request.build_opener")
+    def test_external_root_rejects_individual_file_link_outside_root(self, opener):
+        from scripts.common.image_storage_urls import build_public_storage_url
+
+        with tempfile.TemporaryDirectory() as directory:
+            base = Path(directory)
+            repo = base / "repo"
+            images = base / "external/question_images"
+            images.mkdir(parents=True)
+            outside = base / "outside.webp"
+            outside.write_bytes(b"image-bytes")
+            (images / "image.webp").symlink_to(outside)
+            declared = repo / "output/sample/question_images"
+            declared.parent.mkdir(parents=True)
+            declared.symlink_to(images, target_is_directory=True)
+            config = repo / "config/scrape_presets.json"
+            config.parent.mkdir()
+            config.write_text(json.dumps({"sample": {"qualification_name": "Sample"}}))
+            with self.assertRaisesRegex(ValueError, "保存先の外"):
+                _inline_image_url(build_public_storage_url("sample", "image.webp"), repo)
+            opener.assert_not_called()
+
     def test_fast_mode_is_rejected_before_provider_request(self):
         client = ProtocolClient()
 
