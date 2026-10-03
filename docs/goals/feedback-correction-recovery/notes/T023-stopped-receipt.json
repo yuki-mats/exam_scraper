@@ -1,0 +1,130 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "blocked",
+    "task_id": "T023",
+    "board_path": "/Users/yuki/development/exam_scraper_feedback/docs/goals/feedback-correction-recovery/state.yaml",
+    "changed_files": [
+      "config/qualification_display_catalog.json",
+      "scripts/common/scoped_canonical_context.py",
+      "scripts/pipeline/prepare_firestore_upload.py",
+      "tools/question_review_console/scoped_artifacts.py",
+      "tools/question_review_console/validated_evidence_import.py",
+      "tests/test_scoped_canonical_context.py",
+      "tests/test_question_review_scoped_artifacts.py",
+      "output/user_feedback_response_system/staging/recovery-scoped-2025",
+      "output/user_feedback_response_system/staging/recovery-scoped-2025/private",
+      "output/user_feedback_response_system/staging/recovery-scoped-2025/private/manifest.json",
+      "output/user_feedback_response_system/staging/recovery-scoped-2025/private/merged.json",
+      "output/user_feedback_response_system/staging/recovery-scoped-2025/private/converted.json",
+      "output/user_feedback_response_system/staging/recovery-scoped-2025/private/uploadReady.json",
+      "output/user_feedback_response_system/staging/recovery-scoped-2025/evidence-import.json",
+      "output/user_feedback_response_system/staging/recovery-scoped-2025/unit-verification-attempt-1.json",
+      "output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T023-9d4541d0b5b1/start-fingerprint.json",
+      "output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T023-9d4541d0b5b1/e2e-diagnostic-before.json",
+      "output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T023-9d4541d0b5b1/subscription-runtime.json",
+      "output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T023-9d4541d0b5b1/stopped-verification-summary.json"
+    ],
+    "commands": [
+      {
+        "command": "指定PyYAML interpreterによるT023全定義とT022 worker_package読み取り",
+        "status": "pass"
+      },
+      {
+        "command": "開始fingerprint保存とpermission_only_paths補正",
+        "status": "pass",
+        "note": "start-fingerprint.jsonに補正前の内容SHA256を保存。既存private内容は不変で、指定directory700/file600へchmodのみ実施。"
+      },
+      {
+        "command": "PYTHONUNBUFFERED=1で同一E2E fixtureの実prepare_firestore_upload.pyを30秒制限で再現",
+        "status": "pass",
+        "exit_code": 0,
+        "note": "未修正pipelineが5.228秒で完了。merge・convert・count・upload dry-runのstdout、command、開始終了時刻をe2e-diagnostic-before.jsonへ保存。旧timeout原因は未確定で、修復したとは扱わない。"
+      },
+      {
+        "command": "CodexAppServerClient.assert_subscription_access(force=True, allow_existing_credits=False)",
+        "status": "pass",
+        "note": "subscription-runtime.jsonへ実応答を保存。allowed=true、existingCreditsApproved=false、standardMode=true、provider=Codex App Server。要求2026-10-03T12:53:15.339260+00:00、応答2026-10-03T12:53:16.934726+00:00。model turnは未実行。"
+      },
+      {
+        "command": "/Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_scoped_canonical_context.py'",
+        "status": "pass",
+        "exit_code": 0,
+        "note": "関連試験として8testsが成功。その後artifact fixture修復でsource fixtureへexamYearと補足問題field形状を変更しており、最終状態の再実行は未実施。"
+      },
+      {
+        "command": "/Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_scoped_artifacts.py'",
+        "status": "fail",
+        "exit_code": 1,
+        "note": "関連試験3回とも5testsのsetUp失敗。初回examYear欠落、修復1はexamYear=2026追加、次に補足問題entry形状違反。修復2はchoiceIndex/itemsへ変更したが、空itemsが既存contract違反。最後の実errorはsuggestedQuestionDetailsByChoice[0].items must contain 1 to 3 entries。fixture初期化の問題で、production不具合の証明ではない。"
+      },
+      {
+        "command": "/Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_validated_evidence_import.py'",
+        "status": "not_run",
+        "note": "T023では未実行。"
+      },
+      {
+        "command": "/Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_primary_law_evidence.py'",
+        "status": "not_run",
+        "note": "T023では未実行。"
+      },
+      {
+        "command": "/Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_inventory.py'",
+        "status": "not_run",
+        "note": "catalog一項目追加後の再検証は未実行。"
+      },
+      {
+        "command": "/Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_projection.py'",
+        "status": "not_run"
+      },
+      {
+        "command": "PYTHONUNBUFFERED=1 /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_artifact_sync_e2e.py'",
+        "status": "not_run",
+        "note": "同一fixtureのpipeline直接診断は成功したが、指定suite自体はT023で未実行。"
+      },
+      {
+        "command": "/Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_evaluation.py'",
+        "status": "not_run"
+      },
+      {
+        "command": "/Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_publisher_safety.py'",
+        "status": "not_run"
+      },
+      {
+        "command": "/Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/staging/recovery-scoped-2025/verify_integration.py",
+        "status": "not_run",
+        "note": "旧scriptの新run対応改修も未完了。旧成果物を上書きするため現状のまま実行していない。"
+      },
+      {
+        "command": "git diff --check",
+        "status": "pass",
+        "exit_code": 0
+      },
+      {
+        "command": "git status --short",
+        "status": "pass",
+        "exit_code": 0,
+        "note": "T021途中差分を保全。Workerによるboard・commit・remote変更なし。"
+      },
+      {
+        "command": "停止時の固定fileとWORK status照合",
+        "status": "pass_with_concurrent_change",
+        "note": "T015132file不一致0、canonical基準251file不一致0、旧private内容不一致0。WORK statusへnw/201302のquestionType_fixed_1/_2の2行が追加された。WorkerはWORKを書き換えていない。"
+      }
+    ],
+    "summary": "T021差分を引継ぎ、catalog一項目、category正本・membership・code依存hash、private安全保存、段階診断とmutation試験を追加した。未修正実pipelineは5.23秒で成功し、真正subscription判定はallowed。artifact試験fixtureを2回修復しても空items違反が残り、契約に従い停止した。旧private内容・T015132・canonical251は不変。全9suite、strictlaw、2系統生成、実preview・loader接続は未完了。正式保存・評価・Firestore writeは実施していない。",
+    "remaining_blockers": [
+      "artifact試験fixtureが既存suggested_question_contractを満たしていない。scripts/common/suggested_question_contract.py:46-55ではトップレベル空配列[]は受理されるが、entryを持つ場合はchoiceIndex/itemsが必須。71-75ではitemsが1〜3件必要。fixture用途ならトップレベル[]が適切な候補であり、未修正。",
+      "2修復後も5testsがsetUpで失敗したため、これ以上のWorker修復は停止した。mutation assertions自体は未到達。",
+      "追加category/membership/code依存hashと安全保存の実canonical生成は未検証。native assistant event照合強化も実取込で未検証。",
+      "完成時9suite一回の検証、strict law coverage、正式現状とprivate候補の各2回生成、全field一致、実ArtifactSynchronizer・Coordinator・Inventory・evaluation/publisher preview・canonical loader実証は未実施。",
+      "旧verify_integration.pyは新runs保存先とT023契約へ改修が必要。旧private成果物・receiptを上書きしてはならない。",
+      "旧E2E timeoutの原因は不明。今回の同一実pipeline成功と新段階診断は別事実として扱う。指定E2E suiteの最終実行は未実施。",
+      "WORK statusが開始から変化した。追加行はoutput/nw/questions_json/201302/10_questionType_fixed/question_201302_1_questionType_fixed.jsonとquestion_201302_2_questionType_fixed.json。次taskは新しい開始状態を固定する必要がある。",
+      "subscription実判定は成功したが、真正工程checkpoint・追加4field正式承認・真正評価合格・公開準備を証明しない。",
+      "T021から引継いだ未完成差分を含めて次taskで継続する。今回のchanged_filesはT023編集とpermission補正、新証跡の範囲。"
+    ],
+    "needs_judge": false,
+    "verification_attempts": 3,
+    "stopped_because": "artifact回帰fixtureの検証が2回の修復後にも失敗したためWorker hard contractで停止。停止時にはWORK開始statusの同時変更も観測し、T023の同時変更停止条件にも該当した。"
+  }
+}
