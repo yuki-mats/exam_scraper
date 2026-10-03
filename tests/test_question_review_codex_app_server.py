@@ -1,6 +1,7 @@
 import copy
 import io
 import json
+import hashlib
 import os
 import tempfile
 import threading
@@ -3049,7 +3050,7 @@ class AppServerTurnTests(unittest.TestCase):
     def test_turn_attaches_unique_https_images_after_prompt(self, inline_image):
         client = ProtocolClient()
 
-        client.run_turn(
+        result = client.run_turn(
             "inspect the diagram",
             work_type="maintenance_correct_choice_candidate",
             sandbox="read-only",
@@ -3077,6 +3078,10 @@ class AppServerTurnTests(unittest.TestCase):
             ],
         )
         self.assertEqual(inline_image.call_count, 2)
+        self.assertEqual([item["sha256"] for item in result.image_inputs],
+                         [hashlib.sha256(b"\x01").hexdigest(), hashlib.sha256(b"\x02").hexdigest()])
+        self.assertEqual([item["byteCount"] for item in result.image_inputs], [1, 1])
+        self.assertEqual([item["attachmentIndex"] for item in result.image_inputs], [0, 1])
 
     @patch("tools.question_review_console.codex_app_server.urllib.request.build_opener")
     def test_inline_image_preserves_bytes_and_rejects_invalid_downloads(self, build_opener):

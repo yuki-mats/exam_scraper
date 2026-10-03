@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import base64
 import copy
+import hashlib
 import json
 import math
 import mimetypes
@@ -363,6 +364,7 @@ class AppServerTurnResult:
     model: str
     service_tier: str | None
     reasoning_effort: str = TURN_REASONING_EFFORT
+    image_inputs: tuple[Mapping[str, Any], ...] = ()
     changed_files: tuple[str, ...] = ()
     subagent_thread_ids: tuple[str, ...] = ()
     subagent_models: tuple[str, ...] = ()
@@ -1987,10 +1989,19 @@ class CodexAppServerClient:
         turn_input: list[dict[str, Any]] = [
             {"type": "text", "text": prompt, "text_elements": []}
         ]
-        turn_input.extend(
-            {"type": "image", "url": _inline_image_url(image_url, self.repo_root)}
-            for image_url in normalized_image_urls
-        )
+        image_inputs: list[dict[str, Any]] = []
+        for image_url in normalized_image_urls:
+            inline_url = _inline_image_url(image_url, self.repo_root)
+            header, encoded = inline_url.split(",", 1)
+            body = base64.b64decode(encoded, validate=True)
+            image_inputs.append({
+                "sourceUrl": image_url,
+                "attachmentIndex": len(image_inputs),
+                "mimeType": header.removeprefix("data:").removesuffix(";base64"),
+                "byteCount": len(body),
+                "sha256": hashlib.sha256(body).hexdigest(),
+            })
+            turn_input.append({"type": "image", "url": inline_url})
         params: dict[str, Any] = {
             "threadId": thread_id,
             "input": turn_input,
@@ -2224,6 +2235,7 @@ class CodexAppServerClient:
             model=actual_model,
             service_tier=service_tier if isinstance(service_tier, str) else None,
             reasoning_effort=reasoning_effort,
+            image_inputs=tuple(image_inputs),
             changed_files=tuple(sorted(state.changed_files)),
             subagent_thread_ids=tuple(sorted(state.subagent_thread_ids)),
             subagent_models=tuple(sorted(state.subagent_models)),

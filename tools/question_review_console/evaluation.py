@@ -49,6 +49,90 @@ TRUE_LABELS = {"正しい", "正解", "○", "〇", "true"}
 FALSE_LABELS = {"間違い", "不正解", "誤り", "×", "false"}
 
 
+IMAGE_INPUT_SCHEMA = "question-evaluation-image-input/v1"
+
+
+def _audit_image_bindings(questions: Iterable[Mapping[str, Any]]) -> list[dict[str, Any]]:
+    """Bind declared images to their own question and choice; deduplicate transport only."""
+    bindings: list[dict[str, Any]] = []
+    urls: list[str] = []
+    for question in questions:
+        projected = question.get("projected")
+        projected = projected if isinstance(projected, Mapping) else {}
+        for field, role in (("questionImageStorageUrls", "question"),
+                            ("originalQuestionChoiceImageUrls", "choices")):
+            declared = projected.get(field) or question.get(field) or []
+            for position, value in enumerate(declared):
+                indexed_choice = role == "choices" and isinstance(value, list)
+                values = value if isinstance(value, list) else [value]
+                for raw_url in values:
+                    url = str(raw_url or "").strip()
+                    if not url:
+                        continue
+                    if not url.startswith("https://"):
+                        raise EvaluationError("評価画像の参照はhttpsに限定してください。")
+                    if url not in urls:
+                        urls.append(url)
+                    bindings.append({
+                        "questionId": str(question["id"]),
+                        "stateHash": str(question["stateHash"]),
+                        "role": "choice" if indexed_choice else role,
+                        "choiceIndex": position if indexed_choice else None,
+                        "sourceUrl": url,
+                        "attachmentIndex": urls.index(url),
+                    })
+    return bindings
+
+
+def _image_urls(bindings: Iterable[Mapping[str, Any]]) -> list[str]:
+    return list(dict.fromkeys(str(item["sourceUrl"]) for item in bindings))
+
+
+def _image_input_receipt(question: Mapping[str, Any], metadata: Mapping[str, Any]) -> dict[str, Any]:
+    bindings = [dict(item) for item in metadata.get("imageBindings") or []
+                if item.get("questionId") == question["id"]]
+    urls = _image_urls(bindings)
+    return {
+        "schemaVersion": IMAGE_INPUT_SCHEMA,
+        "bindings": bindings,
+        "attachments": [dict(item) for item in metadata.get("imageInputs") or []
+                        if item.get("sourceUrl") in urls],
+    }
+
+
+def _image_receipt_valid(question: Mapping[str, Any], receipt: Any) -> bool:
+    expected = _audit_image_bindings([question])
+    if not expected:
+        return True
+    if not isinstance(receipt, Mapping) or receipt.get("schemaVersion") != IMAGE_INPUT_SCHEMA:
+        return False
+    bindings = receipt.get("bindings")
+    attachments = receipt.get("attachments")
+    if not isinstance(bindings, list) or not isinstance(attachments, list):
+        return False
+    # Batch attachment indexes are global; semantic ownership is question-local.
+    semantic = lambda items: [{k: v for k, v in item.items() if k != "attachmentIndex"}
+                              for item in items if isinstance(item, Mapping)]
+    if len(bindings) != len(expected) or semantic(bindings) != semantic(expected):
+        return False
+    if len(attachments) != len(_image_urls(expected)):
+        return False
+    by_url = {item.get("sourceUrl"): item for item in attachments if isinstance(item, Mapping)}
+    if len({item.get("attachmentIndex") for item in by_url.values()}) != len(by_url):
+        return False
+    for binding in bindings:
+        item = by_url.get(binding["sourceUrl"])
+        if (not isinstance(item, Mapping)
+                or item.get("attachmentIndex") != binding.get("attachmentIndex")
+                or type(item.get("attachmentIndex")) is not int or item["attachmentIndex"] < 0
+                or type(item.get("byteCount")) is not int or item["byteCount"] <= 0
+                or item.get("mimeType") not in {"image/png", "image/jpeg", "image/webp", "image/gif"}
+                or len(str(item.get("sha256") or "")) != 64
+                or any(c not in "0123456789abcdef" for c in str(item.get("sha256") or ""))):
+            return False
+    return True
+
+
 class EvaluationError(RuntimeError):
     pass
 
@@ -342,6 +426,7 @@ class EvaluationStore:
         policy_version: str,
         policy_fingerprint: str,
         audit_batch: Mapping[str, Any] | None = None,
+        image_input_receipt: Mapping[str, Any] | None = None,
     ) -> dict[str, Any]:
         validated = self._validate_result(question, worker_result)
         payload = {
@@ -364,6 +449,8 @@ class EvaluationStore:
             "evaluatedAt": _now(),
             **validated,
         }
+        if image_input_receipt:
+            payload["imageInputReceipt"] = copy.deepcopy(dict(image_input_receipt))
         if audit_batch:
             payload["auditBatch"] = copy.deepcopy(dict(audit_batch))
         if question.get("scopedArtifactManifest"):
@@ -1126,12 +1213,7 @@ class QuestionEvaluationService:
             question = by_id[str(item["questionId"])]
             projected = question.get("projected")
             projected = projected if isinstance(projected, Mapping) else {}
-            has_images = bool(
-                projected.get("questionImageStorageUrls")
-                or projected.get("originalQuestionChoiceImageUrls")
-                or question.get("questionImageStorageUrls")
-                or question.get("originalQuestionChoiceImageUrls")
-            )
+            has_images = bool(_audit_image_bindings([question]))
             key = (
                 str(question.get("qualification") or ""),
                 str(self.current_policy().get("policyFingerprint") or ""),
@@ -1723,6 +1805,7 @@ class QuestionEvaluationService:
                         "workType": work_type,
                         "phase": "evaluation",
                     },
+                    image_bindings=_audit_image_bindings([question]),
                     choice_count=int(question.get("choiceCount") or 0),
                     model_profile=model_profile,
                 )
@@ -1772,6 +1855,7 @@ class QuestionEvaluationService:
                 work_type=work_type,
                 policy_version=normalize_policy_version(run_policy["policyVersion"]),
                 policy_fingerprint=str(run_policy["policyFingerprint"]),
+                image_input_receipt=_image_input_receipt(question, metadata),
                 audit_batch=(
                     {
                         "questionIds": list(metadata.get("auditBatchQuestionIds") or []),
@@ -1956,6 +2040,9 @@ class QuestionEvaluationService:
         elif not same_policy_major(
             payload.get("policyVersion"), policy.get("policyVersion")
         ):
+            status = "stale"
+        elif (payload.get("status") == "passed" and self.app_server is not None
+              and not _image_receipt_valid(question, payload.get("imageInputReceipt"))):
             status = "stale"
         else:
             status = str(payload.get("status") or "needs_rework")
@@ -2169,6 +2256,7 @@ class QuestionEvaluationService:
         monitor_context: Mapping[str, Any],
         *,
         choice_count: int,
+        image_bindings: list[Mapping[str, Any]] | None = None,
         model_profile: str = "codex_only",
     ) -> tuple[Mapping[str, Any], dict[str, Any]]:
         if self.result_runner is not None:
@@ -2187,6 +2275,7 @@ class QuestionEvaluationService:
         with tempfile.TemporaryDirectory(prefix="question-objective-evaluation-") as directory:
             turn = self.app_server.run_turn(
                 prompt,
+                image_urls=_image_urls(image_bindings or []),
                 work_type=work_type,
                 sandbox="read-only",
                 output_schema=schema,
@@ -2202,6 +2291,8 @@ class QuestionEvaluationService:
         if len(turn.final_message.encode("utf-8")) > 2_000_000:
             raise EvaluationError("Codex App Serverの出力が2MBを超えました。")
         return _extract_json(turn.final_message), {
+            "imageBindings": list(image_bindings or []),
+            "imageInputs": list(turn.image_inputs),
             "threadId": turn.thread_id,
             "sessionId": turn.session_id,
             "turnId": turn.turn_id,
@@ -2211,11 +2302,14 @@ class QuestionEvaluationService:
         }
 
     def _build_batch_prompt(self, questions: list[Mapping[str, Any]]) -> str:
+        bindings = _audit_image_bindings(questions)
         entries = [
             {
                 "questionId": str(question["id"]),
                 "stateHash": str(question["stateHash"]),
-                "evaluationPrompt": self._build_prompt(question),
+                "evaluationPrompt": self._build_prompt(
+                    question, image_bindings=[item for item in bindings
+                                              if item["questionId"] == question["id"]]),
             }
             for question in questions
         ]
@@ -2237,6 +2331,7 @@ class QuestionEvaluationService:
         model_profile: str = "codex_only",
     ) -> tuple[dict[str, Mapping[str, Any]], dict[str, Any]]:
         prompt = self._build_batch_prompt(questions)
+        image_bindings = _audit_image_bindings(questions)
         expected = {
             str(question["id"]): str(question["stateHash"]) for question in questions
         }
@@ -2272,6 +2367,7 @@ class QuestionEvaluationService:
             with tempfile.TemporaryDirectory(prefix="question-objective-audit-batch-") as directory:
                 turn = self.app_server.run_turn(
                     prompt,
+                    image_urls=_image_urls(image_bindings),
                     work_type="evaluation_batch",
                     sandbox="read-only",
                     output_schema=schema,
@@ -2297,6 +2393,8 @@ class QuestionEvaluationService:
             except EvaluationError as exc:
                 raise BatchSchemaError(str(exc)) from exc
             metadata = {
+                "imageBindings": image_bindings,
+                "imageInputs": list(turn.image_inputs),
                 "threadId": turn.thread_id,
                 "sessionId": turn.session_id,
                 "turnId": turn.turn_id,
@@ -2357,6 +2455,7 @@ class QuestionEvaluationService:
         question: Mapping[str, Any],
         *,
         retry_feedback: Mapping[str, Any] | None = None,
+        image_bindings: list[Mapping[str, Any]] | None = None,
     ) -> str:
         policy_relative = Path("prompt/01_prompt_fix_questionType.md")
         policy_path = self.repo_root / policy_relative
@@ -2375,6 +2474,8 @@ class QuestionEvaluationService:
         projected = question.get("projected")
         projected = projected if isinstance(projected, Mapping) else {}
         input_payload = {
+            "imageBindings": (image_bindings if image_bindings is not None
+                              else _audit_image_bindings([question])),
             "reviewKey": question.get("reviewKey"),
             "stateHash": question.get("stateHash"),
             "qualification": question.get("qualification"),
@@ -2433,7 +2534,7 @@ class QuestionEvaluationService:
 10. 問題形式は下記の01正本の判定基準を使い、本文・全選択肢・必要画像から独立に評価する。入力questionTypeと解説の件数は評価対象であって、分類の正本ではない。
 11. 内容から判定した形式と入力questionTypeが異なる場合は、具体的な不一致をcriticalIssuesと01のreworkItemsへ記録する。評価sessionではfieldを書き換えず、01での再判定と必要な後工程の再整備へ戻す。
 12. isCalculationQuestionは計算過程が主要な学習対象かを表し、questionTypeとは独立に評価する。questionTypeから値を推測したり、questionType変更の理由にしたりしない。
-13. questionImageStorageUrls又はoriginalQuestionChoiceImageUrlsが空でなければ、図表画像は問題に添付されている。本文へ図表の文字が転記されていないことだけで画像欠落と判定せず、必要なら渡されたURLの画像を確認して問題と解説を評価する。両方が空で、本文又は選択肢が解答に必要な図表を参照している場合だけ画像欠落を指摘する。
+13. imageBindingsが空でなければ、図表画像は問題に添付されている。本文へ図表の文字が転記されていないことだけで画像欠落と判定せず、imageBindingsのquestionId・role・choiceIndexに対応する実画像を確認して問題と解説を評価する。attachmentIndexはこのturnに添付された画像の0始まり位置であり、URLは帰属識別用である。画像を確認できなければ推測せずinsufficient_evidenceを返す。imageBindingsが空で、本文又は選択肢が解答に必要な図表を参照している場合だけ画像欠落を指摘する。role=choicesは選択肢全体の図表であり、特定の肢へ配列順で割り当てない。role=choiceのchoiceIndexだけが宣言済みの個別肢への帰属を表す。
 14. 法令名、技術基準又は公式規程が背景資料に含まれることだけでisLawRelated=trueとは判定しない。法令の定義、義務、禁止、数値基準又は適用関係そのものが正答を直接決める問題だけを法令問題とする。資格別正本が純粋な技術計算を非法令問題と定めている場合、技術式の裏取りに公式規程を使ったことだけを理由にlawReferencesの追加又は法令工程への再整備を求めない。
 15. 解説を0から100点で評価する。合格は90点以上かつcriticalIssuesが空の場合だけとする。
 15a. すべての基本解説は正誤を一目で確認できるよう、`正しい。`又は`間違い。`で始める。flash_cardとgroup_choiceの問題単位の解説は、確定した正答を説明するため`正しい。`で始める。

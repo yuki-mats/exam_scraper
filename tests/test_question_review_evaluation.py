@@ -13,10 +13,20 @@ from scripts.upload.upload_questions_to_firestore import build_doc_data_base
 from tools.question_review_console.evaluation import (
     EvaluationError,
     QuestionEvaluationService,
+    _audit_image_bindings,
+    _image_input_receipt,
+    _image_receipt_valid,
 )
 from tools.question_review_console.codex_app_server import AppServerTurnResult
 from tools.question_review_console.publisher import PublicationError, QuestionPublisher
 from tools.question_review_console.server import QuestionReviewApplication
+
+
+def image_receipts(urls):
+    return tuple({"sourceUrl": url, "attachmentIndex": index,
+                  "mimeType": "image/png", "byteCount": 1,
+                  "sha256": hashlib.sha256(b"x").hexdigest()}
+                 for index, url in enumerate(urls))
 
 
 def question_payload(*, question_id="api-q1", body="問題1", state_hash="state-1"):
@@ -1373,6 +1383,7 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
                     "thread-evaluation-1", "turn-evaluation-1"
                 )
                 return AppServerTurnResult(
+                    image_inputs=image_receipts(kwargs.get("image_urls", [])),
                     thread_id="thread-evaluation-1",
                     session_id="session-evaluation-1",
                     turn_id="turn-evaluation-1",
@@ -1410,6 +1421,7 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
             receipt_path.unlink()
             missing_receipt_status = service.status_for(question)
 
+        self.assertTrue(_image_receipt_valid(question, result["imageInputReceipt"]))
         self.assertEqual(result["threadId"], "thread-evaluation-1")
         self.assertEqual(result["turnId"], "turn-evaluation-1")
         self.assertEqual(result["sessionId"], "session-evaluation-1")
@@ -1425,6 +1437,7 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
         self.assertEqual(missing_receipt_status["status"], "stale")
         self.assertFalse(missing_receipt_status["publishReady"])
         prompt, kwargs = app_server.calls[0]
+        self.assertEqual(kwargs["image_urls"], ["https://example.invalid/question-image.png"])
         self.assertEqual(kwargs["sandbox"], "read-only")
         self.assertEqual(kwargs["model"], "gpt-5.6-sol")
         self.assertEqual(kwargs["reasoning_effort"], "high")
@@ -1467,6 +1480,7 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
                 kwargs["on_thread_started"]("thread-1", "session-1")
                 kwargs["on_turn_started"]("thread-1", "turn-1")
                 return AppServerTurnResult(
+                    image_inputs=image_receipts(kwargs.get("image_urls", [])),
                     thread_id="thread-1",
                     session_id="session-1",
                     turn_id="turn-1",
@@ -1550,6 +1564,7 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
                 kwargs["on_thread_started"]("thread-1", "session-1")
                 kwargs["on_turn_started"]("thread-1", "turn-1")
                 return AppServerTurnResult(
+                    image_inputs=image_receipts(kwargs.get("image_urls", [])),
                     thread_id="thread-1",
                     session_id="session-1",
                     turn_id="turn-1",
@@ -1794,7 +1809,7 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
         self.assertEqual(result["status"], "passed")
         self.assertEqual(result["verifiedChoiceCount"], 2)
         self.assertTrue(current["publishReady"])
-        self.assertEqual(version_record["stages"]["evaluation"]["version"], "5.3")
+        self.assertEqual(version_record["stages"]["evaluation"]["version"], "5.4")
         self.assertEqual(stale["status"], "stale")
         self.assertFalse(stale["publishReady"])
 
@@ -2036,6 +2051,106 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
         self.assertTrue(all(row["auditBatch"]["questionCount"] == 2 for row in receipts))
         self.assertTrue(all(row["auditBatch"]["inputBytes"] > 0 for row in receipts))
 
+    def test_image_bindings_preserve_ownership_without_binding_flat_table_to_choice(self):
+        first = question_payload()
+        first["projected"]["originalQuestionChoiceImageUrls"] = [
+            "https://example.invalid/table.png"]
+        second = question_payload(question_id="api-q2", state_hash="state-2")
+        second["projected"]["originalQuestionChoiceImageUrls"] = [
+            [], ["https://example.invalid/table.png", "https://example.invalid/b.png"]]
+        bindings = _audit_image_bindings([first, second])
+        self.assertEqual([item["attachmentIndex"] for item in bindings], [0, 1, 0, 1, 2])
+        self.assertEqual(bindings[1]["role"], "choices")
+        self.assertIsNone(bindings[1]["choiceIndex"])
+        self.assertEqual(bindings[3]["questionId"], "api-q2")
+        self.assertEqual(bindings[3]["stateHash"], "state-2")
+        self.assertEqual(bindings[3]["role"], "choice")
+        self.assertEqual(bindings[3]["choiceIndex"], 1)
+        with tempfile.TemporaryDirectory() as directory:
+            service = QuestionEvaluationService(Path(directory), "secret", result_runner=lambda _: {})
+            prompt = service._build_batch_prompt([first, second])
+        self.assertIn('"attachmentIndex\\\": 2', prompt)
+        self.assertNotIn('\\\"correctChoiceText\\\":', prompt)
+        self.assertNotIn('\\\"answer_result_text\\\":', prompt)
+
+    def test_image_batch_schema_retry_uses_new_single_turn_with_same_owned_images(self):
+        class RetryAppServer:
+            configured = True
+            provider = "Codex App Server"
+
+            def __init__(self):
+                self.calls = []
+
+            def run_turn(self, _prompt, **kwargs):
+                self.calls.append(kwargs)
+                number = len(self.calls)
+                if "on_thread_started" in kwargs:
+                    kwargs["on_thread_started"](f"thread-{number}", f"session-{number}")
+                    kwargs["on_turn_started"](f"thread-{number}", f"turn-{number}")
+                return AppServerTurnResult(
+                    thread_id=f"thread-{number}", session_id=f"session-{number}",
+                    turn_id=f"turn-{number}", final_message=json.dumps(
+                        {"evaluations": []} if number == 1 else evaluation_result()),
+                    model=kwargs["model"], service_tier=None,
+                    image_inputs=image_receipts(kwargs["image_urls"]),
+                )
+
+        with tempfile.TemporaryDirectory() as directory:
+            server = RetryAppServer()
+            service = QuestionEvaluationService(Path(directory), "secret", app_server=server)
+            question = question_payload()
+            preview = service.preview_many([question])
+            result = service.run_many([question], preview["previewToken"], lambda _: None)
+            status = service.status_for(question)
+        self.assertEqual(result["passedCount"], 1)
+        self.assertEqual([call["work_type"] for call in server.calls], ["evaluation_batch", "evaluation"])
+        self.assertTrue(all(call["image_urls"] == ["https://example.invalid/question-image.png"]
+                            for call in server.calls))
+        self.assertEqual(status["sessionId"], "session-2")
+        self.assertTrue(_image_receipt_valid(question, status["imageInputReceipt"]))
+
+    def test_image_receipt_requires_exact_question_binding_and_transmitted_bytes(self):
+        question = question_payload()
+        bindings = _audit_image_bindings([question])
+        receipt = _image_input_receipt(question, {
+            "imageBindings": bindings,
+            "imageInputs": image_receipts([bindings[0]["sourceUrl"]]),
+        })
+        self.assertTrue(_image_receipt_valid(question, receipt))
+        for field, value in (("questionId", "other"), ("stateHash", "old"),
+                             ("role", "choice"), ("attachmentIndex", 9)):
+            bad = copy.deepcopy(receipt)
+            bad["bindings"][0][field] = value
+            self.assertFalse(_image_receipt_valid(question, bad))
+        for field, value in (("sha256", ""), ("byteCount", 0), ("mimeType", "text/html")):
+            bad = copy.deepcopy(receipt)
+            bad["attachments"][0][field] = value
+            self.assertFalse(_image_receipt_valid(question, bad))
+        self.assertFalse(_image_receipt_valid(question, None))
+        question["projected"]["questionImageStorageUrls"] = []
+        question["projected"]["originalQuestionChoiceImageUrls"] = [[], []]
+        self.assertEqual(_audit_image_bindings([question]), [])
+        self.assertTrue(_image_receipt_valid(question, None))
+
+    def test_old_image_pass_is_stale_but_rework_and_image_free_pass_are_preserved(self):
+        with tempfile.TemporaryDirectory() as directory:
+            service = QuestionEvaluationService(Path(directory), "secret", result_runner=lambda _: evaluation_result())
+            question = question_payload()
+            service.run(question, service.preview(question)["previewToken"], lambda _: None)
+            # Existing legacy receipt has session evidence but no image transport evidence.
+            service.app_server = object()
+            with patch.object(service, "_session_receipt_valid", return_value=True):
+                self.assertEqual(service.status_for(question)["status"], "stale")
+                image_free = copy.deepcopy(question)
+                image_free["projected"]["questionImageStorageUrls"] = []
+                self.assertEqual(service.status_for(image_free)["status"], "passed")
+            service.app_server = None
+            service.result_runner = lambda _: evaluation_result(first_verdict="false", status="needs_rework")
+            service.run(question, service.preview(question)["previewToken"], lambda _: None)
+            service.app_server = object()
+            with patch.object(service, "_session_receipt_valid", return_value=True):
+                self.assertEqual(service.status_for(question)["status"], "needs_rework")
+
     def test_app_server_batch_audit_uses_sol(self):
         class FakeAppServer:
             configured = True
@@ -2047,6 +2162,7 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
             def run_turn(self, _prompt, **kwargs):
                 self.calls.append(kwargs)
                 return AppServerTurnResult(
+                    image_inputs=image_receipts(kwargs.get("image_urls", [])),
                     thread_id="thread-audit-batch",
                     session_id="session-audit-batch",
                     turn_id="turn-audit-batch",
@@ -2092,6 +2208,8 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
         self.assertEqual(app_server.calls[0]["model"], "gpt-5.6-sol")
         self.assertEqual(app_server.calls[0]["reasoning_effort"], "high")
         self.assertEqual(app_server.calls[0]["work_type"], "evaluation_batch")
+        self.assertEqual(app_server.calls[0]["image_urls"], ["https://example.invalid/question-image.png"])
+
 
     def test_batch_splits_six_questions_and_preserves_result_order(self):
         calls = []
