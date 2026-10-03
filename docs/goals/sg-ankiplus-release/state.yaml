@@ -66,28 +66,29 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/sg-ankiplus-release/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/sg-ankiplus-release"
 
-active_task: T001
+active_task: T002
 
 tasks:
   - id: "T001"
     type: "pm"
     assignee: "PM"
-    status: "active"
+    status: "done"
     objective: "年度別過去問を全件取得し独立HTML照合・画像検証を完了する。"
     inputs: []
     constraints: []
     expected_output:
       - "証拠と完了状態を区別したreceipt"
     receipt:
-      result: incomplete
-      summary: "再監査で午後解説201問分と解説画像の参照欠落を確認。初回の完了判定を撤回し、取得と検査の修復が必要。"
+      result: done
+      summary: "午後解説201問分と解説図表を復旧。全12回・704問・484ページ・画像332ファイルを照合し、live画像SHA256・source gateが成功。全704問のID・位置・正答番号を維持。"
       evidence:
         - "docs/goals/sg-ankiplus-release/notes/T001-acquisition-receipt.md"
         - "document/temporary/audits/sg_scrape_reaudit_20261003.md"
+        - "document/temporary/audits/sg_scrape_recovery_20261004.md"
         - "output/sg/reports/siken_acquisition_audit.json"
         - "tmp/sg_source_quality_gate_20261003.log"
       commands:
-        - cmd: ".venv/bin/python scripts/check/check_sgsiken_acquisition.py sg"
+        - cmd: ".venv/bin/python scripts/check/check_sgsiken_acquisition.py sg --verify-live-images"
           status: pass
         - cmd: ".venv/bin/python tools/question_bank/question_bank.py quality-gate --qualification sg --mode source"
           status: pass
@@ -106,7 +107,7 @@ tasks:
   - id: "T002"
     type: "scout"
     assignee: "Scout"
-    status: "queued"
+    status: "active"
     objective: "整備条件、現行出題範囲、分類、アプリrelease設定をread-onlyで確認する。"
     inputs:
       - "T001 receipt"
@@ -169,6 +170,6 @@ tasks:
 checks:
   dirty_fingerprint: "unknown"
   last_verification:
-    result: "fail"
+    result: "pass"
     task: "T001"
     commands: []
