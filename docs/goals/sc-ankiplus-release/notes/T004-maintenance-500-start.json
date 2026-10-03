@@ -1,0 +1,50 @@
+{
+  "recordedAt": "2026-10-03T15:18:46.851844+00:00",
+  "status": "running_not_complete",
+  "qualification": "sc",
+  "runId": "20261004T001014806835-c38516a2",
+  "startedAt": "2026-10-04T00:10:17+09:00",
+  "commitAtReadback": "39f05e06148acae47ffffe4d0bc53449fe6e4613",
+  "dirtyAtReadback": "M docs/goals/sc-ankiplus-release/state.yaml\n M scrape_sgsiken.py\n M scripts/check/check_sgsiken_acquisition.py\n M scripts/scrape/run_qualification_scrape.py\n M tests/test_check_sgsiken_acquisition.py\n M tests/test_run_qualification_scrape_source_refresh.py\n M tests/test_scrape_sgsiken.py\n?? docs/goals/sc-ankiplus-release/notes/",
+  "targetQuestionCount": 500,
+  "candidateQuestionCount": 1760,
+  "selectedGroupCount": 32,
+  "excludedGroup": "200901",
+  "excludedReason": "午前Ⅱ問5の解説画像404により取得更新未完了。55問をこのrunから保留。",
+  "questionConcurrency": 500,
+  "modelLimits": {
+    "questionParallelism": 500,
+    "llmCallConcurrency": 500,
+    "effectiveQuestionConcurrency": 500,
+    "auditBatchQuestions": 5,
+    "auditBatchInputBytes": 120000
+  },
+  "llmProfileFingerprint": "sha256:316b6454ca836bc218bf8a721d6d7bc0edb9ce9c7ba65e6082c99dbc44d90c58",
+  "model": null,
+  "workItemCount": 3000,
+  "questionStateCounts": {
+    "preparing": 500
+  },
+  "observedAggregateReviewTurnIdCount": 499,
+  "concurrentModelTurnPeak": 0,
+  "peakIsNotEstimatedFromReservations": true,
+  "sourceHashesMatchPreviousVerification": true,
+  "sourceFileCount": 99,
+  "existingCreditsApproved": false,
+  "maintenanceCompleted": false,
+  "published": false,
+  "manifestPath": "output/question_review_console/workflow_runs/sc/20261004T001014806835-c38516a2/manifest.json",
+  "planHash": "e1ac0329384c01b7092f5643c87625ce66347198ce7d68b69a37efcd6948d164",
+  "baselineHash": null,
+  "sourceHashReceipt": "output/sc/reports/validation_receipt.json",
+  "systemUrl": "http://127.0.0.1:63150/?qualification=sc",
+  "monitorUrl": "http://127.0.0.1:63150/monitor?qualification=sc",
+  "screenshotPath": "output/sc/reports/maintenance_500_started.jpg",
+  "targetTests": {
+    "passed": 7,
+    "subtestsPassed": 8,
+    "deselected": 238,
+    "command": "pytest tests/test_question_review_hybrid_llm.py tests/test_question_review_qualification_runs.py -q -k \"concurrency or above_one_hundred or five_hundred\""
+  },
+  "fullVerification": "run終端後のartifactSync・quality gate・別session評価で確認。未完了。"
+}
