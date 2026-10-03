@@ -31,63 +31,246 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nアキュムレータは演算途中の値を保持するレジスタであり、フェッチされた命令そのものを格納する場所ではない。",
-      "間違い。\n\nデータキャッシュは主にデータを高速参照するための記憶であり、命令フェッチ直後の命令格納先を示してはいない。",
-      "間違い。\n\nプログラムカウンタは次に取り出す命令の主記憶アドレスを保持する。フェッチされた命令語を格納する場所ではない。",
-      "正しい。\n\n命令フェッチでは、プログラムカウンタが示す主記憶上の命令語を命令レジスタへ取り込む。したがって a は命令レジスタである。"
-    ],
-    "suggestedQuestions": [
-      "フェッチとデコードの違いは何ですか？",
-      "プログラムカウンタは何を保持しますか？",
-      "命令レジスタの役割は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "フェッチとデコードの違いは何ですか？",
-        "answer": "フェッチは命令を取り出す段階、デコードは取り出した命令の意味を解釈する段階である。"
-      },
-      {
-        "question": "プログラムカウンタは何を保持しますか？",
-        "answer": "次に実行すべき命令が格納されている主記憶アドレスを保持する。"
-      },
-      {
-        "question": "命令レジスタの役割は何ですか？",
-        "answer": "フェッチされた命令語を一時保持し、後続のデコードや実行段階へ渡すことにある。"
-      }
+      "正しい。主記憶からフェッチされた命令を一時的に保持するのは命令レジスタである。プログラムカウンタは次にフェッチする命令のアドレスを保持し、命令デコーダは命令レジスタの内容を解読する。したがって、図のaは命令レジスタである。"
     ],
     "original_question_id": "f3d8c0f240595be8",
     "question_url": "https://www.nw-siken.com/kakomon/01_aki/am2_22.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201902:f3d8c0f240595be8",
+    "reviewQuestionId": "f3d8c0f240595be8",
+    "sourceRecordRef": "question_201902_3.json#1",
+    "explanationReferences": [],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "主記憶からフェッチした命令を保持する構成要素を問う、プロセッサアーキテクチャ上の技術問題である。法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "アキュムレーターではなく、命令を保持する構成要素は命令レジスタである。",
+          "promptContext": "プロセッサ構成要素に関する技術問題である。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "データキャッシュではなく、命令を保持する構成要素は命令レジスタである。",
+          "promptContext": "プロセッサ構成要素に関する技術問題である。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "プログラムレジスタは次にフェッチする命令のアドレスを保持し、フェッチされた命令自体は保持しない。",
+          "promptContext": "プロセッサ構成要素に関する技術問題である。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "命令レジスタは主記憶からフェッチされた命令を一時的に保持する。",
+          "promptContext": "プロセッサ構成要素に関する技術問題である。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "正しい。\n\nピアツーピアでは中央集権的な管理サーバがないか弱いため、利用者管理やセキュリティ管理を一元的に行いにくい。匿名性や隠蔽性が高くなりやすい点も特徴である。",
-      "間違い。\n\n特定のコンピュータがサービス提供と管理を担う明確な役割分担は、クライアントサーバシステムの特徴である。",
-      "間違い。\n\n負荷が一台の監視コンピュータへ集中するという説明も、中央管理型の構成を前提としており、ピアツーピアの特徴ではない。",
-      "間違い。\n\nピアツーピアではデータが分散配置されやすく、所在把握や更新・削除の一元管理は容易ではない。"
-    ],
-    "suggestedQuestions": [
-      "ピアツーピアとクライアントサーバの違いは何ですか？",
-      "なぜ管理が難しくなりますか？",
-      "実務での利点は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ピアツーピアとクライアントサーバの違いは何ですか？",
-        "answer": "前者は端末同士が対等に資源提供と利用を行い、後者はサーバが中心となって資源を提供する。"
-      },
-      {
-        "question": "なぜ管理が難しくなりますか？",
-        "answer": "認証、アクセス権、更新、ログ管理を一か所で強制しにくく、端末ごとの差異も生じやすいからである。"
-      },
-      {
-        "question": "実務での利点は何ですか？",
-        "answer": "中央サーバへの依存を減らし、参加ノードの増加に応じて資源も分散的に増やせる点である。"
-      }
+      "正しい。ピアツーピアでは各コンピュータが対等に接続し、管理を一台のコンピュータへ集約しない。そのため、利用者やセキュリティを一元管理しにくく、不特定多数が匿名で接続できる構成になりやすい。",
+      "間違い。正しくは、ピアツーピアでは各コンピュータがサービスを提供する側にも利用する側にもなる。選択肢は特定のコンピュータがサービス提供と管理を担い、他のコンピュータが利用するとしているため、クライアントサーバシステムの説明である。",
+      "間違い。正しくは、ピアツーピアでは処理や管理を複数のコンピュータに分散できるため、負荷が一台の監視用コンピュータへ集中するとは限らない。選択肢は中央のコンピュータに負荷が集中する構成を説明している。",
+      "間違い。正しくは、ピアツーピアではデータが複数のコンピュータに分散して保存されるため、目的のデータの所在を一元的に把握しにくく、更新や削除も容易ではない。選択肢はデータを中央で管理する構成の説明である。"
     ],
     "original_question_id": "7a4197836844f9e2",
     "question_url": "https://www.nw-siken.com/kakomon/01_aki/am2_23.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201902:7a4197836844f9e2",
+    "reviewQuestionId": "7a4197836844f9e2",
+    "sourceRecordRef": "question_201902_3.json#2",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "技術知識で判断するピアツーピアシステムの構成問題であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の比較対象となる法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ピアツーピアの構成上の特徴に基づく技術的判定であり、法令根拠は不要である。",
+          "promptContext": "ピアツーピアシステムの特徴。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外。技術知識により判定。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の比較対象となる法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "クライアントサーバシステムとの構成上の違いに基づく技術的判定であり、法令根拠は不要である。",
+          "promptContext": "ピアツーピアとクライアントサーバの役割分担。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。技術知識により判定。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の比較対象となる法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "処理や管理を分散できるピアツーピアの特徴に基づく技術的判定であり、法令根拠は不要である。",
+          "promptContext": "ピアツーピアにおける負荷分散。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。技術知識により判定。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の比較対象となる法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "データの分散配置に関するピアツーピアの特徴に基づく技術的判定であり、法令根拠は不要である。",
+          "promptContext": "ピアツーピアにおけるデータ所在と管理。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。技術知識により判定。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [

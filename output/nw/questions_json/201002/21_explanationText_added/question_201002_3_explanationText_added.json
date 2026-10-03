@@ -91,33 +91,123 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nタイヤと自動車は全体と部分の関係なので part-of であり、is-a ではない。",
-      "間違い。\n\n表の組合せでは人間と動物、辞書と書物の関係が is-a に対応しないため誤りである。",
-      "正しい。\n\nタイヤは自動車の一部なので part-of、人間は動物であるので is-a、辞書は書物であるので is-a となる。この組合せが適切である。",
-      "間違い。\n\n辞書と書物は『辞書は書物である』の is-a 関係であり、part-of にはならない。"
-    ],
-    "suggestedQuestions": [
-      "is-aとpart-ofの違いは何ですか？",
-      "汎化と集約はどう対応しますか？",
-      "辞書と書物がis-aになる理由は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "is-aとpart-ofの違いは何ですか？",
-        "answer": "is-a は『…は○○である』という種類の関係、part-of は『…は○○の一部である』という部分関係である。"
-      },
-      {
-        "question": "汎化と集約はどう対応しますか？",
-        "answer": "汎化・特化が is-a、集約・分解が part-of の代表的な対応である。"
-      },
-      {
-        "question": "辞書と書物がis-aになる理由は何ですか？",
-        "answer": "辞書は書物という上位概念の一種として扱えるからである。"
-      }
+      "正しい。該当する組合せはウである。is-aは「XはYの一種」という上位・下位の関係で、part-ofは「XはYを構成する一部」という全体・部分の関係である。タイヤと自動車はpart-of、人間と動物はis-a、辞書と書物はis-aに当たるため、この組合せが適切である。"
     ],
     "original_question_id": "3836ca9418b40c03",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_24.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201002:3836ca9418b40c03",
+    "reviewQuestionId": "3836ca9418b40c03",
+    "sourceRecordRef": "question_201002_3.json#3",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "オブジェクト指向の一般的な技術概念を問う問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "is-aとpart-ofの関係を表の組合せに照合した。",
+          "promptContext": "法令監査対象外の技術肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判定し、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "is-aとpart-ofの関係を表の組合せに照合した。",
+          "promptContext": "法令監査対象外の技術肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判定し、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "is-aとpart-ofの関係を表の組合せに照合した。",
+          "promptContext": "法令監査対象外の技術肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識で判定し、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "is-aとpart-ofの関係を表の組合せに照合した。",
+          "promptContext": "法令監査対象外の技術肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判定し、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [

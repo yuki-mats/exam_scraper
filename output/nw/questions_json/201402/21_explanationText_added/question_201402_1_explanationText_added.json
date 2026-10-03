@@ -1,33 +1,123 @@
 [
   {
     "explanationText": [
-      "間違い。\n\nABCD を細かく指定し過ぎており、カルノー図で大きくまとめられる項を表し切れていない。",
-      "間違い。\n\n否定の掛かり方が図の 1 のまとまりと一致せず、必要なセルを正しく表現できない。",
-      "間違い。\n\nA・B・D＋B̄・D̄ ではなく、A と B がともに 0 で D が 1 の項を含める必要がある。",
-      "正しい。\n\nカルノー図の 1 をまとめると、B と D が 1 の項と、A と B が 0 で D が 1 の項に簡単化でき、Ā・B̄・D＋B・D となる。"
-    ],
-    "suggestedQuestions": [
-      "カルノー図は何のために使いますか？",
-      "項をまとめるときの基本は何ですか？",
-      "B・D が残るのはなぜですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "カルノー図は何のために使いますか？",
-        "answer": "真になるセルを隣接グループ化し、論理式を簡略化するために使う。"
-      },
-      {
-        "question": "項をまとめるときの基本は何ですか？",
-        "answer": "1 のセルを 2 のべき乗個でまとめ、変化しない変数だけを項へ残す。"
-      },
-      {
-        "question": "B・D が残るのはなぜですか？",
-        "answer": "大きなグループで B=1 と D=1 が共通し、A や C は変化して消えるからである。"
-      }
+      "正しい。カルノー図の1を隣接するセルでまとめると、AB=00の端でつながる2セルから\\(\\overline{A}\\overline{B}\\overline{D}\\)、AB=01と11の4セルから\\(BD\\)が得られる。したがって、等価な論理式は\\(\\overline{A}\\overline{B}\\overline{D}+BD\\)である。"
     ],
     "original_question_id": "ebdbd5e2dbc57937",
     "question_url": "https://www.nw-siken.com/kakomon/26_aki/am1_1.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201402:ebdbd5e2dbc57937",
+    "reviewQuestionId": "ebdbd5e2dbc57937",
+    "sourceRecordRef": "question_201402_1.json#0",
+    "explanationReferences": [],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "カルノー図と論理式の等価性を判定する問題で、法令条文や制度上の基準を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はカルノー図の1の配置から得られる論理式と一致しない。",
+          "promptContext": "カルノー図と論理式の等価性を判定する。",
+          "refs": [],
+          "verdict": "技術判定済み"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "論理式とカルノー図の対応のみを確認した。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はカルノー図の1の配置から得られる論理式と一致しない。",
+          "promptContext": "カルノー図と論理式の等価性を判定する。",
+          "refs": [],
+          "verdict": "技術判定済み"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "論理式とカルノー図の対応のみを確認した。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はカルノー図の1の配置から得られる論理式と一致しない。",
+          "promptContext": "カルノー図と論理式の等価性を判定する。",
+          "refs": [],
+          "verdict": "技術判定済み"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "論理式とカルノー図の対応のみを確認した。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "AB=00の端でつながる2セルから\\(\\overline{A}\\overline{B}\\overline{D}\\)、AB=01と11の4セルから\\(BD\\)が得られ、この論理式と一致する。",
+          "promptContext": "カルノー図と論理式の等価性を判定する。",
+          "refs": [],
+          "verdict": "技術判定済み"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "論理式とカルノー図の対応のみを確認した。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -91,10 +181,10 @@
   },
   {
     "explanationText": [
-      "間違い。主記憶と常に一致させながら書き込むのはライトスルー方式である。選択肢は、ライトバック方式の目的をライトスルー方式の特徴としているため誤りである。",
-      "間違い。ライトバック方式でも、変更されたデータをキャッシュから追い出すときなどに主記憶へ書き戻す必要がある。選択肢は、キャッシュミス時に書き戻しが不要になるとしているため誤りである。",
+      "間違い。主記憶と常に一致させながら書き込むのはライトスルー方式である。選択肢は、ライトスルー方式の特徴をライトバック方式の目的としているため誤りである。",
+      "間違い。ライトバック方式では、変更されたデータをキャッシュから追い出すときなどに主記憶へ書き戻す必要がある。選択肢は、キャッシュミスが発生しても主記憶への書き戻しが不要になるとしているため誤りである。",
       "間違い。マルチプロセッサシステムでキャッシュ管理の回路構成を簡単にしやすいのはライトスルー方式である。選択肢は、ライトバック方式の方がライトスルー方式より簡単だとしているため誤りである。",
-      "正しい。ライトバック方式は、書込み内容をいったんキャッシュに保持し、必要な時点でまとめて主記憶へ反映する。そのため、プロセッサから主記憶へ直接書き込む頻度を減らせる。"
+      "正しい。ライトバック方式は、書込み内容をいったんキャッシュに保持し、必要な時点で主記憶へ反映する。そのため、プロセッサから主記憶へ書き込む頻度を減らせる。"
     ],
     "original_question_id": "1b5036fa881ae095",
     "question_url": "https://www.nw-siken.com/kakomon/26_aki/am1_4.html",
@@ -304,33 +394,123 @@
   },
   {
     "explanationText": [
-      "正しい。\n\n3年後の顧客数は 8000×1.2^3=13,824 人。3 桁なら 26^3=17,576 通りあるので全員へ割り当て可能で、これが最小桁数である。",
-      "間違い。\n\n4 桁なら十分足りるが、3 桁でも足りるので最少ではない。",
-      "間違い。\n\n5 桁は必要以上に多い。",
-      "間違い。\n\n6 桁はさらに過大であり、最小桁数ではない。"
-    ],
-    "suggestedQuestions": [
-      "26^3 はいくつですか？",
-      "3年後の顧客数はどう見積もりますか？",
-      "最小桁数はどう判断しますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "26^3 はいくつですか？",
-        "answer": "26×26×26 なので 17,576 通りである。"
-      },
-      {
-        "question": "3年後の顧客数はどう見積もりますか？",
-        "answer": "毎年2割増なので、現在人数へ 1.2 を3回掛ける。"
-      },
-      {
-        "question": "最小桁数はどう判断しますか？",
-        "answer": "必要人数以上の通り数を持つ最初の桁数を選ぶ。"
-      }
+      "正しい。3年後の顧客数は、毎年2割増なので\n\\[8000\\times1.2^3=13,824\\text{人}\\]\n顧客コードを\\(n\\)桁とすると、組合せ数は\\(26^n\\)通りである。2桁では\\(26^2=676\\)通りにとどまるが、3桁なら\\(26^3=17,576\\)通りあり、3年後の顧客全員に割り当てられる。したがって、最も少ない桁数は3桁である。"
     ],
     "original_question_id": "b2a0680c0e0d37a8",
     "question_url": "https://www.nw-siken.com/kakomon/26_aki/am1_8.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201402:b2a0680c0e0d37a8",
+    "reviewQuestionId": "b2a0680c0e0d37a8",
+    "sourceRecordRef": "question_201402_1.json#7",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "顧客数の増加とコードの組合せ数を比較する数学・情報処理の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は顧客数の増加計算とコード数の比較で判定し、法令を根拠としない。",
+          "promptContext": "顧客コードの必要桁数を求める計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "数学・情報処理問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は顧客数の増加計算とコード数の比較で判定し、法令を根拠としない。",
+          "promptContext": "顧客コードの必要桁数を求める計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "数学・情報処理問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は顧客数の増加計算とコード数の比較で判定し、法令を根拠としない。",
+          "promptContext": "顧客コードの必要桁数を求める計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "数学・情報処理問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は顧客数の増加計算とコード数の比較で判定し、法令を根拠としない。",
+          "promptContext": "顧客コードの必要桁数を求める計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "数学・情報処理問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -484,7 +664,7 @@
   },
   {
     "explanationText": [
-      "正しい。サブネットワークアドレスは、IPアドレスとサブネットマスクの論理積で求める。255.255.252.0はプレフィックス長が/22で、第三オクテットのブロック幅は次のように4となる。\n\\[256-252=4\\]\n第三オクテット123を4で割った整数部分は30なので、サブネットワークの第三オクテットは次のように求められる。\n\\[\\lfloor 123/4\\rfloor\\times4=30\\times4=120\\]\nしたがって、IPアドレス172.30.123.45が属するサブネットワークアドレスは172.30.120.0である。"
+      "正しい。サブネットワークアドレスは、IPアドレスとサブネットマスクの論理積で求める。255.255.252.0では第三オクテットのブロック幅が次のように4になる。\n\\[256-252=4\\]\n第三オクテットの123が、4のどの範囲に入るかを計算する。\n\\[\\lfloor 123/4\\rfloor\\times4=30\\times4=120\\]\nしたがって、第三オクテットは120となり、ホスト部に当たる第四オクテットは0になる。サブネットワークアドレスは172.30.120.0である。"
     ],
     "original_question_id": "fba3015fe9cd7c79",
     "question_url": "https://www.nw-siken.com/kakomon/26_aki/am1_11.html",
@@ -494,7 +674,113 @@
     "sourceRecordRef": "question_201402_1.json#10",
     "explanationReferences": [],
     "questionLearningPatternId": "calculation",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "サブネットマスクとIPアドレスのビット計算で判定する通信プロトコル・ネットワーク技術の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "該当選択肢はサブネットマスク計算に関する技術知識で判定する。",
+          "promptContext": "サブネットマスクとIPアドレスの計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "該当選択肢はサブネットマスク計算に関する技術知識で判定する。",
+          "promptContext": "サブネットマスクとIPアドレスの計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "該当選択肢はサブネットマスク計算に関する技術知識で判定する。",
+          "promptContext": "サブネットマスクとIPアドレスの計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "該当選択肢はサブネットマスク計算に関する技術知識で判定する。",
+          "promptContext": "サブネットマスクとIPアドレスの計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -678,70 +964,256 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n進捗状況はプロジェクト管理の対象であり、構成品目そのものではない。",
-      "間違い。\n\nレビュー実施結果は品質管理情報であり、構成管理の代表項目ではない。",
-      "正しい。\n\n構成管理では成果物の版数や変更履歴を管理するため、プログラムのバージョンは典型的な対象項目である。",
-      "間違い。\n\nプロジェクト組織の編成は体制管理の情報であり、構成管理の中心対象ではない。"
-    ],
-    "suggestedQuestions": [
-      "構成管理では何を管理しますか？",
-      "進捗管理との違いは何ですか？",
-      "バージョン管理が重要なのはなぜですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "構成管理では何を管理しますか？",
-        "answer": "プログラム、設計書、設定、版数、変更履歴など成果物の構成要素を管理する。"
-      },
-      {
-        "question": "進捗管理との違いは何ですか？",
-        "answer": "進捗管理は作業の進み具合、構成管理は成果物の版や内容の整合を管理する。"
-      },
-      {
-        "question": "バージョン管理が重要なのはなぜですか？",
-        "answer": "どの版が正式かを追跡でき、変更の影響や差戻しを安全に扱えるからである。"
-      }
+      "間違い。正しくは、開発作業の進捗状況はプロジェクトの進捗管理で扱う情報である。選択肢は構成管理の対象項目としているため誤りである。",
+      "間違い。正しくは、レビューの実施結果は品質管理やレビュー管理で扱う情報である。選択肢は構成管理の対象項目としているため誤りである。",
+      "正しい。構成管理では、成果物を識別し、版数や変更履歴を管理する。プログラムのバージョンは構成管理の代表的な対象項目である。",
+      "間違い。正しくは、プロジェクト組織の編成はプロジェクトの体制管理で扱う情報である。選択肢は構成管理の対象項目としているため誤りである。"
     ],
     "original_question_id": "431356284e1d2b7b",
     "question_url": "https://www.nw-siken.com/kakomon/26_aki/am1_18.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201402:431356284e1d2b7b",
+    "reviewQuestionId": "431356284e1d2b7b",
+    "sourceRecordRef": "question_201402_1.json#17",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "構成管理は成果物やプログラムのバージョンなどを識別・管理する技術・マネジメント上の論点であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の正誤は法令ではなく、構成管理と進捗管理の役割分担で決まる。",
+          "promptContext": "問題文と選択肢を結合した命題を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。構成管理に関する技術・マネジメント知識で判定した。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の正誤は法令ではなく、構成管理と品質管理・レビュー管理の役割分担で決まる。",
+          "promptContext": "問題文と選択肢を結合した命題を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。構成管理に関する技術・マネジメント知識で判定した。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の正誤は法令ではなく、構成管理における版数・変更履歴の管理で決まる。",
+          "promptContext": "問題文と選択肢を結合した命題を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外。構成管理に関する技術・マネジメント知識で判定した。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の正誤は法令ではなく、構成管理とプロジェクト体制管理の役割分担で決まる。",
+          "promptContext": "問題文と選択肢を結合した命題を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。構成管理に関する技術・マネジメント知識で判定した。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n時間外勤務は投入工数を増やす手段であり、ファストトラッキングではない。",
-      "間違い。\n\n開発ツール導入は生産性向上策であり、工程の並行化とは別である。",
-      "正しい。\n\nファストトラッキングは順番に行う予定だった作業を部分的に並行実施して工期短縮を図る手法なので、設計完了前に確定部分の開発を始める対策が該当する。",
-      "間違い。\n\n要員追加はクラッシングの考え方であり、ファストトラッキングではない。"
-    ],
-    "suggestedQuestions": [
-      "ファストトラッキングとクラッシングの違いは何ですか？",
-      "ファストトラッキングのリスクは何ですか？",
-      "クリティカルパスとは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ファストトラッキングとクラッシングの違いは何ですか？",
-        "answer": "前者は作業順序を重ねる、後者は人員や資源を追加して期間短縮を図る手法である。"
-      },
-      {
-        "question": "ファストトラッキングのリスクは何ですか？",
-        "answer": "先行作業の変更が後続へ波及し、手戻りが増える恐れがある。"
-      },
-      {
-        "question": "クリティカルパスとは何ですか？",
-        "answer": "全体工期を決める最長経路で、ここにある作業が遅れると完了も遅れる。"
-      }
+      "間違い。時間外勤務は作業を並行化せず、同じ作業にかける稼働時間を増やす対策である。選択肢は作業の並行実施ではなく投入時間の増加によって短縮しようとしているため、ファストトラッキングには該当しない。",
+      "間違い。開発ツールの導入は、作業の生産性を高めて所要時間を短縮する対策である。選択肢は作業を重ねて実施するのではなく、個々の作業を効率化しようとしているため、ファストトラッキングには該当しない。",
+      "正しい。ファストトラッキングは、本来は順番に行う作業を部分的に並行して進め、工期を短縮する手法である。設計全体が終わる前に、仕様が確定したモジュールの開発を始める方法がこれに当たる。",
+      "間違い。要員を追加して作業期間を短縮する方法は、クラッシングである。選択肢は作業を並行化するのではなく、投入する要員を増やして短縮しようとしているため、ファストトラッキングには該当しない。"
     ],
     "original_question_id": "63f2e6a009982a5e",
     "question_url": "https://www.nw-siken.com/kakomon/26_aki/am1_19.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201402:63f2e6a009982a5e",
+    "reviewQuestionId": "63f2e6a009982a5e",
+    "sourceRecordRef": "question_201402_1.json#18",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "プロジェクト管理上の工程短縮技法に関する問題で、法令・制度上の根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "時間外勤務は作業の並行化ではなく、投入時間を増やす対策である。",
+          "promptContext": "ファストトラッキングの定義との照合。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。技術知識に基づき判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "開発ツールの導入は生産性向上による短縮であり、作業の並行化ではない。",
+          "promptContext": "ファストトラッキングの定義との照合。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。技術知識に基づき判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "設計完了前に仕様が固まったモジュールの開発を始めることは、作業を部分的に並行して進めるファストトラッキングに該当する。",
+          "promptContext": "ファストトラッキングの定義との照合。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外。技術知識に基づき判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "要員追加による短縮はクラッシングであり、作業を並行化するファストトラッキングではない。",
+          "promptContext": "ファストトラッキングとクラッシングの区別。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。技術知識に基づき判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "正しい。SLAは、サービス提供者と顧客の間で、提供するサービスと達成すべきサービス目標を合意する文書である。",
-      "間違い。サービス提供者が提供する全サービスの特徴、構成要素、料金を一覧にするのは、サービスカタログに当たる。選択肢はこの一覧をSLAの記載内容としているため誤りである。",
-      "間違い。サービスデスクなどの内部グループとサービス提供者との合意は、OLAなどの内部合意に当たる。選択肢は顧客との合意であるSLAと、内部グループとの合意を取り違えているため誤りである。",
-      "間違い。利用者から出されたITサービスに対する業務要件は、サービスを設計する際の要求事項である。選択肢は設計の入力となる業務要件を、SLAの記載内容としているため誤りである。"
+      "正しい。SLAは、サービス提供者と顧客との間で、提供するサービスと達成すべきサービス目標を合意する文書である。",
+      "間違い。提供する全サービスの特徴、構成要素、料金を一覧にするのは、サービスカタログである。選択肢はサービスカタログの内容をSLAの記載内容としているため誤りである。",
+      "間違い。サービスデスクなどの内部グループとサービス提供者との合意は、OLAなどの内部合意である。選択肢は顧客との合意であるSLAと、内部グループとの合意を取り違えているため誤りである。",
+      "間違い。利用者から出されたITサービスに対する業務要件は、サービス設計の入力となる要求事項である。選択肢は業務要件をSLAの記載内容としているため誤りである。"
     ],
     "original_question_id": "edfdc530da9b5b3c",
     "question_url": "https://www.nw-siken.com/kakomon/26_aki/am1_20.html",
@@ -751,7 +1223,113 @@
     "sourceRecordRef": "question_201402_1.json#19",
     "explanationReferences": [],
     "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "SLAはサービス提供者と顧客の間で、提供サービスとサービス目標を特定して合意する文書である。法令条文を根拠にする問題ではない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の比較対象となる法令事項なし。",
+          "displayRefIds": [],
+          "explanationText": "SLAはサービス提供者と顧客の間でサービスとサービス目標を合意する文書である。",
+          "promptContext": "技術知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "SLAの定義に関する技術知識で判定し、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の比較対象となる法令事項なし。",
+          "displayRefIds": [],
+          "explanationText": "全サービスの特徴、構成要素、料金の一覧はサービスカタログに該当する。",
+          "promptContext": "技術知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "サービスカタログとの区別に関する技術知識で判定し、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の比較対象となる法令事項なし。",
+          "displayRefIds": [],
+          "explanationText": "内部グループとサービス提供者との合意はOLAなどの内部合意に該当する。",
+          "promptContext": "技術知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "OLAなど内部合意との区別に関する技術知識で判定し、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の比較対象となる法令事項なし。",
+          "displayRefIds": [],
+          "explanationText": "利用者の業務要件はサービス設計の入力となる要求事項であり、SLAの記載内容そのものではない。",
+          "promptContext": "技術知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "業務要件とSLAの役割の区別に関する技術知識で判定し、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -878,10 +1456,10 @@
   },
   {
     "explanationText": [
-      "間違い。正しくは、購入業者の自動選定は調達の妥当性や効率性を確認するチェックである。選択肢は購入業者の選定を確認しているため、在庫データが漏れなく記録されているかという網羅性のチェックにはならない。",
-      "間違い。正しくは、適正在庫量の承認は在庫水準の妥当性や承認手続を確認するチェックである。選択肢は責任者による在庫量の承認を確認しているため、入出庫記録の漏れや重複を確認する網羅性のチェックにはならない。",
-      "間違い。正しくは、発注点に達したときの自動発注は適正在庫量を維持するための在庫管理上の制御である。選択肢は発注処理の自動化を確認しているため、入出庫記録が網羅されているかを確認するチェックにはならない。",
-      "正しい。入庫及び出庫記録に自動連番を付けると、欠番や重複を確認でき、記録漏れや二重計上を見つけやすくなるため、在庫データの網羅性を確認できる。"
+      "間違い。購入業者の自動選定は、設定された基準に沿って調達処理が行われているかを確認するチェックである。選択肢は購入業者の選定を確認しているため、在庫データが漏れなく記録されているかを確認する網羅性のチェックにはならない。",
+      "間違い。適正在庫量について責任者の承認を得ることは、在庫水準の妥当性や承認手続を確認するチェックである。選択肢は在庫量の承認を確認しているため、入庫・出庫の記録漏れや重複がないかを確認する網羅性のチェックにはならない。",
+      "間違い。発注点に達したときの自動発注は、適正在庫量を維持するための在庫管理上の制御である。選択肢は発注処理の自動化を確認しているため、入庫・出庫の記録が漏れなく記録されているかを確認する網羅性のチェックにはならない。",
+      "正しい。入庫・出庫記録に連番を付けると、欠番を手掛かりに記録漏れを確認できるため、在庫データが漏れなく記録されているかという網羅性のチェックになる。"
     ],
     "original_question_id": "f10d75f8ec65680f",
     "question_url": "https://www.nw-siken.com/kakomon/26_aki/am1_22.html",
@@ -891,14 +1469,120 @@
     "sourceRecordRef": "question_201402_1.json#21",
     "explanationReferences": [],
     "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "システム監査における在庫データの網羅性と内部統制のチェックポイントを問う技術問題であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "購入業者の自動選定は調達処理の統制であり、在庫データの網羅性を直接確認するものではない。",
+          "promptContext": "在庫データの網羅性に関するシステム監査知識。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識に基づく判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "適正在庫量の承認は在庫水準の妥当性や承認手続の統制であり、記録の網羅性を直接確認するものではない。",
+          "promptContext": "在庫データの網羅性に関するシステム監査知識。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識に基づく判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "発注点到達時の自動発注は在庫量を維持する制御であり、入出庫記録の網羅性を直接確認するものではない。",
+          "promptContext": "在庫データの網羅性に関するシステム監査知識。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識に基づく判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "入出庫記録への連番付与は欠番を手掛かりに記録漏れを確認でき、網羅性のチェックポイントとなる。",
+          "promptContext": "在庫データの網羅性に関するシステム監査知識。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識に基づく判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
       "間違い。正しくは、正味現在価値などのキャッシュフローを使う方法は、投資による金銭的な収益性を評価する財務的評価である。選択肢はこの財務的評価をバランススコアカードの説明としているため誤りである。",
       "間違い。正しくは、投資を性質やリスクで分類し、カテゴリごとの投資配分を評価する方法はITポートフォリオ分析である。選択肢はITポートフォリオ分析をバランススコアカードの説明としているため誤りである。",
       "正しい。バランススコアカードは、財務、顧客、内部業務プロセス、学習と成長など複数の視点で指標を設定し、経営戦略との適合性を多面的に評価する。",
-      "間違い。正しくは、金融市場のオプション価格付け理論を使い、将来の選択肢や不確実性の価値を評価する方法はリアルオプション評価である。選択肢はリアルオプション評価をバランススコアカードの説明としているため誤りである。"
+      "間違い。正しくは、金融市場のオプション価格付け理論を使って、将来の選択肢や不確実性の価値を評価する方法はリアルオプション評価である。選択肢はリアルオプション評価をバランススコアカードの説明としているため誤りである。"
     ],
     "original_question_id": "4183c5b5b7885f41",
     "question_url": "https://www.nw-siken.com/kakomon/26_aki/am1_23.html",
@@ -908,7 +1592,113 @@
     "sourceRecordRef": "question_201402_1.json#22",
     "explanationReferences": [],
     "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "経営管理上の評価手法に関する技術・知識問題であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はIT投資評価手法の知識で判定し、法令根拠を必要としない。",
+          "promptContext": "技術・経営管理知識として確認した。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令非該当のため、法令改正差分の監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はITポートフォリオ分析とバランススコアカードの区別に関する知識で判定し、法令根拠を必要としない。",
+          "promptContext": "技術・経営管理知識として確認した。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令非該当のため、法令改正差分の監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はバランススコアカードの複数視点による評価の説明として判定し、法令根拠を必要としない。",
+          "promptContext": "技術・経営管理知識として確認した。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令非該当のため、法令改正差分の監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はリアルオプション評価とバランススコアカードの区別に関する知識で判定し、法令根拠を必要としない。",
+          "promptContext": "技術・経営管理知識として確認した。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令非該当のため、法令改正差分の監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [

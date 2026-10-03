@@ -151,33 +151,123 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n最大同時存在数は 2 個では済まない。ジョブ B・C 実行中や D・E 実行中には複数の一時ファイルが同時に残るため 100MB では不足する。",
-      "間違い。\n\n150MB でも不足する。D・E 実行中は B, C, D, E に対応する 4 個の一時ファイルが同時に存在し、計 200MB 必要になる。",
-      "正しい。\n\nA 実行で 50MB、B・C 実行中に A の一時ファイルを残したまま B と C の 2 個が増え、D・E 実行中には B と C の一時ファイルを残しつつ D と E の分が加わる。最大時は 4 個同時で 50×4=200MB 必要である。",
-      "間違い。\n\n250MB は過大である。条件に従って追跡すると最大は 4 個同時存在であり、200MB を超えない。"
-    ],
-    "suggestedQuestions": [
-      "なぜ D・E 実行中が最大になるのですか？",
-      "ジョブ多重度2はどう効きますか？",
-      "こうした図問題はどう追跡するとよいですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "なぜ D・E 実行中が最大になるのですか？",
-        "answer": "B と C の一時ファイルがまだ残っている状態で、同時に D と E の一時ファイルも作られ、合計 4 個になるからである。"
-      },
-      {
-        "question": "ジョブ多重度2はどう効きますか？",
-        "answer": "同時に最大2ジョブまで実行できるため、B と C、D と E が並行実行され、一時ファイルが重なりやすくなる。"
-      },
-      {
-        "question": "こうした図問題はどう追跡するとよいですか？",
-        "answer": "時系列で『開始』『終了』『削除タイミング』を表にし、各時点のファイル数を数えると整理しやすい。"
-      }
+      "正しい。必要な容量は、同時に存在する一時ファイルの最大個数に、1個当たりの容量を掛けて求める。ジョブB・Cの実行後、B・Cの一時ファイルを残したままジョブD・Eが実行される時点で、4個の一時ファイルが同時に存在する。したがって、必要な容量は次のとおりである。\n\n\\[50\\,\\mathrm{Mバイト}\\times4=200\\,\\mathrm{Mバイト}\\]\n\nよって、最低200Mバイトが必要である。"
     ],
     "original_question_id": "a1c46637711f20d3",
     "question_url": "https://www.nw-siken.com/kakomon/01_aki/am1_6.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201902:a1c46637711f20d3",
+    "reviewQuestionId": "a1c46637711f20d3",
+    "sourceRecordRef": "question_201902_1.json#5",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "ジョブの実行順序と一時ファイル容量を扱う計算問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "ジョブ実行順序と一時ファイル容量の計算で判定するため、法令根拠は不要である。",
+          "promptContext": "技術・計算問題として確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術問題。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "ジョブ実行順序と一時ファイル容量の計算で判定するため、法令根拠は不要である。",
+          "promptContext": "技術・計算問題として確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術問題。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "ジョブ実行順序と一時ファイル容量の計算で判定するため、法令根拠は不要である。",
+          "promptContext": "技術・計算問題として確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外の技術問題。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "ジョブ実行順序と一時ファイル容量の計算で判定するため、法令根拠は不要である。",
+          "promptContext": "技術・計算問題として確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術問題。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -211,33 +301,126 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nAC 電源で充電したバッテリ利用は外部から蓄えた電力の使用であり、周囲環境から微小電力を収穫するエネルギーハーベスティングとは異なる。",
-      "間違い。\n\nインバータ制御による効率化は省エネ技術ではあるが、外部の力や振動、熱などを電力へ変換して使う事例ではない。",
-      "正しい。\n\nスイッチを押す力を電力へ変換して RF リモコンを動作させるのは、環境中の機械エネルギーを収穫して使うエネルギーハーベスティングの典型例である。",
-      "間違い。\n\n無停電電源装置は外部電源とバッテリで冗長化する装置であり、環境発電の適用例ではない。"
-    ],
-    "suggestedQuestions": [
-      "エネルギーハーベスティングとは何ですか？",
-      "どんなエネルギー源を使えますか？",
-      "IoT で注目される理由は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "エネルギーハーベスティングとは何ですか？",
-        "answer": "光、熱、振動、圧力など周囲にある微小エネルギーを電力へ変換して利用する技術である。"
-      },
-      {
-        "question": "どんなエネルギー源を使えますか？",
-        "answer": "太陽光、温度差、振動、人体の動き、スイッチ押下の圧力などが利用される。"
-      },
-      {
-        "question": "IoT で注目される理由は何ですか？",
-        "answer": "電池交換が難しい場所でもセンサーを長期運用しやすくなるからである。"
-      }
+      "間違い。正しくは、周囲の光、熱、振動、押す力などの微小なエネルギーを電力に変換して利用する。選択肢はAC電源で充電したバッテリの電力を使うため、周囲のエネルギーを電力として回収するエネルギーハーベスティングではない。",
+      "間違い。正しくは、インバータ制御によるエアーコンディショナの室外機は、運転状態に応じて出力を調整して消費電力を抑える省エネ技術である。選択肢は電力の使用効率を高める技術を示しており、周囲のエネルギーを電力へ変換して利用するエネルギーハーベスティングの適用例ではない。",
+      "正しい。スイッチを押す力という機械エネルギーを電力に変換し、その電力でRFリモコンを動作させているため、エネルギーハーベスティングの適用例である。",
+      "間違い。正しくは、無停電電源装置は外部電源が途絶えたときにバッテリなどから電力を供給し、機器の動作を継続させる装置である。選択肢はあらかじめ蓄えた電力を使うバックアップの仕組みを示しており、周囲のエネルギーを回収して発電するエネルギーハーベスティングではない。"
     ],
     "original_question_id": "aa1fdfd08e459bc8",
     "question_url": "https://www.nw-siken.com/kakomon/01_aki/am1_8.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201902:aa1fdfd08e459bc8",
+    "reviewQuestionId": "aa1fdfd08e459bc8",
+    "sourceRecordRef": "question_201902_1.json#7",
+    "explanationReferences": [],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "エネルギーハーベスティングに関する工学・技術上の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "AC電源で充電したバッテリは周囲のエネルギー回収ではない。",
+          "promptContext": "技術問題の選択肢1。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "インバータ制御の空調室外機は省エネ技術であり、周囲のエネルギーを回収して発電するものではない。",
+          "promptContext": "技術問題の選択肢2。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "スイッチを押す力を電力へ変換してRFリモコンを動作させるため、エネルギーハーベスティングの適用例である。",
+          "promptContext": "技術問題の選択肢3。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "無停電電源装置は蓄えた電力を供給するバックアップ装置であり、周囲のエネルギーを回収して発電するものではない。",
+          "promptContext": "技術問題の選択肢4。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -271,63 +454,255 @@
   },
   {
     "explanationText": [
-      "正しい。\n\nCSMA/CD は、各ステーションがキャリアを検知して送信可否を判断し、衝突が起きた場合は送信を中止してバックオフ後に再送する方式である。",
-      "間違い。\n\nタイムスロット単位で同一周波数を共有するのは TDMA の説明であり、CSMA/CD ではない。",
-      "間違い。\n\nRTS/CTS と ACK を使うのは無線 LAN の CSMA/CA に近い説明であり、Ethernet の CSMA/CD ではない。",
-      "間違い。\n\nトークン巡回方式はトークンパッシングの説明である。CSMA/CD とは異なる。"
-    ],
-    "suggestedQuestions": [
-      "CSMA/CD と CSMA/CA の違いは何ですか？",
-      "バックオフはなぜ必要ですか？",
-      "なぜ現在の Ethernet では CSMA/CD を意識しにくいのですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "CSMA/CD と CSMA/CA の違いは何ですか？",
-        "answer": "前者は衝突検知後に対処し、後者は送信前に衝突回避を図る。"
-      },
-      {
-        "question": "バックオフはなぜ必要ですか？",
-        "answer": "衝突直後に同時再送すると再び衝突しやすいため、待ち時間をずらして再送する必要がある。"
-      },
-      {
-        "question": "なぜ現在の Ethernet では CSMA/CD を意識しにくいのですか？",
-        "answer": "スイッチと全二重通信が一般的になり、衝突そのものが起きにくくなったからである。"
-      }
+      "正しい。",
+      "間違い。タイムスロット単位で通信を分けるのはTDMAの説明であり、CSMA/CDではない。選択肢はTDMAの方式をCSMA/CDとしているため誤りである。",
+      "間違い。RTS/CTSやACKを用いるのは無線LANで使われるCSMA/CAの説明であり、衝突を検知して再送するEthernetのCSMA/CDとは異なる。選択肢はCSMA/CAの特徴をCSMA/CDとしているため誤りである。",
+      "間違い。伝送路上のトークンを受け取った端末だけが送信するのは、トークンパッシング方式である。選択肢はトークンパッシングの方式をCSMA/CDとしているため誤りである。"
     ],
     "original_question_id": "a3dd53b73b731474",
     "question_url": "https://www.nw-siken.com/kakomon/01_aki/am1_10.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201902:a3dd53b73b731474",
+    "reviewQuestionId": "a3dd53b73b731474",
+    "sourceRecordRef": "question_201902_1.json#9",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "イーサネットの通信制御方式に関する技術問題で、法令・制度上の根拠は用いない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "CSMA/CDはキャリア検知、衝突検出、再送を行う方式である。",
+          "promptContext": "技術知識のみで判定する選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外。CSMA/CDの技術知識で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "タイムスロット単位で通信を分ける方式はTDMAであり、CSMA/CDではない。",
+          "promptContext": "技術知識のみで判定する選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。TDMAとの技術的相違で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "RTS/CTSやACKはCSMA/CAの説明であり、CSMA/CDとは異なる。",
+          "promptContext": "技術知識のみで判定する選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。CSMA/CAとの技術的相違で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "トークンを受け取った端末だけが送信する方式はトークンパッシングである。",
+          "promptContext": "技術知識のみで判定する選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。トークンパッシングとの技術的相違で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\nWeb サーバの代理として応答するのはリバースプロキシの説明である。フォワードプロキシではない。",
-      "間違い。\n\nフォワードプロキシは利用者側組織内に置かれることが多いが、『必ず同一組織内でなければならない』わけではない。",
-      "正しい。\n\nフォワードプロキシはクライアントの代理として外部サーバへリクエストを送信する。利用者側のアクセス制御やキャッシュ、匿名化などに使われる。",
-      "間違い。\n\n電子メールを複数サーバ経由で転送する説明はメールリレーに関するものであり、フォワードプロキシとは別である。"
-    ],
-    "suggestedQuestions": [
-      "フォワードプロキシとリバースプロキシの違いは何ですか？",
-      "フォワードプロキシは何に使いますか？",
-      "Web キャッシュとどう関係しますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "フォワードプロキシとリバースプロキシの違いは何ですか？",
-        "answer": "フォワードプロキシはクライアント側の代理、リバースプロキシはサーバ側の代理として動作する。"
-      },
-      {
-        "question": "フォワードプロキシは何に使いますか？",
-        "answer": "外部アクセス制御、ログ取得、Web キャッシュ、匿名化などに使われる。"
-      },
-      {
-        "question": "Web キャッシュとどう関係しますか？",
-        "answer": "一度取得した Web コンテンツをプロキシが保持し、再利用することで応答時間や帯域使用量を減らせる。"
-      }
+      "間違い。正しくは、Webサーバ側の代理としてクライアントからの要求を受け、Webサーバへ転送するのはリバースプロキシである。選択肢はWebサーバの代理として応答するとしているため誤りである。",
+      "間違い。正しくは、フォワードプロキシはクライアントが選んで利用するメッセージ転送エージェントであり、Webブラウザと同じ組織内に置くことは必須ではない。選択肢は同一組織内でなければならないとしているため誤りである。",
+      "正しい。フォワードプロキシはWebブラウザなどのクライアントに代わって、Webサーバへのリクエストを送信する。",
+      "間違い。正しくは、電子メールを複数のサーバ経由で転送するのはメール配送の仕組みに関する説明である。選択肢は電子メールの転送をフォワードプロキシの説明としているため誤りである。"
     ],
     "original_question_id": "e1049ba561e6a40f",
     "question_url": "https://www.nw-siken.com/kakomon/01_aki/am1_11.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201902:e1049ba561e6a40f",
+    "reviewQuestionId": "e1049ba561e6a40f",
+    "sourceRecordRef": "question_201902_1.json#10",
+    "explanationReferences": [
+      {
+        "referenceDate": "2022-06-06",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc9110.html",
+        "title": "RFC 9110: HTTP Semantics"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "フォワードプロキシの技術的な役割を問う問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第1選択肢はリバースプロキシの説明であり、フォワードプロキシの説明ではない。",
+          "promptContext": "技術内容を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判断できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第2選択肢の組織内配置は、フォワードプロキシの必須条件ではない。",
+          "promptContext": "技術内容を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判断できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第3選択肢は、フォワードプロキシがクライアントに代わってWebサーバへリクエストを送信する役割を正しく説明している。",
+          "promptContext": "技術内容を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで正誤を判断できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第4選択肢は、フォワードプロキシではなくメール配送の説明である。",
+          "promptContext": "技術内容を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判断できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -361,33 +736,126 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n固定パスワードを TLS で保護して送るだけでは、チャレンジレスポンス方式の本質である『毎回異なるチャレンジ値との演算』がない。",
-      "間違い。\n\n端末シリアル番号を秘密鍵で暗号化して送る説明ではなく、サーバが送った乱数に対する応答を計算するのがチャレンジレスポンス方式である。",
-      "間違い。\n\nトークンが毎回異なる値を表示する方式はワンタイムパスワード方式の説明であり、チャレンジレスポンス方式そのものではない。",
-      "正しい。\n\n利用者が入力したパスワードなどの秘密情報と、サーバから受け取ったランダムなチャレンジ値をクライアント側で演算し、その結果を送信して認証するのがチャレンジレスポンス方式である。"
-    ],
-    "suggestedQuestions": [
-      "チャレンジレスポンス方式はなぜ安全性が高いのですか？",
-      "ワンタイムパスワードとの違いは何ですか？",
-      "リプレイ攻撃に強い理由は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "チャレンジレスポンス方式はなぜ安全性が高いのですか？",
-        "answer": "秘密情報そのものを送らず、毎回異なる乱数に対する応答だけを送るためである。"
-      },
-      {
-        "question": "ワンタイムパスワードとの違いは何ですか？",
-        "answer": "ワンタイムパスワードは毎回異なる使い捨て値を用いる方式、チャレンジレスポンスはサーバの乱数に対して秘密情報を使って応答を計算する方式である。"
-      },
-      {
-        "question": "リプレイ攻撃に強い理由は何ですか？",
-        "answer": "チャレンジ値が毎回変わるため、過去の応答をそのまま再送しても認証に使えないからである。"
-      }
+      "間違い。チャレンジレスポンス方式は、サーバから受け取った毎回異なるチャレンジ値と秘密情報を使って応答を計算する。選択肢は固定パスワードをTLSで暗号化して送るだけとしているため誤りである。",
+      "間違い。チャレンジレスポンス方式では、サーバが送ったランダムなチャレンジ値に対する応答を計算する。選択肢は端末のシリアル番号を秘密鍵で暗号化して送るとしているため誤りである。",
+      "間違い。トークンが認証のたびに異なる値を表示し、それをパスワードとして使うのはワンタイムパスワード方式の説明である。選択肢はこの方式をチャレンジレスポンス方式としているため誤りである。",
+      "正しい。利用者が入力したパスワードなどの秘密情報と、サーバから受け取ったランダムなチャレンジ値をクライアントで演算し、その結果をサーバへ送信して認証する。"
     ],
     "original_question_id": "ca846b279a7aee9f",
     "question_url": "https://www.nw-siken.com/kakomon/01_aki/am1_13.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201902:ca846b279a7aee9f",
+    "reviewQuestionId": "ca846b279a7aee9f",
+    "sourceRecordRef": "question_201902_1.json#12",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "チャレンジレスポンス認証の技術的特徴を問う問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "固定パスワードをTLSで送信する説明は、チャレンジレスポンス認証の特徴ではない。",
+          "promptContext": "チャレンジレスポンス認証の技術的特徴。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定できるため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "端末のシリアル番号を秘密鍵で暗号化して送信する説明は、チャレンジレスポンス認証の特徴ではない。",
+          "promptContext": "チャレンジレスポンス認証の技術的特徴。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定できるため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "認証のたびに異なる値をパスワードとして送信する説明は、ワンタイムパスワード方式の説明である。",
+          "promptContext": "チャレンジレスポンス認証の技術的特徴。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定できるため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "秘密情報とサーバから受け取ったランダムなチャレンジ値を演算し、結果を送信する説明は、チャレンジレスポンス認証の特徴である。",
+          "promptContext": "チャレンジレスポンス認証の技術的特徴。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定できるため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -511,33 +979,132 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n関連プロジェクト間の制約やコンフリクト解消はプログラム・マネジャーの役割に近い。PMO の説明ではない。",
-      "間違い。\n\n戦略達成へ向けてプロジェクトやプログラムの最適組合せを選び優先順位を決めるのはポートフォリオ・マネジャーの役割である。",
-      "正しい。\n\nPMO はプロジェクト関連のガバナンスや手順を標準化し、資源、方法論、ツール、技法の共有を促進して、組織全体のプロジェクト運営を支援する。",
-      "間違い。\n\n個別プロジェクトの要求事項達成へ知識・スキル・ツールを適用するのはプロジェクト・マネジャーの役割である。"
-    ],
-    "suggestedQuestions": [
-      "PMO とプロジェクト・マネジャーの違いは何ですか？",
-      "PMO は何を標準化しますか？",
-      "ポートフォリオ管理との違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "PMO とプロジェクト・マネジャーの違いは何ですか？",
-        "answer": "PMO は組織横断的支援と標準化、プロジェクト・マネジャーは個別プロジェクトの遂行責任を担う。"
-      },
-      {
-        "question": "PMO は何を標準化しますか？",
-        "answer": "進捗管理手法、テンプレート、レビュー方式、資源管理ルール、報告手順などを標準化する。"
-      },
-      {
-        "question": "ポートフォリオ管理との違いは何ですか？",
-        "answer": "ポートフォリオ管理は戦略整合にもとづく案件選定、PMO は実行基盤の整備と支援が中心である。"
-      }
+      "間違い。関連する複数のプロジェクトに影響する制約条件やコンフリクトを調整するのは、プログラム・マネジャーの役割である。選択肢はこれをPMOの役割としているため誤りである。",
+      "間違い。戦略目標の達成に向けてプロジェクトやプログラムの組合せを選び、優先順位と資源配分を決めるのは、ポートフォリオ・マネジャーの役割である。選択肢はこれをPMOの役割としているため誤りである。",
+      "正しい。PMOはプロジェクトに関するガバナンス・プロセスを標準化し、資源、方法論、ツール、技法を組織内で共有できるようにする。",
+      "間違い。個別プロジェクトの要求事項を満たすため、知識、スキル、ツール、技法を活動へ適用するのは、プロジェクト・マネジャーの役割である。選択肢はこれをPMOの役割としているため誤りである。"
     ],
     "original_question_id": "64cfd92215578863",
     "question_url": "https://www.nw-siken.com/kakomon/01_aki/am1_18.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201902:64cfd92215578863",
+    "reviewQuestionId": "64cfd92215578863",
+    "sourceRecordRef": "question_201902_1.json#17",
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-10-03",
+        "sourceUrl": "https://www.pmi.org/shop/p-/book/a-guide-to-the-project-management-body-of-knowledge-%28pmbok-guide%29-%E2%80%94-sixth-edition-and-agile-practice-guide-%28english%29/00101602400",
+        "title": "A Guide to the Project Management Body of Knowledge (PMBOK® Guide) — Sixth Edition and Agile Practice Guide"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "PMBOKガイド第6版に基づくプロジェクト管理上の役割分担の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第1選択肢はプログラム・マネジャーの役割をPMOの役割としているため誤りである。",
+          "promptContext": "PMBOK第6版の役割分担",
+          "refs": [],
+          "verdict": "非法令問題"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。PMBOK第6版に基づく技術・知識問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第2選択肢はポートフォリオ・マネジャーの役割をPMOの役割としているため誤りである。",
+          "promptContext": "PMBOK第6版の役割分担",
+          "refs": [],
+          "verdict": "非法令問題"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。PMBOK第6版に基づく技術・知識問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第3選択肢はPMOの役割を正しく説明している。",
+          "promptContext": "PMBOK第6版の役割分担",
+          "refs": [],
+          "verdict": "非法令問題"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外。PMBOK第6版に基づく技術・知識問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第4選択肢はプロジェクト・マネジャーの役割をPMOの役割としているため誤りである。",
+          "promptContext": "PMBOK第6版の役割分担",
+          "refs": [],
+          "verdict": "非法令問題"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。PMBOK第6版に基づく技術・知識問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -571,93 +1138,383 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nサービスデスクへの顧客満足度が目標を満たすかをレビューするのはサービスレベル管理や継続的改善の活動に近い。",
-      "間違い。\n\nディスク空き容量がしきい値へ近づいたので対策検討するのはキャパシティ管理やイベント管理の活動である。",
-      "間違い。\n\nプログラム変更時の影響度調査は変更管理やリリース管理に関する活動であり、インシデント管理・サービス要求管理ではない。",
-      "正しい。\n\n利用者からの障害報告を受け、既知の誤りに該当するか照合するのは、インシデント管理とサービス要求管理で行う典型的な受付・一次切り分け活動である。"
-    ],
-    "suggestedQuestions": [
-      "インシデント管理と問題管理の違いは何ですか？",
-      "既知の誤りとは何ですか？",
-      "サービス要求管理はどんな依頼を扱いますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "インシデント管理と問題管理の違いは何ですか？",
-        "answer": "インシデント管理は早期復旧、問題管理は根本原因分析と再発防止が中心である。"
-      },
-      {
-        "question": "既知の誤りとは何ですか？",
-        "answer": "原因が特定され、回避策や恒久対策候補が把握されている問題のことをいう。"
-      },
-      {
-        "question": "サービス要求管理はどんな依頼を扱いますか？",
-        "answer": "アカウント発行、権限変更、標準ソフト配布など、定型的な利用者要求を扱う。"
-      }
+      "間違い。正しくは、サービスデスクに対する顧客満足度がサービス目標を満たしているかを評価し、改善の機会を特定するレビューは、サービスレベル管理の活動である。選択肢はこれをインシデント及びサービス要求管理の活動としているため誤りである。",
+      "間違い。正しくは、ディスクの空き容量がしきい値に近づいた場合に必要な対策を検討するのは、資源の容量を適正に保つキャパシティ管理の活動である。選択肢はこれをインシデント及びサービス要求管理の活動としているため誤りである。",
+      "間違い。正しくは、プログラム変更による影響度を調査するのは、変更の安全性や影響を評価する変更管理の活動である。選択肢はこれをインシデント及びサービス要求管理の活動としているため誤りである。",
+      "正しい。利用者から障害報告を受けた後、既知の誤りに該当するかを照合することは、障害への対応や迅速な復旧につなげるインシデント及びサービス要求管理の活動である。"
     ],
     "original_question_id": "ecc6610bd0a43324",
     "question_url": "https://www.nw-siken.com/kakomon/01_aki/am1_20.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201902:ecc6610bd0a43324",
+    "reviewQuestionId": "ecc6610bd0a43324",
+    "sourceRecordRef": "question_201902_1.json#19",
+    "explanationReferences": [
+      {
+        "referenceDate": "2019-10-20",
+        "sourceUrl": "https://www.ipa.go.jp/shiken/mondai-kaiotu/gmcbt8000000dict-att/2019r01a_koudo_am1_qs.pdf",
+        "title": "令和元年度秋期 ネットワークスペシャリスト試験 午前I 問題冊子"
+      },
+      {
+        "referenceDate": "2019-10-20",
+        "sourceUrl": "https://www.ipa.go.jp/shiken/mondai-kaiotu/gmcbt8000000dict-att/2019r01a_koudo_am1_ans.pdf",
+        "title": "令和元年度秋期 高度情報 午前I 解答例"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "法令条文を根拠にしないITサービスマネジメントの活動分類に関する知識問題である。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "サービスレベル管理とインシデント及びサービス要求管理の活動分類に関する知識問題であり、法令は正誤を直接決めない。",
+          "promptContext": "第1選択肢を問題文と結合して判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・業務知識のみで正誤を判定でき、法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "reconciled_not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ディスク容量のしきい値対応をキャパシティ管理に分類する知識問題であり、法令は正誤を直接決めない。",
+          "promptContext": "第2選択肢を問題文と結合して判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・業務知識のみで正誤を判定でき、法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "reconciled_not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "プログラム変更の影響度調査を変更管理に分類する知識問題であり、法令は正誤を直接決めない。",
+          "promptContext": "第3選択肢を問題文と結合して判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・業務知識のみで正誤を判定でき、法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "reconciled_not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "障害報告を受けて既知の誤りを照合する活動の分類に関する知識問題であり、法令は正誤を直接決めない。",
+          "promptContext": "第4選択肢を問題文と結合して判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術・業務知識のみで正誤を判定でき、法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "reconciled_not_law_related",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n既存社内システムとの ID 一元管理可否は利便性や運用管理の論点であり、クラウド上情報の消失予防を直接見るチェックポイントではない。",
-      "間違い。\n\n最大許容停止時間の検討は可用性や事業継続の観点であり、情報消失の予防そのものとは少し論点が異なる。",
-      "正しい。\n\nクラウド事業者へ信頼が置け、事業やサービスが継続提供されるかを検討することは、サービス終了や事業撤退による情報消失リスクの予防に直結する重要なチェックポイントである。",
-      "間違い。\n\n事業者施設内ネットワークの暗号化採用は機密性の観点には有効だが、情報消失予防を直接確認する主論点ではない。"
-    ],
-    "suggestedQuestions": [
-      "情報消失リスクを見るときは何を確認しますか？",
-      "可用性と継続性の違いは何ですか？",
-      "クラウド事業者の継続性はどう評価しますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "情報消失リスクを見るときは何を確認しますか？",
-        "answer": "事業者の継続性、バックアップ方針、データ移行手段、契約終了時の返還方法などを確認する。"
-      },
-      {
-        "question": "可用性と継続性の違いは何ですか？",
-        "answer": "可用性は現在使えること、継続性は将来にわたりサービス提供やデータ保持が続くことまで含む。"
-      },
-      {
-        "question": "クラウド事業者の継続性はどう評価しますか？",
-        "answer": "財務基盤、提供実績、SLA、終了時のデータ取り出し条件、バックアップや冗長化方針などで評価する。"
-      }
+      "間違い。IDの一元管理は、認証や利用者管理を効率化するための論点である。選択肢はこの可用性・運用管理の論点を、クラウド上の情報消失を予防するチェックポイントとしているため誤りである。",
+      "間違い。最大許容停止時間は、障害が発生したときにサービスをどれだけ早く復旧させるかという可用性や事業継続の論点である。選択肢はサービス停止時間の管理を、保存情報そのものの消失を予防するチェックポイントとしているため誤りである。",
+      "正しい。クラウド事業者の信頼性と、事業やサービスが継続して提供される見込みを確認することは、事業者の撤退やサービス終了によって情報へアクセスできなくなったり、情報が失われたりするリスクの予防につながる。",
+      "間違い。施設内ネットワークの暗号化通信は、通信内容を盗み見られないようにする機密性の論点である。選択肢は通信の機密性を、クラウド上に保存した情報の消失を予防するチェックポイントとしているため誤りである。"
     ],
     "original_question_id": "8c907918212b98fe",
     "question_url": "https://www.nw-siken.com/kakomon/01_aki/am1_21.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201902:8c907918212b98fe",
+    "reviewQuestionId": "8c907918212b98fe",
+    "sourceRecordRef": "question_201902_1.json#20",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "クラウドサービスの継続提供、情報消失予防、可用性、認証及び通信機密性に関するシステム監査・リスク管理の問題であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行法判定の比較対象となる法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の正誤は、ID一元管理と情報消失予防の論点の区別で判断でき、法令条文を直接参照しない。",
+          "promptContext": "クラウドサービス導入検討における情報消失予防の監査チェックポイント。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・システム監査知識で判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行法判定の比較対象となる法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の正誤は、最大許容停止時間が可用性・事業継続の論点であることから判断でき、法令条文を直接参照しない。",
+          "promptContext": "クラウドサービス導入検討における情報消失予防の監査チェックポイント。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・システム監査知識で判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行法判定の比較対象となる法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の正誤は、クラウド事業者の信頼性とサービス継続性が情報消失予防に関係することから判断でき、法令条文を直接参照しない。",
+          "promptContext": "クラウドサービス導入検討における情報消失予防の監査チェックポイント。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術・システム監査知識で判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行法判定の比較対象となる法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の正誤は、施設内ネットワークの暗号化通信が機密性の論点であることから判断でき、法令条文を直接参照しない。",
+          "promptContext": "クラウドサービス導入検討における情報消失予防の監査チェックポイント。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・システム監査知識で判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "正しい。\n\nインタビュー法は、システム監査人が直接関係者へ口頭で問い合わせて回答を得る技法であり、システム監査基準の説明に合致する。",
-      "間違い。\n\n現地調査法は実際の業務状況を観察するため、業務時間内に行うことも多い。必ず業務時間外でなければならないわけではない。",
-      "間違い。\n\nコンピュータ支援監査技法は専用ソフトだけに限定されない。表計算ソフトなど一般的なツールも利用できる。",
-      "間違い。\n\nチェックリストは監査対象部門ではなく、システム監査人が監査目的に応じて作成・調整して使う。"
-    ],
-    "suggestedQuestions": [
-      "監査で使う主な技法には何がありますか？",
-      "インタビュー法の注意点は何ですか？",
-      "CAAT はどんな場面で使いますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "監査で使う主な技法には何がありますか？",
-        "answer": "インタビュー法、現地調査法、チェックリスト法、文書閲覧、コンピュータ支援監査技法などがある。"
-      },
-      {
-        "question": "インタビュー法の注意点は何ですか？",
-        "answer": "質問の中立性を保ち、回答の裏付けを他資料や観察で確認することが重要である。"
-      },
-      {
-        "question": "CAAT はどんな場面で使いますか？",
-        "answer": "大量データの抽出、突合、集計、異常値検出などを効率的に行いたい場面で使う。"
-      }
+      "正しい。インタビュー法は、システム監査人が関係者へ直接口頭で問い合わせ、回答を得る技法である。",
+      "間違い。正しくは、現地調査法は監査対象部門の現場へ赴き、実際の業務状況を観察・調査する技法であり、実施時間を業務時間外に限定しない。選択肢は業務時間外に実施しなければならないとしているため誤りである。",
+      "間違い。正しくは、コンピュータ支援監査技法は、コンピュータを利用して監査手続を効率化する技法であり、専用ソフトウェアに限らず、表計算ソフトなどの一般的なツールも利用できる。選択肢は専用ソフトウェアによらなければならないとしているため誤りである。",
+      "間違い。正しくは、チェックリスト法は、システム監査人が監査項目を整理したチェックリストを用いて、確認結果を体系的に記録・評価する技法である。選択肢は監査対象部門がチェックリストを作成・利用し、その見解を監査人が点検するとしているため誤りである。"
     ],
     "original_question_id": "0f56747d80683324",
     "question_url": "https://www.nw-siken.com/kakomon/01_aki/am1_22.html",
-    "lawGroundedExplanationNotNeeded": false
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201902:0f56747d80683324",
+    "reviewQuestionId": "0f56747d80683324",
+    "sourceRecordRef": "question_201902_1.json#21",
+    "explanationReferences": [],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "システム監査基準における監査技法の知識問題で、法令条文を正誤の直接根拠としない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第1選択肢は監査技法の知識により正しいと判定する。",
+          "promptContext": "法令非該当として分類した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外の技術・知識問題。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第2選択肢は現地調査法の実施時間を業務時間外に限定しているため間違いと判定する。",
+          "promptContext": "法令非該当として分類した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術・知識問題。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第3選択肢はコンピュータ支援監査技法を専用ソフトウェアに限定しているため間違いと判定する。",
+          "promptContext": "法令非該当として分類した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術・知識問題。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第4選択肢はチェックリスト法の主体と手順を誤って説明しているため間違いと判定する。",
+          "promptContext": "法令非該当として分類した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術・知識問題。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -721,32 +1578,125 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n商号や商標の使用権と独占販売権を与える説明はフランチャイズ契約に近く、ファウンドリーサービスではない。",
-      "間違い。\n\n企画・設計から製造まで一貫して自社ブランドで販売するのは IDM の説明である。",
-      "間違い。\n\n製造設備を持たず企画・設計に特化するのはファブレス企業の説明である。",
-      "正しい。\n\nファウンドリーサービスは、他社から製造委託を受けて半導体製品を製造するビジネスである。製造設備を持つ受託製造専門企業が担う。"
-    ],
-    "suggestedQuestions": [
-      "ファウンドリーとファブレスの違いは何ですか？",
-      "IDM とは何ですか？",
-      "なぜ半導体で分業が進むのですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ファウンドリーとファブレスの違いは何ですか？",
-        "answer": "ファウンドリーは製造受託、ファブレスは工場を持たず企画・設計中心である。"
-      },
-      {
-        "question": "IDM とは何ですか？",
-        "answer": "企画、設計、製造、販売までを垂直統合で行う半導体メーカーである。"
-      },
-      {
-        "question": "なぜ半導体で分業が進むのですか？",
-        "answer": "製造設備投資が巨額で、設計と製造を分業した方が効率的な場合が多いからである。"
-      }
+      "間違い。正しくは、商号や商標の使用権と一定地域内での商品独占販売権を与えるのは、フランチャイズ契約に近い事業形態である。選択肢はこの販売契約の説明をファウンドリーサービスとしているため誤りである。",
+      "間違い。正しくは、自社で企画・設計から製造まで行い、自社ブランドで販売するのはIDM（垂直統合型デバイスメーカー）である。選択肢はIDMの説明をファウンドリーサービスとしているため誤りである。",
+      "間違い。正しくは、製造設備を持たず、半導体製品の企画・設計・開発に特化するのはファブレス企業である。選択肢はファブレス企業の説明をファウンドリーサービスとしているため誤りである。",
+      "正しい。ファウンドリーサービスは、他社から製造を受託し、半導体製品を製造する事業形態である。ファブレス企業のように製造設備を持たない企業から、製造工程を引き受ける。"
     ],
     "original_question_id": "6f07dcef642712f7",
     "question_url": "https://www.nw-siken.com/kakomon/01_aki/am1_25.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201902:6f07dcef642712f7",
+    "reviewQuestionId": "6f07dcef642712f7",
+    "sourceRecordRef": "question_201902_1.json#24",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "ファウンドリーサービスの事業形態を問う問題で、法令・制度上の根拠を要しない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "フランチャイズ契約に近い販売形態の説明であり、ファウンドリーサービスではない。",
+          "promptContext": "問題文と選択肢を結合して判定。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・業務知識による判定のため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "自社で企画・設計から製造まで行い自社ブランドで販売する形態はIDMであり、ファウンドリーサービスではない。",
+          "promptContext": "問題文と選択肢を結合して判定。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・業務知識による判定のため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "製造設備を持たず企画・設計・開発に特化する形態はファブレス企業であり、ファウンドリーサービスではない。",
+          "promptContext": "問題文と選択肢を結合して判定。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・業務知識による判定のため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "他社から製造委託を受けて半導体製品を製造する事業形態がファウンドリーサービスである。",
+          "promptContext": "問題文と選択肢を結合して判定。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術・業務知識による判定のため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   }
 ]

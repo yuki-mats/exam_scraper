@@ -91,10 +91,10 @@
   },
   {
     "explanationText": [
-      "間違い。メモリインターリーブは、連続するアドレスを複数のバンクに分散し、並列にアクセスして実効的なアクセス時間を短縮する。選択肢は同一のバンクに連続してアクセスするとしているため誤りである。",
-      "間違い。キャッシュミス発生時のアクセス時間を短縮できる場合でも、メモリインターリーブの前提は連続するアドレスを複数のバンクに分散してアクセスできることである。選択肢は同一のバンクの連続したアドレスへのアクセスを対象としているため誤りである。",
-      "間違い。一つのバンクが故障してもシステムを継続させるには、冗長化やECCなどの仕組みが必要である。選択肢はメモリインターリーブにバンク故障時の継続運転機能があるとしているため誤りである。",
-      "正しい。連続するアドレスを複数のバンクに分散して配置し、複数のバンクへ交互にアクセスすることで、アクセスを並列化して時間を短縮する。"
+      "間違い。メモリインターリーブは、連続するアドレスを複数のバンクに分散して並列にアクセスし、実効的なアクセス時間を短縮する。選択肢は同一のバンクに連続してアクセスするとしているため誤りである。",
+      "間違い。メモリインターリーブは、キャッシュミス発生時に限ってアクセス時間を短縮する仕組みではなく、複数のバンクに分散した連続アドレスへ並列にアクセスして性能を高める。選択肢は同一のバンクの連続したアドレスへのアクセスを対象としているため誤りである。",
+      "間違い。正しくは、一つのバンクが故障してもシステムを継続させるには、冗長化やECCなどの仕組みが必要である。選択肢はメモリインターリーブにバンク故障時の継続運転機能があるとしているため誤りである。",
+      "正しい。連続するアドレスを複数のバンクに分散し、複数のバンクへ交互にアクセスすることで、メモリアクセスを並列化して時間を短縮する。"
     ],
     "original_question_id": "4a514e01e7ceca82",
     "question_url": "https://www.nw-siken.com/kakomon/28_aki/am1_4.html",
@@ -104,11 +104,117 @@
     "sourceRecordRef": "question_201602_1.json#3",
     "explanationReferences": [],
     "questionLearningPatternId": "mechanisms_reasons",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "メモリインターリーブは、連続するアドレスを複数のバンクに分散して並列的にアクセスし、アクセス時間を短縮するコンピュータ構成上の技術である。法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "同一のバンクへの連続アクセスではなく、複数のバンクに分散した連続アドレスへの並列アクセスでアクセス時間を短縮する。",
+          "promptContext": "法令監査対象外の技術問題。",
+          "refs": [],
+          "verdict": "技術知識に基づき間違いと判定"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判断できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "メモリインターリーブはキャッシュミス時だけに限定された仕組みではなく、複数バンクへの分散アクセスで性能を高める。",
+          "promptContext": "法令監査対象外の技術問題。",
+          "refs": [],
+          "verdict": "技術知識に基づき間違いと判定"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判断できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "バンク故障時の継続運転はメモリインターリーブの目的ではなく、冗長化やECCなど別の仕組みに関係する。",
+          "promptContext": "法令監査対象外の技術問題。",
+          "refs": [],
+          "verdict": "技術知識に基づき間違いと判定"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判断できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "連続するアドレスを複数のバンクに分散し、並列アクセスによってアクセス時間を短縮することがメモリインターリーブの目的である。",
+          "promptContext": "法令監査対象外の技術問題。",
+          "refs": [],
+          "verdict": "技術知識に基づき正しいと判定"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで正誤を判断できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "正しい。アベイラビリティ（稼働率）は、平均故障間隔MTBFと平均修復時間MTTRを使って、次の式で求める。\n\\[A=\\frac{\\mathrm{MTBF}}{\\mathrm{MTBF}+\\mathrm{MTTR}}\\]\nMTBFは故障から次の故障までの平均稼働時間、MTTRは故障してから復旧するまでの平均修復時間である。両方が1.5倍になると、\\[A'=\\frac{1.5\\mathrm{MTBF}}{1.5\\mathrm{MTBF}+1.5\\mathrm{MTTR}}=\\frac{\\mathrm{MTBF}}{\\mathrm{MTBF}+\\mathrm{MTTR}}\\]となるため、アベイラビリティは変わらない。"
+      "正しい。アベイラビリティ（稼働率）は、平均故障間隔MTBFと平均修復時間MTTRを使って、次の式で求める。\n\\[A=\\frac{\\mathrm{MTBF}}{\\mathrm{MTBF}+\\mathrm{MTTR}}\\]\nMTBFは故障から次の故障までの平均稼働時間、MTTRは故障してから復旧するまでの平均修復時間である。両方が1.5倍になると、\\[A'=\\frac{1.5\\mathrm{MTBF}}{1.5\\mathrm{MTBF}+1.5\\mathrm{MTTR}}=\\frac{\\mathrm{MTBF}}{\\mathrm{MTBF}+\\mathrm{MTTR}}=A\\]となり、共通する1.5倍が分子と分母から消える。そのため、アベイラビリティは変わらない。"
     ],
     "original_question_id": "2c74d74e053c7acd",
     "question_url": "https://www.nw-siken.com/kakomon/28_aki/am1_5.html",
@@ -122,153 +228,616 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n空き領域を結合して連続領域にする操作はメモリコンパクションであり、可変区画方式そのものの定義ではない。",
-      "正しい。\n\nガーベジコレクションは、ヒープ上で不要になった領域を回収して再利用可能にする処理である。",
-      "間違い。\n\n実行中に主記憶内で格納位置を移すのは動的再配置の説明であり、動的リンキングではない。",
-      "間違い。\n\n必要になった時点でモジュールを読み込むのは動的リンキングの説明であり、動的再配置ではない。"
-    ],
-    "suggestedQuestions": [
-      "ガーベジコレクションは何を回収しますか？",
-      "動的リンキングと動的再配置の違いは何ですか？",
-      "メモリコンパクションは何をしますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ガーベジコレクションは何を回収しますか？",
-        "answer": "ヒープ上で参照されなくなった不要メモリ領域を回収する。"
-      },
-      {
-        "question": "動的リンキングと動的再配置の違いは何ですか？",
-        "answer": "動的リンキングは必要時ロードやリンク、動的再配置は実行時に格納位置を調整する処理である。"
-      },
-      {
-        "question": "メモリコンパクションは何をしますか？",
-        "answer": "分断された空き領域を詰めて一つの連続領域にまとめる。"
-      }
+      "間違い。正しくは、主記憶の空き領域を結合して一つの連続した領域にする操作は、メモリコンパクションである。選択肢は、この操作を可変区画方式としているため誤りである。",
+      "正しい。ガーベジコレクションは、プログラムが使用しなくなったヒープ領域を回収し、再利用できるようにする処理である。",
+      "間違い。正しくは、プログラムの実行中に主記憶内でモジュールの格納位置を移動させるのは、動的再配置である。選択肢は、この処理を動的リンキングとしているため誤りである。",
+      "間違い。正しくは、プログラムの実行中に必要になった時点でモジュールをロードするのは、動的リンキングである。選択肢は、このロード処理を動的再配置としているため誤りである。"
     ],
     "original_question_id": "bc72429b59188543",
     "question_url": "https://www.nw-siken.com/kakomon/28_aki/am1_6.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201602:bc72429b59188543",
+    "reviewQuestionId": "bc72429b59188543",
+    "sourceRecordRef": "question_201602_1.json#5",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "主記憶管理に関する一般的な技術知識の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行の法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "選択肢1の正誤は主記憶管理の技術用語で決まり、法令根拠は不要である。",
+          "promptContext": "主記憶管理の技術知識問題。",
+          "refs": [],
+          "verdict": "非法令問題"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術知識として判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行の法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "選択肢2の正誤はガーベジコレクションの技術定義で決まり、法令根拠は不要である。",
+          "promptContext": "主記憶管理の技術知識問題。",
+          "refs": [],
+          "verdict": "非法令問題"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外の技術知識として判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行の法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "選択肢3の正誤は動的再配置と動的リンキングの技術上の区別で決まり、法令根拠は不要である。",
+          "promptContext": "主記憶管理の技術知識問題。",
+          "refs": [],
+          "verdict": "非法令問題"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術知識として判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行の法令差分はない。",
+          "displayRefIds": [],
+          "explanationText": "選択肢4の正誤は動的リンキングと動的再配置の技術上の区別で決まり、法令根拠は不要である。",
+          "promptContext": "主記憶管理の技術知識問題。",
+          "refs": [],
+          "verdict": "非法令問題"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術知識として判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\nAND は両方が 1 のときだけ 1 になるので、どちらか片方の切替で点灯状態が反転する条件を満たさない。",
-      "間違い。\n\nNAND は AND の否定であり、二つのスイッチの一致・不一致で単純に反転する回路にはならない。",
-      "間違い。\n\nNOR は両方が 0 のときだけ 1 になるので、階段スイッチの動作条件とは合わない。",
-      "正しい。\n\nXOR は二入力が異なるときに 1 になる。どちらか一方のスイッチを切り替えると出力が反転するため、二地点から同じ照明を点灯・消灯する条件に一致する。"
-    ],
-    "suggestedQuestions": [
-      "XOR はどんなときに 1 になりますか？",
-      "階段スイッチで XOR が使えるのはなぜですか？",
-      "AND や NOR ではなぜ駄目ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "XOR はどんなときに 1 になりますか？",
-        "answer": "二つの入力が異なるときに 1 になる。"
-      },
-      {
-        "question": "階段スイッチで XOR が使えるのはなぜですか？",
-        "answer": "どちらか一方のスイッチを変えるたびに出力が反転し、点灯・消灯を切り替えられるからである。"
-      },
-      {
-        "question": "AND や NOR ではなぜ駄目ですか？",
-        "answer": "入力の一致・不一致ではなく特定組合せだけで 1 になるため、二地点切替の性質を表せないからである。"
-      }
+      "正しい。XORは二つの入力が異なるときに出力が1になる論理回路である。一方のスイッチを切り替えると、もう一方の状態にかかわらず入力の一致・不一致が反転し、照明の点灯・消灯も切り替わる。この動作が、階段の上下にあるどちらのスイッチでも照明を操作できる条件に一致する。"
     ],
     "original_question_id": "85b8347f6881b300",
     "question_url": "https://www.nw-siken.com/kakomon/28_aki/am1_7.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201602:85b8347f6881b300",
+    "reviewQuestionId": "85b8347f6881b300",
+    "sourceRecordRef": "question_201602_1.json#6",
+    "explanationReferences": [],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "階段の上下にある二つのスイッチで照明を操作する回路は、排他的論理和（XOR）の技術的な論理で説明する。法令根拠は不要である。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ANDは一方の入力にかかわらず他方で出力を切り替える回路ではない。",
+          "promptContext": "選択肢ANDの完全命題を技術的に判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術問題のため法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "NANDは一方の入力にかかわらず他方で出力を切り替える回路ではない。",
+          "promptContext": "選択肢NANDの完全命題を技術的に判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術問題のため法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "NORは一方の入力にかかわらず他方で出力を切り替える回路ではない。",
+          "promptContext": "選択肢NORの完全命題を技術的に判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術問題のため法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "XORは二つの入力が異なるときに出力が1となるため、どちらのスイッチでも照明を切り替えられる条件に一致する。",
+          "promptContext": "選択肢XORの完全命題を技術的に判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術問題のため法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\nAjax は JavaScript と非同期通信を用いた Web アプリの実装手法であり、マルチメディアの再生タイミング記述用の XML 仕様ではない。",
-      "間違い。\n\nCSS は見た目の装飾を指定するスタイルシート言語であり、音声や動画の時間制御を記述するものではない。",
-      "正しい。\n\nSMIL は Synchronised Multimedia Integration Language の略で、動画・音声・画像・テキストの配置や再生タイミングを XML で記述する W3C 勧告である。",
-      "間違い。\n\nSVG はベクター画像を XML で表現する仕様であり、マルチメディア全体の時間同期を主目的とするものではない。"
-    ],
-    "suggestedQuestions": [
-      "SMIL は何を記述しますか？",
-      "CSS や SVG との違いは何ですか？",
-      "SMIL はどんな場面で使いますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "SMIL は何を記述しますか？",
-        "answer": "動画、音声、画像などのレイアウトと再生タイミングを記述する。"
-      },
-      {
-        "question": "CSS や SVG との違いは何ですか？",
-        "answer": "CSS は装飾、SVG は画像表現、SMIL はマルチメディアの時間同期を扱う点が違う。"
-      },
-      {
-        "question": "SMIL はどんな場面で使いますか？",
-        "answer": "複数メディアを時間同期して再生するプレゼンテーションや配信記述で使う。"
-      }
+      "間違い。正しくは、AjaxはJavaScriptと非同期通信を組み合わせてWebページを動的に更新する実装手法である。選択肢はAjaxをマルチメディアの配置や再生タイミングをXMLで記述するW3C勧告としているため誤りである。",
+      "間違い。正しくは、CSSはWebページの文字や配置、色などの表示を指定するスタイルシート言語である。選択肢はCSSを音声や動画の再生タイミングを記述する仕様としているため誤りである。",
+      "正しい。SMILは、動画、音声、画像、テキストなどの配置や再生タイミングをXMLで記述するW3C勧告である。",
+      "間違い。正しくは、SVGはベクター画像をXMLで表現する仕様である。選択肢はSVGをマルチメディア全体の配置や再生タイミングを記述する仕様としているため誤りである。"
     ],
     "original_question_id": "86a37d07a968298c",
     "question_url": "https://www.nw-siken.com/kakomon/28_aki/am1_8.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201602:86a37d07a968298c",
+    "reviewQuestionId": "86a37d07a968298c",
+    "sourceRecordRef": "question_201602_1.json#7",
+    "explanationReferences": [
+      {
+        "choiceIndex": 2,
+        "referenceDate": "2008-12-01",
+        "sourceUrl": "https://www.w3.org/TR/smil/",
+        "title": "Synchronized Multimedia Integration Language (SMIL 3.0)"
+      }
+    ],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "W3C勧告であるSMILの技術知識を問う問題であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に差異はない。",
+          "displayRefIds": [],
+          "explanationText": "Ajaxは非同期通信を用いたWebページ更新の実装手法であり、問題文のマルチメディア記述仕様には該当しない。法令根拠は不要である。",
+          "promptContext": "選択肢1の技術用語の定義を判定する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に差異はない。",
+          "displayRefIds": [],
+          "explanationText": "CSSはWebページの表示を指定するスタイルシート言語であり、音声や動画の再生タイミングを記述する仕様ではない。法令根拠は不要である。",
+          "promptContext": "選択肢2の技術用語の定義を判定する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に差異はない。",
+          "displayRefIds": [],
+          "explanationText": "SMILは動画、音声、画像、テキストなどの配置や再生タイミングをXMLで記述するW3C勧告である。法令根拠は不要である。",
+          "promptContext": "選択肢3の技術用語の定義を判定する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に差異はない。",
+          "displayRefIds": [],
+          "explanationText": "SVGはベクター画像をXMLで表現する仕様であり、マルチメディア全体の配置や再生タイミングを記述する仕様ではない。法令根拠は不要である。",
+          "promptContext": "選択肢4の技術用語の定義を判定する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\nx や X のオーダーなら探索対象件数に比例して増える線形探索に近い。B+ 木インデックス探索はもっと少ない回数で済む。",
-      "正しい。\n\nB+ 木では木の高さに応じて根から葉へたどるため、ノードアクセス回数は木の高さに比例する。高さはデータ件数 X に対して対数的に増えるのでオーダーは logX である。",
-      "間違い。\n\nX は線形オーダーであり、B+ 木インデックス探索の効率を表していない。",
-      "間違い。\n\nX! は階乗オーダーであり、探索回数としては非現実的で B+ 木インデックスとは無関係である。"
-    ],
-    "suggestedQuestions": [
-      "B+ 木探索が対数時間になるのはなぜですか？",
-      "木の高さとアクセス回数の関係は何ですか？",
-      "線形探索との違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "B+ 木探索が対数時間になるのはなぜですか？",
-        "answer": "分岐数の大きい木を上から下へたどるため、件数が増えても高さが対数的にしか増えないからである。"
-      },
-      {
-        "question": "木の高さとアクセス回数の関係は何ですか？",
-        "answer": "1 レベル降りるごとに 1 ノード参照するので、アクセス回数はほぼ木の高さに比例する。"
-      },
-      {
-        "question": "線形探索との違いは何ですか？",
-        "answer": "線形探索は件数に比例して比較回数が増えるが、B+ 木は対数的に増えるため大規模データで有利である。"
-      }
+      "正しい。正答はlogXである。B+木では根から葉までの高さに沿ってノードを順に参照する。木の高さはデータ総件数Xに対して対数的に増えるため、ノードへのアクセス回数のオーダーはlogXとなる。"
     ],
     "original_question_id": "37c24f696a522fd7",
     "question_url": "https://www.nw-siken.com/kakomon/28_aki/am1_9.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201602:37c24f696a522fd7",
+    "reviewQuestionId": "37c24f696a522fd7",
+    "sourceRecordRef": "question_201602_1.json#8",
+    "explanationReferences": [],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "B+木インデックスのアクセス回数に関するデータ構造の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "選択肢「x」はB+木のアクセス回数のオーダーではない。",
+          "promptContext": "B+木インデックスのアクセス回数。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "選択肢「logX」はB+木のアクセス回数のオーダーとして正しい。",
+          "promptContext": "B+木インデックスのアクセス回数。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "選択肢「X」はB+木のアクセス回数のオーダーではない。",
+          "promptContext": "B+木インデックスのアクセス回数。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "選択肢「X!」はB+木のアクセス回数のオーダーではない。",
+          "promptContext": "B+木インデックスのアクセス回数。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "正しい。\n\nチェックポイント後にコミット済みで更新のある T2 と T5 はロールフォワードし、障害時未コミットで更新のある T6 はロールバックする。読み取りのみの T3、T4 やチェックポイント前に確定した T1 は対象外である。",
-      "間違い。\n\nロールフォワード対象とロールバック対象の切分けが誤っている。チェックポイント後コミット済みの T2、T5 と、未コミット更新ありの T6 だけが回復対象である。",
-      "間違い。\n\n読み取りのみのトランザクションやチェックポイント前確定分を回復対象に含めると誤りになる。正しい組合せはアだけである。",
-      "間違い。\n\n未コミット更新のある T6 を戻さない、または T2、T5 を前進復帰しない組合せは成立しない。障害復旧の原則と合わない。"
-    ],
-    "suggestedQuestions": [
-      "ロールフォワードとロールバックはどう使い分けますか？",
-      "チェックポイント前のコミット済み処理はどう扱いますか？",
-      "更新しないトランザクションはなぜ対象外ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ロールフォワードとロールバックはどう使い分けますか？",
-        "answer": "障害前にコミット済みだが未反映の更新はロールフォワード、未コミット更新はロールバックで戻す。"
-      },
-      {
-        "question": "チェックポイント前のコミット済み処理はどう扱いますか？",
-        "answer": "ディスク反映が保証されているので通常は再適用不要である。"
-      },
-      {
-        "question": "更新しないトランザクションはなぜ対象外ですか？",
-        "answer": "更新ログを残さず、データベース内容を変えていないため復旧処理が不要だからである。"
-      }
+      "正しい。該当する組合せはアである。チェックポイント後にコミットしたT2とT5は、障害発生時までの更新を反映するためロールフォワードする。一方、障害発生時にコミットしていなかったT6の更新は取り消すためロールバックする。T1はチェックポイント前にコミット済みで、T3とT4は読み取りのみなので、今回の復旧操作の対象にならない。"
     ],
     "original_question_id": "9ca795b026a5b1e8",
     "question_url": "https://www.nw-siken.com/kakomon/28_aki/am1_10.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201602:9ca795b026a5b1e8",
+    "reviewQuestionId": "9ca795b026a5b1e8",
+    "sourceRecordRef": "question_201602_1.json#9",
+    "explanationReferences": [],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "DBMSの障害回復処理に関する技術問題で、法令・制度上の義務や基準を判断根拠としない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "チェックポイント後にコミットしたトランザクションをロールフォワードし、障害時未コミットのトランザクションをロールバックする技術問題である。",
+          "promptContext": "選択肢アの組合せに関する技術判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "DBMSの技術知識で正誤を判定する問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "DBMSの障害回復処理に関する技術問題であり、法令根拠は正誤を決めない。",
+          "promptContext": "選択肢イの組合せに関する技術判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "DBMSの技術知識で正誤を判定する問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "DBMSの障害回復処理に関する技術問題であり、法令根拠は正誤を決めない。",
+          "promptContext": "選択肢ウの組合せに関する技術判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "DBMSの技術知識で正誤を判定する問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "DBMSの障害回復処理に関する技術問題であり、法令根拠は正誤を決めない。",
+          "promptContext": "選択肢エの組合せに関する技術判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "DBMSの技術知識で正誤を判定する問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -392,63 +961,249 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nIPsec と TLS を選択可能にすることを指してハイブリッド暗号方式とはいわない。ここでいうハイブリッドは暗号アルゴリズムの組合せである。",
-      "正しい。\n\nハイブリッド暗号方式は、鍵配送に公開鍵暗号を使い、本文暗号化に高速な共通鍵暗号を使うことで、鍵管理のしやすさと処理性能を両立する。",
-      "間違い。\n\n複数の共通鍵暗号を重ねることが本質ではない。公開鍵暗号と共通鍵暗号の役割分担が重要である。",
-      "間違い。\n\n複数の公開鍵暗号方式を組み合わせることを意味しない。公開鍵は主にセッション鍵配送のために使う。"
-    ],
-    "suggestedQuestions": [
-      "ハイブリッド暗号方式は何を組み合わせますか？",
-      "なぜ本文は共通鍵暗号を使いますか？",
-      "公開鍵暗号の役割は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ハイブリッド暗号方式は何を組み合わせますか？",
-        "answer": "公開鍵暗号と共通鍵暗号を組み合わせる。"
-      },
-      {
-        "question": "なぜ本文は共通鍵暗号を使いますか？",
-        "answer": "公開鍵暗号より高速で、大量データ暗号化に向くためである。"
-      },
-      {
-        "question": "公開鍵暗号の役割は何ですか？",
-        "answer": "セッション鍵の安全な配送や共有に使う。"
-      }
+      "間違い。IPsecとTLSを選択可能にすることは、暗号アルゴリズムを組み合わせるハイブリッド暗号方式の説明ではない。",
+      "正しい。ハイブリッド暗号方式は、鍵の配送に公開鍵暗号を使い、実際のデータ暗号化には高速な共通鍵暗号を使う。これにより、公開鍵暗号による鍵管理のしやすさと、共通鍵暗号による高い処理性能を両立する。",
+      "間違い。複数の共通鍵暗号方式を組み合わせることを指すのではない。公開鍵暗号と共通鍵暗号を、鍵配送とデータ暗号化に役割分担させる方式である。",
+      "間違い。複数の公開鍵暗号方式を組み合わせることを指すのではない。公開鍵暗号は主に共通鍵で使うセッション鍵の配送に利用され、データ本体は共通鍵暗号で効率よく暗号化する。"
     ],
     "original_question_id": "fc6127a6f1c0b3ad",
     "question_url": "https://www.nw-siken.com/kakomon/28_aki/am1_15.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201602:fc6127a6f1c0b3ad",
+    "reviewQuestionId": "fc6127a6f1c0b3ad",
+    "sourceRecordRef": "question_201602_1.json#14",
+    "explanationReferences": [],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "公開鍵暗号方式と共通鍵暗号方式を組み合わせる技術上の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の比較対象外で、法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "公開鍵暗号方式と共通鍵暗号方式を組み合わせるハイブリッド暗号方式に関する技術説明である。",
+          "promptContext": "IPsec、TLS、共通鍵暗号、公開鍵暗号の役割を区別する選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識に基づく選択肢であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の比較対象外で、法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "ハイブリッド暗号方式の定義と、公開鍵暗号による鍵配送および共通鍵暗号によるデータ暗号化の役割分担に関する技術説明である。",
+          "promptContext": "公開鍵暗号方式と共通鍵暗号方式を組み合わせる特徴を問う選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識に基づく選択肢であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の比較対象外で、法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "複数の共通鍵暗号方式を組み合わせることは、ハイブリッド暗号方式の定義ではない。",
+          "promptContext": "ハイブリッド暗号方式における暗号方式の組合せを問う選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識に基づく選択肢であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の比較対象外で、法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "複数の公開鍵暗号方式を組み合わせることは、ハイブリッド暗号方式の定義ではない。",
+          "promptContext": "ハイブリッド暗号方式における公開鍵暗号と共通鍵暗号の役割を問う選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識に基づく選択肢であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n外部イベントに応じた状態遷移を表すのは状態遷移図の説明である。",
-      "間違い。\n\nクラスと関連で静的構造を表すのはクラス図の説明である。",
-      "正しい。\n\nユースケース図は、利用者や外部システムなどのアクタと、システムが提供する機能との相互作用を表現する。",
-      "間違い。\n\nデータの流れに注目して機能を表すのは DFD などの考え方であり、ユースケース図の説明ではない。"
-    ],
-    "suggestedQuestions": [
-      "ユースケース図では何を表しますか？",
-      "クラス図や状態遷移図との違いは何ですか？",
-      "アクタとは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ユースケース図では何を表しますか？",
-        "answer": "システム外部のアクタとシステム機能とのやり取りを表す。"
-      },
-      {
-        "question": "クラス図や状態遷移図との違いは何ですか？",
-        "answer": "クラス図は静的構造、状態遷移図は状態変化、ユースケース図は利用者視点の機能関係を表す。"
-      },
-      {
-        "question": "アクタとは何ですか？",
-        "answer": "システムと相互作用する利用者、外部システム、装置などの主体である。"
-      }
+      "間違い。外部イベントに応じたオブジェクトの状態変化を表すのは状態遷移図である。選択肢はユースケース図で状態の遷移を表現するとしているため誤りである。",
+      "間違い。クラスと関連によってシステムの静的な構造を表すのはクラス図である。選択肢はユースケース図でクラス構造を表現するとしているため誤りである。",
+      "正しい。ユースケース図は、利用者や外部システムなどのアクタと、システムが提供する機能との相互作用を表現する。",
+      "間違い。データの流れに注目してシステムの機能を表すのは、DFDなどの図である。選択肢はユースケース図でデータの流れを表現するとしているため誤りである。"
     ],
     "original_question_id": "c7e1d40dd30aa77b",
     "question_url": "https://www.nw-siken.com/kakomon/28_aki/am1_16.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201602:c7e1d40dd30aa77b",
+    "reviewQuestionId": "c7e1d40dd30aa77b",
+    "sourceRecordRef": "question_201602_1.json#15",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "UMLの図の種類と表現対象を問う技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "状態遷移図の説明であり、ユースケース図の説明ではない。",
+          "promptContext": "選択肢1のUML図の種類を確認した。",
+          "refs": [],
+          "verdict": "法令非関連"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "クラス図の説明であり、ユースケース図の説明ではない。",
+          "promptContext": "選択肢2のUML図の種類を確認した。",
+          "refs": [],
+          "verdict": "法令非関連"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ユースケース図はシステムとアクタの相互作用を表現する。",
+          "promptContext": "選択肢3のUML図の種類を確認した。",
+          "refs": [],
+          "verdict": "法令非関連"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "データの流れを表す説明であり、ユースケース図の説明ではない。",
+          "promptContext": "選択肢4のUML図の種類を確認した。",
+          "refs": [],
+          "verdict": "法令非関連"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -632,92 +1387,474 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n顧客満足度は顧客の視点の KPI であり、学習と成長の視点ではない。",
-      "間違い。\n\n再利用環境整備と提案数拡大は内部ビジネスプロセスの改善に関する目標である。",
-      "正しい。\n\n社内要員を IT のプロフェッショナルとして育成する目標は、人材・能力基盤の強化を表しており、学習と成長の視点に当たる。",
-      "間違い。\n\n受注金額比率は財務の視点の KPI であり、学習と成長の視点ではない。"
-    ],
-    "suggestedQuestions": [
-      "バランススコアカードの学習と成長の視点とは何ですか？",
-      "顧客・財務・内部プロセスとの違いは何ですか？",
-      "人材育成がこの視点に入るのはなぜですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "バランススコアカードの学習と成長の視点とは何ですか？",
-        "answer": "人材、組織能力、知識基盤など将来の成長を支える要素に注目する視点である。"
-      },
-      {
-        "question": "顧客・財務・内部プロセスとの違いは何ですか？",
-        "answer": "顧客は満足や維持、財務は収益、内部プロセスは業務改善、学習と成長は人材や能力向上を主に見る。"
-      },
-      {
-        "question": "人材育成がこの視点に入るのはなぜですか？",
-        "answer": "将来のソリューション提供力を高める基盤が人材能力だからである。"
-      }
+      "間違い。正しくは、顧客満足度は顧客の視点で評価するKPIである。選択肢は学習と成長のKPIとして顧客への満足度調査を挙げているため、視点が異なる。",
+      "間違い。正しくは、再利用環境の整備や顧客提案数の増加は、業務の進め方を改善する内部ビジネスプロセスのKPIである。選択肢は学習と成長のKPIとして業務プロセスの成果を挙げているため、視点が異なる。",
+      "正しい。社内要員の育成は、従業員の能力や知識を高める学習と成長のKPIに当たる。",
+      "間違い。正しくは、受注金額やその構成比は財務の視点で評価するKPIである。選択肢は学習と成長のKPIとして売上に関する成果を挙げているため、視点が異なる。"
     ],
     "original_question_id": "3250831dffcc5092",
     "question_url": "https://www.nw-siken.com/kakomon/28_aki/am1_23.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201602:3250831dffcc5092",
+    "reviewQuestionId": "3250831dffcc5092",
+    "sourceRecordRef": "question_201602_1.json#22",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "バランススコアカードの学習と成長のKPIを問う経営・業務知識の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第1選択肢は顧客の視点に関するKPIであり、法令根拠を要しない。",
+          "promptContext": "経営・業務知識による判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象ではなく、バランススコアカードの業務知識として判定した。"
+        ],
+        "reconciliationStatus": "reconciled_not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第2選択肢は内部ビジネスプロセスの視点に関するKPIであり、法令根拠を要しない。",
+          "promptContext": "経営・業務知識による判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象ではなく、バランススコアカードの業務知識として判定した。"
+        ],
+        "reconciliationStatus": "reconciled_not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第3選択肢は社内要員の育成に関する学習と成長のKPIであり、法令根拠を要しない。",
+          "promptContext": "経営・業務知識による判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象ではなく、バランススコアカードの業務知識として判定した。"
+        ],
+        "reconciliationStatus": "reconciled_not_law_related",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第4選択肢は財務の視点に関するKPIであり、法令根拠を要しない。",
+          "promptContext": "経営・業務知識による判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象ではなく、バランススコアカードの業務知識として判定した。"
+        ],
+        "reconciliationStatus": "reconciled_not_law_related",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n公開情報から競合分析を行うのは競争情報収集に近く、BI の典型的活用事例とはいえない。",
-      "正しい。\n\nBI は業務システムなどに蓄積された大量データを分析し、業績評価や意思決定、経営戦略立案に活用する考え方である。",
-      "間違い。\n\n電子教材の配信と学習管理は e ラーニングの活用事例であり、BI の説明ではない。",
-      "間違い。\n\nりん議や決裁の電子化はワークフローシステムの活用事例であり、BI の主題ではない。"
-    ],
-    "suggestedQuestions": [
-      "BI は何のために使いますか？",
-      "e ラーニングやワークフローとの違いは何ですか？",
-      "BI の入力データはどこから来ますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "BI は何のために使いますか？",
-        "answer": "業務データを分析して、評価や意思決定、戦略立案に役立てるために使う。"
-      },
-      {
-        "question": "e ラーニングやワークフローとの違いは何ですか？",
-        "answer": "BI は分析・可視化、e ラーニングは学習支援、ワークフローは手続き処理の電子化を目的とする。"
-      },
-      {
-        "question": "BI の入力データはどこから来ますか？",
-        "answer": "販売、会計、在庫など既存業務システムに蓄積されたデータから来る。"
-      }
+      "間違い。正しくは、BIは組織内外の業務データを分析して、経営判断に役立てる仕組みである。選択肢は競合他社の公開資料を収集して経営戦略や財務状況を把握する活動を示しているため、BIの典型的な活用事例とは異なる。",
+      "正しい。BIは、業務システムなどに蓄積されたデータを分析し、業績評価や経営戦略の策定などの意思決定に活用する。",
+      "間違い。正しくは、電子化された教材をネットワーク経由で提供し、学習や成績を管理するのはeラーニングである。選択肢はeラーニングの活用事例をBIの事例としているため誤りである。",
+      "間違い。正しくは、りん議や決裁などの定型業務を電子化して手続を効率化するのは、ワークフローシステムである。選択肢はワークフローシステムの活用事例をBIの事例としているため誤りである。"
     ],
     "original_question_id": "584ea0a5c7ad0f94",
     "question_url": "https://www.nw-siken.com/kakomon/28_aki/am1_24.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201602:584ea0a5c7ad0f94",
+    "reviewQuestionId": "584ea0a5c7ad0f94",
+    "sourceRecordRef": "question_201602_1.json#23",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "BIの活用事例を問う技術知識問題であり、法令・制度上の義務、定義、手続又は基準を正誤の根拠としない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "選択肢1は競合他社の公開資料の調査であり、BIの典型的活用ではない。",
+          "promptContext": "技術知識による判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令関連性なし。BIの技術知識として判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "選択肢2は蓄積データを分析して業績評価や経営戦略策定に活用するBIの典型例である。",
+          "promptContext": "技術知識による判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令関連性なし。BIの技術知識として判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "選択肢3は電子教材による学習・成績管理であり、eラーニングの活用例である。",
+          "promptContext": "技術知識による判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令関連性なし。eラーニングに関する技術知識として判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "選択肢4はりん議や決裁の電子化による定型業務の効率化であり、ワークフローシステムの活用例である。",
+          "promptContext": "技術知識による判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令関連性なし。ワークフローシステムに関する技術知識として判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "正しい。\n\n要件定義工程では成果物や仕様がまだ具体的に確定していないため、情報システム・モデル取引・契約書では準委任契約が適切とされる。",
-      "間違い。\n\n要件定義で仕様の決定責任を持つのはユーザー側であり、ベンダー側に決定権があるという説明は誤りである。",
-      "間違い。\n\n成果物が具体化していない段階で請負契約を選ぶのは不適切である。請負は成果物完成を目的とする契約だからである。",
-      "間違い。\n\n請負契約にすると、かえってユーザー側の要件調整責任が曖昧になりやすい。要件定義工程では準委任契約が基本である。"
-    ],
-    "suggestedQuestions": [
-      "要件定義で準委任契約が適切な理由は何ですか？",
-      "請負契約との違いは何ですか？",
-      "要件定義でユーザー側が負う責任は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "要件定義で準委任契約が適切な理由は何ですか？",
-        "answer": "作業の遂行自体を目的とし、成果物内容が未確定でも契約しやすいためである。"
-      },
-      {
-        "question": "請負契約との違いは何ですか？",
-        "answer": "請負は成果物完成責任を負うが、準委任は善管注意義務の下で作業遂行を行う点が異なる。"
-      },
-      {
-        "question": "要件定義でユーザー側が負う責任は何ですか？",
-        "answer": "業務要件の提示や社内ステークホルダ調整、仕様決定への主体的関与を負う。"
-      }
+      "正しい。要件定義では成果物や仕様が具体的に確定していないため、経済産業省の「情報システム・モデル取引・契約書」は準委任型を基本としている。",
+      "間違い。正しくは、要件定義ではユーザーが業務要件やシステム要件を主体的に決定・明確化し、契約類型は準委任型を基本とする。選択肢は仕様の決定権をベンダー側にあるとしているため誤りである。民法（明治二十九年法律第八十九号）第六百五十六条は、法律行為でない事務の委託について委任の規定を準用している。",
+      "間違い。正しくは、要件定義の段階で成果物を具体的に特定できない場合は準委任型とする。選択肢は成果物を具体的に想定できない場合に請負契約にしたとしているため誤りである。民法第六百三十二条の請負は、仕事を完成することを約する契約である。",
+      "間違い。正しくは、要件定義ではユーザーが社内のステークホルダの要件を整理し、役割分担と責任を明確にしたうえで、準委任型を基本とする。選択肢は請負契約にすればユーザー内の調整責任が曖昧にならないとしているため誤りである。請負は仕事の完成を目的とする民法第六百三十二条の契約であり、成果物や役割分担が具体化している工程に適する。"
     ],
     "original_question_id": "0147e71cf847b95a",
     "question_url": "https://www.nw-siken.com/kakomon/28_aki/am1_25.html",
-    "lawGroundedExplanationNotNeeded": false
+    "lawGroundedExplanationNotNeeded": false,
+    "sourceQuestionKey": "nw:201602:0147e71cf847b95a",
+    "reviewQuestionId": "0147e71cf847b95a",
+    "sourceRecordRef": "question_201602_1.json#24",
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-10-03",
+        "sourceUrl": "https://www.meti.go.jp/policy/it_policy/keiyaku/model_keiyakusyo.pdf",
+        "title": "情報システム・モデル取引・契約書（経済産業省）"
+      },
+      {
+        "referenceDate": "2026-10-03",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/129AC0000000089?asof=2026-10-03",
+        "title": "民法（明治二十九年法律第八十九号）"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": true,
+    "lawContextForExplanation": "要件定義では成果物や仕様が具体的に確定していないため、経済産業省の「情報システム・モデル取引・契約書」は準委任型を基本とする。民法第632条は仕事の完成を目的とする請負、第656条は法律行為でない事務の委託に関する準委任の根拠を定める。",
+    "lawReferences": [
+      [
+        {
+          "article": "632",
+          "choiceIndex": 0,
+          "lawId": "129AC0000000089",
+          "lawTitle": "民法",
+          "referenceDate": "2026-10-03",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "656",
+          "choiceIndex": 0,
+          "lawId": "129AC0000000089",
+          "lawTitle": "民法",
+          "referenceDate": "2026-10-03",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "632",
+          "choiceIndex": 1,
+          "lawId": "129AC0000000089",
+          "lawTitle": "民法",
+          "referenceDate": "2026-10-03",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "656",
+          "choiceIndex": 1,
+          "lawId": "129AC0000000089",
+          "lawTitle": "民法",
+          "referenceDate": "2026-10-03",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "632",
+          "choiceIndex": 2,
+          "lawId": "129AC0000000089",
+          "lawTitle": "民法",
+          "referenceDate": "2026-10-03",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "656",
+          "choiceIndex": 2,
+          "lawId": "129AC0000000089",
+          "lawTitle": "民法",
+          "referenceDate": "2026-10-03",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        }
+      ],
+      [
+        {
+          "article": "632",
+          "choiceIndex": 3,
+          "lawId": "129AC0000000089",
+          "lawTitle": "民法",
+          "referenceDate": "2026-10-03",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "656",
+          "choiceIndex": 3,
+          "lawId": "129AC0000000089",
+          "lawTitle": "民法",
+          "referenceDate": "2026-10-03",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令検索",
+          "verificationStatus": "verified"
+        }
+      ]
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時本文は未取得。出題時正答と現行判定は一致する。",
+          "displayRefIds": [],
+          "explanationText": "公式元正答では第1選択肢が正しい。現行法上も、要件定義の契約形態を準委任型とする説明は、民法第656条の準委任および民法第632条の請負の区別と整合する。",
+          "promptContext": "要件定義工程で成果物や仕様が具体的に確定していない場合の契約形態を判定した。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "出題時本文はprimaryLawEvidenceで取得されていない。公式元正答を出題時判定として保持し、現行民法第632条・第656条とモデル契約資料で現行判定を確認した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時本文は未取得。出題時正答と現行判定は一致する。",
+          "displayRefIds": [],
+          "explanationText": "仕様の決定権をベンダー側にあるとする選択肢は、要件定義におけるユーザーの主体的な要件決定・明確化と整合しない。",
+          "promptContext": "要件定義工程で仕様の決定権を誰が担うかを含む完全な命題を判定した。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "出題時本文はprimaryLawEvidenceで取得されていない。公式元正答を出題時判定として保持し、現行民法第632条・第656条とモデル契約資料で現行判定を確認した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時本文は未取得。出題時正答と現行判定は一致する。",
+          "displayRefIds": [],
+          "explanationText": "成果物を具体的に想定できない場合に請負契約とする選択肢は、仕事の完成を目的とする民法第632条の請負の性質および要件定義の契約基本形と整合しない。",
+          "promptContext": "成果物の具体的な想定可否と請負・準委任の対応を判定した。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "出題時本文はprimaryLawEvidenceで取得されていない。公式元正答を出題時判定として保持し、現行民法第632条・第656条とモデル契約資料で現行判定を確認した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "same_as_current",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時本文は未取得。出題時正答と現行判定は一致する。",
+          "displayRefIds": [],
+          "explanationText": "請負契約にすればユーザー内のステークホルダ調整責任が曖昧にならないとする選択肢は、要件定義でユーザーが要件を整理し責任を明確化する考え方と整合しない。",
+          "promptContext": "ステークホルダ調整責任と契約類型の関係を判定した。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "出題時本文はprimaryLawEvidenceで取得されていない。公式元正答を出題時判定として保持し、現行民法第632条・第656条とモデル契約資料で現行判定を確認した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   }
 ]

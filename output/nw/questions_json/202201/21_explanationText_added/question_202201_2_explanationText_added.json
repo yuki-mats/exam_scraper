@@ -1,33 +1,17 @@
 [
   {
     "explanationText": [
-      "間違い。\n\n市場成長率が高く占有率も高い事業は『花形』であり、資金流入はあるが追加投資も必要になる。投資資金の安定供給源としては最適ではない。",
-      "間違い。\n\n成長率が高く占有率が低い事業は『問題児』であり、将来性はあるが資金投入を必要とする側である。",
-      "正しい。\n\n市場成長率が低く相対的市場占有率が高い事業は『金のなる木』である。追加投資が比較的少なく、安定収益を他事業への投資資金源にしやすい。",
-      "間違い。\n\n成長率も占有率も低い事業は『負け犬』であり、投資源ではなく撤退検討対象になりやすい。"
-    ],
-    "suggestedQuestions": [
-      "PPM の4象限はどう整理しますか？",
-      "なぜ『金のなる木』が資金源になるのですか？",
-      "『花形』との違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "PPM の4象限はどう整理しますか？",
-        "answer": "高成長・高占有率が花形、高成長・低占有率が問題児、低成長・高占有率が金のなる木、低成長・低占有率が負け犬である。"
-      },
-      {
-        "question": "なぜ『金のなる木』が資金源になるのですか？",
-        "answer": "市場成長が低いため大きな追加投資を要しにくく、高占有率から安定収益が見込めるため、余剰資金を他事業へ回しやすいからである。"
-      },
-      {
-        "question": "『花形』との違いは何ですか？",
-        "answer": "花形も収益を生むが、成長市場で地位維持のために再投資が多く必要になる。金のなる木は投資負担が相対的に小さい。"
-      }
+      "正しい。PPMでは、市場成長率が低く相対的市場占有率が高い「金のなる木」が安定した資金を生み、他事業への投資資金源となる。市場成長率が高い「花形」や「問題児」は成長のために投資を必要とし、両方が低い「負け犬」は資金源になりにくい。"
     ],
     "original_question_id": "18083481ef229f88",
     "question_url": "https://www.nw-siken.com/kakomon/04_haru/am1_26.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202201:18083481ef229f88",
+    "reviewQuestionId": "18083481ef229f88",
+    "sourceRecordRef": "question_202201_2.json#0",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -61,63 +45,37 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nカルテ情報は医療情報標準の対象になり得るが、XBRL の主要対象ではない。",
-      "間違い。\n\n顧客情報を表す一般規格ではなく、XBRL は財務報告向けの表現標準として使われる。",
-      "正しい。\n\nXBRL は企業の財務諸表や開示情報を電子的に表現・交換するための標準であり、主要対象は企業の財務情報である。",
-      "間違い。\n\n住民情報管理向け標準ではない。利用分野が異なる。"
-    ],
-    "suggestedQuestions": [
-      "XBRL は何のための標準ですか？",
-      "財務情報の電子開示でどう使われますか？",
-      "XML とどう関係しますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "XBRL は何のための標準ですか？",
-        "answer": "財務情報を統一的なタグ付き形式で表現し、機械処理や比較をしやすくするための標準である。"
-      },
-      {
-        "question": "財務情報の電子開示でどう使われますか？",
-        "answer": "企業が財務諸表項目へ意味付けされたタグを付けて提出し、利用者が自動集計や比較分析を行いやすくする。"
-      },
-      {
-        "question": "XML とどう関係しますか？",
-        "answer": "XBRL は XML ベースの仕様として実装される。財務項目の意味をタクソノミで定義する点が特徴である。"
-      }
+      "間違い。正しくは、XBRLの主要な対象は企業の財務情報である。選択肢は医療機関のカルテ情報を主要な取扱い対象としているため誤りである。",
+      "間違い。正しくは、XBRLの主要な対象は企業の財務情報である。選択肢は企業の顧客情報を主要な取扱い対象としているため誤りである。",
+      "正しい。XBRLは、企業の財務諸表や開示情報を電子的に表現・交換するための標準規格である。",
+      "間違い。正しくは、XBRLの主要な対象は企業の財務情報である。選択肢は自治体の住民情報を主要な取扱い対象としているため誤りである。"
     ],
     "original_question_id": "49dd4df32e8f2f68",
     "question_url": "https://www.nw-siken.com/kakomon/04_haru/am1_28.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202201:49dd4df32e8f2f68",
+    "reviewQuestionId": "49dd4df32e8f2f68",
+    "sourceRecordRef": "question_202201_2.json#2",
+    "explanationReferences": [],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "間違い。\n\n個人的資質に焦点を当てるのは特性論的アプローチであり、PM 理論ではない。",
-      "正しい。\n\nPM 理論は、リーダーシップを P 機能（目標達成能力）と M 機能（集団維持能力）の2次元で捉える。両方を高く備えたスタイルが望ましいとする。",
-      "間違い。\n\n部下の成熟度に応じて有効スタイルが変わる考え方は SL 理論である。",
-      "間違い。\n\nリーダーのパーソナリティと状況要因の適合を見るのはコンティンジェンシー理論の説明である。"
-    ],
-    "suggestedQuestions": [
-      "PM 理論の P と M は何ですか？",
-      "SL 理論との違いは何ですか？",
-      "なぜ 2 次元で考えるのですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "PM 理論の P と M は何ですか？",
-        "answer": "P は目標達成機能、M は集団維持機能である。成果とチーム維持の両面からリーダーシップを捉える。"
-      },
-      {
-        "question": "SL 理論との違いは何ですか？",
-        "answer": "SL 理論は部下成熟度に応じたスタイル変化を重視するが、PM 理論はリーダー行動を P と M の強さで分類する。"
-      },
-      {
-        "question": "なぜ 2 次元で考えるのですか？",
-        "answer": "目標達成だけでも集団維持だけでも不十分で、両面のバランスが組織成果へ影響すると考えるからである。"
-      }
+      "間違い。正しくは、PM理論はリーダーシップを目標達成機能（P機能）と集団維持機能（M機能）の二つの次元で捉える。選択肢はリーダー個人の性格や知性などの資質を分析するとしているため、特性論の説明であり、PM理論ではない。",
+      "正しい。PM理論は、リーダーシップを目標達成機能（P機能）と集団維持機能（M機能）の二つの次元で評価する。両方の機能が高いリーダーシップを望ましいと考える。",
+      "間違い。正しくは、部下の成熟度や自律性に応じて有効なリーダーシップ・スタイルが変わるとするのはSL理論である。選択肢はこの状況に応じたリーダーシップをPM理論の説明としているため誤りである。",
+      "間違い。正しくは、リーダーのパーソナリティと、リーダーが行使できる統制力や影響力などの状況要因との適合を重視するのはコンティンジェンシー理論である。選択肢はこの理論の説明をPM理論としているため誤りである。"
     ],
     "original_question_id": "4ba2e70a19fb9f42",
     "question_url": "https://www.nw-siken.com/kakomon/04_haru/am1_29.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202201:4ba2e70a19fb9f42",
+    "reviewQuestionId": "4ba2e70a19fb9f42",
+    "sourceRecordRef": "question_202201_2.json#3",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -211,33 +169,17 @@
   },
   {
     "explanationText": [
-      "正しい。\n\nBGP はインターネットで AS 間ルーティングに使われる代表的なプロトコルである。組織間の経路交換を担う。",
-      "間違い。\n\nIS-IS は主に AS 内部で使う IGP であり、AS 間経路制御の標準ではない。",
-      "間違い。\n\nOSPF も AS 内部向けの IGP であり、AS 間の経路交換には用いない。",
-      "間違い。\n\nRIP は小規模 AS 内で用いる距離ベクトル型 IGP であり、AS 間制御のプロトコルではない。"
-    ],
-    "suggestedQuestions": [
-      "BGP はどこで使いますか？",
-      "IGP と EGP の違いは何ですか？",
-      "OSPF と BGP をどう区別しますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "BGP はどこで使いますか？",
-        "answer": "自律システム間、つまり異なる組織や事業者どうしの経路交換で使う。"
-      },
-      {
-        "question": "IGP と EGP の違いは何ですか？",
-        "answer": "IGP は AS 内部、EGP は AS 間で使う。BGP は EGP 側の代表である。"
-      },
-      {
-        "question": "OSPF と BGP をどう区別しますか？",
-        "answer": "OSPF は内部向けリンクステート型、BGP は外部向けパスベクタ型と覚えると整理しやすい。"
-      }
+      "正しい。BGP（Border Gateway Protocol）は、異なるAS間で経路情報を交換するためのプロトコルである。IS-IS、OSPF、RIPは主にAS内部で経路制御を行うIGPであり、AS間の経路制御に用いる代表的なプロトコルではない。"
     ],
     "original_question_id": "9b0127e14a3a04d1",
     "question_url": "https://www.nw-siken.com/kakomon/04_haru/am2_3.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202201:9b0127e14a3a04d1",
+    "reviewQuestionId": "9b0127e14a3a04d1",
+    "sourceRecordRef": "question_202201_2.json#7",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -331,33 +273,23 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nARP は同一リンク内の MAC アドレス解決用であり、マルチキャスト参加通知には使わない。",
-      "正しい。\n\nIGMP はホストがマルチキャストグループへの参加・離脱を通知し、ルータがグループ参加有無を確認するために使う。",
-      "間違い。\n\nLDAP はディレクトリサービス用プロトコルであり、マルチキャスト制御とは関係ない。",
-      "間違い。\n\nRIP はルーティングプロトコルであり、ホストのマルチキャスト参加通知には用いない。"
-    ],
-    "suggestedQuestions": [
-      "IGMP は誰と誰の間で使われますか？",
-      "マルチキャストルーティングでの役割は？",
-      "ARP との違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "IGMP は誰と誰の間で使われますか？",
-        "answer": "主にホストと、そのローカルネットワーク上のマルチキャスト対応ルータの間で使われる。"
-      },
-      {
-        "question": "マルチキャストルーティングでの役割は？",
-        "answer": "どのセグメントに受信者がいるかをルータへ知らせ、必要な場所へだけマルチキャストを転送できるようにする。"
-      },
-      {
-        "question": "ARP との違いは何ですか？",
-        "answer": "ARP はアドレス解決、IGMP はマルチキャストグループ管理であり、役割がまったく異なる。"
-      }
+      "正しい。該当するプロトコルはIGMPである。IGMPは、ホストがマルチキャストグループへの参加・離脱を通知し、ルータがそのグループを利用するホストの有無を確認するために使う。ARP、LDAP、RIPはそれぞれ別の役割を持つプロトコルであり、この用途には該当しない。"
     ],
     "original_question_id": "6d66d82ce18faa9f",
     "question_url": "https://www.nw-siken.com/kakomon/04_haru/am2_7.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202201:6d66d82ce18faa9f",
+    "reviewQuestionId": "6d66d82ce18faa9f",
+    "sourceRecordRef": "question_202201_2.json#11",
+    "explanationReferences": [
+      {
+        "referenceDate": "1997-11-01",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc2236.html",
+        "title": "Internet Group Management Protocol, Version 2"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -451,33 +383,123 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nBGP-4 は AS 間ルーティング用で、RIP-1 のような『サブネットマスクを含まない』典型例ではない。",
-      "間違い。\n\nOSPF はクラスレスルーティングプロトコルであり、サブネットマスク情報を扱える。",
-      "正しい。\n\nRIP-1 はクラスフルルーティングプロトコルで、交換する経路情報へサブネットマスクを含まない。VLSM に対応できない理由でもある。",
-      "間違い。\n\nRIP-2 はサブネットマスクを含み、クラスレスに対応した改良版である。"
-    ],
-    "suggestedQuestions": [
-      "RIP-1 と RIP-2 の違いは何ですか？",
-      "クラスフルとクラスレスの違いは？",
-      "なぜサブネットマスクがないと困りますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "RIP-1 と RIP-2 の違いは何ですか？",
-        "answer": "RIP-1 はクラスフルでサブネットマスクを持たず、RIP-2 はサブネットマスクや認証などを追加したクラスレス対応版である。"
-      },
-      {
-        "question": "クラスフルとクラスレスの違いは？",
-        "answer": "クラスフルはアドレスクラス前提でマスク情報を明示せず、クラスレスはプレフィックス長を含めて柔軟に経路制御できる。"
-      },
-      {
-        "question": "なぜサブネットマスクがないと困りますか？",
-        "answer": "可変長サブネットや CIDR を正しく表現できず、細かなアドレス設計に対応できないからである。"
-      }
+      "正しい。該当するのはRIP-1である。RIP-1はクラスフルルーティングプロトコルで、経路情報にサブネットマスクを含めない。RIP-2とOSPFはサブネットマスクを扱い、BGP-4もプレフィックス長を含むクラスレスな経路情報を交換する。"
     ],
     "original_question_id": "0de803cf655913ab",
     "question_url": "https://www.nw-siken.com/kakomon/04_haru/am2_11.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202201:0de803cf655913ab",
+    "reviewQuestionId": "0de803cf655913ab",
+    "sourceRecordRef": "question_202201_2.json#15",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "RIP-1、RIP-2、OSPF、BGP-4の経路情報仕様を問う技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "RIP-1はサブネットマスクを含まない。",
+          "promptContext": "技術知識で完結する選択肢。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。RIP-1の仕様に基づき判定。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "BGP-4はプレフィックス長を含むクラスレスな経路情報を交換する。",
+          "promptContext": "技術知識で完結する選択肢。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。BGP-4はクラスレスな経路情報を扱う。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "RIP-1は経路情報にサブネットマスクを含めない。",
+          "promptContext": "技術知識で完結する選択肢。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外。RIP-1はクラスフルルーティングプロトコルである。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "RIP-2とOSPFはサブネットマスクを扱うため、該当するプロトコルではない。",
+          "promptContext": "技術知識で完結する選択肢。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。RIP-2とOSPFはサブネットマスクを扱う。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -571,33 +593,23 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nMOS 値は利用者主観評価を平均した指標であり、ノイズや遅延から直接算出される E-model の値そのものではない。",
-      "正しい。\n\nR 値は E-model に基づき、ノイズ、エコー、遅延など複数パラメータから算出される IP 電話品質指標である。",
-      "間違い。\n\nジッタは到着間隔の揺らぎを表す個別指標であり、品質を総合化した値ではない。",
-      "間違い。\n\nパケット損失率も個別指標であり、ノイズや遅延などをまとめて表す総合指標ではない。"
-    ],
-    "suggestedQuestions": [
-      "R 値と MOS の違いは何ですか？",
-      "E-model は何を総合しますか？",
-      "なぜ遅延やエコーが品質へ効きますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "R 値と MOS の違いは何ですか？",
-        "answer": "R 値は計算モデルによる客観指標、MOS は人の主観評価平均である。R 値から MOS を推定することもある。"
-      },
-      {
-        "question": "E-model は何を総合しますか？",
-        "answer": "遅延、エコー、ノイズ、歪み、損失など通話品質へ影響する複数要因を総合して評価する。"
-      },
-      {
-        "question": "なぜ遅延やエコーが品質へ効きますか？",
-        "answer": "会話のテンポや聞き取りやすさを損ねるためである。音量だけでなく双方向会話のしやすさへ直結する。"
-      }
+      "正しい。R値は、ITU-TのE-modelに基づいて、音声通信のノイズ、エコー、遅延などによる劣化を総合的に評価する指標である。MOS値は利用者の主観評価を平均した値、ジッタはパケット到着間隔の揺らぎ、パケット損失率は失われたパケットの割合を表す個別の指標である。"
     ],
     "original_question_id": "030e9f4ad4f69617",
     "question_url": "https://www.nw-siken.com/kakomon/04_haru/am2_15.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202201:030e9f4ad4f69617",
+    "reviewQuestionId": "030e9f4ad4f69617",
+    "sourceRecordRef": "question_202201_2.json#19",
+    "explanationReferences": [
+      {
+        "referenceDate": "2015-06-01",
+        "sourceUrl": "https://www.itu.int/rec/T-REC-G.107/en",
+        "title": "Recommendation ITU-T G.107: The E-model: a computational model for use in transmission planning"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -691,33 +703,20 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nVLAN 分割だけで ICMP を全面遮断するわけではない。ルーティング設定次第で異なる VLAN 間通信も可能である。",
-      "正しい。\n\nVLAN を分けるとブロードキャストドメインが分離されるため、ブロードキャストパケットが他セグメントへ届かず、不要なアドレス情報流出リスクを下げられる。",
-      "間違い。\n\nMAC アドレスによる接続可否判定は別機能であり、VLAN 分割そのものの効果ではない。",
-      "間違い。\n\n固定 IP のみ許可する機能は VLAN 分割の標準効果ではなく、別の認証・アクセス制御機能に当たる。"
-    ],
-    "suggestedQuestions": [
-      "VLAN で何が分離されますか？",
-      "ブロードキャストドメインとは何ですか？",
-      "不正接続対策とはどう違いますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "VLAN で何が分離されますか？",
-        "answer": "同一スイッチ上でも論理的に L2 セグメントを分離し、ブロードキャストや直接到達範囲を分けられる。"
-      },
-      {
-        "question": "ブロードキャストドメインとは何ですか？",
-        "answer": "1つのブロードキャストフレームが届く範囲のことである。VLAN でこの範囲を小さく区切れる。"
-      },
-      {
-        "question": "不正接続対策とはどう違いますか？",
-        "answer": "VLAN 分割は主に到達範囲分離、接続認証や端末識別は 802.1X やポートセキュリティなど別機能が担う。"
-      }
+      "間違い。VLAN分割だけではICMPパケットを全面的に遮断しない。異なるVLAN間でも、ルーティングやアクセス制御の設定によって通信できる場合がある。選択肢は、VLAN機能だけで同一セグメント内を含む全てのICMPパケットを遮断するとしているため誤りである。",
+      "正しい。VLANごとにブロードキャストドメインが分かれるため、ブロードキャストパケットの到達範囲を制限できる。その結果、同一セグメント内に限って伝わるアドレス情報などの不要な流出リスクを低減できる。",
+      "間違い。接続されたPCのMACアドレスを確認して接続可否を判定するのは、MACアドレス認証やポートセキュリティなどの機能である。選択肢は、VLAN分割そのものがMACアドレスによってPCの接続可否を判別するとしているため誤りである。",
+      "間違い。特定のIPアドレスをもつPCだけの接続を物理ポートごとに許可するには、IPアドレスの割当てやアクセス制御などの別機能が必要である。選択肢は、VLAN分割だけで固定IPのPCに接続を限定するとしているため誤りである。"
     ],
     "original_question_id": "78e0c780ae70f8e3",
     "question_url": "https://www.nw-siken.com/kakomon/04_haru/am2_19.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202201:78e0c780ae70f8e3",
+    "reviewQuestionId": "78e0c780ae70f8e3",
+    "sourceRecordRef": "question_202201_2.json#23",
+    "explanationReferences": [],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [

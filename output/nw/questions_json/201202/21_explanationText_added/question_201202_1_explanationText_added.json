@@ -1,7 +1,7 @@
 [
   {
     "explanationText": [
-      "正しい。A−Bは、Aに含まれるがBには含まれない要素の集合である。これはAとBの補集合の積集合 \\(A\\cap\\overline{B}\\) と一致するため、該当するのはA−Bである。"
+      "正しい。A−Bは、Aに含まれ、Bには含まれない要素の集合である。したがって、AとBの補集合の積集合 \\(A\\cap\\overline{B}\\) に等しく、該当するのはA−Bである。"
     ],
     "original_question_id": "c8b72abda1adf2e9",
     "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_1.html",
@@ -11,7 +11,113 @@
     "sourceRecordRef": "question_201202_1.json#0",
     "explanationReferences": [],
     "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "集合演算の定義と補集合の関係で正誤が決まる基礎理論の問題であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の正誤は集合演算の定義だけで決まり、法令根拠を要しない。",
+          "promptContext": "A−BとA∩補集合Bの関係を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "集合演算の定義による判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の正誤は集合演算の定義だけで決まり、法令根拠を要しない。",
+          "promptContext": "対称差とA∩補集合Bの違いを確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "集合演算の定義による判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の正誤は集合演算の定義だけで決まり、法令根拠を要しない。",
+          "promptContext": "補集合の和とA∩補集合Bの違いを確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "集合演算の定義による判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の正誤は集合演算の定義だけで決まり、法令根拠を要しない。",
+          "promptContext": "A∩Bの補集合とA∩補集合Bの違いを確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "集合演算の定義による判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -222,7 +328,113 @@
     "sourceRecordRef": "question_201202_1.json#8",
     "explanationReferences": [],
     "questionLearningPatternId": "mechanisms_reasons",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "データベース技術上の一般知識を問う問題で、法令・制度上の義務、定義、手続又は基準を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ストアドプロシージャによる通信量削減の知識を問う技術問題である。",
+          "promptContext": "データベース技術上の一般知識。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで正誤を判断できるため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "処理をまとめてもDBMS内の実行計画数が必ず減るわけではない。",
+          "promptContext": "データベース技術上の一般知識。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判断できるため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ストアドプロシージャを使っても必要バッファ数が必ず減るわけではない。",
+          "promptContext": "データベース技術上の一般知識。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判断できるため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ディスク装置へのI/O回数はSQLや索引などに左右され、ストアドプロシージャ化だけで減るわけではない。",
+          "promptContext": "データベース技術上の一般知識。",
+          "refs": [],
+          "verdict": "法令非該当"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判断できるため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -266,37 +478,233 @@
     "sourceRecordRef": "question_201202_1.json#10",
     "explanationReferences": [],
     "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "Ajax、CSS、DOM、SAXの技術的な役割を問う問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "AjaxはWebブラウザとサーバの非同期通信を利用する技術である。",
+          "promptContext": "非同期通信機能を利用する技術かを判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "Ajaxの技術的定義に基づく判定であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "CSSはWebページの表示形式を定義する技術であり、非同期通信そのものではない。",
+          "promptContext": "非同期通信機能を利用する技術かを判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "CSSは表示形式を定義する技術であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "DOMはHTMLなどの文書を要素の木構造として扱う仕組みであり、非同期通信技術ではない。",
+          "promptContext": "非同期通信機能を利用する技術かを判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "DOMは文書構造を扱う技術であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "SAXはXMLを逐次的に解析する方式であり、Webブラウザとサーバの非同期通信技術ではない。",
+          "promptContext": "非同期通信機能を利用する技術かを判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "SAXはXMLの逐次解析方式であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\nこの組合せでは、サーバ証明書の検証に使う鍵か、共通鍵生成用データの暗号化に使う鍵の少なくとも一方が誤っている。",
-      "間違い。\n\n証明書の正当性確認は認証局の公開鍵で行い、共通鍵生成用データの暗号化にはサーバの公開鍵を使う。この組合せはその対応と一致しない。",
-      "正しい。\n\na は認証局の公開鍵、b はサーバの公開鍵である。クライアントは証明書を検証した後、サーバ公開鍵で共通鍵生成用データを保護して送る。",
-      "間違い。\n\n共通鍵生成用データを暗号化するのに秘密鍵や共通鍵を用いる考え方は誤りであり、サーバ証明書に含まれる公開鍵を使う必要がある。"
-    ],
-    "suggestedQuestions": [
-      "サーバ証明書は何で検証しますか？",
-      "共通鍵生成用データはなぜサーバ公開鍵で暗号化しますか？",
-      "SSL/TLS が共通鍵暗号を併用する理由は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "サーバ証明書は何で検証しますか？",
-        "answer": "認証局の公開鍵で署名を検証し、証明書に含まれるサーバ公開鍵が正当なものかを確認する。"
-      },
-      {
-        "question": "共通鍵生成用データはなぜサーバ公開鍵で暗号化しますか？",
-        "answer": "サーバだけが持つ秘密鍵でしか復号できないため、安全に共通鍵材料を配送できるからである。"
-      },
-      {
-        "question": "SSL/TLS が共通鍵暗号を併用する理由は何ですか？",
-        "answer": "公開鍵暗号は安全だが重いため、鍵共有だけ公開鍵暗号で行い、その後の大量通信は高速な共通鍵暗号で処理する。"
-      }
+      "正しい。該当する組合せはウである。クライアントは認証局の公開鍵でサーバ証明書の正当性を確認し、サーバ証明書に含まれるWebサーバの公開鍵で共通鍵生成用データを暗号化する。Webサーバは自分の秘密鍵でそのデータを復号し、両者が同じデータから共通鍵を作成して以後の通信に用いる。"
     ],
     "original_question_id": "b371daa2a6a61759",
     "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_12.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201202:b371daa2a6a61759",
+    "reviewQuestionId": "b371daa2a6a61759",
+    "sourceRecordRef": "question_201202_1.json#11",
+    "explanationReferences": [],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "SSLの証明書検証と公開鍵暗号に関する技術問題で、法令・制度上の義務や基準を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "技術知識のみで判定できる。",
+          "displayRefIds": [],
+          "explanationText": "クライアントが保持するのは通常、認証局の公開鍵であり、クライアント自身の公開鍵ではない。",
+          "promptContext": "aにクライアントの公開鍵を入れる組合せ。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "SSLの技術内容で正誤を判定し、法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "技術知識のみで判定できる。",
+          "displayRefIds": [],
+          "explanationText": "共通鍵生成用データはサーバの公開鍵で暗号化し、サーバの秘密鍵で復号するため、bにサーバの公開鍵を入れる必要がある。",
+          "promptContext": "aにクライアントの秘密鍵、bにWebサーバの公開鍵を入れる組合せ。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "SSLの技術内容で正誤を判定し、法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "技術知識のみで判定できる。",
+          "displayRefIds": [],
+          "explanationText": "認証局の公開鍵でサーバ証明書を検証し、Webサーバの公開鍵で共通鍵生成用データを暗号化する組合せである。",
+          "promptContext": "aに認証局の公開鍵、bにWebサーバの公開鍵を入れる組合せ。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "SSLの技術内容で正誤を判定し、法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "技術知識のみで判定できる。",
+          "displayRefIds": [],
+          "explanationText": "サーバ証明書の公開鍵で共通鍵生成用データを暗号化するため、bにWebサーバの秘密鍵を入れる組合せは適切でない。",
+          "promptContext": "aに認証局の公開鍵、bにWebサーバの秘密鍵を入れる組合せ。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "SSLの技術内容で正誤を判定し、法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -500,8 +908,8 @@
   {
     "explanationText": [
       "正しい。",
-      "間違い。状態と遷移要因の関係を表すのは状態遷移図であり、構造化チャートはモジュールの階層や呼出し関係を表す。選択肢は、状態遷移図の用途を構造化チャートの用途としているため誤りである。",
-      "間違い。制御フロー図は、DFDにコントロール変換とコントロールフローを加えて、制御系システムの処理を表す。状態遷移図は状態とイベントによる遷移を表す。選択肢は、制御フロー図の用途を状態遷移図の用途としているため誤りである。",
+      "間違い。状態と遷移要因の関係を表すのは状態遷移図であり、構造化チャートはモジュールの階層構造や呼出し関係を表す。選択肢は、状態遷移図の用途を構造化チャートの用途としているため誤りである。",
+      "間違い。制御フロー図は、DFDにコントロール変換とコントロールフローを加えて、制御系システムの処理を表す。状態遷移図は、状態とイベントによる遷移を表す。選択肢は、制御フロー図の用途を状態遷移図の用途としているため誤りである。",
       "間違い。データの源泉、吸収、流れ、処理、格納を基本要素としてデータの流れを表すのはDFDである。選択肢は、DFDの用途を制御フロー図の用途としているため誤りである。"
     ],
     "original_question_id": "3b0dc0cd3d245047",
@@ -512,37 +920,136 @@
     "sourceRecordRef": "question_201202_1.json#15",
     "explanationReferences": [],
     "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "決定表、構造化チャート、状態遷移図、制御フロー図の用途を問う技術問題で、正誤は法令条文に依存しない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "決定表は条件と処理を表形式で整理し、複雑な条件判定の記述に用いる。",
+          "promptContext": "技術知識による判定。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令非該当。決定表の技術的定義に基づき判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "状態と遷移要因の関係を表すのは状態遷移図であり、構造化チャートではない。",
+          "promptContext": "技術知識による判定。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令非該当。構造化チャートと状態遷移図の用途の区別に基づき判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "DFDにコントロール変換とコントロールフローを加えるのは制御フロー図であり、状態遷移図ではない。",
+          "promptContext": "技術知識による判定。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令非該当。状態遷移図と制御フロー図の用途の区別に基づき判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "データの源泉、吸収、流れ、処理、格納を基本要素とするのはDFDであり、制御フロー図ではない。",
+          "promptContext": "技術知識による判定。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令非該当。DFDと制御フロー図の用途の区別に基づき判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n公開済みプロトコルを基に独自実装しただけなら、他人のプログラム表現を複製していない限り直ちに著作権侵害とはならない。",
-      "正しい。\n\n私的複製の余地があっても、プロテクトを外して複製する行為は技術的保護手段の回避を伴い、著作権侵害に当たる。",
-      "間違い。\n\n正当に入手したソフトウェアの逆コンパイル自体は、ただちに著作権侵害と断定されるものではない。",
-      "間違い。\n\n複製・改変・販売が契約範囲内で許諾されているなら、その範囲での利用は著作権侵害ではない。"
-    ],
-    "suggestedQuestions": [
-      "著作権侵害と私的複製の境界はどこですか？",
-      "技術的保護手段の回避が問題になるのはなぜですか？",
-      "公開プロトコルをまねた独自実装はなぜ許されますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "著作権侵害と私的複製の境界はどこですか？",
-        "answer": "私的利用の例外があっても、技術的保護手段の回避や公衆送信など別の侵害態様があれば違法となり得る。"
-      },
-      {
-        "question": "技術的保護手段の回避が問題になるのはなぜですか？",
-        "answer": "権利者が設定した保護を意図的に破って複製可能にする行為自体が法的に制限されているからである。"
-      },
-      {
-        "question": "公開プロトコルをまねた独自実装はなぜ許されますか？",
-        "answer": "保護対象は具体的なプログラム表現であり、仕様や機能そのものを独自に実装することまで一律には禁じていないからである。"
-      }
+      "間違い。プログラムの著作物として保護されるのは具体的な表現であり、プログラム言語、規約、解法は保護の対象外である。選択肢は公開されたプロトコルに基づいて独自に開発した場合まで著作権侵害としているため誤りである。",
+      "正しい。著作者はプログラムを複製する権利を専有するため、複製権の許諾を受けていない者がバックアップ目的で複製することは認められない。選択肢はプロテクトを外して複製しており、使用許諾の範囲を超えている。",
+      "間違い。正当に入手したソフトウェアを逆コンパイルしただけでは、直ちに著作権侵害とはいえない。選択肢は逆コンパイルを行ったことだけで侵害に当たるとしているため誤りである。ただし、逆コンパイルの結果を無断で複製、改変又は販売する場合は、別途その行為が許諾の範囲内かを判断する。",
+      "間違い。著作権者から複製及び改変の許諾を受け、その許諾条件の範囲内で製品を販売する場合は、著作権侵害には当たらない。選択肢はソース契約の範囲内で利用しているため、侵害とするのは誤りである。"
     ],
     "original_question_id": "fd136c861466184d",
     "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_17.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201202:fd136c861466184d",
+    "reviewQuestionId": "fd136c861466184d",
+    "sourceRecordRef": "question_201202_1.json#16",
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-10-03",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/345AC0000000048?asof=2026-10-03",
+        "title": "著作権法（e-Gov法令検索）"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -576,7 +1083,7 @@
   },
   {
     "explanationText": [
-      "正しい。EVM（Earned Value Management）は、作業の進捗を金額に換算して、計画との差を評価する手法である。主にコストとスケジュールを一体的に管理するため、該当する組合せは「コスト，スケジュール」である。品質やリスクは重要な管理対象だが、EVMの基本指標で直接測定する対象ではない。"
+      "正しい。EVM（Earned Value Management）は、計画した作業量、完了した作業量、実際にかかったコストを比較し、コストとスケジュールの差異を一体的に評価する手法である。品質やリスクもプロジェクト管理では重要だが、EVMの基本指標で直接評価する組合せではない。したがって、該当するのは「コスト，スケジュール」である。"
     ],
     "original_question_id": "293af8c999db603b",
     "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_19.html",
@@ -586,14 +1093,120 @@
     "sourceRecordRef": "question_201202_1.json#18",
     "explanationReferences": [],
     "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "EVMの管理対象であるコストとスケジュールを問うプロジェクト管理の知識問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行法監査の差分なし。",
+          "displayRefIds": [],
+          "explanationText": "EVMの管理対象はプロジェクト管理の知識事項であり、法令の適用で正誤が決まらない。",
+          "promptContext": "EVMの管理対象の組合せを問う問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外。技術・知識問題として確定。"
+        ],
+        "reconciliationStatus": "一致",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行法監査の差分なし。",
+          "displayRefIds": [],
+          "explanationText": "EVMの基本指標はコストとスケジュールを扱い、リスクの組合せを直接の管理対象とはしない。",
+          "promptContext": "EVMの管理対象の組合せを問う問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。技術・知識問題として確定。"
+        ],
+        "reconciliationStatus": "一致",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行法監査の差分なし。",
+          "displayRefIds": [],
+          "explanationText": "EVMはコストとスケジュールを一体的に評価する手法であり、品質との組合せを基本指標として扱わない。",
+          "promptContext": "EVMの管理対象の組合せを問う問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。技術・知識問題として確定。"
+        ],
+        "reconciliationStatus": "一致",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行法監査の差分なし。",
+          "displayRefIds": [],
+          "explanationText": "EVMの基本指標はコストとスケジュールを扱い、リスクとの組合せを直接の管理対象とはしない。",
+          "promptContext": "EVMの管理対象の組合せを問う問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。技術・知識問題として確定。"
+        ],
+        "reconciliationStatus": "一致",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
       "間違い。正しくは、インシデント管理では発生したインシデントを解決し、サービスを復旧させる。選択肢は、インシデントから発生する問題の解決策を評価するとしているため誤りである。解決策の評価は、問題管理で扱う活動である。",
-      "正しい。インシデント管理は、障害やサービス中断などの影響を抑え、通常のサービスをできるだけ早く復旧することを主な目的とする。",
-      "間違い。正しくは、インシデント管理はサービスを復旧させ、根本原因の究明は問題管理で行う。選択肢は、インシデントの根本原因を究明するとしているため誤りである。",
-      "間違い。正しくは、インシデント管理の主な活動は個々のインシデントを解決してサービスを復旧することである。選択肢は、トレンド分析と予防措置を主な活動としているため誤りである。トレンド分析や再発防止は、主に問題管理や継続的改善の観点で扱う。"
+      "正しい。インシデント管理は、障害やサービス中断による影響を抑え、通常のサービスをできるだけ早く復旧することを主な目的とする。",
+      "間違い。正しくは、インシデント管理はサービスを復旧させ、インシデントの根本原因の究明は問題管理で行う。選択肢は、インシデントの根本原因を究明するとしているため誤りである。",
+      "間違い。正しくは、インシデント管理の主な活動は個々のインシデントを解決してサービスを復旧することである。選択肢は、トレンド分析と予防措置を主な活動としているため誤りである。トレンド分析や再発防止は、主に問題管理や継続的改善で扱う。"
     ],
     "original_question_id": "ce2c792f4d8affa8",
     "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_20.html",
@@ -751,7 +1364,7 @@
     "explanationText": [
       "間違い。監査結果を外部へ開示するかどうかは、経営者が判断する。選択肢は監査人が外部開示の責任を負うとしているため誤りである。",
       "間違い。監査対象システムを管理するのは被監査部門であり、監査人は独立した立場から評価する。選択肢は監査人がシステム管理の責任を負うとしているため誤りである。",
-      "間違い。監査で指摘した問題点を改善する責任は、被監査部門にある。監査人は改善を実施するのではなく、改善状況を確認する立場である。選択肢は監査人が改善の責任を負うとしているため誤りである。",
+      "間違い。監査で指摘した問題点を改善する責任は、被監査部門にある。監査人は改善を実施するのではなく、改善状況を確認する立場である。選択肢は監査人が問題点を改善する責任を負うとしているため誤りである。",
       "正しい。監査人は監査証拠に基づいて監査意見を形成し、その意見を監査報告書に記載する責任を負う。"
     ],
     "original_question_id": "7c625d8696ef0c22",
@@ -762,14 +1375,120 @@
     "sourceRecordRef": "question_201202_1.json#21",
     "explanationReferences": [],
     "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "システム監査人の責任範囲に関する監査実務の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "監査結果の外部開示の判断は経営者が担う。",
+          "promptContext": "選択肢1の監査人の責任範囲。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "監査実務の知識で正誤を判断し、法令監査の対象外と確認した。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "監査対象システムの管理は被監査部門が担い、監査人は独立して評価する。",
+          "promptContext": "選択肢2の監査人の責任範囲。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "監査実務の知識で正誤を判断し、法令監査の対象外と確認した。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "監査で指摘した問題点の改善は被監査部門が行い、監査人は改善状況を確認する。",
+          "promptContext": "選択肢3の監査人の責任範囲。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "監査実務の知識で正誤を判断し、法令監査の対象外と確認した。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "監査人は監査証拠に基づいて監査意見を形成し、監査報告書に記載する。",
+          "promptContext": "選択肢4の監査人の責任範囲。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "監査実務の知識で正誤を判断し、法令監査の対象外と確認した。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
       "間違い。正しくは、業務プロセスを抜本的に見直して品質・コスト・スピードを改善するのはBPRである。選択肢は業務プロセスの改革を説明しているため、BPOの説明ではない。",
-      "間違い。正しくは、災害や事故が起きても重要事業を継続し、停止しても早期に復旧できるようにする仕組みはBCPである。選択肢は事業継続の仕組みを説明しているため、BPOの説明ではない。",
+      "間違い。正しくは、災害や事故が起きても重要事業を継続し、停止した場合も早期に復旧できるようにする仕組みはBCPである。選択肢は事業継続の仕組みを説明しているため、BPOの説明ではない。",
       "正しい。BPOは、コアビジネス以外の業務を情報システムと併せて外部委託し、経営資源を中核業務へ集中させる経営手法である。",
-      "間違い。正しくは、戦略との適合性や費用対効果、リスクを評価して情報化投資の全体を管理・最適化するのは、IT投資マネジメントや情報化投資ポートフォリオの考え方である。選択肢は投資管理を説明しているため、BPOの説明ではない。"
+      "間違い。正しくは、戦略との適合性や費用対効果、リスクを評価し、情報化投資の全体を管理・最適化するのは情報化投資管理である。選択肢は投資管理の仕組みを説明しているため、BPOの説明ではない。"
     ],
     "original_question_id": "27e3af67c4959ed4",
     "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_23.html",
@@ -779,14 +1498,120 @@
     "sourceRecordRef": "question_201202_1.json#22",
     "explanationReferences": [],
     "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "BPO、BPR、BCP、情報化投資管理の用語定義に基づく問題であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第1選択肢はBPRの説明であり、BPOの説明ではない。",
+          "promptContext": "BPOの定義との適合性を判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令を直接適用しない用語定義問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第2選択肢はBCPの説明であり、BPOの説明ではない。",
+          "promptContext": "BPOの定義との適合性を判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令を直接適用しない用語定義問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第3選択肢は、非中核業務を外部委託して経営資源を中核業務へ集中させるBPOの説明である。",
+          "promptContext": "BPOの定義との適合性を判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令を直接適用しない用語定義問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第4選択肢は情報化投資管理の説明であり、BPOの説明ではない。",
+          "promptContext": "BPOの定義との適合性を判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令を直接適用しない用語定義問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。業務上実現すべき新しい業務の在り方をまとめた要件は、業務要件に当たる。選択肢は非機能要件としているため誤りである。",
-      "間違い。業務の手順、入出力情報、ルールや制約などを定める要件は、業務要件に当たる。選択肢は非機能要件としているため誤りである。",
-      "間違い。業務要件を実現するために、システムが備える具体的な機能を定める要件は機能要件である。選択肢は非機能要件としているため誤りである。",
-      "正しい。ソフトウェアの信頼性や効率性など、機能そのものではなく品質に関する要件は非機能要件に当たる。"
+      "間違い。新しい業務の在り方をまとめ、業務上実現すべき内容を定める要件は業務要件である。選択肢は業務要件に当たる内容を非機能要件としているため誤りである。",
+      "間違い。業務の手順、入出力情報、ルールや制約などを定める要件は業務要件である。選択肢は業務要件に当たる内容を非機能要件としているため誤りである。",
+      "間違い。業務要件を実現するためにシステムが備える具体的な機能を定める要件は機能要件である。選択肢は機能要件に当たる内容を非機能要件としているため誤りである。",
+      "正しい。非機能要件は、システムの機能そのものではなく、信頼性、効率性などの品質に関する要件を定める。"
     ],
     "original_question_id": "80e8cea7c8c53a7c",
     "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_24.html",

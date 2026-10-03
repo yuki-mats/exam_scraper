@@ -91,62 +91,248 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n故障モードに着目して原因と影響を列挙し、各部品や工程から全体への影響を調べる手法は FMEA である。FTA ではない。",
-      "正しい。\n\nFTA は Fault Tree Analysis の略で、頂上事象として障害を置き、その発生要因を中間事象・基本事象へ分解しながら論理ゲートで結んだ樹形図で原因を分析する手法である。",
-      "間違い。\n\n『なぜなぜ分析』で根本原因を掘り下げる説明は RCA に近い。FTA は論理ゲート付きの樹形図で障害原因を体系化する。",
-      "間違い。\n\nODC は障害を属性で分類して偏りを分析する手法であり、FTA のような故障原因の樹形分析ではない。"
-    ],
-    "suggestedQuestions": [
-      "FTA と FMEA の違いは何ですか？",
-      "FTA はトップダウンですか？",
-      "論理ゲートは何を表しますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "FTA と FMEA の違いは何ですか？",
-        "answer": "FTA は障害という結果から原因をたどるトップダウン分析、FMEA は部品や工程の故障モードから影響を見るボトムアップ分析である。"
-      },
-      {
-        "question": "FTA はトップダウンですか？",
-        "answer": "はい。まず頂上事象として重大障害を置き、そこへ至る原因を分解していく。"
-      },
-      {
-        "question": "論理ゲートは何を表しますか？",
-        "answer": "AND や OR などで、どの原因の組合せで上位事象が発生するかを表す。"
-      }
+      "間違い。正しくは、故障モードごとに原因と影響を列挙し、各部品や工程の故障がシステムへ及ぼす影響を評価する手法はFMEAである。選択肢はこのFMEAの説明をFTAとしているため誤りである。",
+      "正しい。FTAはFault Tree Analysisの略で、分析対象の障害を頂上事象に置き、その発生原因を中間事象や基本事象へ分解して、論理ゲートで結んだ樹形図として表す。",
+      "間違い。正しくは、障害について「なぜなぜ分析」を繰り返して根本原因を明らかにする方法は、RCA（根本原因分析）に当たる。選択肢はRCAの説明をFTAとしているため誤りである。",
+      "間違い。正しくは、ODCは障害を定義した属性で分類し、発生傾向や集中箇所を分析する手法である。選択肢はODCの説明を、論理ゲートで原因を分解するFTAとしているため誤りである。"
     ],
     "original_question_id": "8e6c7b7fa5c040fa",
     "question_url": "https://www.nw-siken.com/kakomon/03_haru/am2_24.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202101:8e6c7b7fa5c040fa",
+    "reviewQuestionId": "8e6c7b7fa5c040fa",
+    "sourceRecordRef": "question_202101_3.json#3",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "信頼性工学の分析手法に関する技術問題であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "FTAの定義と、各選択肢が示すFMEA、RCA、ODCの技術上の定義に基づき判定した。",
+          "promptContext": "選択肢1のFMEA、選択肢2のFTA、選択肢3のRCA、選択肢4のODCを技術知識として判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "FTAは障害を頂上事象として原因を中間事象・基本事象へ分解し、論理ゲートで関連付ける技法である。",
+          "promptContext": "FTAの定義に基づき判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "なぜなぜ分析で根本原因を明らかにする説明はRCAに該当し、FTAの説明ではない。",
+          "promptContext": "RCAの技術上の定義に基づき判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ODCは障害を属性に従って分類し、発生傾向を分析する説明であり、FTAの説明ではない。",
+          "promptContext": "ODCの技術上の定義に基づき判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "正しい。\n\nリバースエンジニアリングは、既存ソフトウェアのソースコードや実行物を解析して、その仕様や設計情報を抽出する技術である。ソースプログラムから仕様書を起こす作業は典型例である。",
-      "間違い。\n\n修正箇所や影響範囲を調べるのは変更影響調査や波及解析に近い。リバースエンジニアリングの成果を利用することはあるが、定義そのものではない。",
-      "間違い。\n\n構造化し直す作業はリファクタリングやリストラクチャリングの文脈であり、既存成果物から仕様を抽出するリバースエンジニアリングとは別である。",
-      "間違い。\n\n分かりやすい表現への書換えもコード改善作業の一種であり、仕様や設計を取り出す分析作業そのものではない。"
-    ],
-    "suggestedQuestions": [
-      "リバースエンジニアリングは何のために使いますか？",
-      "リファクタリングとの違いは何ですか？",
-      "保守で役立つ理由は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "リバースエンジニアリングは何のために使いますか？",
-        "answer": "仕様書が不足している既存システムの理解、影響分析、移行計画、再設計の前提整理などに使う。"
-      },
-      {
-        "question": "リファクタリングとの違いは何ですか？",
-        "answer": "リバースエンジニアリングは既存成果物を解析して理解情報を得ること、リファクタリングは外部仕様を変えず内部構造を改善することである。"
-      },
-      {
-        "question": "保守で役立つ理由は何ですか？",
-        "answer": "既存コードの仕様や依存関係を把握しやすくなり、変更時の事故や見落としを減らせるからである。"
-      }
+      "正しい。リバースエンジニアリングは、既存ソフトウェアを解析して仕様や設計情報を取り出す技術である。ソースプログラムを解析してプログラム仕様書を作る作業は、その代表例に当たる。",
+      "間違い。ソースプログラムから修正箇所や影響範囲を調べるのは、変更影響分析や波及解析である。選択肢は変更による影響を調べる作業としているため、既存ソフトウェアから仕様や設計情報を抽出するリバースエンジニアリングとは異なる。",
+      "間違い。既存プログラムを構造化された形へ変換するのは、プログラムの再構成やリファクタリングである。選択肢はプログラムの構造を改善する作業としているため、ソフトウェアを解析して仕様や設計情報を取り出すリバースエンジニアリングには該当しない。",
+      "間違い。ソースプログラムを分かりやすい表現に書き換えるのは、可読性を高めるためのコード改善や書換えである。選択肢はプログラムそのものを読みやすく変更する作業としているため、既存ソフトウェアから仕様や設計情報を抽出するリバースエンジニアリングとは異なる。"
     ],
     "original_question_id": "b7a412622eb5668b",
     "question_url": "https://www.nw-siken.com/kakomon/03_haru/am2_25.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202101:b7a412622eb5668b",
+    "reviewQuestionId": "b7a412622eb5668b",
+    "sourceRecordRef": "question_202101_3.json#4",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "ソフトウェア工学上の技術定義を問う問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "リバースエンジニアリングの技術定義に基づく判定であり、法令根拠は不要である。",
+          "promptContext": "技術知識問題。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外。技術知識上の定義に基づき判定した。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "変更影響分析や波及解析に関する技術知識の判定であり、法令根拠は不要である。",
+          "promptContext": "技術知識問題。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。技術知識上の定義に基づき判定した。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "プログラムの再構成やリファクタリングに関する技術知識の判定であり、法令根拠は不要である。",
+          "promptContext": "技術知識問題。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。技術知識上の定義に基づき判定した。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "コードの可読性改善や書換えに関する技術知識の判定であり、法令根拠は不要である。",
+          "promptContext": "技術知識問題。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。技術知識上の定義に基づき判定した。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   }
 ]

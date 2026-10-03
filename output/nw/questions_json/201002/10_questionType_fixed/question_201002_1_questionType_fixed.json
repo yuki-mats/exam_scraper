@@ -267,9 +267,13 @@
       "3",
       "4"
     ],
-    "questionType": "true_false",
+    "questionType": "flash_card",
     "original_question_id": "ee6908a3d58ea0f3",
-    "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_19.html"
+    "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_19.html",
+    "sourceQuestionKey": "nw:201002:ee6908a3d58ea0f3",
+    "reviewQuestionId": "ee6908a3d58ea0f3",
+    "sourceRecordRef": "question_201002_1.json#18",
+    "isCalculationQuestion": true
   },
   {
     "questionBodyText": "次の処理条件でサーバ上のファイルを磁気テープにバックアップするとき，バックアップの運用に必要な磁気テープは何本か。\n〔処理条件〕\n毎月初日(1日)にフルバックアップを取る。フルバックアップは1回につき1本の磁気テープを必要とする。\nフルバックアップを取った翌日から次のフルバックアップまでは，毎日，差分バックアップを取る。差分バックアップは，差分バックアップ用として別の磁気テープに追記し，1カ月分が1本に記録できる。\n常に6か月前の同一日までのデータについて，指定日の状態にファイルを復元できることを保証する。ただし，6か月前の同一日が存在しない場合は，当該月の月末以降のデータについて，指定日の状態にファイルを復元できることを保証する (例：10月31日の場合は，4月30日以降のデータについて，指定日の状態にファイルを復元できることを保証する)。",

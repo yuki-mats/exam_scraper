@@ -1,63 +1,246 @@
 [
   {
     "explanationText": [
-      "正しい。\n\nクラスタ分析法は、観測データ同士の類似性に基づいてグループ化し、各群の特徴を読み取る多変量解析手法である。",
-      "間違い。\n\n指数平滑法は時系列データの需要予測などに使う手法であり、類似性による群分けではない。",
-      "間違い。\n\nデルファイ法は専門家の意見集約を反復して予測や合意形成を行う手法である。",
-      "間違い。\n\nモンテカルロ法は乱数を用いたシミュレーションや確率推定の手法であり、データの群分類とは異なる。"
-    ],
-    "suggestedQuestions": [
-      "クラスタ分析法は何をしますか？",
-      "時系列予測手法との違いは何ですか？",
-      "多変量解析とは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "クラスタ分析法は何をしますか？",
-        "answer": "似た特徴を持つデータをまとめ、グループごとの特徴や構造を把握する。"
-      },
-      {
-        "question": "時系列予測手法との違いは何ですか？",
-        "answer": "時系列予測は将来値推定、クラスタ分析は既存データの構造把握が目的である。"
-      },
-      {
-        "question": "多変量解析とは何ですか？",
-        "answer": "複数の変数を同時に扱い、相互関係や潜在構造を分析する手法群である。"
-      }
+      "正しい。答えはクラスタ分析法である。クラスタ分析法は、観測データ同士の類似性に基づいてデータをいくつかの群に分け、各群の特徴を分析する手法である。指数平滑法は時系列データの予測、デルファイ法は専門家の意見集約、モンテカルロ法は乱数を用いたシミュレーションに用いる。"
     ],
     "original_question_id": "e36720eac7030a48",
     "question_url": "https://www.nw-siken.com/kakomon/30_aki/am1_26.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201802:e36720eac7030a48",
+    "reviewQuestionId": "e36720eac7030a48",
+    "sourceRecordRef": "question_201802_2.json#0",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "クラスタ分析法などの統計・意思決定手法に関する技術知識の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "クラスタ分析法は観測データを類似性に基づいて群に分類する手法である。",
+          "promptContext": "技術知識による判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定できるため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "指数平滑法は時系列データの予測に用いる手法であり、類似性による群分類の手法ではない。",
+          "promptContext": "技術知識による判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定できるため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "デルファイ法は専門家の意見を集約する手法であり、類似性による群分類の手法ではない。",
+          "promptContext": "技術知識による判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定できるため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "モンテカルロ法は乱数を用いたシミュレーションに用いる手法であり、類似性による群分類の手法ではない。",
+          "promptContext": "技術知識による判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判定できるため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n遠隔地から保守員が電源操作命令を送るのは、人手による制御の段階であり自律化ではない。",
-      "間違い。\n\nセンサー値を収集してクラウドへ蓄積するだけなら監視の段階にとどまる。",
-      "正しい。\n\n機械同士が状態を監視・分析し、人手を介さず目標に合わせて協調動作するのは自律化の段階である。",
-      "間違い。\n\n故障検知後に保守員が分析して特定するのは、人が介在する最適化の段階であり自律化ではない。"
-    ],
-    "suggestedQuestions": [
-      "IoT の4段階は何ですか？",
-      "自律化の条件は何ですか？",
-      "監視や制御との違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "IoT の4段階は何ですか？",
-        "answer": "監視、制御、最適化、自律化の順に高度化していく整理である。"
-      },
-      {
-        "question": "自律化の条件は何ですか？",
-        "answer": "分析結果を基に、システム自身が人手なしで判断し動作を変えることである。"
-      },
-      {
-        "question": "監視や制御との違いは何ですか？",
-        "answer": "監視は観測、制御は人や外部の指示、自律化はシステム自身の判断で動く点が異なる。"
-      }
+      "間違い。正しくは、人が遠隔から操作命令を送るのは「制御」の段階である。選択肢は保守員が操作命令を送信するとしているため、自律化の例ではない。",
+      "間違い。正しくは、センサーで機械のデータを収集して蓄積するのは「監視」の段階である。選択肢はデータを収集・蓄積するとしているため、自律化の例ではない。",
+      "正しい。機械同士が状態を監視・分析し、人手を介さず目標に合わせて協調動作するのは「自律化」の段階である。",
+      "間違い。正しくは、収集した情報を基に保守員が故障部位を分析・特定するのは、人が判断する「最適化」の段階である。選択肢は保守員が分析して特定するとしているため、自律化の例ではない。"
     ],
     "original_question_id": "f467088a508bec71",
     "question_url": "https://www.nw-siken.com/kakomon/30_aki/am1_27.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201802:f467088a508bec71",
+    "reviewQuestionId": "f467088a508bec71",
+    "sourceRecordRef": "question_201802_2.json#1",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "IoTの監視・制御・最適化・自律化という技術概念を問う問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令監査対象外で、出題時と現行の判定差はない。",
+          "displayRefIds": [],
+          "explanationText": "IoTの段階分類に基づき、遠隔操作は制御に該当する。",
+          "promptContext": "技術問題の第1選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識に基づく判定であり、法令改正による差分はない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令監査対象外で、出題時と現行の判定差はない。",
+          "displayRefIds": [],
+          "explanationText": "IoTの段階分類に基づき、センサーによる収集・蓄積は監視に該当する。",
+          "promptContext": "技術問題の第2選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識に基づく判定であり、法令改正による差分はない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令監査対象外で、出題時と現行の判定差はない。",
+          "displayRefIds": [],
+          "explanationText": "機械同士が人手を介さず協調動作することは自律化に該当する。",
+          "promptContext": "技術問題の第3選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識に基づく判定であり、法令改正による差分はない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令監査対象外で、出題時と現行の判定差はない。",
+          "displayRefIds": [],
+          "explanationText": "保守員が故障部位を分析・特定することは、人が判断する最適化に該当する。",
+          "promptContext": "技術問題の第4選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識に基づく判定であり、法令改正による差分はない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -211,93 +394,366 @@
   },
   {
     "explanationText": [
-      "正しい。\n\nアドミッション制御は、新たな通信要求に対して帯域などの資源を確認し、必要資源を確保できる場合だけ受け入れる制御である。",
-      "間違い。\n\n最大速度超過分を監視し破棄や優先度低下を行うのはポリシングの説明であり、シェーピングではない。",
-      "間違い。\n\n送出間隔を調整して平準化するのはシェーピングであり、ポリシングではない。",
-      "間違い。\n\nフレーム種類や宛先に応じた優先転送は優先制御であって、ベストエフォートの説明ではない。"
-    ],
-    "suggestedQuestions": [
-      "アドミッション制御とは何ですか？",
-      "ポリシングとシェーピングの違いは何ですか？",
-      "QoS は何を守りますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "アドミッション制御とは何ですか？",
-        "answer": "新しい通信を受け入れる前に、必要資源を確保できるか判断する制御である。"
-      },
-      {
-        "question": "ポリシングとシェーピングの違いは何ですか？",
-        "answer": "ポリシングは超過トラフィックを落とす・優先度を下げる、シェーピングは送出を遅らせて平準化する。"
-      },
-      {
-        "question": "QoS は何を守りますか？",
-        "answer": "遅延、帯域、ジッタ、パケット損失など通信品質要件を守ることを目指す。"
-      }
+      "正しい。アドミッション制御は、新たな通信要求に対して帯域などの資源を確認し、必要な資源を確保できる場合だけ通信を受け入れる制御である。",
+      "間違い。正しくは、入力トラフィックが最大速度を超えたときに、超過分のパケットを破棄したり優先度を下げたりするのはポリシングである。シェーピングは、パケットを一時的に蓄積するなどして送出速度を調整する。選択肢は、このポリシングの説明をシェーピングとしているため誤りである。",
+      "間違い。正しくは、パケットの送出間隔を調整して規定速度を超えないようにトラフィックを平準化するのはシェーピングである。ポリシングは、規定速度を超えたトラフィックを監視し、パケットの破棄や優先度の低下によって制御する。選択肢は、シェーピングの説明をポリシングとしているため誤りである。",
+      "間違い。正しくは、フレームの種類や宛先に応じて優先度を変えて中継するのは優先制御の説明である。ベストエフォートは、QoSによる帯域や遅延などの保証を設けず、到着したパケットを通常の扱いで転送する方式である。選択肢は、優先制御の説明をベストエフォートとしているため誤りである。"
     ],
     "original_question_id": "aeb3aab41495c77f",
     "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_3.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201802:aeb3aab41495c77f",
+    "reviewQuestionId": "aeb3aab41495c77f",
+    "sourceRecordRef": "question_201802_2.json#7",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "QoSのトラフィック制御方式を問う技術問題で、法令・制度上の根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "アドミッション制御の定義に基づく技術判定であり、法令根拠は不要。",
+          "promptContext": "QoSのトラフィック制御方式",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外。技術知識に基づき判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ポリシングとシェーピングの定義に基づく技術判定であり、法令根拠は不要。",
+          "promptContext": "QoSのトラフィック制御方式",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。技術知識に基づき判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "シェーピングとポリシングの定義に基づく技術判定であり、法令根拠は不要。",
+          "promptContext": "QoSのトラフィック制御方式",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。技術知識に基づき判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "優先制御とベストエフォートの定義に基づく技術判定であり、法令根拠は不要。",
+          "promptContext": "QoSのトラフィック制御方式",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。技術知識に基づき判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "正しい。\n\nイーサネットの MTU は、1フレームで運べる IP パケット本体の最大長であり、図の範囲では IP ヘッダ＋TCP ヘッダ＋データに相当する。",
-      "間違い。\n\nMAC ヘッダはデータリンク層のフレーム構成要素であり、MTU に含めない。",
-      "間違い。\n\nFCS もフレーム末尾の誤り検査情報であり、MTU の対象外である。",
-      "間違い。\n\nプリアンブルや MAC ヘッダ、FCS まで含めた全フレーム長は MTU の定義ではない。"
-    ],
-    "suggestedQuestions": [
-      "MTU は何の最大長ですか？",
-      "MSS との違いは何ですか？",
-      "イーサネットで 1500 バイトといわれるのは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "MTU は何の最大長ですか？",
-        "answer": "隣接ネットワークへ 1 回で転送できるネットワーク層ペイロードの最大長である。"
-      },
-      {
-        "question": "MSS との違いは何ですか？",
-        "answer": "MSS は MTU から IP/TCP ヘッダを除いた TCP データ部の最大長である。"
-      },
-      {
-        "question": "イーサネットで 1500 バイトといわれるのは何ですか？",
-        "answer": "通常 Ethernet における IP パケット本体の MTU を指す。"
-      }
+      "正しい。MTUは、ネットワーク層のIPパケットの最大長を指す。この図では、IPヘッダー、TCPヘッダー、データを合わせた部分がIPパケットに当たる。MACヘッダー、FCS、プリアンブルは、それぞれイーサネットフレームの転送や誤り検出、同期に使われる部分であり、MTUには含めない。したがって、該当するのは「IPヘッダー＋TCPヘッダー＋データ」である。"
     ],
     "original_question_id": "75e7ef03aa5d16b2",
     "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_4.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201802:75e7ef03aa5d16b2",
+    "reviewQuestionId": "75e7ef03aa5d16b2",
+    "sourceRecordRef": "question_201802_2.json#8",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "イーサネットフレームとIPパケットの構成に関する技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第1選択肢はMTUが表すIPパケットの最大長に一致する。法令根拠は不要である。",
+          "promptContext": "ネットワーク技術の知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外の技術知識として確定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第2選択肢はMACヘッダーを含めており、MTUが表すIPパケットの範囲を超える。法令根拠は不要である。",
+          "promptContext": "ネットワーク技術の知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術知識として確定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第3選択肢はMACヘッダーとFCSを含めており、MTUが表すIPパケットの範囲を超える。法令根拠は不要である。",
+          "promptContext": "ネットワーク技術の知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術知識として確定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第4選択肢はプリアンブル、MACヘッダー、FCSを含めており、MTUが表すIPパケットの範囲を超える。法令根拠は不要である。",
+          "promptContext": "ネットワーク技術の知識問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術知識として確定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "正しい。\n\nAS 間の経路制御には BGP が用いられる。BGP はパス属性を利用して外部経路を制御するプロトコルである。",
-      "間違い。\n\nIS-IS は主に AS 内で使うリンクステート型 IGP である。",
-      "間違い。\n\nOSPF も AS 内の経路制御に用いる IGP である。",
-      "間違い。\n\nRIP は AS 内で使う距離ベクトル型 IGP であり、AS 間制御には用いない。"
-    ],
-    "suggestedQuestions": [
-      "BGP は何に使いますか？",
-      "IGP と EGP の違いは何ですか？",
-      "AS とは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "BGP は何に使いますか？",
-        "answer": "異なる自律システム間で経路情報を交換し、インターネット全体の経路制御を行う。"
-      },
-      {
-        "question": "IGP と EGP の違いは何ですか？",
-        "answer": "IGP は AS 内、EGP は AS 間の経路制御に使う。"
-      },
-      {
-        "question": "AS とは何ですか？",
-        "answer": "単一のルーティングポリシーで管理されるネットワーク集まりである。"
-      }
+      "正しい。AS（Autonomous System）間の経路制御にはBGP（Border Gateway Protocol）が用いられる。BGPは異なるAS間で経路情報を交換し、パス属性に基づいて経路を選択する外部ゲートウェイプロトコルである。IS-IS、OSPF、RIPは主にAS内の経路制御に用いるプロトコルである。"
     ],
     "original_question_id": "ae5b6efc4031b396",
     "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_5.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201802:ae5b6efc4031b396",
+    "reviewQuestionId": "ae5b6efc4031b396",
+    "sourceRecordRef": "question_201802_2.json#9",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "AS間の経路制御に用いるプロトコルを問うネットワーク技術の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "AS間の経路制御にはBGPを用いる。",
+          "promptContext": "ネットワーク技術知識で判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外。BGPがAS間経路制御に用いられる。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "IS-ISは主にAS内の経路制御に用いられるため、AS間の経路制御に用いるプロトコルとはいえない。",
+          "promptContext": "ネットワーク技術知識で判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。IS-ISは主にAS内の経路制御に用いられる。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "OSPFは主にAS内の経路制御に用いられるため、AS間の経路制御に用いるプロトコルとはいえない。",
+          "promptContext": "ネットワーク技術知識で判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。OSPFは主にAS内の経路制御に用いられる。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "RIPは主にAS内の経路制御に用いられるため、AS間の経路制御に用いるプロトコルとはいえない。",
+          "promptContext": "ネットワーク技術知識で判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。RIPは主にAS内の経路制御に用いられる。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -331,33 +787,137 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n1つのホスト名に複数の IP を対応付けることも、複数のホスト名に同一 IP を対応付けることも DNS では可能であるため、この説明は不完全である。",
-      "正しい。\n\nDNS ではラウンドロビンなどのため 1ホスト名に複数 IP を割り当てられ、またバーチャルホストや別名運用のため複数ホスト名に同一 IP を対応させることもできる。",
-      "間違い。\n\n一つのホスト名に複数 IP を対応できないという部分が誤りである。",
-      "間違い。\n\nホスト名と IP アドレスは常に 1 対 1 ではない。"
-    ],
-    "suggestedQuestions": [
-      "1つの名前に複数IPはなぜ使いますか？",
-      "複数名が同一IPを指す例は何ですか？",
-      "DNS の柔軟性は何に役立ちますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "1つの名前に複数IPはなぜ使いますか？",
-        "answer": "負荷分散や冗長化のために同じサービス名へ複数サーバを割り当てることがある。"
-      },
-      {
-        "question": "複数名が同一IPを指す例は何ですか？",
-        "answer": "同一サーバで複数ドメインの Web サイトを提供するバーチャルホスト構成などである。"
-      },
-      {
-        "question": "DNS の柔軟性は何に役立ちますか？",
-        "answer": "サービス移行、負荷分散、冗長化、複数サービス共存を実現しやすくする。"
-      }
+      "間違い。1つのホスト名に複数のIPアドレスを対応させることも、複数のホスト名に同一のIPアドレスを対応させることもできる。選択肢は複数のホスト名に同一のIPアドレスを対応させることはできないとしているため誤りである。",
+      "正しい。DNSでは、1つのホスト名に複数のIPアドレスを対応させるために複数のAレコードを登録できる。また、別名などによって複数のホスト名を同じホストやIPアドレスに対応させることもできる。",
+      "間違い。1つのホスト名に複数のIPアドレスを対応させることもできる。選択肢は一つのホスト名に複数のIPアドレスを対応させることはできないとしているため誤りである。",
+      "間違い。ホスト名とIPアドレスの対応は常に1対1ではなく、1つのホスト名に複数のIPアドレスを対応させたり、複数のホスト名を同じIPアドレスに対応させたりできる。選択肢はすべての対応が1対1であるとしているため誤りである。"
     ],
     "original_question_id": "b64548f39e77e1d0",
     "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_7.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201802:b64548f39e77e1d0",
+    "reviewQuestionId": "b64548f39e77e1d0",
+    "sourceRecordRef": "question_201802_2.json#11",
+    "explanationReferences": [
+      {
+        "referenceDate": "1987-11-01",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc1034.html",
+        "title": "RFC 1034: Domain names - concepts and facilities"
+      },
+      {
+        "referenceDate": "1987-11-01",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc1035.html",
+        "title": "RFC 1035: Domain names - implementation and specification"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "DNSの名前解決に関する技術仕様の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "一つのホスト名に複数のIPアドレスを対応させることも、複数のホスト名を同一のIPアドレスへ対応させることもできる。",
+          "promptContext": "DNSの技術命題として確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。DNSの技術仕様に基づき出題時と現在の判定は間違い。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "一つのホスト名に複数のIPアドレスを対応させることも、複数のホスト名を同一のIPアドレスへ対応させることもできる。",
+          "promptContext": "DNSの技術命題として確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外。DNSの技術仕様に基づき出題時と現在の判定は正しい。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "一つのホスト名に複数のIPアドレスを対応させることもできる。",
+          "promptContext": "DNSの技術命題として確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。DNSの技術仕様に基づき出題時と現在の判定は間違い。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ホスト名とIPアドレスの対応は常に1対1ではない。",
+          "promptContext": "DNSの技術命題として確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。DNSの技術仕様に基づき出題時と現在の判定は間違い。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -421,33 +981,17 @@
   },
   {
     "explanationText": [
-      "正しい。\n\nサブネットマスク FFFFFF80 は 255.255.255.128、すなわち /25 である。ホスト部は 7 ビットなので利用可能ホスト数は 2^7-2=126 である。",
-      "間違い。\n\n127 はホスト部全組合せからネットワークアドレスとブロードキャストアドレスを除いていない。",
-      "間違い。\n\n254 はホスト部を 8 ビットと誤認した場合の値である。",
-      "間違い。\n\n255 もネットワーク・ブロードキャストを考慮できていない。"
-    ],
-    "suggestedQuestions": [
-      "サブネットマスク FFFFFF80 は何ビットですか？",
-      "利用可能ホスト数はどう求めますか？",
-      "なぜ 2 を引きますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "サブネットマスク FFFFFF80 は何ビットですか？",
-        "answer": "16進で FF FF FF 80 なので、2進では 25 ビットが 1 となる /25 である。"
-      },
-      {
-        "question": "利用可能ホスト数はどう求めますか？",
-        "answer": "ホスト部ビット数を h とすると、通常は 2^h-2 で求める。"
-      },
-      {
-        "question": "なぜ 2 を引きますか？",
-        "answer": "全 0 のネットワークアドレスと全 1 のブロードキャストアドレスをホストに使えないからである。"
-      }
+      "正しい。サブネットマスク FFFFFF80 は 255.255.255.128 で、プレフィックス長は /25 である。ホスト部は7ビットなので、全組合せは \\(2^7=128\\) 個となる。このうちネットワークアドレスとブロードキャストアドレスはホストに割り当てられないため、利用可能なホスト数は \\(128-2=126\\) である。"
     ],
     "original_question_id": "6a9a3454d668a0bb",
     "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_10.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201802:6a9a3454d668a0bb",
+    "reviewQuestionId": "6a9a3454d668a0bb",
+    "sourceRecordRef": "question_201802_2.json#14",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -601,63 +1145,246 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nHTTP GET を大量送信するのは HTTP GET Flood であり、ICMP Flood ではない。",
-      "正しい。\n\nping による大量の ICMP Echo Request を送り、回線やサーバを過負荷にする攻撃は ICMP Flood に該当する。",
-      "間違い。\n\n大量の SYN パケット送信は SYN Flood の説明である。",
-      "間違い。\n\n多数の TCP コネクションを維持するのは Connection Flood や Slow 系攻撃の説明である。"
-    ],
-    "suggestedQuestions": [
-      "ICMP Flood とは何ですか？",
-      "SYN Flood との違いは何ですか？",
-      "どこに負荷が掛かりますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ICMP Flood とは何ですか？",
-        "answer": "大量の ICMP パケットで回線や相手装置の処理資源を消費させる妨害攻撃である。"
-      },
-      {
-        "question": "SYN Flood との違いは何ですか？",
-        "answer": "前者は ICMP を、後者は TCP 接続開始処理を悪用する。"
-      },
-      {
-        "question": "どこに負荷が掛かりますか？",
-        "answer": "サーバ本体だけでなく、そこへ至るネットワーク回線や中継装置にも負荷が掛かる。"
-      }
+      "間違い。HTTP GETを大量に送信してWebサーバへ処理負荷を掛ける攻撃は、HTTP GET Floodである。選択肢はHTTP GETリクエストによる攻撃をICMP Floodとしているため誤りである。",
+      "正しい。pingによる大量のICMP Echo Requestを送信し、回線やサーバを過負荷にしてアクセスを妨害する攻撃は、ICMP Floodに該当する。",
+      "間違い。SYNパケットを大量に送信して接続要求への応答処理を集中させる攻撃は、SYN Floodである。選択肢はSYN Floodの特徴をICMP Floodとしているため誤りである。",
+      "間違い。大量のTCPコネクションを確立・維持してサーバの接続リソースを枯渇させる攻撃は、TCP Connection Floodなどに分類される。選択肢はTCPコネクションを使う攻撃をICMP Floodとしているため誤りである。"
     ],
     "original_question_id": "7baaf4174baa69ac",
     "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_16.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201802:7baaf4174baa69ac",
+    "reviewQuestionId": "7baaf4174baa69ac",
+    "sourceRecordRef": "question_201802_2.json#20",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "ICMP Flood攻撃の技術的な識別問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "HTTP GET FloodとICMP Floodは異なる攻撃である。",
+          "promptContext": "第1選択肢の技術的分類。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなくネットワークセキュリティの技術知識で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "大量のICMP Echo Requestを送信する攻撃はICMP Floodに該当する。",
+          "promptContext": "第2選択肢の技術的分類。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令ではなくネットワークセキュリティの技術知識で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "大量のSYNパケットを送信する攻撃はSYN Floodであり、ICMP Floodではない。",
+          "promptContext": "第3選択肢の技術的分類。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなくネットワークセキュリティの技術知識で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "大量のTCPコネクションを維持してリソースを枯渇させる攻撃はICMP Floodではない。",
+          "promptContext": "第4選択肢の技術的分類。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなくネットワークセキュリティの技術知識で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\nEAP-FAST はトンネル内で認証する方式だが、クライアント証明書必須ではない。",
-      "間違い。\n\nEAP-MD5 はチャレンジレスポンスによる認証であり、クライアント証明書を用いない。",
-      "正しい。\n\nEAP-TLS は TLS を利用してクライアント証明書とサーバ証明書による相互認証を行う。",
-      "間違い。\n\nEAP-TTLS はサーバ証明書でトンネルを張った後、クライアント側は別方式で認証でき、クライアント証明書必須ではない。"
-    ],
-    "suggestedQuestions": [
-      "EAP-TLS の特徴は何ですか？",
-      "EAP-TTLS との違いは何ですか？",
-      "なぜクライアント証明書が必要ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "EAP-TLS の特徴は何ですか？",
-        "answer": "TLS を使った相互認証を行い、クライアント側も証明書を提示する。"
-      },
-      {
-        "question": "EAP-TTLS との違いは何ですか？",
-        "answer": "EAP-TTLS は通常サーバ証明書でトンネルを張り、クライアント認証は別方式でも行える。"
-      },
-      {
-        "question": "なぜクライアント証明書が必要ですか？",
-        "answer": "端末や利用者の正当性を強く確認でき、パスワード依存を減らせるからである。"
-      }
+      "正しい。クライアント証明書を用いる代表的な方式はEAP-TLSである。EAP-TLSはTLSによる相互認証を行い、クライアント証明書とサーバ証明書を使う。EAP-MD5はチャレンジレスポンス方式で証明書を使わない。EAP-FASTとEAP-TTLSは認証用のトンネルを作った後、その内部で別の認証方式を使えるため、クライアント証明書の使用が方式の必須条件ではない。"
     ],
     "original_question_id": "e3ff1e0076d0c17c",
     "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_17.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201802:e3ff1e0076d0c17c",
+    "reviewQuestionId": "e3ff1e0076d0c17c",
+    "sourceRecordRef": "question_201802_2.json#21",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "EAPの認証方式に関する技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "EAP-FASTはトンネルを用いる認証方式であり、クライアント証明書の使用は必須ではない。",
+          "promptContext": "法令非該当の技術肢。",
+          "refs": [],
+          "verdict": "技術知識により間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなくEAP認証方式の技術知識で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "EAP-MD5はチャレンジレスポンス方式であり、クライアント証明書を用いない。",
+          "promptContext": "法令非該当の技術肢。",
+          "refs": [],
+          "verdict": "技術知識により間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなくEAP認証方式の技術知識で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "EAP-TLSはTLSによる相互認証を行い、クライアント証明書を用いる。",
+          "promptContext": "法令非該当の技術肢。",
+          "refs": [],
+          "verdict": "技術知識により正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令ではなくEAP認証方式の技術知識で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "EAP-TTLSはトンネル内部で別の認証方式を使えるが、クライアント証明書の使用は必須ではない。",
+          "promptContext": "法令非該当の技術肢。",
+          "refs": [],
+          "verdict": "技術知識により間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなくEAP認証方式の技術知識で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -721,32 +1448,136 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n証明書には FQDN を記載できるため、IP アドレス変更だけで常に再取得が必須とはいえない。",
-      "間違い。\n\nTLS の共通鍵長は 128 ビット未満で任意に指定するものではない。",
-      "正しい。\n\n個人認証用のデジタル証明書は IC カードなどへ格納して持ち運べるため、特定の PC に固定せず利用できる。",
-      "間違い。\n\nTLS は安全な通信路を提供するプロトコルであり、必ずしも事前の利用者登録を前提としない。"
-    ],
-    "suggestedQuestions": [
-      "個人認証用証明書はどこに格納できますか？",
-      "サーバ証明書とクライアント証明書の違いは何ですか？",
-      "TLS は何を提供しますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "個人認証用証明書はどこに格納できますか？",
-        "answer": "IC カード、USB トークン、OS の証明書ストアなどに格納できる。"
-      },
-      {
-        "question": "サーバ証明書とクライアント証明書の違いは何ですか？",
-        "answer": "前者はサーバ認証、後者は利用者や端末の認証に使う。"
-      },
-      {
-        "question": "TLS は何を提供しますか？",
-        "answer": "通信の暗号化、完全性保護、必要に応じた相手認証を提供する。"
-      }
+      "間違い。証明書にはDNS名（FQDN）を記載でき、接続時はその名前と接続先が対応していればよい。選択肢はWebサーバのIPアドレスが証明書に必ず組み込まれるとしているため、IPアドレスを変更するだけで常に証明書の再取得が必要になるわけではない。",
+      "間違い。TLSで使う共通鍵の長さは、選択した暗号スイートで定められる。選択肢は128ビット未満の長さを任意に指定するとしているため誤りである。",
+      "正しい。TLSのクライアント認証で使うデジタル証明書と秘密鍵は、ICカードなどの持ち運べる媒体に格納できる。そのため、利用するPCを一台に固定する必要はない。",
+      "間違い。TLSは暗号化や通信相手の認証を行うプロトコルであり、クライアント証明書による個人認証も必要な場合に選択できる。選択肢は特定の利用者による通信と事前のWebサーバへの利用者登録をTLSの必須条件としているため誤りである。"
     ],
     "original_question_id": "da767aff471f3792",
     "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_20.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201802:da767aff471f3792",
+    "reviewQuestionId": "da767aff471f3792",
+    "sourceRecordRef": "question_201802_2.json#24",
+    "explanationReferences": [
+      {
+        "referenceDate": "2008-05-01",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc5280.html",
+        "title": "RFC 5280: Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile"
+      },
+      {
+        "referenceDate": "2018-08-01",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc8446.html",
+        "title": "RFC 8446: The Transport Layer Security (TLS) Protocol Version 1.3"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "TLSのデジタル証明書、共通鍵、個人認証、利用者登録に関する技術仕様の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第1選択肢はTLS証明書のIPアドレス組込みを必須としており、技術仕様上誤りである。",
+          "promptContext": "TLS証明書の識別名とIPアドレス変更時の扱い。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "TLSの技術仕様に基づく選択肢であり、法令根拠を要しない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第2選択肢は共通鍵長を128ビット未満で任意指定できるとしており、技術仕様上誤りである。",
+          "promptContext": "TLSの共通鍵長と暗号スイート。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "TLSの技術仕様に基づく選択肢であり、法令根拠を要しない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第3選択肢は個人認証用証明書をICカードに格納でき、利用PCを限定する必要がないとしており、技術仕様上正しい。",
+          "promptContext": "TLSクライアント認証用証明書の格納媒体。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "TLSの技術仕様に基づく選択肢であり、法令根拠を要しない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第4選択肢はTLSの利用にWebサーバへの事前の利用者登録を必須としており、技術仕様上誤りである。",
+          "promptContext": "TLSの通信暗号化、認証、利用者登録の関係。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "TLSの技術仕様に基づく選択肢であり、法令根拠を要しない。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   }
 ]

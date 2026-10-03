@@ -31,10 +31,10 @@
   },
   {
     "explanationText": [
-      "間違い。フラッシュメモリを採用しても、ソフトウェアのコードサイズそのものは小さくならない。選択肢は、メモリの種類によってコードサイズを小さくできるとしているため誤りである。",
+      "間違い。正しくは、フラッシュメモリを採用してもソフトウェアのコードサイズそのものは小さくならない。選択肢は、フラッシュメモリによってコードサイズを小さくできるとしているため誤りである。",
       "正しい。フラッシュメモリは電気的に内容を書き換えられるため、マイコンを出荷した後でもソフトウェアを更新・修正できる。",
-      "間違い。マイコンの処理性能は、主にCPUやバスなどの構成で決まる。選択肢は、フラッシュメモリを採用すれば処理性能が向上するとしているため誤りである。",
-      "間違い。フラッシュメモリは電気的に書き換えられる一方、書換え回数に制限がある。マスクROMより信頼性が向上することは、フラッシュメモリを採用する理由ではない。選択肢は、フラッシュメモリの採用によってマスクROMより信頼性が向上するとしているため誤りである。"
+      "間違い。正しくは、マイコンの処理性能は主にCPUやバスなどの構成で決まる。選択肢は、フラッシュメモリを採用すれば処理性能が向上するとしているため誤りである。",
+      "間違い。正しくは、フラッシュメモリを採用する主な理由は、出荷後にソフトウェアを書き換えられることである。選択肢は、マスクROMより信頼性が向上するとしているため誤りである。フラッシュメモリには書換え回数の制限もある。"
     ],
     "original_question_id": "9e121451199270c7",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_27.html",
@@ -154,9 +154,9 @@
   },
   {
     "explanationText": [
-      "間違い。企業間の取引条件や契約内容は、取引上の取り決めであり、データの表し方を定める情報表現規約の対象ではない。選択肢は契約内容を情報表現規約で規定するとしているため誤りである。",
-      "間違い。システムの運用時間は、業務運用上の取り決めであり、データの表し方を定める情報表現規約の対象ではない。選択肢は運用時間を情報表現規約で規定するとしているため誤りである。",
-      "間違い。伝送制御手順は、データを送受信するための通信手順に関する規約である。選択肢は通信手順を情報表現規約で規定するとしているため誤りである。",
+      "間違い。正しくは、企業間の取引の契約内容は取引上の取り決めであり、情報表現規約では定めない。選択肢は契約内容を情報表現規約で規定するとしているため誤りである。",
+      "間違い。正しくは、システムの運用時間は業務運用上の取り決めであり、情報表現規約では定めない。選択肢は運用時間を情報表現規約で規定するとしているため誤りである。",
+      "間違い。正しくは、伝送制御手順はデータを送受信するための通信手順に関する規約である。選択肢は通信手順を情報表現規約で規定するとしているため誤りである。",
       "正しい。情報表現規約は、企業間で交換するメッセージの形式やデータ項目の表し方を定め、異なるシステム間でデータを共通に扱えるようにする。"
     ],
     "original_question_id": "2c825fc0aaabed5d",
@@ -397,7 +397,7 @@
   },
   {
     "explanationText": [
-      "正しい。該当するのはOFDMである。OFDMはデータ信号を互いに直交する複数のサブキャリアに分けて同時に伝送する方式である。CDMは符号、TDMは時間で信号を分け、CCKは無線LANで使われる符号化方式である。"
+      "正しい。該当するのはOFDMである。OFDMはデータ信号を互いに直交する複数のサブキャリアに分けて同時に伝送する方式である。CDMは符号、TDMは時間で信号を分け、CCKは無線LANで用いられる符号化方式である。"
     ],
     "original_question_id": "fa482581f90917df",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_3.html",
@@ -407,7 +407,113 @@
     "sourceRecordRef": "question_201002_2.json#7",
     "explanationReferences": [],
     "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "OFDMなどの多重化方式に関する技術問題で、法令・制度上の義務や基準を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "CCKはこの問題文が示す多重化方式ではない。",
+          "promptContext": "技術問題として判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "CDMは符号分割多重方式であり、問題文のサブキャリア分割には該当しない。",
+          "promptContext": "技術問題として判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "OFDMはデータ信号を複数の直交サブキャリアに分割して伝送する方式である。",
+          "promptContext": "技術問題として判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "TDMは時間分割多重方式であり、サブキャリア分割による方式ではない。",
+          "promptContext": "技術問題として判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -451,14 +557,120 @@
     "sourceRecordRef": "question_201002_2.json#9",
     "explanationReferences": [],
     "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "無線LANのCSMA/CAに関する技術問題であり、法令・制度上の根拠を用いない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第1選択肢は無線LANの媒体アクセス制御方式ではない。法令根拠は不要である。",
+          "promptContext": "無線LANの媒体アクセス方式に関する技術判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判断できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第2選択肢のCSMA/CAは無線LANで用いられる媒体アクセス制御方式である。法令根拠は不要である。",
+          "promptContext": "無線LANの媒体アクセス方式に関する技術判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで正誤を判断できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第3選択肢のCSMA/CDは衝突検出方式であり、無線LANで問われるCSMA/CAとは異なる。法令根拠は不要である。",
+          "promptContext": "無線LANの媒体アクセス方式に関する技術判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判断できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第4選択肢のFDMAは周波数で通信を分ける方式であり、問われている媒体アクセス制御方式ではない。法令根拠は不要である。",
+          "promptContext": "無線LANの媒体アクセス方式に関する技術判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判断できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。正しくは、FDDIはトークンを用いて送信権を制御する。選択肢は、媒体が空いていることを確認して送信するCSMA/CDの方式を示しているため誤りである。",
+      "間違い。正しくは、FDDIはトークンを受け取ったノードが送信する。選択肢は、媒体が空いていることを確認して送信するCSMA/CDの方式を示しているため誤りである。",
       "正しい。FDDIはトークンパッシング方式を採用している。トークンを受信したノードが送信権を得て、送信を終えるとトークンを次のノードへ渡す。",
-      "間違い。正しくは、FDDIではリング上の各ノードがトークンを受け取って送信権を判断する。選択肢は、中央のマスタコントローラーがメッセージを中継する方式としているため誤りである。",
-      "間違い。正しくは、FDDIではトークンの受信によって送信権が決まる。選択肢は、中央の装置が各ノードへ送信要求を問い合わせるポーリング方式としているため誤りである。"
+      "間違い。正しくは、FDDIではリング上の各ノードがトークンを受け取って送信権を得る。選択肢は、中央のマスタコントローラーがメッセージを受け取り、宛先へ中継する方式を示しているため誤りである。",
+      "間違い。正しくは、FDDIではトークンの受信によって各ノードの送信権が決まる。選択肢は、マスタコントローラーが各ノードに送信要求を問い合わせて送信権を与えるポーリング方式を示しているため誤りである。"
     ],
     "original_question_id": "5df3761d0f54de96",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_6.html",
@@ -468,11 +680,133 @@
     "sourceRecordRef": "question_201002_2.json#10",
     "explanationReferences": [],
     "questionLearningPatternId": "mechanisms_reasons",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "FDDIの送信権制御という通信技術の仕組みを問う問題で、法令・制度上の根拠はない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [
+          "出題時と現在の正誤は同じ。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "法令改正による差分はなく、通信技術の知識だけで判定する。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "現行法差分なし。",
+          "displayRefIds": [],
+          "explanationText": "FDDIの送信権制御はトークンパッシング方式であり、法令根拠を要しない。",
+          "promptContext": "FDDIの送信方式の判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "出題時と現在の正誤は同じ。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [
+          "法令改正による差分はなく、通信技術の知識だけで判定する。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "現行法差分なし。",
+          "displayRefIds": [],
+          "explanationText": "FDDIはトークンを受信したノードが送信権を得るトークンパッシング方式を採用する。",
+          "promptContext": "FDDIの送信方式の判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "出題時と現在の正誤は同じ。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "法令改正による差分はなく、通信技術の知識だけで判定する。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "現行法差分なし。",
+          "displayRefIds": [],
+          "explanationText": "FDDIでは中央のマスタコントローラーではなく、リング上の各ノードがトークンを受信して送信権を得る。",
+          "promptContext": "FDDIの送信方式の判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [
+          "出題時と現在の正誤は同じ。"
+        ],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [
+          "法令改正による差分はなく、通信技術の知識だけで判定する。"
+        ],
+        "evidenceSummary": {
+          "differenceSummary": "現行法差分なし。",
+          "displayRefIds": [],
+          "explanationText": "FDDIではマスタコントローラーによるポーリングではなく、トークンの受信によって送信権が決まる。",
+          "promptContext": "FDDIの送信方式の判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "正しい。複数の物理ポートを束ねて一つの論理ポートとして扱う技術はリンクアグリゲーションである。通信帯域を拡大したり、リンク障害時の冗長性を高めたりできる。MIMEは電子メールなどでデータ形式を扱う仕組み、マルチパートは一つのメッセージに複数のデータ部分を含める形式、MIMOは複数アンテナを使う無線通信技術であり、スイッチングハブのポートを束ねる技術ではない。"
+      "正しい。複数の物理ポートを束ねて一つの論理ポートとして扱う技術は、リンクアグリゲーションである。通信帯域を拡大したり、リンク障害時の冗長性を高めたりできる。MIMEはデータ形式を扱う仕組み、マルチパートは一つのメッセージに複数のデータ部分を含める形式、MIMOは複数アンテナを使う無線通信技術であり、スイッチングハブのポートを束ねる技術ではない。"
     ],
     "original_question_id": "6ae6d2f4e6327f52",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_7.html",
@@ -482,14 +816,120 @@
     "sourceRecordRef": "question_201002_2.json#11",
     "explanationReferences": [],
     "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "スイッチングハブのポートを束ねるリンクアグリゲーションに関する技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "MIMEはスイッチングハブのポートを束ねる技術ではない。法令根拠は不要である。",
+          "promptContext": "選択肢単体のネットワーク技術知識で判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判定できるため、法令監査の対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "MIMOは複数アンテナを使う無線通信技術であり、スイッチングハブのポートを束ねる技術ではない。法令根拠は不要である。",
+          "promptContext": "選択肢単体のネットワーク技術知識で判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判定できるため、法令監査の対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "マルチパートは一つのメッセージに複数のデータ部分を含める形式であり、スイッチングハブのポートを束ねる技術ではない。法令根拠は不要である。",
+          "promptContext": "選択肢単体のネットワーク技術知識で判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判定できるため、法令監査の対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "リンクアグリゲーションは複数の物理ポートを束ねて一つの論理ポートとして扱う技術である。法令根拠は不要である。",
+          "promptContext": "選択肢単体のネットワーク技術知識で判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識で判定できるため、法令監査の対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "正しい。BGP-4は、自律システム間で経路情報とパス属性を交換し、経路選択に各組織のポリシーを反映するパスベクター方式のプロトコルである。",
-      "間違い。リンク状態データベースを各ルータが持ち、そこから最短経路を計算するのは、OSPFなどのリンク状態方式である。選択肢はこの方式をBGP-4の説明としているため誤りである。",
-      "間違い。宛先までのホップ数を主な指標として経路を選ぶのは、RIPなどの距離ベクター方式である。選択肢はホップ数が最小の経路を選ぶ方式をBGP-4の説明としているため誤りである。",
-      "間違い。送信元が経路上の中継ノードを指定するのは、ソースルーティングの考え方である。選択肢は送信元による経路指定をBGP-4の説明としているため誤りである。"
+      "正しい。BGP-4は、自律システム間で経路情報とパス属性を交換し、各組織のルーティングポリシーに基づいて経路を選択するパスベクター方式のプロトコルである。",
+      "間違い。リンク状態データベースを各ルータが共有し、そこからコストが最小となる経路を計算するのは、OSPFなどのリンク状態方式である。選択肢はこの方式をBGP-4の説明としているため誤りである。",
+      "間違い。宛先までのホップ数を主な指標として最小の経路を選ぶのは、RIPなどの距離ベクター方式である。選択肢はホップ数を基準に経路を選ぶ方式をBGP-4の説明としているため誤りである。",
+      "間違い。送信元がパケットの経路上にある中継ノードを指定するのは、ソースルーティングの方式である。選択肢は送信元が経路を明示的に指定する方式をBGP-4の説明としているため誤りである。"
     ],
     "original_question_id": "58abe5216156f6ca",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_8.html",
@@ -799,10 +1239,10 @@
   },
   {
     "explanationText": [
-      "間違い。IPv6で特別な扱いを求めるフローを識別するのは、IPv4のTOSフィールドではなく20ビットのFlow Labelである。選択肢はTOSフィールドで資源予約を行うとしているため誤りである。",
+      "間違い。正しくは、IPv6で特別な扱いを求めるフローを識別するのは、IPv4のTOSフィールドではなく20ビットのフローラベルである。選択肢はTOSフィールドで特定クラスのパケットの資源予約を行うとしているため誤りである。",
       "間違い。正しくは、IPv6のIPアドレスは32ビットから128ビットへ拡張されている。選択肢は64ビットに拡張されたとしているため誤りである。",
       "間違い。IPv6ではヘッダーを簡素化するため、IPv4にあったIPヘッダーのチェックサムは廃止されている。選択肢はチェックサムを追加するとしているため誤りである。",
-      "正しい。出題当時のIPv6仕様では、IPsecの認証ヘッダーとESPの実装が必須とされていた。これにより、送信元の認証、改ざん検出、通信内容の暗号化を行える。"
+      "正しい。出題当時のIPv6仕様では、IPsecの認証ヘッダーと暗号化を行うESPの実装が必須とされていた。これにより、送信元の認証、改ざん検出、通信内容の暗号化を行える。"
     ],
     "original_question_id": "b042a7b47ddef4ce",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_11.html",
@@ -959,9 +1399,9 @@
   {
     "explanationText": [
       "正しい。RSVPは、IPネットワークで通信に必要な資源を予約し、要求したQoSを実現するためのプロトコルである。",
-      "間違い。これはVLANの説明であり、RSVPではない。VLANは、物理的な接続形態とは別に、LAN内の機器を論理的なグループに分ける。",
-      "間違い。これはPPP Multilink Protocol（MLPPP）の説明であり、RSVPではない。MLPPPは、複数のPPPリンクを束ねて一つの論理的なリンクとして扱う。",
-      "間違い。これはRADIUSなどのリモートアクセス認証プロトコルの説明であり、RSVPではない。RSVPは利用者を認証するのではなく、通信のQoSに必要な資源を予約する。"
+      "間違い。正しくは、VLANが物理的な接続形態とは別に、LAN内の機器を論理的なグループに分ける技術である。選択肢はこのVLANの説明をRSVPの説明としているため誤りである。",
+      "間違い。正しくは、PPP Multilink Protocol（MLPPP）が複数のPPPリンクを束ね、一つの論理的なリンクとして扱うプロトコルである。選択肢はMLPPPの説明をRSVPの説明としているため誤りである。",
+      "間違い。正しくは、RADIUSなどがリモートアクセスを利用する利用者を認証するプロトコルである。RSVPは利用者を認証するのではなく、通信のQoSに必要な資源を予約する。選択肢は認証プロトコルの説明をRSVPの説明としているため誤りである。"
     ],
     "original_question_id": "65a295ab23f110d5",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_13.html",
@@ -1106,68 +1546,248 @@
   },
   {
     "explanationText": [
-      "正しい。\n\n3 ウェイハンドシェイクは、接続要求側から SYN、応答側から SYN+ACK、最後に要求側から ACK を返して TCP コネクションを確立する手順である。",
-      "間違い。\n\n3 回の交換順序やフラグの組合せが TCP の接続確立手順と一致しない。",
-      "間違い。\n\nSYN、SYN+ACK、ACK の流れになっておらず、3 ウェイハンドシェイクを表していない。",
-      "間違い。\n\n接続確立時の制御フラグや送受方向が不適切であり、正しい手順図ではない。"
-    ],
-    "suggestedQuestions": [
-      "3ウェイハンドシェイクの順序はどうなりますか？",
-      "なぜ3回やり取りするのですか？",
-      "SYNとACKの役割は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "3ウェイハンドシェイクの順序はどうなりますか？",
-        "answer": "接続要求元が SYN、接続先が SYN+ACK、最後に要求元が ACK を返す。"
-      },
-      {
-        "question": "なぜ3回やり取りするのですか？",
-        "answer": "双方が送受信可能であることと、初期シーケンス番号の共有を確認するためである。"
-      },
-      {
-        "question": "SYNとACKの役割は何ですか？",
-        "answer": "SYN は接続開始要求、ACK は受信確認を表す。"
-      }
+      "正しい。該当するのはアである。TCPの3ウェイハンドシェイクは、接続要求側からSYN、接続受付側からSYN＋ACK、最後に接続要求側からACKを送る順序でコネクションを確立する。アはこの順序と送受信方向を表している。"
     ],
     "original_question_id": "d98b6ed31bfcbe5f",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_14.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201002:d98b6ed31bfcbe5f",
+    "reviewQuestionId": "d98b6ed31bfcbe5f",
+    "sourceRecordRef": "question_201002_2.json#18",
+    "explanationReferences": [],
+    "questionLearningPatternId": "sequence_flow",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "TCPのコネクション確立手順に関する技術問題であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "SYN、SYN＋ACK、ACKの順序でコネクションを確立する。",
+          "promptContext": "技術知識のみで判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "TCPの3ウェイハンドシェイクに関する技術肢であり、法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "TCPの3ウェイハンドシェイクはSYN、SYN＋ACK、ACKの順序で行う。",
+          "promptContext": "技術知識のみで判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "TCPの3ウェイハンドシェイクの順序と一致しない技術肢である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "TCPの3ウェイハンドシェイクはSYN、SYN＋ACK、ACKの順序で行う。",
+          "promptContext": "技術知識のみで判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "TCPの3ウェイハンドシェイクの順序と一致しない技術肢である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "TCPの3ウェイハンドシェイクはSYN、SYN＋ACK、ACKの順序で行う。",
+          "promptContext": "技術知識のみで判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "TCPの3ウェイハンドシェイクの順序と一致しない技術肢である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n255.255.255.192 は /26 で 4 サブネットしか作れず、10 個以上に分割できない。",
-      "間違い。\n\n255.255.255.224 は /27 で 8 サブネットしか作れず、10 個に足りない。",
-      "正しい。\n\n10 個以上の同サイズサブネットを作るには 4 ビット借用して 16 サブネット作れる /28 が必要で、サブネットマスクは 255.255.255.240 である。",
-      "間違い。\n\n255.255.255.248 でも 32 サブネット作れるが、ホスト数を最も多くする条件では /28 より不利である。"
-    ],
-    "suggestedQuestions": [
-      "なぜ4ビット借用が必要ですか？",
-      "/28のホスト数はいくつですか？",
-      "最も多くホストを残す考え方は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "なぜ4ビット借用が必要ですか？",
-        "answer": "3 ビットでは 8 サブネットまでしか作れず、10 個を満たせないからである。"
-      },
-      {
-        "question": "/28のホスト数はいくつですか？",
-        "answer": "従来の考え方では各サブネット 16 アドレス中、利用可能ホストは 14 台である。"
-      },
-      {
-        "question": "最も多くホストを残す考え方は何ですか？",
-        "answer": "条件を満たす範囲で借用ビット数を最小にして、ホスト部をできるだけ多く残す。"
-      }
+      "正しい。クラスCのアドレスは初期状態でホスト部が8ビットある。10個以上の同じ大きさのサブネットを作るには、ホスト部から4ビットを借りて\\(2^4=16\\)個のサブネットに分割する必要がある。このときサブネットマスクは/28、すなわち255.255.255.240となる。/29なら32個のサブネットを作れるが、/28よりホスト部が1ビット少なくなり、各サブネットのホスト数が減るため、ホスト数が最も多くなる条件には/28が適している。"
     ],
     "original_question_id": "81949777bb990b87",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_15.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201002:81949777bb990b87",
+    "reviewQuestionId": "81949777bb990b87",
+    "sourceRecordRef": "question_201002_2.json#19",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "クラスCのIPアドレスを同じ大きさの10個のサブネットへ分割する技術計算の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第1選択肢は正しいサブネットマスクではない。",
+          "promptContext": "クラスCのサブネット分割計算。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令根拠を必要としない技術計算問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第2選択肢は正しいサブネットマスクではない。",
+          "promptContext": "クラスCのサブネット分割計算。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令根拠を必要としない技術計算問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第3選択肢は、10個以上の同じ大きさのサブネットを作りつつホスト数を最大にするサブネットマスクである。",
+          "promptContext": "クラスCのサブネット分割計算。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令根拠を必要としない技術計算問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第4選択肢は正しいサブネットマスクではない。",
+          "promptContext": "クラスCのサブネット分割計算。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令根拠を必要としない技術計算問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "正しい。SDPは、音声・映像などのメディア種別、使用するプロトコル、ポート番号、コーデックなど、通信セッションの内容を記述する。",
-      "間違い。正しくは、RTPがリアルタイムの音声や映像を配送し、ペイロード種別、シーケンス番号、タイムスタンプなどを扱う。選択肢は、SDPがRTPのパケット情報を記述するとしているため誤りである。",
+      "正しい。SDPは、音声・映像などのメディア種別、使用するプロトコル、ポート番号、メディア形式など、通信セッションの内容を記述する。",
+      "間違い。正しくは、RTPがリアルタイムの音声や映像を配送し、ペイロード種別、シーケンス番号、タイムスタンプなどを扱う。選択肢は、SDPがRTPパケットの情報を記述するとしているため誤りである。",
       "間違い。正しくは、RTCPがパケット損失数や到着間隔のばらつきなど、通信品質の統計情報を交換する。選択肢は、SDPが品質統計を交換するとしているため誤りである。",
       "間違い。正しくは、SIPがユーザーエージェント間の音声・映像などのセッションを確立、変更、切断する。選択肢は、SDPがセッションの制御を行うとしているため誤りである。"
     ],
@@ -1204,11 +1824,117 @@
       }
     ],
     "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "SDPの機能を問う技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第1選択肢はSDPの機能説明として正しい。法令根拠は不要である。",
+          "promptContext": "技術知識のみで判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "SDPの機能に関する技術問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第2選択肢はRTPが扱う情報をSDPの機能としているため誤りである。法令根拠は不要である。",
+          "promptContext": "技術知識のみで判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "RTPの機能との比較で判定する技術問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第3選択肢はRTCPが扱う統計情報の交換をSDPの機能としているため誤りである。法令根拠は不要である。",
+          "promptContext": "技術知識のみで判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "RTCPの機能との比較で判定する技術問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第4選択肢はSIPが行うセッション制御をSDPの機能としているため誤りである。法令根拠は不要である。",
+          "promptContext": "技術知識のみで判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "SIPの機能との比較で判定する技術問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "正しい。trapは、エージェントが障害や状態変化などの事象を検知したとき、マネージャからの要求を待たずに自発的に通知するために使われる。get-requestとget-responseは情報の取得、set-requestは設定の変更に用いる。"
+      "正しい。trapは、エージェントが障害や状態変化などを検知したとき、マネージャからの要求を待たずに自発的に通知するために使われる。get-requestとget-responseは情報の取得、set-requestは設定の変更に用いる。"
     ],
     "original_question_id": "ad34b10140b1ac20",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_17.html",
@@ -1328,10 +2054,10 @@
   },
   {
     "explanationText": [
-      "間違い。クッキーはサーバが発行し、クライアントに保存される。クライアントが各サーバ用の認証情報を生成し、各サーバ上でクッキーを管理する方式ではない。",
-      "間違い。クッキー方式は、同一ドメイン配下などでクッキーを共有して利用できる。認証対象の各サーバを異なるインターネットドメインに配置する必要はない。",
-      "間違い。リバースプロキシ方式では、利用者からの要求をプロキシが受けて認証し、背後のWebサーバへ中継する。認証対象の各Webサーバを異なるインターネットドメインにする必要はない。",
-      "正しい。リバースプロキシ型のシングルサインオンでは、パスワードの代わりにデジタル証明書を用いて利用者を認証できる。"
+      "間違い。クッキーはサーバが発行してクライアントに保存する。クライアントが各サーバ用の認証情報を生成し、各サーバ上でクッキーを保存・管理する方式ではない。",
+      "間違い。クッキー方式では、同一ドメイン配下などでクッキーを共有して利用する。認証対象の各サーバを異なるインターネットドメインに配置する必要はない。",
+      "間違い。リバースプロキシ方式では、利用者からの要求をプロキシが受けて認証し、認証後に背後のWebサーバへ中継する。認証対象の各Webサーバを異なるインターネットドメインにする必要はない。",
+      "正しい。リバースプロキシ型のシングルサインオンでは、パスワードだけでなく、デジタル証明書などを用いて利用者を認証できる。"
     ],
     "original_question_id": "eb17990db473968b",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_18.html",
@@ -1451,40 +2177,130 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nSMTP 送信では、社内 PC から外部サーバへ送る発信パケットと、その応答パケットの両方を許可する必要があり、この組合せではポートの向きが一致しない。",
-      "正しい。\n\nSMTP は TCP 25 番を使う。社内 PC は 1024 以上の動的ポートから SMTP サーバ 25 番へ接続し、応答は送信元 25 番・宛先 1024 以上で返るため、その組合せを許可すればよい。",
-      "間違い。\n\nクライアント側が 25 番を発信元として使う前提になっており、通常の SMTP クライアント通信と合わない。",
-      "間違い。\n\n応答方向またはポート番号の組合せが SMTP セッションの実際の流れと一致しない。"
-    ],
-    "suggestedQuestions": [
-      "SMTP送信時のポート番号はどうなりますか？",
-      "クライアント側はなぜ1024以上を使いますか？",
-      "ファイアウォールで双方向許可が必要な理由は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "SMTP送信時のポート番号はどうなりますか？",
-        "answer": "クライアントの動的ポートからサーバの TCP 25 番へ接続し、応答はその逆向きに返る。"
-      },
-      {
-        "question": "クライアント側はなぜ1024以上を使いますか？",
-        "answer": "一般に OS が一時的なエフェメラルポートを割り当てるためである。"
-      },
-      {
-        "question": "ファイアウォールで双方向許可が必要な理由は何ですか？",
-        "answer": "要求だけでなく、SMTP サーバからの応答パケットも戻れるようにする必要があるからである。"
-      }
+      "正しい。該当するのはイである。SMTP送信では、社内PCが1024以上の動的ポートを送信元、SMTPサーバの25番ポートを宛先として接続する。応答はSMTPサーバの25番ポートから社内PCの動的ポートへ返る。アはこの向きが逆であり、ウとエは110番を使っているため誤りである。110番はPOP3でメールを受信するときのポートで、SMTP送信には用いない。"
     ],
     "original_question_id": "4f3b3be5cfa0cb44",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_19.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201002:4f3b3be5cfa0cb44",
+    "reviewQuestionId": "4f3b3be5cfa0cb44",
+    "sourceRecordRef": "question_201002_2.json#23",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "SMTPの通信方向とポート番号に関するネットワーク技術の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "社内PCからSMTPサーバへの送信で、送信元にSMTPサーバの25番ポートを指定する組合せは誤りである。",
+          "promptContext": "SMTP送信の通信方向とポート番号を確認した。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "SMTP送信では、社内PCの動的ポートからSMTPサーバのTCP 25番ポートへ接続する。",
+          "promptContext": "SMTP送信の通信方向とポート番号を確認した。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "SMTPサーバから社内PCへの応答にSMTPサーバの25番ポートを送信元として指定する向きは正しいが、提示された送信側の組合せはSMTP送信の向きと一致しない。",
+          "promptContext": "SMTP送信の通信方向とポート番号を確認した。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "110番ポートはPOP3の受信に用いるポートであり、SMTP送信の宛先ポートではない。",
+          "promptContext": "SMTPとPOP3のポート番号を確認した。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。正しくは、外部向けTCPサービスへの接続要求を制限する対策である。選択肢は、外部へのサービス提供に必要なTCPコネクション確立要求以外を破棄するとしているため、送信元IPアドレスの偽装を検出するIPスプーフィング対策ではない。",
-      "間違い。正しくは、外部向けサービスに必要なUDP通信だけを許可する対策である。選択肢は、不要なUDPパケットを破棄するとしているため、送信元IPアドレスが偽装されているかを確認するIPスプーフィング対策には当たらない。",
-      "間違い。正しくは、宛先IPアドレスによって外部からの通信を許可する内部ホストを制限する対策である。選択肢は、宛先が内部ホストのパケットを破棄するとしているため、送信元IPアドレスの偽装を防ぐIPスプーフィング対策とは異なる。",
-      "正しい。"
+      "間違い。TCPコネクション確立要求の許可・破棄は、外部向けTCPサービスの利用可否を制御する対策である。IPスプーフィング対策は、送信元IPアドレスが自ネットワークのものに偽装されたパケットを破棄する。選択肢は、外部向けサービスに不要なTCP接続要求を破棄するとしているため誤りである。",
+      "間違い。UDPパケットの許可・破棄は、外部向けサービスに必要な通信だけを通すための対策である。IPスプーフィング対策は、送信元IPアドレスが自ネットワークのものに偽装されたパケットを破棄する。選択肢は、不要なUDPパケットを破棄するとしているため誤りである。",
+      "間違い。宛先IPアドレスによる破棄は、インターネットと直接通信させない内部ホストを外部から保護する対策である。IPスプーフィング対策は、送信元IPアドレスの偽装を確認する。選択肢は、宛先が特定の内部ホストであるパケットを破棄するとしているため誤りである。",
+      "正しい。外部から入るパケットの送信元IPアドレスが自ネットワークのものなら、内部から送信されたように偽装されている可能性があるため破棄する。"
     ],
     "original_question_id": "ec78f6be79f12bf0",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_20.html",
@@ -1494,6 +2310,112 @@
     "sourceRecordRef": "question_201002_2.json#24",
     "explanationReferences": [],
     "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "ファイアウォールによるIPスプーフィング対策を問う技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "第1選択肢はTCPサービスの許可・破棄に関する対策であり、IPスプーフィング対策ではない。",
+          "promptContext": "IPスプーフィング対策の技術判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなくネットワークセキュリティ技術の知識で判定した。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "第2選択肢はUDPサービスの許可・破棄に関する対策であり、IPスプーフィング対策ではない。",
+          "promptContext": "IPスプーフィング対策の技術判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなくネットワークセキュリティ技術の知識で判定した。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "第3選択肢は宛先IPアドレスによる内部ホスト保護の対策であり、送信元IPアドレス偽装への対策ではない。",
+          "promptContext": "IPスプーフィング対策の技術判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなくネットワークセキュリティ技術の知識で判定した。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "第4選択肢は、外部から入るパケットの送信元IPアドレスが自ネットワークのものなら破棄する対策であり、IPスプーフィング対策として正しい。",
+          "promptContext": "IPスプーフィング対策の技術判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令ではなくネットワークセキュリティ技術の知識で判定した。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   }
 ]

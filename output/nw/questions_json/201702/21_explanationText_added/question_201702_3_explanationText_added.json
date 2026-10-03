@@ -31,122 +31,395 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nコンデンサに蓄えた電荷で記憶するのは DRAM の説明であり、MLC フラッシュメモリの特徴ではない。",
-      "間違い。\n\n電気抵抗値を用いて記憶するのは ReRAM などの説明であり、MLC フラッシュメモリの特徴ではない。",
-      "正しい。\n\nMLC は Multi-Level Cell の略で、一つのメモリセルに多値を持たせることで 2 ビット以上のデータを記憶する方式である。",
-      "間違い。\n\nフリップフロップを利用して記憶するのは SRAM の説明であり、フラッシュメモリの特徴ではない。"
-    ],
-    "suggestedQuestions": [
-      "MLC フラッシュメモリの MLC は何を意味しますか？",
-      "SLC と比べた違いは何ですか？",
-      "DRAM や SRAM とどう違いますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "MLC フラッシュメモリの MLC は何を意味しますか？",
-        "answer": "1 個のセルに複数ビットを記録する Multi-Level Cell を意味する。"
-      },
-      {
-        "question": "SLC と比べた違いは何ですか？",
-        "answer": "SLC は 1 セル 1 ビットだが、MLC は 1 セルに 2 ビット以上を記録して高密度化する。"
-      },
-      {
-        "question": "DRAM や SRAM とどう違いますか？",
-        "answer": "フラッシュメモリは不揮発で、DRAM はコンデンサ、SRAM はフリップフロップで情報を保持する点が異なる。"
-      }
+      "間違い。正しくは、フラッシュメモリではメモリセルの電荷状態を利用してデータを記憶する。選択肢はコンデンサに蓄えた電荷を用いるとしているため誤りである。これはDRAMの記憶方式である。",
+      "間違い。正しくは、電気抵抗の値を利用してデータを記憶するのはReRAMなどである。選択肢は電気抵抗値を用いるとしているため誤りである。",
+      "正しい。",
+      "間違い。正しくは、フリップフロップを利用してデータを記憶するのはSRAMである。選択肢はフリップフロップを利用するとしているため誤りである。"
     ],
     "original_question_id": "3abb5447894fa9c6",
     "question_url": "https://www.nw-siken.com/kakomon/29_aki/am2_22.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201702:3abb5447894fa9c6",
+    "reviewQuestionId": "3abb5447894fa9c6",
+    "sourceRecordRef": "question_201702_3.json#1",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [
+      {
+        "choiceIndex": 2,
+        "items": [
+          {
+            "answer": "SLCは1ビット、MLCは2ビット、TLCは3ビット、QLCは4ビットを記憶する。",
+            "question": "SLC、MLC、TLC、QLCは、それぞれ1個のメモリセルに何ビットを記憶するか。"
+          }
+        ]
+      }
+    ],
+    "isLawRelated": false,
+    "lawContextForExplanation": "技術知識のみで判定できるMLCフラッシュメモリの記憶方式に関する問題で、法令根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を必要としない技術知識の選択肢である。",
+          "promptContext": "MLCフラッシュメモリの記憶方式。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を必要としない技術知識の選択肢である。",
+          "promptContext": "MLCフラッシュメモリの記憶方式。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を必要としない技術知識の選択肢である。",
+          "promptContext": "MLCフラッシュメモリの記憶方式。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を必要としない技術知識の選択肢である。",
+          "promptContext": "MLCフラッシュメモリの記憶方式。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n平均サービス時間が 15 秒でも待ち時間が発生するため、平均印刷時間は 15 秒より長くなる。",
-      "間違い。\n\n利用率は 15 秒 ÷ 60 秒で 0.25 なので、平均待ち時間を加えても 18 秒にはならない。",
-      "正しい。\n\nM/M/1 待ち行列で利用率は 0.25、平均待ち時間は {0.25 ÷ (1-0.25)} × 15 = 5 秒、平均印刷時間は 15 + 5 = 20 秒となる。",
-      "間違い。\n\n平均サービス時間 15 秒、利用率 0.25 の条件では平均印刷時間は 30 秒まで増えない。"
-    ],
-    "suggestedQuestions": [
-      "M/M/1 待ち行列で平均応答時間はどう求めますか？",
-      "この問題の利用率はどう計算しますか？",
-      "なぜ 15 秒ではなく 20 秒になりますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "M/M/1 待ち行列で平均応答時間はどう求めますか？",
-        "answer": "利用率から平均待ち時間を求め、それに平均サービス時間を加えて平均応答時間を求める。"
-      },
-      {
-        "question": "この問題の利用率はどう計算しますか？",
-        "answer": "1 分当たり 1 回の到着と 15 秒の処理時間から、利用率は 15 ÷ 60 = 0.25 となる。"
-      },
-      {
-        "question": "なぜ 15 秒ではなく 20 秒になりますか？",
-        "answer": "印刷処理そのものの 15 秒に加え、平均 5 秒の待ち時間が発生するためである。"
-      }
+      "正しい。ポアソン到着でサービス時間が指数分布に従うので、M/M/1待ち行列として計算する。到着率は \u001b\\(\\lambda=1\\) 回/分、平均サービス時間は15秒=0.25分だから、サービス率は \u001b\\(\\mu=4\\) 回/分、利用率は \u001b\\(\\rho=\\lambda/\\mu=0.25\\) である。平均待ち時間は \u001b\\(W_q=\\frac{\\rho}{1-\\rho}\\times15=5\\) 秒となる。したがって、印刷を要求してから終了するまでの平均印刷時間は、サービス時間15秒と待ち時間5秒の合計で、\u001b\\(15+5=20\\) 秒である。"
     ],
     "original_question_id": "b7fecdcc239c96c6",
     "question_url": "https://www.nw-siken.com/kakomon/29_aki/am2_23.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201702:b7fecdcc239c96c6",
+    "reviewQuestionId": "b7fecdcc239c96c6",
+    "sourceRecordRef": "question_201702_3.json#2",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "正しい。\n\nオンラインヘルプを充実させて利用方法を理解しやすくする施策は、ISO/IEC 9126 などでいう使用性のうち理解性や習得性の向上に当たる。",
-      "間違い。\n\n他システムと連携できる範囲を増やす見直しは相互運用性や機能性の向上であり、使用性の向上ではない。",
-      "間違い。\n\n機能を追加して利用範囲を拡大する施策は機能性の向上であり、使用性の向上ではない。",
-      "間違い。\n\n障害時停止リスクを減らすための分散配置は信頼性や可用性の向上であり、使用性の向上ではない。"
-    ],
-    "suggestedQuestions": [
-      "使用性にはどのような副特性がありますか？",
-      "機能性や信頼性との違いは何ですか？",
-      "オンラインヘルプはなぜ使用性向上策になりますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "使用性にはどのような副特性がありますか？",
-        "answer": "理解性、習得性、運用性など、利用者が分かりやすく使いやすいかに関する特性が含まれる。"
-      },
-      {
-        "question": "機能性や信頼性との違いは何ですか？",
-        "answer": "機能性は必要機能の充足、信頼性は安定動作の度合い、使用性は分かりやすさや使いやすさを表す。"
-      },
-      {
-        "question": "オンラインヘルプはなぜ使用性向上策になりますか？",
-        "answer": "利用方法の理解を助け、学習しやすくなるため、利用者の使いやすさを直接高めるからである。"
-      }
+      "正しい。オンラインヘルプを充実させて利用方法を理解しやすくする施策は、使用性の向上に当たる。",
+      "間違い。他システムと連携できる範囲を増やす施策は、相互運用性や機能性の向上に当たる。選択肢はこれを使用性の向上としているため誤りである。",
+      "間違い。機能を追加してシステムを利用できる業務範囲を広げる施策は、機能性の向上に当たる。選択肢はこれを使用性の向上としているため誤りである。",
+      "間違い。ファイルを分散配置して障害による停止のリスクを減らす施策は、信頼性や可用性の向上に当たる。選択肢はこれを使用性の向上としているため誤りである。"
     ],
     "original_question_id": "10cbb899364a1f5c",
     "question_url": "https://www.nw-siken.com/kakomon/29_aki/am2_24.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201702:10cbb899364a1f5c",
+    "reviewQuestionId": "10cbb899364a1f5c",
+    "sourceRecordRef": "question_201702_3.json#3",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "ソフトウェアの使用性に関する品質特性の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第1選択肢は使用性の向上に該当する。法令根拠は不要である。",
+          "promptContext": "技術知識のみで判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "ソフトウェア品質特性に関する技術問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第2選択肢は相互運用性や機能性の向上に関する内容であり、使用性の向上ではない。法令根拠は不要である。",
+          "promptContext": "技術知識のみで判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "ソフトウェア品質特性に関する技術問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第3選択肢は機能性の向上に関する内容であり、使用性の向上ではない。法令根拠は不要である。",
+          "promptContext": "技術知識のみで判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "ソフトウェア品質特性に関する技術問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第4選択肢は信頼性や可用性の向上に関する内容であり、使用性の向上ではない。法令根拠は不要である。",
+          "promptContext": "技術知識のみで判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "ソフトウェア品質特性に関する技術問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n構造化プログラミングは制御構造を明確にして記述する古典的なプログラミング手法であり、XP の代表的プラクティスではない。",
-      "間違い。\n\nコンポーネント指向プログラミングは再利用可能な部品で構成する考え方であり、XP のプラクティス名ではない。",
-      "間違い。\n\nビジュアルプログラミングは視覚要素で記述する開発手法の説明であり、XP のプラクティスではない。",
-      "正しい。\n\nペアプログラミングは 2 人 1 組で同じコードを共同作成する XP の代表的プラクティスの一つである。"
-    ],
-    "suggestedQuestions": [
-      "XP の代表的なプラクティスには何がありますか？",
-      "ペアプログラミングはどのように進めますか？",
-      "XP は何を重視する開発手法ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "XP の代表的なプラクティスには何がありますか？",
-        "answer": "ペアプログラミング、テスト駆動開発、継続的インテグレーション、リファクタリングなどがある。"
-      },
-      {
-        "question": "ペアプログラミングはどのように進めますか？",
-        "answer": "2 人で 1 台の端末を共有し、実装する役割とレビューする役割を切り替えながら進める。"
-      },
-      {
-        "question": "XP は何を重視する開発手法ですか？",
-        "answer": "変化への適応、短い反復、継続的なフィードバック、品質確保を重視する。"
-      }
+      "間違い。正しくは、構造化プログラミングはXPの代表的なプラクティスではない。選択肢は構造化プログラミングをXPのプラクティスとしているため誤りである。",
+      "間違い。正しくは、コンポーネント指向プログラミングはXPのプラクティス名ではない。選択肢はコンポーネント指向プログラミングをXPのプラクティスとしているため誤りである。",
+      "間違い。正しくは、ビジュアルプログラミングはXPのプラクティスではない。選択肢はビジュアルプログラミングをXPのプラクティスとしているため誤りである。",
+      "正しい。ペアプログラミングは、2人1組で同じコードを共同作成するXPの代表的なプラクティスである。"
     ],
     "original_question_id": "acb226abcd2eceec",
     "question_url": "https://www.nw-siken.com/kakomon/29_aki/am2_25.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201702:acb226abcd2eceec",
+    "reviewQuestionId": "acb226abcd2eceec",
+    "sourceRecordRef": "question_201702_3.json#4",
+    "explanationReferences": [],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "XPのプラクティスに関する技術知識の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "構造化プログラミングはXPの代表的なプラクティスではない。",
+          "promptContext": "選択肢1の技術内容を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術知識問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "コンポーネント指向プログラミングはXPの代表的なプラクティスではない。",
+          "promptContext": "選択肢2の技術内容を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術知識問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ビジュアルプログラミングはXPの代表的なプラクティスではない。",
+          "promptContext": "選択肢3の技術内容を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術知識問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ペアプログラミングはXPの代表的なプラクティスである。",
+          "promptContext": "選択肢4の技術内容を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外の技術知識問題。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   }
 ]

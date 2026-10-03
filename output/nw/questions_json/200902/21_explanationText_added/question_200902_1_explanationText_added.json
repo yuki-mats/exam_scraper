@@ -1,10 +1,10 @@
 [
   {
     "explanationText": [
-      "間違い。正しくは、ビット誤りの検出にはパリティビットなどを用いる。選択肢は、1のビットを数えるだけで誤りを検出できるとしているため、2の補数を使う理由とは異なる。",
-      "正しい。2の補数表現を使うと、減算を引く数の負数を作って加算する処理に置き換えられるため、加算回路を利用して減算を実行できる。",
-      "間違い。正しくは、2の補数を使う主な理由は、減算を負数の加算に置き換えられることである。除算を減算の組合せで行う方法は、2の補数を使う理由を示していない。",
-      "間違い。正しくは、ビットを反転しただけで得られるのは1の補数であり、2の補数では反転後に1を加える。選択肢は、ビットの反転だけで負数を求められるとしているため誤りである。"
+      "間違い。ビット誤りの検出には、パリティビットなどを用いる。選択肢は、1のビットを数えるだけでビット誤りを検出できるとしているため誤りである。",
+      "正しい。2の補数表現を使うと、減算を引く数の2の補数を加算する処理に置き換えられるため、加算回路を利用して減算を実行できる。",
+      "間違い。2の補数を使う主な理由は、減算を負数の加算に置き換えられることである。選択肢は、除算を減算の組合せで行うことが2の補数を使う理由としているため誤りである。",
+      "間違い。ビットを反転しただけで得られるのは1の補数であり、2の補数では反転後に1を加える。選択肢は、ビットの反転だけで負数を求められるとしているため誤りである。"
     ],
     "original_question_id": "105863ac47e724c7",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_1.html",
@@ -124,10 +124,10 @@
   },
   {
     "explanationText": [
-      "間違い。正しくは、検査用データは生成多項式による割り算で得られる、生成多項式の次数に応じた複数ビットの余りである。選択肢は検査用データを1ビットの値としているため誤りである。",
-      "間違い。正しくは、受信側は受信したデータと検査用データを合わせたビット列を生成多項式で割り、余りがないかを確認する。選択肢は検査対象のデータを検査用データで割るとしているため誤りである。",
+      "間違い。正しくは、検査用データは検査対象のデータを生成多項式で割ったときの余りであり、生成多項式の次数に応じた複数ビットになる。選択肢は検査用データを1ビットの値としているため誤りである。",
+      "間違い。正しくは、受信側は受信した検査対象のデータと検査用データを合わせたビット列を生成多項式で割り、余りがないかを確認する。選択肢は検査対象のデータを検査用データで割るとしているため誤りである。",
       "正しい。",
-      "間違い。正しくは、送信側と受信側が同じ生成多項式を用いて検査結果を一致させる。選択肢は送信側と受信側で異なる生成多項式を用いるとしているため誤りである。"
+      "間違い。正しくは、送信側と受信側は同じ生成多項式を用いて検査結果を一致させる。選択肢は送信側と受信側で異なる生成多項式を用いるとしているため誤りである。"
     ],
     "original_question_id": "eaee0a7209e61a01",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_2.html",
@@ -570,33 +570,17 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nS を 0 にして戻すとラッチの状態が反転し、X=0, Y=0 にはならない。",
-      "間違い。\n\n初期状態 X=0, Y=1 は保持されず、S の操作によって出力が切り替わる。",
-      "正しい。\n\nSR ラッチでは、S を一度 0 にするとセット側が働き、その後 S を 1 に戻しても安定状態として X=1, Y=0 が保持される。",
-      "間違い。\n\nNOR 形ラッチの安定状態で X と Y がともに 1 になることはない。"
-    ],
-    "suggestedQuestions": [
-      "SRラッチは何を記憶しますか？",
-      "なぜ S を戻しても状態が保持されますか？",
-      "X と Y が同時に 1 にならない理由は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "SRラッチは何を記憶しますか？",
-        "answer": "入力によって決まった 1 ビットの状態を、次の操作があるまで保持する。"
-      },
-      {
-        "question": "なぜ S を戻しても状態が保持されますか？",
-        "answer": "出力が相互に入力へ帰還しており、安定状態が保たれるからである。"
-      },
-      {
-        "question": "X と Y が同時に 1 にならない理由は何ですか？",
-        "answer": "NOR 形ラッチでは互いの出力が打ち消し合うため、安定状態は補数関係になる。"
-      }
+      "正しい。図はNAND型SRラッチである。Sを0にするとセット動作が起こり、Xは1、Yは0になる。その後Sを1に戻すと、S＝1、R＝1は状態を保持する入力なので、X＝1、Y＝0が保たれる。"
     ],
     "original_question_id": "2bfb20e7dbd61e86",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_8.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:200902:2bfb20e7dbd61e86",
+    "reviewQuestionId": "2bfb20e7dbd61e86",
+    "sourceRecordRef": "question_200902_1.json#7",
+    "explanationReferences": [],
+    "questionLearningPatternId": "sequence_flow",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -813,33 +797,123 @@
   },
   {
     "explanationText": [
-      "正しい。\n\n公衆電話網へつなぐ既存電話交換装置が PBX、電話網と IP 網の境界で音声と IP パケットを相互変換する装置が VoIP ゲートウェイ、他ネットワーク接続がルータである。",
-      "間違い。\n\nPBX、VoIP ゲートウェイ、ルータの役割分担が図の接続位置と合っていない。",
-      "間違い。\n\n電話網と IP 網の境界に置くべき装置は VoIP ゲートウェイであり、ほかの組合せでは機能が対応しない。",
-      "間違い。\n\n他ネットワーク接続点はルータ、既存電話機側は PBX で見る必要があり、この組合せは不適切である。"
-    ],
-    "suggestedQuestions": [
-      "VoIPゲートウェイは何を変換しますか？",
-      "PBXの役割は何ですか？",
-      "ルータとの違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "VoIPゲートウェイは何を変換しますか？",
-        "answer": "電話網側の音声信号と IP ネットワーク上のパケットとの相互変換を行う。"
-      },
-      {
-        "question": "PBXの役割は何ですか？",
-        "answer": "企業内の内線電話を制御し、公衆回線との接続も取りまとめる。"
-      },
-      {
-        "question": "ルータとの違いは何ですか？",
-        "answer": "ルータは IP パケットを経路選択して中継する装置であり、音声信号変換は行わない。"
-      }
+      "正しい。該当するのはアである。既存の電話機を収容して内線交換を行うPBXを電話機側に置き、電話網とIPネットワークの境界で音声とIPパケットを相互変換するVoIPゲートウェイを続ける。その先で異なるネットワークを接続するルータを介して、IPネットワークへ接続する。"
     ],
     "original_question_id": "8afbad1e3b0b5073",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_13.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:200902:8afbad1e3b0b5073",
+    "reviewQuestionId": "8afbad1e3b0b5073",
+    "sourceRecordRef": "question_200902_1.json#12",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "PBX、VoIPゲートウェイ、ルータの接続構成を問う工学・ネットワーク技術の問題であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の適用による正誤差分はない。",
+          "displayRefIds": [],
+          "explanationText": "PBXを電話機側、VoIPゲートウェイを音声とIPの変換境界、ルータをIPネットワーク接続側に置く構成が正しい。",
+          "promptContext": "接続装置の役割と配置を判定する技術問題である。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識により判定できるため、法令監査の対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の適用による正誤差分はない。",
+          "displayRefIds": [],
+          "explanationText": "VoIPゲートウェイを電話機側に置く配置は、既存電話機を収容するPBXを先に置く構成と異なるため不適切である。",
+          "promptContext": "接続装置の役割と配置を判定する技術問題である。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識により判定できるため、法令監査の対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の適用による正誤差分はない。",
+          "displayRefIds": [],
+          "explanationText": "PBXをVoIPゲートウェイより後ろに置く配置は、既存電話機を収容する順序に反するため不適切である。",
+          "promptContext": "接続装置の役割と配置を判定する技術問題である。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識により判定できるため、法令監査の対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令の適用による正誤差分はない。",
+          "displayRefIds": [],
+          "explanationText": "VoIPゲートウェイをIPネットワーク側の終端に置き、PBXを最後に置く配置は各装置の役割に合わないため不適切である。",
+          "promptContext": "接続装置の役割と配置を判定する技術問題である。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識により判定できるため、法令監査の対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -933,7 +1007,7 @@
   },
   {
     "explanationText": [
-      "正しい。該当するのは共通フレームである。共通フレームは、取得者と供給者の取引を対象に、企画、要件定義、開発、運用、保守などのライフサイクル全体に関わる作業を共通の基準で整理する。国際規格ISO/IEC 12207と整合する枠組みである。CMMIはプロセス改善の成熟度モデル、PMBOKはプロジェクトマネジメントの知識体系であり、ソフトウェア保守規格は主に保守を対象とするため、共通フレームには該当しない。"
+      "正しい。該当するのは共通フレームである。共通フレームは、取得者と供給者の取引を対象に、企画、要件定義、開発、運用、保守など、システムのライフサイクル全体に関わる作業を共通の基準で整理する。国際規格ISO/IEC 12207と整合する枠組みである。CMMIはプロセス改善の成熟度モデル、PMBOKはプロジェクトマネジメントの知識体系、ソフトウェア保守規格は主に保守を対象とするため、共通フレームには該当しない。"
     ],
     "original_question_id": "bf92963e12925b2e",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_17.html",
@@ -943,7 +1017,113 @@
     "sourceRecordRef": "question_200902_1.json#16",
     "explanationReferences": [],
     "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "国際規格とソフトウェア開発プロセスに関する技術問題であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "CMMIの説明は、取得者と供給者の取引を対象とする共通フレームの説明ではない。",
+          "promptContext": "選択肢1の技術的内容を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判断できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "PMBOKの説明は、システムのライフサイクル全体を整理する共通フレームの説明ではない。",
+          "promptContext": "選択肢2の技術的内容を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判断できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "共通フレームは、取得者と供給者の取引を対象に、企画、要件定義、開発、運用及び保守などを整理する。",
+          "promptContext": "選択肢3の技術的内容を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで正誤を判断できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ソフトウェア保守規格は主に保守を対象とし、問題文が示すライフサイクル全体の枠組みではない。",
+          "promptContext": "選択肢4の技術的内容を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで正誤を判断できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -977,39 +1157,129 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n開発規模が増えても工数が頭打ちになる形ではなく、一般には要員間調整も増えてより急激に大きくなる。",
-      "間違い。\n\n完全比例の直線では、規模増大に伴う管理・調整コスト増を十分表せない。",
-      "間違い。\n\n規模拡大で工数増加が緩やかになるグラフではなく、実際にはより急に増える傾向がある。",
-      "正しい。\n\n開発規模が大きくなるほど、コミュニケーションや管理の負担も増えるため、工数は一般に比例以上に増大する。"
-    ],
-    "suggestedQuestions": [
-      "なぜ規模拡大で工数が比例以上に増えますか？",
-      "見積りで考慮すべき間接コストは何ですか？",
-      "工数と期間は同じですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "なぜ規模拡大で工数が比例以上に増えますか？",
-        "answer": "要員間の調整、レビュー、統合、管理の負荷が増えるためである。"
-      },
-      {
-        "question": "見積りで考慮すべき間接コストは何ですか？",
-        "answer": "打合せ、進捗管理、品質管理、教育、結合対応などがある。"
-      },
-      {
-        "question": "工数と期間は同じですか？",
-        "answer": "異なる。工数は人月などの総作業量、期間は暦上の所要日数である。"
-      }
+      "正しい。開発規模が大きくなるほど、要員間のコミュニケーションや管理・調整の負担が増えるため、開発工数は規模に単純比例せず、より急激に増加する。"
     ],
     "original_question_id": "c2283754f8bea46b",
     "question_url": "https://www.nw-siken.com/kakomon/21_aki/am1_19.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:200902:c2283754f8bea46b",
+    "reviewQuestionId": "c2283754f8bea46b",
+    "sourceRecordRef": "question_200902_1.json#18",
+    "explanationReferences": [],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "ソフトウェア開発規模と開発工数の関係を問う工学・開発管理の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の出題時・現行時差分はない。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の正誤は、ソフトウェア開発規模と開発工数の関係に関する技術知識で決まり、法令根拠を必要としない。",
+          "promptContext": "法令非該当の技術問題として判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・開発管理上の知識で判定し、法令監査の対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の出題時・現行時差分はない。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の正誤は、ソフトウェア開発規模と開発工数の関係に関する技術知識で決まり、法令根拠を必要としない。",
+          "promptContext": "法令非該当の技術問題として判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・開発管理上の知識で判定し、法令監査の対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の出題時・現行時差分はない。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の正誤は、ソフトウェア開発規模と開発工数の関係に関する技術知識で決まり、法令根拠を必要としない。",
+          "promptContext": "法令非該当の技術問題として判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・開発管理上の知識で判定し、法令監査の対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令上の出題時・現行時差分はない。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の正誤は、ソフトウェア開発規模と開発工数の関係に関する技術知識で決まり、法令根拠を必要としない。",
+          "promptContext": "法令非該当の技術問題として判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術・開発管理上の知識で判定し、法令監査の対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。正しくは、機能的に閉じたサブシステム単位で順次移行するのは順次移行方式である。選択肢は、サブシステム単位で順次移行する方式をパイロット移行方式としているため誤りである。",
+      "間違い。正しくは、機能的に閉じたサブシステム単位で順次移行するのは順次移行方式である。選択肢は、順次移行方式の特徴をパイロット移行方式としているため誤りである。",
       "正しい。パイロット移行方式は、限定した部門や拠点で新システムを先行導入して問題を確認し、その後にほかの部門へ展開する。問題が発生しても、影響を先行導入した範囲に抑えられる。",
-      "間違い。正しくは、新旧両システムを同時に稼働させて業務への影響を抑えるのは並行運用移行方式である。選択肢は、新旧システムを並行稼働させる方式をパイロット移行方式としているため誤りである。",
+      "間違い。正しくは、新旧両システムを同時に稼働させて業務への影響を抑えるのは並行運用移行方式である。選択肢は、並行運用移行方式の特徴をパイロット移行方式としているため誤りである。",
       "間違い。正しくは、全体を短期間で一気に切り替えるのは一斉移行方式である。選択肢は、一斉移行方式の特徴をパイロット移行方式としているため誤りである。"
     ],
     "original_question_id": "6ffc97afbaf50d16",

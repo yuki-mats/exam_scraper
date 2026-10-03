@@ -31,33 +31,123 @@
   },
   {
     "explanationText": [
-      "正しい。\n\n垂直水平パリティでは、行と列の両方で不一致が出る位置を特定できるので、1 ビット誤りなら誤り位置を一意に定めて訂正できる。",
-      "間違い。\n\n2 ビット誤りでは不一致行・列が複数になり、どのビットを直せばよいか一意に決まらない。一般には訂正できない。",
-      "間違い。\n\n3 ビット誤りも誤り位置を一意に特定できないため、訂正可能とはいえない。",
-      "間違い。\n\n4 ビット誤りになると、検出すら難しい配置もあり、訂正可能とはいえない。"
-    ],
-    "suggestedQuestions": [
-      "垂直水平パリティで1ビット誤りを直せる理由は何ですか？",
-      "2ビット誤りはなぜ直せませんか？",
-      "パリティは何を検出しますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "垂直水平パリティで1ビット誤りを直せる理由は何ですか？",
-        "answer": "不一致になった 1 行と 1 列の交点が誤り位置になるため、一意に場所を特定できる。"
-      },
-      {
-        "question": "2ビット誤りはなぜ直せませんか？",
-        "answer": "複数の行・列が不一致になり、どのビットが誤りか一意に決まらないからである。"
-      },
-      {
-        "question": "パリティは何を検出しますか？",
-        "answer": "ビット列中の 1 の個数の偶奇を使って、伝送や記憶時のビット誤りを検出する。"
-      }
+      "正しい。行と列のパリティを確認すると、誤りのある行と列の交点から1ビットの誤り位置を特定して訂正できる。2ビット以上の誤りでは不一致となる行や列が複数になり、誤り位置を一意に定められないため、訂正できるのは1ビットまでである。"
     ],
     "original_question_id": "0b9b34069eb3715c",
     "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_2.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201502:0b9b34069eb3715c",
+    "reviewQuestionId": "0b9b34069eb3715c",
+    "sourceRecordRef": "question_201502_1.json#1",
+    "explanationReferences": [],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "行と列のパリティビットを用いた誤り訂正の技術問題で、法令・制度上の根拠はない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を用いず、技術知識により正しいと判定した。",
+          "promptContext": "選択肢1の技術的正誤判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "行・列パリティによる誤り訂正の技術判定であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を用いず、技術知識により間違いと判定した。",
+          "promptContext": "選択肢2の技術的正誤判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "行・列パリティによる誤り訂正の技術判定であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を用いず、技術知識により間違いと判定した。",
+          "promptContext": "選択肢3の技術的正誤判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "行・列パリティによる誤り訂正の技術判定であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を用いず、技術知識により間違いと判定した。",
+          "promptContext": "選択肢4の技術的正誤判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "行・列パリティによる誤り訂正の技術判定であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -122,9 +212,9 @@
   {
     "explanationText": [
       "間違い。ホットプラグは、システムの電源を切らずに部品を取り付けたり交換したりする機能である。選択肢は、障害時にアプリケーションを代替ノードへ切り替える機能をホットプラグとしているため誤りである。",
-      "間違い。障害時は、稼働可能な代替ノードへアプリケーションを引き継がせて処理を継続する。選択肢は、アプリケーションを再び動かすために代替ノードを再起動する機能としているため誤りである。",
+      "間違い。障害が発生した場合は、稼働可能な代替ノードへアプリケーションの処理を引き継がせる。選択肢は、代替ノードを再起動してアプリケーションを動かす機能としているため誤りである。",
       "正しい。フェールオーバーは、障害が発生したノードから代替ノードへアプリケーションの処理を切り替え、サービスを継続させる機能である。",
-      "間違い。フェールバックは、障害から復旧した元のノードへ処理を戻す機能である。選択肢は、障害発生時のクラスタ再構成をフェールバックとしているため誤りである。"
+      "間違い。フェールバックは、障害から復旧した元のノードへ処理を戻す機能である。選択肢は、ノード間の通信断によるクラスタの再構成をフェールバックとしているため誤りである。"
     ],
     "original_question_id": "33b8bb4fd4d764ca",
     "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_5.html",
@@ -134,7 +224,113 @@
     "sourceRecordRef": "question_201502_1.json#4",
     "explanationReferences": [],
     "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "クラスタリングシステムのフェールオーバーに関する技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ホットプラグの機能に関する技術知識で判定した。",
+          "promptContext": "技術問題の選択肢1。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術肢。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "障害時の代替ノード再起動と処理引継ぎの違いに関する技術知識で判定した。",
+          "promptContext": "技術問題の選択肢2。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術肢。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "フェールオーバーの機能に関する技術知識で判定した。",
+          "promptContext": "技術問題の選択肢3。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外の技術肢。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "フェールバックとクラスタ再構成の機能差に関する技術知識で判定した。",
+          "promptContext": "技術問題の選択肢4。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術肢。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -208,7 +404,113 @@
     "sourceRecordRef": "question_201502_1.json#7",
     "explanationReferences": [],
     "questionLearningPatternId": "terms_basics",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "コード体系の分類に関する一般的な情報処理知識の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "シーケンスコードの判定はコード体系の知識による。",
+          "promptContext": "コード値から対象物を連想できるかを判定する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術知識として確認した。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "デシマルコードの判定はコード体系の知識による。",
+          "promptContext": "コード値から対象物を連想できるかを判定する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術知識として確認した。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ニモニックコードの判定はコード体系の知識による。",
+          "promptContext": "コード値から対象物を連想できるかを判定する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外の技術知識として確認した。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ブロックコードの判定はコード体系の知識による。",
+          "promptContext": "コード値から対象物を連想できるかを判定する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術知識として確認した。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -359,7 +661,113 @@
     "sourceRecordRef": "question_201502_1.json#13",
     "explanationReferences": [],
     "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "パスワードの総当たり試行という情報セキュリティ技術の定義問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定は一致。",
+          "displayRefIds": [],
+          "explanationText": "セッション情報を盗む攻撃はセッションハイジャックであり、ブルートフォース攻撃ではない。",
+          "promptContext": "問題文と選択肢を結合した完全な命題を技術用語の定義で確認した。",
+          "refs": [],
+          "verdict": "技術問題として確定"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "情報セキュリティ技術の定義に基づく選択肢であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定は一致。",
+          "displayRefIds": [],
+          "explanationText": "可能性のある文字列を総当たりしてパスワードなどへのログインを試みる攻撃は、ブルートフォース攻撃である。",
+          "promptContext": "問題文と選択肢を結合した完全な命題を技術用語の定義で確認した。",
+          "refs": [],
+          "verdict": "技術問題として確定"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "情報セキュリティ技術の定義に基づく選択肢であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定は一致。",
+          "displayRefIds": [],
+          "explanationText": "キーボード入力を記録して外部へ送信する攻撃はキーロガーによる攻撃であり、ブルートフォース攻撃ではない。",
+          "promptContext": "問題文と選択肢を結合した完全な命題を技術用語の定義で確認した。",
+          "refs": [],
+          "verdict": "技術問題として確定"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "情報セキュリティ技術の定義に基づく選択肢であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定は一致。",
+          "displayRefIds": [],
+          "explanationText": "正当な利用者のログインシーケンスを記録して再送する攻撃はリプレイ攻撃であり、ブルートフォース攻撃ではない。",
+          "promptContext": "問題文と選択肢を結合した完全な命題を技術用語の定義で確認した。",
+          "refs": [],
+          "verdict": "技術問題として確定"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "情報セキュリティ技術の定義に基づく選択肢であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -376,7 +784,113 @@
     "sourceRecordRef": "question_201502_1.json#14",
     "explanationReferences": [],
     "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "セキュリティ技術の目的を問う問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は暗号方式と鍵長の設計仕様との一致確認を述べており、ペネトレーションテストの目的ではない。",
+          "promptContext": "ペネトレーションテストの目的に関する技術知識問題。",
+          "refs": [],
+          "verdict": "法令非関連"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなく、暗号設定のレビューや構成検査とペネトレーションテストの目的の違いで判定する。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は入力に対する出力の仕様一致を述べており、機能試験の目的である。",
+          "promptContext": "ペネトレーションテストの目的に関する技術知識問題。",
+          "refs": [],
+          "verdict": "法令非関連"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなく、ブラックボックステストとペネトレーションテストの目的の違いで判定する。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は単位時間当たりのセッション処理数を確認するもので、負荷試験や性能試験の目的である。",
+          "promptContext": "ペネトレーションテストの目的に関する技術知識問題。",
+          "refs": [],
+          "verdict": "法令非関連"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなく、ファイアウォールの処理性能とペネトレーションテストの目的の違いで判定する。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はファイアウォールや公開サーバへの侵入可能性を確認することを述べており、ペネトレーションテストの目的に合致する。",
+          "promptContext": "ペネトレーションテストの目的に関する技術知識問題。",
+          "refs": [],
+          "verdict": "法令非関連"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令ではなく、攻撃者の視点で侵入可能性を検証するというセキュリティ技術の定義で判定する。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -450,7 +964,113 @@
     "sourceRecordRef": "question_201502_1.json#17",
     "explanationReferences": [],
     "questionLearningPatternId": "terms_basics",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "EVMはプロジェクトのコストとスケジュールを統合して実績を測定する管理手法であり、法令・制度論点ではない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "EVMはコストとスケジュールを管理対象とする。",
+          "promptContext": "EVMの管理対象を判定した。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識問題のため法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "EVMの管理対象はコストとスケジュールであり、リスクではない。",
+          "promptContext": "EVMの管理対象を判定した。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識問題のため法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "EVMの管理対象はコストとスケジュールであり、品質ではない。",
+          "promptContext": "EVMの管理対象を判定した。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識問題のため法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "EVMの管理対象はコストとスケジュールであり、リスクではない。",
+          "promptContext": "EVMの管理対象を判定した。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識問題のため法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -514,33 +1134,132 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n監査項目や監査手続の具体化、個別監査計画書への記載は個別監査計画策定段階の作業である。",
-      "間違い。\n\n経営トップへのヒアリングによる監査テーマ設定は、より上位の監査計画立案側の作業である。",
-      "間違い。\n\n被監査部門との日程調整は個別監査計画作成時の実務であり、予備調査そのものではない。",
-      "正しい。\n\n予備調査では、事前に入手した資料や簡易的な確認により監査対象の実態を把握し、本調査をどう進めるかの基礎情報を集める。"
-    ],
-    "suggestedQuestions": [
-      "予備調査の目的は何ですか？",
-      "個別監査計画との違いは何ですか？",
-      "予備調査では何を見ますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "予備調査の目的は何ですか？",
-        "answer": "監査対象の概要やリスクを把握し、本調査を効率的に進める材料を集めること。"
-      },
-      {
-        "question": "個別監査計画との違いは何ですか？",
-        "answer": "予備調査は現状把握、個別監査計画はその結果を基にした項目・手続・日程の具体化である。"
-      },
-      {
-        "question": "予備調査では何を見ますか？",
-        "answer": "関連資料、手順書、組織体制、運用実態、潜在的な問題点などを確認する。"
-      }
+      "間違い。監査項目や監査手続を具体化し，個別監査計画書に記載する作業は，予備調査で情報を集めた後に行う個別監査計画策定の段階である。選択肢はこれを予備調査の作業としているため誤りである。",
+      "間違い。経営戦略や経営上の問題を経営トップへのヒアリングで確認し，監査テーマを設定する作業は，個別監査に先立つ監査計画の立案に当たる。選択肢は監査テーマの設定を予備調査の作業としているため誤りである。",
+      "間違い。被監査部門との監査スケジュールの調整は，予備調査で把握した情報を踏まえて個別監査計画を策定する際に行う。選択肢はこの計画策定時の調整を予備調査そのものとしているため誤りである。",
+      "正しい。予備調査では，事前に入手した文書や資料を閲覧し，監査対象のシステムや業務の詳細，業務内容，業務分掌などの実態を把握する。得られた情報は，その後の本調査を適切かつ効率的に進めるために用いる。"
     ],
     "original_question_id": "f74493e5be77fe52",
     "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_21.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201502:f74493e5be77fe52",
+    "reviewQuestionId": "f74493e5be77fe52",
+    "sourceRecordRef": "question_201502_1.json#20",
+    "explanationReferences": [
+      {
+        "referenceDate": "2018-04-20",
+        "sourceUrl": "https://www.meti.go.jp/policy/netsecurity/downloadfiles/system_kansa_h30.pdf",
+        "title": "システム監査基準（平成30年4月20日）"
+      }
+    ],
+    "questionLearningPatternId": "sequence_flow",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "システム監査基準に基づく予備調査の作業手順を問う技術・実務知識問題で、正誤を直接決める法令条文はない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第1選択肢の正誤は、予備調査と個別監査計画策定の工程区分に関する知識で判定できる。",
+          "promptContext": "システム監査の予備調査。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術・実務知識として確定。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第2選択肢の正誤は、監査テーマ設定と個別監査に先立つ監査計画の立案に関する知識で判定できる。",
+          "promptContext": "システム監査の予備調査。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術・実務知識として確定。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第3選択肢の正誤は、被監査部門との監査スケジュール調整を個別監査計画策定時に行うという工程知識で判定できる。",
+          "promptContext": "システム監査の予備調査。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術・実務知識として確定。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第4選択肢の正誤は、予備調査で事前入手資料を閲覧して監査対象の実態を把握するという監査実務知識で判定できる。",
+          "promptContext": "システム監査の予備調査。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外の技術・実務知識として確定。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -604,10 +1323,10 @@
   },
   {
     "explanationText": [
-      "正しい。RFIはRequest for Informationの略で、調達者が候補ベンダーに業務内容やシステム化の目的を示し、提案を検討するための情報提供を求めるものである。",
+      "正しい。RFIはRequest for Informationの略で、調達者が供給者候補にシステム化の目的や業務内容などを示し、提案を検討するための情報提供を求めるものである。",
       "間違い。提案書の提出を依頼するのはRFP（Request for Proposal）である。選択肢はRFIを提案書の提出依頼としているため誤りである。",
       "間違い。契約内容の変更を要請するのはRFC（Request for Change）である。選択肢はRFIを契約内容の変更要請としているため誤りである。",
-      "間違い。RFIは契約締結を要請するものではなく、調達の初期段階で候補ベンダーから情報を集めるために使う。選択肢はRFIを契約締結の要請としているため誤りである。"
+      "間違い。RFIは調達の初期段階で供給者候補から情報を集めるためのもので、契約の締結を要請するものではない。選択肢はRFIを契約締結の要請としているため誤りである。"
     ],
     "original_question_id": "62fdd2ee3ed3e706",
     "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_24.html",
@@ -617,7 +1336,113 @@
     "sourceRecordRef": "question_201502_1.json#23",
     "explanationReferences": [],
     "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "RFI、RFP、RFCの一般的な定義を問う問題で、正誤を直接決める法令根拠はない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による時点差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第1選択肢はRFIの一般的な定義に合致する。",
+          "promptContext": "RFIの一般的な定義。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "情報システム調達における一般的な用語定義の問題であり、法令監査対象外と確認した。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による時点差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第2選択肢はRFPの説明であり、RFIの定義とは異なる。",
+          "promptContext": "RFIとRFPの役割の区別。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "情報システム調達における一般的な用語定義の問題であり、法令監査対象外と確認した。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による時点差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第3選択肢はRFCの説明であり、RFIの定義とは異なる。",
+          "promptContext": "RFIとRFCの役割の区別。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "情報システム調達における一般的な用語定義の問題であり、法令監査対象外と確認した。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令による時点差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第4選択肢は契約締結の要請を説明しており、RFIの定義とは異なる。",
+          "promptContext": "RFIの用途と契約手続の区別。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "情報システム調達における一般的な用語定義の問題であり、法令監査対象外と確認した。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [

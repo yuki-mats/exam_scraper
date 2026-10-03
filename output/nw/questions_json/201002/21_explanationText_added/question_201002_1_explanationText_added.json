@@ -11,7 +11,113 @@
     "sourceRecordRef": "question_201002_1.json#0",
     "explanationReferences": [],
     "questionLearningPatternId": "sequence_flow",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "後置換記法の構文と演算子の配置を問う基礎理論の問題で、法令条文や制度上の義務を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による正誤差分はない。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を必要としない技術問題として確認した。",
+          "promptContext": "選択肢1の後置記法表現を判定する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "後置記法の構文知識で判定する技術問題であり、法令監査対象外である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による正誤差分はない。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を必要としない技術問題として確認した。",
+          "promptContext": "選択肢2の後置記法表現を判定する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "後置記法の構文知識で判定する技術問題であり、法令監査対象外である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による正誤差分はない。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を必要としない技術問題として確認した。",
+          "promptContext": "選択肢3の後置記法表現を判定する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "後置記法の構文知識で判定する技術問題であり、法令監査対象外である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による正誤差分はない。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を必要としない技術問題として確認した。",
+          "promptContext": "選択肢4の後置記法表現を判定する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "後置記法の構文知識で判定する技術問題であり、法令監査対象外である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -75,7 +181,7 @@
   },
   {
     "explanationText": [
-      "正しい。キャッシュメモリにデータが存在する確率は\\(1-r\\)、存在しない確率は\\(r\\)である。キャッシュメモリに存在する場合は\\(x\\)ナノ秒、存在しない場合は主記憶へのアクセスに\\(y\\)ナノ秒かかるため、平均アクセス時間は確率で重み付けして求める。\\n\\[平均アクセス時間=(1-r)x+ry\\]\\n容量\\(a\\)、\\(b\\)は、ヒット率とミス率が既に与えられているこの計算には影響しない。"
+      "正しい。キャッシュメモリにデータが存在する確率は\\(1-r\\)、存在しない確率は\\(r\\)である。存在する場合は\\(x\\)ナノ秒、存在しない場合は主記憶へのアクセスに\\(y\\)ナノ秒かかるため、平均アクセス時間は次のように確率で重み付けして求める。\\n\\[\\text{平均アクセス時間}=(1-r)x+ry\\]\\n容量\\(a\\)、\\(b\\)は、ヒット率とミス率が既に与えられているこの計算には影響しない。"
     ],
     "original_question_id": "d4377e9ecd8542fa",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_4.html",
@@ -354,10 +460,10 @@
   },
   {
     "explanationText": [
-      "間違い。正しくは、利用者は複数のライセンスのうち一つを選択して、その条件に同意する。選択肢はすべてのライセンスに同意するとしているため誤りである。",
+      "間違い。正しくは、利用者は複数のライセンスのうち一つを選択し、その条件に同意する。選択肢はすべてのライセンスに同意するとしているため誤りである。",
       "正しい。",
-      "間違い。正しくは、利用者は複数のライセンスのうち一つを選択して、その条件に同意する。選択肢は二つのライセンスを選択するとしているため誤りである。",
-      "間違い。正しくは、複数のライセンスが別々の選択肢として用意されている。選択肢は複数のライセンスを組み合わせた一つのライセンスが設定されているとしているため誤りである。"
+      "間違い。正しくは、利用者は複数のライセンスのうち一つを選択し、その条件に同意する。選択肢は二つのライセンスを選択するとしているため誤りである。",
+      "間違い。正しくは、複数のライセンスが別々に用意され、利用者がそのうち一つを選択する。選択肢は複数のライセンスを組み合わせた一つのライセンスが設定されているとしているため誤りである。"
     ],
     "original_question_id": "c3392ccd3ff62291",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_7.html",
@@ -477,33 +583,123 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n入力条件をたどると OR 素子の振る舞いにはならない。",
-      "間違い。\n\nAND 素子なら両入力が 1 のときだけ 1 になるが、回路の出力条件と一致しない。",
-      "正しい。\n\n与えられた回路は入力が異なるときだけ 1 を出力する等価回路であり、排他的論理和素子(XOR)に相当する。",
-      "間違い。\n\nNOR 素子は OR の否定であり、回路の出力表と一致しない。"
-    ],
-    "suggestedQuestions": [
-      "XORはどんなときに1になりますか？",
-      "等価回路はどう見抜きますか？",
-      "ORやANDとの違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "XORはどんなときに1になりますか？",
-        "answer": "二つの入力が異なるときにだけ 1 になる。"
-      },
-      {
-        "question": "等価回路はどう見抜きますか？",
-        "answer": "入力の全組合せに対する出力表を比較すると判断しやすい。"
-      },
-      {
-        "question": "ORやANDとの違いは何ですか？",
-        "answer": "OR はどちらかが 1 なら 1、AND は両方 1 で 1、XOR は異なるときだけ 1 である。"
-      }
+      "正しい。正答は排他的論理和素子（XOR）である。XORは二つの入力が異なるときだけ1を出力し、同じときは0を出力する。図の回路もこの出力条件になる。"
     ],
     "original_question_id": "2ef1d78b89c8fb35",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_8.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201002:2ef1d78b89c8fb35",
+    "reviewQuestionId": "2ef1d78b89c8fb35",
+    "sourceRecordRef": "question_201002_1.json#7",
+    "explanationReferences": [],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "論理回路の動作と論理演算の対応を問う技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の比較対象となる法令事項はない。",
+          "displayRefIds": [],
+          "explanationText": "論理和素子ではなく、図の回路と一致しない。",
+          "promptContext": "論理回路の出力特性を問う問題。",
+          "refs": [],
+          "verdict": "技術問題として確定"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "論理回路の機能判定のみで正誤が決まり、法令監査の対象ではない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の比較対象となる法令事項はない。",
+          "displayRefIds": [],
+          "explanationText": "論理積素子ではなく、図の回路と一致しない。",
+          "promptContext": "論理回路の出力特性を問う問題。",
+          "refs": [],
+          "verdict": "技術問題として確定"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "論理回路の機能判定のみで正誤が決まり、法令監査の対象ではない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の比較対象となる法令事項はない。",
+          "displayRefIds": [],
+          "explanationText": "排他的論理和素子であり、図の回路と一致する。",
+          "promptContext": "論理回路の出力特性を問う問題。",
+          "refs": [],
+          "verdict": "技術問題として確定"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "論理回路の機能判定のみで正誤が決まり、法令監査の対象ではない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時と現行法の比較対象となる法令事項はない。",
+          "displayRefIds": [],
+          "explanationText": "否定論理和素子ではなく、図の回路と一致しない。",
+          "promptContext": "論理回路の出力特性を問う問題。",
+          "refs": [],
+          "verdict": "技術問題として確定"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "論理回路の機能判定のみで正誤が決まり、法令監査の対象ではない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -627,7 +823,7 @@
   },
   {
     "explanationText": [
-      "正しい。SOAPは、分散環境で他のコンピュータ上のデータやサービスを呼び出すために使えるXMLベースのプロトコルである。SOAPメッセージはEnvelopeを外枠とし、その中に必要に応じてHeader、必ずBodyを持つ。"
+      "正しい。SOAPは、分散環境で他のコンピュータ上のデータやサービスを呼び出すために利用できる、XMLベースのプロトコルである。SOAPメッセージは、全体を包むEnvelope、必要に応じて付加情報を入れるHeader、宛先へ渡す情報を入れる必須のBodyで構成される。"
     ],
     "original_question_id": "006cc766227389a9",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_13.html",
@@ -643,41 +839,131 @@
       }
     ],
     "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "SOAPのメッセージ構造に関する通信プロトコルの問題で、法令条文を根拠にしません。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はありません。",
+          "displayRefIds": [],
+          "explanationText": "CORBAはSOAPのようなXMLヘッダー・ボディ構造を持つプロトコルではありません。",
+          "promptContext": "技術仕様として判定しました。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術仕様に基づく選択肢であり、法令監査対象外です。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はありません。",
+          "displayRefIds": [],
+          "explanationText": "DCOMは分散オブジェクト技術ですが、問題文のSOAPメッセージ構造には該当しません。",
+          "promptContext": "技術仕様として判定しました。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術仕様に基づく選択肢であり、法令監査対象外です。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はありません。",
+          "displayRefIds": [],
+          "explanationText": "SIPはセッション開始などに用いる通信プロトコルであり、SOAPのXMLメッセージ構造を示すものではありません。",
+          "promptContext": "技術仕様として判定しました。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術仕様に基づく選択肢であり、法令監査対象外です。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はありません。",
+          "displayRefIds": [],
+          "explanationText": "SOAPはXMLベースのメッセージをEnvelope、Header、Bodyで構成し、分散環境でデータやサービスを呼び出すために利用されます。",
+          "promptContext": "技術仕様として判定しました。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術仕様に基づく選択肢であり、法令監査対象外です。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
+  },
+  {
+    "explanationText": [
+      "正しい。公開鍵暗号方式では、各利用者が公開鍵と秘密鍵を1個ずつ持つ。利用者数を n、人あたりの鍵数を 2個とすると、必要な鍵の総数 K は次の式で求められる。\n\n\\[K=2n\\]\n\nしたがって、n人が相互に通信する場合の異なる鍵の総数は \\(2n\\) 個である。例えば、3人なら公開鍵3個と秘密鍵3個の合計6個になる。\\(n(n-1)/2\\) は、利用者の組ごとに共通鍵を1個用意する共通鍵暗号方式の鍵数であり、公開鍵暗号方式には当てはまらない。"
+    ],
+    "original_question_id": "1f1d56584fc0d4d9",
+    "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_14.html",
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201002:1f1d56584fc0d4d9",
+    "reviewQuestionId": "1f1d56584fc0d4d9",
+    "sourceRecordRef": "question_201002_1.json#13",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
     "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "間違い。\n\n公開鍵と秘密鍵は各利用者が 1 組ずつ持つため、全体数は n+1 では足りない。",
-      "正しい。\n\nn 人が相互通信する場合でも、各人が公開鍵 1 個と秘密鍵 1 個を持てばよいので、異なる鍵の総数は 2n 個である。",
-      "間違い。\n\nn(n−1)/2 は共通鍵暗号方式で必要な鍵の組数に対応する考え方である。",
-      "間違い。\n\n鍵数は対数では表せず、各人 2 個ずつ必要になる。"
-    ],
-    "suggestedQuestions": [
-      "公開鍵暗号ではなぜ2n個で済みますか？",
-      "共通鍵暗号との違いは何ですか？",
-      "秘密鍵と公開鍵の役割は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "公開鍵暗号ではなぜ2n個で済みますか？",
-        "answer": "各利用者が自分専用の公開鍵と秘密鍵の 1 組だけ持てば、他の全員と通信できるからである。"
-      },
-      {
-        "question": "共通鍵暗号との違いは何ですか？",
-        "answer": "共通鍵暗号は相手ごとに共有鍵が必要だが、公開鍵暗号は各人の鍵対を使い回せる。"
-      },
-      {
-        "question": "秘密鍵と公開鍵の役割は何ですか？",
-        "answer": "公開鍵は他者へ公開し暗号化や検証に使い、秘密鍵は本人だけが保持して復号や署名作成に使う。"
-      }
-    ],
-    "original_question_id": "1f1d56584fc0d4d9",
-    "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_14.html",
-    "lawGroundedExplanationNotNeeded": true
-  },
-  {
-    "explanationText": [
-      "正しい。アサーションチェックは、プログラムの実行中に特定の時点で成立すべき条件を論理式として組み込み、その条件が満たされるかを確認する手法である。変数間の関係や処理結果の正しさを、あらかじめ定めた条件に基づいて検証できる。"
+      "正しい。アサーションチェックは、プログラムの実行中に特定の時点で成立すべき条件を論理式として組み込み、その条件を満たすか確認する手法である。"
     ],
     "original_question_id": "0a21007b02b5992b",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_15.html",
@@ -797,7 +1083,7 @@
   },
   {
     "explanationText": [
-      "正しい。マッシュアップは、複数の提供元が公開するサービスやAPIを組み合わせ、新しいサービスを構築する手法である。既存プログラムから仕様を導くのはリバースエンジニアリング、既存プログラムを部品化して組み合わせるのはソフトウェア再利用の説明であり、マッシュアップとは区別される。"
+      "正しい。マッシュアップは、複数の提供元によるAPIを組み合わせ、新しいサービスを構築する手法である。既存のプログラムを解析して仕様を得るリバースエンジニアリングや、ソフトウェア部品を組み合わせて新規プログラムを開発するソフトウェア再利用とは異なる。"
     ],
     "original_question_id": "08105478263200f0",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_16.html",
@@ -809,7 +1095,7 @@
       {
         "referenceDate": "2023-08-01",
         "sourceUrl": "https://www.ipa.go.jp/shiken/syllabus/t6hhco000000imdb-att/syllabus_sc_am2_tsuiho3_3.pdf",
-        "title": "情報処理安全確保支援士試験 シラバス追補版（午前Ⅱ）Ver.3.3"
+        "title": "情報処理安全確保支援士試験（レベル4）シラバス追補版（午前Ⅱ）Ver.3.3"
       }
     ],
     "questionLearningPatternId": "differences_relationships",
@@ -954,8 +1240,8 @@
   {
     "explanationText": [
       "間違い。正しくは、ワークパッケージはWBSで作業を管理できる最下位の単位である。選択肢は、OBSのチームへの人員割当てをワークパッケージの説明としているため誤りである。",
-      "間違い。正しくは、ワークパッケージはWBSの最下位で、作業の見積りや管理ができる単位である。選択肢は、関連する要素成果物をまとめたものとしているため誤りである。",
-      "正しい。",
+      "間違い。正しくは、ワークパッケージは作業の見積りや管理ができるWBSの最下位の単位である。選択肢は、関連する要素成果物をまとめたものとしているため誤りである。",
+      "正しい。ワークパッケージは、作業を管理できる最下位の単位であり、必要に応じてアクティビティへ分解される。",
       "間違い。正しくは、一つの上位要素成果物の下に複数のワークパッケージを置くことができる。選択肢は、上位の要素成果物とワークパッケージが1対1に対応するとしているため誤りである。"
     ],
     "original_question_id": "8a9f73af4e8152c8",
@@ -1106,7 +1392,7 @@
   },
   {
     "explanationText": [
-      "正しい。必要な磁気テープは14本である。指定日の6か月前の同一日まで復元するには、通常は6か月分のフルバックアップ用テープと差分バックアップ用テープが必要になる。ただし、6か月前に同一日がない月では月末までさかのぼるため、最悪の場合は4月から10月までの7か月分を保持する必要がある。各月にフル用1本と差分用1本を使うので、必要本数は \\(7\\times(1+1)=14\\) 本となる。"
+      "正しい。必要な磁気テープは14本である。6か月前の同一日まで復元するには、通常は6か月分を保持する。ただし、6か月前に同一日が存在しない場合は、その月の月末までさかのぼるため、最悪の場合は4月から10月までの7か月分が必要になる。各月について、フルバックアップ用と差分バックアップ用に1本ずつ使うので、必要本数は次のように求められる。\n\\[\\text{必要本数}=\\text{保持月数}\\times(\\text{フル用テープ数}+\\text{差分用テープ数})\\]\n\\[7\\times(1+1)=14\\text{本}\\]\nしたがって、必要な磁気テープは14本である。"
     ],
     "original_question_id": "c496da717adbfa47",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_20.html",
@@ -1120,7 +1406,7 @@
   },
   {
     "explanationText": [
-      "正しい。可用性は、サービス提供時間のうちサービスが利用できた割合である。サービス提供時間は7:00〜19:00の12時間で、障害の影響は16:00から19:00までの3時間に限られる。したがって、可用性は \\((12-3)÷12×100=75\\)％であり、答えは75である。"
+      "正しい。可用性は、サービス提供時間のうち利用できた時間の割合である。提供時間は7:00から19:00までの12時間で、故障による停止は16:00から19:00までの3時間となる。したがって、可用性は \\((12-3)÷12×100=75\\)％であり、答えは75である。"
     ],
     "original_question_id": "4d40b79ac29f39f6",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_21.html",
@@ -1240,10 +1526,10 @@
   },
   {
     "explanationText": [
-      "間違い。コンピュータウイルス対策基準に関する説明であり、情報システム全体の管理を扱うシステム管理基準とは対象が異なる。",
-      "間違い。不正アクセス対策基準に関する説明であり、不正アクセスの防止に対象を絞っている。情報システムの企画や運用などを組織的に管理する基準ではない。",
+      "間違い。正しくは、コンピュータウイルスへの対策に対象を絞った基準の説明である。選択肢は、情報システム全体を管理するシステム管理基準としているため誤りである。",
+      "間違い。正しくは、不正アクセスへの対策に対象を絞った基準の説明である。選択肢は、組織の情報システムを総合的に管理するシステム管理基準としているため誤りである。",
       "正しい。システム管理基準は、情報戦略に基づいて情報システムの企画、開発、運用、保守、評価などを適切に管理するための基準である。",
-      "間違い。ソフトウェアの違法複製を防ぐためのソフトウェア管理ガイドラインに関する説明であり、情報システム全体の管理を扱うシステム管理基準とは対象が異なる。"
+      "間違い。正しくは、ソフトウェアの違法複製を防止するためのソフトウェア管理に関する指針の説明である。選択肢は、情報システム全体を管理するシステム管理基準としているため誤りである。"
     ],
     "original_question_id": "a38f3a196c9513b3",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_22.html",
@@ -1370,8 +1656,8 @@
   },
   {
     "explanationText": [
-      "間違い。IT戦略を策定・実行し、企業をあるべき方向へ導く組織能力は、ITガバナンスの説明である。選択肢はこれをエンタープライズアーキテクチャとしているため誤りである。",
-      "間違い。承認された業務が正確に処理・記録されるよう業務プロセスに組み込む統制は、業務処理統制の説明である。選択肢はこの内部統制をエンタープライズアーキテクチャとしているため誤りである。",
+      "間違い。IT戦略を策定・実行し、企業をあるべき方向へ導く組織能力は、ITガバナンスの説明である。選択肢はITガバナンスをエンタープライズアーキテクチャとしているため誤りである。",
+      "間違い。承認された業務が正確に処理・記録されるよう業務プロセスに組み込まれた統制は、業務処理統制の説明である。選択肢は業務処理統制をエンタープライズアーキテクチャとしているため誤りである。",
       "正しい。エンタープライズアーキテクチャは、組織全体の業務とシステムを統一的にモデル化し、業務とシステムの全体最適を図る手法である。",
       "間違い。出来高の価値によって進捗や作業実績を定量化し、プロジェクトの状況を評価する手法はEVMである。選択肢はEVMをエンタープライズアーキテクチャとしているため誤りである。"
     ],

@@ -31,10 +31,10 @@
   },
   {
     "explanationText": [
-      "正しい。技術のSカーブは、技術の導入期から成長期、成熟期を経て、性能や普及が限界に近づくまでの進化過程を表す。",
+      "正しい。技術のSカーブは、技術の導入期から成長期、成熟期を経て、性能や普及の伸びが限界に近づくまでの進化過程を表す。",
       "間違い。正しくは、需要曲線は価格と需要量の関係を表す。選択肢は需要曲線が技術の進化過程を表すとしているため誤りである。",
       "間違い。正しくは、バスタブ曲線は製品や設備の故障率が時間とともにどう変化するかを表す。選択肢はバスタブ曲線が技術の進化過程を表すとしているため誤りである。",
-      "間違い。正しくは、ラーニングカーブは、経験や習熟によって作業時間やコストが低下する関係を表す。選択肢はラーニングカーブが技術の進化過程を表すとしているため誤りである。"
+      "間違い。正しくは、ラーニングカーブは、経験や習熟によって作業時間や製造コストが低下する関係を表す。選択肢はラーニングカーブが技術の進化過程を表すとしているため誤りである。"
     ],
     "original_question_id": "d0a79da13027e2ba",
     "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_27.html",
@@ -44,14 +44,120 @@
     "sourceRecordRef": "question_201202_2.json#1",
     "explanationReferences": [],
     "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "技術進化過程に関する工学・技術戦略上の知識問題で、法令根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第1選択肢は技術のSカーブの定義に一致する。",
+          "promptContext": "技術知識問題として判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識に基づく判定であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第2選択肢は需要曲線の定義と異なる。",
+          "promptContext": "技術知識問題として判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識に基づく判定であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第3選択肢はバスタブ曲線の定義と異なる。",
+          "promptContext": "技術知識問題として判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識に基づく判定であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第4選択肢はラーニングカーブの定義と異なる。",
+          "promptContext": "技術知識問題として判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識に基づく判定であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。正しくは、NC工作機械や搬送装置などを統合して生産を自動化する仕組みはFMSの説明である。選択肢は生産設備の自動化をPLMの目的としているため誤りである。",
-      "正しい。PLMは、製品の企画・開発から製造、販売、保守、リサイクルまでのライフサイクル全体で製品情報を一元管理し、商品力の向上やコスト低減を図る。",
-      "間違い。正しくは、生産計画に基づいて必要な資材の量や発注時期を算出する仕組みはMRPである。選択肢は資材所要量計画をPLMの目的としているため誤りである。",
-      "間違い。正しくは、部品の供給から製品の販売までを連携させ、在庫削減やリードタイム短縮を図る考え方はSCMである。選択肢はサプライチェーン全体の管理をPLMの目的としているため誤りである。"
+      "間違い。正しくは、NC工作機械や搬送装置などを統合して生産を自動化する仕組みはFMSである。選択肢は、生産設備の自動化をPLMの目的としているため誤りである。",
+      "正しい。PLMは、製品の企画・開発から製造、販売、保守、リサイクルまで、製品のライフサイクル全体に関する情報を一元管理し、商品力の向上やコスト低減を図る。",
+      "間違い。正しくは、生産計画に基づいて必要な資材の量や発注時期を算出する仕組みはMRPである。選択肢は、資材所要量計画をPLMの目的としているため誤りである。",
+      "間違い。正しくは、部品の供給から製品の販売までの流れを連携させ、在庫削減やリードタイム短縮を図る考え方はSCMである。選択肢は、サプライチェーン全体の管理をPLMの目的としているため誤りである。"
     ],
     "original_question_id": "c30d3ac18f2684c2",
     "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_28.html",
@@ -61,7 +167,113 @@
     "sourceRecordRef": "question_201202_2.json#2",
     "explanationReferences": [],
     "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "PLM（製品ライフサイクル管理）の目的を問う、製造業の業務・情報管理に関する問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "FMSに関する技術知識で判定できる。",
+          "promptContext": "PLMの目的に関する選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなくFMSとPLMの概念比較で判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "PLMの製品ライフサイクル全体にわたる情報一元管理という定義で判定できる。",
+          "promptContext": "PLMの目的に関する選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令ではなくPLMの定義・目的で判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "MRPに関する技術知識で判定できる。",
+          "promptContext": "PLMの目的に関する選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなくMRPの概念比較で判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "SCMに関する技術知識で判定できる。",
+          "promptContext": "PLMの目的に関する選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令ではなくSCMの概念比較で判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -121,7 +333,113 @@
       }
     ],
     "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "国際会計基準に関する知識問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "GAAP、IASB、IFRS、SECの一般知識で判定する。",
+          "promptContext": "選択肢1の完全命題は誤り。",
+          "refs": [],
+          "verdict": "非法令問題"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・一般知識問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "GAAPは会計原則の総称であり、基準名そのものではない。",
+          "promptContext": "選択肢2の完全命題は誤り。",
+          "refs": [],
+          "verdict": "非法令問題"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・一般知識問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "IFRSは国際的な会計基準である。",
+          "promptContext": "選択肢3の完全命題は正しい。",
+          "refs": [],
+          "verdict": "非法令問題"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術・一般知識問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "SECは米国の証券規制当局であり、会計基準そのものではない。",
+          "promptContext": "選択肢4の完全命題は誤り。",
+          "refs": [],
+          "verdict": "非法令問題"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・一般知識問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -165,67 +483,353 @@
     "sourceRecordRef": "question_201202_2.json#6",
     "explanationReferences": [],
     "questionLearningPatternId": "mechanisms_reasons",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "OFDMの方式原理を問う技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に差はない。",
+          "displayRefIds": [],
+          "explanationText": "OFDMの多重化方式に関する技術知識で判定でき、法令根拠は不要である。",
+          "promptContext": "問題文と選択肢を結合した技術命題を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に差はない。",
+          "displayRefIds": [],
+          "explanationText": "CCKはOFDMの説明に該当しないため、法令根拠は不要である。",
+          "promptContext": "問題文と選択肢を結合した技術命題を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に差はない。",
+          "displayRefIds": [],
+          "explanationText": "OFDMは複数のサブキャリアを直交配置して伝送する多重化方式であり、法令根拠は不要である。",
+          "promptContext": "問題文と選択肢を結合した技術命題を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に差はない。",
+          "displayRefIds": [],
+          "explanationText": "TDMは時間分割多重方式であり、問題文のOFDMの説明には該当しないため、法令根拠は不要である。",
+          "promptContext": "問題文と選択肢を結合した技術命題を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "正しい。\n\n8kビット/秒を20ミリ秒分だけ送るので、8000×0.02=160ビット、すなわち20バイトである。",
-      "間違い。\n\n160はビット数であってバイト数ではない。8ビットで1バイトに換算すると20バイトになる。",
-      "間違い。\n\n200バイトなら1600ビットに相当し、8kビット/秒を20ミリ秒分としては大き過ぎる。",
-      "間違い。\n\n1000バイトは20ミリ秒の音声ペイロードとして桁違いに大きい。単位換算を誤っている。"
-    ],
-    "suggestedQuestions": [
-      "bitとbyteはどう換算しますか？",
-      "20ミリ秒を秒へ直すといくつですか？",
-      "VoIPヘッダはこの計算に含みますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "bitとbyteはどう換算しますか？",
-        "answer": "8ビットで1バイトである。"
-      },
-      {
-        "question": "20ミリ秒を秒へ直すといくつですか？",
-        "answer": "0.02秒である。"
-      },
-      {
-        "question": "VoIPヘッダはこの計算に含みますか？",
-        "answer": "設問は音声のペイロード量だけを聞いているため、IP/UDP/RTPなどのヘッダは含めない。"
-      }
+      "正しい。音声ペイロード量は、符号化速度にパケット生成周期を掛け、ビットからバイトへ換算して求める。使用する式は次のとおりである。\n\n\\[\\text{ペイロード量（バイト）}=\\frac{\\text{符号化速度（ビット/秒）}\\times\\text{パケット生成周期（秒）}}{8}\\]\n\n符号化速度は8,000ビット/秒、パケット生成周期は20ミリ秒=0.020秒なので、\\[\\frac{8{,}000\\times0.020}{8}=20\\]バイトとなる。したがって、1パケットに含まれる音声のペイロードは20バイトである。"
     ],
     "original_question_id": "1491b9e40ca37d76",
     "question_url": "https://www.nw-siken.com/kakomon/24_aki/am2_3.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201202:1491b9e40ca37d76",
+    "reviewQuestionId": "1491b9e40ca37d76",
+    "sourceRecordRef": "question_201202_2.json#7",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "CS-ACELP（G.729）の符号化速度とパケット生成周期からペイロード量を計算する技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による判定差分はない。",
+          "displayRefIds": [],
+          "explanationText": "符号化速度とパケット生成周期の計算で正誤が決まり、法令根拠を要しない。",
+          "promptContext": "ネットワーク技術・計算問題",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術計算問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による判定差分はない。",
+          "displayRefIds": [],
+          "explanationText": "符号化速度とパケット生成周期の計算で正誤が決まり、法令根拠を要しない。",
+          "promptContext": "ネットワーク技術・計算問題",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術計算問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による判定差分はない。",
+          "displayRefIds": [],
+          "explanationText": "符号化速度とパケット生成周期の計算で正誤が決まり、法令根拠を要しない。",
+          "promptContext": "ネットワーク技術・計算問題",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術計算問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による判定差分はない。",
+          "displayRefIds": [],
+          "explanationText": "符号化速度とパケット生成周期の計算で正誤が決まり、法令根拠を要しない。",
+          "promptContext": "ネットワーク技術・計算問題",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術計算問題のため法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\nどこかの区間で10本までしか流せない経路があるため、8本は可能でも最大値ではない。",
-      "間違い。\n\n9本でもまだ上限に達していない。ボトルネック区間まで使い切れる。",
-      "正しい。\n\n図の区間Bの多重度が10本で全体の上限を決める。実際に10本の論理回線を構成できるので最大値は10である。",
-      "間違い。\n\n11本はボトルネック区間の多重度10を超えるため同時利用できない。"
-    ],
-    "suggestedQuestions": [
-      "ボトルネック区間はどう見つけますか？",
-      "多重度の問題で最大値は何を見るべきですか？",
-      "最小カットの考え方は使えますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ボトルネック区間はどう見つけますか？",
-        "answer": "経路全体で同時通過本数を最も制限する区間や組合せを探す。"
-      },
-      {
-        "question": "多重度の問題で最大値は何を見るべきですか？",
-        "answer": "各経路の本数だけでなく、共有区間の容量制約を合わせて見る必要がある。"
-      },
-      {
-        "question": "最小カットの考え方は使えますか？",
-        "answer": "使える。送受点を分ける最小容量の切断が同時流量の上限を与える。"
-      }
+      "正しい。X側をX・A・B・C、Y側をD・E・F・G・Yに分けるカットを考えると、境界を通る回線の多重度は、A-Dの1、B-Dの2、B-Eの3、C-Fの4である。合計は\\(1+2+3+4=10\\)となる。このカットを超えて回線を流すことはできず、図の経路には10本を流せるため、X地点からY地点まで同時に使用できる最大の論理回線数は10である。"
     ],
     "original_question_id": "4b0495022d42dc93",
     "question_url": "https://www.nw-siken.com/kakomon/24_aki/am2_4.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201202:4b0495022d42dc93",
+    "reviewQuestionId": "4b0495022d42dc93",
+    "sourceRecordRef": "question_201202_2.json#8",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "図に示された論理回線の多重度から、X地点からY地点までの最大同時経路数を計算する問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "論理回線の多重度と最大フローの計算で判定する技術問題である。",
+          "promptContext": "法令監査対象外。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・計算問題であり、法令監査対象外である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "論理回線の多重度と最大フローの計算で判定する技術問題である。",
+          "promptContext": "法令監査対象外。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・計算問題であり、法令監査対象外である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "論理回線の多重度と最大フローの計算で判定する技術問題である。",
+          "promptContext": "法令監査対象外。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術・計算問題であり、法令監査対象外である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "論理回線の多重度と最大フローの計算で判定する技術問題である。",
+          "promptContext": "法令監査対象外。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・計算問題であり、法令監査対象外である。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -379,33 +983,132 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nソースルーティング失敗時に返すのはEcho Replyではなく、別のエラー通知系メッセージである。",
-      "正しい。\n\nルータがより適切な次ホップを送信元へ知らせて経路変更を促すときはICMP Redirectを使う。",
-      "間違い。\n\n再組立てタイムアウト時に返るのは一般にTime Exceeded系であり、Parameter Problemではない。",
-      "間違い。\n\nバッファあふれで送信抑制を促す説明は古いSource Quench寄りであり、Time Exceededではない。"
-    ],
-    "suggestedQuestions": [
-      "ICMP Redirectはいつ送られますか？",
-      "Time Exceededは何を通知しますか？",
-      "Echo Replyはどんな用途ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ICMP Redirectはいつ送られますか？",
-        "answer": "送信元が選んだ経路より同一ネットワーク内にもっと適切な次ホップがあると、ルータが通知する。"
-      },
-      {
-        "question": "Time Exceededは何を通知しますか？",
-        "answer": "TTL切れや再組立て時間超過など、時間に関する超過を知らせる。"
-      },
-      {
-        "question": "Echo Replyはどんな用途ですか？",
-        "answer": "Echo Requestへの応答で、疎通確認などに使われる。"
-      }
+      "間違い。正しくは、ソースルーティングが失敗した場合は、ICMP Destination Unreachable（Code 5: Source Route Failed）を送信する。Echo ReplyはEcho要求への応答であり、ソースルーティング失敗の通知には使わない。選択肢はEcho Replyを返すとしているため誤りである。",
+      "正しい。Redirectは、ルータが送信元ホストに、同じ宛先へのより適切な次のルータを知らせ、経路の変更を促すメッセージである。",
+      "間違い。正しくは、フラグメントの再組立てが時間内に完了しない場合は、ICMP Time Exceeded（Code 1: Fragment Reassembly Time Exceeded）を送信する。Parameter Problemは、IPヘッダのパラメータに問題がある場合の通知である。選択肢はParameter Problemを返すとしているため誤りである。",
+      "間違い。正しくは、受信側のバッファ不足などでデータグラムを破棄し、送信速度を抑えるよう促すのは、ICMP Source Quenchに対応する説明である。Time Exceededは、TTL超過やフラグメント再組立てのタイムアウトを通知する。選択肢はTime Exceededを送るとしているため誤りである。"
     ],
     "original_question_id": "fb84c2bd4d80a0b9",
     "question_url": "https://www.nw-siken.com/kakomon/24_aki/am2_10.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201202:fb84c2bd4d80a0b9",
+    "reviewQuestionId": "fb84c2bd4d80a0b9",
+    "sourceRecordRef": "question_201202_2.json#14",
+    "explanationReferences": [
+      {
+        "referenceDate": "1981-09-01",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc792.html",
+        "title": "Internet Control Message Protocol (RFC 792)"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "IPv4におけるICMP各メッセージの用途を問う技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第1選択肢は、ソースルーティング失敗に対するICMPメッセージの用途を誤っている。",
+          "promptContext": "IPv4 ICMPの技術仕様に基づく判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定し、法令根拠を使用しない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第2選択肢は、Redirectの用途を正しく説明している。",
+          "promptContext": "IPv4 ICMPの技術仕様に基づく判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで判定し、法令根拠を使用しない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第3選択肢は、フラグメント再組立てタイムアウトに対するメッセージを誤っている。",
+          "promptContext": "IPv4 ICMPの技術仕様に基づく判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定し、法令根拠を使用しない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第4選択肢は、受信側バッファあふれに対するメッセージを誤っている。",
+          "promptContext": "IPv4 ICMPの技術仕様に基づく判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定し、法令根拠を使用しない。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -499,40 +1202,136 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n/56では先頭56ビット、すなわち49〜56ビット目までが同じでなければならない。この組合せは両PCともその条件を満たさない。",
-      "間違い。\n\n1台目は49〜56ビットが16進で10となり入るが、2台目は20となって外れるため同一サブネットにはならない。",
-      "正しい。\n\n1台目も2台目も49〜56ビットが16進で10にそろっており、2001:db8:100:1000::/56 と同じプレフィックス範囲に入る。",
-      "間違い。\n\n49〜56ビットが11や12の組合せは、/56で固定される範囲を外れるため同じサブネットに属さない。"
-    ],
-    "suggestedQuestions": [
-      "/56ではどこまでがネットワーク部ですか？",
-      ":: はどう展開しますか？",
-      "16進1桁は何ビットですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "/56ではどこまでがネットワーク部ですか？",
-        "answer": "先頭56ビット、つまり16進14桁分までがネットワーク部になる。"
-      },
-      {
-        "question": ":: はどう展開しますか？",
-        "answer": "省略された0の連続を、全体が128ビットになるよう補って読む。"
-      },
-      {
-        "question": "16進1桁は何ビットですか？",
-        "answer": "4ビットである。したがって49〜56ビットは16進2桁に対応する。"
-      }
+      "正しい。該当する組合せはウである。IPv6の`2001:db8:100:1000::/56`は先頭56ビットが固定されるため、先頭3つの16進フィールドと、4つ目のフィールドの先頭2桁が一致する必要がある。ウの4つ目のフィールドは`1010`と`1020`で、どちらも先頭2桁が`10`であるため、2台とも同じ`/56`サブネットに入る。アは`aa`と`cc`、イは`10`と`20`、エは`11`と`12`で先頭2桁が一致しない。"
     ],
     "original_question_id": "7e6444dbdccf9458",
     "question_url": "https://www.nw-siken.com/kakomon/24_aki/am2_14.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201202:7e6444dbdccf9458",
+    "reviewQuestionId": "7e6444dbdccf9458",
+    "sourceRecordRef": "question_201202_2.json#18",
+    "explanationReferences": [
+      {
+        "referenceDate": "2006-02-01",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc4291.html",
+        "title": "RFC 4291: IPv6 Addressing Architecture"
+      }
+    ],
+    "questionLearningPatternId": "conditions_scope",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "IPv6アドレスのプレフィックス長とサブネット判定に関する技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "選択肢アは/56の先頭56ビット一致条件を満たさない。",
+          "promptContext": "問題文と選択肢アを結合した完全命題を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "IPv6の技術知識で判定する選択肢であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "選択肢イは/56の先頭56ビット一致条件を満たさない。",
+          "promptContext": "問題文と選択肢イを結合した完全命題を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "IPv6の技術知識で判定する選択肢であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "選択肢ウは4つ目のフィールドの先頭2桁がともに10で、/56の一致条件を満たす。",
+          "promptContext": "問題文と選択肢ウを結合した完全命題を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "IPv6の技術知識で判定する選択肢であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "選択肢エは4つ目のフィールドの先頭2桁が一致せず、/56の一致条件を満たさない。",
+          "promptContext": "問題文と選択肢エを結合した完全命題を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "IPv6の技術知識で判定する選択肢であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。IPプロトコルに暗号化や認証などのセキュリティ機能を付加する規格はIPsecである。選択肢はこの機能をMPLSの説明としているため誤りである。",
+      "間違い。IPプロトコルに暗号化や認証などのセキュリティ機能を付加する規格はIPsecである。選択肢はIPsecの機能をMPLSの説明としているため誤りである。",
       "間違い。L2FとPPTPを統合して改良したデータリンク層のトンネリングプロトコルはL2TPである。選択肢はL2TPの説明をMPLSの説明としているため誤りである。",
-      "間違い。PPPデータフレームをトンネルで運び、IPネットワークを通過させるプロトコルはL2TPである。選択肢はこのPPPのトンネリング機能をMPLSの説明としているため誤りである。",
-      "正しい。MPLSはパケットにラベルを付け、そのラベルに基づいて転送する。転送処理をIPアドレスだけに依存しないラベルスイッチング方式で実現する技術である。"
+      "間違い。PPPデータフレームをIPネットワーク上で運ぶトンネリングプロトコルはL2TPである。選択肢はL2TPのPPPトンネリング機能をMPLSの説明としているため誤りである。",
+      "正しい。MPLSはパケットにラベルを付け、そのラベルに基づいて転送する。IPアドレスだけに依存せず、ラベルスイッチング方式でパケットを転送する技術である。"
     ],
     "original_question_id": "7071e83e94e28d95",
     "question_url": "https://www.nw-siken.com/kakomon/24_aki/am2_15.html",
@@ -567,7 +1366,113 @@
       }
     ],
     "questionLearningPatternId": "mechanisms_reasons",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "MPLS、IPsec、L2TPの技術的な仕組みを問う問題で、法令・制度上の根拠は不要である。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "MPLSではなくIPsecの説明である。",
+          "promptContext": "技術問題として判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令関連性なし。技術的定義に基づき判定。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "L2FとPPTPを統合して改良したプロトコルはL2TPである。",
+          "promptContext": "技術問題として判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令関連性なし。技術的定義に基づき判定。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "PPPデータフレームをIPネットワーク上で運ぶトンネリングプロトコルはL2TPである。",
+          "promptContext": "技術問題として判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令関連性なし。技術的定義に基づき判定。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "MPLSはラベルに基づくラベルスイッチング方式でパケットを転送する技術である。",
+          "promptContext": "技術問題として判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令関連性なし。技術的定義に基づき判定。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -601,10 +1506,10 @@
   },
   {
     "explanationText": [
-      "間違い。ダイジェスト認証は、利用者IDとパスワードだけをMD5で処理する方式ではない。サーバーから受け取ったnonceやHTTPメソッド、要求URIなどを用いてチャレンジへの応答を計算するため、選択肢は認証情報の作り方を単純化しすぎている。",
-      "間違い。ダイジェスト認証は、利用者IDとパスワードをコロンで連結したものだけをSHAで処理して送る方式ではない。nonceなどを含むチャレンジレスポンスを計算してAuthorizationヘッダーに指定する。",
+      "間違い。ダイジェスト認証でMD5を使う場合でも、利用者IDとパスワードだけをコロンで連結して処理するのではない。サーバーから受け取ったnonceやHTTPメソッド、要求URIなどを用いてチャレンジへの応答を計算するため、選択肢は認証情報の作り方を単純化しすぎている。",
+      "間違い。ダイジェスト認証では、利用者IDとパスワードをコロンで連結したものだけをSHAで処理して送るのではない。SHA-256などを使う場合でも、nonceなどを含むチャレンジレスポンスを計算してAuthorizationヘッダーに指定する。",
       "正しい。ベーシック認証では、利用者IDとパスワードをコロンで連結し、そのバイト列をBase64でエンコードしてAuthorizationヘッダーに指定する。Base64は暗号化ではないため、通常はTLSと併用する。",
-      "間違い。ベーシック認証では、利用者IDとパスワードをコロンで連結した後、Base64でエンコードしてAuthorizationヘッダーに指定する。エンコードせずにそのまま送る方式ではない。"
+      "間違い。ベーシック認証では、利用者IDとパスワードをコロンで連結した後、Base64でエンコードしてAuthorizationヘッダーに指定する。選択肢はエンコードせずにそのまま指定するとしているため誤りである。"
     ],
     "original_question_id": "1816cbb00cf00322",
     "question_url": "https://www.nw-siken.com/kakomon/24_aki/am2_17.html",
@@ -625,7 +1530,113 @@
       }
     ],
     "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "HTTPのベーシック認証とダイジェスト認証の仕様を問う技術問題であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "第1選択肢はダイジェスト認証の処理を単純化しており、法令根拠ではなくHTTP認証仕様により誤りと判定する。",
+          "promptContext": "技術問題として確定する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "HTTP認証仕様のみを問う技術問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "第2選択肢はダイジェスト認証の処理を単純化しており、法令根拠ではなくHTTP認証仕様により誤りと判定する。",
+          "promptContext": "技術問題として確定する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "HTTP認証仕様のみを問う技術問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "第3選択肢はベーシック認証の仕様に合致し、法令根拠ではなくHTTP認証仕様により正しいと判定する。",
+          "promptContext": "技術問題として確定する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "HTTP認証仕様のみを問う技術問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分はない。",
+          "displayRefIds": [],
+          "explanationText": "第4選択肢はベーシック認証でBase64エンコードを行わないとしており、法令根拠ではなくHTTP認証仕様により誤りと判定する。",
+          "promptContext": "技術問題として確定する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "HTTP認証仕様のみを問う技術問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -639,7 +1650,113 @@
     "sourceRecordRef": "question_201202_2.json#22",
     "explanationReferences": [],
     "questionLearningPatternId": "terms_basics",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "WebDAVの機能を問う技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "CSSはWebサーバ上のコンテンツをアップロード又は更新するプロトコルではない。",
+          "promptContext": "技術内容を判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判定する選択肢であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "MIMEはデータ形式を識別・指定する仕組みであり、Webサーバ上のコンテンツをアップロード又は更新するプロトコルではない。",
+          "promptContext": "技術内容を判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判定する選択肢であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "SSLは通信の暗号化や認証に関する仕組みであり、Webサーバ上のコンテンツをアップロード又は更新するプロトコルではない。",
+          "promptContext": "技術内容を判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判定する選択肢であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "WebDAVはHTTPを拡張し、Webサーバ上のコンテンツのアップロードや更新などを可能にするプロトコルである。",
+          "promptContext": "技術内容を判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識で判定する選択肢であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -769,9 +1886,9 @@
   },
   {
     "explanationText": [
-      "間違い。正しくは、サーバが毎回送るランダムなデータと秘密情報を組み合わせて応答する方式である。選択肢は固定のパスワードをSSLで暗号化して送るとしているため、チャレンジ値に応じて応答を変えるチャレンジレスポンス方式ではない。",
-      "間違い。正しくは、サーバから受け取った毎回異なるデータと秘密情報を使って応答を作る方式である。選択肢は端末のシリアル番号を暗号化して送るとしており、サーバが送るランダムなチャレンジへの応答を説明していない。",
-      "間違い。正しくは、サーバから送られたランダムなデータを利用して応答を計算する方式である。選択肢はトークンが毎回異なる値を表示し、それをパスワードとして送るワンタイムパスワード方式を説明している。",
+      "間違い。正しくは、サーバが送るランダムなデータと秘密情報を組み合わせて応答する方式である。選択肢は固定のパスワードをSSLで暗号化して送るとしており、チャレンジに応じて応答を変える仕組みではない。",
+      "間違い。正しくは、サーバから受け取ったランダムなデータと秘密情報を使って応答を作る方式である。選択肢は端末のシリアル番号を秘密鍵で暗号化して送るとしており、サーバからのチャレンジへの応答を説明していない。",
+      "間違い。正しくは、サーバから送られたランダムなデータを利用して応答を計算する方式である。選択肢はトークンが表示する毎回異なる値をパスワードとして送るワンタイムパスワード方式を説明している。",
       "正しい。サーバが送るランダムなデータと利用者だけが知る秘密情報をクライアント側で演算し、その結果を送信する。秘密のパスワード自体を送らず、チャレンジごとに異なる応答を返すことで認証する。"
     ],
     "original_question_id": "7aade85d7c63b504",
@@ -782,6 +1899,112 @@
     "sourceRecordRef": "question_201202_2.json#24",
     "explanationReferences": [],
     "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "認証技術の一般概念に関する問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "固定パスワードの暗号化送信はチャレンジレスポンス方式ではない。",
+          "promptContext": "認証技術の一般知識問題。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "認証技術の一般概念で判定し、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "端末のシリアル番号を秘密鍵で暗号化して送信する説明は、サーバからのチャレンジへの応答を示していない。",
+          "promptContext": "認証技術の一般知識問題。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "認証技術の一般概念で判定し、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "トークンが表示する毎回異なる値をパスワードとして送る説明は、ワンタイムパスワード方式に該当する。",
+          "promptContext": "認証技術の一般知識問題。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "認証技術の一般概念で判定し、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "サーバから送られたランダムデータと秘密情報を用いて応答を生成する説明は、チャレンジレスポンス方式に該当する。",
+          "promptContext": "認証技術の一般知識問題。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "認証技術の一般概念で判定し、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   }
 ]

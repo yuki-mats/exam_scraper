@@ -1,10 +1,10 @@
 [
   {
     "explanationText": [
-      "間違い。正しくは、サーバ証明書にはFQDNなどのホスト名を登録するのが一般的で、IPアドレスの組込みは必須ではない。選択肢はIPアドレスの組込みを必須としているため誤りであり、証明書に登録した識別名を変更する場合に再取得・再発行が必要になる。",
-      "正しい。",
-      "間違い。正しくは、TLSは通信相手間の通信を暗号化・認証するプロトコルで、Web以外にも利用でき、Webサーバ提供者への事前登録を必須としない。選択肢は特定利用者間のWeb通信専用で、事前登録が不可欠としているため誤りである。",
-      "間違い。正しくは、日本国内でTLSの共通鍵長を一律に128ビット未満へ制限する決まりはなく、128ビットや256ビットの暗号鍵も利用される。選択肢は共通鍵長を128ビット未満に制限しているため誤りである。"
+      "間違い。正しくは、Webサーバの証明書は通常、FQDNなどのホスト名を識別するために用いられ、IPアドレスの組込みは必須ではない。IPアドレスを証明書の識別名として使用している場合に、そのアドレスを変更すれば再発行が必要になる。選択肢はIPアドレスの組込みを必須としているため誤りである。",
+      "正しい。個人認証用の証明書はICカードなどの媒体に格納できるため、特定のPCだけで使う必要はない。",
+      "間違い。正しくは、TLSは通信相手の認証と通信内容の暗号化を行うプロトコルであり、Web以外の通信にも利用できる。利用者がWebサーバ提供者へ事前登録することも、TLSの必須条件ではない。選択肢はTLSを特定利用者間のWeb通信専用で、事前登録が不可欠としているため誤りである。",
+      "間違い。正しくは、日本国内でTLSの共通鍵長を一律に128ビット未満へ制限する決まりはない。実際には、128ビットや256ビットなどの鍵長を持つ暗号方式が利用される。選択肢は共通鍵長を128ビット未満に制限しているため誤りである。"
     ],
     "original_question_id": "43134c0160c721cd",
     "question_url": "https://www.nw-siken.com/kakomon/27_aki/am2_21.html",
@@ -14,7 +14,113 @@
     "sourceRecordRef": "question_201502_3.json#0",
     "explanationReferences": [],
     "questionLearningPatternId": "terms_basics",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "TLSの証明書、利用範囲、共通鍵長に関する技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "IPアドレスの組込みはTLS証明書の必須条件ではない。",
+          "promptContext": "技術問題として確認。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "TLS証明書の識別名に関する技術知識で判定し、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "個人認証用証明書はICカードなどに格納でき、特定のPCに限定されない。",
+          "promptContext": "技術問題として確認。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "個人認証用デジタル証明書の格納媒体に関する技術知識で判定し、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "TLSはWeb以外にも利用でき、Webサーバ提供者への事前登録は必須ではない。",
+          "promptContext": "技術問題として確認。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "TLSの用途と利用条件に関する技術知識で判定し、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "日本国内でTLSの共通鍵長を一律に128ビット未満へ制限する決まりはない。",
+          "promptContext": "技術問題として確認。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "TLSの共通鍵長に関する技術知識で判定し、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -103,10 +209,10 @@
   },
   {
     "explanationText": [
-      "間違い。正しくは、サービスは一般にステートレスなインタフェースとし、状態をサービス間で保持しない設計が望ましい。選択肢は可用性を高めるためにステートフルにするとしているため誤りである。",
-      "間違い。正しくは、サービスの命名は業務上の役割や機能を表し、利用者がサービスの目的を理解できるようにする。選択肢は業務から独立した命名にするとしているため誤りである。",
-      "正しい。",
-      "間違い。正しくは、SOAでは一度開発したサービスを複数の業務やシステムで再利用し、開発効率と柔軟性を高める。選択肢は再利用しない方がよいとしているため誤りである。"
+      "間違い。正しくは、サービスは利用者の状態を保持しないステートレスなインタフェースとする。利用者ごとの状態に依存しないため、サービスの再利用や変更に適している。選択肢は可用性を高めるためにステートフルなインタフェースとするとしているため誤りである。",
+      "間違い。正しくは、サービスの命名は業務上の機能や概念を表すものとする。業務から独立した役割を表すだけでは、サービスがどの業務機能を提供するか分かりにくい。選択肢は業務からの独立性を確保するために、サービスの命名は役割を表すものとするとしているため誤りである。",
+      "正しい。サービス間の関係を疎結合にすると、あるサービスの変更が他のサービスへ及ぼす影響を抑えられるため、業務の変化に対応しやすい。",
+      "間違い。正しくは、SOAでは開発したサービスを複数の業務やシステムで再利用する。再利用によって開発効率と柔軟性を高められる。選択肢はセキュリティを高めるために、一度開発したサービスは再利用しない方がよいとしているため誤りである。"
     ],
     "original_question_id": "e05f74ac7c6881c5",
     "question_url": "https://www.nw-siken.com/kakomon/27_aki/am2_25.html",
@@ -115,7 +221,113 @@
     "reviewQuestionId": "e05f74ac7c6881c5",
     "sourceRecordRef": "question_201502_3.json#4",
     "explanationReferences": [],
-    "questionLearningPatternId": "terms_basics",
-    "suggestedQuestionDetailsByChoice": []
+    "questionLearningPatternId": "principles_exceptions",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "SOAのサービス設計に関する技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "SOAのサービス設計に関する技術知識で正誤を判断できる。",
+          "promptContext": "ステートレス性、サービス命名、疎結合、再利用の知識を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。SOAの技術知識で判定した。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "SOAのサービス設計に関する技術知識で正誤を判断できる。",
+          "promptContext": "ステートレス性、サービス命名、疎結合、再利用の知識を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。SOAの技術知識で判定した。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "SOAのサービス設計に関する技術知識で正誤を判断できる。",
+          "promptContext": "ステートレス性、サービス命名、疎結合、再利用の知識を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外。SOAの技術知識で判定した。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "SOAのサービス設計に関する技術知識で正誤を判断できる。",
+          "promptContext": "ステートレス性、サービス命名、疎結合、再利用の知識を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。SOAの技術知識で判定した。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   }
 ]

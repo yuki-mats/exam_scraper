@@ -1,33 +1,126 @@
 [
   {
     "explanationText": [
-      "正しい。\n\n相関係数が +1 になるのは、全ての標本点が正の傾きをもつ一直線上にあり、二つの変量が完全な正の線形関係にある場合である。",
-      "間違い。\n\n線形関係があるほど相関係数の絶対値は 1 に近づき、0 になるのは線形な相関が見られない場合である。",
-      "間違い。\n\n非線形の関係だからといって相関係数が必ず負になるわけではなく、線形相関を十分に表せず 0 付近になることがある。",
-      "間違い。\n\n無相関は線形な関係が見られない状態であり、相関係数は一般に 0 になる。-1 は完全な負の線形相関である。"
-    ],
-    "suggestedQuestions": [
-      "相関係数が +1 や -1 になる条件は何ですか？",
-      "無相関と負の相関はどう違いますか？",
-      "非線形な関係では相関係数をどう解釈しますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "相関係数が +1 や -1 になる条件は何ですか？",
-        "answer": "全ての点が一直線上に並び、傾きが正なら +1、負なら -1 になる。"
-      },
-      {
-        "question": "無相関と負の相関はどう違いますか？",
-        "answer": "無相関は線形関係が見られない状態で、負の相関は片方が増えると他方が減る傾向がある状態である。"
-      },
-      {
-        "question": "非線形な関係では相関係数をどう解釈しますか？",
-        "answer": "相関係数は線形関係の強さを表すため、非線形関係があっても 0 付近になることがある。"
-      }
+      "正しい。",
+      "間違い。相関係数が0になるのは、二つの変量の間に線形な相関がない場合である。選択肢は線形の関係があると相関係数が0になるとしているため誤りである。",
+      "間違い。非線形の関係だけでは、相関係数が負になるとは限らない。非線形の関係では、相関係数が正、0付近、負のいずれになる場合もある。選択肢は非線形の関係なら相関係数が負になるとしているため誤りである。",
+      "間違い。無相関のとき、相関係数は0である。相関係数が－1になるのは、二つの変量が完全な負の線形関係にある場合である。選択肢は無相関のとき相関係数が－1になるとしているため誤りである。"
     ],
     "original_question_id": "a3b0e59e345380d3",
     "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_1.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201702:a3b0e59e345380d3",
+    "reviewQuestionId": "a3b0e59e345380d3",
+    "sourceRecordRef": "question_201702_1.json#0",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "相関係数に関する数学・統計の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第1選択肢は、全標本点が正の傾きを持つ直線上にある場合の完全な正の線形関係を述べている。",
+          "promptContext": "統計知識による判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "相関係数の統計知識で判定でき、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第2選択肢は、線形の関係があると相関係数が0になるとしているが、相関係数が0になるのは線形な相関がない場合である。",
+          "promptContext": "統計知識による判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "相関係数の統計知識で判定でき、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第3選択肢は、非線形の関係なら相関係数が負になるとしているが、非線形の関係だけでは相関係数の符号は決まらない。",
+          "promptContext": "統計知識による判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "相関係数の統計知識で判定でき、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第4選択肢は、無相関のとき相関係数が－1になるとしているが、無相関のときの相関係数は0である。",
+          "promptContext": "統計知識による判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "相関係数の統計知識で判定でき、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -61,153 +154,394 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n0! は 1 なので、基底条件で 0 を返す定義では階乗が常に 0 になってしまう。",
-      "間違い。\n\nn>0 で fact(n+1) を呼ぶと n が増え続け、再帰が終了せず正しい階乗を求められない。",
-      "正しい。\n\n階乗は 0!=1、n>0 のとき n!=n×(n-1)! と定義されるので、`if n=0 then return 1 else return n×fact(n-1)` が適切である。",
-      "間違い。\n\n基底条件は正しくても、再帰呼出しが fact(n+1) では終了条件に近づかないため無限再帰になる。"
-    ],
-    "suggestedQuestions": [
-      "再帰定義で基底条件が重要なのはなぜですか？",
-      "0! が 1 である理由は何ですか？",
-      "再帰が停止する条件はどう考えますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "再帰定義で基底条件が重要なのはなぜですか？",
-        "answer": "再帰呼出しをどこで終えるかを決めないと、計算が停止しないためである。"
-      },
-      {
-        "question": "0! が 1 である理由は何ですか？",
-        "answer": "階乗の再帰関係や組合せの定義と整合するように 1 と定義される。"
-      },
-      {
-        "question": "再帰が停止する条件はどう考えますか？",
-        "answer": "再帰呼出しごとに基底条件へ近づくように引数を変化させる必要がある。"
-      }
+      "正しい。非負整数nの階乗は、0!=1を基底条件とし、n>0ではn!=n×(n−1)!と定義する。したがって、nが1ずつ減って0に近づき、最終的に再帰が終了する定義が正しい。"
     ],
     "original_question_id": "50de1fd1e756630a",
     "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_3.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201702:50de1fd1e756630a",
+    "reviewQuestionId": "50de1fd1e756630a",
+    "sourceRecordRef": "question_201702_1.json#2",
+    "explanationReferences": [],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "間違い。\n\n平均アクセス時間は容量 a, b ではなく、アクセス時間 x, y とミス率 r に基づく加重平均で求める。",
-      "正しい。\n\nキャッシュに存在しない確率が r なので、ヒット率は 1-r である。したがって平均アクセス時間は `(1-r)×x + r×y` となる。",
-      "間違い。\n\nr はキャッシュに存在しない確率なので、x と y の重み付けを逆にすると意味が反対になる。",
-      "間違い。\n\nキャッシュヒット時のアクセス時間 x は確率 1-r で発生するため、`r×x+(1-r)×y` は重みが逆である。"
-    ],
-    "suggestedQuestions": [
-      "平均アクセス時間はどう求めますか？",
-      "ヒット率とミス率の関係は何ですか？",
-      "容量 a, b が式に入らないのはなぜですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "平均アクセス時間はどう求めますか？",
-        "answer": "各アクセス時間にその発生確率を掛けた加重平均で求める。"
-      },
-      {
-        "question": "ヒット率とミス率の関係は何ですか？",
-        "answer": "ヒット率とミス率の和は 1 であり、ミス率が r ならヒット率は 1-r である。"
-      },
-      {
-        "question": "容量 a, b が式に入らないのはなぜですか？",
-        "answer": "この問題ではミス率 r が既に与えられており、容量の影響がその中に織り込まれているためである。"
-      }
+      "正しい。キャッシュに命令コードが存在しない確率が r なので、存在する確率（ヒット率）は 1−r である。平均アクセス時間は、キャッシュヒット時のアクセス時間 x と、キャッシュミス時の主記憶のアクセス時間 y を、それぞれの確率で加重して求める。\n\n\\[平均アクセス時間=(1-r)\\times x+r\\times y\\]\n\n容量 a、bは記憶装置の大きさを表す値であり、この平均アクセス時間の加重には使わない。"
     ],
     "original_question_id": "a246182fd7040174",
     "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_4.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201702:a246182fd7040174",
+    "reviewQuestionId": "a246182fd7040174",
+    "sourceRecordRef": "question_201702_1.json#3",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "命令キャッシュと主記憶のアクセス時間を、キャッシュに存在しない確率で加重平均する工学・計算機アーキテクチャの問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第1選択肢は平均アクセス時間の確率加重式ではない。",
+          "promptContext": "命令キャッシュと主記憶のアクセス時間を確率で加重する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・計算問題のため法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第2選択肢はヒット率1−rとミス率rを用いた平均アクセス時間の式である。",
+          "promptContext": "命令キャッシュと主記憶のアクセス時間を確率で加重する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術・計算問題のため法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第3選択肢はヒット率とミス率を各アクセス時間へ誤って対応付けている。",
+          "promptContext": "命令キャッシュと主記憶のアクセス時間を確率で加重する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・計算問題のため法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第4選択肢はキャッシュヒット時とミス時の確率を逆に対応付けている。",
+          "promptContext": "命令キャッシュと主記憶のアクセス時間を確率で加重する。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術・計算問題のため法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "正しい。\n\nエラーログは障害発生時の状態や原因調査の手掛かりを残すので、原因特定と修復を早めて MTTR の短縮に役立つ。",
-      "間違い。\n\nビット誤り訂正機能は障害の発生を抑え、故障間隔を延ばす方向に働くため、主に MTBF の向上に寄与する。",
-      "間違い。\n\n命令再試行機能は一時的なエラーで停止しにくくする仕組みであり、故障発生頻度を下げて MTBF を長くする効果が中心である。",
-      "間違い。\n\n予防保守は故障前に部品交換や点検を行って障害を未然に防ぐ施策であり、MTTR ではなく MTBF の改善に効く。"
-    ],
-    "suggestedQuestions": [
-      "MTBF と MTTR の違いは何ですか？",
-      "障害解析機能はどの指標に効きますか？",
-      "予防保守は何を改善しますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "MTBF と MTTR の違いは何ですか？",
-        "answer": "MTBF は故障と故障の間隔、MTTR は故障から復旧までの平均時間である。"
-      },
-      {
-        "question": "障害解析機能はどの指標に効きますか？",
-        "answer": "原因調査を早めるため、主に MTTR の短縮に効く。"
-      },
-      {
-        "question": "予防保守は何を改善しますか？",
-        "answer": "故障の発生頻度を下げ、MTBF を長くする方向に働く。"
-      }
+      "正しい。エラーログは障害発生時の状態や原因を調べる手掛かりを残すため、原因特定と修復を早め、平均修復時間を表すMTTRの短縮に役立つ。",
+      "間違い。ビット誤り訂正機能は、記憶装置で発生したビット誤りを検出・訂正し、障害の発生を抑える機能である。選択肢はMTTRの短縮に役立つとしているが、主に故障間隔を表すMTBFの向上に寄与する。",
+      "間違い。命令再試行機能は、一時的なエラーが発生したときに同じ命令を再実行し、処理を継続しやすくする機能である。選択肢はMTTRの短縮に役立つとしているが、主な効果は故障による停止を減らしてMTBFを長くすることである。",
+      "間違い。予防保守は、故障する前に点検や部品交換を行い、障害を未然に防ぐ保守である。選択肢はMTTRの短縮に役立つとしているが、主に故障の発生を抑えてMTBFを改善する。"
     ],
     "original_question_id": "0b5b55fd30cd17b2",
     "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_5.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201702:0b5b55fd30cd17b2",
+    "reviewQuestionId": "0b5b55fd30cd17b2",
+    "sourceRecordRef": "question_201702_1.json#4",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "MTBFとMTTR、エラーログや予防保守などの信頼性・保守性に関する技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "エラーログによる障害解析時間の短縮を問う技術内容であり、法令根拠は不要。",
+          "promptContext": "MTTR短縮に関する技術肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外の技術肢。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ビット誤り訂正機能の主な効果を問う技術内容であり、法令根拠は不要。",
+          "promptContext": "MTBF向上に関する技術肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術肢。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "命令再試行機能の主な効果を問う技術内容であり、法令根拠は不要。",
+          "promptContext": "一時的エラーへの対応とMTBFに関する技術肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術肢。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "予防保守の主な効果を問う技術内容であり、法令根拠は不要。",
+          "promptContext": "予防保守とMTBFに関する技術肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外の技術肢。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n休止状態はタスクが開始されていない、又は停止している状態であり、プリエンプションで直接遷移する先ではない。",
-      "正しい。\n\nプリエンプションは、実行中タスクが CPU 使用権を奪われて実行可能待ち行列に戻される動作であり、遷移先は実行可能状態である。",
-      "間違い。\n\n終了状態はタスク処理が完了した状態であり、他タスクに CPU を譲っただけでは終了しない。",
-      "間違い。\n\n待ち状態は入出力完了など外部事象待ちの状態であり、プリエンプションだけで遷移する状態ではない。"
-    ],
-    "suggestedQuestions": [
-      "プリエンプションとは何ですか？",
-      "実行可能状態と待ち状態の違いは何ですか？",
-      "リアルタイムOSで優先度はどう使われますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "プリエンプションとは何ですか？",
-        "answer": "実行中タスクから CPU を取り上げ、他の実行可能タスクへ切り替える方式である。"
-      },
-      {
-        "question": "実行可能状態と待ち状態の違いは何ですか？",
-        "answer": "実行可能状態は CPU が空けばすぐ走れる状態、待ち状態はイベント待ちで実行できない状態である。"
-      },
-      {
-        "question": "リアルタイムOSで優先度はどう使われますか？",
-        "answer": "より高い優先度のタスクが実行可能になると、低い優先度の実行中タスクをプリエンプトする。"
-      }
+      "正しい。プリエンプションは、実行中のタスクがCPUの使用権を一時的に失い、処理を再開できる実行可能状態へ戻る動作である。タスクが終了したり、入出力などの事象を待つ待ち状態へ移ったりするわけではない。"
     ],
     "original_question_id": "6029d1eaa126145b",
     "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_6.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201702:6029d1eaa126145b",
+    "reviewQuestionId": "6029d1eaa126145b",
+    "sourceRecordRef": "question_201702_1.json#5",
+    "explanationReferences": [],
+    "questionLearningPatternId": "sequence_flow",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "リアルタイムOSにおけるプリエンプションとタスク状態の技術的な問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第1選択肢はプリエンプション後の状態ではない。",
+          "promptContext": "プリエンプション後のタスク状態。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定し、法令監査の対象外とした。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第2選択肢はプリエンプション後の実行可能状態を示している。",
+          "promptContext": "プリエンプション後のタスク状態。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで判定し、法令監査の対象外とした。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第3選択肢はタスク終了を示しており、プリエンプション後の状態ではない。",
+          "promptContext": "プリエンプション後のタスク状態。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定し、法令監査の対象外とした。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第4選択肢はイベント待ちの状態を示しており、プリエンプション後の状態ではない。",
+          "promptContext": "プリエンプション後のタスク状態。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定し、法令監査の対象外とした。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n条件は G=0 のときそのまま、G=1 のとき反転であり、AND や NAND を使ったこの回路ではその動作にならない。",
-      "間違い。\n\nOR 回路では G=1 のとき常に 1 を出しやすく、`G=1 で反転` という条件を満たせない。",
-      "正しい。\n\n排他的論理和 XOR は入力制御ビットが 0 なら元の値を、1 なら反転値を出力する。したがって `X=A xor G`、`Y=B xor G` となる回路が条件を満たす。",
-      "間違い。\n\nG=0 のときに X=A, Y=B を保てず、G に応じた反転制御回路として成立しない。"
-    ],
-    "suggestedQuestions": [
-      "XOR 回路で反転制御できるのはなぜですか？",
-      "G=0 と G=1 で出力はどう変わりますか？",
-      "論理回路で制御信号を使う典型例は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "XOR 回路で反転制御できるのはなぜですか？",
-        "answer": "X xor 0 = X、X xor 1 = not X という性質があるためである。"
-      },
-      {
-        "question": "G=0 と G=1 で出力はどう変わりますか？",
-        "answer": "G=0 なら入力をそのまま出力し、G=1 なら入力を反転して出力する。"
-      },
-      {
-        "question": "論理回路で制御信号を使う典型例は何ですか？",
-        "answer": "反転制御、マスク制御、切替え回路などで制御信号が使われる。"
-      }
+      "正しい。該当する回路はウである。ウは排他的論理和（XOR）を二つ使い、上段でX=A⊕G、下段でY=B⊕Gを実現する。G=0ならX=A、Y=Bとなり、G=1ならX=¬A、Y=¬Bとなるため、問題の条件に一致する。"
     ],
     "original_question_id": "43307f7e8da3a57d",
     "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_7.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201702:43307f7e8da3a57d",
+    "reviewQuestionId": "43307f7e8da3a57d",
+    "sourceRecordRef": "question_201702_1.json#6",
+    "explanationReferences": [],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -271,63 +605,266 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n更新処理を行わず分析用に集計・保存する仕組みはデータウェアハウスの説明である。",
-      "間違い。\n\n分析目的ごとに切り出したカスタマイズ済みデータ集合はデータマートの説明である。",
-      "間違い。\n\nスライシングやドリルダウンなどの多次元分析を行う仕組みは OLAP の説明である。",
-      "正しい。\n\nデータマイニングは、統計解析やニューラルネットワークなどを用いて大量データから特徴的な規則や傾向を見つけ出す手法である。"
-    ],
-    "suggestedQuestions": [
-      "データマイニングは何を目的にしますか？",
-      "データウェアハウスやOLAPとの違いは何ですか？",
-      "代表的な分析手法には何がありますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "データマイニングは何を目的にしますか？",
-        "answer": "大量データから人手では見つけにくい規則やパターンを抽出することを目的にする。"
-      },
-      {
-        "question": "データウェアハウスやOLAPとの違いは何ですか？",
-        "answer": "前者は蓄積基盤、後者は分析操作、データマイニングはパターン発見手法である。"
-      },
-      {
-        "question": "代表的な分析手法には何がありますか？",
-        "answer": "統計解析、クラスタ分析、決定木、ニューラルネットワークなどがある。"
-      }
+      "間違い。正しくは、データウェアハウスの説明である。データウェアハウスは、基幹業務システムとは分けて大量のデータを蓄積し、分析に利用する。選択肢はこの内容をデータマイニングとしているため誤りである。",
+      "間違い。正しくは、データマートの説明である。データマートは、全社的なデータから部門や目的ごとに必要な範囲を切り出した、分析しやすいデータ集合である。選択肢はこの内容をデータマイニングとしているため誤りである。",
+      "間違い。正しくは、OLAPの説明である。OLAPは、スライシングやダイシング、ドリルダウンなどで集計データを異なる視点から対話的に分析する。選択肢はこの操作をデータマイニングとしているため誤りである。",
+      "正しい。データマイニングは、統計解析やニューラルネットワークなどを用いて、大量データから人が気付きにくい規則性や特徴的なパターンを発見する手法である。"
     ],
     "original_question_id": "09ba69503f9647fb",
     "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_10.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201702:09ba69503f9647fb",
+    "reviewQuestionId": "09ba69503f9647fb",
+    "sourceRecordRef": "question_201702_1.json#9",
+    "explanationReferences": [
+      {
+        "referenceDate": "2017-10-15",
+        "sourceUrl": "https://www.ipa.go.jp/shiken/mondai-kaiotu/gmcbt8000000fqpm-att/2017h29a_koudo_am1_qs.pdf",
+        "title": "平成29年度秋期 高度試験共通 午前Ⅰ 問題冊子"
+      },
+      {
+        "referenceDate": "2017-10-15",
+        "sourceUrl": "https://www.ipa.go.jp/shiken/mondai-kaiotu/gmcbt8000000fqpm-att/2017h29a_koudo_am1_ans.pdf",
+        "title": "平成29年度秋期 高度試験共通 午前Ⅰ 解答例"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "データマイニング、データウェアハウス、データマート、OLAPの技術概念を問う問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "データウェアハウスの説明であり、法令根拠を要しない。",
+          "promptContext": "技術知識問題として判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術概念のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "データマートの説明であり、法令根拠を要しない。",
+          "promptContext": "技術知識問題として判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術概念のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "OLAPの説明であり、法令根拠を要しない。",
+          "promptContext": "技術知識問題として判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術概念のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "データマイニングの説明であり、法令根拠を要しない。",
+          "promptContext": "技術知識問題として判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術概念のみで判定できるため、法令監査対象外とした。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "正しい。\n\nCSMA/CD では衝突が発生すると再送待ち時間が増え、衝突頻度が高いほど有効な転送時間の割合が下がるためスループットが低下する。",
-      "間違い。\n\n送信前に搬送波を確認しても、別の端末がほぼ同時に送信すれば送出後に衝突は発生し得る。",
-      "間違い。\n\nリピータハブで共有媒体を構成しても衝突検出は可能であり、CSMA/CD はそのような Ethernet で用いられてきた。",
-      "間違い。\n\nEthernet フレームはオクテット単位で構成されるので、任意長ビット列をそのままフレームとして送るわけではない。"
-    ],
-    "suggestedQuestions": [
-      "CSMA/CD で衝突が起こるのはなぜですか？",
-      "衝突が増えるとスループットが下がる理由は何ですか？",
-      "CSMA/CD とスイッチング Ethernet の関係は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "CSMA/CD で衝突が起こるのはなぜですか？",
-        "answer": "複数端末がほぼ同時に媒体が空いていると判断して送信を始めることがあるためである。"
-      },
-      {
-        "question": "衝突が増えるとスループットが下がる理由は何ですか？",
-        "answer": "破棄フレームや待ち時間、再送が増え、実データ送信に使える時間が減るためである。"
-      },
-      {
-        "question": "CSMA/CD とスイッチング Ethernet の関係は何ですか？",
-        "answer": "共有媒体の半二重通信で重要だったが、現在の全二重スイッチ環境では衝突自体が起きにくい。"
-      }
+      "正しい。衝突が増えると再送や待ち時間が増え、有効なデータ転送に使える時間の割合が下がるため、スループットは低下する。",
+      "間違い。正しくは、送信前に搬送波を検出しても、別のステーションがほぼ同時に送信すれば、データ送出後に衝突が発生し得る。選択肢は、搬送波を検出してから送信すれば衝突は発生しないとしているため誤りである。",
+      "間違い。正しくは、リピータハブで複数のステーションを共有媒体に接続した構成でも、CSMA/CDによる衝突検出が可能である。選択肢は、ハブで分岐接続すると衝突を検出できないとしているため誤りである。",
+      "間違い。正しくは、Ethernetのフレームはオクテット単位で構成されるため、フレーム長はオクテットの整数倍になる。選択肢は、任意長のビット列をフレームとして送出し、オクテットの整数倍である必要はないとしているため誤りである。"
     ],
     "original_question_id": "2115b263c29729db",
     "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_11.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201702:2115b263c29729db",
+    "reviewQuestionId": "2115b263c29729db",
+    "sourceRecordRef": "question_201702_1.json#10",
+    "explanationReferences": [
+      {
+        "referenceDate": "2016-03-04",
+        "sourceUrl": "https://standards.ieee.org/ieee/802.3/6003/",
+        "title": "IEEE Std 802.3-2015 IEEE Standard for Ethernet"
+      }
+    ],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "CSMA/CDの通信方式に関する技術問題で、法令・制度上の根拠は不要。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "CSMA/CDの衝突増加とスループット低下に関する技術知識で判定する。",
+          "promptContext": "技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令根拠を必要としない技術選択肢。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "CSMA/CDでは送信前に搬送波を検出しても、同時送信により送信後の衝突が発生し得る。",
+          "promptContext": "技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令根拠を必要としない技術選択肢。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "リピータハブで共有媒体に接続した構成でも、CSMA/CDによる衝突検出が可能である。",
+          "promptContext": "技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令根拠を必要としない技術選択肢。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "Ethernetフレームはオクテット単位で構成され、フレーム長はオクテットの整数倍になる。",
+          "promptContext": "技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令根拠を必要としない技術選択肢。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -361,33 +898,126 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nAES は共通鍵暗号方式、RSA は公開鍵暗号方式であり、記述が逆である。",
-      "正しい。\n\n共通鍵暗号方式では、暗号化と復号に同じ鍵を用いる。送受信者があらかじめ同じ秘密鍵を共有して使う方式である。",
-      "間違い。\n\n公開鍵暗号方式で機密性を確保するときは、暗号化に受信者の公開鍵を使い、復号には受信者だけが持つ秘密鍵を使う。",
-      "間違い。\n\nデジタル署名は公開鍵暗号方式の考え方を用いて実現され、送信者の秘密鍵で署名し公開鍵で検証する。"
-    ],
-    "suggestedQuestions": [
-      "共通鍵暗号方式と公開鍵暗号方式の違いは何ですか？",
-      "公開鍵暗号で機密性を確保する手順は何ですか？",
-      "デジタル署名ではどの鍵を使いますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "共通鍵暗号方式と公開鍵暗号方式の違いは何ですか？",
-        "answer": "共通鍵暗号は同一鍵で暗号化・復号し、公開鍵暗号は公開鍵と秘密鍵の対を用いる。"
-      },
-      {
-        "question": "公開鍵暗号で機密性を確保する手順は何ですか？",
-        "answer": "受信者の公開鍵で暗号化し、受信者の秘密鍵で復号する。"
-      },
-      {
-        "question": "デジタル署名ではどの鍵を使いますか？",
-        "answer": "送信者の秘密鍵で署名を生成し、送信者の公開鍵で検証する。"
-      }
+      "間違い。AESは共通鍵暗号方式、RSAは公開鍵暗号方式である。選択肢はこの対応を逆にしているため誤りである。",
+      "正しい。共通鍵暗号方式では、暗号化と復号に同じ鍵を使う。通信する相手同士が、あらかじめ同じ秘密鍵を共有して利用する。",
+      "間違い。通信内容を秘匿する場合は、受信者の公開鍵で暗号化し、受信者だけが持つ秘密鍵で復号する。選択肢は暗号化に使う鍵と復号に使う鍵を逆にしているため誤りである。",
+      "間違い。デジタル署名では、送信者の秘密鍵で署名を作成し、送信者の公開鍵で検証する。選択肢は公開鍵暗号方式が使われないとしているため誤りである。"
     ],
     "original_question_id": "cb893527a5fa9f28",
     "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_13.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201702:cb893527a5fa9f28",
+    "reviewQuestionId": "cb893527a5fa9f28",
+    "sourceRecordRef": "question_201702_1.json#12",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "暗号方式の技術的性質を問う問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "AESは共通鍵暗号方式、RSAは公開鍵暗号方式であり、選択肢の対応は逆である。",
+          "promptContext": "暗号方式の技術的性質。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "共通鍵暗号方式では、暗号化と復号に同一の鍵を使用する。",
+          "promptContext": "暗号方式の技術的性質。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "通信内容の秘匿では、受信者の公開鍵で暗号化し、受信者の秘密鍵で復号する。",
+          "promptContext": "暗号方式の技術的性質。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "デジタル署名では、送信者の秘密鍵で署名を作成し、公開鍵で検証する。",
+          "promptContext": "暗号方式の技術的性質。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識のみで判定できるため、法令根拠は不要である。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -421,63 +1051,249 @@
   },
   {
     "explanationText": [
-      "正しい。\n\nWAF は Web アプリケーションへの HTTP/HTTPS 通信を監視し、SQL インジェクションや XSS などの攻撃を検知・遮断する仕組みである。",
-      "間違い。\n\nブラウザ内の通信改ざんを PC 上で監視する説明ではなく、WAF はサーバ側又はネットワーク境界で Web 通信を保護する。",
-      "間違い。\n\nサーバ OS への不正ログイン監視は HIDS やログ監視の役割であり、WAF の主目的ではない。",
-      "間違い。\n\nファイルのマルウェア感染を検知するのはウイルス対策ソフトや EDR の役割である。"
-    ],
-    "suggestedQuestions": [
-      "WAF は何を防ぎますか？",
-      "ファイアウォールや IDS との違いは何ですか？",
-      "WAF をどこに配置しますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "WAF は何を防ぎますか？",
-        "answer": "Web アプリケーション層を狙う攻撃の検知・遮断に使われる。"
-      },
-      {
-        "question": "ファイアウォールや IDS との違いは何ですか？",
-        "answer": "WAF は HTTP/HTTPS の内容を理解してアプリケーション層で対策する点が異なる。"
-      },
-      {
-        "question": "WAF をどこに配置しますか？",
-        "answer": "一般に Web サーバの手前、リバースプロキシやロードバランサ付近に配置する。"
-      }
+      "正しい。WAFはWebアプリケーションへのHTTP/HTTPS通信を監視し、SQLインジェクションやクロスサイトスクリプティング（XSS）などの攻撃を検知・遮断する。",
+      "間違い。PC上でWebブラウザの通信改ざんを監視・検出するのは、ブラウザや端末側のセキュリティ対策である。選択肢はPC内で監視するとしているため誤りである。",
+      "間違い。サーバのOSへの不正ログインを監視するのは、OSの認証機能、ホスト型侵入検知システム（HIDS）又はログ監視の役割である。選択肢はOSへのログインを監視するとしているため誤りである。",
+      "間違い。ファイルのマルウェア感染を監視・検出するのは、ウイルス対策ソフトやEDRの役割である。選択肢はファイルの感染を監視するとしているため誤りである。"
     ],
     "original_question_id": "dc4b7753e35edaab",
     "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_15.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201702:dc4b7753e35edaab",
+    "reviewQuestionId": "dc4b7753e35edaab",
+    "sourceRecordRef": "question_201702_1.json#14",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "WAFの機能を問う技術問題で、法令・制度上の義務や基準を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に差はない。",
+          "displayRefIds": [],
+          "explanationText": "WAFの機能は技術知識で判定し、法令根拠を要しない。",
+          "promptContext": "WAFの基本機能を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令非該当の技術問題であり、法令改正による影響はない。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に差はない。",
+          "displayRefIds": [],
+          "explanationText": "Webブラウザ通信の改ざんをPC内で監視・検出する説明はWAFの機能ではない。",
+          "promptContext": "WAFと端末側対策の役割を区別した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令非該当の技術問題であり、法令改正による影響はない。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に差はない。",
+          "displayRefIds": [],
+          "explanationText": "サーバOSへの不正ログイン監視はWAFの機能ではない。",
+          "promptContext": "WAFとホスト側の認証・監視機能を区別した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令非該当の技術問題であり、法令改正による影響はない。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に差はない。",
+          "displayRefIds": [],
+          "explanationText": "ファイルのマルウェア感染監視はウイルス対策ソフトやEDRの役割であり、WAFの機能ではない。",
+          "promptContext": "WAFとエンドポイント対策の役割を区別した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令非該当の技術問題であり、法令改正による影響はない。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "正しい。\n\nある機能に必要なデータと操作を外部から隠蔽して一つにまとめるのは機能的強度であり、モジュール強度が最も高い。",
-      "間違い。\n\n同じ時点で実行する処理をまとめたものは時間的強度であり、機能的強度より低い。",
-      "間違い。\n\n引数で複数機能を切り替える構成は論理的強度であり、別機能を同居させているため結束性は低い。",
-      "間違い。\n\n順番に実行し結果を受け渡す処理をまとめたものは連絡的強度であり、最も高い結束性ではない。"
-    ],
-    "suggestedQuestions": [
-      "モジュール強度が高いとはどういうことですか？",
-      "機能的強度と論理的強度の違いは何ですか？",
-      "結束性を高める利点は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "モジュール強度が高いとはどういうことですか？",
-        "answer": "モジュール内の要素が一つの明確な目的のために強く関連している状態である。"
-      },
-      {
-        "question": "機能的強度と論理的強度の違いは何ですか？",
-        "answer": "機能的強度は単一機能に集中し、論理的強度は似た複数機能を一つにまとめた状態である。"
-      },
-      {
-        "question": "結束性を高める利点は何ですか？",
-        "answer": "理解しやすく、変更の影響範囲が限定され、保守性が上がる。"
-      }
+      "正しい。機能的強度は、一つの目的に必要な処理とデータを一つのモジュールにまとめ、外部から内部を隠蔽するもので、結束性が最も高い。",
+      "間違い。正しくは、同じ時点に実行する処理をまとめたものは時間的強度である。選択肢は複数機能の初期設定を実行時期だけで一つにまとめているため、機能的強度より結束性が低い。",
+      "間違い。正しくは、引数によって複数の機能を切り替える構成は論理的強度である。選択肢は機能Aと機能Bを一つのモジュールに同居させ、引数で使い分けているため、結束性が低い。",
+      "間違い。正しくは、機能Aの計算結果を機能Bが利用する関係でまとめたものは連絡的強度である。選択肢は処理順序とデータの受渡しを根拠にしており、機能的強度には当たらない。"
     ],
     "original_question_id": "0f1742dc4c7b012f",
     "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_16.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201702:0f1742dc4c7b012f",
+    "reviewQuestionId": "0f1742dc4c7b012f",
+    "sourceRecordRef": "question_201702_1.json#15",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "モジュール強度（結束性）に関するソフトウェア設計の技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の正誤はソフトウェア設計上のモジュール強度で決まり、法令根拠を要しない。",
+          "promptContext": "モジュール強度（結束性）の判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外。モジュール強度の技術知識で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の正誤はソフトウェア設計上のモジュール強度で決まり、法令根拠を要しない。",
+          "promptContext": "モジュール強度（結束性）の判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。モジュール強度の技術知識で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の正誤はソフトウェア設計上のモジュール強度で決まり、法令根拠を要しない。",
+          "promptContext": "モジュール強度（結束性）の判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。モジュール強度の技術知識で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の正誤はソフトウェア設計上のモジュール強度で決まり、法令根拠を要しない。",
+          "promptContext": "モジュール強度（結束性）の判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。モジュール強度の技術知識で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -511,33 +1327,123 @@
   },
   {
     "explanationText": [
-      "正しい。\n\nEVM は作業実績を金額換算して、コストとスケジュールの両面から進捗を定量管理する手法である。",
-      "間違い。\n\nEVM はリスク管理そのものを対象にせず、予算値と実績値からコスト・進捗差異を把握する。",
-      "間違い。\n\n品質は重要な管理対象だが、EVM が直接扱う指標の組合せはコストとスケジュールである。",
-      "間違い。\n\nEVM は品質やリスクではなく、PV・EV・AC を用いたコストとスケジュールの測定手法である。"
-    ],
-    "suggestedQuestions": [
-      "EVM は何を管理しますか？",
-      "PV・EV・AC は何を表しますか？",
-      "EVM の利点は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "EVM は何を管理しますか？",
-        "answer": "コストとスケジュールを統合的に管理する。"
-      },
-      {
-        "question": "PV・EV・AC は何を表しますか？",
-        "answer": "PV は計画価値、EV は出来高価値、AC は実コストを表す。"
-      },
-      {
-        "question": "EVM の利点は何ですか？",
-        "answer": "進捗とコスト超過を早い段階で数値として把握できる点である。"
-      }
+      "正しい。該当するのは「コスト，スケジュール」である。EVM（Earned Value Management）は、予算、作業の出来高、実際にかかったコストを比較し、コストとスケジュールの進み具合を定量的に把握する手法である。リスクや品質は重要な管理対象だが、EVMが直接測定する組合せではない。"
     ],
     "original_question_id": "9a6ce98f4b52520a",
     "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_18.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201702:9a6ce98f4b52520a",
+    "reviewQuestionId": "9a6ce98f4b52520a",
+    "sourceRecordRef": "question_201702_1.json#17",
+    "explanationReferences": [],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "EVMはプロジェクトのコストとスケジュールを統合的に測定・管理する手法であり、法令根拠を要しない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第1選択肢はEVMの管理対象であるコストとスケジュールを示している。",
+          "promptContext": "EVMの技術的定義に基づく判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識に基づく判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第2選択肢のリスクはEVMが直接測定する管理対象の組合せではない。",
+          "promptContext": "EVMの技術的定義に基づく判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識に基づく判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第3選択肢の品質はEVMが直接測定する管理対象の組合せではない。",
+          "promptContext": "EVMの技術的定義に基づく判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識に基づく判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第4選択肢のリスクはEVMが直接測定する管理対象の組合せではない。",
+          "promptContext": "EVMの技術的定義に基づく判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識に基づく判定であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -631,122 +1537,500 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n購入業者の自動選定は妥当性や効率性の観点であり、在庫記録の網羅性を直接担保しない。",
-      "間違い。\n\n責任者承認は統制として有効でも、全ての入出庫記録が漏れなく記録されている証拠にはならない。",
-      "間違い。\n\n自動発注は適正在庫維持のための制御であり、記録の漏れや重複を防ぐ網羅性チェックそのものではない。",
-      "正しい。\n\n入出庫記録に自動連番を付与すれば、欠番や重複の有無を確認でき、記録漏れや二重計上を見つけやすくなるので網羅性の確認に有効である。"
-    ],
-    "suggestedQuestions": [
-      "網羅性のチェックポイントとは何ですか？",
-      "連番管理で何を検出できますか？",
-      "妥当性や承認管理との違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "網羅性のチェックポイントとは何ですか？",
-        "answer": "必要な記録が漏れなく、重複なく登録されているかを確認する観点である。"
-      },
-      {
-        "question": "連番管理で何を検出できますか？",
-        "answer": "欠番や重複番号から記録漏れや二重計上の可能性を検出できる。"
-      },
-      {
-        "question": "妥当性や承認管理との違いは何ですか？",
-        "answer": "妥当性は内容の正しさ、承認管理は権限統制であり、網羅性は記録が抜けなくそろっているかを見る。"
-      }
+      "間違い。適切な購入業者を自動選定することは、購買処理の妥当性や効率性を確認する観点である。選択肢は購入業者の選定について述べており、入庫・出庫記録が漏れなく記録されているかという網羅性を直接確認していない。",
+      "間違い。適正在庫高について責任者の承認を得ることは、承認手続が適切に行われているかを確認する統制である。選択肢は承認の有無を示しているだけで、すべての入庫・出庫記録が記録されていることの確認にはならない。",
+      "間違い。発注点に達したときの自動発注は、適正在庫量を維持するための在庫管理上の制御である。選択肢は発注処理の仕組みを示しており、入庫・出庫記録の漏れや重複を確認する網羅性のチェックではない。",
+      "正しい。入庫及び出庫記録に連番を付けると、欠番や重複を調べられるため、すべての取引が漏れなく記録されているかを確認しやすい。"
     ],
     "original_question_id": "9b1183eb810dd635",
     "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_22.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201702:9b1183eb810dd635",
+    "reviewQuestionId": "9b1183eb810dd635",
+    "sourceRecordRef": "question_201702_1.json#21",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "システム監査における在庫データの網羅性の確認であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第1選択肢は購買処理の妥当性や効率性に関する内容で、在庫データの網羅性を直接確認しない。",
+          "promptContext": "在庫データの網羅性のチェックポイント",
+          "refs": [],
+          "verdict": "非法令問題"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識に基づく判断であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第2選択肢は承認手続の統制に関する内容で、入庫・出庫記録の網羅性を確認しない。",
+          "promptContext": "在庫データの網羅性のチェックポイント",
+          "refs": [],
+          "verdict": "非法令問題"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識に基づく判断であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第3選択肢は発注処理の制御に関する内容で、入庫・出庫記録の網羅性を確認しない。",
+          "promptContext": "在庫データの網羅性のチェックポイント",
+          "refs": [],
+          "verdict": "非法令問題"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識に基づく判断であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "第4選択肢は入庫及び出庫記録への連番付与により、欠番や重複を確認でき、網羅性の監査に適する。",
+          "promptContext": "在庫データの網羅性のチェックポイント",
+          "refs": [],
+          "verdict": "非法令問題"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識に基づく判断であり、法令監査の対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\nEA 参照モデルは EA を整理するための参照枠組みであり、理想像そのものを表す名称ではない。",
-      "正しい。\n\nTo-Be モデルは、現状の As-Is に対して将来あるべき業務や情報システムの理想像を表すモデルである。",
-      "間違い。\n\nザックマンモデルは EA の分析フレームワークであり、業務と情報システムの理想像を直接指す語ではない。",
-      "間違い。\n\nデータモデルはデータ構造を表すもので、業務と情報システム全体の将来像そのものではない。"
-    ],
-    "suggestedQuestions": [
-      "To-Be モデルと As-Is モデルの違いは何ですか？",
-      "EA ではなぜ現状と理想を分けて考えますか？",
-      "ザックマンモデルは何に使いますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "To-Be モデルと As-Is モデルの違いは何ですか？",
-        "answer": "As-Is は現状、To-Be はあるべき将来像を表す。"
-      },
-      {
-        "question": "EA ではなぜ現状と理想を分けて考えますか？",
-        "answer": "現状との差分を明確にし、改善や移行計画を立てやすくするためである。"
-      },
-      {
-        "question": "ザックマンモデルは何に使いますか？",
-        "answer": "複数の視点と観点から enterprise architecture を整理・分析するために使う。"
-      }
+      "間違い。EA参照モデルは、業務・情報・アプリケーション・技術などを整理するための標準的なモデル群である。選択肢はEA参照モデルを業務と情報システムの理想を表すモデルとしているため誤りである。",
+      "正しい。To-Beモデルは、現状のAs-Isモデルと対比して、将来あるべき業務と情報システムの姿を表す。",
+      "間違い。ザックマンモデルは、EAを構成する対象を複数の観点と関係者の立場から整理するフレームワークである。選択肢はザックマンモデルを業務と情報システムの理想を表すモデルとしているため誤りである。",
+      "間違い。データモデルは、業務で扱うデータの種類やデータ間の関係を表すモデルである。選択肢はデータモデルを業務と情報システム全体の将来像としているため誤りである。"
     ],
     "original_question_id": "28044196c73705f7",
     "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_23.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201702:28044196c73705f7",
+    "reviewQuestionId": "28044196c73705f7",
+    "sourceRecordRef": "question_201702_1.json#22",
+    "explanationReferences": [],
+    "questionLearningPatternId": "terms_basics",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "エンタープライズアーキテクチャのモデルに関する技術・知識問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "EA参照モデルの定義に基づく技術知識の判定である。",
+          "promptContext": "問題文と第1選択肢を結合して判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令改正の影響なし。技術・知識問題として確定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "To-Beモデルの定義に基づく技術知識の判定である。",
+          "promptContext": "問題文と第2選択肢を結合して判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令改正の影響なし。技術・知識問題として確定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "ザックマンモデルの定義に基づく技術知識の判定である。",
+          "promptContext": "問題文と第3選択肢を結合して判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令改正の影響なし。技術・知識問題として確定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "データモデルの定義に基づく技術知識の判定である。",
+          "promptContext": "問題文と第4選択肢を結合して判定した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令改正の影響なし。技術・知識問題として確定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "正しい。\n\n多段階契約は工程ごとに契約を区切ることで、前工程の結果によって後工程の前提条件が変わった場合に、その時点の情報で見積り直しや契約見直しを行えるようにする考え方である。",
-      "間違い。\n\nサービスレベル達成条件やペナルティなどを定めるのは SLA の考え方であり、多段階契約の主目的ではない。",
-      "間違い。\n\n正式契約前に着手するための LOI は仮発注合意書の話であり、多段階契約そのものの目的とは異なる。",
-      "間違い。\n\n役割分担をライフサイクル全体で整理する考え方は基本契約や共通フレームに近く、多段階契約の主旨ではない。"
-    ],
-    "suggestedQuestions": [
-      "多段階契約を採用する理由は何ですか？",
-      "LOI や SLA との違いは何ですか？",
-      "工程ごとに契約を分ける利点は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "多段階契約を採用する理由は何ですか？",
-        "answer": "前工程の結果で後工程の前提が変わることを織り込み、適切な見積りや責任分担をしやすくするためである。"
-      },
-      {
-        "question": "LOI や SLA との違いは何ですか？",
-        "answer": "LOI は正式契約前の合意、SLA はサービス品質条件であり、多段階契約は工程ごとの契約方式である。"
-      },
-      {
-        "question": "工程ごとに契約を分ける利点は何ですか？",
-        "answer": "不確実性の高い後続工程を、直前工程の成果を踏まえて再見積りしやすい点である。"
-      }
+      "正しい。多段階契約は、前工程の結果によって後工程の見積りの前提やリスクが変わった場合に、その時点の情報で再見積りや契約内容の見直しを行えるようにする考え方である。",
+      "間違い。サービスレベルの達成条件、未達時の協議手続やペナルティなどを定めるのは、SLA（サービスレベル合意）に関する事項である。選択肢はSLAの内容を多段階契約の目的としているため誤りである。",
+      "間違い。正式契約前に着手する場合に仮発注合意書（LOI）を交わすのは、契約締結前の着手に関する措置である。選択肢はLOIの目的を多段階契約の目的としているため誤りである。",
+      "間違い。多段階契約では、各工程の契約でユーザーとベンダーの役割や責任を明確にすることもできる。しかし主な目的は、前工程の結果を踏まえて後工程の見積りを改めて行えるようにすることである。選択肢は役割分担をあらかじめ詳細に決定することを目的としているため誤りである。"
     ],
     "original_question_id": "4516fd2eb6587456",
     "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_24.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201702:4516fd2eb6587456",
+    "reviewQuestionId": "4516fd2eb6587456",
+    "sourceRecordRef": "question_201702_1.json#23",
+    "explanationReferences": [
+      {
+        "referenceDate": "2007-04-13",
+        "sourceUrl": "https://www.meti.go.jp/policy/it_policy/keiyaku/model_keiyakusyo.pdf",
+        "title": "情報システム・モデル取引・契約書"
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "情報システム開発における契約実務・プロジェクト管理の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の正誤は、多段階契約の目的に関する契約実務知識で決まり、法令改正の影響を受けない。",
+          "promptContext": "選択肢別に法令関連性を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令非該当の技術・契約実務問題。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はSLAに関する事項を多段階契約の目的としており、契約実務知識で誤りと判断できる。",
+          "promptContext": "選択肢別に法令関連性を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令非該当の技術・契約実務問題。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は正式契約前の着手に関するLOIの目的を示しており、契約実務知識で誤りと判断できる。",
+          "promptContext": "選択肢別に法令関連性を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令非該当の技術・契約実務問題。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢は役割分担の事前決定を多段階契約の主目的としており、契約実務知識で誤りと判断できる。",
+          "promptContext": "選択肢別に法令関連性を確認した。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令非該当の技術・契約実務問題。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\n委託を受けて自社工場で製造だけを行うのはファウンドリ企業の説明である。",
-      "間違い。\n\n自社工場で生産し相手先ブランドで納入するのは ODM などの説明に近く、ファブレスの本質ではない。",
-      "間違い。\n\n回路設計から製造設備まで全て持つのは IDM のような垂直統合型メーカーである。",
-      "正しい。\n\nファブレス企業は製品の企画・設計・開発を行う一方、製造設備や工場は持たず、製造は外部へ委託する。"
-    ],
-    "suggestedQuestions": [
-      "ファブレス企業とは何ですか？",
-      "ファウンドリや IDM との違いは何ですか？",
-      "ファブレスの利点は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "ファブレス企業とは何ですか？",
-        "answer": "製品企画や設計は行うが、製造工場を持たず製造を外部委託する企業である。"
-      },
-      {
-        "question": "ファウンドリや IDM との違いは何ですか？",
-        "answer": "ファウンドリは受託製造、IDM は設計から製造まで自社で行う。"
-      },
-      {
-        "question": "ファブレスの利点は何ですか？",
-        "answer": "巨額の製造設備投資を抑えつつ、設計や開発へ経営資源を集中できる点である。"
-      }
+      "間違い。正しくは、委託者から製造を受託し、自社工場で半導体を製造する企業はファウンドリである。選択肢はファウンドリの説明をファブレス企業の説明としているため誤りである。",
+      "間違い。正しくは、自社で設計して自社工場で生産する企業は、相手先ブランドで納入する場合でもファブレスではない。選択肢は自社工場で生産するとしているため誤りである。",
+      "間違い。正しくは、回路設計から製造までの設備を自社で持ち、自社ブランド製品を販売する企業はIDM（垂直統合型メーカー）である。選択肢はIDMの説明をファブレス企業の説明としているため誤りである。",
+      "正しい。ファブレス企業は、製品の企画・設計・開発を行う一方、半導体製造の工場を所有せず、製造を外部のファウンドリなどへ委託する。"
     ],
     "original_question_id": "bb591008a6034b88",
     "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_25.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201702:bb591008a6034b88",
+    "reviewQuestionId": "bb591008a6034b88",
+    "sourceRecordRef": "question_201702_1.json#24",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "半導体製造設備を所有せず、企画・設計・開発を行うファブレス企業の一般的な事業形態を問う問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "委託を受けて自社工場で製造する企業はファウンドリであり、ファブレス企業ではない。",
+          "promptContext": "選択肢はファウンドリの事業形態を示している。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識に基づく判定であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "自社工場で生産する企業はファブレス企業ではない。",
+          "promptContext": "選択肢は自社工場での生産を含む事業形態を示している。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識に基づく判定であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "設計から製造までの設備を自社で持つ企業はIDMであり、ファブレス企業ではない。",
+          "promptContext": "選択肢はIDM（垂直統合型メーカー）の事業形態を示している。",
+          "refs": [],
+          "verdict": "間違い"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識に基づく判定であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "企画・設計・開発を行い、半導体製造工場を所有しない企業はファブレス企業である。",
+          "promptContext": "選択肢はファブレス企業の一般的な事業形態を示している。",
+          "refs": [],
+          "verdict": "正しい"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識に基づく判定であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "consistent",
+        "reviewState": "secondary_verified"
+      }
+    ]
   }
 ]

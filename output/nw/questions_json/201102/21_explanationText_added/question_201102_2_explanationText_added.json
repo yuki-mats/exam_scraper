@@ -2,9 +2,9 @@
   {
     "explanationText": [
       "間違い。正しくは、因果関係分析法は事象の原因と結果の関係を整理・分析する手法である。選択肢は専門家への反復アンケートで意見を収束させる手法としているため誤りである。",
-      "間違い。正しくは、クロスセクション法は同じ時点における複数の対象を比較する分析手法である。選択肢は専門家への反復アンケートで将来を予測する手法としているため誤りである。",
+      "間違い。正しくは、クロスセクション法は同じ時点における複数の対象を比較する手法である。選択肢は専門家への反復アンケートで意見を収束させる手法としているため誤りである。",
       "間違い。正しくは、時系列回帰分析法は過去の時系列データを回帰分析し、将来の値を予測する手法である。選択肢は専門家への反復アンケートで意見を収束させる手法としているため誤りである。",
-      "正しい。デルファイ法は、専門家に複数回アンケートを行い、前回の集計結果を示して回答を繰り返し修正してもらうことで、集団としての意見を収束させる手法である。"
+      "正しい。デルファイ法は、専門家に複数回アンケートを行い、集計結果を参考に回答を繰り返し修正してもらうことで、集団としての意見を収束させる手法である。"
     ],
     "original_question_id": "852ce28ef5582168",
     "question_url": "https://www.nw-siken.com/kakomon/23_aki/am1_26.html",
@@ -550,7 +550,7 @@
       "正しい。プリアンブルは、受信側が信号のタイミングを合わせるため、イーサネットフレームの先頭に置かれる信号列である。",
       "間違い。正しくは、フレーム内のデータ誤りを検出するためフレーム末尾に置かれるのはFCSである。選択肢は、FCSの役割をプリアンブルの役割としているため誤りである。",
       "間違い。正しくは、プリアンブルは受信側の同期を取るためにフレーム先頭へ置かれる。選択肢は、データの前後に付けてデータを取り出す情報としているため誤りである。",
-      "間違い。正しくは、フレームの長さを調整する場合はパディングを用いる。選択肢は、長さ調整用の情報をプリアンブルとしてフレーム末尾に置くとしているため誤りである。"
+      "間違い。正しくは、フレームの長さを調整する場合はパディングを用いる。選択肢は、長さ調整用の情報をプリアンブルとしてフレーム末尾に置くため誤りである。"
     ],
     "original_question_id": "e1b69f308d56e22a",
     "question_url": "https://www.nw-siken.com/kakomon/23_aki/am2_8.html",
@@ -670,33 +670,123 @@
   },
   {
     "explanationText": [
-      "間違い。\n\n負荷分散装置は次ホップとなるルータへ転送するので、直接サーバの MAC アドレスへ書き換える説明は適切でない。",
-      "正しい。\n\nIP 宛先はサーバのまま保持し、L2 転送のため宛先 MAC アドレスを選択したルータ 1 またはルータ 2 の MAC アドレスへ書き換える。",
-      "間違い。\n\nMAC 宛先を変えずに IP 宛先だけをルータへ書き換えると、本来のサーバ宛通信にならない。",
-      "間違い。\n\n負荷分散装置は次ホップ解決のため MAC アドレスを調整するのであり、宛先 IP アドレスをルータへ置き換えるわけではない。"
-    ],
-    "suggestedQuestions": [
-      "なぜ IP 宛先はそのままですか？",
-      "MAC 宛先だけ書き換える理由は何ですか？",
-      "次ホップとは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "なぜ IP 宛先はそのままですか？",
-        "answer": "IP 層の最終宛先はサーバであり、途中機器は転送のために L2 宛先だけ変えるからである。"
-      },
-      {
-        "question": "MAC 宛先だけ書き換える理由は何ですか？",
-        "answer": "同一セグメント上で次に渡す装置を示すのが MAC アドレスだからである。"
-      },
-      {
-        "question": "次ホップとは何ですか？",
-        "answer": "パケットを次に転送する隣接ルータや装置のことをいう。"
-      }
+      "正しい。負荷分散装置は、宛先IPアドレスを接続先サーバのまま保持し、次に転送するルータ1又はルータ2を選択する。そのルータへフレームを渡すため、宛先MACアドレスを選択したルータのMACアドレスに置き換える。"
     ],
     "original_question_id": "65d56d76cfb0ed68",
     "question_url": "https://www.nw-siken.com/kakomon/23_aki/am2_9.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201102:65d56d76cfb0ed68",
+    "reviewQuestionId": "65d56d76cfb0ed68",
+    "sourceRecordRef": "question_201102_2.json#13",
+    "explanationReferences": [],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "ルータと負荷分散装置の動作に関するネットワーク技術の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "負荷分散装置が宛先IPアドレスを保持するかどうかはネットワーク技術の論点である。",
+          "promptContext": "法令監査対象外の技術選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判定する選択肢であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "選択したルータへフレームを渡すため、宛先MACアドレスをそのルータのMACアドレスに置き換える動作はネットワーク技術の論点である。",
+          "promptContext": "法令監査対象外の技術選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識で判定する選択肢であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "宛先IPアドレスを接続先ルータのIPアドレスへ変更するかどうかはネットワーク技術の論点である。",
+          "promptContext": "法令監査対象外の技術選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判定する選択肢であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "宛先MACアドレスを変更せず、宛先IPアドレスをルータのIPアドレスへ変更するかどうかはネットワーク技術の論点である。",
+          "promptContext": "法令監査対象外の技術選択肢。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判定する選択肢であり、法令根拠は不要。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -716,7 +806,113 @@
       }
     ],
     "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "通信プロトコルに関する技術知識の問題であり、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を要しない技術知識の選択肢である。",
+          "promptContext": "IPv6アドレス種別のプレフィックス判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。IPv6アドレス種別の技術知識で判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を要しない技術知識の選択肢である。",
+          "promptContext": "IPv6アドレス種別のプレフィックス判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。IPv6アドレス種別の技術知識で判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を要しない技術知識の選択肢である。",
+          "promptContext": "IPv6アドレス種別のプレフィックス判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。IPv6アドレス種別の技術知識で判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正による差分なし。",
+          "displayRefIds": [],
+          "explanationText": "法令根拠を要しない技術知識の選択肢である。",
+          "promptContext": "IPv6アドレス種別のプレフィックス判定。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外。IPv6アドレス種別の技術知識で判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -810,10 +1006,10 @@
   },
   {
     "explanationText": [
-      "間違い。IPv4ではIPヘッダーのチェックサムは必須だが、TCPのチェックサムは必須であり、UDPのチェックサムだけが0を指定して省略できる。選択肢はTCPとUDPのチェックサムを一括してオプションとしているため誤りである。",
-      "正しい。IPv4のIPヘッダーのチェックサムはヘッダー部分だけを対象とする。一方、TCPとUDPのチェックサムは、擬似ヘッダーに加えて各ヘッダーとデータ部分も対象に含む。",
-      "間違い。IPv4のIPヘッダーとTCPのチェックサムは必須であり、UDPのチェックサムだけが0を指定して省略できる。選択肢はIPヘッダーのチェックサムをオプションとしているため誤りである。",
-      "間違い。IPv4のIPヘッダーのチェックサムはヘッダー部分だけを対象とするが、TCPとUDPのチェックサムはデータ部分も対象に含む。選択肢はすべてのチェックサムの対象をヘッダー部分だけとしているため誤りである。"
+      "間違い。正しくは、IPv4のIPヘッダーとTCPのチェックサムは必須で、UDPのチェックサムだけがIPv4では省略できる。選択肢はTCPとUDPのチェックサムを一括してオプションとしているため誤りである。",
+      "正しい。IPv4のIPヘッダーのチェックサムはヘッダー部分だけを対象とする。一方、TCPとUDPのチェックサムは、擬似ヘッダー、各ヘッダー及びデータ部分を対象に含む。",
+      "間違い。正しくは、IPv4のIPヘッダーとTCPのチェックサムは必須で、UDPのチェックサムだけがIPv4では省略できる。選択肢はIPヘッダーのチェックサムをオプションとしているため誤りである。",
+      "間違い。正しくは、IPv4のIPヘッダーのチェックサムはヘッダー部分だけを対象とし、TCPとUDPのチェックサムはデータ部分も対象に含む。選択肢はすべてのチェックサムの対象をヘッダー部分だけとしているため誤りである。"
     ],
     "original_question_id": "cb889ea86399856a",
     "question_url": "https://www.nw-siken.com/kakomon/23_aki/am2_14.html",
@@ -949,9 +1145,9 @@
   },
   {
     "explanationText": [
-      "間違い。正しくは、IBGPのフルメッシュによるスケーラビリティ問題を回避する技術はルートリフレクションである。ルートリフレクションは、受け取った経路をほかのBGPルータへ反射して配布し、すべてのBGPルータ同士がIBGPセッションを張る必要をなくす。選択肢はスイッチの転送方式であるカットスルーを挙げているため誤りである。",
-      "間違い。正しくは、IBGPのフルメッシュによるスケーラビリティ問題を回避する技術はルートリフレクションである。ファストリルートは、障害発生時に迂回経路へ高速に切り替える技術であり、IBGPセッション数を削減するものではない。選択肢はファストリルートをフルメッシュ問題の回避方法としているため誤りである。",
-      "間違い。正しくは、IBGPのフルメッシュによるスケーラビリティ問題を回避する技術はルートリフレクションである。ラベルスイッチングは、ラベルを使ってパケットを転送する技術であり、IBGPセッションの構成を簡略化するものではない。選択肢はラベルスイッチングをフルメッシュ問題の回避方法としているため誤りである。",
+      "間違い。正しくは、IBGPのフルメッシュによるスケーラビリティ問題を回避する技術はルートリフレクションである。ルートリフレクションは、受け取った経路をほかのBGPルータへ反射して配布し、すべてのBGPルータ同士がIBGPセッションを張る必要をなくす。カットスルーはスイッチの転送方式であり、IBGPのセッション数を削減する技術ではない。",
+      "間違い。正しくは、IBGPのフルメッシュによるスケーラビリティ問題を回避する技術はルートリフレクションである。ファストリルートは、障害発生時に迂回経路へ高速に切り替える技術であり、IBGPセッション数を削減するものではない。",
+      "間違い。正しくは、IBGPのフルメッシュによるスケーラビリティ問題を回避する技術はルートリフレクションである。ラベルスイッチングは、ラベルを使ってパケットを転送する技術であり、IBGPのセッション構成を簡略化するものではない。",
       "正しい。ルートリフレクションでは、特定のBGPルータが受け取った経路をほかのルータへ反射して配布する。これにより、AS内のすべてのBGPルータが相互にIBGPセッションを張る必要がなくなり、フルメッシュによるセッション数の増大を抑えられる。"
     ],
     "original_question_id": "0812ca46b51e007a",
@@ -962,7 +1158,113 @@
     "sourceRecordRef": "question_201102_2.json#19",
     "explanationReferences": [],
     "questionLearningPatternId": "differences_relationships",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "BGP-4のIBGPフルメッシュによるスケーラビリティ問題を、ルートリフレクションで回避する技術問題。法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に法令上の差分はない。",
+          "displayRefIds": [],
+          "explanationText": "カットスルーはIBGPセッション数を削減する技術ではない。",
+          "promptContext": "BGP-4のIBGPフルメッシュ回避方法。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令根拠を要しない技術知識で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に法令上の差分はない。",
+          "displayRefIds": [],
+          "explanationText": "ファストリルートは障害時の高速な経路切替技術であり、IBGPセッション数を削減しない。",
+          "promptContext": "BGP-4のIBGPフルメッシュ回避方法。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令根拠を要しない技術知識で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に法令上の差分はない。",
+          "displayRefIds": [],
+          "explanationText": "ラベルスイッチングはラベルを用いたパケット転送技術であり、IBGPセッション構成を簡略化しない。",
+          "promptContext": "BGP-4のIBGPフルメッシュ回避方法。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令根拠を要しない技術知識で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行判定に法令上の差分はない。",
+          "displayRefIds": [],
+          "explanationText": "ルートリフレクションは経路を反射して配布し、IBGPのフルメッシュを不要にする。",
+          "promptContext": "BGP-4のIBGPフルメッシュ回避方法。",
+          "refs": [],
+          "verdict": "法令監査対象外"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令根拠を要しない技術知識で判定した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [

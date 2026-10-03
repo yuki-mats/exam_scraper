@@ -7,9 +7,13 @@
       "2ρ\n1－ρ\n×Ts",
       "2ρ\n1－2ρ\n×Ts"
     ],
-    "questionType": "true_false",
+    "questionType": "flash_card",
     "original_question_id": "cfdaa595bd6c5435",
-    "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_1.html"
+    "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_1.html",
+    "sourceQuestionKey": "nw:202401:cfdaa595bd6c5435",
+    "reviewQuestionId": "cfdaa595bd6c5435",
+    "sourceRecordRef": "question_202401_1.json#0",
+    "isCalculationQuestion": true
   },
   {
     "questionBodyText": "符号長7ビット，情報ビット数4ビットのハミング符号による誤り訂正の方法を，次のとおりとする。\n受信した7ビットの符号語x1\nx2\nx3\nx4\nx5\nx6\nx7\n(xk\n=0又は1)に対して\nc0\n＝ x1\n＋x3\n＋x5\n＋x7\nc1\n＝   x2\n＋x3\n＋x6\n＋x7\nc2\n＝       x4\n＋x5\n＋x6\n＋x7\n(いずれも mod 2 での計算)\nを計算し，c0\n，c1\n，c2の中に少なくとも一つは0でないものがある場合には，\ni = c0\n＋c1\n×2＋c2\n×4を求めて，左から i ビット目を反転することによって誤りを訂正する。\n受信した符号語が1000101であった場合，誤り訂正後の符号語はどれか。",
@@ -19,9 +23,13 @@
       "1001101",
       "1010101"
     ],
-    "questionType": "true_false",
+    "questionType": "flash_card",
     "original_question_id": "9521985d2dc6b99a",
-    "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_2.html"
+    "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_2.html",
+    "sourceQuestionKey": "nw:202401:9521985d2dc6b99a",
+    "reviewQuestionId": "9521985d2dc6b99a",
+    "sourceRecordRef": "question_202401_1.json#1",
+    "isCalculationQuestion": true
   },
   {
     "questionBodyText": "各ノードがもつデータを出力する再帰処理 f(ノードn) を定義した。この処理を，図の2分木の根(最上位のノード)から始めたときの出力はどれか。\n〔f(ノードn)の定義〕\nノードnの右に子ノードrがあれば，f(ノードr)を実行\nノードnの左に子ノードlがあれば，f(ノードl)を実行\n再帰処理 f(ノードr)，f(ノードl) を未実行の子ノード，又は子ノードがなければ，ノード自身がもつデータを出力\n終了",
@@ -31,9 +39,13 @@
       "E－D＋C×B＋A",
       "ED－CB×÷A＋"
     ],
-    "questionType": "true_false",
+    "questionType": "flash_card",
     "original_question_id": "ac7cbbc9399dd5c5",
-    "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_3.html"
+    "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_3.html",
+    "sourceQuestionKey": "nw:202401:ac7cbbc9399dd5c5",
+    "reviewQuestionId": "ac7cbbc9399dd5c5",
+    "sourceRecordRef": "question_202401_1.json#2",
+    "isCalculationQuestion": false
   },
   {
     "questionBodyText": "量子ゲート方式の量子コンピュータの説明として，適切なものはどれか。",
@@ -45,7 +57,11 @@
     ],
     "questionType": "true_false",
     "original_question_id": "00a3f681b5c56124",
-    "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_4.html"
+    "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_4.html",
+    "sourceQuestionKey": "nw:202401:00a3f681b5c56124",
+    "reviewQuestionId": "00a3f681b5c56124",
+    "sourceRecordRef": "question_202401_1.json#3",
+    "isCalculationQuestion": false
   },
   {
     "questionBodyText": "システムの信頼性設計に関する記述のうち，適切なものはどれか。",
@@ -57,7 +73,11 @@
     ],
     "questionType": "true_false",
     "original_question_id": "6ec7190f5679a7a5",
-    "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_5.html"
+    "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_5.html",
+    "sourceQuestionKey": "nw:202401:6ec7190f5679a7a5",
+    "reviewQuestionId": "6ec7190f5679a7a5",
+    "sourceRecordRef": "question_202401_1.json#4",
+    "isCalculationQuestion": false
   },
   {
     "questionBodyText": "三つの資源X～Zを占有して処理を行う四つのプロセスA～Dがある。各プロセスは処理の進行に伴い，表中の数値の順に資源を占有し，実行終了時に三つの資源を一括して解放する。プロセスAと同時にもう一つプロセスを動かした場合に，デッドロックを起こす可能性のあるプロセスはどれか。",
@@ -67,9 +87,13 @@
       "Cだけ",
       "Dだけ"
     ],
-    "questionType": "true_false",
+    "questionType": "group_choice",
     "original_question_id": "c459a5fc9b23e128",
-    "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_6.html"
+    "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_6.html",
+    "sourceQuestionKey": "nw:202401:c459a5fc9b23e128",
+    "reviewQuestionId": "c459a5fc9b23e128",
+    "sourceRecordRef": "question_202401_1.json#5",
+    "isCalculationQuestion": false
   },
   {
     "questionBodyText": "入力がAとB，出力がYの論理回路を動作させたとき，図のタイムチャートが得られた。この論理回路として，適切なものはどれか。",
@@ -79,9 +103,13 @@
       "(否定論理積素子)",
       "(否定論理和素子)"
     ],
-    "questionType": "true_false",
+    "questionType": "flash_card",
     "original_question_id": "3d121100314ba59a",
-    "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_7.html"
+    "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_7.html",
+    "sourceQuestionKey": "nw:202401:3d121100314ba59a",
+    "reviewQuestionId": "3d121100314ba59a",
+    "sourceRecordRef": "question_202401_1.json#6",
+    "isCalculationQuestion": false
   },
   {
     "questionBodyText": "ビットマップフォントよりも，アウトラインフォントの利用が適しているケースはどれか。",
@@ -93,7 +121,11 @@
     ],
     "questionType": "true_false",
     "original_question_id": "84e51a3aa32f9499",
-    "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_8.html"
+    "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_8.html",
+    "sourceQuestionKey": "nw:202401:84e51a3aa32f9499",
+    "reviewQuestionId": "84e51a3aa32f9499",
+    "sourceRecordRef": "question_202401_1.json#7",
+    "isCalculationQuestion": false
   },
   {
     "questionBodyText": "ストアドプロシージャの利点はどれか。",
@@ -105,7 +137,11 @@
     ],
     "questionType": "true_false",
     "original_question_id": "a581f2a90a1e888d",
-    "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_9.html"
+    "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_9.html",
+    "sourceQuestionKey": "nw:202401:a581f2a90a1e888d",
+    "reviewQuestionId": "a581f2a90a1e888d",
+    "sourceRecordRef": "question_202401_1.json#8",
+    "isCalculationQuestion": false
   },
   {
     "questionBodyText": "CSMA/CD方式のLANに接続されたノードの送信動作に関する記述として，適切なものはどれか。",
@@ -117,7 +153,11 @@
     ],
     "questionType": "true_false",
     "original_question_id": "17e9d9be5a79a6e2",
-    "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_10.html"
+    "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_10.html",
+    "sourceQuestionKey": "nw:202401:17e9d9be5a79a6e2",
+    "reviewQuestionId": "17e9d9be5a79a6e2",
+    "sourceRecordRef": "question_202401_1.json#9",
+    "isCalculationQuestion": false
   },
   {
     "questionBodyText": "ビット誤り率が0.0001%の回線を使って，1,500バイトのパケットを10,000個送信するとき，誤りが含まれるパケットの個数の期待値はおよそ幾らか。",
@@ -127,9 +167,13 @@
       "80",
       "120"
     ],
-    "questionType": "true_false",
+    "questionType": "flash_card",
     "original_question_id": "8e655d063fbb8ddc",
-    "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_11.html"
+    "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_11.html",
+    "sourceQuestionKey": "nw:202401:8e655d063fbb8ddc",
+    "reviewQuestionId": "8e655d063fbb8ddc",
+    "sourceRecordRef": "question_202401_1.json#10",
+    "isCalculationQuestion": true
   },
   {
     "questionBodyText": "3Dセキュア2.0(EMV 3-Dセキュア)は，オンラインショッピングにおけるクレジットカード決済時に，不正取引を防止するための本人認証サービスである。3Dセキュア2.0で利用される本人認証の特徴はどれか。",
@@ -141,7 +185,11 @@
     ],
     "questionType": "true_false",
     "original_question_id": "2590a77bbd1e34a9",
-    "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_12.html"
+    "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_12.html",
+    "sourceQuestionKey": "nw:202401:2590a77bbd1e34a9",
+    "reviewQuestionId": "2590a77bbd1e34a9",
+    "sourceRecordRef": "question_202401_1.json#11",
+    "isCalculationQuestion": false
   },
   {
     "questionBodyText": "公開鍵暗号方式を使った暗号通信をn人が相互に行う場合，全体で何個の異なる鍵が必要になるか。ここで，一組の公開鍵と秘密鍵は2個と数える。",
@@ -151,9 +199,13 @@
       "n(n－1)\n2",
       "log2\nn"
     ],
-    "questionType": "true_false",
+    "questionType": "flash_card",
     "original_question_id": "b098130315fd5592",
-    "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_13.html"
+    "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_13.html",
+    "sourceQuestionKey": "nw:202401:b098130315fd5592",
+    "reviewQuestionId": "b098130315fd5592",
+    "sourceRecordRef": "question_202401_1.json#12",
+    "isCalculationQuestion": true
   },
   {
     "questionBodyText": "自社製品の脆弱性に起因するリスクに対応するための社内機能として，最も適切なものはどれか。",
@@ -163,9 +215,13 @@
       "SOC",
       "WHOISデータベースの技術連絡担当"
     ],
-    "questionType": "true_false",
+    "questionType": "flash_card",
     "original_question_id": "bcb91180d61659de",
-    "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_14.html"
+    "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_14.html",
+    "sourceQuestionKey": "nw:202401:bcb91180d61659de",
+    "reviewQuestionId": "bcb91180d61659de",
+    "sourceRecordRef": "question_202401_1.json#13",
+    "isCalculationQuestion": false
   },
   {
     "questionBodyText": "PCからサーバに対し，IPv6を利用した通信を行う場合，ネットワーク層で暗号化を行うのに利用するものはどれか。",
@@ -223,9 +279,13 @@
       "ウ",
       "エ"
     ],
-    "questionType": "true_false",
+    "questionType": "flash_card",
     "original_question_id": "6d9b5e38af76f423",
-    "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_19.html"
+    "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_19.html",
+    "sourceQuestionKey": "nw:202401:6d9b5e38af76f423",
+    "reviewQuestionId": "6d9b5e38af76f423",
+    "sourceRecordRef": "question_202401_1.json#18",
+    "isCalculationQuestion": true
   },
   {
     "questionBodyText": "サービスマネジメントにおけるサービスレベル管理プロセスの活動はどれか。",
@@ -261,7 +321,11 @@
     ],
     "questionType": "true_false",
     "original_question_id": "c6b8e8cbb5ffb09d",
-    "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_22.html"
+    "question_url": "https://www.nw-siken.com/kakomon/06_haru/am1_22.html",
+    "sourceQuestionKey": "nw:202401:c6b8e8cbb5ffb09d",
+    "reviewQuestionId": "c6b8e8cbb5ffb09d",
+    "sourceRecordRef": "question_202401_1.json#21",
+    "isCalculationQuestion": false
   },
   {
     "questionBodyText": "SOAの説明はどれか。",

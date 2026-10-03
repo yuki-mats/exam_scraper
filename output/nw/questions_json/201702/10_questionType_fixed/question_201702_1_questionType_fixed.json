@@ -9,7 +9,11 @@
     ],
     "questionType": "true_false",
     "original_question_id": "a3b0e59e345380d3",
-    "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_1.html"
+    "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_1.html",
+    "sourceQuestionKey": "nw:201702:a3b0e59e345380d3",
+    "reviewQuestionId": "a3b0e59e345380d3",
+    "sourceRecordRef": "question_201702_1.json#0",
+    "isCalculationQuestion": false
   },
   {
     "questionBodyText": "四つのアルファベットa～d から成るテキストがあり，各アルファベットは2ビットの固定長2進符号で符号化されている。このテキストにおける各アルファベットの出現確率を調べたところ，表のとおりであった。各アルファベットの符号を表のような可変長2進符号に変換する場合，符号化されたテキストの，変換前に対する変換後のビット列の長さの比は，およそ幾つか。",
@@ -19,9 +23,13 @@
       "0.90",
       "0.95"
     ],
-    "questionType": "true_false",
+    "questionType": "flash_card",
     "original_question_id": "065a5e7e548f2c9f",
-    "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_2.html"
+    "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_2.html",
+    "sourceQuestionKey": "nw:201702:065a5e7e548f2c9f",
+    "reviewQuestionId": "065a5e7e548f2c9f",
+    "sourceRecordRef": "question_201702_1.json#1",
+    "isCalculationQuestion": true
   },
   {
     "questionBodyText": "fact(n)は，非負の整数nに対してnの階乗を返す。fact(n)の再帰的な定義はどれか。",
@@ -31,9 +39,13 @@
       "if n＝0 then return 1 else return n×fact(n－1)",
       "if n＝0 then return 1 else return n×fact(n＋1)"
     ],
-    "questionType": "true_false",
+    "questionType": "flash_card",
     "original_question_id": "50de1fd1e756630a",
-    "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_3.html"
+    "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_3.html",
+    "sourceQuestionKey": "nw:201702:50de1fd1e756630a",
+    "reviewQuestionId": "50de1fd1e756630a",
+    "sourceRecordRef": "question_201702_1.json#2",
+    "isCalculationQuestion": false
   },
   {
     "questionBodyText": "容量がaMバイトでアクセス時間がxナノ秒の命令キャッシュと，容量がbMバイトでアクセス時間がyナノ秒の主記憶をもつシステムにおいて，CPUからみた，主記憶と命令キャッシュとを合わせた平均アクセス時間を表す式はどれか。ここで，読み込みたい命令コードがキャッシュに\n存在しない確率\nをrとし，キャッシュ管理に関するオーバーヘッドは無視できるものとする。",
@@ -43,9 +55,13 @@
       "r・aa＋b\n・x＋\n(1－r)・ba＋b\n・y",
       "r・x＋(1－r)・y"
     ],
-    "questionType": "true_false",
+    "questionType": "flash_card",
     "original_question_id": "a246182fd7040174",
-    "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_4.html"
+    "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_4.html",
+    "sourceQuestionKey": "nw:201702:a246182fd7040174",
+    "reviewQuestionId": "a246182fd7040174",
+    "sourceRecordRef": "question_201702_1.json#3",
+    "isCalculationQuestion": true
   },
   {
     "questionBodyText": "MTBFを長くするよりも，MTTRを短くするのに役立つものはどれか。",
@@ -57,7 +73,11 @@
     ],
     "questionType": "true_false",
     "original_question_id": "0b5b55fd30cd17b2",
-    "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_5.html"
+    "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_5.html",
+    "sourceQuestionKey": "nw:201702:0b5b55fd30cd17b2",
+    "reviewQuestionId": "0b5b55fd30cd17b2",
+    "sourceRecordRef": "question_201702_1.json#4",
+    "isCalculationQuestion": false
   },
   {
     "questionBodyText": "リアルタイムOSにおいて，実行中のタスクがプリエンプションによって遷移する状態はどれか。",
@@ -67,9 +87,13 @@
       "終了状態",
       "待ち状態"
     ],
-    "questionType": "true_false",
+    "questionType": "flash_card",
     "original_question_id": "6029d1eaa126145b",
-    "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_6.html"
+    "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_6.html",
+    "sourceQuestionKey": "nw:201702:6029d1eaa126145b",
+    "reviewQuestionId": "6029d1eaa126145b",
+    "sourceRecordRef": "question_201702_1.json#5",
+    "isCalculationQuestion": false
   },
   {
     "questionBodyText": "入力G＝0のときはX＝A，Y＝Bを出力し，G＝1のときはX＝\nA\n，Y＝\nBを出力する回路はどれか。",
@@ -79,9 +103,13 @@
       "ウ",
       "エ"
     ],
-    "questionType": "true_false",
+    "questionType": "flash_card",
     "original_question_id": "43307f7e8da3a57d",
-    "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_7.html"
+    "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_7.html",
+    "sourceQuestionKey": "nw:201702:43307f7e8da3a57d",
+    "reviewQuestionId": "43307f7e8da3a57d",
+    "sourceRecordRef": "question_201702_1.json#6",
+    "isCalculationQuestion": false
   },
   {
     "questionBodyText": "アクセシビリティ設計に関する規格であるJIS X 8341-1:2010(高齢者・障害者等配慮設計指針－情報通信における機器，ソフトウェア及びサービス－第1部：共通指針)を適用する目的のうち，適切なものはどれか。",
@@ -117,7 +145,11 @@
     ],
     "questionType": "true_false",
     "original_question_id": "09ba69503f9647fb",
-    "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_10.html"
+    "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_10.html",
+    "sourceQuestionKey": "nw:201702:09ba69503f9647fb",
+    "reviewQuestionId": "09ba69503f9647fb",
+    "sourceRecordRef": "question_201702_1.json#9",
+    "isCalculationQuestion": false
   },
   {
     "questionBodyText": "CSMA/CD方式に関する記述のうち，適切なものはどれか。",
@@ -129,7 +161,11 @@
     ],
     "questionType": "true_false",
     "original_question_id": "2115b263c29729db",
-    "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_11.html"
+    "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_11.html",
+    "sourceQuestionKey": "nw:201702:2115b263c29729db",
+    "reviewQuestionId": "2115b263c29729db",
+    "sourceRecordRef": "question_201702_1.json#10",
+    "isCalculationQuestion": false
   },
   {
     "questionBodyText": "ドライブバイダウンロード攻撃の説明はどれか。",
@@ -153,7 +189,11 @@
     ],
     "questionType": "true_false",
     "original_question_id": "cb893527a5fa9f28",
-    "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_13.html"
+    "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_13.html",
+    "sourceQuestionKey": "nw:201702:cb893527a5fa9f28",
+    "reviewQuestionId": "cb893527a5fa9f28",
+    "sourceRecordRef": "question_201702_1.json#12",
+    "isCalculationQuestion": false
   },
   {
     "questionBodyText": "サイバーレスキュー隊(J-CRAT)の役割はどれか。",
@@ -177,7 +217,11 @@
     ],
     "questionType": "true_false",
     "original_question_id": "dc4b7753e35edaab",
-    "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_15.html"
+    "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_15.html",
+    "sourceQuestionKey": "nw:201702:dc4b7753e35edaab",
+    "reviewQuestionId": "dc4b7753e35edaab",
+    "sourceRecordRef": "question_201702_1.json#14",
+    "isCalculationQuestion": false
   },
   {
     "questionBodyText": "モジュール設計に関する記述のうち，モジュール強度(結束性)が最も高いものはどれか。",
@@ -189,7 +233,11 @@
     ],
     "questionType": "true_false",
     "original_question_id": "0f1742dc4c7b012f",
-    "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_16.html"
+    "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_16.html",
+    "sourceQuestionKey": "nw:201702:0f1742dc4c7b012f",
+    "reviewQuestionId": "0f1742dc4c7b012f",
+    "sourceRecordRef": "question_201702_1.json#15",
+    "isCalculationQuestion": false
   },
   {
     "questionBodyText": "CMMIの説明はどれか。",
@@ -211,9 +259,13 @@
       "スケジュール，品質",
       "品質，リスク"
     ],
-    "questionType": "true_false",
+    "questionType": "group_choice",
     "original_question_id": "9a6ce98f4b52520a",
-    "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_18.html"
+    "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_18.html",
+    "sourceQuestionKey": "nw:201702:9a6ce98f4b52520a",
+    "reviewQuestionId": "9a6ce98f4b52520a",
+    "sourceRecordRef": "question_201702_1.json#17",
+    "isCalculationQuestion": false
   },
   {
     "questionBodyText": "品質の定量評価の指標のうち，ソフトウェアの保守性の評価指標になるものはどれか。",
@@ -261,7 +313,11 @@
     ],
     "questionType": "true_false",
     "original_question_id": "9b1183eb810dd635",
-    "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_22.html"
+    "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_22.html",
+    "sourceQuestionKey": "nw:201702:9b1183eb810dd635",
+    "reviewQuestionId": "9b1183eb810dd635",
+    "sourceRecordRef": "question_201702_1.json#21",
+    "isCalculationQuestion": false
   },
   {
     "questionBodyText": "エンタープライズアーキテクチャにおいて，業務と情報システムの理想を表すモデルはどれか。",
@@ -273,7 +329,11 @@
     ],
     "questionType": "true_false",
     "original_question_id": "28044196c73705f7",
-    "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_23.html"
+    "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_23.html",
+    "sourceQuestionKey": "nw:201702:28044196c73705f7",
+    "reviewQuestionId": "28044196c73705f7",
+    "sourceRecordRef": "question_201702_1.json#22",
+    "isCalculationQuestion": false
   },
   {
     "questionBodyText": "\"情報システム・モデル取引・契約書\"によれば，情報システムの開発において，多段階契約の考え方を採用する目的はどれか。ここで，多段階契約とは，工程ごとに個別契約を締結することである。",
@@ -285,7 +345,11 @@
     ],
     "questionType": "true_false",
     "original_question_id": "4516fd2eb6587456",
-    "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_24.html"
+    "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_24.html",
+    "sourceQuestionKey": "nw:201702:4516fd2eb6587456",
+    "reviewQuestionId": "4516fd2eb6587456",
+    "sourceRecordRef": "question_201702_1.json#23",
+    "isCalculationQuestion": false
   },
   {
     "questionBodyText": "半導体ファブレス企業の説明として，適切なものはどれか。",
@@ -297,6 +361,10 @@
     ],
     "questionType": "true_false",
     "original_question_id": "bb591008a6034b88",
-    "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_25.html"
+    "question_url": "https://www.nw-siken.com/kakomon/29_aki/am1_25.html",
+    "sourceQuestionKey": "nw:201702:bb591008a6034b88",
+    "reviewQuestionId": "bb591008a6034b88",
+    "sourceRecordRef": "question_201702_1.json#24",
+    "isCalculationQuestion": false
   }
 ]

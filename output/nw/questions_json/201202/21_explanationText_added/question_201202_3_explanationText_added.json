@@ -1,9 +1,9 @@
 [
   {
     "explanationText": [
-      "間違い。正しくは、EAPは認証方式を利用するための枠組みであり、あらかじめ登録した共通鍵による無線区間の暗号化通信そのものを実現するものではない。選択肢はEAPを共通鍵による暗号化通信の仕組みとしているため誤りである。",
-      "間違い。正しくは、RADIUSはアクセスポイントなどのネットワークアクセス装置と認証サーバーの間で、認証・認可などの情報をやり取りするプロトコルである。選択肢はRADIUSがクライアントPCとアクセスポイントの間で公開鍵暗号通信を実現するとしているため誤りである。",
-      "間違い。正しくは、SSIDは無線LANやネットワークを識別する名前であり、秘密鍵や暗号方式を定めるものではない。選択肢はSSIDをクライアントPCごとの秘密鍵としているため誤りである。",
+      "間違い。正しくは、EAPは認証方式を利用するための枠組みであり、無線区間をあらかじめ登録した共通鍵で暗号化する仕組みそのものではない。選択肢はEAPを共通鍵による暗号化通信の仕組みとしているため誤りである。",
+      "間違い。正しくは、RADIUSはアクセスポイントなどのネットワークアクセス装置と認証サーバーの間で、認証・認可・アカウンティングの情報をやり取りするプロトコルである。選択肢はRADIUSがクライアントPCとアクセスポイントの間で公開鍵暗号通信を実現するとしているため誤りである。",
+      "間違い。正しくは、SSIDは無線LANのネットワークを識別する名前であり、クライアントPCごとの秘密鍵や暗号方式を定めるものではない。選択肢はSSIDをクライアントPCごとの秘密鍵としているため誤りである。",
       "正しい。WPA2では、IEEE 802.1Xによる利用者認証と、認証に基づいて動的に設定される暗号鍵を用いて無線通信を保護できる。"
     ],
     "original_question_id": "2daed2c2922924b6",
@@ -140,10 +140,10 @@
   },
   {
     "explanationText": [
-      "間違い。複数台のディスクに同じデータを書き込んで冗長化するのは、ミラーリングの説明である。選択肢は同じデータを複数台のハードディスクに書き込む方式としているため、シンプロビジョニングの説明として誤りである。",
-      "間違い。一つのディスクを複数の領域に分けるのは、パーティション分割の説明である。選択肢はOS用とデータ用にディスクを分割する方式としているため、シンプロビジョニングの説明として誤りである。",
-      "間違い。ファイバチャネルなどでストレージをネットワーク化するのは、SANの説明である。選択肢はストレージをネットワーク化する方式としているため、シンプロビジョニングの説明として誤りである。",
-      "正しい。シンプロビジョニングは、利用者に仮想ボリュームを提供し、物理ディスクの容量を実際のデータ使用量に応じて割り当てる方式である。"
+      "間違い。正しくは、複数台のディスクに同じデータを書き込んで冗長化するのはミラーリングである。選択肢は同じデータを複数台のハードディスクに書き込む方式としているため、シンプロビジョニングの説明として誤りである。",
+      "間違い。正しくは、一つのディスクをOS用やデータ用などに分けるのはパーティション分割である。選択肢は一つのハードディスクを用途別の領域に分割する方式としているため、シンプロビジョニングの説明として誤りである。",
+      "間違い。正しくは、ファイバチャネルなどを用いてストレージをネットワーク化するのはSANである。選択肢はストレージをネットワーク化する方式としているため、シンプロビジョニングの説明として誤りである。",
+      "正しい。"
     ],
     "original_question_id": "f1e6fbdb2289864d",
     "question_url": "https://www.nw-siken.com/kakomon/24_aki/am2_22.html",
@@ -263,7 +263,7 @@
   },
   {
     "explanationText": [
-      "正しい。高速化率は、並列化できない部分と並列化できる部分を合わせて、\\(E=1/\\{(1-r)+r/n\\}\\)で求める。\\(r\\)は並列化できる処理の割合、\\(n\\)はプロセッサの台数である。\\(r=0.9\\)の高速化率が\\(r=0.3\\)の3倍になる条件は、\\[\\frac{1}{0.1+0.9/n}=3\\times\\frac{1}{0.7+0.3/n}\\]である。両辺を整理すると、\\(0.7+0.3/n=0.3+2.7/n\\)となり、\\(n=6\\)を得る。したがって、答えは6である。"
+      "正しい。高速化率は、並列化できない部分と並列化できる部分を合わせて、\\(E=1/\\{(1-r)+r/n\\}\\)で求める。\\(r\\)は並列化できる処理の割合、\\(n\\)はプロセッサの台数である。\\(r=0.9\\)の高速化率が\\(r=0.3\\)の3倍になる条件は、\\[\\frac{1}{0.1+0.9/n}=3\\times\\frac{1}{0.7+0.3/n}\\]である。両辺を整理すると、\\(0.7+0.3/n=0.3+2.7/n\\)となるため、\\(n=6\\)を得る。したがって、答えは6である。"
     ],
     "original_question_id": "58d980747dd2be46",
     "question_url": "https://www.nw-siken.com/kakomon/24_aki/am2_23.html",
@@ -273,7 +273,113 @@
     "sourceRecordRef": "question_201202_3.json#2",
     "explanationReferences": [],
     "questionLearningPatternId": "calculation",
-    "suggestedQuestionDetailsByChoice": []
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "マルチプロセッサによる並列処理の高速化率を計算する工学・計算機構成の問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "高速化率の計算結果は6であり、3ではない。",
+          "promptContext": "技術・計算問題。",
+          "refs": [],
+          "verdict": "選択肢「3」は間違い。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令を直接適用しない計算問題として確認した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "高速化率の計算結果は6であり、4ではない。",
+          "promptContext": "技術・計算問題。",
+          "refs": [],
+          "verdict": "選択肢「4」は間違い。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令を直接適用しない計算問題として確認した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "高速化率の計算結果は6であり、5ではない。",
+          "promptContext": "技術・計算問題。",
+          "refs": [],
+          "verdict": "選択肢「5」は間違い。"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令を直接適用しない計算問題として確認した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "高速化率の条件式を解くと、プロセッサの台数は6となる。",
+          "promptContext": "技術・計算問題。",
+          "refs": [],
+          "verdict": "選択肢「6」は正しい。"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令を直接適用しない計算問題として確認した。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [

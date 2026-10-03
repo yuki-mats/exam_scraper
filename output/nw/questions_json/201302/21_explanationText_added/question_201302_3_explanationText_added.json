@@ -1,33 +1,142 @@
 [
   {
     "explanationText": [
-      "正しい。\n\nDNS amp 攻撃は、外部から再帰問合せに応答してしまう公開 DNS キャッシュサーバを踏み台に悪用する。したがって、キャッシュサーバを権威 DNS と分離し、インターネット側から再帰問合せを受け付けないように制限するのが有効である。",
-      "間違い。\n\nWhois データベースの確認はドメイン登録情報の把握には使えるが、DNS amp の踏み台防止策にはならない。",
-      "間違い。\n\n一つのレコードへ複数 IP アドレスを割り当てるのは負荷分散の考え方であり、再帰問合せの悪用防止とは無関係である。",
-      "間違い。\n\n他 DNS サーバから受け取るデータの署名検証は DNSSEC の方向の話であり、再帰問合せを使った増幅攻撃の踏み台防止策そのものではない。"
-    ],
-    "suggestedQuestions": [
-      "DNS ampは何を踏み台にしますか？",
-      "なぜ再帰問合せを外部へ開放すると危険ですか？",
-      "DNSSECとは何が違いますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "DNS ampは何を踏み台にしますか？",
-        "answer": "外部から再帰問合せに応答する公開 DNS キャッシュサーバを踏み台にする。"
-      },
-      {
-        "question": "なぜ再帰問合せを外部へ開放すると危険ですか？",
-        "answer": "送信元を偽装した大量問合せに対して大きな応答を返し、第三者への DDoS に加担してしまうからである。"
-      },
-      {
-        "question": "DNSSECとは何が違いますか？",
-        "answer": "DNSSEC は応答データの真正性確認であり、DNS amp 対策は不要な再帰問合せを受け付けない設定が中心である。"
-      }
+      "正しい。DNS ampは、攻撃者が送信元IPアドレスを被害者に偽装して、公開された再帰DNSサーバへ問い合わせ、大きな応答を被害者へ反射・増幅させる攻撃である。キャッシュサーバとコンテンツサーバを分離し、インターネット側からキャッシュサーバへの再帰問い合わせを受け付けないようにすると、DNSサーバが踏み台として悪用されにくい。",
+      "間違い。Whoisデータベースはドメインの登録情報を確認するためのものであり、DNSサーバが外部からの再帰問い合わせに応答する設定は制限できない。選択肢はドメイン情報の確認を挙げているため、DNS ampの踏み台防止策にはならない。",
+      "間違い。1つのDNSレコードに複数のIPアドレスを設定する方法は、アクセス先を分散する負荷分散策である。再帰問い合わせを外部へ応答する設定は変わらないため、選択肢はアクセス分散を踏み台防止策としている点で誤りである。",
+      "間違い。デジタル署名でDNS情報の正当性を確認するのは、DNSSECによって偽の応答を検出するための対策である。DNS ampでは再帰DNSサーバが外部の問い合わせに応答することが問題なので、選択肢はDNS情報の改ざん検証を踏み台防止策としているため誤りである。"
     ],
     "original_question_id": "acee503d0b3aed51",
     "question_url": "https://www.nw-siken.com/kakomon/25_aki/am2_21.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201302:acee503d0b3aed51",
+    "reviewQuestionId": "acee503d0b3aed51",
+    "sourceRecordRef": "question_201302_3.json#0",
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-10-03",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc5358.html",
+        "title": "RFC 5358: Preventing Use of Recursive Nameservers in Reflector Attacks"
+      }
+    ],
+    "questionLearningPatternId": "mechanisms_reasons",
+    "suggestedQuestionDetailsByChoice": [
+      {
+        "choiceIndex": 0,
+        "items": [
+          {
+            "answer": "IPアドレスによるアクセス制御リストや受信インターフェースで利用者を限定する方法がある。必要に応じてTSIGやSIG(0)で問い合わせ元を認証し、外部ネットワークには再帰サービスを提供しない。",
+            "question": "正当な利用者には再帰問い合わせを許可しつつ、DNSサーバをDNS ampの踏み台にされにくくするにはどう設定するか。"
+          }
+        ]
+      }
+    ],
+    "isLawRelated": false,
+    "lawContextForExplanation": "DNSの設定とネットワークセキュリティに関する技術問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行法判定の法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "DNS ampの踏み台防止策は、外部からの再帰問い合わせを制限する設定である。",
+          "promptContext": "ネットワーク技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "技術知識で判定する選択肢であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行法判定の法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "Whoisはドメイン登録情報の確認に用いるもので、DNSの再帰問い合わせ制限にはならない。",
+          "promptContext": "ネットワーク技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判定する選択肢であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行法判定の法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "複数IPアドレスによる負荷分散は、DNSサーバの外部再帰問い合わせを制限しない。",
+          "promptContext": "ネットワーク技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判定する選択肢であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "出題時判定と現行法判定の法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "DNSSECはDNS情報の改ざん検証に用いるもので、DNS ampの踏み台防止策ではない。",
+          "promptContext": "ネットワーク技術問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "技術知識で判定する選択肢であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "not_applicable",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
@@ -91,62 +200,245 @@
   },
   {
     "explanationText": [
-      "間違い。\n\na=0.1 のとき性能 P は n を無限大へ近づけると 1/a = 10 に近づくため、上限は 5 ではない。",
-      "正しい。\n\nP = n / {1 + (n - 1)a} に a=0.1 を代入すると、P = n / (0.9 + 0.1n) = 10n / (9 + n) となる。n を十分大きくすると 10n/(9+n) は 10 に近づくので、性能の上限は 10 である。",
-      "間違い。\n\n15 には近づかず、分母の 0.1n が支配的になる極限では 10 が上限になる。",
-      "間違い。\n\n20 は a=0.05 のような場合に近い値であり、この条件では上限にならない。"
-    ],
-    "suggestedQuestions": [
-      "なぜ上限が1/aで決まりますか？",
-      "nを無限大に近づけると何が残りますか？",
-      "オーバーヘッドaは何を表しますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "なぜ上限が1/aで決まりますか？",
-        "answer": "n が大きい極限では分母の a n 項が支配的になり、P は n/(a n) で 1/a に近づくからである。"
-      },
-      {
-        "question": "nを無限大に近づけると何が残りますか？",
-        "answer": "定数項の影響が小さくなり、オーバーヘッドに対応する係数 a が上限を決める。"
-      },
-      {
-        "question": "オーバーヘッドaは何を表しますか？",
-        "answer": "CPU 台数増加に伴って発生する同期や通信など、性能向上を妨げる追加負荷を表す。"
-      }
+      "正しい。性能は次の式で表される。\n\\[P=\\frac{n}{1+(n-1)a}\\]\nここで、\\(n\\)はCPU台数、\\(a\\)はオーバーヘッドを表す定数である。\\(a=0.1\\)を代入すると、\n\\[P=\\frac{n}{1+0.1(n-1)}=\\frac{n}{0.9+0.1n}\\]\nとなる。分子と分母を\\(n\\)で割ると、\\(n\\)を無限大に近づけたとき、\n\\[P\\to\\frac{1}{0.1}=10\\]\nである。したがって、性能の上限は10倍である。"
     ],
     "original_question_id": "48ec0beb7beb79bf",
     "question_url": "https://www.nw-siken.com/kakomon/25_aki/am2_24.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201302:48ec0beb7beb79bf",
+    "reviewQuestionId": "48ec0beb7beb79bf",
+    "sourceRecordRef": "question_201302_3.json#3",
+    "explanationReferences": [],
+    "questionLearningPatternId": "calculation",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "CPUの性能式とオーバーヘッドから上限を求める工学的な問題で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はCPU性能式の計算結果10と一致しない。",
+          "promptContext": "技術・計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。CPU性能式による技術判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はCPU性能式の極限計算結果10と一致する。",
+          "promptContext": "技術・計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "法令監査対象外。CPU性能式による技術判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はCPU性能式の極限計算結果10と一致しない。",
+          "promptContext": "技術・計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。CPU性能式による技術判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令改正差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢はCPU性能式の極限計算結果10と一致しない。",
+          "promptContext": "技術・計算問題。",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "法令監査対象外。CPU性能式による技術判定。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   },
   {
     "explanationText": [
-      "間違い。\n\nクラス定義を引き継ぐことは継承やインヘリタンスに関する説明であり、インスタンスという用語ではない。",
-      "正しい。\n\n汎化は、複数の下位クラスに共通する属性や操作を抽出して上位クラスを定義することをいう。バスやトラックの共通部分をまとめて自動車クラスとするのがこれに当たる。",
-      "間違い。\n\nバスやトラックは自動車に対する下位クラスであり、上位クラスに対するオブジェクトという説明は不適切である。",
-      "間違い。\n\n特化は上位クラスから下位クラスを導くことであり、各クラスの違いをまとめて自動車クラスとする説明ではない。"
-    ],
-    "suggestedQuestions": [
-      "汎化とは何ですか？",
-      "特化との違いは何ですか？",
-      "クラスとオブジェクトの違いは何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "汎化とは何ですか？",
-        "answer": "複数クラスの共通点をまとめて、より一般的な上位クラスを定義することである。"
-      },
-      {
-        "question": "特化との違いは何ですか？",
-        "answer": "汎化は下位から上位へまとめる方向、特化は上位から具体的な下位クラスへ分ける方向である。"
-      },
-      {
-        "question": "クラスとオブジェクトの違いは何ですか？",
-        "answer": "クラスは設計図、オブジェクトはそのクラスから生成された具体的な実体である。"
-      }
+      "間違い。正しくは、クラス定義を引き継ぐことは継承（インヘリタンス）という。選択肢はこの関係をインスタンスとしているため誤りである。",
+      "正しい。汎化は、複数の下位クラスに共通する属性や操作を抽出して上位クラスを定義することである。バスやトラックの共通部分を自動車クラスとしてまとめる関係が汎化に当たる。",
+      "間違い。正しくは、バスやトラックは自動車クラスを具体化した下位クラスである。インスタンスはクラスから生成された個々のオブジェクトを指すため、選択肢はクラスとオブジェクトを混同しており誤りである。",
+      "間違い。正しくは、特化は上位クラスの共通定義から、性質を追加した下位クラスを定義することである。選択肢は各クラスの違いを自動車クラスにまとめるとしているため誤りであり、その関係は汎化である。"
     ],
     "original_question_id": "2689bcc909ec8305",
     "question_url": "https://www.nw-siken.com/kakomon/25_aki/am2_25.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:201302:2689bcc909ec8305",
+    "reviewQuestionId": "2689bcc909ec8305",
+    "sourceRecordRef": "question_201302_3.json#4",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": [],
+    "isLawRelated": false,
+    "lawContextForExplanation": "UMLのクラス間関係に関する技術論点で、法令条文を根拠にしない。",
+    "lawReferences": [
+      [],
+      [],
+      [],
+      []
+    ],
+    "lawRevisionFacts": [
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の正誤はUMLの継承とインスタンスの定義で判断できる。",
+          "promptContext": "選択肢1の技術内容確認",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "UML用語の技術問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "正しい"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の正誤はUMLの汎化の定義で判断できる。",
+          "promptContext": "選択肢2の技術内容確認",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "正しい"
+        },
+        "notes": [
+          "UML用語の技術問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の正誤はUMLにおけるクラスとオブジェクトの区別で判断できる。",
+          "promptContext": "選択肢3の技術内容確認",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "UML用語の技術問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      },
+      {
+        "answerImpactFacts": [],
+        "auditStatus": "not_law_related",
+        "current": {
+          "correctChoiceText": "間違い"
+        },
+        "differenceFacts": [],
+        "evidenceSummary": {
+          "differenceSummary": "法令差分なし。",
+          "displayRefIds": [],
+          "explanationText": "この選択肢の正誤はUMLにおける汎化と特化の関係で判断できる。",
+          "promptContext": "選択肢4の技術内容確認",
+          "refs": [],
+          "verdict": "not_law_related"
+        },
+        "examTime": {
+          "correctChoiceText": "間違い"
+        },
+        "notes": [
+          "UML用語の技術問題であり、法令監査対象外。"
+        ],
+        "reconciliationStatus": "reconciled",
+        "reviewState": "secondary_verified"
+      }
+    ]
   }
 ]

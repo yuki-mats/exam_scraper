@@ -31,63 +31,34 @@
   },
   {
     "explanationText": [
-      "正しい。\n\n配列でリストを実現する場合、最大要素数を見込んだ連続領域を先に確保することが多い。実際の要素数が少ないと未使用領域が発生し得る。",
-      "間違い。\n\n先頭から順にたどる必要があるのはポインタでつないだリストの特徴である。配列なら添字で中間要素へ直接アクセスしやすい。",
-      "間違い。\n\n次要素へのポインタ領域が必要なのは連結リスト側の特徴である。配列実装のリストでは通常不要である。",
-      "間違い。\n\n配列実装では途中挿入時に後続要素のシフトが必要になりやすく、一定時間で済むとは限らない。"
-    ],
-    "suggestedQuestions": [
-      "配列リストの長所と短所は何ですか？",
-      "連結リストとの違いは何ですか？",
-      "なぜ挿入で要素移動が発生するのですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "配列リストの長所と短所は何ですか？",
-        "answer": "添字による高速アクセスがしやすい一方、事前確保領域の無駄や途中挿入・削除時の要素移動が弱点になる。"
-      },
-      {
-        "question": "連結リストとの違いは何ですか？",
-        "answer": "配列リストは連続領域へ格納し、連結リストは要素とポインタで構成する。アクセス性と挿入削除の特性が異なる。"
-      },
-      {
-        "question": "なぜ挿入で要素移動が発生するのですか？",
-        "answer": "配列では要素が連続配置されているため、途中へ新要素を入れるには後ろの要素を1つずつずらして空きを作る必要があるからである。"
-      }
+      "正しい。",
+      "間違い。正しくは、配列で実現したリストでは、添字によって中間要素を直接参照しやすい。選択肢は、先頭から順番に要素をたどる必要があるとしているため誤りである。",
+      "間違い。正しくは、次の要素を指し示すための領域が必要なのは、要素とポインタを組み合わせるポインタ実装である。選択肢は、配列で実現したリストにもその領域が必要としているため誤りである。",
+      "間違い。正しくは、配列で実現したリストの中間に要素を挿入すると、後続要素を移動させる必要があるため、要素数に応じて時間がかかる。選択肢は、挿入位置が分かれば要素数にかかわらず一定時間で挿入できるとしているため誤りである。"
     ],
     "original_question_id": "8e945667cdc68d39",
     "question_url": "https://www.nw-siken.com/kakomon/04_haru/am1_2.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202201:8e945667cdc68d39",
+    "reviewQuestionId": "8e945667cdc68d39",
+    "sourceRecordRef": "question_202201_1.json#1",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
-      "間違い。\n\nC は波括弧 `{}` でブロック範囲を表す。字下げは可読性のためで、構文上のブロック指定ではない。",
-      "間違い。\n\nJava も波括弧でブロックを指定する。インデントだけではブロック範囲は決まらない。",
-      "間違い。\n\nPHP も波括弧や予約語で構造を表す。等しい字下げ量そのものがブロック定義になる言語ではない。",
-      "正しい。\n\nPython はインデントが構文要素であり、同じ字下げ量を持つ行のまとまりでブロックを表す。明示的な波括弧を使わないのが特徴である。"
-    ],
-    "suggestedQuestions": [
-      "Python でインデントが重要なのはなぜですか？",
-      "C や Java との違いは何ですか？",
-      "Python のブロック開始はどこで分かりますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "Python でインデントが重要なのはなぜですか？",
-        "answer": "インデント自体が構文として扱われ、処理の入れ子やブロック範囲を決めるからである。ずれると意味が変わる。"
-      },
-      {
-        "question": "C や Java との違いは何ですか？",
-        "answer": "C や Java は主に波括弧でブロックを定義するのに対し、Python は字下げでブロックを表す。"
-      },
-      {
-        "question": "Python のブロック開始はどこで分かりますか？",
-        "answer": "通常は `if` や `for`、`def` などの末尾にコロン `:` があり、その次のインデントされた行群がブロックになる。"
-      }
+      "正しい。Pythonは、波括弧や予約語ではなく、同じ字下げ量（インデント）のまとまりでブロックを表す。C、Java、PHPなどでは、通常、波括弧や予約語によってブロックの範囲を指定するため、字下げだけでは構文上のブロックは決まらない。"
     ],
     "original_question_id": "502d7f33e8738e26",
     "question_url": "https://www.nw-siken.com/kakomon/04_haru/am1_3.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202201:502d7f33e8738e26",
+    "reviewQuestionId": "502d7f33e8738e26",
+    "sourceRecordRef": "question_202201_1.json#2",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -271,33 +242,20 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nFTP は制御・データ転送とも通常 TCP を使う。UDP 利用の代表例ではない。",
-      "正しい。\n\nNTP は時刻同期のため通常 UDP 123 番ポートを使う。軽量な要求応答で済むため UDP が適している。",
-      "間違い。\n\nPOP3 はメール受信プロトコルであり、通常 TCP を使う。",
-      "間違い。\n\nTELNET も対話型の端末接続プロトコルとして TCP を用いる。"
-    ],
-    "suggestedQuestions": [
-      "NTP が UDP を使う理由は何ですか？",
-      "TCP を使う代表的なアプリ層プロトコルは？",
-      "UDP と TCP の使い分けは？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "NTP が UDP を使う理由は何ですか？",
-        "answer": "時刻同期では小さな要求応答を低オーバーヘッドでやり取りできればよく、接続確立不要な UDP が向いているからである。"
-      },
-      {
-        "question": "TCP を使う代表的なアプリ層プロトコルは？",
-        "answer": "FTP、POP3、TELNET、HTTP、SMTP などが代表例である。信頼性や順序保証が必要な場面で使われる。"
-      },
-      {
-        "question": "UDP と TCP の使い分けは？",
-        "answer": "信頼性や再送制御を重視するなら TCP、低遅延や軽量性を重視し、多少の欠落を許容できるなら UDP を選びやすい。"
-      }
+      "間違い。FTPは制御用接続とデータ転送用接続のいずれも通常TCPを使う。選択肢はFTPをUDP使用としているため誤りである。",
+      "正しい。NTPは時刻同期のため通常UDPの123番ポートを使う。",
+      "間違い。POP3はメール受信プロトコルで、通常TCPを使う。選択肢はPOP3をUDP使用としているため誤りである。",
+      "間違い。TELNETは対話型の端末接続プロトコルで、通常TCPを使う。選択肢はTELNETをUDP使用としているため誤りである。"
     ],
     "original_question_id": "1ad37c9a8bfdf117",
     "question_url": "https://www.nw-siken.com/kakomon/04_haru/am1_10.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202201:1ad37c9a8bfdf117",
+    "reviewQuestionId": "1ad37c9a8bfdf117",
+    "sourceRecordRef": "question_202201_1.json#9",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -361,33 +319,20 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nクライアント証明書は利用者 PC から提示されるものであり、サーバ側から PC へ送るものではない。",
-      "間違い。\n\nWeb サーバが直接クライアント証明書を受け取る構成ではなく、認証を行うのはリバースプロキシ側である。",
-      "間違い。\n\nSSO 構成では利用者 PC が各 Web サーバへ直接利用者 ID を渡すのではなく、認証済み情報をプロキシが引き継ぐ。",
-      "正しい。\n\nリバースプロキシ型 SSO では、クライアント証明書で利用者認証した後、リバースプロキシが利用者 ID などの属性情報を各 Web サーバへ渡して連携させる。"
-    ],
-    "suggestedQuestions": [
-      "リバースプロキシ型 SSO の流れは？",
-      "クライアント証明書は誰が提示しますか？",
-      "各 Web サーバは何を信頼しますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "リバースプロキシ型 SSO の流れは？",
-        "answer": "利用者はまずリバースプロキシで認証され、プロキシが認証済み属性をバックエンド Web サーバへ渡すことで再認証を省く。"
-      },
-      {
-        "question": "クライアント証明書は誰が提示しますか？",
-        "answer": "利用者 PC やブラウザが TLS ハンドシェイクの中で提示する。認証サーバや Web サーバから送り込むものではない。"
-      },
-      {
-        "question": "各 Web サーバは何を信頼しますか？",
-        "answer": "前段のリバースプロキシが行った認証結果と、そのプロキシから付与される利用者属性情報を信頼する。"
-      }
+      "間違い。正しくは、クライアント証明書は利用者のPCから認証側のサーバへ送信される。選択肢はリバースプロキシサーバから利用者のPCへ送信するとしているため誤りである。",
+      "間違い。正しくは、利用者のPCがクライアント証明書をリバースプロキシサーバへ提示し、リバースプロキシサーバが利用者を認証する。選択肢はWebサーバがクライアント証明書を受け取るとしているため誤りである。",
+      "間違い。正しくは、認証済みの利用者IDなどを各Webサーバへ送信するのはリバースプロキシサーバである。選択肢は利用者のPCがWebサーバへ直接送信するとしているため誤りである。",
+      "正しい。リバースプロキシサーバがクライアント証明書で利用者を認証し、その利用者IDなどの情報を各Webサーバへ渡すことで、複数のWebサーバへのシングルサインオンを実現する。"
     ],
     "original_question_id": "65e291856e1030c2",
     "question_url": "https://www.nw-siken.com/kakomon/04_haru/am1_13.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202201:65e291856e1030c2",
+    "reviewQuestionId": "65e291856e1030c2",
+    "sourceRecordRef": "question_202201_1.json#12",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
@@ -691,33 +636,17 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nIRR は内部収益率であり、何年で回収するかを直接示す指標ではない。",
-      "間違い。\n\nNPV は現在価値ベースで投資価値を金額評価する指標であり、回収年数そのものではない。",
-      "正しい。\n\nPBP は Pay Back Period で、初期投資額をキャッシュフローで何年後に回収できるかを見る指標である。設問の説明と一致する。",
-      "間違い。\n\nROI は投資利益率であり、利益額を投資額で割った比率で評価する。回収期間ではない。"
-    ],
-    "suggestedQuestions": [
-      "PBP は何を測る指標ですか？",
-      "IRR や NPV との違いは何ですか？",
-      "PBP の弱点は何ですか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "PBP は何を測る指標ですか？",
-        "answer": "投資で出ていった資金を、将来のキャッシュインで何年かけて回収できるかを測る。"
-      },
-      {
-        "question": "IRR や NPV との違いは何ですか？",
-        "answer": "PBP は回収期間、IRR は内部収益率、NPV は正味現在価値であり、判断軸がそれぞれ異なる。"
-      },
-      {
-        "question": "PBP の弱点は何ですか？",
-        "answer": "回収後の利益や貨幣の時間価値を十分に反映しないため、単独では投資価値を総合判断しにくい。"
-      }
+      "正しい。該当する指標はPBP（Pay Back Period：回収期間）である。初年度の投資によるキャッシュアウトを、将来のキャッシュフローで何年後に回収できるかを示す。IRRは投資の収益率、NPVは将来キャッシュフローの現在価値から投資額を差し引いた正味現在価値、ROIは投資額に対する利益の割合を表すため、回収年数を直接示すPBPとは役割が異なる。"
     ],
     "original_question_id": "932e703fd475fb12",
     "question_url": "https://www.nw-siken.com/kakomon/04_haru/am1_24.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "sourceQuestionKey": "nw:202201:932e703fd475fb12",
+    "reviewQuestionId": "932e703fd475fb12",
+    "sourceRecordRef": "question_202201_1.json#23",
+    "explanationReferences": [],
+    "questionLearningPatternId": "differences_relationships",
+    "suggestedQuestionDetailsByChoice": []
   },
   {
     "explanationText": [
