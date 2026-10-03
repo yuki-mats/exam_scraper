@@ -24,6 +24,40 @@ RUN_LIVE_TESTS = os.environ.get("RUN_LIVE_TESTS") == "1"
 
 
 class ScrapeSgsikenTests(unittest.TestCase):
+    def test_inline_math_keeps_complements_powers_indices_and_stable_ids(self):
+        html = """<h2>ネットワークスペシャリスト令和元年秋期 午前Ⅰ 問1</h2>
+        <h3 class="qno">問1</h3>
+        <div id="mondai"><span class="ol">A</span>∩<span class="ol">B</span>に等しい集合はどれか。<br>2<sup>3</sup>とX<sub>1</sub>を用いる。</div>
+        <ul class="selectList">
+        <li><button class="selectBtn">ア</button><span id="select_a"><span class="ol">A</span>－B</span></li>
+        <li><button class="selectBtn">イ</button><span id="select_i">(A∪B)－(A∩B)</span></li>
+        </ul><div class="answerBox"><span id="answerChar">ア</span></div>
+        <div id="kaisetsu">否定は<span class="ol">A</span>で表す。</div>"""
+        url = "https://www.nw-siken.com/kakomon/01_aki/am1_1.html"
+        identity = {"source_question_id": f"201902:am:問1:{url}",
+                    "public_question_id": "stable-public", "original_question_id": "stable-original"}
+        record = parse_q_question_page(html, url, http_session=None, download_images=False,
+                                      output_list_group_id="201902", existing_identity=identity)
+        self.assertEqual(record["questionBodyText"], "A̅∩B̅に等しい集合はどれか。2³とX₁を用いる。")
+        self.assertEqual(record["choiceTextList"], ["A̅－B", "(A∪B)－(A∩B)"])
+        self.assertEqual(record["answer_result_inferred_correct_choice_numbers"], [1])
+        self.assertIn("A̅", record["explanation_choice_snippets"][0][0])
+        for field, value in identity.items():
+            self.assertEqual(record[field], value)
+
+    def test_inline_math_span_does_not_truncate_unwrapped_choice(self):
+        from bs4 import BeautifulSoup
+        from scrape_sgsiken import extract_choice_text_from_li
+        from scripts.scrape.common import extract_text_with_subsup
+
+        li = BeautifulSoup('<li><button class="selectBtn">ア</button><span class="ol">A</span>－B</li>', 'html.parser').li
+        original = str(li)
+        self.assertEqual(extract_choice_text_from_li(li, "ア"), "A̅－B")
+        self.assertEqual(str(li), original)
+        node = BeautifulSoup('<span class="ol">A</span>', 'html.parser').span
+        self.assertEqual(extract_text_with_subsup(node), "A")
+        self.assertEqual(extract_text_with_subsup(node, overline_classes=("ol",)), "A̅")
+
     def test_question_number_excludes_heading_tools_and_keeps_existing_ids(self):
         html = """<h2>ネットワークスペシャリスト令和7年春期 午前Ⅰ 問1</h2>
         <h3 class="qno">問1<div class="tool-box">note_alt calculate</div></h3>

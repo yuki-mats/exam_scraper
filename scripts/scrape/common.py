@@ -480,11 +480,14 @@ def to_subscript(text: str) -> str:
     return "".join(SUBSCRIPT_MAP.get(ch, SUBSCRIPT_MAP.get(ch.lower(), ch)) for ch in text)
 
 
-def extract_text_with_subsup(element: Tag | NavigableString) -> str:
+def extract_text_with_subsup(
+    element: Tag | NavigableString, *, overline_classes: Iterable[str] = ()
+) -> str:
     """
-    Extract text while preserving <sub>/<sup> as Unicode sub/superscripts.
+    Preserve inline mathematical notation and block boundaries as Unicode text.
     """
     block_tags = {"p", "div", "tr", "td", "th", "li"}
+    overline_class_set = set(overline_classes)
 
     def render(node: Tag | NavigableString) -> str:
         if isinstance(node, NavigableString):
@@ -500,6 +503,18 @@ def extract_text_with_subsup(element: Tag | NavigableString) -> str:
                 inner = "".join(render(child) for child in node.children).strip()
                 return to_superscript(inner)
             text = "".join(render(child) for child in node.children)
+            if (
+                overline_class_set.intersection(node.get("class") or [])
+                or re.search(
+                    r"text-decoration(?:-line)?\s*:\s*[^;]*\boverline\b",
+                    str(node.get("style") or ""),
+                    re.IGNORECASE,
+                )
+            ):
+                text = "".join(
+                    char + "\u0305" if not char.isspace() and not unicodedata.combining(char) else char
+                    for char in text
+                )
             if name in block_tags:
                 return text + "\n"
             return text

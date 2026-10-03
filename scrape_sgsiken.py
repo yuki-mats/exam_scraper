@@ -291,19 +291,27 @@ def marker_list_from_q_page(choice_items: list[Tag]) -> list[str]:
     return markers
 
 
+def extract_q_text(element: Tag | None) -> str:
+    # nw/sg-siken の .ol は補集合や論理否定を表す上線であり、装飾ではない。
+    return normalize_question_body_text(
+        extract_text_with_subsup(element, overline_classes=("ol",)) if element else ""
+    )
+
+
 def extract_choice_text_from_li(li: Tag, marker: str) -> str:
     """
     li から選択肢本文を抽出する。
-    - spanが無い/空のケースがあるため、li全体テキストから marker を除去して本文にする。
+    - 選択ボタンだけを除き、数式の一部を囲むspanも含めて本文全体を読む。
     """
-    span = li.find("span")
-    span_text = normalize_question_body_text(span.get_text("\n", strip=True) if span else "")
-    if span_text:
-        return span_text
-
-    li_text = normalize_question_body_text(li.get_text("\n", strip=True))
+    copied = BeautifulSoup(str(li), "html.parser").find("li")
+    buttons = copied.find_all("button", class_="selectBtn")
+    for button in buttons:
+        button.decompose()
+    li_text = extract_q_text(copied)
     if not li_text:
         return ""
+    if buttons:
+        return li_text
 
     lines = [line.strip() for line in li_text.split("\n") if line.strip()]
     if lines and marker and lines[0] == marker:
@@ -368,16 +376,16 @@ def parse_q_explanation_fields(
             explanation_items.append(li)
 
     choice_texts = [
-        normalize_question_body_text(li.get_text("\n", strip=True))
+        extract_q_text(li)
         for li in explanation_items
-        if normalize_question_body_text(li.get_text("\n", strip=True))
+        if extract_q_text(li)
     ]
     prefix_parts: list[str] = []
     for child in kaisetsu.children:
         if isinstance(child, Tag) and child.name == "ul":
             break
         if isinstance(child, Tag):
-            text = normalize_question_body_text(child.get_text("\n", strip=True))
+            text = extract_q_text(child)
             if text:
                 prefix_parts.append(text)
 
@@ -385,7 +393,7 @@ def parse_q_explanation_fields(
         snippets = [[text] if text else [] for text in choice_texts]
         return prefix_parts, None, [], snippets, [None for _ in range(choice_count)]
 
-    fallback = normalize_question_body_text(kaisetsu.get_text("\n", strip=True))
+    fallback = extract_q_text(kaisetsu)
     snippets = [[fallback] if fallback else [] for _ in range(choice_count)]
     return prefix_parts, None, [], snippets, [None for _ in range(choice_count)]
 
@@ -424,7 +432,7 @@ def parse_q_question_page(
         question_label = f"問{question_number.group(1)}"
 
     mondai = soup.find(id="mondai")
-    question_body_text = normalize_question_body_text(mondai.get_text("\n", strip=True) if mondai else "")
+    question_body_text = extract_q_text(mondai)
     if not question_body_text:
         return None
 
