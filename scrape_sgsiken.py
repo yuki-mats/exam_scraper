@@ -827,6 +827,26 @@ def find_pm_question_number(soup: BeautifulSoup) -> str:
     return m.group(1) if m else ""
 
 
+def pm_answer_and_explanation(input_box: Tag) -> tuple[Tag, Tag | None]:
+    """現在の解答欄から次の設問までを読み、ラッパー階層に依存せず対応を確定する。"""
+    answer = None
+    for tag in input_box.find_all_next():
+        classes = tag.get("class", [])
+        if "inputAnswerBox" in classes or "mondai" in classes or (tag.name == "h3" and re.match(r"(?:設問|問)\s*[0-9０-９]+", tag.get_text(strip=True))):
+            break
+        if "answerChars" in classes:
+            if answer is not None:
+                raise ValueError("同じ解答欄の正答ブロックが重複しています")
+            answer = tag
+        if "kaisetsu" in classes:
+            if answer is None:
+                raise ValueError("正答より前に解説ブロックがあります")
+            return answer, tag
+    if answer is None:
+        raise ValueError("現在の解答欄の正答がありません")
+    return answer, None
+
+
 def parse_pm_question_page(
     html_text: str,
     page_url: str,
@@ -871,10 +891,19 @@ def parse_pm_question_page(
         sub_no_match = re.match(r"^\((\d+)\)", normalize_digits(statement_text).strip())
         sub_no = sub_no_match.group(1) if sub_no_match else ""
 
-        answer_chars = input_box.find_next("div", class_="answerChars")
-        if answer_chars is None:
-            continue
+        answer_chars, explanation_div = pm_answer_and_explanation(input_box)
         answer_map = parse_answer_map_from_answer_chars(answer_chars)
+        explanation_text = extract_q_text(explanation_div)
+        if "この設問の解説はまだありません" in explanation_text:
+            explanation_text = ""
+        explanation_source_images = extract_image_urls_from_element(explanation_div, page_url)
+        explanation_image_filenames = (
+            download_and_save_images(
+                http_session, explanation_source_images,
+                f"pm{output_list_group_id}_q{pm_question_no or 'x'}_s{setumon_no or 'x'}_{sub_no or 'x'}_exp",
+                base_dir=IMAGE_OUTPUT_DIR or ".",
+            ) if download_images and explanation_source_images else []
+        )
 
         select_block = input_box.find_previous("div", class_=lambda c: c and "select" in c.split())
         question_image_urls: list[str] = []
@@ -939,17 +968,6 @@ def parse_pm_question_page(
             )
             answer_result_text = build_answer_result_text(answer_numbers)
 
-            explanation_div = answer_chars.find_next_sibling("div", class_="kaisetsu")
-            explanation_text = ""
-            if explanation_div is not None:
-                explanation_text = normalize_question_body_text(explanation_div.get_text("\n", strip=True))
-                if "この設問の解説はまだありません" in explanation_text:
-                    explanation_text = ""
-            explanation_choice_snippets = [
-                [explanation_text] if explanation_text else []
-                for _ in range(len(choice_text_list))
-            ]
-
             label_parts = []
             if pm_question_no:
                 label_parts.append(f"午後問{pm_question_no}")
@@ -986,10 +1004,12 @@ def parse_pm_question_page(
                     "questionImageStorageUrls": question_image_storage_urls,
                     "questionIntent": question_intent,
                     "correctChoiceText": correct_choice_texts,
-                    "explanation_common_prefix": [],
+                    "explanation_common_prefix": [explanation_text] if explanation_text else [],
                     "explanation_common_prefix_inferred_correct_choice": None,
                     "explanation_common_summary": [],
-                    "explanation_choice_snippets": explanation_choice_snippets,
+                    "explanation_choice_snippets": [[] for _ in choice_text_list],
+                    "explanationImageSourceUrls": explanation_source_images,
+                    "explanationImageStorageUrls": [make_storage_url(name, QUALIFICATION_CODE) for name in explanation_image_filenames],
                     "explanation_choice_correctness": [None for _ in choice_text_list],
                     "answer_result_text": answer_result_text,
                     "answer_result_inferred_correct_choice_numbers": answer_numbers,
@@ -1056,29 +1076,48 @@ def save_validated_source(json_dir: Path, group_id: str, records: list[dict], *,
             not isinstance(answer, int) or not 1 <= answer <= len(choices) for answer in answers
         ):
             raise ValueError(f"取得内容が不完全です: {record['source_question_id']}")
+    by_id = {record["source_question_id"]: record for record in records}
+    old_chunks = {}
+    old_by_id = {}
+    for path in sorted(json_dir.glob("question_*.json"), key=lambda p: int(p.stem.rsplit("_", 1)[-1])):
+        if not re.fullmatch(rf"question_{re.escape(group_id)}_[1-9][0-9]*\.json", path.name):
+            raise ValueError(f"対象回以外のsource fileがあります: {path.name}")
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        chunk = payload.get("question_bodies", [])
+        old_chunks[path] = payload
+        for previous in chunk:
+            source_id = previous.get("source_question_id")
+            if not source_id or source_id in old_by_id:
+                raise ValueError("既存sourceの取得元IDが欠落又は重複しています")
+            old_by_id[source_id] = previous
+    missing = set(old_by_id) - set(by_id)
+    if missing:
+        raise ValueError(f"取得元から消失した既存IDがあります（保存しません）: {sorted(missing)}")
+    for source_id, previous in old_by_id.items():
+        if any(previous.get(key) != by_id[source_id].get(key) for key in ("public_question_id", "original_question_id")):
+            raise ValueError(f"既存IDが変わっています: {source_id}")
+    # 取得順の変化は保存位置の変更理由にしない。既存位置を保持し、新IDだけ末尾へ追加する。
+    chunks = {path: [by_id[r["source_question_id"]] for r in old["question_bodies"]]
+              for path, old in old_chunks.items()}
+    last_index = max((int(path.stem.rsplit("_", 1)[-1]) for path in chunks), default=1)
+    last_path = json_dir / f"question_{group_id}_{last_index}.json"
+    for record in records:
+        if record["source_question_id"] in old_by_id:
+            continue
+        if len(chunks.get(last_path, [])) >= 25:
+            last_index += 1
+            last_path = json_dir / f"question_{group_id}_{last_index}.json"
+        chunks.setdefault(last_path, []).append(record)
     planned = {}
     new_ids, changed_ids, unchanged_ids = [], [], []
-    for start in range(0, len(records), 25):
-        path = json_dir / f"question_{group_id}_{start // 25 + 1}.json"
-        chunk = records[start:start + 25]
-        old = json.loads(path.read_text(encoding="utf-8")) if path.exists() else None
-        old_records = old.get("question_bodies", []) if old else []
-        if old and [r.get("source_question_id") for r in old_records] != [r["source_question_id"] for r in chunk]:
-            raise ValueError(f"既存file内の取得元ID又は順序が変わっています: {path.name}")
-        old_by_id = {r["source_question_id"]: r for r in old_records}
-        for record in chunk:
-            previous = old_by_id.get(record["source_question_id"])
-            if previous and any(previous.get(key) != record.get(key) for key in ("public_question_id", "original_question_id")):
-                raise ValueError(f"既存IDが変わっています: {record['source_question_id']}")
-            target = new_ids if previous is None else unchanged_ids if previous == record else changed_ids
-            target.append(record["source_question_id"])
+    for record in records:
+        previous = old_by_id.get(record["source_question_id"])
+        target = new_ids if previous is None else unchanged_ids if previous == record else changed_ids
+        target.append(record["source_question_id"])
+    for path, chunk in chunks.items():
         payload = {"list_group_id": group_id, "question_bodies": chunk}
-        if payload != old:
+        if payload != old_chunks.get(path):
             planned[path] = payload
-    if set(json_dir.glob("question_*.json")) - set(
-        json_dir / f"question_{group_id}_{i + 1}.json" for i in range((len(records) + 24) // 25)
-    ):
-        raise ValueError("取得一覧にない既存source fileがあります")
     for path, payload in planned.items():
         atomic_write_json(path, payload)
     return {"newSourceQuestionIds": new_ids, "changedSourceQuestionIds": changed_ids, "unchangedSourceQuestionIds": unchanged_ids}
@@ -1098,6 +1137,9 @@ def main() -> int:
         output_list_group_id,
         JSON_SUBDIR_NAME,
     )
+
+    if MAX_QUESTIONS is not None and any(Path(json_output_dir).glob("question_*.json")):
+        raise ValueError("既存sourceの部分上書きはできません。部分取得は別のoutput-dirを使用してください")
 
     global IMAGE_OUTPUT_DIR
     IMAGE_OUTPUT_DIR = image_output_dir

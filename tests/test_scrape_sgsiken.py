@@ -24,6 +24,76 @@ RUN_LIVE_TESTS = os.environ.get("RUN_LIVE_TESTS") == "1"
 
 
 class ScrapeSgsikenTests(unittest.TestCase):
+    def test_partial_scrape_cannot_overwrite_existing_source(self):
+        from scrape_sgsiken import main
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / 'question_202601_1.json'
+            path.write_text('existing source')
+            with patch.dict(os.environ, {'SCRAPER_OUTPUT_LIST_GROUP_ID': '202601'}), \
+                 patch('scrape_sgsiken.load_local_secure_env'), \
+                 patch('scrape_sgsiken.apply_runtime_overrides_from_env'), \
+                 patch('scrape_sgsiken.MAX_QUESTIONS', 1), \
+                 patch('scrape_sgsiken.prepare_output_dirs', return_value=(directory, directory)), \
+                 patch('scrape_sgsiken.fetch_html_text') as fetch:
+                with self.assertRaisesRegex(ValueError, '部分上書き'):
+                    main()
+            self.assertEqual(path.read_text(), 'existing source')
+            fetch.assert_not_called()
+
+    def test_pm_wrapped_answer_keeps_own_explanation_math_lists_and_images(self):
+        html = '''<h2>情報セキュリティマネジメント平成29年秋期 午後問2</h2>
+        <h3 class="qno">問2</h3><div class="mondai">共通本文。</div><h3 id="s1">設問1</h3>
+        <div class="mondai">(1) aとbを答えよ。</div><div class="inputAnswerBox">
+        <select name="sel_a"><option>-</option><option>ア A</option><option>イ B</option></select>
+        <select name="sel_b"><option>-</option><option>ア C</option><option>イ D</option></select></div>
+        <h3>解答 :</h3><div><button>正解</button><div class="answerChars"><span id="ans_a">ア</span><span id="ans_b">イ</span></div></div>
+        <h3>解説 :</h3><div class="kaisetsu">10<sup>4</sup>通り。<ol type="i"><li>理由A。</li><li>理由B。</li></ol><img src="exp.png"></div>
+        <div class="mondai">(2) 次を答えよ。</div><div class="inputAnswerBox"><select name="sel_2">
+        <option>-</option><option>ア E</option><option>イ F</option></select></div>
+        <div><div class="answerChars"><span id="ans_2">イ</span></div></div><div class="kaisetsu">次の設問の理由。</div>'''
+        with patch('scrape_sgsiken.download_and_save_images', return_value=['pm201702_q2_s1_1_exp_img01.png']) as download:
+            records = parse_pm_question_page(html, 'https://www.sg-siken.com/kakomon/29_aki/pm02.html',
+                http_session=None, download_images=True, output_list_group_id='201702')
+        self.assertEqual(len(records), 3)
+        self.assertEqual(download.call_count, 1)
+        for record in records[:2]:
+            self.assertEqual(record['explanation_common_prefix'], ['10⁴通り。i. 理由A。ii. 理由B。'])
+            self.assertEqual(record['explanationImageSourceUrls'], ['https://www.sg-siken.com/kakomon/29_aki/exp.png'])
+            self.assertTrue(record['explanationImageStorageUrls'][0].endswith('pm201702_q2_s1_1_exp_img01.png?alt=media'))
+        self.assertEqual(records[2]['explanation_common_prefix'], ['次の設問の理由。'])
+        self.assertEqual(records[2]['explanationImageStorageUrls'], [])
+
+    def test_pm_missing_answer_cannot_borrow_next_questions_answer(self):
+        html = '''<h2>平成29年秋期 午後問1</h2><h3 class="qno">問1</h3><div class="mondai">共通。</div>
+        <h3 id="s1">設問1</h3><div class="mondai">(1) 一つ選べ。</div><div class="inputAnswerBox">
+        <select name="sel_1"><option>ア A</option><option>イ B</option></select></div>
+        <div class="mondai">(2) 一つ選べ。</div><div class="inputAnswerBox">
+        <select name="sel_2"><option>ア C</option><option>イ D</option></select></div>
+        <div class="answerChars"><span id="ans_2">ア</span></div><div class="kaisetsu">次の問の説明。</div>'''
+        with self.assertRaisesRegex(ValueError, '現在の解答欄の正答'):
+            parse_pm_question_page(html, 'https://www.sg-siken.com/kakomon/29_aki/pm01.html',
+                http_session=None, download_images=False, output_list_group_id='201702')
+
+    def test_source_refresh_adds_new_ids_without_moving_existing_records(self):
+        def record(number):
+            return {'source_question_id': str(number), 'public_question_id': 'public-' + str(number),
+                    'original_question_id': 'original-' + str(number), 'questionBodyText': '本文',
+                    'choiceTextList': ['A', 'B'], 'answer_result_inferred_correct_choice_numbers': [1]}
+        original = [record(n) for n in range(26)]
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            save_validated_source(root, '202601', original, expected_count=26)
+            first = (root / 'question_202601_1.json').read_bytes()
+            result = save_validated_source(root, '202601', [record(99)] + list(reversed(original)), expected_count=27)
+            self.assertEqual(result['newSourceQuestionIds'], ['99'])
+            self.assertEqual((root / 'question_202601_1.json').read_bytes(), first)
+            second = json.loads((root / 'question_202601_2.json').read_text())['question_bodies']
+            self.assertEqual([r['source_question_id'] for r in second], ['25', '99'])
+            snapshot = {p.name: p.read_bytes() for p in root.glob('*.json')}
+            with self.assertRaisesRegex(ValueError, '消失'):
+                save_validated_source(root, '202601', original, expected_count=26)
+            self.assertEqual({p.name: p.read_bytes() for p in root.glob('*.json')}, snapshot)
+
     def test_intent_uses_selection_request_and_not_background_error_words(self):
         from scrape_sgsiken import determine_question_intent
         positive = [

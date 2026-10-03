@@ -161,7 +161,8 @@ def main() -> int:
         # 1問1ファイル型は未取得IDの追加、全ID集合、既存内容を毎回照合する。
         # group単位でskipすると、途中停止後の再開とsite側の追加・変更検知ができない。
         resumable_scraper_types = {"pingt", "keepitup", "udemy"}
-        if already_scraped and not args.force and preset.scraper_type not in resumable_scraper_types:
+        refresh_existing = preset.scraper_type in resumable_scraper_types or preset.qualification_code == "sg"
+        if already_scraped and not args.force and not refresh_existing:
             print(f"[SKIP] list_group_id={output_list_group_id} は既に 00_source があります")
             continue
 
