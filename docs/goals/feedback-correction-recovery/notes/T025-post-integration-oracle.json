@@ -1,0 +1,17 @@
+{
+  "HEAD": "ae09273cfb6a56ea45039c9ee7de3f0f74c4667c",
+  "dirty": "?? docs/goals/feedback-correction-recovery/notes/T025-post-integration-tests.json\n",
+  "startedAt": "2026-10-03T13:36:44.149759+00:00",
+  "finishedAt": "2026-10-03T13:37:43.466901+00:00",
+  "command": [
+    "/Users/yuki/development/exam_scraper_work/.venv/bin/python",
+    "/Users/yuki/development/exam_scraper_feedback/output/user_feedback_response_system/staging/recovery-scoped-2025/verify_integration.py"
+  ],
+  "scriptHashBefore": "b6a3677fd1c2776422b96bfa6359fae40f53a4d3b2a87bdf1bb9f2c22397a8b7",
+  "scriptHashAfter": "b6a3677fd1c2776422b96bfa6359fae40f53a4d3b2a87bdf1bb9f2c22397a8b7",
+  "exitCode": 0,
+  "stdout": "{\"result\": \"pass\", \"runDirectory\": \"/Users/yuki/development/exam_scraper_feedback/output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T024-integration-3455278bf98b\", \"runtimeResult\": \"allowed\", \"strictLawExitCodes\": {\"canonical\": {\"merged\": 1, \"converted\": 1, \"uploadReady\": 1}, \"private\": {\"merged\": 0, \"converted\": 0, \"uploadReady\": 0}}, \"evaluationPerformed\": false, \"canPublish\": false}\n",
+  "stderr": "",
+  "purpose": "post-rebase incoming qualification preset dependencies; regenerate manifests with current input hashes",
+  "fullUnitOrNativeE2ERerun": false
+}

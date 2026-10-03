@@ -1,0 +1,102 @@
+{
+  "HEAD": "ae09273cfb6a56ea45039c9ee7de3f0f74c4667c",
+  "dirty": "",
+  "changedDependencies": [
+    "config/scrape_presets.json",
+    "scripts/scrape/qualification_presets.py",
+    "scripts/scrape/common.py"
+  ],
+  "dependencyHashes": {
+    "config/scrape_presets.json": "46702a9dafc4a071accd6705dd207c9993b7b745670a296701f6e20f168e6802",
+    "scripts/scrape/qualification_presets.py": "b464f4ed201864eb53fe9c1fe5d609f8ee6cf6a6d3778361c196409da19c582b",
+    "scripts/scrape/common.py": "ac9565ba50c78ae399562babdd8dcb4f2292d16525e05e8461ac8043b0d9fae2"
+  },
+  "verificationScope": "incoming qualification/source configuration; related suites sequential, no full E2E repetition",
+  "commands": [
+    {
+      "command": [
+        "/Users/yuki/development/exam_scraper_work/.venv/bin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_scoped_canonical_context.py"
+      ],
+      "startedAt": "2026-10-03T13:34:55.187362+00:00",
+      "finishedAt": "2026-10-03T13:34:58.597494+00:00",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "........\n----------------------------------------------------------------------\nRan 8 tests in 3.325s\n\nOK\n"
+    },
+    {
+      "command": [
+        "/Users/yuki/development/exam_scraper_work/.venv/bin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_question_review_scoped_artifacts.py"
+      ],
+      "startedAt": "2026-10-03T13:34:58.597613+00:00",
+      "finishedAt": "2026-10-03T13:35:03.786491+00:00",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ".....\n----------------------------------------------------------------------\nRan 5 tests in 5.039s\n\nOK\n"
+    },
+    {
+      "command": [
+        "/Users/yuki/development/exam_scraper_work/.venv/bin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_question_review_inventory.py"
+      ],
+      "startedAt": "2026-10-03T13:35:03.786586+00:00",
+      "finishedAt": "2026-10-03T13:35:04.027030+00:00",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "..................................................\n----------------------------------------------------------------------\nRan 50 tests in 0.092s\n\nOK\n"
+    },
+    {
+      "command": [
+        "/Users/yuki/development/exam_scraper_work/.venv/bin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_question_review_projection.py"
+      ],
+      "startedAt": "2026-10-03T13:35:04.027106+00:00",
+      "finishedAt": "2026-10-03T13:35:04.125018+00:00",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "........................\n----------------------------------------------------------------------\nRan 24 tests in 0.005s\n\nOK\n"
+    },
+    {
+      "command": [
+        "/Users/yuki/development/exam_scraper_work/.venv/bin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_question_review_publisher_safety.py"
+      ],
+      "startedAt": "2026-10-03T13:35:04.125124+00:00",
+      "finishedAt": "2026-10-03T13:35:04.853533+00:00",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "................\n----------------------------------------------------------------------\nRan 16 tests in 0.056s\n\nOK\n"
+    }
+  ]
+}
