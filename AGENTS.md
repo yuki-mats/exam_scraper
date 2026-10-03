@@ -60,6 +60,11 @@
 - 修正は責務に応じて `10` / `15` / `18` / `21` / `22` / `23` / `24` のpatch層へ入れる。
 - 標準runnerは成功したscrapeの新規・更新source hashをmanifestへ登録する。scraperを直接実行する場合は、責務に応じて`--record-new`又は`--record-scrape-refresh --scope <00_sourceの相対path>`を実行する。
 
+## ローカル正本とバックアップ
+
+- 全資格の通常運用はローカルcheckoutの実体で完結させる。Google Driveはバックアップ専用とし、実行時の参照先又は保存先にしない。
+- 保存・復旧の詳細は`document/operations/artifact_contract.md`を正本とする。過去のDrive移行記録を現在の通常運用方針として再適用しない。
+
 ## ドキュメント
 
 - 最初に`document/operations/exam_pipeline_manual_and_automation.md`を読み、そこから関心事ごとの正本へ進む。
