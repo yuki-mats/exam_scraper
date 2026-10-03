@@ -814,6 +814,10 @@ def load_existing_identities(group_dir: Path) -> dict[str, dict]:
                 if any(previous[key] != value for key, value in identity.items() if key in previous):
                     raise ValueError(f"既存記録のIDが競合しています: {url}")
                 identities[url] = {**previous, **identity}
+    # 旧sgsikenは同じ公開IDを両fieldへ保存していた。patchにだけ残る
+    # original_question_idも、その取得契約に基づく公開IDのexact aliasである。
+    for identity in identities.values():
+        identity.setdefault("public_question_id", identity["original_question_id"])
     return identities
 
 

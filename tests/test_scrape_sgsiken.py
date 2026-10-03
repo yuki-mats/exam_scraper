@@ -81,6 +81,17 @@ class ScrapeSgsikenTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 load_existing_identities(root)
 
+    def test_legacy_patch_identity_alias_survives_a_changed_id_secret(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / "10_questionType_fixed").mkdir()
+            (root / "10_questionType_fixed" / "question.json").write_text(json.dumps([
+                {"question_url": "https://example.com/q1", "original_question_id": "old-id"}
+            ]))
+            identity = load_existing_identities(root)["https://example.com/q1"]
+            self.assertEqual(identity["public_question_id"], "old-id")
+            self.assertEqual(identity["original_question_id"], "old-id")
+
     def setUp(self) -> None:
         os.environ.setdefault("QUESTION_ID_SECRET_KEY", "test-secret")
 
