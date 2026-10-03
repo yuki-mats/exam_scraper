@@ -1119,7 +1119,9 @@ def main() -> int:
         question_bodies.append(qb)
         print(f"[FETCH] {output_list_group_id} {len(question_bodies)}/{len(q_urls)} {qb['questionLabel']}", flush=True)
 
-    for url in pm_urls:
+    # 記述式午後を資料として別途取得するpresetでは、午前だけを問題JSONにする。
+    include_afternoon = os.environ.get("SCRAPER_INCLUDE_AFTERNOON_QUESTIONS", "1") == "1"
+    for url in pm_urls if include_afternoon else []:
         if not can_add_more():
             break
         html = fetch_html_text(http_session, url)

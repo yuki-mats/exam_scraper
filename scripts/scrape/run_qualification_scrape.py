@@ -231,6 +231,7 @@ def main() -> int:
         env["SCRAPER_QUALIFICATION_NAME"] = preset.qualification_name
         env["SCRAPER_LIST_FIRST_PAGE_URL"] = list_url
         env["SCRAPER_OUTPUT_LIST_GROUP_ID"] = list_group_id
+        env["SCRAPER_INCLUDE_AFTERNOON_QUESTIONS"] = "1" if preset.include_afternoon_questions else "0"
         if preset.scraper_type == "kakomonn":
             env["SCRAPER_SOURCE_REFRESH"] = "1"
             if args.identity_baseline is not None:

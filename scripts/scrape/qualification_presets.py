@@ -24,6 +24,7 @@ class ScrapePreset:
     list_first_page_url_template: str
     scrape_targets: list[ScrapeTarget]
     expected_question_count: int | None = None
+    include_afternoon_questions: bool = True
 
     @property
     def list_group_ids(self) -> list[str]:
@@ -47,6 +48,8 @@ def load_scrape_preset(
         raise KeyError(f"scrape preset が見つかりません: {qualification_code}")
 
     preset = raw[qualification_code]
+    if not isinstance(preset.get("include_afternoon_questions", True), bool):
+        raise ValueError("include_afternoon_questionsはboolで指定してください")
     raw_targets = preset.get("scrape_targets")
     if raw_targets is None:
         raw_targets = [
@@ -80,6 +83,7 @@ def load_scrape_preset(
             if preset.get("expected_question_count") is not None
             else None
         ),
+        include_afternoon_questions=preset.get("include_afternoon_questions", True),
     )
 
 

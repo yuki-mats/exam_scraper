@@ -15,7 +15,7 @@ from typing import Iterable
 from urllib.parse import quote, urljoin, urlparse
 
 import requests
-from bs4.element import NavigableString, Tag
+from bs4.element import Comment, NavigableString, Tag
 
 
 FIREBASE_STORAGE_BASE_URL = "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o"
@@ -497,10 +497,14 @@ def extract_text_with_subsup(
     radical_class_set = set(radical_classes)
 
     def render(node: Tag | NavigableString) -> str:
+        if isinstance(node, Comment):
+            return ""
         if isinstance(node, NavigableString):
             return str(node)
         if isinstance(node, Tag):
             name = node.name.lower()
+            if name in {"script", "style"}:
+                return ""
             if name == "br":
                 return "\n"
             if name == "sub":
