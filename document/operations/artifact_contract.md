@@ -4,6 +4,8 @@
 
 ## ディレクトリ構成
 
+通常運用の正本はローカルcheckoutに置きます。問題、画像、patch、作業版、runログはこのcheckoutのローカル実体を読み書きし、Google Drive上の保存先へのリンクを実行時の入力・出力にしません。Google Driveは検証済みデータのバックアップ先として使い、整備中の正本と同時に同期・更新する作業領域にはしません。復旧時はバックアップをローカルへコピーし、件数・ID・hashを照合してから通常運用へ戻します。
+
 ```text
 output/<qualification>/
   question_images/<list_group_id>/

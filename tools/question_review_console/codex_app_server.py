@@ -33,7 +33,6 @@ from tools.question_review_console.turn_budget import (
     GlobalTurnBudget,
 )
 from tools.question_review_console.http_transport import IPv4HTTPSHandler
-from scripts.scrape.qualification_presets import load_qualification_catalog
 from scripts.common.image_storage_urls import extract_storage_object_path
 
 
@@ -57,11 +56,7 @@ def _local_input_image(url: str, repo_root: Path) -> tuple[bytes, str] | None:
     declared_root = repo_root / "output" / qualification / "question_images"
     root = declared_root.resolve()
     if not root.is_relative_to(repo_root.resolve()):
-        catalog = load_qualification_catalog(repo_root / "config" / "scrape_presets.json")
-        if qualification not in catalog or not declared_root.is_symlink():
-            raise ValueError("登録済み資格の画像保存先リンクを確認できません。")
-    # The declared image directory may be migrated to external storage.  Only
-    # that root is trusted; individual files must still resolve beneath it.
+        raise ValueError("画像はrepository内のローカル保存先へ移行してください。")
     content: bytes | None = None
     for path in sorted(root.rglob(filename)):
         if not path.resolve().is_relative_to(root):
