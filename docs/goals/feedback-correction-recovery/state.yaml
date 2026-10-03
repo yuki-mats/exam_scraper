@@ -59,7 +59,7 @@ visual_board:
     url: http://goalbuddy.localhost:41737/feedback-correction-recovery/
     command: node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs
       --goal docs/goals/feedback-correction-recovery
-active_task: T025
+active_task: T026
 tasks:
   - id: T001
     type: scout
@@ -2674,7 +2674,7 @@ tasks:
   - id: T025
     type: pm
     assignee: PM
-    status: active
+    status: done
     objective: 検証済み19製品fileをmainへcommitし、他者remote差分を保全して統合・必要な影響検証・pushを完了する。実装検証・正式追加field承認待ち・checkpoint未済・独立評価・公開を区別し、残る3caseと2025後続を次の最大安全packageへ整理する。
     allowed_files:
       - docs/goals/feedback-correction-recovery/state.yaml
@@ -2710,9 +2710,68 @@ tasks:
       - main単一branch、force pushなし。remote統合はWriterが停止したclean treeで行い、重複file変更時は影響testを実施。
       - 最新ユーザー検証方針:同入力/依存/環境の30分以内successのみ再利用。重いE2E/buildを並列しない。
       - 追加4field正式反映・独立評価合格・Firestore公開は未完了。原goal全4件を残す。
-    receipt: null
+    receipt:
+      result: done
+      summary: 19検証済み製品fileをcommitし、mainの他者SC/SG/UI差分を保全してrebase・push完了。184tests、影響する5suite直列再確認、変更された依存hashで実統合を確認。正本strict
+        law不合格・候補合格・評価未実行・公開拒否を区別した。
+      commands:
+        - cmd: git diff --check
+          status: pass
+        - cmd: 検証済み19fileをcommitしmainへ安全にrebase
+          status: pass
+        - cmd: qualification/source設定への影響5suiteを直列実行
+          status: pass
+          note: 103 tests; T025-post-integration-tests.json
+        - cmd: 現在hashを記録した実統合oracle実行
+          status: pass
+          note: T025-post-integration-oracle.json; private strict0/canonical1、evaluation false、canPublish false
+        - cmd: git push origin main
+          status: pass
+          note: 2d57b9b46210daad1ac8349e24b04e5a90d715fd
+      evidence:
+        - notes/T024-complete-receipt.json
+        - notes/T025-post-integration-tests.json
+        - notes/T025-post-integration-oracle.json
+      implementation_commit: c83f338fe
+      pushed_head: 2d57b9b46210daad1ac8349e24b04e5a90d715fd
+      full_outcome_complete: false
+      remaining_blockers:
+        - 追加4field正式承認
+        - 真正current checkpointと独立評価
+        - 2018/2024/2020のsource/publication identityと正式proposal
+        - 別の公開承認とlive readback/台帳完了
     verification_note: 9suite snapshotと現在codeはprivate統合oracle scriptだけが異なる。19製品fileとunitの依存hashは一致。統合scriptはunit後に新run対応へ更新されて実行されているため、PMはこの変更の関連検証だけを現在script
       hash・HEAD・dirty・時刻付きで一度実行し、184unit/E2Eは反復しない。
+  - id: T026
+    type: judge
+    assignee: Judge
+    status: active
+    objective: 既存の2018・2024再取得証跡と2020 production snapshotを一次資料・現行published variantへ照合し、公開IDを変えずに正本パッチ候補と各報告判断を完成する最大の安全な次Workerを選定する。2024は完全命題と設問意図を見て、不確定な反転訂正を決め打ちしない。
+    inputs:
+      - output/user_feedback_response_system/proposals/2026-10-03/recovery-slice/next-implementation-acceptance.json
+      - output/user_feedback_response_system/proposals/2026-10-03/recovery-slice/2018-identity-import-contract-proposal.json
+      - output/user_feedback_response_system/proposals/2026-10-03/recovery-slice/2024-identity-import-contract-proposal.json
+      - output/user_feedback_response_system/staging/recovery-source-2018/
+      - output/user_feedback_response_system/staging/recovery-source-2024/
+      - output/user_feedback_response_system/staging/recovery-legacy-2020/
+      - output/user_feedback_response_system/cases/
+      - notes/T024-complete-receipt.json
+      - notes/T025-post-integration-oracle.json
+      - 実scoped context/projector/converter/publisher契約
+    constraints:
+      - Read-only。既存T015固定132/候補と正式24、WORK、private原本、既存receiptを変更しない。
+      - 完了済み2025法令レビューを再実施しない。2025追加4fieldとFirestore公開はそれぞれ別の承認境界。
+      - 既存3caseのfacts/差分を引き継いで、不要な方針調査を繰り返さない。新たなlegal verdictが必要なら現行一次法令と公式問題を使う。
+      - 生の利用者本文/識別情報をGit・通知・通常ログへ出さない。
+      - source再取得rawにlegacy原問/公開IDを注入しない。originalized/production_snapshotは明示のtyped input来歴として扱い、偽の00_sourceにしない。
+      - source↔publicationの別IDは完全proposition・元問題個別URL・公開5siblings・実snapshot根拠で結び、生成後のID書換えをしない。
+      - 最新ユーザー検証方針:開発中は関連テスト、重いE2E直列、区切りの全体検証は入力hash/環境/時刻ログを持つ。
+    expected_output:
+      - goalbuddy_receipt_v1 decision、exact worker_package(allowed_files/verify/stop_if)、case別の根拠/保留と公開前oracle
+      - 2018正答4と既存公開2の修正候補、2024の意図/真偽関係のsource-backed判断、2020単独誤字を必要なscopeだけで扱う正本契約
+      - 既存184testsとscope処理を再利用し、genericproviderやUIの不要拡張を避ける最大実用slice
+      - full_outcome_complete=false、2025 checkpointや追加field承認待ちも追跡して残す
+    receipt: null
   - id: T004
     type: pm
     assignee: PM
