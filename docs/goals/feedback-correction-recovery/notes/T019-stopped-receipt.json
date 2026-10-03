@@ -1,0 +1,63 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "blocked",
+    "task_id": "T019",
+    "board_path": "/Users/yuki/development/exam_scraper_feedback/docs/goals/feedback-correction-recovery/state.yaml",
+    "changed_files": [],
+    "commands": [
+      {
+        "command": "pwd -P",
+        "status": "pass"
+      },
+      {
+        "command": "AGENTS.md、README.md、state.yaml、T018 receipt、T015 package noteの読み取り",
+        "status": "pass",
+        "note": "T018 receiptの正しい保存先はdocs/goals/feedback-correction-recovery/notes/。最初のroot直下notes指定はfile not found。"
+      },
+      {
+        "command": "git status --short",
+        "status": "pass",
+        "note": "開始時の既存差分はPM所有のboard及びT018 notes。変更していない。"
+      },
+      {
+        "command": "T015 package-manifest.jsonの132ファイルSHA256照合",
+        "status": "pass",
+        "note": "不一致0件。"
+      },
+      {
+        "command": "post-external-copy-fingerprint.jsonの251ファイルSHA256照合",
+        "status": "pass",
+        "note": "不一致0件。"
+      },
+      {
+        "command": "既存resolverによるWORK全58問のstage index診断",
+        "status": "pass",
+        "note": "unmatchedは10=19件、15=10件、21=48件、22=26件。対象bindingのerrorsなし。"
+      },
+      {
+        "command": "既存project_recordによるWORK canonical＋ROOT正式24 projection照合",
+        "status": "pass",
+        "note": "projection errorsなし。既存audit-input.recordと全field一致。"
+      },
+      {
+        "command": "既存convert_question_to_firestoreによる対象変換",
+        "status": "pass",
+        "note": "既存12c59a4c014e49de_1〜_5を生成。artifact保存なし。"
+      },
+      {
+        "command": "T019指定verify commands",
+        "status": "not_run",
+        "note": "製品編集前に停止。"
+      }
+    ],
+    "summary": "製品編集前に対象外性の証明契約で停止。固定132file、canonical251file、対象projectionと全5公開IDの一致を確認した。10の16 orphanは対象と同じsource stemを共有し、完全bindingがなく、legacy IDとURLは異なる。この条件を対象外性の十分な証明とできるかは未確定。PM指示に従いJudge判断へ引き継ぐ。コード実装、追加4field正式反映、真正評価、公開はいずれも未実施。新規成果物保存なし。",
+    "remaining_blockers": [
+      "同source stem、完全bindingなし、別legacy ID・別URLのorphanについて、対象外性を証明する機械的契約のJudge確定が必要。",
+      "コード実装・限定artifact生成・Inventory/evaluation/Publisher接続は未実施。",
+      "追加4field正式反映、真正checkpoint、subscription runtime判定、真正評価、公開は未実施。"
+    ],
+    "needs_judge": true,
+    "verification_attempts": 0,
+    "stopped_because": "対象外性を証明できないorphanを無視しないという停止境界。PMが製品編集なしでblocked receiptを返すよう明示指示した。"
+  }
+}
