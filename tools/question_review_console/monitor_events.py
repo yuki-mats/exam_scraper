@@ -309,6 +309,7 @@ class MonitorEventStore:
         self._events: deque[dict[str, Any]] = deque(maxlen=self._replay_capacity)
         self._run_events: dict[tuple[str, str], deque[dict[str, Any]]] = {}
         self._bindings: dict[str, dict[str, Any]] = {}
+        self._retained_binding_routes: set[tuple[str, str]] | None = None
         self._binding_order: deque[str] = deque()
         self._ordered_pending: deque[
             tuple[int, dict[str, Any], float]
@@ -963,6 +964,7 @@ class MonitorEventStore:
                 self._bindings[thread_id] = copy.deepcopy(dict(binding))
                 self._binding_order.append(thread_id)
                 current = self._bindings[thread_id]
+            self._retained_binding_routes = None
             route_group = self._binding_route_group(current)
             if route_group is not None:
                 self._active_thread_routes[thread_id] = route_group
@@ -1490,8 +1492,10 @@ class MonitorEventStore:
                 self._record_drop(
                     affected_routes=(route_group,),
                 )
-        if removed_binding and self._run_metric_order:
-            self._prune_run_metrics_locked()
+        if removed_binding:
+            self._retained_binding_routes = None
+            if self._run_metric_order:
+                self._prune_run_metrics_locked()
 
     def _touch_run_metric_locked(self, key: tuple[str, str]) -> None:
         try:
@@ -1502,13 +1506,17 @@ class MonitorEventStore:
         self._prune_run_metrics_locked()
 
     def _retained_binding_routes_locked(self) -> set[tuple[str, str]]:
-        return {
-            route
-            for binding in self._bindings.values()
-            for route_group in [self._binding_route_group(binding)]
-            if route_group is not None
-            for route in route_group[2]
-        }
+        # Failure bursts must not rescan every runtime binding for each metric.
+        # Bindings are bounded and change only under this same condition lock.
+        if self._retained_binding_routes is None:
+            self._retained_binding_routes = {
+                route
+                for binding in self._bindings.values()
+                for route_group in [self._binding_route_group(binding)]
+                if route_group is not None
+                for route in route_group[2]
+            }
+        return self._retained_binding_routes
 
     def _prune_run_metrics_locked(self) -> None:
         retained_routes = self._retained_binding_routes_locked()

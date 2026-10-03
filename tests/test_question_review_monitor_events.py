@@ -242,6 +242,68 @@ class MonitorEventStoreTests(unittest.TestCase):
             self.assertGreaterEqual(telemetry["lastBatchDurationMs"], 0)
             self.assertGreaterEqual(telemetry["lastLockHoldMs"], 0)
 
+    def test_500_binding_failure_burst_reuses_routes_and_invalidates_on_churn(self):
+        with tempfile.TemporaryDirectory() as directory:
+            hub = MonitorEventHub(Path(directory), start_worker=False)
+            try:
+                for index in range(500):
+                    hub.bind_runtime(
+                        {
+                            "qualification": "sample",
+                            "runId": f"child-{index}",
+                            "parentRunId": "parent",
+                        },
+                        f"thread-{index}",
+                        "turn",
+                    )
+                event = {
+                    "sequence": 1,
+                    "correlation": {
+                        "qualification": "sample",
+                        "runId": "child-0",
+                        "parentRunId": "parent",
+                    },
+                }
+                with patch.object(
+                    hub, "_binding_route_group", wraps=hub._binding_route_group
+                ) as route_group:
+                    for _ in range(2000):
+                        hub._mark_disk_failure(event, "queue_full")
+                    self.assertEqual(route_group.call_count, 500)
+                self.assertEqual(hub._run_disk_failures[("sample", "parent")], 2000)
+                self.assertEqual(hub._run_disk_failures[("sample", "child-0")], 2000)
+                self.assertEqual(
+                    hub.health()["observationHealth"]["diskFailures"], 2000
+                )
+
+                # Existing binding enrichment must invalidate the retained set.
+                hub.bind_runtime(
+                    {
+                        "qualification": "sample",
+                        "runId": "child-0",
+                        "parentRunId": "parent",
+                        "childRunId": "extra",
+                    },
+                    "thread-0",
+                    "turn",
+                )
+                self.assertIn(("sample", "extra"), hub._retained_binding_routes_locked())
+
+                # Eviction must also remove stale routes and their metric entries.
+                with patch(
+                    "tools.question_review_console.monitor_events.MAX_MONITOR_BINDINGS",
+                    1,
+                ), hub._condition:
+                    hub._active_thread_routes.clear()
+                    hub._prune_bindings_locked()
+                self.assertEqual(hub._retained_binding_routes_locked(), {
+                    ("sample", "parent"), ("sample", "child-499")
+                })
+                self.assertNotIn(("sample", "child-0"), hub._run_disk_failures)
+                self.assertEqual(hub._run_disk_failures[("sample", "parent")], 2000)
+            finally:
+                hub.close()
+
     def test_disk_failure_categories_are_bounded_and_distinct(self):
         sample = {
             "schemaVersion": "monitor-event/v1",

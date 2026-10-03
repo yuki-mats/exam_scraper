@@ -39,6 +39,8 @@ App Server受信threadで行うのは、allowlist対象notificationのbounded qu
 
 観測eventのdisk logもmonitor専用の固定上限内でローテーションします。各runは4 MiBの現行logと一つのbackup、16 KiB以下のsnapshotに限定し、全体では新しい64 runだけを保持します。projection lockの外にbounded disk queueを置き、repository全体の短時間・non-blocking file lockでrun作成、rotation、retentionを直列化します。lock競合、queue overflow、disk失敗はAPIやrunを待たせず観測状態を`degraded`にします。fileとdirectoryは`dir_fd`、`O_NOFOLLOW`、inode、single-link通常fileを検証し、部分writeは元sizeへrollbackします。monitorの保存量を無制限に増やしてworkflow artifactと同じfilesystemを圧迫しません。
 
+欠落件数の記録では、保持中の接続に属するrun集合を接続の追加・更新・削除時だけ再計算します。同じ接続集合で欠落が続く間は再利用し、欠落記録そのものが全接続の反復走査でprojectionとdisk workerを圧迫しないようにします。件数、routeごとの保持期限及び固定上限は変えません。
+
 disk queueでは、未取得の`agentMessage`と`reasoningSummary`の累積置換だけをroute・thread・turn・item・summary index単位でまとめます。memory replayとUI eventは全件を維持し、pendingは各stream最大1件、全体512件、256受理sequence以内です。上限圧力時は最古streamから確定します。非stream event、terminal、error、tool、thread、token、turn、gapの受理前にもpendingを確定し、順序とdurabilityを保ちます。JSONLには最新全文と`diskCoalescing`の`coalescedCount`、受理sequence範囲、観測時刻範囲を保存します。disk telemetryはtype別集約数、pending数、上限、最大sequence滞留、flush数を公開します。
 
 queue overflowやApp Server接続の再作成など、notificationの連続性を証明できない境界は`observationGap`として残します。gapの対象runは欠落を検出した瞬間のimmutable route snapshotで固定し、後から開始したrunへ付け替えません。同じparentに属する多数のchildへは一つのgap eventをindexし、diskにはparent runへ一度だけ保存します。
