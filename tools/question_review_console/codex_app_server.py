@@ -323,7 +323,7 @@ def ensure_app_server_file_descriptor_capacity(
         return int(soft_limit)
     if hard_limit != resource.RLIM_INFINITY and hard_limit < minimum:
         raise CodexAppServerError(
-            "100問同時整備に必要なfile descriptor上限を確保できません。"
+            "同時整備に必要なfile descriptor上限を確保できません。"
             f"soft={soft_limit}, hard={hard_limit}, required={minimum}"
         )
     try:
@@ -333,13 +333,13 @@ def ensure_app_server_file_descriptor_capacity(
         )
     except (OSError, ValueError) as exc:
         raise CodexAppServerError(
-            "100問同時整備に必要なfile descriptor上限を引き上げられません。"
+            "同時整備に必要なfile descriptor上限を引き上げられません。"
             f"soft={soft_limit}, hard={hard_limit}, required={minimum}"
         ) from exc
     updated_soft, _updated_hard = resource.getrlimit(resource.RLIMIT_NOFILE)
     if updated_soft < minimum:
         raise CodexAppServerError(
-            "100問同時整備に必要なfile descriptor上限を確認できません。"
+            "同時整備に必要なfile descriptor上限を確認できません。"
             f"soft={updated_soft}, required={minimum}"
         )
     return int(updated_soft)

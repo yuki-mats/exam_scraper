@@ -15,6 +15,7 @@ from tools.question_review_console.model_backend import (
     ModelBackendError,
     ProfileModelRouter,
     parse_model_backend_config,
+    load_model_backend_config,
 )
 
 
@@ -69,6 +70,30 @@ def test_profile_router_keeps_backend_choice_behind_one_pipeline_client():
     assert snapshot["roles"]["maintenance"]["fallback"]["kind"] == (
         "codex_app_server"
     )
+
+
+def test_operational_config_exposes_five_hundred_shared_call_slots():
+    from pathlib import Path
+
+    config = load_model_backend_config(
+        Path(__file__).resolve().parents[1] / "config/question_maintenance_llm.toml"
+    )
+    router = ProfileModelRouter(config, _Codex())
+    limits = router.snapshot_for("codex_only")["limits"]
+    assert limits["questionParallelism"] == 500
+    assert limits["llmCallConcurrency"] == 500
+    assert limits["effectiveQuestionConcurrency"] == 500
+    acquired = 0
+    try:
+        for _ in range(500):
+            assert router._call_slots.acquire(blocking=False)
+            acquired += 1
+        assert not router._call_slots.acquire(blocking=False)
+    finally:
+        for _ in range(acquired):
+            router._call_slots.release()
+    assert router.run_turn("x", model_profile="codex_only",
+                           work_type="maintenance_candidate")[0] == "x"
 
 
 @pytest.mark.parametrize(

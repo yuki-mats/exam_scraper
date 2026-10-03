@@ -39,6 +39,7 @@ from tools.question_review_console.model_backend import (
     ProfileModelRouter,
     load_model_backend_config,
 )
+from tools.question_review_console.turn_budget import GlobalTurnBudget
 from tools.question_review_console.evaluation import (
     EvaluationError,
     QuestionEvaluationService,
@@ -351,14 +352,25 @@ class QuestionReviewApplication:
         self.firestore = FirestoreReadback()
         self.jobs = JobManager()
         self.monitor_event_hub = monitor_event_hub or MonitorEventHub(self.repo_root)
-        raw_app_server = app_server or CodexAppServerClient(
-            self.repo_root, observer=self.monitor_event_hub
-        )
         model_config_path = self.repo_root / "config/question_maintenance_llm.toml"
+        model_config = (
+            load_model_backend_config(model_config_path)
+            if model_config_path.exists() and not isinstance(app_server, ProfileModelRouter)
+            else None
+        )
+        raw_app_server = app_server or CodexAppServerClient(
+            self.repo_root,
+            observer=self.monitor_event_hub,
+            turn_budget=(
+                GlobalTurnBudget(model_config.limits.llm_call_concurrency)
+                if model_config is not None
+                else None
+            ),
+        )
         self.app_server = raw_app_server
-        if model_config_path.exists() and not isinstance(raw_app_server, ProfileModelRouter):
+        if model_config is not None:
             self.app_server = ProfileModelRouter(
-                load_model_backend_config(model_config_path),
+                model_config,
                 raw_app_server,
             )
         if app_server is not None:

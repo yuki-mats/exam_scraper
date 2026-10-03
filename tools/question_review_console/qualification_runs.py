@@ -503,9 +503,7 @@ class _ParentRunHeartbeatTicker:
                 pass
 
 
-QUESTION_CONCURRENCY_OPTIONS = (1, 5, 10, 20, 32, 64, DEFAULT_MAX_PARALLEL_TURNS)
 DEFAULT_QUESTION_CONCURRENCY = DEFAULT_MAX_PARALLEL_TURNS
-PREPARATION_MAX_PARALLEL_QUESTIONS = 100
 PREPARATION_HEARTBEAT_SECONDS = 60.0
 QUESTION_SUMMARY_REFRESH_SECONDS = 60.0
 OUTCOME_COALESCE_SECONDS = 0.25
@@ -1114,23 +1112,16 @@ def _question_plan_list_group_id(
 
 
 def normalize_question_concurrency(value: Any) -> int:
-    option_labels = "、".join(str(option) for option in QUESTION_CONCURRENCY_OPTIONS)
+    # 型と正の整数だけを正規化する。許可上限は開始APIでLLM設定から検証する。
+    message = "同時処理上限は1以上の整数で指定してください。"
     if isinstance(value, bool):
-        raise QualificationRunError(
-            f"同時処理上限は{option_labels}から選択してください。"
-        )
+        raise QualificationRunError(message)
     try:
         concurrency = int(value)
-    except (TypeError, ValueError) as exc:
-        raise QualificationRunError(
-            f"同時処理上限は{option_labels}から選択してください。"
-        ) from exc
-    if (
-        isinstance(value, float) and value != concurrency
-    ) or concurrency not in QUESTION_CONCURRENCY_OPTIONS:
-        raise QualificationRunError(
-            f"同時処理上限は{option_labels}から選択してください。"
-        )
+    except (TypeError, ValueError, OverflowError) as exc:
+        raise QualificationRunError(message) from exc
+    if (isinstance(value, float) and value != concurrency) or concurrency < 1:
+        raise QualificationRunError(message)
     return concurrency
 
 
@@ -12591,7 +12582,6 @@ class QualificationRunCoordinator:
                     "modelStarted": model_started,
                     "workerLimit": min(
                         question_concurrency,
-                        PREPARATION_MAX_PARALLEL_QUESTIONS,
                         max(target_count, 1),
                     ),
                     "updatedAt": heartbeat_at,
@@ -13905,7 +13895,6 @@ class QualificationRunCoordinator:
             patch_tool_backlog: deque[dict[str, Any]] = deque()
             input_tool_limit = min(
                 question_concurrency,
-                PREPARATION_MAX_PARALLEL_QUESTIONS,
                 max(len(initial_question_ids), 1),
             )
             patch_tool_limit = question_concurrency

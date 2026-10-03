@@ -60,6 +60,7 @@ from tools.question_review_console.qualification_runs import (
     _validated_question_work_queue,
     _validated_projected_input_path,
     prepare_question_items_concurrently,
+    normalize_question_concurrency,
 )
 from tools.question_review_console.question_patch_proposal import (
     TargetResolutionCache,
@@ -559,14 +560,14 @@ class LegacyRunModelProfileResumeTests(unittest.TestCase):
             preview = coordinator._preview_uncached(
                 "sample", "explanation", "refresh",
                 resumed_from=previous["runId"], model_profile="codex_only",
-                question_concurrency=100, _prepared_plan=plan,
+                question_concurrency=500, _prepared_plan=plan,
             )
 
             self.assertEqual(
                 preview["llmProfile"]["limits"]["questionParallelism"],
                 1,
             )
-            self.assertEqual(preview["questionConcurrency"], 100)
+            self.assertEqual(preview["questionConcurrency"], 500)
 
     def test_resume_still_rejects_semantic_profile_changes(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -7966,8 +7967,8 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             question_count,
         )
 
-    def test_one_hundred_questions_start_one_hundred_independent_model_turns(self):
-        class OneHundredTurnAppServer(PerQuestionQueueAppServer):
+    def test_above_one_hundred_questions_use_full_preparation_and_model_window(self):
+        class ConfiguredTurnAppServer(PerQuestionQueueAppServer):
             def __init__(self):
                 super().__init__()
                 self.started = 0
@@ -7984,11 +7985,11 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                             return result
                         with self.started_lock:
                             self.started += 1
-                            if self.started == 100:
+                            if self.started == 128:
                                 self.all_started.set()
                         if not self.all_started.wait(10):
                             raise AssertionError(
-                                "100問のmodel turnが同時に開始しませんでした。"
+                                "128問のmodel turnが同時に開始しませんでした。"
                             )
                         return result
 
@@ -7997,16 +7998,16 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
 
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            app_server = OneHundredTurnAppServer()
+            app_server = ConfiguredTurnAppServer()
             app_server.writer_delay = 0.1
             coordinator, _sync, _server, parent = self._start_deferred_flow(
                 root,
-                CountedSourceInventory(100),
+                CountedSourceInventory(128),
                 ["question_type"],
                 app_server=app_server,
-                question_concurrency=100,
+                question_concurrency=500,
             )
-            self._write_counted_sources(root, 100)
+            self._write_counted_sources(root, 128)
             parent_path = coordinator.store._manifest_path(
                 "new-exam",
                 parent["runId"],
@@ -8040,8 +8041,8 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
 
         self.assertEqual(result["queueStatus"], "succeeded")
         self.assertTrue(app_server.all_started.is_set())
-        self.assertEqual(app_server.started, 100)
-        self.assertEqual(len(app_server.batch_calls), 100)
+        self.assertEqual(app_server.started, 128)
+        self.assertEqual(len(app_server.batch_calls), 128)
         self.assertTrue(all(len(batch) == 1 for batch in app_server.batch_calls))
         self.assertEqual(
             completed["parallelStrategy"],
@@ -8053,18 +8054,19 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 for attempt in attempts
             )
         )
+        self.assertEqual(completed["inputToolLimit"], 128)
         self.assertEqual(completed["modelBatchSize"], 1)
-        self.assertEqual(completed["modelWorkerLimit"], 100)
-        self.assertEqual(completed["modelPeakPendingFutureCount"], 100)
+        self.assertEqual(completed["modelWorkerLimit"], 128)
+        self.assertEqual(completed["modelPeakPendingFutureCount"], 128)
         self.assertEqual(
             completed["modelTurns"],
             {
                 "measurement": "app_server_protocol_notifications",
-                "capacity": 100,
+                "capacity": 500,
                 "inFlight": 0,
-                "peakInFlight": 100,
-                "startedCount": 300,
-                "finishedCount": 300,
+                "peakInFlight": 128,
+                "startedCount": 384,
+                "finishedCount": 384,
                 "queueWaitSeconds": completed["modelTurns"][
                     "queueWaitSeconds"
                 ],
@@ -8079,26 +8081,26 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         )
         self.assertEqual(
             completed["modelTurns"]["queueWaitSeconds"]["count"],
-            300,
+            384,
         )
         self.assertEqual(
             completed["modelTurns"]["durationSeconds"]["count"],
-            300,
+            384,
         )
         self.assertEqual(completed["patchTools"]["inFlight"], 0)
-        self.assertEqual(completed["patchTools"]["startedCount"], 100)
-        self.assertEqual(completed["patchTools"]["finishedCount"], 100)
+        self.assertEqual(completed["patchTools"]["startedCount"], 128)
+        self.assertEqual(completed["patchTools"]["finishedCount"], 128)
         self.assertEqual(
             completed["patchTools"]["queueWaitSeconds"]["count"],
-            100,
+            128,
         )
         self.assertEqual(
             completed["patchTools"]["lockWaitSeconds"]["count"],
-            100,
+            128,
         )
         self.assertEqual(
             len(_question_attempt_ids(completed)),
-            100,
+            128,
         )
         self.assertTrue(
             all(
@@ -8121,12 +8123,12 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
             )
         )
         self.assertEqual(completed["childRunIds"], [])
-        # Candidate durability belongs to the 100 independent question state
+        # Candidate durability belongs to the 128 independent question state
         # files. The parent may still receive fixed lifecycle and 15-second
         # progress writes, but it must not receive one candidate write per
         # question.
-        self.assertLess(parent_write_count, 100)
-        self.assertEqual(completed["validatedQuestionCount"], 100)
+        self.assertLess(parent_write_count, 128)
+        self.assertEqual(completed["validatedQuestionCount"], 128)
 
     def test_one_turn_timeout_is_retried_without_reducing_capacity(self):
         class TimeoutOnceAppServer(PerQuestionQueueAppServer):
@@ -10921,3 +10923,15 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
 
 if __name__ == "__main__":
     unittest.main()  # noqa: F405
+
+
+class QuestionConcurrencyNormalizationTests(unittest.TestCase):
+    def test_accepts_configured_limit_as_positive_integer(self):
+        self.assertEqual(normalize_question_concurrency(500), 500)
+        self.assertEqual(normalize_question_concurrency("500"), 500)
+
+    def test_rejects_invalid_integer_values(self):
+        for value in (True, False, 0, -1, 500.5, "500.5", None, float("inf")):
+            with self.subTest(value=value):
+                with self.assertRaises(QualificationRunError):
+                    normalize_question_concurrency(value)

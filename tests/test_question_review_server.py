@@ -18,6 +18,29 @@ from tools.question_review_console.server import (
 
 
 class QuestionReviewServerTests(unittest.TestCase):
+    def test_default_client_global_turn_budget_uses_configured_call_capacity(self):
+        source_config = (
+            Path(__file__).resolve().parents[1]
+            / "config/question_maintenance_llm.toml"
+        ).read_text(encoding="utf-8")
+        for capacity in (1, 500):
+            with self.subTest(capacity=capacity), tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                (root / "config").mkdir()
+                (root / "config/question_maintenance_llm.toml").write_text(
+                    source_config.replace(
+                        "llm_call_concurrency = 500",
+                        f"llm_call_concurrency = {capacity}",
+                    ),
+                    encoding="utf-8",
+                )
+                app = QuestionReviewApplication(root)
+                try:
+                    self.assertEqual(app.app_server.config.limits.llm_call_concurrency, capacity)
+                    self.assertEqual(app.app_server.codex_client.turn_budget.capacity, capacity)
+                finally:
+                    app.close()
+
     def test_evaluation_profile_is_forwarded_from_preview_through_job(self):
         class Inventory:
             @staticmethod
@@ -1533,39 +1556,41 @@ class QuestionReviewServerTests(unittest.TestCase):
         self.assertEqual(question_detail["revision"], 7)
 
     def test_qualification_run_rejects_concurrency_above_configured_limit(self):
-        with tempfile.TemporaryDirectory() as directory:
-            root = Path(directory)
-            config_dir = root / "config"
-            config_dir.mkdir()
-            source_config = (
-                Path(__file__).resolve().parents[1]
-                / "config"
-                / "question_maintenance_llm.toml"
-            )
-            (config_dir / "question_maintenance_llm.toml").write_text(
-                source_config.read_text(encoding="utf-8").replace(
-                    "llm_call_concurrency = 100",
-                    "llm_call_concurrency = 1",
-                ),
-                encoding="utf-8",
-            )
-            app = QuestionReviewApplication(root)
-            try:
-                with self.assertRaises(ApiError) as caught:
-                    app.post(
-                        "/api/qualification-runs/preview",
-                        {
-                            "qualification": "sample",
-                            "stageIds": ["law_audit"],
-                            "modelProfile": "codex_only",
-                            "questionConcurrency": 2,
-                        },
+        for limit, requested in ((1, 2), (500, 501)):
+            with self.subTest(limit=limit, requested=requested):
+                with tempfile.TemporaryDirectory() as directory:
+                    root = Path(directory)
+                    config_dir = root / "config"
+                    config_dir.mkdir()
+                    source_config = (
+                        Path(__file__).resolve().parents[1]
+                        / "config"
+                        / "question_maintenance_llm.toml"
                     )
-            finally:
-                app.close()
+                    (config_dir / "question_maintenance_llm.toml").write_text(
+                        source_config.read_text(encoding="utf-8").replace(
+                            "llm_call_concurrency = 500",
+                            f"llm_call_concurrency = {limit}",
+                        ),
+                        encoding="utf-8",
+                    )
+                    app = QuestionReviewApplication(root)
+                    try:
+                        with self.assertRaises(ApiError) as caught:
+                            app.post(
+                                "/api/qualification-runs/preview",
+                                {
+                                    "qualification": "sample",
+                                    "stageIds": ["law_audit"],
+                                    "modelProfile": "codex_only",
+                                    "questionConcurrency": requested,
+                                },
+                            )
+                    finally:
+                        app.close()
 
-        self.assertEqual(caught.exception.status, 422)
-        self.assertIn("設定上限1", str(caught.exception))
+                self.assertEqual(caught.exception.status, 422)
+                self.assertIn(f"設定上限{limit}", str(caught.exception))
 
     def test_qualification_run_api_rejects_fast_before_coordinator(self):
         class Runs:
