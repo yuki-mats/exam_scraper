@@ -59,7 +59,7 @@ visual_board:
     url: http://goalbuddy.localhost:41737/feedback-correction-recovery/
     command: node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs
       --goal docs/goals/feedback-correction-recovery
-active_task: T027
+active_task: T028
 tasks:
   - id: T001
     type: scout
@@ -2872,7 +2872,7 @@ tasks:
   - id: T027
     type: worker
     assignee: Worker
-    status: active
+    status: done
     objective: 2018・2024・2020の3件について既存一次証跡を引き継ぎ、必要最小限のfresh selected read、明示的publication variant、具体的before/after差分、全カテゴリ判断、決定的なprivate候補、独立レビュー入力及び正式保存・公開の未完条件を完成する。Worker自身の判断を独立レビュー済みとは記載しない。
     implementation_root: /Users/yuki/development/exam_scraper_feedback
     allowed_files:
@@ -2926,6 +2926,133 @@ tasks:
       - notes/T025-post-integration-oracle.json
       - 実scoped context/projector/converter/publisher契約
       - notes/T026-complete-receipt.json
+    receipt:
+      result: done
+      task_id: T027
+      board_path: /Users/yuki/development/exam_scraper_feedback/docs/goals/feedback-correction-recovery/state.yaml
+      changed_files:
+        - output/user_feedback_response_system/staging/recovery-three-cases/prepare_candidates.py
+        - output/user_feedback_response_system/staging/recovery-three-cases/verify_candidates.py
+        - output/user_feedback_response_system/staging/recovery-three-cases/tests/test_candidate_contracts.py
+        - output/user_feedback_response_system/staging/recovery-three-cases/runs/T027-a2566e49a9ac/**
+        - output/user_feedback_response_system/staging/recovery-three-cases/runs/T027-3a8307ea9d5f/**
+      commands:
+        - command: /Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/staging/recovery-three-cases/prepare_candidates.py
+            --all --read-live
+          status: pass
+          exit_code: 0
+          run: T027-a2566e49a9ac
+          completion_evidence: false
+          finding: 終了後の全field照合で2024本文案の未適用を発見。旧runは保全し、完成証拠から除外。
+        - command: /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s output/user_feedback_response_system/staging/recovery-three-cases/tests
+            -p 'test_candidate_contracts.py'
+          status: pass
+          exit_code: 0
+          tests: 7
+          phase: repair前
+        - command: /Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/staging/recovery-three-cases/verify_candidates.py
+            --all
+          status: pass
+          exit_code: 0
+          phase: repair前
+          limitation: 2024本文案とprojectionの一致検査が不足していたため完成証拠から除外。
+        - command: /Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/staging/recovery-three-cases/prepare_candidates.py
+            --all --read-live
+          status: pass
+          exit_code: 0
+          run: T027-3a8307ea9d5f
+          result: fresh selected read、3件候補、2018/2024各2生成、一次法令XML6件、全8カテゴリ判断とレビュー入力を保存。
+        - command: /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s output/user_feedback_response_system/staging/recovery-three-cases/tests
+            -p 'test_candidate_contracts.py'
+          status: pass
+          exit_code: 0
+          tests: 8
+          phase: repair後
+          evidence: runs/T027-3a8307ea9d5f/command-results.json
+        - command: /Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/staging/recovery-three-cases/verify_candidates.py
+            --all
+          status: pass
+          exit_code: 0
+          phase: repair後
+          strict_law_exit_codes:
+            '2018':
+              merged: 1
+              firestore: 1
+            '2024':
+              merged: 1
+              firestore: 1
+          required_fields: 2018/2024のmerged・convertedはいずれも違反なし
+          alignment: 2018/2024の正答・選択肢alignmentはいずれも問題なし
+          '2020': questionTextから「た」1文字のみ削除。他selected fields不変。
+          publication_pass: false
+        - command: git diff --check
+          status: pass
+          exit_code: 0
+        - command: git status --short
+          status: pass
+          exit_code: 0
+          evidence: runs/T027-3a8307ea9d5f/command-results.json
+        - command: 最終private permission・候補field一致・Git追跡範囲のread-only確認
+          status: pass
+          exit_code: 0
+          permission_errors: 0
+          private_files_tracked_by_git: 0
+      summary: 3件のfresh selected snapshotと具体候補をprivate保存した。2018/2024は全5ID・全文・updateTime・所属・画像・削除状態を確認し、typed variantから各2回生成して一致。2018は出題時答4候補と現行法holdを分離。2024は意味変更を全文差分で示し正式移送未解決を明記。2020はquestionText一文字だけ訂正。1回repair後8testsと実verify成功。strict
+        law不合格、独立レビュー・承認・公開未済を維持。旧132/raw/case/正式入力のhash不変、製品codeとWORKは変更なし。
+      artifacts:
+        final_run: /Users/yuki/development/exam_scraper_feedback/output/user_feedback_response_system/staging/recovery-three-cases/runs/T027-3a8307ea9d5f
+        review_input: review-input-v2.json
+        review_restart_conditions: review-restart-plan.json
+        2024_approval_package: 2024/approval-package-v2.json
+        verification: verification-receipt.json
+        execution_metadata:
+          - execution.json
+          - command-results.json
+          - input-manifest.json
+        reviewPending: true
+        approvalReady: false
+        formalDataUpdated: false
+        publicationReady: false
+        evaluationPerformed: false
+        FirestoreWritten: false
+        StorageWritten: false
+      remaining_blockers:
+        - 真正別native reviewerによる完全命題・時点別一次法令・具体差分の独立レビュー待ち。
+        - 2018の保存lawRevisionFacts答2と公式出題時答4の矛盾、現行法の各肢真偽・解説は保留。必要法条と再開条件を保存。
+        - 2024の本文改題案・vector維持案は未承認。現10は年度あり公式本文の上書きを禁止し、現05には独立問題化の影響があるため、正式variant/providerと移送方法は未解決。
+        - 2020のoriginalQuestionChoiceText訂正は別差分として保存し候補から除外。正式production_snapshot variant、overwrite防止、questionText単独のguarded公開契約は未実装。
+        - 2018/2024 strict lawは両形態とも不合格。候補作成検証成功を公開準備合格として扱っていない。
+        - 具体的正式承認、真正current checkpoint・評価、別公開判断、guarded writeとlive readbackは未実行。
+      needs_judge: false
+      verification_attempts: 2
+      stopped_because: null
+  - id: T028
+    type: judge
+    assignee: Judge
+    status: active
+    objective: 3件の固定候補を独立に一次資料と現行法・出題時法・現行公開全文へ照合し、2018全5肢の真偽/答/法改正情報、2024の命題と意図、2020最小誤字差分を個別判定する。計画のみで終えず実判断と根拠を返す。
+    inputs:
+      - output/user_feedback_response_system/staging/recovery-three-cases/runs/T027-3a8307ea9d5f/review-input-v2.json
+      - output/user_feedback_response_system/staging/recovery-three-cases/runs/T027-3a8307ea9d5f/review-restart-plan.json
+      - output/user_feedback_response_system/staging/recovery-three-cases/runs/T027-3a8307ea9d5f/input-manifest.json
+      - output/user_feedback_response_system/staging/recovery-three-cases/runs/T027-3a8307ea9d5f/verification-receipt.json
+      - output/user_feedback_response_system/staging/recovery-three-cases/runs/T027-3a8307ea9d5f/2018/approval-package.json
+      - output/user_feedback_response_system/staging/recovery-three-cases/runs/T027-3a8307ea9d5f/2024/approval-package-v2.json
+      - output/user_feedback_response_system/staging/recovery-three-cases/runs/T027-3a8307ea9d5f/2020/approval-package.json
+      - 固定原問/公式PDF/一次法令XML/公開snapshotへのmanifest参照
+    constraints:
+      - Read-only。全private候補/既存132/WORK/正式patch/旧receiptは不変。
+      - 他reviewerの判定を参照しない。自分で完全命題・法条・適用時点を確認する。
+      - 2025完了済レビューは再実施しない。公式番号だけで現在真偽を決めない。
+      - current 2026-10-03と出題時の基準日を別々に確認。法令XMLの本則から条文を読み、附則同番号と混同しない。原問の試験基準日が不明ならその範囲を明示する。
+      - 2024の公開否定設問と各解説の肯定命題の混在を評価し、実際に受験者が回答できる全文とTF値を独立確定する。無断で内容反転を承認しない。
+      - 2020はquestionTextのみ1文字差分と他fields不変を確認。originalQuestionChoiceText案は別差分。
+      - 生利用者本文/識別情報を返答や通常log/Gitへ出さない。追加一次web資料が必要なら公式sourceのみ。
+      - 法令根拠が不足したら具体法条/適用時点/必要資料を示してhold。推測でpassed/approvalReady/publicationReadyを記載しない。
+    expected_output:
+      - goalbuddy_receipt_v1、各case全カテゴリ判断と各法令肢の出題時/current真偽、正答・意図、候補accept/reject/hold理由と正確な一次根拠
+      - 候補を修正すべきなら具体field値と理由、正式保存/公開と別承認境界を残す
+      - full_outcome_complete=false、第二の独立reviewはPM後続、自己レビューのみで承認可能としない
     receipt: null
   - id: T004
     type: pm
