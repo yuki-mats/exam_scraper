@@ -24,6 +24,26 @@ RUN_LIVE_TESTS = os.environ.get("RUN_LIVE_TESTS") == "1"
 
 
 class ScrapeSgsikenTests(unittest.TestCase):
+    def test_intent_uses_selection_request_and_not_background_error_words(self):
+        from scrape_sgsiken import determine_question_intent
+        positive = [
+            '誤り検出方式であるCRCに関する記述として，適切なものはどれか。',
+            'この回線のビット誤り率は幾らか。',
+            '誤りビットを訂正したハミング符号はどれか。',
+            '偽陽性率の説明として，最も適切なものはどれか。ここで，正しいものと間違っているものが含まれる。',
+            'ACID特性の四つの性質に含まれないものはどれか。',
+            'この規定に該当しないものはどれか。',
+            'クロスサイトリクエストフォージェリ攻撃の対策として，効果がないものはどれか。',
+        ]
+        for text in positive:
+            with self.subTest(text=text):
+                self.assertEqual(determine_question_intent(text), 'select_correct')
+        for text in ['次の記述のうち，誤っているものはどれか。',
+                     '監査証拠の記述のうち，適切でないものはどれか。',
+                     'プログラムの著作権管理上，不適切な行為はどれか。']:
+            with self.subTest(text=text):
+                self.assertEqual(determine_question_intent(text), 'select_incorrect')
+
     def test_unknown_script_characters_keep_their_exact_symbol_and_case(self):
         from bs4 import BeautifulSoup
         from scrape_sgsiken import extract_q_text
@@ -209,6 +229,35 @@ class ScrapeSgsikenTests(unittest.TestCase):
         with patch("scrape_sgsiken._download_and_save_images", return_value=[]):
             with self.assertRaises(ValueError):
                 download_and_save_images(None, ["https://example.com/figure.png"], "q1", base_dir=".")
+
+    def test_http_200_html_response_is_not_accepted_as_an_image(self):
+        with tempfile.TemporaryDirectory() as directory:
+            (Path(directory) / 'error.png').write_text('<html>service unavailable</html>')
+            with patch('scrape_sgsiken._download_and_save_images', return_value=['error.png']), self.assertRaises(OSError):
+                download_and_save_images(None, ['https://example.com/figure.png'], 'q1', base_dir=directory)
+
+    def test_explanation_images_are_downloaded_and_bound_to_same_question(self):
+        html = '''<h2>情報処理安全確保支援士令和7年春期 午前Ⅱ 問1</h2><h3 class="qno">問1</h3>
+        <div id="mondai">説明を選べ。</div><ul class="selectList"><li><button class="selectBtn">ア</button>A</li>
+        <li><button class="selectBtn">イ</button>B</li></ul><div class="answerBox"><span id="answerChar">ア</span></div>
+        <div id="kaisetsu">図を参照。<img src="img/explanation.png"></div>'''
+        url = 'https://www.sc-siken.com/kakomon/07_haru/am2_1.html'
+        identity = {'source_question_id': f'202501:am:問1:{url}', 'public_question_id': 'stable', 'original_question_id': 'stable'}
+        with patch('scrape_sgsiken.download_and_save_images', return_value=['qstable_exp_img01.png']) as download:
+            record = parse_q_question_page(html, url, http_session=None, download_images=True,
+                                          output_list_group_id='202501', existing_identity=identity)
+        self.assertEqual(record['explanationImageSourceUrls'], ['https://www.sc-siken.com/kakomon/07_haru/img/explanation.png'])
+        self.assertTrue(record['explanationImageStorageUrls'][0].endswith('qstable_exp_img01.png?alt=media'))
+        self.assertEqual(download.call_args.args[2], 'qstable_exp')
+
+    def test_choice_explanations_bind_by_label_when_dom_order_changes(self):
+        from bs4 import BeautifulSoup
+        from scrape_sgsiken import parse_q_explanation_fields
+        node = BeautifulSoup('<div id="kaisetsu">定義。<ul><li class="lii">イの理由。</li><li class="lia">アの理由。</li></ul>結論。</div>', 'html.parser')
+        prefix, _, summary, snippets, _ = parse_q_explanation_fields(node, choice_count=2)
+        self.assertEqual(snippets, [['アの理由。'], ['イの理由。']])
+        self.assertEqual(prefix, ['定義。'])
+        self.assertEqual(summary, ['結論。'])
 
     def test_refresh_preserves_ids_and_reports_changes_after_full_validation(self):
         record = {"source_question_id": "stable", "questionBodyText": "本文", "choiceTextList": ["A", "B"],

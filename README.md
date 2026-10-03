@@ -28,7 +28,7 @@
 python3 -m venv .venv
 source .venv/bin/activate
 python3 -m pip install -r requirements_firestore.txt
-python3 -m pip install requests beautifulsoup4
+python3 -m pip install requests beautifulsoup4 Pillow pypdf pdfplumber
 ```
 
 Firestore / Storageを使う場合は、service accountをrepositoryへ置かず環境変数で指定します。

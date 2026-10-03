@@ -93,7 +93,18 @@ def download_and_save_images(http_session, image_url_list, filename_prefix, *, b
     saved = _download_and_save_images(http_session, image_url_list, filename_prefix, base_dir=base_dir)
     expected = sum(bool(url) and not is_placeholder_image_url(url) for url in image_url_list)
     if len(saved) != expected:
-        raise ValueError(f"問題画像の取得が不完全です: {filename_prefix}")
+        raise ValueError(f"画像の取得が不完全です: {filename_prefix}")
+    # HTTP 200のエラー画面等を画像として保存したままsourceを確定しない。
+    from PIL import Image
+    from xml.etree import ElementTree
+    for filename in saved:
+        path = Path(base_dir) / filename
+        if path.suffix.lower() == ".svg":
+            if not ElementTree.parse(path).getroot().tag.endswith("svg"):
+                raise ValueError(f"SVGではない画像応答: {path}")
+        else:
+            with Image.open(path) as image:
+                image.verify()
     return saved
 
 
@@ -130,24 +141,18 @@ def determine_question_intent(question_text: str) -> str:
     既存の code.py 相当ロジック。
     """
     normalized = re.sub(r"\s+", "", question_text or "")
-    incorrect_patterns = [
-        r"最も不適切(?:なもの|な記述|な説明|な組合せ|な選択肢)?",
-        r"最も不適当(?:なもの|な記述|な説明|な組合せ|な選択肢)?",
-        r"誤っている(?:もの|記述|説明|組合せ|選択肢)?",
-        r"誤り(?:である)?(?:もの|記述|説明|組合せ|選択肢)?",
-        r"間違っている(?:もの|記述|説明|組合せ|選択肢)?",
-        r"正しくない(?:もの|記述|説明|組合せ|選択肢)?",
-        r"不適切(?:な|である)?(?:もの|記述|説明|組合せ|選択肢|対応|方法|処置|行動|内容)?",
-        r"不適当(?:な|である)?(?:もの|記述|説明|組合せ|選択肢|対応|方法|処置|行動|内容)?",
-        r"適切でない(?:もの|記述|説明|組合せ|選択肢)?",
-        r"適当でない(?:もの|記述|説明|組合せ|選択肢)?",
-        r"含まれないもの",
-        r"該当しないもの",
-        r"規定されていないもの",
-        r"定められていないもの",
-        r"対象とならないもの",
-    ]
-    if any(re.search(pattern, normalized) for pattern in incorrect_patterns):
+    # 予備判定は設問の選択指示だけを見る。説明中の「誤り訂正」等は根拠にしない。
+    # 「該当しない」「含まれない」等の断片肢は、本文の述語を補う命題が成立する
+    # 側を選ぶため、否定語だけで反転しない。最終判定は02工程が独立に行う。
+    negative_predicate = (
+        r"(?:最も)?(?:不適切|不適当|誤っている|誤り(?:である)?|"
+        r"間違っている|正しくない|適切でない|適当でない)"
+    )
+    selector = (
+        r"(?:な|である)?(?:もの|記述|説明|組合せ|選択肢|対応|方法|"
+        r"処置|行動|内容|行為|の)?(?:は|を)?(?:どれか|いずれか|選べ|選びなさい)"
+    )
+    if re.search(negative_predicate + selector, normalized):
         return "select_incorrect"
     return "select_correct"
 
@@ -415,28 +420,29 @@ def parse_q_explanation_fields(
 
     # 選択肢ごとの解説は li + class="lia|lii|liu|..." 系で出る。
     # li1/li2/li3 等の一般リストは除外する。
-    choice_li_class_re = re.compile(r"^li[a-z]+$")
+    choice_markers = {"lia": 0, "lii": 1, "liu": 2, "lie": 3}
     explanation_items: list[Tag] = []
     for li in kaisetsu.find_all("li"):
         if not isinstance(li, Tag):
             continue
         class_list = li.get("class") or []
-        if any(choice_li_class_re.fullmatch(c) for c in class_list):
+        if any(c in choice_markers for c in class_list):
             explanation_items.append(li)
 
-    choice_texts = [
-        extract_q_text(li)
-        for li in explanation_items
-        if extract_q_text(li)
-    ]
-    if len(choice_texts) == choice_count:
+    texts_by_marker = {}
+    for li in explanation_items:
+        marker = next(choice_markers[c] for c in li.get("class", []) if c in choice_markers)
+        if marker in texts_by_marker:
+            raise ValueError("同じ問題内で選択肢解説の記号が重複しています")
+        texts_by_marker[marker] = extract_q_text(li)
+    if set(texts_by_marker) == set(range(choice_count)) and all(texts_by_marker.values()):
         contents = kaisetsu.decode_contents()
         first_start = contents.find(str(explanation_items[0]))
         last_end = contents.rfind(str(explanation_items[-1])) + len(str(explanation_items[-1]))
         prefix = BeautifulSoup("<div>" + contents[:first_start] + "</div>", "html.parser").div
         summary = BeautifulSoup("<div>" + contents[last_end:] + "</div>", "html.parser").div
         prefix_text, summary_text = extract_q_text(prefix), extract_q_text(summary)
-        snippets = [[text] if text else [] for text in choice_texts]
+        snippets = [[texts_by_marker[index]] for index in range(choice_count)]
         return [prefix_text] if prefix_text else [], None, [summary_text] if summary_text else [], snippets, [None for _ in range(choice_count)]
 
     fallback = extract_q_text(kaisetsu)
@@ -584,12 +590,19 @@ def parse_q_question_page(
         explanation_choice_snippets,
         explanation_choice_correctness,
     ) = parse_q_explanation_fields(soup, choice_count=len(choice_text_list))
+    explanation_source_images = extract_image_urls_from_element(soup.find(id="kaisetsu"), page_url)
+    explanation_image_filenames = (
+        download_and_save_images(
+            http_session, explanation_source_images, f"q{public_question_id}_exp",
+            base_dir=IMAGE_OUTPUT_DIR or ".",
+        ) if download_images and explanation_source_images else []
+    )
     classification = extract_classification_text(soup)
     category_hierarchy, category_major, category_middle, category_small = split_classification_hierarchy(
         classification
     )
 
-    return {
+    record = {
         "questionBodyText": question_body_text,
         "examLabel": exam_label,
         "questionLabel": question_label,
@@ -618,6 +631,10 @@ def parse_q_question_page(
         "answer_result_inferred_correct_choice_numbers": answer_numbers,
         "source_question_id": source_question_id,
     }
+    if explanation_source_images:
+        record["explanationImageSourceUrls"] = explanation_source_images
+        record["explanationImageStorageUrls"] = [make_storage_url(name, QUALIFICATION_CODE) for name in explanation_image_filenames]
+    return record
 
 
 def _own_list_item(item: Tag) -> Tag:

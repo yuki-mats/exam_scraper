@@ -54,6 +54,14 @@ def discover_targets(html: str) -> list[dict[str, str]]:
     return targets
 
 
+def assert_live_targets(html: str, preset) -> list[dict[str, str]]:
+    live = discover_targets(html)
+    configured = {(t.source_list_group_id, t.output_list_group_id) for t in preset.scrape_targets}
+    if {(t['source_list_group_id'], t['output_list_group_id']) for t in live} != configured:
+        raise ValueError(f'公開回とpresetが不一致です。sc presetを取得元に基づいて更新してください: {live}')
+    return live
+
+
 def official_answers(path: Path, expected_count: int) -> dict[int, int]:
     text = '\n'.join(p.extract_text() or '' for p in PdfReader(path).pages)
     # 古いPDFでは二桁の番号が「問1 0」と抽出される。行をまたがず数字だけを結合する。
@@ -82,18 +90,23 @@ def official_answers(path: Path, expected_count: int) -> dict[int, int]:
 
 
 def compact(text: str) -> str:
-    text = unicodedata.normalize('NFKC', text).replace('−', '-')
-    return ''.join(c for c in text if not c.isspace() and not unicodedata.combining(c))
+    # 指数・添字・否定の上線は意味を持つ。互換正規化や結合文字の削除をしない。
+    text = unicodedata.normalize('NFC', text).replace('−', '-')
+    return ''.join(c for c in text if not c.isspace())
 
 
 def assert_text_coverage(node, saved: str, context: str) -> None:
     if node is None:
         raise ValueError(f'取得元の本文要素がありません: {context}')
-    target = compact(saved)
+    # DOMの生text nodeにはsup/sub/CSS生成記号がないため、ここは文字の存在だけを見る。
+    # 表記と順序はvisible_sourceとの別の厳密照合で検証する。
+    def fragment_text(value):
+        return compact(unicodedata.normalize('NFKC', value)).replace('\u0305', '')
+    target = fragment_text(saved)
     for fragment in node.find_all(string=True):
         if isinstance(fragment, Comment) or fragment.parent.name in {'script', 'style', 'button'}:
             continue
-        text = compact(str(fragment))
+        text = fragment_text(str(fragment))
         if text and text not in target:
             raise ValueError(f'取得元テキストが欠落: {context}: {str(fragment)[:100]}')
 
@@ -134,7 +147,10 @@ def visible_source(node) -> str:
                             marker += symbol; number -= value
                     if style == 'i': marker = marker.lower()
                 item.insert(0, marker + '. '); ordinal += 1
-    for tag in reversed(soup.select('sup, sub, .ol, .dol, .frac, .root')):
+    math_tags = [tag for tag in soup.find_all() if tag.name in {'sup', 'sub'}
+                 or set(tag.get('class', [])).intersection({'ol', 'dol', 'frac', 'root'})
+                 or re.search(r'text-decoration(?:-line)?\s*:\s*[^;]*\boverline\b', tag.get('style', ''), re.I)]
+    for tag in reversed(math_tags):
         text = tag.get_text(); classes = tag.get('class', [])
         if tag.name in {'sup', 'sub'}:
             mapping = SUPERSCRIPT_MAP if tag.name == 'sup' else SUBSCRIPT_MAP
@@ -151,6 +167,66 @@ def visible_source(node) -> str:
             text = ''.join(c + '\u0305' if not c.isspace() and not unicodedata.combining(c) else c for c in text)
         tag.replace_with(text)
     return compact(soup.get_text())
+
+
+def assert_explanation_content(page, record: dict, context: str) -> None:
+    node = page.find(id='kaisetsu')
+    if node is None:
+        raise ValueError(f'解説がありません: {context}')
+    snippets = record.get('explanation_choice_snippets', [])
+    prefix = record.get('explanation_common_prefix', [])
+    summary = record.get('explanation_common_summary', [])
+    marker_index = {'lia': 0, 'lii': 1, 'liu': 2, 'lie': 3}
+    items = [(item, marker_index[c]) for item in node.find_all('li')
+             for c in item.get('class', []) if c in marker_index]
+    if len(snippets) != 4:
+        raise ValueError(f'解説の選択肢数が不一致: {context}')
+    # 4肢の説明が画像だけの場合、テキストは共通解説として保存される。
+    # 画像自体の保持・対応はassert_image_referencesが別途確認する。
+    if len(items) == 4 and {index for _, index in items} == set(range(4)) and all(visible_source(item) for item, _ in items):
+        for item, index in items:
+            if visible_source(item) != compact('\n'.join(snippets[index])):
+                raise ValueError(f'選択肢と解説の対応又は表記が不一致: {context} {"アイウエ"[index]}')
+        saved = '\n'.join(prefix + [s for _, index in items for s in snippets[index]] + summary)
+        if visible_source(node) != compact(saved):
+            raise ValueError(f'解説全体の順序又は表記が不一致: {context}')
+    else:
+        for snippet in snippets:
+            if visible_source(node) != compact('\n'.join(prefix + snippet + summary)):
+                raise ValueError(f'共通解説の順序又は表記が不一致: {context}')
+
+
+def image_urls(node, page_url: str) -> list[str]:
+    """DOMの画像URLを独立に列挙する。遅延読込と重複も考慮する。"""
+    result = []
+    for image in node.find_all('img') if node is not None else []:
+        for key in ('data-src', 'data-lazy-src', 'src'):
+            value = (image.get(key) or '').strip()
+            if value and not is_placeholder_image_url(value):
+                url = urljoin(page_url, value)
+                if url not in result:
+                    result.append(url)
+                break
+    return result
+
+
+def assert_image_references(node, references: list[str], prefix: str, page_url: str,
+                            output: Path, group: str, *, source_urls=None) -> list[dict]:
+    expected = image_urls(node, page_url)
+    if len(expected) != len(references) or source_urls is not None and source_urls != expected:
+        raise ValueError(f'画像集合又は取得元URLの対応が不一致: {page_url} {prefix}')
+    proofs = []
+    for ordinal, (url, reference) in enumerate(zip(expected, references, strict=True), start=1):
+        filename = unquote(urlparse(reference).path).rsplit('/', 1)[-1]
+        extension = urlparse(url).path.rsplit('.', 1)[-1].lower()
+        extension = '.' + extension if extension in {'jpg', 'jpeg', 'png', 'gif', 'webp', 'bmp', 'svg'} else '.bin'
+        if filename != f'{prefix}_img{ordinal:02d}{extension}':
+            raise ValueError(f'画像が別問題・別選択肢又は別順序へ対応しています: {page_url} {filename}')
+        path = output / 'question_images' / group / filename
+        validate_image_file(path)
+        proofs.append({'sourceUrl': url, 'path': str(path.relative_to(output)),
+                       'sha256': hashlib.sha256(path.read_bytes()).hexdigest()})
+    return proofs
 
 
 def assert_numbered_explanation(node, saved: str, context: str) -> None:
@@ -218,6 +294,18 @@ def afternoon_links(html: str, list_url: str) -> list[str]:
         for a in BeautifulSoup(html, 'html.parser').find_all('a', href=True)
         if re.search(r'(?:^|/)pm\d+(?:_\d+)?\.html$', a['href'])
     ))
+
+
+def assert_document_inventory(html: str, list_url: str, documents: list[dict], group: str) -> None:
+    expected = {d['url']: d for d in document_links(html, list_url)}
+    if len(documents) != len(expected) or {d['url'] for d in documents} != set(expected):
+        raise ValueError(f'公開リンクと保存PDF集合が不一致: {group}')
+    for doc in documents:
+        source = expected[doc['url']]
+        directory = 'official_pdfs' if source['kind'] == 'official' else 'afternoon_explanations'
+        expected_path = str(Path(directory) / group / source['filename'])
+        if any(doc.get(key) != source[key] for key in ('kind', 'label', 'filename')) or doc.get('path') != expected_path:
+            raise ValueError(f'PDFが別試験・別資料へ対応しています: {group} {doc["url"]}')
 
 
 def validate_image_file(path: Path) -> None:
@@ -323,6 +411,9 @@ def verify_group(group: str, list_url: str, output: Path) -> dict:
     manifest = json.loads((output / 'verification' / 'official' / group / 'documents.json').read_text())
     official = {}
     documents = manifest['documents']
+    if manifest.get('listGroupId') != group or manifest.get('sourceListUrl') != list_url:
+        raise ValueError(f'公式資料receiptの試験回・URLが不一致: {group}')
+    assert_document_inventory(html, list_url, documents, group)
     for doc in documents:
         path = output / doc['path']
         if hashlib.sha256(path.read_bytes()).hexdigest() != doc['sha256']:
@@ -344,6 +435,7 @@ def verify_group(group: str, list_url: str, output: Path) -> dict:
             validate_image_file(output / asset['path'])
         afternoon_images += len(doc['images'])
     images = 0
+    explanation_images = 0
     ids = set()
     question_checks = []
     publication_holds = []
@@ -398,27 +490,24 @@ def verify_group(group: str, list_url: str, output: Path) -> dict:
         explanation = '\n'.join(record.get('explanation_common_prefix', []) + record.get('explanation_common_summary', []) + [s for snippets in record.get('explanation_choice_snippets', []) for s in snippets])
         assert_text_coverage(page.find(id='kaisetsu'), explanation, url + ' 解説')
         assert_numbered_explanation(page.find(id='kaisetsu'), explanation, url + ' 解説')
-        image_groups = [record.get('questionImageStorageUrls', [])] + record['originalQuestionChoiceImageUrls']
-        for references in image_groups:
-            for reference in references:
-                filename = unquote(urlparse(reference).path).rsplit('/', 1)[-1]
-                path = output / 'question_images' / group / filename
-                if not path.is_file() or path.stat().st_size == 0:
-                    raise ValueError(f'参照画像が欠落: {path}')
-                validate_image_file(path)
-                images += 1
-        # HTMLに含まれる問題・選択肢画像の件数と参照件数を照合する。
-        body_images = [i for i in page.find(id='mondai').find_all('img') if i.get('src')]
-        choice_images = [i for i in first.find_parent('ul').find_all('img') if i.get('src')]
-        if len(body_images) != len(record.get('questionImageStorageUrls', [])):
-            raise ValueError(f'問題画像件数が不一致: {url}')
-        expected_choice_images = len(choice_images) * (4 if len(items) == 1 else 1)
-        if expected_choice_images != sum(map(len, record['originalQuestionChoiceImageUrls'])):
-            raise ValueError(f'選択肢画像件数が不一致: {url}')
+        assert_explanation_content(page, record, url)
+        public_id = record['public_question_id']
+        proofs = assert_image_references(page.find(id='mondai'), record.get('questionImageStorageUrls', []),
+                                         f'q{public_id}_q', url, output, group)
+        for index, references in enumerate(record['originalQuestionChoiceImageUrls'], start=1):
+            node = items[index - 1] if len(items) == 4 else items[0]
+            suffix = f'c{index:02d}' if len(items) == 4 else 'choices'
+            proofs.extend(assert_image_references(node, references, f'q{public_id}_{suffix}', url, output, group))
+        images += len(proofs)
+        explanation_proofs = assert_image_references(page.find(id='kaisetsu'), record.get('explanationImageStorageUrls', []),
+                            f'q{public_id}_exp', url, output, group, source_urls=record.get('explanationImageSourceUrls', []))
+        explanation_images += len(explanation_proofs)
         question_checks.append({'url': url, 'section': f'am{section}', 'number': number, 'sourceAnswer': answer,
-                                'officialAnswer': official[section][number], 'officialComparison': official_status, 'status': 'passed'})
+                                'officialAnswer': official[section][number], 'officialComparison': official_status, 'status': 'passed',
+                                'questionAndChoiceImages': proofs, 'explanationImages': explanation_proofs})
     return {'listGroupId': group, 'questionCount': len(records), 'imageReferenceCount': images, 'pdfCount': len(documents),
             'afternoonHtmlCount': len(afternoon), 'afternoonImageCount': afternoon_images,
+            'explanationImageReferenceCount': explanation_images,
             'publicationHolds': publication_holds, 'questions': question_checks}
 
 
@@ -434,15 +523,15 @@ def main() -> int:
     for group in groups:
         preset.get_target(group)
     try:
+        # 資料の再ダウンロードを省いた通常検査でも公開回の追加・削除を検出する。
+        inventory_html = fetch_html_text(create_http_session(), INDEX_URL)
+        live = assert_live_targets(inventory_html, preset)
+        inventory_proof = {'checkedAt': datetime.now(timezone.utc).isoformat(), 'groupCount': len(live),
+                           'sourceSha256': hashlib.sha256(inventory_html.encode()).hexdigest()}
         if args.download_pdfs:
-            html = fetch_html_text(create_http_session(), INDEX_URL)
-            live = discover_targets(html)
-            configured = [{'source_list_group_id': t.source_list_group_id, 'output_list_group_id': t.output_list_group_id} for t in preset.scrape_targets]
-            if live != configured:
-                raise ValueError(f'公開回とpresetが不一致です。sc presetを取得元に基づいて更新してください: {live}')
             directory = output / 'verification'; directory.mkdir(parents=True, exist_ok=True)
             with gzip.open(directory / 'sckakomon.html.gz', 'wt', encoding='utf-8') as stream:
-                stream.write(html)
+                stream.write(inventory_html)
             with ThreadPoolExecutor(max_workers=2) as executor:
                 list(executor.map(lambda g: download_documents(g, build_list_first_page_url(preset, g), output), groups))
         if args.download_afternoon_html:
@@ -452,23 +541,36 @@ def main() -> int:
             if not args.download_pdfs and not args.download_afternoon_html:
                 raise ValueError('--pdfs-onlyには資料取得オプションが必要です')
             return 0
-        results = [verify_group(g, build_list_first_page_url(preset, g), output) for g in groups]
+        results = []
+        failures = []
+        for group in groups:
+            try:
+                results.append(verify_group(group, build_list_first_page_url(preset, group), output))
+            except Exception as exc:
+                failures.append({'group': group, 'reason': str(exc)})
         all_records = [r for g in groups for p in (output / 'questions_json' / g / '00_source').glob('*.json') for r in json.loads(p.read_text())['question_bodies']]
         for field in ['source_question_id', 'public_question_id', 'original_question_id']:
             ids = [r[field] for r in all_records]
             if len(ids) != len(set(ids)):
                 raise ValueError(f'全groupでID重複: {field}')
         holds = [h for r in results for h in r['publicationHolds']]
-        report = {'status': 'passed_with_publication_holds' if holds else 'passed', 'checkedAt': datetime.now(timezone.utc).isoformat(), 'groupCount': len(results), 'questionCount': sum(r['questionCount'] for r in results), 'imageReferenceCount': sum(r['imageReferenceCount'] for r in results), 'pdfCount': sum(r['pdfCount'] for r in results),
+        report = {'status': 'failed' if failures else ('passed_with_publication_holds' if holds else 'passed'), 'checkedAt': datetime.now(timezone.utc).isoformat(), 'requestedGroupCount': len(groups), 'sourceQuestionCount': len(all_records), 'failedGroups': failures, 'groupCount': len(results), 'questionCount': sum(r['questionCount'] for r in results), 'imageReferenceCount': sum(r['imageReferenceCount'] for r in results), 'pdfCount': sum(r['pdfCount'] for r in results),
                   'afternoonHtmlCount': sum(r['afternoonHtmlCount'] for r in results), 'afternoonImageCount': sum(r['afternoonImageCount'] for r in results), 'groups': results}
         report['officialAnswerMatchedCount'] = report['questionCount'] - len(holds)
         report['publicationHolds'] = holds
+        report['explanationImageReferenceCount'] = sum(r['explanationImageReferenceCount'] for r in results)
+        report['allImageReferenceCount'] = report['imageReferenceCount'] + report['explanationImageReferenceCount']
+        report['liveInventory'] = inventory_proof
         directory = output / 'reports'; directory.mkdir(parents=True, exist_ok=True)
         filename = 'acquisition_verification.json' if set(groups) == set(preset.list_group_ids) else 'acquisition_verification_' + '_'.join(groups) + '.json'
         (directory / filename).write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n')
         print(json.dumps({k: v for k, v in report.items() if k != 'groups'}, ensure_ascii=False))
-        return 0
+        return 1 if failures else 0
     except Exception as exc:
+        # live一覧・ID検査の失敗も保存し、過去の成功報告を現在値として残さない。
+        directory = output / 'reports'; directory.mkdir(parents=True, exist_ok=True)
+        filename = 'acquisition_verification.json' if set(groups) == set(preset.list_group_ids) else 'acquisition_verification_' + '_'.join(groups) + '.json'
+        (directory / filename).write_text(json.dumps({'status': 'failed', 'checkedAt': datetime.now(timezone.utc).isoformat(), 'requestedGroupCount': len(groups), 'reason': str(exc)}, ensure_ascii=False, indent=2) + '\n')
         print(f'[FAILED] {exc}', file=sys.stderr)
         return 1
 

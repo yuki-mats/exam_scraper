@@ -7,7 +7,7 @@ goal:
   title: "情報処理安全確保支援士の過去問整備と暗記プラス公開"
   slug: "sc-ankiplus-release"
   kind: specific # specific | open_ended | existing_plan | recovery | audit
-  tranche: "取得・全件精査から整備、独立評価、暗記プラス公開まで。取得・全件精査は完了。次は整備scope・公開要件の確認。"
+  tranche: "取得・全件精査から整備、独立評価、暗記プラス公開まで。解説画像と予備判定を修復。2009年春の取得元画像404が未解決。"
   status: active # active | blocked | done
   oracle:
     signal: "公開回・問題URL集合の全件一致、IPA正答照合、問題ごとの整備・独立評価、実機検証、App Store公開確認。"
@@ -67,13 +67,13 @@ visual_board:
     url: "http://goalbuddy.localhost:41737/sc-ankiplus-release/"
     command: "node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal docs/goals/sc-ankiplus-release"
 
-active_task: T002
+active_task: T001
 
 tasks:
   - id: T001
     type: pm
     assignee: PM
-    status: done
+    status: active
     objective: "指定サイトの全公開回を既存scraperで取得し、HTML・IPA正答・画像・PDFを全件照合して取得receiptを保存する。"
     inputs: ["config/scrape_presets.json", "document/operations/scraping_workflow.md"]
     constraints:
@@ -82,21 +82,24 @@ tasks:
       - "他者の変更を破棄・混在コミットしない。"
     expected_output: ["全件取得receipt", "公式正答照合", "再取得・ID維持証拠"]
     receipt:
-      result: done
-      summary: "33回・午前1,815問を取得し、HTML・画像・公式PDFを全件照合した。1,812問で公式正答番号が一致、3問は取得元変更を目視確認して公開前の整備対象に記録した。"
+      result: needs_followup
+      summary: "追加監査で解説画像637参照の未取得と予備判定18問の誤りを発見。32回で628参照を登録し、17問の予備判定を修復。2009年春は解説画像404により既存sourceを保持し、7問9参照と予備判定1問が未反映。全件取得は未完了。公式差異3問も公開保留。"
       evidence:
         - output/sc/reports/acquisition_verification.json
         - output/sc/reports/validation_receipt.json
         - output/sc/reports/target_tests_receipt.json
         - output/sc/reports/circled_steps_change_proof.json
         - output/sc/reports/circled_steps_refresh_receipt.json
+        - output/sc/reports/deep_audit_refresh_receipt.json
+        - output/sc/reports/deep_audit_intent_refresh_receipt.json
+        - output/sc/reports/deep_audit_missing_assets.json
         - document/temporary/audits/sc_scrape_verification_20261003.md
       full_outcome_complete: false
       next_task: T002
   - id: T002
     type: scout
     assignee: Scout
-    status: active
+    status: queued
     objective: "取得receiptを基に整備工程、午前と午後の学習方式、Repaso release設定と未確定事項をread-onlyで特定する。"
     inputs: ["T001 receipt", "document/operations/exam_pipeline_manual_and_automation.md", "/Users/yuki/StudioProjects/repaso/release/config.json", "/Users/yuki/StudioProjects/repaso/release/README.md"]
     constraints: ["Read-only。現行値と未確定事項を分ける。"]
@@ -143,6 +146,6 @@ tasks:
 checks:
   dirty_fingerprint: unknown
   last_verification:
-    result: passed
+    result: failed
     task: T001
     commands: ["check_scsiken_acquisition.py", "quality-gate --qualification sc --mode source"]

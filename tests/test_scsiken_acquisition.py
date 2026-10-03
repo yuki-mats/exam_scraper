@@ -5,13 +5,36 @@ import unittest
 from unittest.mock import patch
 import json
 from bs4 import BeautifulSoup
-from scripts.check.check_scsiken_acquisition import assert_text_coverage, assert_numbered_explanation, discover_targets, document_links, official_answers, visible_source, official_difference_receipt
+from scripts.check.check_scsiken_acquisition import assert_text_coverage, assert_numbered_explanation, assert_explanation_content, assert_image_references, assert_live_targets, assert_document_inventory, compact, discover_targets, document_links, official_answers, visible_source, official_difference_receipt
 from scripts.scrape.qualification_presets import build_list_first_page_url, load_scrape_preset
 from scrape_sgsiken import extract_q_text
 from scripts.scrape.common import to_subscript, to_superscript
 
 
 class ScAcquisitionTests(unittest.TestCase):
+    def test_failed_audit_overwrites_previous_success_and_keeps_other_groups(self):
+        from scripts.check import check_scsiken_acquisition as checker
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp); reports = root / 'output/sc/reports'; reports.mkdir(parents=True)
+            path = reports / 'acquisition_verification.json'
+            path.write_text('{"status":"passed"}')
+            preset = SimpleNamespace(list_group_ids=['202501', '202502'], get_target=lambda g: None)
+            good = {'group': '202502', 'questionCount': 55, 'imageReferenceCount': 0, 'pdfCount': 0,
+                    'afternoonHtmlCount': 0, 'afternoonImageCount': 0, 'publicationHolds': [], 'explanationImageReferenceCount': 0}
+            with patch.object(checker, 'ROOT', root), patch.object(checker, 'load_scrape_preset', return_value=preset), \
+                    patch.object(checker, 'fetch_html_text', return_value='html'), patch.object(checker, 'assert_live_targets', return_value=[1, 2]), \
+                    patch.object(checker, 'build_list_first_page_url', return_value='url'), \
+                    patch.object(checker, 'verify_group', side_effect=[ValueError('画像集合が不一致'), good]), patch('sys.argv', ['check']):
+                self.assertEqual(checker.main(), 1)
+            report = json.loads(path.read_text())
+            self.assertEqual(report['status'], 'failed')
+            self.assertEqual(report['groupCount'], 1)
+            self.assertEqual(report['failedGroups'][0]['group'], '202501')
+            with patch.object(checker, 'ROOT', root), patch.object(checker, 'load_scrape_preset', return_value=preset), \
+                    patch.object(checker, 'fetch_html_text', side_effect=ValueError('公開一覧取得失敗')), patch('sys.argv', ['check']):
+                self.assertEqual(checker.main(), 1)
+            self.assertEqual(json.loads(path.read_text())['reason'], '公開一覧取得失敗')
+
     def test_discovery_uses_era_and_maps_special_exam_without_duplicate_latest(self):
         html = '''<a href="/kakomon/07_aki/">過去問題解説</a>
         <a href="/kakomon/07_aki/">令和7年秋期</a>
@@ -51,11 +74,73 @@ class ScAcquisitionTests(unittest.TestCase):
         original = str(node)
         text = extract_q_text(node)
         self.assertIn('① 要求する。\n② 値を取得する。\n① 再開する。', text)
-        self.assertEqual(visible_source(node), '2で取得した値を渡す。1要求する。2値を取得する。1再開する。')
+        self.assertEqual(visible_source(node), '②で取得した値を渡す。①要求する。②値を取得する。①再開する。')
         assert_numbered_explanation(node, text, 'test')
         with self.assertRaisesRegex(ValueError, '手順番号'):
             assert_numbered_explanation(node, text.replace('② ', ''), 'test')
         self.assertEqual(str(node), original)
+
+    def test_semantic_math_markers_cannot_be_normalized_away(self):
+        for left, right in [('A̅', 'A'), ('A̅̅', 'A̅'), ('2³', '23'), ('X₁', 'X1')]:
+            self.assertNotEqual(compact(left), compact(right))
+        node = BeautifulSoup('<div><span style="text-decoration:overline">A</span>'
+                             '<span class="dol"><span class="ol">B</span></span></div>', 'html.parser').div
+        self.assertEqual(visible_source(node), 'A̅B̅̅')
+
+    def test_explanation_binding_detects_swapped_choices_and_lost_negation(self):
+        page = BeautifulSoup('<div id="kaisetsu">定義。<ul><li class="lia">A<span class="ol">B</span></li>'
+                             '<li class="lii">C</li><li class="liu">D</li><li class="lie">E</li></ul>結論。</div>', 'html.parser')
+        record = {'explanation_common_prefix': ['定義。'], 'explanation_common_summary': ['結論。'],
+                  'explanation_choice_snippets': [['AB̅'], ['C'], ['D'], ['E']]}
+        assert_explanation_content(page, record, 'test')
+        record['explanation_choice_snippets'][0] = ['AB']
+        with self.assertRaisesRegex(ValueError, '対応又は表記'):
+            assert_explanation_content(page, record, 'test')
+        record['explanation_choice_snippets'] = [['C'], ['AB̅'], ['D'], ['E']]
+        with self.assertRaisesRegex(ValueError, '対応又は表記'):
+            assert_explanation_content(page, record, 'test')
+
+    def test_missing_explanation_images_and_wrong_question_reference_fail(self):
+        from PIL import Image
+        node = BeautifulSoup('<div><img src="figure.png"></div>', 'html.parser').div
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory); images = output / 'question_images' / '202501'; images.mkdir(parents=True)
+            Image.new('RGB', (1, 1)).save(images / 'qstable_exp_img01.png')
+            url = 'https://www.sc-siken.com/kakomon/07_haru/am2_1.html'
+            source = ['https://www.sc-siken.com/kakomon/07_haru/figure.png']
+            refs = ['https://example.com/qstable_exp_img01.png']
+            self.assertEqual(len(assert_image_references(node, refs, 'qstable_exp', url, output, '202501', source_urls=source)), 1)
+            with self.assertRaisesRegex(ValueError, '画像集合'):
+                assert_image_references(node, [], 'qstable_exp', url, output, '202501', source_urls=[])
+            with self.assertRaisesRegex(ValueError, '別問題'):
+                assert_image_references(node, ['https://example.com/qother_exp_img01.png'], 'qstable_exp', url, output, '202501', source_urls=source)
+
+    def test_image_only_choice_explanations_preserve_common_text(self):
+        page = BeautifulSoup('<div id="kaisetsu">定義。<ul><li class="lia"><img src="a.png"></li>'
+                             '<li class="lii"><img src="i.png"></li><li class="liu"><img src="u.png"></li>'
+                             '<li class="lie"><img src="e.png"></li></ul>結論。</div>', 'html.parser')
+        record = {'explanation_choice_snippets': [['定義。結論。'] for _ in range(4)]}
+        assert_explanation_content(page, record, 'test')
+
+    def test_live_inventory_rejects_missing_session_without_pdf_download(self):
+        preset = SimpleNamespace(scrape_targets=[SimpleNamespace(source_list_group_id='07_aki', output_list_group_id='202502')])
+        assert_live_targets('<a href="/kakomon/07_aki/">令和7年秋期</a>', preset)
+        with self.assertRaisesRegex(ValueError, '公開回とpreset'):
+            assert_live_targets('<a href="/kakomon/07_haru/">令和7年春期</a>', preset)
+
+    def test_pdf_inventory_detects_missing_file_and_wrong_session(self):
+        html = '<a href="https://www.ipa.go.jp/sc_ans.pdf">午前Ⅱ解答</a><a href="/pdf/07_haru/pm1.pdf">問1</a>'
+        url = 'https://www.sc-siken.com/kakomon/07_haru/'
+        docs = document_links(html, url)
+        for doc in docs:
+            folder = 'official_pdfs' if doc['kind'] == 'official' else 'afternoon_explanations'
+            doc['path'] = f'{folder}/202501/{doc["filename"]}'
+        assert_document_inventory(html, url, docs, '202501')
+        with self.assertRaisesRegex(ValueError, 'PDF集合'):
+            assert_document_inventory(html, url, docs[:-1], '202501')
+        docs[0]['path'] = 'official_pdfs/202401/sc_ans.pdf'
+        with self.assertRaisesRegex(ValueError, '別試験'):
+            assert_document_inventory(html, url, docs, '202501')
 
     def test_unreviewed_official_difference_does_not_pass(self):
         with tempfile.TemporaryDirectory() as tmp, self.assertRaisesRegex(ValueError, "目視照合receipt"):
