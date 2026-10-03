@@ -928,6 +928,9 @@ dialog > form { width: 100%; flex: 1 1 auto; }
 .dialog-eyebrow { display: block; margin-bottom: 2px; color: var(--text-muted); font-size: 9px; font-weight: 800; }
 .dialog-header .icon-button { margin-left: auto; }
 .dialog-body { min-height: 0; flex: 1 1 auto; padding: 16px; overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; display: grid; align-content: start; gap: 15px; }
+#qualification-run-form .dialog-body { grid-auto-rows: max-content; }
+.run-credit-approval { display: flex; align-items: flex-start; gap: 8px; padding: 10px; border: 1px solid var(--line-strong); background: #fff; font-size: 12px; line-height: 1.5; }
+.run-credit-approval input { flex: 0 0 auto; margin: 2px 0 0; accent-color: var(--blue); }
 .review-selection { margin: 0; padding: 11px 12px; border: 1px solid #9ebbd2; border-left: 4px solid var(--blue); background: #edf4fa; }
 .review-selection[hidden] { display: none; }
 .review-selection-heading { display: flex; align-items: baseline; gap: 9px; }
