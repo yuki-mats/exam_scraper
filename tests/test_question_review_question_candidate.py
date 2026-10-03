@@ -1,4 +1,5 @@
 import json
+from dataclasses import replace
 import unittest
 
 from scripts.common.aggregate_answer_decomposition import source_text_hash
@@ -820,13 +821,32 @@ class QuestionCandidateTest(unittest.TestCase):
         errors = validate_candidate_content(candidate, targets, record)
 
         self.assertTrue(
-            any("検証済みの現在値から文章品質が退行" in error for error in errors),
+            any("現在値が通過している書式・数式の" in error for error in errors),
             errors,
         )
         self.assertTrue(
-            any("既存の数式、数値代入、等号、途中計算" in error for error in errors),
+            any("正しい数式、数値代入、等号、途中計算" in error for error in errors),
             errors,
         )
+
+        self.assertTrue(
+            any("事実や計算根拠の正しさを保証しません" in error for error in errors),
+            errors,
+        )
+        self.assertFalse(any("そのまま保持" in error for error in errors), errors)
+
+        corrected = replace(
+            candidate,
+            updates=(replace(
+                candidate.updates[0],
+                set_fields={"explanationText": [
+                    record["explanationText"][0],
+                    "正しい。貸付額は合計100で、基準額50を超える。"
+                    "\\[60+40=100>50\\]",
+                ]},
+            ),),
+        )
+        self.assertFalse(validate_candidate_content(corrected, targets, record))
 
     def test_builds_targets_without_exposing_unrelated_paths(self):
         targets = candidate_targets("q1", "explanation", self.plan())

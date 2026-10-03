@@ -2100,12 +2100,12 @@ def _validate_candidate_content_messages(
                 == projected_record.get("correctChoiceText")
             ):
                 errors.append(
-                    "候補のexplanationTextで、検証済みの現在値から文章品質が"
-                    "退行しています。正誤が変わらず、法令差分の反映が不要な"
-                    "選択肢はcurrentRecord.explanationTextをそのまま保持し、"
-                    "変更が必要な選択肢だけを修正してください。計算問題では、"
-                    "既存の数式、数値代入、等号、途中計算及び結果を削除しないで"
-                    "ください。"
+                    "候補のexplanationTextは、現在値が通過している書式・数式の"
+                    "検査条件を満たさなくなっています。この機械検査は、事実や"
+                    "計算根拠の正しさを保証しません。問題文と根拠から内容を独立に"
+                    "確認し、必要な事実訂正を行ったうえで、読みやすい説明と"
+                    "計算過程を示してください。計算問題では、正しい数式、"
+                    "数値代入、等号、途中計算及び結果を保持又は再構成してください。"
                 )
     if "explanationReferences" in changed_fields:
         errors.extend(
