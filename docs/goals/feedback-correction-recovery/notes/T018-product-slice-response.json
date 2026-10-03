@@ -1,0 +1,204 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T018",
+    "board_path": "/Users/yuki/development/exam_scraper_feedback/docs/goals/feedback-correction-recovery/state.yaml",
+    "decision": "approve_next",
+    "full_outcome_complete": false,
+    "rationale": "最大安全sliceは、WORKの読取専用canonical入力とROOTの正式24を明示的に結合し、本則抽出、限定artifact生成、Inventory、工程checkpoint、真正評価を同じmanifestへ接続する製品実装である。単なる対象抽出や全group検査の省略では足りない。追加4fieldは承認後だけ正式反映し、18/21の責務配分後も承認対象の最終projectionを厳密に維持する。upstream修正でsubscription再試行は可能だが、実行成功は未証明。法令レビュー完了は評価合格の代替にならない。",
+    "evidence": [
+      {
+        "path": "output/user_feedback_response_system/proposals/2026-10-03/recovery-slice/verification-receipt.json",
+        "finding": "132 private file、26参照、真正native三段階レビューの検証はpass。productImplementationCompleted=false、publicationReady=false。"
+      },
+      {
+        "path": "output/user_feedback_response_system/proposals/2026-10-03/recovery-slice/next-implementation-acceptance.json",
+        "finding": "全groupの19 orphan、限定artifact未実装、ガス専用25 provider、subscription runtime未確認を明示している。"
+      },
+      {
+        "path": "tools/question_review_console/inventory.py:1260",
+        "finding": "工程入力は全group index検証を要求する。通常Inventoryのsource及びartifact pathは同じrepo_root配下に固定され、外部WORK sourceとROOT正式24を結ぶ入口はない。"
+      },
+      {
+        "path": "scripts/common/question_identity.py:122",
+        "finding": "完全binding、source stem、aliasから全候補を解決し、binding別errorとunmatched候補を保持する。この情報を失わず限定scopeを証明する必要がある。"
+      },
+      {
+        "path": "scripts/merge/record_projection.py:304",
+        "finding": "21適用後に18 lawContextを再適用するため、追加lawReferencesを21だけへ保存すると旧18に戻り得る。"
+      },
+      {
+        "path": "tools/question_review_console/primary_law_evidence.py:173",
+        "finding": "root.iter(Article)で本則と附則の同番号条文を混合する。本則限定、曖昧性拒否、抽出版及び新hashの区別が必要。"
+      },
+      {
+        "path": "tools/question_review_console/publisher.py:1250",
+        "finding": "upload_to_firestore配下の実artifactから対象全IDを抽出し、重複、元問題、資格、group、必須fieldを検査する。source fingerprintもrepo_rootの00_sourceに依存する。"
+      },
+      {
+        "path": "tools/question_review_console/evaluation.py:1950",
+        "finding": "machineReadyはmerge/convert/upload一致、blockingIssuesなし、failed deltaなし、全対象document、現行work policyを要求する。真正sessionと評価run receiptの一致も必要。"
+      },
+      {
+        "path": "tools/question_review_console/qualification_runs.py:18174",
+        "finding": "工程版は実runの版とfingerprint、対象、解説・法令・sidecar検査を通して記録する。任意のallCurrent設定で代用できない。"
+      },
+      {
+        "path": "tools/question_review_console/codex_app_server.py:416",
+        "finding": "現行gateはcredit残高の存在だけでsubscription枠内実行を止めない。assert_subscription_accessはallow_existing_credits=falseで新鮮な判定を取得できる。"
+      },
+      {
+        "path": "commit 23782f0daa432e0a104cbd77cf5903ef7cd17fc4",
+        "finding": "最新差分では公式source更新を古いtype snapshotで上書きしない。限定projectionにも同じ現行projectorを使用する必要がある。"
+      }
+    ],
+    "next_allowed_task": {
+      "package_type": "worker",
+      "contract": "worker_package",
+      "activation_owner": "PM"
+    },
+    "worker_package": {
+      "objective": "2025二級建築士85011問3について、完全canonical入力を読取専用で束ねる明示context、本則法令抽出、決定的な対象限定merge/convert/upload-ready、Inventory及び既存評価・Publisherへの接続を一貫して実装する。sourceQuestionKey=2nd-class-kenchikushi:85011:12c59a4c014e49de、reviewQuestionId=12c59a4c014e49de、sourceRecordRef=question_85011_empty_1.json#0と既存全5公開IDを保持する。privateな統合実行で真正subscription判定と既存評価経路を検証し、承認待ち又は不足checkpointがあれば実際の停止状態を保存する。",
+      "implementation_root": "/Users/yuki/development/exam_scraper_feedback",
+      "allowed_files": [
+        "scripts/common/scoped_canonical_context.py",
+        "scripts/merge/record_projection.py",
+        "scripts/pipeline/prepare_scoped_question_artifacts.py",
+        "tools/question_review_console/scoped_artifacts.py",
+        "tools/question_review_console/validated_evidence_import.py",
+        "tools/question_review_console/primary_law_evidence.py",
+        "tools/question_review_console/inventory.py",
+        "tools/question_review_console/workflow_runner.py",
+        "tools/question_review_console/qualification_runs.py",
+        "tools/question_review_console/evaluation.py",
+        "tools/question_review_console/publisher.py",
+        "tests/test_scoped_canonical_context.py",
+        "tests/test_question_review_scoped_artifacts.py",
+        "tests/test_question_review_validated_evidence_import.py",
+        "tests/test_question_review_primary_law_evidence.py",
+        "tests/test_question_review_inventory.py",
+        "tests/test_question_review_projection.py",
+        "tests/test_question_review_artifact_sync_e2e.py",
+        "tests/test_question_review_evaluation.py",
+        "tests/test_question_review_publisher_safety.py",
+        "document/operations/artifact_contract.md",
+        "document/operations/delivery_workflow.md",
+        "document/operations/local_question_review_console.md",
+        "output/user_feedback_response_system/staging/recovery-scoped-2025/**"
+      ],
+      "input_context_contract": [
+        "WORK=/Users/yuki/development/exam_scraper_workを明示的な読取専用canonical入力root、ROOTを正式24 overlay及び製品code rootとして扱う。暗黙のroot探索、symlink、ROOTへの00_source追加で補わない。",
+        "対象groupの全00_source、全stageの選択候補、category、必要画像、承認済み24と参照証跡をhash付き入力manifestへ固定する。WORKとROOTのpatch precedence、同じpathの衝突及びprovenance root対応を明示する。",
+        "全canonical source inventoryに対して候補を解決し、通常の全group診断と19 orphanを保存する。限定生成は対象への完全binding、alias、source stemの競合を拒否し、unmatched候補の対象外性を証明できない場合も停止する。",
+        "このcontextは限定操作の明示入口だけで使用する。通常の全group merge、stage入力及びquality-gateの検査契約は維持する。外部入力contextを導入できない場合、完全canonical集合の正式導入が別の必要条件であり、一問sourceコピーで代替しない。",
+        "private実行の保存先、sourceの来歴及び正式反映状態を明示する。private候補の生成成功から正式artifact又は公開可能状態へ自動昇格させない。"
+      ],
+      "artifact_contract": [
+        "既存project_merge_record及びconvert_question_to_firestoreを再利用し、全5siblingを生成する。公開IDは固定した既存identityから検証し、生成後に都合のよいIDへ書き換えない。",
+        "binding、source集合hash、patch集合hash、projection hash、変換実装版、公開ID集合、artifact内容hashを一つのmanifestへ結合する。同入力からの2回生成で内容hashが一致する。",
+        "一問artifactは通常group成果物と区別した保存先を持つ。Inventory、評価及びPublisherは検証済みmanifestから同じ成果物を選び、mtime最新による暗黙選択をしない。不正manifest時は停止する。",
+        "Publisherの全5ID抽出、required field、資格/group/originalQuestionId検査、failed delta、現行工程版、評価、source及びlive fingerprintを維持する。限定contextのsource fingerprintはWORK全sourceとROOT正式overlayを覆う。",
+        "対象外のsource、patch、通常merged、converted、upload-ready、category、question-set membership及び公開IDを変更しない。失敗・中断時は未確定artifactとcheckpointを成功扱いにしない。"
+      ],
+      "law_and_approval_contract": [
+        "article locatorはLawBody/MainProvisionから一意に抽出する。同番号附則を混ぜず、本則欠落、複数一致、附則要求の曖昧な扱いを拒否する。別表は適切な本則配下の位置を明示して解決する。",
+        "XML原本hash、抽出領域、抽出・正規化版、全文textHashを記録する。旧証跡と旧hashは保持し、新しいhashを旧抽出結果と同じものとして扱わない。",
+        "T015の候補、元plannedStages及びpackage-manifestは履歴として無変更保持し、integration-planを新しいprivate保存先へ作る。",
+        "追加4fieldの正式反映は具体的ユーザー承認後。lawReferencesは18、explanationText/lawRevisionFacts/suggestedQuestionDetailsByChoiceは21、監査sidecarは既存監査保存先へ配分する。承認対象は完成した最終projectionの4fieldであり、stage配分によって値を改作しない。",
+        "承認済み24の正誤vectorとselect_correct、問題本文、選択肢及び全5公開IDを維持する。正式反映はこのWorkerのallowed_filesに含めず、承認後にPMが正確な移送file契約を別taskへ設定する。"
+      ],
+      "checkpoint_and_evaluation_contract": [
+        "既存native法令レビューは再実施しない。保存済み本人出力、入力、政策版、一次資料、最終candidate及びsidecarのhashを現行の無変更validatorで再生検証する。",
+        "証拠取込を実装する場合は実際のserver検証として新しいimport runを記録し、元native runの来歴を保持する。AppServer model runを実行したようなsession/thread/turnを生成しない。",
+        "工程checkpointはレビュー又は既存receiptが実際に覆った工程・更新項目だけへ付ける。未確認の01/02/02a/02b/03/04を一括current化せず、部分receiptを全面実行として扱わない。必要な未完了工程は既存の真正実行経路へ接続する。",
+        "新鮮なassert_subscription_access(force=true, allow_existing_credits=false)の実結果を保存する。existingCreditsApproved=false、standardMode=true、認証/provider不変を確認する。gate、credit allowance、モデル設定を変更しない。",
+        "現行machineReadyを満たした入力だけについて、既存QuestionEvaluationServiceのpreview/run及び実AppServer経路を使用する。prepared_worker_resultによる代作、fixture、native法令reviewによる評価置換は禁止する。",
+        "実評価の結果、run/session/thread/turn、policy version/fingerprint、stateHash、対象全5IDとartifact manifestを照合する。needs_rework、inconclusive又はgate拒否を実際の結果として保存し、passedへ補正しない。",
+        "追加承認又は真正checkpointが不足する実対象は停止理由を残す。private候補による検証結果を正式公開用評価へ移し替えない。"
+      ],
+      "verify": [
+        "/Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_scoped_canonical_context.py'",
+        "/Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_scoped_artifacts.py'",
+        "/Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_validated_evidence_import.py'",
+        "/Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_primary_law_evidence.py'",
+        "/Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_inventory.py'",
+        "/Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_projection.py'",
+        "/Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_artifact_sync_e2e.py'",
+        "/Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_evaluation.py'",
+        "/Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_publisher_safety.py'",
+        "/Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/staging/recovery-scoped-2025/verify_integration.py",
+        "git diff --check",
+        "git status --short"
+      ],
+      "verification_requirements": [
+        "verify_integration.pyは実canonical contextを読み、入力manifest、同入力2回の決定的生成、全5ID、projectionと各artifactの全field一致、対象外不変を確認する。",
+        "限定artifactへ既存のchoice alignment、required fields、correct-choice patch coverage及び厳格law coverage検査を適用する。対象一問を検査するための入力projectionは明示し、group全件検査成功と偽らない。",
+        "全group経路が19 orphanで引き続き停止すること、対象に触れるorphan・alias競合・stale beforeHash・重複ID・manifest改変・外部root変化で限定経路も停止することを検証する。",
+        "本則と附則の同番号条文、枝番、欠落、重複、別表及び旧hash保存の回帰検証を通す。",
+        "runtime判定と実評価の成功又は拒否を保存する。unit testのmock成功だけでruntime復旧又は製品評価完了としない。",
+        "WORKの既存差分、ROOTの既存差分、正式24、T015の132file及びFirestoreに変更がないことを前後hashで確認する。"
+      ],
+      "stop_if": [
+        "全group checker、既存公開条件、subscription gate又はcredit allowanceの緩和が必要。",
+        "対象外性を証明できないorphanを無視する必要がある。",
+        "00_sourceの手編集、部分sourceコピー、legacy ID注入又は無承認の正式追加4field更新が必要。",
+        "binding、本文、選択肢、公開ID集合、candidate又は固定input hashが変化している。",
+        "nativeレビューの改作、架空run/session/thread/turn、全面checkpointの捏造又は評価passedの代作が必要。",
+        "追加の法的判断又は同じ独立法令レビューの再実施が必要。",
+        "allowed_files外の変更、既存WORK差分の整理、Firestore/Storage write又は公開設定変更が必要。",
+        "異なる入力rootの参照証跡を省略しないと既存provenance検証へ接続できない。"
+      ]
+    },
+    "acceptance_oracle": [
+      "実装完了は、限定context・生成・Inventory・checkpoint・評価・Publisherが一つの検証済みmanifestを使用し、通常全group gateの停止契約を維持した証跡で判定する。",
+      "承認後の正式反映完了は、責務に沿った18/21及びsidecarから得た最終projectionが承認済み4field candidateと完全一致し、既存24と全5公開IDが不変であることで判定する。",
+      "2025公開準備完了は、正式入力から決定的生成した全5artifact、既存機械gate、真正current work receipt、allowExistingCredits=falseの実runtime判定、真正評価passed、厳密なPublisher previewが同じstate/hashを指すことを必要とする。",
+      "全goal完了には2018/2024/2020の根拠・source/publication identity・正式処理及び、別の公開承認後のguarded write、全対象live readback、台帳更新が必要。"
+    ],
+    "subgoal_contract": null,
+    "parallel_safety": {
+      "approved": false,
+      "reason": "一人のWorkerが共有Inventory・projector・評価・Publisher境界を所有する。別boardだけでは変更範囲を分離できない。"
+    },
+    "blocked_tasks": [
+      {
+        "task": "2025追加4fieldの正式反映",
+        "reason": "具体的ユーザー承認待ち。元private候補を保持し、承認後に正確な18/21/sidecar移送契約が必要。"
+      },
+      {
+        "task": "2025真正評価合格及び公開準備完了",
+        "reason": "source overlay統合、限定artifact、現行工程checkpoint、実subscription判定及び真正評価結果が未完成。"
+      },
+      {
+        "task": "年度全体physical merge",
+        "reason": "19 orphanを含む全group gateの障害を維持する。限定生成の成功で解消済みと扱わない。"
+      },
+      {
+        "task": "2018/2024の旧公開identity復旧",
+        "reason": "再取得sourceと旧全5siblingの明示binding/providerは未実装。2024の負の選択意図及び正誤反転も未確定。"
+      },
+      {
+        "task": "2020のproduction snapshot正本導入",
+        "reason": "原取得sourceとは異なるidentityであり、production_snapshotの正式provider契約が必要。ガス専用25を流用済みとは扱わない。"
+      },
+      {
+        "task": "Firestore公開",
+        "reason": "別の明示公開判断、正式入力による評価・preview及びreadback準備が必要。"
+      }
+    ],
+    "missing_evidence": [
+      "WORK全canonical入力とROOT正式24を覆う検証済みcontext manifest。",
+      "対象外不変と全5ID維持を証明する実限定artifact生成。",
+      "現行工程版を満たす真正checkpointと証拠取込の適用範囲。",
+      "allowExistingCredits=falseの新鮮なsubscription判定及び実評価run。",
+      "追加4field承認後の正式最終projection一致。",
+      "他3件のsource/publication identityと処理結果。"
+    ],
+    "required_board_updates": [
+      "PMが次Worker taskを選択し、このpackageのobjective、allowed_files、verify、stop_if及びoracleを転記する。",
+      "code実装、private統合検証、追加4field正式反映、真正評価、公開承認、live readbackを別の証跡として追跡する。",
+      "T015の固定証跡と旧subscription失敗を維持し、upstream変更後のruntime結果を新しいreceiptへ記録する。",
+      "2018/2024/2020を後続必須scopeとして維持し、2024反転及び汎用legacy providerを完了扱いにしない。"
+    ]
+  }
+}

@@ -1,0 +1,181 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T020",
+    "board_path": "/Users/yuki/development/exam_scraper_feedback/docs/goals/feedback-correction-recovery/state.yaml",
+    "decision": "approve_next",
+    "full_outcome_complete": false,
+    "rationale": "source stemはchunkの識別子であり、一問identityではない。対象chunkに8原問があるため、同stem共有だけによる拒否は過剰だった。実103 orphanは全件、対象と異なる非空legacy ID及び問題個別URLを持ち、対象aliasとの重なりも全58原問に対するresolverの対象割当・対象errorもない。30組のID/URL対応にも矛盾がない。候補ごとの対象外証明を完全inventory及び候補hashへ結合すれば、元T018 packageを拡張せず再開できる。URL欠落、対象alias混入、明示partial binding及び証明の変化は停止条件を維持する。",
+    "evidence": [
+      {
+        "path": "docs/goals/feedback-correction-recovery/notes/T019-stopped-receipt.json",
+        "finding": "製品編集前に停止。target projection、全5ID、132 private及び251 canonical hashの一致は確認済みとして記録されている。旧停止receiptを変更する必要はない。"
+      },
+      {
+        "path": "scripts/common/question_identity.py:191",
+        "finding": "legacy resolverはsource stemで候補source集合を限定した後、aliasの一意一致を要求する。同stemだけでrecordへ割り当てる処理はない。"
+      },
+      {
+        "path": "scripts/common/question_identity.py:258",
+        "finding": "original_question_id、問題URL、source/publication ID、binding由来fieldなどがaliasとして扱われる。特定のID一つだけを比較して対象外と判定してはいけない。"
+      },
+      {
+        "path": "scripts/merge/patch_views.py:194",
+        "finding": "全sourceに対する既存resolverの結果を受け、同bindingのlayer競合を検査する。限定生成でも同じ解決結果及び競合情報を保持できる。"
+      },
+      {
+        "path": "/Users/yuki/development/exam_scraper_work/output/2nd-class-kenchikushi/questions_json/85011",
+        "finding": "read-only再計算で全58原問、対象chunk内8原問、unmatched 10=19・15=10・21=48・22=26を確認。対象bindingのstage errorsはない。"
+      },
+      {
+        "path": "85011/10_questionType_fixed/question_85011_empty_1_questionType_fixed_20260405_2303.json",
+        "finding": "同stemの16 orphanは全件別legacy ID及び別の問題個別URLを持ち、対象alias intersection及び個別resolverの対象割当・対象errorは0。"
+      },
+      {
+        "path": "85011/22_questionSetId_linked/question_85011_empty_1_merged_questionSetId_linked_20260408_0132.json",
+        "finding": "こちらも同stemの16 orphanを含む。同じ判定条件を適用できる。"
+      },
+      {
+        "path": "全stageの103 unmatched candidate",
+        "finding": "非空original_question_idとhttps://2kenchikushi.kakomonn.com/questions/<整数>形式のURLを全件確認。明示sourceQuestionKey/sourceRecordRef/reviewQuestionIdはなく、対象alias混入0、個別resolverの対象割当・対象error0。IDとURLは30組で双方向の対応矛盾0。"
+      }
+    ],
+    "outside_proof_contract": {
+      "scope": "2025・85011・12c59a4c014e49deの限定生成専用。対象外証明はcanonical帰属の復旧又は全group品質合格を意味しない。",
+      "target": {
+        "sourceQuestionKey": "2nd-class-kenchikushi:85011:12c59a4c014e49de",
+        "reviewQuestionId": "12c59a4c014e49de",
+        "sourceRecordRef": "question_85011_empty_1.json#0",
+        "questionUrl": "https://2kenchikushi.kakomonn.com/questions/90497",
+        "publicationIds": [
+          "12c59a4c014e49de_1",
+          "12c59a4c014e49de_2",
+          "12c59a4c014e49de_3",
+          "12c59a4c014e49de_4",
+          "12c59a4c014e49de_5"
+        ]
+      },
+      "required_conditions": [
+        "全58原問を含む完全source inventoryと全stage選択候補及びROOT正式24をhashで固定し、現在の既存resolverを全inventoryへ適用する。対象一問だけのinventoryで判定しない。",
+        "対象alias集合はsource_identity_aliases、workflow_identity_aliases、完全binding、対象へ正確に束縛されたpatch由来alias及び全5公開IDを覆う。候補側も既存resolverが使用する全aliasを比較する。",
+        "candidateが対象bindingへ割り当てられず、対象bindingへerrorを発生させず、candidate aliasと対象alias集合のintersectionが空であることを確認する。全stage集合による結果とcandidate単体による結果の両方を保存する。",
+        "今回の未束縛legacy orphanは、非空original_question_idと非空の問題個別URLの両方を必要とする。URLは当該sourceの同一hostの/questions/<整数>として解釈でき、対象URLとは異なることを確認する。query、fragment、URL別名の不一致又は問題個別性を判定できない表現は推測で処理しない。",
+        "legacy IDとURLの組について、固定した全source及び全candidate内の既知対応と矛盾しないことを確認する。同じIDが別URL、同じURLが別IDへ対応する場合は証明不能として残す。",
+        "このlegacy証明経路では明示sourceQuestionKey/sourceRecordRef/reviewQuestionId及びsnake_case別名を持つpartial bindingを受理しない。明示bindingを持つ場合は、完全で内部矛盾がなく、現在inventoryの別recordへ正確に解決する別の証明が必要。存在しない完全bindingも自動的に対象外扱いにしない。",
+        "source stemが対象と同じであることはchunk共有情報として保存する。同stemを対象一致とも対象外とも判定する根拠にせず、上記record identity条件で判定する。",
+        "証明recordはstage、相対file path、candidate位置、candidate全内容hash、source stem、legacy ID、URL、rawの明示binding field、alias intersection、resolver結果、inventory hash、候補集合hash、resolver実装版を持つ。candidate位置は証跡識別だけに使い、問題内容の結合には使わない。",
+        "生成直前及び結果確定前に入力hashを再照合する。scope外候補は削除・書換えず、限定操作の対象外証明として記録する。通常全group index及びそのfail-closed結果を維持する。"
+      ],
+      "reject_conditions": [
+        "対象のlegacy ID、URL、source key、record ref、review ID又はいずれかの公開IDがcandidate aliasへ含まれる。",
+        "同stem又はglobal resolverの曖昧なalias候補集合に対象が含まれる。scoped優先で別recordへ割り当てられていても、明示aliasの対象混入を無視しない。",
+        "未束縛orphanのID又はURLが欠落、空、非文字列、不正形式又は問題個別URLとして解釈不能。",
+        "明示partial binding、canonical/snake_case binding別名の不一致、bindingとID/URLの矛盾。",
+        "IDとURLの双方向対応が固定集合内で矛盾する。",
+        "完全bindingが対象を指す、現在sourceへ解決しない、又は別sourceへ解決しても対象aliasを含む。",
+        "inventory、候補集合、対象alias closure、正式24又はresolver実装がproof作成後に変化した。",
+        "対象bindingのlayer競合、stale beforeHash又は他のprojection errorが存在する。"
+      ],
+      "current_candidate_assessment": "確認した103 orphanはこの未束縛legacy経路の必要条件を満たす。Workerは固定hashと候補別proofを保存して再確認すること。同stemの16件だけを特別除外するallowlistは作らない。"
+    },
+    "required_tests": [
+      "一つのchunkに対象を含む複数原問を置き、同stem・別ID・別問題URL・全alias非交差のorphanが限定処理の対象外として証明される。",
+      "同stemの同じcandidateで、IDを対象IDへ変更した場合、URLを対象URLへ変更した場合、全5公開IDの一つを追加した場合はそれぞれ停止する。",
+      "対象URLの同一問題表現を変えても別問題として通らず、URL欠落・空・非個別URL・矛盾するURL別名も停止する。",
+      "対象sourceRecordRefのみ、対象sourceQuestionKeyのみ、明示reviewQuestionIdのみを持つpartial bindingは停止する。bindingの別名不一致とID/URLとの矛盾も停止する。",
+      "同じIDと別URL、同じURLと別ID、対象を含む共有alias、scoped/global解決の競合を拒否する。",
+      "完全な別record bindingは内部整合性と対象alias非交差を確認した場合だけ対象外証明へ進める。存在しないbindingや対象alias混入は停止する。",
+      "proof生成後のsource/candidate変更、候補追加・削除、resolver版変更でproofを無効にし、結果を確定しない。",
+      "実fixtureでunmatched 19/10/48/26と全103候補のproofを保存し、既存全group検査は引き続き停止する。",
+      "限定projection及びconvertは固定済み対象と一致し、全5IDを維持する。対象外canonical fileと旧T019 receiptは不変。"
+    ],
+    "next_allowed_task": {
+      "package_type": "worker",
+      "contract": "worker_package",
+      "activation_owner": "PM"
+    },
+    "worker_package": {
+      "base_contract": "docs/goals/feedback-correction-recovery/notes/T018-product-slice-receipt.json#goalbuddy_receipt_v1.worker_package",
+      "objective": "元T018の2025対象限定生成・本則抽出・Inventory/checkpoint/真正評価/Publisher接続を新taskで実装する。同source stem共有の判定だけを本receiptの候補別outside proof契約へ明確化し、固定103 orphanのproofと既存全group停止を実証する。",
+      "allowed_files": [
+        "scripts/common/scoped_canonical_context.py",
+        "scripts/merge/record_projection.py",
+        "scripts/pipeline/prepare_scoped_question_artifacts.py",
+        "tools/question_review_console/scoped_artifacts.py",
+        "tools/question_review_console/validated_evidence_import.py",
+        "tools/question_review_console/primary_law_evidence.py",
+        "tools/question_review_console/inventory.py",
+        "tools/question_review_console/workflow_runner.py",
+        "tools/question_review_console/qualification_runs.py",
+        "tools/question_review_console/evaluation.py",
+        "tools/question_review_console/publisher.py",
+        "tests/test_scoped_canonical_context.py",
+        "tests/test_question_review_scoped_artifacts.py",
+        "tests/test_question_review_validated_evidence_import.py",
+        "tests/test_question_review_primary_law_evidence.py",
+        "tests/test_question_review_inventory.py",
+        "tests/test_question_review_projection.py",
+        "tests/test_question_review_artifact_sync_e2e.py",
+        "tests/test_question_review_evaluation.py",
+        "tests/test_question_review_publisher_safety.py",
+        "document/operations/artifact_contract.md",
+        "document/operations/delivery_workflow.md",
+        "document/operations/local_question_review_console.md",
+        "output/user_feedback_response_system/staging/recovery-scoped-2025/**"
+      ],
+      "verify": [
+        "/Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_scoped_canonical_context.py'",
+        "/Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_scoped_artifacts.py'",
+        "/Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_validated_evidence_import.py'",
+        "/Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_primary_law_evidence.py'",
+        "/Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_inventory.py'",
+        "/Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_projection.py'",
+        "/Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_artifact_sync_e2e.py'",
+        "/Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_evaluation.py'",
+        "/Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s tests -p 'test_question_review_publisher_safety.py'",
+        "/Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/staging/recovery-scoped-2025/verify_integration.py",
+        "git diff --check",
+        "git status --short"
+      ],
+      "stop_if": [
+        "本receiptのoutside proof又は元T018のstop条件を満たせない。",
+        "個別candidateのproofが欠落し、件数又は同stem除外allowlistだけで処理を継続する必要がある。",
+        "全group checker、source resolver又は公開gateを緩和する必要がある。",
+        "WORK原本、ROOT正式24、T015固定候補、旧T019 receipt又は許可範囲外fileの変更が必要。",
+        "未承認追加4fieldの正式保存、18/21配分後の承認対象値変更、公開ID変更又はFirestore writeが必要。",
+        "法令レビュー再実施、checkpoint捏造、allowExistingCredits変更又は真正評価の代作が必要。"
+      ],
+      "preserved_contracts": [
+        "元T018のinput context、artifact、法令抽出、承認、18/21最終投影一致、checkpoint、真正evaluation及び公開前oracleを維持する。",
+        "全資格汎用provider、legacy移行及び新UIを追加しない。",
+        "追加4fieldの正式反映とFirestore公開はそれぞれ別の承認境界を維持する。",
+        "T019は安全停止の履歴として保持し、新taskの実装・検証receiptを別保存する。"
+      ]
+    },
+    "subgoal_contract": null,
+    "parallel_safety": {
+      "approved": false,
+      "reason": "元T018と同じ一人のWorker所有。共有Inventory・projection・評価・Publisher境界を並列編集しない。"
+    },
+    "blocked_tasks": [
+      {
+        "task": "全group生成",
+        "reason": "103 orphanは正式解決されていない。限定対象外証明によって全group gateを解除しない。"
+      },
+      {
+        "task": "追加4fieldの正式反映・真正評価合格・Firestore公開",
+        "reason": "元T018の承認、実装、真正checkpoint、subscription runtime、評価及び別公開判断の未完条件を維持する。"
+      }
+    ],
+    "missing_evidence": [
+      "Workerが保存する完全入力hashへ結合した全103候補のoutside proof。",
+      "本receiptの拒否条件を検証する自動試験と実限定生成receipt。",
+      "元T018に記録された真正runtime・評価・公開前条件の証跡。"
+    ],
+    "required_board_updates": [
+      "PMが新Worker taskへ元T018 packageと本receiptのoutside proof条件を設定する。",
+      "T018のsource stem競合条件を、一問identityの実競合及び証明不能candidateの拒否として明確化する。",
+      "T019停止receiptを保持し、同stem共有の判断が未確定だった履歴と今回の解決を別receiptで追跡する。"
+    ]
+  }
+}
