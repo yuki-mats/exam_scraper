@@ -261,3 +261,7 @@ source・ID・本文・全肢・正誤・形式・保存済み法令監査metada
 201802午前I問30（e8e8714b01b5a3466faa73ff）の四fieldを個別に読み、出題時下請法第3条と現行取適法第4条、公正取引委員会Q58・Q59・Q61を直接確認した。21の第1肢に実費が確定すれば代金を自動確定できる算定方法・負担費目、第4肢に未定理由・予定期日の当初明示と速やかな決定後の補充明示を補った。第2・3肢と本文・全肢・正誤・形式・source・ID・metadata・AI台帳は保持。参照を追加し通常同期、参照契約及び必須3検査48merged/48実正答patch880entries成功、全suite未実行。修正後四field再読、独立Sol待ち。根拠direct_subcontract2018_primary_read_20261005.json及びdirect_subcontract2018_applied_20261005.json。
 
 202101午前I問30（007b4978572b4a1a5f946abf）は電子署名法第2・3・4条及び民事訴訟法第228条第4項を2021-04-18/2026-10-05 XML本則で直接確認し、対象条文の本文hash一致を確認した。一定要件を満たす本人署名による真正な成立の推定・政府限定でない認証業務・暗号方式を固定しない定義と現行4肢解説が整合するため、変更なし。root法令懸念は解消したが、別Sol監査は未実施。根拠direct_esign2021_primary_read_20261005.json。両問とも品質確定212/880へ加算せず、Firestore未書込。
+
+### 2015年 IPv6とIPsecの一次資料照合（2026-10-05）
+
+`5d8b4a8f2fc0f534b8a42c84`（午前Ⅱ問9）の全四fieldを読み、公式冊子5頁の第4肢とsourceの一致、公式解答「エ」を確認した。一方、2011年12月の[RFC 6434 §11/11.1](https://datatracker.ietf.org/doc/html/rfc6434#section-11)はIPv6 nodeのIPsec対応を必須から推奨へ変更している。これは2015年の出題前であり、現在の「正しい。」だけでは仕様上の差を説明できない。公式解答と技術上の判定の衝突を未確定として保持し、別Solの内容評価へ渡す。source、正答及びpatchの変更はない。読取証跡は`output/nw/scrape_reports/direct_ipv6_ipsec2015_primary_conflict_20261005.json`。
