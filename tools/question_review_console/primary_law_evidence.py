@@ -134,6 +134,14 @@ def locator_parts(value: Any) -> tuple[tuple[str, LocatorNumber], ...]:
     text = str(value or "")
     parts: list[tuple[str, LocatorNumber]] = []
     for match in _ARTICLE_RE.finditer(text):
+        # Do not salvage a suffix from malformed number/branch syntax.
+        # In particular 115の3条 must never become article 3.
+        prefix = text[:match.start()].rstrip()
+        suffix = text[match.end():].lstrip()
+        if (re.search(rf"{_JAPANESE_NUMBER_PATTERN}\s*(?:の|/|_|-)\s*$", prefix)
+                or (prefix and prefix[-1] in "の0123456789０１２３４５６７８９一二三四五六七八九十百")
+                or suffix.startswith(("の", "条"))):
+            return ()
         article_number = _japanese_number(match.group(1))
         if article_number is None:
             continue
