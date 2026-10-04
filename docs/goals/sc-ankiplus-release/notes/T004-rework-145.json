@@ -1,5 +1,5 @@
 {
-  "status": "running",
+  "status": "running_remaining_rework",
   "candidateCount": 145,
   "originalEvaluationDirectory": "output/sc/reports/content_evaluations/20261004-independent-500-v2",
   "reworkDirectory": "output/sc/reports/rework_145/20261004",
@@ -11,6 +11,23 @@
   "existingCreditsApproved": false,
   "publicationReady": false,
   "recheckComplete": false,
-  "checksComplete": false,
-  "scopeIdsPath": "output/sc/reports/rework_145/20261004/question_ids.json"
+  "checksComplete": true,
+  "scopeIdsPath": "output/sc/reports/rework_145/20261004/question_ids.json",
+  "firstRecheckStatusCounts": {
+    "passed": 114,
+    "needs_rework": 31
+  },
+  "firstRecheckDirectory": "output/sc/reports/content_evaluations/20261004-rework-145-v1",
+  "sourceFileCount": 99,
+  "sourceHashesUnchanged": true,
+  "untouchedQuestionCount": 355,
+  "untouchedQuestionsUnchanged": true,
+  "mandatoryCheckCount": 92,
+  "mandatoryChecksPassed": true,
+  "heldQuestionCount": 1,
+  "heldQuestionId": "0ef4d8ab7dab9ea7b1f66cf0",
+  "heldReviewPath": "output/question_review_console/sc/201601/reviews/20261004T201557764397-76bd5401.json",
+  "holdAuthorizedByUser": true,
+  "remainingMaintenanceCount": 30,
+  "remainingMaintenanceRunId": "20261004T201827324013-68a03370"
 }
