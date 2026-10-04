@@ -59,7 +59,7 @@ visual_board:
     url: http://goalbuddy.localhost:41737/feedback-correction-recovery/
     command: node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs
       --goal docs/goals/feedback-correction-recovery
-active_task: T033
+active_task: T034
 tasks:
   - id: T001
     type: scout
@@ -4095,7 +4095,7 @@ tasks:
   - id: T033
     type: judge
     assignee: Judge
-    status: active
+    status: done
     objective: 修復済T031の3件最終candidateを真正な第三者として検査し、2名の判断反映/正確な条項・factsと日本語/原問・対象外fields保持/承認diffを確定する。strict hold/未検証refsを昇格できる内容根拠の有無も実値に照らして判断する。
     inputs:
       - output/user_feedback_response_system/staging/recovery-three-cases/runs/T031-79f42ebb3ea7/review-input.json
@@ -4120,17 +4120,204 @@ tasks:
       - 真正goalbuddy_receipt_v1 decision、全3case個別accept/reject/hold、exact field/deltaチェックと各refs/factsの根拠
       - 候補metadataの正当な昇格可能範囲と必要な実検証/修復、承認差分として提示できる範囲
       - full_outcome_complete=false、正式保存/variant/provider/別公開承認/evaluation/live readbackが別未完
-    receipt: null
+    receipt:
+      result: done
+      task_id: T033
+      board_path: /Users/yuki/development/exam_scraper_feedback/docs/goals/feedback-correction-recovery/state.yaml
+      decision: reject_next
+      full_outcome_complete: false
+      rationale: 全11docの限定差分・原問保持と各肢の法的結論を独立確認した。2018と2020の内容はaccept。2024も法的結論はacceptだが、肢2の参照「115の3条」は現parserで3条へ誤解釈されるため、そのままのmetadata昇格を拒否する。固定候補とnative証跡は真正一致。現行コード8件のdriftがあり、旧機械検証は再利用不可。正式承認・保存・評価・別公開readbackは未完了。
+      evidence:
+        - type: fixed_input_binding
+          run: output/user_feedback_response_system/staging/recovery-three-cases/runs/T031-79f42ebb3ea7
+          reviewInputFileSha256: b22bef42855985b1a4fe05c2eec5970e5d67eb82c04a698fae50f7c49dccefe6
+          reviewInputObjectHash: 255dfaf2f379ec8c969c8b618bbd7462490efa7aa9a72147f0d6e65cc8721237
+          manifestObjectHash: 88f978e342a61178f44e086bff5483d99019c62a65b5e6382c47a849b03a94fa
+          candidateObjectHashes:
+            '2018': d8532c0e68b286fa787158762fe9931b532da9b9abdd641652a8b908b4047941
+            '2024': ed389ef76dc272630a1b3ab3dc5ef4adfce3f44d01259225510d66fec8d9bbf7
+            '2020': 373de55f3d0551cac6fb70b48f2b124b0b0d81d864c773232d9b2680bc2abdfa
+          checks: 3candidateのobject hash、3approval-packageのfile hash、各2生成のbyte一致を実照合。全11docでsnapshot fieldsのcontentHash、beforePresent/before、ID/updateTime、allowlist、delta適用結果とprojectionの完全一致を確認。
+          preservation: 原問本文・順序付き各肢・original IDs・公開ID・画像fieldの存在/未存在・分類・所属・削除状態・監査日時・その他selectedfieldsを保持。未選択fieldの全面検証やfull-document
+            upload承認を意味しない。
+          writesPerformed: false
+        - type: native_authenticity
+          reviewedInputHash: 997316906f577a91b8c7d2cd6db52ac7a1c89b633b94b13ef5f484aa7c47e7df
+          nativeEvidenceObjectHash: a11dab8099ac4a421a8601bd8056d8824c57581f92947e86cc190b67f8f37e88
+          sessions:
+            - task: T028
+              sessionId: 01a10222-a8a5-73e3-905c-61dae9ceb4db
+              eventLine: 185
+              receiptSha256: e56e9985eaa6d2a19db9fbefaf1028a6286f69e3def6799ce9edb490860ec8be
+            - task: T029
+              sessionId: 01a10232-7079-7dc0-89fe-f4db76fd3bae
+              eventLine: 141
+              receiptSha256: a59b8934c9952fb736e67f968707f10dca8f67185cbc960cc14feebf6539ef38
+          checks: 指定sessionの実event行hash、assistant最終出力hash、出力JSONと保存receiptの一致、provenanceファイルhashと内容を実確認。10factsのauditInputHash/evidenceBindingHash/sourceEvidenceVersionIdをsidecarから再計算して一致。
+          scope: A/Bは旧入力の判断。新候補全体をA/Bがpassedした証拠として扱わず、本T033で直接審査した。
+        - type: primary_law_and_schema
+          checks: 60refs・44種類のXML locatorを実照合。本則MainProvisionと直接の別表第一から、XML/file hash・revision ID・条本文hash・実項号subtreeのclauseTextHashを確認。別表hashは表全体であり行単独hashではない。
+          examTimepoints:
+            '2018': 公式問題集表紙注意6・7、2018-01-01施行法令、条例除外。公式解答学科II問3=4。
+            '2024': 公式問題集表紙をメモリ上で描画して注意6(1)・6(4)を確認。2024-01-01施行法令、条例除外。公式問題頁画像と解答学科II問3=2を確認。
+          schema: repaso_firestore_schema.py:277/437、convert_merged_to_firestore.py:425、law_audit_quality.py:109を実読。公開TFのexamTime/current.correctChoiceTextは各肢scalarに一致。原選択答4/2はsourceProposal.answer_result_text・inferred
+            numbersとsidecar.originalSelectionAnswer/originalAnswerTextに分離。新schema fieldや架空auditRunIdはない。
+        - case: 2018
+          decision: accept
+          scope: 5docの候補内容審査。正式variant採用と具体差分承認は別。
+          truthBothTimepoints:
+            - 間違い
+            - 間違い
+            - 間違い
+            - 正しい
+            - 間違い
+          originalSelectionAnswer: 4
+          choiceReasons:
+            - 2mちょうどの擁壁は令138条1項5号の2m超に含まれない。法88条1項と結合。
+            - 患者収容施設のない診療所は別表第一(い)(二)の対象外。非木造平家200㎡ちょうどは旧6条1項3号・現2号に該当せず、区域対象でも大規模修繕は確認対象外。
+            - 鉄道プラットホームの上家は法2条1号の建築物定義から除外。
+            - 改築は法2条13号の建築。非木造2階は旧6条1項3号・現2号で区域を問わず対象。100㎡は6条2項の10㎡以内特例外。
+            - 旧6条1項3号・現2号の建築物でも、6条2項により防火・準防火地域外の10㎡以内増築は確認不要。全国どこでも必要という命題は偽。
+          approvalDiff: 5docのquestionBodyText/questionTextを明示TF命題へ変更、欠落questionIntentへselect_correctを追加、解説・refs・factsを修復。correctChoiceTextは肢2を正→誤、肢4を誤→正。原問本文と各肢は変更しない。
+          categories:
+            question_content: 'accept: 明示命題の内容と原問保持'
+            correct_answer: 'accept: 両時点vectorと原選択答4'
+            answer_format_or_display: 'accept: true_falseで判定する肯定命題が明確'
+            explanation: 'accept: 誤条項と肢5の無条件断定を修復済み'
+            outdated_law_or_information: 'accept: 時点別根拠とscalarは正しい。正式昇格はhold'
+            classification: 'accept: selectedfieldsの不変'
+            image: 'accept: 選択したfieldの存在/未存在を保持'
+            other: 'hold: 正式保存・variant/provider・限定公開契約'
+        - case: 2024
+          decision: hold
+          legalContentDecision: accept
+          truthBothTimepoints:
+            - 正しい
+            - 間違い
+            - 正しい
+            - 正しい
+            - 正しい
+          originalSelectionAnswer: 2
+          choiceReasons:
+            - 旅館300㎡は両時点の法6条1項1号・別表第一(い)(二)に該当。
+            - 飲食店180㎡への用途変更は法87条1項・6条1項1号の200㎡超条件に該当しない。令115条の3第3号の用途分類は正しい。3条2項・87条2～4項による既存不適格の個別扱いを限定して説明している。
+            - 倉庫300㎡は法6条1項1号・別表第一(い)(五)に該当。準防火地域では6条2項の10㎡以内増築特例を使えない。
+            - 非木造2階の大規模修繕は旧6条1項3号・現2号と同項本文の対象。修繕定義は2条14号。
+            - 広告塔5mは令138条1項3号の4m超。法88条1項による旧6条1項4号・現3号の区域部分準用と設問条件が整合。
+          approvalDiff: 5docの否定選択設問を肯定TF表示へ変更しquestionIntent=select_incorrectを追加。scalarは維持しintentで反転しない。解説・refs・factsを修復。否定のoriginalQuestionBodyTextと各肢は保持。意味変更の採用は未承認。
+          requiredRepair:
+            fields:
+              - projection[1].lawReferences[3].article
+              - projection[1].lawReferences[11].article
+              - 対応するdelta/sourceProposal/sidecarのreferenceと結合hash
+            before: 115の3条
+            after: 115条の3
+            xmlLocator: LawBody/MainProvision/Article[@Num='115_3']/Paragraph/Item[@Num='3']
+            observedParserResult: locator_parts('115の3条') == (('article', 3),)
+            expectedParserResult: locator_parts('115条の3') == (('article', (115, 3)),)
+            code:
+              - tools/question_review_console/primary_law_evidence.py:26
+              - tools/question_review_console/primary_law_evidence.py:131
+              - output/user_feedback_response_system/staging/recovery-three-cases/prepare_candidates.py:287
+              - output/user_feedback_response_system/staging/recovery-three-cases/prepare_candidates.py:288
+            consequence: 固定XMLは正しい115_3を抽出しているがpublic referenceの再解析先が不一致。表記修復、新binding/hash生成と関連回帰確認が必要。
+          categories:
+            question_content: 'hold: 肯定候補内容はaccept、否定原問からの改題採用は未承認'
+            correct_answer: 'accept: 肯定表示のvectorと原選択答2'
+            answer_format_or_display: 'accept: 肯定表示とTF scalarの対応'
+            explanation: 'accept: 全体への一律遡及適合断定を修復済み'
+            outdated_law_or_information: 'reject: 上記2refsのarticle表記を昇格前に修復'
+            classification: 'accept: selectedfieldsの不変'
+            image: 'accept: 選択したfieldの存在/未存在を保持'
+            other: 'hold: 正式保存・variant/provider・限定公開契約'
+        - case: 2020
+          decision: accept
+          scope: questionTextの余分な「た」1文字削除のみ
+          diff:
+            field: questionText
+            operation: delete
+            zeroBasedOffset: 96
+            deletedCharacter: た
+            lengthDelta: -1
+            otherSelectedFieldsUnchanged: true
+          primaryEvidence: 公式問8肢3画像の「明らかなときは」を直接確認。公開改題全文と公式原問全文の同一性は主張しない。
+          categories:
+            question_content: 'accept: 一文字訂正'
+            correct_answer: 'accept: 変更除外と保存値保持のみ。再評価はしていない'
+            answer_format_or_display: 'accept: 変更除外'
+            explanation: 'accept: 変更除外'
+            outdated_law_or_information: 'accept: 変更除外'
+            classification: 'accept: selectedfieldsの不変'
+            image: 'accept: 選択したfieldの存在/未存在を保持'
+            other: 'accept: 追加変更除外。実行契約は未完'
+          excluded: originalQuestionChoiceTextの別一文字修正とfull-document uploadは承認範囲に含めない。
+        - type: fresh_current_law
+          comparison: 2026-10-04の公式XMLは両法とも2026-10-03固定XMLとbyte一致。固定fileは変更していない。
+          sources:
+            - xmlUrl: https://laws.e-gov.go.jp/api/2/law_file/xml/325AC0000000201?asof=2026-10-04
+              xmlRetrievedAt: '2026-10-04T00:20:55.164423+00:00'
+              revisionUrl: https://laws.e-gov.go.jp/api/2/law_data/325AC0000000201?asof=2026-10-04&response_format=json
+              revisionRetrievedAt: '2026-10-04T00:22:37.911167+00:00'
+              revisionId: 325AC0000000201_20260527_508AC0000000023
+              xmlSha256: dd28c929720e197e33f08c05e78c4acd108bbc59a3aff6eba268a002285f6c78
+            - xmlUrl: https://laws.e-gov.go.jp/api/2/law_file/xml/325CO0000000338?asof=2026-10-04
+              xmlRetrievedAt: '2026-10-04T00:20:55.936232+00:00'
+              revisionUrl: https://laws.e-gov.go.jp/api/2/law_data/325CO0000000338?asof=2026-10-04&response_format=json
+              revisionRetrievedAt: '2026-10-04T00:22:38.639383+00:00'
+              revisionId: 325CO0000000338_20251201_507CO0000000377
+              xmlSha256: ffb30049875fc468c682296dd59f4dd4f7f5cadf2ba4fc5c4900e96126b205a4
+        - type: promotion_and_machine_gate
+          eligibleContentScope: 2018全5肢、2024全5肢の法的結論・解説・scalar判断と2020一文字訂正を本審査の実結果として記録可能。2018の24refsと2024の表記正常34refsには内容根拠がある。
+          promotionConditions: 2024の2refs修復後、新候補と実T033証跡に結合したmetadataを生成する。旧verified・旧監査run・旧更新不要宣言をコピーしない。bindingが変わるfactsも再生成する。metadata昇格だけでmachineReady/evaluationPassed/publicationReadyを付けない。
+          storedStrictResults:
+            '2018':
+              mergedExitCode: 1
+              snapshotProjectionExitCode: 1
+            '2024':
+              mergedExitCode: 1
+              snapshotProjectionExitCode: 1
+          strictReasons:
+            - lawRevisionFacts auditStatus is hold
+            - no verified lawReferences for law-related question
+          currentDependencyDrift:
+            - tools/question_review_console/codex_app_server.py
+            - tools/question_review_console/evaluation.py
+            - tools/question_review_console/monitor_events.py
+            - tools/question_review_console/qualification_runs.py
+            - tools/question_review_console/question_candidate.py
+            - tools/question_review_console/server.py
+            - tools/question_review_console/work_versions.py
+            - tools/question_review_console/workflow_catalog.py
+          verificationLimit: 593manifest inputsのうち8コードがdrift、残る585はhash一致。固定候補・PDF/XML・snapshot・native証跡の一致は維持。旧機械成功を現行依存の成功として再利用しない。
+          converter: full converter成果は診断専用。2024原問上書き等を含むfull-document成果へ承認を拡張しない。
+      next_allowed_task: null
+      subgoal_contract: null
+      parallel_safety: null
+      blocked_tasks:
+        - T004
+        - T005
+        - T999
+      missing_evidence:
+        - 2024肢2の参照表記修復、新候補と新binding/hash、枝条番号の関連回帰確認。
+        - 実審査に結合した正当なmetadata昇格と現行依存での新鮮機械検証。strict両年両形態の再実行。
+        - 2018/2024の具体差分と公開variant採用、2020一文字差分の正式承認。
+        - 原問保持・正式保存・限定更新の実行契約、真正current checkpointsと評価。
+        - 別の公開判断、guarded限定write、対象外不変を含むlive readback。
+      required_board_updates:
+        - T033を内容challenge実施済みとして記録し、2018/2020のacceptと2024の法的内容accept・参照metadata修復待ちを分ける。
+        - 2024の115の3条→115条の3修復と新bindingを必須条件へ記録する。固定T031 runと旧receiptは保持する。
+        - 8コードdriftによる現行機械検証未確認を記録し、正式保存・評価・公開・full outcomeを完了扱いにしない。
   - id: T034
     type: scout
     assignee: Scout
-    status: queued
+    status: active
     objective: 2026-10-04新問題報告1件と新公開AI候補3件を一件ずつ一次資料/現行問題と利用者発話に照らして調査し、必要な判断/改善タスクだけを提案する。
     inputs:
       - output/user_feedback_response_system/daily/2026-10-04/new-reports.json
       - output/user_feedback_response_system/daily/2026-10-04/scan-receipt.json
       - 台帳のfirst_seen_atが今回scan以後の3公開AI候補
       - Firestore原本のread-only対象取得
+      - output/user_feedback_response_system/daily/2026-10-04/new-ai.json
     constraints:
       - Read-only。Firestore write/正式patch/ledger/cases書込みなし。
       - 私的な利用者原文とIDはprivate調査用のみ、通常log/通知/Git/返答に転載せず学習ニーズと主張を匿名化要約する。公開・未削除の利用者本人発話を再確認。
