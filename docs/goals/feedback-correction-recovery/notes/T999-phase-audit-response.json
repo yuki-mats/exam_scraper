@@ -1,0 +1,140 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T999",
+    "board_path": "/Users/yuki/development/exam_scraper_feedback/docs/goals/feedback-correction-recovery/state.yaml",
+    "decision": "not_complete",
+    "full_outcome_complete": false,
+    "rationale": "指定された安全な準備作業は完了した。元4件の次工程は、既存質問への真正人間回答、正式保存とその入力に結合するcheckpoint・評価に依存する。現在の証拠では追加helperやframeworkを作る必要性はない。具体的な承認回答待ちで停止できるが、正式保存・本番承認・適用・readback・通常再生成での訂正保持が未済のため全体完了は認めない。",
+    "evidence": [
+      {
+        "kind": "current_fixed_inputs_verified",
+        "native_output_ref": "49ea9a",
+        "T049_read_plan_valid": true,
+        "T049_plan_hash": "91866ce7a82b35abacea10200d298c2608bdf53396f0de0b0b9e80bf83ae10ce",
+        "T049_input_count": 699,
+        "T053_input_count": 416,
+        "T053_inputs_unchanged": true,
+        "T053_artifact_hashes_match": true,
+        "T057_artifact_hashes_match": true,
+        "formal_nine_paths_absent": true
+      },
+      {
+        "kind": "completed_preparation_scope",
+        "receipts": [
+          "notes/T051-publication-delta-receipt.json",
+          "notes/T053-current2025-receipt.json",
+          "notes/T054-amendment-registration-receipt.json"
+        ],
+        "observed": [
+          "T051は独立SDK・永続intent基盤の19対象testsを完了した。本番入口には未接続。",
+          "T053は固定2025追加4fieldsを保持して、現行416入力、公開5文書、18/21予定bytes、generic reader replay、native証跡再importと実previewを完成した。",
+          "T053の機械整合検証成功は、真正checkpointやmodel評価成功を意味しない。machineReady/canEvaluate/canPublish=false、checkpointStages空、modelRunPerformed=false。",
+          "T054はbackup後に技術bindingをrevision2として追記し、元proposal/base・旧質問call・asked_atを保持した。"
+        ]
+      },
+      {
+        "kind": "native_receipt_provenance_verified",
+        "native_output_ref": "92f1b4",
+        "T053": {
+          "event_hash_matches": true,
+          "assistant_output_hash_matches": true,
+          "receipt_file_hash_matches": true,
+          "inner_compact_object_hash_matches": true,
+          "result": "done"
+        },
+        "T057": {
+          "event_hash_matches": true,
+          "assistant_output_hash_matches": true,
+          "receipt_file_hash_matches": true,
+          "inner_compact_object_hash_matches": true,
+          "result": "done"
+        }
+      },
+      {
+        "kind": "current_2025_answer_wait",
+        "actual_readonly_ledger": {
+          "state": "system_blocked",
+          "answer_status": "already_asked",
+          "revision": 2
+        },
+        "approval_call_id": "call_mPsaMRaMlAHvGmJHEhx8zoNB",
+        "authority": "既存質問は固定追加4fieldsの正式パッチ反映を対象とし、Firestore承認は別。回答後にroutine保存先だけの追加承認質問を自動生成する必要があるとは判断しない。",
+        "execution_condition": "現readerのWORK18/21とROOTの承認済み24 overlay、base bytes、保存予定bytes、実writerの責務を保存前に確認する。旧receiptのsaveRootApprovalPendingを新しい承認flowの確定根拠にしない。"
+      },
+      {
+        "kind": "separate_daily_Q39_proposal",
+        "receipts": [
+          "notes/T055-q39-blocked-receipt.json",
+          "notes/T057-q39-content-receipt.json",
+          "notes/T058-q39-registration-receipt.json"
+        ],
+        "observed": [
+          "T057は全4doc・15field差分・全8カテゴリappendを内容提案として完成した。",
+          "T058はbackup後、対象1reportを更新してfixed proposalを登録し、他71reportと旧caseを保持した。",
+          "Q39はproposalContentComplete=true、approvalReady=false。original本文/choice型、正式root/path、4doc gatewayの技術holdが残る。",
+          "T055の公式不一致による失敗と限定complete、T057の初回serialization照合失敗は履歴として保全されている。",
+          "Q39の承認質問は送信していない。UI openはqueuedであり、実表示済みの証拠ではない。"
+        ]
+      },
+      {
+        "kind": "daily_tracking_boundary",
+        "actual_readonly_report_count": 72,
+        "PM_accepted_latest_summary": {
+          "intake_gaps": 0,
+          "unjudged_reports": 67,
+          "fixes_awaiting_proposal": 0,
+          "registered_proposals": 4,
+          "improvement_tasks": 10,
+          "2025_amendment_answer_waits": 1,
+          "Q39_approval_ready": false
+        },
+        "limitation": "未判断67件と未review AI候補12004件は日次の別backlogとして残る。提案漏れ解消や登録件数は、元4件の公開完了を意味しない。"
+      }
+    ],
+    "next_allowed_task": null,
+    "subgoal_contract": null,
+    "parallel_safety": {
+      "decision": "terminal_approval_wait",
+      "reason": "現在の指定scopeで必要な安全準備は受入済み。真正正式入力がない状態で追加実装・評価・再生成を並行起動する根拠はない。"
+    },
+    "blocked_tasks": [
+      {
+        "task": "2018/2024/2020のexact plan正式保存",
+        "depends_on": "call_vLSN2Tea4lKMvMf3C1uEfXV6への真正回答。固定planと資料への結合。"
+      },
+      {
+        "task": "2025追加4fieldsの正式保存",
+        "depends_on": "call_mPsaMRaMlAHvGmJHEhx8zoNBへの真正回答。固定proposal/baseと実保存経路の確認。"
+      },
+      {
+        "task": "元4件のcurrent checkpoint・真正法監査6.0・model評価5.6",
+        "depends_on": "正式保存receiptと現在のcanonical入力。既存法的受理やfixtureを工程成功へ転用しない。"
+      },
+      {
+        "task": "本番入口接続・限定適用・独立readback",
+        "depends_on": "対象current gate成功と別の永続native production承認。"
+      },
+      {
+        "task": "通常再生成・再公開での訂正保持",
+        "depends_on": "承認済み正式unitを使った具体的な生成・公開経路。現private案だけで保持成功を主張しない。"
+      }
+    ],
+    "missing_evidence": [
+      "既存2承認質問への真正人間回答。",
+      "元4件の正式保存receiptとcurrent canonical入力。",
+      "対象checkpoint・真正model評価の現在入力に結合した成功証跡。",
+      "別production承認、本番限定適用、帰属可能な独立readback。",
+      "通常再生成・再公開で承認済み訂正が戻らない実証。"
+    ],
+    "required_board_updates": [
+      "T999をphase audit完了として記録し、全体goalは未完了のまま具体的な承認回答待ちを記録する。停止をgoal達成やユーザーによるpauseと扱わない。",
+      "既存2質問を再送せず、call・question・proposal/plan・資料hashを保持する。新Q39の技術hold中は承認質問を送らない。",
+      "回答到着時は実回答eventと既存質問のscopeを照合する。3件は固定91866ce7...計画、2025は固定追加4fieldsに結合し、通常の保存先確認だけを理由に新承認flowを自動追加しない。",
+      "承認後、現inputs・before/presence/updateTime・予定bytes・必要なfresh法令証拠を保存gateで再照合する。実質的な候補変更や入力競合があれば停止して影響を報告する。",
+      "正式保存後に対象checkpoint・真正評価を実行し、その後に別production承認と限定適用/readbackへ進む。unknown commit outcomeではblind retryや自動rollbackをしない。",
+      "通常再生成の訂正保持を正式保存後の具体的後続taskとして残す。Q39技術不足と日次backlogは元4件とは別scopeで追跡する。",
+      "PMのみstate・actual ledger・Gitを更新する。追加helper/frameworkや繰返し検証で回答待ちの固定入力を無意味にinvalidateしない。"
+    ]
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "result": "blocked",
+  "waiting_for_user_approval": true,
+  "full_outcome_complete": false,
+  "recordedAt": "2026-10-04T05:33:54.186494+00:00",
+  "questionsResent": false,
+  "FirestoreModified": false,
+  "requests": [
+    {
+      "callId": "call_vLSN2Tea4lKMvMf3C1uEfXV6",
+      "required_reply": "この計画の正式保存を承認します",
+      "scope": "2018/2024二級建築士と2020管理業務主任者3件のfixedformalplan91866ce7...",
+      "planHash": "91866ce7a82b35abacea10200d298c2608bdf53396f0de0b0b9e80bf83ae10ce"
+    },
+    {
+      "callId": "call_mPsaMRaMlAHvGmJHEhx8zoNB",
+      "required_reply": "解説・根拠・監査情報・補足整理の追加差分を承認する",
+      "scope": "2025追加4fields、固定proposal96c86f...、basecorrect/intent既承認別scope"
+    }
+  ],
+  "resumeSequence": [
+    "実回答eventとcall/question/content scopeを結合",
+    "現input/before/presence/updateTime/予定bytes/freshlawproofを再照合して正式保存",
+    "currentcheckpointと真正policy6.0法監査/5.6評価",
+    "通常再生成訂正保持とproduction入口の対象契約を具体化",
+    "別production承認後に限定適用と独立readback"
+  ],
+  "dailySeparateBacklog": {
+    "unjudgedReports": 67,
+    "unreviewedAi": 12004,
+    "Q39ContentProposalComplete": true,
+    "Q39ApprovalReady": false,
+    "Q39TechnicalHolds": [
+      "original本文/choice型未対応",
+      "正式root/path未確定",
+      "4docgateway未対応"
+    ]
+  }
+}
