@@ -1,0 +1,195 @@
+{
+  "result": "done",
+  "task_id": "T049",
+  "board_path": "/Users/yuki/development/exam_scraper_feedback/docs/goals/feedback-correction-recovery/state.yaml",
+  "harness": "codex",
+  "full_outcome_complete": false,
+  "summary": "PMがstrict私的report権限を生成側で保証し、旧8filesを内容無変更で600へ正規化。fresh138tests/4strict/実3preview/2法HTTPと843固定files/9bytes保全を実確認した。own実装をaa232fa0bへcommit/pushし、3caseを個別proposal登録、行政状態を別appendlinkへ保存。固定planへの正式保存承認質問を一度送信した。正式保存・checkpoint/評価・公開は未実施。",
+  "changed_files": [
+    "tools/question_review_console/formal_correction_save.py",
+    "docs/goals/feedback-correction-recovery/**",
+    "output/user_feedback_response_system/staging/recovery-three-cases/formal-save-plans/runs/T049-0fd5f7f200cd/**",
+    "output/user_feedback_response_system/daily/2026-10-04/formal-proposals/**",
+    "ledger.sqlite3 proposal_hash/proposal_ref 3rows only"
+  ],
+  "commands": [
+    {
+      "command": [
+        "/Users/yuki/development/exam_scraper_work/.venv/bin/python",
+        "-m",
+        "unittest",
+        "tests.test_question_review_formal_correction_save",
+        "tests.test_question_review_scoped_artifacts",
+        "tests.test_question_review_inventory",
+        "tests.test_question_review_workflow",
+        "tests.test_scoped_canonical_context"
+      ],
+      "status": "pass",
+      "exit_code": 0,
+      "startedAt": "2026-10-04T04:08:30.435616+00:00",
+      "finishedAt": "2026-10-04T04:08:36.903245+00:00",
+      "log": "output/user_feedback_response_system/staging/recovery-three-cases/formal-save-plans/runs/T049-0fd5f7f200cd/commands/five-suites.log",
+      "logSha256": "05e78bbdb303fddd6cc4415d3c3c90627800bff700e88906bc7243cf58d06661"
+    },
+    {
+      "command": [
+        "/Users/yuki/development/exam_scraper_work/.venv/bin/python",
+        "scripts/pipeline/prepare_scoped_question_artifacts.py",
+        "--formal-save-plan",
+        "output/user_feedback_response_system/staging/recovery-three-cases/execution-contract/runs/T041-repair1-e1ed4d7c4c27/manifest.json",
+        "--output",
+        "output/user_feedback_response_system/staging/recovery-three-cases/formal-save-plans/runs/T049-0fd5f7f200cd",
+        "--dry-run"
+      ],
+      "status": "pass",
+      "exit_code": 0,
+      "startedAt": "2026-10-04T04:08:36.904950+00:00",
+      "finishedAt": "2026-10-04T04:08:43.004062+00:00",
+      "log": "output/user_feedback_response_system/staging/recovery-three-cases/formal-save-plans/runs/T049-0fd5f7f200cd/commands/actual-cli.log",
+      "logSha256": "ed6a993a39cb8d8af23146c633d8771fedd27112026afd4fde5354f6831686e9"
+    },
+    {
+      "command": [
+        "/Users/yuki/development/exam_scraper_work/.venv/bin/python",
+        "-c",
+        "from pathlib import Path;import json;from tools.question_review_console.formal_correction_save import retrieve_current_law_evidence;root=Path.cwd();plan=root/'output/user_feedback_response_system/staging/recovery-three-cases/formal-save-plans/runs/T049-0fd5f7f200cd/formal-save-plan.json';r=retrieve_current_law_evidence(root,plan,plan.parent/'law-http');print(json.dumps(r))"
+      ],
+      "status": "pass",
+      "exit_code": 0,
+      "startedAt": "2026-10-04T04:08:43.005090+00:00",
+      "finishedAt": "2026-10-04T04:08:46.792681+00:00",
+      "log": "output/user_feedback_response_system/staging/recovery-three-cases/formal-save-plans/runs/T049-0fd5f7f200cd/commands/law-http.log",
+      "logSha256": "71848b0463be7ee05a62db0d3902d552db12292df866a5141188829bbf08d1f6"
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "status": "pass",
+      "exit_code": 0,
+      "startedAt": "2026-10-04T04:08:46.793808+00:00",
+      "finishedAt": "2026-10-04T04:08:46.887962+00:00",
+      "log": "output/user_feedback_response_system/staging/recovery-three-cases/formal-save-plans/runs/T049-0fd5f7f200cd/commands/diff-check.log",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "evidence": [
+    {
+      "ref": "output/user_feedback_response_system/staging/recovery-three-cases/formal-save-plans/runs/T049-0fd5f7f200cd/pm-readiness-proof.json",
+      "fact": {
+        "schemaVersion": "pm-formal-save-readiness/v1",
+        "checkedAt": "2026-10-04T04:11:24.185013+00:00",
+        "planHash": "91866ce7a82b35abacea10200d298c2608bdf53396f0de0b0b9e80bf83ae10ce",
+        "inputHash": "71b78f3bc8efc4866c59ac74057a582baa7f2587da2833df32499bfd8f496a60",
+        "caseReviewsFrozen": true,
+        "protectedFileCount": 843,
+        "changedProtectedFiles": [],
+        "privatePermissionErrors": [],
+        "formalNineAbsent": true,
+        "formalNineBytesEqualT048": true,
+        "strictExitCodes": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "selectedReplayCount": 11,
+        "sourceSelectionAnswers": [
+          4,
+          2
+        ],
+        "lawRecheck": "unchanged",
+        "actualFormalSaved": false,
+        "evaluationPerformed": false,
+        "publicationReady": false,
+        "FirestoreModified": false,
+        "StorageModified": false,
+        "tests": 138,
+        "T046T048BlockedReceiptsPreserved": true
+      }
+    },
+    {
+      "ref": "output/user_feedback_response_system/staging/recovery-three-cases/formal-save-plans/runs/T049-0fd5f7f200cd/commit-readback.json",
+      "fact": {
+        "verifiedAt": "2026-10-04T04:12:00.903490+00:00",
+        "head": "aa232fa0b81cea7faf19780855c5096c9532a3ec",
+        "status": "",
+        "originMain": "aa232fa0b81cea7faf19780855c5096c9532a3ec",
+        "planHash": "91866ce7a82b35abacea10200d298c2608bdf53396f0de0b0b9e80bf83ae10ce",
+        "inputHash": "71b78f3bc8efc4866c59ac74057a582baa7f2587da2833df32499bfd8f496a60",
+        "currentInputDrift": 0,
+        "incomingNWFilesPreserved": true
+      }
+    },
+    {
+      "ref": "output/user_feedback_response_system/daily/2026-10-04/formal-proposals/registration-result.json",
+      "fact": {
+        "years": [
+          2018,
+          2024,
+          2020
+        ],
+        "otherTablesUnchanged": 8,
+        "otherReportRowsUnchanged": 69,
+        "caseReviewsFrozen": true,
+        "summary": {
+          "schemaVersion": "feedback-daily/v1",
+          "generatedAt": "2026-10-04T04:13:40.526389Z",
+          "scanId": "",
+          "reportTasks": 72,
+          "intakeGaps": 0,
+          "intakeGapTaskIds": [],
+          "rejectedIntake": 0,
+          "reportsAwaitingDecision": 67,
+          "fixesAwaitingProposal": 1,
+          "patchApprovalsWaiting": 3,
+          "patchesAwaitingPublication": 1,
+          "aiQuestionsAwaitingReview": 12004,
+          "improvementTasksOpen": 10,
+          "amendmentsByState": {
+            "system_blocked": 1
+          },
+          "amendmentApprovalsWaiting": 0,
+          "amendmentResponsesWaiting": 1,
+          "approvalWaitingTotal": 3
+        }
+      }
+    },
+    {
+      "ref": "output/user_feedback_response_system/daily/2026-10-04/formal-proposals/approval-request-event.json",
+      "fact": {
+        "schemaVersion": "formal-save-approval-request-event/v1",
+        "planHash": "91866ce7a82b35abacea10200d298c2608bdf53396f0de0b0b9e80bf83ae10ce",
+        "inputHash": "71b78f3bc8efc4866c59ac74057a582baa7f2587da2833df32499bfd8f496a60",
+        "sessionPath": "/Users/yuki/.codex/sessions/2026/10/01/rollout-2026-10-01T00-19-28-01a0f2e6-34a0-7660-a17a-afb87125aada.jsonl",
+        "requestLine": 10891,
+        "requestSha256IncludingFinalLf": "19c1455194949322817bda201ba7906e2b4f4692333d57b9fc050cea456dc4f7",
+        "callId": "call_vLSN2Tea4lKMvMf3C1uEfXV6",
+        "questionIndex": 0,
+        "requestedAt": "2026-10-04T04:14:42.403Z",
+        "questionSha256": "9bbfc46e7ae322aa55718d065fc193502a9425fa4e264ea43ea03d42f65b7970",
+        "approvalMaterials": {
+          "approval-details.json": "26c742405088df1ea64c848f2f10c57bfe092234ee5571650809e26924c0b488",
+          "approval-proposal.md": "47b299e7062b69cf484f6003cd69c6082e3a8b2941f2aa6cbf50598d9ff1d926"
+        },
+        "answerStatus": "already_asked",
+        "requiredReply": "この計画の正式保存を承認します",
+        "actualFormalSaved": false,
+        "publicationApproved": false,
+        "2025QuestionResent": false
+      }
+    }
+  ],
+  "candidatePlanHash": "91866ce7a82b35abacea10200d298c2608bdf53396f0de0b0b9e80bf83ae10ce",
+  "candidateInputHash": "71b78f3bc8efc4866c59ac74057a582baa7f2587da2833df32499bfd8f496a60",
+  "verificationCodeScopeUnchangedAfterCommit": true,
+  "T046T048BlockedNativeReceiptsPreserved": true,
+  "actualFormalSaved": false,
+  "FirestoreModified": false,
+  "publicationApproved": false,
+  "waiting_for_user_approval": true,
+  "required_reply": "この計画の正式保存を承認します",
+  "completedAt": "2026-10-04T04:19:28.951298+00:00"
+}
