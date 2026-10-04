@@ -4705,6 +4705,11 @@ tasks:
     expected_output:
       - 真正goalbuddy_receipt_v1、許可変更一覧、試験結果、immutable新run、修正とnative/input-bindingの根拠、最新approval提案、昇格/strictの実状態と残る正式保存・evaluation・公開制約
     receipt: null
+    stop_if:
+      - allowed_files外の変更や正式patch更新、本番書込みが必要
+      - 一次根拠・native provenanceが一致しない又は修正対象外の問題が混入
+      - 初回とrepair2回後もverifyが失敗
+      - 現行live snapshotがbeforeから変化し単純適用できない
   - id: T004
     type: pm
     assignee: PM
