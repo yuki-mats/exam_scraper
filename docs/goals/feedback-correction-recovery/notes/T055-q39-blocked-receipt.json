@@ -1,0 +1,89 @@
+{
+  "result": "blocked",
+  "task_id": "T055",
+  "board_path": "/Users/yuki/development/exam_scraper_feedback/docs/goals/feedback-correction-recovery/state.yaml",
+  "artifact_root": "/Users/yuki/development/exam_scraper_feedback/output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T055-proposal",
+  "changed_files": [
+    "output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T055-proposal/verify.py",
+    "output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T055-proposal/baseline.json",
+    "output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T055-proposal/source-evidence.json",
+    "output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T055-proposal/official-transcription.txt",
+    "output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T055-proposal/live-selected.json",
+    "output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T055-proposal/proposed-field-diff.json",
+    "output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T055-proposal/proposed-patch.json",
+    "output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T055-proposal/proposal.md",
+    "output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T055-proposal/verification.json"
+  ],
+  "commands": [
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T055-proposal/verify.py",
+      "status": "fail",
+      "attempt": 1,
+      "started_at": "2026-10-04T05:09:26Z",
+      "finished_at": "2026-10-04T05:09:27Z",
+      "exit_code": 1,
+      "native_output_ref": "636367",
+      "failure": "AssertionError: raw/official combination mismatch",
+      "cause": "公式肢2/4は「生命、身体及び財産」、rawとliveは「生命、身体又は財産」。"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T055-proposal/verify.py",
+      "status": "pass",
+      "attempt": 2,
+      "repair": 1,
+      "started_at": "2026-10-04T05:10:58.883138Z",
+      "finished_at": "2026-10-04T05:10:59.860425Z",
+      "exit_code": 0,
+      "native_output_ref": "42428c",
+      "limitation": "raw/liveの対応、保持field、型拒否、保全を検査した限定結果。公式4choice整合の成功ではありません。生成verification.jsonのcomplete=trueをwhole slice完了へ採用しません。"
+    },
+    {
+      "command": "git diff --check",
+      "status": "not_run",
+      "reason": "PMの即時停止指示後、追加検証を実行していません。"
+    }
+  ],
+  "evidence": {
+    "official_pdf_sha256": "417defdbeb15e09c97707ac9431f5ed82e18f3f6da9a527808f43dcd1bf77df1",
+    "official_page": 27,
+    "printed_page": 25,
+    "official_page_viewed": true,
+    "masked_sibling_count": 4,
+    "draft_field_delta_count": 12,
+    "masked_query_and_get_all": true,
+    "presence_and_nanosecond_versions_saved": true,
+    "target_choice_two_correctness_preserved": true,
+    "choices_and_explanations_changed": false,
+    "official_transcription_sha256": "fcea748be0ed495b92109c407407010cd61922c50d158c5c62f9289ad65c20b5",
+    "initial_incomplete_transcription_sha256": "702033a179cf433b8bdba21813c126705c682b94ac41c19241c834b15d5aff3c",
+    "proposal_sha256": "8cce7a5bc655efda382e9b14cdabb3e1bee942e92645d88c7dae9b7040ea5cdc",
+    "field_diff_sha256": "171e50be7785bf2cbcf419c473af8bf84f8e625e3df8d2e89b4b546f5a9fc3de",
+    "patch_sha256": "cf397532c380092c56cad6078427deef305727cd9aa7250ef136091562e38a8f",
+    "runner_sha256": "d26b39f6b1684a94e02245c2c49abe9ab4a03cd4c75a1be82320c2c7b567b380",
+    "supported_partial_type_checked": true,
+    "full_draft_rejected_by_existing_type": true,
+    "input_preservation_passed": true,
+    "T049_699_inputs_and_materials_unchanged": true,
+    "T053_416_inputs_and_private_files_unchanged": true,
+    "case_and_ledger_bytes_unchanged": true,
+    "formal_nine_paths_absent": true,
+    "private_permissions_checked": "directories700/files600",
+    "actual_network_write_performed": false,
+    "questions_resent": false,
+    "approvalReady": false,
+    "formalDataUpdated": false,
+    "publicationReady": false
+  },
+  "summary": "参照段落欠落を実masked全4siblingsで確認し、3本文field・12差分のprivate draftを生成しました。しかし公式肢2/4とraw/liveの「及び／又は」不一致で初回verifyが失敗。repair1の限定成功を公式整合成功へ置換せず、PM指示で停止しました。既存choice・正誤・解説・原資料・台帳は変更していません。",
+  "remaining_blockers": [
+    "公式4choiceとraw/liveの語句不一致。参照段落復元だけで十分か、独立Judgeの判断が必要です。",
+    "originalQuestionBodyTextは既存CONTENT_FIELDS未対応。全draftは既存型で拒否されます。",
+    "正式保存schema/root/pathは未確定です。",
+    "whole proposalの公式4choice consistencyは未達。verification.jsonの限定complete=trueを承認readyやdoneに使用できません。",
+    "git diff --checkは停止指示により未実行です。"
+  ],
+  "needs_judge": true,
+  "verification_attempts": 2,
+  "repair_attempts": 1,
+  "stopped_because": "公式選択肢との一次資料不一致にT055 stop_ifを適用し、PMから追加編集・検証停止指示を受領。"
+}
