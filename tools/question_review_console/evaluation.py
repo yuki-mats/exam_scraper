@@ -17,6 +17,10 @@ from scripts.common.question_answer_contract import (
     uses_official_firestore_statement_answers,
     uses_trusted_gassyunin_judge_answers,
 )
+from scripts.common.question_answer_scope import (
+    question_answer_scope,
+    question_body_for_answer,
+)
 from tools.question_review_console.review_store import atomic_write
 from tools.question_review_console.failed_delta import unresolved_failed_delta_paths
 from tools.question_review_console.qualification_runs import QualificationRunStore
@@ -2553,6 +2557,19 @@ class QuestionEvaluationService:
             raise EvaluationError("01の問題形式・計算問題判定の正本を読み込めません。") from exc
         projected = question.get("projected")
         projected = projected if isinstance(projected, Mapping) else {}
+        source_body = projected.get("questionBodyText") or question.get("body")
+        display_body = source_body
+        answer_target = None
+        if question.get("qualification") == "sg" and isinstance(
+            projected.get("questionBodyText"), str
+        ):
+            try:
+                display_body = question_body_for_answer(projected)
+                answer_target = question_answer_scope(projected).get("answerTarget")
+            except ValueError as exc:
+                raise EvaluationError(
+                    "SGの取得元identityと解答対象を照合できません。"
+                ) from exc
         input_payload = {
             "imageBindings": (image_bindings if image_bindings is not None
                               else _audit_image_bindings([question])),
@@ -2561,7 +2578,7 @@ class QuestionEvaluationService:
             "qualification": question.get("qualification"),
             "listGroupId": question.get("listGroupId"),
             "originalQuestionId": question.get("originalQuestionId"),
-            "questionBodyText": projected.get("questionBodyText") or question.get("body"),
+            "questionBodyText": display_body,
             "questionType": projected.get("questionType"),
             "isCalculationQuestion": projected.get("isCalculationQuestion"),
             "questionIntent": projected.get("questionIntent"),
@@ -2580,6 +2597,9 @@ class QuestionEvaluationService:
             "lawRevisionFacts": projected.get("lawRevisionFacts"),
             "examYear": projected.get("examYear"),
         }
+        if display_body != source_body:
+            input_payload["sourceQuestionBodyText"] = source_body
+            input_payload["answerTarget"] = answer_target
         source_answer_evidence = _source_answer_evidence(question, projected)
         if source_answer_evidence is not None:
             input_payload["sourceAnswerEvidence"] = source_answer_evidence
@@ -2603,6 +2623,7 @@ class QuestionEvaluationService:
 ## 必須確認
 
 1. 問題文と全選択肢を一体で読み、各選択肢の命題を一次資料、公式資料、法令本文又は独立計算で確認する。
+   SGでsourceQuestionBodyTextとanswerTargetがある場合、questionBodyTextは公開時に決定的に付く解答対象の注記を含む。各肢の判定対象はこの注記で特定し、注記のない取得元本文を公開文面と取り違えない。取得元本文そのものは変更しない。
 2. 現在の正答対応は意図的に渡されていない。currentExplanationTextは解説採点だけに使い、各選択肢の判定根拠として扱わない。sourceAnswerEvidenceがある場合、それは00_sourceから分離した更新不能な取得元正答証拠であり、現在値ではない。まず問題文と全選択肢を独立に検証し、その後にsourceAnswerEvidenceと照合する。
 3. 各選択肢に、第三者がたどれるsource、具体的locator、短い根拠要約を最低1件付ける。
 4. 根拠が足りない選択肢はinsufficient_evidenceとし、推測で合格にしない。

@@ -80,6 +80,41 @@ class ContentEvaluationTests(unittest.TestCase):
         self.assertIn('"suggestedQuestionDetailsByChoice"', prompt)
         self.assertNotIn('"correctChoiceText":', prompt)
 
+    def test_sg_prompt_evaluates_the_public_answer_slot_annotation(self):
+        service = object.__new__(ContentAuditService)
+        service.repo_root = Path(__file__).resolve().parents[1]
+        question = copy.deepcopy(self.question)
+        question["qualification"] = "sg"
+        question["projected"].update({
+            "questionBodyText": "本文中のb～eに入れる字句を選べ。",
+            "questionLabel": "午後問3 設問2 (1) b",
+            "question_url": "https://example.com/pm03.html",
+            "source_question_id": (
+                "201602:pm3:setumon2:1:b:https://example.com/pm03.html"
+            ),
+        })
+        before = copy.deepcopy(question)
+        prompt = service._build_prompt(question)
+        self.assertIn('"questionBodyText": "本文中のb～eに入れる字句を選べ。\\n\\n解答対象：b"', prompt)
+        self.assertIn('"sourceQuestionBodyText": "本文中のb～eに入れる字句を選べ。"', prompt)
+        self.assertIn('"marker": "b"', prompt)
+        self.assertEqual(question, before)
+
+    def test_sg_prompt_rejects_mismatched_answer_slot_identity(self):
+        service = object.__new__(ContentAuditService)
+        service.repo_root = Path(__file__).resolve().parents[1]
+        self.question["qualification"] = "sg"
+        self.question["projected"].update({
+            "questionBodyText": "本文中のbを選べ。",
+            "questionLabel": "午後問3 設問2 (1) c",
+            "question_url": "https://example.com/pm03.html",
+            "source_question_id": (
+                "201602:pm3:setumon2:1:b:https://example.com/pm03.html"
+            ),
+        })
+        with self.assertRaises(EvaluationError):
+            service._build_prompt(self.question)
+
     def test_declared_image_without_bytes_receipt_rejected(self):
         self.question["projected"]["questionImageStorageUrls"] = ["https://example.com/diagram.png"]
         with self.assertRaises(EvaluationError):
