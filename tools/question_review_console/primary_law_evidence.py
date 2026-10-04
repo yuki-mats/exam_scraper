@@ -275,9 +275,11 @@ class PrimaryLawEvidenceResolver:
         self._failure_lock = threading.Lock()
         self._recent_failures: dict[tuple[str, str], tuple[float, str]] = {}
         self._exam_dates = self._load_exam_dates()
+        self._law_basis_dates = self._load_exam_dates("lawBasisDates")
+        self._law_basis_overrides = self._load_exam_dates("lawBasisDateOverrides")
 
-    def _load_exam_dates(self) -> dict[tuple[str, str], tuple[str, str]]:
-        result: dict[tuple[str, str], tuple[str, str]] = {}
+    def _load_exam_dates(self, field: str = "examDates") -> dict[tuple[str, ...], tuple[str, str]]:
+        result: dict[tuple[str, ...], tuple[str, str]] = {}
         source_root = self.repo_root / "document" / "sources"
         for path in sorted(source_root.glob("*/official_exam_pdf_catalog.json")):
             try:
@@ -287,7 +289,7 @@ class PrimaryLawEvidenceResolver:
                     f"公式試験日catalogを読めません: {path}"
                 ) from exc
             qualification_ids = payload.get("qualificationIds")
-            exam_dates = payload.get("examDates")
+            exam_dates = payload.get(field)
             if not isinstance(qualification_ids, list) or not isinstance(
                 exam_dates,
                 Mapping,
@@ -297,22 +299,35 @@ class PrimaryLawEvidenceResolver:
                 qualification_id = str(qualification or "").strip()
                 if not qualification_id:
                     continue
-                for list_group_id, raw_exam_date in exam_dates.items():
+                if field == "lawBasisDateOverrides" and any(
+                    not isinstance(value, Mapping) for value in exam_dates.values()
+                ):
+                    raise PrimaryLawEvidenceError(f"法令基準日例外catalogが不正です: {path}")
+                entries = (
+                    ((str(group), str(law_id)), value)
+                    for group, overrides in exam_dates.items()
+                    for law_id, value in overrides.items()
+                ) if field == "lawBasisDateOverrides" else (
+                    ((str(group),), value) for group, value in exam_dates.items()
+                )
+                for scope, raw_exam_date in entries:
                     exam_date = str(raw_exam_date or "").strip()
                     try:
                         date.fromisoformat(exam_date)
                     except ValueError as exc:
                         raise PrimaryLawEvidenceError(
                             f"公式試験日catalogの値が不正です: "
-                            f"{path} / {list_group_id} / {exam_date}"
+                            f"{path} / {field} / {scope} / {exam_date}"
                         ) from exc
-                    key = (qualification_id, str(list_group_id))
+                    key = (qualification_id, *scope)
                     previous = result.get(key)
                     source = path.relative_to(self.repo_root).as_posix()
+                    if field != "examDates":
+                        source += f"#{field}/" + "/".join(scope)
                     if previous is not None and previous[0] != exam_date:
                         raise PrimaryLawEvidenceError(
                             "公式試験日catalogが競合しています: "
-                            f"{qualification_id} / {list_group_id} / "
+                            f"{qualification_id} / {field} / {scope} / "
                             f"{previous[0]} / {exam_date}"
                         )
                     result[key] = (exam_date, source)
@@ -350,6 +365,9 @@ class PrimaryLawEvidenceResolver:
         qualification: str,
         list_group_id: str,
     ) -> tuple[str, str]:
+        official_basis = self._law_basis_dates.get((str(qualification), str(list_group_id)))
+        if official_basis:
+            return official_basis
         record_exam_date = self._record_exam_date(record)
         if record_exam_date:
             return record_exam_date, "record.examDate"
@@ -583,11 +601,15 @@ class PrimaryLawEvidenceResolver:
                 if role == "exam_time_basis"
                 else ""
             )
-            exam_as_of = explicit_exam_as_of or default_exam_as_of
+            reference_default, reference_default_source = self._law_basis_overrides.get(
+                (str(qualification), str(list_group_id), law_id),
+                (default_exam_as_of, default_exam_source),
+            )
+            exam_as_of = explicit_exam_as_of or reference_default
             exam_as_of_source = (
                 "lawReference.referenceDate"
                 if explicit_exam_as_of
-                else default_exam_source
+                else reference_default_source
             )
             for kind, number in locator_parts(reference.get("article")):
                 key = (

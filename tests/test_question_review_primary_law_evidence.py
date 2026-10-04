@@ -357,6 +357,46 @@ class PrimaryLawEvidenceTests(unittest.TestCase):
             ],
         )
 
+    def test_official_law_basis_precedes_exam_day_and_supports_law_exception(self):
+        import json
+        calls = []
+
+        def fetcher(law_id, as_of):
+            calls.append((law_id, as_of))
+            return LawFileSnapshot(law_id=law_id, as_of=as_of,
+                                   source_url=f"https://example.test/{law_id}?asof={as_of}",
+                                   revision_id=f"{law_id}_{as_of}",
+                                   xml_text=_law_xml(article_text="同一条文"))
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            catalog = root / "document/sources/sample/official_exam_pdf_catalog.json"
+            catalog.parent.mkdir(parents=True)
+            catalog.write_text(json.dumps({
+                "qualificationIds": ["sample"],
+                "examDates": {"2021": "2021-11-21"},
+                "lawBasisDates": {"2021": "2021-04-01"},
+                "lawBasisDateOverrides": {"2021": {"502AC0000000060": "2021-06-15"}},
+            }))
+            resolver = PrimaryLawEvidenceResolver(root, fetcher=fetcher)
+            references = [{"lawId": law, "article": "第11条", "role": "current_basis"}
+                          for law in ["129AC0000000089", "502AC0000000060"]]
+            result = resolver.resolve({"examDate": "2021-11-21", "lawReferences": references},
+                                      current_as_of="2026-10-04", qualification="sample", list_group_id="2021")
+            explicit = resolver.resolve({"lawReferences": [{**references[0], "role": "exam_time_basis",
+                                          "referenceDate": "2021-06-01"}]},
+                                        current_as_of="2026-10-04", qualification="sample", list_group_id="2021")
+
+        self.assertEqual(result["status"], "complete")
+        self.assertEqual(result["examAsOf"], "2021-04-01")
+        self.assertTrue(result["examAsOfSource"].endswith("#lawBasisDates/2021"))
+        self.assertIn(("129AC0000000089", "2021-04-01"), calls)
+        self.assertIn(("502AC0000000060", "2021-06-15"), calls)
+        self.assertNotIn(("502AC0000000060", "2021-11-21"), calls)
+        self.assertTrue(result["items"][1]["examAsOfSource"].endswith("#lawBasisDateOverrides/2021/502AC0000000060"))
+        self.assertEqual(explicit["items"][0]["examAsOfSource"], "lawReference.referenceDate")
+        self.assertIn(("129AC0000000089", "2021-06-01"), calls)
+
     def test_pre_2017_exam_date_is_explicit_coverage_limit_not_fetch_failure(self):
         calls: list[tuple[str, str]] = []
 
