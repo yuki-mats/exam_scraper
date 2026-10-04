@@ -147,3 +147,7 @@ MIME補正後一問は新GUI exactpreview/currentstateHash一致とWeb残18%/625
 202501の追加2問では、RFC4033§3.1でDNSSECのゾーン鍵によるデータ由来検証と直接応答サーバ認証を区別し、RFC8323§1でCoAP基本UDP仕様とTCP/TLS/WebSocket拡張を区別して21解説だけを修正した。source、本文、全肢、正誤、他fieldは保持、正常同期及び必須3検査成功。7ca987473をmain push。根拠direct_protocol2_202501_applied_20261005.json、独立Solは未完。
 
 02:03現在SCの別100問独立job vU5WJ6MkC6lTPbq8が同singleton79168で稼働中であり、共有904c42f10の反映restartは行っていない。他資格を中断又は旧global lockを迂回せず、NWの別問題の直接目視整備を続けている。
+
+### 2026-10-05 02:11 201802 IoT選択肢の公式誤字復元
+
+平成30年度秋期高度試験午前I冊子PDF15ページ問27を直視し、第3肢は「機械同士」と確認した。取得元の「機械同土」に対し、24のhuman-visual-review/v1 overlayでこの問題自身の一字だけを修復した。本文・他3肢・正誤・解説・metadata・00_sourceは保持。ローカル正常投影と正常merge/convert/upload dry-runで確認し、全四fieldを再読した。必須3検査48merged/48実正答patch880entries成功、全suite未実行。独立Sol未完、品質確定212/880は不変、Firestore未書込。根拠direct_official_iot_choice1_applied_20261005.json。

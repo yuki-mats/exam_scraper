@@ -1,0 +1,39 @@
+{
+  "schemaVersion": "question-issue-correction/v1",
+  "origin": "user_problem_report",
+  "category": "question_content",
+  "reviewProtocol": "human-visual-review/v1",
+  "author": "root manual visual review",
+  "userAuthorization": "直接パッチを目視整備により作成していいので、NWスペシャリストの過去問の整備を完了させてほしい",
+  "createdAt": "2026-10-05T02:07:29.611641+09:00",
+  "independentBlindReviewPerformed": false,
+  "modelReceipt": null,
+  "entries": [
+    {
+      "original_question_id": "f467088a508bec71",
+      "sourceQuestionKey": "nw:201802:f467088a508bec71",
+      "reviewQuestionId": "f467088a508bec71",
+      "sourceRecordRef": "question_201802_2.json#1",
+      "expectedBeforeHash": "5e578bf6fda403ba7157c487ea4c8ac5f74787f7fbe8cd47d4d73b56958e0ea0",
+      "changes": {
+        "choiceTextList": [
+          "機械に対して，保守員が遠隔地の保守センターからインターネットを経由して，機器の電源のオン・オフなどの操作命令を送信する。",
+          "機械の温度や振動データをセンサーで集めて，インターネットを経由してクラウドシステム上のサーバに蓄積する。",
+          "クラウドサービスを介して，機械同士が互いの状態を常時監視・分析し，人手を介すことなく目標に合わせた協調動作を自動で行う。",
+          "クラウドシステム上に常時収集されている機械の稼働情報を基に，機械の故障検知時に，保守員が故障部位を分析して特定する。"
+        ]
+      },
+      "rationale": "公式冊子PDF15ページ問27のウを直視し、取得元の機械同土に対して公式は機械同士であることを確認。この問題自身の第3肢の一字だけを修復。",
+      "evidence": [
+        {
+          "sourceClass": "official",
+          "title": "平成30年度秋期 高度試験 午前Ⅰ 問27",
+          "locator": "output/nw/scrape_reports/official_evidence_20261004/2018h30a_koudo_am1_qs.pdf / PDF15ページ",
+          "url": "https://www.ipa.go.jp/shiken/mondai-kaiotu/gmcbt8000000f01f-att/2018h30a_koudo_am1_qs.pdf",
+          "verifiedAt": "2026-10-05T02:07:29.611641+09:00",
+          "contentHash": "0f9a8c56dc6cf0f2ed600c60a0ae3d0c89f658d98096e738488c6188f290f7dd"
+        }
+      ]
+    }
+  ]
+}
