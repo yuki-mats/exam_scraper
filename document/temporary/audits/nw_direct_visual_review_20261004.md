@@ -191,3 +191,9 @@ MIME補正後一問は新GUI exactpreview/currentstateHash一致とWeb残18%/625
 201802午前II問17と202301午前II問19を一問ずつ四fieldで読み、RFC5216の相互認証・例外・セッション再開とRFC9190の証明書認証及び再開を直接確認した。通常のクライアント証明書による相互認証を本問の比較条件として示し、認証省略の例外と毎回の証明書交換の要否を区別した。21解説と参照だけを更新し、source・ID・本文・全肢・正誤・metadataを保持した。
 
 正常2年度同期はmerge/convert/upload dry-run成功。必須3検査は48merged/48実正答patch880entriesで全て成功、全suite未実行。四fieldを新しいローカル投影で再読した。実施していないmodel/作業版receiptなし、独立Sol未完、品質確定212/880不変、Firestore書込みなし。根拠direct_eap_scope2_applied_20261005.json。
+
+### 2026-10-05 再帰DNSの反射攻撃対策1問
+
+202201午前II問21の四fieldを個別に読み、RFC5358第1・3・4節とRFC4033第3.1節を直接確認した。再帰問い合わせの利用者制限を本問の対策として示し、権威サーバを含む反射攻撃全般の防止と区別した。送信元偽装による応答の集中、Whois確認では防げない理由、DNSSECのデータ由来検証と問い合わせ元認証の違いを21解説の第1・2・4肢に記載した。
+
+source・ID・本文・全肢・正誤・metadataと第3肢解説は保持。正常同期のmerge/convert/upload dry-runと必須3検査48merged/48実正答patch880entriesは成功、全suite未実行。新ローカル投影の四fieldを再読した。AI/model/作業版receiptなし、独立Sol未完、品質確定212/880不変、Firestore書込みなし。根拠direct_dnsreflect_scope1_applied_20261005.json。
