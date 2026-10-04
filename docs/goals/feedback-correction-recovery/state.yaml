@@ -59,7 +59,7 @@ visual_board:
     url: http://goalbuddy.localhost:41737/feedback-correction-recovery/
     command: node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs
       --goal docs/goals/feedback-correction-recovery
-active_task: T046
+active_task: T050
 tasks:
   - id: T001
     type: scout
@@ -6126,9 +6126,9 @@ tasks:
   - id: T046
     type: worker
     assignee: Worker
-    status: active
-    objective: 固定T041候補から上記exact formal filesのbytes/hash/pathを持つ型付きprivate formal-save planを生成する。既存generic readerを使うloader/replayと明示scoped Inventory/Synchronizer接続、正式承認後のimmutable
-      unit保存APIを実装し、未承認拒否・再送・中途失敗・対象外保持までfixtureで検証する。今回は正式保存先へ書き込まない。
+    status: blocked
+    objective: 固定T041候補から上記exact formal filesのbytes/hash/pathを持つ型付きprivate formal-save planを生成する。既存generic readerを使うloader/replayと明示scoped
+      Inventory/Synchronizer接続、正式承認後のimmutable unit保存APIを実装し、未承認拒否・再送・中途失敗・対象外保持までfixtureで検証する。今回は正式保存先へ書き込まない。
     allowed_files:
       - tools/question_review_console/formal_correction_save.py
       - tools/question_review_console/scoped_artifacts.py
@@ -6155,7 +6155,8 @@ tasks:
       - formal_correction_save.pyが型、plan builder、loader/replay、正式保存gateを所有する。既存24/05のschemaや通常selectorを変更しない。
       - 既存CLIへ--formal-save-plan <T041 manifest> --output <fresh private run> --dry-runを追加する。CLIの今回経路はprivate出力だけで、formal applyやproduction実行を行わない。
       - 予定正式filesと同じbytesをprivate planned-files/へ生成し、planから一対一に参照する。正式rootの既存状態はread-onlyで検査する。
-      - unit manifestはkind、qualification、source/public責務、candidate hash、T041 manifest hash、native chain、source/snapshot provenance、payload file hash、対象ID順、限定deltaを結合する。
+      - unit manifestはkind、qualification、source/public責務、candidate hash、T041 manifest hash、native chain、source/snapshot provenance、payload
+        file hash、対象ID順、限定deltaを結合する。
       - 2018/2024 source envelopeは原問body/ordered choices/答4/2を保持する。public variantのTF scalar、body、intent、解説、refs/factsはT041 candidateと完全一致させる。
       - 2020 production-snapshot payloadはgroup/ref=nullを許す専用型とする。local evaluation namespaceを正式source groupや公開listGroupIdへ変換しない。
       - replayは固定selected snapshotへdeltaを適用し、全projectionとfield presenceをT041に照合する。対象外selected fields、旧ID、原問内容を保持し、full converterを保存用artifactとして採用しない。
@@ -6171,10 +6172,12 @@ tasks:
       - 生の利用者本文・source_path・識別情報をGit/通常log/通知へ出さない。private dirs700/files600。
       - 予定正式unit一覧はT045 receiptのplanned_formal_filesをそのまま使う。unit payload値・scope・file予定pathを勝手に変えない。
     verify:
-      - PYTHONDONTWRITEBYTECODE=1 /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest tests.test_question_review_formal_correction_save tests.test_question_review_scoped_artifacts
-        tests.test_question_review_inventory tests.test_question_review_workflow tests.test_scoped_canonical_context
-      - PYTHONDONTWRITEBYTECODE=1 /Users/yuki/development/exam_scraper_work/.venv/bin/python scripts/pipeline/prepare_scoped_question_artifacts.py --formal-save-plan
-        output/user_feedback_response_system/staging/recovery-three-cases/execution-contract/runs/T041-repair1-e1ed4d7c4c27/manifest.json --output output/user_feedback_response_system/staging/recovery-three-cases/formal-save-plans/runs/T046-dd7578fb31b3
+      - PYTHONDONTWRITEBYTECODE=1 /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest tests.test_question_review_formal_correction_save
+        tests.test_question_review_scoped_artifacts tests.test_question_review_inventory tests.test_question_review_workflow
+        tests.test_scoped_canonical_context
+      - PYTHONDONTWRITEBYTECODE=1 /Users/yuki/development/exam_scraper_work/.venv/bin/python scripts/pipeline/prepare_scoped_question_artifacts.py
+        --formal-save-plan output/user_feedback_response_system/staging/recovery-three-cases/execution-contract/runs/T041-repair1-e1ed4d7c4c27/manifest.json
+        --output output/user_feedback_response_system/staging/recovery-three-cases/formal-save-plans/runs/T046-dd7578fb31b3
         --dry-run
       - 実3件dry-runで上記9正式予定paths、private planned bytes/hash、11doc replay、原問答4/2、2020一文字deltaとgroup/ref=nullを確認する。
       - fixtureで承認なし・別plan・別path・変更bytes・部分unit承認・source/public混同・欠落provenance・入力drift・法令再照合欠落を拒否する。
@@ -6196,6 +6199,793 @@ tasks:
       - 2repair後も指定verify不合格
     expected_output:
       - 真正goalbuddy_receipt_v1 T046。実5suite/newCLI3unit dry-run/11doc replay/必要gate成功、実command開始終了/exit/log/hash、formal-save-planとhuman用exact承認差分、未承認/未checkpoint/evaluation/未公開を区別。
+    receipt:
+      result: blocked
+      task_id: T046
+      board_path: /Users/yuki/development/exam_scraper_feedback/docs/goals/feedback-correction-recovery/state.yaml
+      changed_files:
+        - tools/question_review_console/formal_correction_save.py
+        - tools/question_review_console/scoped_artifacts.py
+        - tools/question_review_console/inventory.py
+        - tools/question_review_console/workflow_runner.py
+        - scripts/pipeline/prepare_scoped_question_artifacts.py
+        - tests/test_question_review_formal_correction_save.py
+        - tests/test_question_review_workflow.py
+        - document/operations/artifact_contract.md
+        - document/operations/delivery_workflow.md
+        - document/operations/question_issue_report_workflow.md
+        - output/user_feedback_response_system/staging/recovery-three-cases/formal-save-plans/runs/T046-dd7578fb31b3/**
+      commands:
+        - command: PYTHONDONTWRITEBYTECODE=1 /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest tests.test_question_review_formal_correction_save
+            tests.test_question_review_scoped_artifacts tests.test_question_review_inventory tests.test_question_review_workflow
+            tests.test_scoped_canonical_context
+          status: pass
+          exit_code: 0
+          startedAt: '2026-10-04T03:26:44.130166+00:00'
+          finishedAt: '2026-10-04T03:26:50.072213+00:00'
+          tests: 131
+          evidence: commands/repair2-five-suites.json
+        - command: PYTHONDONTWRITEBYTECODE=1 /Users/yuki/development/exam_scraper_work/.venv/bin/python scripts/pipeline/prepare_scoped_question_artifacts.py
+            --formal-save-plan output/user_feedback_response_system/staging/recovery-three-cases/execution-contract/runs/T041-repair1-e1ed4d7c4c27/manifest.json
+            --output output/user_feedback_response_system/staging/recovery-three-cases/formal-save-plans/runs/T046-dd7578fb31b3
+            --dry-run
+          status: fail
+          exit_code: 1
+          startedAt: '2026-10-04T03:27:10.599248+00:00'
+          finishedAt: '2026-10-04T03:27:16.032419+00:00'
+          evidence: commands/repair2-cli.json
+        - command: 'scripts.check.check_law_revision_fact_coverage.run: 2018 merged、指定strict flags'
+          status: fail
+          exit_code: 2
+          failure: no merged JSON under verification/2018/merged/30_merged_2
+          evidence: verification-results.json
+        - command: git diff --check
+          status: pass
+          exit_code: 0
+          evidence: commands/diff-check.json
+        - command: read-only固定入力hash・T015 132files・正式9paths・private permissions・WORK外部差分確認
+          status: pass
+          exit_code: 0
+          evidence: protection-after.json
+      historical_commands:
+        - command: 指定5suite 初回
+          status: fail
+          exit_code: 1
+          startedAt: '2026-10-04T03:19:36.939772+00:00'
+          finishedAt: '2026-10-04T03:19:42.699935+00:00'
+          result: 130tests、4fail・1error
+          evidence: commands/attempt1-five-suites.json
+        - command: 指定5suite repair1
+          status: pass
+          exit_code: 0
+          startedAt: '2026-10-04T03:23:53.340653+00:00'
+          finishedAt: '2026-10-04T03:23:59.223096+00:00'
+          result: 131tests成功
+          evidence: commands/repair1-five-suites.json
+        - command: 指定CLI dry-run repair1
+          status: fail
+          exit_code: 1
+          startedAt: '2026-10-04T03:24:27.983425+00:00'
+          finishedAt: '2026-10-04T03:24:28.717317+00:00'
+          failure: T044更新済みcase_review4件を固定primary差と誤分類
+          evidence: commands/repair1-cli.json
+      summary: 型付きplan・reader/replay・承認/法令再照合gate・immutable保存API・明示Inventory/Synchronizer・CLIを実装。最終131tests成功。実3unit/9private
+        bytesと11doc replayは生成済み。CLIは新merged filenameがstrict探索契約に合わずexit1、strict本体exit2で停止。法的矛盾ではない。2repair capを保持し全slice blocked。正式保存・承認・checkpoint・評価・公開は未実行。
+      remaining_blockers:
+        - question_formal_preview.jsonは、latest_merged_filesが要求する「_merged_を含むstem」又は「末尾_merged」に一致せず、strict入力が未発見。
+        - actual Inventory/Synchronizer previewはCLI strict停止後のため未到達。fixture3case入口だけ検証済み。
+        - 2018 firestore・2024 merged/firestore strictは未実行。
+        - 真正human exact-plan正式保存承認、現行法取得/revision/body再照合、真正checkpoint/model評価、本番承認・公開は未済。
+        - 実ledgerの開始filehash未取得につき、全task before/after hashによる独立continuity証明は未済。SQLite未open/write、mtimeは作業前。
+      needs_judge: true
+      verification_attempts: 3
+      repair_attempts: 2
+      stopped_because: new_private_strict_input_discovery_failure_and_two_repair_cap
+      artifacts:
+        directory: output/user_feedback_response_system/staging/recovery-three-cases/formal-save-plans/runs/T046-dd7578fb31b3
+        full_receipt: worker-receipt.json
+        plan: formal-save-plan.json
+        approval_proposal: approval-proposal.md
+        approval_request: human-approval-request.json
+        diagnostics: stop-diagnostics.json
+        protection: protection-after.json
+        planHash: 7c4ce40d81434a2abd883fcb857b917d1a07e90850f7dddd87ddb653001e4c99
+        inputHash: 7618cfe73833395041f1fe343d973a5cdba5ce8fb5d6df34021f8191d7a47786
+        head: 9f10f393597ac3e3707b6c8bf7c0e1c24dbb3f73
+      actual_results:
+        privateUnitCount: 3
+        privatePlannedFileCount: 9
+        selectedDocumentReplayCount: 11
+        sourceOriginalSelectionAnswers:
+          '2018': 4
+          '2024': 2
+        sourceNoop: true
+        production2020SourceGroup: null
+        production2020SourceRef: null
+        production2020Delta: questionText一文字削除のみ
+        requiredErrors: 0
+        alignmentErrors: 0
+        coverageErrors: 0
+        strictExitCode: 2
+        CLIExitCode: 1
+        legalContradictionFound: false
+        mergedBytesEqualHistoricalT041: true
+        mergedFileSha256: 287b2413b8c7f23049eeac01a9718da0901c62fffbf037cdd37f1ac974d7d328
+        currentLawAuditPolicy: '6.0'
+        currentEvaluationPolicy: '5.6'
+        genuineNativeChainReplay:
+          - T028
+          - T029
+          - T033
+          - T037
+          - T039
+        genuineT045NativeBindingVerified: true
+        historicalReaderDependencyDriftCount: 5
+        T044CurrentCaseReviewDriftCount: 4
+        protectedInputFilesUnchanged: 813
+        WORKProtectedInputFilesUnchanged: 204
+        T015FixedFilesUnchanged: 132
+        actualFormalNineAbsent: true
+        privateDirectoriesMode: '700'
+        privateFilesMode: '600'
+        actualFormalFilesWritten: false
+        actualLedgerOpened: false
+        actualLedgerWritten: false
+        WORKWritten: false
+        FirestoreWritten: false
+        StorageWritten: false
+        formalSaveApproved: false
+        checkpointRecorded: false
+        evaluationPerformed: false
+        publicationReady: false
+        WORKExternalObservation: 対象外NWの3既存status差分が外部で消失。自己成果や全WORK不変として扱わない。
+      fixture_results:
+        - 承認なし・bool/token・assistant回答・別plan/path・部分sibling承認・改変bytes・入力driftを拒否
+        - 実UI replyタグのquestionItemId tool/call/index・固定質問・answerを照合
+        - 複数質問への曖昧な自由文回答を拒否
+        - 現在法の取得日時・URL・revision・XML/bodyhashを比較し、人間の真偽宣言だけを拒否
+        - 承認後保存・読戻し・同一再送・既存競合・symlink/path逸脱を検証
+        - OS exclusive rename競合による空target上書きを拒否
+        - atomic確定前後・receipt確定前中断でreceiptを成功扱いせず、同一bytes再開を検証
+        - 全selected fields・absence・未知field・原問・既存ID保持を検証
+        - 3case明示Inventory/Synchronizer入口を検証し、通常group探索・ready gateを維持
+      not_run:
+        - 実正式保存API（fixtureのみ実施）
+        - actual3case Inventory/Synchronizer preview
+        - 2018 firestore strict
+        - 2024 merged strict
+        - 2024 firestore strict
+        - 現行法HTTP再取得
+        - 正式承認質問送信
+        - checkpoint/model評価
+        - 184tests/E2E
+        - commit/push
+  - id: T047
+    type: judge
+    assignee: Judge
+    status: done
+    objective: T046の真正停止receiptと保存API/型付きplanを限定監査し、strict入力探索失敗を既存契約に合わせて回復する次の最大安全Worker packageを選ぶ。修正候補の法的再レビューを重複せず、承認用の具体的before/after不足・承認照合・immutable保存・実scoped入口の残るリスクを切り分ける。
+    inputs:
+      - notes/T046-formal-save-blocked-receipt.json
+      - notes/T046-formal-save-blocked-provenance.json
+      - notes/T045-formal-contract-receipt.json
+      - 新product10pathsのdirty diffと131対象tests証拠
+      - output/user_feedback_response_system/staging/recovery-three-cases/formal-save-plans/runs/T046-dd7578fb31b3/formal-save-plan.json
+      - 同verification-results/stop-diagnostics/human-approval-request/approval-proposal/planned-files
+      - 既存latest_merged_filesとstrict checkerの実契約
+      - 最新main/current policy law_audit6.0/evaluation5.6
+    constraints:
+      - read-only。PMのみstate/actualledger/commit/push。生feedback本文/識別情報を通常logへ出さない。
+      - T046のrepair capをresetせずblockedを保持する。新taskのfresh private runで明確な入口修正と回帰verifyを行う。
+      - 候補before/after/projection/source original4/2・既存ID・2020一文字deltaは固定、24/05/generic resolver guardを緩めない。
+      - strict本体exit2 discovery failureとCLI exit1を区別。法的矛盾が見つかったとは記録しない。
+      - source/public/unit/schema保存routeはT045既受入。実保存/prodは未承認。production adapterをこの回復packageへ混ぜない。
+      - 全selected fields/absence/replayとexact9bytes/hash/path整合、human async actualtag call/index/固定question結合、law実証明とexclusive
+        finalize/receipt interrupted retryを確認する。
+      - 4 case_reviewはT044最新hashに新planを結合した入力。これを後でproposal同期で書き換えて承認planをinvalidateしない運用を選ぶ。
+      - 旧T046 private runを不変保持し、current reader dependencyは新runへ固定する。新plan readyと真正checkpoint/model評価/公開を混同しない。
+      - 必要な4strict・実3case Inventory/Synchronizer・131tests（現行依存）・required/alignment/coverageとprivate保全の未到達gateを含む安全packageを選ぶ。
+      - 承認用Markdownは対象fieldsごとの具体的before/after・一次根拠・影響範囲・予定9pathsを含む必要がある。現proposalのfile/hashだけで可否を判断しない。
+      - コードレビューは新保存契約の実リスクに限定、独立A/B法令の全面や旧3000testsを理由なく繰り返さない。
+    verify:
+      - nativeT046 event/hash/receipt一致と停止証拠を読む
+      - dirty変更範囲、fixedinput/hash/path、入口探索契約を読む
+      - 型付きsave/loader/approval/fixtureの限定リスク監査と最小回復package指定
+    expected_output:
+      - 真正goalbuddy_receipt_v1 T047。decision/next_allowed_task（allowed_files,verify,stop_if）/missing_evidenceを具体化。full_outcome_complete=false。承認質問はPMが検証後に一回送信。
+    receipt:
+      result: done
+      task_id: T047
+      board_path: /Users/yuki/development/exam_scraper_feedback/docs/goals/feedback-correction-recovery/state.yaml
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: T046の真正停止を確認した。131testsと3unit・9private bytes・11doc replayは成立したが、strict探索失敗と未到達previewが残るためslice完了ではない。次のfresh
+        runで既存filename契約へ回復し、法令revision実応答結合、確定直前再照合、receipt再送の時制、承認資料の固定を同じ保存契約内で修復する。既受理の保存設計と法的判断は維持する。正式保存・productionは含めない。
+      evidence:
+        - kind: native_stop_receipt
+          decision: accept
+          task: T046
+          nativeSessionId: 01a101b4-330a-7392-a7b8-f72e5890db4a
+          eventLine: 2727
+          eventSha256IncludingFinalLf: bdc579a62c06d4b8e73aced7094c662753a23e66099fa24ff220bad064f4af43
+          assistantOutputSha256: 6678207635b03493c8da7ee158e7c0078bbdcf6df7ec31ee20914c6cd063095f
+          receiptFileSha256: 32e37957bf6c0750f2d1c5f98bba0a0d73335cf15f1ee040532fdadbc80a4c1e
+          nativeInnerReceiptCompactObjectHash: 98499ed9dc7bb97ebed44c5178283207fbbe379895600ae45c0be08a21e25c66
+          actualChecks: event/output/file/compact hashとnative内側receiptの保存object一致を実再計算した。
+          repairCap: T046の2repair capとblockedを保持する。旧runを修正して完了へ置換しない。
+        - kind: current_fixed_plan
+          run: output/user_feedback_response_system/staging/recovery-three-cases/formal-save-plans/runs/T046-dd7578fb31b3
+          planHash: 7c4ce40d81434a2abd883fcb857b917d1a07e90850f7dddd87ddb653001e4c99
+          inputHash: 7618cfe73833395041f1fe343d973a5cdba5ce8fb5d6df34021f8191d7a47786
+          planObjectHashMatched: true
+          inputMapHashMatched: true
+          currentInputDriftCount: 0
+          privatePlannedFileHashesMatched: 9
+          unitCount: 3
+          formalNineTargetsAbsent: true
+          approvalRequestSent: false
+          observedScope:
+            - 原問source答4/2を保持するno-op envelopeと公開TF variantを分離する。
+            - 2020はproduction_snapshot、source group/ref=null、questionText一文字delta。
+            - 全selected fields・absence・replayと既受理のexact正式pathsを保持する。
+            - dirty product10filesはT046成果として保持し、他作者のNW変更を巻き戻さない。
+        - kind: strict_discovery_failure
+          decision: bounded_repair
+          location: tools/question_review_console/formal_correction_save.py:609
+          generatedName: question_formal_preview.json
+          existingContract: scripts/check/check_law_revision_fact_coverage.py:43-57のlatest_merged_filesはstemに_merged_を含むか末尾_mergedのJSONだけを選ぶ。
+          actual:
+            strictBodyExitCode: 2
+            CLIWrapperExitCode: 1
+            requiredErrors: 0
+            alignmentErrors: 0
+            coverageErrors: 0
+            strictCompleted: false
+            actualThreeScopedPreviewsReached: false
+          finding: 入力未発見であり法的矛盾ではない。generator filenameを既存契約へ合わせ、checkerを緩めない。
+          remainingStrict:
+            - 2018 mergedの回復後再実行
+            - 2018 firestore
+            - 2024 merged
+            - 2024 firestore
+        - kind: limited_save_api_review
+          accepted:
+            - _native_approvalは実UI reply tag、tool/call/index、固定質問、明示日本語回答を照合し、assistant回答・曖昧な別質問への回答を拒否する。
+            - OS exclusive renameとexclusive receipt linkを使い、競合targetの置換を拒否する。
+            - 最終receiptがない中断unitをloaderは承認済みと扱わない。fixtureで同一bytes再開を検証している。
+            - 現在のapproval-proposalには既にsource no-opと公開deltaの具体的JSON before/afterがある。file/hash一覧だけという状態ではない。
+            - 実保存・現行法HTTP再取得・人間承認・checkpoint/evaluation・公開はまだ実施していない。
+          requiredRepairs:
+            - location: formal_correction_save.py:385-434
+              finding: revisionIdは取得entryの文字列と固定revisionの比較に留まる。実law_data metadata応答のbytes/hash、dated URL、応答内semantic revisionへ結合する必要がある。
+            - location: formal_correction_save.py:507-518
+              finding: read_plan後にprivate payloadを再読してstagingへコピーする。approved hashとの照合とcurrent inputs再検証をexclusive finalize直前にも行い、途中の改変を正式rootへ確定させない。
+            - location: formal_correction_save.py:474-490
+              finding: 永続receiptが既にある同一再送でも先にfresh lawを要求するため、日付変更後のread-only retryと新writeを伴うresumeが混同される。成功済みreceipt再読と未完保存の再開を分ける。
+            - location: formal_correction_save.py:266-307
+              finding: 承認用Markdownをfield・選択肢・根拠別に読みやすくし、その資料hashも固定質問とnative承認照合へ結合する。plan hashを資料内へ循環参照させない生成順を用いる。
+        - kind: case_review_operation
+          decision: freeze_and_append_linkage
+          finding: planのinputsにcase_review.json参照が5件ある。T044の最新4caseを含む結合済み入力を、proposal/status同期で書き換えるとplanが無効になる。
+          contract:
+            - 新plan生成時に結合するreview hashesを固定し、行政的なplan登録・承認待ち表示・進捗同期ではcase_review本文を変更しない。
+            - PMはplan hash、case review hash、状態、receipt参照を別のappend-only linkageへ記録する。linkageを同じplanのinputsへ追加しない。
+            - 判断・根拠・候補内容が実質変更された場合は正当に旧planを失効させ、fresh planを作る。管理用表示更新による自動再計画・再質問ループを作らない。
+            - 2025のsystem_blocked/already_askedと既存回答待ちを維持し、承認質問を再送しない。
+      next_allowed_task:
+        role: Worker
+        objective: T046成果を保持したまま、同じformal-save契約の4限定修復と承認資料の固定を行う。fresh private runで5対象suite、4形態strict、実3case scoped preview、9予定bytesと11doc
+          replayを完了し、PMが一度だけ具体的正式保存承認を求められる資料を作る。actual正式保存とproduction adapterは実行・追加しない。
+        allowed_files:
+          - tools/question_review_console/formal_correction_save.py
+          - tools/question_review_console/scoped_artifacts.py
+          - tools/question_review_console/inventory.py
+          - tools/question_review_console/workflow_runner.py
+          - scripts/pipeline/prepare_scoped_question_artifacts.py
+          - tests/test_question_review_formal_correction_save.py
+          - tests/test_question_review_workflow.py
+          - document/operations/artifact_contract.md
+          - document/operations/delivery_workflow.md
+          - document/operations/question_issue_report_workflow.md
+          - output/user_feedback_response_system/staging/recovery-three-cases/formal-save-plans/runs/<fresh-run-id>/**
+        implementation_contract:
+          - merged診断filenameをquestion_formal_preview_merged.json等の既存探索契約へ合わせる。latest_merged_filesが生成fileを一意に発見する回帰を加える。
+          - 今回fresh runでは両年merged/firestoreの4 strictを実行する。historical-onlyや未発見を成功扱いにしない。
+          - 法令再照合は公式e-Gov XMLとlaw_data metadataの実応答を取得するread-only helperを用意し、URL・取得日時・status・response bytes/hash・semantic revision・XML/body
+            hashを結合する。
+          - metadataのrevisionIdをentryの自己申告で代用しない。固定revision/bodyと異なれば停止し、法的候補を自動変更しない。
+          - private approved bytesをhash検証してstagingへ固定し、全staged hashesとcurrent plan inputsをexclusive finalize直前に再照合する。改変検出時はtargetと成功receiptを作らない。
+          - 既存永続receiptへの同一read-only retryは、全unit bytes、inputs、元承認・元法令証跡の一致を確認して元receiptを返す。既完了を理由に新しい法令証跡でreceiptを書き換えない。
+          - receiptのない中断resumeは新writeまたは成功receipt確定を伴うため、fresh law metadata/XML再照合を要求する。競合・部分unit・異なるbytesは拒否する。
+          - 承認Markdownは年度・対象fieldごとの具体的before/after、原問保持、選択肢順、一次根拠URL/条項、変更影響、予定9pathsを示す。詳細refs/factsは正確な付録を持たせる。
+          - 承認資料のbytes hashをplanまたは固定approval scopeへ結合し、質問・実UI reply照合も同じhashを要求する。資料とplan hashの循環を避け、承認後の資料改変を拒否する。
+          - human-approval-requestは未送信で保存する。質問送信は全検証後のPM作業とする。
+          - case_reviewの凍結と別append-only linkage運用を正本へ明記する。Workerはactual case review・ledgerを変更しない。
+          - 新runは現行reader依存とlaw_audit/evaluation policyをfingerprintする。T046 run、native証跡、既受理候補値、正式予定pathsを保持する。
+        verify:
+          - PYTHONDONTWRITEBYTECODE=1 /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest tests.test_question_review_formal_correction_save
+            tests.test_question_review_scoped_artifacts tests.test_question_review_inventory tests.test_question_review_workflow
+            tests.test_scoped_canonical_context
+          - PYTHONDONTWRITEBYTECODE=1 /Users/yuki/development/exam_scraper_work/.venv/bin/python scripts/pipeline/prepare_scoped_question_artifacts.py
+            --formal-save-plan output/user_feedback_response_system/staging/recovery-three-cases/execution-contract/runs/T041-repair1-e1ed4d7c4c27/manifest.json
+            --output output/user_feedback_response_system/staging/recovery-three-cases/formal-save-plans/runs/<fresh-run-id>
+            --dry-run
+          - 5suiteの131既存testsと追加限定回帰を現行依存で通し、commit/dirty/input hashes・開始終了・command・exit・ログを記録する。
+          - fresh runの2018/2024 merged/firestore計4 strictが全exit0、required/alignment/coverage成功、11doc replay・全selected fields/absence・9private
+            bytes/hash/path一致を確認する。
+          - 実QuestionInventoryとArtifactSynchronizer.preview_formal_correctionsを全3caseで通し、未承認・checkpoint/evaluation未済・publicationReady=falseの拒否状態を保存する。
+          - fixtureでmetadata応答revision不一致・hash改変・dated URL不一致、finalize前payload/input drift、exclusive race、receipt確定前後中断、日付変更後read-only
+            retryとfresh-law必須resumeを検証する。
+          - fixtureで承認資料改変、別hashの固定質問、tool/call/index不一致、別plan・部分sibling・assistant回答を拒否する。
+          - 実read-only law再取得を行う場合は公式URL・日時・metadata/XML response hashes・revision/body比較結果を保存し、未取得なら未取得と明記する。
+          - T046旧run/native/candidate/source originals/WORK/正式9paths/2025 base・amendment不変とprivate permissionsを確認する。ledgerを開かず、開始前hashを取得できなかった過去のcontinuityを後付けで成功にしない。
+          - git diff --check
+        stop_if:
+          - 既受理candidate before/after/projection、原問答4/2、ID、2020一文字scopeまたは正式予定pathsの変更が必要になる。
+          - strictの法的根拠・schema矛盾が発見される。探索失敗と区別して返す。
+          - 法令実応答revision/bodyが固定根拠と異なり、内容判断の変更を要する。
+          - 24/05/checker/generic resolverのguard緩和が必要になる。
+          - actual正式保存、case_review/ledger/WORK更新、Firestore/Storage writeが必要になる。
+          - production adapter、未知本番outcome回復、大きなUI/provider変更を追加する必要がある。
+          - 2025承認質問の再送またはbase承認拡張が必要になる。
+          - T046 repair capを再開・resetする、旧runを書き換える、他作者差分を巻き戻す必要がある。
+          - allowed_files外の変更、または新taskのrepair cap超過が必要になる。
+          - 生利用者本文・source_path・reporter識別情報が通常log・Git・通知へ混入する。
+        acceptance_after_verify:
+          - 4限定修復と列挙verifyが実成功し、候補値・保存scope・権限境界が不変なら、PMは具体的receiptに基づいてこの回復sliceを受け入れられる。全面法令レビューや同じdesign Judgeを再開する必要はない。
+          - 法令差異、承認associationの新形式不一致、保存scope拡張、未解決のimmutable raceがあれば追加Judgeが必要。
+          - slice受入は人間正式保存承認・真正checkpoint/evaluation・production許可・公開の完了を意味しない。
+      parallel_safety:
+        decision: sequential_only
+        reason: 同一formal-save契約とT046 dirty成果を共有するため、単一Workerが修復を所有する。
+      blocked_tasks:
+        - T046を完了へ書き換えること
+        - 検証前の正式保存承認質問送信
+        - actual正式9paths保存とproduction write
+        - case_review管理更新によるplan無効化・再質問ループ
+        - 2025承認質問再送
+      missing_evidence:
+        - fresh runの4 strict実成功
+        - 実3case Inventory/Synchronizer preview
+        - 現行依存での限定修復回帰と131既存tests成功
+        - 承認資料hashへ結合した具体的な人間向けbefore/after資料
+        - 実law_data metadata/XML取得のrevision/body結合
+        - 真正人間正式保存承認、正式保存、checkpoint/evaluation、本番承認と公開readback
+      required_board_updates:
+        - T046 blocked、strict本体exit2 discovery failure、CLI exit1、2repair capを保持する。
+        - 次Workerへfresh runと上記限定packageを登録する。
+        - PMは結合済みcase_reviewを凍結し、proposal/status同期を別append-only linkageへ記録する。
+        - 全verify成功後、PMが新planと承認資料hashに結合した正式保存質問を一度だけ送る。2025の既存質問は再送しない。
+        - docs-only commitやpush拒否・NW同期を公開完了と扱わず、他作者NW変更を保持する。
+        - full outcomeはfalseを維持し、正式保存・checkpoint/evaluation・production承認・公開を別gateで追跡する。
+  - id: T048
+    type: worker
+    assignee: Worker
+    status: blocked
+    objective: T046成果を保持したまま、同じformal-save契約の4限定修復と承認資料の固定を行う。fresh private runで5対象suite、4形態strict、実3case scoped preview、9予定bytesと11doc
+      replayを完了し、PMが一度だけ具体的正式保存承認を求められる資料を作る。actual正式保存とproduction adapterは実行・追加しない。
+    allowed_files:
+      - tools/question_review_console/formal_correction_save.py
+      - tools/question_review_console/scoped_artifacts.py
+      - tools/question_review_console/inventory.py
+      - tools/question_review_console/workflow_runner.py
+      - scripts/pipeline/prepare_scoped_question_artifacts.py
+      - tests/test_question_review_formal_correction_save.py
+      - tests/test_question_review_workflow.py
+      - document/operations/artifact_contract.md
+      - document/operations/delivery_workflow.md
+      - document/operations/question_issue_report_workflow.md
+      - output/user_feedback_response_system/staging/recovery-three-cases/formal-save-plans/runs/T048-6290af5153c5/**
+    inputs:
+      - notes/T047-formal-save-recovery-receipt.json
+      - notes/T047-formal-save-recovery-provenance.json
+      - T046 blocked native receipt/run（不変）と現dirty product10paths
+      - 固定T041 candidate/native/source/law/run
+      - fresh private output output/user_feedback_response_system/staging/recovery-three-cases/formal-save-plans/runs/T048-6290af5153c5
+    constraints:
+      - merged診断filenameをquestion_formal_preview_merged.json等の既存探索契約へ合わせる。latest_merged_filesが生成fileを一意に発見する回帰を加える。
+      - 今回fresh runでは両年merged/firestoreの4 strictを実行する。historical-onlyや未発見を成功扱いにしない。
+      - 法令再照合は公式e-Gov XMLとlaw_data metadataの実応答を取得するread-only helperを用意し、URL・取得日時・status・response bytes/hash・semantic revision・XML/body
+        hashを結合する。
+      - metadataのrevisionIdをentryの自己申告で代用しない。固定revision/bodyと異なれば停止し、法的候補を自動変更しない。
+      - private approved bytesをhash検証してstagingへ固定し、全staged hashesとcurrent plan inputsをexclusive finalize直前に再照合する。改変検出時はtargetと成功receiptを作らない。
+      - 既存永続receiptへの同一read-only retryは、全unit bytes、inputs、元承認・元法令証跡の一致を確認して元receiptを返す。既完了を理由に新しい法令証跡でreceiptを書き換えない。
+      - receiptのない中断resumeは新writeまたは成功receipt確定を伴うため、fresh law metadata/XML再照合を要求する。競合・部分unit・異なるbytesは拒否する。
+      - 承認Markdownは年度・対象fieldごとの具体的before/after、原問保持、選択肢順、一次根拠URL/条項、変更影響、予定9pathsを示す。詳細refs/factsは正確な付録を持たせる。
+      - 承認資料のbytes hashをplanまたは固定approval scopeへ結合し、質問・実UI reply照合も同じhashを要求する。資料とplan hashの循環を避け、承認後の資料改変を拒否する。
+      - human-approval-requestは未送信で保存する。質問送信は全検証後のPM作業とする。
+      - case_reviewの凍結と別append-only linkage運用を正本へ明記する。Workerはactual case review・ledgerを変更しない。
+      - 新runは現行reader依存とlaw_audit/evaluation policyをfingerprintする。T046 run、native証跡、既受理候補値、正式予定pathsを保持する。
+      - 一人でなく共有作業。PMのみstate/実ledger/commit/push、他作者NW差分を戻さない。
+      - T046 capはblockedのまま保持。T048は初回+repair2まで、実失敗/command歴を保持してhard stopする。
+      - 既存case_reviewは凍結しWorkerは実case/ledgerを開かず変更しない。
+      - origin/main=e3372a4f4のincomingNW5filesは未統合。PMがproductcommit後clean rebase/pushする。新plan対象入力にこの無関係NWは含めない。
+      - 元strict失敗は探索問題。checkerを緩めず既存filename契約で修復する。
+      - private dirs700/files600、生feedback本文・識別情報を通常log/Gitへ出さない。
+    verify:
+      - PYTHONDONTWRITEBYTECODE=1 /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest tests.test_question_review_formal_correction_save
+        tests.test_question_review_scoped_artifacts tests.test_question_review_inventory tests.test_question_review_workflow
+        tests.test_scoped_canonical_context
+      - PYTHONDONTWRITEBYTECODE=1 /Users/yuki/development/exam_scraper_work/.venv/bin/python scripts/pipeline/prepare_scoped_question_artifacts.py
+        --formal-save-plan output/user_feedback_response_system/staging/recovery-three-cases/execution-contract/runs/T041-repair1-e1ed4d7c4c27/manifest.json
+        --output output/user_feedback_response_system/staging/recovery-three-cases/formal-save-plans/runs/T048-6290af5153c5
+        --dry-run
+      - 5suiteの131既存testsと追加限定回帰を現行依存で通し、commit/dirty/input hashes・開始終了・command・exit・ログを記録する。
+      - fresh runの2018/2024 merged/firestore計4 strictが全exit0、required/alignment/coverage成功、11doc replay・全selected fields/absence・9private
+        bytes/hash/path一致を確認する。
+      - 実QuestionInventoryとArtifactSynchronizer.preview_formal_correctionsを全3caseで通し、未承認・checkpoint/evaluation未済・publicationReady=falseの拒否状態を保存する。
+      - fixtureでmetadata応答revision不一致・hash改変・dated URL不一致、finalize前payload/input drift、exclusive race、receipt確定前後中断、日付変更後read-only
+        retryとfresh-law必須resumeを検証する。
+      - fixtureで承認資料改変、別hashの固定質問、tool/call/index不一致、別plan・部分sibling・assistant回答を拒否する。
+      - 実read-only law再取得を行う場合は公式URL・日時・metadata/XML response hashes・revision/body比較結果を保存し、未取得なら未取得と明記する。
+      - T046旧run/native/candidate/source originals/WORK/正式9paths/2025 base・amendment不変とprivate permissionsを確認する。ledgerを開かず、開始前hashを取得できなかった過去のcontinuityを後付けで成功にしない。
+      - git diff --check
+    stop_if:
+      - 既受理candidate before/after/projection、原問答4/2、ID、2020一文字scopeまたは正式予定pathsの変更が必要になる。
+      - strictの法的根拠・schema矛盾が発見される。探索失敗と区別して返す。
+      - 法令実応答revision/bodyが固定根拠と異なり、内容判断の変更を要する。
+      - 24/05/checker/generic resolverのguard緩和が必要になる。
+      - actual正式保存、case_review/ledger/WORK更新、Firestore/Storage writeが必要になる。
+      - production adapter、未知本番outcome回復、大きなUI/provider変更を追加する必要がある。
+      - 2025承認質問の再送またはbase承認拡張が必要になる。
+      - T046 repair capを再開・resetする、旧runを書き換える、他作者差分を巻き戻す必要がある。
+      - allowed_files外の変更、または新taskのrepair cap超過が必要になる。
+      - 生利用者本文・source_path・reporter識別情報が通常log・Git・通知へ混入する。
+    acceptance_after_verify:
+      - 4限定修復と列挙verifyが実成功し、候補値・保存scope・権限境界が不変なら、PMは具体的receiptに基づいてこの回復sliceを受け入れられる。全面法令レビューや同じdesign Judgeを再開する必要はない。
+      - 法令差異、承認associationの新形式不一致、保存scope拡張、未解決のimmutable raceがあれば追加Judgeが必要。
+      - slice受入は人間正式保存承認・真正checkpoint/evaluation・production許可・公開の完了を意味しない。
+    expected_output:
+      - 真正goalbuddy_receipt_v1 T048。4strict/actual3scoped preview/5suite/法令HTTP結合/承認資料hash/9files11doc replay/保全の実証拠を返し、正式未保存・未承認・未checkpoint/evaluation・未公開を区別。短いnative
+        receiptと詳細private証拠refs。
+    receipt:
+      result: blocked
+      task_id: T048
+      board_path: /Users/yuki/development/exam_scraper_feedback/docs/goals/feedback-correction-recovery/state.yaml
+      changed_files:
+        - tools/question_review_console/formal_correction_save.py
+        - tests/test_question_review_formal_correction_save.py
+        - document/operations/artifact_contract.md
+        - document/operations/delivery_workflow.md
+        - document/operations/question_issue_report_workflow.md
+        - output/user_feedback_response_system/staging/recovery-three-cases/formal-save-plans/runs/T048-6290af5153c5/**
+      artifact_root: output/user_feedback_response_system/staging/recovery-three-cases/formal-save-plans/runs/T048-6290af5153c5
+      commands:
+        - command: 指定5suite
+          status: pass
+          exit_code: 0
+          tests: 138
+          startedAt: '2026-10-04T03:57:12.982009+00:00'
+          finishedAt: '2026-10-04T03:57:19.646910+00:00'
+          evidence: commands/repair2-five-suites.json
+          logSha256: ec4c223c06435573e7c213ab0f7f25c06a73ff682b76a524a24a52e7b396988d
+        - command: formal-save-plan実CLI --dry-run、fresh attempts/repair2
+          status: pass
+          exit_code: 0
+          startedAt: '2026-10-04T03:57:57.847881+00:00'
+          finishedAt: '2026-10-04T03:58:04.080479+00:00'
+          evidence: commands/repair2-cli.json
+          logSha256: bc7687324ce62cc8f33c76dca7cbe71a0240e95a4b182187fc1fa3e9c853883c
+        - command: 2018/2024 merged/firestore計4strict
+          status: pass
+          exit_codes:
+            - 0
+            - 0
+            - 0
+            - 0
+          evidence: attempts/repair2/verification-results.json
+        - command: e-Gov 2法のlaw_data metadata/XML実HTTP取得・revision/body比較
+          status: pass
+          exit_code: 0
+          startedAt: '2026-10-04T03:58:48.294951+00:00'
+          finishedAt: '2026-10-04T03:58:51.560725+00:00'
+          evidence: commands/repair2-law-http.json
+          logSha256: 0aa99da5b30ba1def8394d0b404be94b5b719b277e496b189023c284dace8f39
+        - command: git diff --check
+          status: pass
+          exit_code: 0
+          startedAt: '2026-10-04T04:00:33.572505+00:00'
+          finishedAt: '2026-10-04T04:00:33.646017+00:00'
+          evidence: commands/final-diff-check.json
+        - command: 最終private permissions・保全確認
+          status: fail
+          exit_code: 1
+          failure: strict checker生成8JSONのみmode644。内容hashの変化ではない。
+          evidence: permission-check-failure.json
+      historical_commands:
+        - status: fail
+          exit_code: 1
+          evidence: commands/initial-cli.json
+          failure: generator旧filenameによるstrict入力探索exit2
+        - status: fail
+          exit_code: 1
+          evidence: commands/repair1-law-http.json
+          failure: 実metadataのrevision_infoをlaw_revision_infoと誤読。取得原bytes保全。
+      summary: 限定修復と承認資料hash結合を実装。最終138tests、4strict、実3case preview、2法HTTP取得・revision/XML/body比較は成功。9予定bytes・11doc replay・候補/原問/IDは保持。最終permission検査でstrict生成8JSONのmode644を検出したため、repair2
+        capを維持してblocked。追加edit/chmod/verifyを停止。正式保存・承認・checkpoint・評価・公開は未実行。
+      remaining_blockers:
+        - 下記8JSONを内容無変更でchmod600するpackagingが未了。PMのT049へ引継ぎ。
+        - 真正正式保存承認・正式保存・checkpoint/model評価・本番承認・公開は別途未済。
+      permission_only_paths:
+        - attempts/repair1/verification/2018/merged/strict-law.json
+        - attempts/repair1/verification/2018/firestore/strict-law.json
+        - attempts/repair1/verification/2024/merged/strict-law.json
+        - attempts/repair1/verification/2024/firestore/strict-law.json
+        - attempts/repair2/verification/2018/merged/strict-law.json
+        - attempts/repair2/verification/2018/firestore/strict-law.json
+        - attempts/repair2/verification/2024/merged/strict-law.json
+        - attempts/repair2/verification/2024/firestore/strict-law.json
+      final_success_plan:
+        path: attempts/repair2/formal-save-plan.json
+        planHash: 5ffb35f93e3836e3eedfb20884e457bd31a658dbc78f346f4cd0d44271a74d99
+        input_and_material_hashes: 同planのinputHash・approvalMaterials・approvalMaterialPaths
+        approval_material: attempts/repair2/approval-proposal.md
+        exact_appendix: attempts/repair2/approval-details.json
+        unsent_question: attempts/repair2/human-approval-request.json
+        law_revision_xml_body_hashes: attempts/repair2/law-http/comparison-result.json
+        law_evidence_sha256: 09e74705abb1d1f0b4f180aebc395ef80949c71b176e82ebaa2f1ea8728bbccf
+        actual_preview: attempts/repair2/actual-scoped-preview.json
+        verification_input_hash: e6c6eb26e5f5eed834de52324035880709727376674a73ec1cd2d930af259704
+        head: 71099895d559b76c28e55281956bd9b5ef4f57c3
+      actual_results:
+        selected_counts:
+          - 5
+          - 5
+          - 1
+        private_planned_files: 9
+        selected_document_replay: 11
+        formal_bytes_equal_T046: true
+        protected_content_hash_changes: 0
+        T015_fixed132_changes: 0
+        source_answers:
+          - 4
+          - 2
+        2020_delta: questionText一文字のみ、source group/ref=null
+        law_retrieval_result: 2法ともsemantic revision・XML・MainProvision/body hashが固定根拠と一致
+        machineReady: false
+        publicationReady: false
+        approval_question_sent: false
+        actual_formal_save: false
+        actual_ledger_opened_or_written: false
+        WORK_written: false
+        Firestore_or_Storage_written: false
+        past_ledger_continuity_retroactively_claimed: false
+        T046_and_initial_and_repair1_evidence_preserved: true
+      needs_judge: false
+      verification_attempts: 3
+      repair_attempts: 2
+      stopped_because: final_private_permission_failure_after_repair2_cap
+  - id: T049
+    type: pm
+    assignee: PM
+    status: done
+    objective: T048の内容成功とpermission-only失敗を保持し、私的strict report出力のmode600を実生成側で保証する最小修正と既存8filesの内容無変更chmodを行う。fresh runで内容/法令/preview/permissionを実検証し、own変更commit/push、台帳3個別proposalとappend-only
+      linkageを登録して、固定計画の正式保存承認を一度だけ依頼する。
+    allowed_files:
+      - tools/question_review_console/formal_correction_save.py
+      - output/user_feedback_response_system/staging/recovery-three-cases/formal-save-plans/runs/T048-6290af5153c5/**
+      - output/user_feedback_response_system/staging/recovery-three-cases/formal-save-plans/runs/T049-0fd5f7f200cd/**
+      - output/user_feedback_response_system/daily/2026-10-04/formal-proposals/**
+      - ~/Library/Application Support/Repaso/feedback-ops/ledger.sqlite3
+      - docs/goals/feedback-correction-recovery/**
+    inputs:
+      - notes/T048-formal-save-recovery-blocked-receipt.json
+      - notes/T048-formal-save-recovery-blocked-provenance.json
+      - notes/T047-formal-save-recovery-receipt.json
+      - T048 actual138tests/4strict/3preview/2法HTTP成功証拠
+      - fresh output output/user_feedback_response_system/staging/recovery-three-cases/formal-save-plans/runs/T049-0fd5f7f200cd
+    constraints:
+      - PMのみprivatepackaging最低限code変更と明示ledger proposal更新。T046/T048 capをresetせずblockedとして保存。
+      - 既存8JSONはchmod600のみ、content/native/proposal/source/case/2025不変。旧runの内容を変えない。
+      - strict checker/generic guardsを変更せずcallerが私的report mode600を保証する1箇所修正。変更コードのhashが変わるのでfresh planと関連5suite/actualCLI/HTTPを取り直し、旧inputの成功を現行passへ流用しない。
+      - 既存T046/48 product10pathsはverified成果として今回commitに含める。stage ownpathのみ、origin NW5filesはcleanrebaseで保持。
+      - 新plan/input/資料hashにnative承認を結合。case_review凍結、行政的同期はprivateappendlink、DB proposal_ref/hashだけを3caseへ更新。
+      - ledger backup mode=ro snapshotを先に作り、他tables/他taskrows/basepatch/2025 amendmentを保持。台帳原本/receipt/case整合と個別fix_requiredを確認してからproposal登録。
+      - 正式9pathsの書込み・Firestore/Storage writeをしない。24/05を変えず2025質問再送しない。
+      - 質問は成功証拠/commit後にsaved native questionを一度だけ送信。返信待ちの承認状態を保存する。
+    verify:
+      - 最小code修正後の5suiteをactualstart/end/exit/hash/logで記録
+      - fresh CLI4strict0/3preview/11doc replay/9files/input/資料hash一致
+      - fresh read-only lawmetadata/XMLの2版/本文一致
+      - 既存8files content hash不変、privateall700/600、正式9paths不在、case/source/WORK/2025不変
+      - git diff --check、own commit、clean rebase/push、最終current plan drift0
+      - 台帳他tables/他rows不変・3proposal個別登録・summary/list-reports/readback・appendlink
+      - 固定承認質問一回送信event/proof記録
+    stop_if:
+      - candidate/scope/lawbodyが変わる、追加code修正必要、scope外writes、予期せぬ台帳差異
+      - 指定新verify失敗では証拠を保持して停止。code修復1回範囲を広げず追加Judge/Worker選択。
+    expected_output:
+      - PM真正receipt。内容と権限gate受入/commitpush/3proposal/承認質問eventと未正式保存/未公開を区別。
+    receipt:
+      result: done
+      task_id: T049
+      board_path: /Users/yuki/development/exam_scraper_feedback/docs/goals/feedback-correction-recovery/state.yaml
+      harness: codex
+      full_outcome_complete: false
+      summary: PMがstrict私的report権限を生成側で保証し、旧8filesを内容無変更で600へ正規化。fresh138tests/4strict/実3preview/2法HTTPと843固定files/9bytes保全を実確認した。own実装をaa232fa0bへcommit/pushし、3caseを個別proposal登録、行政状態を別appendlinkへ保存。固定planへの正式保存承認質問を一度送信した。正式保存・checkpoint/評価・公開は未実施。
+      changed_files:
+        - tools/question_review_console/formal_correction_save.py
+        - docs/goals/feedback-correction-recovery/**
+        - output/user_feedback_response_system/staging/recovery-three-cases/formal-save-plans/runs/T049-0fd5f7f200cd/**
+        - output/user_feedback_response_system/daily/2026-10-04/formal-proposals/**
+        - ledger.sqlite3 proposal_hash/proposal_ref 3rows only
+      commands:
+        - command:
+            - /Users/yuki/development/exam_scraper_work/.venv/bin/python
+            - -m
+            - unittest
+            - tests.test_question_review_formal_correction_save
+            - tests.test_question_review_scoped_artifacts
+            - tests.test_question_review_inventory
+            - tests.test_question_review_workflow
+            - tests.test_scoped_canonical_context
+          status: pass
+          exit_code: 0
+          startedAt: '2026-10-04T04:08:30.435616+00:00'
+          finishedAt: '2026-10-04T04:08:36.903245+00:00'
+          log: output/user_feedback_response_system/staging/recovery-three-cases/formal-save-plans/runs/T049-0fd5f7f200cd/commands/five-suites.log
+          logSha256: 05e78bbdb303fddd6cc4415d3c3c90627800bff700e88906bc7243cf58d06661
+        - command:
+            - /Users/yuki/development/exam_scraper_work/.venv/bin/python
+            - scripts/pipeline/prepare_scoped_question_artifacts.py
+            - --formal-save-plan
+            - output/user_feedback_response_system/staging/recovery-three-cases/execution-contract/runs/T041-repair1-e1ed4d7c4c27/manifest.json
+            - --output
+            - output/user_feedback_response_system/staging/recovery-three-cases/formal-save-plans/runs/T049-0fd5f7f200cd
+            - --dry-run
+          status: pass
+          exit_code: 0
+          startedAt: '2026-10-04T04:08:36.904950+00:00'
+          finishedAt: '2026-10-04T04:08:43.004062+00:00'
+          log: output/user_feedback_response_system/staging/recovery-three-cases/formal-save-plans/runs/T049-0fd5f7f200cd/commands/actual-cli.log
+          logSha256: ed6a993a39cb8d8af23146c633d8771fedd27112026afd4fde5354f6831686e9
+        - command:
+            - /Users/yuki/development/exam_scraper_work/.venv/bin/python
+            - -c
+            - from pathlib import Path;import json;from tools.question_review_console.formal_correction_save import retrieve_current_law_evidence;root=Path.cwd();plan=root/'output/user_feedback_response_system/staging/recovery-three-cases/formal-save-plans/runs/T049-0fd5f7f200cd/formal-save-plan.json';r=retrieve_current_law_evidence(root,plan,plan.parent/'law-http');print(json.dumps(r))
+          status: pass
+          exit_code: 0
+          startedAt: '2026-10-04T04:08:43.005090+00:00'
+          finishedAt: '2026-10-04T04:08:46.792681+00:00'
+          log: output/user_feedback_response_system/staging/recovery-three-cases/formal-save-plans/runs/T049-0fd5f7f200cd/commands/law-http.log
+          logSha256: 71848b0463be7ee05a62db0d3902d552db12292df866a5141188829bbf08d1f6
+        - command:
+            - git
+            - diff
+            - --check
+          status: pass
+          exit_code: 0
+          startedAt: '2026-10-04T04:08:46.793808+00:00'
+          finishedAt: '2026-10-04T04:08:46.887962+00:00'
+          log: output/user_feedback_response_system/staging/recovery-three-cases/formal-save-plans/runs/T049-0fd5f7f200cd/commands/diff-check.log
+          logSha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+      evidence:
+        - ref: output/user_feedback_response_system/staging/recovery-three-cases/formal-save-plans/runs/T049-0fd5f7f200cd/pm-readiness-proof.json
+          fact:
+            schemaVersion: pm-formal-save-readiness/v1
+            checkedAt: '2026-10-04T04:11:24.185013+00:00'
+            planHash: 91866ce7a82b35abacea10200d298c2608bdf53396f0de0b0b9e80bf83ae10ce
+            inputHash: 71b78f3bc8efc4866c59ac74057a582baa7f2587da2833df32499bfd8f496a60
+            caseReviewsFrozen: true
+            protectedFileCount: 843
+            changedProtectedFiles: []
+            privatePermissionErrors: []
+            formalNineAbsent: true
+            formalNineBytesEqualT048: true
+            strictExitCodes:
+              - 0
+              - 0
+              - 0
+              - 0
+            selectedReplayCount: 11
+            sourceSelectionAnswers:
+              - 4
+              - 2
+            lawRecheck: unchanged
+            actualFormalSaved: false
+            evaluationPerformed: false
+            publicationReady: false
+            FirestoreModified: false
+            StorageModified: false
+            tests: 138
+            T046T048BlockedReceiptsPreserved: true
+        - ref: output/user_feedback_response_system/staging/recovery-three-cases/formal-save-plans/runs/T049-0fd5f7f200cd/commit-readback.json
+          fact:
+            verifiedAt: '2026-10-04T04:12:00.903490+00:00'
+            head: aa232fa0b81cea7faf19780855c5096c9532a3ec
+            status: ''
+            originMain: aa232fa0b81cea7faf19780855c5096c9532a3ec
+            planHash: 91866ce7a82b35abacea10200d298c2608bdf53396f0de0b0b9e80bf83ae10ce
+            inputHash: 71b78f3bc8efc4866c59ac74057a582baa7f2587da2833df32499bfd8f496a60
+            currentInputDrift: 0
+            incomingNWFilesPreserved: true
+        - ref: output/user_feedback_response_system/daily/2026-10-04/formal-proposals/registration-result.json
+          fact:
+            years:
+              - 2018
+              - 2024
+              - 2020
+            otherTablesUnchanged: 8
+            otherReportRowsUnchanged: 69
+            caseReviewsFrozen: true
+            summary:
+              schemaVersion: feedback-daily/v1
+              generatedAt: '2026-10-04T04:13:40.526389Z'
+              scanId: ''
+              reportTasks: 72
+              intakeGaps: 0
+              intakeGapTaskIds: []
+              rejectedIntake: 0
+              reportsAwaitingDecision: 67
+              fixesAwaitingProposal: 1
+              patchApprovalsWaiting: 3
+              patchesAwaitingPublication: 1
+              aiQuestionsAwaitingReview: 12004
+              improvementTasksOpen: 10
+              amendmentsByState:
+                system_blocked: 1
+              amendmentApprovalsWaiting: 0
+              amendmentResponsesWaiting: 1
+              approvalWaitingTotal: 3
+        - ref: output/user_feedback_response_system/daily/2026-10-04/formal-proposals/approval-request-event.json
+          fact:
+            schemaVersion: formal-save-approval-request-event/v1
+            planHash: 91866ce7a82b35abacea10200d298c2608bdf53396f0de0b0b9e80bf83ae10ce
+            inputHash: 71b78f3bc8efc4866c59ac74057a582baa7f2587da2833df32499bfd8f496a60
+            sessionPath: /Users/yuki/.codex/sessions/2026/10/01/rollout-2026-10-01T00-19-28-01a0f2e6-34a0-7660-a17a-afb87125aada.jsonl
+            requestLine: 10891
+            requestSha256IncludingFinalLf: 19c1455194949322817bda201ba7906e2b4f4692333d57b9fc050cea456dc4f7
+            callId: call_vLSN2Tea4lKMvMf3C1uEfXV6
+            questionIndex: 0
+            requestedAt: '2026-10-04T04:14:42.403Z'
+            questionSha256: 9bbfc46e7ae322aa55718d065fc193502a9425fa4e264ea43ea03d42f65b7970
+            approvalMaterials:
+              approval-details.json: 26c742405088df1ea64c848f2f10c57bfe092234ee5571650809e26924c0b488
+              approval-proposal.md: 47b299e7062b69cf484f6003cd69c6082e3a8b2941f2aa6cbf50598d9ff1d926
+            answerStatus: already_asked
+            requiredReply: この計画の正式保存を承認します
+            actualFormalSaved: false
+            publicationApproved: false
+            2025QuestionResent: false
+      candidatePlanHash: 91866ce7a82b35abacea10200d298c2608bdf53396f0de0b0b9e80bf83ae10ce
+      candidateInputHash: 71b78f3bc8efc4866c59ac74057a582baa7f2587da2833df32499bfd8f496a60
+      verificationCodeScopeUnchangedAfterCommit: true
+      T046T048BlockedNativeReceiptsPreserved: true
+      actualFormalSaved: false
+      FirestoreModified: false
+      publicationApproved: false
+      waiting_for_user_approval: true
+      required_reply: この計画の正式保存を承認します
+      completedAt: '2026-10-04T04:19:28.951298+00:00'
+  - id: T050
+    type: judge
+    assignee: Judge
+    status: active
+    objective: 正式保存の具体的承認待ちへ到達した現証拠と、残るcanonical checkpoint/model評価/production adapter/unknown outcome/再公開時保持の実依存を限定監査する。人間回答待ちの間にユーザー4件訂正を進める有用な安全local
+      packageが残れば最大の一つを選ぶ。全てが具体的承認又は真正正式入力に依存するなら、その依存と再開手順を証拠付きで示す。作業を作るためのframework拡張や再法令レビューは行わない。
+    inputs:
+      - notes/T049-formal-proposal-registration-receipt.json
+      - notes/T042-preview-contract-receipt.json（既存filenameはrgで確定）
+      - notes/T045-formal-contract-receipt.json
+      - notes/T047-formal-save-recovery-receipt.json
+      - 新final private T049 plan/readiness/actual preview/HTTPと一度のapproval request event
+      - 現scoped_corrections/scoped publisher/scoped canonical workflowの実入口、code/commit aa232fa0b
+      - 実台帳のproposal3/未proposal1/2025回答待ち1（原文取得不要）
+    constraints:
+      - read-only genuine Judge、PMのみstate/ledger/commit/push。root現planは91866ce7a82b35abacea10200d298c2608bdf53396f0de0b0b9e80bf83ae10ceへ固定。
+      - T047の受入条件でT049 local回復sliceを受入済み、同設計/全A-B法令Judgeを繰り返さない。
+      - 三件正式保存質問call_vLSN2Tea4lKMvMf3C1uEfXV6を一回送信済み。2025追加4fields質問も以前一回済み。再送や承認拡張を禁止。
+      - formal保存/sourcecode/inputを今変更して回答待ちplanを無意味にinvalidateするpackageは避ける。有用な新module分離が可能なら選ぶ。
+      - 必要な保存・本番承認は別。caller bool/tokenやfixtureを実checkpoint/model評価/人間承認/本番readbackへ代替しない。
+      - snapshot selected fieldsの正確な原before/updateTime、旧IDs/原問保持、atomic11doc/field限定、永続intent/未知commit outcomeのread-only回復等、現実装に欠ける具体項目のみ調べる。
+      - 新v1 unitが実保存後のexplicit scoped loaderに限定されている事実を確認し、今後の通常再生成/再公開で承認済み訂正を戻さない適用経路の必要性を実コードに照らして記録する。既存24/05 guardの緩和は選ばない。
+      - 新packageが有用ならexactallowed_files/verify/stop_if（actual本番writeなし）を指定し継続。承認依存しかないならoriginalscope required taskの具体的blocked状態とterminalapprovalwaitshapeを示す。
+      - 既にfix必要と判断した4件と、今日の新Q39（別scope、missing passage proposal pending）を混同しない。AI改善3登録完了、原文や識別情報を通知/Gitへ出さない。
+    verify:
+      - 現receipt/実component/依存を読む
+      - 具体的safe next work又は実approval依存を判断し、必要なgatesを列挙する
+    expected_output:
+      - 真正goalbuddy_receipt_v1 T050、full_outcome_complete=false。具体的next_allowed_task又はterminalwaitの根拠。全体完了/Firestore修正済みとは表現しない。
     receipt: null
   - id: T004
     type: pm

@@ -1191,6 +1191,37 @@ class QuestionInventory:
             raise KeyError(f"question not loaded: {question_id}")
         return question
 
+    def formal_correction_question(self, plan_path: Path, year: str, *, save_receipt=None):
+        """Read an explicit formal plan/receipt without discovering any new group."""
+        from tools.question_review_console.scoped_artifacts import load_formal_correction_unit
+        from tools.question_review_console.qualification_workflow import QualificationWorkflow
+        plan, unit, projected = load_formal_correction_unit(self.repo_root, plan_path, year, save_receipt=save_receipt)
+        manifest = unit.manifest
+        transport = copy.deepcopy(manifest['transportContext'])
+        documents = [{**doc, 'questionId': delta['questionId']} for doc, delta in zip(projected, manifest['limitedDelta'], strict=True)]
+        binding = unit.source.get('sourceBinding') or {}
+        stable = 'formal-correction:' + plan['planHash'] + ':' + str(year)
+        issues = [{'code': 'formal_correction_checkpoint_pending', 'detail': '保存receiptは真正checkpoint・評価・公開承認ではありません。'}]
+        if save_receipt is None:
+            issues.append({'code': 'formal_correction_save_approval_pending', 'detail': 'exact planへの正式保存承認・現在法再照合は未済です。'})
+        if transport['contextMissing']:
+            issues.append({'code': 'formal_correction_source_context_missing', 'detail': 'production snapshotのsource group/refはnull。local評価namespaceは正式sourceではありません。'})
+        warnings = [w for doc in documents for w in upload_document_required_warnings(doc)]
+        question = {'id': api_question_id(stable), 'reviewKey': stable, 'qualification': manifest['qualification'],
+            'listGroupId': transport['evaluationScopeId'], 'sourceQuestionKey': binding.get('sourceQuestionKey', ''),
+            'sourceRecordRef': binding.get('sourceRecordRef', ''), 'originalQuestionId': binding.get('reviewQuestionId', documents[0].get('originalQuestionId', '')),
+            'sourceStem': str(binding.get('sourceRecordRef', '')).split('#')[0].removesuffix('.json'),
+            'source': unit.source, 'projected': documents[0], 'merged': documents[0], 'convertedDocs': documents,
+            'uploadReadyDocs': documents, 'stateHash': manifest['candidateHash'], 'choiceCount': len(documents),
+            'questionLabel': '正式保存計画 ' + str(year), 'isLawRelated': int(year) != 2020,
+            'requiredFieldWarnings': warnings, 'qualityWarnings': [], 'issues': issues, 'issueCodes': [i['code'] for i in issues],
+            'workflow': {'source': 'match' if int(year) != 2020 else 'snapshot', 'patch': 'pending', 'merge': 'pending', 'convert': 'pending', 'upload': 'pending', 'firestore': 'unread'},
+            'formalSavePlanHash': plan['planHash'], 'formalSaveReceiptPresent': save_receipt is not None,
+            'formalTransportContext': transport, 'publicationReady': False}
+        workflow = QualificationWorkflow(self.repo_root, self)
+        question['workVersions'] = workflow.work_versions.status_for(question, workflow.versioned_policies(question['qualification']).values())
+        return question
+
     def snapshot_correction_question(self, manifest_path: Path, year: str) -> dict[str, Any]:
         from tools.question_review_console.scoped_corrections import load_correction_manifest
         manifest = load_correction_manifest(self.repo_root, manifest_path)

@@ -1,0 +1,143 @@
+{
+  "result": "blocked",
+  "task_id": "T048",
+  "board_path": "/Users/yuki/development/exam_scraper_feedback/docs/goals/feedback-correction-recovery/state.yaml",
+  "changed_files": [
+    "tools/question_review_console/formal_correction_save.py",
+    "tests/test_question_review_formal_correction_save.py",
+    "document/operations/artifact_contract.md",
+    "document/operations/delivery_workflow.md",
+    "document/operations/question_issue_report_workflow.md",
+    "output/user_feedback_response_system/staging/recovery-three-cases/formal-save-plans/runs/T048-6290af5153c5/**"
+  ],
+  "artifact_root": "output/user_feedback_response_system/staging/recovery-three-cases/formal-save-plans/runs/T048-6290af5153c5",
+  "commands": [
+    {
+      "command": "指定5suite",
+      "status": "pass",
+      "exit_code": 0,
+      "tests": 138,
+      "startedAt": "2026-10-04T03:57:12.982009+00:00",
+      "finishedAt": "2026-10-04T03:57:19.646910+00:00",
+      "evidence": "commands/repair2-five-suites.json",
+      "logSha256": "ec4c223c06435573e7c213ab0f7f25c06a73ff682b76a524a24a52e7b396988d"
+    },
+    {
+      "command": "formal-save-plan実CLI --dry-run、fresh attempts/repair2",
+      "status": "pass",
+      "exit_code": 0,
+      "startedAt": "2026-10-04T03:57:57.847881+00:00",
+      "finishedAt": "2026-10-04T03:58:04.080479+00:00",
+      "evidence": "commands/repair2-cli.json",
+      "logSha256": "bc7687324ce62cc8f33c76dca7cbe71a0240e95a4b182187fc1fa3e9c853883c"
+    },
+    {
+      "command": "2018/2024 merged/firestore計4strict",
+      "status": "pass",
+      "exit_codes": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "evidence": "attempts/repair2/verification-results.json"
+    },
+    {
+      "command": "e-Gov 2法のlaw_data metadata/XML実HTTP取得・revision/body比較",
+      "status": "pass",
+      "exit_code": 0,
+      "startedAt": "2026-10-04T03:58:48.294951+00:00",
+      "finishedAt": "2026-10-04T03:58:51.560725+00:00",
+      "evidence": "commands/repair2-law-http.json",
+      "logSha256": "0aa99da5b30ba1def8394d0b404be94b5b719b277e496b189023c284dace8f39"
+    },
+    {
+      "command": "git diff --check",
+      "status": "pass",
+      "exit_code": 0,
+      "startedAt": "2026-10-04T04:00:33.572505+00:00",
+      "finishedAt": "2026-10-04T04:00:33.646017+00:00",
+      "evidence": "commands/final-diff-check.json"
+    },
+    {
+      "command": "最終private permissions・保全確認",
+      "status": "fail",
+      "exit_code": 1,
+      "failure": "strict checker生成8JSONのみmode644。内容hashの変化ではない。",
+      "evidence": "permission-check-failure.json"
+    }
+  ],
+  "historical_commands": [
+    {
+      "status": "fail",
+      "exit_code": 1,
+      "evidence": "commands/initial-cli.json",
+      "failure": "generator旧filenameによるstrict入力探索exit2"
+    },
+    {
+      "status": "fail",
+      "exit_code": 1,
+      "evidence": "commands/repair1-law-http.json",
+      "failure": "実metadataのrevision_infoをlaw_revision_infoと誤読。取得原bytes保全。"
+    }
+  ],
+  "summary": "限定修復と承認資料hash結合を実装。最終138tests、4strict、実3case preview、2法HTTP取得・revision/XML/body比較は成功。9予定bytes・11doc replay・候補/原問/IDは保持。最終permission検査でstrict生成8JSONのmode644を検出したため、repair2 capを維持してblocked。追加edit/chmod/verifyを停止。正式保存・承認・checkpoint・評価・公開は未実行。",
+  "remaining_blockers": [
+    "下記8JSONを内容無変更でchmod600するpackagingが未了。PMのT049へ引継ぎ。",
+    "真正正式保存承認・正式保存・checkpoint/model評価・本番承認・公開は別途未済。"
+  ],
+  "permission_only_paths": [
+    "attempts/repair1/verification/2018/merged/strict-law.json",
+    "attempts/repair1/verification/2018/firestore/strict-law.json",
+    "attempts/repair1/verification/2024/merged/strict-law.json",
+    "attempts/repair1/verification/2024/firestore/strict-law.json",
+    "attempts/repair2/verification/2018/merged/strict-law.json",
+    "attempts/repair2/verification/2018/firestore/strict-law.json",
+    "attempts/repair2/verification/2024/merged/strict-law.json",
+    "attempts/repair2/verification/2024/firestore/strict-law.json"
+  ],
+  "final_success_plan": {
+    "path": "attempts/repair2/formal-save-plan.json",
+    "planHash": "5ffb35f93e3836e3eedfb20884e457bd31a658dbc78f346f4cd0d44271a74d99",
+    "input_and_material_hashes": "同planのinputHash・approvalMaterials・approvalMaterialPaths",
+    "approval_material": "attempts/repair2/approval-proposal.md",
+    "exact_appendix": "attempts/repair2/approval-details.json",
+    "unsent_question": "attempts/repair2/human-approval-request.json",
+    "law_revision_xml_body_hashes": "attempts/repair2/law-http/comparison-result.json",
+    "law_evidence_sha256": "09e74705abb1d1f0b4f180aebc395ef80949c71b176e82ebaa2f1ea8728bbccf",
+    "actual_preview": "attempts/repair2/actual-scoped-preview.json",
+    "verification_input_hash": "e6c6eb26e5f5eed834de52324035880709727376674a73ec1cd2d930af259704",
+    "head": "71099895d559b76c28e55281956bd9b5ef4f57c3"
+  },
+  "actual_results": {
+    "selected_counts": [
+      5,
+      5,
+      1
+    ],
+    "private_planned_files": 9,
+    "selected_document_replay": 11,
+    "formal_bytes_equal_T046": true,
+    "protected_content_hash_changes": 0,
+    "T015_fixed132_changes": 0,
+    "source_answers": [
+      4,
+      2
+    ],
+    "2020_delta": "questionText一文字のみ、source group/ref=null",
+    "law_retrieval_result": "2法ともsemantic revision・XML・MainProvision/body hashが固定根拠と一致",
+    "machineReady": false,
+    "publicationReady": false,
+    "approval_question_sent": false,
+    "actual_formal_save": false,
+    "actual_ledger_opened_or_written": false,
+    "WORK_written": false,
+    "Firestore_or_Storage_written": false,
+    "past_ledger_continuity_retroactively_claimed": false,
+    "T046_and_initial_and_repair1_evidence_preserved": true
+  },
+  "needs_judge": false,
+  "verification_attempts": 3,
+  "repair_attempts": 2,
+  "stopped_because": "final_private_permission_failure_after_repair2_cap"
+}

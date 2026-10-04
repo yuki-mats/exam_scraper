@@ -130,3 +130,21 @@ converter の全面成果を正式保存・upload候補にしません。2020 �
 snapshot `updateTime` を保存します。missing と null は別値です。mask 読取りに無mask fallback はありません。
 証跡は event の LF 有無、output、receipt file、compact inner object、manifest file/object/files-map の hash を区別します。
 `same_as_current` は両時点の真偽一致であり、表示・解説の修復不要を意味しません。
+
+
+## Publication correction unit
+
+`prepare_scoped_question_artifacts.py --formal-save-plan <固定manifest> --output <private run> --dry-run` は、正式予定9fileと同一bytesをprivate `planned-files/`へ生成する。実正式保存は行わない。2018/2024は原問本文・肢順・原選択答4/2を保持するsource no-op envelopeと公開TF variantを分離する。2020はproduction snapshot専用型でsource group/ref=null、questionText一文字deltaだけを保持する。local評価namespaceを正式sourceに代用しない。
+
+`formal-save-plan.json`は全path/file SHA256・固定候補・native証跡・現入力hashを結合する。object hashはcompact sorted UTF-8 JSON（LFなし）、file hashは実pretty JSON bytes（末尾LFあり）。歴史的コード依存との差は新planに記録し、旧検証を現行コード成功へ流用しない。
+
+正式保存APIは、固定質問のexact plan/path/hash bindingに関連する真正native人間回答と、別の日時・URL・revision・XML/body hash付き現行法取得証跡を要求する。bool/tokenや人間の法令真偽宣言だけでは許可しない。UI回答はquestionItemIdのtool/call/index・固定質問を照合する。法令差異は自動補正しない。保存はunitごとのOS atomic no-replace確定で、同一bytesの再送だけを受理する。receipt未確定のdirectoryは有効なunitとして読まない。
+
+`load_formal_correction_unit`、Inventory、ArtifactSynchronizerの明示入口だけでplan/承認receiptを読む。通常24/05 selector・group resolverは不変。保存receiptからcheckpoint/evaluation/machineReady/publicationReadyを作らない。正式保存・現在法再照合・対象checkpoint/model評価・本番承認・SDK更新・公開後readbackは別工程である。
+
+
+### 結合済みreviewの凍結と限定保存の回復
+
+planに結合したcase_review本文は、行政的な承認待ち表示・進捗同期では変更しない。PMはplan hash・review hash・状態・receipt参照を別のappend-only linkageへ記録し、そのlinkageを同planのinputsに加えない。判断・根拠・候補の実質変更では旧planを失効させfresh planを生成する。2025の既存回答待ちは再送しない。
+
+承認Markdownと詳細refs/facts付録の実bytes hashを、循環参照なしでplanと固定質問に結合する。法令gateはdated law_data実metadata応答内revisionと、XML実bytes/MainProvision/body hashを照合する。保存中のapproved bytes・staged bytes・現inputsをexclusive finalize直前に再照合する。成功receiptの同一再送は元法令証跡を確認するread-only操作であり、日付変更後も元receiptを返す。receiptなし中断resumeは新write/receipt確定を伴うためfresh法令再照合が必要。

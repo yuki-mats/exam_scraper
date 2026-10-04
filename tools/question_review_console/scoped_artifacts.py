@@ -172,3 +172,22 @@ def validate_scoped_question(repo_root, question):
             or question.get("scopedArtifactHash") != manifest["manifestHash"]):
         raise ValueError("question does not match the scoped artifact manifest")
     return manifest, context, record, documents
+
+
+def load_formal_correction_unit(root, plan_path, year, *, save_receipt=None):
+    """Explicit typed selector only; normal group/24 discovery never calls this."""
+    from tools.question_review_console.formal_correction_save import read_plan, load_saved_units, physical, PublicationUnit
+    plan = read_plan(root, plan_path)
+    if save_receipt is not None:
+        units = load_saved_units(root, plan_path, save_receipt)
+        matches = [u for u in units if u.manifest['caseYear'] == int(year)]
+    else:
+        matches = []
+        for entry in plan['units']:
+            if entry['caseYear'] == int(year):
+                payloads = [json.loads(physical(Path(plan_path).parent, f['privatePath']).read_bytes()) for f in entry['files']]
+                matches.append(PublicationUnit(*payloads))
+    if len(matches) != 1:
+        raise ValueError('formal unit must resolve exactly once')
+    unit = matches[0]
+    return plan, unit, unit.validate()
