@@ -99,3 +99,13 @@ MIME補正後一問は新GUI exactpreview/currentstateHash一致とWeb残18%/625
 共有評価開始scope修正のruntime反映は未完。SC100問の実job Qc6Nx_bJ-bKi3M-nが稼働中のため、serverの通常restartだけを待っている。NWの別問題の直接目視作業は進め、別資格を止めたりlockを迂回したりしていない。
 
 根拠はoutput/nw/scrape_reports/direct_precision4_201502_applied_20261004.json、direct_set_reason1_201502_applied_20261004.json、direct_all55_visual_read_201502_20261005.json、direct_precision4_201602_applied_20261004.json、direct_all55_visual_read_201602_20261005.json。
+
+### 2026-10-05 00:38〜00:48 201702全55問と直接修正
+
+全55問の本文・全選択肢・正誤・解説と実画像6枚を個別に読んだ。M/M/1の異言語混入、MX交換ホストのCNAME禁止、ICMP再組立て通知の先頭フラグメント条件とSource Quench廃止、HTTPの出題時とHTTP/3の違い、平均符号長・可用性・/28の途中式、共通フレームの循環説明を21層の8問で修正した。RFC2181§10.3、RFC1122§3.3.2、RFC6633、RFC9114及びIPA共通フレーム2013を一次確認した。24b0c230aをmain push。
+
+平均アクセス時間の文字式を選ぶ午前I問4は、新しい数値を算出しないので01正本からisCalculationQuestion=falseを独立確定した。questionTypeは一つの式を導くflash_cardとして別に確定し、10層の該当recordのbooleanだけ更新した。check-question-type-patchと必須3検査成功、86d9fd0a2をmain push。
+
+各修正後の正常同期は220docsのmerge/convert/upload dry-runで成功。source・ID・本文・全肢・正誤・法令metadataは不変。各必須3検査は48 merged/48実正答patch880entries成功、全suite未実行。独立Solは未着手で品質確定212/880は不変、手動修正にmodel/工程版receiptを付けていない。午前I問16の凝集度、職務著作条件、午前II問17の観測から断定できる範囲は未確定として保持した。
+
+根拠output/nw/scrape_reports/direct_precision8_201702_applied_20261004.json、direct_calc_flag1_201702_applied_20261005.json、direct_all55_visual_read_201702_20261005.json。
