@@ -7,7 +7,7 @@ goal:
   title: "情報処理安全確保支援士の過去問整備と暗記プラス公開"
   slug: "sc-ankiplus-release"
   kind: specific # specific | open_ended | existing_plan | recovery | audit
-  tranche: "指定500問の選択済み整備工程を完了（保留0、必須検査成功、原本90ファイル不変）。カテゴリ・問題集、公開前の別session評価と公開は未完了。2009年春55問は取得元画像404の解決待ち。"
+  tranche: "指定500問の内容独立評価を固定基準で完了（全2000肢、画像68問、追加確認後合格355・要再整備候補145）。原本とpatchは不変。候補の修正、現行基準での正式評価、カテゴリ・問題集と公開は未完了。2009年春55問は取得元画像404の解決待ち。"
   status: active # active | blocked | done
   oracle:
     signal: "公開回・問題URL集合の全件一致、IPA正答照合、問題ごとの整備・独立評価、実機検証、App Store公開確認。"
@@ -123,8 +123,9 @@ tasks:
     verify: ["工程固有の一問検査", "00_source不変", "run終端receiptとartifactSync", "merged選択肢整合・必須項目・patch coverage", "別sessionの問題単位評価"]
     stop_if: ["scope又は根拠が曖昧", "00_sourceの手動変更が必要", "allowed_files外の変更が必要"]
     receipt:
-      result: selected_maintenance_stages_completed_publication_evaluation_pending
-      summary: "元runと同じ500問を現行基準で再整備し500/500問完了・保留0・未処理0。選択済み工程のreceipt、500問の検証専用projection、正答整合・必須項目・90組のpatch coverage・原本hashを独立確認。年度全体の公開用生成は対象外の未整備問題で停止。カテゴリ・問題集と公開前の別session評価は未完了のためT004全体は継続。"
+      result: independent_content_evaluation_completed_rework_and_publication_evaluation_pending
+      summary: "元runと同じ500問を生成とは別の130監査threadで内容評価し、全2000肢と画像68問を検証。追加の用語比較1問・補足回答5問の別session確認後、合格355問・要再整備候補145問。failed・inconclusiveは0。原本90ファイルを含む540入力ファイルは不変。完全盲検ではなく、実行中の共有基準更新も記録。候補の修正、現行基準での正式評価、カテゴリ・問題集と公開が未完了のためT004全体は継続。"
+      content_evaluation_receipt: "docs/goals/sc-ankiplus-release/notes/T004-independent-content-evaluation.json"
       run_id: "20261004T161940473797-bcc6b56e"
       system_url: "http://127.0.0.1:56845/?qualification=sc"
       evidence:

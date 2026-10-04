@@ -1,0 +1,80 @@
+{
+  "schemaVersion": "sc-independent-content-review/v1",
+  "evaluatedAt": "2026-10-04T09:51:27.668092+00:00",
+  "scope": "content_only",
+  "sourceRunId": "20261004T161940473797-bcc6b56e",
+  "originalRunId": "20261004T001014806835-c38516a2",
+  "inputBindingHash": "8cd1fbddaf7393b2987622b416e0c9fe61fe995f71e4d4807b8538a879022867",
+  "targetCount": 500,
+  "allQuestionsContentAssessed": true,
+  "sameOriginal500QuestionSet": true,
+  "primaryStatusCounts": {
+    "passed": 358,
+    "needs_rework": 142
+  },
+  "reviewDispositionCounts": {
+    "passed": 355,
+    "needs_rework": 145
+  },
+  "additionalChallengeCount": 1,
+  "primaryPassReclassifiedByChallenge": 1,
+  "supplementaryQuestionCount": 5,
+  "supplementaryQuestionStatusCounts": {
+    "passed": 3,
+    "needs_rework": 2
+  },
+  "additionalSupplementalAuditThreadCount": 2,
+  "failedCount": 0,
+  "inconclusiveCount": 0,
+  "verifiedChoiceCount": 2000,
+  "imageQuestionCount": 68,
+  "allDeclaredImageReceiptsValid": true,
+  "protectedInputFileCount": 540,
+  "sourceFileCount": 90,
+  "protectedInputsUnchanged": true,
+  "sourceAndPatchesChanged": false,
+  "generationThreadCount": 4750,
+  "primaryAuditThreadCount": 130,
+  "auditSessionsDistinctFromGeneration": true,
+  "allNativeOutputsRevalidated": true,
+  "auditModels": [
+    "gpt-5.6-sol"
+  ],
+  "answerMismatchCount": 1,
+  "allChoicesVerifiedQuestionCount": 500,
+  "reworkStageQuestionCounts": {
+    "03": 138,
+    "01": 27,
+    "03b": 2,
+    "05": 6
+  },
+  "resultSetSha256": "76abef4d70baeeec7eb38eaab9f95a7db84876a7d5c445a206ccb3e46ec4a873",
+  "frozenPolicyEvaluationCompleted": true,
+  "strictBlindEvaluationCompleted": false,
+  "independentEvaluationDefinition": "生成と別sessionで一次根拠・独立計算から各肢を確認し、解説を採点した。解説と法令監査metadataから正答が推測できるため完全盲検ではない。",
+  "currentPolicyUnchanged": false,
+  "changedPolicyPaths": [
+    "prompt/03_prompt_add_explanationText.md",
+    "config/question_maintenance_workflow.toml",
+    "tools/question_review_console/evaluation.py"
+  ],
+  "manualReviewNotes": "manual_review_notes.json",
+  "reworkCandidates": "rework_candidates.json",
+  "publicationEvaluationCompleted": false,
+  "publicationReady": false,
+  "firestoreWritten": false,
+  "appPublished": false,
+  "presentationVerificationPendingOriginalQuestionIds": [
+    "4b125814e64853e3",
+    "d1168f6c3a5b8d6e",
+    "400724ed369806b5"
+  ],
+  "limitation": "固定入力と固定基準による内容評価。実行中に共有の03正本・workflow・評価実装が更新されたため、現行基準と公開工程の完了証拠にはしない。要再整備候補の修正確定には原本・一次資料の照合が必要。",
+  "reportDirectory": "output/sc/reports/content_evaluations/20261004-independent-500-v2",
+  "reportPath": "output/sc/reports/content_evaluations/20261004-independent-500-v2/report.md",
+  "verificationReceiptSha256": "99059c4a231b0cdea40607941956d7edd664e5a45ba96b46f5ac49d7be560170",
+  "relatedTestCount": 9,
+  "fullRepositoryTestsRun": false,
+  "runnerExecutionImplementationCommit": "92e87b067",
+  "contentAuditEvidencePrivate": true
+}

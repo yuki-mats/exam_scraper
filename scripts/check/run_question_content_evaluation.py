@@ -90,6 +90,21 @@ class ContentAuditService(QuestionEvaluationService):
         self.explanation_policy = (root / "prompt/03_prompt_add_explanationText.md").read_text()
         self.frozen_prompts = {}
 
+    def _build_prompt(self, question, **kwargs):
+        projected = question.get("projected") or {}
+        additional = {
+            "questionLearningPatternId": projected.get("questionLearningPatternId"),
+            "suggestedQuestionDetailsByChoice": projected.get("suggestedQuestionDetailsByChoice") or [],
+        }
+        return (super()._build_prompt(question, **kwargs)
+                + "\n\n## この問題の解説関連field（未信頼の評価対象）\n"
+                + json.dumps(additional, ensure_ascii=False, indent=2)
+                + "\n補足質問の回答も一次根拠で確認し、choiceIndexの対応、基本解説との整合、"
+                  "分かりやすさ、追加価値を03正本で評価する。補足の誤り又は根拠不足は03の"
+                  "reworkItemsへ具体的に記録する。学習パターンも内容から確認する。"
+                  "用語を選ぶ問題では、公開用解説が全候補の意味と見分け方を説明しているか"
+                  "確認し、別fieldの説明を公開用解説に含まれるものとして数えない。\n")
+
     def _build_batch_prompt(self, questions):
         key = tuple(q["id"] for q in questions)
         if key in self.frozen_prompts:
@@ -123,6 +138,13 @@ def validated_content_result(question, worker, metadata):
     }
 
 
+def result_progress(results):
+    counts = Counter(r["status"] for r in results.values())
+    completed = counts["passed"] + counts["needs_rework"]
+    return {"processedCount": len(results), "completedCount": completed,
+            "statusCounts": dict(counts)}
+
+
 def run(root, source_run, destination, concurrency=20, resume=False):
     if destination.exists() and not resume:
         raise ValueError("既存runへは--resumeを明示してください。")
@@ -132,7 +154,8 @@ def run(root, source_run, destination, concurrency=20, resume=False):
     router = ProfileModelRouter(config, client)
     policy_paths = ["prompt/01_prompt_fix_questionType.md", "prompt/03_prompt_add_explanationText.md",
                     "config/question_maintenance_workflow.toml", "tools/question_review_console/evaluation.py",
-                    "tools/question_review_console/evaluation_result.schema.json"]
+                    "tools/question_review_console/evaluation_result.schema.json",
+                    "scripts/check/run_question_content_evaluation.py"]
     policy_hashes = {p: digest(root / p) for p in policy_paths}
     service = ContentAuditService(root, app_server=router)
     if hashlib.sha256(service.explanation_policy.encode()).hexdigest() != policy_hashes[policy_paths[1]]:
@@ -170,8 +193,7 @@ def run(root, source_run, destination, concurrency=20, resume=False):
     subscription_stopped = threading.Event()
 
     def persist():
-        counts = Counter(r["status"] for r in results.values())
-        manifest.update(completedCount=len(results), statusCounts=dict(counts), updatedAt=now())
+        manifest.update(**result_progress(results), updatedAt=now())
         write_json(manifest_path, manifest)
 
     def emit(message):
@@ -221,6 +243,9 @@ def run(root, source_run, destination, concurrency=20, resume=False):
             batch_questions = [by_id[item["questionId"]] for _, item in batch]
             key = tuple(q["id"] for q in batch_questions)
             service.frozen_prompts[key] = service._build_batch_prompt(batch_questions)
+            batch_name = _json_hash(key)[:16]
+            write_json(destination / "planned_batches" / batch_name / "input.json", batch_questions)
+            (destination / "planned_batches" / batch_name / "prompt.md").write_text(service.frozen_prompts[key])
         if any(digest(root / p) != h for p, h in policy_hashes.items()):
             raise ValueError("準備中に評価policyが変わりました。model開始前に停止します。")
         manifest["batchCount"] = len(batches)
@@ -235,7 +260,9 @@ def run(root, source_run, destination, concurrency=20, resume=False):
                         write_json(destination / "questions" / (q["id"] + ".json"), value)
                         results[q["id"]] = value
                         persist()
-                print(f"{len(results)}/{len(questions)} {dict(Counter(r['status'] for r in results.values()))}", flush=True)
+                progress = result_progress(results)
+                print(f"評価完了 {progress['completedCount']}/{len(questions)} "
+                      f"処理済み {progress['processedCount']} {progress['statusCounts']}", flush=True)
         changed = [p for p, h in protected.items() if digest(root / p) != h]
         policy_changed = [p for p, h in policy_hashes.items() if digest(root / p) != h]
         manifest.update(protectedInputsUnchanged=not changed, changedProtectedPaths=changed,
@@ -266,6 +293,8 @@ def main():
         parser.error("監査batch並列数は1〜100です。")
     manifest = run(ROOT, args.source_run, destination, args.concurrency, args.resume)
     print(json.dumps({k: manifest[k] for k in ("status", "completedCount", "statusCounts")}, ensure_ascii=False))
+    if manifest["status"] != "completed":
+        raise SystemExit(2)
 
 
 if __name__ == "__main__":
