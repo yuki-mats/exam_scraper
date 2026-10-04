@@ -59,7 +59,7 @@ visual_board:
     url: http://goalbuddy.localhost:41737/feedback-correction-recovery/
     command: node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs
       --goal docs/goals/feedback-correction-recovery
-active_task: T031
+active_task: T033
 tasks:
   - id: T001
     type: scout
@@ -3866,7 +3866,7 @@ tasks:
   - id: T031
     type: worker
     assignee: Worker
-    status: active
+    status: done
     objective: 独立2名が確定した2018/2024各5肢の出題時・現行真偽と指摘を実候補へ反映し、正しい解説/法条/facts/表示命題と原問保持、2020一文字のsnapshot-bound field patchをそろえた新private承認候補を完成する。
     inputs:
       - notes/T028-blind-a-receipt.json
@@ -3913,6 +3913,232 @@ tasks:
       - originalQuestionBodyText改題で上書き、full-document uploadへ置き換え、候補のID後書換えが必要。
       - Firestore/Storage write・認証/provider/credit allowance変更・架空review/checkpoint/evaluation合格が必要。
     acceptance_oracle: 全3件の具体snapshot-bound delta/projection、正確なrefs/facts/日本語解説と元問題保持、2回生成/差分境界/現行機械検証結果、新hashの第三者審査入力と各正式反映/公開の未完条件が揃えば修復sliceのみdone。承認・公開readyとせず失敗証跡を保持。
+    receipt:
+      result: done
+      task_id: T031
+      board_path: /Users/yuki/development/exam_scraper_feedback/docs/goals/feedback-correction-recovery/state.yaml
+      changed_files:
+        - output/user_feedback_response_system/staging/recovery-three-cases/prepare_candidates.py
+        - output/user_feedback_response_system/staging/recovery-three-cases/verify_candidates.py
+        - output/user_feedback_response_system/staging/recovery-three-cases/tests/test_candidate_contracts.py
+        - output/user_feedback_response_system/staging/recovery-three-cases/runs/T031-0066d9fac49c/**
+        - output/user_feedback_response_system/staging/recovery-three-cases/runs/T031-4843a1dfd719/**
+        - output/user_feedback_response_system/staging/recovery-three-cases/runs/T031-79f42ebb3ea7/**
+      commands:
+        - command: /Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/staging/recovery-three-cases/prepare_candidates.py
+            --all --read-live
+          status: pass
+          exit_code: 0
+          run: T031-79f42ebb3ea7
+          phase: 最終
+        - command: /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s output/user_feedback_response_system/staging/recovery-three-cases/tests
+            -p test_candidate_contracts.py
+          status: pass
+          exit_code: 0
+          tests: 13
+          phase: 最終
+        - command: /Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/staging/recovery-three-cases/verify_candidates.py
+            --all
+          status: pass
+          exit_code: 0
+          phase: 最終
+          required_field_errors:
+            '2018':
+              merged: 0
+              snapshot_projection: 0
+            '2024':
+              merged: 0
+              snapshot_projection: 0
+          alignment: 両年のsource answer・choice alignmentは問題なし。
+          strict_law:
+            '2018':
+              merged_exit_code: 1
+              snapshot_projection_exit_code: 1
+            '2024':
+              merged_exit_code: 1
+              snapshot_projection_exit_code: 1
+            actual_failure_reasons:
+              - lawRevisionFacts auditStatus is hold
+              - no verified lawReferences for law-related question
+            publication_pass: false
+        - command: git diff --check
+          status: pass
+          exit_code: 0
+        - command: git status --short
+          status: pass
+          exit_code: 0
+        - command: 最終593入力・依存hashとprivate permissionの照合
+          status: pass
+          exit_code: 0
+          protected_hashes_unchanged: 593
+          permission_errors: 0
+      historical_commands: [{"command": "/Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/staging/recovery-three-cases/prepare_candidates.py --all --read-live", "status": "fail", "exit_code": 1, "run": "T031-0066d9fac49c", "cause": "99731690...のinputHash字段をreview-input全体のobject hashと取り違えたWorker実装のassert。", "preserved": true}, {"command": "/Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/staging/recovery-three-cases/prepare_candidates.py --all --read-live", "status": "pass", "exit_code": 0, "run": "T031-4843a1dfd719", "phase": "1回目repair後。追加選択field補完前の途中成果として保全。"}, {"command": "/Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s output/user_feedback_response_system/staging/recovery-three-cases/tests -p test_candidate_contracts.py", "status": "pass", "exit_code": 0, "tests": 13, "phase": "1回目repair後"}, {"command": "/Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/staging/recovery-three-cases/verify_candidates.py --all", "status": "pass", "exit_code": 0, "phase": "1回目repair後", "limitation": "未選択fieldによるrequired/strict診断不足を検出し、2回目repairでfresh選択を補完。"}]
+      summary: 2名の真正native出力を実照合し、2018/2024の解説・時点別条項・XML/本文hash・新factsを修復。原選択答4/2とTF scalarを既存schemaに従って分離した。最終候補はsnapshot-bound
+        allowed deltaで、元原問と対象外selectedfieldsを保持。3件各2生成一致、2020はquestionText一文字のみ。2repair後13testsと全指定command成功。strict実失敗はhold/未検証参照として保存。593入力hash不変、旧成果・WORK・製品code・正式24不変。候補修復sliceのみ完了。
+      artifacts:
+        authoritative_run: /Users/yuki/development/exam_scraper_feedback/output/user_feedback_response_system/staging/recovery-three-cases/runs/T031-79f42ebb3ea7
+        candidates:
+          - 2018/generation1/candidate.json
+          - 2024/generation1/candidate.json
+          - 2020/generation1/candidate.json
+        approval_packages:
+          - 2018/approval-package.json
+          - 2024/approval-package.json
+          - 2020/approval-package.json
+        proposal: proposal.md
+        third_party_challenge_input: review-input.json
+        native_evidence: native-evidence.json
+        verification: verification-receipt.json
+        scope_and_repair_evidence: final-scope-receipt.json
+        command_times_environment_and_results: command-results.json
+        protected_input_hashes: input-manifest.json
+        law_review_reference_date: '2026-10-03'
+        reviewPending: true
+        approvalReady: false
+        formalDataUpdated: false
+        publicationReady: false
+        evaluationPerformed: false
+        FirestoreWritten: false
+        StorageWritten: false
+      remaining_blockers:
+        - 新candidate全体の真正第三者challengeと具体的field差分承認は未済。
+        - 新refs/factsは機械的に一次XML・既存native判断へ束縛した候補。verified昇格は行わず、strict lawは両年両形態で不合格。
+        - 公開表示本文と原問本文を分ける正式variant/provider・overwrite防止契約が未実装。既存10の本文上書き禁止を維持。
+        - full converterの原問本文上書き等は診断として保存し、full-document upload承認候補から除外。
+        - 2020 originalQuestionChoiceTextの訂正は別未承認差分。questionText単独のguarded公開契約は未実装。
+        - 固定法令審査基準日は2026-10-03。正式反映前に現行版の新鮮な再照合が必要。
+        - 真正current checkpoint・評価、正式保存、別公開判断、guarded writeとlive readbackは未実行。
+      needs_judge: false
+      verification_attempts: 3
+      repair_attempts: 2
+      stopped_because: null
+      schema_amendment:
+        change: commandsには最終成功確認のみを残し、初回失敗・途中成功をhistorical_commandsへ内容を変えず移動。
+        implementation_or_verification_rerun: false
+  - id: T032
+    type: pm
+    assignee: PM
+    status: done
+    objective: 2026-10-04 heartbeatの日次scanとsummary/list-reports/list-improvementsを実行し、台帳正本・receipt・case、新着/登録漏れ/承認待ち/公開待ちの変化をprivacy-safeに照合する。
+    inputs:
+      - user heartbeat repaso 2026-10-04T00:02:05.796Z
+      - tools/question_bank/feedback_daily.py
+      - ~/Library/Application Support/Repaso/feedback-ops/ledger.sqlite3
+      - output/user_feedback_response_system/cases/
+    allowed_files:
+      - docs/goals/feedback-correction-recovery/state.yaml
+      - docs/goals/feedback-correction-recovery/notes/**
+      - output/user_feedback_response_system/daily/2026-10-04/**
+      - ~/Library/Application Support/Repaso/feedback-ops/ledger.sqlite3とscanによる受付receipt
+    constraints:
+      - Firestore/Storageはread-only、正式patch/WORK/旧132/旧case/旧receiptの変更なし。
+      - scanのlocal受付更新のみ明示heartbeatのscope。利用者本文/識別情報は通常log/Git/通知へ出さずCLI stdoutはprivate captureし、count/statusのみ表示。
+      - 既存4件goalを継続。候補審査や正式承認/公開を日次scanで代替しない。
+    expected_output:
+      - 実scan/summary/list command時刻/結果、new intake/gaps/case receipt照合のsanitized結果
+      - T031最終候補第三者challengeを次にdispatch、full_outcome_complete=false
+    receipt:
+      result: done
+      summary: 実Firestore read-only scan/summary/list-reports/list-improvements成功。新報告1件と公開AI候補3件、intakeGaps0。総報告72/未判断68/提案待ち3/公開待ち1/AI未review12007/改善7。list-reports71は正式patch済1件を一覧から除外する設計であり登録漏れではない。個別private記録4件は維持、修復候補T031と旧case/承認待ち差分の追跡同期は後続。
+      commands:
+        - cmd: before-summary
+          status: pass
+          started_at: '2026-10-04T00:06:22.276341+00:00'
+          finished_at: '2026-10-04T00:06:22.370426+00:00'
+          exit_code: 0
+        - cmd: scan
+          status: pass
+          started_at: '2026-10-04T00:06:22.370508+00:00'
+          finished_at: '2026-10-04T00:07:48.724638+00:00'
+          exit_code: 0
+        - cmd: summary
+          status: pass
+          started_at: '2026-10-04T00:07:48.724769+00:00'
+          finished_at: '2026-10-04T00:07:48.804895+00:00'
+          exit_code: 0
+        - cmd: list-reports
+          status: pass
+          started_at: '2026-10-04T00:07:48.804977+00:00'
+          finished_at: '2026-10-04T00:07:48.878346+00:00'
+          exit_code: 0
+        - cmd: list-improvements
+          status: pass
+          started_at: '2026-10-04T00:07:48.878417+00:00'
+          finished_at: '2026-10-04T00:07:48.954473+00:00'
+          exit_code: 0
+      evidence:
+        - output/user_feedback_response_system/daily/2026-10-04/scan-receipt.json
+        - output/user_feedback_response_system/daily/2026-10-04/commands.json
+        - tools/question_bank/feedback_daily.py:631
+      daily_summary:
+        schemaVersion: feedback-daily/v1
+        generatedAt: '2026-10-04T00:07:48.652388Z'
+        scanId: 5fa44e9aa2b6fcfd645d5e75fe03f60d51b526e004fae1ff0aee3cc88ccb9105
+        reportTasks: 72
+        intakeGaps: 0
+        rejectedIntake: 0
+        reportsAwaitingDecision: 68
+        fixesAwaitingProposal: 3
+        patchApprovalsWaiting: 0
+        patchesAwaitingPublication: 1
+        aiQuestionsAwaitingReview: 12007
+        improvementTasksOpen: 7
+        newReportTasks: 1
+        newAiQuestionCandidates: 3
+      pending_followup:
+        - 新報告1件の一次調査と新公開AI3件の学習ニーズ判断
+        - T031第三者challenge後のcase/台帳proposals登録
+        - 2025追加4field承認待ちを既存patch公開待ちと別に追跡
+      FirestoreWritten: false
+      formalDataUpdated: false
+      full_outcome_complete: false
+  - id: T033
+    type: judge
+    assignee: Judge
+    status: active
+    objective: 修復済T031の3件最終candidateを真正な第三者として検査し、2名の判断反映/正確な条項・factsと日本語/原問・対象外fields保持/承認diffを確定する。strict hold/未検証refsを昇格できる内容根拠の有無も実値に照らして判断する。
+    inputs:
+      - output/user_feedback_response_system/staging/recovery-three-cases/runs/T031-79f42ebb3ea7/review-input.json
+      - output/user_feedback_response_system/staging/recovery-three-cases/runs/T031-79f42ebb3ea7/native-evidence.json
+      - output/user_feedback_response_system/staging/recovery-three-cases/runs/T031-79f42ebb3ea7/proposal.md
+      - output/user_feedback_response_system/staging/recovery-three-cases/runs/T031-79f42ebb3ea7/input-manifest.json
+      - output/user_feedback_response_system/staging/recovery-three-cases/runs/T031-79f42ebb3ea7/verification-receipt.json
+      - output/user_feedback_response_system/staging/recovery-three-cases/runs/T031-79f42ebb3ea7/final-scope-receipt.json
+      - notes/T028-blind-a-receipt.json
+      - notes/T029-blind-b-receipt.json
+      - candidate/reference/sidecarの固定hashと真正sessionへの参照
+    constraints:
+      - Read-only。一切の候補/製品/WORK/正式patch/旧receipt/boardへの書込み禁止。
+      - 自分で全11対象のbefore/after/delta/projectionと各肢current/exam法条を確認。A/B結果の一致だけで合格にしない。
+      - 原source binding・公開ID・source/published originalbody/ordered choices/画像/分類/所属/監査日時/他selectedfieldsが保持され、許可deltaだけか検査。2020はquestionText一文字のみ。
+      - 公開者入力currentReferenceDateは審査時点2026-10-03。環境2026-10-04へ変わったので、現行版が変わっていないか必要なら公式APIをread-only・メモリ上で照合し、URL/revisionID/XMLhash/取得時刻を返す。固定fileへ上書きしない。
+      - 2名の真正nativeevent/output/receiptと新candidate各法的claimの結合を確認。旧verifiedラベル、架空run、候補全体未審査でpassed、公式番号だけの真偽推定は禁止。
+      - FactsのTFscalar格納と原選択答4/2のsourceProposal/sidecar格納が既存schema/checker責務と一致しているか実コードで検査。
+      - strict法令gateは両年両形態で現時点失敗を維持。内容が正しくても真正昇格/再検証前にmachineReady/evaluationPassed/publicationReadyと記載しない。
+      - 2025完成法令review再実施・無関係scope拡張・raw利用者本文/識別情報のログ/通知/Git出力なし。
+    expected_output:
+      - 真正goalbuddy_receipt_v1 decision、全3case個別accept/reject/hold、exact field/deltaチェックと各refs/factsの根拠
+      - 候補metadataの正当な昇格可能範囲と必要な実検証/修復、承認差分として提示できる範囲
+      - full_outcome_complete=false、正式保存/variant/provider/別公開承認/evaluation/live readbackが別未完
+    receipt: null
+  - id: T034
+    type: scout
+    assignee: Scout
+    status: queued
+    objective: 2026-10-04新問題報告1件と新公開AI候補3件を一件ずつ一次資料/現行問題と利用者発話に照らして調査し、必要な判断/改善タスクだけを提案する。
+    inputs:
+      - output/user_feedback_response_system/daily/2026-10-04/new-reports.json
+      - output/user_feedback_response_system/daily/2026-10-04/scan-receipt.json
+      - 台帳のfirst_seen_atが今回scan以後の3公開AI候補
+      - Firestore原本のread-only対象取得
+    constraints:
+      - Read-only。Firestore write/正式patch/ledger/cases書込みなし。
+      - 私的な利用者原文とIDはprivate調査用のみ、通常log/通知/Git/返答に転載せず学習ニーズと主張を匿名化要約する。公開・未削除の利用者本人発話を再確認。
+      - 各報告全カテゴリに一次根拠付きfix/no_change/holdを返す。新AIは一般解説要求だけで改善登録しない。既存7改善との重複を確認。
+      - 既存4件の公開契約作業を新着で破棄しない。
+    expected_output:
+      - 真正receipt、匿名化した新報告判断/根拠/再開条件、必要AI改善の具体title/need/target又は除外理由
+      - PMが登録するタスクと根拠ref/hash、生本文を含めない
     receipt: null
   - id: T004
     type: pm
