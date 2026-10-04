@@ -364,7 +364,7 @@
   },
   {
     "explanationText": [
-      "正しい。答えは2倍である。処理時間は、命令数をN、CPIをC、CPUクロック周期をτとすると、次の式で求められる。\n\n\\[T=N\\times C\\times \\tau\\]\n\n同じ命令セットで同じプログラムを実行するため、AとBの命令数Nは同じである。Aの処理時間は \\(N\\times4.0\\times1\\,\\mathrm{ns}=4N\\,\\mathrm{ns}\\)、Bは \\(N\\times0.5\\times4\\,\\mathrm{ns}=2N\\,\\mathrm{ns}\\) となる。したがって、Aの処理時間はBの \\(4N\\div2N=2\\) 倍である。"
+      "正しい。Aの処理時間はBの2倍である。命令数をN、CPIをC、CPUクロック周期をτとすると、処理時間は次の式で求められる。\n\\[T=N\\times C\\times\\tau\\]\n同じ命令セットで同じプログラムを実行するので、命令数Nは共通である。表の値をそれぞれ代入すると、\n\\[T_A=N\\times4.0\\times1\\ \\text{ns}=4N\\ \\text{ns}\\]\n\\[T_B=N\\times0.5\\times4\\ \\text{ns}=2N\\ \\text{ns}\\]\nとなる。したがって、処理時間の比は次のとおりである。\n\\[\\frac{T_A}{T_B}=\\frac{4N}{2N}=2\\]"
     ],
     "original_question_id": "2a7a715ba90946bb",
     "question_url": "https://www.nw-siken.com/kakomon/07_haru/am1_4.html",
