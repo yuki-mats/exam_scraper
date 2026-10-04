@@ -1,0 +1,959 @@
+{
+  "list_group_id": "201002",
+  "question_bodies": [
+    {
+      "questionBodyText": "送信元を詐称した電子メールを拒否するために，SPF(Sender Policy Framework)の仕組みにおいて受信側が行うことはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成22年秋期 午前Ⅱ 問21",
+      "questionLabel": "問21",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "Resent-Sender:，Resent-From:，Sender:，From: などのメールヘッダーの送信者メールアドレスを基に送信メールアカウントを検証する。",
+        "SMTPが利用するポート番号25の通信を拒否する。",
+        "SMTP通信中にやり取りされるMAIL FROMコマンドで与えられた送信ドメインと送信サーバのIPアドレスの適合性を検証する。",
+        "電子メールに付加されたデジタル署名を検証する。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » セキュリティ » セキュリティ実装技術",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "セキュリティ",
+        "セキュリティ実装技術"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "セキュリティ",
+      "categorySmall": "セキュリティ実装技術",
+      "examYear": 2010,
+      "list_group_id": "201002",
+      "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_21.html",
+      "public_question_id": "f9c9b83af1218d11",
+      "original_question_id": "f9c9b83af1218d11",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "SPF",
+        "送信側は、送信側ドメインのDNSサーバのSPFレコード(またはTXTレコード)に正当なメールサーバのIPアドレスやホスト名を登録し、公開しておく。\n送信側から受信側へ、SMTPメールが送信される。\n受信側メールサーバは、受信側ドメインのDNSサーバを通じて、MAIL FROMコマンドに記載された送信者メールアドレスのドメインを管理するDNSサーバに問い合わせ、SPF情報を取得する。SPF情報との照合でSMTP接続してきたメールサーバのIPアドレスの確認に成功すれば、正当なドメインから送信されたと判断する。"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "SPFでは送信元のIPアドレス情報を元に正当性を確認します。"
+        ],
+        [
+          "OP25Bの仕組みです。"
+        ],
+        [
+          "正しい。SPFで受信側が行うことです。"
+        ],
+        [
+          "DKIM(DomainKeys Identified Mail)で受信側が行うことです。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201002:am:問21:https://www.nw-siken.com/kakomon/22_aki/am2_21.html",
+      "isCalculationQuestion": false,
+      "isLawRelated": false,
+      "lawGroundedExplanationNotNeeded": true,
+      "lawReferences": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "lawContextForExplanation": "SPFは送信ドメインと送信元IPアドレスの適合性をDNS情報などで検証する電子メール認証技術であり、法令・制度上の義務を問う問題ではない。",
+      "questionLearningPatternId": "differences_relationships",
+      "explanationText": [
+        "間違い。SPFは、SMTPのMAIL FROMで示された送信ドメインと、実際に接続してきた送信サーバのIPアドレスの適合性を検証する。選択肢はメールヘッダーの送信者アドレスを基に送信メールアカウントを検証するとしているため誤りである。",
+        "間違い。SMTPの25番ポートを制限するのは、迷惑メール対策の一つであるOP25B（Outbound Port 25 Blocking）であり、SPFの検証処理ではない。選択肢はポート番号による通信制限をSPFの受信側処理としているため誤りである。",
+        "正しい。SPFでは、SMTPのMAIL FROMで示された送信ドメインのSPF情報と、実際に接続してきた送信サーバのIPアドレスが適合するかを受信側が検証する。",
+        "間違い。電子メールに付加されたデジタル署名を検証するのはDKIMである。選択肢はDKIMの署名検証をSPFの処理としているため誤りである。"
+      ],
+      "explanationReferences": [],
+      "suggestedQuestionDetailsByChoice": [],
+      "lawRevisionFacts": [
+        {
+          "answerImpactFacts": [],
+          "auditStatus": "not_law_related",
+          "current": {
+            "correctChoiceText": "間違い"
+          },
+          "differenceFacts": [],
+          "evidenceSummary": {
+            "differenceSummary": "法令改正による差分なし。",
+            "displayRefIds": [],
+            "explanationText": "SPFはメールヘッダーの送信者アドレスではなく、MAIL FROMの送信ドメインと送信サーバIPアドレスを検証する。",
+            "promptContext": "SPFの技術仕様を確認。",
+            "refs": [],
+            "verdict": "間違い"
+          },
+          "examTime": {
+            "correctChoiceText": "間違い"
+          },
+          "notes": [
+            "技術仕様に基づく判定であり、法令監査の対象外。"
+          ],
+          "reconciliationStatus": "not_applicable",
+          "reviewState": "secondary_verified"
+        },
+        {
+          "answerImpactFacts": [],
+          "auditStatus": "not_law_related",
+          "current": {
+            "correctChoiceText": "間違い"
+          },
+          "differenceFacts": [],
+          "evidenceSummary": {
+            "differenceSummary": "法令改正による差分なし。",
+            "displayRefIds": [],
+            "explanationText": "SMTPの25番ポート通信の制限はOP25Bであり、SPFの受信側処理ではない。",
+            "promptContext": "SPFとOP25Bの役割を確認。",
+            "refs": [],
+            "verdict": "間違い"
+          },
+          "examTime": {
+            "correctChoiceText": "間違い"
+          },
+          "notes": [
+            "技術仕様に基づく判定であり、法令監査の対象外。"
+          ],
+          "reconciliationStatus": "not_applicable",
+          "reviewState": "secondary_verified"
+        },
+        {
+          "answerImpactFacts": [],
+          "auditStatus": "not_law_related",
+          "current": {
+            "correctChoiceText": "正しい"
+          },
+          "differenceFacts": [],
+          "evidenceSummary": {
+            "differenceSummary": "法令改正による差分なし。",
+            "displayRefIds": [],
+            "explanationText": "SPFはMAIL FROMで示された送信ドメインと、接続元送信サーバのIPアドレスの適合性を検証する。",
+            "promptContext": "SPFの技術仕様を確認。",
+            "refs": [],
+            "verdict": "正しい"
+          },
+          "examTime": {
+            "correctChoiceText": "正しい"
+          },
+          "notes": [
+            "技術仕様に基づく判定であり、法令監査の対象外。"
+          ],
+          "reconciliationStatus": "not_applicable",
+          "reviewState": "secondary_verified"
+        },
+        {
+          "answerImpactFacts": [],
+          "auditStatus": "not_law_related",
+          "current": {
+            "correctChoiceText": "間違い"
+          },
+          "differenceFacts": [],
+          "evidenceSummary": {
+            "differenceSummary": "法令改正による差分なし。",
+            "displayRefIds": [],
+            "explanationText": "電子メールのデジタル署名を検証するのはDKIMであり、SPFの処理ではない。",
+            "promptContext": "SPFとDKIMの役割を確認。",
+            "refs": [],
+            "verdict": "間違い"
+          },
+          "examTime": {
+            "correctChoiceText": "間違い"
+          },
+          "notes": [
+            "技術仕様に基づく判定であり、法令監査の対象外。"
+          ],
+          "reconciliationStatus": "not_applicable",
+          "reviewState": "secondary_verified"
+        }
+      ],
+      "questionSetId": "nw_qs02_02_network_design"
+    },
+    {
+      "questionBodyText": "表示解像度が1000×800ドットで，色数が65,536色(2¹⁶色)を表示するのに最低限必要なビデオメモリ容量は何Mバイトか。ここで，1Mバイト＝1,000kバイト，1kバイト＝1,000バイトとする。",
+      "examLabel": "ネットワークスペシャリスト平成22年秋期 午前Ⅱ 問22",
+      "questionLabel": "問22",
+      "questionType": "flash_card",
+      "choiceTextList": [
+        "1.6",
+        "3.2",
+        "6.4",
+        "12.8"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » コンピュータ構成要素 » メモリ",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "コンピュータ構成要素",
+        "メモリ"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "コンピュータ構成要素",
+      "categorySmall": "メモリ",
+      "examYear": 2010,
+      "list_group_id": "201002",
+      "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_22.html",
+      "public_question_id": "1fb3d9cf336474e2",
+      "original_question_id": "1fb3d9cf336474e2",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "正しい",
+        "間違い",
+        "間違い",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "¹⁶",
+        "1.6"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "画面の総画素(ピクセル)数は、「縦方向の画素数×横方向の画素数」で求めることができます。\n　1,000×800＝800,000(画素)\nまた65,536色(2¹⁶色)を表現するには16ビット(2バイト)が必要です。それぞれの画素が2バイトの情報を持つとすると総データ量は、以下のようになります。\n　800,000×2＝1,600,000(バイト)＝1.6(MB)\nしたがって正解は「ア」です。"
+        ],
+        [
+          "画面の総画素(ピクセル)数は、「縦方向の画素数×横方向の画素数」で求めることができます。\n　1,000×800＝800,000(画素)\nまた65,536色(2¹⁶色)を表現するには16ビット(2バイト)が必要です。それぞれの画素が2バイトの情報を持つとすると総データ量は、以下のようになります。\n　800,000×2＝1,600,000(バイト)＝1.6(MB)\nしたがって正解は「ア」です。"
+        ],
+        [
+          "画面の総画素(ピクセル)数は、「縦方向の画素数×横方向の画素数」で求めることができます。\n　1,000×800＝800,000(画素)\nまた65,536色(2¹⁶色)を表現するには16ビット(2バイト)が必要です。それぞれの画素が2バイトの情報を持つとすると総データ量は、以下のようになります。\n　800,000×2＝1,600,000(バイト)＝1.6(MB)\nしたがって正解は「ア」です。"
+        ],
+        [
+          "画面の総画素(ピクセル)数は、「縦方向の画素数×横方向の画素数」で求めることができます。\n　1,000×800＝800,000(画素)\nまた65,536色(2¹⁶色)を表現するには16ビット(2バイト)が必要です。それぞれの画素が2バイトの情報を持つとすると総データ量は、以下のようになります。\n　800,000×2＝1,600,000(バイト)＝1.6(MB)\nしたがって正解は「ア」です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 1 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        1
+      ],
+      "source_question_id": "201002:am:問22:https://www.nw-siken.com/kakomon/22_aki/am2_22.html",
+      "isCalculationQuestion": true,
+      "isLawRelated": false,
+      "lawGroundedExplanationNotNeeded": true,
+      "lawReferences": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "lawContextForExplanation": "表示解像度、色数、バイト単位の換算によるビデオメモリ容量の計算問題で、法令条文を根拠にしない。",
+      "questionLearningPatternId": "calculation",
+      "explanationText": [
+        "正しい。答えは1.6Mバイトである。必要なビデオメモリ容量は、画素数に1画素当たりの必要バイト数を掛けて求める。65,536色は\\(2^{16}\\)色なので、1画素当たり16ビット、つまり2バイトが必要である。画素数は\\(1000\\times800=800,000\\)画素だから、必要容量は\\(800,000\\times2=1,600,000\\)バイトとなる。1Mバイトは\\(1,000\\times1,000=1,000,000\\)バイトなので、\\(1,600,000\\div1,000,000=1.6\\)Mバイトである。"
+      ],
+      "explanationReferences": [],
+      "suggestedQuestionDetailsByChoice": [],
+      "lawRevisionFacts": [
+        {
+          "answerImpactFacts": [],
+          "auditStatus": "not_law_related",
+          "current": {
+            "correctChoiceText": "正しい"
+          },
+          "differenceFacts": [],
+          "evidenceSummary": {
+            "differenceSummary": "法令改正による差分なし。",
+            "displayRefIds": [],
+            "explanationText": "表示解像度、色数、単位換算による計算で正誤を判定する。",
+            "promptContext": "ビデオメモリ容量の計算問題。",
+            "refs": [],
+            "verdict": "not_law_related"
+          },
+          "examTime": {
+            "correctChoiceText": "正しい"
+          },
+          "notes": [
+            "技術計算のみで判定でき、法令根拠は不要である。"
+          ],
+          "reconciliationStatus": "reconciled",
+          "reviewState": "secondary_verified"
+        },
+        {
+          "answerImpactFacts": [],
+          "auditStatus": "not_law_related",
+          "current": {
+            "correctChoiceText": "間違い"
+          },
+          "differenceFacts": [],
+          "evidenceSummary": {
+            "differenceSummary": "法令改正による差分なし。",
+            "displayRefIds": [],
+            "explanationText": "表示解像度、色数、単位換算による計算で正誤を判定する。",
+            "promptContext": "ビデオメモリ容量の計算問題。",
+            "refs": [],
+            "verdict": "not_law_related"
+          },
+          "examTime": {
+            "correctChoiceText": "間違い"
+          },
+          "notes": [
+            "技術計算のみで判定でき、法令根拠は不要である。"
+          ],
+          "reconciliationStatus": "reconciled",
+          "reviewState": "secondary_verified"
+        },
+        {
+          "answerImpactFacts": [],
+          "auditStatus": "not_law_related",
+          "current": {
+            "correctChoiceText": "間違い"
+          },
+          "differenceFacts": [],
+          "evidenceSummary": {
+            "differenceSummary": "法令改正による差分なし。",
+            "displayRefIds": [],
+            "explanationText": "表示解像度、色数、単位換算による計算で正誤を判定する。",
+            "promptContext": "ビデオメモリ容量の計算問題。",
+            "refs": [],
+            "verdict": "not_law_related"
+          },
+          "examTime": {
+            "correctChoiceText": "間違い"
+          },
+          "notes": [
+            "技術計算のみで判定でき、法令根拠は不要である。"
+          ],
+          "reconciliationStatus": "reconciled",
+          "reviewState": "secondary_verified"
+        },
+        {
+          "answerImpactFacts": [],
+          "auditStatus": "not_law_related",
+          "current": {
+            "correctChoiceText": "間違い"
+          },
+          "differenceFacts": [],
+          "evidenceSummary": {
+            "differenceSummary": "法令改正による差分なし。",
+            "displayRefIds": [],
+            "explanationText": "表示解像度、色数、単位換算による計算で正誤を判定する。",
+            "promptContext": "ビデオメモリ容量の計算問題。",
+            "refs": [],
+            "verdict": "not_law_related"
+          },
+          "examTime": {
+            "correctChoiceText": "間違い"
+          },
+          "notes": [
+            "技術計算のみで判定でき、法令根拠は不要である。"
+          ],
+          "reconciliationStatus": "reconciled",
+          "reviewState": "secondary_verified"
+        }
+      ],
+      "questionSetId": "nw_qs02_02_network_design"
+    },
+    {
+      "questionBodyText": "ノードN₁とノードN₂の間をノードNを介して通信路で結んだデータ伝送網がある。N₁とN₂の間の構成についてA～Cの三つの案を考えた。ノードは故障しないものとし，各ノード間の通信路が故障する確率は，全て等しくF(0＜F＜1)とする。三つの案を，稼働率が高い順に並べたものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成22年秋期 午前Ⅱ 問23",
+      "questionLabel": "問23",
+      "questionType": "group_choice",
+      "choiceTextList": [
+        "B案 ＞ A案 ＞ C案",
+        "B案 ＞ C案 ＞ A案",
+        "C案 ＞ A案 ＞ B案",
+        "C案 ＞ B案 ＞ A案"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » システム構成要素 » システムの評価指標",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "システム構成要素",
+        "システムの評価指標"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "システム構成要素",
+      "categorySmall": "システムの評価指標",
+      "examYear": 2010,
+      "list_group_id": "201002",
+      "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_23.html",
+      "public_question_id": "1843fb51cd3b4564",
+      "original_question_id": "1843fb51cd3b4564",
+      "questionImageStorageUrls": [
+        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq1843fb51cd3b4564_q_img01.png?alt=media"
+      ],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "間違い",
+        "正しい"
+      ],
+      "explanation_common_prefix": [
+        "0.9²＝0.811－(1－0.81)²＝0.9639プログラムでの計算では約0.9781－(1－0.9)²＝0.990.99×0.99＝0.9801"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "A案とB案を比較した場合、A案とB案はノードの配置が同じですが、B案にはA案に存在しない N－N 間の伝送路があります。迂回できる経路のある方が全体としてより高い稼働率になるはずなので、稼働率は「B案＞A案」です。\nさらにB案とC案を比較すると、C案ではB案の中間ノードNが1つに統合され、B案における N－N 間の伝送路が無くなっています。これは、B案における N－N 間の伝送路の故障率が 0 になっている状態と考えることができます。したがって稼働率は「C案＞B案」です。\n最後に3つの案を稼働率の高い順に並べると「C案＞B案＞A案」になります。\n各通信路の稼働率を0.9とすると、0.9²＝0.811－(1－0.81)²＝0.9639プログラムでの計算では約0.9781－(1－0.9)²＝0.990.99×0.99＝0.9801"
+        ],
+        [
+          "A案とB案を比較した場合、A案とB案はノードの配置が同じですが、B案にはA案に存在しない N－N 間の伝送路があります。迂回できる経路のある方が全体としてより高い稼働率になるはずなので、稼働率は「B案＞A案」です。\nさらにB案とC案を比較すると、C案ではB案の中間ノードNが1つに統合され、B案における N－N 間の伝送路が無くなっています。これは、B案における N－N 間の伝送路の故障率が 0 になっている状態と考えることができます。したがって稼働率は「C案＞B案」です。\n最後に3つの案を稼働率の高い順に並べると「C案＞B案＞A案」になります。\n各通信路の稼働率を0.9とすると、0.9²＝0.811－(1－0.81)²＝0.9639プログラムでの計算では約0.9781－(1－0.9)²＝0.990.99×0.99＝0.9801"
+        ],
+        [
+          "A案とB案を比較した場合、A案とB案はノードの配置が同じですが、B案にはA案に存在しない N－N 間の伝送路があります。迂回できる経路のある方が全体としてより高い稼働率になるはずなので、稼働率は「B案＞A案」です。\nさらにB案とC案を比較すると、C案ではB案の中間ノードNが1つに統合され、B案における N－N 間の伝送路が無くなっています。これは、B案における N－N 間の伝送路の故障率が 0 になっている状態と考えることができます。したがって稼働率は「C案＞B案」です。\n最後に3つの案を稼働率の高い順に並べると「C案＞B案＞A案」になります。\n各通信路の稼働率を0.9とすると、0.9²＝0.811－(1－0.81)²＝0.9639プログラムでの計算では約0.9781－(1－0.9)²＝0.990.99×0.99＝0.9801"
+        ],
+        [
+          "A案とB案を比較した場合、A案とB案はノードの配置が同じですが、B案にはA案に存在しない N－N 間の伝送路があります。迂回できる経路のある方が全体としてより高い稼働率になるはずなので、稼働率は「B案＞A案」です。\nさらにB案とC案を比較すると、C案ではB案の中間ノードNが1つに統合され、B案における N－N 間の伝送路が無くなっています。これは、B案における N－N 間の伝送路の故障率が 0 になっている状態と考えることができます。したがって稼働率は「C案＞B案」です。\n最後に3つの案を稼働率の高い順に並べると「C案＞B案＞A案」になります。\n各通信路の稼働率を0.9とすると、0.9²＝0.811－(1－0.81)²＝0.9639プログラムでの計算では約0.9781－(1－0.9)²＝0.990.99×0.99＝0.9801"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 4 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        4
+      ],
+      "source_question_id": "201002:am:問23:https://www.nw-siken.com/kakomon/22_aki/am2_23.html",
+      "isCalculationQuestion": true,
+      "isLawRelated": false,
+      "lawGroundedExplanationNotNeeded": true,
+      "lawReferences": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "lawContextForExplanation": "通信路の故障確率と冗長構成による稼働率を比較する工学・確率の問題で、法令条文を根拠にしない。",
+      "questionLearningPatternId": "calculation",
+      "explanationText": [
+        "正しい。通信路1本の稼働率を \\(1-F\\) とする。A案は、2本の通信路が直列につながった経路を2本並列にした構成なので、稼働率は \\[A=1-\\{1-(1-F)^2\\}^2=1-(2F-F^2)^2\\] である。C案は、各区間で2本の通信路が並列になり、その区間が2つ直列につながるため、稼働率は \\[C=(1-F^2)^2\\] となる。両者の差は \\[C-A=2F^2(1-F)^2>0\\] であり、C案の方が高い。B案は、中央の通信路が正常ならC案と同じ構成になり、中央の通信路が故障するとA案と同じ構成になる。そのため \\[B=(1-F)C+FA\\] となり、A案とC案の間に入る。したがって、稼働率の高い順はC案＞B案＞A案である。"
+      ],
+      "explanationReferences": [
+        {
+          "referenceDate": "2010-10-17",
+          "sourceUrl": "https://www.ipa.go.jp/shiken/mondai-kaiotu/ug65p90000004d6f-att/2010h22a_nw_am2_qs.pdf",
+          "title": "平成22年度秋期ネットワークスペシャリスト試験午前Ⅱ問題"
+        },
+        {
+          "referenceDate": "2010-10-17",
+          "sourceUrl": "https://www.ipa.go.jp/shiken/mondai-kaiotu/ug65p90000004d6f-att/2010h22a_nw_am2_ans.pdf",
+          "title": "平成22年度秋期ネットワークスペシャリスト試験午前Ⅱ解答例"
+        }
+      ],
+      "suggestedQuestionDetailsByChoice": [],
+      "lawRevisionFacts": [
+        {
+          "answerImpactFacts": [],
+          "auditStatus": "not_law_related",
+          "current": {
+            "correctChoiceText": "間違い"
+          },
+          "differenceFacts": [],
+          "evidenceSummary": {
+            "differenceSummary": "法令差分なし。",
+            "displayRefIds": [],
+            "explanationText": "通信路の故障確率と冗長構成の比較に基づく技術問題である。",
+            "promptContext": "選択肢1の構成順位判定",
+            "refs": [],
+            "verdict": "not_law_related"
+          },
+          "examTime": {
+            "correctChoiceText": "間違い"
+          },
+          "notes": [
+            "法令ではなく通信路の稼働率計算で判定した。"
+          ],
+          "reconciliationStatus": "reconciled",
+          "reviewState": "secondary_verified"
+        },
+        {
+          "answerImpactFacts": [],
+          "auditStatus": "not_law_related",
+          "current": {
+            "correctChoiceText": "間違い"
+          },
+          "differenceFacts": [],
+          "evidenceSummary": {
+            "differenceSummary": "法令差分なし。",
+            "displayRefIds": [],
+            "explanationText": "通信路の故障確率と冗長構成の比較に基づく技術問題である。",
+            "promptContext": "選択肢2の構成順位判定",
+            "refs": [],
+            "verdict": "not_law_related"
+          },
+          "examTime": {
+            "correctChoiceText": "間違い"
+          },
+          "notes": [
+            "法令ではなく通信路の稼働率計算で判定した。"
+          ],
+          "reconciliationStatus": "reconciled",
+          "reviewState": "secondary_verified"
+        },
+        {
+          "answerImpactFacts": [],
+          "auditStatus": "not_law_related",
+          "current": {
+            "correctChoiceText": "間違い"
+          },
+          "differenceFacts": [],
+          "evidenceSummary": {
+            "differenceSummary": "法令差分なし。",
+            "displayRefIds": [],
+            "explanationText": "通信路の故障確率と冗長構成の比較に基づく技術問題である。",
+            "promptContext": "選択肢3の構成順位判定",
+            "refs": [],
+            "verdict": "not_law_related"
+          },
+          "examTime": {
+            "correctChoiceText": "間違い"
+          },
+          "notes": [
+            "法令ではなく通信路の稼働率計算で判定した。"
+          ],
+          "reconciliationStatus": "reconciled",
+          "reviewState": "secondary_verified"
+        },
+        {
+          "answerImpactFacts": [],
+          "auditStatus": "not_law_related",
+          "current": {
+            "correctChoiceText": "正しい"
+          },
+          "differenceFacts": [],
+          "evidenceSummary": {
+            "differenceSummary": "法令差分なし。",
+            "displayRefIds": [],
+            "explanationText": "通信路の故障確率と冗長構成の比較に基づく技術問題である。",
+            "promptContext": "選択肢4の構成順位判定",
+            "refs": [],
+            "verdict": "not_law_related"
+          },
+          "examTime": {
+            "correctChoiceText": "正しい"
+          },
+          "notes": [
+            "法令ではなく通信路の稼働率計算で判定した。"
+          ],
+          "reconciliationStatus": "reconciled",
+          "reviewState": "secondary_verified"
+        }
+      ],
+      "questionSetId": "nw_qs02_02_network_design"
+    },
+    {
+      "questionBodyText": "オブジェクト指向におけるオブジェクト間の代表的な関係には，is-a と part-of の二つがある。表に示すオブジェクト間の関係の組合せのうち、適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成22年秋期 午前Ⅱ 問24",
+      "questionLabel": "問24",
+      "questionType": "group_choice",
+      "choiceTextList": [
+        "ア",
+        "イ",
+        "ウ",
+        "エ"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq3836ca9418b40c03_choices_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq3836ca9418b40c03_choices_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq3836ca9418b40c03_choices_img01.png?alt=media"
+        ],
+        [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fnw%2Fq3836ca9418b40c03_choices_img01.png?alt=media"
+        ]
+      ],
+      "category": "テクノロジ系 » システム開発技術 » ソフトウェア方式設計・詳細設計",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "システム開発技術",
+        "ソフトウェア方式設計・詳細設計"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "システム開発技術",
+      "categorySmall": "ソフトウェア方式設計・詳細設計",
+      "examYear": 2010,
+      "list_group_id": "201002",
+      "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_24.html",
+      "public_question_id": "3836ca9418b40c03",
+      "original_question_id": "3836ca9418b40c03",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "is-a(汎化－特化)関係「動物－犬」や「家電－テレビ」などのように「…は、○○である」で表される関係。part-of(集約－分解)関係「コンピュータ－CPU」や「自転車－サドル」などのように「…は、○○の一部である」で表される関係。"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "オブジェクト指向において上位クラスと下位クラスの関係には、is-a(汎化－特化)関係と、part-of(集約－分解)関係があります。is-a(汎化－特化)関係「動物－犬」や「家電－テレビ」などのように「…は、○○である」で表される関係。part-of(集約－分解)関係「コンピュータ－CPU」や「自転車－サドル」などのように「…は、○○の一部である」で表される関係。表の3つの関係をどちらかに当てはめると、タイヤは自動車の一部であるのでpart-of関係になります。\n人間は動物であるのでis-a関係になります。\n辞書は書物であるのでis-a関係になります。\nよって適切な組合せは「ウ」です。"
+        ],
+        [
+          "オブジェクト指向において上位クラスと下位クラスの関係には、is-a(汎化－特化)関係と、part-of(集約－分解)関係があります。is-a(汎化－特化)関係「動物－犬」や「家電－テレビ」などのように「…は、○○である」で表される関係。part-of(集約－分解)関係「コンピュータ－CPU」や「自転車－サドル」などのように「…は、○○の一部である」で表される関係。表の3つの関係をどちらかに当てはめると、タイヤは自動車の一部であるのでpart-of関係になります。\n人間は動物であるのでis-a関係になります。\n辞書は書物であるのでis-a関係になります。\nよって適切な組合せは「ウ」です。"
+        ],
+        [
+          "オブジェクト指向において上位クラスと下位クラスの関係には、is-a(汎化－特化)関係と、part-of(集約－分解)関係があります。is-a(汎化－特化)関係「動物－犬」や「家電－テレビ」などのように「…は、○○である」で表される関係。part-of(集約－分解)関係「コンピュータ－CPU」や「自転車－サドル」などのように「…は、○○の一部である」で表される関係。表の3つの関係をどちらかに当てはめると、タイヤは自動車の一部であるのでpart-of関係になります。\n人間は動物であるのでis-a関係になります。\n辞書は書物であるのでis-a関係になります。\nよって適切な組合せは「ウ」です。"
+        ],
+        [
+          "オブジェクト指向において上位クラスと下位クラスの関係には、is-a(汎化－特化)関係と、part-of(集約－分解)関係があります。is-a(汎化－特化)関係「動物－犬」や「家電－テレビ」などのように「…は、○○である」で表される関係。part-of(集約－分解)関係「コンピュータ－CPU」や「自転車－サドル」などのように「…は、○○の一部である」で表される関係。表の3つの関係をどちらかに当てはめると、タイヤは自動車の一部であるのでpart-of関係になります。\n人間は動物であるのでis-a関係になります。\n辞書は書物であるのでis-a関係になります。\nよって適切な組合せは「ウ」です。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201002:am:問24:https://www.nw-siken.com/kakomon/22_aki/am2_24.html",
+      "isCalculationQuestion": false,
+      "isLawRelated": false,
+      "lawGroundedExplanationNotNeeded": true,
+      "lawReferences": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "lawContextForExplanation": "オブジェクト指向の一般的な技術概念を問う問題で、法令条文を根拠にしない。",
+      "questionLearningPatternId": "differences_relationships",
+      "explanationText": [
+        "正しい。該当する組合せはウである。is-aは「XはYの一種」という上位・下位の関係で、part-ofは「XはYを構成する一部」という全体・部分の関係である。タイヤと自動車はpart-of、人間と動物はis-a、辞書と書物はis-aに当たる。"
+      ],
+      "explanationReferences": [],
+      "suggestedQuestionDetailsByChoice": [],
+      "lawRevisionFacts": [
+        {
+          "answerImpactFacts": [],
+          "auditStatus": "not_law_related",
+          "current": {
+            "correctChoiceText": "間違い"
+          },
+          "differenceFacts": [],
+          "evidenceSummary": {
+            "differenceSummary": "法令による差分なし。",
+            "displayRefIds": [],
+            "explanationText": "is-aとpart-ofの関係を表の組合せに照合した。",
+            "promptContext": "法令監査対象外の技術肢。",
+            "refs": [],
+            "verdict": "not_law_related"
+          },
+          "examTime": {
+            "correctChoiceText": "間違い"
+          },
+          "notes": [
+            "技術知識で判定し、法令根拠は不要。"
+          ],
+          "reconciliationStatus": "reconciled",
+          "reviewState": "secondary_verified"
+        },
+        {
+          "answerImpactFacts": [],
+          "auditStatus": "not_law_related",
+          "current": {
+            "correctChoiceText": "間違い"
+          },
+          "differenceFacts": [],
+          "evidenceSummary": {
+            "differenceSummary": "法令による差分なし。",
+            "displayRefIds": [],
+            "explanationText": "is-aとpart-ofの関係を表の組合せに照合した。",
+            "promptContext": "法令監査対象外の技術肢。",
+            "refs": [],
+            "verdict": "not_law_related"
+          },
+          "examTime": {
+            "correctChoiceText": "間違い"
+          },
+          "notes": [
+            "技術知識で判定し、法令根拠は不要。"
+          ],
+          "reconciliationStatus": "reconciled",
+          "reviewState": "secondary_verified"
+        },
+        {
+          "answerImpactFacts": [],
+          "auditStatus": "not_law_related",
+          "current": {
+            "correctChoiceText": "正しい"
+          },
+          "differenceFacts": [],
+          "evidenceSummary": {
+            "differenceSummary": "法令による差分なし。",
+            "displayRefIds": [],
+            "explanationText": "is-aとpart-ofの関係を表の組合せに照合した。",
+            "promptContext": "法令監査対象外の技術肢。",
+            "refs": [],
+            "verdict": "not_law_related"
+          },
+          "examTime": {
+            "correctChoiceText": "正しい"
+          },
+          "notes": [
+            "技術知識で判定し、法令根拠は不要。"
+          ],
+          "reconciliationStatus": "reconciled",
+          "reviewState": "secondary_verified"
+        },
+        {
+          "answerImpactFacts": [],
+          "auditStatus": "not_law_related",
+          "current": {
+            "correctChoiceText": "間違い"
+          },
+          "differenceFacts": [],
+          "evidenceSummary": {
+            "differenceSummary": "法令による差分なし。",
+            "displayRefIds": [],
+            "explanationText": "is-aとpart-ofの関係を表の組合せに照合した。",
+            "promptContext": "法令監査対象外の技術肢。",
+            "refs": [],
+            "verdict": "not_law_related"
+          },
+          "examTime": {
+            "correctChoiceText": "間違い"
+          },
+          "notes": [
+            "技術知識で判定し、法令根拠は不要。"
+          ],
+          "reconciliationStatus": "reconciled",
+          "reviewState": "secondary_verified"
+        }
+      ],
+      "questionSetId": "nw_qs02_02_network_design"
+    },
+    {
+      "questionBodyText": "SOA(Service Oriented Architecture)でサービスを設計する際の注意点のうち，適切なものはどれか。",
+      "examLabel": "ネットワークスペシャリスト平成22年秋期 午前Ⅱ 問25",
+      "questionLabel": "問25",
+      "questionType": "true_false",
+      "choiceTextList": [
+        "可用性を高めるために，ステートフルなインタフェースとする。",
+        "業務からの独立性を確保するために，サービスの命名は役割を表すものとする。",
+        "業務の変化に対応しやすくするために，サービス間の関係は疎結合にする。",
+        "セキュリティを高めるために，一度開発したサービスは再利用しない方がよい。"
+      ],
+      "originalQuestionChoiceImageUrls": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "category": "テクノロジ系 » ソフトウェア開発管理技術 » 開発プロセス・手法",
+      "categoryHierarchy": [
+        "テクノロジ系",
+        "ソフトウェア開発管理技術",
+        "開発プロセス・手法"
+      ],
+      "categoryMajor": "テクノロジ系",
+      "categoryMiddle": "ソフトウェア開発管理技術",
+      "categorySmall": "開発プロセス・手法",
+      "examYear": 2010,
+      "list_group_id": "201002",
+      "question_url": "https://www.nw-siken.com/kakomon/22_aki/am2_25.html",
+      "public_question_id": "f891fb6d4c741628",
+      "original_question_id": "f891fb6d4c741628",
+      "questionImageStorageUrls": [],
+      "questionIntent": "select_correct",
+      "correctChoiceText": [
+        "間違い",
+        "間違い",
+        "正しい",
+        "間違い"
+      ],
+      "explanation_common_prefix": [
+        "SOA"
+      ],
+      "explanation_common_prefix_inferred_correct_choice": null,
+      "explanation_common_summary": [],
+      "explanation_choice_snippets": [
+        [
+          "サービスは、ある共有の状態を参照して動作するのではなく、受け渡された値のみによって機能を提供するステートレスなインタフェースでなくてはなりません。"
+        ],
+        [
+          "個々のサービスが1つの業務部品として扱われるため、サービスの名称は実世界の業務に合わせる形になります。"
+        ],
+        [
+          "正しい。サービス同士の独立性を高めるため関係を疎結合にします。"
+        ],
+        [
+          "ソフトウェアを部品化して再利用することが推奨されます。"
+        ]
+      ],
+      "explanation_choice_correctness": [
+        null,
+        null,
+        null,
+        null
+      ],
+      "answer_result_text": "正解は 3 です。",
+      "answer_result_inferred_correct_choice_numbers": [
+        3
+      ],
+      "source_question_id": "201002:am:問25:https://www.nw-siken.com/kakomon/22_aki/am2_25.html",
+      "isCalculationQuestion": false,
+      "isLawRelated": false,
+      "lawGroundedExplanationNotNeeded": true,
+      "lawReferences": [
+        [],
+        [],
+        [],
+        []
+      ],
+      "lawContextForExplanation": "SOAの疎結合、ステートレス設計、サービス命名、再利用性に関する技術問題であり、法令条文を根拠にしない。",
+      "questionLearningPatternId": "terms_basics",
+      "explanationText": [
+        "間違い。正しくは、可用性を高めるにはステートレスなインタフェースにする。サービスがセッション状態を保持しなければ、障害時の切替えや複数サーバーへの分散がしやすい。選択肢はステートフルなインタフェースにするとしているため誤りである。",
+        "間違い。サービス名は、技術的な実装方法ではなく、提供する業務上の役割や機能を表すようにする。これによりサービスの目的を理解しやすくなる。選択肢は、その命名の目的を業務からの独立性を確保することとしているため誤りである。",
+        "正しい。サービス間の依存を小さくする疎結合な設計にすると、一つのサービスや業務が変わっても他のサービスへの影響を抑えやすく、サービスの組合せや再利用もしやすくなる。",
+        "間違い。SOAでは、サービスを独立した機能として設計し、必要に応じて複数の業務で再利用できるようにする。選択肢は、一度開発したサービスを再利用しない方がよいとしているため誤りである。"
+      ],
+      "explanationReferences": [],
+      "suggestedQuestionDetailsByChoice": [],
+      "lawRevisionFacts": [
+        {
+          "answerImpactFacts": [],
+          "auditStatus": "not_law_related",
+          "current": {
+            "correctChoiceText": "間違い"
+          },
+          "differenceFacts": [],
+          "evidenceSummary": {
+            "differenceSummary": "法令差分なし。",
+            "displayRefIds": [],
+            "explanationText": "第1選択肢はSOAのサービス状態管理に関する技術知識で判断する。",
+            "promptContext": "法令監査対象外の技術肢。",
+            "refs": [],
+            "verdict": "not_law_related"
+          },
+          "examTime": {
+            "correctChoiceText": "間違い"
+          },
+          "notes": [
+            "技術知識のみで正誤を判断できるため、法令改正差分はない。"
+          ],
+          "reconciliationStatus": "reconciled",
+          "reviewState": "secondary_verified"
+        },
+        {
+          "answerImpactFacts": [],
+          "auditStatus": "not_law_related",
+          "current": {
+            "correctChoiceText": "間違い"
+          },
+          "differenceFacts": [],
+          "evidenceSummary": {
+            "differenceSummary": "法令差分なし。",
+            "displayRefIds": [],
+            "explanationText": "第2選択肢はサービス命名と業務上の役割に関する技術知識で判断する。",
+            "promptContext": "法令監査対象外の技術肢。",
+            "refs": [],
+            "verdict": "not_law_related"
+          },
+          "examTime": {
+            "correctChoiceText": "間違い"
+          },
+          "notes": [
+            "技術知識のみで正誤を判断できるため、法令改正差分はない。"
+          ],
+          "reconciliationStatus": "reconciled",
+          "reviewState": "secondary_verified"
+        },
+        {
+          "answerImpactFacts": [],
+          "auditStatus": "not_law_related",
+          "current": {
+            "correctChoiceText": "正しい"
+          },
+          "differenceFacts": [],
+          "evidenceSummary": {
+            "differenceSummary": "法令差分なし。",
+            "displayRefIds": [],
+            "explanationText": "第3選択肢はサービス間の疎結合に関する技術知識で判断する。",
+            "promptContext": "法令監査対象外の技術肢。",
+            "refs": [],
+            "verdict": "not_law_related"
+          },
+          "examTime": {
+            "correctChoiceText": "正しい"
+          },
+          "notes": [
+            "技術知識のみで正誤を判断できるため、法令改正差分はない。"
+          ],
+          "reconciliationStatus": "reconciled",
+          "reviewState": "secondary_verified"
+        },
+        {
+          "answerImpactFacts": [],
+          "auditStatus": "not_law_related",
+          "current": {
+            "correctChoiceText": "間違い"
+          },
+          "differenceFacts": [],
+          "evidenceSummary": {
+            "differenceSummary": "法令差分なし。",
+            "displayRefIds": [],
+            "explanationText": "第4選択肢はサービスの再利用性に関する技術知識で判断する。",
+            "promptContext": "法令監査対象外の技術肢。",
+            "refs": [],
+            "verdict": "not_law_related"
+          },
+          "examTime": {
+            "correctChoiceText": "間違い"
+          },
+          "notes": [
+            "技術知識のみで正誤を判断できるため、法令改正差分はない。"
+          ],
+          "reconciliationStatus": "reconciled",
+          "reviewState": "secondary_verified"
+        }
+      ],
+      "questionSetId": "nw_qs02_02_network_design"
+    }
+  ]
+}

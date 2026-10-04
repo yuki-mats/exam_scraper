@@ -2268,33 +2268,15 @@
   },
   {
     "explanationText": [
-      "間違い。\n\nD を 4 日短縮できても、全体所要日数は 1 日しか縮まらないわけではない。",
-      "間違い。\n\n短縮後のクリティカルパス変化を考えると 2 日短縮でも足りない。",
-      "正しい。\n\n短縮前の最長経路は 31 日、D を 10 日から 6 日へ縮めるとその経路は 27 日になるが、別経路 A→C→F→H が 28 日残るため、全体は 31−28=3 日短縮となる。",
-      "間違い。\n\nD 自体は 4 日短縮できても、全体所要日数は他経路に制約されるので 4 日は縮まらない。"
-    ],
-    "suggestedQuestions": [
-      "クリティカルパスはどう求めますか？",
-      "なぜ4日ではなく3日短縮ですか？",
-      "ダミー作業はどう扱いますか？"
-    ],
-    "suggestedQuestionDetails": [
-      {
-        "question": "クリティカルパスはどう求めますか？",
-        "answer": "開始から終了までの各経路所要日数を計算し、最も長い経路を特定する。"
-      },
-      {
-        "question": "なぜ4日ではなく3日短縮ですか？",
-        "answer": "D 短縮後は別経路が新しいクリティカルパスとなり、それ以上は全体を縮められないからである。"
-      },
-      {
-        "question": "ダミー作業はどう扱いますか？",
-        "answer": "所要日数 0 日の依存関係として計算に含める。"
-      }
+      "正しい。全体の所要日数は3日短くなる。アローダイアグラムでは、作業の矢印に沿った最長経路が全体の所要日数を決める。Dは下の結合点から上の結合点へ進み、点線のダミー作業の所要日数は0日である。\n\n短縮前の最長経路はA→C→D→E→ダミー→Hで、次のように31日となる。\n\n$$5+5+10+5+0+6=31$$\n\nDを6日にすると、この経路は27日になる。一方、Dを通らないA→C→F→Hは次のように28日のままである。\n\n$$5+5+12+6=28$$\n\nほかの経路A→B→E→G、A→B→E→ダミー→H、A→C→D→E→Gは、短縮後にそれぞれ16日、19日、24日である。したがって、短縮後の最長経路は28日のA→C→F→Hへ変わる。\n\n$$31-28=3$$\n\nD自体の短縮幅は4日だが、全体は別経路に制約されるため3日短縮となる。"
     ],
     "original_question_id": "ee6908a3d58ea0f3",
     "question_url": "https://www.nw-siken.com/kakomon/22_aki/am1_19.html",
-    "lawGroundedExplanationNotNeeded": true
+    "lawGroundedExplanationNotNeeded": true,
+    "suggestedQuestionDetailsByChoice": [],
+    "sourceQuestionKey": "nw:201002:ee6908a3d58ea0f3",
+    "reviewQuestionId": "ee6908a3d58ea0f3",
+    "sourceRecordRef": "question_201002_1.json#18"
   },
   {
     "explanationText": [
