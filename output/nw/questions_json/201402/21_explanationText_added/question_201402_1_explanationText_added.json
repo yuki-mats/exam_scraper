@@ -607,7 +607,7 @@
       "間違い。GUIはGNOMEやKDEなどのデスクトップ環境が提供するもので、Linuxカーネルそのものには含まれない。選択肢はGUIをLinuxカーネルの機能としているため誤りである。",
       "間違い。Webブラウザ、ワープロソフト、表計算ソフトはアプリケーションであり、Linuxカーネルには含まれない。選択肢はこれらをカーネルの構成要素としているため誤りである。",
       "間違い。シェルは利用者の入力を受け付けてカーネルへ処理を依頼するユーザインタフェースであり、カーネルそのものには含まれない。選択肢はシェルをLinuxカーネルに組み込まれたCUIとしているため誤りである。",
-      "正しい。Linuxカーネルは、プロセス管理やメモリ管理など、アプリケーションが動作するための基本機能を提供する。"
+      "正しい。アプリケーションは、システムコールを通じてカーネルに処理を依頼する。カーネルはCPUを使うプロセスを切り替え、各プロセスの仮想記憶やメモリ割当てを管理する。GUIやシェル、業務用ソフトウェアは、この基本機能を利用して動く別の層である。"
     ],
     "original_question_id": "6173bf04ef92a5ec",
     "question_url": "https://www.nw-siken.com/kakomon/26_aki/am1_6.html",
@@ -621,6 +621,16 @@
         "referenceDate": "2026-10-04",
         "sourceUrl": "https://www.kernel.org/doc/html/latest/admin-guide/mm/index.html",
         "title": "Memory Management — The Linux Kernel documentation"
+      },
+      {
+        "title": "How do we gather fine-grained system information?及びTracing perf bench all workload",
+        "sourceUrl": "https://kernel.org/doc/html/latest/admin-guide/workload-tracing.html",
+        "referenceDate": "2026-10-05"
+      },
+      {
+        "title": "Memory Management冒頭",
+        "sourceUrl": "https://docs.kernel.org/admin-guide/mm/index.html",
+        "referenceDate": "2026-10-05"
       }
     ],
     "questionLearningPatternId": "terms_basics",
@@ -2161,7 +2171,7 @@
   {
     "explanationText": [
       "間違い。開発作業の進捗状況は進捗管理で把握する情報であり、構成管理の対象ではない。選択肢は進捗状況を構成管理の対象としているため誤りである。",
-      "間違い。成果物に対するレビューの実施結果は品質管理で扱う情報であり、構成管理の対象ではない。選択肢はレビュー結果を構成管理の対象としているため誤りである。",
+      "間違い。本問では、レビューの実施結果を成果物の品質を確認した記録として扱う。構成管理の中心は、成果物を識別し、版や変更履歴を管理することである。ただし、レビュー記録も構成項目に指定して版管理することはできる。品質管理で作成する情報だから、構成管理の対象にならないという意味ではない。",
       "正しい。構成管理では、成果物を識別し、版数や変更履歴を管理する。プログラムのバージョンは代表的な管理対象である。",
       "間違い。プロジェクト組織の編成はプロジェクトの体制や資源の管理で扱う情報であり、構成管理の対象ではない。選択肢は組織の編成を構成管理の対象としているため誤りである。"
     ],
@@ -2171,7 +2181,13 @@
     "sourceQuestionKey": "nw:201402:431356284e1d2b7b",
     "reviewQuestionId": "431356284e1d2b7b",
     "sourceRecordRef": "question_201402_1.json#17",
-    "explanationReferences": [],
+    "explanationReferences": [
+      {
+        "title": "3.Guidanceのitems to be controlled",
+        "sourceUrl": "https://swehb.nasa.gov/spaces/SWEHBVB/pages/32604561/SWE-081%2B-%2BIdentify%2BSoftware%2BCM%2BItems",
+        "referenceDate": "2026-10-05"
+      }
+    ],
     "questionLearningPatternId": "differences_relationships",
     "suggestedQuestionDetailsByChoice": [],
     "isLawRelated": false,
@@ -3021,7 +3037,7 @@
   },
   {
     "explanationText": [
-      "正しい。請負型の契約が適切なのは、システム内部設計フェーズからシステム結合フェーズまでである。上流のシステム化計画や要件定義では仕様や役割分担が確定していないため準委任型が基本となるが、内部設計以降は成果物と完成責任を定めやすく、請負型が適している。"
+      "正しい。請負型の契約が適切なのは、システム内部設計からシステム結合までである。この範囲では、設計、プログラミング、ソフトウェアテストなどの成果物を具体的に定め、完成責任を負う契約にできる。要件定義は準委任型が基本となり、システムテストは準委任型又は請負型、導入・受入支援は準委任型として区別される。"
     ],
     "original_question_id": "4efda3f38e3c1d33",
     "question_url": "https://www.nw-siken.com/kakomon/26_aki/am1_25.html",
@@ -3034,6 +3050,11 @@
         "referenceDate": "2007-04-13",
         "sourceUrl": "https://www.meti.go.jp/policy/it_policy/keiyaku/model_keiyakusyo.pdf",
         "title": "情報システム・モデル取引・契約書"
+      },
+      {
+        "title": "https://www.ipa.go.jp/digital/model/ug65p90000001ljh-att/20250424-kouen.pdf",
+        "sourceUrl": "https://www.ipa.go.jp/digital/model/ug65p90000001ljh-att/20250424-kouen.pdf",
+        "referenceDate": "2026-10-05"
       }
     ],
     "questionLearningPatternId": "conditions_scope",

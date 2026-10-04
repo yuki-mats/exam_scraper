@@ -302,3 +302,9 @@ Linux・構成管理・モデル契約のフェーズ・コア技術・CE・営�
 201502午前I問29（3c42db4341c49df2c9639757）の四fieldと公式表・選択肢を個別に直視し、第1肢解説の根拠のない最適な組合せの断定を除いた。混合戦略の方法と最適性を決める評価基準を分け、設問が一つの計画を選ぶ条件で景気確率を与えていないことを説明した。正誤は一次提案として保持し、別Solの確認前に品質確定へ加算しない。
 
 21のexplanationText[0]だけを変更し、source・本文・全肢・正誤・形式・metadata・他record・AI台帳を保持。通常同期/dry-runと必須3検査48merged/48実正答patch880entries成功、全suite未実行。人間patchへmodel/工程版receiptを作成しない。根拠direct_investment2015_criterion_applied_20261005.json。Firestore未書込。
+
+### 2026-10-05 05:38 2014年度監査終端と7問の直接目視パッチ
+
+54問監査job5jJK8OwMqGNiE9Ocは05:32:00 succeeded、54報告48pass/6needs/transport0。全54のidentity/currentStateHash/resultHash/実Solsessionturn/workVersionReceipt1及びledger5.8同runを照合し、全四fieldと全Sol各肢理由を個別に読んだ。構成管理の追加root懸念1を除いた47問を保持、品質確定260/880・残620。著作権の旧追加懸念1も未完扱い。根拠visual_independent_201402_terminal_20261005.json、GUI終端PNG。
+
+Linux、構成管理、モデル契約、フロー制御、コア技術、CE、営業秘密の7問へ、保存済み個別draftに基づく直接目視パッチを適用した。営業秘密は公式本文「営業上」を24へ復元し、01正本から独立に判定したflash_cardと03共通解説を10/21へ保存。他6問は21の指定解説と参照のみ変更。本文・全肢・正誤・解説を適用後に一問ずつ再読、source/ID/非対象record/許可scope外のfield不変を確認。通常同期/dry-runと必須3検査48merged/48実正答patch880entries成功、全suite未実行。人間patchにAIreceipt/工程版を作成しない。7問新候補の独立Solは未着手、260確定へ加算しない。根拠direct_2014_seven_applied_20261005.json。Firestore未書込。
