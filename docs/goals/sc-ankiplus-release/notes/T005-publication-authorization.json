@@ -1,0 +1,25 @@
+{
+  "authorizedAt": "2026-10-04T14:20:08.567792+00:00",
+  "userInstruction": "では、firestoreにアップロードして、新規アプリとして、審査提出までお願いします。",
+  "authorizedActions": [
+    "SC合格問題のFirestore反映とlive readback",
+    "SC専用Firebase・Apple・RevenueCat・AdMob登録",
+    "SC新規iOSアプリの検証・審査提出"
+  ],
+  "targetOriginalCount": 499,
+  "heldQuestionId": "0ef4d8ab7dab9ea7b1f66cf0",
+  "appKey": "sc",
+  "bundleId": "com.ankiplus.sc",
+  "appStoreId": "6819027455",
+  "recurringAutomationRequested": false,
+  "existingCreditsApproved": false,
+  "completionRequires": [
+    "正式評価・生成・機械検査の成功",
+    "Firestore公開後readback一致",
+    "App Store審査状態WAITING_FOR_REVIEW又はIN_REVIEW"
+  ],
+  "status": "in_progress",
+  "firestoreWritten": false,
+  "submittedForReview": false,
+  "scopePath": "output/sc/reports/publication_20261004/scope.json"
+}

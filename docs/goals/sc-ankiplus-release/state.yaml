@@ -144,7 +144,7 @@ tasks:
     objective: "合格問題の公開準備と暗記プラスrelease準備を進め、実機検証と外部反映の確認を経てアプリ公開を確認する。"
     inputs: ["問題ごとの独立評価receipt", "release/config.json", "release/README.md"]
     constraints:
-      - "本番データ反映・ASC設定・iOS提出は具体的な設定と検証結果をそろえて明示確認する。"
+      - "2026-10-04のユーザー依頼によりSC本番反映・新規登録・審査提出は承認済み。正式評価・公開検査・live readback・提出状態を確認する。"
       - "データ公開とiOS公開は別々に検証する。"
     expected_output: ["データ公開readback", "実機操作証拠", "App Store公開readback"]
     receipt: null
