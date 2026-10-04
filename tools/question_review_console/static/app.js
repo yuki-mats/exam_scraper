@@ -1224,6 +1224,9 @@ function bindControls() {
   $("#qualification-active-run-action").addEventListener("click", resumeQualificationRun);
   $("#qualification-active-run-sync").addEventListener("click", openQualificationRunArtifactSync);
   $("#qualification-active-run-retry").addEventListener("click", retryBlockedQualificationRun);
+  $("#qualification-active-run-rework-scope").addEventListener("click", () => {
+    reworkQualificationRunScope().catch((error) => toast(error.message, true));
+  });
   $("#qualification-run-progress-current").addEventListener("click", (event) => {
     if (event.currentTarget.progressQuestion) {
       openProgressQuestion(event.currentTarget.progressQuestion);
@@ -3059,6 +3062,7 @@ function renderQualificationActiveRun() {
   const action = $("#qualification-active-run-action");
   const sync = $("#qualification-active-run-sync");
   const retry = $("#qualification-active-run-retry");
+  const reworkScope = $("#qualification-active-run-rework-scope");
   const errorBox = $("#qualification-active-run-error");
   if (!run) {
     container.hidden = true;
@@ -3078,6 +3082,7 @@ function renderQualificationActiveRun() {
     action.hidden = true;
     sync.hidden = true;
     retry.hidden = true;
+    reworkScope.hidden = true;
     return;
   }
   container.hidden = false;
@@ -3135,6 +3140,9 @@ function renderQualificationActiveRun() {
   action.textContent = view.active ? "進捗と出力を見る" : "この作業の出力を見る";
   sync.hidden = !view.artifactSyncPending || !qualificationRunArtifactGroupIds(run).length;
   retry.hidden = !qualificationRunCanRetryBlocked(run, view);
+  reworkScope.hidden = view.active || run.workType !== "maintenance_flow"
+    || !["succeeded", "failed", "interrupted"].includes(run.status)
+    || run.retrySafe === false;
   retry.textContent = ["failed", "interrupted"].includes(run.status)
     ? "未完了の問題を再開"
     : view.blockedQuestions
@@ -3298,6 +3306,22 @@ function qualificationRunBlockedQuestionIds(progress) {
       .map((question) => question.questionId)
       .filter(Boolean),
   )];
+}
+
+function qualificationRunExactScopeQuestionIds(run, progress) {
+  const count = Number(run?.targetCount);
+  const questions = progress?.questions;
+  if (progress?.runId !== run?.runId || progress?.questionsIncluded !== true
+      || !Number.isInteger(count) || count < 1 || count > MAX_QUALIFICATION_TARGET_COUNT
+      || !Array.isArray(questions) || questions.length !== count) {
+    throw new Error("元runの対象問題一覧を完全に確認できません。開始を中止しました。");
+  }
+  const ids = questions.map((question) => question.questionId);
+  if (ids.some((id) => typeof id !== "string" || !id.trim())
+      || new Set(ids).size !== count) {
+    throw new Error("元runの対象問題IDが欠損又は重複しています。開始を中止しました。");
+  }
+  return ids;
 }
 
 function selectedQualificationRunUpdateTargetIds() {
@@ -4937,6 +4961,34 @@ async function pollQualificationRunJob(jobId, run = state.qualificationActiveRun
     toast(completionMessage, Boolean(job.result?.warning));
     return;
   }
+}
+
+async function reworkQualificationRunScope() {
+  const run = displayedQualificationRun();
+  if (!run || run.workType !== "maintenance_flow" || run.retrySafe === false
+      || !["succeeded", "failed", "interrupted"].includes(run.status)) return;
+  await loadQualificationRunProgress(run.runId);
+  const progress = qualificationRunProgressForRun(state.qualificationRunProgress, run.runId);
+  const questionIds = qualificationRunExactScopeQuestionIds(run, progress);
+  const updateTargetIds = defaultQualificationRunUpdateTargetIds(run.stageIds || [], {
+    updateTargetIds: run.selectedUpdateTargetIds,
+  });
+  const stageIds = qualificationRunStageIdsForUpdateTargetIds(updateTargetIds);
+  const firstStage = state.qualificationWorkflow?.stages?.find((stage) => stage.id === stageIds[0]);
+  if (!firstStage || !updateTargetIds.length) {
+    throw new Error("元runの更新項目を現行workflowへ対応付けられません。");
+  }
+  openQualificationRunDialog(firstStage, {
+    stageIds,
+    updateTargetIds,
+    listGroupIds: run.scopeListGroupIds || run.targetGroupIds || [],
+    questionIds,
+    mode: "needed",
+    questionConcurrency: run.questionConcurrency || AUTO_QUESTION_CONCURRENCY,
+    simplified: true,
+    fieldFirst: true,
+    authoritativeScope: true,
+  });
 }
 
 async function retryBlockedQualificationRun(runOverride = null) {
