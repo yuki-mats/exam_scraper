@@ -1,0 +1,194 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T047",
+    "board_path": "/Users/yuki/development/exam_scraper_feedback/docs/goals/feedback-correction-recovery/state.yaml",
+    "decision": "approve_next",
+    "full_outcome_complete": false,
+    "rationale": "T046の真正停止を確認した。131testsと3unit・9private bytes・11doc replayは成立したが、strict探索失敗と未到達previewが残るためslice完了ではない。次のfresh runで既存filename契約へ回復し、法令revision実応答結合、確定直前再照合、receipt再送の時制、承認資料の固定を同じ保存契約内で修復する。既受理の保存設計と法的判断は維持する。正式保存・productionは含めない。",
+    "evidence": [
+      {
+        "kind": "native_stop_receipt",
+        "decision": "accept",
+        "task": "T046",
+        "nativeSessionId": "01a101b4-330a-7392-a7b8-f72e5890db4a",
+        "eventLine": 2727,
+        "eventSha256IncludingFinalLf": "bdc579a62c06d4b8e73aced7094c662753a23e66099fa24ff220bad064f4af43",
+        "assistantOutputSha256": "6678207635b03493c8da7ee158e7c0078bbdcf6df7ec31ee20914c6cd063095f",
+        "receiptFileSha256": "32e37957bf6c0750f2d1c5f98bba0a0d73335cf15f1ee040532fdadbc80a4c1e",
+        "nativeInnerReceiptCompactObjectHash": "98499ed9dc7bb97ebed44c5178283207fbbe379895600ae45c0be08a21e25c66",
+        "actualChecks": "event/output/file/compact hashとnative内側receiptの保存object一致を実再計算した。",
+        "repairCap": "T046の2repair capとblockedを保持する。旧runを修正して完了へ置換しない。"
+      },
+      {
+        "kind": "current_fixed_plan",
+        "run": "output/user_feedback_response_system/staging/recovery-three-cases/formal-save-plans/runs/T046-dd7578fb31b3",
+        "planHash": "7c4ce40d81434a2abd883fcb857b917d1a07e90850f7dddd87ddb653001e4c99",
+        "inputHash": "7618cfe73833395041f1fe343d973a5cdba5ce8fb5d6df34021f8191d7a47786",
+        "planObjectHashMatched": true,
+        "inputMapHashMatched": true,
+        "currentInputDriftCount": 0,
+        "privatePlannedFileHashesMatched": 9,
+        "unitCount": 3,
+        "formalNineTargetsAbsent": true,
+        "approvalRequestSent": false,
+        "observedScope": [
+          "原問source答4/2を保持するno-op envelopeと公開TF variantを分離する。",
+          "2020はproduction_snapshot、source group/ref=null、questionText一文字delta。",
+          "全selected fields・absence・replayと既受理のexact正式pathsを保持する。",
+          "dirty product10filesはT046成果として保持し、他作者のNW変更を巻き戻さない。"
+        ]
+      },
+      {
+        "kind": "strict_discovery_failure",
+        "decision": "bounded_repair",
+        "location": "tools/question_review_console/formal_correction_save.py:609",
+        "generatedName": "question_formal_preview.json",
+        "existingContract": "scripts/check/check_law_revision_fact_coverage.py:43-57のlatest_merged_filesはstemに_merged_を含むか末尾_mergedのJSONだけを選ぶ。",
+        "actual": {
+          "strictBodyExitCode": 2,
+          "CLIWrapperExitCode": 1,
+          "requiredErrors": 0,
+          "alignmentErrors": 0,
+          "coverageErrors": 0,
+          "strictCompleted": false,
+          "actualThreeScopedPreviewsReached": false
+        },
+        "finding": "入力未発見であり法的矛盾ではない。generator filenameを既存契約へ合わせ、checkerを緩めない。",
+        "remainingStrict": [
+          "2018 mergedの回復後再実行",
+          "2018 firestore",
+          "2024 merged",
+          "2024 firestore"
+        ]
+      },
+      {
+        "kind": "limited_save_api_review",
+        "accepted": [
+          "_native_approvalは実UI reply tag、tool/call/index、固定質問、明示日本語回答を照合し、assistant回答・曖昧な別質問への回答を拒否する。",
+          "OS exclusive renameとexclusive receipt linkを使い、競合targetの置換を拒否する。",
+          "最終receiptがない中断unitをloaderは承認済みと扱わない。fixtureで同一bytes再開を検証している。",
+          "現在のapproval-proposalには既にsource no-opと公開deltaの具体的JSON before/afterがある。file/hash一覧だけという状態ではない。",
+          "実保存・現行法HTTP再取得・人間承認・checkpoint/evaluation・公開はまだ実施していない。"
+        ],
+        "requiredRepairs": [
+          {
+            "location": "formal_correction_save.py:385-434",
+            "finding": "revisionIdは取得entryの文字列と固定revisionの比較に留まる。実law_data metadata応答のbytes/hash、dated URL、応答内semantic revisionへ結合する必要がある。"
+          },
+          {
+            "location": "formal_correction_save.py:507-518",
+            "finding": "read_plan後にprivate payloadを再読してstagingへコピーする。approved hashとの照合とcurrent inputs再検証をexclusive finalize直前にも行い、途中の改変を正式rootへ確定させない。"
+          },
+          {
+            "location": "formal_correction_save.py:474-490",
+            "finding": "永続receiptが既にある同一再送でも先にfresh lawを要求するため、日付変更後のread-only retryと新writeを伴うresumeが混同される。成功済みreceipt再読と未完保存の再開を分ける。"
+          },
+          {
+            "location": "formal_correction_save.py:266-307",
+            "finding": "承認用Markdownをfield・選択肢・根拠別に読みやすくし、その資料hashも固定質問とnative承認照合へ結合する。plan hashを資料内へ循環参照させない生成順を用いる。"
+          }
+        ]
+      },
+      {
+        "kind": "case_review_operation",
+        "decision": "freeze_and_append_linkage",
+        "finding": "planのinputsにcase_review.json参照が5件ある。T044の最新4caseを含む結合済み入力を、proposal/status同期で書き換えるとplanが無効になる。",
+        "contract": [
+          "新plan生成時に結合するreview hashesを固定し、行政的なplan登録・承認待ち表示・進捗同期ではcase_review本文を変更しない。",
+          "PMはplan hash、case review hash、状態、receipt参照を別のappend-only linkageへ記録する。linkageを同じplanのinputsへ追加しない。",
+          "判断・根拠・候補内容が実質変更された場合は正当に旧planを失効させ、fresh planを作る。管理用表示更新による自動再計画・再質問ループを作らない。",
+          "2025のsystem_blocked/already_askedと既存回答待ちを維持し、承認質問を再送しない。"
+        ]
+      }
+    ],
+    "next_allowed_task": {
+      "role": "Worker",
+      "objective": "T046成果を保持したまま、同じformal-save契約の4限定修復と承認資料の固定を行う。fresh private runで5対象suite、4形態strict、実3case scoped preview、9予定bytesと11doc replayを完了し、PMが一度だけ具体的正式保存承認を求められる資料を作る。actual正式保存とproduction adapterは実行・追加しない。",
+      "allowed_files": [
+        "tools/question_review_console/formal_correction_save.py",
+        "tools/question_review_console/scoped_artifacts.py",
+        "tools/question_review_console/inventory.py",
+        "tools/question_review_console/workflow_runner.py",
+        "scripts/pipeline/prepare_scoped_question_artifacts.py",
+        "tests/test_question_review_formal_correction_save.py",
+        "tests/test_question_review_workflow.py",
+        "document/operations/artifact_contract.md",
+        "document/operations/delivery_workflow.md",
+        "document/operations/question_issue_report_workflow.md",
+        "output/user_feedback_response_system/staging/recovery-three-cases/formal-save-plans/runs/<fresh-run-id>/**"
+      ],
+      "implementation_contract": [
+        "merged診断filenameをquestion_formal_preview_merged.json等の既存探索契約へ合わせる。latest_merged_filesが生成fileを一意に発見する回帰を加える。",
+        "今回fresh runでは両年merged/firestoreの4 strictを実行する。historical-onlyや未発見を成功扱いにしない。",
+        "法令再照合は公式e-Gov XMLとlaw_data metadataの実応答を取得するread-only helperを用意し、URL・取得日時・status・response bytes/hash・semantic revision・XML/body hashを結合する。",
+        "metadataのrevisionIdをentryの自己申告で代用しない。固定revision/bodyと異なれば停止し、法的候補を自動変更しない。",
+        "private approved bytesをhash検証してstagingへ固定し、全staged hashesとcurrent plan inputsをexclusive finalize直前に再照合する。改変検出時はtargetと成功receiptを作らない。",
+        "既存永続receiptへの同一read-only retryは、全unit bytes、inputs、元承認・元法令証跡の一致を確認して元receiptを返す。既完了を理由に新しい法令証跡でreceiptを書き換えない。",
+        "receiptのない中断resumeは新writeまたは成功receipt確定を伴うため、fresh law metadata/XML再照合を要求する。競合・部分unit・異なるbytesは拒否する。",
+        "承認Markdownは年度・対象fieldごとの具体的before/after、原問保持、選択肢順、一次根拠URL/条項、変更影響、予定9pathsを示す。詳細refs/factsは正確な付録を持たせる。",
+        "承認資料のbytes hashをplanまたは固定approval scopeへ結合し、質問・実UI reply照合も同じhashを要求する。資料とplan hashの循環を避け、承認後の資料改変を拒否する。",
+        "human-approval-requestは未送信で保存する。質問送信は全検証後のPM作業とする。",
+        "case_reviewの凍結と別append-only linkage運用を正本へ明記する。Workerはactual case review・ledgerを変更しない。",
+        "新runは現行reader依存とlaw_audit/evaluation policyをfingerprintする。T046 run、native証跡、既受理候補値、正式予定pathsを保持する。"
+      ],
+      "verify": [
+        "PYTHONDONTWRITEBYTECODE=1 /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest tests.test_question_review_formal_correction_save tests.test_question_review_scoped_artifacts tests.test_question_review_inventory tests.test_question_review_workflow tests.test_scoped_canonical_context",
+        "PYTHONDONTWRITEBYTECODE=1 /Users/yuki/development/exam_scraper_work/.venv/bin/python scripts/pipeline/prepare_scoped_question_artifacts.py --formal-save-plan output/user_feedback_response_system/staging/recovery-three-cases/execution-contract/runs/T041-repair1-e1ed4d7c4c27/manifest.json --output output/user_feedback_response_system/staging/recovery-three-cases/formal-save-plans/runs/<fresh-run-id> --dry-run",
+        "5suiteの131既存testsと追加限定回帰を現行依存で通し、commit/dirty/input hashes・開始終了・command・exit・ログを記録する。",
+        "fresh runの2018/2024 merged/firestore計4 strictが全exit0、required/alignment/coverage成功、11doc replay・全selected fields/absence・9private bytes/hash/path一致を確認する。",
+        "実QuestionInventoryとArtifactSynchronizer.preview_formal_correctionsを全3caseで通し、未承認・checkpoint/evaluation未済・publicationReady=falseの拒否状態を保存する。",
+        "fixtureでmetadata応答revision不一致・hash改変・dated URL不一致、finalize前payload/input drift、exclusive race、receipt確定前後中断、日付変更後read-only retryとfresh-law必須resumeを検証する。",
+        "fixtureで承認資料改変、別hashの固定質問、tool/call/index不一致、別plan・部分sibling・assistant回答を拒否する。",
+        "実read-only law再取得を行う場合は公式URL・日時・metadata/XML response hashes・revision/body比較結果を保存し、未取得なら未取得と明記する。",
+        "T046旧run/native/candidate/source originals/WORK/正式9paths/2025 base・amendment不変とprivate permissionsを確認する。ledgerを開かず、開始前hashを取得できなかった過去のcontinuityを後付けで成功にしない。",
+        "git diff --check"
+      ],
+      "stop_if": [
+        "既受理candidate before/after/projection、原問答4/2、ID、2020一文字scopeまたは正式予定pathsの変更が必要になる。",
+        "strictの法的根拠・schema矛盾が発見される。探索失敗と区別して返す。",
+        "法令実応答revision/bodyが固定根拠と異なり、内容判断の変更を要する。",
+        "24/05/checker/generic resolverのguard緩和が必要になる。",
+        "actual正式保存、case_review/ledger/WORK更新、Firestore/Storage writeが必要になる。",
+        "production adapter、未知本番outcome回復、大きなUI/provider変更を追加する必要がある。",
+        "2025承認質問の再送またはbase承認拡張が必要になる。",
+        "T046 repair capを再開・resetする、旧runを書き換える、他作者差分を巻き戻す必要がある。",
+        "allowed_files外の変更、または新taskのrepair cap超過が必要になる。",
+        "生利用者本文・source_path・reporter識別情報が通常log・Git・通知へ混入する。"
+      ],
+      "acceptance_after_verify": [
+        "4限定修復と列挙verifyが実成功し、候補値・保存scope・権限境界が不変なら、PMは具体的receiptに基づいてこの回復sliceを受け入れられる。全面法令レビューや同じdesign Judgeを再開する必要はない。",
+        "法令差異、承認associationの新形式不一致、保存scope拡張、未解決のimmutable raceがあれば追加Judgeが必要。",
+        "slice受入は人間正式保存承認・真正checkpoint/evaluation・production許可・公開の完了を意味しない。"
+      ]
+    },
+    "subgoal_contract": null,
+    "parallel_safety": {
+      "decision": "sequential_only",
+      "reason": "同一formal-save契約とT046 dirty成果を共有するため、単一Workerが修復を所有する。"
+    },
+    "blocked_tasks": [
+      "T046を完了へ書き換えること",
+      "検証前の正式保存承認質問送信",
+      "actual正式9paths保存とproduction write",
+      "case_review管理更新によるplan無効化・再質問ループ",
+      "2025承認質問再送"
+    ],
+    "missing_evidence": [
+      "fresh runの4 strict実成功",
+      "実3case Inventory/Synchronizer preview",
+      "現行依存での限定修復回帰と131既存tests成功",
+      "承認資料hashへ結合した具体的な人間向けbefore/after資料",
+      "実law_data metadata/XML取得のrevision/body結合",
+      "真正人間正式保存承認、正式保存、checkpoint/evaluation、本番承認と公開readback"
+    ],
+    "required_board_updates": [
+      "T046 blocked、strict本体exit2 discovery failure、CLI exit1、2repair capを保持する。",
+      "次Workerへfresh runと上記限定packageを登録する。",
+      "PMは結合済みcase_reviewを凍結し、proposal/status同期を別append-only linkageへ記録する。",
+      "全verify成功後、PMが新planと承認資料hashに結合した正式保存質問を一度だけ送る。2025の既存質問は再送しない。",
+      "docs-only commitやpush拒否・NW同期を公開完了と扱わず、他作者NW変更を保持する。",
+      "full outcomeはfalseを維持し、正式保存・checkpoint/evaluation・production承認・公開を別gateで追跡する。"
+    ]
+  }
+}

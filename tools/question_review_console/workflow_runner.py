@@ -183,6 +183,21 @@ def aggregate_group_workflow(group: Mapping[str, Any]) -> dict[str, Any]:
 
 
 class ArtifactSynchronizer:
+    def preview_formal_corrections(self, plan_path, *, save_receipt=None):
+        """Read-only explicit unit preview; never creates maintenance checkpoints."""
+        from tools.question_review_console.formal_correction_save import read_plan
+        plan = read_plan(self.repo_root, plan_path)
+        cases = {}
+        for unit in plan['units']:
+            question = self.inventory.formal_correction_question(plan_path, str(unit['caseYear']), save_receipt=save_receipt)
+            cases[str(unit['caseYear'])] = {'selectedCount': len(question['convertedDocs']),
+                'qualification': question['qualification'], 'transportContext': question['formalTransportContext'],
+                'workVersions': question['workVersions'], 'issueCodes': question['issueCodes'],
+                'requiredFieldWarnings': question['requiredFieldWarnings'], 'formalSaveReceiptPresent': save_receipt is not None,
+                'machineReady': False, 'evaluationPerformed': False, 'publicationReady': False}
+        return {'planHash': plan['planHash'], 'cases': cases, 'formalDataUpdated': save_receipt is not None,
+            'checkpointRecorded': False, 'evaluationPerformed': False, 'publicationReady': False}
+
     def prepare_scoped(self, context, output_directory, *, candidate_path=None):
         """Explicit recovery generation; normal whole-group sync stays unchanged."""
         from tools.question_review_console.scoped_artifacts import prepare_scoped_artifacts
