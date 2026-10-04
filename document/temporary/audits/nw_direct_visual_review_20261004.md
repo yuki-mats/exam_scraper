@@ -41,3 +41,17 @@ AGENTSの3検査は選択肢正答一致48merged、必須field48merged、実正�
 IPv6プレフィックスは21:30:50に100点、MPLSは21:32:13に98点で独立合格。両問とも正誤4一致、critical/rework/transport失敗0。全identity/stateHash/resultHash、実Sol/session/turn、版5.7のreceipt/ledgerを照合し、現在四fieldと全Sol理由を読んだ。IPv6共有表は宣言済みnested4帰属を保持して実送信1添付へdedupし、12714bytes/SHA-256がlocal原本と一致した。公式問題へ05を適用していない。SolのIPv6公式正答参照は問2と記され、現在の出題は問14であるため、そのlocatorをroot確認済みとしない。正誤は実表とRFC4291の各肢独立導出で確認した。根拠は`direct_manual2_independent_terminal_20261004.json`。
 
 generic評価receiptValidated及びexistingCreditsApprovedはfalseのまま。直接修正5問のうち3問の新候補が独立合格となり、特許・工程図の独立評価と工程保留は未完。全880問の品質確認は未完である。現在の独立合格161問（報告合格162問のうち著作権root懸念1問を除く）を、工程数・公開準備数と混同しない。
+
+### 201302の54問監査と10問の直接修正
+
+2013年度の評価は22:29:18までに54問すべて終端となり、43報告合格・11要再整備・通信失敗0。全54問のsourceと投影の四field、全肢のSol理由を読み、current identity/stateHash/resultHash、実gpt-5.6-sol/session/turn、5.7のworkVersionReceiptと同run/fingerprintのledgerを照合した。途中の問18 inconclusiveは通常再評価結果へ置き換わった旧attemptとして区別している。全宣言画像の実送信bytes/hash/sizeとlocal原本を照合し、実図も直視した。generic receiptValidated/existingCreditsApprovedはfalse。job IDは捕捉できず、GUI終端表示と全予約manifest/結果から確認した。
+
+rootは、報告合格のUML問25にも「違いを上位へまとめることは汎化」という追加誤りを確認した。現候補に対する品質確定は43合格からこの1問を除いた42問。既存161問と合わせ203/880問であり、全880問の完了ではない。
+
+直接修正は第3正規形、XSS、E-R、テスト網羅、LANケーブル、OSPF経路、工程残日数、共有鍵数、WPA2、UMLの10問。テスト網羅は共通述語を各候補へ独立適用するtrue_falseとし、10形式patchと21解説patchを変更した。他の9問は各問自身の21解説patch。工程残日数は公式冊子にも本数割合を期間割合とみなす明示がないため、150日という出題時想定と必要な前提を解説で区別し、公式本文へ条件を足していない。WPA2は2007年NIST SP800-97 §7.3.3のPersonal/Enterprise認証を独立確認した。
+
+source・本文・全選択肢・正答・公開IDは完全不変。変更recordは10 originalQuestionIdsだけ。正常ArtifactSynchronizerの201302 merge/convert/upload dry-run成功（Firestore書込みなし）。必須3検査48merged/48実正答patch880entries成功、全体suite未実行。root直接判断であり、Luna/工程版/model receiptは作っていない。新候補の独立Sol評価は未完。
+
+MIME問16は取得元ISO-2011-JPと公式冊子ISO-2022-JPが違い、本文と全4肢の公式原本を確認した。原文保護のまま24公式補正の通常blind/challenge経路で処理する準備を保存し、05を適用していない。パイプライン問22は01正本が式選択を計算falseとするのに対し、評価promptがquestionType節しか渡さず計算節を切り落としているため、共有正常経路の責務確認を続ける。Solの提案だけを根拠にtrueへ固定しない。
+
+根拠は`independent_201302_terminal_20261004.json`、`independent_201302_manual10_applied_20261004.json`、`independent_201302_manual10_projected_20261004.json`（いずれもoutput/nw/scrape_reports）。

@@ -677,7 +677,7 @@
     "explanationText": [
       "間違い。正しくは、より線は外来ノイズや対間の漏話の影響を抑えるために用いられ、対ごとによりのピッチを変えて干渉を分散させる。選択肢は、ケーブル内のすべての対のピッチを均一にする方が効果的としているため誤りである。",
       "正しい。",
-      "間違い。正しくは、1000BASE-TXは送信用の2対と受信用の2対を分けて使う。選択肢は、1対で上り下りを同時に送り、各対250Mビット／秒で通信するとしているため誤りである。",
+      "間違い。1000BASE-TXは、1対当たり500Mビット／秒の片方向伝送を行い、2対で送信、残る2対で受信して、各方向1Gビット／秒の全二重通信を実現する。各対で250Mビット／秒を双方向同時に伝送する方式ではない。",
       "間違い。正しくは、対線は2本の導線の電位差で信号を伝え、より構造や平衡伝送によって外来ノイズの影響を抑える。選択肢は、外来ノイズの大きさが導線間隔に単純に反比例するとしているため誤りである。"
     ],
     "original_question_id": "a860a6cea244b3d4",
@@ -686,7 +686,14 @@
     "sourceQuestionKey": "nw:201302:a860a6cea244b3d4",
     "reviewQuestionId": "a860a6cea244b3d4",
     "sourceRecordRef": "question_201302_2.json#5",
-    "explanationReferences": [],
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://www.aim-ele.co.jp/tech/metal-tech6/",
+        "title": "エイム電子：1000BASE-Tと1000BASE-TXの違い",
+        "choiceIndex": 2
+      }
+    ],
     "questionLearningPatternId": "differences_relationships",
     "suggestedQuestionDetailsByChoice": [],
     "isLawRelated": false,
@@ -1065,7 +1072,7 @@
   },
   {
     "explanationText": [
-      "正しい。該当する組合せはイである。OSPFは、経路上のリンクコストの合計が小さい経路を選ぶ。\n\n拠点1から拠点3へWAN1を通る経路のコストは、\\[30+100+30+10=170\\]である。WAN2を通る経路では、x側とy側のコストがそれぞれ\\[40+100+x+10=150+x\\]、\\[40+100+y+10=150+y\\]となる。拠点1がWAN1を選ぶには、\\(x>20\\)、\\(y>20\\)が必要である。\n\n拠点2から拠点3へWAN1を通る経路のコストは、\\[50+100+30+10=190\\]である。WAN2を選ばせるには、\\(150+x<190\\)、\\(150+y<190\\)を満たす必要があるため、\\(x<40\\)、\\(y<40\\)となる。\n\nしたがって、必要な範囲は\\(20<x<40\\)、\\(20<y<40\\)であり、選択肢では\\(x=30\\)、\\(y=30\\)のイが該当する。"
+      "正しい。該当する組合せはイである。OSPFは、経路上のリンクコストの合計が小さい経路を選ぶ。\n\n拠点1から拠点3へWAN1を通る最短経路のコストは、\n\\[30+100+30+10=170\\]\nである。拠点2からWAN1を通る最短経路は、\n\\[50+100+30+10=190\\]\nとなる。\n\n両拠点からWAN2を通る経路では、ルータgから先でx側とy側のうちコストが小さい方が選ばれる。そのため、WAN2の最短経路のコストは、両拠点とも\n\\[40+100+\\min(x,y)+10=150+\\min(x,y)\\]\nである。\n\n拠点1がWAN1だけを選び、拠点2がWAN2だけを選ぶには、同コストを避けて\n\\[170<150+\\min(x,y)<190\\]\nを満たす必要がある。これを整理すると、\n\\[20<\\min(x,y)<40\\]\nとなる。選択肢はいずれもxとyが同じ値なので、この範囲を満たすのはx＝30、y＝30のイだけである。"
     ],
     "original_question_id": "c4d9f7d6e52cff22",
     "question_url": "https://www.nw-siken.com/kakomon/25_aki/am2_4.html",
@@ -1073,7 +1080,14 @@
     "sourceQuestionKey": "nw:201302:c4d9f7d6e52cff22",
     "reviewQuestionId": "c4d9f7d6e52cff22",
     "sourceRecordRef": "question_201302_2.json#8",
-    "explanationReferences": [],
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://datatracker.ietf.org/doc/html/rfc2328",
+        "title": "IETF RFC 2328 OSPF Version 2",
+        "choiceIndex": 0
+      }
+    ],
     "questionLearningPatternId": "calculation",
     "suggestedQuestionDetailsByChoice": [],
     "isLawRelated": false,
@@ -2845,7 +2859,7 @@
   },
   {
     "explanationText": [
-      "正しい。共通鍵暗号方式では、通信する2人の組ごとに1本の鍵を共有する。必要な鍵の総数は、人数を\\(n\\)とすると次の組合せで求められる。\\n\\[\\frac{n(n-1)}{2}\\]\\n各人が自分以外の\\(n-1\\)人と組み合わさるため、いったん\\(n(n-1)\\)と数えられるが、同じ2人の組を重複して数えているので2で割る。\\(n=100\\)を代入すると、\\[\\frac{100\\times99}{2}=4,950\\]となる。したがって、必要な共通鍵の総数は4,950個である。"
+      "正しい。利用者の組ごとに異なる鍵を共有するので、鍵の数は100人から2人を選ぶ組合せの数になる。\n\n\\[\\frac{100\\times99}{2}=4,950\\text{個}\\]\n\n100人それぞれが残りの99人と鍵を共有すると100×99になるが、同じ2人の組を二重に数えるため2で割る。したがって、必要な鍵は4,950個である。"
     ],
     "original_question_id": "e799fbf44aa2ecd5",
     "question_url": "https://www.nw-siken.com/kakomon/25_aki/am2_18.html",
@@ -2967,7 +2981,7 @@
     "explanationText": [
       "間違い。正しくは、WPA2はAESを用いるCCMP（Counter-mode with CBC-MAC Protocol）で通信を保護する。選択肢はIPsecで用いるAHとESPの機能をWPA2の特徴としているため誤りである。",
       "正しい。",
-      "間違い。正しくは、WPA2はAESを用いるCCMPで通信を保護する。選択肢はTLS/SSLで用いるSSL Handshake ProtocolをWPA2の認証方式としているため誤りである。",
+      "間違い。WPA2-Personalでは事前共有鍵（PSK）を使い、WPA2-EnterpriseではIEEE 802.1XとEAPを使って認証する。SSL Handshake ProtocolはTLS/SSLの接続確立手順であり、WPA2の認証方式ではない。",
       "間違い。正しくは、WPA2はAESを用いるCCMPで通信を保護する。選択肢はRC4とIVを使う旧来の無線LAN暗号方式WEPの特徴をWPA2のものとしているため誤りである。"
     ],
     "original_question_id": "e2d799f9d7fa3a3a",
@@ -2976,7 +2990,14 @@
     "sourceQuestionKey": "nw:201302:e2d799f9d7fa3a3a",
     "reviewQuestionId": "e2d799f9d7fa3a3a",
     "sourceRecordRef": "question_201302_2.json#23",
-    "explanationReferences": [],
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-97.pdf",
+        "title": "NIST SP 800-97（2007年）§7.3.3 WPA/WPA2の認証モード",
+        "choiceIndex": 2
+      }
+    ],
     "questionLearningPatternId": "differences_relationships",
     "suggestedQuestionDetailsByChoice": [],
     "isLawRelated": false,
