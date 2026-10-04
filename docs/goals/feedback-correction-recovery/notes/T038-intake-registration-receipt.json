@@ -1,0 +1,44 @@
+{
+  "result": "done",
+  "harness": "codex",
+  "summary": "AI3件を重複確認後に匿名化needでSSOTへ新規改善登録。公式PDF問39の画像を直接確認し、現行selected正誤/原問ID/本文との対応を照合。参照文章欠落をfix_requiredとして8カテゴリの根拠と確認範囲をcase/ledgerへ保存。正式patch・Firestore書込みなし。",
+  "changed_files": [
+    "~/Library/Application Support/Repaso/feedback-ops/ledger.sqlite3",
+    "output/user_feedback_response_system/daily/2026-10-04/private-inspection/**",
+    "output/user_feedback_response_system/cases/23c47f347bc30e1cf53a8485bd34f54c946d3212776add153491f0b62c4d2fc5/case_review.json"
+  ],
+  "commands": [
+    {
+      "cmd": "Firestore selected field_paths get + official PDF fetch (session17866)",
+      "status": "pass"
+    },
+    {
+      "cmd": "pdftoppm -f 27 -l 27 -r 130; view_image official-page-27.png",
+      "status": "pass"
+    },
+    {
+      "cmd": "promote_ai_candidate x3 with prewrite SQLite backup",
+      "status": "pass"
+    },
+    {
+      "cmd": "record_decision fix_required + 8-category case and private summary",
+      "status": "pass"
+    }
+  ],
+  "improvements_registered": 3,
+  "report_decisions_recorded": 1,
+  "counts": {
+    "reports": 72,
+    "unjudged": 67,
+    "fixesAwaitingProposal": 4,
+    "improvementsOpen": 10
+  },
+  "formal_patch_modified": false,
+  "firestore_modified": false,
+  "remaining_gates": [
+    "新報告の共通本文影響範囲と具体的差分proposal作成・承認",
+    "AI正式解説の適用版確認",
+    "legacycaseの欠落項目はサーバー未変更",
+    "既存4ケースの正式承認・保存・評価・別公開readback"
+  ]
+}

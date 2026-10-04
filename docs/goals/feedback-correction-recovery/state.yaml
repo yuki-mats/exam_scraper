@@ -59,7 +59,7 @@ visual_board:
     url: http://goalbuddy.localhost:41737/feedback-correction-recovery/
     command: node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs
       --goal docs/goals/feedback-correction-recovery
-active_task: T036
+active_task: T037
 tasks:
   - id: T001
     type: scout
@@ -4456,7 +4456,7 @@ tasks:
   - id: T036
     type: scout
     assignee: Scout
-    status: active
+    status: done
     objective: 実取得した新着報告1件の欠落文脈を一次原問と照合し、公開AI3件の学習ニーズを現行解説・公式標準管理規約へ照合して、匿名化した台帳登録案を返す。
     inputs:
       - output/user_feedback_response_system/daily/2026-10-04/private-inspection/manifest.json
@@ -4473,6 +4473,237 @@ tasks:
       - 最大12 shell commands。この上限内にまとめて読む。足りない場合は事実を保存して停止し次taskを提案。
     expected_output:
       - 真正なgoalbuddy_receipt_v1、AI3件それぞれpromote/duplicate/no_task提案と匿名化need/title/target、report8カテゴリ判断と修正必要field、一次根拠
+    receipt:
+      result: done
+      task_id: T036
+      board_path: /Users/yuki/development/exam_scraper_feedback/docs/goals/feedback-correction-recovery/state.yaml
+      summary: 私的画像4件と現行選択fieldsを読み、新報告の参照文章欠落とAI3件の具体的学習ニーズを確認した。標準rawには空欄入り判決文章がある。公式標準管理規約でAI改善の根拠を確認し、既存7件とは対象・不足説明が異なるため3件の新規登録を提案する。報告の問題文は修正必要。他カテゴリは確認範囲を限定し、未取得fieldsと公式原問画像の未照合を保留とした。書込みなし。
+      evidence:
+        - id: E1
+          ref: output/user_feedback_response_system/daily/2026-10-04/private-inspection/manifest.json
+          fact: 公開AI3件の適格性確認済み記録と本文hash、新報告の主張hash・現行updateTimeを確認
+        - id: E2
+          ref: private-inspection/report.png、report-current.json
+          fact: 改題questionTextとoriginalQuestionBodyTextの両方に、空欄を含む参照判決文章がない
+          claim_hash: 8507c5831f4a6e34db8159ef4d558329dc4bda4b683b17512f353ad994a3f441
+          update_time: '2026-06-08 04:07:33.503263+00:00'
+        - id: E3
+          ref: /Users/yuki/development/exam_scraper_work/output/kanrigyoumu/questions_json/94006/00_source/question_94006_2.json
+          sha256: c7a7cb1957c52b400bbfe4b5617b9499e06509d10b9570936b545165f35fdcbc
+          record_ref: canonical_question_key=kanrigyoumu:2020:q039、source_question_id=kanrigyoumu:kakomonn:questions:57493
+          fact: 令和2年問39の参照文章と4選択肢を含む。正しい組合せは原問肢2
+        - id: E4
+          url: https://www.kanrikyo.or.jp/kanri/shiken_r02/pdf/mondai_021.pdf
+          sha256: 417defdbeb15e09c97707ac9431f5ed82e18f3f6da9a527808f43dcd1bf77df1
+          fact: 公式検索結果で問39と正解肢2を確認。PDF取得成功。画像本文の直接照合は未実施
+        - id: E5
+          url: https://www.mlit.go.jp/common/000045776.pdf
+          record_ref: 6ページ、平成19年7月6日第二小法廷判決の引用
+          fact: 設計者・施工者・工事監理者、安全性、生命身体財産、不法行為という対応を裏付ける。裁判所判決原本そのものではない
+        - id: E6
+          url: https://www.mlit.go.jp/kankocho/content/001216238.pdf
+          record_ref: 平成29年改正版、30条、43条1～3項、46条、47条1項
+          fact: 通知対象・通知方法・共有住戸の議決権行使・議決権による定足数を確認
+        - id: E7
+          url: https://www.mlit.go.jp/kankocho/content/001216238.pdf
+          record_ref: 21条1項・3項ただし書・5項
+          fact: 共用部分管理の負担原則、緊急保存の承認例外、違反時の区分所有者負担を確認
+        - id: E8
+          ref: ledger.sqlite3、mode=ro、improvement_tasks
+          fact: 既存改善7件のtitle・targetを再確認。3候補と同一の対象・不足説明を扱う登録はない
+        - id: E9
+          ref: FirestoreReportStore.question_documents
+          fact: 追加field取得は、projects/undefinedの参照fieldと実Firestore projectの不一致によりdecode失敗。最小projectionによる再取得が必要
+      facts:
+        - kind: report_decision
+          task_id: afe1570a185fd83d5da8e69c0bd7060f80f5b2b9cff45b6d154d60b116942810
+          question_id: condominiummanager-C-11410
+          anonymous_claim: 空欄に対応する組合せを判断するための参照文章が表示されない
+          categories:
+            question_content:
+              decision: fix
+              scope: 参照文章の欠落
+              reason: E2の現行2fieldsには参照文章がなく、E3の原問候補には存在する
+              required_fields:
+                - questionText
+                - originalQuestionBodyText
+              gate: 公式原問画像の直接照合と現行metadataのprojection確認後に修正案を確定
+            correct_answer:
+              decision: hold
+              scope: 現行correctChoiceTextの正誤
+              reason: E3・E4は原問肢2の正解を支持するが、現行correctChoiceTextを取得できていない
+            explanation:
+              decision: no_change
+              scope: 欠落文章報告に関連する解説の中心的結論
+              reason: 現行解説の工事監理者・基本的安全性・不法行為責任の説明はE3・E5と整合する。解説全体の法的監査を済ませた判断ではない
+            outdated_law_or_information:
+              decision: hold
+              scope: 判例の現在の位置付け
+              reason: 裁判所原本・後続判例による変更の有無を確認していない。欠落を法改正問題と扱う根拠はない
+            image:
+              decision: hold
+              scope: 画像に参照文章が存在する可能性
+              reason: 現行画像関連fieldsと実表示を取得していない。原問候補rawの画像配列は空だが現行画像の証明にはならない
+            classification:
+              decision: no_change
+              scope: 今回の参照文章欠落に対する変更要否
+              reason: 分類変更を必要とする主張・証拠はない。現行分類の全面正常を確認した判断ではない
+            answer_format_or_display:
+              decision: hold
+              scope: 保存field欠落と表示処理の関係
+              reason: 保存済みquestionTextの欠落は確認したが、questionBodyText・choiceText・questionType・実表示は未確認
+            other:
+              decision: no_change
+              scope: 今回の報告内容
+              reason: 匿名化した主張はquestion_contentに対応する。別のother修正を支持する根拠はない
+          binding: 標準rawは2020問39と選択肢内容が一致する原問候補。改題published snapshotと同一raw bindingであるとのmetadata確認は未了
+          resume_conditions:
+            - 公式原問PDFの問39画像を直接確認
+            - 最小projectionで現行correctChoiceText・choiceNumber・questionType・year・listGroupId等を取得
+            - 原問文と改題文を別snapshotとして修正内容を構成
+        - kind: ai_proposal
+          candidate_id: d0d14af44ff88396d8df8abda1aa381a3462c732aace1174b9cadabc57a8f47f
+          text_hash: c9ef50216c9b1e4d6b7a85f4f7339f69f1ded1f1e29b9c485530eabd030b79ce
+          proposal: promote
+          title: 総会の定足数を議決権と人数に分けて説明する
+          need: 96議決権の半数は48議決権であり、48人という意味ではない。複数住戸所有と共有住戸の扱いを具体例で説明し、成立要件と出席人数を区別したい。現行解説は半数という基準のみを示している。
+          target: condominiummanager-C-12959、問36の定足数に関する解説補足
+          evidence:
+            - E1
+            - E6
+          duplicate_review: 普通決議・特別多数決議比較とは、定足数と議決権を人数に換算する学習目的・対象設問が異なるため、新規案
+        - kind: ai_proposal
+          candidate_id: 2168e9f25ff818654235f0bff322a8dd9dcffe711aca78969707a07033c4f264
+          text_hash: 7bd1c4a5013761006701b282fa364e15e0c48f40a3e7ef346ae34a656a35f8ca
+          proposal: promote
+          title: 総会招集通知の宛先数と紙の必要部数を区別する
+          need: 住戸数、区分所有者数、共有住戸の通知先、必要な紙部数を分けて理解したい。現行解説は組合員への通知原則だけで数え方と掲示代替を説明しない。共有代表への通知規定を試験時点の一次資料で確認した上で、93部が必須とはいえない理由を示す。
+          target: condominiummanager-C-12958、問36の招集通知に関する解説補足
+          evidence:
+            - E1
+            - E6
+          duplicate_review: 既存の議案要領通知の対象比較とは、通知先の数え方・通知方法が異なるため、新規案
+          unverified: 共有代表への通知規定の原本・試験時点照合は未完。通知宛先数の確定値は提案に含めない
+        - kind: ai_proposal
+          candidate_id: 717f23361d8108dad464e183d8c435dc00d329458a092e0dfc720163c35abb66
+          text_hash: b7ff002695f2f2d98d6e68b0b9315032f9bc9c42e19a55cc6e5a3c840adebf62
+          proposal: promote
+          title: 共用部分の緊急保存費用を誰が負担するか明示する
+          need: 現行解説は行為者に負担が帰さないとだけ説明する。屋上の雨漏りによる緊急保存では管理組合が負担するという原則を明示し、無承認の規約違反による行為者負担と区別したい。
+          target: condominiummanager-C-12896、問36の緊急保存行為に関する解説補足
+          evidence:
+            - E1
+            - E7
+          duplicate_review: 既存7件に同じ費用負担の学習目的を扱う登録はないため、新規案
+          scope: 具体的な請求手続・支出科目・費用額の無条件な償還まで判断する提案ではない
+      contradictions:
+        - ref: E3
+          fact: 標準rawの判決文章末尾に助詞欠落候補がある。rawをそのまま正式修正文へ採用できない
+        - ref: E9
+          fact: full-document読取が参照fieldのproject不一致で失敗し、現行正誤・分類・画像の追加確認は未了
+        - ref: T034
+          fact: caseのlistGroupId欠落は未解消。推測補完していない
+      ambiguity_requiring_judge:
+        - 問題文の修正必要性は確認できたが、正式patch文面・原問bindingは公式画像と現行projection照合を要する
+        - 標準管理規約の根拠は平成29年版。AI対象の試験年度metadata未取得のため、正式解説作成時に適用版を確認する
+        - AI2共有代表への通知と具体的宛先数は、一次原本の試験時点確認後に確定する
+      commands:
+        - PyYAMLでT036 fullcard抽出
+        - private manifest読取
+        - raw候補の限定rg検索
+        - selected-currentJSON4件読取
+        - 別checkoutのraw候補検索
+        - 公式原問PDFをメモリ取得・hash算出・pypdf文字抽出試行
+        - kanrigyoumu source探索
+        - 現行追加fields読取試行
+        - raw JSON構造と候補探索
+        - 公式原問PDFメモリ描画試行（fitz未導入）
+        - 標準rawの判決語を検索
+        - 標準raw該当箇所・hash・既存7改善を読取
+      note_needed: false
+  - id: T038
+    type: pm
+    assignee: PM
+    status: done
+    objective: 真正T036結果に従いAI3改善をSSOTへ登録し、新報告の公式画像と現行selected metadataを照合して全カテゴリのcase判断とledger追跡を保存する。
+    allowed_files:
+      - docs/goals/feedback-correction-recovery/state.yaml
+      - docs/goals/feedback-correction-recovery/notes/**
+      - output/user_feedback_response_system/daily/2026-10-04/private-inspection/**
+      - output/user_feedback_response_system/cases/23c47f347bc30e1cf53a8485bd34f54c946d3212776add153491f0b62c4d2fc5/**
+      - ~/Library/Application Support/Repaso/feedback-ops/ledger.sqlite3
+    constraints:
+      - Firestore/Storage/正式patch/WORK/00_sourceは書込み禁止。生ユーザー本文・識別情報をGit/通常ログへ出さない。
+      - AI3件は意味を読んだ匿名化needを登録。正式解説/公開は別。既存Taskとの重複を最終再確認する。
+      - report原問PDF画像、現行correctChoiceText等は最小projectionで読む。公式本文欠落の具体的differenceを確認。raw助詞誤字を盲写しない。
+      - 既存case欠落listGroupIdは推測server補完しない。8カテゴリreason/evidenceと確認範囲・holdを保存。
+      - 本task終了後は既にqueued T037をactivateしnativeWorkerへ直ちにdispatchする。
+    receipt:
+      result: done
+      harness: codex
+      summary: AI3件を重複確認後に匿名化needでSSOTへ新規改善登録。公式PDF問39の画像を直接確認し、現行selected正誤/原問ID/本文との対応を照合。参照文章欠落をfix_requiredとして8カテゴリの根拠と確認範囲をcase/ledgerへ保存。正式patch・Firestore書込みなし。
+      changed_files:
+        - ~/Library/Application Support/Repaso/feedback-ops/ledger.sqlite3
+        - output/user_feedback_response_system/daily/2026-10-04/private-inspection/**
+        - output/user_feedback_response_system/cases/23c47f347bc30e1cf53a8485bd34f54c946d3212776add153491f0b62c4d2fc5/case_review.json
+      commands:
+        - cmd: Firestore selected field_paths get + official PDF fetch (session17866)
+          status: pass
+        - cmd: pdftoppm -f 27 -l 27 -r 130; view_image official-page-27.png
+          status: pass
+        - cmd: promote_ai_candidate x3 with prewrite SQLite backup
+          status: pass
+        - cmd: record_decision fix_required + 8-category case and private summary
+          status: pass
+      improvements_registered: 3
+      report_decisions_recorded: 1
+      counts:
+        reports: 72
+        unjudged: 67
+        fixesAwaitingProposal: 4
+        improvementsOpen: 10
+      formal_patch_modified: false
+      firestore_modified: false
+      remaining_gates:
+        - 新報告の共通本文影響範囲と具体的差分proposal作成・承認
+        - AI正式解説の適用版確認
+        - legacycaseの欠落項目はサーバー未変更
+        - 既存4ケースの正式承認・保存・評価・別公開readback
+  - id: T037
+    type: worker
+    assignee: Worker
+    status: active
+    objective: T033で確定した枝条表記の2参照を修復し、一次XMLと真正native判断に結合した新候補・監査metadataを作り、現行依存で対象機械検証を完了する。
+    allowed_files:
+      - tools/question_review_console/primary_law_evidence.py
+      - tests/test_question_review_primary_law_evidence.py
+      - output/user_feedback_response_system/staging/recovery-three-cases/prepare_candidates.py
+      - output/user_feedback_response_system/staging/recovery-three-cases/verify_candidates.py
+      - output/user_feedback_response_system/staging/recovery-three-cases/tests/test_candidate_contracts.py
+      - output/user_feedback_response_system/staging/recovery-three-cases/runs/T037-*/**
+    inputs:
+      - notes/T033-challenge-receipt.json
+      - notes/T033-challenge-provenance.json
+      - runs/T031-79f42ebb3ea7/review-input.json
+      - runs/T031-79f42ebb3ea7/input-manifest.json
+    constraints:
+      - 他作業者と共有中。既存差分を戻さない。PMのみboard/commit/push、Workerはallowed_filesのみ。
+      - 旧T027/T031/private132/WORK/00_source/正式patch/Firestore/Storageは不変。新T037 runを生成。private dirs700/files600。生ユーザー本文/識別情報をGit/通常ログへ出さない。
+      - 2024肢2の2refs 115の3条→115条の3、および対応delta/sourceProposal/sidecar/binding/hashを再生成。法的内容、その他限定差分、原問の保持は維持。
+      - parserが誤記を3条として部分一致する不具合を正常な条・枝番文法で修復する。正しい115条の3・第百十五条の三・枝番号複数、通常条文は維持。曖昧な不正表記は正しい法条に推測補正せず空/拒否。
+      - T033の実session/output/receipt/hashを実確認し、内容審査を受けたscopeだけmetadataを正当に結合。未審査の2refsは正確な修正条件と一次XML再照合で支える。架空第三者pass、旧auditRun流用、machine/evaluation/publication成功の付与は禁止。必要な新審査が残る場合はholdを明示。
+      - 現在のコード入力hashと日時/command/logを記録し、旧機械成功を再利用しない。全体184tests/E2Eを各commitのため再実行せず、parser関連と候補契約・必須gateだけ。
+      - read-liveは実selected snapshotとupdateTimeを再取得、元各beforeと差分・IDを確認。2020はquestionText一文字だけ。full converterは診断専用、原問上書きを許可しない。
+      - verification最大3attempts（初回+repair2）。範囲不足や2repair後のfailはactual evidence付き停止。
+    verify:
+      - PY -m unittest tests.test_question_review_primary_law_evidence
+      - PY -m unittest discover -s output/user_feedback_response_system/staging/recovery-three-cases/tests -p test_candidate_contracts.py
+      - PY output/user_feedback_response_system/staging/recovery-three-cases/prepare_candidates.py --all --read-live
+      - PY output/user_feedback_response_system/staging/recovery-three-cases/verify_candidates.py --all
+      - 対象merged choice alignment / required-fields / correct-choice-patch-coverage を既存scoped入口で実行、2018/2024両形態strict-law実行。失敗は実理由を保持しpublication成功にしない。
+      - git diff --check
+    expected_output:
+      - 真正goalbuddy_receipt_v1、許可変更一覧、試験結果、immutable新run、修正とnative/input-bindingの根拠、最新approval提案、昇格/strictの実状態と残る正式保存・evaluation・公開制約
     receipt: null
   - id: T004
     type: pm
