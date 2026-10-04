@@ -724,7 +724,10 @@
   },
   {
     "explanationText": [
-      "正しい。ディスパッチは、実行中のタスクから別の実行可能なタスクへ切り替え、CPUの実行権を渡す処理である。各タスクの実行順序を決めるのはスケジューリング、タスクの内部状態や実行に必要な情報を管理するのはタスク制御ブロック（TCB）、複数のタスクを同時に実行しているように見せる仕組みはマルチタスク処理である。"
+      "正しい。ディスパッチは、実行中のタスクから別の実行可能なタスクへ切り替え、CPUの実行権を渡す処理である。",
+      "間違い。正しくは、各タスクの実行順序を決めるのはスケジューリングである。選択肢は各タスクの実行順序を決定することをディスパッチとしているため誤りである。",
+      "間違い。正しくは、タスクの内部状態や実行に必要な情報はタスクコンテキストであり、その情報はタスク制御ブロック（TCB）などに保持される。選択肢はタスクの内部状態などの情報そのものをディスパッチの説明としているため誤りである。",
+      "間違い。正しくは、複数のタスクを同時に実行しているように見せるのはマルチタスク処理である。選択肢は複数のタスクが同時に実行されているように見える状態をディスパッチの説明としているため誤りである。"
     ],
     "original_question_id": "c845c535ad6902dd",
     "question_url": "https://www.nw-siken.com/kakomon/23_aki/am1_7.html",
@@ -2887,7 +2890,7 @@
   },
   {
     "explanationText": [
-      "正しい。業務モデルは、企業全体の業務とそこで扱う情報の関係を整理し、情報システムのあるべき姿を明確にするために定義する。",
+      "正しい。業務モデルは、業務を機能や情報の流れとして整理し、後続のシステム化構想・計画で全体を整合させるための共通の設計図になる。",
       "間違い。システム化の範囲や開発規模を基に、必要な期間、開発工数、開発費用を見積もるのは、システム化計画やプロジェクト計画の作業である。選択肢はこれを業務モデル定義の目的としているため誤りである。",
       "間違い。ハードウェア、ソフトウェア、ネットワークなどの構成要素を洗い出すのは、システム方式やシステム構成を検討する作業である。選択肢はこれを業務モデル定義の目的としているため誤りである。",
       "間違い。ユーザーマニュアルや運用マニュアルの作成に向けて業務手順を確認するのは、運用設計などの後続作業である。選択肢はこれを業務モデル定義の目的としているため誤りである。"
@@ -2898,7 +2901,18 @@
     "sourceQuestionKey": "nw:201102:46cb96edd88a633d",
     "reviewQuestionId": "46cb96edd88a633d",
     "sourceRecordRef": "question_201102_1.json#23",
-    "explanationReferences": [],
+    "explanationReferences": [
+      {
+        "referenceDate": "2015-01-25",
+        "sourceUrl": "https://www.ipa.go.jp/shiken/about/ug65p90000001fci-att/tokurei_Mondai_20150125_FE.pdf",
+        "title": "平成25年度秋期 基本情報技術者試験 午前問題"
+      },
+      {
+        "referenceDate": "2015-01-25",
+        "sourceUrl": "https://www.ipa.go.jp/shiken/mondai-kaiotu/ug65p900000027za-att/2013h25a_fe_am_ans.pdf",
+        "title": "平成25年度秋期 基本情報技術者試験 解答例"
+      }
+    ],
     "questionLearningPatternId": "differences_relationships",
     "suggestedQuestionDetailsByChoice": [],
     "isLawRelated": false,
@@ -2918,7 +2932,7 @@
         },
         "differenceFacts": [],
         "evidenceSummary": {
-          "differenceSummary": "出題時点と現行法の差分はない。",
+          "differenceSummary": "法令改正による正誤差分はない。",
           "displayRefIds": [],
           "explanationText": "業務モデル定義の目的に関する知識問題であり、法令根拠を使用しない。",
           "promptContext": "法令非該当問題。",
@@ -2942,7 +2956,7 @@
         },
         "differenceFacts": [],
         "evidenceSummary": {
-          "differenceSummary": "出題時点と現行法の差分はない。",
+          "differenceSummary": "法令改正による正誤差分はない。",
           "displayRefIds": [],
           "explanationText": "システム化に要する期間、工数、費用の見積りに関する知識問題であり、法令根拠を使用しない。",
           "promptContext": "法令非該当問題。",
@@ -2966,7 +2980,7 @@
         },
         "differenceFacts": [],
         "evidenceSummary": {
-          "differenceSummary": "出題時点と現行法の差分はない。",
+          "differenceSummary": "法令改正による正誤差分はない。",
           "displayRefIds": [],
           "explanationText": "システム構成要素の具体化に関する知識問題であり、法令根拠を使用しない。",
           "promptContext": "法令非該当問題。",
@@ -2990,7 +3004,7 @@
         },
         "differenceFacts": [],
         "evidenceSummary": {
-          "differenceSummary": "出題時点と現行法の差分はない。",
+          "differenceSummary": "法令改正による正誤差分はない。",
           "displayRefIds": [],
           "explanationText": "運用設計やマニュアル作成に関する知識問題であり、法令根拠を使用しない。",
           "promptContext": "法令非該当問題。",

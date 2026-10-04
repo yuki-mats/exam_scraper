@@ -122,8 +122,8 @@
   {
     "explanationText": [
       "間違い。正しくは、技術への期待が高まり、過大評価から失望、回復、安定へ移る過程を示すハイプ・サイクルの説明である。選択肢はこの期待の変化を技術のSカーブとしているため誤りである。",
-      "正しい。技術のSカーブは、初期には進歩が緩やかで、発展期に急速に向上し、成熟すると進歩が鈍化する過程を表す。",
-      "間違い。正しくは、生産量の累積に伴って生産性が向上する傾向を示す経験曲線又は学習曲線の説明である。選択肢は生産量と生産性の関係を技術のSカーブとしているため誤りである。",
+      "正しい。技術のSカーブは、縦軸に技術性能、横軸に時間や累積的な開発努力をとると、初期は性能向上が小さく、知識や技術が蓄積すると急速に伸び、成熟期には追加投入に対する向上が小さくなる関係を表す。",
+      "間違い。正しくは、累積生産量が増えるほど作業の習熟などによって単位当たりの工数や費用が減る関係を示す経験曲線又は学習曲線の説明である。選択肢は累積生産量と生産性の関係を技術のSカーブとしているため誤りである。",
       "間違い。正しくは、初期故障、偶発故障、摩耗故障の各期間における故障率の変化を示すバスタブ曲線の説明である。選択肢は故障率の変化を技術のSカーブとしているため誤りである。"
     ],
     "original_question_id": "abd596c78f7a25a3",
@@ -132,7 +132,32 @@
     "sourceQuestionKey": "nw:201102:abd596c78f7a25a3",
     "reviewQuestionId": "abd596c78f7a25a3",
     "sourceRecordRef": "question_201102_2.json#1",
-    "explanationReferences": [],
+    "explanationReferences": [
+      {
+        "choiceIndex": 0,
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://www.gartner.com/en/research/methodologies/gartner-hype-cycle",
+        "title": "Gartner Hype Cycle Research Methodology"
+      },
+      {
+        "choiceIndex": 1,
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://ntrs.nasa.gov/api/citations/20180003365/downloads/20180003365.pdf",
+        "title": "Notes on the S-Curve"
+      },
+      {
+        "choiceIndex": 2,
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://www.gao.gov/assets/710/706933.pdf",
+        "title": "Cost Estimating and Assessment Guide"
+      },
+      {
+        "choiceIndex": 3,
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://www.itl.nist.gov/div898/handbook/apr/section1/apr124.htm",
+        "title": "NIST/SEMATECH e-Handbook of Statistical Methods: Bathtub curve"
+      }
+    ],
     "questionLearningPatternId": "differences_relationships",
     "suggestedQuestionDetailsByChoice": [],
     "isLawRelated": false,
@@ -163,7 +188,7 @@
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "技術の期待変化ではなく、技術進歩の過程を問う問題である。"
+          "技術の期待変化ではなく、期待の高まり、過大評価、失望、回復、安定というハイプ・サイクルを表す。"
         ],
         "reconciliationStatus": "consistent",
         "reviewState": "secondary_verified"
@@ -187,7 +212,7 @@
           "correctChoiceText": "正しい"
         },
         "notes": [
-          "技術の進歩が緩やかな段階、急速な発展段階、成熟して鈍化する段階を表している。"
+          "技術性能は初期に緩やかに進歩し、知識や技術の蓄積によって急速に伸び、成熟すると追加投入に対する向上が小さくなる。"
         ],
         "reconciliationStatus": "consistent",
         "reviewState": "secondary_verified"
@@ -211,7 +236,7 @@
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "累積生産量と生産性の関係は経験曲線又は学習曲線の説明である。"
+          "累積生産量と単位当たり工数や費用の関係は経験曲線又は学習曲線の説明である。"
         ],
         "reconciliationStatus": "consistent",
         "reviewState": "secondary_verified"
@@ -235,7 +260,7 @@
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "故障率の初期上昇、偶発故障、摩耗故障による再上昇はバスタブ曲線の説明である。"
+          "故障率の初期故障、偶発故障、摩耗故障による変化はバスタブ曲線の説明である。"
         ],
         "reconciliationStatus": "consistent",
         "reviewState": "secondary_verified"
@@ -691,7 +716,7 @@
     "explanationText": [
       "間違い。正しくは、対ごとによりのピッチを変えて、対相互の電磁的な干渉を抑える。選択肢は、ケーブル内のすべての対のピッチを均一にすると効果が高いとしているため誤りである。",
       "正しい。",
-      "間違い。正しくは、1000BASE-TXは送信用に2対、受信用に2対を使うため、1対で上り下りを同時に送る方式ではない。選択肢は、1対で250Mビット／秒の双方向通信を行うとしているため誤りである。",
+      "間違い。正しくは、1000BASE-TXはカテゴリ6の4対を送信用2対と受信用2対に分け、各対500Mビット／秒で伝送して、合計1Gビット／秒の全二重通信を実現する。選択肢は、1対で250Mビット／秒の上り下り同時伝送を行うとしているため誤りである。これは1000BASE-Tの方式である。",
       "間違い。正しくは、対線は2本の導線の電位差で信号を伝え、より線によるノイズの打ち消しなどで外来ノイズの影響を抑える。選択肢は、外来ノイズの大きさが導線間隔に単純に反比例するとしているため誤りである。"
     ],
     "original_question_id": "972e4c3795f91fb6",
@@ -770,7 +795,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令改正による差分なし。",
           "displayRefIds": [],
-          "explanationText": "1000BASE-TXは送信2対、受信2対を用い、1対で上り下りを同時に送る方式ではない。",
+          "explanationText": "1000BASE-TXはカテゴリ6の4対を送信用2対と受信用2対に分け、各対500Mビット／秒で伝送する。1対で250Mビット／秒を上り下り同時に伝送するのは1000BASE-Tの方式である。",
           "promptContext": "1000BASE-TXの伝送方式。",
           "refs": [],
           "verdict": "not_law_related"
@@ -812,10 +837,10 @@
   },
   {
     "explanationText": [
-      "間違い。AS-External-LSAはAS境界ルータが作成し、ASの外部だけでなく、原則としてAS全体へ伝播する（スタブエリアを除く）。選択肢はASの外部だけに伝播するとしているため誤りである。",
-      "間違い。Network-LSAはエリア内の全ルータではなく、多重アクセスネットワークのDR（指定ルータ）が作成し、エリア内へ伝播する。選択肢はエリア内の全ルータが作成するとしているため誤りである。",
-      "正しい。Router-LSAは各ルータが自らのリンク状態を記述して作成し、同一エリア内へ伝播する。",
-      "間違い。Summary-LSAはAS境界ルータではなくエリア境界ルータが作成し、接続する他エリアへ伝播する。選択肢はAS境界ルータが作成し、エリア外部だけに伝播するとしているため誤りである。"
+      "間違い。AS-External-LSAはAS外部へ伝播するLSAではない。AS境界ルータがAS外部の経路情報を記述して生成し、スタブエリアを除くOSPF AS内部全体へ伝播する。選択肢は作成主体をエリア境界ルータとし、AS外部だけに伝播するとしているため誤りである。",
+      "間違い。Network-LSAはエリア内の全ルータではなく、トランジットネットワークのDR（指定ルータ）が作成し、そのエリア内へ伝播する。",
+      "正しい。Router-LSAは各ルータが所属する各エリアについて自らのリンク状態を記述して作成し、そのエリア内だけへ伝播する。",
+      "間違い。Summary-LSAはAS境界ルータではなくエリア境界ルータが作成し、宛先情報を接続する他エリアへ広告する。選択肢はAS境界ルータが作成し、エリア外部だけに伝播するとしているため誤りである。"
     ],
     "original_question_id": "82488a78922fd5b9",
     "question_url": "https://www.nw-siken.com/kakomon/23_aki/am2_2.html",
@@ -833,7 +858,7 @@
     "questionLearningPatternId": "differences_relationships",
     "suggestedQuestionDetailsByChoice": [],
     "isLawRelated": false,
-    "lawContextForExplanation": "OSPFv2のLSAに関する通信プロトコル仕様の問題で、法令条文を根拠にしない。",
+    "lawContextForExplanation": "OSPFv2のLSAに関する通信プロトコル仕様の問題であり、法令条文を根拠にしない。",
     "lawReferences": [
       [],
       [],
@@ -879,7 +904,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令差分なし。",
           "displayRefIds": [],
-          "explanationText": "Network-LSAの作成主体はDRであり、OSPFv2仕様で判定する。",
+          "explanationText": "Network-LSAの作成主体はDRであり、フラッディング範囲は当該エリア内である。",
           "promptContext": "OSPFv2のLSAに関する技術問題。",
           "refs": [],
           "verdict": "not_law_related"
@@ -905,7 +930,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令差分なし。",
           "displayRefIds": [],
-          "explanationText": "Router-LSAの作成主体と同一エリア内への伝播はOSPFv2仕様で判定する。",
+          "explanationText": "Router-LSAの作成主体と同一エリア内へのフラッディングはOSPFv2仕様で判定する。",
           "promptContext": "OSPFv2のLSAに関する技術問題。",
           "refs": [],
           "verdict": "not_law_related"
@@ -931,7 +956,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令差分なし。",
           "displayRefIds": [],
-          "explanationText": "Summary-LSAの作成主体と他エリアへの伝播はOSPFv2仕様で判定する。",
+          "explanationText": "Summary-LSAの作成主体と他エリアへの広告範囲はOSPFv2仕様で判定する。",
           "promptContext": "OSPFv2のLSAに関する技術問題。",
           "refs": [],
           "verdict": "not_law_related"
@@ -1069,10 +1094,10 @@
   },
   {
     "explanationText": [
-      "間違い。正しくは、Bluetoothは2.4GHz帯、GPSは1.5GHz帯を利用するため、割り当てられた周波数帯は重複しない。選択肢は両者の周波数帯が重複するとしているため誤りである。",
-      "正しい。BluetoothとIEEE 802.11無線LANは、いずれも2.4GHz帯を利用するため、割り当てられた周波数帯が重複する。",
-      "間違い。正しくは、GPSは1.5GHz帯、第3世代携帯電話は主に2GHz帯を利用するため、割り当てられた周波数帯は重複しない。選択肢は両者の周波数帯が重複するとしているため誤りである。",
-      "間違い。正しくは、IEEE 802.11無線LANは2.4GHz帯、第3世代携帯電話は主に2GHz帯を利用するため、割り当てられた周波数帯は重複しない。選択肢は両者の周波数帯が重複するとしているため誤りである。"
+      "間違い。正しくは、Bluetoothは2.4GHz帯（2400～2483.5MHz）、GPSの主要信号はL1が1575.42MHz、L2が1227.60MHz、L5が1176.45MHzを使用するため、周波数帯は重複しない。選択肢はBluetoothとGPSの周波数帯が重複するとしているため誤りである。",
+      "正しい。BluetoothとIEEE 802.11無線LANには、いずれも2.4GHz帯（2400～2483.5MHz）を使用する方式があるため、割り当てられた周波数帯が重複する。",
+      "間違い。正しくは、GPSの主要信号は1176.45～1575.42MHz、日本の第3世代携帯電話は800MHz帯、1.7GHz帯、2GHz帯を使用するため、周波数帯は重複しない。選択肢はGPSと第3世代携帯電話の周波数帯が重複するとしているため誤りである。",
+      "間違い。正しくは、IEEE 802.11無線LANは2.4GHz帯及び5GHz帯、日本の第3世代携帯電話は800MHz帯、1.7GHz帯、2GHz帯を使用するため、周波数帯は重複しない。選択肢はIEEE 802.11無線LANと第3世代携帯電話の周波数帯が重複するとしているため誤りである。"
     ],
     "original_question_id": "0854bf85b9af5bcf",
     "question_url": "https://www.nw-siken.com/kakomon/23_aki/am2_4.html",
@@ -1080,11 +1105,60 @@
     "sourceQuestionKey": "nw:201102:0854bf85b9af5bcf",
     "reviewQuestionId": "0854bf85b9af5bcf",
     "sourceRecordRef": "question_201102_2.json#8",
-    "explanationReferences": [],
+    "explanationReferences": [
+      {
+        "choiceIndex": 0,
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/Core-54/out/en/br-edr-controller/radio-specification.html",
+        "title": "Bluetooth Core Specification — Radio Specification"
+      },
+      {
+        "choiceIndex": 0,
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://www.gps.gov/systems/gps/modernization/2006-fact-sheet.pdf",
+        "title": "GPS Modernization Fact Sheet — Description of New Civil Signals"
+      },
+      {
+        "choiceIndex": 1,
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/Core-54/out/en/br-edr-controller/radio-specification.html",
+        "title": "Bluetooth Core Specification — Radio Specification"
+      },
+      {
+        "choiceIndex": 1,
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://www.ieee802.org/11/main.html",
+        "title": "IEEE 802.11 Main General Information"
+      },
+      {
+        "choiceIndex": 2,
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://www.gps.gov/systems/gps/modernization/2006-fact-sheet.pdf",
+        "title": "GPS Modernization Fact Sheet — Description of New Civil Signals"
+      },
+      {
+        "choiceIndex": 2,
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://dcm-dpweb51.tz.nttdocomo.co.jp/corporate/technology/rd/tech/terminals/rf_circuit_technology/02/",
+        "title": "無線周波数を取り巻く環境"
+      },
+      {
+        "choiceIndex": 3,
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://www.ieee802.org/11/main.html",
+        "title": "IEEE 802.11 Main General Information"
+      },
+      {
+        "choiceIndex": 3,
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://dcm-dpweb51.tz.nttdocomo.co.jp/corporate/technology/rd/tech/terminals/rf_circuit_technology/02/",
+        "title": "無線周波数を取り巻く環境"
+      }
+    ],
     "questionLearningPatternId": "differences_relationships",
     "suggestedQuestionDetailsByChoice": [],
     "isLawRelated": false,
-    "lawContextForExplanation": "無線通信方式の周波数帯を比較する技術問題であり、法令条文を根拠にしない。",
+    "lawContextForExplanation": "無線通信方式が使用する周波数帯を比較する技術問題であり、法令条文を根拠にしない。",
     "lawReferences": [
       [],
       [],
@@ -1100,9 +1174,9 @@
         },
         "differenceFacts": [],
         "evidenceSummary": {
-          "differenceSummary": "法令改正差分ではなく、無線通信方式の周波数帯の技術知識で判定する。",
+          "differenceSummary": "法令改正差分ではなく、BluetoothとGPSの使用周波数帯の比較で判定する。",
           "displayRefIds": [],
-          "explanationText": "Bluetoothは2.4GHz帯、GPSは1.5GHz帯を利用するため、周波数帯は重複しない。",
+          "explanationText": "Bluetoothは2400～2483.5MHz、GPSの主要信号は1176.45MHz、1227.60MHz、1575.42MHzを使用するため、周波数帯は重複しない。",
           "promptContext": "BluetoothとGPSの周波数帯が重複するかを判定する。",
           "refs": [],
           "verdict": "not_law_related"
@@ -1124,9 +1198,9 @@
         },
         "differenceFacts": [],
         "evidenceSummary": {
-          "differenceSummary": "法令改正差分ではなく、無線通信方式の周波数帯の技術知識で判定する。",
+          "differenceSummary": "法令改正差分ではなく、BluetoothとIEEE 802.11無線LANの使用周波数帯の比較で判定する。",
           "displayRefIds": [],
-          "explanationText": "BluetoothとIEEE 802.11無線LANはいずれも2.4GHz帯を利用するため、周波数帯は重複する。",
+          "explanationText": "BluetoothとIEEE 802.11無線LANには、いずれも2400～2483.5MHz帯を使用する方式があるため、周波数帯が重複する。",
           "promptContext": "BluetoothとIEEE 802.11無線LANの周波数帯が重複するかを判定する。",
           "refs": [],
           "verdict": "not_law_related"
@@ -1148,9 +1222,9 @@
         },
         "differenceFacts": [],
         "evidenceSummary": {
-          "differenceSummary": "法令改正差分ではなく、無線通信方式の周波数帯の技術知識で判定する。",
+          "differenceSummary": "法令改正差分ではなく、GPSと日本の第3世代携帯電話の使用周波数帯の比較で判定する。",
           "displayRefIds": [],
-          "explanationText": "GPSは1.5GHz帯、第3世代携帯電話は主に2GHz帯を利用するため、周波数帯は重複しない。",
+          "explanationText": "GPSの主要信号は1176.45～1575.42MHz、日本の第3世代携帯電話は800MHz帯、1.7GHz帯、2GHz帯を使用するため、周波数帯は重複しない。",
           "promptContext": "GPSと第3世代携帯電話の周波数帯が重複するかを判定する。",
           "refs": [],
           "verdict": "not_law_related"
@@ -1172,9 +1246,9 @@
         },
         "differenceFacts": [],
         "evidenceSummary": {
-          "differenceSummary": "法令改正差分ではなく、無線通信方式の周波数帯の技術知識で判定する。",
+          "differenceSummary": "法令改正差分ではなく、IEEE 802.11無線LANと日本の第3世代携帯電話の使用周波数帯の比較で判定する。",
           "displayRefIds": [],
-          "explanationText": "IEEE 802.11無線LANは2.4GHz帯、第3世代携帯電話は主に2GHz帯を利用するため、周波数帯は重複しない。",
+          "explanationText": "IEEE 802.11無線LANは2.4GHz帯及び5GHz帯、日本の第3世代携帯電話は800MHz帯、1.7GHz帯、2GHz帯を使用するため、周波数帯は重複しない。",
           "promptContext": "IEEE 802.11無線LANと第3世代携帯電話の周波数帯が重複するかを判定する。",
           "refs": [],
           "verdict": "not_law_related"
