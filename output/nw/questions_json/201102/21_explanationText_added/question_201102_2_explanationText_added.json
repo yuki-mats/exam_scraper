@@ -1096,8 +1096,8 @@
     "explanationText": [
       "間違い。正しくは、Bluetoothは2.4GHz帯（2400～2483.5MHz）、GPSの主要信号はL1が1575.42MHz、L2が1227.60MHz、L5が1176.45MHzを使用するため、周波数帯は重複しない。選択肢はBluetoothとGPSの周波数帯が重複するとしているため誤りである。",
       "正しい。BluetoothとIEEE 802.11無線LANには、いずれも2.4GHz帯（2400～2483.5MHz）を使用する方式があるため、割り当てられた周波数帯が重複する。",
-      "間違い。正しくは、GPSの主要信号は1176.45～1575.42MHz、日本の第3世代携帯電話は800MHz帯、1.7GHz帯、2GHz帯を使用するため、周波数帯は重複しない。選択肢はGPSと第3世代携帯電話の周波数帯が重複するとしているため誤りである。",
-      "間違い。正しくは、IEEE 802.11無線LANは2.4GHz帯及び5GHz帯、日本の第3世代携帯電話は800MHz帯、1.7GHz帯、2GHz帯を使用するため、周波数帯は重複しない。選択肢はIEEE 802.11無線LANと第3世代携帯電話の周波数帯が重複するとしているため誤りである。"
+      "間違い。GPSのL1、L2、L5の搬送波は、それぞれ1575.42MHz、1227.60MHz、1176.45MHzであり、この間全体を連続して使うわけではない。2011年当時の国内の第3世代携帯電話では、800MHz帯、1.5GHz帯、1.7GHz帯、2GHz帯が使われていた。これらの割当帯域はGPSの各信号の帯域と重複しない。",
+      "間違い。IEEE 802.11無線LANには2.4GHz帯や5GHz帯を使用する方式がある。2011年当時の国内の第3世代携帯電話は、800MHz帯、1.5GHz帯、1.7GHz帯、2GHz帯を使用しており、無線LANの割当帯域とは重複しない。"
     ],
     "original_question_id": "0854bf85b9af5bcf",
     "question_url": "https://www.nw-siken.com/kakomon/23_aki/am2_4.html",
@@ -1153,6 +1153,24 @@
         "referenceDate": "2026-10-04",
         "sourceUrl": "https://dcm-dpweb51.tz.nttdocomo.co.jp/corporate/technology/rd/tech/terminals/rf_circuit_technology/02/",
         "title": "無線周波数を取り巻く環境"
+      },
+      {
+        "choiceIndex": 2,
+        "referenceDate": "2010-07-29",
+        "sourceUrl": "https://group.softbank/system/files/pdf/ir/presentations/2010/earnings-presentation_q1fy2010_01_ja.pdf",
+        "title": "2011年3月期 第1四半期決算説明会、PDF56頁（1.5GHz帯の2010年展開）"
+      },
+      {
+        "choiceIndex": 3,
+        "referenceDate": "2010-07-29",
+        "sourceUrl": "https://group.softbank/system/files/pdf/ir/presentations/2010/earnings-presentation_q1fy2010_01_ja.pdf",
+        "title": "2011年3月期 第1四半期決算説明会、PDF56頁（1.5GHz帯の2010年展開）"
+      },
+      {
+        "choiceIndex": 2,
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://archive.gps.gov/systems/gps/modernization/civilsignals/",
+        "title": "GPS.gov New Civil Signals（各搬送波と導入時期）"
       }
     ],
     "questionLearningPatternId": "differences_relationships",
@@ -1224,7 +1242,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令改正差分ではなく、GPSと日本の第3世代携帯電話の使用周波数帯の比較で判定する。",
           "displayRefIds": [],
-          "explanationText": "GPSの主要信号は1176.45～1575.42MHz、日本の第3世代携帯電話は800MHz帯、1.7GHz帯、2GHz帯を使用するため、周波数帯は重複しない。",
+          "explanationText": "GPSのL1、L2、L5は1575.42MHz、1227.60MHz、1176.45MHzを中心とする別々の信号である。2011年当時の国内3Gの800MHz帯、1.5GHz帯、1.7GHz帯、2GHz帯とは割当帯域が重複しない。",
           "promptContext": "GPSと第3世代携帯電話の周波数帯が重複するかを判定する。",
           "refs": [],
           "verdict": "not_law_related"
@@ -1248,7 +1266,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令改正差分ではなく、IEEE 802.11無線LANと日本の第3世代携帯電話の使用周波数帯の比較で判定する。",
           "displayRefIds": [],
-          "explanationText": "IEEE 802.11無線LANは2.4GHz帯及び5GHz帯、日本の第3世代携帯電話は800MHz帯、1.7GHz帯、2GHz帯を使用するため、周波数帯は重複しない。",
+          "explanationText": "IEEE 802.11無線LANの2.4GHz帯・5GHz帯と、2011年当時の国内3Gの800MHz帯・1.5GHz帯・1.7GHz帯・2GHz帯は重複しない。",
           "promptContext": "IEEE 802.11無線LANと第3世代携帯電話の周波数帯が重複するかを判定する。",
           "refs": [],
           "verdict": "not_law_related"
