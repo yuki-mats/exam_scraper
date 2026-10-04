@@ -308,3 +308,10 @@ Linux・構成管理・モデル契約のフェーズ・コア技術・CE・営�
 54問監査job5jJK8OwMqGNiE9Ocは05:32:00 succeeded、54報告48pass/6needs/transport0。全54のidentity/currentStateHash/resultHash/実Solsessionturn/workVersionReceipt1及びledger5.8同runを照合し、全四fieldと全Sol各肢理由を個別に読んだ。構成管理の追加root懸念1を除いた47問を保持、品質確定260/880・残620。著作権の旧追加懸念1も未完扱い。根拠visual_independent_201402_terminal_20261005.json、GUI終端PNG。
 
 Linux、構成管理、モデル契約、フロー制御、コア技術、CE、営業秘密の7問へ、保存済み個別draftに基づく直接目視パッチを適用した。営業秘密は公式本文「営業上」を24へ復元し、01正本から独立に判定したflash_cardと03共通解説を10/21へ保存。他6問は21の指定解説と参照のみ変更。本文・全肢・正誤・解説を適用後に一問ずつ再読、source/ID/非対象record/許可scope外のfield不変を確認。通常同期/dry-runと必須3検査48merged/48実正答patch880entries成功、全suite未実行。人間patchにAIreceipt/工程版を作成しない。7問新候補の独立Solは未着手、260確定へ加算しない。根拠direct_2014_seven_applied_20261005.json。Firestore未書込。
+
+
+### 2026-10-05 05:52 2012年著作権の直接目視整備と2014年修正候補監査
+
+201202午前I問17（155708a4ec854c769836b426）の全四fieldを個別に読み、IPA公式解答のイ、文化庁2008年資料及び現行30/30-4/47-3を確認した。21の第2肢解説で所有者の必要な複製例外と私的使用の回避除外を区別し、無許諾バックアップの一律侵害を除いた。第3肢は現行30-4の利益侵害除外と2019年施行の内容を補い、出題時条文への誤帰属を避けた。該当lawRevisionFactsをneeds_secondary_review/mismatchedへ戻し、条件不足の現行適用を確定済みとしない。source・本文・全肢・正答・形式・他recordは不変、人間patchのmodel/工程版receiptなし。通常同期/dry-runと必須3検査48merged/48正答patch880entries成功、全suite未実行。新Sol確認前に品質確定へ加算しない。根拠direct_copyright2012_grounding_applied_20261005.json。Firestore未書込。
+
+2014年修正7候補はfresh Web週残8%/62500credits/autocharge OFFとGUI exact7/API全7currentStateHash一致確認後05:39:47にSol/high/Standard/5.8 jobQM2smltk-_v4ShsRを開始した。旧47合格は再監査しない。Linuxと契約フェーズは合格報告、構成管理及びCEには新しい再整備指摘があり、全7の終端照合待ち。開始根拠direct_2014_seven_sol_started_20261005.json。

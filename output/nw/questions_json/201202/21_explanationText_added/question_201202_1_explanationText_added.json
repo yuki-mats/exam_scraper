@@ -2008,8 +2008,8 @@
   {
     "explanationText": [
       "間違い。プログラムの著作物として保護されるのは具体的な表現であり、プログラム言語、規約及び解法は保護の対象外である。著作権法第10条第3項により、公開されたプロトコルに基づいて独自に開発しただけでは、A社のプログラムの表現を複製したことにならない。選択肢は独自開発まで著作権侵害としているため誤りである。",
-      "正しい。著作者はプログラムを複製する権利を専有するため、複製権の許諾を受けていない者がバックアップ目的で複製することは認められない。著作権法第21条が複製権を定め、同法第47条の3の複製もプログラムの複製物の所有者に認められる範囲の例外である。選択肢は複製権の許諾を受けず、プロテクトを外して複製しているため、著作権侵害に該当する。",
-      "間違い。正当に入手したソフトウェアを解析するために逆コンパイルする行為だけでは、直ちにプログラムの表現を無断利用したことにはならない。著作権法第30条の4は、思想又は感情の享受を目的としない情報処理などの利用を、必要な限度で認めている。選択肢は逆コンパイルだけで侵害に当たるとしているため誤りである。逆コンパイル後に成果物を無断で複製、改変又は販売した場合は、その行為を別に判断する。",
+      "正しい。出題時の公式正答は、このプロテクトを外して複製した事例である。ただし、バックアップ目的の複製が常に侵害になるわけではない。プログラムの複製物の所有者には、自己利用のため必要な範囲の複製を認める例外がある。一方、私的使用の複製では、技術的保護手段の回避を知りながら行う複製は例外から除かれる。適用する例外と所有関係を区別する必要があり、使用許諾契約を結んだという情報だけで、所有者の例外が適用されないとは断定できない。",
+      "間違い。正当に入手したソフトウェアを解析するために逆コンパイルする行為だけでは、直ちに著作権侵害になるとはいえない。現行の著作権法第30条の4は、思想又は感情の享受を目的としない利用を必要な限度で認めるが、著作権者の利益を不当に害する場合は除く。この内容の規定は2019年施行であり、2012年の出題時条文として引用するものではない。得られたプログラムの表現を無断で複製、改変又は販売する場合は、その行為を別に判断する。",
       "間違い。複製及び改変の許諾を受け、その条件の範囲内でソフトウェアを製品に組み込んで販売する場合は、著作権侵害には当たらない。著作権法第27条は翻案等の権利を定め、同法第63条第2項は許諾された利用方法及び条件の範囲内での利用を認めている。選択肢はソース契約の範囲内で利用しているため、侵害とするのは誤りである。"
     ],
     "original_question_id": "fd136c861466184d",
@@ -2023,6 +2023,30 @@
         "referenceDate": "2026-10-04",
         "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/345AC0000000048?asof=2026-10-04",
         "title": "著作権法（e-Gov法令検索）"
+      },
+      {
+        "title": "IPA 平成24年度秋期高度試験 午前I解答例 問17=イ",
+        "sourceUrl": "https://www.ipa.go.jp/shiken/mondai-kaiotu/ug65p90000002h5m-att/2012h24a_koudo_am1_ans.pdf",
+        "referenceDate": "2026-10-05",
+        "choiceIndex": 1
+      },
+      {
+        "title": "文化庁2008年資料 技術的保護手段の回避と権利制限規定との関係（訂正版）2.我が国の状況",
+        "sourceUrl": "https://www.bunka.go.jp/seisaku/bunkashingikai/chosakuken/hosei/h20_08/sanko_2.html",
+        "referenceDate": "2026-10-05",
+        "choiceIndex": 1
+      },
+      {
+        "title": "e-Gov 著作権法 第30条・第30条の4・第47条の3（現行）",
+        "sourceUrl": "https://laws.e-gov.go.jp/law/345AC0000000048",
+        "referenceDate": "2026-10-05",
+        "choiceIndex": 1
+      },
+      {
+        "title": "文化庁 平成30年著作権法改正 新第30条の4と2019年1月1日施行",
+        "sourceUrl": "https://www.bunka.go.jp/seisaku/chosakuken/hokaisei/h30_hokaisei/",
+        "referenceDate": "2026-10-05",
+        "choiceIndex": 2
       }
     ],
     "questionLearningPatternId": "differences_relationships",
@@ -2145,7 +2169,7 @@
       },
       {
         "answerImpactFacts": [
-          "複製権の許諾がなく、プログラム複製物の所有者による複製の例外にも該当しないため、現行法上も侵害に該当する。"
+          "2012年公式解答のイを出題時正答として保持する。現行法の適用は、プログラム複製物の所有関係、必要性及び保護手段の性質に左右されるため、本問の条件だけで所有者例外を一律に排除しない。"
         ],
         "auditStatus": "same_as_current",
         "current": {
@@ -2153,9 +2177,9 @@
         },
         "differenceFacts": [],
         "evidenceSummary": {
-          "differenceSummary": "出題時法令本文は未取得であり、条文不変とは断定しない。出題時正誤と現行法判定は一致する。",
+          "differenceSummary": "公式出題時正答はIPA解答例で確認した。2012年施行条文の全文取得は未完了であり、現行条文との全文不変や現行適用条件の充足を確定しない。",
           "displayRefIds": [],
-          "explanationText": "現行の著作権法第21条及び第47条の3を確認し、複製権の許諾なくバックアップ複製する行為は適法化されないと判定した。examTimeは公式元正答に基づく。",
+          "explanationText": "現行第47条の3はプログラムの複製物の所有者に必要な複製を認める。第30条第1項の技術的保護手段回避の除外を、別の例外規定へ自動適用しない。文化庁2008年資料にもこの区別があり、最近の改正だけで生じた差とは確認していない。現行正誤は保持中の一次候補で、独立監査は未完了。",
           "promptContext": "複製権の許諾を受けていないソフトウェアをプロテクト解除してバックアップ複製する行為。",
           "refs": [],
           "verdict": "same_as_current"
@@ -2164,10 +2188,11 @@
           "correctChoiceText": "正しい"
         },
         "notes": [
-          "出題時法令本文はprimaryLawEvidenceに収録されていない。公式元正答をexamTime判定として保持し、本文不変とは断定しない。"
+          "IPA2012年秋期高度午前I問17の正答イを確認した。",
+          "第2肢は所有関係と保護手段の詳細が不足する。旧secondary_verifiedの断定を取り下げ、新候補の二次評価を待つ。"
         ],
-        "reconciliationStatus": "reconciled_exam_time_official_answer_with_current_law",
-        "reviewState": "secondary_verified"
+        "reconciliationStatus": "mismatched",
+        "reviewState": "needs_secondary_review"
       },
       {
         "answerImpactFacts": [
@@ -2181,7 +2206,7 @@
         "evidenceSummary": {
           "differenceSummary": "出題時法令本文は未取得であり、条文不変とは断定しない。出題時正誤と現行法判定は一致する。",
           "displayRefIds": [],
-          "explanationText": "現行の著作権法第30条の4を確認し、正当に入手したソフトウェアを逆コンパイルしただけで直ちに侵害とはいえないと判定した。examTimeは公式元正答に基づく。",
+          "explanationText": "現行第30条の4は2019年施行であり2012年の出題時条文ではない。出題時正答は公式解答の対応を保持する。逆コンパイルの方法、目的及び成果物利用ごとの現行適用は別に判断し、新候補の独立確認を待つ。",
           "promptContext": "正当な手段で入手したソフトウェアの逆コンパイル。",
           "refs": [],
           "verdict": "same_as_current"
@@ -2190,10 +2215,11 @@
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "出題時法令本文はprimaryLawEvidenceに収録されていない。公式元正答をexamTime判定として保持し、本文不変とは断定しない。"
+          "出題時法令本文はprimaryLawEvidenceに収録されていない。公式元正答をexamTime判定として保持し、本文不変とは断定しない。",
+          "第30条の4を出題時条文として説明しない。"
         ],
-        "reconciliationStatus": "reconciled_exam_time_official_answer_with_current_law",
-        "reviewState": "secondary_verified"
+        "reconciliationStatus": "mismatched",
+        "reviewState": "needs_secondary_review"
       },
       {
         "answerImpactFacts": [
@@ -3106,16 +3132,16 @@
         "sourceUrl": "https://www.ipa.go.jp/shiken/mondai-kaiotu/ug65p90000002h5m-att/2012h24a_koudo_am1_qs.pdf",
         "title": "平成24年度秋期 高度試験共通 午前Ⅰ 問題冊子"
       },
-    {
-      "referenceDate": "2026-10-04",
-      "sourceUrl": "https://www.ipa.go.jp/shiken/syllabus/nl10bi0000007tge-att/syllabus_ap_ver7_1.pdf",
-      "title": "応用情報技術者試験（レベル3）シラバス Ver.7.1"
-    },
-    {
-      "referenceDate": "2026-10-04",
-      "sourceUrl": "https://www.ipa.go.jp/archive/digital/tools/ep/ep2.html",
-      "title": "超上流から攻めるIT化の事例集：要件定義"
-    }
+      {
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://www.ipa.go.jp/shiken/syllabus/nl10bi0000007tge-att/syllabus_ap_ver7_1.pdf",
+        "title": "応用情報技術者試験（レベル3）シラバス Ver.7.1"
+      },
+      {
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://www.ipa.go.jp/archive/digital/tools/ep/ep2.html",
+        "title": "超上流から攻めるIT化の事例集：要件定義"
+      }
     ],
     "questionLearningPatternId": "differences_relationships",
     "suggestedQuestionDetailsByChoice": [],
