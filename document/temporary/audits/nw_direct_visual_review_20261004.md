@@ -211,3 +211,11 @@ source・ID・本文・全肢・正誤・metadataは不変。10対象1件と21�
 午前II問15の実組合せ表と四fieldを個別に読み、IEEE802.11n/802.11acの周波数帯対応を比較する回答操作から10のquestionTypeだけをgroup_choiceへ修正した。計算フラグfalse及び本文・全肢・正誤・解説・画像帰属を保持した。午前I問12はCRYPTREC LS-0001-2022R1の1・3・4頁と現行R2を直接読み、三リストの定義と策定主体を確認した。内容は整合しており、21へ出題時R1参照だけを追加した。
 
 source・ID・metadataは不変。正常merge/convert/upload dry-runと型patch検査及び必須3検査48merged/48実正答patch880entries成功、全suite未実行。修正後の四fieldを一問ずつ再読した。model/作業版receiptなし、独立Sol未完、品質確定212/880不変、Firestore未書込。根拠direct_wireless_type_cryptrec_refs2_applied_20261005.json。
+
+### 2026-10-05 DX認定の時点別条番号とAI学習・生成の判断2問
+
+202501午前I問23の四fieldを個別に読み、e-Govの2025-04-20及び2026-10-05 XMLの本則を直接確認した。認定規定は出題時第31条、現行第28条であり、施行規則第41条の基準を別に読んだ。第1・3肢の解説で条番号の時点差を明示し、出題時法律参照を追加した。IPA FAQのDX Ready及び企業規模を限定しない扱いも読んだ。
+
+同年度午前I問30は文化庁の2024年概要3・5〜6・11〜12・15頁と出題時著作権法第21・23・30条の4を直接読み、第1肢の解説で開発・学習と生成・公開の判断を分け、第30条の4ただし書の限界を示した。正誤・source・ID・本文・全肢・形式・保存済みlawRevisionFacts/model/工程版receiptは保持し、新AI確認として扱わない。
+
+同期scriptの年度指定を取り違えて202301を一度正常同期したため、対象202501を改めて正常同期し、両履歴をreportへ残した。202501のmerge/convert/upload dry-run及び必須3検査48merged/48実正答patch880entries成功、全suite未実行。修正後の四fieldを個別再読。独立Sol未完、品質確定212/880不変、Firestore未書込。根拠direct_law_scope2_applied_20261005.json。
