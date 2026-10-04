@@ -1,0 +1,146 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T037",
+    "board_path": "/Users/yuki/development/exam_scraper_feedback/docs/goals/feedback-correction-recovery/state.yaml",
+    "changed_files": [
+      "tools/question_review_console/primary_law_evidence.py",
+      "tests/test_question_review_primary_law_evidence.py",
+      "output/user_feedback_response_system/staging/recovery-three-cases/prepare_candidates.py",
+      "output/user_feedback_response_system/staging/recovery-three-cases/verify_candidates.py",
+      "output/user_feedback_response_system/staging/recovery-three-cases/tests/test_candidate_contracts.py",
+      "output/user_feedback_response_system/staging/recovery-three-cases/runs/T037-0153d1c0b0ec/**",
+      "output/user_feedback_response_system/staging/recovery-three-cases/runs/T037-b3d34b0c439c/**"
+    ],
+    "commands": [
+      {
+        "command": "PY -m unittest tests.test_question_review_primary_law_evidence",
+        "status": "pass",
+        "exit_code": 0,
+        "tests": 18
+      },
+      {
+        "command": "PY -m unittest discover -s output/user_feedback_response_system/staging/recovery-three-cases/tests -p test_candidate_contracts.py",
+        "status": "pass",
+        "exit_code": 0,
+        "tests": 14
+      },
+      {
+        "command": "PY output/user_feedback_response_system/staging/recovery-three-cases/prepare_candidates.py --all --read-live",
+        "status": "pass",
+        "exit_code": 0,
+        "run": "T037-b3d34b0c439c"
+      },
+      {
+        "command": "PY output/user_feedback_response_system/staging/recovery-three-cases/verify_candidates.py --all",
+        "status": "pass",
+        "exit_code": 0,
+        "required_field_errors": {
+          "2018": {
+            "merged": 0,
+            "snapshot_projection": 0
+          },
+          "2024": {
+            "merged": 0,
+            "snapshot_projection": 0
+          }
+        },
+        "merged_choice_alignment_errors": {
+          "2018": 0,
+          "2024": 0
+        },
+        "correct_choice_patch_coverage_errors": {
+          "2018": 0,
+          "2024": 0
+        },
+        "strict_law_exit_codes": {
+          "2018": {
+            "merged": 1,
+            "snapshot_projection": 1
+          },
+          "2024": {
+            "merged": 1,
+            "snapshot_projection": 1
+          }
+        },
+        "strict_state": "hold/unverifiedの実失敗を保持。公開準備合格へ補正していない。"
+      },
+      {
+        "command": "git diff --check",
+        "status": "pass",
+        "exit_code": 0
+      },
+      {
+        "command": "最終2refs差分・680入力hash・private permission照合",
+        "status": "pass",
+        "exit_code": 0,
+        "repaired_public_references": 2,
+        "protected_hashes_unchanged": 680,
+        "permission_errors": 0
+      }
+    ],
+    "historical_commands": [
+      {
+        "command": "PY output/user_feedback_response_system/staging/recovery-three-cases/prepare_candidates.py --all --read-live",
+        "status": "fail",
+        "exit_code": 1,
+        "run": "T037-0153d1c0b0ec",
+        "cause": "T033のmanifestObjectHash字段をmanifest全体hashとして照合したWorker実装のassert。",
+        "preserved": true
+      },
+      {
+        "command": "最終scopeのread-only確認用Python",
+        "status": "fail",
+        "exit_code": 1,
+        "cause": "確認用コマンドの括弧誤記によるSyntaxError。",
+        "files_changed": false,
+        "subsequent_corrected_confirmation": "pass"
+      }
+    ],
+    "python": "/Users/yuki/development/exam_scraper_work/.venv/bin/python",
+    "summary": "2024肢2の2参照を115条の3へ修復し、delta/sourceProposal/sidecar/bindingを再生成。不正な115の3条を3条として部分一致させるparserを拒否へ修正。T033真正event/output/receiptと固定候補hashを実照合し、条件付き審査scopeだけ結合した。1repair後18+14testsと対象gate成功。strictはhold/unverifiedを維持。原問・対象外selectedfields・2020一文字境界・各2生成一致、680入力hash不変、private permission違反0。新candidate審査・正式保存・評価・公開は未済。",
+    "artifacts": {
+      "authoritative_run": "/Users/yuki/development/exam_scraper_feedback/output/user_feedback_response_system/staging/recovery-three-cases/runs/T037-b3d34b0c439c",
+      "review_input": "review-input.json",
+      "proposal": "proposal.md",
+      "candidates": [
+        "2018/generation1/candidate.json",
+        "2024/generation1/candidate.json",
+        "2020/generation1/candidate.json"
+      ],
+      "native_binding": "native-evidence.json",
+      "verification": "verification-receipt.json",
+      "scope_and_conditional_repair": "final-scope-receipt.json",
+      "command_times_environment_results": "command-results.json",
+      "preparation_times_and_environment": "execution.json",
+      "input_hashes": "input-manifest.json",
+      "manifest_label_clarification": {
+        "receipt_field": "manifestObjectHash",
+        "actual_target": "canonical files-map hash / manifest.inputHash",
+        "files_map_hash": "88f978e342a61178f44e086bff5483d99019c62a65b5e6382c47a849b03a94fa",
+        "whole_manifest_object_hash": "35e7ab7e73c838db0326c427aa05cc8b8035e4040339a3b1fb31bd075f89c3c0",
+        "whole_manifest_file_hash": "2930907788a82bf717286d4f89b1ea42b0e2be29aee457573596a10aae1c0dd6",
+        "original_T033_receipt_unchanged": true
+      },
+      "reviewPending": true,
+      "approvalReady": false,
+      "formalDataUpdated": false,
+      "publicationReady": false,
+      "evaluationPerformed": false,
+      "FirestoreWritten": false,
+      "StorageWritten": false
+    },
+    "remaining_blockers": [
+      "T033が条件付きとした2refs修復と新bindingの限定challenge待ち。新candidate第三者passやverified昇格は付与していない。",
+      "strict lawは両年両形態でhold/未検証参照による不合格。",
+      "表示命題variantの具体承認、原問保持を保証する正式保存/provider、overwrite防止と限定更新契約が未済。",
+      "2020 originalQuestionChoiceText訂正は別未承認差分。questionText単独更新の実行契約は未済。",
+      "真正current checkpoint・評価、別公開判断、guarded writeとlive readbackは未実行。",
+      "固定法令審査基準日は2026-10-03。正式反映前の現行版再照合が必要。"
+    ],
+    "needs_judge": false,
+    "verification_attempts": 2,
+    "repair_attempts": 1,
+    "stopped_because": null
+  }
+}

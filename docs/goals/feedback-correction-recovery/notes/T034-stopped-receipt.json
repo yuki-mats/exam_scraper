@@ -1,0 +1,135 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "blocked",
+    "task_id": "T034",
+    "board_path": "/Users/yuki/development/exam_scraper_feedback/docs/goals/feedback-correction-recovery/state.yaml",
+    "summary": "新報告1件・公開AI候補3件と既存改善7件を確認。AI3件の公開・未削除・本人作成フラグ・scan本文hash一致はFirestoreで確認したが、匿名化テーマ抽出では学習ニーズを確定できなかった。新報告caseはlistGroupId欠落で既存入口のvalidationに失敗し、主張・現行問題・一次資料の照合は未実施。判定や改善登録の根拠は不足している。書込みなし。",
+    "evidence": [
+      {
+        "ref": "state.yaml#T034",
+        "fact": "新報告1件と公開AI候補3件の個別調査、全8カテゴリ判定、既存7改善との重複確認を要求"
+      },
+      {
+        "ref": "daily/2026-10-04/scan-receipt.json",
+        "fact": "newReportTasks=1、newAiQuestionCandidates=3、improvementTasksOpen=7、intakeGaps=0"
+      },
+      {
+        "ref": "ledger.sqlite3?mode=ro",
+        "fact": "既存改善7件のtitle・need・targetを読取"
+      },
+      {
+        "candidate_id": "d0d14af44ff88396d8df8abda1aa381a3462c732aace1174b9cadabc57a8f47f",
+        "question_id": "condominiummanager-C-12959",
+        "text_hash": "c9ef50216c9b1e4d6b7a85f4f7339f69f1ded1f1e29b9c485530eabd030b79ce",
+        "eligible": true,
+        "user_authored_flag": true
+      },
+      {
+        "candidate_id": "2168e9f25ff818654235f0bff322a8dd9dcffe711aca78969707a07033c4f264",
+        "question_id": "condominiummanager-C-12958",
+        "text_hash": "7bd1c4a5013761006701b282fa364e15e0c48f40a3e7ef346ae34a656a35f8ca",
+        "eligible": true,
+        "user_authored_flag": true
+      },
+      {
+        "candidate_id": "717f23361d8108dad464e183d8c435dc00d329458a092e0dfc720163c35abb66",
+        "question_id": "condominiummanager-C-12896",
+        "text_hash": "b7ff002695f2f2d98d6e68b0b9315032f9bc9c42e19a55cc6e5a3c840adebf62",
+        "eligible": true,
+        "user_authored_flag": true
+      },
+      {
+        "ref": "FirestoreReportStore.get_case",
+        "fact": "新報告caseのvalidate_operational_caseが必須listGroupId欠落で失敗"
+      },
+      {
+        "ref": "config/question_issue_reports.json",
+        "fact": "8カテゴリはquestion_content、correct_answer、explanation、outdated_law_or_information、image、classification、answer_format_or_display、other"
+      }
+    ],
+    "facts": [
+      {
+        "existing_improvement_topics": [
+          "整圧器の耐圧試験例外",
+          "議案の要領通知",
+          "専有部分の境界",
+          "普通決議と特別多数決議",
+          "メーターボックス内の給湯器",
+          "原始規約設定者",
+          "監事による臨時総会招集"
+        ]
+      },
+      {
+        "question_id": "condominiummanager-C-11410",
+        "categories": {
+          "question_content": {
+            "decision": "hold",
+            "reason": "原主張・現行問題・一次資料未照合"
+          },
+          "correct_answer": {
+            "decision": "hold",
+            "reason": "現行正誤と一次資料未照合"
+          },
+          "explanation": {
+            "decision": "hold",
+            "reason": "現行解説未取得"
+          },
+          "outdated_law_or_information": {
+            "decision": "hold",
+            "reason": "適用時点・条文・改正根拠未確認"
+          },
+          "image": {
+            "decision": "hold",
+            "reason": "現行画像関連field未取得"
+          },
+          "classification": {
+            "decision": "hold",
+            "reason": "現行分類field未取得"
+          },
+          "answer_format_or_display": {
+            "decision": "hold",
+            "reason": "現行表示関連field未取得"
+          },
+          "other": {
+            "decision": "hold",
+            "reason": "原主張未確認"
+          }
+        },
+        "resume_conditions": [
+          "caseIdを指定したclaims_for_caseの読取",
+          "現行selectedfieldsと報告時snapshotを区別して取得",
+          "標準rawと公式一次資料の照合"
+        ],
+        "decision_scope": "調査未完了による暫定保留。カテゴリ適否を確定した判定ではない"
+      },
+      {
+        "ai_review": "3候補とも学習ニーズと重複判定は未確定。新規登録・除外を提案できない"
+      }
+    ],
+    "contradictions": [
+      {
+        "fact": "Firestore caseが既存read-only入口の必須field契約を満たさない",
+        "missing_field": "listGroupId"
+      }
+    ],
+    "ambiguity_requiring_judge": [
+      "利用者原文を通常tool出力に転載せず、辞書一致しない短い発話の学習ニーズを意味単位で確認する方法",
+      "最大12shell命令の追加許可が必要。PMへ照会済み"
+    ],
+    "commands": [
+      "pwd -P",
+      "PyYAMLでstate.yaml#T034抽出",
+      "MEMORY.md関連語検索（関連根拠なし）",
+      "既存read-only入口とカテゴリ実装のrg検索",
+      "daily入力3ファイル読取",
+      "FirestoreReportStoreとinspect_ai_candidateの所在検索",
+      "SQLite read-only schema取得",
+      "既存入口とREADMEの限定読取",
+      "SQLite read-only改善7件取得",
+      "FirestoreReportStoreとinspect_ai_candidateによる匿名化読取（case validationで失敗）",
+      "カテゴリ実装と標準raw候補検索",
+      "credential入口と8カテゴリ設定の限定読取"
+    ],
+    "note_needed": false
+  }
+}

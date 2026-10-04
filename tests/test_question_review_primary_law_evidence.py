@@ -196,6 +196,14 @@ class PrimaryLawEvidenceTests(unittest.TestCase):
             (("article", 64),),
         )
 
+    def test_article_branch_grammar_rejects_partial_suffix_matches(self):
+        for value in ["115の3条", "第百十五の三条", "115 の 3 条", "115の第3条", "115条の", "115条の3の", "115条の3条", "6条、115の3条"]:
+            with self.subTest(value=value):
+                self.assertEqual(locator_parts(value), ())
+        for value in ["115条の3", "第百十五条の三", "第１１５条の３"]:
+            self.assertEqual(locator_parts(value), (("article", (115, 3)),))
+        self.assertEqual(locator_parts("第115条の3の2、第6条第1項"), (("article", (115, 3, 2)), ("article", 6)))
+
     def test_xml_extraction_reads_full_locator_element(self):
         xml_text = _law_xml(article_text="条文本文", appendix_text="表のセル")
         self.assertIn(

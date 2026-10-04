@@ -1,0 +1,151 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T031",
+    "board_path": "/Users/yuki/development/exam_scraper_feedback/docs/goals/feedback-correction-recovery/state.yaml",
+    "changed_files": [
+      "output/user_feedback_response_system/staging/recovery-three-cases/prepare_candidates.py",
+      "output/user_feedback_response_system/staging/recovery-three-cases/verify_candidates.py",
+      "output/user_feedback_response_system/staging/recovery-three-cases/tests/test_candidate_contracts.py",
+      "output/user_feedback_response_system/staging/recovery-three-cases/runs/T031-0066d9fac49c/**",
+      "output/user_feedback_response_system/staging/recovery-three-cases/runs/T031-4843a1dfd719/**",
+      "output/user_feedback_response_system/staging/recovery-three-cases/runs/T031-79f42ebb3ea7/**"
+    ],
+    "commands": [
+      {
+        "command": "/Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/staging/recovery-three-cases/prepare_candidates.py --all --read-live",
+        "status": "fail",
+        "exit_code": 1,
+        "run": "T031-0066d9fac49c",
+        "cause": "99731690...のinputHash字段をreview-input全体のobject hashと取り違えたWorker実装のassert。",
+        "preserved": true
+      },
+      {
+        "command": "/Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/staging/recovery-three-cases/prepare_candidates.py --all --read-live",
+        "status": "pass",
+        "exit_code": 0,
+        "run": "T031-4843a1dfd719",
+        "phase": "1回目repair後。追加選択field補完前の途中成果として保全。"
+      },
+      {
+        "command": "/Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s output/user_feedback_response_system/staging/recovery-three-cases/tests -p test_candidate_contracts.py",
+        "status": "pass",
+        "exit_code": 0,
+        "tests": 13,
+        "phase": "1回目repair後"
+      },
+      {
+        "command": "/Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/staging/recovery-three-cases/verify_candidates.py --all",
+        "status": "pass",
+        "exit_code": 0,
+        "phase": "1回目repair後",
+        "limitation": "未選択fieldによるrequired/strict診断不足を検出し、2回目repairでfresh選択を補完。"
+      },
+      {
+        "command": "/Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/staging/recovery-three-cases/prepare_candidates.py --all --read-live",
+        "status": "pass",
+        "exit_code": 0,
+        "run": "T031-79f42ebb3ea7",
+        "phase": "最終"
+      },
+      {
+        "command": "/Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest discover -s output/user_feedback_response_system/staging/recovery-three-cases/tests -p test_candidate_contracts.py",
+        "status": "pass",
+        "exit_code": 0,
+        "tests": 13,
+        "phase": "最終"
+      },
+      {
+        "command": "/Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/staging/recovery-three-cases/verify_candidates.py --all",
+        "status": "pass",
+        "exit_code": 0,
+        "phase": "最終",
+        "required_field_errors": {
+          "2018": {
+            "merged": 0,
+            "snapshot_projection": 0
+          },
+          "2024": {
+            "merged": 0,
+            "snapshot_projection": 0
+          }
+        },
+        "alignment": "両年のsource answer・choice alignmentは問題なし。",
+        "strict_law": {
+          "2018": {
+            "merged_exit_code": 1,
+            "snapshot_projection_exit_code": 1
+          },
+          "2024": {
+            "merged_exit_code": 1,
+            "snapshot_projection_exit_code": 1
+          },
+          "actual_failure_reasons": [
+            "lawRevisionFacts auditStatus is hold",
+            "no verified lawReferences for law-related question"
+          ],
+          "publication_pass": false
+        }
+      },
+      {
+        "command": "git diff --check",
+        "status": "pass",
+        "exit_code": 0
+      },
+      {
+        "command": "git status --short",
+        "status": "pass",
+        "exit_code": 0
+      },
+      {
+        "command": "最終593入力・依存hashとprivate permissionの照合",
+        "status": "pass",
+        "exit_code": 0,
+        "protected_hashes_unchanged": 593,
+        "permission_errors": 0
+      }
+    ],
+    "summary": "2名の真正native出力を実照合し、2018/2024の解説・時点別条項・XML/本文hash・新factsを修復。原選択答4/2とTF scalarを既存schemaに従って分離した。最終候補はsnapshot-bound allowed deltaで、元原問と対象外selectedfieldsを保持。3件各2生成一致、2020はquestionText一文字のみ。2repair後13testsと全指定command成功。strict実失敗はhold/未検証参照として保存。593入力hash不変、旧成果・WORK・製品code・正式24不変。候補修復sliceのみ完了。",
+    "artifacts": {
+      "authoritative_run": "/Users/yuki/development/exam_scraper_feedback/output/user_feedback_response_system/staging/recovery-three-cases/runs/T031-79f42ebb3ea7",
+      "candidates": [
+        "2018/generation1/candidate.json",
+        "2024/generation1/candidate.json",
+        "2020/generation1/candidate.json"
+      ],
+      "approval_packages": [
+        "2018/approval-package.json",
+        "2024/approval-package.json",
+        "2020/approval-package.json"
+      ],
+      "proposal": "proposal.md",
+      "third_party_challenge_input": "review-input.json",
+      "native_evidence": "native-evidence.json",
+      "verification": "verification-receipt.json",
+      "scope_and_repair_evidence": "final-scope-receipt.json",
+      "command_times_environment_and_results": "command-results.json",
+      "protected_input_hashes": "input-manifest.json",
+      "law_review_reference_date": "2026-10-03",
+      "reviewPending": true,
+      "approvalReady": false,
+      "formalDataUpdated": false,
+      "publicationReady": false,
+      "evaluationPerformed": false,
+      "FirestoreWritten": false,
+      "StorageWritten": false
+    },
+    "remaining_blockers": [
+      "新candidate全体の真正第三者challengeと具体的field差分承認は未済。",
+      "新refs/factsは機械的に一次XML・既存native判断へ束縛した候補。verified昇格は行わず、strict lawは両年両形態で不合格。",
+      "公開表示本文と原問本文を分ける正式variant/provider・overwrite防止契約が未実装。既存10の本文上書き禁止を維持。",
+      "full converterの原問本文上書き等は診断として保存し、full-document upload承認候補から除外。",
+      "2020 originalQuestionChoiceTextの訂正は別未承認差分。questionText単独のguarded公開契約は未実装。",
+      "固定法令審査基準日は2026-10-03。正式反映前に現行版の新鮮な再照合が必要。",
+      "真正current checkpoint・評価、正式保存、別公開判断、guarded writeとlive readbackは未実行。"
+    ],
+    "needs_judge": false,
+    "verification_attempts": 3,
+    "repair_attempts": 2,
+    "stopped_because": null
+  }
+}

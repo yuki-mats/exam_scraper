@@ -1,0 +1,70 @@
+{
+  "result": "done",
+  "summary": "実Firestore read-only scan/summary/list-reports/list-improvements成功。新報告1件と公開AI候補3件、intakeGaps0。総報告72/未判断68/提案待ち3/公開待ち1/AI未review12007/改善7。list-reports71は正式patch済1件を一覧から除外する設計であり登録漏れではない。個別private記録4件は維持、修復候補T031と旧case/承認待ち差分の追跡同期は後続。",
+  "commands": [
+    {
+      "cmd": "before-summary",
+      "status": "pass",
+      "started_at": "2026-10-04T00:06:22.276341+00:00",
+      "finished_at": "2026-10-04T00:06:22.370426+00:00",
+      "exit_code": 0
+    },
+    {
+      "cmd": "scan",
+      "status": "pass",
+      "started_at": "2026-10-04T00:06:22.370508+00:00",
+      "finished_at": "2026-10-04T00:07:48.724638+00:00",
+      "exit_code": 0
+    },
+    {
+      "cmd": "summary",
+      "status": "pass",
+      "started_at": "2026-10-04T00:07:48.724769+00:00",
+      "finished_at": "2026-10-04T00:07:48.804895+00:00",
+      "exit_code": 0
+    },
+    {
+      "cmd": "list-reports",
+      "status": "pass",
+      "started_at": "2026-10-04T00:07:48.804977+00:00",
+      "finished_at": "2026-10-04T00:07:48.878346+00:00",
+      "exit_code": 0
+    },
+    {
+      "cmd": "list-improvements",
+      "status": "pass",
+      "started_at": "2026-10-04T00:07:48.878417+00:00",
+      "finished_at": "2026-10-04T00:07:48.954473+00:00",
+      "exit_code": 0
+    }
+  ],
+  "evidence": [
+    "output/user_feedback_response_system/daily/2026-10-04/scan-receipt.json",
+    "output/user_feedback_response_system/daily/2026-10-04/commands.json",
+    "tools/question_bank/feedback_daily.py:631"
+  ],
+  "daily_summary": {
+    "schemaVersion": "feedback-daily/v1",
+    "generatedAt": "2026-10-04T00:07:48.652388Z",
+    "scanId": "5fa44e9aa2b6fcfd645d5e75fe03f60d51b526e004fae1ff0aee3cc88ccb9105",
+    "reportTasks": 72,
+    "intakeGaps": 0,
+    "rejectedIntake": 0,
+    "reportsAwaitingDecision": 68,
+    "fixesAwaitingProposal": 3,
+    "patchApprovalsWaiting": 0,
+    "patchesAwaitingPublication": 1,
+    "aiQuestionsAwaitingReview": 12007,
+    "improvementTasksOpen": 7,
+    "newReportTasks": 1,
+    "newAiQuestionCandidates": 3
+  },
+  "pending_followup": [
+    "新報告1件の一次調査と新公開AI3件の学習ニーズ判断",
+    "T031第三者challenge後のcase/台帳proposals登録",
+    "2025追加4field承認待ちを既存patch公開待ちと別に追跡"
+  ],
+  "FirestoreWritten": false,
+  "formalDataUpdated": false,
+  "full_outcome_complete": false
+}
