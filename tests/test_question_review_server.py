@@ -8,7 +8,10 @@ from http.server import ThreadingHTTPServer
 from pathlib import Path
 from unittest.mock import patch
 
-from tools.question_review_console.jobs import JobConflictError
+from tools.question_review_console.jobs import (
+    JobConflictError, JobManager, REPOSITORY_OPERATION_KEY,
+    qualification_operation_key,
+)
 from tools.question_review_console.server import (
     ApiError,
     QuestionReviewApplication,
@@ -18,6 +21,71 @@ from tools.question_review_console.server import (
 
 
 class QuestionReviewServerTests(unittest.TestCase):
+    def test_evaluation_jobs_share_qualification_conflict_scope_with_maintenance(self):
+        class Inventory:
+            @staticmethod
+            def question(question_id):
+                return {"id": question_id, "qualification": question_id.split("-")[0], "listGroupId": "2026"}
+
+        class Evaluations:
+            @staticmethod
+            def preview_many(*_args, **_kwargs):
+                return {"canStart": True, "previewToken": "token", "items": []}
+
+            @staticmethod
+            def preview(*_args, **_kwargs):
+                return {"canEvaluate": True, "previewToken": "token"}
+
+            @staticmethod
+            def token_matches(preview, token):
+                return preview["previewToken"] == token
+
+        cases = [
+            ("/api/evaluations/start", ["nw-one"], "sc", False),
+            ("/api/evaluations/start", ["nw-one"], "nw", True),
+            ("/api/questions/nw-one/evaluation", ["nw-one"], "sc", False),
+            ("/api/questions/nw-one/evaluation", ["nw-one"], "nw", True),
+            ("/api/evaluations/start", ["nw-one"], None, True),
+            ("/api/evaluations/start", ["nw-one", "sg-two"], "sc", True),
+        ]
+        for endpoint, ids, active_qualification, rejected in cases:
+            with self.subTest(endpoint=endpoint, ids=ids, active=active_qualification), tempfile.TemporaryDirectory() as directory:
+                app = QuestionReviewApplication(Path(directory))
+                release = threading.Event()
+                started = threading.Event()
+                def active_worker(_emit):
+                    started.set()
+                    release.wait(5)
+                    return {}
+                app.inventory = Inventory()
+                app.evaluations = Evaluations()
+                app.jobs = JobManager()
+                app._run_evaluation_batch_job = lambda *_args, **_kwargs: active_worker(None)
+                app._run_evaluation_job = lambda *_args, **_kwargs: active_worker(None)
+                key = qualification_operation_key(active_qualification) if active_qualification else REPOSITORY_OPERATION_KEY
+                app.jobs.start(kind="maintenance", key=key, worker=active_worker)
+                self.assertTrue(started.wait(2))
+                try:
+                    body = {"questionIds": ids, "modelProfile": "codex_only", "previewToken": "token"}
+                    if rejected:
+                        with self.assertRaises(ApiError) as caught:
+                            app.post(endpoint, body)
+                        self.assertEqual(caught.exception.status, 409)
+                    else:
+                        status, job = app.post(endpoint, body)
+                        self.assertEqual(status, 202)
+                        self.assertEqual(job["key"], qualification_operation_key("nw"))
+                        self.assertTrue(app.jobs.has_conflict(qualification_operation_key("nw")))
+                finally:
+                    release.set()
+                    app.close()
+
+    def test_unknown_evaluation_qualification_retains_repository_scope(self):
+        self.assertEqual(
+            QuestionReviewApplication._evaluation_operation_key([{"id": "unknown"}]),
+            REPOSITORY_OPERATION_KEY,
+        )
+
     def test_default_client_global_turn_budget_uses_configured_call_capacity(self):
         source_config = (
             Path(__file__).resolve().parents[1]

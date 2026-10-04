@@ -1633,12 +1633,14 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
             root = Path(directory)
             path = root / "prompt/01_prompt_fix_questionType.md"
             path.parent.mkdir(parents=True)
-            path.write_text("## `questionType`の判定\n変更した正本の判定基準\n## `isCalculationQuestion`の判定\n", encoding="utf-8")
+            path.write_text("## `questionType`の判定\n変更した正本の判定基準\n## `isCalculationQuestion`の判定\n式の選択はfalse、数値の導出はtrue。\n## 次の責務\n評価へ渡さない本文\n", encoding="utf-8")
             service = QuestionEvaluationService(root, "secret", result_runner=lambda _prompt: evaluation_result())
             question = question_payload()
             question["projected"]["questionType"] = "group_choice"
             prompt = service._build_prompt(question)
             self.assertIn("変更した正本の判定基準", prompt)
+            self.assertIn("式の選択はfalse、数値の導出はtrue。", prompt)
+            self.assertNotIn("評価へ渡さない本文", prompt)
             self.assertIn("入力questionTypeと解説の件数は評価対象", prompt)
             path.write_text("判定節が欠落した正本", encoding="utf-8")
             with self.assertRaises(EvaluationError):
@@ -1812,7 +1814,7 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
         self.assertEqual(result["status"], "passed")
         self.assertEqual(result["verifiedChoiceCount"], 2)
         self.assertTrue(current["publishReady"])
-        self.assertEqual(version_record["stages"]["evaluation"]["version"], "5.7")
+        self.assertEqual(version_record["stages"]["evaluation"]["version"], "5.8")
         self.assertEqual(stale["status"], "stale")
         self.assertFalse(stale["publishReady"])
 

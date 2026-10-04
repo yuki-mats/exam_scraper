@@ -2522,10 +2522,13 @@ class QuestionEvaluationService:
             start = policy_text.index(heading) + len(heading)
             end = policy_text.index("## `isCalculationQuestion`の判定", start)
             question_type_guidance = policy_text[start:end].strip()
-            if not question_type_guidance:
+            calculation_start = policy_text.index("\n", end) + 1
+            calculation_end = policy_text.index("\n## ", calculation_start)
+            calculation_guidance = policy_text[calculation_start:calculation_end].strip()
+            if not question_type_guidance or not calculation_guidance:
                 raise ValueError("判定基準が空です")
         except (OSError, ValueError) as exc:
-            raise EvaluationError("01の問題形式判定の正本を読み込めません。") from exc
+            raise EvaluationError("01の問題形式・計算問題判定の正本を読み込めません。") from exc
         projected = question.get("projected")
         projected = projected if isinstance(projected, Mapping) else {}
         input_payload = {
@@ -2623,6 +2626,10 @@ class QuestionEvaluationService:
 ## 問題形式の判定基準（01正本からの引用）
 
 {question_type_guidance}
+
+## 計算問題の判定基準（01正本からの引用）
+
+{calculation_guidance}
 
 ## 評価input
 

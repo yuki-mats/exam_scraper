@@ -1251,7 +1251,7 @@ class QuestionReviewApplication:
                     raise EvaluationError("評価を開始できる問題がありません。")
                 job = self.jobs.start(
                     kind="question-evaluation-batch",
-                    key=REPOSITORY_OPERATION_KEY,
+                    key=self._evaluation_operation_key(questions),
                     worker=lambda emit: self._run_evaluation_batch_job(
                         question_ids,
                         token,
@@ -1300,7 +1300,7 @@ class QuestionReviewApplication:
                         )
                     job = self.jobs.start(
                         kind="question-evaluation",
-                        key=REPOSITORY_OPERATION_KEY,
+                        key=self._evaluation_operation_key([question]),
                         worker=lambda emit: self._run_evaluation_job(
                             question_id, token, emit, model_profile=model_profile
                         ),
@@ -2742,6 +2742,16 @@ class QuestionReviewApplication:
             continuous_queue=continuous_queue,
             model_profile=model_profile,
         )
+
+    @staticmethod
+    def _evaluation_operation_key(questions: Iterable[Mapping[str, Any]]) -> str:
+        qualifications = {
+            str(question.get("qualification") or "").strip()
+            for question in questions
+        }
+        if len(qualifications) == 1 and "" not in qualifications:
+            return qualification_operation_key(next(iter(qualifications)))
+        return REPOSITORY_OPERATION_KEY
 
     def _evaluation_queue_questions(
         self,
