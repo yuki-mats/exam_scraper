@@ -59,7 +59,7 @@ visual_board:
     url: http://goalbuddy.localhost:41737/feedback-correction-recovery/
     command: node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs
       --goal docs/goals/feedback-correction-recovery
-active_task: T044
+active_task: T045
 tasks:
   - id: T001
     type: scout
@@ -5881,7 +5881,7 @@ tasks:
   - id: T044
     type: pm
     assignee: PM
-    status: active
+    status: done
     objective: T043の実APIを使い2025追加案をprivate台帳へ欠落なく登録し、確認済み4件の全8カテゴリ判断と最新draft/承認/公開境界をcase記録へ反映する。
     allowed_files:
       - ~/Library/Application Support/Repaso/feedback-ops/ledger.sqlite3
@@ -5907,6 +5907,72 @@ tasks:
       - 同じrequest再登録で重複しない。summary/listで追加案表示し、未ready3draftは承認待ちにならない
       - 全4caseの8カテゴリに判断/reason/evidence/scopeが揃い、最新stateが実検証結果に一致
       - git diff --check
+    receipt:
+      result: done
+      summary: 実台帳をowner-only backup後にmigrationし、2025追加案を独立system_blocked/already_askedとして登録。同一再送は同一ID、既存6tablesは登録前後不変。全4caseへ32カテゴリ判断・根拠・範囲・最新gatesを同期。base patch_ref/commit/published_at・正式patch・Firestore/Storageは保持。
+      evidence:
+        - output/user_feedback_response_system/daily/2026-10-04/ledger-amendment/registration-result.json
+        - output/user_feedback_response_system/daily/2026-10-04/ledger-amendment/case-sync-result.json
+        - notes/T044-existing-approval-request-provenance.json
+      commands:
+        - cmd: SQLite mode=ro prewrite backup → fixed binding/base verification → register_amendment twice → summary/list/history
+          status: pass
+        - cmd: 4 private case reviews all8category reasons/evidence/scopes → record_decision → base-state/count consistency verification
+          status: pass
+        - cmd: private directories700/files600 and 4case category completeness
+          status: pass
+        - cmd: git diff --check
+          status: pass
+      counts:
+        reports: 72
+        intakeGaps: 0
+        unjudged: 67
+        fixesAwaitingProposal: 4
+        baseApprovalsWaiting: 0
+        basePublicationWaiting: 1
+        amendmentResponsesWaiting: 1
+        amendmentReadyApprovalsWaiting: 0
+        amendmentState: system_blocked
+        improvementsOpen: 10
+        aiUnreviewed: 12004
+      full_outcome_complete: false
+  - id: T045
+    type: judge
+    assignee: Judge
+    status: active
+    objective: 受理済み3件の内容を実際の正式patch保存案へ進めるため、既存reader/source-public対応を使う正確な保存path・型・private dry-runと承認後保存契約を具体化する最大安全Worker packageを選ぶ。
+    inputs:
+      - notes/T042-review-receipt.json
+      - notes/T043-amendment-receipt.json
+      - T044 receiptとprivate4case最新review
+      - output/user_feedback_response_system/staging/recovery-three-cases/execution-contract/runs/T041-repair1-e1ed4d7c4c27/manifest.json
+      - 同runの全3candidate、2018/2024 source-patch-preview、actual-preview-gates、approval-proposal
+      - scripts/common/scoped_canonical_context.py
+      - scripts/pipeline/prepare_scoped_question_artifacts.py
+      - scripts/merge/record_projection.py
+      - scripts/merge/patch_views.py
+      - tools/question_review_console/scoped_corrections.py
+      - tools/question_review_console/scoped_artifacts.py
+      - tools/question_review_console/inventory.py
+      - tools/question_review_console/validated_evidence_import.py
+      - tools/question_review_console/coordinator.py
+      - tools/question_review_console/work_versions.py
+      - tools/question_bank/question_issue_reports.py
+      - document/operations/artifact_contract.md
+      - document/operations/delivery_workflow.md
+      - document/operations/question_issue_report_workflow.md
+      - 対応testsと必要な狭い実依存のread-only参照
+    constraints:
+      - Read-only、PMのみcontrol。受理済み全肢の内容・一次法令判断を全面再審査しない。
+      - 原問source正答4/2とoriginal body/ordered choices・公開TF真偽を別に保持し、同じscopeの正式source patchとpublic variantを型付きsource-public mappingで結合する。候補before/afterを変えず、exact planned正式file
+        pathsを提示する。
+      - 2020は原公式rawが正しく、改題公開snapshotのquestionTextだけが誤字。production_snapshotとして正直なprovenance/既存ID/before/updateTimeへ結合し、原取得sourceやFirestore listGroupIdを創作しない。必要なsource
+        group/refは根拠に基づく明示対応またはsnapshot専用保存契約として具体化する。
+      - 既存generic artifact契約・readerを活用し、別の大きなprovider/UI/frameworkを作らない。通常00_source/IDを保持。既存immutable runs/nativechain/WORK/正式patchは保持。
+      - まだ正式保存承認はない。次packageはproduct contractとprivate候補・正式保存dry-run/拒否検証まで。actual正式保存は承認後。2025追加案質問再送禁止。
+      - 正式保存前の現行版照合・checkpoint/evaluation未済をpassにせず残す。production durable approval/atomic SDK/unknown outcome回復は後続必須だが今回最初の保存案具体化に混ぜて無制限に広げない。
+    expected_output:
+      - 真正goalbuddy_receipt_v1 T045。最大安全な次Worker packageのobjective/allowed_files/verify/stop_if。正確plannedpath/型/source-public bindingの方針、必要readiness証明、full_outcome_complete=false。
     receipt: null
   - id: T004
     type: pm
