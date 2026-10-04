@@ -1,0 +1,62 @@
+{
+  "status": "in_progress",
+  "qualification": "sc",
+  "originalQuestionScope": 499,
+  "heldQuestionId": "0ef4d8ab7dab9ea7b1f66cf0",
+  "questionSetRun": {
+    "runId": "20261004T232129987096-a4a04968",
+    "status": "succeeded",
+    "receiptValidated": true,
+    "validatedCount": 499
+  },
+  "artifacts": {
+    "groups": 32,
+    "originalQuestionCount": 499,
+    "candidateDocumentCount": 1996,
+    "manifest": "output/sc/reports/publication_20261004/artifact_manifest.json",
+    "alignment": "pass",
+    "requiredFields": "pass",
+    "correctChoicePatchCoverage": {
+      "status": "pass",
+      "fileCount": 90
+    }
+  },
+  "storage": {
+    "status": "uploaded_readback_verified",
+    "objects": 114,
+    "publicReadVerified": true,
+    "receipt": "output/sc/reports/publication_20261004/image_upload_readback.json"
+  },
+  "formalEvaluation": {
+    "status": "running",
+    "initialBatchCount": 100,
+    "jobId": "Qc6Nx_bJ-bKi3M-n",
+    "driver": "output/sc/reports/publication_20261004/continue_formal_evaluation.py",
+    "additionalReworkAlreadyFound": 3
+  },
+  "firestoreQuestionsWriteCompleted": false,
+  "reviewSubmitted": false,
+  "app": {
+    "key": "sc",
+    "bundleId": "com.ankiplus.sc",
+    "appStoreId": "6819027455",
+    "firebaseRegistered": true,
+    "appleRegistered": true,
+    "revenueCatRegistered": true,
+    "dedicatedAdmobAppAndFourUnits": true,
+    "configCommit": "18e6d74a",
+    "catalogCommit": "0ee09f5e",
+    "regressionCatalogCommit": "90b1a0d5",
+    "iosCommit": "9287474e",
+    "iosMergeCommit": "7f0bbc32",
+    "releaseCheckout": "/Users/yuki/development/repaso_sc_release",
+    "reviewSubmissionId": null
+  },
+  "nextActions": [
+    "complete genuine formal evaluation for all 499",
+    "remediate additional needs_rework through native question maintenance",
+    "regenerate/recheck exact artifacts and evaluate changed questions",
+    "publish questions/category with full live readback",
+    "capture actual published-question screenshots; release gates; build; submit; ASC readback"
+  ]
+}
