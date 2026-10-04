@@ -626,10 +626,10 @@
   },
   {
     "explanationText": [
-      "間違い。正しくは、ASは同一の管理ポリシーで運用されるネットワーク群である。Router-LSAが伝播する範囲を表すのは、OSPFのエリアである。選択肢はASをRouter-LSAが伝播するルータの集合としているため誤りである。",
-      "間違い。正しくは、ASは同一の管理ポリシーで運用されるネットワーク群であり、AS番号で識別される。選択肢は接続形態やブロードキャスト・マルチキャストの扱い、Helloプロトコルによる隣接関係を説明しており、OSPFのネットワーク種別や隣接関係に関する内容である。",
-      "正しい。AS（自律システム）は、同一の管理ポリシーで運用されるネットワーク群であり、AS番号によって識別される。BGP-4では、AS番号に2オクテット形式と4オクテット形式がある。",
-      "間違い。正しくは、ASは同一の管理ポリシーで運用されるネットワーク群である。リンクステート型の共通プロトコルでルーティング情報を交換するルータの集合という説明は、OSPFなどの同一のルーティングプロトコルを使う範囲に関する内容であり、ASの定義ではない。"
+      "間違い。正しくは、Router-LSAが伝播する範囲はOSPFのエリアである。選択肢は、Router-LSAが伝播するルータの集合をASとしているため誤りである。",
+      "間違い。正しくは、ASは同一の管理ポリシーで運用されるネットワーク群である。選択肢は、ネットワーク種別やHelloプロトコルによる隣接関係を説明しており、OSPFのネットワークと隣接形成に関する内容であるため誤りである。",
+      "正しい。AS（自律システム）は、外部から一貫したルーティングポリシーの単位として扱われるネットワーク群であり、OSPFのエリアや特定のIGPを使う範囲とは異なる。BGP-4では、AS番号に2オクテット形式と4オクテット形式がある。",
+      "間違い。正しくは、ASは同一の管理ポリシーで運用されるネットワーク群であり、リンクステート型の共通プロトコルを使うルータだけに限定されない。選択肢は、特定のリンクステート型プロトコルを使うルータの集合としているため誤りである。"
     ],
     "original_question_id": "2f1c49324c86a7d8",
     "question_url": "https://www.nw-siken.com/kakomon/24_aki/am2_1.html",
@@ -637,11 +637,27 @@
     "sourceQuestionKey": "nw:201202:2f1c49324c86a7d8",
     "reviewQuestionId": "2f1c49324c86a7d8",
     "sourceRecordRef": "question_201202_2.json#5",
-    "explanationReferences": [],
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc4271.html",
+        "title": "A Border Gateway Protocol 4 (BGP-4)"
+      },
+      {
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc2328.html",
+        "title": "OSPF Version 2"
+      },
+      {
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc6793.html",
+        "title": "BGP Support for Four-Octet Autonomous System Number Space"
+      }
+    ],
     "questionLearningPatternId": "differences_relationships",
     "suggestedQuestionDetailsByChoice": [],
     "isLawRelated": false,
-    "lawContextForExplanation": "BGP-4におけるAS（自律システム）の技術的な定義を問う問題で、法令条文を根拠にしない。",
+    "lawContextForExplanation": "BGP-4におけるAS（自律システム）の技術的定義を問う問題で、法令条文を根拠にしない。ASはルーティングポリシーの単位であり、OSPFエリアや特定のIGPの範囲とは区別する。",
     "lawReferences": [
       [],
       [],
@@ -651,7 +667,7 @@
     "lawRevisionFacts": [
       {
         "answerImpactFacts": [
-          "法令監査対象外の技術問題として既存判定を保持する。"
+          "法令監査対象外の技術問題として判定する。"
         ],
         "auditStatus": "not_law_related",
         "current": {
@@ -659,10 +675,10 @@
         },
         "differenceFacts": [],
         "evidenceSummary": {
-          "differenceSummary": "法令監査対象外であり、法令改正差分はない。",
+          "differenceSummary": "法令改正による差分はない。",
           "displayRefIds": [],
-          "explanationText": "技術知識に基づく選択肢別判定を保持する。",
-          "promptContext": "ASとRouter-LSA、OSPFの関係を確認する。",
+          "explanationText": "Router-LSAの伝播範囲とASの定義を区別する。",
+          "promptContext": "ASとOSPFエリアの違いを確認する。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -670,14 +686,14 @@
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "BGP-4とOSPFに関する技術知識で判定し、法令根拠は使用しない。"
+          "Router-LSAの伝播範囲はOSPFエリアであり、ASの定義ではない。"
         ],
         "reconciliationStatus": "consistent",
         "reviewState": "secondary_verified"
       },
       {
         "answerImpactFacts": [
-          "法令監査対象外の技術問題として既存判定を保持する。"
+          "法令監査対象外の技術問題として判定する。"
         ],
         "auditStatus": "not_law_related",
         "current": {
@@ -685,10 +701,10 @@
         },
         "differenceFacts": [],
         "evidenceSummary": {
-          "differenceSummary": "法令監査対象外であり、法令改正差分はない。",
+          "differenceSummary": "法令改正による差分はない。",
           "displayRefIds": [],
-          "explanationText": "技術知識に基づく選択肢別判定を保持する。",
-          "promptContext": "ASとHelloプロトコル、OSPFの隣接関係を区別する。",
+          "explanationText": "OSPFのネットワーク種別・隣接形成とASを区別する。",
+          "promptContext": "ASとOSPFの隣接関係を確認する。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -696,14 +712,14 @@
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "BGP-4とOSPFに関する技術知識で判定し、法令根拠は使用しない。"
+          "ネットワーク種別とHelloプロトコルによる隣接関係はOSPFの説明であり、ASの定義ではない。"
         ],
         "reconciliationStatus": "consistent",
         "reviewState": "secondary_verified"
       },
       {
         "answerImpactFacts": [
-          "法令監査対象外の技術問題として既存判定を保持する。"
+          "法令監査対象外の技術問題として判定する。"
         ],
         "auditStatus": "not_law_related",
         "current": {
@@ -711,10 +727,10 @@
         },
         "differenceFacts": [],
         "evidenceSummary": {
-          "differenceSummary": "法令監査対象外であり、法令改正差分はない。",
+          "differenceSummary": "法令改正による差分はない。",
           "displayRefIds": [],
-          "explanationText": "ASの技術的定義とAS番号に関する既存判定を保持する。",
-          "promptContext": "ASは同一の管理ポリシーで運用されるネットワーク群であることを確認する。",
+          "explanationText": "ASの定義とAS番号の形式を確認する。",
+          "promptContext": "ASの管理ポリシーとAS番号を確認する。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -722,14 +738,14 @@
           "correctChoiceText": "正しい"
         },
         "notes": [
-          "BGP-4におけるASの技術的定義とAS番号の形式で判定し、法令根拠は使用しない。"
+          "ASはルーティングポリシーの単位であり、BGP-4では2オクテット及び4オクテットのAS番号を扱う。"
         ],
         "reconciliationStatus": "consistent",
         "reviewState": "secondary_verified"
       },
       {
         "answerImpactFacts": [
-          "法令監査対象外の技術問題として既存判定を保持する。"
+          "法令監査対象外の技術問題として判定する。"
         ],
         "auditStatus": "not_law_related",
         "current": {
@@ -737,10 +753,10 @@
         },
         "differenceFacts": [],
         "evidenceSummary": {
-          "differenceSummary": "法令監査対象外であり、法令改正差分はない。",
+          "differenceSummary": "法令改正による差分はない。",
           "displayRefIds": [],
-          "explanationText": "ASと同一AS内のIGPに関する技術的区別を保持する。",
-          "promptContext": "リンクステート型プロトコルを用いるルータ集合とASの定義を区別する。",
+          "explanationText": "ASと特定のIGPを使うルータ集合を区別する。",
+          "promptContext": "AS内で利用されるルーティングプロトコルとASの定義を確認する。",
           "refs": [],
           "verdict": "not_law_related"
         },
@@ -748,7 +764,7 @@
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "BGP-4、OSPF及びIGPに関する技術知識で判定し、法令根拠は使用しない。"
+          "ASは単一のリンクステート型共通プロトコルを使うルータ集合に限定されない。"
         ],
         "reconciliationStatus": "consistent",
         "reviewState": "secondary_verified"
@@ -997,7 +1013,7 @@
   },
   {
     "explanationText": [
-      "正しい。X側をX・A・B・C、Y側をD・E・F・G・Yに分けるカットを考えると、境界を通る回線の多重度は、A-Dの1、B-Dの2、B-Eの3、C-Fの4である。合計は\\(1+2+3+4=10\\)となる。このカットを通過できる回線は最大10本であり、図の経路には実際に10本を流せるため、X地点からY地点まで同時に使用できる最大の論理回線数は10である。"
+      "正しい。X側を\\(\\{X,A,B,C\\}\\)、Y側を\\(\\{D,E,F,G,Y\\}\\)に分けるカットを考える。最大フロー\\(F_{\\max}\\)は、カットを横切る回線容量の合計\\(C_{\\mathrm{cut}}\\)を超えないため、\\(F_{\\max}\\le C_{\\mathrm{cut}}\\)である。ここで、\\(c_i\\)はカットを横切る各回線の多重度を表す。\\[C_{\\mathrm{cut}}=1+2+3+4=10\\]\\nさらに、X-A=3、X-B=4、X-C=3、A-B=2、A-D=1、B-D=2、B-E=3、B-C=1、C-F=4、D-Y=3、F-G=3、F-E=1、E-Y=3、E-G=1、G-Y=4と流せば、各回線の容量を超えずにYへ\\(3+3+4=10\\)本を届けられる。したがって上限10本を実現でき、最大同時使用数は\\(F_{\\max}=10\\)である。選択肢では10が正答である。"
     ],
     "original_question_id": "4b0495022d42dc93",
     "question_url": "https://www.nw-siken.com/kakomon/24_aki/am2_4.html",
@@ -1009,7 +1025,7 @@
     "questionLearningPatternId": "calculation",
     "suggestedQuestionDetailsByChoice": [],
     "isLawRelated": false,
-    "lawContextForExplanation": "図に示された論理回線の多重度から、X地点からY地点までの最大同時経路数を計算する問題で、法令条文を根拠にしない。",
+    "lawContextForExplanation": "図の回線容量からカット容量と実現可能なフローを計算して最大同時論理回線数を求める技術問題であり、法令条文を根拠にしない。",
     "lawReferences": [
       [],
       [],
@@ -1027,7 +1043,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令改正による差分なし。",
           "displayRefIds": [],
-          "explanationText": "論理回線の多重度と最大フローの計算で判定する技術問題である。",
+          "explanationText": "論理回線の多重度、カット容量及び最大フローを計算する技術問題である。",
           "promptContext": "法令監査対象外。",
           "refs": [],
           "verdict": "not_law_related"
@@ -1051,7 +1067,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令改正による差分なし。",
           "displayRefIds": [],
-          "explanationText": "論理回線の多重度と最大フローの計算で判定する技術問題である。",
+          "explanationText": "論理回線の多重度、カット容量及び最大フローを計算する技術問題である。",
           "promptContext": "法令監査対象外。",
           "refs": [],
           "verdict": "not_law_related"
@@ -1075,7 +1091,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令改正による差分なし。",
           "displayRefIds": [],
-          "explanationText": "論理回線の多重度と最大フローの計算で判定する技術問題である。",
+          "explanationText": "論理回線の多重度、カット容量及び最大フローを計算する技術問題である。",
           "promptContext": "法令監査対象外。",
           "refs": [],
           "verdict": "not_law_related"
@@ -1099,7 +1115,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令改正による差分なし。",
           "displayRefIds": [],
-          "explanationText": "論理回線の多重度と最大フローの計算で判定する技術問題である。",
+          "explanationText": "論理回線の多重度、カット容量及び最大フローを計算する技術問題である。",
           "promptContext": "法令監査対象外。",
           "refs": [],
           "verdict": "not_law_related"
@@ -1117,9 +1133,9 @@
   },
   {
     "explanationText": [
-      "間違い。上りと下りで異なる周波数帯域を使う設計はISDNとの干渉を避けることにも関係するが、上りの伝送速度が遅い直接の理由は、上りに割り当てられた変調周波数帯域が下りより狭いことである。選択肢はISDNとの干渉防止だけを理由としているため誤りである。",
-      "間違い。ATMセルはデータを運ぶ単位であり、上りだけの伝送速度を下りより遅くする仕様ではない。選択肢はATMセルの仕様が速度差を制限するとしているため誤りである。",
-      "間違い。通信事業者やインターネットサービスプロバイダのセキュリティチェックは、ADSL回線の変調周波数帯域や物理的な伝送速度を決めるものではない。選択肢はセキュリティチェックが上りの低速化の理由としているため誤りである。",
+      "間違い。上りに割り当てられた変調周波数帯域が下りより狭いため、上りの伝送速度が下りより遅くなる。ISDNとの干渉を避けることは周波数設計に関係するが、選択肢はそれだけを上り速度が遅い理由としているため誤りである。",
+      "間違い。正しくは、上りに割り当てられた変調周波数帯域が下りより狭いため、上りの伝送速度が下りより遅くなる。ATMセルはデータを運ぶ単位であり、選択肢はATMセルの仕様が上りだけの速度を制限するとしているため誤りである。",
+      "間違い。正しくは、上りに割り当てられた変調周波数帯域が下りより狭いため、上りの伝送速度が下りより遅くなる。通信事業者やインターネットサービスプロバイダのセキュリティチェックは物理層の帯域幅を決めないため、選択肢はセキュリティチェックを速度差の理由としているため誤りである。",
       "正しい。ADSLは上りに割り当てる変調周波数帯域が下りより狭いため、上りで一度に送れる情報量が少なく、伝送速度が下りより遅くなる。"
     ],
     "original_question_id": "b32beeda09381efc",
@@ -1128,11 +1144,17 @@
     "sourceQuestionKey": "nw:201202:b32beeda09381efc",
     "reviewQuestionId": "b32beeda09381efc",
     "sourceRecordRef": "question_201202_2.json#9",
-    "explanationReferences": [],
+    "explanationReferences": [
+      {
+        "referenceDate": "1999-07-01",
+        "sourceUrl": "https://www.itu.int/rec/T-REC-G.992.1-199907-I",
+        "title": "ITU-T Recommendation G.992.1 (07/1999), Asymmetric digital subscriber line transceivers"
+      }
+    ],
     "questionLearningPatternId": "mechanisms_reasons",
     "suggestedQuestionDetailsByChoice": [],
     "isLawRelated": false,
-    "lawContextForExplanation": "ADSLの上り速度が下りより遅い理由は、上りの変調周波数帯域が下りより狭いという通信技術上の設計による。法令条文を根拠にしない。",
+    "lawContextForExplanation": "ADSLの上り速度が下りより遅い直接の理由は、上りに割り当てられた変調周波数帯域が下りより狭いという通信技術上の設計である。法令条文を根拠にしない。",
     "lawReferences": [
       [],
       [],
@@ -1150,7 +1172,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令による差分なし。",
           "displayRefIds": [],
-          "explanationText": "ISDN干渉は周波数設計に関係するが、上り速度が下りより遅い主因ではない。",
+          "explanationText": "ISDNとの共存は周波数設計に関係するが、上り速度が下りより遅い直接の理由は上り帯域の狭さである。",
           "promptContext": "ADSLの伝送方式に関する技術問題。",
           "refs": [],
           "verdict": "not_law_related"
@@ -1174,7 +1196,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令による差分なし。",
           "displayRefIds": [],
-          "explanationText": "ATMセルは転送単位であり、上りだけの速度差を本質的に決めるものではない。",
+          "explanationText": "ATMセルはデータ転送単位であり、上りだけの速度差を決める仕様ではない。",
           "promptContext": "ADSLの伝送方式に関する技術問題。",
           "refs": [],
           "verdict": "not_law_related"

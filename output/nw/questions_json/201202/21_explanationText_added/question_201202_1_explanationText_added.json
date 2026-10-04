@@ -481,9 +481,9 @@
   },
   {
     "explanationText": [
-      "間違い。正しくは、ライトスルー方式ではキャッシュメモリと主記憶の両方に書き込む。選択肢はキャッシュメモリだけに書き込むとしているため誤りである。",
+      "間違い。正しくは、ライトスルー方式ではキャッシュメモリと主記憶の両方に書き込むため、主記憶への書込みを後回しにするライトバック方式より、書込み性能で有利とはいえない。選択肢はキャッシュメモリだけに書き込み、高速に書込みができるとしているため誤りである。",
       "正しい。ライトスルー方式では書込み時に主記憶にも反映するため、主記憶の内容は常に最新になる。",
-      "間違い。正しくは、ライトバック方式ではまずキャッシュメモリに書き込み、後で主記憶へ反映する。選択肢はキャッシュメモリと主記憶へ同時に書き込むとしているため誤りである。",
+      "間違い。正しくは、ライトバック方式ではまずキャッシュメモリに書き込み、キャッシュの置換時などに主記憶へ反映する。主記憶への書込み回数を減らせるため、ライトスルー方式より一般に高速である。選択肢はキャッシュメモリと主記憶へ同時に書き込むため速度が遅いとしているため誤りである。",
       "間違い。ライトバック方式では、変更されたデータがキャッシュミスによって追い出されるとき、主記憶へ書き戻す必要がある。選択肢は書き戻しが不要としているため誤りである。"
     ],
     "original_question_id": "015cf5014266d414",
@@ -968,9 +968,9 @@
   {
     "explanationText": [
       "正しい。ストアドプロシージャは、DBMS側に一連の処理をまとめて登録して実行できる。そのため、アプリケーションとDBMSの間で個々のSQLを何度も送受信する必要がなくなり、通信量を減らせる。",
-      "間違い。ストアドプロシージャは一連の処理をまとめて実行できるが、DBMS内で実行計画の数が減るとは限らない。選択肢は、処理を一括して実行すれば実行計画の数が減少するとしているため誤りである。",
-      "間違い。ストアドプロシージャによってSQLの送受信回数は減らせるが、処理に必要なバッファ数が減るとは限らない。選択肢は、処理を一括して実行すれば必要なバッファ数が減少するとしているため誤りである。",
-      "間違い。ディスク装置へのI/O回数は、実行するSQL、データ量、索引の有無などによって決まり、ストアドプロシージャを使うだけで減るわけではない。選択肢は、ストアドプロシージャによってI/O回数が減少するとしているため誤りである。"
+      "間違い。正しくは、ストアドプロシージャは一連の処理をDBMS側でまとめて実行し、通信量を減らす利点がある。各SQLの実行計画は処理内容に応じて作成されるため、要求を一括しても、各SQLの実行計画が一つに統合されるとは限らない。選択肢は、一括処理によって実行計画の数が減少するとしているため誤りである。",
+      "間違い。正しくは、ストアドプロシージャによってアプリケーションとDBMS間の通信量を減らせるが、必要なバッファ数は各SQLの処理内容、アクセス方式、対象データなどに左右される。ネットワーク上の呼出し回数を減らしても、処理に必要なバッファ数が減るとは限らない。選択肢は、一括処理によって必要バッファ数が減少するとしているため誤りである。",
+      "間違い。正しくは、ストアドプロシージャの主な利点は処理をDBMS側にまとめて通信量を減らすことであり、ディスク装置へのI/O回数が自動的に減るわけではない。I/O回数はSQL、索引、対象データ量、キャッシュ状態などに左右される。選択肢は、ストアドプロシージャを使うだけでI/O回数が減少するとしているため誤りである。"
     ],
     "original_question_id": "551d332c64c4d66e",
     "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_9.html",
@@ -978,11 +978,22 @@
     "sourceQuestionKey": "nw:201202:551d332c64c4d66e",
     "reviewQuestionId": "551d332c64c4d66e",
     "sourceRecordRef": "question_201202_1.json#8",
-    "explanationReferences": [],
+    "explanationReferences": [
+      {
+        "referenceDate": "2012-10-21",
+        "sourceUrl": "https://www.ipa.go.jp/shiken/mondai-kaiotu/ug65p90000002h5m-att/2012h24a_ap_am_qs.pdf",
+        "title": "平成24年度秋期 応用情報技術者試験 午前 問題冊子"
+      },
+      {
+        "referenceDate": "2012-10-21",
+        "sourceUrl": "https://www.ipa.go.jp/shiken/mondai-kaiotu/ug65p90000002h5m-att/2012h24a_ap_am_ans.pdf",
+        "title": "平成24年度秋期 応用情報技術者試験 午前 解答例"
+      }
+    ],
     "questionLearningPatternId": "mechanisms_reasons",
     "suggestedQuestionDetailsByChoice": [],
     "isLawRelated": false,
-    "lawContextForExplanation": "データベース技術上の一般知識を問う問題で、法令・制度上の義務、定義、手続又は基準を根拠にしない。",
+    "lawContextForExplanation": "ストアドプロシージャの利点に関するデータベース技術上の一般知識を問う問題で、法令・制度上の義務、定義、手続又は基準を根拠にしない。",
     "lawReferences": [
       [],
       [],
@@ -1024,7 +1035,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令改正による差分なし。",
           "displayRefIds": [],
-          "explanationText": "処理をまとめてもDBMS内の実行計画数が必ず減るわけではない。",
+          "explanationText": "一括呼出しによって各SQLの実行計画が一つに統合されるとは限らない。",
           "promptContext": "データベース技術上の一般知識。",
           "refs": [],
           "verdict": "法令非該当"
@@ -1048,7 +1059,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令改正による差分なし。",
           "displayRefIds": [],
-          "explanationText": "ストアドプロシージャを使っても必要バッファ数が必ず減るわけではない。",
+          "explanationText": "必要なバッファ数は処理内容、アクセス方式、対象データなどに左右され、通信回数の削減とは別に決まる。",
           "promptContext": "データベース技術上の一般知識。",
           "refs": [],
           "verdict": "法令非該当"
@@ -1072,7 +1083,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令改正による差分なし。",
           "displayRefIds": [],
-          "explanationText": "ディスク装置へのI/O回数はSQLや索引などに左右され、ストアドプロシージャ化だけで減るわけではない。",
+          "explanationText": "ディスク装置へのI/O回数はSQL、索引、対象データ量、キャッシュ状態などに左右される。",
           "promptContext": "データベース技術上の一般知識。",
           "refs": [],
           "verdict": "法令非該当"
@@ -1330,7 +1341,7 @@
   },
   {
     "explanationText": [
-      "正しい。該当する組合せはウである。クライアントは認証局の公開鍵でサーバ証明書の正当性を確認し、証明書に含まれるWebサーバの公開鍵で共通鍵生成用データを暗号化する。Webサーバは自分の秘密鍵でそのデータを復号し、両者が同じデータから共通鍵を作成して、以後の通信に用いる。"
+      "正しい。該当する組合せはウである。クライアントは、あらかじめ信頼している認証局の公開鍵を使ってサーバ証明書の正当性を確認し、証明書に含まれるWebサーバの公開鍵で共通鍵生成用データを暗号化する。Webサーバは対応する秘密鍵でそのデータを復号できるため、両者は同じデータから共通鍵を作成して以後の通信に用いる。"
     ],
     "original_question_id": "b371daa2a6a61759",
     "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_12.html",
@@ -1338,11 +1349,27 @@
     "sourceQuestionKey": "nw:201202:b371daa2a6a61759",
     "reviewQuestionId": "b371daa2a6a61759",
     "sourceRecordRef": "question_201202_1.json#11",
-    "explanationReferences": [],
+    "explanationReferences": [
+      {
+        "referenceDate": "2012-10-21",
+        "sourceUrl": "https://www.ipa.go.jp/shiken/mondai-kaiotu/ug65p90000002h5m-att/2012h24a_nw_am2_qs.pdf",
+        "title": "平成24年度秋期 ネットワークスペシャリスト試験 午前Ⅱ 問題"
+      },
+      {
+        "referenceDate": "2012-10-21",
+        "sourceUrl": "https://www.ipa.go.jp/shiken/mondai-kaiotu/ug65p90000002h5m-att/2012h24a_nw_am2_ans.pdf",
+        "title": "平成24年度秋期 ネットワークスペシャリスト試験 午前Ⅱ 解答例"
+      },
+      {
+        "referenceDate": "2008-08-01",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc5246",
+        "title": "RFC 5246: The Transport Layer Security (TLS) Protocol Version 1.2"
+      }
+    ],
     "questionLearningPatternId": "mechanisms_reasons",
     "suggestedQuestionDetailsByChoice": [],
     "isLawRelated": false,
-    "lawContextForExplanation": "SSLの証明書検証と公開鍵暗号に関する技術問題で、法令・制度上の義務や基準を根拠にしない。",
+    "lawContextForExplanation": "SSLの証明書検証と公開鍵暗号による鍵交換に関する技術問題であり、法令・制度上の義務や基準を根拠にしない。",
     "lawReferences": [
       [],
       [],
@@ -1360,8 +1387,8 @@
         "evidenceSummary": {
           "differenceSummary": "技術知識のみで判定できる。",
           "displayRefIds": [],
-          "explanationText": "クライアントが保持するのは通常、認証局の公開鍵であり、クライアント自身の公開鍵ではない。",
-          "promptContext": "aにクライアントの公開鍵を入れる組合せ。",
+          "explanationText": "クライアントが証明書検証に使うのは、クライアント自身の公開鍵ではなく、信頼している認証局の公開鍵である。また、共通鍵生成用データはWebサーバの公開鍵で暗号化する。",
+          "promptContext": "aにクライアントの公開鍵、bにWebサーバの秘密鍵を入れる組合せ。",
           "refs": [],
           "verdict": "間違い"
         },
@@ -1384,7 +1411,7 @@
         "evidenceSummary": {
           "differenceSummary": "技術知識のみで判定できる。",
           "displayRefIds": [],
-          "explanationText": "共通鍵生成用データはサーバの公開鍵で暗号化し、サーバの秘密鍵で復号するため、bにサーバの公開鍵を入れる必要がある。",
+          "explanationText": "共通鍵生成用データはWebサーバの公開鍵で暗号化するが、証明書検証にクライアントの秘密鍵は使わない。",
           "promptContext": "aにクライアントの秘密鍵、bにWebサーバの公開鍵を入れる組合せ。",
           "refs": [],
           "verdict": "間違い"
@@ -1432,7 +1459,7 @@
         "evidenceSummary": {
           "differenceSummary": "技術知識のみで判定できる。",
           "displayRefIds": [],
-          "explanationText": "サーバ証明書の公開鍵で共通鍵生成用データを暗号化するため、bにWebサーバの秘密鍵を入れる組合せは適切でない。",
+          "explanationText": "共通鍵生成用データはWebサーバの公開鍵で暗号化し、Webサーバの秘密鍵で復号する。クライアントがWebサーバの秘密鍵を使う組合せではない。",
           "promptContext": "aに認証局の公開鍵、bにWebサーバの秘密鍵を入れる組合せ。",
           "refs": [],
           "verdict": "間違い"
@@ -1450,10 +1477,10 @@
   },
   {
     "explanationText": [
-      "間違い。クッキー型のシングルサインオンでは、認証後の情報をサーバがクッキーとしてクライアントへ渡し、各サーバがその情報を利用して認証する。選択肢はクライアントがクッキーを生成し、各サーバで保存・管理するとしているため誤りである。",
-      "間違い。クッキー型のシングルサインオンでは、同一ドメイン配下でクッキーを共有して認証に利用する。認証対象のサーバを異なるインターネットドメインに配置する必要があるとしているため誤りである。",
-      "間違い。リバースプロキシ型のシングルサインオンでは、リバースプロキシが利用者を認証してWebサーバへ中継する。認証対象のWebサーバを異なるインターネットドメインに配置する必要はなく、必要条件としているため誤りである。",
-      "正しい。リバースプロキシ型のシングルサインオンでは、利用者認証にデジタル証明書を用いることができる。"
+      "間違い。クッキー型のシングルサインオンでは、サーバが認証後の情報をクッキーとしてクライアントへ渡し、クライアントは次回以降の要求でそのクッキーを送信する。選択肢はクライアントが認証情報入りクッキーを生成し、各サーバで保存・管理するとしているため誤りである。",
+      "間違い。クッキー型のシングルサインオンでは、CookieのDomain属性で共有範囲を定める。同一ドメインまたはそのサブドメインで利用する構成が基本であり、認証対象のサーバを異なるインターネットドメインに配置する必要があるとしているため誤りである。",
+      "間違い。リバースプロキシ型のシングルサインオンでは、リバースプロキシが利用者を認証して背後のWebサーバへ要求を中継する。背後のWebサーバはlocalhost、IPアドレス、同一ドメイン内のホストなどにも配置でき、異なるインターネットドメインに置く必要はない。",
+      "正しい。リバースプロキシはTLS終端でクライアントから提示されたデジタル証明書を検証し、その証明書に対応する利用者を認証できる。このため、パスワードの代わりにデジタル証明書を利用できる。"
     ],
     "original_question_id": "28dc575bf51d98ee",
     "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_13.html",
@@ -1461,7 +1488,32 @@
     "sourceQuestionKey": "nw:201202:28dc575bf51d98ee",
     "reviewQuestionId": "28dc575bf51d98ee",
     "sourceRecordRef": "question_201202_1.json#12",
-    "explanationReferences": [],
+    "explanationReferences": [
+      {
+        "choiceIndex": 0,
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc6265.html",
+        "title": "RFC 6265 HTTP State Management Mechanism"
+      },
+      {
+        "choiceIndex": 1,
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc6265.html",
+        "title": "RFC 6265 HTTP State Management Mechanism"
+      },
+      {
+        "choiceIndex": 2,
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://nginx.org/en/docs/http/ngx_http_proxy_module.html",
+        "title": "NGINX ngx_http_proxy_module Documentation"
+      },
+      {
+        "choiceIndex": 3,
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://www.ibm.com/docs/en/sva/11.0.3?topic=authentication-enabling-certificate",
+        "title": "Enabling certificate authentication"
+      }
+    ],
     "questionLearningPatternId": "differences_relationships",
     "suggestedQuestionDetailsByChoice": [],
     "isLawRelated": false,
@@ -3037,10 +3089,10 @@
   },
   {
     "explanationText": [
-      "間違い。サービス内容や品質、責任範囲、ペナルティなどをあらかじめ契約で定める文書はSLAである。選択肢はSLAをRFIとしているため誤りである。",
-      "間違い。技術要件やサービスレベル要件を示し、期限内に実現方法の提案を依頼する文書はRFPである。選択肢はRFPをRFIとしているため誤りである。",
-      "正しい。RFIは、調達や要求定義を進める前に、利用可能な技術・製品やベンダーの導入実績など、実現手段に関する情報提供を依頼する文書である。",
-      "間違い。業務処理の概要、入出力情報、データフローなどをまとめて要求や仕様を整理する文書は、要求定義書などである。選択肢はこの文書をRFIとしているため誤りである。"
+      "間違い。正しくは、サービス内容と合意したサービスレベルを定める文書はSLA（サービスレベル合意書）である。選択肢はSLAをRFIとしているため誤りである。",
+      "間違い。正しくは、調達対象のシステムや提案依頼事項、調達条件を示して提案書の提出を求める文書はRFP（提案依頼書）である。選択肢はRFPをRFIとしているため誤りである。",
+      "正しい。RFI（情報提供依頼書）は、ベンダーに利用可能な技術・製品や導入実績といった実現手段に関する情報の提供を求める文書である。",
+      "間違い。正しくは、業務処理の概要、入出力情報、データフローをまとめ、要求定義との整合性を確保してユーザーと開発・運用要員で共有する文書である。選択肢はこの要求定義・業務共有の文書をRFIとしているため誤りである。"
     ],
     "original_question_id": "fbaebe974dfb6892",
     "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_25.html",
@@ -3048,11 +3100,27 @@
     "sourceQuestionKey": "nw:201202:fbaebe974dfb6892",
     "reviewQuestionId": "fbaebe974dfb6892",
     "sourceRecordRef": "question_201202_1.json#24",
-    "explanationReferences": [],
+    "explanationReferences": [
+      {
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://www.ipa.go.jp/shiken/mondai-kaiotu/ug65p90000002h5m-att/2012h24a_koudo_am1_qs.pdf",
+        "title": "平成24年度秋期 高度試験共通 午前Ⅰ 問題冊子"
+      },
+      {
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://www.ipa.go.jp/shiken/mondai-kaiotu/ug65p90000002h5m-att/2012h24a_koudo_am1_ans.pdf",
+        "title": "平成24年度秋期 高度試験共通 午前Ⅰ 解答例"
+      },
+      {
+        "referenceDate": "2026-10-04",
+        "sourceUrl": "https://www.ipa.go.jp/shiken/syllabus/nl10bi0000007tge-att/syllabus_ap_ver7_1.pdf",
+        "title": "応用情報技術者試験（レベル3）シラバス Ver.7.1"
+      }
+    ],
     "questionLearningPatternId": "differences_relationships",
     "suggestedQuestionDetailsByChoice": [],
     "isLawRelated": false,
-    "lawContextForExplanation": "RFI、RFP、SLA及び要求定義関連文書の役割を問う技術・調達知識の問題であり、法令条文を根拠にしない。",
+    "lawContextForExplanation": "RFI、RFP、SLA及び要求定義・業務共有文書の役割を問う技術・調達知識の問題であり、法令条文を根拠にしない。",
     "lawReferences": [
       [],
       [],
@@ -3079,7 +3147,7 @@
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "法令監査対象外。RFIとSLAの役割の違いで判定した。"
+          "法令監査対象外。サービス内容やサービスレベルを合意するSLAとRFIの役割の違いで判定した。"
         ],
         "reconciliationStatus": "reconciled",
         "reviewState": "secondary_verified"
@@ -3103,7 +3171,7 @@
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "法令監査対象外。RFPとRFIの役割の違いで判定した。"
+          "法令監査対象外。提案書の提出を求めるRFPと情報提供を求めるRFIの役割の違いで判定した。"
         ],
         "reconciliationStatus": "reconciled",
         "reviewState": "secondary_verified"
@@ -3142,7 +3210,7 @@
         "evidenceSummary": {
           "differenceSummary": "法令改正差分なし。",
           "displayRefIds": [],
-          "explanationText": "第4選択肢は要求定義や仕様・設計に関する文書の説明であり、RFIではない。",
+          "explanationText": "第4選択肢は、業務処理の概要、入出力情報、データフローをまとめて要求定義との整合性を確保し、関係者で共有する文書の説明であり、RFIではない。",
           "promptContext": "RFIを説明したものはどれか。",
           "refs": [],
           "verdict": "not_law_related"
@@ -3151,7 +3219,7 @@
           "correctChoiceText": "間違い"
         },
         "notes": [
-          "法令監査対象外。要求定義関連文書の役割で判定した。"
+          "法令監査対象外。要求定義との整合性を確保し、ユーザーと開発・運用要員で共有する文書とRFIの役割の違いで判定した。"
         ],
         "reconciliationStatus": "reconciled",
         "reviewState": "secondary_verified"
