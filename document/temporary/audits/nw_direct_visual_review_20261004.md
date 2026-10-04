@@ -197,3 +197,11 @@ MIME補正後一問は新GUI exactpreview/currentstateHash一致とWeb残18%/625
 202201午前II問21の四fieldを個別に読み、RFC5358第1・3・4節とRFC4033第3.1節を直接確認した。再帰問い合わせの利用者制限を本問の対策として示し、権威サーバを含む反射攻撃全般の防止と区別した。送信元偽装による応答の集中、Whois確認では防げない理由、DNSSECのデータ由来検証と問い合わせ元認証の違いを21解説の第1・2・4肢に記載した。
 
 source・ID・本文・全肢・正誤・metadataと第3肢解説は保持。正常同期のmerge/convert/upload dry-runと必須3検査48merged/48実正答patch880entriesは成功、全suite未実行。新ローカル投影の四fieldを再読した。AI/model/作業版receiptなし、独立Sol未完、品質確定212/880不変、Firestore書込みなし。根拠direct_dnsreflect_scope1_applied_20261005.json。
+
+### 2026-10-05 UML多重度とフォレンジックスの回答条件2問
+
+202301午前I問9の実図・選択表と四fieldを読み、a/bがいずれも所属履歴側の件数であることを独立に確認した。部門1件と社員1人から履歴へ至る二つの関係を解説し、10のquestionTypeだけを01正本の対応関係の組合せ基準からgroup_choiceへ変更した。無演算の件数条件比較として計算フラグfalseは保持した。
+
+同年度午前I問13は、NIST SP800-86第2.6・4.3.3節を直接読み、ログ分析及びハッシュ照合をフォレンジックスから一律に排除する旧説明を修正した。第1・3・4肢に、継続的な監視・保護・実行時の防御と、収集証拠から事実を明らかにする目的の違いを記載した。正誤は保持した。
+
+source・ID・本文・全肢・正誤・metadataは不変。10対象1件と21対象2件以外を保持し、型patch検査、正常merge/convert/upload dry-run及び必須3検査48merged/48実正答patch880entriesは成功、全suite未実行。修正後の四fieldを個別再読した。model/作業版receiptなし、独立Sol未完、品質確定212/880不変、Firestore未書込。根拠direct_operation2_applied_20261005.json。
