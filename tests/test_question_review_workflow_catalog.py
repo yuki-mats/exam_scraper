@@ -83,6 +83,14 @@ documents = []
 
 
 class WorkflowCatalogTests(unittest.TestCase):
+    def test_answer_operation_stages_keep_approved_aggregate_marker_read_only(self):
+        catalog = WorkflowCatalog(ROOT).load()
+        for stage_id in ('question_type', 'question_intent'):
+            stage = next(s for s in catalog['stages'] if s['id'] == stage_id)
+            for target in stage['updateTargets']:
+                self.assertIn('aggregateAnswerDecomposition', target['readFields'])
+                self.assertNotIn('aggregateAnswerDecomposition', target['fields'])
+
     def test_completion_owners_are_catalog_defined_and_validated(self):
         text = (ROOT / "config/question_maintenance_workflow.toml").read_text()
         owner_line = 'completion_owner_stage_ids = ["law_context", "law_audit"]'

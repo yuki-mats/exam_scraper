@@ -13026,7 +13026,7 @@ class QualificationRunCoordinator:
                     targets,
                     records_by_question,
                 )
-                if stage_id in {"question_type", "correct_choice", "law_context", "explanation", "law_audit"}
+                if stage_id in {"question_type", "question_intent", "correct_choice", "law_context", "explanation", "law_audit"}
                 else {}
             )
             canonical_guidance = _canonical_document_guidance(

@@ -143,7 +143,8 @@ kind = "human"
 # 5.0: 完結記述肢と断片肢を構造で区別し、断片肢は補完した完全命題の真偽側を使う。
 # 5.1: 下線部番号肢は参照先に設問述語を補い、番号肢の完全命題として判定する。
 # 5.2: 下線部番号肢を本文中の語句へのポインタとして扱い、参照先の正誤と選択方向を分離する。
-policy_version = "5.2"
+# 5.3: 合意済みの集約回答分解を設問方向の読取入力に保持する。
+policy_version = "5.3"
 qualification_document_patterns = ["README.md", "01_exam_profile.md"]
 batch_selectable = true
 session_group = "maintenance"
@@ -156,7 +157,7 @@ documents = ["prompt/02_prompt_fix_questionIntent.md"]
 id = "intent"
 label = "設問意図"
 fields = ["questionIntent"]
-read_fields = ["questionBodyText", "choiceTextList", "correctChoiceText", "answer_result_text"]
+read_fields = ["questionBodyText", "choiceTextList", "correctChoiceText", "answer_result_text", "aggregateAnswerDecomposition"]
 instruction_aliases = ["何を問う問題か", "問題の狙い"]
 
 [[stages]]
