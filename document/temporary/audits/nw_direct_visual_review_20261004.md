@@ -233,3 +233,9 @@ source・ID・本文・全肢・正誤・形式・metadata・他2肢は保持。
 21の第1肢解説と参照だけ変更し、source・ID・本文・全肢・正誤・他3肢・metadataは保持。正常merge/convert/upload dry-run及び必須3検査48merged/48実正答patch880entriesは成功、全suite未実行。四fieldを修正後に再読。model/作業版receiptなし、独立Sol未完、品質確定212/880不変、Firestore未書込。根拠direct_signature_applied_20261005.json。
 
 署名問題に追加した2参照のURLキーが契約と異なっていたため、同じ一問の参照メタデータだけをsourceUrlへ修正した。解説の内容とURL自体は不変。全880の21参照について既存explanation_reference_errorsの専用検査を実行し、880record・エラー0を確認。正常同期と必須3検査も成功。根拠direct_signature_reference_schema_fixed_20261005.json。
+
+### 2026-10-05 ドメイン名の不正競争の適用要件1問
+
+202401午前I問30の四fieldを個別に読み、出題日2024-04-21と現行2026-10-05の不正競争防止法第2条第1項第1・2・19号を直接確認した。関係する号の本文同一性を確認。各解説に、競争関係の有無ではなく不正目的、周知性と混同、商標登録を要件としない商品表示、正当目的の区別を明示した。第3肢の初稿は条文を文頭の主語に置いたため通常文章検査が拒否し、商品名を主語に推敲して正常保存した。
+
+21解説4件と出題時参照だけ変更し、source・ID・本文・全肢・正誤・形式・保存済みlawRevisionFacts/AIreceiptは保持。正常同期、参照専用検査及び必須3検査48merged/48実正答patch880entries成功、全suite未実行。四fieldを新投影で再読。新model/作業版receiptなし、独立Sol未完、品質確定212/880不変、Firestore未書込。根拠direct_domain2024_applied_20261005.json。
