@@ -116,6 +116,25 @@ def mark_current(workflow, item, stage_ids):
 
 
 class QualificationWorkflowTests(unittest.TestCase):
+    def test_needed_requeues_missing_projected_intent_despite_current_receipt(self):
+        from tools.question_review_console.patch_validation import projected_required_warnings
+
+        item = question()
+        item["projected"].update(questionType="true_false", questionBodyText="AとBを判定する。",
+                                 choiceTextList=["A", "B"], correctChoiceText=["正しい", "間違い"],
+                                 explanationText=["正しい。A。", "間違い。B。"])
+        with tempfile.TemporaryDirectory() as directory:
+            workflow = QualificationWorkflow(Path(directory), FakeInventory(
+                "sample", [{"listGroupId": "2026", "questions": [item]}]))
+            mark_current(workflow, item, ["question_intent"])
+            for intent, expected in ((None, 1), ("select_correct", 0), ("select_incorrect", 0), ("hold", 1)):
+                with self.subTest(intent=intent):
+                    item["projected"]["questionIntent"] = intent
+                    item["issues"] = [{"code": "required_field_missing", "fields": [warning["field"]]}
+                                      for warning in projected_required_warnings(item["projected"])]
+                    plan = workflow.plan("sample", "question_intent", "needed")
+                    self.assertEqual(plan["targetCount"], expected)
+
     def test_resume_plan_many_can_use_compact_workflow_inventory(self):
         qualification = "sample"
         inventory = FakeInventory(

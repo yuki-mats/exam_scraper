@@ -645,7 +645,8 @@ class QuestionReviewInventoryTests(unittest.TestCase):
             current = derived(new_text)
             write_json(group / "10_questionType_fixed/question_questionType_fixed.json", [current])
             relative = Path("output/sample-exam/questions_json/2026/15_correctChoiceText_fixed/question_correctChoiceText_fixed.json")
-            write_json(root / relative, [{**derived(old_text), "questionIntent": "select_incorrect"}])
+            write_json(root / relative, [{**derived(old_text), "questionIntent": "select_incorrect",
+                                         "lawRevisionFacts": [{"current": {"correctChoiceText": "間違い"}}]}])
             inventory = QuestionInventory(root)
             before = inventory.projected_input("sample-exam", "2026", "question.json#0")
             self.assertNotIn("questionIntent", before.record)
@@ -654,7 +655,7 @@ class QuestionReviewInventoryTests(unittest.TestCase):
                 root, root / "output/test_workspace", qualification="sample-exam", mutable_paths=[relative.as_posix()])
             workspace.apply_record_update(relative, binding=binding, aliases={"q1"},
                                           set_fields={**_aggregate_patch_context(before.record), "questionIntent": "select_correct"},
-                                          base_record=before.record)
+                                          base_record=before.record, refresh_aggregate_context=True)
             workspace.rebase_into_canonical(workspace.changed_paths(), binding=binding,
                                            aliases_by_path={relative.as_posix(): [["q1"]]})
             after = inventory.projected_input("sample-exam", "2026", "question.json#0")
@@ -666,6 +667,7 @@ class QuestionReviewInventoryTests(unittest.TestCase):
         self.assertEqual(after.record["choiceTextList"], current["choiceTextList"])
         self.assertEqual(after.record["aggregateAnswerDecomposition"], current["aggregateAnswerDecomposition"])
         self.assertEqual(saved["original_question_id"], "q1")
+        self.assertNotIn("lawRevisionFacts", saved)
         self.assertEqual(retained, source)
         self.assertEqual(_aggregate_patch_context({**current, "questionBodyText": old_text}), {})
 

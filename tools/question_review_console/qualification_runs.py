@@ -17103,6 +17103,8 @@ class QualificationRunCoordinator:
                                 tuple(server_unset_fields),
                             ),
                             base_record=base_record,
+                            refresh_aggregate_context=(target.role not in {"question_type", "law_audit"}
+                                                       and bool(_aggregate_patch_context(base_record))),
                         )
                     candidate_paths = set(workspace.changed_paths())
                     target_group_ids = tuple(

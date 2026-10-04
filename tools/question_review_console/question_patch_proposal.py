@@ -13,7 +13,8 @@ import fcntl
 from pathlib import Path
 from typing import Any
 
-from scripts.common.question_identity import SourceIdentityBinding
+from scripts.common.question_identity import SourceIdentityBinding, SOURCE_IDENTITY_FIELDS, WORKFLOW_IDENTITY_FIELDS
+from scripts.common.aggregate_answer_decomposition import is_approved_target
 from tools.question_review_console.projection import record_identity_aliases
 from tools.question_review_console.review_store import atomic_write
 
@@ -450,6 +451,7 @@ class IsolatedQuestionPatchWorkspace:
         set_fields: Mapping[str, Any],
         unset_fields: tuple[str, ...] = (),
         base_record: Mapping[str, Any],
+        refresh_aggregate_context: bool = False,
     ) -> Path:
         """Materialize a validated structured candidate in this private copy."""
 
@@ -487,6 +489,24 @@ class IsolatedQuestionPatchWorkspace:
                 index = len(records) - 1
         else:
             record = records[index]
+            if refresh_aggregate_context:
+                text = base_record.get("questionBodyText")
+                if not isinstance(text, str) or not is_approved_target(
+                    base_record.get("aggregateAnswerDecomposition"), text
+                ):
+                    raise QuestionPatchProposalError("現在の検証済み集約回答を確認できません。")
+                if "aggregateAnswerDecomposition" in record and any(
+                    record.get(field) != base_record.get(field)
+                    for field in ("aggregateAnswerDecomposition", "choiceTextList", "sourceUniqueKeys")
+                ):
+                    # The entire old row was excluded from projection. Do not
+                    # revive its old verdicts or law audit by relabelling only
+                    # its context. Seed from the current predecessor projection.
+                    identities = {field: record[field] for field in (*SOURCE_IDENTITY_FIELDS, *WORKFLOW_IDENTITY_FIELDS,
+                                  "reviewQuestionId", "sourceQuestionKey", "sourceRecordRef") if field in record}
+                    record.clear()
+                    record.update(json.loads(json.dumps(dict(base_record), ensure_ascii=False)))
+                    record.update(identities)
 
         # source identityはmodel出力ではなくserverが管理する。既存rowのIDは
         # そのまま保持し、欠けている安定参照だけを補う。新規rowは上で完全な
