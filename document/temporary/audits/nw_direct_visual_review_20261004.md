@@ -247,3 +247,11 @@ source・ID・本文・全肢・正誤・形式・metadata・他2肢は保持。
 ### 2026-10-05 2010年キャッシュ平均アクセス時間の表示整備
 
 201002午前I問4（7048be6b7099177b0dc7feda）の本文・全4肢・正誤・共通解説を個別に直視した。21の解説に残るliteral改行2か所を実改行へ整え、ヒット率1-r・ミス率rによる重み付き平均式と説明の全文を保持した。修正後の四fieldを再読し、source bytes・ID・他record・他field・AI工程台帳は不変。通常同期、upload dry-run及び必須3検査48merged/48実正答patch880entries成功、全suite未実行。全880の四fieldを表示用literal改行で走査し残件0を確認したが、内容品質合格とは区別する。新model/工程版receiptなし、独立Sol待ち、品質確定212/880不変、Firestore書込なし。根拠direct_cache2010_layout_applied_20261005.json。
+
+### 2026-10-05 2019年プログラム著作物の利用条件1問
+
+201902午前I問30（01fc7df1383f9f0e26dfe483）の四fieldを個別に読み、出題時2019-10-20と現行2026-10-05の著作権法本則を直接確認した。21の全4肢解説を、侵害品と知って取得した業務使用、購入と著作権の区別、職務著作の担当者の権限、自己実行のため必要な複製・翻案と同一性保持権例外の条件を示す文章へ整備した。第113条は出題時第2項・現行第5項を区別し、第47条の3・47条の6・20条第2項第3号の役割を分けた。出題時及び現行の参照を追加。
+
+source・ID・本文・全肢・正誤・形式・保存済み法令監査metadata・AIreceiptは保持した。正常同期、参照契約検査及び必須3検査48merged/48実正答patch880entries成功、全suite未実行。新投影の四fieldを再読した。新model/工程版receiptなし、独立Sol待ち、品質確定212/880不変、Firestore未書込。根拠direct_copyright2019_primary_20261005.json及びdirect_copyright2019_applied_20261005.json、保存commit5c6a37283。
+
+一時scriptのreport名に2022年の旧名が残り、2019年の確認recordが2022年のhuman確認reportを上書きした。2019年recordを正しいpathへ移し、2022年は保持済み変更前後snapshots・draft・同期log・必須3検査・commit23146d6c1から再構成した。旧report bytesそのものの復元ではないことと再構成入力hashを明記した。両問題patch・source・AI台帳の混入や変更はない。
