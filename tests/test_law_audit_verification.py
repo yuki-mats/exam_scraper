@@ -53,6 +53,20 @@ class LawAuditVerificationTests(unittest.TestCase):
         prompt = '規則\n' + json.dumps([self.bundle['question']]) + '\n# 正本文書\n文書の末尾'
         self.assertEqual(question_inputs_from_prompt(prompt)['q1'], self.bundle['question'])
 
+    def test_new_locator_primary_evidence_is_bound_without_replacing_original_input(self):
+        evidence = {'status': 'complete', 'items': [{'declaredArticle': '597',
+            'examAsOf': '2019-04-01', 'currentSnapshot': {'articleText': '期間満了による終了'}}]}
+        bundle = verification_bundle(self.bundle['question'], self.candidate,
+                                     proposed_primary_evidence=evidence)
+        self.assertEqual(bundle['question'], self.bundle['question'])
+        self.assertEqual(bundle['proposedPrimaryLawEvidence'], evidence)
+        self.assertNotEqual(bundle['evidenceHash'], self.bundle['evidenceHash'])
+        evidence['items'][0]['currentSnapshot']['articleText'] = '別の条文'
+        self.assertEqual(bundle['proposedPrimaryLawEvidence']['items'][0]['currentSnapshot']['articleText'],
+                         '期間満了による終了')
+        with self.assertRaises(ValueError):
+            parse_review(json.dumps(self.approval), bundle)
+
     def test_wrong_identity_or_hash_rejected(self):
         for key in ['questionId', 'evidenceHash']:
             with self.subTest(key=key):

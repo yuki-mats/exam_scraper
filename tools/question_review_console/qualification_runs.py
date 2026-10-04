@@ -16452,9 +16452,28 @@ class QualificationRunCoordinator:
                         if candidate.status != "candidate" or fields.get("isLawRelated") is not True:
                             verified_candidates.append(candidate)
                             continue
+                        review_question = questions[candidate.question_id]
+                        proposed_law_record = copy.deepcopy(review_question["currentRecord"])
+                        if "lawReferences" in fields:
+                            proposed_law_record["lawReferences"] = copy.deepcopy(fields["lawReferences"])
+                        proposed_primary_evidence = self.primary_law_evidence.resolve(
+                            proposed_law_record,
+                            current_as_of=str(
+                                (review_question.get("primaryLawEvidence") or {}).get("currentAsOf")
+                                or _now()
+                            )[:10],
+                            qualification=qualification,
+                            list_group_id=str(
+                                raw_target_by_question.get(candidate.question_id, {}).get("listGroupId")
+                                or proposed_law_record.get("list_group_id")
+                                or proposed_law_record.get("source_list_group_id")
+                                or ""
+                            ),
+                        )
                         bundle = law_verification_bundle(
-                            questions[candidate.question_id], candidate,
+                            review_question, candidate,
                             reference_guidance=reference_guidance,
+                            proposed_primary_evidence=proposed_primary_evidence,
                         )
                         review_count = law_required_review_count(fields)
                         reviews = []

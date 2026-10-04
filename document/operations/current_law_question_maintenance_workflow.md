@@ -18,6 +18,8 @@ Codex App Serverは、保存済み`lawReferences`に`lawId`と条・別表のloc
 
 e-Gov法令API Version2の過去データ対応範囲は2017年4月1日以降です。それより前の試験日は、取得失敗として無限再試行せず`comparison=not_available_pre_2017_04_01`と明示します。この場合は公式元正答を出題時判定、取得できた現行本文を現行判定として独立に扱います。両判定が一致すれば`same_as_current`、異なれば三次確認を要する`updated_to_current_law`とし、過去と現在の条文本文が同一だったとは記録しません。
 
+03bの一次候補が法令locator又は出題時基準日を追加・変更した場合、serverは候補の参照先からも公式本文を取得します。元の入力根拠を保持したまま、取得結果を`proposedPrimaryLawEvidence`として独立監査bundleのhashへ含めます。二次・三次監査は、この本文と候補の命題・解説を照合し、取得できなかった箇所を候補の`verified`宣言だけで承認しません。
+
 ### 既存の法令紐付けを使う順序
 
 1. 既存の`lawReferences`に`lawId`と条番号又は保存済みURLがあれば、その一次情報本文を先に開く。
