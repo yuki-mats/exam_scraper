@@ -205,3 +205,9 @@ source・ID・本文・全肢・正誤・metadataと第3肢解説は保持。正
 同年度午前I問13は、NIST SP800-86第2.6・4.3.3節を直接読み、ログ分析及びハッシュ照合をフォレンジックスから一律に排除する旧説明を修正した。第1・3・4肢に、継続的な監視・保護・実行時の防御と、収集証拠から事実を明らかにする目的の違いを記載した。正誤は保持した。
 
 source・ID・本文・全肢・正誤・metadataは不変。10対象1件と21対象2件以外を保持し、型patch検査、正常merge/convert/upload dry-run及び必須3検査48merged/48実正答patch880entriesは成功、全suite未実行。修正後の四fieldを個別再読した。model/作業版receiptなし、独立Sol未完、品質確定212/880不変、Firestore未書込。根拠direct_operation2_applied_20261005.json。
+
+### 2026-10-05 2025年無線LANの回答形式とCRYPTREC出題時参照
+
+午前II問15の実組合せ表と四fieldを個別に読み、IEEE802.11n/802.11acの周波数帯対応を比較する回答操作から10のquestionTypeだけをgroup_choiceへ修正した。計算フラグfalse及び本文・全肢・正誤・解説・画像帰属を保持した。午前I問12はCRYPTREC LS-0001-2022R1の1・3・4頁と現行R2を直接読み、三リストの定義と策定主体を確認した。内容は整合しており、21へ出題時R1参照だけを追加した。
+
+source・ID・metadataは不変。正常merge/convert/upload dry-runと型patch検査及び必須3検査48merged/48実正答patch880entries成功、全suite未実行。修正後の四fieldを一問ずつ再読した。model/作業版receiptなし、独立Sol未完、品質確定212/880不変、Firestore未書込。根拠direct_wireless_type_cryptrec_refs2_applied_20261005.json。
