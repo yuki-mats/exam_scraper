@@ -103,7 +103,10 @@ class ContentAuditService(QuestionEvaluationService):
                   "分かりやすさ、追加価値を03正本で評価する。補足の誤り又は根拠不足は03の"
                   "reworkItemsへ具体的に記録する。学習パターンも内容から確認する。"
                   "用語を選ぶ問題では、公開用解説が全候補の意味と見分け方を説明しているか"
-                  "確認し、別fieldの説明を公開用解説に含まれるものとして数えない。\n")
+                  "確認し、別fieldの説明を公開用解説に含まれるものとして数えない。"
+                  "同一画像URLが複数のchoiceIndexで参照される場合は、実画像に全選択肢を"
+                  "含む共有表があるか視認し、各行と各選択肢の対応を確認する。"
+                  "URLの重複だけで画像の帰属誤りと判定しない。\n")
 
     def _build_batch_prompt(self, questions):
         key = tuple(q["id"] for q in questions)
