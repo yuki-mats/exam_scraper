@@ -59,7 +59,7 @@ visual_board:
     url: http://goalbuddy.localhost:41737/feedback-correction-recovery/
     command: node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs
       --goal docs/goals/feedback-correction-recovery
-active_task: T034
+active_task: T036
 tasks:
   - id: T001
     type: scout
@@ -4310,7 +4310,7 @@ tasks:
   - id: T034
     type: scout
     assignee: Scout
-    status: active
+    status: blocked
     objective: 2026-10-04新問題報告1件と新公開AI候補3件を一件ずつ一次資料/現行問題と利用者発話に照らして調査し、必要な判断/改善タスクだけを提案する。
     inputs:
       - output/user_feedback_response_system/daily/2026-10-04/new-reports.json
@@ -4326,6 +4326,153 @@ tasks:
     expected_output:
       - 真正receipt、匿名化した新報告判断/根拠/再開条件、必要AI改善の具体title/need/target又は除外理由
       - PMが登録するタスクと根拠ref/hash、生本文を含めない
+    receipt:
+      result: blocked
+      task_id: T034
+      board_path: /Users/yuki/development/exam_scraper_feedback/docs/goals/feedback-correction-recovery/state.yaml
+      summary: 新報告1件・公開AI候補3件と既存改善7件を確認。AI3件の公開・未削除・本人作成フラグ・scan本文hash一致はFirestoreで確認したが、匿名化テーマ抽出では学習ニーズを確定できなかった。新報告caseはlistGroupId欠落で既存入口のvalidationに失敗し、主張・現行問題・一次資料の照合は未実施。判定や改善登録の根拠は不足している。書込みなし。
+      evidence:
+        - ref: state.yaml#T034
+          fact: 新報告1件と公開AI候補3件の個別調査、全8カテゴリ判定、既存7改善との重複確認を要求
+        - ref: daily/2026-10-04/scan-receipt.json
+          fact: newReportTasks=1、newAiQuestionCandidates=3、improvementTasksOpen=7、intakeGaps=0
+        - ref: ledger.sqlite3?mode=ro
+          fact: 既存改善7件のtitle・need・targetを読取
+        - candidate_id: d0d14af44ff88396d8df8abda1aa381a3462c732aace1174b9cadabc57a8f47f
+          question_id: condominiummanager-C-12959
+          text_hash: c9ef50216c9b1e4d6b7a85f4f7339f69f1ded1f1e29b9c485530eabd030b79ce
+          eligible: true
+          user_authored_flag: true
+        - candidate_id: 2168e9f25ff818654235f0bff322a8dd9dcffe711aca78969707a07033c4f264
+          question_id: condominiummanager-C-12958
+          text_hash: 7bd1c4a5013761006701b282fa364e15e0c48f40a3e7ef346ae34a656a35f8ca
+          eligible: true
+          user_authored_flag: true
+        - candidate_id: 717f23361d8108dad464e183d8c435dc00d329458a092e0dfc720163c35abb66
+          question_id: condominiummanager-C-12896
+          text_hash: b7ff002695f2f2d98d6e68b0b9315032f9bc9c42e19a55cc6e5a3c840adebf62
+          eligible: true
+          user_authored_flag: true
+        - ref: FirestoreReportStore.get_case
+          fact: 新報告caseのvalidate_operational_caseが必須listGroupId欠落で失敗
+        - ref: config/question_issue_reports.json
+          fact: 8カテゴリはquestion_content、correct_answer、explanation、outdated_law_or_information、image、classification、answer_format_or_display、other
+      facts:
+        - existing_improvement_topics:
+            - 整圧器の耐圧試験例外
+            - 議案の要領通知
+            - 専有部分の境界
+            - 普通決議と特別多数決議
+            - メーターボックス内の給湯器
+            - 原始規約設定者
+            - 監事による臨時総会招集
+        - question_id: condominiummanager-C-11410
+          categories:
+            question_content:
+              decision: hold
+              reason: 原主張・現行問題・一次資料未照合
+            correct_answer:
+              decision: hold
+              reason: 現行正誤と一次資料未照合
+            explanation:
+              decision: hold
+              reason: 現行解説未取得
+            outdated_law_or_information:
+              decision: hold
+              reason: 適用時点・条文・改正根拠未確認
+            image:
+              decision: hold
+              reason: 現行画像関連field未取得
+            classification:
+              decision: hold
+              reason: 現行分類field未取得
+            answer_format_or_display:
+              decision: hold
+              reason: 現行表示関連field未取得
+            other:
+              decision: hold
+              reason: 原主張未確認
+          resume_conditions:
+            - caseIdを指定したclaims_for_caseの読取
+            - 現行selectedfieldsと報告時snapshotを区別して取得
+            - 標準rawと公式一次資料の照合
+          decision_scope: 調査未完了による暫定保留。カテゴリ適否を確定した判定ではない
+        - ai_review: 3候補とも学習ニーズと重複判定は未確定。新規登録・除外を提案できない
+      contradictions:
+        - fact: Firestore caseが既存read-only入口の必須field契約を満たさない
+          missing_field: listGroupId
+      ambiguity_requiring_judge:
+        - 利用者原文を通常tool出力に転載せず、辞書一致しない短い発話の学習ニーズを意味単位で確認する方法
+        - 最大12shell命令の追加許可が必要。PMへ照会済み
+      commands:
+        - pwd -P
+        - PyYAMLでstate.yaml#T034抽出
+        - MEMORY.md関連語検索（関連根拠なし）
+        - 既存read-only入口とカテゴリ実装のrg検索
+        - daily入力3ファイル読取
+        - FirestoreReportStoreとinspect_ai_candidateの所在検索
+        - SQLite read-only schema取得
+        - 既存入口とREADMEの限定読取
+        - SQLite read-only改善7件取得
+        - FirestoreReportStoreとinspect_ai_candidateによる匿名化読取（case validationで失敗）
+        - カテゴリ実装と標準raw候補検索
+        - credential入口と8カテゴリ設定の限定読取
+      note_needed: false
+  - id: T035
+    type: pm
+    assignee: PM
+    status: done
+    objective: 新着調査の読取入口不足を、Firestore read-onlyの最小selected取得とprivate画像表示資料で補い、原文を通常ログへ出さず学習ニーズを意味で判断できる入力を作る。
+    allowed_files:
+      - docs/goals/feedback-correction-recovery/state.yaml
+      - docs/goals/feedback-correction-recovery/notes/**
+      - output/user_feedback_response_system/daily/2026-10-04/private-inspection/**
+    inputs:
+      - notes/T034-stopped-receipt.json
+      - output/user_feedback_response_system/daily/2026-10-04/new-ai.json
+      - output/user_feedback_response_system/daily/2026-10-04/new-reports.json
+      - 既存FirestoreReportStore/inspect_ai_candidateのread-only入口
+    constraints:
+      - 元利用者原文/識別情報はprivate調査用のみ、通常stdout/通知/Gitへ出さない。画像はprivate dirs700/files600、氏名/ID/連絡先なしの対象本文だけ。
+      - 書込みはprivate入力とcontrolのみ。Firestore/Storage/旧case/ledger/正式patch/WORK/旧132は変更しない。
+      - caseのlistGroupId欠落を推測でサーバー補完しない。対象current documentの実selectedfieldsと元主張を区別して読む。
+      - 学習ニーズを辞書一致のみで判定しない。既存新着原文の意味を読んだ担当が匿名化して判断する。
+    expected_output:
+      - private image入力とhash/取得条件、source/current selected証跡、後続調査task
+      - 新着調査を終え、T033の参照修復/currentmachine/正式承認の必須後続へ戻る
+    receipt:
+      result: done
+      harness: codex
+      summary: 公開AI3件の適格性・本文hashを再検証し、現行selectedfieldsと匿名化本文画像をprivate取得。新報告原本1件を直接claims_for_caseで取得し、listGroupId欠落caseをサーバー修正せず現行問題と対照可能にした。画像4件の実表示を確認。
+      evidence:
+        - output/user_feedback_response_system/daily/2026-10-04/private-inspection/manifest.json
+      commands:
+        - cmd: private read-only Firestore retrieval and rendering (session 90089)
+          status: pass
+        - cmd: view_image ai1, ai2, ai3, report
+          status: pass
+      firestore_writes: false
+      ledger_writes: false
+  - id: T036
+    type: scout
+    assignee: Scout
+    status: active
+    objective: 実取得した新着報告1件の欠落文脈を一次原問と照合し、公開AI3件の学習ニーズを現行解説・公式標準管理規約へ照合して、匿名化した台帳登録案を返す。
+    inputs:
+      - output/user_feedback_response_system/daily/2026-10-04/private-inspection/manifest.json
+      - output/user_feedback_response_system/daily/2026-10-04/private-inspection/ai1.png
+      - output/user_feedback_response_system/daily/2026-10-04/private-inspection/ai2.png
+      - output/user_feedback_response_system/daily/2026-10-04/private-inspection/ai3.png
+      - output/user_feedback_response_system/daily/2026-10-04/private-inspection/report.png
+      - notes/T034-stopped-receipt.json
+    constraints:
+      - Read-only。Firestore/Storage/ledger/product/controlを書かない。生利用者本文・識別情報はstdout/receiptへ転載しない。
+      - private画像で意味を読む。新着AIは議決権の半数と人数の区別、招集通知の宛先数、緊急保存費用の負担先というニーズ。既存7件と照合し必要なタスクのみ提案。
+      - reportは設問参照文章がquestionTextにもoriginalQuestionBodyTextにも欠落している。標準raw/公式原問の文章と実publishedfieldsを区別して確認。caseのlistGroupId欠落は推測補完しない。
+      - 全8カテゴリをscopeと根拠付きで判断し、不十分な項目は具体的未確認を示す。一次根拠URL/recordref/hashを返す。
+      - 最大12 shell commands。この上限内にまとめて読む。足りない場合は事実を保存して停止し次taskを提案。
+    expected_output:
+      - 真正なgoalbuddy_receipt_v1、AI3件それぞれpromote/duplicate/no_task提案と匿名化need/title/target、report8カテゴリ判断と修正必要field、一次根拠
     receipt: null
   - id: T004
     type: pm

@@ -1,0 +1,20 @@
+{
+  "result": "done",
+  "harness": "codex",
+  "summary": "公開AI3件の適格性・本文hashを再検証し、現行selectedfieldsと匿名化本文画像をprivate取得。新報告原本1件を直接claims_for_caseで取得し、listGroupId欠落caseをサーバー修正せず現行問題と対照可能にした。画像4件の実表示を確認。",
+  "evidence": [
+    "output/user_feedback_response_system/daily/2026-10-04/private-inspection/manifest.json"
+  ],
+  "commands": [
+    {
+      "cmd": "private read-only Firestore retrieval and rendering (session 90089)",
+      "status": "pass"
+    },
+    {
+      "cmd": "view_image ai1, ai2, ai3, report",
+      "status": "pass"
+    }
+  ],
+  "firestore_writes": false,
+  "ledger_writes": false
+}
