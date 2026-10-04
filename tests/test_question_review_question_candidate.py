@@ -40,9 +40,13 @@ class QuestionCandidateTest(unittest.TestCase):
                     'answer_result_text': '正解は 3 です。'}
         # 全記述の存在を別候補も含めて検証する。
         original['choiceTextList'].insert(0, '(ⅰ)，(ⅱ)，(ⅲ)，(ⅳ)，(ⅴ)，(ⅵ)，(ⅶ)，(ⅷ)')
+        original['choiceTextList'].append('(ⅳ)')
         original['answer_result_text'] = '正解は 4 です。'
         expected = ['間違い', '間違い', '間違い', '間違い', '正しい', '間違い', '正しい', '正しい']
         self.assertEqual(_aggregate_combination_expected_verdicts(projected, original), expected)
+        original['answer_result_text'] = '正解は 5 です。'
+        self.assertEqual(_aggregate_combination_expected_verdicts(projected, original), ['間違い', '間違い', '間違い', '正しい', '間違い', '間違い', '間違い', '間違い'])
+        original['answer_result_text'] = '正解は 4 です。'
         projected['questionIntent'] = 'select_incorrect'
         self.assertEqual(_aggregate_combination_expected_verdicts(projected, original), ['正しい' if x == '間違い' else '間違い' for x in expected])
         projected['choiceTextList'][-1] = 'ix. 別の記述。'

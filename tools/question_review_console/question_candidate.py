@@ -107,11 +107,22 @@ def _aggregate_combination_expected_verdicts(
                 return None
             return tokens if len(set(tokens)) == len(tokens) else None
         compact = re.sub(r"[\s,、，・/＋+&＆]", "", normalized)
+        if compact in statement_labels:
+            return (compact,)
         if not re.fullmatch(r"[a-z]{2,}", compact):
             return None
         labels = tuple(compact)
         return labels if len(set(labels)) == len(labels) else None
 
+    statement_labels: list[str] = []
+    for value in current_choices:
+        normalized = unicodedata.normalize("NFKC", str(value or "")).lower()
+        match = re.match(r"^\s*([a-z]+)(?:\s|[.:：)）.、])", normalized)
+        if match is None:
+            return None
+        statement_labels.append(match.group(1))
+    if len(set(statement_labels)) != len(statement_labels):
+        return None
     parsed_combinations = [combination_labels(value) for value in source_choices]
     if any(value is None for value in parsed_combinations):
         return None
@@ -125,15 +136,6 @@ def _aggregate_combination_expected_verdicts(
         return None
     selected_labels = set(parsed_combinations[official_index] or ())
 
-    statement_labels: list[str] = []
-    for value in current_choices:
-        normalized = unicodedata.normalize("NFKC", str(value or "")).lower()
-        match = re.match(r"^\s*([a-z]+)(?:\s|[.:：)）.、])", normalized)
-        if match is None:
-            return None
-        statement_labels.append(match.group(1))
-    if len(set(statement_labels)) != len(statement_labels):
-        return None
     all_combination_labels = {
         label
         for combination in parsed_combinations
