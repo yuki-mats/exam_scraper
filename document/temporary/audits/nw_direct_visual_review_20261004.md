@@ -19,3 +19,9 @@ AGENTSの3検査は選択肢正答一致48merged、必須field48merged、実正�
 詳細根拠は `output/nw/scrape_reports/direct_manual_review3_20261004.json`、`direct_manual_review3_artifact_sync_20261004.json`、`direct_manual_review3_required_coverage_20261004.json`。これらはローカル実行記録。
 
 独立Sol評価は未完。評価前には通常API投影のstateHashと新候補を照合する。既存独立合格は変更対象外のまま保持する。
+
+### 特許問25の現行設問に対する直接解説修正
+
+`24e39328a4bf842ad7d79d97`（200902午前Ⅱ問25）の問題文・全選択肢・正誤・解説を一問として直視した。IPA公式冊子PDF11頁の肯定設問と公式正答イを確認し、取得元の改題注記及び現行e-Gov特許法のMainProvision第2・29・30条を別に読んだ。取得元は現行法に合わせた否定設問であり、旧候補の2009年判断の混在を解消した。守秘義務の顧客説明を公知と決めつけず、公開後の1年と申出・証明書提出の条件を説明する。
+
+変更は21解説patchのこの問題4肢だけ。source、公開ID、選択肢、正誤、法令監査状態を保持し、Luna又は法令監査のreceiptを作っていない。正常ArtifactSynchronizerによる200902のmerge/convert/upload dry-run成功。AGENTS3検査成功、全体suite未実行。根拠は`output/nw/scrape_reports/direct_manual_patent1_20261004.json`及び同artifact_sync。法令工程の保留解除と新Sol評価は未完了。
