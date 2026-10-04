@@ -10,6 +10,48 @@ from tools.question_review_console.projection import sha256_json
 from tools.question_review_console.scoped_artifacts import load_scoped_artifacts, write_json
 
 
+def replay_recovery_native_chain(root):
+    """Replay the five saved events; retain their different serialization scopes."""
+    notes = Path(root) / 'docs/goals/feedback-correction-recovery/notes'
+    result = []
+    for stem in ('T028-blind-a', 'T029-blind-b', 'T033-challenge', 'T037-correction', 'T039-accept'):
+        provenance_path = notes / (stem + '-provenance.json')
+        receipt_path = notes / (stem + '-receipt.json')
+        provenance = json.loads(provenance_path.read_text())
+        line = Path(provenance['sessionPath']).read_bytes().splitlines(keepends=True)[provenance['eventLine'] - 1]
+        include_lf = 'eventLineSha256' not in provenance
+        event_hash = hashlib.sha256(line if include_lf else line.rstrip(b'\r\n')).hexdigest()
+        declared = provenance.get('eventLineSha256') or provenance.get('eventSha256') or provenance['eventSha256IncludingFinalLf']
+        if event_hash != declared:
+            raise ValueError('native event binding differs')
+        event = json.loads(line)
+        payload = event.get('payload', {})
+        if event.get('type') != 'response_item' or payload.get('role') != 'assistant':
+            raise ValueError('native evidence is not assistant output')
+        output = ''.join(v.get('text', '') for v in payload.get('content', []) if v.get('type') == 'output_text')
+        output_hash = hashlib.sha256(output.encode()).hexdigest()
+        if output_hash != (provenance.get('assistantOutputSha256') or provenance['outputSha256']):
+            raise ValueError('native output binding differs')
+        native = json.loads(output)
+        stored = json.loads(receipt_path.read_text())
+        inner = native['goalbuddy_receipt_v1']
+        if stored != native and stored != inner:
+            raise ValueError('stored receipt differs from native output')
+        compact_hash = hashlib.sha256(json.dumps(inner, ensure_ascii=False, separators=(',', ':')).encode()).hexdigest()
+        expected_compact = provenance.get('receiptSha256') or provenance.get('nativeInnerReceiptCompactObjectHash')
+        if expected_compact and compact_hash != expected_compact:
+            raise ValueError('native compact inner receipt differs')
+        receipt_file_hash = hashlib.sha256(receipt_path.read_bytes()).hexdigest()
+        if provenance.get('receiptFileSha256') and receipt_file_hash != provenance['receiptFileSha256']:
+            raise ValueError('native receipt file differs')
+        result.append({'taskId': stem[:4], 'sessionId': provenance.get('nativeSessionID') or provenance['sessionId'],
+            'eventHash': event_hash, 'eventIncludesFinalLf': include_lf,
+            'outputHash': output_hash, 'receiptFileHash': receipt_file_hash,
+            'innerCompactObjectHash': compact_hash, 'eventTimestamp': event['timestamp'],
+            'receipt': inner})
+    return result
+
+
 def validate_fixed_package(root, package_manifest, *, expected_hash=None):
     package_manifest = Path(package_manifest)
     if expected_hash is not None and hashlib.sha256(package_manifest.read_bytes()).hexdigest() != expected_hash:

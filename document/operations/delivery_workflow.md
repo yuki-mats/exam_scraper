@@ -122,3 +122,15 @@ python3 scripts/upload/upload_questions_to_firestore.py \
 - upload commandの成功だけで完了にせず、live readback一致を完了条件にする。
 
 限定artifactの検証では、正式入力からの生成と未承認4field候補からの生成を各2回実行し、同入力のprojection・全document・内容hash・公開ID集合を照合します。既存strict law coverageはmerged、converted、upload-readyの各明示入力へ適用し、正式現状の失敗をprivate候補の成功で置き換えません。正式入力のPublisher loaderと候補の拒否、両経路の評価・公開preview、subscription判定を個別に保存します。正しい拒否は接続検証の結果であり、評価合格や公開準備完了の代替にはなりません。
+# 限定 field 修正の承認境界
+
+`prepare_scoped_question_artifacts.py --snapshot-corrections ... --preview-only` は private preview を作成します。
+正式patch保存承認と production 適用承認は別gateです。native内容審査は機械checkpointやmodel evaluationではありません。
+2025追加4fieldの承認pendingはこの経路で昇格しません。固定法令基準日は2026-10-03で、正式保存前に現行版再照合が必要です。
+
+source/candidate/policy/work version/manifest/live snapshot の hash を token に結合し、真正工程と評価を確認します。
+未承認・未実行なら blocker を返します。更新gatewayは全対象docのbeforeとupdateTimeを確認した後、
+全precondition付き atomic batch/transaction で field update を実行します。set/merge/full upload/deleteは使いません。
+監査フィールドの既存責務は内容deltaと別に承認します。適用後は同じmaskでafter/presenceを確認します。
+再送には同じ操作receiptとafter versionが必要です。rollbackは別承認の補償契約で、競合時や削除を要する場合は拒否します。
+T040実行はpreview/read-onlyとfixture検証のみで、本番write・正式保存・evaluationを実行しません。

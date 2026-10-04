@@ -245,3 +245,36 @@ class FirestoreReadback:
             raise RuntimeError("Firebase appのproject IDが本番と一致しません。")
         self._db = firestore.client(app=app)
         return self._db
+
+    def read_selected_snapshots(self, document_ids, *, fields):
+        """Masked reads with explicit missing/null and version information.
+
+        SDK mask failures propagate; this route has no unmasked fallback.
+        """
+        ids, mask = list(document_ids), list(fields)
+        if not ids or len(ids) != len(set(ids)) or not mask or len(mask) != len(set(mask)):
+            raise ValueError("unique selected IDs and explicit field mask required")
+        if any(not isinstance(v, str) or not v or "/" in v for v in ids):
+            raise ValueError("invalid selected document ID")
+        if any(not isinstance(v, str) or not v or "." in v for v in mask):
+            raise ValueError("top-level field mask required")
+        db = self._database()
+        refs = [db.collection("questions").document(value) for value in ids]
+        read_at = datetime.now().astimezone().isoformat()
+        result = {}
+        for snapshot in db.get_all(refs, field_paths=mask):
+            key = str(snapshot.id)
+            if key not in ids or key in result:
+                raise ValueError("SDK returned unexpected or duplicate ID")
+            exists = bool(snapshot.exists)
+            # Match the saved selected-snapshot contract for SDK datetime values.
+            # String fields are deliberately untouched (including timestamp-like text).
+            from tools.question_bank.question_issue_report_store import _json_value
+            values = _json_value(snapshot.to_dict() or {}) if exists else {}
+            result[key] = {"questionId": key, "exists": exists,
+                "updateTime": json_safe(snapshot.update_time) if exists else None,
+                "readAt": read_at, "fields": {field: {"present": field in values,
+                    "value": values.get(field)} for field in mask}}
+        if set(result) != set(ids):
+            raise ValueError("SDK omitted selected document")
+        return result

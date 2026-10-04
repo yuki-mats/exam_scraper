@@ -1191,6 +1191,38 @@ class QuestionInventory:
             raise KeyError(f"question not loaded: {question_id}")
         return question
 
+    def snapshot_correction_question(self, manifest_path: Path, year: str) -> dict[str, Any]:
+        from tools.question_review_console.scoped_corrections import load_correction_manifest
+        manifest = load_correction_manifest(self.repo_root, manifest_path)
+        entry = manifest['cases'][str(year)]
+        candidate = json.loads(Path(entry['candidatePath']).read_text())
+        proposal = candidate.get('sourceProposal') or {}
+        binding = proposal.get('sourceBinding') or {}
+        documents = [{**p, 'questionId': d['questionId']} for p, d in zip(candidate['projection'], candidate['delta'], strict=True)]
+        group = str(documents[0]['listGroupId'])
+        stable = 'snapshot-correction:' + manifest['manifestHash'] + ':' + str(year)
+        question = {'id': api_question_id(stable), 'reviewKey': stable,
+            'qualification': '2nd-class-kenchikushi', 'listGroupId': group,
+            'sourceQuestionKey': binding.get('sourceQuestionKey', ''),
+            'sourceRecordRef': binding.get('sourceRecordRef', ''),
+            'originalQuestionId': binding.get('reviewQuestionId', documents[0].get('originalQuestionId', '')),
+            'sourceStem': str(binding.get('sourceRecordRef', '')).split('#')[0].removesuffix('.json'),
+            'source': proposal, 'projected': documents[0], 'merged': documents[0],
+            'convertedDocs': documents, 'uploadReadyDocs': documents,
+            'stateHash': entry['candidateHash'], 'choiceCount': len(documents),
+            'questionLabel': '限定修正プレビュー ' + str(year),
+            'isLawRelated': str(year) != '2020', 'requiredFieldWarnings': [], 'qualityWarnings': [],
+            'issues': [{'code': 'snapshot_correction_formal_approval_pending', 'detail': '正式保存と対象工程の真正checkpointは未済です。'}],
+            'issueCodes': ['snapshot_correction_formal_approval_pending'],
+            'workflow': {'source': 'match', 'patch': 'pending', 'merge': 'pending', 'convert': 'pending', 'upload': 'pending', 'firestore': 'unread'},
+            'snapshotCorrectionManifest': str(Path(manifest_path).resolve()),
+            'snapshotCorrectionYear': str(year), 'snapshotCorrectionManifestHash': manifest['manifestHash']}
+        from tools.question_review_console.qualification_workflow import QualificationWorkflow
+        workflow = QualificationWorkflow(self.repo_root, self)
+        question['workVersions'] = workflow.work_versions.status_for(question,
+            workflow.versioned_policies(question['qualification']).values())
+        return question
+
     def scoped_question(self, manifest_path: Path) -> dict[str, Any]:
         """Read an explicit recovery manifest without altering group inventory."""
         from tools.question_review_console.scoped_artifacts import load_scoped_artifacts

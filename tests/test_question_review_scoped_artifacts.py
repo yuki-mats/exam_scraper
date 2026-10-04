@@ -3,7 +3,7 @@ import json
 import unittest
 from pathlib import Path
 from unittest.mock import patch
-import test_scoped_canonical_context as fixtures
+from tests import test_scoped_canonical_context as fixtures
 from tools.question_review_console.scoped_artifacts import prepare_scoped_artifacts, load_scoped_artifacts, documents_for, write_json, PRIVATE_ROOT
 from tools.question_review_console.projection import sha256_json
 

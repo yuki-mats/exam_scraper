@@ -2009,6 +2009,11 @@ class QuestionEvaluationService:
         live_status: str | None = None,
         failed_delta_paths: Iterable[str] | None = None,
     ) -> dict[str, Any]:
+        if question.get('snapshotCorrectionManifest'):
+            from tools.question_review_console.scoped_corrections import load_correction_manifest
+            manifest = load_correction_manifest(self.repo_root, question['snapshotCorrectionManifest'])
+            if manifest['manifestHash'] != question.get('snapshotCorrectionManifestHash'):
+                raise ValueError('snapshot correction manifest token drift')
         from tools.question_review_console.scoped_artifacts import validate_scoped_question
         scoped = validate_scoped_question(self.repo_root, question)
         policy = self.current_policy()

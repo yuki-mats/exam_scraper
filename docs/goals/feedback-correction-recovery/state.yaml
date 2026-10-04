@@ -59,7 +59,7 @@ visual_board:
     url: http://goalbuddy.localhost:41737/feedback-correction-recovery/
     command: node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs
       --goal docs/goals/feedback-correction-recovery
-active_task: T040
+active_task: T041
 tasks:
   - id: T001
     type: scout
@@ -5050,7 +5050,7 @@ tasks:
   - id: T040
     type: worker
     assignee: Worker
-    status: active
+    status: blocked
     objective: T037と真正審査chainから新private世代を作り、限定metadata昇格と実strict検証を行う。既存canonical contextと記録済みsource/public対応を使い、原問保持の正式patchプレビュー、独立した公開TF variant、対象checkpoint/evaluationの結合、承認後限定field
       update/readbackの実行契約を実装・対象テストする。今回は具体的なpreviewと阻害gateを出し、正式patch保存と本番実行は行わない。
     allowed_files:
@@ -5128,6 +5128,250 @@ tasks:
       - notesの実filenameは入力探索で確認。native field名のhash対象を混同せずfile/object/eventのLF契約を別々に照合。
     expected_output:
       - goalbuddy_receipt_v1 task_id T040、exact changed_files/actualcommands、fresh private preview/metadata/4formstrict/fixture安全境界結果、正式承認案、未済checkpoint/evaluation/公開readbackを明示
+    receipt:
+      result: blocked
+      task_id: T040
+      board_path: /Users/yuki/development/exam_scraper_feedback/docs/goals/feedback-correction-recovery/state.yaml
+      changed_files:
+        - scripts/common/scoped_canonical_context.py
+        - scripts/pipeline/prepare_scoped_question_artifacts.py
+        - tools/question_review_console/scoped_corrections.py
+        - tools/question_review_console/validated_evidence_import.py
+        - tools/question_review_console/firestore_readback.py
+        - tools/question_review_console/inventory.py
+        - tools/question_review_console/evaluation.py
+        - tools/question_review_console/publisher.py
+        - tests/test_question_review_scoped_artifacts.py
+        - tests/test_question_review_scoped_corrections.py
+        - tests/test_question_review_firestore_readback.py
+        - document/operations/artifact_contract.md
+        - document/operations/delivery_workflow.md
+        - output/user_feedback_response_system/staging/recovery-three-cases/execution-contract/runs/T040-658bcd595031/**
+      commands:
+        - command: PYTHONDONTWRITEBYTECODE=1 /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest tests.test_scoped_canonical_context
+            tests.test_question_review_scoped_artifacts tests.test_question_review_scoped_corrections tests.test_question_review_validated_evidence_import
+            tests.test_question_review_firestore_readback tests.test_question_review_inventory tests.test_question_review_evaluation tests.test_question_review_publisher_safety
+          status: pass
+          exit_code: 0
+          tests_run: 163
+          elapsed_seconds: 6.489
+        - command: PYTHONDONTWRITEBYTECODE=1 /Users/yuki/development/exam_scraper_work/.venv/bin/python scripts/pipeline/prepare_scoped_question_artifacts.py
+            --snapshot-corrections output/user_feedback_response_system/staging/recovery-three-cases/runs/T037-b3d34b0c439c/review-input.json --output output/user_feedback_response_system/staging/recovery-three-cases/execution-contract/runs/T040-658bcd595031
+            --preview-only
+          status: pass
+          exit_code: 0
+          selected_count: 11
+          manifest_hash: d5c9e168d734d6896f2aba9e2e9d20e9ae8a199c64cbaa09dd86f0b11e4b8f0d
+        - command: 'verify_snapshot_corrections: required/alignment/correct-choice coverageおよび既存strict_checkを2018/2024 merged/firestoreで実行'
+          status: pass
+          exit_code: 0
+          strict_results:
+            - year: '2018'
+              stage: merged
+              exit_code: 0
+            - year: '2018'
+              stage: firestore
+              exit_code: 0
+            - year: '2024'
+              stage: merged
+              exit_code: 0
+            - year: '2024'
+              stage: firestore
+              exit_code: 0
+          evidence: verification-results.json
+        - command: 'fixture安全境界: tests.test_question_review_scoped_correctionsおよびmasked snapshot回帰'
+          status: pass
+          exit_code: 0
+          verified:
+            - 独立二承認・machine gate・token拒否
+            - missing/null・updateTime・missing doc拒否
+            - 重複・別ID・許可外field拒否
+            - 対象外fieldの構造的保持
+            - 無mask fallback拒否
+            - 証跡とafter versionに結合した再送
+            - 別承認補償・rollback競合拒否
+            - 5doc atomic競合時の更新0件
+            - SDK datetime表記と実時刻・精度差の区別
+            - 任意本文文字列を変換しない
+        - command: actual QuestionInventory.snapshot_correction_question → QuestionEvaluationService.preview → QuestionPublisher.preview_snapshot_correction
+          status: fail
+          exit_code: 1
+          error: 'ValueError: invalid partial correction contract'
+          failed_stage: SnapshotCorrection.from_mapping
+          evidence: actual-preview-gates.json
+        - command: git diff --check
+          status: pass
+          exit_code: 0
+        - command: 新manifest全入力再照合・固定primary入力差分確認・private permission確認
+          status: pass
+          exit_code: 0
+          fixed_primary_input_drift_count: 0
+          historical_code_dependency_drift_count: 6
+          private_permission_error_count: 0
+          evidence: immutable-input-check.json
+        - command: 'replay_recovery_native_chain: T028/T029/T033/T037/T039 native event/output/receipt実照合'
+          status: pass
+          exit_code: 0
+      historical_commands:
+        - command: 指定8suite初回
+          status: fail
+          exit_code: 1
+          tests_run: 158
+          elapsed_seconds: 4.133
+          error: 'ModuleNotFoundError: test_scoped_canonical_context'
+          repair: 許可内testのimportをpackage importへ修正
+        - command: 指定8suite・repair1後
+          status: pass
+          exit_code: 0
+          tests_run: 162
+          elapsed_seconds: 6.386
+        - command: 指定CLI初回
+          status: fail
+          exit_code: 1
+          error: 'ValueError: fixed selected snapshot content/presence changed'
+          actual_cause: SDK datetimeのUTC Zと+00:00表記の相違。実入力変化ではない
+        - command: 11doc fresh masked snapshotのread-only診断
+          status: pass
+          exit_code: 0
+          exists_and_update_time_matched: true
+          timestamp_format_differences:
+            '2018': 10
+            '2024': 10
+            '2020': 1
+          other_field_differences: 0
+          evidence: diagnostics/snapshot-serialization.json
+          repair: SDK datetime型を既存snapshot serializerへ統一。本文文字列は変更しない
+        - command: 関連契約tests初回
+          status: pass
+          exit_code: 0
+          tests_run: 6
+        - command: scoped corrections/readback/validated evidence関連tests
+          status: pass
+          exit_code: 0
+          tests_run: 16
+        - command: atomic競合追加後のscoped corrections/readback関連tests
+          status: pass
+          exit_code: 0
+          tests_run: 16
+        - command: read-only結果要約・不要なyaml import付き
+          status: fail
+          exit_code: 1
+          error: 'ModuleNotFoundError: No module named yaml'
+        - command: read-only結果要約・不要なyaml importなし
+          status: pass
+          exit_code: 0
+      summary: 新private世代11doc、真正native結合、60refs verified、10facts same_as_current/tertiary_verified、標準sidecar、source/public分離previewを保存。指定163testsと4形態strictは成功。ただし実Publisher接続がallowlist集合と実delta集合の誤った等値要求で失敗。2回repair済みのため停止し、whole
+        preview sliceをblockedとした。
+      artifact_root: /Users/yuki/development/exam_scraper_feedback/output/user_feedback_response_system/staging/recovery-three-cases/execution-contract/runs/T040-658bcd595031
+      artifacts:
+        - manifest.json
+        - 2018/candidate.json
+        - 2018/source-patch-preview.json
+        - 2018/live-selected-snapshot.json
+        - 2024/candidate.json
+        - 2024/source-patch-preview.json
+        - 2024/live-selected-snapshot.json
+        - 2020/candidate.json
+        - 2020/live-selected-snapshot.json
+        - verification-results.json
+        - 2018/coverage-results.json
+        - 2024/coverage-results.json
+        - 2018/verification/**
+        - 2024/verification/**
+        - diagnostics/**
+        - actual-preview-gates.json
+        - immutable-input-check.json
+        - command-history.json
+      native_binding:
+        tasks:
+          - T028
+          - T029
+          - T033
+          - T037
+          - T039
+        event_without_final_lf:
+          - T028
+          - T029
+          - T033
+        event_with_final_lf:
+          - T037
+          - T039
+        receipt_file_and_inner_compact_object_hashes_separated: true
+        T039_fixed_review_input_and_candidate_hashes_matched: true
+        historical_T033_label_preserved: true
+        T033_label_meaning: manifestObjectHashは実際にはfiles-map inputHash。現manifestで明記し、file/object/files-mapを別保存
+        new_native_review_performed: false
+        current_law_reference_date: '2026-10-03'
+        formal_current_version_recheck_required: true
+      preservation:
+        source_originals_and_selected_unrelated_fields_preserved: true
+        legacy_public_ids_preserved: true
+        2020_question_text_one_character_only: true
+        T037_old_hold_and_four_strict_failures_preserved: true
+        fixed_primary_artifacts_unchanged: true
+        historical_680_current_code_equality_claimed: false
+        formal_data_updated: false
+        Firestore_written: false
+        Storage_written: false
+        WORK_written: false
+        board_commit_push_performed: false
+        private_directories_mode: '700'
+        private_files_mode: '600'
+      remaining_blockers:
+        - SnapshotCorrection.from_mappingのset(allowlist)==set(fields)が、許可field全集合の真部分集合である実deltaを拒否する。fields⊆allowlistと許可外field拒否を区別する次bounded taskが必要
+        - 実Publisher previewが完了しておらずwhole preview contract sliceは未完
+        - Inventory/Evaluationは実接続中に呼ばれたがgate出力は失敗前に保存されていない。machineReady結果を推測しない
+        - 正式patch保存承認・公開TF variant正式移送承認・production承認は未済
+        - 真正対象checkpoint/model evaluationは未実行。passedへ昇格していない
+        - 2025追加4field承認pendingを維持
+        - 本番限定更新・適用後readbackは未実行
+        - strictと診断の実開始終了日時は保存。unittestは実所要時間と証跡記録日時を保存したが、正確なwall-clock開始終了日時は未取得
+      needs_judge: false
+      verification_attempts: 3
+      repair_attempts: 2
+      stopped_because: 2回repair後の実Publisher preview検証が失敗したためWorker hard stop。追加製品編集・検証再実行なし
+  - id: T041
+    type: worker
+    assignee: Worker
+    status: active
+    objective: 変更可能field全集合と実deltaの区別を正しく修復し、T040で残ったInventory→Evaluation→Publisherの実preview接続を完了する。immutable新候補と正式保存前の具体的承認差分を用意する。
+    allowed_files:
+      - tools/question_review_console/scoped_corrections.py
+      - tests/test_question_review_scoped_corrections.py
+      - output/user_feedback_response_system/staging/recovery-three-cases/execution-contract/runs/T041-c79fe7177d39/**
+    inputs:
+      - notes/T040-stopped-receipt.json
+      - notes/T040-stopped-provenance.json
+      - notes/T039-accept-receipt.json
+      - /Users/yuki/development/exam_scraper_feedback/output/user_feedback_response_system/staging/recovery-three-cases/execution-contract/runs/T040-658bcd595031/manifest.json
+      - /Users/yuki/development/exam_scraper_feedback/output/user_feedback_response_system/staging/recovery-three-cases/execution-contract/runs/T040-658bcd595031/actual-preview-gates.json
+      - T037 fixed review-inputとT039 native chain
+      - T040の現在実装/関連8suite/CLI/preview経路
+    constraints:
+      - 一人でなく共有、他者差分を戻さない。PMのみcontrol/commit/push。
+      - delta.fieldsは非空でallowlistの部分集合であることを検証し、unknown/未許可fieldを拒否する。allowlistは許可範囲であって全fieldの強制書込み指示ではない。before/after/presence、ID、source/candidate/policy/workVersion/token、独立2承認、atomic/updateTime/readback/rollback条件は維持する。
+      - 固定T040/旧T037/元native/00_source/WORK/2025/正式patchを保持。新runで最新コード・実live snapshot・新generation/gatehashを記録。private dirs700/files600、生利用者本文・識別情報はGit/logへ出さない。
+      - 正式patch保存・本番write・未実行checkpoint/evaluationのpass付与は禁止。previewを実接続しactual blockerを保存する。
+      - 初回+repair2まで。追加scope/入力変化/strict実失敗では証拠を保持し停止。補助helperだけで終わらず実preview完了まで。
+    verify:
+      - PYTHONDONTWRITEBYTECODE=1 /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest tests.test_scoped_canonical_context tests.test_question_review_scoped_artifacts
+        tests.test_question_review_scoped_corrections tests.test_question_review_validated_evidence_import tests.test_question_review_firestore_readback
+        tests.test_question_review_inventory tests.test_question_review_evaluation tests.test_question_review_publisher_safety
+      - 同じ指定snapshot-corrections CLIを --output output/user_feedback_response_system/staging/recovery-three-cases/execution-contract/runs/T041-c79fe7177d39
+        --preview-only で実行、4形態required/alignment/coverage/strictを実行記録
+      - actual QuestionInventory.snapshot_correction_question → QuestionEvaluationService.preview → QuestionPublisher.preview_snapshot_correction を各caseへ実接続し、例外ではなくactual未承認/checkpoint/evaluation
+        blockerを保存
+      - 'regression: allowlist真部分集合の実deltaは受理、空delta/許可外field/不正before/presence/IDは拒否、承認・atomic/updateTime・再送/rollback・対象外field保護は維持'
+      - git diff --check
+      - 元T040/T037/primary/native/正式patch/WORK不変、private permissions700/600、inputhash/コマンド開始終了時刻/exit/logを記録
+    stop_if:
+      - allowed_files外の変更・既存保護条件緩和・本番/正式保存が必要
+      - 固定primary入力やlive before/updateTimeの実変更
+      - 新strict失敗
+      - 2repair後も指定verify不合格
+    expected_output:
+      - 真正goalbuddy_receipt_v1 task_id T041、whole preview slice結果とactualcommands、fresh run hash、具体的patch-stage/ref/field before-after/一次根拠/影響範囲/承認待ちをまとめた
+        approval-proposal.md、実機械gate成功と未済checkpoint/evaluation/公開を区別
     receipt: null
   - id: T004
     type: pm

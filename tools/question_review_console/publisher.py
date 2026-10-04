@@ -4,6 +4,7 @@ import copy
 import hashlib
 import hmac
 import json
+from tools.question_review_console.projection import sha256_json
 import os
 import stat
 import subprocess
@@ -457,6 +458,26 @@ class GroupPublisher:
 
 
 class QuestionPublisher:
+    def preview_snapshot_correction(self, manifest_path, year):
+        """Separate partial-update preview; full-uploader guards remain intact."""
+        from tools.question_review_console.scoped_corrections import load_correction_manifest, CorrectionContract
+        manifest = load_correction_manifest(self.repo_root, manifest_path)
+        question = self.inventory.snapshot_correction_question(manifest_path, str(year))
+        evaluation = self.evaluations.preview(question)
+        entry = manifest['cases'][str(year)]
+        candidate = json.loads(Path(entry['candidatePath']).read_text())
+        binding = {'sourceHash': sha256_json(manifest['inputs']), 'candidateHash': entry['candidateHash'],
+            'policyHash': str(evaluation.get('policyFingerprint') or self.evaluations.current_policy()['policyFingerprint']),
+            'workVersionHash': sha256_json(question['workVersions']), 'manifestHash': manifest['manifestHash'],
+            'liveSnapshotHash': entry['liveSnapshotHash']}
+        contract = CorrectionContract(candidate['delta'], binding)
+        return {'schemaVersion': 'snapshot-correction-preview/v1', 'previewToken': contract.token,
+            'binding': binding, 'formalSaveApproved': False, 'productionApproved': False,
+            'publishReady': False, 'canPublish': False, 'evaluationPerformed': False,
+            'evaluation': evaluation, 'workVersions': question['workVersions'],
+            'blockers': manifest['remaining'], 'auditResponsibility': '既存updatedAt/updatedById制約を別承認で満たす必要があります。',
+            'fullDocumentUploadAllowed': False}
+
     def __init__(
         self,
         repo_root: Path,

@@ -24,6 +24,35 @@ from tools.question_review_console.projection import (
 )
 
 SCHEMA = "scoped-canonical-context/v1"
+
+
+class SnapshotCorrectionContext:
+    """Explicit source/public adapter using the canonical readers and file proofs.
+
+    Source identity resolves against the preserved reacquisition, while publication
+    IDs come exclusively from the selected snapshot, never from the converter.
+    """
+    def __init__(self, root, source_root, qualification, group, binding, snapshots, references=()):
+        self.root = Path(root).resolve()
+        self.binding = SourceIdentityBinding.from_mapping(binding)
+        sources = load_source_record_inventory(Path(source_root) / qualification / 'questions_json' / group / '00_source',
+            qualification=qualification, list_group_id=group)
+        matches = [source for source in sources if source.identity.binding == self.binding]
+        if len(matches) != 1:
+            raise ValueError('snapshot correction source binding must resolve exactly once')
+        self.source = matches[0]
+        self.publication_ids = [snapshot['questionId'] for snapshot in snapshots]
+        if not self.publication_ids or len(set(self.publication_ids)) != len(self.publication_ids):
+            raise ValueError('ambiguous selected publication IDs')
+        paths = {entry.path for entry in sources} | {Path(p) for p in references}
+        paths.update(reader_dependencies(self.root, [self.root / 'scripts/common/scoped_canonical_context.py',
+            self.root / 'tools/question_review_console/scoped_corrections.py']))
+        self.files = {str(p): file_hash(p) for p in sorted(paths)}
+        self.input_hash = sha256_json(self.files)
+
+    def assert_unchanged(self):
+        if any(file_hash(Path(path)) != digest for path, digest in self.files.items()):
+            raise ValueError('snapshot correction inputs changed')
 EXPLICIT_BINDINGS = (
     ("sourceQuestionKey", "source_question_key"),
     ("reviewQuestionId", "review_question_id"),

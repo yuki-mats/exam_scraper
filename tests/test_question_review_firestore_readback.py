@@ -1,4 +1,5 @@
 import unittest
+from datetime import datetime, timezone, timedelta
 
 from tools.question_review_console.firestore_readback import (
     FirestoreReadback,
@@ -12,6 +13,7 @@ class FakeSnapshot:
         self.id = question_id
         self.exists = payload is not None
         self._payload = payload
+        self.update_time = "fixture-version" if self.exists else None
 
     def to_dict(self):
         return self._payload
@@ -42,6 +44,35 @@ class FakeDatabase:
 
 
 class QuestionReviewFirestoreReadbackTests(unittest.TestCase):
+    def test_selected_snapshot_datetime_format_and_precision_are_distinct(self):
+        instant = datetime(2026, 10, 3, 12, 30, 1, 123456, timezone.utc)
+        text = '2026-10-03T12:30:01.123456+00:00'
+        db = FakeDatabase({'doc': {'createdAt': instant, 'questionText': text}})
+        reader = FirestoreReadback(lambda: db)
+        result = reader.read_selected_snapshots(['doc'], fields=['createdAt', 'questionText'])
+        self.assertEqual(result['doc']['fields']['createdAt']['value'], '2026-10-03T12:30:01.123456Z')
+        self.assertEqual(result['doc']['fields']['questionText']['value'], text)
+        db.documents['doc']['createdAt'] = instant + timedelta(microseconds=1)
+        changed = reader.read_selected_snapshots(['doc'], fields=['createdAt'])
+        self.assertNotEqual(result['doc']['fields']['createdAt'], changed['doc']['fields']['createdAt'])
+
+    def test_selected_snapshot_preserves_null_missing_and_mask(self):
+        db = FakeDatabase({"doc": {"null": None}})
+        result = FirestoreReadback(lambda: db).read_selected_snapshots(["doc"], fields=["null", "missing"])
+        self.assertEqual(db.field_paths, ["null", "missing"])
+        self.assertEqual(result["doc"]["fields"], {"null": {"present": True, "value": None},
+            "missing": {"present": False, "value": None}})
+        self.assertEqual(result["doc"]["updateTime"], "fixture-version")
+
+    def test_selected_snapshot_never_retries_without_mask(self):
+        class NoMaskSDK(FakeDatabase):
+            def get_all(self, references):
+                raise AssertionError("unmasked fallback called")
+        reader = FirestoreReadback(lambda: NoMaskSDK({}))
+        with self.assertRaises(TypeError): reader.read_selected_snapshots(["doc"], fields=["questionText"])
+        with self.assertRaises(ValueError): reader.read_selected_snapshots(["doc", "doc"], fields=["questionText"])
+        with self.assertRaises(ValueError): reader.read_selected_snapshots(["doc"], fields=[])
+
     def test_recursive_diff_reports_nested_paths(self):
         self.assertEqual(
             recursive_diff({"a": [{"b": 1}]}, {"a": [{"b": 2}]}) ,
