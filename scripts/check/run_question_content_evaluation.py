@@ -84,6 +84,88 @@ def load_scope(root, run_id):
     return questions, hashes
 
 
+def load_sg_held_receipt_scope(root, receipt_path):
+    """Bind the confirmed SG held-question set to its current source and patches."""
+    expected = root / "tmp/sg_held_recovery_20261004/final_receipt.json"
+    if receipt_path.resolve() != expected.resolve():
+        raise ValueError("SG保留問題の確定receiptを指定してください。")
+    receipt = json.loads(receipt_path.read_text())
+    if (receipt.get("scope") != "original 74 held question IDs only"
+            or receipt.get("contentConfirmedCount") != 73
+            or receipt.get("excludedFromPublicationCount") != 1
+            or receipt.get("unresolvedDispositionCount") != 0):
+        raise ValueError("SG保留問題の確定receiptが期待する状態ではありません。")
+    exclusion = receipt.get("excludedQuestion") or {}
+    if exclusion.get("questionId") != "0c92d2a32566c62927cd2b73":
+        raise ValueError("公開対象外の原問IDが一致しません。")
+    rows = receipt.get("questions") or []
+    if (len(rows) != 73 or len({row.get("questionId") for row in rows}) != 73
+            or any(row.get("disposition") != "content_confirmed" for row in rows)
+            or exclusion["questionId"] in {row["questionId"] for row in rows}):
+        raise ValueError("評価対象73問のID・対応方針が一致しません。")
+    projection_receipt = root / "tmp/sg_held_recovery_20261004/projection_receipt.json"
+    read_receipt = root / "tmp/sg_held_recovery_20261004/read_receipt.json"
+    original_targets = root / "tmp/sg_held_recovery_20261004/targets.json"
+    recorded_hashes = json.loads(projection_receipt.read_text())["inputHashes"]
+    protected = {path: hash_value for path, hash_value in recorded_hashes.items()}
+    for path in (receipt_path, projection_receipt, read_receipt, original_targets):
+        protected[str(path.relative_to(root))] = digest(path)
+    changed = [path for path, expected_hash in protected.items()
+               if not (root / path).is_file() or digest(root / path) != expected_hash]
+    if changed:
+        raise ValueError("SG評価入力が確定時から変わりました: " + ", ".join(changed))
+    reread = json.loads(read_receipt.read_text())
+    targets = {row["questionId"]: row for row in json.loads(original_targets.read_text())}
+    if set(reread) != {row["questionId"] for row in rows}:
+        raise ValueError("73問の再読hash台帳と対象IDが一致しません。")
+    content_fields = [
+        "source_question_id", "questionBodyText", "questionLabel", "choiceTextList",
+        "correctChoiceText", "questionIntent", "questionType", "explanationText",
+        "isLawRelated", "lawReferences", "lawRevisionFacts",
+        "questionImageStorageUrls", "originalQuestionChoiceImageUrls",
+    ]
+    inventory = QuestionInventory(root)
+    questions = []
+    with inventory.projection_snapshot("sg", sorted({row["listGroupId"] for row in rows})):
+        for row in rows:
+            question_id = row["questionId"]
+            group = row["listGroupId"]
+            source_ref = row["sourceRecordRef"]
+            target = targets.get(question_id)
+            if target is None or target["group"] != group or target["ref"] != source_ref:
+                raise ValueError(question_id + ": 元runの対象identityが一致しません。")
+            state = json.loads((root / target["statePath"]).read_text())
+            execution = state["execution"]
+            if (execution["questionId"] != question_id
+                    or execution["listGroupId"] != group
+                    or execution["sourceRecordRef"] != source_ref):
+                raise ValueError(question_id + ": 元runの問題stateが一致しません。")
+            projected = inventory.projected_input("sg", group, source_ref)
+            if projected.errors:
+                raise ValueError(question_id + ": 現在のprojectionにエラーがあります。")
+            record = projected.record
+            content_hash = hashlib.sha256(json.dumps(
+                {field: record.get(field) for field in content_fields},
+                ensure_ascii=False, sort_keys=True,
+            ).encode()).hexdigest()
+            if (content_hash != row["contentHash"]
+                    or content_hash != reread[question_id]["contentHash"]
+                    or record.get("source_question_id") != row["source_question_id"]):
+                raise ValueError(question_id + ": 確定後に問題内容が変わりました。")
+            questions.append({
+                "id": question_id,
+                "reviewKey": execution["questionKey"],
+                "qualification": "sg", "listGroupId": group,
+                "sourceRecordRef": source_ref,
+                "source": inventory.source_input("sg", group, source_ref),
+                "originalQuestionId": execution["reviewQuestionId"],
+                "questionLabel": record.get("examLabel") or row.get("questionLabel"),
+                "projected": record, "stateHash": _json_hash(record),
+                "choiceCount": len(record.get("choiceTextList") or []),
+            })
+    return questions, protected
+
+
 class ContentAuditService(QuestionEvaluationService):
     def __init__(self, root, **kwargs):
         super().__init__(root, secrets.token_urlsafe(32), **kwargs)
@@ -163,10 +245,12 @@ def select_scope(questions, question_ids=None):
     return [by_id[question_id] for question_id in question_ids]
 
 
-def run(root, source_run, destination, concurrency=20, resume=False, question_ids=None):
+def run(root, source_run, destination, concurrency=20, resume=False, question_ids=None,
+        scope_receipt=None):
     if destination.exists() and not resume:
         raise ValueError("既存runへは--resumeを明示してください。")
-    questions, protected = load_scope(root, source_run)
+    questions, protected = (load_sg_held_receipt_scope(root, scope_receipt)
+                            if scope_receipt else load_scope(root, source_run))
     questions = select_scope(questions, question_ids)
     config = load_model_backend_config(root / "config/question_maintenance_llm.toml")
     client = CodexAppServerClient(root)
@@ -179,7 +263,9 @@ def run(root, source_run, destination, concurrency=20, resume=False, question_id
     service = ContentAuditService(root, app_server=router)
     if hashlib.sha256(service.explanation_policy.encode()).hexdigest() != policy_hashes[policy_paths[1]]:
         raise ValueError("準備中に03正本が変わりました。")
-    binding = {"sourceRunId": source_run, "questionStates": {q["id"]: q["stateHash"] for q in questions},
+    binding = {"sourceRunId": source_run,
+               "scopeReceipt": str(scope_receipt.relative_to(root)) if scope_receipt else None,
+               "questionStates": {q["id"]: q["stateHash"] for q in questions},
                "protectedInputHashes": protected, "policyHashes": policy_hashes,
                "modelProfile": router.snapshot_for("codex_only")}
     binding_hash = _json_hash(binding)
@@ -300,7 +386,9 @@ def run(root, source_run, destination, concurrency=20, resume=False, question_id
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--source-run", required=True)
+    source = parser.add_mutually_exclusive_group(required=True)
+    source.add_argument("--source-run")
+    source.add_argument("--sg-held-receipt", type=Path)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--concurrency", type=int, default=20)
     parser.add_argument("--resume", action="store_true")
@@ -308,12 +396,15 @@ def main():
                         help="元run内の再評価対象の問題IDを記載したJSON配列")
     args = parser.parse_args()
     destination = args.output.resolve()
-    if not destination.is_relative_to(ROOT / "output/sc/reports/content_evaluations"):
-        parser.error("出力先はoutput/sc/reports/content_evaluations内に限定してください。")
+    output_root = ROOT / ("output/sg/reports/content_evaluations" if args.sg_held_receipt
+                          else "output/sc/reports/content_evaluations")
+    if not destination.is_relative_to(output_root):
+        parser.error(f"出力先は{output_root.relative_to(ROOT)}内に限定してください。")
     if not 1 <= args.concurrency <= 100:
         parser.error("監査batch並列数は1〜100です。")
     question_ids = json.loads(args.question_ids.read_text()) if args.question_ids else None
-    manifest = run(ROOT, args.source_run, destination, args.concurrency, args.resume, question_ids)
+    manifest = run(ROOT, args.source_run, destination, args.concurrency, args.resume,
+                   question_ids, args.sg_held_receipt.resolve() if args.sg_held_receipt else None)
     print(json.dumps({k: manifest[k] for k in ("status", "completedCount", "statusCounts")}, ensure_ascii=False))
     if manifest["status"] != "completed":
         raise SystemExit(2)

@@ -160,7 +160,7 @@ queueがterminalになった後、`improvement_report.json`へ工程・指摘cod
 
 ## 評価と公開の安全境界
 
-公開前の問題集設定・年度全体の成果物生成を待たずに、整備済みの限定対象だけを独立に評価する場合は、`scripts/check/run_question_content_evaluation.py --source-run <検証済みSC整備run ID> --output output/sc/reports/content_evaluations/<評価run名> --concurrency 20`を使います。これは既存の監査model、全選択肢validator、画像送信receiptを再利用するread-onlyの**内容評価**です。対象は元runの問題IDとsource参照から固定し、03正本に照らして基本解説・補足回答・学習パターンも採点します。現在の正答対応の単独fieldは渡しませんが、解説と法令監査metadataから答えを推測できるため、完全盲検ではありません。生成とは別のsessionで一次根拠と照合する内容評価として扱います。問題ごとの結果、native session証拠、全計画batchの固定promptと入力、入力・policy hashは指定したreport内へ保存します。入力・policyが同じ場合だけ`--resume`で未完了対象を再評価できます。サブスクリプション枠を使い、既存creditsの承認は付与しません。
+公開前の問題集設定・年度全体の成果物生成を待たずに、整備済みの限定対象だけを独立に評価する場合は、`scripts/check/run_question_content_evaluation.py --source-run <検証済みSC整備run ID> --output output/sc/reports/content_evaluations/<評価run名> --concurrency 20`を使います。SGの保留74問から内容確認済みの73問を評価する場合は、同じscriptへ`--sg-held-receipt tmp/sg_held_recovery_20261004/final_receipt.json --output output/sg/reports/content_evaluations/<評価run名>`を指定します。SGは確定receipt、元runの対象identity、現在のsource・patch hash、73問の内容hashを照合し、公開対象外の1問を含めません。これは既存の監査model、全選択肢validator、画像送信receiptを再利用するread-onlyの**内容評価**です。対象は元runの問題IDとsource参照から固定し、03正本に照らして基本解説・補足回答・学習パターンも採点します。現在の正答対応の単独fieldは渡しませんが、解説と法令監査metadataから答えを推測できるため、完全盲検ではありません。生成とは別のsessionで一次根拠と照合する内容評価として扱います。問題ごとの結果、native session証拠、全計画batchの固定promptと入力、入力・policy hashは指定したreport内へ保存します。入力・policyが同じ場合だけ`--resume`で未完了対象を再評価できます。サブスクリプション枠を使い、既存creditsの承認は付与しません。
 
 内容評価の`passed`は公開承認ではありません。source、patch、作業版、GUIの正式評価projection、Firestoreは更新せず、`publicationReady=false`を保存します。全選択肢が根拠未確認の場合は`inconclusive`、session・画像・schemaの証拠が不足する場合は`failed`として未完了を区別し、完了数に含めません。対象入力又はpolicyが途中で変わった場合も再確認待ちを残します。公開時は通常の問題集設定、成果物生成、機械検査と正式評価を完了してください。
 
