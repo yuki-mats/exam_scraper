@@ -13,6 +13,7 @@ fieldの型と工程間の不変条件は[問題field契約](../document/referen
 - 02が所有するfieldは`questionIntent`だけです。`correctChoiceText`、`answer_result_text`、`questionType`、問題文、選択肢、解説、IDを変更しません。
 - 現在の`questionIntent`、正答番号又は`correctChoiceText`から方向を逆算しません。設問の要求だけから独立に確定します。
 - 合意済みの`aggregateAnswerDecomposition`で記述を抽出した問題では、元の個数・組合せ候補は`originalAggregateAnswerEvidence`に分離されています。候補が現在の`choiceTextList`にないこと自体を欠落とせず、完全な抽出記述と元の設問指示から選択方向を判定します。例えば「適切なものはいくつあるか」は適切な記述側を要求します。元の正答個数から方向を逆算しません。分解の原文hash・範囲が不整合なら保留します。
+- 選択肢が行為や観察結果を述べ、設問がその中から特定の条件に該当するものを選ばせる場合は、各肢とその条件の適合を判定します。例えば「監査の指摘事項に該当する行為」を選ぶ設問では、指摘事項に該当する側が`select_correct`です。行為自体が望ましくないことを理由に`select_incorrect`へ反転しません。一方、記述そのものの正誤を問う設問では、記述の真偽に従います。
 - 解答指示が欠けている、OCR崩れや二重否定で方向を一意に読めない、又は画像なしでは判断できない問題は`hold`（構造化候補では`status=blocked`）にします。現在値や多数派を既定値にしません。
 
 ## 判定基準

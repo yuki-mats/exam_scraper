@@ -2038,6 +2038,40 @@ class SourceBindingAliasTests(unittest.TestCase):
 
 
 class StructuredCandidateStageContextTests(unittest.TestCase):
+    def test_answer_slot_scope_survives_stage_field_filtering(self):
+        url = "https://www.sg-siken.com/kakomon/28_haru/pm01.html"
+        record = {
+            "questionBodyText": "a，bに入れる字句を選べ。",
+            "questionLabel": "午後問1 設問1 (1) a",
+            "question_url": url,
+            "source_question_id": f"201601:pm1:setumon1:1:a:{url}",
+            "choiceTextList": ["特定", "不特定多数"],
+        }
+        prompt = _structured_candidate_prompt(
+            "正答を確認する。", [{"id": "question-1"}], stage_id="correct_choice",
+            records_by_question={"question-1": record},
+            candidate_targets_by_question={"question-1": ()}, feedback_by_question={},
+            current_record_fields=("questionBodyText", "choiceTextList"),
+        )
+        payload = PerQuestionQueueAppServer._candidate_questions(prompt)[0]
+        self.assertEqual(payload["questionScope"]["answerTarget"]["marker"], "a")
+        self.assertNotIn("source_question_id", payload["currentRecord"])
+        self.assertEqual(payload["currentRecord"]["questionBodyText"], record["questionBodyText"])
+
+    def test_non_law_audit_can_confirm_technical_fields_without_rewriting(self):
+        target = CandidateTarget(
+            target_id="question-1:explanation", role="explanation", path="patch.json",
+            allowed_fields=("explanationText", "suggestedQuestionDetailsByChoice"),
+        )
+        prompt = _structured_candidate_prompt(
+            "監査情報を確認する。", [{"id": "question-1"}], stage_id="law_audit",
+            records_by_question={"question-1": {"isLawRelated": False, "explanationText": ["解説"]}},
+            candidate_targets_by_question={"question-1": (target,)}, feedback_by_question={},
+        )
+        payload = PerQuestionQueueAppServer._candidate_questions(prompt)[0]
+        self.assertEqual(payload["preserveTechnicalFieldsWhenNotLawRelated"], ["explanationText", "suggestedQuestionDetailsByChoice"])
+        self.assertIn("currentRecordの値をそのままsetFieldsへ入れて保持", prompt)
+
     def test_candidate_image_urls_flattens_and_deduplicates_public_images(self):
         self.assertEqual(
             _candidate_image_urls(
@@ -8710,6 +8744,25 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         self.assertFalse(failed_patch_exists)
 
     def test_shared_law_sidecar_rollback_preserves_the_sibling_commit(self):
+        class ReviewedLawAppServer(PerQuestionQueueAppServer):
+            def run_turn(self, prompt, **kwargs):
+                if kwargs["work_type"] == "maintenance_law_audit_secondary_audit_candidate":
+                    bundle = json.loads(prompt.splitlines()[-1])
+                    fields = bundle["proposedFields"]
+                    question_id = bundle["question"]["questionId"]
+                    review = {"schemaVersion": "law-audit-verification/v1",
+                              "questionId": question_id, "evidenceHash": bundle["evidenceHash"],
+                              "decision": "approve", "issues": [],
+                              "examTimeDecision": fields["examTimeDecision"],
+                              "currentLawDecision": fields["currentLawDecision"],
+                              "verifiedSourceUrls": ["https://laws.e-gov.go.jp/law/329AC0000000051"]}
+                    return AppServerTurnResult(
+                        thread_id=f"independent-{question_id}", session_id="review-session",
+                        turn_id="review-turn", final_message=json.dumps(review, ensure_ascii=False),
+                        model=kwargs["model"], service_tier=None,
+                    )
+                return super().run_turn(prompt, **kwargs)
+
         class TwoLawQuestionInventory(CountedSourceInventory):
             def __init__(self):
                 super().__init__(2)
@@ -8772,7 +8825,7 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
 
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            app_server = PerQuestionQueueAppServer()
+            app_server = ReviewedLawAppServer()
             coordinator, _sync, _server, parent = self._start_deferred_flow(
                 root,
                 TwoLawQuestionInventory(),

@@ -63,6 +63,7 @@ from scripts.common.explanation_references import (
 from scripts.common.question_answer_contract import (
     question_level_answer_cardinality_issue,
 )
+from scripts.common.question_answer_scope import question_body_for_answer
 from scripts.common.question_learning_patterns import (
     question_learning_pattern_id_error,
 )
@@ -901,7 +902,7 @@ def create_firestore_question_base(
 
     # remaining common fields
     firestore_question.update({
-        "questionBodyText": question_body.get('questionBodyText', '').replace('\n', ''),
+        "questionBodyText": question_body_for_answer(question_body).replace('\n', ''),
         "questionSetId": (
             question_set_id
             if question_set_id is not None
@@ -1023,7 +1024,9 @@ def convert_true_false_to_firestore(question_body: dict) -> list[dict]:
 
         # questionText: questionBodyText（改行除去） + 該当の選択肢1つ（改行除去）を[quote][/quote]で囲む
         upload_question_body = upload_question_body_text_for_choice(question_body, i)
-        question_body_text = upload_question_body.replace('\n', '')
+        question_body_text = question_body_for_answer(
+            question_body, body_text=upload_question_body
+        ).replace('\n', '')
         choice_text = upload_choice.replace('\n', '')
         if choice_text:
             question_text = f"{question_body_text}[quote]{choice_text}[/quote]"
@@ -1111,7 +1114,7 @@ def convert_group_select_to_firestore(
     )
 
     # questionText: questionBodyTextのみ（改行除去）
-    question_text = question_body.get("questionBodyText", "").replace('\n', '')
+    question_text = question_body_for_answer(question_body).replace('\n', '')
 
     # examSource: 試験名（question_body由来）, examYear年, 問x
     exam_year = question_body.get("examYear", "")
@@ -1263,7 +1266,7 @@ def convert_question_to_firestore(question_body: dict) -> list[dict]:
         original_question_id = original_question_id_for_upload(question_body)
         
         # questionText: questionBodyTextのみ（改行除去）
-        question_text = question_body.get("questionBodyText", "").replace('\n', '')
+        question_text = question_body_for_answer(question_body).replace('\n', '')
         
         # 独自問題は年度と取得元を公開せず、表示を一定にする。
         if is_independent_question(question_body):

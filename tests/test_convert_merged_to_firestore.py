@@ -32,6 +32,27 @@ KOUNIN_SHINRISHI_LIST_GROUP_IDS = (
 
 
 class ConvertMergedToFirestoreTests(unittest.TestCase):
+    def test_named_answer_slot_is_visible_and_original_body_is_preserved(self):
+        url = "https://www.sg-siken.com/kakomon/28_haru/pm01.html"
+        question = {
+            "original_question_id": "named-a",
+            "questionBodyText": "共通事例。a，bに入れる字句を選べ。",
+            "questionLabel": "午後問1 設問1 (1) a",
+            "source_question_id": f"201601:pm1:setumon1:1:a:{url}", "question_url": url,
+            "questionType": "flash_card", "questionIntent": "select_correct",
+            "choiceTextList": ["特定", "不特定多数"],
+            "correctChoiceText": ["正しい", "間違い"],
+            "explanationText": ["標的型攻撃は特定の対象を狙う。"],
+            "questionLearningPatternId": "differences_relationships", "examYear": 2016,
+        }
+        before = dict(question)
+        converted = convert_question_to_firestore(question)
+        public = next(x for x in converted if not x["isChoiceOnly"])
+        self.assertTrue(public["questionText"].endswith("解答対象：a"))
+        self.assertTrue(public["questionBodyText"].endswith("解答対象：a"))
+        self.assertEqual(public["originalQuestionBodyText"], question["questionBodyText"])
+        self.assertEqual(question, before)
+
     def test_exam_name_uses_qualification_context_before_legacy_group(self) -> None:
         for code, name in [("nw", "ネットワークスペシャリスト"), ("sg", "情報セキュリティマネジメント")]:
             with self.subTest(code=code):

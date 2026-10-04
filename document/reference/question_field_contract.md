@@ -60,6 +60,8 @@
 
 問題整備システムは、`00_source`へ確定済みpatchを物理Mergeと同じ順で重ねた一問ごとの`logicalProjection`を各工程へ渡します。01〜02aは、後続結果を含むmerged artifactを自工程の入力にしません。
 
+同じ事例・設問を共有する名前付き解答欄は、保持された`source_question_id`、`question_url`、`questionLabel`の一致からserverが一問の解答対象を確定します。整備入力の`questionScope.answerTarget`は、その欄だけを判定するためのread-only情報です。他欄の正答や共通解説を今回の欄へ混ぜません。原文は保持し、公開変換の表示本文には同じ対象マーカーを明記します。対応が不一致なら推測せず停止します。
+
 | 工程 | 独立に確定する内容 | 所有しない内容 |
 | --- | --- | --- |
 | 01 | 回答操作に基づく`questionType`と、解答過程に基づく`isCalculationQuestion`。この2fieldも互いから派生させない。 | 通常は問題文、選択肢、設問方向、正答。集約回答型だけは、二つの独立レビューが完全一致したcandidate IDをserverが原文spanへ解決して選択肢を投影する。 |

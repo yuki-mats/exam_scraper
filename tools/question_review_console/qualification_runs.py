@@ -45,6 +45,7 @@ from scripts.common.question_answer_contract import (
     uses_official_firestore_statement_answers,
     uses_trusted_gassyunin_judge_answers,
 )
+from scripts.common.question_answer_scope import question_answer_scope
 from scripts.common.repaso_firestore_schema import is_law_revision_facts_shape
 from scripts.common.law_audit_sidecar_contract import (
     law_audit_sidecar_metadata_errors,
@@ -196,6 +197,15 @@ from tools.question_review_console.validation_feedback import (
 )
 from tools.question_review_console.work_versions import QuestionWorkVersionStore
 from tools.question_review_console.workflow_catalog import normalize_policy_version
+from tools.question_review_console.law_audit_verification import (
+    candidate_fields as law_candidate_fields,
+    verification_bundle as law_verification_bundle,
+    review_schema as law_review_schema,
+    review_prompt as law_review_prompt,
+    parse_review as parse_law_review,
+    promote_candidate as promote_law_candidate,
+    question_inputs_from_prompt as law_question_inputs,
+)
 from tools.question_review_console.workflow_runner import (
     ArtifactSynchronizer,
     sync_after_patch_update,
@@ -563,7 +573,7 @@ MAX_PROGRESS_BYTES = 8 * 1024 * 1024
 MAX_PROGRESS_EVENTS = 10_000
 MAX_PROGRESS_LINE_BYTES = 32 * 1024
 MAX_WRITER_VALIDATION_ATTEMPTS = 3
-AGGREGATE_REVIEW_PROMPT_CONTRACT_VERSION = "aggregate-answer-review-prompt/v7"
+AGGREGATE_REVIEW_PROMPT_CONTRACT_VERSION = "aggregate-answer-review-prompt/v8"
 AGGREGATE_ADJUDICATION_PROMPT_CONTRACT_VERSION = (
     "aggregate-answer-adjudication-prompt/v1"
 )
@@ -799,6 +809,7 @@ def _server_law_audit_fields(
     projected: Mapping[str, Any],
     candidate_fields: Mapping[str, Any],
     audited_at: datetime | None = None,
+    verification: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Add reproducible server-owned metadata to one 03b sidecar row."""
 
@@ -864,6 +875,13 @@ def _server_law_audit_fields(
         if audit_status == "updated_to_current_law"
         else None
     )
+    if verification:
+        reviews = verification["reviews"]
+        values["primaryAuditRunId"] = run_id
+        values["secondaryAuditRunId"] = reviews[0]["executionId"]
+        values["tertiaryAuditRunId"] = (
+            reviews[1]["executionId"] if audit_status == "updated_to_current_law" else None
+        )
     return values
 
 
@@ -1943,6 +1961,15 @@ def _structured_candidate_prompt(
             ],
             "previousValidationFeedback": previous_feedback,
         }
+        scope = question_answer_scope(records_by_question[question_id])
+        if scope:
+            question["questionScope"] = scope
+        if stage_id == "law_audit":
+            question["auditVerificationContract"] = "primary_proposal_then_independent_reviews/v1"
+            question["preserveTechnicalFieldsWhenNotLawRelated"] = sorted(
+                allowed_fields
+                & {"correctChoiceText", "explanationText", "suggestedQuestionDetailsByChoice"}
+            )
         if stage_id in {"law_context", "law_audit"}:
             question["lawReferenceDiscoveryPlan"] = (
                 _law_reference_discovery_plan(
@@ -2046,6 +2073,11 @@ def _structured_candidate_prompt(
             "# 構造化候補V3（この契約を最優先する）",
             "",
             "各問題を独立に判断し、指定されたallowedFieldsだけの更新候補を返す。",
+            "questionScopeはserverがsource identityから確定した今回の解答単位である。"
+            "answerTarget.kind=named_answer_slotなら、本文に複数の空欄があってもmarkerが示す欄だけを問う。"
+            "他の空欄は共通文脈として参照するが、他欄の正答を今回のcorrectChoiceTextへ混ぜない。"
+            "同じマーカーに複数の回答位置が属する場合は、その欄の解答指示に従う。"
+            "元解説が複数欄をまとめて説明する場合も、今回の対象欄に対応する根拠だけを独立に照合する。",
             "previousValidationFeedbackが現行allowedFieldsと矛盾する場合は、"
             "現行allowedFieldsを優先する。",
             "file、shell、progress、receipt、git、外部状態は変更しない。",
@@ -2056,6 +2088,12 @@ def _structured_candidate_prompt(
             "candidateにする場合は、candidateTargetsのallowedFieldsをすべて明示的に確定する。確定できないfieldが一つでもあれば、その問題をblockedにする。",
             "requiredSemanticFieldsは今回のcandidateで一度ずつ確定するfieldの完全な一覧である。candidateでは一覧外のfieldを追加せず、一覧内の各fieldをsetFields又はunsetFieldsのどちらか一方へ一度だけ入れる。",
             "semanticFieldsMustBeSetにあるfieldはunsetFieldsへ入れず、現在値を保持する場合もsetFieldsへ完全な値を一度入れる。isLawRelated=falseのlawReferencesは削除せず、choiceTextListと同じ件数の空配列を入れる。",
+            "03bで本文と根拠からisLawRelated=falseを独立に確定した場合、"
+            "preserveTechnicalFieldsWhenNotLawRelatedの各fieldはcurrentRecordの値をそのままsetFieldsへ入れて保持する。"
+            "これは技術内容の再整備ではなく、監査metadataだけを確定する候補の完全性確認である。"
+            "更新対象に含まれることを理由に技術正答・解説・補足を書き直したり削除したりしない。"
+            "一次根拠から法令関連性を再分類する必要がある場合は、保存済みfalseへ固定せず独立に判断する。",
+            "auditVerificationContractがある03bの法令候補は一次監査の提案である。reviewStateとlawRevisionFacts内の法令肢のreviewStateはneeds_secondary_reviewとして返す。serverが同じ入力と候補を別sessionで二次確認し、現行法更新があればさらに三次確認した後だけverifiedへ昇格する。既存tertiary_verifiedや監査run IDが入力にないこと自体でblockedにしない。監査を実施したと偽ってverifiedを宣言せず、正誤・根拠・解説・差分を独立に確定できない場合だけblockedにする。",
             "topLevelSemanticFieldsAlsoNestedにfield名がある場合、そのfieldは別fieldのvalue内にも現れる。value内の同名keyはトップレベルsemantic fieldの確定として数えない。該当field名自体をsetFields又はunsetFieldsへ必ず一度入れる。",
             "semanticFieldsSharedAcrossTargetsにfield名がある場合も、保存先候補が複数あるだけでsemantic fieldは一つである。同じfieldを役割別に繰り返さず、setFields又はunsetFieldsへ合計一度だけ入れる。反映先はserverが確定する。",
             "各semantic fieldは一度だけsetFields又はunsetFieldsへ入れ、反映先はserverに任せる。",
@@ -2257,6 +2295,9 @@ def _aggregate_answer_review_questions(
             ),
             "candidateSets": candidate_views,
         }
+        scope = question_answer_scope(record)
+        if scope:
+            question["questionScope"] = scope
         if independent_reviews_by_question is not None:
             question["independentReviews"] = copy.deepcopy(
                 independent_reviews_by_question[question_id]
@@ -2279,12 +2320,14 @@ def _aggregate_answer_review_prompt(
         [
             "# 集約回答問題の独立レビュー",
             "各問題を意味でtarget、non_target、holdに分類する。表記形式に限定しない。",
+            "questionScopeが名前付き解答欄を示す場合は、その欄だけを分類し、本文に残る他の空欄の解答操作と混同しない。",
             "candidateSetsはserverが原文から機械生成した候補であり、文章や文字位置を作成・修正しない。",
             "最初にquestionBodyTextとchoiceTextListの役割を確認する。個別に正誤判定する記述そのものがchoiceTextListに既に並ぶ問題は、本文に「組合せ」又は「いくつ」とあってもnon_targetである。計算結果の数値候補、穴埋めの語句候補又は並べ替え候補も、本文に集約前の完全な命題が複数なければnon_targetである。",
             "candidateSetsが空又は不完全であることだけを理由にholdにしない。questionBodyTextに個別判定すべき完全な命題が複数あることと、choiceTextListがそれらの個数・組合せ等だけを表すことの両方を確認してからtarget候補を検討する。",
             "questionBodyTextの列挙がア・イ・ウ・工で、choiceTextListが一貫してア・イ・ウ・エだけを参照する場合、serverは原文を変更せず、工をエのOCR表記揺れとして境界候補へ含めることがある。四つの本文境界が一対一で明確なら、その表記差だけをambiguous_boundary又はmissing_statementの理由にしない。",
             "targetは、元の回答が複数記述の正誤を個数、組合せその他の一つの回答へ集約し、candidateSetsの各境界が受験者に個別の正誤判定を求める命題そのものである場合に限る。",
             "問題が事実として与える設例条件や共通前提、並べ替える項目、空欄へ入れる語句又は数値、計算の入力は、列挙されていても個別の正誤判定対象ではないためtargetにしない。",
+            "設例で定めた方針・条件の番号を参照し、どの方針に違反するか等の対応関係を選ぶ問題は、方針自体の真偽を問う問題ではない。列挙した前提の番号が選択肢に並ぶことだけでtargetにせず、対応関係を一体で比較するnon_targetとして扱う。",
             "choiceTextListに受験者が選ぶ個別の命題が既に並ぶ通常問題もtargetにしない。choiceTextListが個数又は組合せ等の集約回答で、個別に判定する全命題がquestionBodyText内にあるかを確認する。",
             "questionBodyTextが図表又は画像を参照し、choiceTextListが図表内ラベル（A、B、C等）の組合せだけを選ぶ形式で、questionImageStorageUrls又はoriginalQuestionChoiceImageUrlsに画像がある場合はnon_targetとする。画像内ラベルを本文から欠落した記述とみなしてmissing_statementにしない。画像がなく、原文からラベルの内容を確認できない場合に限りholdを検討する。",
             "targetとして承認できる場合は、個別に判定する全命題を過不足なく含み、前提や入力を含まないcandidateIdを一つだけ選ぶ。",
@@ -16379,6 +16422,60 @@ class QualificationRunCoordinator:
                     )
                 else:
                     candidates = []
+                if stage_id == "law_audit" and candidates:
+                    questions = law_question_inputs(candidate_prompt)
+                    verified_candidates = []
+                    verification_receipts = {}
+                    for candidate in candidates:
+                        fields = law_candidate_fields(candidate)
+                        if candidate.status != "candidate" or fields.get("isLawRelated") is not True:
+                            verified_candidates.append(candidate)
+                            continue
+                        bundle = law_verification_bundle(questions[candidate.question_id], candidate)
+                        review_count = 2 if fields.get("auditStatus") == "updated_to_current_law" else 1
+                        reviews = []
+                        executions = []
+                        seen_threads = {result.thread_id}
+                        review_policy = (batch_plan.get("agentPolicy") or {}).get("independent_review") or {}
+                        for number in range(review_count):
+                            phase = "secondary" if number == 0 else "tertiary"
+                            work_type = f"maintenance_law_audit_{phase}_audit_candidate"
+                            self.store.update(qualification, run_id, executionPhase=work_type)
+                            audit = self.app_server.run_turn(
+                                law_review_prompt(bundle, "二次" if number == 0 else "三次"),
+                                model_profile=model_profile_name, work_type=work_type,
+                                sandbox="read-only", emit=emit,
+                                output_schema=law_review_schema(bundle),
+                                image_urls=_candidate_image_urls(records_by_question, [candidate.question_id]),
+                                on_model_turn_event=model_turn_callback(work_type),
+                                heartbeat=heartbeat, cwd=self.repo_root,
+                                model=str(review_policy.get("model") or model),
+                                reasoning_effort=str(review_policy.get("reasoningEffort") or reasoning_effort),
+                                speed_mode=speed_mode, turn_group=qualification,
+                                monitor_context=self._monitor_context(
+                                    qualification, run_id, parent_run_id=parent_run_id,
+                                    question_ids=[candidate.question_id], work_item_keys=batch_work_item_keys,
+                                    list_group_ids=batch_list_group_ids, stage_id=stage_id,
+                                    work_type=work_type, phase="independent_review",
+                                ),
+                            )
+                            if audit.changed_files or not audit.thread_id or not audit.turn_id or audit.thread_id in seen_threads:
+                                raise QualificationRunError("独立現行法監査のread-only又は新規sessionを確認できません。")
+                            seen_threads.add(audit.thread_id)
+                            review = parse_law_review(audit.final_message, bundle)
+                            reviews.append(review)
+                            executions.append({"phase": phase, "executionId": f"{audit.thread_id}:{audit.turn_id}",
+                                               "threadId": audit.thread_id, "turnId": audit.turn_id,
+                                               "model": audit.model, "review": review})
+                            self.store.update(qualification, run_id, lawAuditReviewExecutions=copy.deepcopy(executions))
+                            if review["decision"] != "approve":
+                                break
+                        verified_candidates.append(promote_law_candidate(candidate, reviews))
+                        verification_receipts[candidate.question_id] = {
+                            "evidenceHash": bundle["evidenceHash"], "bundle": bundle, "reviews": executions,
+                        }
+                    candidates = verified_candidates
+                    prepared_execution_metadata["lawAuditVerification"] = verification_receipts
                 envelope = _prepared_candidate_envelope(
                     question_id=question_ids[0],
                     stage_id=stage_id,
@@ -16848,6 +16945,9 @@ class QualificationRunCoordinator:
                                 )
                                 or "unknown"
                             )
+                            verification = (prepared_execution_metadata.get("lawAuditVerification") or {}).get(question_id)
+                            if server_set_fields.get("isLawRelated") is True and not verification:
+                                raise QualificationRunError("法令候補に独立監査の確定証跡がありません。")
                             server_set_fields = _server_law_audit_fields(
                                 qualification=qualification,
                                 list_group_id=_question_plan_list_group_id(
@@ -16857,6 +16957,7 @@ class QualificationRunCoordinator:
                                 policy_version=policy_version,
                                 projected=projected,
                                 candidate_fields=server_set_fields,
+                                verification=verification,
                             )
                             server_set_fields["schemaVersion"] = (
                                 "law-revision-audit/v2"

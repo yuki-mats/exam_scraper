@@ -51,10 +51,31 @@ _LIST_BOUNDARY = rf"(?P<boundary>^|[\r\n。！？]){_LIST_SPACE}*"
 _CIRCLED_DIGITS = "①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳"
 _KANA_LABELS = "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワ"
 _KANA_MARKER_LABELS = _KANA_LABELS + "工"
+_ROMAN_LABELS = (
+    "i", "ii", "iii", "iv", "v", "vi", "vii", "viii", "ix", "x",
+    "xi", "xii", "xiii", "xiv", "xv", "xvi", "xvii", "xviii", "xix", "xx",
+)
 _TRAILING_NOTE = re.compile(
     rf"\r?\n{_LIST_SPACE}*[（(]注(?:{_LIST_SPACE}*[0-9０-９]+)?[）)]"
 )
+_TRAILING_SECTION_HEADING = re.compile(
+    rf"\r?\n{_LIST_SPACE}*\[[^\]\r\n]+\]{_LIST_SPACE}*$"
+)
 _MARKER_PATTERNS = (
+    (
+        "roman_period",
+        re.compile(
+            rf"(?<![A-Za-zＡ-Ｚａ-ｚ0-9０-９])(?P<marker>(?P<label>[ivxIVXｉｖｘＩＶＸ]+|[Ⅰ-Ⅻⅰ-ⅻ]){_LIST_SPACE}*[.．]){_LIST_SPACE}*",
+            re.MULTILINE,
+        ),
+    ),
+    (
+        "number_period",
+        re.compile(
+            rf"(?<![A-Za-zＡ-Ｚａ-ｚ0-9０-９])(?P<marker>(?P<label>[1-9１-９][0-9０-９]?){_LIST_SPACE}*[.．])(?![0-9０-９]){_LIST_SPACE}*",
+            re.MULTILINE,
+        ),
+    ),
     (
         "latin_bracket",
         re.compile(
@@ -132,12 +153,14 @@ _MARKER_PATTERNS = (
 
 
 def _marker_ordinal(family: str, label: str) -> int:
+    if family == "roman_period":
+        return _ROMAN_LABELS.index(unicodedata.normalize("NFKC", label).lower()) + 1
     if family.startswith("latin"):
         normalized = unicodedata.normalize("NFKC", label).upper()
         return ord(normalized) - ord("A")
     if family == "circled_digit":
         return _CIRCLED_DIGITS.index(label) + 1
-    if family == "number_parenthesis":
+    if family in {"number_parenthesis", "number_period"}:
         return int(label)
     if family.startswith("kana"):
         if label == "工":
@@ -205,18 +228,27 @@ def generate_statement_candidates(
 
     source_hash = source_text_hash(source_text)
     detected: list[dict[str, Any]] = []
-    occupied_starts: set[int] = set()
+    occupied_starts: set[tuple[str, int]] = set()
     for family, pattern in _MARKER_PATTERNS:
         for match in pattern.finditer(source_text):
+            if family == "roman_period" and (
+                unicodedata.normalize("NFKC", match.group("label")).lower()
+                not in _ROMAN_LABELS
+            ):
+                continue
             if match.group("label") == "工" and not _allow_kana_e_ocr_alias(
                 source_text,
                 choice_texts,
             ):
                 continue
             start = match.start("marker")
-            if start in occupied_starts:
+            marker_key = (family, start)
+            if marker_key in occupied_starts:
                 continue
-            occupied_starts.add(start)
+            # A single i/v/x can belong to an alphabetic or Roman list. Keep
+            # both mechanically valid runs; the independent reviews choose
+            # the source-owned candidate instead of guessing the notation.
+            occupied_starts.add(marker_key)
             detected.append(
                 {
                     "family": family,
@@ -281,6 +313,23 @@ def generate_statement_candidates(
             for span in spans
         ]
         candidate_span_sets = [spans]
+        heading_trimmed_spans = []
+        for span in spans:
+            heading = _TRAILING_SECTION_HEADING.search(
+                source_text, int(span["start"]), int(span["end"])
+            )
+            end = heading.start() if heading is not None else int(span["end"])
+            while end > int(span["start"]) and source_text[end - 1].isspace():
+                end -= 1
+            heading_trimmed_spans.append({
+                "boundaryId": statement_boundary_id(source_hash, int(span["start"]), end),
+                "start": int(span["start"]),
+                "end": end,
+            })
+        if heading_trimmed_spans != spans:
+            # Keep the untrimmed candidate too. A section heading is source
+            # context, and reviewers decide which complete span set to adopt.
+            candidate_span_sets.append(heading_trimmed_spans)
         last_span = spans[-1]
         note_match = _TRAILING_NOTE.search(
             source_text,

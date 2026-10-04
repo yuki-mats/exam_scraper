@@ -40,6 +40,48 @@ def approved_review() -> dict[str, object]:
 
 
 class AggregateAnswerDecompositionTests(unittest.TestCase):
+    def test_roman_period_lists_preserve_original_slices(self) -> None:
+        for labels in (
+            ("i", "ii", "iii", "iv", "v", "vi", "vii", "viii", "ix"),
+            ("ⅰ", "ⅱ", "ⅲ", "ⅳ"),
+            ("Ｉ", "ＩＩ", "ＩＩＩ", "ＩＶ"),
+        ):
+            with self.subTest(labels=labels):
+                statements = [f"{label}. 記述{index}である。" for index, label in enumerate(labels, 1)]
+                source = "該当する記述の組合せを選べ。" + "".join(statements)
+                candidates = generate_statement_candidates(source)["candidates"]
+                self.assertIn(
+                    statements,
+                    [[source[s["start"]:s["end"]] for s in c["spans"]] for c in candidates],
+                )
+
+    def test_number_period_lists_exclude_decimal_values(self) -> None:
+        statements = ["1. 対策を確認する。", "2. 1.5倍の値を記録する。", "3. 再確認する。"]
+        source = "対策を選べ。" + "".join(statements)
+        candidates = generate_statement_candidates(source)["candidates"]
+        self.assertEqual(
+            [[source[s["start"]:s["end"]] for s in c["spans"]] for c in candidates],
+            [statements],
+        )
+
+    def test_roman_symbols_do_not_break_alphabetic_lists(self) -> None:
+        statements = [f"{label}. 記述である。" for label in "abcdefghij"]
+        source = "組合せを選べ。" + "".join(statements)
+        candidates = generate_statement_candidates(source)["candidates"]
+        self.assertIn(
+            statements,
+            [[source[s["start"]:s["end"]] for s in c["spans"]] for c in candidates],
+        )
+
+    def test_section_heading_can_remain_context_outside_roman_statements(self) -> None:
+        source = "組合せを選べ。\ni. 組織的対策。\n[技術的対策]ii. 技術的対策。"
+        slices = [
+            [source[s["start"]:s["end"]] for s in c["spans"]]
+            for c in generate_statement_candidates(source)["candidates"]
+        ]
+        self.assertIn(["i. 組織的対策。", "ii. 技術的対策。"], slices)
+        self.assertIn(["i. 組織的対策。\n[技術的対策]", "ii. 技術的対策。"], slices)
+
     def test_kana_e_ocr_alias_requires_matching_answer_choice_labels(self) -> None:
         source_text = (
             "組合せを選べ。\n"

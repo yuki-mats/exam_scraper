@@ -107,7 +107,8 @@ kind = "human"
 # 2.0: isCalculationQuestionを既存問題にも再判定するため洗い替える。
 # 洗い替え不要の改訂はMINOR、必要な改訂はMAJORを上げる。
 # 6.4: 合意済みの集約回答分解を01の読取入力へ保持し、記述単位の回答操作を再確認する。
-policy_version = "6.4"
+# 6.5: 同一解答群から複数の下線部に該当する用語を独立判定する操作と、単一想起を区別する。
+policy_version = "6.5"
 qualification_document_patterns = ["README.md", "01_exam_profile.md"]
 batch_selectable = true
 session_group = "maintenance"
@@ -333,7 +334,9 @@ kind = "human"
 # 5.4: 共有否定を条文の肯定条件と照合し、監査情報だけの更新では既存解説を保持する。
 # 6.0: 非法令と判定した問題では技術正答・解説を担当工程に戻し、03bは監査metadataを確定する。
 # 6.1: 分解後の記述と元の個数・組合せ回答を独立に照合する参照証拠を03bにも渡す。
-policy_version = "6.1"
+# 6.2: 法令候補の一次提案を新規sessionで二次確認し、現行法更新は三次確認後だけ確定する。
+policy_version = "6.2"
+agent_policy = { independent_review = { model = "gpt-5.6-sol", reasoning_effort = "high" } }
 qualification_document_patterns = [
   "README.md",
   "01_exam_profile.md",

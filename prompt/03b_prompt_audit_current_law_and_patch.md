@@ -33,6 +33,7 @@
 3. 現行法の法令名、`lawId`、条・項・号、基準日、本文を一次情報で確認する。
 4. `primaryLawEvidence`に試験時点・現在時点の本文がある場合は、その基準日と施行内容を照合する。`status=complete`かつ`comparison=unchanged`なら、保存済み参照が`current_basis`であることだけを理由に`hold`へ送らない。`comparison=not_available_pre_2017_04_01`又は出題時本文だけを取得できない場合は、公式元正答を`examTime`、確認済み現行本文を`current`の根拠として独立に使い、本文が不変だったとは書かない。出題時本文がないことだけで`hold`にせず、公式元正答又は現行本文を確認できない場合や両者が現在の問題内容と衝突する場合だけ保留する。
 5. 一次・二次監査を行い、正答変更、不一致、高リスク判断は三次確定へ回す。
+   構造化候補の`auditVerificationContract`がある場合、今回は一次提案を作り、法令肢の`reviewState`は`needs_secondary_review`で返す。二次・必要な三次確認とverifiedへの昇格はserverが別sessionで実施する。既存の三次監査情報がないことだけで提案を止めたり、未実施の監査をverifiedと記載したりしない。
 6. sidecar、patch、正答、解説、法令参照の整合を確認する。
 
 ### 法令の確認順

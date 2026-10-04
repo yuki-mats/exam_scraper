@@ -41,6 +41,8 @@ e-Gov法令API Version2の過去データ対応範囲は2017年4月1日以降で
 
 `auditInputHash`、`lawCorpusSnapshotId`、一次・二次・三次のrun IDを残し、別phaseで入力を変えません。
 
+構造化候補の03bでは、writerが一次提案を`needs_secondary_review`で返した後、serverが同じ入力・一次根拠・候補を新規のread-only sessionへ渡して二次確認します。`updated_to_current_law`ではさらに別sessionで三次確認します。各確認の問題ID、入力hash、出題時・現行法の判定が候補と一致し、一次根拠を確認した承認がそろった場合だけ、serverが対応する`verified`状態へ昇格し、通常のpatch検査・原子的保存へ進みます。不一致・根拠不足は保存せず保留します。実際のthread IDとturn IDをprepared candidateの監査証跡に残し、sidecarの二次・三次run IDにも使います。既存の三次確定情報がないことは、一次提案を止める理由にはしません。
+
 ## 状態
 
 | `auditStatus` | 意味 | 公開条件 |
