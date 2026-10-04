@@ -568,6 +568,55 @@ class QuestionReviewInventoryTests(unittest.TestCase):
             decomposition,
         )
 
+    def test_question_type_rebuilds_source_spans_after_source_refresh(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            group = root / "output" / "sample-exam" / "questions_json" / "2026"
+            old_text = "A　旧制度。\nB　原文二。"
+            new_text = "A　現行制度。\nB　原文二。"
+            source = {
+                "original_question_id": "q1",
+                "questionBodyText": new_text,
+                "choiceTextList": ["組合せ1", "組合せ2"],
+                "questionType": "group_choice",
+            }
+            decomposition = {
+                "schemaVersion": "aggregate-answer-decomposition/v1",
+                "sourceHash": source_text_hash(old_text),
+                "classification": "target",
+                "spans": [{"start": 0, "end": old_text.index("\n")},
+                          {"start": old_text.index("\n") + 1, "end": len(old_text)}],
+                "decision": "approve",
+                "issueCodes": [],
+            }
+            stale = {
+                "original_question_id": "q1",
+                "questionType": "true_false",
+                "choiceTextList": old_text.split("\n"),
+                "sourceUniqueKeys": ["old-a", "old-b"],
+                "aggregateAnswerDecomposition": decomposition,
+            }
+            write_json(group / "00_source" / "question.json", {"question_bodies": [source]})
+            write_json(group / "10_questionType_fixed" / "question_questionType_fixed.json", [stale])
+            write_json(group / "15_correctChoiceText_fixed" / "question_correctChoiceText_fixed.json",
+                       [{**stale, "questionIntent": "select_incorrect", "correctChoiceText": ["正しい", "間違い"]}])
+            inventory = QuestionInventory(root)
+            strict = inventory.projected_input("sample-exam", "2026", "question.json#0")
+            downstream = inventory.projected_input_for_stage("sample-exam", "2026", "question.json#0", "correct_choice")
+            repair = inventory.projected_input_for_stage("sample-exam", "2026", "question.json#0", "question_type")
+            retained = inventory.source_input("sample-exam", "2026", "question.json#0")
+
+        self.assertIn("sourceHash mismatch", " ".join(strict.errors))
+        self.assertIn("sourceHash mismatch", " ".join(downstream.errors))
+        self.assertEqual(repair.errors, ())
+        self.assertEqual(repair.record["questionBodyText"], new_text)
+        self.assertEqual(repair.record["choiceTextList"], source["choiceTextList"])
+        self.assertEqual(repair.record["questionType"], "group_choice")
+        self.assertNotIn("aggregateAnswerDecomposition", repair.record)
+        self.assertNotIn("correctChoiceText", repair.record)
+        self.assertEqual(repair.applied_files, ())
+        self.assertEqual(retained, source)
+
     def test_stage_projection_uses_predecessors_and_ignores_stale_current_patch(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

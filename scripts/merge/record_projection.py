@@ -6,6 +6,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Callable, Mapping, Sequence
 
+from scripts.common.aggregate_answer_decomposition import source_text_hash
 from scripts.common.question_identity import (
     IdentityCandidateIndex,
     review_question_id,
@@ -220,6 +221,32 @@ def project_merge_record(
         originalized,
         apply_originalized_fields,
     )
+    counts["stale_aggregate_question_type"] = 0
+    if not validate_aggregate_question_type:
+        # The owning stage must rebuild source spans after source/05 content
+        # changes. Historical spans are neither current input nor evidence.
+        # Normal merge and downstream projections keep the strict check.
+        current_text = merged1["question_bodies"][0].get("questionBodyText")
+        if isinstance(current_text, str):
+            current_hash = source_text_hash(current_text)
+            applicable = []
+            for candidate in question_type:
+                decomposition = candidate.entry.get("aggregateAnswerDecomposition")
+                previous_hash = (
+                    decomposition.get("sourceHash")
+                    if isinstance(decomposition, Mapping)
+                    else None
+                )
+                if (
+                    isinstance(previous_hash, str)
+                    and previous_hash
+                    and previous_hash != current_hash
+                ):
+                    counts["stale_aggregate_question_type"] += 1
+                    continue
+                applicable.append(candidate)
+            question_type = tuple(applicable)
+
     def apply_question_type_for_projection(
         data: dict[str, Any],
         values: Mapping[str, Any],
