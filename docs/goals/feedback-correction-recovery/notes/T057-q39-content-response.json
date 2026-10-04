@@ -1,0 +1,115 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T057",
+    "board_path": "/Users/yuki/development/exam_scraper_feedback/docs/goals/feedback-correction-recovery/state.yaml",
+    "artifact_root": "/Users/yuki/development/exam_scraper_feedback/output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T057-proposal",
+    "changed_files": [
+      "output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T057-proposal/verify.py",
+      "output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T057-proposal/baseline.json",
+      "output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T057-proposal/source-evidence.json",
+      "output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T057-proposal/official-transcription.txt",
+      "output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T057-proposal/live-selected.json",
+      "output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T057-proposal/proposed-field-diff.json",
+      "output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T057-proposal/proposed-patch.json",
+      "output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T057-proposal/category-judgments-append.json",
+      "output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T057-proposal/proposal.md",
+      "output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T057-proposal/verification.json"
+    ],
+    "commands": [
+      {
+        "command": "PYTHONDONTWRITEBYTECODE=1 /Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T057-proposal/verify.py",
+        "status": "pass",
+        "started_at": "2026-10-04T05:23:12Z",
+        "finished_at": "2026-10-04T05:23:14.525303Z",
+        "exit_code": 0,
+        "native_output_ref": "1f1c2c",
+        "runner_sha256": "c3baaf8d4b2e9ce26cc6e3eb1a9976fa93699b5512e6f42452c3a3494dfb62f6"
+      },
+      {
+        "command": "git diff --check",
+        "status": "pass",
+        "started_at": "2026-10-04T05:23:48Z",
+        "finished_at": "2026-10-04T05:23:48Z",
+        "exit_code": 0,
+        "native_output_ref": "80f439"
+      },
+      {
+        "command": "private10files・最終hash・700/600・保全結果の読取り確認",
+        "status": "pass",
+        "started_at": "2026-10-04T05:23:48Z",
+        "finished_at": "2026-10-04T05:23:48Z",
+        "exit_code": 0,
+        "native_output_ref": "a9daee"
+      }
+    ],
+    "verification_history": [
+      {
+        "command": "T057 verify.py 初回",
+        "status": "fail",
+        "started_at": "2026-10-04T05:22:41Z",
+        "finished_at": "2026-10-04T05:22:42Z",
+        "exit_code": 1,
+        "native_output_ref": "4f9ac3",
+        "failure": "nativeInnerReceiptCompactObjectHashを誤ってsorted-key JSONで照合。",
+        "repair": "実測でprovenanceのhashが挿入順compact JSONと一致することを確認し、そのserializationへ修正。一次資料・内容assertは緩和していません。"
+      }
+    ],
+    "evidence": {
+      "HEAD": "e60b117a1b44ed17ca077aca1ebad627f2d46382",
+      "proposal_sha256": "d463995bc49230632e4a89044ab9bc3e8a49f863ce96245312ff877ae84cf9aa",
+      "field_diff_sha256": "5db3b6b1b69c51062c64e7987fe26bc79d4111a899ba08e91dc4ee570d5f50b9",
+      "patch_sha256": "47994586462124b678b062377e50d4523bd362f06bb86b4159d7dd7ec9b51860",
+      "source_evidence_sha256": "e20992c03ca08619e6bf66b17c3e5d90e2bd00aa94c83bfac84beecc8e341c88",
+      "official_transcription_sha256": "db85869965c76c56c3599ca5e1d68d83f1fb3c44f52114e16ce563d274231a75",
+      "category_append_sha256": "2e79ac2ae4413bd89b706c82f62f3a23982177b95fd471bca5add3838e5f2638",
+      "verification_sha256": "465de6e3e4c11a0ff3dcce274ee6f2cb831bf1a1f03e45bdc74fc2ca9fc0daba",
+      "native_T056_binding_verified": true,
+      "native_event_sha256_including_LF": "5b06bd203a1b35df15327588c3016524e7d26d6c59d97b32aae8923e17b0d645",
+      "native_output_sha256": "1fffbd4a9e986aab9e4e3e0b2c3a876bb1146fa0fe82bd430f7ff0d252b42dfa",
+      "native_receipt_file_sha256": "fb122521e55d36075478a6c8685414ce4623f4a0478037c34352c5385be49cd1",
+      "document_count": 4,
+      "field_delta_count": 15,
+      "separate_assertions_passed": [
+        "公式引用段落と空欄対応",
+        "公式全4肢とmetadata・公開quote一致",
+        "原問本文と公開改題本文の役割分離",
+        "肢1の実在語句だけによる最小解説",
+        "正誤ベクトル不変",
+        "肢2/3/4解説不変",
+        "対象外fieldのpresence/value保持"
+      ],
+      "category_judgments": 8,
+      "category_append_bound_to_old_case_hash": true,
+      "supported_partial_type_checks_passed": true,
+      "full_draft_type_rejected": true,
+      "four_doc_gateway_rejected": true,
+      "T049_699_inputs_preserved": true,
+      "T053_416_inputs_and_19_files_preserved": true,
+      "T055_9_files_and_failure_evidence_preserved": true,
+      "case_ledger_raw_pdf_preserved": true,
+      "formal_nine_paths_absent": true,
+      "private_permissions": "directories700/files600",
+      "actual_network_read_performed": true,
+      "actual_network_write_performed": false,
+      "questions_sent": false,
+      "proposalContentComplete": true,
+      "approvalReady": false,
+      "genuineModelRunPerformed": false,
+      "formalDataUpdated": false,
+      "publicationReady": false
+    },
+    "summary": "全4docの15差分を内容提案として完成しました。参照段落12差分、肢2/4の公式choice語句2差分、肢1の最小解説1差分を一次根拠へ結合。全8カテゴリは旧case hashにappend結合しました。内容完成と実行可能性を分け、正式保存・評価・公開・承認質問は行っていません。",
+    "remaining_blockers": [
+      "originalQuestionBodyTextとoriginalQuestionChoiceTextは既存CONTENT_FIELDS未対応。",
+      "正式保存root/path/schemaは未確定。",
+      "既存publication gatewayは11doc限定で、この4doc packageを拒否。",
+      "case/台帳へのappend同期はPM後続。技術hold中に承認readyへ昇格しません。",
+      "真正評価・正式保存・別production承認・本番適用は未実行。"
+    ],
+    "needs_judge": false,
+    "verification_attempts": 2,
+    "repair_attempts": 1,
+    "stopped_because": null
+  }
+}

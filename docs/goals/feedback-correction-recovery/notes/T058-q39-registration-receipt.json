@@ -1,0 +1,44 @@
+{
+  "result": "done",
+  "task_id": "T058",
+  "harness": "codex",
+  "summary": "新Q39の15field内容proposalと全8カテゴリappendを実台帳へbackup後に登録。旧caseは凍結、対象1reportのみ更新。型/正式path/4docgatewayの技術holdを保持しapprovalReady=false、承認質問・正式保存・本番なし。",
+  "evidence": {
+    "ref": "output/user_feedback_response_system/daily/2026-10-04/new-q39-proposal/registration-result.json",
+    "schemaVersion": "feedback-proposal-registration-result/v1",
+    "registeredAt": "2026-10-04T05:27:19.611189+00:00",
+    "taskId": "afe1570a185fd83d5da8e69c0bd7060f80f5b2b9cff45b6d154d60b116942810",
+    "caseId": "23c47f347bc30e1cf53a8485bd34f54c946d3212776add153491f0b62c4d2fc5",
+    "proposalHash": "5db3b6b1b69c51062c64e7987fe26bc79d4111a899ba08e91dc4ee570d5f50b9",
+    "changedTables": [
+      "decision_history",
+      "report_case_decisions",
+      "report_tasks"
+    ],
+    "changedReportRows": 1,
+    "otherReportRowsUnchanged": 71,
+    "caseFileUnchanged": true,
+    "pendingT049PlanValid": true,
+    "categoryJudgments": 8,
+    "proposalContentComplete": true,
+    "approvalReady": false,
+    "formalDataUpdated": false,
+    "FirestoreModified": false,
+    "questionsSent": false,
+    "technicalBlockers": [
+      "originalQuestionBodyText_not_in_existing_CONTENT_FIELDS",
+      "originalQuestionChoiceText_not_in_existing_CONTENT_FIELDS",
+      "formal_save_root_path_schema_unresolved",
+      "existing_gateway_requires_eleven_documents_not_four"
+    ]
+  },
+  "commands": [
+    {
+      "command": "backup、record_decision/record_proposal、全tableと71report不変、summary/listreports/listimprovements/read_plan照合",
+      "status": "pass",
+      "exit_code": 0,
+      "native_output_ref": "d3ebf0",
+      "finished_at": "2026-10-04T05:27:19.611189+00:00"
+    }
+  ]
+}
