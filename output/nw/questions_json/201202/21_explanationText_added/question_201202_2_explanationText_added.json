@@ -1781,7 +1781,7 @@
     "explanationText": [
       "間違い。正しくは、ソースルーティングが失敗した場合は、ICMP Destination Unreachable（Code 5: Source Route Failed）を送信する。Echo ReplyはEcho要求への応答であり、ソースルーティング失敗の通知には使わない。選択肢はEcho Replyを返すとしているため誤りである。",
       "正しい。Redirectは、ルータが送信元ホストに、同じ宛先へのより適切な次のルータを知らせ、経路の変更を促すメッセージである。",
-      "間違い。正しくは、フラグメントの再組立てが時間内に完了しない場合は、ICMP Time Exceeded（Code 1: Fragment Reassembly Time Exceeded）を送信する。Parameter Problemは、IPヘッダのパラメータに問題がある場合の通知である。選択肢はParameter Problemを返すとしているため誤りである。",
+      "間違い。再組立てのタイムアウト時は、未完成のデータグラムを破棄する。ICMP Time Exceeded（Type 11、Code 1: Fragment Reassembly Time Exceeded）は、先頭フラグメント（fragment zero）を受信済みなら送信元へ送信するが、受信していなければ送信しなくてよい。RFC 792は送信をmayとし、RFC 1122 §3.3.2はこの条件での送信をMUSTとしている。一般にも、ICMPエラーへの応答、ブロードキャストやマルチキャスト宛て、リンク層ブロードキャスト、非先頭フラグメントなど、ICMPエラー送信が禁止される場合は送信しない。Parameter Problem（Type 12、Code 0）は、IPヘッダのパラメータ異常で処理を完了できず破棄した場合の通知であり、再組立てタイムアウトとは別である。選択肢はParameter Problemを返すとしているため誤りである。",
       "間違い。正しくは、受信側のバッファ不足などでデータグラムを破棄し、送信速度を抑えるよう促すのは、ICMP Source Quenchに対応する説明である。Time Exceededは、TTL超過やフラグメント再組立てのタイムアウトを通知する。選択肢はTime Exceededを送るとしているため誤りである。"
     ],
     "original_question_id": "fb84c2bd4d80a0b9",
@@ -1795,6 +1795,11 @@
         "referenceDate": "1981-09-01",
         "sourceUrl": "https://www.rfc-editor.org/rfc/rfc792.html",
         "title": "Internet Control Message Protocol (RFC 792)"
+      },
+      {
+        "referenceDate": "1989-10-01",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc1122.html",
+        "title": "Requirements for Internet Hosts -- Communication Layers (RFC 1122)"
       }
     ],
     "questionLearningPatternId": "differences_relationships",
