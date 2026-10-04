@@ -17370,12 +17370,26 @@ class QualificationRunCoordinator:
         except Exception as exc:  # noqa: BLE001
             backend_failure = _model_backend_failure(exc)
             failed_runtime = self.store.get(qualification, run_id)
+            error_frames = []
+            error_trace = exc.__traceback__
+            while error_trace is not None:
+                frame = error_trace.tb_frame
+                error_frames.append({
+                    "module": str(frame.f_globals.get("__name__") or ""),
+                    "function": frame.f_code.co_name,
+                    "line": error_trace.tb_lineno,
+                })
+                error_trace = error_trace.tb_next
             self.store.write_result(
                 qualification,
                 run_id,
                 {
                     "status": "failed",
                     "summary": str(exc),
+                    "errorOrigin": {
+                        "type": type(exc).__name__,
+                        "frames": error_frames,
+                    },
                     "commands": [],
                     "changedFiles": sorted(committed_files),
                     "modelAttempt": {
