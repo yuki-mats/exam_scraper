@@ -1,0 +1,170 @@
+{
+  "result": "done",
+  "task_id": "T043",
+  "board_path": "/Users/yuki/development/exam_scraper_feedback/docs/goals/feedback-correction-recovery/state.yaml",
+  "changed_files": [
+    "tools/question_bank/feedback_daily.py",
+    "tests/test_feedback_daily.py",
+    "document/operations/user_feedback_response_system.md"
+  ],
+  "commands": [
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest tests.test_feedback_daily",
+      "status": "pass",
+      "exit_code": 0,
+      "started_at": "2026-10-04T02:40:55.853811+00:00",
+      "finished_at": "2026-10-04T02:40:57.015009+00:00",
+      "tests_run": 15,
+      "test_elapsed_seconds": 1.044
+    },
+    {
+      "command": "isolated fixture DB: amend-register → 同一再送 → summary → amend-list → amend-history → amend-check",
+      "status": "pass",
+      "exit_code": 0,
+      "started_at": "2026-10-04T02:40:56.019848+00:00",
+      "finished_at": "2026-10-04T02:40:56.628998+00:00",
+      "result": "独立pending1件、base集計とbase patch/commit保持、再送同一ID、重複なし"
+    },
+    {
+      "command": "isolated fixture CLI: 別caseへのamend-register拒否",
+      "status": "pass",
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "started_at": "2026-10-04T02:40:56.446992+00:00",
+      "finished_at": "2026-10-04T02:40:56.537310+00:00",
+      "result": "期待どおり拒否し、台帳を変更しない"
+    },
+    {
+      "command": "isolated fixture CLI: 新revisionをsystem_blocked/already_askedで登録 → summary → amend-list",
+      "status": "pass",
+      "exit_code": 0,
+      "started_at": "2026-10-04T02:40:56.629786+00:00",
+      "finished_at": "2026-10-04T02:40:56.896124+00:00",
+      "result": "pending0件、回答待ち1件、旧version superseded、現blocked version1件"
+    },
+    {
+      "command": "旧schema migration二度・base/proposal保持・hash/case/base/scope/revision競合・draft拒否・rescan/reopen/input/policy stale化・history保持",
+      "status": "pass",
+      "exit_code": 0,
+      "verification": "対象15tests内で実検証"
+    },
+    {
+      "command": "git diff --check",
+      "status": "pass",
+      "exit_code": 0,
+      "started_at": "2026-10-04T02:41:32.528706+00:00",
+      "finished_at": "2026-10-04T02:41:32.595220+00:00"
+    },
+    {
+      "command": "固定2025 proposalとPM提示base fileのread-only hash確認",
+      "status": "pass",
+      "exit_code": 0,
+      "proposal_file_bytes_sha256": "96c86f57e1005ab0a7790046b2b0f7bbf37e3f39814b0b8b691387b99dabe8b8",
+      "approval_proposal_markdown_sha256": "ba2b8b64ceee7a544e746a3c908e47865ad9f70e5210c5f9cdc848d5f918eef0",
+      "base_file_bytes_sha256": "53fa1d74d0955f005327b81cf6bcf94d321ee9a8cfeb1d302922b7db66b4d9ce"
+    }
+  ],
+  "historical_commands": [
+    {
+      "command": "対象tests初回",
+      "status": "fail",
+      "exit_code": 1,
+      "started_at": "2026-10-04T02:34:42.123816+00:00",
+      "finished_at": "2026-10-04T02:34:42.636086+00:00",
+      "tests_run": 13,
+      "failure": "fixtureの無関係な第3報告にintake_gapが残り、既存summary CLIが仕様どおりexit1",
+      "repair1": "fixture receiptをrejectedで完結。製品のintake gap guardは変更しない"
+    },
+    {
+      "command": "repair1後の対象tests",
+      "status": "pass",
+      "exit_code": 0,
+      "started_at": "2026-10-04T02:38:08.860172+00:00",
+      "finished_at": "2026-10-04T02:38:09.739766+00:00",
+      "tests_run": 15
+    }
+  ],
+  "summary": "追加案専用SQLite migration/API/CLI/履歴・集計・一覧を実装。base承認を保持し、固定proposal/input/policyとrevisionへ結合する。blocked/staleでも既存回答待ちを表示し、未ready draftのpending登録を拒否。15testsと実fixture CLIが成功。actual台帳・正式patch・Firestore・Storageは変更していない。",
+  "head": "0d7eff0d8c00d16deea0bbed1049ba1aec4f90c8",
+  "input_hashes": {
+    "tools/question_bank/feedback_daily.py": "c822d985f97e6910a72109455e7c6bf6e75be652090e2e6949dc127649892c1c",
+    "tests/test_feedback_daily.py": "eb5890c88922bedbbf0bf01d8210f8725edc8550e410e448de49c261b596a088",
+    "document/operations/user_feedback_response_system.md": "5e0b983c3ec8dbc833385d4503d9fbb3e49e078c88c26f974335044ee8124c67"
+  },
+  "api_cli_contract": {
+    "tables": [
+      "report_task_cases",
+      "proposal_amendments",
+      "amendment_history"
+    ],
+    "binding_schema": "approval-amendment-binding/v1",
+    "hash_kinds": [
+      "file_bytes_sha256",
+      "canonical_json_sha256"
+    ],
+    "canonical_serialization": "UTF8、ensure_ascii=false、sort_keys=true、separators=(comma,colon)、末尾LFなし",
+    "states": [
+      "pending",
+      "draft",
+      "system_blocked",
+      "stale",
+      "superseded"
+    ],
+    "answer_states": [
+      "not_requested",
+      "already_asked"
+    ],
+    "api": [
+      "register_amendment",
+      "refresh_amendments",
+      "list_amendments",
+      "amendment_history"
+    ],
+    "cli": [
+      "amend-register",
+      "amend-list",
+      "amend-history",
+      "amend-check"
+    ],
+    "summary_fields": [
+      "amendmentsByState",
+      "amendmentApprovalsWaiting",
+      "amendmentResponsesWaiting",
+      "approvalWaitingTotal"
+    ],
+    "base_patchApprovalsWaiting_semantics_preserved": true,
+    "caller_ready_true_insufficient": true,
+    "same_request_idempotent": true,
+    "content_and_revision_conflicts_rejected": true,
+    "rescan_does_not_restore_pending": true
+  },
+  "pm_registration_steps": [
+    "actual private DBをSQLite backup API等で600 fileへbackupする。Workerはactual DBを開いていない",
+    "PM確認済みtask/caseと現base patch_ref/commit_sha・実bytes hashを再確認する",
+    "固定2025追加4field proposalのhashを結合したprivate binding JSONを700 directory/600 fileへ保存する。未再検証input/policyと未確定formalPlanをreadyとして記載しない",
+    "初回expected-revision=0、固定request ID、state=system_blocked、answer-status=already_asked、asked-at=2026-10-03T11:27:51.394Zでamend-registerを実行する",
+    "summary/amend-list/amend-historyで追加案の回答待ち1件、pending-ready0件、base不変を確認する。承認質問を再送しない",
+    "同一登録の再送は同じrequest/bindingを用いる。将来の再検証・置換は現在revisionを指定した新requestと新versionで履歴を残す"
+  ],
+  "preservation": {
+    "actual_private_db_opened_or_modified": false,
+    "formal_patch_modified": false,
+    "WORK_modified": false,
+    "Firestore_written": false,
+    "Storage_written": false,
+    "existing_base_approval_extended": false,
+    "approval_question_resent": false,
+    "board_commit_push_performed": false,
+    "PM_control_file_diffs_preserved": true
+  },
+  "remaining_blockers": [
+    "actual2025登録はPMのbackup後作業。Workerはfixture検証のみ",
+    "2025追加4fieldの現在input/policy/code再検証は未済。既存回答待ちとpending-readyを区別しsystem_blockedで追跡する",
+    "2018/2024/2020の正式path・型・source/public対応未確定draftをpending登録しない",
+    "人間承認・正式保存・真正checkpoint/evaluation・production許可と公開は未実行"
+  ],
+  "needs_judge": true,
+  "verification_attempts": 3,
+  "repair_attempts": 1,
+  "stopped_because": null
+}

@@ -32,6 +32,8 @@ DECISIONS = {"fix_required", "no_change", "hold", "app_issue"}
 TERMINAL_CASE_STATUSES = {
     "published", "reviewed_no_change", "reviewed_hold", "app_update_queued"
 }
+AMENDMENT_FIELDS = frozenset({'lawReferences', 'explanationText', 'lawRevisionFacts', 'suggestedQuestionDetailsByChoice'})
+AMENDMENT_STATES = {'pending', 'draft', 'system_blocked', 'stale', 'superseded'}
 
 
 def _now() -> str:
@@ -144,6 +146,32 @@ def _private_db(path: Path) -> sqlite3.Connection:
             connection.execute(
                 f"ALTER TABLE ai_question_candidates ADD COLUMN {column} TEXT"
             )
+    connection.executescript("""
+        CREATE TABLE IF NOT EXISTS report_task_cases (
+          task_id TEXT NOT NULL REFERENCES report_tasks(task_id),
+          case_id TEXT NOT NULL, PRIMARY KEY(task_id, case_id));
+        CREATE TABLE IF NOT EXISTS proposal_amendments (
+          amendment_id TEXT PRIMARY KEY, task_id TEXT NOT NULL, case_id TEXT NOT NULL,
+          revision INTEGER NOT NULL CHECK(revision>0), request_id TEXT NOT NULL,
+          request_hash TEXT NOT NULL, base_patch_ref TEXT NOT NULL, base_commit_sha TEXT NOT NULL,
+          base_patch_hash TEXT NOT NULL, proposal_hash TEXT NOT NULL, proposal_hash_kind TEXT NOT NULL,
+          proposal_ref TEXT NOT NULL, binding_ref TEXT NOT NULL, binding_hash TEXT NOT NULL,
+          binding_hash_kind TEXT NOT NULL, binding_json TEXT NOT NULL,
+          state TEXT NOT NULL CHECK(state IN ('pending','draft','system_blocked','stale','superseded')),
+          answer_status TEXT NOT NULL CHECK(answer_status IN ('not_requested','already_asked')),
+          asked_at TEXT, blockers_json TEXT NOT NULL, created_at TEXT NOT NULL, updated_at TEXT NOT NULL,
+          FOREIGN KEY(task_id,case_id) REFERENCES report_task_cases(task_id,case_id),
+          UNIQUE(task_id,case_id,revision), UNIQUE(task_id,case_id,request_id));
+        CREATE TABLE IF NOT EXISTS amendment_history (
+          id INTEGER PRIMARY KEY AUTOINCREMENT, amendment_id TEXT NOT NULL REFERENCES proposal_amendments(amendment_id),
+          event TEXT NOT NULL, from_state TEXT, to_state TEXT NOT NULL,
+          reason TEXT NOT NULL, recorded_at TEXT NOT NULL);
+    """)
+    for task in connection.execute('SELECT task_id,case_ids_json FROM report_tasks').fetchall():
+        connection.executemany('INSERT OR IGNORE INTO report_task_cases VALUES (?,?)',
+            [(task['task_id'], case) for case in json.loads(task['case_ids_json'])])
+    connection.commit()
+    connection.execute('PRAGMA foreign_keys=ON')
     return connection
 
 
@@ -299,11 +327,15 @@ def reconcile(connection: sqlite3.Connection, snapshot: Mapping[str, Any],
             item = submissions.get(path) or {}
             linked = sorted(cases_by_path.get(path) or [], key=lambda value: value["caseId"])
             previous = connection.execute(
-                "SELECT case_statuses_json FROM report_tasks WHERE source_path=?", (path,)
+                "SELECT case_statuses_json,case_ids_json,question_id,categories_json FROM report_tasks WHERE source_path=?", (path,)
             ).fetchone()
             previous_statuses = (
                 json.loads(previous["case_statuses_json"]) if previous else {}
             )
+            if previous and (previous['question_id'] != str(item.get('questionId') or '')
+                    or set(json.loads(previous['case_ids_json'])) != {value['caseId'] for value in linked}
+                    or json.loads(previous['categories_json']) != sorted(set(item.get('categories') or []))):
+                _invalidate_amendments(connection, _key(path), 'report_input_or_case_binding_changed')
             receipt = receipts.get(path)
             if item and receipt and (linked or receipt.get("status") == "rejected"):
                 intake_status = "rejected" if receipt.get("status") == "rejected" else "complete"
@@ -339,6 +371,7 @@ def reconcile(connection: sqlite3.Connection, snapshot: Mapping[str, Any],
                 prior_status = previous_statuses.get(value["caseId"])
                 if (prior_status in TERMINAL_CASE_STATUSES
                         and value["status"] == "unreviewed"):
+                    _invalidate_amendments(connection, _key(path), 'case_reopened')
                     connection.execute(
                         "DELETE FROM report_case_decisions WHERE task_id=? AND case_id=?",
                         (_key(path), value["caseId"]),
@@ -354,7 +387,7 @@ def reconcile(connection: sqlite3.Connection, snapshot: Mapping[str, Any],
                     """UPDATE report_tasks SET decision=NULL,
                        decision_reason=NULL, evidence_ref=NULL, decided_at=NULL,
                        proposal_hash=NULL, proposal_ref=NULL
-                       WHERE task_id=?""",
+                       WHERE task_id=? AND patch_ref IS NULL""",
                     (_key(path),),
                 )
         ai_count = 0
@@ -403,6 +436,7 @@ def reconcile(connection: sqlite3.Connection, snapshot: Mapping[str, Any],
             "INSERT INTO scans VALUES (?, ?, ?, ?, ?, ?)",
             (scan_id, now, source, len(paths), ai_count, len(gaps)),
         )
+    refresh_amendments(connection)
     summary = daily_summary(connection, scan_id=scan_id, gaps=gaps)
     summary["newReportTasks"] = len(paths - stored_paths)
     summary["newAiQuestionCandidates"] = (
@@ -437,6 +471,8 @@ def daily_summary(connection: sqlite3.Connection, *, scan_id: str = "",
     improvement_open = connection.execute(
         "SELECT COUNT(*) FROM improvement_tasks WHERE status='open'"
     ).fetchone()[0]
+    amendments = dict(connection.execute("SELECT state,COUNT(*) FROM proposal_amendments WHERE state!='superseded' GROUP BY state").fetchall())
+    answers = connection.execute("SELECT COUNT(*) FROM proposal_amendments WHERE state!='superseded' AND answer_status='already_asked'").fetchone()[0]
     return {
         "schemaVersion": "feedback-daily/v1", "generatedAt": _now(),
         "scanId": scan_id, "reportTasks": sum(counts.values()),
@@ -449,6 +485,10 @@ def daily_summary(connection: sqlite3.Connection, *, scan_id: str = "",
         "patchesAwaitingPublication": pending_publication,
         "aiQuestionsAwaitingReview": ai_unreviewed,
         "improvementTasksOpen": improvement_open,
+        "amendmentsByState": amendments,
+        "amendmentApprovalsWaiting": amendments.get('pending', 0),
+        "amendmentResponsesWaiting": answers,
+        "approvalWaitingTotal": pending_approval + amendments.get('pending', 0),
     }
 
 
@@ -502,6 +542,157 @@ def record_decision(connection: sqlite3.Connection, *, task_id: str,
                     recorded_at, task_id,
                 ),
             )
+
+
+def _artifact(ref: str, digest: str, kind: str) -> Any:
+    if kind not in {'file_bytes_sha256', 'canonical_json_sha256'} or not re.fullmatch(r'[0-9a-f]{64}', str(digest)):
+        raise ValueError('explicit SHA256 serialization contract required')
+    path = Path(ref).expanduser()
+    if not path.is_file() or path.is_symlink():
+        raise ValueError('fixed artifact is missing or not a regular file')
+    data = path.read_bytes()
+    if kind == 'canonical_json_sha256':
+        data = json.dumps(json.loads(data), ensure_ascii=False, sort_keys=True, separators=(',', ':')).encode()
+    if hashlib.sha256(data).hexdigest() != digest:
+        raise ValueError('fixed artifact hash differs')
+    return json.loads(path.read_bytes()) if path.suffix == '.json' else None
+
+
+def _amendment_gate(binding: Mapping[str, Any]) -> list[str]:
+    proposal = binding['proposal']
+    content = _artifact(proposal['ref'], proposal['hash'], proposal['hashKind'])
+    scope = [change['field'] for change in content.get('changes', [])]
+    if len(scope) != 4 or set(scope) != AMENDMENT_FIELDS or set(binding.get('fieldScope', [])) != AMENDMENT_FIELDS:
+        raise ValueError('amendment must bind exactly the four additional fields')
+    blockers = []
+    inputs = binding.get('inputs') or []
+    policy = binding.get('policy')
+    evidence = binding.get('evidence') or []
+    if not inputs: blockers.append('input_binding_missing')
+    if not policy: blockers.append('policy_code_revalidation_missing')
+    if not evidence: blockers.append('primary_evidence_missing')
+    references = [*inputs, *evidence, *([policy] if policy else [])]
+    for reference in references:
+        _artifact(reference['ref'], reference['hash'], reference['hashKind'])
+    if not any(str(item['ref']).endswith('.py') for item in inputs):
+        blockers.append('current_code_binding_missing')
+    plan = binding.get('formalPlan') or {}
+    paths = plan.get('fieldStages') or {}
+    if set(paths) != AMENDMENT_FIELDS or plan.get('recordType') != 'source-bound-field-amendment/v1':
+        blockers.append('formal_path_type_unresolved')
+    else:
+        for field, entry in paths.items():
+            path = Path(entry.get('patchRef', ''))
+            stage = '18' if field == 'lawReferences' else '21'
+            if not entry.get('patchRef') or path.is_absolute() or '..' in path.parts or path.suffix != '.json' or entry.get('stage') != stage:
+                blockers.append('formal_path_type_unresolved');break
+    source = plan.get('sourceBinding')
+    ids = plan.get('publicationIds') or []
+    if (not isinstance(source, dict) or source != content.get('sourceIdentity')
+            or not all(source.get(k) for k in ('sourceQuestionKey', 'reviewQuestionId', 'sourceRecordRef'))
+            or not ids or len(ids) != len(set(ids)) or not all(isinstance(v, str) and v for v in ids)
+            or binding.get('contextMissing') is not False):
+        blockers.append('source_public_context_missing')
+    return sorted(set(blockers))
+
+
+def _amendment_event(connection, row, state, reason):
+    now = _now()
+    connection.execute('UPDATE proposal_amendments SET state=?,blockers_json=?,updated_at=? WHERE amendment_id=?',
+        (state, json.dumps([reason]), now, row['amendment_id']))
+    connection.execute('INSERT INTO amendment_history(amendment_id,event,from_state,to_state,reason,recorded_at) VALUES (?,?,?,?,?,?)',
+        (row['amendment_id'], 'invalidated', row['state'], state, reason, now))
+
+
+def _invalidate_amendments(connection, task_id, reason):
+    for row in connection.execute("SELECT * FROM proposal_amendments WHERE task_id=? AND state NOT IN ('superseded','stale')", (task_id,)).fetchall():
+        _amendment_event(connection, row, 'stale', reason)
+
+
+def refresh_amendments(connection):
+    """Invalidate changed bindings; never infer or restore pending approval."""
+    with connection:
+        rows = connection.execute("SELECT * FROM proposal_amendments WHERE state NOT IN ('superseded','stale')").fetchall()
+        for row in rows:
+            parent = connection.execute('SELECT * FROM report_tasks WHERE task_id=?', (row['task_id'],)).fetchone()
+            reason = None
+            if (parent is None or row['case_id'] not in json.loads(parent['case_ids_json'])
+                    or parent['patch_ref'] != row['base_patch_ref'] or parent['commit_sha'] != row['base_commit_sha']):
+                reason = 'parent_case_or_base_binding_changed'
+            else:
+                try:
+                    _artifact(row['base_patch_ref'], row['base_patch_hash'], 'file_bytes_sha256')
+                    binding = _artifact(row['binding_ref'], row['binding_hash'], row['binding_hash_kind'])
+                    blockers = _amendment_gate(binding)
+                    if row['state'] == 'pending' and blockers: reason = 'readiness_became_blocked'
+                except (ValueError, KeyError, TypeError, OSError):
+                    reason = 'fixed_input_or_policy_changed'
+            if reason: _amendment_event(connection, row, 'stale', reason)
+
+
+def register_amendment(connection, *, task_id, case_id, request_id, expected_revision,
+                       binding_ref, binding_hash, binding_hash_kind='file_bytes_sha256',
+                       state='system_blocked', answer_status='not_requested', asked_at=None):
+    if state not in {'pending', 'draft', 'system_blocked'} or answer_status not in {'not_requested','already_asked'} or not request_id:
+        raise ValueError('valid amendment state, answer status and request ID required')
+    if answer_status == 'already_asked':
+        try:
+            if datetime.fromisoformat(str(asked_at).replace('Z','+00:00')).tzinfo is None: raise ValueError
+        except ValueError: raise ValueError('already_asked requires actual timezone timestamp') from None
+    elif asked_at is not None: raise ValueError('not_requested cannot carry asked timestamp')
+    binding = _artifact(binding_ref, binding_hash, binding_hash_kind)
+    if binding.get('schemaVersion') != 'approval-amendment-binding/v1' or binding.get('taskId') != task_id or binding.get('caseId') != case_id:
+        raise ValueError('amendment binding belongs to another task/case')
+    blockers = _amendment_gate(binding)
+    if state == 'pending' and blockers: raise ValueError('pending readiness is blocked: ' + ','.join(blockers))
+    base = binding['base']; proposal = binding['proposal']
+    _artifact(base['patchRef'], base['patchHash'], 'file_bytes_sha256')
+    request_hash = _key(json.dumps({'bindingHash': binding_hash, 'bindingRef': str(binding_ref),
+        'hashKind': binding_hash_kind, 'expectedRevision': expected_revision, 'state': state,
+        'answerStatus': answer_status, 'askedAt': asked_at}, sort_keys=True, separators=(',', ':')))
+    with connection:
+        connection.execute('BEGIN IMMEDIATE')
+        parent = connection.execute('SELECT * FROM report_tasks WHERE task_id=?', (task_id,)).fetchone()
+        if (parent is None or case_id not in json.loads(parent['case_ids_json']) or parent['intake_status'] != 'complete'
+                or parent['patch_ref'] != base['patchRef'] or parent['commit_sha'] != base['commitSha']
+                or not parent['patch_ref'] or not parent['commit_sha']):
+            raise ValueError('approved base patch/commit and current parent case must match')
+        if state == 'pending' and connection.execute("SELECT 1 FROM report_case_decisions WHERE task_id=? AND case_id=? AND decision='fix_required'", (task_id,case_id)).fetchone() is None:
+            raise ValueError('pending amendment requires current case-level fix decision')
+        prior = connection.execute('SELECT * FROM proposal_amendments WHERE task_id=? AND case_id=? AND request_id=?', (task_id, case_id, request_id)).fetchone()
+        if prior:
+            if prior['request_hash'] != request_hash: raise ValueError('request replay content conflict')
+            return prior['amendment_id']
+        latest = connection.execute('SELECT * FROM proposal_amendments WHERE task_id=? AND case_id=? ORDER BY revision DESC LIMIT 1', (task_id, case_id)).fetchone()
+        if type(expected_revision) is not int or expected_revision != (latest['revision'] if latest else 0):
+            raise ValueError('expected amendment revision conflict')
+        revision = expected_revision + 1
+        connection.execute('INSERT OR IGNORE INTO report_task_cases VALUES (?,?)', (task_id, case_id))
+        amendment_id = _key(f'{task_id}:{case_id}:{revision}:{request_hash}')
+        now = _now()
+        if latest:
+            connection.execute('UPDATE proposal_amendments SET state=?,updated_at=? WHERE amendment_id=?', ('superseded',now,latest['amendment_id']))
+            connection.execute('INSERT INTO amendment_history(amendment_id,event,from_state,to_state,reason,recorded_at) VALUES (?,?,?,?,?,?)',
+                (latest['amendment_id'],'superseded',latest['state'],'superseded','replaced by explicit next revision',now))
+        connection.execute('INSERT INTO proposal_amendments VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
+            (amendment_id,task_id,case_id,revision,request_id,request_hash,base['patchRef'],base['commitSha'],base['patchHash'],
+             proposal['hash'],proposal['hashKind'],proposal['ref'],str(binding_ref),binding_hash,binding_hash_kind,
+             json.dumps(binding,sort_keys=True),state,answer_status,asked_at,json.dumps(blockers),now,now))
+        connection.execute('INSERT INTO amendment_history(amendment_id,event,from_state,to_state,reason,recorded_at) VALUES (?,?,?,?,?,?)',
+            (amendment_id,'registered',None,state,'independent additional proposal; base approval not inherited',now))
+    return amendment_id
+
+
+def list_amendments(connection, *, limit=100, task_id=None):
+    rows = connection.execute("SELECT * FROM proposal_amendments WHERE state!='superseded' AND (? IS NULL OR task_id=?) ORDER BY created_at,amendment_id LIMIT ?", (task_id,task_id,limit)).fetchall()
+    return [{'amendmentId':r['amendment_id'],'taskId':r['task_id'],'caseId':r['case_id'],'revision':r['revision'],
+        'state':r['state'],'answerStatus':r['answer_status'],'askedAt':r['asked_at'],
+        'proposalHash':r['proposal_hash'],'proposalHashKind':r['proposal_hash_kind'],
+        'bindingHash':r['binding_hash'],'baseCommitSha':r['base_commit_sha'],'blockers':json.loads(r['blockers_json'])} for r in rows]
+
+
+def amendment_history(connection, amendment_id):
+    return [dict(r) for r in connection.execute('SELECT event,from_state,to_state,reason,recorded_at FROM amendment_history WHERE amendment_id=? ORDER BY id',(amendment_id,))]
 
 
 def record_proposal(connection: sqlite3.Connection, *, task_id: str,
@@ -636,6 +827,7 @@ def list_report_tasks(connection: sqlite3.Connection, *, limit: int) -> list[dic
            FROM report_tasks
            WHERE intake_status='intake_gap' OR decision IS NULL
               OR (decision IN ('fix_required', 'mixed') AND patch_ref IS NULL)
+              OR EXISTS (SELECT 1 FROM proposal_amendments a WHERE a.task_id=report_tasks.task_id AND a.state!='superseded')
            ORDER BY CASE WHEN intake_status='intake_gap' THEN 0
                          WHEN decision IN ('fix_required', 'mixed') AND proposal_hash IS NULL THEN 1
                          WHEN proposal_hash IS NOT NULL THEN 2 ELSE 3 END,
@@ -652,6 +844,7 @@ def list_report_tasks(connection: sqlite3.Connection, *, limit: int) -> list[dic
             "intakeStatus": row["intake_status"], "decision": row["decision"],
             "proposalHash": row["proposal_hash"],
             "receivedAt": row["received_at"],
+            "amendments": list_amendments(connection, task_id=row['task_id']),
         }
         for row in rows
     ]
@@ -717,6 +910,23 @@ def _parse_args() -> argparse.Namespace:
     proposal.add_argument("task_id")
     proposal.add_argument("--proposal-hash", required=True)
     proposal.add_argument("--proposal-ref", required=True)
+    amendment = sub.add_parser('amend-register', help='Track a separately bound additional proposal; never approve or publish')
+    amendment.add_argument('task_id')
+    amendment.add_argument('--case-id', required=True)
+    amendment.add_argument('--request-id', required=True)
+    amendment.add_argument('--expected-revision', type=int, required=True)
+    amendment.add_argument('--binding-ref', required=True)
+    amendment.add_argument('--binding-hash', required=True)
+    amendment.add_argument('--binding-hash-kind', choices=['file_bytes_sha256','canonical_json_sha256'], default='file_bytes_sha256')
+    amendment.add_argument('--state', choices=['pending','draft','system_blocked'], default='system_blocked')
+    amendment.add_argument('--answer-status', choices=['not_requested','already_asked'], default='not_requested')
+    amendment.add_argument('--asked-at')
+    amendment_list = sub.add_parser('amend-list')
+    amendment_list.add_argument('--limit', type=int, default=100)
+    amendment_list.add_argument('--task-id')
+    amendment_history_parser = sub.add_parser('amend-history')
+    amendment_history_parser.add_argument('amendment_id')
+    sub.add_parser('amend-check', help='Invalidate changed bindings without restoring readiness')
     promote = sub.add_parser("promote-ai")
     promote.add_argument("candidate_id")
     promote.add_argument("--title", required=True)
@@ -730,7 +940,7 @@ def main() -> int:
     args = _parse_args()
     db_path = args.db.expanduser().resolve()
     connection = _private_db(db_path)
-    changed = args.command in {"scan", "dismiss-ai", "decide", "propose", "promote-ai"}
+    changed = args.command in {"scan", "dismiss-ai", "decide", "propose", "promote-ai", 'amend-register', 'amend-check'}
     if args.command == "scan":
         if args.fixture:
             snapshot = json.loads(args.fixture.read_text(encoding="utf-8"))
@@ -773,6 +983,20 @@ def main() -> int:
         record_decision(connection, task_id=args.task_id, decision=args.decision,
                         reason=args.reason, evidence_ref=args.evidence_ref,
                         case_id=args.case_id)
+        result = daily_summary(connection)
+    elif args.command == 'amend-register':
+        amendment_id = register_amendment(connection, task_id=args.task_id, case_id=args.case_id,
+            request_id=args.request_id, expected_revision=args.expected_revision,
+            binding_ref=args.binding_ref, binding_hash=args.binding_hash,
+            binding_hash_kind=args.binding_hash_kind, state=args.state,
+            answer_status=args.answer_status, asked_at=args.asked_at)
+        result = {'amendmentId': amendment_id, 'summary': daily_summary(connection)}
+    elif args.command == 'amend-list':
+        result = {'amendments': list_amendments(connection, limit=args.limit, task_id=args.task_id)}
+    elif args.command == 'amend-history':
+        result = {'history': amendment_history(connection, args.amendment_id)}
+    elif args.command == 'amend-check':
+        refresh_amendments(connection)
         result = daily_summary(connection)
     elif args.command == "propose":
         record_proposal(connection, task_id=args.task_id,
