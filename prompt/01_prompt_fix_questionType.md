@@ -52,6 +52,8 @@ fieldの型と工程間の不変条件は[問題field契約](../document/referen
 
 対象確定時は`questionType=true_false`とします。旧集約回答のFirestore ID、正答、解説、選択肢別メタデータは派生記述へ流用せず、後続工程で全記述分を独立に確定します。同じ元問題の全記述が公開条件を満たすまで、親問題全体を公開しません。`aggregateAnswerDecomposition`はpatchとmergedだけに保持し、Firestoreへ公開しません。
 
+再整備時も、serverが検証した`aggregateAnswerDecomposition`の`target/approve`と原文span由来の全記述が入力にある場合は、分解後の記述を個別に判定する回答操作を確認します。元問題文に個数又は組合せの指示が残り、元の回答候補が`originalAggregateAnswerEvidence`へ分離されていることは、選択肢欠落ではありません。分解のhash又は範囲が現在本文と不一致の場合だけ、その不整合を保留します。
+
 ## 出力
 
 問題整備システムでは、指定されたJSON Schemaに従い、AI判断fieldとして`questionType`と`isCalculationQuestion`だけを返します。`hold`では更新候補を返しません。

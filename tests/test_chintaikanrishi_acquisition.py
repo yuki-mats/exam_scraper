@@ -49,6 +49,17 @@ class ChintaikanrishiAcquisitionTests(unittest.TestCase):
         self.assertEqual(record['explanation_choice_snippets'], [[], [], [], []])
         self.assertIn('理由B', record['explanation_common_prefix'][0])
 
+    def test_hidden_old_wording_never_enters_visible_source(self):
+        html = numbered_html().replace('正しい記述', '正しい<!--旧設問-->記述')
+        html = html.replace('>B<li>', '>年3<!--5-->％<li>')
+        html = html.replace('理由B', '必要はない<!--しなければならない-->')
+        record = self.parse(html)
+        self.assertEqual(record['choiceTextList'][1], '年3％')
+        self.assertEqual(record['correctChoiceText'], '年3％')
+        self.assertNotIn('旧設問', record['questionBodyText'])
+        self.assertIn('必要はない', str(record['explanation_choice_snippets']))
+        self.assertNotIn('しなければならない', str(record))
+
     def test_presets_cover_500_dojo_questions_and_existing_source_groups(self):
         recent = load_scrape_preset('chintaikanrishi_dojo')
         old = load_scrape_preset('chintaikanrishi_dojo_legacy')

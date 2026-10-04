@@ -41,6 +41,7 @@ from scripts.common.question_answer_contract import (
     all_correct_choice_sentinel_number,
     asks_for_selected_choice_count,
     official_answer_uses_combination_choice,
+    parse_official_answer_numbers,
     uses_official_firestore_statement_answers,
     uses_trusted_gassyunin_judge_answers,
 )
@@ -2076,6 +2077,7 @@ def _structured_candidate_prompt(
             "correctChoiceTextをsource値から自動割当しない。確認済み根拠との衝突はblockedにする。",
             "originalAggregateAnswerEvidenceがある場合、それは00_sourceの元集約選択肢と元正答を示す更新不能な参照証拠である。setFieldsへ入れず、現在の抽出記述ごとの判定と矛盾しないか照合する。",
             "元のcorrectChoiceTextは集約選択肢単位であり、抽出記述へ同じ配列を転記しない。originalAggregateAnswerEvidence.statementVerdictsAvailable=falseなら、配列位置をa、b、c等の抽出記述へ対応付けてはならない。selectedOriginalChoicesが示す元の組合せ又は個数を解釈して各記述を判定し、他の根拠とも一致する場合だけ確定する。",
+            "集約回答の各記述は内容と必要な一次根拠から独立に判定し、その集合・個数を元の設問方向とselectedOriginalChoicesへ照合する。個数だけから記述の真偽を逆算しない。sourceExplanationCandidateは取得元の参照候補であり、単独の一次根拠ではない。元回答候補がcurrentRecordのchoiceTextListにないこと自体は欠落ではない。",
             "sourceAnswerEvidenceがある場合、それは00_sourceから分離した更新不能な正答証拠である。"
             "evidenceType=trusted_gassyunin_judge_statement_verdictsは、取得元のjudge欄が"
             "sourceの問題文と各選択肢を組み合わせた最終命題へcorrectChoiceTextを直接対応付け、"
@@ -2605,6 +2607,9 @@ def _aggregate_review_source_records(
         review_record["_aggregateSourceAnswerResultText"] = copy.deepcopy(
             source_record.get("answer_result_text")
         )
+        review_record["_aggregateSourceExplanationCommonPrefix"] = copy.deepcopy(
+            source_record.get("explanation_common_prefix")
+        )
         source_records[question_id] = review_record
     if set(source_records) != set(current_records):
         raise QualificationRunError(
@@ -2642,6 +2647,20 @@ def _aggregate_downstream_source_evidence(
     evidence: dict[str, Mapping[str, Any]] = {}
     for question_id in aggregate_ids:
         source = source_records[question_id]
+        original_choices = source.get("_aggregateSourceChoiceTextList") or []
+        answer_numbers = parse_official_answer_numbers(
+            source.get("_aggregateSourceAnswerResultText")
+        )
+        if any(number < 1 or number > len(original_choices) for number in answer_numbers):
+            raise QualificationRunError("元集約選択肢と正答番号が一致しません。")
+        selected_indexes = {number - 1 for number in answer_numbers}
+        if not selected_indexes:
+            original_verdicts = source.get("_aggregateSourceCorrectChoiceText")
+            if isinstance(original_verdicts, list) and len(original_verdicts) == len(original_choices):
+                selected_indexes = {
+                    index for index, verdict in enumerate(original_verdicts)
+                    if verdict == "正しい"
+                }
         evidence[question_id] = {
             "schemaVersion": "original-aggregate-answer-evidence/v2",
             "verdictSemantics": "original_option_verdicts_not_statement_verdicts",
@@ -2663,19 +2682,16 @@ def _aggregate_downstream_source_evidence(
             "answerResultText": copy.deepcopy(
                 source.get("_aggregateSourceAnswerResultText")
             ),
+            "sourceExplanationCandidate": copy.deepcopy(
+                source.get("_aggregateSourceExplanationCommonPrefix")
+            ),
             "selectedOriginalChoices": [
                 {
                     "originalChoiceIndex": index,
                     "choiceText": choice,
                 }
-                for index, (choice, verdict) in enumerate(
-                    zip(
-                        source.get("_aggregateSourceChoiceTextList") or [],
-                        source.get("_aggregateSourceCorrectChoiceText") or [],
-                        strict=False,
-                    )
-                )
-                if verdict == "正しい"
+                for index, choice in enumerate(original_choices)
+                if index in selected_indexes
             ],
         }
     return evidence
@@ -13010,7 +13026,7 @@ class QualificationRunCoordinator:
                     targets,
                     records_by_question,
                 )
-                if stage_id in {"correct_choice", "law_context", "explanation"}
+                if stage_id in {"question_type", "correct_choice", "law_context", "explanation", "law_audit"}
                 else {}
             )
             canonical_guidance = _canonical_document_guidance(

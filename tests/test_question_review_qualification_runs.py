@@ -4578,6 +4578,52 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         self.assertIn("更新不能な参照証拠", prompt)
         self.assertIn("抽出記述へ同じ配列を転記しない", prompt)
 
+    def test_count_answer_evidence_uses_original_answer_number_for_audit(self):
+        body = "A  第一の記述。\nB  第二の記述。\nC  第三の記述。"
+        target = {"id": "question-1", "listGroupId": "group",
+                  "reviewQuestionId": "review-1", "sourceQuestionKey": "sample:group:q1",
+                  "sourceRecordRef": "source.json#0"}
+        original = {
+            "question-1": {
+                "_aggregateSourceChoiceTextList": ["なし", "1つ", "2つ", "3つ"],
+                "_aggregateSourceCorrectChoiceText": "1つ",
+                "_aggregateSourceAnswerResultText": "正解は 2 です。",
+                "_aggregateSourceExplanationCommonPrefix": ["取得元の解説候補"],
+            }
+        }
+        current = {"question-1": {
+            "questionBodyText": body,
+            "choiceTextList": ["命題ア", "命題イ", "命題ウ"],
+            "aggregateAnswerDecomposition": {
+                "schemaVersion": "aggregate-answer-decomposition/v1",
+                "sourceHash": source_text_hash(body), "classification": "target",
+                "decision": "approve", "issueCodes": [],
+                "spans": [{"start": 0, "end": 10}, {"start": 11, "end": 21},
+                          {"start": 22, "end": len(body)}],
+            },
+        }}
+        with patch(
+            "tools.question_review_console.qualification_runs._aggregate_review_source_records",
+            return_value=original,
+        ):
+            evidence = _aggregate_downstream_source_evidence(Path('.'), 'sample', {}, [target], current)
+            original['question-1']['_aggregateSourceAnswerResultText'] = '正解は 5 です。'
+            with self.assertRaises(QualificationRunError):
+                _aggregate_downstream_source_evidence(Path('.'), 'sample', {}, [target], current)
+        prompt = _structured_candidate_prompt(
+            '監査する。', [{"id": "question-1"}], stage_id='law_audit',
+            records_by_question=current, candidate_targets_by_question={"question-1": ()}, feedback_by_question={},
+            original_aggregate_evidence_by_question=evidence,
+        )
+        item = PerQuestionQueueAppServer._candidate_questions(prompt)[0]
+        self.assertEqual(item['originalAggregateAnswerEvidence']['selectedOriginalChoices'],
+                         [{"originalChoiceIndex": 1, "choiceText": "1つ"}])
+        self.assertEqual(item['originalAggregateAnswerEvidence']['sourceExplanationCandidate'],
+                         ["取得元の解説候補"])
+        self.assertEqual(current['question-1']['choiceTextList'], ["命題ア", "命題イ", "命題ウ"])
+        self.assertNotIn('originalAggregateAnswerEvidence', current['question-1'])
+        self.assertIn('個数だけから記述の真偽を逆算しない', prompt)
+
     def test_downstream_prompt_omits_aggregate_evidence_for_ordinary_question(self):
         target = {
             "id": "question-1",

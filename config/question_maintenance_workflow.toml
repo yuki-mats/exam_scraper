@@ -106,7 +106,8 @@ kind = "human"
 # 3.0: 全問題を二重read-onlyレビューした後にserver合意を作り、通常候補を生成するため洗い替える。
 # 2.0: isCalculationQuestionを既存問題にも再判定するため洗い替える。
 # 洗い替え不要の改訂はMINOR、必要な改訂はMAJORを上げる。
-policy_version = "6.3"
+# 6.4: 合意済みの集約回答分解を01の読取入力へ保持し、記述単位の回答操作を再確認する。
+policy_version = "6.4"
 qualification_document_patterns = ["README.md", "01_exam_profile.md"]
 batch_selectable = true
 session_group = "maintenance"
@@ -120,13 +121,14 @@ agent_policy = { independent_review = { model = "gpt-5.6-sol", reasoning_effort 
 id = "question_type"
 label = "問題形式"
 fields = ["questionType"]
+read_fields = ["questionBodyText", "choiceTextList", "aggregateAnswerDecomposition"]
 instruction_aliases = ["形式", "出題形式"]
 
 [[stages.update_targets]]
 id = "calculation_flag"
 label = "計算問題フラグ"
 fields = ["isCalculationQuestion"]
-read_fields = ["questionType", "questionBodyText", "choiceTextList"]
+read_fields = ["questionType", "questionBodyText", "choiceTextList", "aggregateAnswerDecomposition"]
 instruction_aliases = ["計算問題の判定", "計算問題か"]
 
 [[stages]]
@@ -328,7 +330,8 @@ kind = "human"
 # 5.3: 現在化前の文言を保持していなくても選択位置不変なら、推測せず時点別判定を継続する。
 # 5.4: 共有否定を条文の肯定条件と照合し、監査情報だけの更新では既存解説を保持する。
 # 6.0: 非法令と判定した問題では技術正答・解説を担当工程に戻し、03bは監査metadataを確定する。
-policy_version = "6.0"
+# 6.1: 分解後の記述と元の個数・組合せ回答を独立に照合する参照証拠を03bにも渡す。
+policy_version = "6.1"
 qualification_document_patterns = [
   "README.md",
   "01_exam_profile.md",
