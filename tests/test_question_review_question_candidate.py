@@ -52,6 +52,46 @@ class QuestionCandidateTest(unittest.TestCase):
         projected['choiceTextList'][-1] = 'ix. 別の記述。'
         self.assertIsNone(_aggregate_combination_expected_verdicts(projected, original))
 
+    def test_numeric_combination_uses_statement_labels_and_single_options(self):
+        body = '1. 甲。\n2. 乙。\n3. 丙。'
+        starts = [body.index(f'{n}.') for n in [1,2,3]]
+        projected = {'questionBodyText': body, 'choiceTextList': body.splitlines(),
+                     'questionIntent': 'select_correct',
+                     'aggregateAnswerDecomposition': {
+                         'schemaVersion': 'aggregate-answer-decomposition/v1',
+                         'sourceHash': source_text_hash(body), 'classification': 'target',
+                         'spans': [{'start': x, 'end': starts[n+1] if n+1 < len(starts) else len(body)} for n,x in enumerate(starts)],
+                         'decision': 'approve', 'issueCodes': []}}
+        original = {'choiceTextList': ['(1)', '(1)、(2)', '(2)、(3)'], 'answer_result_text': '正解は 3 です。'}
+        self.assertEqual(_aggregate_combination_expected_verdicts(projected, original), ['間違い', '正しい', '正しい'])
+
+    def test_aggregate_current_law_change_is_compared_using_verified_exam_snapshot(self):
+        body = 'a. 対象A。b. 対象B。'
+        split = body.index('b.')
+        projected = {'questionBodyText': body, 'choiceTextList': [body[:split], body[split:]],
+                     'questionType': 'true_false', 'questionIntent': 'select_correct',
+                     'correctChoiceText': ['間違い', '正しい'],
+                     'aggregateAnswerDecomposition': {
+                         'schemaVersion': 'aggregate-answer-decomposition/v1',
+                         'sourceHash': source_text_hash(body), 'classification': 'target',
+                         'spans': [{'start': 0, 'end': split}, {'start': split, 'end': len(body)}],
+                         'decision': 'approve', 'issueCodes': []},
+                     'lawRevisionFacts': [
+                         {'auditStatus': 'updated_to_current_law', 'reviewState': 'tertiary_verified',
+                          'examTime': {'correctChoiceText': '正しい'}, 'current': {'correctChoiceText': '間違い'}},
+                         {'auditStatus': 'updated_to_current_law', 'reviewState': 'tertiary_verified',
+                          'examTime': {'correctChoiceText': '間違い'}, 'current': {'correctChoiceText': '正しい'}}]}
+        original = {'questionBodyText': body, 'choiceTextList': ['a', 'b'], 'answer_result_text': '正解は 1 です。'}
+        plan = {'allowedPatchFiles': ['output/sample/questions_json/2025/23_correctChoiceText_fixed/patch.json'],
+                'allowedWriteFiles': [], 'selectedFieldsByStage': {'correct_choice': ['correctChoiceText']}}
+        targets = candidate_targets('q1', 'correct_choice', plan)
+        candidate = QuestionCandidate('q1', 'candidate', '', (CandidateUpdate('q1:correct_choice', {'correctChoiceText': ['間違い', '正しい']}, ()),))
+        errors = validate_candidate_content(candidate, targets, projected, original)
+        self.assertFalse(any('抽出記述の正誤順' in error for error in errors), errors)
+        projected['lawRevisionFacts'][0]['reviewState'] = 'needs_tertiary_review'
+        errors = validate_candidate_content(candidate, targets, projected, original)
+        self.assertTrue(any('抽出記述の正誤順' in error for error in errors), errors)
+
     def test_non_law_audit_rejects_technical_rewrite_without_auto_correction(self):
         current = {
             "questionBodyText": "技術用語として該当するものはどれか。",
