@@ -21,6 +21,8 @@ python3 scripts/pipeline/prepare_firestore_upload.py <list_group_id> \
 
 資格配下の全groupを更新する場合は`list_group_id`の代わりにqualificationを指定します。`--skip-merge`、`--skip-qset-check`、`--skip-update-category-counts`などは、前提を確認できる場合だけ使います。
 
+公式問題の`examSource`に使う資格名は、明示的な`--exam-name`を最優先し、通常は入力pathのローカル資格コードから`config/scrape_presets.json`の`qualification_name`を解決します。GUIも同じ資格配下のpathをconvertへ渡します。UI専用の表示名catalogや公開用`qualificationId`を資格名へ置き換えません。presetがない旧入力では従来の資格・group対応と問題内の試験名推定を使い、同じローカル資格コードのpreset情報が競合する場合は変換を停止します。
+
 ### ガス主任技術者の全年度再生成
 
 ガス主任技術者の2017〜2025年は、公式PDFで検証済みの`25_verified_publication`をローカル公開正本とし、そこから`30_merged_2`と`40_convert`を一括再生成します。通常実行では旧成果物、Firestore snapshot、live readbackを入力にしません。最初に書込みなしで検査します。

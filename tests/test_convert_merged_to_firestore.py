@@ -4,6 +4,9 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
+
+from scripts.convert import convert_merged_to_firestore as converter
 
 from scripts.convert.convert_merged_to_firestore import (
     convert_question_to_firestore,
@@ -29,6 +32,47 @@ KOUNIN_SHINRISHI_LIST_GROUP_IDS = (
 
 
 class ConvertMergedToFirestoreTests(unittest.TestCase):
+    def test_exam_name_uses_qualification_context_before_legacy_group(self) -> None:
+        for code, name in [("nw", "ネットワークスペシャリスト"), ("sg", "情報セキュリティマネジメント")]:
+            with self.subTest(code=code):
+                self.assertEqual(resolve_exam_name_override(
+                    explicit_exam_name=None, qualification=code, list_group_id="97001"
+                ), name)
+
+    def test_exam_name_uses_catalog_and_propagates_catalog_conflict(self) -> None:
+        with mock.patch.object(converter, "load_qualification_catalog", return_value={
+            "future": {"displayName": "新資格の正式名", "publicationId": "different-public-id"}
+        }):
+            self.assertEqual(resolve_exam_name_override(
+                explicit_exam_name=None, qualification="future", list_group_id="202601"
+            ), "新資格の正式名")
+        with mock.patch.object(converter, "load_qualification_catalog", side_effect=ValueError("資格表示情報が競合")):
+            with self.assertRaisesRegex(ValueError, "競合"):
+                resolve_exam_name_override(explicit_exam_name=None, qualification="future", list_group_id="202601")
+            self.assertEqual(resolve_exam_name_override(
+                explicit_exam_name="明示指定", qualification="future", list_group_id="202601"
+            ), "明示指定")
+
+    def test_file_conversion_uses_path_context_without_editing_input(self) -> None:
+        question = {
+            "original_question_id": "context-q1", "questionBodyText": "適切なものはどれか。",
+            "choiceTextList": ["命題A", "命題B"], "correctChoiceText": ["正しい", "間違い"],
+            "explanationText": ["正しい。", "間違い。"], "questionType": "true_false",
+            "questionIntent": "select_correct", "answer_result_text": "正解は1です。",
+            "examYear": 2012, "questionLabel": "問10", "qualificationName": "別資格の旧名",
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory) / "output/nw/questions_json/201202/30_merged_2/input_merged.json"
+            source.parent.mkdir(parents=True)
+            source.write_text(json.dumps({"list_group_id": "201202", "question_bodies": [question]}, ensure_ascii=False))
+            before = source.read_bytes()
+            with mock.patch.object(converter, "OVERRIDE_EXAM_NAME", None):
+                result = convert_merged_to_firestore(source, source.parent / "converted.json")
+            self.assertEqual(source.read_bytes(), before)
+        self.assertEqual(len(result["questions"]), 2)
+        self.assertTrue(all(doc["examSource"].startswith("ネットワークスペシャリスト,") for doc in result["questions"]))
+        self.assertTrue(all(doc["qualificationId"] == "nw" for doc in result["questions"]))
+
     def test_unknown_learning_pattern_is_rejected_before_projection(self) -> None:
         with self.assertRaisesRegex(ValueError, "分類カタログ"):
             convert_question_to_firestore(

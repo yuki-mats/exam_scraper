@@ -46,7 +46,10 @@ else:
         LAW_REVISION_SNAPSHOT_KEYS,
     )
 
-from scripts.scrape.qualification_presets import publication_qualification_id_for_code
+from scripts.scrape.qualification_presets import (
+    load_qualification_catalog,
+    publication_qualification_id_for_code,
+)
 from scripts.common.independent_question_images import (
     INDEPENDENT_IMAGE_REQUIRED_FIELD,
 )
@@ -472,14 +475,17 @@ def resolve_exam_name_override(
     qualification: str | None,
     list_group_id: str,
 ) -> str | None:
-    """CLI指定、資格コード、listGroupIdの順に試験名上書きを解決する。"""
+    """CLI指定、presetの資格名、旧資格/listGroup対応の順に解決する。"""
     normalized_explicit_name = str(explicit_exam_name or "").strip()
     if normalized_explicit_name:
         return normalized_explicit_name
 
-    qualification_exam_name = EXAM_NAME_BY_QUALIFICATION.get(
-        str(qualification or "").strip()
-    )
+    local_code = str(qualification or "").strip()
+    metadata = load_qualification_catalog().get(local_code, {}) if local_code else {}
+    if metadata.get("displayName"):
+        return metadata["displayName"]
+
+    qualification_exam_name = EXAM_NAME_BY_QUALIFICATION.get(local_code)
     if qualification_exam_name:
         return qualification_exam_name
 
@@ -1372,10 +1378,17 @@ def convert_merged_to_firestore(input_path: Path, output_path: Path = None) -> d
     list_group_id = merged_data.get("list_group_id", "unknown")
     question_bodies = merged_data.get("question_bodies", [])
     merged_dir = input_path.parent
+    context_exam_name = resolve_exam_name_override(
+        explicit_exam_name=OVERRIDE_EXAM_NAME,
+        qualification=local_qualification,
+        list_group_id=list_group_id,
+    )
 
     # 各問題を変換（複数レコードに分割されるタイプがあるため、extendで展開）
     firestore_questions = []
     for question_body in question_bodies:
+        if context_exam_name:
+            question_body = {**question_body, "qualificationName": context_exam_name}
         converted_questions = convert_question_to_firestore(question_body)
         # listGroupId を各レコードに付与
         for q in converted_questions:
