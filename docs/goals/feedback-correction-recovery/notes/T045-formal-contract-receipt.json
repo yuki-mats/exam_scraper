@@ -1,0 +1,178 @@
+{
+  "result": "done",
+  "task_id": "T045",
+  "board_path": "/Users/yuki/development/exam_scraper_feedback/docs/goals/feedback-correction-recovery/state.yaml",
+  "decision": "approve_next",
+  "full_outcome_complete": false,
+  "rationale": "3件をqualification配下の型付きpublication correction unitへ保存する具体的dry-runを次の最大安全sliceとする。原問を保持するsource envelopeと公開TF variantを分離し、2020はgroup=nullのproduction_snapshotとして既存ID・before・updateTimeへ結合する。既存24と05のguardは広げない。exact bytes/hash/path集合への正式保存承認を要求し、今回はprivate計画とfixture保存gateだけを実装・検証する。正式保存、真正checkpoint/evaluation、本番承認と公開は未済。",
+  "evidence": [
+    {
+      "kind": "receipts_first",
+      "observed": [
+        "T042、T043のreceipt、T044のreceiptとregistration-result/case-sync-resultを確認した。",
+        "T043は15対象testsと実fixture CLIを完了した。",
+        "T044の登録結果はbase不変、既存6tables不変、同一request同一IDを記録している。",
+        "2025はsystem_blocked/already_askedで、ready承認待ち0と回答待ち1を区別する。追加4fieldの承認をbase承認へ拡張しない。",
+        "4case・32カテゴリ判断の同期結果は正式保存・公開の完了を意味しない。"
+      ]
+    },
+    {
+      "kind": "fixed_candidate_authority",
+      "manifest": "output/user_feedback_response_system/staging/recovery-three-cases/execution-contract/runs/T041-repair1-e1ed4d7c4c27/manifest.json",
+      "manifestHash": "1d88b02c491693120867a9cc20e9936da49937226d66aaaf733154e78a110f78",
+      "candidateHashes": {
+        "2018": "ef67faf6c9dce1095ac1a58db62da8de34a60bb7a1e623f839e52942503de8df",
+        "2024": "8322c2260c9865ba50e3488220d4bae8a55ef64a9b007f39af0f40872e901cd4",
+        "2020": "9c6a8bb1e5c8101c742376662a9c9514668239419984253005e924a9f3226e10"
+      },
+      "scope": [
+        "candidate内のbefore/after/projectionと原選択答4/2を変更しない。",
+        "2018/2024のsource-patch-previewに含まれる公開TF vectorを原問sourceの変更へ流さない。",
+        "2020はsourceProposalを持たず、questionText一文字deltaだけ。正しい公式rawを誤字付き公開snapshotのbeforeと偽らない。"
+      ]
+    },
+    {
+      "kind": "existing_reader_decision",
+      "decision": "reuse_with_explicit_adapter",
+      "basis": [
+        "scripts/merge/question_issue_corrections.py:21-44はquestion-issue-correction/v1、user_problem_report、source recordの限定field契約であり、今回のproduction questionText deltaをそのまま受理しない。",
+        "scripts/merge/patch_views.py:640以降の05_originalized適用はexamSource、examYear、originalQuestionBodyText等を変更するため、今回の原問保持variantへ流用しない。",
+        "extract_patch_entries、SourceIdentityBinding、既存source inventory reader、canonical hash、SnapshotCorrection/CorrectionContractは再利用できる。",
+        "scoped_artifacts、Inventory、ArtifactSynchronizerの明示scoped入口へ型付きloader/replayを追加する。通常group resolverや24 selectorを緩めない。",
+        "cardのcoordinator.pyは実在しない。実在するworkflow_runner.pyのArtifactSynchronizerを使用する。"
+      ]
+    },
+    {
+      "kind": "planned_formal_files",
+      "schemaVersion": "question-publication-correction/v1",
+      "unitHashContract": "SHA-256 of UTF-8 canonical JSON {schemaVersion:'question-publication-correction/v1',caseYear:<integer>,candidateHash:<T041 case candidateHash>,sourceManifestHash:<T041 manifestHash>}。ensure_ascii=false、sort_keys=true、separators=(',',':')、最終改行なし。",
+      "units": [
+        {
+          "year": 2018,
+          "kind": "official_source_public_variant",
+          "plannedPaths": [
+            "output/2nd-class-kenchikushi/publication_corrections/a0b3581eeefe1ba1730b84cfd718480570cf279e05930062746b9f974cd42e1b/manifest.json",
+            "output/2nd-class-kenchikushi/publication_corrections/a0b3581eeefe1ba1730b84cfd718480570cf279e05930062746b9f974cd42e1b/source-envelope.json",
+            "output/2nd-class-kenchikushi/publication_corrections/a0b3581eeefe1ba1730b84cfd718480570cf279e05930062746b9f974cd42e1b/public-variant.json"
+          ],
+          "binding": "既存official source binding、原問body・ordered choices・原選択答4の保持、既存5公開IDとchoice順、T041 candidate/selected snapshot/native chainを結合する。"
+        },
+        {
+          "year": 2024,
+          "kind": "official_source_public_variant",
+          "plannedPaths": [
+            "output/2nd-class-kenchikushi/publication_corrections/c0618b58adb6c55fd0843a31c0b08bc654b712dc76e1b019693a071db2463439/manifest.json",
+            "output/2nd-class-kenchikushi/publication_corrections/c0618b58adb6c55fd0843a31c0b08bc654b712dc76e1b019693a071db2463439/source-envelope.json",
+            "output/2nd-class-kenchikushi/publication_corrections/c0618b58adb6c55fd0843a31c0b08bc654b712dc76e1b019693a071db2463439/public-variant.json"
+          ],
+          "binding": "既存official source binding、否定形原問body・ordered choices・原選択答2の保持、肯定形公開TF variant、既存5公開IDとchoice順を別scopeで結合する。"
+        },
+        {
+          "year": 2020,
+          "kind": "production_snapshot_delta",
+          "plannedPaths": [
+            "output/kanrigyoumu/publication_corrections/8e7670ac320314e94dcf4b4a99a5fc39769e4c4f6112db3b70b256b6ee9854bc/manifest.json",
+            "output/kanrigyoumu/publication_corrections/8e7670ac320314e94dcf4b4a99a5fc39769e4c4f6112db3b70b256b6ee9854bc/production-snapshot.json",
+            "output/kanrigyoumu/publication_corrections/8e7670ac320314e94dcf4b4a99a5fc39769e4c4f6112db3b70b256b6ee9854bc/public-delta.json"
+          ],
+          "binding": "qualification=kanrigyoumu、publication qualification=condominiummanager、source group/ref=null、provenance kind=production_snapshot。既存1公開ID、selected snapshot hash、beforePresent/before、updateTimeとquestionText一文字afterへ結合する。"
+        }
+      ],
+      "sourceEnvelopeContract": [
+        "source envelopeは既に正しい原問と答4/2を保持するsource側のno-op部分。00_sourceへの変更を表す24 patchや原問更新成功と呼ばない。",
+        "generic readerが読めるquestion_bodiesと、別のtyped provenance/bindingを持つ。原問値と公開TF値を混ぜない。",
+        "2020の公式rawは正しい別資料として必要に応じて参照し、production snapshotのsource identityに代用しない。"
+      ],
+      "approvalContract": [
+        "private formal-save-plan.jsonが全予定fileのexact relative path、exact bytesのSHA-256、存在状態・既存hash、unit scopeを外側から固定する。unit manifestの自己hash循環を避ける。",
+        "正式保存承認はこのplan hashと全関連file・全siblingを対象にする。部分field・部分sibling承認は受理しない。",
+        "正式保存の承認とproduction permissionは別契約。保存されたunitだけでmachineReadyやpublishReadyを付けない。"
+      ]
+    }
+  ],
+  "next_allowed_task": {
+    "role": "Worker",
+    "objective": "固定T041候補から上記exact formal filesのbytes/hash/pathを持つ型付きprivate formal-save planを生成する。既存generic readerを使うloader/replayと明示scoped Inventory/Synchronizer接続、正式承認後のimmutable unit保存APIを実装し、未承認拒否・再送・中途失敗・対象外保持までfixtureで検証する。今回は正式保存先へ書き込まない。",
+    "allowed_files": [
+      "tools/question_review_console/formal_correction_save.py",
+      "tools/question_review_console/scoped_artifacts.py",
+      "tools/question_review_console/inventory.py",
+      "tools/question_review_console/workflow_runner.py",
+      "scripts/common/scoped_canonical_context.py",
+      "scripts/pipeline/prepare_scoped_question_artifacts.py",
+      "tests/test_question_review_formal_correction_save.py",
+      "tests/test_question_review_scoped_artifacts.py",
+      "tests/test_question_review_inventory.py",
+      "tests/test_question_review_workflow.py",
+      "tests/test_scoped_canonical_context.py",
+      "document/operations/artifact_contract.md",
+      "document/operations/delivery_workflow.md",
+      "document/operations/question_issue_report_workflow.md",
+      "output/user_feedback_response_system/staging/recovery-three-cases/formal-save-plans/runs/<fresh-run-id>/**"
+    ],
+    "implementation_contract": [
+      "formal_correction_save.pyが型、plan builder、loader/replay、正式保存gateを所有する。既存24/05のschemaや通常selectorを変更しない。",
+      "既存CLIへ--formal-save-plan <T041 manifest> --output <fresh private run> --dry-runを追加する。CLIの今回経路はprivate出力だけで、formal applyやproduction実行を行わない。",
+      "予定正式filesと同じbytesをprivate planned-files/へ生成し、planから一対一に参照する。正式rootの既存状態はread-onlyで検査する。",
+      "unit manifestはkind、qualification、source/public責務、candidate hash、T041 manifest hash、native chain、source/snapshot provenance、payload file hash、対象ID順、限定deltaを結合する。",
+      "2018/2024 source envelopeは原問body/ordered choices/答4/2を保持する。public variantのTF scalar、body、intent、解説、refs/factsはT041 candidateと完全一致させる。",
+      "2020 production-snapshot payloadはgroup/ref=nullを許す専用型とする。local evaluation namespaceを正式source groupや公開listGroupIdへ変換しない。",
+      "replayは固定selected snapshotへdeltaを適用し、全projectionとfield presenceをT041に照合する。対象外selected fields、旧ID、原問内容を保持し、full converterを保存用artifactとして採用しない。",
+      "approved unitの明示loaderは保存receiptとplan/hash/path集合を検証する。未承認private planや単に置かれたdirectoryは通常pipelineから取り込まれない。",
+      "正式保存APIは真正な人間の正式保存承認record、exact plan binding、現行入力再照合、必要な法令現行版再照合証跡を要求する。callerのboolやtokenだけで保存許可を作らない。",
+      "既存targetがなければ同一filesystemのstagingとunit directoryのatomic確定でfile集合を保存する。targetが存在する場合は全bytes/hash一致の同一再送だけを受理し、競合上書きを拒否する。",
+      "中途失敗で部分unitを有効にしない。staging残骸やreceipt未確定を成功と扱わず、fixtureで回復・拒否を確認する。",
+      "保存receiptはplan hash、保存file hashes、承認binding、結果を持ち、payloadの承認済みbytesを後から書き換えない。真正checkpoint/work version成功を保存receiptから作らない。",
+      "T041固定run/native/原問と2025のbase/amendmentを保持する。現在コードの依存driftは新planで明記してfingerprintし、旧検証を現行全体passとして再利用しない。"
+    ],
+    "verify": [
+      "PYTHONDONTWRITEBYTECODE=1 /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest tests.test_question_review_formal_correction_save tests.test_question_review_scoped_artifacts tests.test_question_review_inventory tests.test_question_review_workflow tests.test_scoped_canonical_context",
+      "PYTHONDONTWRITEBYTECODE=1 /Users/yuki/development/exam_scraper_work/.venv/bin/python scripts/pipeline/prepare_scoped_question_artifacts.py --formal-save-plan output/user_feedback_response_system/staging/recovery-three-cases/execution-contract/runs/T041-repair1-e1ed4d7c4c27/manifest.json --output output/user_feedback_response_system/staging/recovery-three-cases/formal-save-plans/runs/<fresh-run-id> --dry-run",
+      "実3件dry-runで上記9正式予定paths、private planned bytes/hash、11doc replay、原問答4/2、2020一文字deltaとgroup/ref=nullを確認する。",
+      "fixtureで承認なし・別plan・別path・変更bytes・部分unit承認・source/public混同・欠落provenance・入力drift・法令再照合欠落を拒否する。",
+      "fixtureで承認後保存、全file読戻し、同一再送、異なる既存target、symlink/path逸脱、staging中断、atomic確定前後の失敗、対象外file不変を検証する。",
+      "未承認unitが通常24/05/group pipelineから拾われず、承認receiptを持つunitだけが明示scoped readerでreplayできることを確認する。",
+      "新reader/replayに対し必要なrequired/alignment/coverageを実施する。law fieldの生成形態・検証依存が変わる場合は当該private入力の既存strictを実行し、結果とhashを記録する。",
+      "git diff --check",
+      "固定T041/native/00_source/WORK/正式patch/2025 candidateとbase/amendment不変、actual正式9pathsへのwriteなし、Firestore/Storage writeなしを確認する。"
+    ],
+    "stop_if": [
+      "T041 candidateのbefore/after/projectionや原問答4/2を変更する必要がある。",
+      "2020の原公式rawと誤字付き改題snapshotを同一sourceとして扱う、source group/ref/listGroupIdを創作する必要がある。",
+      "24/05のguard緩和、通常group resolverの例外、大GUI/provider/framework追加が必要になる。",
+      "actual正式root、WORK、private ledger、Firestore、Storageへのwriteが必要になる。",
+      "真正正式承認なしでunitを保存・標準pipelineへ合流させる必要がある。",
+      "現行法revision・根拠本文の差異が法的判定の変更を要する。自動補正せず根拠と差異を返す。",
+      "既存unitを上書きする、候補値を変える、他作者差分を戻す必要がある。",
+      "allowed_files外の変更が必要になる。根拠付きでPMへ共有する。",
+      "生利用者本文・source_path・reporter識別情報がplanned正式files、通常log、Gitへ混入する。"
+    ]
+  },
+  "subgoal_contract": null,
+  "parallel_safety": {
+    "decision": "sequential_only",
+    "reason": "plan builder、loader、Inventory、Synchronizerが同じunit契約を共有する。一人のWorkerが所有し、他作者差分を保持する。"
+  },
+  "blocked_tasks": [
+    "承認前のactual正式9files保存",
+    "未ready draftのready承認待ち登録",
+    "2025追加案の承認質問再送またはbase承認の拡張",
+    "真正checkpoint/evaluation未済での公開準備完了扱い",
+    "production SDK接続と本番write"
+  ],
+  "missing_evidence": [
+    "新formal-save planのexact payload bytes/hash/pathと実3件dry-run",
+    "具体的planへの真正人間正式保存承認",
+    "正式保存前の現行法revision再照合",
+    "承認後保存と対象current checkpoint/model evaluation",
+    "別の永続production承認、atomic SDK adapter、unknown commit outcome回復、公開後独立readback"
+  ],
+  "required_board_updates": [
+    "T045を正式保存契約の次package受入として記録し、full outcomeはfalseを維持する。",
+    "次Worker cardへ上記exact planned正式pathsとallowed_filesを登録する。正式pathsは計画対象であり今回write許可に含めない。",
+    "3件はplan生成とreadiness実検証が終わるまでdraft/system対応待ちとする。",
+    "2025のsystem_blocked/already_asked、ready承認待ち0・回答待ち1、base patch_ref/commit_shaを維持する。",
+    "production durable approval、atomic SDK、unknown commit outcome回復を後続必須として残し、今回の初回正式保存案sliceへ混ぜない。",
+    "state、actual ledger、commit/pushはPMが担当する。"
+  ]
+}
