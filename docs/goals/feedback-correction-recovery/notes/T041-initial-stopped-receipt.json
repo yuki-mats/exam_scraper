@@ -1,0 +1,184 @@
+{
+  "result": "blocked",
+  "task_id": "T041",
+  "board_path": "/Users/yuki/development/exam_scraper_feedback/docs/goals/feedback-correction-recovery/state.yaml",
+  "changed_files": [
+    "tools/question_review_console/scoped_corrections.py",
+    "tests/test_question_review_scoped_corrections.py",
+    "output/user_feedback_response_system/staging/recovery-three-cases/execution-contract/runs/T041-c79fe7177d39/**"
+  ],
+  "commands": [
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest tests.test_scoped_canonical_context tests.test_question_review_scoped_artifacts tests.test_question_review_scoped_corrections tests.test_question_review_validated_evidence_import tests.test_question_review_firestore_readback tests.test_question_review_inventory tests.test_question_review_evaluation tests.test_question_review_publisher_safety",
+      "status": "pass",
+      "exit_code": 0,
+      "started_at": "2026-10-04T01:56:37.889083+00:00",
+      "finished_at": "2026-10-04T01:56:45.448554+00:00",
+      "tests_run": 166,
+      "test_elapsed_seconds": 6.478
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/yuki/development/exam_scraper_work/.venv/bin/python scripts/pipeline/prepare_scoped_question_artifacts.py --snapshot-corrections output/user_feedback_response_system/staging/recovery-three-cases/runs/T037-b3d34b0c439c/review-input.json --output output/user_feedback_response_system/staging/recovery-three-cases/execution-contract/runs/T041-c79fe7177d39 --preview-only",
+      "status": "pass",
+      "exit_code": 0,
+      "started_at": "2026-10-04T01:56:45.449914+00:00",
+      "finished_at": "2026-10-04T01:56:51.989798+00:00",
+      "selected_count": 11,
+      "manifest_hash": "8cdd417a6e5789ccd03d60ec679285e396a2926e753d5806726081170a895926"
+    },
+    {
+      "command": "verify_snapshot_corrections: required/alignment/correct-choice coverageと既存strict_checkを両年merged/firestoreで実行",
+      "status": "pass",
+      "exit_code": 0,
+      "strict_results": [
+        {
+          "year": "2018",
+          "stage": "merged",
+          "exit_code": 0
+        },
+        {
+          "year": "2018",
+          "stage": "firestore",
+          "exit_code": 0
+        },
+        {
+          "year": "2024",
+          "stage": "merged",
+          "exit_code": 0
+        },
+        {
+          "year": "2024",
+          "stage": "firestore",
+          "exit_code": 0
+        }
+      ],
+      "timestamp_input_hash_and_log_evidence": "verification-results.json"
+    },
+    {
+      "command": "actual QuestionInventory.snapshot_correction_question → QuestionEvaluationService.preview → QuestionPublisher.preview_snapshot_correction: 2018/2024/2020",
+      "status": "fail",
+      "exit_code": 1,
+      "completed_cases": [
+        "2018",
+        "2024"
+      ],
+      "failed_case": "2020",
+      "error": "KeyError: listGroupId",
+      "failed_location": "tools/question_review_console/inventory.py:1202",
+      "timestamp_and_partial_result_evidence": "actual-preview-gates.json"
+    },
+    {
+      "command": "git diff --check",
+      "status": "pass",
+      "exit_code": 0,
+      "timestamp_and_log_evidence": "command-history.json"
+    },
+    {
+      "command": "旧T040/T037/native/primary入力・新manifest入力・private permissionのread-only確認",
+      "status": "pass",
+      "exit_code": 0,
+      "protected_input_drift": false,
+      "current_bound_input_drift": false,
+      "private_permission_errors": [],
+      "evidence": "immutable-input-check.json"
+    }
+  ],
+  "summary": "許可field全集合と実deltaの区別を修復し、166testsとfresh CLI・4形態strictが成功。2018/2024の実previewは未承認・allCurrent=false・machineReady=falseを保存。2020は固定snapshotにlistGroupIdがなく、許可外Inventory adapterでKeyErrorとなった。公開field追加による回避をせずscope不足で停止した。",
+  "artifact_root": "/Users/yuki/development/exam_scraper_feedback/output/user_feedback_response_system/staging/recovery-three-cases/execution-contract/runs/T041-c79fe7177d39",
+  "artifacts": [
+    "manifest.json",
+    "command-history.json",
+    "actual-preview-gates.json",
+    "verification-results.json",
+    "immutable-input-check.json",
+    "scope-blocker.json",
+    "diagnostics/immutable-before.json",
+    "diagnostics/verify-task.py",
+    "2018/candidate.json",
+    "2018/source-patch-preview.json",
+    "2018/live-selected-snapshot.json",
+    "2018/coverage-results.json",
+    "2018/verification/**",
+    "2024/candidate.json",
+    "2024/source-patch-preview.json",
+    "2024/live-selected-snapshot.json",
+    "2024/coverage-results.json",
+    "2024/verification/**",
+    "2020/candidate.json",
+    "2020/live-selected-snapshot.json"
+  ],
+  "actual_preview_results": {
+    "2018": {
+      "completed": true,
+      "allCurrent": false,
+      "machineReady": false,
+      "canEvaluate": false,
+      "canPublish": false,
+      "formalSaveApproved": false,
+      "productionApproved": false
+    },
+    "2024": {
+      "completed": true,
+      "allCurrent": false,
+      "machineReady": false,
+      "canEvaluate": false,
+      "canPublish": false,
+      "formalSaveApproved": false,
+      "productionApproved": false
+    },
+    "2020": {
+      "completed": false,
+      "fixed_snapshot_listGroupId_present": false,
+      "new_projection_listGroupId_present": false,
+      "delta_fields": [
+        "questionText"
+      ],
+      "machineReady": null,
+      "error": "InventoryがmissingのlistGroupIdを必須参照した"
+    }
+  },
+  "regression_results": {
+    "nonempty_delta_strict_subset_of_allowlist_accepted": true,
+    "permitted_but_unchanged_fields_not_written": true,
+    "empty_delta_rejected": true,
+    "ungranted_and_unknown_fields_rejected": true,
+    "duplicate_allowlist_rejected": true,
+    "invalid_id_and_presence_rejected": true,
+    "existing_approval_token_atomic_version_retry_rollback_and_unrelated_field_tests_passed": true
+  },
+  "preservation": {
+    "old_T040_and_T037_files_unchanged": true,
+    "fixed_primary_native_formal_and_WORK_inputs_unchanged": true,
+    "source_originals_and_selected_unrelated_fields_preserved": true,
+    "legacy_ids_preserved": true,
+    "2020_questionText_one_character_only": true,
+    "private_directories_mode": "700",
+    "private_files_mode": "600",
+    "formal_data_updated": false,
+    "evaluation_performed": false,
+    "Firestore_written": false,
+    "Storage_written": false,
+    "board_commit_push_performed": false
+  },
+  "not_run": [
+    {
+      "action": "approval-proposal.md生成",
+      "reason": "全case実previewの2020段階で許可外scope不足を検出し、後続生成前に停止した"
+    },
+    {
+      "action": "真正checkpoint/model evaluation・正式保存・production更新・適用後readback",
+      "reason": "承認未済かつ今回の実行範囲外"
+    }
+  ],
+  "remaining_blockers": [
+    "許可外tools/question_review_console/inventory.py:1202の修復が必要。2020のworkflow/group対応を公開projectionへ新fieldを追加せずtransport metadataとして解決する必要がある",
+    "2020の実Publisher previewが未完でwhole preview sliceは未完",
+    "approval-proposal.mdはscope停止により未生成",
+    "正式保存・公開TF variant移送・production承認、真正checkpoint/evaluationは未済",
+    "2025追加4field承認pendingは維持"
+  ],
+  "needs_judge": false,
+  "verification_attempts": 1,
+  "repair_attempts": 0,
+  "stopped_because": "2020実previewの修復にallowed_files外のInventory adapter変更が必要。T041 stop_ifに従い追加編集を停止"
+}

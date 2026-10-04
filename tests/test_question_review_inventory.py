@@ -33,6 +33,38 @@ def write_json(path: Path, payload) -> None:
 
 
 class QuestionReviewInventoryTests(unittest.TestCase):
+    def test_snapshot_transport_scope_does_not_add_missing_public_group(self):
+        from tools.question_review_console.scoped_artifacts import write_json as private_write
+        from tools.question_review_console.scoped_corrections import load_correction_manifest
+        from tools.question_review_console.projection import sha256_json
+        from scripts.common.scoped_canonical_context import file_hash
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory).resolve()
+            candidate_path = root / 'candidate.json'
+            projection = {'questionText': 'after', 'qualificationId': 'condominiummanager'}
+            candidate = {'projection': [projection], 'delta': [{'questionId': 'fixture-selected'}]}
+            private_write(candidate_path, candidate)
+            context = {'qualification': 'kanrigyoumu', 'evaluationScopeId': 'snapshot-unbound-fixture',
+                'sourceListGroupId': None, 'sourceBinding': None, 'contextMissing': True,
+                'scopeKind': 'unbound_selected_snapshot'}
+            manifest = {'schemaVersion': 'snapshot-corrections/v1', 'inputs': {}, 'cases': {'2020': {
+                'candidatePath': str(candidate_path), 'candidateFileHash': file_hash(candidate_path),
+                'candidateHash': sha256_json(candidate), 'transportContext': context}}}
+            manifest['manifestHash'] = sha256_json(manifest)
+            path = root / 'manifest.json';private_write(path, manifest)
+            question = QuestionInventory(root).snapshot_correction_question(path, '2020')
+            self.assertEqual(question['qualification'], 'kanrigyoumu')
+            self.assertEqual(question['listGroupId'], 'snapshot-unbound-fixture')
+            self.assertIsNone(question['snapshotCorrectionTransportContext']['sourceListGroupId'])
+            self.assertIn('snapshot_correction_context_missing', question['issueCodes'])
+            self.assertFalse(question['workVersions']['allCurrent'])
+            self.assertNotIn('listGroupId', question['projected'])
+            self.assertNotIn('listGroupId', question['uploadReadyDocs'][0])
+            self.assertEqual(json.loads(candidate_path.read_text()), candidate)
+            entry = manifest['cases']['2020'];entry.pop('transportContext')
+            manifest.pop('manifestHash');manifest['manifestHash'] = sha256_json(manifest);private_write(path, manifest)
+            with self.assertRaises(ValueError): QuestionInventory(root).snapshot_correction_question(path, '2020')
+
     def test_projection_indexes_build_concurrently_by_group_and_single_flight_within_group(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

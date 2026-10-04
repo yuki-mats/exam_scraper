@@ -59,7 +59,7 @@ visual_board:
     url: http://goalbuddy.localhost:41737/feedback-correction-recovery/
     command: node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs
       --goal docs/goals/feedback-correction-recovery
-active_task: T041
+active_task: T042
 tasks:
   - id: T001
     type: scout
@@ -5333,12 +5333,15 @@ tasks:
   - id: T041
     type: worker
     assignee: Worker
-    status: active
+    status: done
     objective: 変更可能field全集合と実deltaの区別を正しく修復し、T040で残ったInventory→Evaluation→Publisherの実preview接続を完了する。immutable新候補と正式保存前の具体的承認差分を用意する。
     allowed_files:
       - tools/question_review_console/scoped_corrections.py
       - tests/test_question_review_scoped_corrections.py
       - output/user_feedback_response_system/staging/recovery-three-cases/execution-contract/runs/T041-c79fe7177d39/**
+      - tools/question_review_console/inventory.py
+      - tests/test_question_review_inventory.py
+      - output/user_feedback_response_system/staging/recovery-three-cases/execution-contract/runs/T041-repair1-e1ed4d7c4c27/**
     inputs:
       - notes/T040-stopped-receipt.json
       - notes/T040-stopped-provenance.json
@@ -5347,18 +5350,24 @@ tasks:
       - /Users/yuki/development/exam_scraper_feedback/output/user_feedback_response_system/staging/recovery-three-cases/execution-contract/runs/T040-658bcd595031/actual-preview-gates.json
       - T037 fixed review-inputとT039 native chain
       - T040の現在実装/関連8suite/CLI/preview経路
+      - notes/T041-initial-stopped-receipt.json
+      - output/user_feedback_response_system/staging/recovery-three-cases/execution-contract/runs/T041-c79fe7177d39/scope-blocker.json
+      - 新resumed output output/user_feedback_response_system/staging/recovery-three-cases/execution-contract/runs/T041-repair1-e1ed4d7c4c27
     constraints:
       - 一人でなく共有、他者差分を戻さない。PMのみcontrol/commit/push。
       - delta.fieldsは非空でallowlistの部分集合であることを検証し、unknown/未許可fieldを拒否する。allowlistは許可範囲であって全fieldの強制書込み指示ではない。before/after/presence、ID、source/candidate/policy/workVersion/token、独立2承認、atomic/updateTime/readback/rollback条件は維持する。
       - 固定T040/旧T037/元native/00_source/WORK/2025/正式patchを保持。新runで最新コード・実live snapshot・新generation/gatehashを記録。private dirs700/files600、生利用者本文・識別情報はGit/logへ出さない。
       - 正式patch保存・本番write・未実行checkpoint/evaluationのpass付与は禁止。previewを実接続しactual blockerを保存する。
       - 初回+repair2まで。追加scope/入力変化/strict実失敗では証拠を保持し停止。補助helperだけで終わらず実preview完了まで。
+      - 'PM scope amendment: inventory.pyと関連testはT039既承認package内。T041初回scope不足停止をactualreceiptとして保全後、同taskを必要pathのみ拡張して再開する。検証attempt1/repair0を持ち越し、今回をrepair1としてcapをリセットしない。'
+      - 2020のsnapshot/projectionにlistGroupIdを追加・推測しない。更新対象のauthorityは明示doc ID/source binding/before/updateTime。transportmetadataでは実manifest/contextを使うかmissingを表現し、Firestore保存fieldと混同しない。
+      - 初回T041 runは不変で保全。別fresh repair1 runへ出力、開始終了/exit/log/dependencyhashを実記録。
     verify:
       - PYTHONDONTWRITEBYTECODE=1 /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest tests.test_scoped_canonical_context tests.test_question_review_scoped_artifacts
-        tests.test_question_review_scoped_corrections tests.test_question_review_validated_evidence_import tests.test_question_review_firestore_readback
-        tests.test_question_review_inventory tests.test_question_review_evaluation tests.test_question_review_publisher_safety
-      - 同じ指定snapshot-corrections CLIを --output output/user_feedback_response_system/staging/recovery-three-cases/execution-contract/runs/T041-c79fe7177d39
-        --preview-only で実行、4形態required/alignment/coverage/strictを実行記録
+        tests.test_question_review_scoped_corrections tests.test_question_review_validated_evidence_import tests.test_question_review_firestore_readback tests.test_question_review_inventory
+        tests.test_question_review_evaluation tests.test_question_review_publisher_safety
+      - 同じ指定snapshot-corrections CLIを --output output/user_feedback_response_system/staging/recovery-three-cases/execution-contract/runs/T041-repair1-e1ed4d7c4c27 --preview-only
+        で実行、4形態required/alignment/coverage/strictを実行記録
       - actual QuestionInventory.snapshot_correction_question → QuestionEvaluationService.preview → QuestionPublisher.preview_snapshot_correction を各caseへ実接続し、例外ではなくactual未承認/checkpoint/evaluation
         blockerを保存
       - 'regression: allowlist真部分集合の実deltaは受理、空delta/許可外field/不正before/presence/IDは拒否、承認・atomic/updateTime・再送/rollback・対象外field保護は維持'
@@ -5370,8 +5379,183 @@ tasks:
       - 新strict失敗
       - 2repair後も指定verify不合格
     expected_output:
-      - 真正goalbuddy_receipt_v1 task_id T041、whole preview slice結果とactualcommands、fresh run hash、具体的patch-stage/ref/field before-after/一次根拠/影響範囲/承認待ちをまとめた
-        approval-proposal.md、実機械gate成功と未済checkpoint/evaluation/公開を区別
+      - 真正goalbuddy_receipt_v1 task_id T041、whole preview slice結果とactualcommands、fresh run hash、具体的patch-stage/ref/field before-after/一次根拠/影響範囲/承認待ちをまとめた approval-proposal.md、実機械gate成功と未済checkpoint/evaluation/公開を区別
+    receipt:
+      result: done
+      task_id: T041
+      board_path: /Users/yuki/development/exam_scraper_feedback/docs/goals/feedback-correction-recovery/state.yaml
+      changed_files:
+        - tools/question_review_console/scoped_corrections.py
+        - tests/test_question_review_scoped_corrections.py
+        - tools/question_review_console/inventory.py
+        - tests/test_question_review_inventory.py
+        - output/user_feedback_response_system/staging/recovery-three-cases/execution-contract/runs/T041-c79fe7177d39/**
+        - output/user_feedback_response_system/staging/recovery-three-cases/execution-contract/runs/T041-repair1-e1ed4d7c4c27/**
+      commands:
+        - command: PYTHONDONTWRITEBYTECODE=1 /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest tests.test_question_review_inventory.QuestionReviewInventoryTests.test_snapshot_transport_scope_does_not_add_missing_public_group
+          status: pass
+          exit_code: 0
+          started_at: '2026-10-04T02:12:55.514412+00:00'
+          finished_at: '2026-10-04T02:12:55.736573+00:00'
+        - command: PYTHONDONTWRITEBYTECODE=1 /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest tests.test_scoped_canonical_context tests.test_question_review_scoped_artifacts
+            tests.test_question_review_scoped_corrections tests.test_question_review_validated_evidence_import tests.test_question_review_firestore_readback tests.test_question_review_inventory
+            tests.test_question_review_evaluation tests.test_question_review_publisher_safety
+          status: pass
+          exit_code: 0
+          started_at: '2026-10-04T02:12:55.737474+00:00'
+          finished_at: '2026-10-04T02:13:03.258755+00:00'
+          tests_run: 167
+          test_elapsed_seconds: 6.422
+        - command: PYTHONDONTWRITEBYTECODE=1 /Users/yuki/development/exam_scraper_work/.venv/bin/python scripts/pipeline/prepare_scoped_question_artifacts.py --snapshot-corrections
+            output/user_feedback_response_system/staging/recovery-three-cases/runs/T037-b3d34b0c439c/review-input.json --output output/user_feedback_response_system/staging/recovery-three-cases/execution-contract/runs/T041-repair1-e1ed4d7c4c27
+            --preview-only
+          status: pass
+          exit_code: 0
+          started_at: '2026-10-04T02:13:03.260117+00:00'
+          finished_at: '2026-10-04T02:13:09.687493+00:00'
+          selected_count: 11
+        - command: 'verify_snapshot_corrections: required/alignment/correct-choice coverageと既存strict_checkを両年merged/firestoreで実行'
+          status: pass
+          exit_code: 0
+          strict_results:
+            - year: '2018'
+              stage: merged
+              exit_code: 0
+            - year: '2018'
+              stage: firestore
+              exit_code: 0
+            - year: '2024'
+              stage: merged
+              exit_code: 0
+            - year: '2024'
+              stage: firestore
+              exit_code: 0
+          input_hash_timestamp_and_log_evidence: verification-results.json
+        - command: 'actual QuestionInventory.snapshot_correction_question → QuestionEvaluationService.preview → QuestionPublisher.preview_snapshot_correction: 2018/2024/2020'
+          status: pass
+          exit_code: 0
+          started_at: '2026-10-04T02:13:10.320044+00:00'
+          finished_at: '2026-10-04T02:13:11.415303+00:00'
+          evidence: actual-preview-gates.json
+        - command: git diff --check
+          status: pass
+          exit_code: 0
+          started_at: '2026-10-04T02:13:11.531847+00:00'
+          finished_at: '2026-10-04T02:13:11.596539+00:00'
+        - command: 固定T041初回/T040/T037/native/primary入力・新manifest入力・private permissions確認
+          status: pass
+          exit_code: 0
+          evidence:
+            - diagnostics/immutable-before.json
+            - immutable-input-check.json
+            - command-history.json
+          all_protected_inputs_unchanged: true
+          current_bound_inputs_unchanged: true
+          private_permission_errors: []
+      historical_commands: [{"command": "T041初回・指定8suite", "status": "pass", "exit_code": 0, "tests_run": 166, "evidence": "../T041-c79fe7177d39/command-history.json"}, {"command": "T041初回・fresh CLIと4形態strict", "status": "pass", "exit_code": 0, "evidence": "../T041-c79fe7177d39/verification-results.json"}, {"command": "T041初回・全case実Publisher preview", "status": "fail", "exit_code": 1, "error": "KeyError: listGroupId", "completed_cases": ["2018", "2024"], "failed_case": "2020", "evidence": "../T041-c79fe7177d39/actual-preview-gates.json"}, {"command": "repair1・optional transport関連回帰", "status": "fail", "exit_code": 1, "error": "ValueError: private JSON destination must be a physical path", "root_cause": "新test fixtureのTemporaryDirectoryが/var symlink経由。製品adapterの失敗ではない", "repair2": "許可testのfixture rootにresolveを追加", "evidence": "diagnostics/repair1-failure-command-history.json"}]
+      summary: 非空delta⊆allowlistを修復し、全3件の実Inventory→Evaluation→Publisher previewを完了。新167testsと4形態strictが成功。2020はkanrigyoumuと明示local transport scopeを用い、公開fieldを追加せずcontext_missingを保持。具体的承認案をprivate保存した。実装previewの完了であり、正式保存・評価・公開の準備完了ではない。
+      artifact_root: /Users/yuki/development/exam_scraper_feedback/output/user_feedback_response_system/staging/recovery-three-cases/execution-contract/runs/T041-repair1-e1ed4d7c4c27
+      manifest_hash: 1d88b02c491693120867a9cc20e9936da49937226d66aaaf733154e78a110f78
+      artifacts:
+        - manifest.json
+        - approval-proposal.md
+        - actual-preview-gates.json
+        - command-history.json
+        - verification-results.json
+        - immutable-input-check.json
+        - diagnostics/immutable-before.json
+        - diagnostics/repair1-failure-command-history.json
+        - 2018/candidate.json
+        - 2018/source-patch-preview.json
+        - 2018/live-selected-snapshot.json
+        - 2018/coverage-results.json
+        - 2018/verification/**
+        - 2024/candidate.json
+        - 2024/source-patch-preview.json
+        - 2024/live-selected-snapshot.json
+        - 2024/coverage-results.json
+        - 2024/verification/**
+        - 2020/candidate.json
+        - 2020/live-selected-snapshot.json
+      actual_preview_results:
+        '2018':
+          completed: true
+          qualification: 2nd-class-kenchikushi
+          source_context_missing: false
+          allCurrent: false
+          machineReady: false
+          canEvaluate: false
+          canPublish: false
+        '2024':
+          completed: true
+          qualification: 2nd-class-kenchikushi
+          source_context_missing: false
+          allCurrent: false
+          machineReady: false
+          canEvaluate: false
+          canPublish: false
+        '2020':
+          completed: true
+          qualification: kanrigyoumu
+          publication_qualification_id: condominiummanager
+          source_context_missing: true
+          source_list_group_id: null
+          transport_scope_kind: unbound_selected_snapshot
+          transport_scope_derivation: 固定review-input inputHashと年度から作るlocal evaluation namespace
+          transport_scope_is_formal_source_group: false
+          public_listGroupId_added: false
+          allCurrent: false
+          machineReady: false
+          canEvaluate: false
+          canPublish: false
+      preservation:
+        initial_T041_run_unchanged_during_resume: true
+        old_T040_T037_native_and_primary_inputs_unchanged: true
+        formal_patch_WORK_and_2025_inputs_unchanged: true
+        source_originals_legacy_ids_and_unrelated_selected_fields_preserved: true
+        2020_questionText_one_character_only: true
+        private_directories_mode: '700'
+        private_files_mode: '600'
+        formal_data_updated: false
+        evaluation_performed: false
+        Firestore_written: false
+        Storage_written: false
+        board_commit_push_performed: false
+      remaining_blockers:
+        - 2018/2024の原問と公開TF variantの正式保存方式・具体的正式pathは未確定。18/21移送を現在保存可能とは扱わない
+        - 2020の正式source group/ref対応が未結合。local transport scopeを正式source groupやFirestore fieldとして扱わない
+        - 正式保存承認とproduction承認は別々に未済
+        - 真正current checkpoint/model evaluationは未実行。全caseの実machineReadyはfalse
+        - 2025追加4field承認pendingを維持
+        - 法令基準日は2026-10-03。正式保存前の現行版再照合が必要
+        - 本番限定更新と適用後readbackは未実行
+      needs_judge: true
+      verification_attempts: 3
+      repair_attempts: 2
+    previous_receipts:
+      - notes/T041-initial-stopped-receipt.json
+  - id: T042
+    type: judge
+    assignee: Judge
+    status: active
+    objective: T040/T041のsnapshot訂正contractと実previewを公開境界で監査し、具体的承認案の登録及び2025追加案を漏れなく追跡する次の実用sliceを確定する。
+    inputs:
+      - notes/T039-accept-receipt.json
+      - notes/T040-stopped-receipt.json
+      - notes/T041-initial-stopped-receipt.json
+      - T041最新native receipt及びfresh actual-preview-gates/approval-proposal
+      - tools/question_bank/feedback_daily.pyとtests/test_feedback_daily.py
+      - document/operations/user_feedback_response_system.md
+    constraints:
+      - Read-only。生の利用者本文・source_path・識別情報を出力しない。
+      - 既に受理した一次法令判断を再実行せず、公開前contractのscope/ID/presence/atomic conflict/readback/独立承認と未済gateの表示を審査する。
+      - 2025の承認済みpatch_refを維持し、追加4fieldは別のpending amendmentとして追跡する。既に送った承認質問は繰り返さない。
+      - 次packageはSQLiteのversioned amendment/API/CLI/summary/list追跡・migration/refusal/retry/rescan tests・既存仕様正本更新までのまとまったslice。actual private ledgerへ登録するPM作業を続けられる契約を用意する。
+      - Firestore/Storage/正式patch更新は許可しない。
+      - approval-proposal.mdは2018/2024の18/21移送が保存不可、2020source group未結合と明記。承認可能と決め打ちせず、先に必要な正式保存path/型/source-public bindingの具体化を次のlargest safe packageとして判断する。SQLite
+        amendment追跡は確定した追加pending4fieldを漏らさない局所対応であり、未readyなdraftをapprovalWaitingへ誤登録しない。
+    expected_output:
+      - 真正goalbuddy_receipt_v1 T042。accept/reject、actual残存gate、次のWorker allowed_files/verify/stop_if。full_outcome_complete=false。
     receipt: null
   - id: T004
     type: pm

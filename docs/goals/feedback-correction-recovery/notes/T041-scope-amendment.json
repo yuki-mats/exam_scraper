@@ -1,0 +1,15 @@
+{
+  "taskId": "T041",
+  "originalBlockedReceiptPreserved": true,
+  "reason": "2020 selected snapshot has no listGroupId. Inventory transport metadata must accept absent field without public data mutation. Two added code/test paths already within genuine T039 package.",
+  "allowedFilesAdded": [
+    "tools/question_review_console/inventory.py",
+    "tests/test_question_review_inventory.py",
+    "output/user_feedback_response_system/staging/recovery-three-cases/execution-contract/runs/T041-repair1-e1ed4d7c4c27/**"
+  ],
+  "verificationAttemptsAlreadyUsed": 1,
+  "repairAttemptsAlreadyUsed": 0,
+  "budgetReset": false,
+  "immutableInitialRun": "output/user_feedback_response_system/staging/recovery-three-cases/execution-contract/runs/T041-c79fe7177d39",
+  "resumedRun": "output/user_feedback_response_system/staging/recovery-three-cases/execution-contract/runs/T041-repair1-e1ed4d7c4c27"
+}

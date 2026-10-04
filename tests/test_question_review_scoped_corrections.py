@@ -27,6 +27,32 @@ class Gateway:
 
 
 class CorrectionTests(unittest.TestCase):
+    def test_allowlist_is_permission_universe_not_required_updates(self):
+        self.delta['allowlist'] = ['questionText', 'explanationText']
+        contract = CorrectionContract([self.delta], self.binding)
+        receipt = contract.apply(self.gateway, token=contract.token, formal_approval=contract.token,
+            production_approval=contract.token, machine_ready=True)
+        self.assertEqual(self.gateway.documents['selected']['questionText'], 'after')
+        self.assertNotIn('explanationText', self.gateway.documents['selected'])
+        self.assertEqual(self.gateway.calls, 1)
+        self.assertEqual(receipt['token'], contract.token)
+
+    def test_empty_ungranted_and_invalid_contracts_rejected(self):
+        cases = []
+        empty = deepcopy(self.delta); empty['fields'] = {}; cases.append(empty)
+        ungranted = deepcopy(self.delta); ungranted['allowlist'] = ['explanationText']; cases.append(ungranted)
+        unknown_permission = deepcopy(self.delta); unknown_permission['allowlist'].append('unknown'); cases.append(unknown_permission)
+        duplicate = deepcopy(self.delta); duplicate['allowlist'] *= 2; cases.append(duplicate)
+        for question_id in (None, '', 1, 'collection/doc'):
+            bad = deepcopy(self.delta); bad['questionId'] = question_id; cases.append(bad)
+        for presence in (None, 0, 'true'):
+            bad = deepcopy(self.delta); bad['fields']['questionText']['beforePresent'] = presence; cases.append(bad)
+        missing_before = deepcopy(self.delta); missing_before['fields']['questionText'].pop('before'); cases.append(missing_before)
+        false_before = deepcopy(self.delta); false_before['fields']['questionText']['beforePresent'] = False; cases.append(false_before)
+        for index, delta in enumerate(cases):
+            with self.subTest(case=index), self.assertRaises(ValueError):
+                CorrectionContract([delta], self.binding)
+
     def setUp(self):
         self.delta = {"questionId": "selected", "updateTime": "v1", "allowlist": ["questionText"],
             "fullDocumentUploadAllowed": False, "fields": {"questionText": {

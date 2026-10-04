@@ -40,7 +40,7 @@ def prepare_snapshot_corrections(root, review_input, destination, *, readback):
     from tools.question_review_console.scoped_artifacts import write_json
     from scripts.common.law_audit_sidecar_contract import law_audit_sidecar_metadata_errors
     root, review_input, destination = Path(root).resolve(), Path(review_input).resolve(), Path(destination).resolve()
-    expected = root / 'output/user_feedback_response_system/staging/recovery-three-cases/execution-contract/runs/T040-658bcd595031'
+    expected = root / 'output/user_feedback_response_system/staging/recovery-three-cases/execution-contract/runs/T041-repair1-e1ed4d7c4c27'
     if destination != expected or (destination.exists() and any(p.name not in {'diagnostics', 'command-history.json'} for p in destination.iterdir())):
         raise ValueError('fresh exact private destination required')
     request = json.loads(review_input.read_text())
@@ -169,6 +169,23 @@ def prepare_snapshot_corrections(root, review_input, destination, *, readback):
             'candidateFileHash': file_hash(destination / year / 'candidate.json'),
             'candidateHash': sha256_json(promoted), 'liveSnapshotHash': sha256_json(live),
             'selectedCount': len(ids), 'formalSaveApproved': False, 'productionApproved': False}
+        if year == '2020':
+            # Explicit recovery-task authority, not an inferred public field.
+            if any(p.get('qualificationId') != 'condominiummanager' for p in promoted['projection']):
+                raise ValueError('2020 declared qualification binding differs')
+            cases[year]['transportContext'] = {'qualification': 'kanrigyoumu',
+                'qualificationAuthority': 'T041 PM explicit recovery case qualification',
+                'sourceListGroupId': None, 'sourceBinding': None,
+                'evaluationScopeId': 'snapshot-unbound-' + request['inputHash'][:20] + '-2020',
+                'scopeKind': 'unbound_selected_snapshot',
+                'scopeDerivation': 'fixed review-input inputHash and case year; local evaluation namespace only',
+                'contextMissing': True, 'publicationQualificationId': 'condominiummanager'}
+        else:
+            cases[year]['transportContext'] = {'qualification': '2nd-class-kenchikushi',
+                'qualificationAuthority': 'validated canonical source binding',
+                'sourceListGroupId': group, 'sourceBinding': candidate['sourceProposal']['sourceBinding'],
+                'evaluationScopeId': group, 'scopeKind': 'bound_source_group',
+                'scopeDerivation': 'validated preserved source context', 'contextMissing': False}
     manifest = {'schemaVersion': 'snapshot-corrections/v1', 'createdAt': now, 'inputs': inputs,
         'historicalDependencyDrift': drift, 'nativeChain': chain_binding, 'nativeChainHash': chain_hash,
         'historicalT033ManifestLabel': 'manifestObjectHash denotes files-map inputHash; historical label unchanged',
@@ -261,9 +278,12 @@ class SnapshotCorrection:
     @classmethod
     def from_mapping(cls, value):
         fields = deepcopy(value["fields"])
-        if (not value.get("questionId") or not value.get("updateTime")
-                or not fields or not set(fields) <= CONTENT_FIELDS
-                or set(value.get("allowlist", [])) != set(fields)
+        allowlist = value.get('allowlist')
+        if (not isinstance(value.get('questionId'), str) or not value['questionId'] or '/' in value['questionId']
+                or not isinstance(value.get('updateTime'), str) or not value['updateTime']
+                or not isinstance(allowlist, list) or not allowlist or len(allowlist) != len(set(allowlist))
+                or not set(allowlist) <= CONTENT_FIELDS
+                or not isinstance(fields, Mapping) or not fields or not set(fields) <= set(allowlist)
                 or value.get("fullDocumentUploadAllowed") is not False):
             raise ValueError("invalid partial correction contract")
         for change in fields.values():

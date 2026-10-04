@@ -1199,10 +1199,15 @@ class QuestionInventory:
         proposal = candidate.get('sourceProposal') or {}
         binding = proposal.get('sourceBinding') or {}
         documents = [{**p, 'questionId': d['questionId']} for p, d in zip(candidate['projection'], candidate['delta'], strict=True)]
-        group = str(documents[0]['listGroupId'])
+        # Transport/workflow metadata is independent from optional public fields.
+        # A legacy snapshot may omit this field; never synthesize it in a delta.
+        transport = entry.get('transportContext')
+        if not isinstance(transport, dict) or not transport.get('qualification') or not transport.get('evaluationScopeId'):
+            raise ValueError('explicit snapshot correction transport context required')
+        group = str(transport['evaluationScopeId'])
         stable = 'snapshot-correction:' + manifest['manifestHash'] + ':' + str(year)
         question = {'id': api_question_id(stable), 'reviewKey': stable,
-            'qualification': '2nd-class-kenchikushi', 'listGroupId': group,
+            'qualification': transport['qualification'], 'listGroupId': group,
             'sourceQuestionKey': binding.get('sourceQuestionKey', ''),
             'sourceRecordRef': binding.get('sourceRecordRef', ''),
             'originalQuestionId': binding.get('reviewQuestionId', documents[0].get('originalQuestionId', '')),
@@ -1216,7 +1221,12 @@ class QuestionInventory:
             'issueCodes': ['snapshot_correction_formal_approval_pending'],
             'workflow': {'source': 'match', 'patch': 'pending', 'merge': 'pending', 'convert': 'pending', 'upload': 'pending', 'firestore': 'unread'},
             'snapshotCorrectionManifest': str(Path(manifest_path).resolve()),
-            'snapshotCorrectionYear': str(year), 'snapshotCorrectionManifestHash': manifest['manifestHash']}
+            'snapshotCorrectionYear': str(year), 'snapshotCorrectionManifestHash': manifest['manifestHash'],
+            'snapshotCorrectionTransportContext': copy.deepcopy(transport)}
+        if transport.get('contextMissing') is True:
+            question['issues'].append({'code': 'snapshot_correction_context_missing',
+                'detail': '正式source groupが未結合です。manifest由来のlocal snapshot scopeは正式groupではありません。'})
+            question['issueCodes'].append('snapshot_correction_context_missing')
         from tools.question_review_console.qualification_workflow import QualificationWorkflow
         workflow = QualificationWorkflow(self.repo_root, self)
         question['workVersions'] = workflow.work_versions.status_for(question,
