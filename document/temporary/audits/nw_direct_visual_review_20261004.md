@@ -269,3 +269,9 @@ source・ID・本文・全肢・正誤・形式・保存済み法令監査metada
 ### 独立評価の再開（2026-10-05 04:17）
 
 SCの100問job `SwJQgb-yRNLTM2Tq`が04:13:41にsucceededとなり、全資格の実稼働runがないことを再確認して共有server PID79168を通常SIGINTで停止した。同じ56845でPID51804/session7498を04:15:41に通常起動し、保存済み904c42f10・評価5.8を反映した。別port追加、lock削除及び別資格runの停止はない。MIME修正候補`0a28eb13f0889c31dee158c8`のGUI exact1と読取preview1/current hash一致、Web週残9%・既存62500credits・自動チャージOFF確認後、Sol/high/Standardのjob `3qSTj_FPpLgfsABC`をGUI開始した。報告合格、実session及びreceipt照合は終端待ち。機械工程数を880問の内容品質完了として扱わない。証跡は`mime_official1_sol_started_20261005.json`及び`evaluation_scope_runtime_reflection_20261005.json`。
+
+### 2026-10-05 04:28 MIME公式選択肢の空白復元
+
+201302午前II問16（0a28eb13f0889c31dee158c8）は、新SolがRFC2047 §5(3)のencoded-wordと隣接特殊文字の空白欠落を指摘した。公式冊子9頁の全4肢を直接確認し、空白を24の目視パッチへ復元、21の共通解説に空白要件を補足した。source・ID・本文・正誤・形式・法令metadataは保持。参照資料の未定義fieldはtitleへ統合して正常schemaで保存し、通常merge/convert/dry-runを再実行した。
+
+関連必須3検査は48 merged、48正答patch/880 entriesで成功。全suite未実行。人間目視パッチにモデルreceiptや工程版を付与せず、新候補の別Sol評価を待つ。根拠はdirect_mime_whitespace_applied_20261005.json及びmime_official1_sol_terminal_20261005.json。

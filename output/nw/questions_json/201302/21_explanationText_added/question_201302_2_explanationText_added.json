@@ -2605,7 +2605,7 @@
   },
   {
     "explanationText": [
-      "正しい。メールヘッダーの表示名付きアドレスは、表示名を先に置き、その後に山括弧で囲んだメールアドレスを置くname-addr形式で表す。MIMEのencoded-wordで表された表示名に続けて<taro@example.jp>を置く形式が適切である。"
+      "正しい。表示名付きのメールアドレスは、表示名を先に置き、その後に山括弧で囲んだメールアドレスを置くname-addr形式で表す。MIMEのencoded-wordで表した表示名は、直後の「<」と空白で区切る必要がある。したがって、From: =?ISO-2022-JP?B?GyRCPnBKc0JATzobKEI=?= <taro@example.jp> が適切な形式になる。"
     ],
     "original_question_id": "974391a07ec46397",
     "question_url": "https://www.nw-siken.com/kakomon/25_aki/am2_16.html",
@@ -2623,6 +2623,11 @@
         "referenceDate": "1996-11-01",
         "sourceUrl": "https://www.rfc-editor.org/rfc/rfc2047.html",
         "title": "RFC 2047 Message Header Extensions for Non-ASCII Text"
+      },
+      {
+        "title": "RFC 2047 §5(3): encoded-wordと隣接する特殊文字の空白",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc2047.html#section-5",
+        "referenceDate": "2026-10-05"
       }
     ],
     "questionLearningPatternId": "terms_basics",

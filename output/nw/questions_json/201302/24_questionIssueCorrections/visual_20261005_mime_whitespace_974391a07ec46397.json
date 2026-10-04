@@ -1,0 +1,38 @@
+{
+  "schemaVersion": "question-issue-correction/v1",
+  "origin": "user_problem_report",
+  "category": "question_content",
+  "reviewProtocol": "human-visual-review/v1",
+  "author": "root manual visual review",
+  "userAuthorization": "直接パッチを目視整備により作成していいので、NWスペシャリストの過去問の整備を完了させてほしい",
+  "createdAt": "2026-10-05T04:23:29.973534+09:00",
+  "independentBlindReviewPerformed": false,
+  "modelReceipt": null,
+  "entries": [
+    {
+      "original_question_id": "974391a07ec46397",
+      "sourceQuestionKey": "nw:201302:974391a07ec46397",
+      "reviewQuestionId": "974391a07ec46397",
+      "sourceRecordRef": "question_201302_2.json#20",
+      "expectedBeforeHash": "536cbb1be323d61441ff741cb855924aab3075fd520641de400020397b519f2f",
+      "changes": {
+        "choiceTextList": [
+          "From: <=?ISO-2022-JP?B?GyRCPnBKc0JATzobKEI=?=> taro@example.jp",
+          "From: <taro@example.jp> =?ISO-2022-JP?B?GyRCPnBKc0JATzobKEI=?=",
+          "From: =?ISO-2022-JP?B?GyRCPnBKc0JATzobKEI=?= <taro@example.jp>",
+          "From: taro@example.jp <=?ISO-2022-JP?B?GyRCPnBKc0JATzobKEI=?=>"
+        ]
+      },
+      "rationale": "公式冊子9頁の全4肢を目視してFromのコロン及びアドレス・表示名間の脱落した空白を復元。特に第3肢のencoded-wordと<の間はRFC2047§5(3)のlinear-white-space必須条件。source/ID/正答を保持し、05による独自化は行わない。",
+      "evidence": [
+        {
+          "sourceClass": "official",
+          "title": "ネットワークスペシャリスト平成25年秋期 午前Ⅱ 問16 問題冊子",
+          "locator": "output/nw/scrape_reports/official_evidence_20261004/201302_am2.pdf / PDF9頁 問16",
+          "verifiedAt": "2026-10-05T04:23:29.973534+09:00",
+          "contentHash": "d0455dbb89fa2da42d77a1e0f386cae95698f6e782281633778112ff2d917105"
+        }
+      ]
+    }
+  ]
+}
