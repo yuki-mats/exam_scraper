@@ -1,0 +1,47 @@
+{
+  "schemaVersion": "question-issue-correction/v1",
+  "origin": "user_problem_report",
+  "batchId": "ui-qir-20261004140402-cb56b7312f",
+  "category": "question_content",
+  "caseIds": [
+    "ui-official-cb56b7312f322e9dee3c"
+  ],
+  "inputCaseHashes": {
+    "ui-official-cb56b7312f322e9dee3c": "cb56b7312f322e9dee3c64db845bb0df0bac43bb13bc46f95e4264e40c376ffa"
+  },
+  "reviewProtocol": "blind-a-b-challenge/v1",
+  "blindReviewHashes": [
+    "18188968759390017a7b5a389b893bc2de5bb1ef01f71120a22cff2057b8fe5b",
+    "a63cfa37f95310e031bcd814683b054d2ce737b2bae638d62577d23a9324f4ef"
+  ],
+  "challengeReviewHash": "78bad4c3e19ffaf5e3e7965591b6704d9119f73c5535fd3c49c9f39c5c7c1889",
+  "createdAt": "2026-10-04T14:05:37.112505Z",
+  "entries": [
+    {
+      "original_question_id": "974391a07ec46397",
+      "sourceQuestionKey": "nw:201302:974391a07ec46397",
+      "reviewQuestionId": "974391a07ec46397",
+      "sourceRecordRef": "question_201302_2.json#20",
+      "expectedBeforeHash": "a71bc02b01f947a8bb9cc8b7fbd74a9f14e9f75269c2a6fa7b3ea8bfc3df0eed",
+      "changes": {
+        "choiceTextList": [
+          "From:<=?ISO-2022-JP?B?GyRCPnBKc0JATzobKEI=?=>taro@example.jp",
+          "From:<taro@example.jp>=?ISO-2022-JP?B?GyRCPnBKc0JATzobKEI=?=",
+          "From:=?ISO-2022-JP?B?GyRCPnBKc0JATzobKEI=?=<taro@example.jp>",
+          "From:taro@example.jp<=?ISO-2022-JP?B?GyRCPnBKc0JATzobKEI=?=>"
+        ],
+        "questionBodyText": "\"情報太郎\"はMIMEで\"=?ISO-2022-JP?B?GyRCPnBKc0JATzobKEI=?=\"と表される。情報太郎のメールアドレスを taro@example.jp とするとき，メールアドレスと表示名(情報太郎)を指定する，メールヘッダーのFromフィールドとして適切なものはどれか。"
+      },
+      "rationale": "Independent blind A/B reviews produced identical structured changes for category=question_content, and the challenge gate bound the correction to their official/primary evidence.",
+      "evidence": [
+        {
+          "sourceClass": "official",
+          "title": "平成25年度秋期 ネットワークスペシャリスト 午前II 問題冊子",
+          "locator": "output/nw/scrape_reports/official_evidence_20261004/201302_am2.pdf / 午前II 問16（PDF 9ページ）",
+          "verifiedAt": "2026-10-04T14:04:02.204064Z",
+          "contentHash": "d0455dbb89fa2da42d77a1e0f386cae95698f6e782281633778112ff2d917105"
+        }
+      ]
+    }
+  ]
+}

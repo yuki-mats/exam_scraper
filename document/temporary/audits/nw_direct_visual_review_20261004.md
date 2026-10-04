@@ -63,3 +63,7 @@ GUI exact10の通常評価は9合格・1評価未完了・通信失敗0。9合�
 午前Ⅰ問18は初回及び通常再評価ともinconclusive。公式2013年冊子にも本数の比を期間の比と扱う条件がなく、新解説の留保だけでは一意正答を確定できない。公式問題本文へ後年の条件を無断追加せず、再試行を重ねない。旧currentValidの旧hashを新合格に数えない。根拠output/nw/scrape_reports/independent_201302_manual10_terminal_20261004.json。現時点の最終品質懸念なし212/880、残668。Firestore未反映、全880未完了。
 
 PCIExpress202401午前Ⅱ問22は公式32レーンとPCI-SIGのbase specification及びIntel一次説明を照合した。実採用フォームファクターの最大幅とはscopeが異なる。第3肢を64と誤引用する旧説明で公式単独正答へ合わせず、02aの一次資料・公式正答矛盾holdを維持。根拠independent_pcie_primary_scope_hold_20261004.json。
+
+### MIME公式冊子照合（23:04開始）
+
+201302午前II問16の取得元のISO-2011-JPを、公式冊子PDF9ページのISO-2022-JPへ24 overlayで補正した。Blind A/Bの完全値一致、Challenge fix、各受信receipt hashと実画像466475 bytes/SHA一致を確認した。各receiptはmodel fieldを持たないため、設定Lunaと実model証明を区別する。source・ID・正誤・解説は保持し、本文と4選択肢だけ変更した。通常GUIの公開用データ再生成完了を観測。必須3検査は48 merged/48実正答patch880 entriesで成功。全suite未実行、別Sol評価待ち。根拠 `output/nw/scrape_reports/mime_official1_terminal_20261004.json`。
