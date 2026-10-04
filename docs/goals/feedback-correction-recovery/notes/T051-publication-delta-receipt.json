@@ -1,0 +1,93 @@
+{
+  "result": "done",
+  "task_id": "T051",
+  "board_path": "/Users/yuki/development/exam_scraper_feedback/docs/goals/feedback-correction-recovery/state.yaml",
+  "changed_files": [
+    "tools/question_review_console/publication_delta_gateway.py",
+    "tests/test_question_review_publication_delta_gateway.py"
+  ],
+  "commands": [
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest tests.test_question_review_publication_delta_gateway",
+      "status": "pass",
+      "started_at": "2026-10-04T04:38:21Z",
+      "finished_at": "2026-10-04T04:38:22Z",
+      "exit_code": 0,
+      "tests": 19,
+      "native_output_ref": "61b6a9",
+      "result": "実SDK＋AnonymousCredentials、network遮断。11doc限定更新・単一commit・retry=None・nanosecond precondition、atomic競合時変更0、intent失敗時commit0、unknown回復・再送read-only・journal700/600・改変拒否を確認。"
+    },
+    {
+      "command": "read_plan(ROOT, T049/formal-save-plan.json) と固定inputs・資料・case_review・ledger bytes・正式予定pathsの読取り照合",
+      "status": "pass",
+      "started_at": "2026-10-04T04:38:51Z",
+      "finished_at": "2026-10-04T04:38:51Z",
+      "exit_code": 0,
+      "native_output_ref": "387741",
+      "result": "変更前後の全baseline一致。699inputs有効、正式9paths不在。DBを開かずfilehashのみ照合。"
+    },
+    {
+      "command": "git diff --check",
+      "status": "pass",
+      "started_at": "2026-10-04T04:38:51Z",
+      "finished_at": "2026-10-04T04:38:51Z",
+      "exit_code": 0,
+      "native_output_ref": "500be9"
+    }
+  ],
+  "historical_commands": [
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest tests.test_question_review_publication_delta_gateway",
+      "status": "pass",
+      "started_at": "2026-10-04T04:37:44Z",
+      "finished_at": "2026-10-04T04:37:45Z",
+      "exit_code": 0,
+      "tests": 17,
+      "native_output_ref": "ad837b"
+    },
+    {
+      "command": "git diff --no-index --check /dev/null tools/question_review_console/publication_delta_gateway.py",
+      "exit_code": 1,
+      "native_output_ref": "dffbe2",
+      "result": "新規fileとの差分存在によるexit1。whitespace診断出力なし。"
+    },
+    {
+      "command": "git diff --no-index --check /dev/null tests/test_question_review_publication_delta_gateway.py",
+      "exit_code": 1,
+      "native_output_ref": "835327",
+      "result": "新規fileとの差分存在によるexit1。whitespace診断出力なし。"
+    }
+  ],
+  "file_hashes": {
+    "tools/question_review_console/publication_delta_gateway.py": "78f0e89965b4183d89cce52600a9c98c579eafc7a8bc094c43c9d183a5ba81e7",
+    "tests/test_question_review_publication_delta_gateway.py": "45bd56cd493efe5f987b1a6b87f4ab9b8832065fba547a7149e439710c4d5372"
+  },
+  "preservation": {
+    "baseline_equal": true,
+    "planHash": "91866ce7a82b35abacea10200d298c2608bdf53396f0de0b0b9e80bf83ae10ce",
+    "planFileHash": "ceadd57db3f11c2f817ae9bb425f03d60587a0a169c5b627f02b367c1e0d50e2",
+    "inputHash": "71b78f3bc8efc4866c59ac74057a582baa7f2587da2833df32499bfd8f496a60",
+    "inputCount": 699,
+    "approvalMaterials": {
+      "approval-details.json": "26c742405088df1ea64c848f2f10c57bfe092234ee5571650809e26924c0b488",
+      "approval-proposal.md": "47b299e7062b69cf484f6003cd69c6082e3a8b2941f2aa6cbf50598d9ff1d926"
+    },
+    "caseCount": 5,
+    "caseSetHash": "a969536eec0d8a077c18f63a806085f898458f14dc0a5610367ce026bea55890",
+    "ledgerFileHash": "fc1b4fcec027ed1e014edcb3d5c0af90ab41189a9a96247c6ff7837085af7c4d",
+    "formalExistingCount": 0,
+    "existing_entry_imports_changed": false,
+    "actual_network_commit": false,
+    "actual_journal_created": false,
+    "control_files_changed_by_worker": false
+  },
+  "summary": "独立gatewayと専用19testsを完成。対象database/collectionを含むrequestをcommit前に永続化し、全11docをmasked照合・precondition付き単一batchで更新するfixtureを検証。応答喪失はunknownを保持し、全afterだけでは自己commit成功と断定しません。再送は読取り専用。保存先は指定新規2filesのみ、他作者差分を保持しました。",
+  "remaining_blockers": [
+    "実本番入口への接続は後続。真正正式保存・checkpoint・model評価・別native production承認の検証を、このfixture成功で代替していません。",
+    "三件正式保存の承認質問と2025追加4fieldの回答待ちは継続。正式保存・本番公開は未実行です。"
+  ],
+  "needs_judge": false,
+  "verification_attempts": 2,
+  "repair_attempts": 0,
+  "stopped_because": null
+}

@@ -1,0 +1,138 @@
+{
+  "result": "done",
+  "task_id": "T052",
+  "board_path": "/Users/yuki/development/exam_scraper_feedback/docs/goals/feedback-correction-recovery/state.yaml",
+  "decision": "approve_next",
+  "full_outcome_complete": false,
+  "rationale": "人間回答だけに依存する段階ではない。2025の固定候補を現行入力で再生成し、実readerが読む18/21の保存予定bytesと現在の機械検証証跡を作る安全な作業が残る。既存コード変更は不要。真正checkpoint・model評価は正式承認と保存後の入力に依存し、今回のprivate検証で代替できない。",
+  "evidence": [
+    {
+      "kind": "accepted_sdk_slice",
+      "receipt": "docs/goals/feedback-correction-recovery/notes/T051-publication-delta-receipt.json",
+      "observed": "19対象tests成功、network commitとactual journal作成なし、既存入口imports無変更。PMが22c57ccafをcommit/push済み。",
+      "scope": "SDK呼出契約と永続intentの限定基盤。人間承認・真正評価・本番接続の成功ではない。"
+    },
+    {
+      "kind": "current_candidate_readonly_execution",
+      "native_output_ref": "66c519",
+      "observed": {
+        "fresh_context_valid": true,
+        "bound_input_count": 416,
+        "input_hash": "2e4da8a5a8545bb54450cffc99469c1131703339e360f55f14f9a737ae9687ce",
+        "protected_fields_unchanged": true,
+        "public_document_count": 5,
+        "candidate_field_count": 4,
+        "pending_T049_read_plan_valid": true,
+        "pending_plan_hash": "91866ce7a82b35abacea10200d298c2608bdf53396f0de0b0b9e80bf83ae10ce"
+      },
+      "limitation": "メモリ内で現行context・projection・converterを照合した結果。新private成果の保存、current gate全面検証、モデル実行は行っていない。"
+    },
+    {
+      "kind": "existing_2025_validation_is_not_current_readiness",
+      "proposal_sha256": "96c86f57e1005ab0a7790046b2b0f7bbf37e3f39814b0b8b691387b99dabe8b8",
+      "sidecar_file_sha256": "94f28df79257effc7231b7c50f5a9d7f7c9749138a06a5269bfc9335146d9f2c",
+      "observed": "固定T024 contextの390入力中17ファイルが現行bytesと異なる。既存evidence-importはvalidated_private、checkpointStages空、modelRunPerformed=false。既受理法令判断の取消しを意味しない。"
+    },
+    {
+      "kind": "actual_formal_reader_and_amendment_gate",
+      "locations": [
+        "scripts/common/scoped_canonical_context.py:191",
+        "scripts/common/scoped_canonical_context.py:203",
+        "tools/question_review_console/projection.py:43",
+        "tools/question_bank/feedback_daily.py:561",
+        "tools/question_bank/feedback_daily.py:633"
+      ],
+      "observed": "通常18/21層はcanonicalRootのWORKから読む。ROOT overlayが担当するのは24層。現2025 amendmentはpolicy=null、current .py bindingなし、fieldStages空であり、現在のready条件を満たさない。既存register_amendmentは明示次revision・固定proposal/base・expected_revisionを結合して追記できる。"
+    },
+    {
+      "kind": "genuine_evaluation_dependency",
+      "locations": [
+        "tools/question_review_console/inventory.py:1267",
+        "tools/question_review_console/evaluation.py:2092",
+        "tools/question_review_console/evaluation.py:2139",
+        "tools/question_review_console/validated_evidence_import.py:125"
+      ],
+      "observed": "private候補はscoped_formal_approval_pendingを保持し、machineReadyはblockingIssuesなし・workflow一致・全current workVersionsを要求する。現行law_audit policyは6.0、evaluationは5.6。古い法令reviewやfixtureからcurrent checkpoint・評価成功を生成してはならない。"
+    }
+  ],
+  "next_allowed_task": {
+    "role": "Worker",
+    "objective": "既存2025追加4fieldsを一切変更せず、fresh private runに現行context・canonical/candidate再生成・型付き18/21保存予定bytes・generic reader replay・現在の機械検証とpreview・PM用amendment技術bindingを一式生成する。既存質問への回答待ちを保持し、正式保存と真正checkpoint/model評価は実行しない。",
+    "allowed_files": [
+      "output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/verify.py",
+      "output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/baseline.json",
+      "output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/input-context.json",
+      "output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/canonical/manifest.json",
+      "output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/canonical/merged.json",
+      "output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/canonical/converted.json",
+      "output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/canonical/uploadReady.json",
+      "output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/private/manifest.json",
+      "output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/private/merged.json",
+      "output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/private/converted.json",
+      "output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/private/uploadReady.json",
+      "output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/planned/18_law_context_prepared/question_85011_empty_1_lawContext_prepared_20261004_0000.json",
+      "output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/planned/21_explanationText_added/question_85011_empty_1_explanationText_added_20261004_0000.json",
+      "output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/formal-stage-plan.json",
+      "output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/evidence-import.json",
+      "output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/gate-results.json",
+      "output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/previews.json",
+      "output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/amendment-binding.json",
+      "output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/readiness-summary.md"
+    ],
+    "implementation_contract": [
+      "既存product、固定候補、sidecar、旧run、承認資料、case_review、actual ledger、WORKの正式入力を変更しない。runnerはこの具体run専用とし、汎用frameworkや新APIを増やさない。",
+      "fresh contextは既存T024の明示source/public bindingとreferencePathsを入口に現行依存から構築する。旧inputHashやpolicy fingerprintをcurrentとしてコピーしない。",
+      "保存予定rootは現readerが使う/Users/yuki/development/exam_scraper_work。予定relative pathsはoutput/2nd-class-kenchikushi/questions_json/85011/18_law_context_prepared/question_85011_empty_1_lawContext_prepared_20261004_0000.jsonとoutput/2nd-class-kenchikushi/questions_json/85011/21_explanationText_added/question_85011_empty_1_explanationText_added_20261004_0000.json。実際には上記private planned filesだけを生成する。",
+      "18にはlawReferences、21には残る3fieldsをsource-bound recordとして配置する。既存question_bodies等のreader形式とfilename/tag契約を使い、両予定bytesをgeneric readerで解決・replayする。適用結果が固定4fieldsと完全一致し、原問・全選択肢・正答・意図・公開5IDs・対象外record/fieldを保持することを確認する。",
+      "formal-stage-planは既存source-bound-field-amendment/v1の用途で、保存root、2予定paths、正確なbyte hash、source/public binding、base patch_ref/hash/commit、固定proposal hashを明記する。今回の生成は正式保存承認を生成しない。",
+      "既存native証跡を現行import APIで再照合する。A/B/第三者の法的判断を再実施せず、法的受理・機械整合・current checkpointを別々に報告する。",
+      "current required/schema/coverage、4field一致、sidecar metadata、既存法令参照・factsの機械契約を検証する。現在policy6.0/5.6でInventory/Evaluation/Publisherの実previewを保存し、machineReady/canEvaluate/canPublishと具体blockersを改変せず記録する。",
+      "amendment-bindingは元proposal/ref/hash・承認済みbase patch_ref/commitを保持し、現code/policy/evidence/2予定bytesへ結合する。APIのreadiness gateを照合する。actualDBへの追記はPMだけがbackup後に行う。",
+      "検証成功はformal-save proposalの技術再確認に限定する。genuine checkpoint未済、modelRunPerformed=false、formalDataUpdated=false、publicationReady=falseを保持する。未解決gateがあればsystem_blocked/already_askedを維持し、pendingへ無理に昇格しない。",
+      "runは700/600で保存し、質問本文を含むprivate成果を通常log・Git・通知へ流さない。台帳更新によって既存T049のplan入力や質問を作り直さない。"
+    ],
+    "verify": [
+      "PYTHONDONTWRITEBYTECODE=1 /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest tests.test_scoped_canonical_context tests.test_question_review_scoped_artifacts tests.test_question_review_validated_evidence_import tests.test_feedback_daily",
+      "PYTHONDONTWRITEBYTECODE=1 /Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/verify.py",
+      "verify.pyは既存prepare_scoped_artifacts/load_scoped_artifacts、build_layered_patch_index_from_paths/project_merge_record、import_native_evidence、Inventory/Evaluation/Publisher preview、_amendment_gateを実候補で呼び、結果と依存hashをgate-resultsへ記録する。model runnerやcommit adapterは呼ばない。",
+      "canonical/privateと予定2patchのreplayを比較し、差分は既存4fieldsのみ、公開5docs、原問・全選択肢・正答・意図・対象外recordが不変であることを確認する。",
+      "変更前後のT049 read_plan、699固定inputs、承認資料hash、case_review、actual ledger bytes、正式9paths不在を照合する。今回予定2正式pathsも不在を確認する。",
+      "元2025 proposal・sidecar・base patch bytes不変、旧質問call_mPsaMRaMlAHvGmJHEhx8zoNBの再送なし、3件質問call_vLSN2Tea4lKMvMf3C1uEfXV6の再送なしを記録する。",
+      "git diff --check"
+    ],
+    "stop_if": [
+      "既存code/config/import、固定候補・sidecar、case_review、T049の入力や資料を変更する必要がある。",
+      "18/21の現readerでsource bindingが一意に解決しない、予定bytesから固定4fieldsを再現できない、保護fieldや対象外recordが変わる。",
+      "現gate失敗を修復するため、追加4fieldsの内容変更、承認範囲の拡張、A/B法令全面再審査が必要になる。",
+      "真正checkpoint/model評価を実行するために未承認正式入力の保存やgate迂回が必要になる。",
+      "新schema/framework/provider、本番入口接続、Firestore/Storage write、actual ledger更新が必要になる。",
+      "既存承認質問の再送、draftの承認ready扱い、生利用者本文・識別情報の通常log/Git混入が必要になる。",
+      "指定private runが既に存在する、途中で入力hashが変わる、他作者差分の巻戻しが必要になる。"
+    ]
+  },
+  "subgoal_contract": null,
+  "parallel_safety": {
+    "decision": "single_worker_private_artifacts_only",
+    "reason": "新private runの明示19filesのみを所有する。既存699入力とproductを変更せず、実台帳追記はPMの後続操作に分離する。"
+  },
+  "blocked_tasks": [
+    "2025追加4fieldsの正式保存：既存質問への真正人間回答が未着。",
+    "2018/2024/2020の正式保存：既存exact plan質問への真正人間回答が未着。",
+    "真正current checkpoint・model評価：承認後の正式canonical入力が必要。",
+    "本番入口接続・限定適用：真正評価と別の永続production承認が必要。"
+  ],
+  "missing_evidence": [
+    "2025の現在依存に結合した技術再検証と具体18/21予定bytes。",
+    "二つの既存承認質問への真正回答。",
+    "正式保存receipt、current checkpoint、真正model評価。",
+    "別production承認、本番限定適用、帰属可能なreadback。",
+    "正式保存後の通常再生成・再公開で承認訂正を保持する経路。"
+  ],
+  "required_board_updates": [
+    "PMが上記private成果packageを次Workerへ登録する。既存2025質問と3件正式保存質問は再送しない。",
+    "Worker成果受入後、PMが実DB backupを取り、同じproposal/baseに結合した技術bindingを明示次revisionとして追記する。already_askedと元asked_atを保持し、技術gateが残ればsystem_blockedを維持する。",
+    "技術proposal準備、formal approval/save、genuine checkpoint/model評価、production approval/write/readbackを別状態で保持する。",
+    "このsliceの終了後に未完作業が真正入力・人間回答だけに依存する場合、既存call/hashに結合する回答待ちで停止し、質問やplanを再生成しない。",
+    "新Q39を元4件の進捗に混ぜず、full_outcome_complete=falseを維持する。"
+  ]
+}

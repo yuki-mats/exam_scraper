@@ -1,0 +1,106 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T050",
+    "board_path": "/Users/yuki/development/exam_scraper_feedback/docs/goals/feedback-correction-recovery/state.yaml",
+    "decision": "approve_next",
+    "full_outcome_complete": false,
+    "rationale": "回答待ちplanを変更せず進められる実用的な不足がある。既存CorrectionContractは注入gatewayと成功後receiptのみで、実SDKのatomic限定更新、commit前の永続intent、応答喪失のread-only回復は未実装。独立した新moduleとtestsだけでこのsliceを実装できる。本番入口への接続、真正checkpoint/model評価、別production承認、通常再生成への訂正保持は後続へ残す。",
+    "evidence": [
+      {
+        "kind": "pending_plan_preserved",
+        "planHash": "91866ce7a82b35abacea10200d298c2608bdf53396f0de0b0b9e80bf83ae10ce",
+        "inputHash": "71b78f3bc8efc4866c59ac74057a582baa7f2587da2833df32499bfd8f496a60",
+        "actualReadPlanValid": true,
+        "boundInputCount": 699,
+        "formalNineAbsent": true,
+        "approvalCallId": "call_vLSN2Tea4lKMvMf3C1uEfXV6",
+        "requestEventSha256IncludingFinalLf": "19c1455194949322817bda201ba7906e2b4f4692333d57b9fc050cea456dc4f7",
+        "actualVerified": [
+          "request event/hash/call、固定question、承認資料hashが一致する。",
+          "T049の138tests・4strict・実3preview・2法HTTP・保全receiptを確認した。",
+          "正式保存質問は送信済みで未返信。再送しない。",
+          "2025追加案は別の回答待ちで、ready承認待ちへ昇格しない。"
+        ]
+      },
+      {
+        "kind": "specific_remaining_implementation",
+        "observed": [
+          "scoped_corrections.py:322-348はcaller token/boolと注入gatewayを使い、永続intentを作らない。commit後の応答喪失には成功receiptが残らない。",
+          "既存SDK WriteBatch.updateはLastUpdateOptionを受け付け、LastUpdateOptionはupdate_time preconditionを設定する。WriteBatch.commitにはretry指定があり、既定retryを無条件に利用しない契約が必要。",
+          "formal_correction_questionとpreview_formal_correctionsは明示scoped読取りだけ。保存receiptをcheckpoint/evaluation成功へ変換せず、現previewはmachineReady=false。",
+          "publication_corrections unitは通常24/05の探索に合流していない。将来の通常再生成・再公開で訂正を戻さない経路は別途必要。"
+        ],
+        "parallelSafetyBasis": "新moduleを既存入口からimportしなければ、回答待ちplanの既存ファイルhashと読取依存を変更せず実装できる。"
+      }
+    ],
+    "next_allowed_task": {
+      "role": "Worker",
+      "objective": "独立moduleにmasked SDK atomic field gatewayと永続intent・read-only unknown outcome reconciliationを実装し、専用testsで検証する。既存入口・回答待ちplan・本番DBには接続しない。",
+      "allowed_files": [
+        "tools/question_review_console/publication_delta_gateway.py",
+        "tests/test_question_review_publication_delta_gateway.py"
+      ],
+      "implementation_contract": [
+        "既存files、imports、CLI、設定、plan、case_review、ledgerを変更しない。DB clientは明示注入し、credentials/project/databaseを自動選択しない。",
+        "対象11docの一意ID、全beforePresent/before、exists、updateTimeをmasked読取りで照合する。無mask fallback、missing/null混同、timestamp精度の切捨てを拒否する。",
+        "一つのSDK batchに全11docの限定field updateと各LastUpdateOptionを入れる。set/create/delete/full uploadを使わず、対象外fieldを構造的に保持する。",
+        "SDK commitの自動retryを明示的に無効化する。内容allowlistへ監査fieldを無断追加しない。",
+        "commit開始前にoperation ID、request/content hash、対象集合、preconditions、承認・gate証跡の参照、状態をowner-only journalへ永続化する。intentの永続化失敗ではcommitを呼ばない。",
+        "journalはdirectory700/file600、exclusive作成・競合検出・単調な状態遷移を持つ。同じoperation IDの異なる内容を拒否する。",
+        "commit応答とwrite result versionsを保存できた場合だけ、それに結合したmasked readbackを完了証跡にする。fixture成功を本番成功として記録しない。",
+        "timeout、応答喪失、commit後journal/readback失敗はunknownとして保持する。盲目的再送・自動rollbackを行わない。",
+        "unknown reconciliationはread-onlyで全before、全after、mixed/conflict/unavailableを区別する。全after一致だけで当該operationが実行したと断定せず、応答・version証拠がなければ帰属未確認を残す。",
+        "既存成功receiptとafter versionsが一致する再送はread-onlyとする。競合、partial、unknownは保留し、再実行許可を作らない。",
+        "本番接続は真正正式保存、対象checkpoint/model評価、別native production承認を検証する後続入口の責務とする。caller bool/tokenだけで本番許可を生成しない。",
+        "今回のjournal・SDK実行はisolated fixturesだけ。実projectへのnetwork commit、actual運用journal作成、本番入口追加は禁止する。"
+      ],
+      "verify": [
+        "PYTHONDONTWRITEBYTECODE=1 /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest tests.test_question_review_publication_delta_gateway",
+        "実installed SDKのbatch/update/precondition/field mask/commit呼出契約を、networkを遮断したstubで検証する。11update・単一commit・retry無効・各updateTimeとfield scopeを確認する。",
+        "missing/null、欠落doc、重複/別ID、timestamp nanoseconds差、許可外field、preflight競合を拒否し、commit0回を確認する。",
+        "intent永続化失敗、commit直前中断、応答喪失、既適用後の応答喪失、journal/readback失敗、mixed/conflict、同一再送・異内容競合、再起動後read-only reconciliationを検証する。",
+        "対象外field保持、全11doc atomic拒否、journal700600、partial journal・競合・改変拒否を確認する。",
+        "変更前後に固定T049 planのread_planと699inputs・承認資料hashを照合し、不変を直接確認する。正式9paths不在、case_review/ledger不変を確認する。",
+        "git diff --check"
+      ],
+      "stop_if": [
+        "既存file/import/configまたは回答待ちplanの変更が必要になる。",
+        "実Firestore/Storage write、actual ledger/journal操作、本番入口接続が必要になる。",
+        "caller bool/token、mock成功を真正承認・checkpoint/evaluationへ代替する必要がある。",
+        "新schema field、広いprovider/UI/framework、通常再生成の改修をこのsliceへ混ぜる必要がある。",
+        "lost responseを成功・未適用と断定し、盲目的再送や自動rollbackを必要とする。",
+        "対象IDs、before/updateTime、allowlist、原問や候補値を拡張・変更する必要がある。",
+        "正式保存質問または2025追加質問を再送する必要がある。",
+        "生利用者本文・source_path・reporter情報が通常log/Gitへ混入する。",
+        "allowed_files外の変更、他作者差分の巻戻し、repair cap超過が必要になる。"
+      ]
+    },
+    "subgoal_contract": null,
+    "parallel_safety": {
+      "decision": "single_worker_isolated",
+      "reason": "新moduleと専用testsの2filesだけを所有する。既存依存へのimport追加を禁止し、pending plan不変を検証する。"
+    },
+    "blocked_tasks": [
+      "人間回答前のexact plan正式保存",
+      "真正checkpoint/model評価未済での本番入口接続",
+      "別native production承認前の本番write",
+      "承認質問の再送"
+    ],
+    "missing_evidence": [
+      "送信済み正式保存質問への真正人間回答",
+      "正式保存と対象current checkpoint/model評価",
+      "別の永続native production承認",
+      "本番限定適用と独立readback",
+      "通常再生成・再公開で承認済み訂正を保持する適用経路"
+    ],
+    "required_board_updates": [
+      "T049の具体的正式保存回答待ちを維持し、91866ce7... planと資料を変更しない。",
+      "上記独立2files packageを次Workerへ登録する。PMのみstate・actual ledger・Gitを変更する。",
+      "人間回答後は既存requestのcall/index/question/material hashへ結合し、再送せず保存gateを再開する。",
+      "通常再生成の訂正保持は、正式保存後に明示unit readerと生成・公開入口へ結合する別後続taskとして残す。24/05 guardを緩めない。",
+      "新Q39の別scope、AI改善登録、既存4件訂正を混同しない。",
+      "全体完了と本番準備完了はfalseを維持する。"
+    ]
+  }
+}
