@@ -16424,6 +16424,14 @@ class QualificationRunCoordinator:
                     candidates = []
                 if stage_id == "law_audit" and candidates:
                     questions = law_question_inputs(candidate_prompt)
+                    reference_guidance = _canonical_document_guidance(
+                        self.repo_root,
+                        [
+                            path for path in batch_plan.get("canonicalDocs") or []
+                            if Path(path).parent == Path("prompt", "qualification_docs", qualification)
+                            and "law_reference" in Path(path).name
+                        ],
+                    )
                     verified_candidates = []
                     verification_receipts = {}
                     for candidate in candidates:
@@ -16431,7 +16439,10 @@ class QualificationRunCoordinator:
                         if candidate.status != "candidate" or fields.get("isLawRelated") is not True:
                             verified_candidates.append(candidate)
                             continue
-                        bundle = law_verification_bundle(questions[candidate.question_id], candidate)
+                        bundle = law_verification_bundle(
+                            questions[candidate.question_id], candidate,
+                            reference_guidance=reference_guidance,
+                        )
                         review_count = 2 if fields.get("auditStatus") == "updated_to_current_law" else 1
                         reviews = []
                         executions = []

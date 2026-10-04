@@ -38,6 +38,17 @@ class LawAuditVerificationTests(unittest.TestCase):
         self.assertEqual(parse_review(json.dumps(self.approval), self.bundle), self.approval)
         self.assertEqual(review_schema(self.bundle)['properties']['currentLawDecision']['minItems'], 2)
 
+    def test_independent_review_preserves_and_hashes_source_reference_guidance(self):
+        question = copy.deepcopy(self.bundle['question'])
+        guidance = '公式原文: https://example.go.jp/exam.pdf / 現在化後と独立照合'
+        bundle = verification_bundle(question, self.candidate, reference_guidance=guidance)
+        self.assertEqual(bundle['qualificationReferenceGuidance'], guidance)
+        self.assertNotEqual(bundle['evidenceHash'], self.bundle['evidenceHash'])
+        question['currentRecord']['choiceTextList'][0] = '別の本文'
+        self.assertEqual(bundle['question'], self.bundle['question'])
+        with self.assertRaises(ValueError):
+            parse_review(json.dumps(self.approval), bundle)
+
     def test_question_input_can_precede_document_guidance(self):
         prompt = '規則\n' + json.dumps([self.bundle['question']]) + '\n# 正本文書\n文書の末尾'
         self.assertEqual(question_inputs_from_prompt(prompt)['q1'], self.bundle['question'])

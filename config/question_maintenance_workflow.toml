@@ -335,7 +335,8 @@ kind = "human"
 # 6.0: 非法令と判定した問題では技術正答・解説を担当工程に戻し、03bは監査metadataを確定する。
 # 6.1: 分解後の記述と元の個数・組合せ回答を独立に照合する参照証拠を03bにも渡す。
 # 6.2: 法令候補の一次提案を新規sessionで二次確認し、現行法更新は三次確認後だけ確定する。
-policy_version = "6.2"
+# 6.3: 資格別の一次資料方針も独立監査bundleへ保持し、現在化された文言と公式原文を照合する。
+policy_version = "6.3"
 agent_policy = { independent_review = { model = "gpt-5.6-sol", reasoning_effort = "high" } }
 qualification_document_patterns = [
   "README.md",
