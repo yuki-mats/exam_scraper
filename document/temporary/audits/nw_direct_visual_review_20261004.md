@@ -109,3 +109,15 @@ MIME補正後一問は新GUI exactpreview/currentstateHash一致とWeb残18%/625
 各修正後の正常同期は220docsのmerge/convert/upload dry-runで成功。source・ID・本文・全肢・正誤・法令metadataは不変。各必須3検査は48 merged/48実正答patch880entries成功、全suite未実行。独立Solは未着手で品質確定212/880は不変、手動修正にmodel/工程版receiptを付けていない。午前I問16の凝集度、職務著作条件、午前II問17の観測から断定できる範囲は未確定として保持した。
 
 根拠output/nw/scrape_reports/direct_precision8_201702_applied_20261004.json、direct_calc_flag1_201702_applied_20261005.json、direct_all55_visual_read_201702_20261005.json。
+
+### 2026-10-05 201802・201902・202101の直接目視整備
+
+201802の全55問・実画像19枚を読み、21解説層の8問で標準化、ページイン確率、ハッシュ剰余、正味所要量、ホスト数、Amdahl限界の計算理由と表示を整えた。XSSのSNMPと出力処理の取り違え、WebSocketのHTTP/1.1 GETとHTTP/2拡張CONNECTの区別も一次根拠から修正した。3b4bfa39dをmain push。独立Sol未完。取得元の「機械同土」、法改正、EAP認証条件、旧X-XSS-Protectionの扱いは未確定として記録した。
+
+201902の全55問・実画像10枚を読み、7問の解説を直接修正した。OSPF図はWAN1のe→h→iが30＋10であり、旧説明はgからfへ向かうxをWAN1の辺としていた。答えが同じでもこの理由は誤りなので、各経路から170・190と150＋min(x,y)を独立導出し、20＜min(x,y)＜40を説明した。M/M/1のliteral改行、工程図のD上向きと31→28、評価点27/75、両社の損益分岐点計算、OSPF同一エリアのDB、NSのCNAME禁止も確認・修正した。ee6820077をmain push。文字式選択の午前I問5は01正本から計算false、形式flash_cardを別々に確定し、10層と正常生成12/20層をd96d5ab52へ保存した。
+
+202101の全55問・実画像20枚を読み、最大フロー10本の具体的な5経路割当てと容量・流量保存を確認した。稼働率の実グラフから因数分解と0.618の交点を求め、literal改行及び数式二重escapeを新解説で解消した。OSコマンド注入の「攻撃者が意図しない」という旧説明を、開発者が意図しない実行を攻撃者が起こす正しい関係へ直した。顔合わせ120回・60時間の導出も表示式に整え、a62ad1cf6をmain push。NISCの現組織変更、電子署名法、PPPトンネルの限定、影響分析とリバースエンジニアリングの関係はSol評価と必要な一次確認を残している。
+
+各変更は対象問題自身のidentityで結合し、source・ID・本文・全選択肢・正誤・他fieldを保持した。正常ArtifactSynchronizerのmerge/convert/upload dry-runは年度ごとに220docsで成功。各必須3検査は48merged/48実正答patch880entriesで成功、全suite未実行。root判断の直接patchにLuna/model/工程版receiptを作っていない。独立Sol未完のため最終品質確定212/880は増やしていない。Firestore書込みなし。
+
+証跡はoutput/nw/scrape_reportsのdirect_precision8_201802_applied_20261005.json、direct_precision7_201902_applied_20261005.json、direct_calc_flag1_201902_applied_20261005.json、direct_precision4_202101_applied_20261005.jsonと各年度direct_all55_visual_read_*_20261005.json。
