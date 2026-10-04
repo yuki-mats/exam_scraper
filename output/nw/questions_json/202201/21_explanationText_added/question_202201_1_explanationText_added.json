@@ -1344,7 +1344,7 @@
   },
   {
     "explanationText": [
-      "正しい。送信者は秘密の署名鍵で署名を作成し、受信者は送信者の公開鍵で検証する。これにより、送信者本人が署名したことと、メッセージが改ざんされていないことを確認できる。",
+      "正しい。送信者は秘密の署名鍵で署名を作成し、受信者は対応する公開鍵で検証する。公開鍵が送信者本人のものだと信頼できる方法で確認され、署名鍵が秘密に保たれていれば、署名の作成者とメッセージの完全性を確認できる。公開鍵と本人との対応は、例えば信頼する認証局の証明書で確認する。",
       "間違い。メッセージを暗号化する場合は、通常、受信者の公開鍵で暗号化し、受信者の秘密鍵で復号する。選択肢は送信者の署名鍵で暗号化し、受信者の署名鍵で復号するとしているため誤りである。",
       "間違い。送信者の署名鍵は、送信者の本人性やメッセージの完全性を確認するために使う。内容を関係者以外に読めなくする秘匿には、通常、受信者の公開鍵による暗号化を用いる。選択肢は送信者の署名鍵で暗号化して秘匿するとしているため誤りである。",
       "間違い。正しくは、署名の検証によってメッセージが署名時から変更されたことを検出できるが、改ざんされた部位を直接特定する機能はない。選択肢は固定文字列を付加して署名鍵で暗号化すれば改ざん部位を特定できるとしているため誤りである。"
@@ -1355,7 +1355,18 @@
     "sourceQuestionKey": "nw:202201:6b4cf79d5015227e",
     "reviewQuestionId": "6b4cf79d5015227e",
     "sourceRecordRef": "question_202201_1.json#11",
-    "explanationReferences": [],
+    "explanationReferences": [
+      {
+        "title": "NIST FIPS 186-4 Digital Signature Standard（出題時の規格、現在は廃止）第3節・第3.1節",
+        "url": "https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-4.pdf",
+        "referenceDate": "2026-10-05"
+      },
+      {
+        "title": "NIST FIPS 186-5 Digital Signature Standard 第3節・第3.1節",
+        "url": "https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.186-5.pdf",
+        "referenceDate": "2026-10-05"
+      }
+    ],
     "questionLearningPatternId": "differences_relationships",
     "suggestedQuestionDetailsByChoice": [],
     "isLawRelated": false,

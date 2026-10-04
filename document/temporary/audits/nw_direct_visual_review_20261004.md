@@ -225,3 +225,9 @@ source・ID・metadataは不変。正常merge/convert/upload dry-runと型patch�
 202201午前I問30の四fieldを個別に読み、2022-04-17著作権法の本則第15条第2項を直接確認した。21の第1・4肢の解説を、創作時の原始的帰属と後日の譲渡合意の区別、B社の発意・業務への従事・職務上作成・別段の定めがないことを示す説明へ整備し、出題時条文参照を加えた。要求仕様を提示しただけではA社の原始的帰属とならない理由も確認した。
 
 source・ID・本文・全肢・正誤・形式・metadata・他2肢は保持。正常merge/convert/upload dry-run及び必須3検査48merged/48実正答patch880entriesは成功、全suite未実行。修正後の四fieldを再読し、新model/作業版receiptなし。独立Sol未完、品質確定212/880不変、Firestore未書込。根拠direct_office2022_applied_20261005.json。
+
+### 2026-10-05 署名検証と本人確認の条件1問
+
+202201午前I問12の四fieldを個別に読み、出題時のFIPS186-4第3・3.1節と現行FIPS186-5の対応箇所を直接確認した。第1肢の解説に、公開鍵が本人のものと信頼できる方法で確認されること、署名鍵が秘密に保たれることを示し、認証局の証明書を確認方法の例として加えた。署名検証だけで鍵の持ち主の身元まで自動確定する説明を改めた。
+
+21の第1肢解説と参照だけ変更し、source・ID・本文・全肢・正誤・他3肢・metadataは保持。正常merge/convert/upload dry-run及び必須3検査48merged/48実正答patch880entriesは成功、全suite未実行。四fieldを修正後に再読。model/作業版receiptなし、独立Sol未完、品質確定212/880不変、Firestore未書込。根拠direct_signature_applied_20261005.json。
