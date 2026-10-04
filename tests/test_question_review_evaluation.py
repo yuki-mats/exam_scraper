@@ -1812,7 +1812,7 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
         self.assertEqual(result["status"], "passed")
         self.assertEqual(result["verifiedChoiceCount"], 2)
         self.assertTrue(current["publishReady"])
-        self.assertEqual(version_record["stages"]["evaluation"]["version"], "5.5")
+        self.assertEqual(version_record["stages"]["evaluation"]["version"], "5.6")
         self.assertEqual(stale["status"], "stale")
         self.assertFalse(stale["publishReady"])
 
@@ -2163,6 +2163,7 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
                 self.calls = []
 
             def run_turn(self, _prompt, **kwargs):
+                self.prompt = _prompt
                 self.calls.append(kwargs)
                 return AppServerTurnResult(
                     image_inputs=image_receipts(kwargs.get("image_urls", [])),
@@ -2210,6 +2211,10 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
         self.assertEqual(len(app_server.calls), 1)
         self.assertEqual(app_server.calls[0]["model"], "gpt-5.6-sol")
         self.assertEqual(app_server.calls[0]["reasoning_effort"], "high")
+        self.assertIn("このturnの対象は次の2問すべて", app_server.prompt)
+        self.assertIn("evaluationsを持つ最終JSON objectを一つ", app_server.prompt)
+        self.assertIn("進捗表示はserverが行います", app_server.prompt)
+        self.assertIn("調査途中の報告", app_server.prompt)
         self.assertEqual(app_server.calls[0]["work_type"], "evaluation_batch")
         self.assertEqual(app_server.calls[0]["image_urls"], ["https://example.invalid/question-image.png"])
 

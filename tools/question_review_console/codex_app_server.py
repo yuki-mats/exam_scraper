@@ -1822,7 +1822,7 @@ class CodexAppServerClient:
             raise ValueError(
                 f"unsupported maintenance reasoning effort: {reasoning_effort}"
             )
-        evaluation_work = work_type in {"evaluation", "reevaluation"}
+        evaluation_work = work_type in {"evaluation", "evaluation_batch", "reevaluation"}
         research_work = work_type == "maintenance_research"
         official_source_work = work_type == "official_source_review"
         instruction_candidate_work = work_type == "maintenance_instruction_candidate"
@@ -1879,7 +1879,13 @@ class CodexAppServerClient:
         if evaluation_work:
             developer_instructions = (
                 "このthreadは問題品質の客観評価専用である。過去thread、memory、整備会話を参照せず、"
-                "入力された現在の1問だけを評価する。subagentは使わない。file又は外部状態を変更しない。"
+                "入力された対象問題をすべて一問ずつ独立に評価する。単問では一問分の結果を、"
+                "batchでは指定された全questionId・stateHashに対応する結果を返す。"
+                "一次根拠と全選択肢の確認を終えてから、指定されたJSON Schemaに一致する"
+                "最終objectを一つだけ返す。公開agentMessageはこの最終結果だけに使う。"
+                "進捗表示、対象識別、検証、結果保存、receiptはserverが担当する。"
+                "調査途中の報告や仮の評価を結果へ混ぜず、思考過程は返さない。"
+                "subagentは使わない。file又は外部状態を変更しない。"
             )
         elif research_work:
             developer_instructions = (

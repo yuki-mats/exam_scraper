@@ -2346,9 +2346,13 @@ class QuestionEvaluationService:
         ]
         return (
             "# 問題品質の独立batch監査\n\n"
+            f"このturnの対象は次の{len(entries)}問すべてです。"
             "各evaluationPromptを独立した1問として監査してください。問題間で根拠や判定を流用せず、"
             "入力順のままevaluationsへ返してください。questionIdとstateHashは入力値をそのまま返し、"
-            "各resultにはevaluationPromptが要求する1問分のJSONだけを入れてください。\n\n"
+            "各resultにはevaluationPromptが要求する1問分のJSONだけを入れてください。"
+            "全対象の根拠確認を終えた時点で、evaluationsを持つ最終JSON objectを一つ返してください。"
+            "進捗表示はserverが行います。調査途中の報告を公開agentMessageやevaluationsへ"
+            "出力せず、最終評価だけを返してください。\n\n"
             "```json\n"
             + json.dumps({"questions": entries}, ensure_ascii=False, indent=2)
             + "\n```"

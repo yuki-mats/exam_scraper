@@ -3379,6 +3379,37 @@ class AppServerTurnTests(unittest.TestCase):
 
         self.assertEqual(result.subagent_thread_ids, ())
 
+    def test_evaluation_and_batch_share_final_result_contract_and_keep_isolation(self):
+        client = ProtocolClient()
+        results = []
+        for work_type in ("evaluation", "evaluation_batch", "reevaluation"):
+            result = client.run_turn(
+                "監査対象をすべて確認する",
+                work_type=work_type,
+                sandbox="read-only",
+                output_schema={"type": "object"},
+                emit=lambda _line: None,
+                model="gpt-5.6-sol",
+            )
+            self.assertEqual(result.model, "gpt-5.6-sol")
+            results.append(result)
+
+        starts = [params for method, params in client.calls if method == "thread/start"]
+        self.assertEqual(len(starts), 3)
+        self.assertEqual(len({result.thread_id for result in results}), 3)
+        self.assertEqual(len({result.session_id for result in results}), 3)
+        self.assertTrue(all(Path(params["cwd"]) == client.isolated_model_workspace for params in starts))
+        for params in starts:
+            self.assertEqual(params["sandbox"], "read-only")
+            self.assertTrue(params["ephemeral"])
+            self.assertFalse(params["config"]["features"]["multi_agent"])
+            instructions = params["developerInstructions"]
+            self.assertIn("対象問題をすべて一問ずつ独立に評価", instructions)
+            self.assertIn("全questionId・stateHash", instructions)
+            self.assertIn("最終objectを一つだけ", instructions)
+            self.assertIn("進捗表示、対象識別、検証、結果保存、receiptはserver", instructions)
+            self.assertNotIn("現在の1問だけ", instructions)
+
     def test_four_work_types_use_distinct_sessions_and_expected_sandboxes(self):
         client = ProtocolClient()
         specs = (
