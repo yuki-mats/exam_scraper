@@ -83,6 +83,14 @@ documents = []
 
 
 class WorkflowCatalogTests(unittest.TestCase):
+    def test_correct_choice_receives_qualification_primary_source_policy(self):
+        catalog = QualificationWorkflow(ROOT, None).catalog("chintaikanrishi")
+        stage = next(s for s in catalog["stages"] if s["id"] == "correct_choice")
+        self.assertIn(
+            "prompt/qualification_docs/chintaikanrishi/01_law_reference_policy.md",
+            stage["canonicalDocs"],
+        )
+
     def test_answer_operation_stages_keep_approved_aggregate_marker_read_only(self):
         catalog = WorkflowCatalog(ROOT).load()
         for stage_id in ('question_type', 'question_intent'):
