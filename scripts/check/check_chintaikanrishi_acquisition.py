@@ -1,15 +1,17 @@
 """賃貸管理の番号式過去問を取得HTMLから独立に照合する。sourceは変更しない。"""
 from __future__ import annotations
 
+import argparse
 import gzip
 import hashlib
 import json
 import re
 from pathlib import Path
-from urllib.parse import unquote, urlparse
+from urllib.parse import unquote, urljoin, urlparse
 
 from bs4 import BeautifulSoup
 from PIL import Image
+import requests
 
 ROOT = Path(__file__).resolve().parents[2] / 'output/chintaikanrishi'
 
@@ -42,6 +44,11 @@ def own_li(node):
 
 
 def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--verify-live-images', action='store_true')
+    args = parser.parse_args()
+    session = requests.Session()
+    live_hashes = {}
     rows, failures, ids, image_proofs = [], [], set(), {}
     for year in range(2015, 2026):
         group = str(year)
@@ -74,17 +81,27 @@ def main() -> int:
             roles += list(zip(choices, record['originalQuestionChoiceImageUrls'], strict=True))
             for node, refs in roles:
                 if len(node.select('img')) != len(refs): errors.append('image_count')
-                for ref in refs:
+                for index, ref in enumerate(refs):
                     filename = unquote(urlparse(ref).path).rsplit('/', 1)[-1]
                     path = ROOT / 'question_images' / group / filename
                     if not path.is_file(): errors.append('image_missing'); continue
                     with Image.open(path) as img: img.verify()
                     image_proofs[str(path.relative_to(ROOT))] = hashlib.sha256(path.read_bytes()).hexdigest()
+                    if args.verify_live_images:
+                        img = node.select('img')[index]
+                        image_url = urljoin(url, img.get('data-src') or img.get('src'))
+                        if image_url not in live_hashes:
+                            response = session.get(image_url, timeout=30)
+                            response.raise_for_status()
+                            live_hashes[image_url] = hashlib.sha256(response.content).hexdigest()
+                        if live_hashes[image_url] != image_proofs[str(path.relative_to(ROOT))]:
+                            errors.append('live_image_hash')
             row = {'year': year, 'number': num, 'sourceQuestionId': record['source_question_id'], 'failures': errors}
             rows.append(row)
             if errors: failures.append(row)
         assert seen_numbers == set(range(1, count + 1)), (year, 'source_inventory')
     report = {'status': 'failed' if failures else 'passed', 'questionCount': len(rows),
+              'liveImageHashesVerified': args.verify_live_images, 'liveImageCount': len(live_hashes),
               'imageHashes': image_proofs, 'failureCount': len(failures), 'questions': rows}
     path = ROOT / 'verification/dojo_acquisition_check.json'; path.write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n')
     print(json.dumps({k: v for k, v in report.items() if k not in {'questions', 'imageHashes'}}, ensure_ascii=False))
