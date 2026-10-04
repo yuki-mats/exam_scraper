@@ -9078,6 +9078,14 @@ class QualificationRunCoordinator:
             ]
 
         evidence["roots"] = [stat_value(path) for path in canonical_roots]
+        # 人間の指摘も候補入力。追加・変更後に古いpreviewを再利用しない。
+        evidence["humanReviews"] = [
+            stat_value(path)
+            for path in sorted(
+                (self.repo_root / "output" / "question_review_console" / qualification)
+                .glob("*/reviews/*.json")
+            )
+        ]
         if resumed_from:
             evidence["resumeManifest"] = stat_value(
                 self.store._manifest_path(qualification, resumed_from)
@@ -9875,6 +9883,57 @@ class QualificationRunCoordinator:
             self._abort_prepared_preview(request_key)
             raise
 
+    def _apply_current_human_review_feedback(
+        self, qualification: str, plan: dict[str, Any]
+    ) -> None:
+        """Bind unresolved human notes to the same question and input snapshot."""
+        reviews = getattr(self, "reviews", None)
+        if reviews is None:
+            return
+        feedback_by_question = copy.deepcopy(
+            plan.get("evaluationFeedbackByQuestion") or {}
+        )
+        targets = {
+            str(target.get("id") or target.get("uiQuestionId") or ""): target
+            for stage_plan in (plan.get("stagePlans") or [plan])
+            for target in stage_plan.get("progressTargets") or []
+            if isinstance(target, Mapping)
+        }
+        selected_fields = {
+            str(field)
+            for fields in (plan.get("selectedFieldsByStage") or {}).values()
+            for field in fields
+        }
+        for question_id, target in targets.items():
+            state_hash = str(target.get("stateHash") or "")
+            if not question_id or not state_hash:
+                continue
+            review = reviews.latest_current_question_needs_review(
+                qualification, question_id, state_hash,
+                str(target.get("listGroupId") or ""),
+            )
+            if review is None:
+                continue
+            review_fields = {
+                str(field).split(".", 1)[0].split("[", 1)[0]
+                for field in review.get("fields") or []
+            }
+            if selected_fields and review_fields and not selected_fields & review_fields:
+                continue
+            feedback = feedback_by_question.setdefault(question_id, [])
+            review_id = str(review.get("reviewId") or "")
+            if any(item.get("reviewId") == review_id for item in feedback):
+                continue
+            feedback.append({
+                "source": "human_review", "status": "needs_review",
+                "reviewId": review_id, "stateHash": state_hash,
+                "note": str(review.get("note") or ""),
+                "expectedOutcome": str(review.get("expectedOutcome") or ""),
+                "selection": copy.deepcopy(review.get("selection")),
+            })
+        if feedback_by_question:
+            plan["evaluationFeedbackByQuestion"] = feedback_by_question
+
     def _preview_uncached(
         self,
         qualification: str,
@@ -9911,6 +9970,7 @@ class QualificationRunCoordinator:
                 evaluation_rework_snapshots,
             )
             self._apply_blocked_rework_plan(plan, blocked_rework_from)
+            self._apply_current_human_review_feedback(qualification, plan)
         else:
             # 呼出し元がこのpreview専用に所有するplan。previewは読み取り専用で
             # 扱い、100MB級projectionの不要なdeepcopyを避ける。
@@ -10116,6 +10176,7 @@ class QualificationRunCoordinator:
                 evaluation_rework_snapshots,
             )
             self._apply_blocked_rework_plan(plan, blocked_rework_from)
+            self._apply_current_human_review_feedback(qualification, plan)
             preview = self.preview(
                 qualification,
                 stage_id,

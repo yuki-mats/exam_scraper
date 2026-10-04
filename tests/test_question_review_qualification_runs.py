@@ -1665,6 +1665,22 @@ class ManifestRuntimeCacheTests(unittest.TestCase):
             previews[0]["previewToken"], previews[1]["previewToken"]
         )
 
+    def test_prepared_preview_stamp_changes_with_human_review_content(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            coordinator = QualificationRunCoordinator(
+                root, FakeWorkflow(), FakeSynchronizer(), JobManager(), "secret"
+            )
+            before = coordinator._prepared_preview_source_stamp("sample", None)
+            review = root / "output/question_review_console/sample/2026/reviews/human.json"
+            review.parent.mkdir(parents=True)
+            review.write_text('{"note":"first"}\n', encoding="utf-8")
+            added = coordinator._prepared_preview_source_stamp("sample", None)
+            review.write_text('{"note":"updated source condition"}\n', encoding="utf-8")
+            updated = coordinator._prepared_preview_source_stamp("sample", None)
+        self.assertNotEqual(before, added)
+        self.assertNotEqual(added, updated)
+
     def test_prepared_preview_is_not_used_after_canonical_scope_changes(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

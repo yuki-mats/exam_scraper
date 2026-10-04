@@ -224,6 +224,40 @@ class QuestionWorkQueueTests(unittest.TestCase):
         feedback = plan["evaluationFeedbackByQuestion"]["q1"][0]
         self.assertFalse(feedback["answerMappingMatched"])
 
+    def test_normal_refresh_binds_current_human_note_without_blocked_run(self) -> None:
+        plan = copy.deepcopy(self.plan)
+        plan["selectedFieldsByStage"] = {"explanation": ["explanationText"]}
+        coordinator = object.__new__(QualificationRunCoordinator)
+        calls = []
+
+        def lookup(qualification, question_id, state_hash, list_group_id):
+            calls.append((qualification, question_id, state_hash, list_group_id))
+            if question_id != "q1" or state_hash != "state-1":
+                return None
+            return {"reviewId": "human-1", "fields": ["explanationText"],
+                    "note": "本文のテキスト変換設定を根拠に説明する。",
+                    "selection": {"choiceIndexes": [2]}}
+
+        coordinator.reviews = SimpleNamespace(latest_current_question_needs_review=lookup)
+        coordinator._apply_current_human_review_feedback("sample", plan)
+        coordinator._apply_current_human_review_feedback("sample", plan)
+        executions = build_question_executions(plan)
+        feedback = next(e for e in executions if e["questionId"] == "q1")["stages"][0]["priorValidationFeedback"]
+        self.assertEqual(len(feedback), 1)
+        self.assertEqual(feedback[0]["reviewId"], "human-1")
+        self.assertEqual(feedback[0]["selection"], {"choiceIndexes": [2]})
+        self.assertNotIn("q2", plan["evaluationFeedbackByQuestion"])
+        self.assertIn(("sample", "q1", "state-1", "2026"), calls)
+
+    def test_normal_refresh_ignores_human_note_for_unselected_fields(self) -> None:
+        plan = copy.deepcopy(self.plan)
+        plan["selectedFieldsByStage"] = {"explanation": ["explanationText"]}
+        coordinator = object.__new__(QualificationRunCoordinator)
+        coordinator.reviews = SimpleNamespace(latest_current_question_needs_review=lambda *args: {
+            "reviewId": "human-2", "fields": ["correctChoiceText"], "note": "正答確認"})
+        coordinator._apply_current_human_review_feedback("sample", plan)
+        self.assertFalse(plan.get("evaluationFeedbackByQuestion"))
+
     def test_blocked_rework_carries_terminal_reason_into_every_selected_stage(self) -> None:
         originalize = stage_plan("originalize", self.targets)
         plan = copy.deepcopy(
