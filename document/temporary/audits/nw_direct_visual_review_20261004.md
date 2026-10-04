@@ -185,3 +185,9 @@ MIME補正後一問は新GUI exactpreview/currentstateHash一致とWeb残18%/625
 21解説1件と出題時一次参照だけ変更し、source・ID・本文・全肢・正誤・形式・metadataは保持した。正常merge/convert/upload dry-runと必須3検査48merged/48実正答patch880entriesは成功、全suite未実行。新model/作業版receiptなし、独立Sol未完、品質確定212/880不変。根拠direct_office_copyright1_applied_20261005.json。
 
 著作権201202問17の第2肢は所有者例外とプロテクトの種類の前提が不足し、ノウハウ201102問17の第3肢は特許とノウハウの両方でライセンシングが可能である。文化庁の所有者バックアップ解説とINPITの公開性・利用許諾の二視点及びノウハウライセンシングを直接読んだ。これらは旧断定の根拠不足の確認であり、公式正答又は現在正誤を自動反転していない。解消・独立合格とは扱わない。
+
+### 2026-10-05 EAP-TLSの認証条件2問
+
+201802午前II問17と202301午前II問19を一問ずつ四fieldで読み、RFC5216の相互認証・例外・セッション再開とRFC9190の証明書認証及び再開を直接確認した。通常のクライアント証明書による相互認証を本問の比較条件として示し、認証省略の例外と毎回の証明書交換の要否を区別した。21解説と参照だけを更新し、source・ID・本文・全肢・正誤・metadataを保持した。
+
+正常2年度同期はmerge/convert/upload dry-run成功。必須3検査は48merged/48実正答patch880entriesで全て成功、全suite未実行。四fieldを新しいローカル投影で再読した。実施していないmodel/作業版receiptなし、独立Sol未完、品質確定212/880不変、Firestore書込みなし。根拠direct_eap_scope2_applied_20261005.json。

@@ -2672,7 +2672,7 @@
   },
   {
     "explanationText": [
-      "正しい。該当するのはEAP-TLSである。EAP-TLSはTLSを用いてサーバとクライアントを相互認証し、クライアント証明書を使う。EAP-MD5はチャレンジレスポンス方式で証明書を使わない。EAP-FASTとEAP-TTLSは認証用のトンネルを作り、その内部で別の認証方式を使える方式であり、クライアント証明書の使用が必須ではない。"
+      "正しい。該当するのはEAP-TLSである。通常の証明書による相互認証では、クライアントとサーバがそれぞれの証明書を提示し、相手の証明書と署名を検証する。EAP-MD5はチャレンジレスポンス方式、EAP-FASTとEAP-TTLSはトンネル内で別の認証方式を利用できるため、クライアント証明書を使わない構成も取れる。なお、EAP-TLSにも緊急サービスなどでクライアント認証を行わない例外や、以前の認証状態を引き継ぐセッション再開がある。本問は、通常の証明書による相互認証方式としてEAP-TLSを選ぶ。"
     ],
     "original_question_id": "e3ff1e0076d0c17c",
     "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_17.html",
@@ -2680,7 +2680,18 @@
     "sourceQuestionKey": "nw:201802:e3ff1e0076d0c17c",
     "reviewQuestionId": "e3ff1e0076d0c17c",
     "sourceRecordRef": "question_201802_2.json#21",
-    "explanationReferences": [],
+    "explanationReferences": [
+      {
+        "title": "RFC5216 §2.1.1 EAP-TLS相互認証と例外",
+        "sourceUrl": "https://datatracker.ietf.org/doc/html/rfc5216#section-2.1.1",
+        "referenceDate": "2026-10-05"
+      },
+      {
+        "title": "RFC9190 §2.1.1・2.1.3・2.1.5 EAP-TLS 1.3の認証と再開",
+        "sourceUrl": "https://datatracker.ietf.org/doc/html/rfc9190#section-2.1.1",
+        "referenceDate": "2026-10-05"
+      }
+    ],
     "questionLearningPatternId": "differences_relationships",
     "suggestedQuestionDetailsByChoice": [],
     "isLawRelated": false,

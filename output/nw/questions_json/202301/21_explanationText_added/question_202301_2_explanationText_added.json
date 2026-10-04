@@ -2945,7 +2945,7 @@
   },
   {
     "explanationText": [
-      "正しい。EAP-TLSはTLSを使ってサーバとクライアントの証明書による相互認証を行う方式であり、クライアント証明書を必要とする。EAP-FASTとEAP-TTLSはTLSトンネル内で別の認証方式を使えるため、クライアント証明書が必須ではない。EAP-MD5はチャレンジレスポンス方式で認証する。"
+      "正しい。答えはEAP-TLSである。サーバとクライアントを証明書で相互認証する通常の構成では、クライアントの証明書が必要になる。EAP-FASTとEAP-TTLSはトンネル内でパスワードなどによる認証を選べ、EAP-MD5も証明書を用いない。ここでいう必要性は、証明書による相互認証を行う構成での比較である。EAP-TLSの規格には緊急サービスなどでクライアント認証を省略する例外があり、セッション再開では以前の認証状態を引き継ぐため、毎回証明書を交換するとは限らない。"
     ],
     "original_question_id": "24df243262ed15f0",
     "question_url": "https://www.nw-siken.com/kakomon/05_haru/am2_19.html",
@@ -2968,6 +2968,16 @@
         "referenceDate": "2008-08-01",
         "sourceUrl": "https://www.rfc-editor.org/rfc/rfc5281.html",
         "title": "RFC 5281: Extensible Authentication Protocol Tunneled Transport Layer Security Authenticated Protocol Version 0 (EAP-TTLSv0)"
+      },
+      {
+        "title": "RFC5216 §2.1.1 EAP-TLS相互認証と例外",
+        "sourceUrl": "https://datatracker.ietf.org/doc/html/rfc5216#section-2.1.1",
+        "referenceDate": "2026-10-05"
+      },
+      {
+        "title": "RFC9190 §2.1.1・2.1.3・2.1.5 EAP-TLS 1.3の認証と再開",
+        "sourceUrl": "https://datatracker.ietf.org/doc/html/rfc9190#section-2.1.1",
+        "referenceDate": "2026-10-05"
       }
     ],
     "questionLearningPatternId": "differences_relationships",
