@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import copy
+from concurrent.futures import ThreadPoolExecutor
 import hashlib
 import hmac
 import json
@@ -876,6 +877,18 @@ class QuestionEvaluationService:
             int(getattr(limits, "audit_batch_input_bytes", DEFAULT_AUDIT_BATCH_INPUT_BYTES)),
         )
 
+    def _evaluation_concurrency_limit(self, session_count: int) -> int:
+        limits = getattr(getattr(self.app_server, "config", None), "limits", None)
+        return max(
+            1,
+            min(
+                500,
+                max(1, int(getattr(limits, "question_parallelism", 1))),
+                max(1, int(getattr(limits, "llm_call_concurrency", 1))),
+                max(1, session_count),
+            ),
+        )
+
     @property
     def configured(self) -> bool:
         return self.result_runner is not None or bool(
@@ -994,7 +1007,7 @@ class QuestionEvaluationService:
             "evaluableCount": len(evaluable),
             "blockedCount": len(items) - len(evaluable),
             "sessionCount": len(audit_batches),
-            "evaluationConcurrencyLimit": 1,
+            "evaluationConcurrencyLimit": self._evaluation_concurrency_limit(len(audit_batches)),
             "auditBatchQuestions": self._batch_limits()[0],
             "auditBatchInputBytes": self._batch_limits()[1],
             "continuousQueue": continuous_queue,
@@ -1103,15 +1116,15 @@ class QuestionEvaluationService:
                 "explanationScore": evaluation["explanationScore"],
             }, None
 
-        outcomes = []
-        for batch in self._audit_batches(eligible_items, by_id):
+        def evaluate_batch(batch):
+            outcomes = []
             batch_questions = [by_id[str(item["questionId"])] for _, item in batch]
             if len(self._build_batch_prompt(batch_questions).encode("utf-8")) > self._batch_limits()[1]:
                 # A question that cannot fit the batch envelope uses the existing
                 # single-question path. It must not block later siblings.
                 for position, item in batch:
                     outcomes.append(evaluate_single(position, item))
-                continue
+                return outcomes
             reserved: dict[str, Mapping[str, Any]] = {}
             runnable: list[tuple[int, Mapping[str, Any]]] = []
             for position, item in batch:
@@ -1130,7 +1143,7 @@ class QuestionEvaluationService:
                     emit(f"評価開始を保留: {item.get('questionLabel') or question_id} / {exc}")
                     outcomes.append((None, {"questionId": question_id, "error": str(exc)}))
             if not runnable:
-                continue
+                return outcomes
             try:
                 batch_results, metadata = self._run_batch_result(
                     [by_id[str(item["questionId"])] for _, item in runnable], emit,
@@ -1145,7 +1158,7 @@ class QuestionEvaluationService:
                             position, item, reservation=reserved[question_id]
                         )
                     )
-                continue
+                return outcomes
             except Exception as exc:  # transport failure: do not fan out into single calls.
                 error = str(exc)
                 for _, item in runnable:
@@ -1160,7 +1173,7 @@ class QuestionEvaluationService:
                     )
                     emit(f"監査batch失敗: {item.get('questionLabel') or question_id} / {error}")
                     outcomes.append((None, {"questionId": question_id, "error": error}))
-                continue
+                return outcomes
             for position, item in runnable:
                 question_id = str(item["questionId"])
                 worker_result = batch_results.get(question_id)
@@ -1180,6 +1193,15 @@ class QuestionEvaluationService:
                             reservation=reserved[question_id],
                         )
                     )
+            return outcomes
+
+        batches = self._audit_batches(eligible_items, by_id)
+        concurrency = self._evaluation_concurrency_limit(len(batches))
+        with ThreadPoolExecutor(max_workers=concurrency) as executor:
+            # Each batch owns disjoint question reservations. map retains preview
+            # order, while the shared App Server turn budget bounds active turns.
+            batch_outcomes = list(executor.map(evaluate_batch, batches))
+        outcomes = [outcome for values in batch_outcomes for outcome in values]
         for completed_item, failure in outcomes:
             if completed_item is not None:
                 completed.append(completed_item)
