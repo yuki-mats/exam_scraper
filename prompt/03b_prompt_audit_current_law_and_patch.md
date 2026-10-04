@@ -65,6 +65,7 @@
 - `same_as_current`で既存の解説が工程03の検証を通る場合は、その本文を保持し、検証済み法令locatorの訂正に必要な箇所だけを更新する。現在化の事実、監査時点又は`lawRevisionFacts`だけを補う場合も、正誤理由が正しい既存`explanationText`は一字も書き換えず、法令名・条文を文頭主語にした監査メモへ置き換えない。計算式、数値の代入、途中計算及び結果を削除しない。法改正により解説を書き換える場合も、既存の有効なFlutter数式と計算過程を残す。
 - `updated_to_current_law`の公開確定は`tertiary_verified`後に限る。
 - `examTimeDecision`と`currentLawDecision`には、選択肢順に`正しい`又は`間違い`だけを入れる。理由、条文、時点説明は各decisionへ混ぜず、`sourceSummary`、`verificationSummary`、`lawRevisionFacts`及び解説へ分ける。
+- 一次候補を確定可能として返す前に、`correctChoiceText`と`currentLawDecision`、各肢の`lawRevisionFacts.current.correctChoiceText`を照合し、出題時判定も`examTimeDecision`と各肢の`examTime.correctChoiceText`へ同じ意味で保存する。法改正により該当肢がなくなった設問は、現行法の全肢判定をそのまま表す。出題時に選ばれた肢を学習用の正答へ残さない。未確定の肢には`hold`を使い、候補全体も保留として返す。根拠から更新を確定できた肢は`updated_to_current_law`とし、問題全体の差分状態とも一致させる。機械検証は矛盾を検出するだけで判定を補正しない。
 - 既存の`lawRevisionFacts`が`updated_to_current_law`かつ`tertiary_verified`で、現在の解説が現行法と出題時正答の違いを既に明示している場合は、その`explanationText`を一字も変えずに保持する。
 - 条文本文、法令名、条・項・号、基準日を確認できない場合は推測で`correctChoiceText`を変えない。
 - `primaryLawEvidence.examAsOfSource`は試験日の一次資料又はrecord上の根拠を示す。modelが別の日付を推測して置き換えない。

@@ -10,6 +10,7 @@ from tools.question_review_console.question_candidate import (
     CandidateUpdate,
     QuestionCandidate,
     QuestionCandidateError,
+    _aggregate_combination_expected_verdicts,
     candidate_targets,
     output_schema,
     _normalized_candidate_value,
@@ -24,6 +25,29 @@ from tools.question_review_console.question_candidate import (
 
 
 class QuestionCandidateTest(unittest.TestCase):
+    def test_roman_combination_is_compared_by_explicit_statement_labels(self):
+        body = '\n'.join(f'{label}. 記述{label}。' for label in ['i', 'ii', 'iii', 'iv', 'v', 'vi', 'vii', 'viii'])
+        labels = ['i', 'ii', 'iii', 'iv', 'v', 'vi', 'vii', 'viii']
+        starts = [body.index(f'{label}.') for label in labels]
+        projected = {'questionBodyText': body, 'choiceTextList': body.splitlines(),
+                     'questionIntent': 'select_correct',
+                     'aggregateAnswerDecomposition': {
+                         'schemaVersion': 'aggregate-answer-decomposition/v1',
+                         'sourceHash': source_text_hash(body), 'classification': 'target',
+                         'spans': [{'start': start, 'end': starts[n+1] if n+1 < len(starts) else len(body)} for n, start in enumerate(starts)],
+                         'decision': 'approve', 'issueCodes': []}}
+        original = {'choiceTextList': ['(ⅰ)，(ⅱ)，(ⅳ)', '(ⅲ)，(ⅵ)', '(ⅴ)，(ⅶ)，(ⅷ)'],
+                    'answer_result_text': '正解は 3 です。'}
+        # 全記述の存在を別候補も含めて検証する。
+        original['choiceTextList'].insert(0, '(ⅰ)，(ⅱ)，(ⅲ)，(ⅳ)，(ⅴ)，(ⅵ)，(ⅶ)，(ⅷ)')
+        original['answer_result_text'] = '正解は 4 です。'
+        expected = ['間違い', '間違い', '間違い', '間違い', '正しい', '間違い', '正しい', '正しい']
+        self.assertEqual(_aggregate_combination_expected_verdicts(projected, original), expected)
+        projected['questionIntent'] = 'select_incorrect'
+        self.assertEqual(_aggregate_combination_expected_verdicts(projected, original), ['正しい' if x == '間違い' else '間違い' for x in expected])
+        projected['choiceTextList'][-1] = 'ix. 別の記述。'
+        self.assertIsNone(_aggregate_combination_expected_verdicts(projected, original))
+
     def test_non_law_audit_rejects_technical_rewrite_without_auto_correction(self):
         current = {
             "questionBodyText": "技術用語として該当するものはどれか。",

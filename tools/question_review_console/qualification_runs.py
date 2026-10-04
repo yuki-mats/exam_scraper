@@ -199,6 +199,7 @@ from tools.question_review_console.work_versions import QuestionWorkVersionStore
 from tools.question_review_console.workflow_catalog import normalize_policy_version
 from tools.question_review_console.law_audit_verification import (
     candidate_fields as law_candidate_fields,
+    required_review_count as law_required_review_count,
     verification_bundle as law_verification_bundle,
     review_schema as law_review_schema,
     review_prompt as law_review_prompt,
@@ -7724,7 +7725,7 @@ class QualificationRunStore:
     def _recover_interrupted_runs(self) -> None:
         if not self.root.is_dir():
             return
-        with self._lock:
+        with self._lock, ExitStack() as recovery_leases:
             candidates: list[tuple[bool, Path]] = []
             for sidecar_path in self.root.glob("*/*/recovery.json"):
                 try:
@@ -7745,7 +7746,19 @@ class QualificationRunStore:
                 )
                 if path.is_file()
             ]
+            # 復旧処理も資格runの所有権を取得する。別processが実行中の資格は
+            # sidecarの削除や未確定patchのrollbackを含め、一切復旧しない。
+            busy_qualifications: set[str] = set()
+            for qualification in sorted({path.parent.parent.name for path in paths}):
+                try:
+                    recovery_leases.enter_context(
+                        qualification_run_lease(self.repo_root, qualification)
+                    )
+                except ProcessLeaseError:
+                    busy_qualifications.add(qualification)
             for path in paths:
+                if path.parent.parent.name in busy_qualifications:
+                    continue
                 manifest = self._load_manifest(path)
                 if not self._requires_startup_recovery(manifest):
                     path.with_name("recovery.json").unlink(missing_ok=True)
@@ -16443,7 +16456,7 @@ class QualificationRunCoordinator:
                             questions[candidate.question_id], candidate,
                             reference_guidance=reference_guidance,
                         )
-                        review_count = 2 if fields.get("auditStatus") == "updated_to_current_law" else 1
+                        review_count = law_required_review_count(fields)
                         reviews = []
                         executions = []
                         seen_threads = {result.thread_id}

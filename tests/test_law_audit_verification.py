@@ -5,7 +5,7 @@ import unittest
 from tools.question_review_console.question_candidate import CandidateUpdate, QuestionCandidate
 from tools.question_review_console.law_audit_verification import (
     candidate_fields, verification_bundle, review_schema, parse_review, promote_candidate,
-    question_inputs_from_prompt,
+    question_inputs_from_prompt, required_review_count,
 )
 
 
@@ -18,8 +18,8 @@ class LawAuditVerificationTests(unittest.TestCase):
             'currentLawDecision': ['間違い', '間違い'],
             'correctChoiceText': ['間違い', '間違い'],
             'lawRevisionFacts': [
-                {'auditStatus': 'updated_to_current_law', 'reviewState': 'needs_secondary_review'},
-                {'auditStatus': 'same_as_current', 'reviewState': 'needs_secondary_review'},
+                {'auditStatus': 'updated_to_current_law', 'reviewState': 'needs_secondary_review', 'examTime': {'correctChoiceText': '正しい'}, 'current': {'correctChoiceText': '間違い'}},
+                {'auditStatus': 'same_as_current', 'reviewState': 'needs_secondary_review', 'examTime': {'correctChoiceText': '間違い'}, 'current': {'correctChoiceText': '間違い'}},
             ],
         }
         self.candidate = QuestionCandidate('q1', 'candidate', '一次提案', (
@@ -80,9 +80,30 @@ class LawAuditVerificationTests(unittest.TestCase):
 
     def test_unchanged_law_needs_secondary_only(self):
         self.fields['auditStatus'] = 'same_as_current'
+        self.fields['lawRevisionFacts'][0]['auditStatus'] = 'same_as_current'
+        self.fields['examTimeDecision'] = ['間違い', '間違い']
+        self.fields['lawRevisionFacts'][0]['examTime']['correctChoiceText'] = '間違い'
         result = promote_candidate(self.candidate, [self.approval])
         self.assertEqual(candidate_fields(result)['reviewState'], 'secondary_verified')
 
     def test_conflicting_targets_rejected(self):
         candidate = QuestionCandidate('q1', 'candidate', '', (CandidateUpdate('a', {'isLawRelated': True}, ()), CandidateUpdate('b', {'isLawRelated': False}, ())))
         with self.assertRaises(ValueError): candidate_fields(candidate)
+
+    def test_candidate_inconsistencies_reject_before_independent_reviews(self):
+        for mutate in [
+            lambda f: f.update(auditStatus='same_as_current'),
+            lambda f: f['lawRevisionFacts'][0].update(auditStatus='hold'),
+            lambda f: f.update(correctChoiceText=['正しい', '間違い']),
+            lambda f: f['lawRevisionFacts'][0]['current'].update(correctChoiceText='正しい'),
+            lambda f: f['lawRevisionFacts'][1]['examTime'].update(correctChoiceText='正しい'),
+        ]:
+            fields = copy.deepcopy(self.fields)
+            mutate(fields)
+            before = copy.deepcopy(fields)
+            with self.assertRaises(ValueError):
+                required_review_count(fields)
+            self.assertEqual(fields, before)
+
+    def test_changed_law_with_no_current_correct_choice_requires_tertiary(self):
+        self.assertEqual(required_review_count(self.fields), 2)

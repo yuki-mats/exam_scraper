@@ -40,6 +40,32 @@ def candidate_fields(candidate: QuestionCandidate) -> dict[str, Any]:
     return fields
 
 
+def required_review_count(fields: Mapping[str, Any]) -> int:
+    """候補の各判定を独立に照合し、必要な監査数を決める。補正しない。"""
+    facts = fields.get('lawRevisionFacts')
+    facts = facts if isinstance(facts, list) else [facts]
+    statuses = {fact.get('auditStatus') for fact in facts if isinstance(fact, Mapping)}
+    if not facts or len(statuses) == 0 or any(
+        not isinstance(fact, Mapping)
+        or fact.get('auditStatus') not in {'same_as_current', 'updated_to_current_law', 'not_law_related'}
+        for fact in facts
+    ):
+        raise ValueError('監査候補の各肢に未確定のauditStatusがあります。一次根拠から各肢を再判定してください。')
+    expected = 'updated_to_current_law' if 'updated_to_current_law' in statuses else 'same_as_current'
+    if fields.get('auditStatus') != expected:
+        raise ValueError('監査候補の問題全体と各肢のauditStatusが一致しません。各肢の差分と全体判定を再確認してください。')
+    if fields.get('correctChoiceText') != fields.get('currentLawDecision'):
+        raise ValueError('候補の正答と現行法判定が一致しません。本文と各肢の完全命題から両方を再判定してください。')
+    for decision, snapshot in [('examTimeDecision', 'examTime'), ('currentLawDecision', 'current')]:
+        expected_verdicts = fields.get(decision)
+        values = [fact.get(snapshot, {}).get('correctChoiceText') for fact in facts]
+        if len(facts) == 1 and isinstance(values[0], list):
+            values = values[0]
+        if not isinstance(expected_verdicts, list) or values != expected_verdicts:
+            raise ValueError(f'監査候補の{decision}と各肢の{snapshot}判定が一致しません。各時点を独立に確認してください。')
+    return 2 if expected == 'updated_to_current_law' else 1
+
+
 def verification_bundle(
     question: Mapping[str, Any], candidate: QuestionCandidate, *,
     reference_guidance: str = '',
@@ -109,8 +135,8 @@ def parse_review(message: str, bundle: Mapping[str, Any]) -> dict[str, Any]:
 
 def promote_candidate(candidate: QuestionCandidate, reviews: list[Mapping[str, Any]]) -> QuestionCandidate:
     fields = candidate_fields(candidate)
-    changed = fields.get('auditStatus') == 'updated_to_current_law'
-    required = 2 if changed else 1
+    required = required_review_count(fields)
+    changed = required == 2
     if len(reviews) != required or any(x.get('decision') != 'approve' for x in reviews):
         issues = [str(issue) for x in reviews for issue in x.get('issues', [])]
         return replace(candidate, status='blocked', summary='独立現行法監査で未確定: ' + (' / '.join(issues) or '必要な監査の承認が不足しています。'), updates=())

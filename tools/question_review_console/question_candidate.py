@@ -100,6 +100,12 @@ def _aggregate_combination_expected_verdicts(
 
     def combination_labels(value: Any) -> tuple[str, ...] | None:
         normalized = unicodedata.normalize("NFKC", str(value or "")).lower()
+        normalized = re.sub(r"[()（）]", "", normalized).strip()
+        if re.search(r"[,、，・/＋+&＆]", normalized):
+            tokens = tuple(re.split(r"[\s,、，・/＋+&＆]+", normalized))
+            if not all(re.fullmatch(r"[a-z]+", token) for token in tokens):
+                return None
+            return tokens if len(set(tokens)) == len(tokens) else None
         compact = re.sub(r"[\s,、，・/＋+&＆]", "", normalized)
         if not re.fullmatch(r"[a-z]{2,}", compact):
             return None
@@ -122,7 +128,7 @@ def _aggregate_combination_expected_verdicts(
     statement_labels: list[str] = []
     for value in current_choices:
         normalized = unicodedata.normalize("NFKC", str(value or "")).lower()
-        match = re.match(r"^\s*([a-z])(?:\s|[.:：)）.、])", normalized)
+        match = re.match(r"^\s*([a-z]+)(?:\s|[.:：)）.、])", normalized)
         if match is None:
             return None
         statement_labels.append(match.group(1))
@@ -2035,7 +2041,7 @@ def _validate_candidate_content_messages(
                 "一致しません"
                 f"（期待={aggregate_expected} / 候補={correct}）。"
                 "元の組合せ肢単位のcorrectChoiceTextを抽出記述へ転記せず、"
-                "現在のa〜dの順で判定してください。"
+                "現在の記述ラベルと内容を一件ずつ独立に判定してください。"
             )
     if any(target.role == "originalized" for target in target_values):
         try:
