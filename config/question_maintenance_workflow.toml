@@ -210,7 +210,8 @@ kind = "human"
 # 2.1: 出題時正誤の再判定を02a、現行法差分の確定を03bへ戻し、02bは正しい根拠候補を渡す。
 # 2.2: 選択肢別lawReferencesの外側配列をchoiceTextListと同じ件数・順序で保持する。
 # 2.3: 許可基準の肢へ更新期限の条項を割り当てず、条文本文と命題の対応を厳密化する。
-policy_version = "2.3"
+# 2.4: 判例・行政資料と条文locatorを分け、補助資料の確認記録と正誤の確定は03bへ渡す。
+policy_version = "2.4"
 qualification_document_patterns = [
   "README.md",
   "01_exam_profile.md",
