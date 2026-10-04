@@ -181,7 +181,7 @@ kind = "human"
 # 5.7: 下線部番号肢は参照先自体の正誤を記録し、対象系の条件を固定して別用途の一般論と分離する。
 # 5.8: server投影のcurrentRecordを判定対象本文とし、物理source内の解説断片を元肢と再誤認しない。
 # 5.9: 正答精査にも資格別の一次根拠方針を渡し、取得元の現在化と出題当時の原文を区別する。
-policy_version = "5.9"
+policy_version = "5.10"
 qualification_document_patterns = ["README.md", "01_exam_profile.md", "*law_reference*.md"]
 batch_selectable = true
 session_group = "maintenance"
@@ -271,7 +271,7 @@ kind = "human"
 # 10.10: 問題単位の正誤配列を明示し、計算条件の独立導出と図の接続確認を先に行う。
 # 11.0: 命題自体の正誤と設問の選択方向、対象概念と近接概念の成立条件を独立に再確認する。
 # 11.1: 既存対策と追加対策の効果、原本の順不同の範囲を独立に照合する。
-policy_version = "11.1"
+policy_version = "11.2"
 qualification_document_patterns = [
   "README.md",
   "*law_reference*.md",

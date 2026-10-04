@@ -11,6 +11,7 @@ from scripts.common.question_identity import (
     review_question_id,
     source_identity_aliases,
     source_record_ref,
+    source_question_key,
     workflow_identity_aliases,
 )
 
@@ -37,6 +38,11 @@ def bind_source_records(
             "sourceRecordRef",
             source_record_ref(source_path.name, index),
         )
+        if len(source_path.parents) >= 4 and source_path.parents[2].name == "questions_json":
+            record.setdefault(
+                "sourceQuestionKey",
+                source_question_key(source_path.parents[3].name, source_path.parents[1].name, question),
+            )
         bound.append(record)
     return bound
 

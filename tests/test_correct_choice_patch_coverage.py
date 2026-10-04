@@ -103,6 +103,28 @@ class CorrectChoicePatchCoverageTests(unittest.TestCase):
                 question_type_patch_path=type_path,
             ), 1)
 
+    def test_canonical_source_bindings_disambiguate_shared_afternoon_url(self):
+        from scripts.common.question_identity import source_question_key
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory) / 'output/sg/questions_json/201901'
+            source_path = root / '00_source/question_201901_2.json'
+            source_path.parent.mkdir(parents=True)
+            source = [{'original_question_id': 'q1', 'question_url': 'https://example.com/pm1',
+                       'choiceTextList': ['A'], 'correctChoiceText': ['正しい']},
+                      {'original_question_id': 'q2', 'question_url': 'https://example.com/pm1',
+                       'choiceTextList': ['B'], 'correctChoiceText': ['間違い']}]
+            source_path.write_text(json.dumps({'question_bodies': source}))
+            patches = [{**row, 'sourceQuestionKey': source_question_key('sg', '201901', row),
+                        'reviewQuestionId': row['original_question_id'],
+                        'sourceRecordRef': f'question_201901_2.json#{index}'}
+                       for index, row in enumerate(source)]
+            patch_path = root / 'patch.json'
+            patch_path.write_text(json.dumps(patches[::-1]))
+            self.assertEqual(check_pair(source_path, patch_path, True, False, False), 0)
+            patches[0]['sourceRecordRef'] = 'question_201901_2.json#1'
+            patch_path.write_text(json.dumps(patches))
+            self.assertEqual(check_pair(source_path, patch_path, True, False, False), 1)
+
     def test_checker_uses_question_type_projection_for_aggregate_choices(self):
         source_text = "前提。Aは正しい。Bは誤り。"
         spans = [
