@@ -149,6 +149,8 @@ def projected_required_warnings(record: Mapping[str, Any]) -> list[dict[str, str
         add("questionType", "questionTypeがありません。")
     if record.get("questionIntent") not in {"select_correct", "select_incorrect"}:
         add("questionIntent", "設問意図が未確定です。02設問意図で確認してください。")
+    if not isinstance(record.get("questionSetId"), str) or not record["questionSetId"].strip():
+        add("questionSetId", "問題集が未割当です。04問題集で確認してください。")
 
     choices = record.get("choiceTextList")
     if not isinstance(choices, list) or not choices:
