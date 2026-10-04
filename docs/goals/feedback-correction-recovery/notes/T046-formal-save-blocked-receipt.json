@@ -1,0 +1,182 @@
+{
+  "result": "blocked",
+  "task_id": "T046",
+  "board_path": "/Users/yuki/development/exam_scraper_feedback/docs/goals/feedback-correction-recovery/state.yaml",
+  "changed_files": [
+    "tools/question_review_console/formal_correction_save.py",
+    "tools/question_review_console/scoped_artifacts.py",
+    "tools/question_review_console/inventory.py",
+    "tools/question_review_console/workflow_runner.py",
+    "scripts/pipeline/prepare_scoped_question_artifacts.py",
+    "tests/test_question_review_formal_correction_save.py",
+    "tests/test_question_review_workflow.py",
+    "document/operations/artifact_contract.md",
+    "document/operations/delivery_workflow.md",
+    "document/operations/question_issue_report_workflow.md",
+    "output/user_feedback_response_system/staging/recovery-three-cases/formal-save-plans/runs/T046-dd7578fb31b3/**"
+  ],
+  "commands": [
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest tests.test_question_review_formal_correction_save tests.test_question_review_scoped_artifacts tests.test_question_review_inventory tests.test_question_review_workflow tests.test_scoped_canonical_context",
+      "status": "pass",
+      "exit_code": 0,
+      "startedAt": "2026-10-04T03:26:44.130166+00:00",
+      "finishedAt": "2026-10-04T03:26:50.072213+00:00",
+      "tests": 131,
+      "evidence": "commands/repair2-five-suites.json"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/yuki/development/exam_scraper_work/.venv/bin/python scripts/pipeline/prepare_scoped_question_artifacts.py --formal-save-plan output/user_feedback_response_system/staging/recovery-three-cases/execution-contract/runs/T041-repair1-e1ed4d7c4c27/manifest.json --output output/user_feedback_response_system/staging/recovery-three-cases/formal-save-plans/runs/T046-dd7578fb31b3 --dry-run",
+      "status": "fail",
+      "exit_code": 1,
+      "startedAt": "2026-10-04T03:27:10.599248+00:00",
+      "finishedAt": "2026-10-04T03:27:16.032419+00:00",
+      "evidence": "commands/repair2-cli.json"
+    },
+    {
+      "command": "scripts.check.check_law_revision_fact_coverage.run: 2018 merged、指定strict flags",
+      "status": "fail",
+      "exit_code": 2,
+      "failure": "no merged JSON under verification/2018/merged/30_merged_2",
+      "evidence": "verification-results.json"
+    },
+    {
+      "command": "git diff --check",
+      "status": "pass",
+      "exit_code": 0,
+      "evidence": "commands/diff-check.json"
+    },
+    {
+      "command": "read-only固定入力hash・T015 132files・正式9paths・private permissions・WORK外部差分確認",
+      "status": "pass",
+      "exit_code": 0,
+      "evidence": "protection-after.json"
+    }
+  ],
+  "historical_commands": [
+    {
+      "command": "指定5suite 初回",
+      "status": "fail",
+      "exit_code": 1,
+      "startedAt": "2026-10-04T03:19:36.939772+00:00",
+      "finishedAt": "2026-10-04T03:19:42.699935+00:00",
+      "result": "130tests、4fail・1error",
+      "evidence": "commands/attempt1-five-suites.json"
+    },
+    {
+      "command": "指定5suite repair1",
+      "status": "pass",
+      "exit_code": 0,
+      "startedAt": "2026-10-04T03:23:53.340653+00:00",
+      "finishedAt": "2026-10-04T03:23:59.223096+00:00",
+      "result": "131tests成功",
+      "evidence": "commands/repair1-five-suites.json"
+    },
+    {
+      "command": "指定CLI dry-run repair1",
+      "status": "fail",
+      "exit_code": 1,
+      "startedAt": "2026-10-04T03:24:27.983425+00:00",
+      "finishedAt": "2026-10-04T03:24:28.717317+00:00",
+      "failure": "T044更新済みcase_review4件を固定primary差と誤分類",
+      "evidence": "commands/repair1-cli.json"
+    }
+  ],
+  "summary": "型付きplan・reader/replay・承認/法令再照合gate・immutable保存API・明示Inventory/Synchronizer・CLIを実装。最終131tests成功。実3unit/9private bytesと11doc replayは生成済み。CLIは新merged filenameがstrict探索契約に合わずexit1、strict本体exit2で停止。法的矛盾ではない。2repair capを保持し全slice blocked。正式保存・承認・checkpoint・評価・公開は未実行。",
+  "remaining_blockers": [
+    "question_formal_preview.jsonは、latest_merged_filesが要求する「_merged_を含むstem」又は「末尾_merged」に一致せず、strict入力が未発見。",
+    "actual Inventory/Synchronizer previewはCLI strict停止後のため未到達。fixture3case入口だけ検証済み。",
+    "2018 firestore・2024 merged/firestore strictは未実行。",
+    "真正human exact-plan正式保存承認、現行法取得/revision/body再照合、真正checkpoint/model評価、本番承認・公開は未済。",
+    "実ledgerの開始filehash未取得につき、全task before/after hashによる独立continuity証明は未済。SQLite未open/write、mtimeは作業前。"
+  ],
+  "needs_judge": true,
+  "verification_attempts": 3,
+  "repair_attempts": 2,
+  "stopped_because": "new_private_strict_input_discovery_failure_and_two_repair_cap",
+  "artifacts": {
+    "directory": "output/user_feedback_response_system/staging/recovery-three-cases/formal-save-plans/runs/T046-dd7578fb31b3",
+    "full_receipt": "worker-receipt.json",
+    "plan": "formal-save-plan.json",
+    "approval_proposal": "approval-proposal.md",
+    "approval_request": "human-approval-request.json",
+    "diagnostics": "stop-diagnostics.json",
+    "protection": "protection-after.json",
+    "planHash": "7c4ce40d81434a2abd883fcb857b917d1a07e90850f7dddd87ddb653001e4c99",
+    "inputHash": "7618cfe73833395041f1fe343d973a5cdba5ce8fb5d6df34021f8191d7a47786",
+    "head": "9f10f393597ac3e3707b6c8bf7c0e1c24dbb3f73"
+  },
+  "actual_results": {
+    "privateUnitCount": 3,
+    "privatePlannedFileCount": 9,
+    "selectedDocumentReplayCount": 11,
+    "sourceOriginalSelectionAnswers": {
+      "2018": 4,
+      "2024": 2
+    },
+    "sourceNoop": true,
+    "production2020SourceGroup": null,
+    "production2020SourceRef": null,
+    "production2020Delta": "questionText一文字削除のみ",
+    "requiredErrors": 0,
+    "alignmentErrors": 0,
+    "coverageErrors": 0,
+    "strictExitCode": 2,
+    "CLIExitCode": 1,
+    "legalContradictionFound": false,
+    "mergedBytesEqualHistoricalT041": true,
+    "mergedFileSha256": "287b2413b8c7f23049eeac01a9718da0901c62fffbf037cdd37f1ac974d7d328",
+    "currentLawAuditPolicy": "6.0",
+    "currentEvaluationPolicy": "5.6",
+    "genuineNativeChainReplay": [
+      "T028",
+      "T029",
+      "T033",
+      "T037",
+      "T039"
+    ],
+    "genuineT045NativeBindingVerified": true,
+    "historicalReaderDependencyDriftCount": 5,
+    "T044CurrentCaseReviewDriftCount": 4,
+    "protectedInputFilesUnchanged": 813,
+    "WORKProtectedInputFilesUnchanged": 204,
+    "T015FixedFilesUnchanged": 132,
+    "actualFormalNineAbsent": true,
+    "privateDirectoriesMode": "700",
+    "privateFilesMode": "600",
+    "actualFormalFilesWritten": false,
+    "actualLedgerOpened": false,
+    "actualLedgerWritten": false,
+    "WORKWritten": false,
+    "FirestoreWritten": false,
+    "StorageWritten": false,
+    "formalSaveApproved": false,
+    "checkpointRecorded": false,
+    "evaluationPerformed": false,
+    "publicationReady": false,
+    "WORKExternalObservation": "対象外NWの3既存status差分が外部で消失。自己成果や全WORK不変として扱わない。"
+  },
+  "fixture_results": [
+    "承認なし・bool/token・assistant回答・別plan/path・部分sibling承認・改変bytes・入力driftを拒否",
+    "実UI replyタグのquestionItemId tool/call/index・固定質問・answerを照合",
+    "複数質問への曖昧な自由文回答を拒否",
+    "現在法の取得日時・URL・revision・XML/bodyhashを比較し、人間の真偽宣言だけを拒否",
+    "承認後保存・読戻し・同一再送・既存競合・symlink/path逸脱を検証",
+    "OS exclusive rename競合による空target上書きを拒否",
+    "atomic確定前後・receipt確定前中断でreceiptを成功扱いせず、同一bytes再開を検証",
+    "全selected fields・absence・未知field・原問・既存ID保持を検証",
+    "3case明示Inventory/Synchronizer入口を検証し、通常group探索・ready gateを維持"
+  ],
+  "not_run": [
+    "実正式保存API（fixtureのみ実施）",
+    "actual3case Inventory/Synchronizer preview",
+    "2018 firestore strict",
+    "2024 merged strict",
+    "2024 firestore strict",
+    "現行法HTTP再取得",
+    "正式承認質問送信",
+    "checkpoint/model評価",
+    "184tests/E2E",
+    "commit/push"
+  ]
+}
