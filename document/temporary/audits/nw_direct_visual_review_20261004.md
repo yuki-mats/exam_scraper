@@ -177,3 +177,11 @@ MIME補正後一問は新GUI exactpreview/currentstateHash一致とWeb残18%/625
 201802午前II問18はChromiumの一次資料から、X-XSS-Protectionが旧ブラウザのフィルタを制御し、Chrome 78でXSS Auditorが削除された時点を明示した。202101午前II問11はRFC2637とRFC2661を読み、PPPのIP搬送をPPTPだけに限定せず、GREとUDP/IPの違い及びMPLSのラベル転送を区別した。
 
 各問題自身の四fieldを修正前後に一問ずつ直視。21解説・参照資料だけ変更し、source・ID・本文・全選択肢・正誤・形式・metadataは保持した。3年度の正常merge/convert/upload dry-run及び必須3検査48merged/48実正答patch880entriesは成功、全suite未実行。AI/model/作業版receiptを作成していない。独立Sol未完、品質確定212/880は不変、Firestore書込みなし。根拠direct_technical_scope4_applied_20261005.json。
+
+### 2026-10-05 02:48 201702職務著作の成立条件
+
+午前I問30の完全な四fieldを個別に再読し、e-Govの2017-10-15と現行XMLで第15条第2項の本文同一性を確認した。請負・派遣という契約名だけで著作権の帰属が決まるような旧解説を改め、法人等の発意、業務への従事、職務上の作成、契約・勤務規則等に別段の定めがないことと、設問の典型的な指揮命令関係を示した。
+
+21解説1件と出題時一次参照だけ変更し、source・ID・本文・全肢・正誤・形式・metadataは保持した。正常merge/convert/upload dry-runと必須3検査48merged/48実正答patch880entriesは成功、全suite未実行。新model/作業版receiptなし、独立Sol未完、品質確定212/880不変。根拠direct_office_copyright1_applied_20261005.json。
+
+著作権201202問17の第2肢は所有者例外とプロテクトの種類の前提が不足し、ノウハウ201102問17の第3肢は特許とノウハウの両方でライセンシングが可能である。文化庁の所有者バックアップ解説とINPITの公開性・利用許諾の二視点及びノウハウライセンシングを直接読んだ。これらは旧断定の根拠不足の確認であり、公式正答又は現在正誤を自動反転していない。解消・独立合格とは扱わない。
