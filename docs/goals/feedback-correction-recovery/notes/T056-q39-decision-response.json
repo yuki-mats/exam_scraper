@@ -1,0 +1,170 @@
+{
+  "goalbuddy_receipt_v1": {
+    "result": "done",
+    "task_id": "T056",
+    "board_path": "/Users/yuki/development/exam_scraper_feedback/docs/goals/feedback-correction-recovery/state.yaml",
+    "decision": "approve_next",
+    "full_outcome_complete": false,
+    "rationale": "公式画像は肢2/4の「生命、身体及び財産」を示す。原問metadataと公開quoteの「又は」は、正当な改題変換として裏付けられていないため訂正案が必要。全4文書の引用段落復元に加え、2選択肢metadataと肢1解説の明確な語句不整合をprivate提案に含める。正答変更や新しい法的判断は不要。保存型・正式path・公開gatewayは未対応であり、承認readyにはならない。",
+    "evidence": [
+      {
+        "kind": "independent_primary_image_review",
+        "pdf_sha256": "417defdbeb15e09c97707ac9431f5ed82e18f3f6da9a527808f43dcd1bf77df1",
+        "page_image_sha256": "acac6d21e6ffe40541cd062e253b37cfcd5ec0c0e5aeb142cb0672df7c0061f4",
+        "pdf_page": 27,
+        "printed_page": 25,
+        "pdf_hash_recomputed": true,
+        "image_independently_viewed": true,
+        "findings": [
+          "公式肢1/3の（ウ）は「生命又は身体」、肢2/4は「生命、身体及び財産」。",
+          "引用段落と空欄ア・イ・ウ・エが公式本文に存在する。",
+          "引用末尾は「（エ）による」。rawの「（エ）よる」は原問転記との差である。",
+          "肢2/4のraw/liveにある「又は」を「及び」と同義として受理しない。"
+        ]
+      },
+      {
+        "kind": "field_context",
+        "findings": [
+          "全4siblingsのquestionText、questionBodyText、originalQuestionBodyTextから引用段落が欠落している。12本文差分が必要。",
+          "肢2/4のoriginalQuestionChoiceTextとquestionText内quoteも公式表へ一致させる。questionTextの変更は既存12本文差分に含まれる。",
+          "choiceTextは全4文書で不在。新規追加しない。",
+          "肢1解説は、その肢に存在しない「工事注文者」を誤り箇所としている。肢1に実在する語句と公式の正しい組合せを比較する最小修復が必要。",
+          "肢3/4解説の全面改稿や新しい法的責任範囲の説明は、この一次資料照合から要求しない。",
+          "原問の選択問題と公開flash_cardの組合せ正誤形式を区別し、改題表示を保持する。"
+        ],
+        "required_delta": "4文書×3本文fieldの12差分＋肢2/4のoriginalQuestionChoiceTextの2差分＋肢1explanationTextの1差分＝15 field差分。",
+        "correct_answer_scope": "提示された公式答2とraw/liveの正誤ベクトル「間違い・正しい・間違い・間違い」が一致するためcorrectChoiceTextを保持する。新しい判例現効性・個別侵害事案の法的判定は行わない。"
+      },
+      {
+        "kind": "native_stop_receipt_verified",
+        "native_output_ref": "e72350",
+        "event_hash_matches": true,
+        "assistant_output_hash_matches": true,
+        "saved_receipt_file_hash_matches": true,
+        "native_inner_compact_object_hash_matches": true,
+        "native_result": "blocked",
+        "accepted_scope": "repair1の成功はraw/live対応と保全の限定検証。verification.jsonのcomplete=trueを公式全整合・承認readyへ転用しない。"
+      },
+      {
+        "kind": "current_preservation_readonly_verified",
+        "native_output_ref": "8010f9",
+        "T049_read_plan_valid": true,
+        "T049_input_count": 699,
+        "T053_input_count": 416,
+        "T053_inputs_unchanged": true,
+        "baseline_fixed_files_unchanged": true,
+        "formal_nine_paths_absent": true
+      },
+      {
+        "kind": "append_category_judgments",
+        "judgments": {
+          "question_content": {
+            "decision": "fix",
+            "scope": "引用段落復元、原問本文metadata、肢2/4の公式語句への一致。"
+          },
+          "correct_answer": {
+            "decision": "no_change",
+            "scope": "公式答2に対応する現在の4肢正誤を保持。新しい法的真偽の全面保証ではない。"
+          },
+          "explanation": {
+            "decision": "fix",
+            "scope": "肢1の実在しない誤り箇所を最小修復。旧no_changeを今回の追加発見へ拡張しない。肢2/3/4は今回の限定案では保持。"
+          },
+          "outdated_law_or_information": {
+            "decision": "hold",
+            "scope": "今回の公式転記照合は判例現効性・現在法監査の証拠ではない。"
+          },
+          "image": {
+            "decision": "hold",
+            "scope": "一次PDF画像を読んだ事実と、公開画像配信の検証を区別する。新画像fieldを追加しない。"
+          },
+          "classification": {
+            "decision": "no_change",
+            "scope": "現snapshotの資格・年度・問題番号・flash_cardを保持。source/public保存bindingの技術holdを解消した扱いにはしない。"
+          },
+          "answer_format_or_display": {
+            "decision": "fix",
+            "scope": "空欄を読むための引用段落と肢2/4の公開quoteを復元・訂正する。"
+          },
+          "other": {
+            "decision": "no_change",
+            "scope": "ID・欠落field・監査metadata・対象外fieldを保持。未読対象の全面正常を意味しない。"
+          }
+        },
+        "storage_rule": "旧case_reviewを凍結したまま、そのhashに結合する新private append judgmentsとして保存する。"
+      }
+    ],
+    "next_allowed_task": {
+      "role": "Worker",
+      "objective": "新Q39の全4siblingsについて、一次画像に一致する15 field差分、原問と公開改題の対応、最小解説修復、全8カテゴリ追記判断、技術holdを含む具体的private提案を完成させる。正式保存・本番適用・承認質問は実行しない。",
+      "allowed_files": [
+        "output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T057-proposal/verify.py",
+        "output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T057-proposal/baseline.json",
+        "output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T057-proposal/source-evidence.json",
+        "output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T057-proposal/official-transcription.txt",
+        "output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T057-proposal/live-selected.json",
+        "output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T057-proposal/proposed-field-diff.json",
+        "output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T057-proposal/proposed-patch.json",
+        "output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T057-proposal/category-judgments-append.json",
+        "output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T057-proposal/proposal.md",
+        "output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T057-proposal/verification.json"
+      ],
+      "implementation_contract": [
+        "T055の9files・native停止receipt・raw・公式PDF・旧case・ledger・既存productを変更しない。新runだけに成果を保存する。",
+        "公式4肢と引用段落をrawからの一括置換だけで生成せず、画像から独立確定した語句表に照合する。許容する正規化は改行・空欄周辺空白などに限定し、及び/又はや「による」の差を消さない。",
+        "originalQuestionBodyTextは公式の選択問題本文、questionBodyTextは現在の組合せ正誤への改題本文として区別し、両方に必要な引用段落を含める。",
+        "questionTextは復元後の公開本文と各肢quoteを結合する。肢2/4のquoteとoriginalQuestionChoiceTextを「生命、身体及び財産」へ一致させ、肢1/3の「生命又は身体」を保持する。",
+        "肢1explanationTextは実在する（イ）契約適合性・（ウ）生命又は身体と、公式の正しい組合せを比較する最小案にする。新しい法的原則、判例現効性、責任範囲を作らない。肢2/3/4の解説と全correctChoiceTextを保持する。",
+        "各差分を対象doc、field、beforePresent/before、after、updateTimeExact、一次根拠へ結合する。15差分を列挙し、questionText内の本文復元とchoice訂正の両根拠を追跡する。",
+        "欠落choiceText、listGroupId、questionIntent等を創作しない。公開ID、qualificationId、原問ID、年度・番号・型・画像field・対象外fieldのpresence/valueを保持する。",
+        "proposed-patchは既存private draft形式で作る。正式root/pathは未確定のまま明示し、schema対応済みや実行可能な正式patchと表現しない。",
+        "originalQuestionBodyTextの既存型拒否、正式保存root/path未確定、11doc限定gatewayの4doc不対応を技術holdとして保持する。allowlist・schema・gatewayを今回変更しない。",
+        "全8カテゴリ判断を旧case hashへ結合したappend artifactに保存する。旧explanation=no_changeの範囲と今回のfixを明示し、actual case/ledgerへの同期はPMの後続責務とする。",
+        "proposal.mdに全4docのbefore/after、各根拠、保持field、実影響、正答保持、技術holdを人間が読める形で記載する。private本文を通常log・Gitへ出さない。",
+        "proposalContentCompleteとapprovalReadyを区別する。内容完成時もapprovalReady=false、formalDataUpdated=false、publicationReady=false、genuineModelRunPerformed=falseを保持する。"
+      ],
+      "verify": [
+        "PYTHONDONTWRITEBYTECODE=1 /Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T057-proposal/verify.py",
+        "verify.pyは全4docの15差分、公式4肢と引用段落、空欄対応、原問/公開本文の役割、肢1解説の語句一致、正誤ベクトル不変、選択肢metadataと公開quote一致を別assertで検査する。",
+        "必要なlive確認は対象4siblingsのmasked readだけを使い、全beforePresent/before/updateTimeExactをT055保存snapshotと照合する。変化を見つけたら旧baselineを書き換えず停止する。",
+        "既存型が支持する部分と拒否する部分を分けて実照合する。全draftの拒否を期待結果として残し、支持部分の成功をwhole execution-readyへ転用しない。",
+        "前後にT049 read_planの699inputs、T053の416inputsとprivate成果、T055全9files、case/ledger bytes、raw/PDF、正式9paths不在を照合する。",
+        "directory700/file600、network writeなし、質問送信なし、既存product差分なしを確認する。",
+        "git diff --check"
+      ],
+      "stop_if": [
+        "公式画像・全4肢・現在snapshotの一意対応が成立しない、又はsnapshot内容/versionが変化する。",
+        "correctChoiceText変更、新しい法的判断、肢2/3/4解説の根拠未確認の改稿が必要になる。",
+        "15差分以外のfield追加、欠落metadataの推測補完、原資料・正式sourceの書換えが必要になる。",
+        "既存schema/allowlist/gateway、正式root/path、product codeの変更が必要になる。",
+        "T049/T053の固定入力、旧case/ledger、T055停止証跡を変更する必要がある。",
+        "正式保存、Firestore/Storage write、承認質問送信、既存2質問の再送が必要になる。",
+        "指定新runが存在する、他作者差分の巻戻し、生利用者本文・識別情報の通常log/Git混入が生じる。"
+      ]
+    },
+    "subgoal_contract": null,
+    "parallel_safety": {
+      "decision": "single_worker_private_data_only",
+      "reason": "新private runの明示10filesだけを所有し、既存依存・case・台帳・正式保存先を変更しない。"
+    },
+    "blocked_tasks": [
+      "Q39の正式保存：originalQuestionBodyText等の型対応と正式root/pathが未確定。",
+      "Q39の本番適用：4doc対象の正式実行契約・真正評価・別production承認が未済。",
+      "Q39の承認質問：技術ready未済。",
+      "元4件の正式保存・評価・公開：既存の人間回答と正式入力への依存を維持。"
+    ],
+    "missing_evidence": [
+      "公式choice metadataと最小解説修復を含む、全4docの完成したprivate提案。",
+      "Q39の正式保存型・root/path・4doc実行契約。",
+      "正式入力に結合したcurrent checkpoint・真正評価・別production承認・独立readback。"
+    ],
+    "required_board_updates": [
+      "T055を真正blockedとして保持し、repair1 complete=trueをwholepassへ変更しない。",
+      "PMが上記data-only proposal packageを次Workerへ登録する。",
+      "新Q39のカテゴリ追記案は旧caseへ直接上書きせず、固定hashとappend linkageで保全する。",
+      "提案内容完成と技術readyを分け、技術holdが残る間はQ39の承認質問を送らない。",
+      "元4件と新Q39を別caseとして追跡し、既存2承認質問を再送しない。",
+      "full_outcome_complete=falseを維持する。"
+    ]
+  }
+}
