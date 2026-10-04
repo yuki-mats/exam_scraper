@@ -1117,11 +1117,17 @@ class QuestionEvaluationService:
             for position, item in batch:
                 question_id = str(item["questionId"])
                 try:
+                    current_preview = self.preview(
+                        by_id[question_id], model_profile=model_profile
+                    )
+                    if not self.token_matches(current_preview, str(item["previewToken"])):
+                        raise EvaluationError("確認後に評価対象又は評価方針が更新されました。")
                     reserved[question_id] = self._reserve_batch_question(
                         by_id[question_id], model_profile=model_profile, emit=emit
                     )
                     runnable.append((position, item))
                 except Exception as exc:  # noqa: BLE001
+                    emit(f"評価開始を保留: {item.get('questionLabel') or question_id} / {exc}")
                     outcomes.append((None, {"questionId": question_id, "error": str(exc)}))
             if not runnable:
                 continue
@@ -1514,25 +1520,38 @@ class QuestionEvaluationService:
         _reserved_run: Mapping[str, Any] | None = None,
         _active_reserved: bool = False,
     ) -> dict[str, Any]:
-        preview = self.preview(question, model_profile=model_profile)
-        if not self.token_matches(preview, preview_token):
-            raise EvaluationError("確認後に問題内容が更新されました。")
-        if not preview.get("canEvaluate"):
-            raise EvaluationError(str(preview.get("reason") or "評価を開始できません。"))
-        run_policy = self.current_policy()
-        if (
-            preview.get("policyVersion") != run_policy.get("policyVersion")
-            or preview.get("policyFingerprint")
-            != run_policy.get("policyFingerprint")
-        ):
-            raise EvaluationError("確認後に評価版又は正本文書が更新されました。")
         review_key = str(question["reviewKey"])
-        with self._active_lock:
-            if review_key in self._active and not _active_reserved:
-                raise EvaluationError("この問題は別の評価runで実行中です。")
-            if not _active_reserved:
-                self._active.add(review_key)
+        owns_active = bool(_active_reserved and _reserved_run is not None)
         try:
+            try:
+                preview = self.preview(question, model_profile=model_profile)
+                if not self.token_matches(preview, preview_token):
+                    raise EvaluationError("確認後に問題内容が更新されました。")
+                if not preview.get("canEvaluate"):
+                    raise EvaluationError(str(preview.get("reason") or "評価を開始できません。"))
+                run_policy = self.current_policy()
+                if (
+                    preview.get("policyVersion") != run_policy.get("policyVersion")
+                    or preview.get("policyFingerprint")
+                    != run_policy.get("policyFingerprint")
+                ):
+                    raise EvaluationError("確認後に評価版又は正本文書が更新されました。")
+                with self._active_lock:
+                    if review_key in self._active and not owns_active:
+                        raise EvaluationError("この問題は別の評価runで実行中です。")
+                    if not owns_active:
+                        self._active.add(review_key)
+                        owns_active = True
+            except Exception as exc:
+                if _reserved_run is not None and owns_active:
+                    self._best_effort_fail_question(
+                        question,
+                        run_id=str(_reserved_run["runId"]),
+                        attempt_sequence=int(_reserved_run["attemptSequence"]),
+                        error=str(exc),
+                        release_active=False,
+                    )
+                raise
             return self._run_active(
                 question,
                 emit,
@@ -1544,8 +1563,9 @@ class QuestionEvaluationService:
                 reserved_run=_reserved_run,
             )
         finally:
-            with self._active_lock:
-                self._active.discard(review_key)
+            if owns_active:
+                with self._active_lock:
+                    self._active.discard(review_key)
 
     def _reserve_batch_question(
         self,
@@ -1564,17 +1584,17 @@ class QuestionEvaluationService:
             if review_key in self._active:
                 raise EvaluationError("この問題は別の評価runで実行中です。")
             self._active.add(review_key)
-        started_at = _now()
-        previous = self.store.load(question)
-        work_type = "reevaluation" if previous is not None else "evaluation"
-        prompt = self._build_prompt(question)
-        plan = self._evaluation_run_plan(
-            question,
-            work_type=work_type,
-            model_profile=model_profile,
-            run_policy=run_policy,
-        )
         try:
+            started_at = _now()
+            previous = self.store.load(question)
+            work_type = "reevaluation" if previous is not None else "evaluation"
+            prompt = self._build_prompt(question)
+            plan = self._evaluation_run_plan(
+                question,
+                work_type=work_type,
+                model_profile=model_profile,
+                run_policy=run_policy,
+            )
             reservation = self._persist_run_reservation(
                 question,
                 plan=plan,

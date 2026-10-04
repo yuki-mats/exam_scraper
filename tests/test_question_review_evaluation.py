@@ -1812,7 +1812,7 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
         self.assertEqual(result["status"], "passed")
         self.assertEqual(result["verifiedChoiceCount"], 2)
         self.assertTrue(current["publishReady"])
-        self.assertEqual(version_record["stages"]["evaluation"]["version"], "5.6")
+        self.assertEqual(version_record["stages"]["evaluation"]["version"], "5.7")
         self.assertEqual(stale["status"], "stale")
         self.assertFalse(stale["publishReady"])
 
@@ -2508,6 +2508,88 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
             self.assertTrue(
                 all(service.store.load_projection(question)["latestAttemptSequence"] == 2 for question in (first, second))
             )
+
+    def test_batch_policy_change_closes_reserved_attempts_and_skips_later_dispatch(self):
+        with tempfile.TemporaryDirectory() as directory:
+            service = QuestionEvaluationService(Path(directory), "secret", result_runner=lambda _: {})
+            questions = [question_payload(question_id=f"api-q{i}", state_hash=f"state-{i}") for i in range(4)]
+            for question in questions:
+                question["projected"]["questionImageStorageUrls"] = []
+            initial = service.current_policy()
+            changed = {**initial, "policyFingerprint": "changed-after-model"}
+            current = [initial]
+            calls = []
+
+            def batch(batch_questions, _emit, **_kwargs):
+                calls.append([question["id"] for question in batch_questions])
+                current[0] = changed
+                return {question["id"]: evaluation_result() for question in batch_questions}, {}
+
+            with patch.object(service, "current_policy", side_effect=lambda **_: copy.deepcopy(current[0])), \
+                 patch.object(service, "_batch_limits", return_value=(2, 120000)), \
+                 patch.object(service, "_run_batch_result", side_effect=batch):
+                preview = service.preview_many(questions)
+                result = service.run_many(questions, preview["previewToken"], lambda _: None)
+
+            self.assertEqual(result["failedCount"], 4)
+            self.assertEqual(result["completedCount"], 0)
+            self.assertEqual(calls, [["api-q0", "api-q1"]])
+            self.assertFalse(service._active)
+            manifests = [json.loads(path.read_text()) for path in service.run_store.root.glob("sample/*/manifest.json")]
+            self.assertEqual(len(manifests), 2)
+            self.assertTrue(all(value["status"] == "failed" for value in manifests))
+            self.assertTrue(all(value["workVersionReceipt"] is None for value in manifests))
+            for question in questions[:2]:
+                projection = service.store.load_projection(question)
+                self.assertEqual(projection["latestAttempt"]["status"], "failed")
+                self.assertIsNone(projection.get("currentValid"))
+            for question in questions[2:]:
+                self.assertIsNone(service.store.load_projection(question))
+
+            service.result_runner = lambda _prompt: {"evaluations": [
+                {"questionId": question["id"], "stateHash": question["stateHash"], "result": evaluation_result()}
+                for question in questions[:2]
+            ]}
+            fresh = service.preview_many(questions[:2])
+            retried = service.run_many(questions[:2], fresh["previewToken"], lambda _: None)
+            self.assertEqual(retried["completedCount"], 2)
+            self.assertFalse(service._active)
+
+    def test_reserved_preflight_failure_preserves_committed_current_and_other_owner(self):
+        with tempfile.TemporaryDirectory() as directory:
+            service = QuestionEvaluationService(Path(directory), "secret", result_runner=lambda _: evaluation_result())
+            question = question_payload()
+            question["projected"]["questionImageStorageUrls"] = []
+            original = service.run(question, service.preview(question)["previewToken"], lambda _: None)
+            current = copy.deepcopy(service.store.load_projection(question)["currentValid"])
+            preview = service.preview(question)
+            reservation = service._reserve_batch_question(question, model_profile="codex_only", emit=lambda _: None)
+            changed = {**service.current_policy(), "policyFingerprint": "changed-preflight"}
+            with patch.object(service, "current_policy", return_value=changed):
+                with self.assertRaises(EvaluationError):
+                    service.run(question, preview["previewToken"], lambda _: None,
+                                prepared_worker_result=evaluation_result(), _reserved_run=reservation, _active_reserved=True)
+            projection = service.store.load_projection(question)
+            self.assertEqual(projection["currentValid"], current)
+            self.assertEqual(projection["latestAttempt"]["status"], "failed")
+            committed = service.run_store.root / "sample" / original["runId"] / "result.json"
+            self.assertEqual(json.loads(committed.read_text())["resultHash"], original["evaluation"]["resultHash"])
+            self.assertFalse(service._active)
+
+            service._active.add(question["reviewKey"])
+            with self.assertRaises(EvaluationError):
+                service.run(question, "stale-token", lambda _: None)
+            self.assertIn(question["reviewKey"], service._active)
+
+    def test_batch_reservation_prompt_failure_releases_owned_active(self):
+        with tempfile.TemporaryDirectory() as directory:
+            service = QuestionEvaluationService(Path(directory), "secret", result_runner=lambda _: {})
+            question = question_payload()
+            with patch.object(service, "_build_prompt", side_effect=RuntimeError("prompt unavailable")):
+                with self.assertRaisesRegex(RuntimeError, "prompt unavailable"):
+                    service._reserve_batch_question(question, model_profile="codex_only", emit=lambda _: None)
+            self.assertFalse(service._active)
+            self.assertIsNone(service.store.load_projection(question))
 
     def test_batch_groups_law_and_image_modes_without_reordering(self):
         questions = []

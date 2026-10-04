@@ -466,7 +466,8 @@ documents = [
 # 5.4: 実画像入力・帰属・bytes receiptを保存し、証跡のない画像合格だけを再評価する。
 # 5.5: 03正本と同じく独立した途中計算と文中の短い数式を区別して採点する。
 # 5.6: batchも独立評価threadへ分類し、全対象の最終結果とserver進捗表示の責務を明示する。
-policy_version = "5.6"
+# 5.7: 予約済み評価のpreflight失敗も終端化し、後続batchの変更検知をmodel開始前に行う。
+policy_version = "5.7"
 documents = ["document/operations/local_question_review_console.md", "prompt/01_prompt_fix_questionType.md"]
 inputs = [
   "tools/question_review_console/evaluation.py",

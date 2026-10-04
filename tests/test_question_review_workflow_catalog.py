@@ -561,20 +561,20 @@ class WorkflowCatalogTests(unittest.TestCase):
                 for stage in catalog["stages"]
                 if stage["id"] == "question_intent"
             ),
-            "5.2",
+            "5.3",
         )
         self.assertEqual(
             owned_fields["correct_choice"],
             {"correctChoiceText"},
         )
         self.assertEqual(owned_fields["question_set"], {"questionSetId"})
-        self.assertEqual(version_by_stage["explanation"], "11.0")
-        self.assertEqual(version_by_stage["law_audit"], "6.0")
-        self.assertEqual(version_by_stage["law_context"], "2.3")
+        self.assertEqual(version_by_stage["explanation"], "11.2")
+        self.assertEqual(version_by_stage["law_audit"], "6.5")
+        self.assertEqual(version_by_stage["law_context"], "2.4")
         self.assertEqual(version_by_stage["originalize"], "2.10")
-        self.assertEqual(version_by_stage["question_type"], "6.3")
-        self.assertEqual(version_by_stage["question_intent"], "5.2")
-        self.assertEqual(version_by_stage["correct_choice"], "5.8")
+        self.assertEqual(version_by_stage["question_type"], "6.6")
+        self.assertEqual(version_by_stage["question_intent"], "5.3")
+        self.assertEqual(version_by_stage["correct_choice"], "5.10")
         self.assertEqual(version_by_stage["question_set"], "2.0")
         self.assertEqual(
             stage_by_id["question_type"]["agentPolicy"]["independent_review"],
@@ -597,7 +597,7 @@ class WorkflowCatalogTests(unittest.TestCase):
                 }
             )
         )
-        self.assertEqual(catalog["evaluation"]["policyVersion"], "5.6")
+        self.assertEqual(catalog["evaluation"]["policyVersion"], "5.7")
         self.assertIn("prompt/01_prompt_fix_questionType.md", catalog["evaluation"]["documents"])
         explanation_targets = {
             target["selectionId"]: target
