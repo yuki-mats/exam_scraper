@@ -222,6 +222,7 @@ def merge_all(
     base_dir: Path,
     *,
     require_answer_result_text: bool = True,
+    selected_bindings: Iterable[SourceIdentityBinding] | None = None,
 ) -> None:
     list_group_dir = base_dir / list_group_id
     source_dir = list_group_dir / SOURCE_SUBDIR
@@ -251,6 +252,16 @@ def merge_all(
             f"unexpected={unexpected} missing={missing}"
         )
     source_identities = tuple(entry.identity for entry in inventory)
+    scope = None
+    if selected_bindings is not None:
+        requested = tuple(selected_bindings)
+        scope = set(requested)
+        if not scope or len(scope) != len(requested):
+            raise ValueError("source binding scopeは空又は重複にできません。")
+        known = {entry.identity.binding for entry in inventory}
+        unknown = scope - known
+        if unknown:
+            raise ValueError(f"source binding scopeに未知の原問があります: {sorted(b.as_tuple() for b in unknown)}")
     source_bindings_by_stem_lists: dict[str, list[SourceIdentityBinding]] = {}
     for entry in inventory:
         source_bindings_by_stem_lists.setdefault(
@@ -387,6 +398,8 @@ def merge_all(
         merged1_questions: list[dict[str, Any]] = []
         merged2_questions: list[dict[str, Any]] = []
         for source_record, binding in zip(source_questions, source_bindings):
+            if scope is not None and binding not in scope:
+                continue
             if not isinstance(source_record, Mapping):
                 raise ValueError(f"question record形式が不正です: {base_path}")
             projection = project_merge_record(
@@ -412,6 +425,8 @@ def merge_all(
             stale_question_issue_certification_targets.update(
                 projection.stale_question_issue_certification_targets
             )
+        if not merged1_questions:
+            continue
         merged1_data = copy.deepcopy(source_data)
         merged1_data["question_bodies"] = merged1_questions
         merged2_data = copy.deepcopy(source_data)
@@ -564,6 +579,10 @@ def main() -> int:
         action="store_true",
         help="Firestore snapshot 由来など、answer_result_text がない既存正誤保持データの merge を許可する",
     )
+    parser.add_argument(
+        "--source-bindings", type=Path,
+        help="生成対象の原問identity三要素のJSON配列。同じgroup内の一意な原問だけを生成する。評価・公開承認は付与しない。",
+    )
     args = parser.parse_args()
 
     try:
@@ -572,6 +591,10 @@ def main() -> int:
             args.list_group_id,
             base_dir,
             require_answer_result_text=not args.allow_missing_answer_result,
+            selected_bindings=(
+                [SourceIdentityBinding.from_mapping(row) for row in json.loads(args.source_bindings.read_text(encoding="utf-8"))]
+                if args.source_bindings else None
+            ),
         )
     except Exception as exc:  # noqa: BLE001
         print(f"[ERROR] {exc}", file=sys.stderr)

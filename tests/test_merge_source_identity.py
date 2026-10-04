@@ -7,7 +7,7 @@ import unittest
 from pathlib import Path
 from unittest import mock
 
-from scripts.common.question_identity import load_source_record_inventory
+from scripts.common.question_identity import load_source_record_inventory, SourceIdentityBinding
 from scripts.merge.question_issue_corrections import question_issue_record_hash
 from tools.question_review_console.projection import (
     build_question_issue_index,
@@ -66,6 +66,37 @@ class MergeSourceIdentityTests(unittest.TestCase):
             json.dumps(entries, ensure_ascii=False),
             encoding="utf-8",
         )
+
+    def test_scoped_merge_selects_exact_binding_with_shared_review_id(self):
+        with tempfile.TemporaryDirectory() as directory:
+            base = Path(directory)
+            source = base / "2026" / "00_source"
+            source.mkdir(parents=True)
+            self._write_source(source, "question_1.json", "key-1")
+            self._write_source(source, "question_2.json", "key-2")
+            before = {p.name: p.read_bytes() for p in source.glob("*.json")}
+            binding = SourceIdentityBinding.from_mapping(self._binding("question_2.json", "key-2"))
+            merge_all("2026", base, selected_bindings=[binding])
+            outputs = list((base / "2026" / "20_merged_1").glob("*.json"))
+            self.assertEqual([p.name for p in outputs], ["question_2_merged.json"])
+            self.assertEqual(json.loads(outputs[0].read_text())["question_bodies"][0]["sourceQuestionKey"], "key-2")
+            self.assertEqual(before, {p.name: p.read_bytes() for p in source.glob("*.json")})
+
+    def test_invalid_scope_preserves_existing_outputs(self):
+        with tempfile.TemporaryDirectory() as directory:
+            base = Path(directory)
+            source = base / "2026" / "00_source"
+            source.mkdir(parents=True)
+            self._write_source(source, "question_1.json", "key-1")
+            output = base / "2026" / "30_merged_2" / "previous.json"
+            output.parent.mkdir()
+            output.write_text("preserve")
+            known = SourceIdentityBinding.from_mapping(self._binding("question_1.json", "key-1"))
+            unknown = SourceIdentityBinding.from_mapping(self._binding("question_2.json", "key-2"))
+            for scope in [[], [known, known], [unknown]]:
+                with self.assertRaises(ValueError):
+                    merge_all("2026", base, selected_bindings=scope)
+                self.assertEqual(output.read_text(), "preserve")
 
     def test_exact_binding_updates_only_the_target_with_a_shared_review_id(self):
         with tempfile.TemporaryDirectory() as directory:

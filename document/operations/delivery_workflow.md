@@ -11,6 +11,8 @@ python3 scripts/merge/00_merge_all.py <list_group_id> \
   --base-dir output/<qualification>/questions_json
 ```
 
+整備済みの限定原問だけを生成する場合は、同じgroupの`sourceQuestionKey`、`reviewQuestionId`、`sourceRecordRef`を持つJSON配列を`00_merge_all.py --source-bindings <JSON>`へ渡します。空、重複、未知のbindingは既存成果物を退避する前に拒否します。対象外の原問を含めず、全patchのidentity検査と対象原問の通常projectionを適用します。この生成自体は評価・公開承認になりません。続く標準前処理には、生成済みの対象を確認して`--skip-merge`を渡し、必須項目・問題集・convert・upload dry-runを省略せずに検査します。
+
 通常はmerge、convert、upload dry-runまでをまとめます。
 
 ```bash
