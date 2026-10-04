@@ -151,3 +151,11 @@ MIME補正後一問は新GUI exactpreview/currentstateHash一致とWeb残18%/625
 ### 2026-10-05 02:11 201802 IoT選択肢の公式誤字復元
 
 平成30年度秋期高度試験午前I冊子PDF15ページ問27を直視し、第3肢は「機械同士」と確認した。取得元の「機械同土」に対し、24のhuman-visual-review/v1 overlayでこの問題自身の一字だけを修復した。本文・他3肢・正誤・解説・metadata・00_sourceは保持。ローカル正常投影と正常merge/convert/upload dry-runで確認し、全四fieldを再読した。必須3検査48merged/48実正答patch880entries成功、全suite未実行。独立Sol未完、品質確定212/880は不変、Firestore未書込。根拠direct_official_iot_choice1_applied_20261005.json。
+
+### 2026-10-05 02:19〜02:22 派遣法の根拠条項1問とPCI Express一次資料の衝突
+
+202301午前I問30の第4肢は、福祉の増進を教育訓練実施義務の第30条の2だけで説明していた。rootがe-Govの出題日2023-04-16及び現行2026-10-05のXMLと厚生労働省法令本文を読み、第30条の7の福祉増進の努力義務、第30条の2第1項の段階的・体系的な教育訓練実施義務を独立に確認した。両時点の第30条の7の本文同一性も確認した。第1〜3肢の第41条・第42条との関係も個別に読んだ。
+
+18の参照準備と21の解説・参照・第4肢lawRevisionFactsを直接修正し、正答・source・本文・全選択肢・形式・計算フラグ・他3肢の説明を保持した。対象の完全なsource identityで一問だけを結合し、配列順で別問題をバインドしていない。保存済みLunaの参照準備ファイルは従来未追跡であり、そのbaseline全recordを保持して、この一問の変更だけを加えた18ファイルとして保存する。人間の独立した二次確認を記録したが、新しいAIの二次監査又はmodel/workVersionReceiptは作っていない。正常merge/convert/upload dry-run、法令参照準備検査、法改正facts検査及び必須3検査48merged/48実正答patch880entriesは成功、全suite未実行。全四fieldを新ローカル投影で再読した。独立Sol未完、品質確定212/880は不変、Firestore書込みなし。根拠direct_dispatch_law1_202301_applied_20261005.json。
+
+202401午前II問22は公式問題冊子PDF11ページでも第3肢が最大32レーン、公式解答はアのみである。PCI-SIGの5.0 FAQ及びIntelのPCIe説明は32レーンlinkを記載する。現解説の「選択肢は64レーン」という読み違いを確認したが、Base/CEM等の適用scopeと公式単一正答との衝突を未確定のまま正誤補正していない。根拠direct_pcie_primary_conflict_202401_20261005.json。これは保留の根拠であり修復・合格ではない。

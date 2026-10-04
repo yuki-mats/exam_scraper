@@ -502,7 +502,7 @@
       "間違い。正しくは、派遣先事業主が派遣先管理台帳を作成する。労働者派遣法（昭和60年法律第88号）第42条は、派遣先にこの台帳の作成と保存を義務付けているため、派遣元事業主の措置とする選択肢は誤りである。",
       "間違い。正しくは、派遣先事業主が派遣先責任者を選任する。労働者派遣法（昭和60年法律第88号）第41条は、派遣先に派遣先責任者の選任を義務付けているため、派遣元事業主の措置とする選択肢は誤りである。",
       "間違い。正しくは、派遣先責任者が、派遣労働者を指揮命令する者やその他の関係者に、労働者派遣契約の定めなどを周知する。労働者派遣法（昭和60年法律第88号）第41条に定める派遣先側の措置であり、派遣元事業主の措置とする選択肢は誤りである。",
-      "正しい。労働者派遣法（昭和60年法律第88号）第30条の2は、派遣元事業主に対し、派遣労働者が必要な技能や知識を習得できるよう教育訓練を実施することを義務付けている。教育訓練の機会確保など、派遣労働者の福祉を増進する措置は派遣元事業主が講ずべき措置に当たる。"
+      "正しい。派遣元事業主は、就業や教育訓練の機会を確保し、労働条件を向上させるなどして、派遣労働者等の福祉の増進を図るよう努めなければならない。労働者派遣法第30条の7が定める派遣元側の措置である。これとは別に、第30条の2第1項は、派遣就業に必要な技能・知識を習得するための段階的・体系的な教育訓練を実施する義務を定めている。"
     ],
     "original_question_id": "2489bbb65ce807bf",
     "question_url": "https://www.nw-siken.com/kakomon/05_haru/am1_30.html",
@@ -515,12 +515,22 @@
         "referenceDate": "2026-10-04",
         "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/360AC0000000088?asof=2026-10-04",
         "title": "e-Gov法令検索 労働者派遣事業の適正な運営の確保及び派遣労働者の保護等に関する法律"
+      },
+      {
+        "referenceDate": "2026-10-05",
+        "sourceUrl": "https://www.mhlw.go.jp/web/t_doc?dataId=75021000&dataType=0",
+        "title": "厚生労働省 労働者派遣法 第30条の7・第30条の2、第41条・第42条"
+      },
+      {
+        "referenceDate": "2023-04-16",
+        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/360AC0000000088?asof=2023-04-16",
+        "title": "e-Gov 労働者派遣法 出題時点の第30条の7"
       }
     ],
     "questionLearningPatternId": "differences_relationships",
     "suggestedQuestionDetailsByChoice": [],
     "isLawRelated": true,
-    "lawContextForExplanation": "派遣先管理台帳の作成と派遣先責任者の選任、関係者への派遣契約内容の周知は、労働者派遣法第42条・第41条に基づく派遣先側の措置である。派遣元事業主の教育訓練は同法第30条の2が根拠となる。",
+    "lawContextForExplanation": "派遣先管理台帳は第42条、派遣先責任者の選任と関係者への契約内容の周知は第41条に基づく派遣先側の措置である。教育訓練の機会確保などによる福祉の増進は第30条の7が派遣元に求める努力義務であり、第30条の2第1項の段階的・体系的な教育訓練の実施義務と区別する。",
     "lawReferences": [
       [
         {
@@ -563,14 +573,25 @@
       ],
       [
         {
-          "article": "30条の2",
+          "article": "30条の7",
           "choiceIndex": 3,
           "lawId": "360AC0000000088",
           "lawTitle": "労働者派遣事業の適正な運営の確保及び派遣労働者の保護等に関する法律",
-          "referenceDate": "2026-10-04",
+          "referenceDate": "2026-10-05",
           "role": "current_basis",
           "scope": "choice",
-          "source": "mhlw_official_law_text",
+          "source": "e-Gov法令API v2",
+          "verificationStatus": "verified"
+        },
+        {
+          "article": "30条の2第1項",
+          "choiceIndex": 3,
+          "lawId": "360AC0000000088",
+          "lawTitle": "労働者派遣事業の適正な運営の確保及び派遣労働者の保護等に関する法律",
+          "referenceDate": "2026-10-05",
+          "role": "current_basis",
+          "scope": "choice",
+          "source": "e-Gov法令API v2",
           "verificationStatus": "verified"
         }
       ]
@@ -649,16 +670,18 @@
         "reviewState": "secondary_verified"
       },
       {
-        "answerImpactFacts": [],
+        "answerImpactFacts": [
+          "教育訓練の機会確保などによる福祉の増進は、出題時も現行も派遣元側の措置であり、正しいという判定を維持する。"
+        ],
         "auditStatus": "same_as_current",
         "current": {
           "correctChoiceText": "正しい"
         },
         "differenceFacts": [],
         "evidenceSummary": {
-          "differenceSummary": "出題時正答と現行法判定は一致する。出題時法令本文は未取得である。",
+          "differenceSummary": "出題時と現行の第30条の7の当該規定は同一であり、この肢の正誤は変わらない。",
           "displayRefIds": [],
-          "explanationText": "現行の労働者派遣法第30条の2は、派遣元事業主に派遣労働者への教育訓練を実施する義務を定めている。公式元正答も選択肢4であり、この選択肢は正しい。",
+          "explanationText": "出題日2023年4月16日と現行2026年10月5日の第30条の7をそれぞれ確認した。教育訓練の機会確保などによる福祉の増進は派遣元事業主の努力義務である。第30条の2第1項の教育訓練実施義務は別の規定である。",
           "promptContext": "「派遣元事業主の講ずべき措置等」として教育訓練の機会確保などを挙げる命題を判定した。",
           "refs": [],
           "verdict": "正しい"
@@ -667,7 +690,7 @@
           "correctChoiceText": "正しい"
         },
         "notes": [
-          "出題時法令本文は取得できない。公式元正答は選択肢4であり、現行法本文も派遣元事業主による教育訓練の実施を定めている。条文不変とは記録しない。"
+          "rootがe-Govのasof=2023-04-16とasof=2026-10-05のXML及び厚生労働省の法令本文を独立に目視確認した。AIの二次監査又は新しいmodel receiptを実施した記録ではない。"
         ],
         "reconciliationStatus": "consistent",
         "reviewState": "secondary_verified"
