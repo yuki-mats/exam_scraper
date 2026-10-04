@@ -4824,6 +4824,48 @@ tasks:
       - notes/T037-correction-provenance.json
       - /Users/yuki/development/exam_scraper_feedback/output/user_feedback_response_system/staging/recovery-three-cases/runs/T037-b3d34b0c439c/review-input.json
       - /Users/yuki/development/exam_scraper_feedback/output/user_feedback_response_system/staging/recovery-three-cases/runs/T037-b3d34b0c439c/input-manifest.json
+      - config/qualification_display_catalog.json
+      - scripts/common/scoped_canonical_context.py
+      - scripts/merge/record_projection.py
+      - scripts/pipeline/prepare_scoped_question_artifacts.py
+      - scripts/pipeline/prepare_firestore_upload.py
+      - tools/question_review_console/scoped_artifacts.py
+      - tools/question_review_console/validated_evidence_import.py
+      - tools/question_review_console/primary_law_evidence.py
+      - tools/question_review_console/inventory.py
+      - tools/question_review_console/workflow_runner.py
+      - tools/question_review_console/qualification_runs.py
+      - tools/question_review_console/evaluation.py
+      - tools/question_review_console/publisher.py
+      - tests/test_scoped_canonical_context.py
+      - tests/test_question_review_scoped_artifacts.py
+      - tests/test_question_review_validated_evidence_import.py
+      - tests/test_question_review_primary_law_evidence.py
+      - tests/test_question_review_inventory.py
+      - tests/test_question_review_projection.py
+      - tests/test_question_review_artifact_sync_e2e.py
+      - tests/test_question_review_evaluation.py
+      - tests/test_question_review_publisher_safety.py
+      - document/operations/artifact_contract.md
+      - document/operations/delivery_workflow.md
+      - tools/question_review_console/question_candidate.py
+      - tools/question_review_console/work_versions.py
+      - config/question_maintenance_workflow.toml
+      - tools/question_bank/question_issue_reports.py
+      - tests/test_question_review_work_versions.py
+      - tests/test_question_review_question_candidate.py
+      - tests/test_question_issue_reports.py
+      - document/operations/exam_pipeline_manual_and_automation.md
+      - AGENTS.md
+      - scripts/common/repaso_firestore_schema.py
+      - tests/test_question_review_workflow.py
+      - docs/goals/feedback-correction-recovery/notes/native-receipt-hash-contract-T036-T037.json
+      - scripts/common/law_audit_sidecar_contract.py
+      - scripts/upload/upload_questions_to_firestore.py
+      - tests/test_upload_questions_to_firestore.py
+      - tests/test_law_audit_sidecar_contract.py
+      - tools/question_review_console/firestore_readback.py
+      - tests/test_question_review_firestore_readback.py
     constraints:
       - Read-only。board/product/private/ledger/Firestore/Storage書込みなし。真正receiptだけ返す。
       - 今回の改修は115条の3への2refsとparser、metadata/binding。法的全文のA/Bレビューをやり直さず、T033実結果に結合し新hash差分範囲を直接審査。
@@ -4834,6 +4876,7 @@ tasks:
       - 次Worker packageは正式保存プレビューから対象checkpoint/evaluation/guarded限定公開の契約まで有用な最大安全slice。具体allowed_files/verify/stop_ifを返す。正式patchは未承認なので実保存禁止、production
         separateapproval。
       - 既存全体テスト/重いE2Eを反復せず、関連parser/metadata/保存拒否・競合・再送・rollbackテストと対象checkpointを指定。
+      - 次実装契約のread-only named inputsとしてT024実経路のコード・関連テスト・運用正本を追加済み。現在コードを読みallowed_filesを根拠で選び、大GUI再実装を避ける。
     expected_output:
       - goalbuddy_receipt_v1 task_id T039、exactinput hash binding、狭い修復scopeのaccept/reject、次worker_packageの具体allowed_files/verify/stop_if、残る承認と公開条件
     receipt: null
