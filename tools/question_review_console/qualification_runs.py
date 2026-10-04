@@ -1708,6 +1708,23 @@ def _candidate_unset_fields(
     return tuple(sorted(unset_fields))
 
 
+def _aggregate_patch_context(record: Mapping[str, Any]) -> dict[str, Any]:
+    """Carry verified current spans into a downstream patch's context copy."""
+    text = record.get("questionBodyText")
+    if not isinstance(text, str) or not is_approved_target(
+        record.get("aggregateAnswerDecomposition"), text
+    ):
+        return {}
+    return {
+        field: copy.deepcopy(record[field])
+        for field in (
+            "questionBodyText", "choiceTextList", "sourceUniqueKeys",
+            "aggregateAnswerDecomposition", "questionType",
+        )
+        if field in record
+    }
+
+
 def _aggregate_calculation_flag(
     candidate_fields: Mapping[str, Any],
     current_record: Mapping[str, Any],
@@ -16976,6 +16993,8 @@ class QualificationRunCoordinator:
                             base_record = records_by_question[question_id]
                         server_set_fields = dict(update.set_fields)
                         server_unset_fields = set(update.unset_fields)
+                        if target.role not in {"question_type", "law_audit"}:
+                            server_set_fields.update(_aggregate_patch_context(base_record))
                         if (
                             consensus is not None
                             and consensus["classification"] == "target"
@@ -17006,6 +17025,12 @@ class QualificationRunCoordinator:
                                     aggregate_source_records[question_id],
                                     aggregate_review_pairs[question_id],
                                 )
+                            )
+                            # Existing 10 rows may still contain the body from
+                            # before a source refresh. Bind newly approved spans
+                            # to the current body rather than that old copy.
+                            server_set_fields["questionBodyText"] = (
+                                aggregate_source_records[question_id]["questionBodyText"]
                             )
                         elif (
                             consensus is not None

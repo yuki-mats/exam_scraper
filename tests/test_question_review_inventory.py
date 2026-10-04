@@ -617,6 +617,58 @@ class QuestionReviewInventoryTests(unittest.TestCase):
         self.assertEqual(repair.applied_files, ())
         self.assertEqual(retained, source)
 
+    def test_refreshed_aggregate_context_keeps_new_intent_in_next_projection(self):
+        from tools.question_review_console.qualification_runs import _aggregate_patch_context
+        from tools.question_review_console.question_patch_proposal import IsolatedQuestionPatchWorkspace
+        from scripts.common.question_identity import SourceIdentityBinding
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            group = root / "output/sample-exam/questions_json/2026"
+            old_text = "A　旧制度。\nB　原文二。"
+            new_text = "A　現行制度。\nB　原文二。"
+            source = {"original_question_id": "q1", "canonical_question_key": "sample-exam:2026:q001",
+                      "questionBodyText": new_text, "choiceTextList": ["1つ", "2つ"],
+                      "questionType": "group_choice"}
+
+            def derived(text):
+                decomposition = {"schemaVersion": "aggregate-answer-decomposition/v1",
+                                 "sourceHash": source_text_hash(text), "classification": "target",
+                                 "spans": [{"start": 0, "end": text.index("\n")},
+                                           {"start": text.index("\n") + 1, "end": len(text)}],
+                                 "decision": "approve", "issueCodes": []}
+                return {**source, "questionBodyText": text, "questionType": "true_false",
+                        "choiceTextList": text.split("\n"), "aggregateAnswerDecomposition": decomposition,
+                        "sourceUniqueKeys": derived_source_unique_keys({**source, "questionBodyText": text}, decomposition)}
+
+            write_json(group / "00_source/question.json", {"question_bodies": [source]})
+            current = derived(new_text)
+            write_json(group / "10_questionType_fixed/question_questionType_fixed.json", [current])
+            relative = Path("output/sample-exam/questions_json/2026/15_correctChoiceText_fixed/question_correctChoiceText_fixed.json")
+            write_json(root / relative, [{**derived(old_text), "questionIntent": "select_incorrect"}])
+            inventory = QuestionInventory(root)
+            before = inventory.projected_input("sample-exam", "2026", "question.json#0")
+            self.assertNotIn("questionIntent", before.record)
+            binding = SourceIdentityBinding.from_values("sample-exam:2026:q1", "q1", "question.json#0")
+            workspace = IsolatedQuestionPatchWorkspace.create(
+                root, root / "output/test_workspace", qualification="sample-exam", mutable_paths=[relative.as_posix()])
+            workspace.apply_record_update(relative, binding=binding, aliases={"q1"},
+                                          set_fields={**_aggregate_patch_context(before.record), "questionIntent": "select_correct"},
+                                          base_record=before.record)
+            workspace.rebase_into_canonical(workspace.changed_paths(), binding=binding,
+                                           aliases_by_path={relative.as_posix(): [["q1"]]})
+            after = inventory.projected_input("sample-exam", "2026", "question.json#0")
+            retained = inventory.source_input("sample-exam", "2026", "question.json#0")
+            saved = json.loads((root / relative).read_text())[0]
+
+        self.assertEqual(after.errors, ())
+        self.assertEqual(after.record["questionIntent"], "select_correct")
+        self.assertEqual(after.record["choiceTextList"], current["choiceTextList"])
+        self.assertEqual(after.record["aggregateAnswerDecomposition"], current["aggregateAnswerDecomposition"])
+        self.assertEqual(saved["original_question_id"], "q1")
+        self.assertEqual(retained, source)
+        self.assertEqual(_aggregate_patch_context({**current, "questionBodyText": old_text}), {})
+
     def test_stage_projection_uses_predecessors_and_ignores_stale_current_patch(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

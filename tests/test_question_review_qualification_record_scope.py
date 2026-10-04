@@ -224,6 +224,7 @@ class QualificationRecordScopeTests(QualificationRunTestSupport):
                     "originalQuestionId": "review-parent",
                     "sourceQuestionKey": "sample:group:parent",
                     "sourceRecordRef": "source.json#0",
+                    "questionBodyText": "更新前の本文",
                     "choiceTextList": ["old aggregate answer"],
                     "sourceUniqueKeys": ["old-key"],
                 }
@@ -231,6 +232,7 @@ class QualificationRecordScopeTests(QualificationRunTestSupport):
         }
         after_record = dict(before["question_bodies"][0])
         after_record.update(derived)
+        after_record["questionBodyText"] = source["questionBodyText"]
         common_plan = {
             "sourceFiles": [source_relative.as_posix()],
             "targetRecordAliasGroups": [aliases],
@@ -253,6 +255,7 @@ class QualificationRecordScopeTests(QualificationRunTestSupport):
             plan_updates=common_plan,
             source_payloads={source_relative: {"question_bodies": [source]}},
             stage_id="question_type",
+            projected_records={"review-parent": source},
         )
 
         expected_keys = derived["sourceUniqueKeys"]
