@@ -1736,6 +1736,7 @@ class CodexAppServerClient:
         sandbox: str,
         emit: Callable[[str], None],
         image_urls: Iterable[str] = (),
+        image_paths: Iterable[Path] = (),
         output_schema: Mapping[str, Any] | None = None,
         on_thread_started: Callable[[str, str], None] | None = None,
         on_turn_started: Callable[[str, str], None] | None = None,
@@ -1757,6 +1758,7 @@ class CodexAppServerClient:
             sandbox=sandbox,
             emit=emit,
             image_urls=image_urls,
+            image_paths=image_paths,
             output_schema=output_schema,
             on_thread_started=on_thread_started,
             on_turn_started=on_turn_started,
@@ -1784,6 +1786,7 @@ class CodexAppServerClient:
         sandbox: str,
         emit: Callable[[str], None],
         image_urls: Iterable[str] = (),
+        image_paths: Iterable[Path] = (),
         output_schema: Mapping[str, Any] | None = None,
         on_thread_started: Callable[[str, str], None] | None = None,
         on_turn_started: Callable[[str, str], None] | None = None,
@@ -2020,6 +2023,24 @@ class CodexAppServerClient:
                 "sha256": hashlib.sha256(body).hexdigest(),
             })
             turn_input.append({"type": "image", "url": inline_url})
+        for raw_path in dict.fromkeys(image_paths):
+            path = Path(raw_path).resolve()
+            if not path.is_relative_to(self.repo_root.resolve()):
+                raise ValueError("画像入力fileはrepository内に限定してください。")
+            mime_type = mimetypes.guess_type(path.name)[0] or ""
+            if mime_type not in {"image/png", "image/jpeg", "image/webp", "image/gif"}:
+                raise ValueError("画像入力fileの形式が未対応です。")
+            with path.open("rb") as stream:
+                body = stream.read(MAX_INPUT_IMAGE_BYTES + 1)
+            if not body or len(body) > MAX_INPUT_IMAGE_BYTES:
+                raise ValueError("画像入力fileが空又はサイズ上限を超えています。")
+            image_inputs.append({
+                "sourcePath": str(path.relative_to(self.repo_root.resolve())),
+                "attachmentIndex": len(image_inputs), "mimeType": mime_type,
+                "byteCount": len(body), "sha256": hashlib.sha256(body).hexdigest(),
+            })
+            turn_input.append({"type": "image", "url":
+                               f"data:{mime_type};base64," + base64.b64encode(body).decode("ascii")})
         params: dict[str, Any] = {
             "threadId": thread_id,
             "input": turn_input,

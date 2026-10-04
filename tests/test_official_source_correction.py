@@ -304,6 +304,39 @@ class OfficialSourceCorrectionTests(unittest.TestCase):
         self.assertEqual(app_server.options["turn_group"], "sample")
         self.assertTrue(logs)
 
+    def test_official_image_receipt_is_required_and_saved(self):
+        for valid_receipt in (True, False):
+            with self.subTest(valid_receipt=valid_receipt), tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                image = root / "official.png"
+                image.write_bytes(b"official-page")
+                image_hash = hashlib.sha256(image.read_bytes()).hexdigest()
+
+                class AppServer:
+                    def run_turn(self, _prompt, **options):
+                        self.options = options
+                        return SimpleNamespace(final_message='{"decision":"hold"}', changed_files=(),
+                                               image_inputs=({"sha256": image_hash, "byteCount": 13},)
+                                               if valid_receipt else ())
+
+                app_server = AppServer()
+                executor = AppServerReviewExecutor(
+                    app_server, repo_root=root, qualification="sample", current_record={},
+                    evidence_hash="a" * 64, evidence_title="公式問題", evidence_locator="問1",
+                    evidence_relative_path="official.png", evidence_verified_at="2026-10-04T00:00:00Z",
+                    emit=lambda _line: None, work_dir=root, evidence_image_path=image,
+                )
+                if valid_receipt:
+                    executor.execute(work_id="w1", phase="blind_a", prompt="compare", replacements={})
+                else:
+                    with self.assertRaises(OfficialSourceCorrectionError):
+                        executor.execute(work_id="w1", phase="blind_a", prompt="compare", replacements={})
+                    validation = json.loads(next((root / "attempts").glob("*validation*.json")).read_text())
+                    self.assertEqual(validation["validation"], "failed")
+                received = json.loads(next((root / "attempts").glob("*received*.json")).read_text())
+                self.assertEqual(app_server.options["image_paths"], (image,))
+                self.assertEqual(bool(received["imageInputs"]), valid_receipt)
+
     def test_app_server_executor_persists_invalid_attempt_before_validation(self):
         class AppServer:
             def run_turn(self, _prompt, **_options):

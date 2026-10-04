@@ -3134,6 +3134,38 @@ class AppServerTurnTests(unittest.TestCase):
         self.assertEqual([item["byteCount"] for item in result.image_inputs], [1, 1])
         self.assertEqual([item["attachmentIndex"] for item in result.image_inputs], [0, 1])
 
+    def test_local_official_image_bytes_and_receipt(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            image = root / "official.png"
+            image.write_bytes(b"official-page")
+            client = ProtocolClient()
+            client.repo_root = root
+            result = client.run_turn("compare official", work_type="official_source_review",
+                                     sandbox="read-only", emit=lambda _line: None,
+                                     image_paths=(image, image))
+            params = next(p for method, p in client.calls if method == "turn/start")
+            self.assertEqual(params["input"][1], {"type": "image", "url":
+                             "data:image/png;base64,b2ZmaWNpYWwtcGFnZQ=="})
+            self.assertEqual(len(result.image_inputs), 1)
+            self.assertEqual(result.image_inputs[0]["sha256"], hashlib.sha256(b"official-page").hexdigest())
+            self.assertEqual(result.image_inputs[0]["sourcePath"], "official.png")
+
+    def test_local_image_outside_repository_cannot_start_turn(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            outside = root / "outside.png"
+            outside.write_bytes(b"page")
+            repo = root / "repo"
+            repo.mkdir()
+            client = ProtocolClient()
+            client.repo_root = repo
+            with self.assertRaises(ValueError):
+                client.run_turn("compare", work_type="official_source_review",
+                                sandbox="read-only", emit=lambda _line: None,
+                                image_paths=(outside,))
+            self.assertFalse(any(method == "turn/start" for method, _ in client.calls))
+
     @patch("tools.question_review_console.codex_app_server.urllib.request.build_opener")
     def test_inline_image_preserves_bytes_and_rejects_invalid_downloads(self, build_opener):
         urlopen = build_opener.return_value.open

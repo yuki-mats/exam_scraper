@@ -73,6 +73,7 @@ class AppServerReviewExecutor(ReviewExecutor):
         evidence_verified_at: str,
         emit: Callable[[str], None],
         work_dir: Path | None = None,
+        evidence_image_path: Path | None = None,
     ):
         super().__init__(
             command=None,
@@ -92,6 +93,7 @@ class AppServerReviewExecutor(ReviewExecutor):
             f"{evidence_relative_path} / {evidence_locator}"
         )
         self.emit = emit
+        self.evidence_image_path = evidence_image_path
 
     def execute(
         self,
@@ -116,6 +118,8 @@ class AppServerReviewExecutor(ReviewExecutor):
                 "workItemId": work_id,
                 "phase": phase,
             },
+            **({"image_paths": (self.evidence_image_path,)}
+               if self.evidence_image_path is not None else {}),
         )
         changed_files = tuple(getattr(result, "changed_files", ()) or ())
         if changed_files:
@@ -123,6 +127,7 @@ class AppServerReviewExecutor(ReviewExecutor):
                 f"{phase}のread-only reviewがfile変更を報告しました。"
             )
         raw = str(getattr(result, "final_message", "") or "")
+        image_inputs = list(getattr(result, "image_inputs", ()) or ())
         parsed: dict[str, Any] | None = None
         normalized: dict[str, Any] | None = None
         removed_noop_fields: list[str] = []
@@ -130,7 +135,13 @@ class AppServerReviewExecutor(ReviewExecutor):
             key: getattr(result, key, None)
             for key in ("session_id", "thread_id", "turn_id")
         }
+        identity["imageInputs"] = image_inputs
         try:
+            if self.evidence_image_path is not None:
+                expected_hash = hashlib.sha256(self.evidence_image_path.read_bytes()).hexdigest()
+                if not any(item.get("sha256") == expected_hash and item.get("byteCount", 0) > 0
+                           for item in image_inputs):
+                    raise OfficialSourceCorrectionError("公式原本画像の送信bytes証拠がありません。")
             parsed = _extract_json_text(raw)
             normalized = copy.deepcopy(parsed)
             removed_noop_fields = self._normalize_review_payload(
@@ -654,6 +665,7 @@ class OfficialSourceCorrectionService:
             evidence_verified_at=(resume_metadata or {}).get("verifiedAt", created_at),
             work_dir=work_dir,
             emit=emit,
+            evidence_image_path=rendered_evidence,
         )
         blind_a, blind_b, challenge = self.review_runner(
             work_item,
