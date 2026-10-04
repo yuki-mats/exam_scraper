@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "question-issue-correction/v1",
+  "origin": "user_problem_report",
+  "category": "question_content",
+  "reviewProtocol": "human-visual-review/v1",
+  "author": "root manual visual review",
+  "userAuthorization": "直接パッチを目視整備により作成していいので、NWスペシャリストの過去問の整備を完了させてほしい",
+  "createdAt": "2026-10-05T02:01:12.187440+09:00",
+  "independentBlindReviewPerformed": false,
+  "modelReceipt": null,
+  "entries": [
+    {
+      "original_question_id": "276682bc3166dff2",
+      "sourceQuestionKey": "nw:201602:276682bc3166dff2",
+      "reviewQuestionId": "276682bc3166dff2",
+      "sourceRecordRef": "question_201602_3.json#2",
+      "expectedBeforeHash": "210b4f39d36c488169ddd076566d8210d2a1d4be39195ab606f380764ef6d494",
+      "changes": {
+        "questionBodyText": "Webサーバ，アプリケーション(AP)サーバ及びDBサーバ各1台で構成されるWebシステムにおいて，次の3種類のタイムアウトを設定した。タイムアウトに設定する時間の長い順に並べたものはどれか。ここで，トランザクションはWebリクエスト内で処理を完了するものとする。\n〔タイムアウトの種類〕\n① APサーバのAPが，処理を開始してから終了するまで\n② APサーバのAPにおいて，DBアクセスなどのトランザクションを開始してから終了するまで\n③ Webサーバが，APサーバにリクエストを送信してから返信を受けるまで"
+      },
+      "rationale": "公式冊子の三つの待ち時間と①〜③を直視し、取得元で脱落した対応番号をそれぞれの条件へ復元。三つの範囲の包含関係、選択肢・正答・解説は保持。",
+      "evidence": [
+        {
+          "sourceClass": "official",
+          "title": "ネットワークスペシャリスト平成28年秋期 午前Ⅱ 問23 問題冊子",
+          "locator": "output/nw/scrape_reports/official_evidence_20261004/2016h28a_nw_am2_qs.pdf / 午前Ⅱ 問23（PDF 13ページ）",
+          "verifiedAt": "2026-10-05T02:01:12.187440+09:00",
+          "contentHash": "92f962289246ab1eafb3275230febc920251201ba3cc77815bd6e9b646c0630e"
+        }
+      ]
+    }
+  ]
+}

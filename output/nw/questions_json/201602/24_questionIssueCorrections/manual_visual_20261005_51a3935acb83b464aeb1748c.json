@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "question-issue-correction/v1",
+  "origin": "user_problem_report",
+  "category": "question_content",
+  "reviewProtocol": "human-visual-review/v1",
+  "author": "root manual visual review",
+  "userAuthorization": "直接パッチを目視整備により作成していいので、NWスペシャリストの過去問の整備を完了させてほしい",
+  "createdAt": "2026-10-05T02:01:12.187440+09:00",
+  "independentBlindReviewPerformed": false,
+  "modelReceipt": null,
+  "entries": [
+    {
+      "original_question_id": "28adffbb5b75fb6e",
+      "sourceQuestionKey": "nw:201602:28adffbb5b75fb6e",
+      "reviewQuestionId": "28adffbb5b75fb6e",
+      "sourceRecordRef": "question_201602_3.json#1",
+      "expectedBeforeHash": "83a6b166f63f1d38747c451e603868285e625f8e5c74d3ec26ea1f55ccccb49d",
+      "changes": {
+        "questionBodyText": "ユーザープログラムの実行中に割込みが発生した場合のプロセッサの処理として，適切なものはどれか。\n① プログラムレジスタ(プログラムカウンター)などの退避\n② ユーザーモードから特権モードへの移行\n③ 割込み処理ルーチンの開始番地の決定\n④ 割込み処理ルーチンの実行"
+      },
+      "rationale": "公式冊子の四つの処理と①〜④を直視し、取得元で脱落した対応番号を各処理自身へ復元。四選択肢の処理順、正答、既存の順序理由は保持。",
+      "evidence": [
+        {
+          "sourceClass": "official",
+          "title": "ネットワークスペシャリスト平成28年秋期 午前Ⅱ 問22 問題冊子",
+          "locator": "output/nw/scrape_reports/official_evidence_20261004/2016h28a_nw_am2_qs.pdf / 午前Ⅱ 問22（PDF 13ページ）",
+          "verifiedAt": "2026-10-05T02:01:12.187440+09:00",
+          "contentHash": "92f962289246ab1eafb3275230febc920251201ba3cc77815bd6e9b646c0630e"
+        }
+      ]
+    }
+  ]
+}

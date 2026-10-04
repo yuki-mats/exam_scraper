@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "question-issue-correction/v1",
+  "origin": "user_problem_report",
+  "category": "question_content",
+  "reviewProtocol": "human-visual-review/v1",
+  "author": "root manual visual review",
+  "userAuthorization": "直接パッチを目視整備により作成していいので、NWスペシャリストの過去問の整備を完了させてほしい",
+  "createdAt": "2026-10-05T02:01:12.187440+09:00",
+  "independentBlindReviewPerformed": false,
+  "modelReceipt": null,
+  "entries": [
+    {
+      "original_question_id": "edc5705c76b81556",
+      "sourceQuestionKey": "nw:202201:edc5705c76b81556",
+      "reviewQuestionId": "edc5705c76b81556",
+      "sourceRecordRef": "question_202201_1.json#7",
+      "expectedBeforeHash": "1ed0bc9d98519d3503b8a6523e61360926a4957b2e232c2cd5bf4317444885f7",
+      "changes": {
+        "questionBodyText": "第1，第2，第3正規形とリレーションの特徴a，b，cの組合せのうち，適切なものはどれか。\na：どの非キー属性も，主キーの真部分集合に対して関数従属しない。\nb：どの非キー属性も，主キーに推移的に関数従属しない。\nc：繰返し属性が存在しない。"
+      },
+      "rationale": "公式冊子の三つの特徴とa/b/cを直視し、取得元で脱落した文字ラベルを各特徴へ復元。共有選択表を直視してウのc/a/bと確認し、表の画像・各選択肢・正答・解説は保持。",
+      "evidence": [
+        {
+          "sourceClass": "official",
+          "title": "ネットワークスペシャリスト令和4年春期 午前Ⅰ 問8 問題冊子",
+          "locator": "output/nw/scrape_reports/official_evidence_20261004/2022r04h_koudo_am1_qs.pdf / 午前Ⅰ 問8（PDF 5ページ）",
+          "verifiedAt": "2026-10-05T02:01:12.187440+09:00",
+          "contentHash": "f96f5f1e6e46b957b334a4a808614b6703ed56cbb98cefcc5ad725532892f1f4",
+          "url": "https://www.ipa.go.jp/shiken/mondai-kaiotu/gmcbt80000009sgk-att/2022r04h_koudo_am1_qs.pdf"
+        }
+      ]
+    }
+  ]
+}

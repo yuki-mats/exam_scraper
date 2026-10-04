@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "question-issue-correction/v1",
+  "origin": "user_problem_report",
+  "category": "question_content",
+  "reviewProtocol": "human-visual-review/v1",
+  "author": "root manual visual review",
+  "userAuthorization": "直接パッチを目視整備により作成していいので、NWスペシャリストの過去問の整備を完了させてほしい",
+  "createdAt": "2026-10-05T02:01:12.187440+09:00",
+  "independentBlindReviewPerformed": false,
+  "modelReceipt": null,
+  "entries": [
+    {
+      "original_question_id": "6f6ac56e6c0bef9b",
+      "sourceQuestionKey": "nw:201602:6f6ac56e6c0bef9b",
+      "reviewQuestionId": "6f6ac56e6c0bef9b",
+      "sourceRecordRef": "question_201602_1.json#0",
+      "expectedBeforeHash": "0ef111276b8e33eb2bdc41cf80704b7c75d2bfe2e1a4fee693bc1b677e9b4512",
+      "changes": {
+        "questionBodyText": "0≦x≦1の範囲で単調に増加する連続関数ƒ(x)が ƒ(0)＜0≦ƒ(1) を満たすときに，区間内で ƒ(x)＝0 であるxの値を近似的に求めるアルゴリズムにおいて，(2)は何回実行されるか。\n〔アルゴリズム〕\n(1) x₀←0，x₁←1とする。\n(2) x←(x₀＋x₁)/2とする。\n(3) x₁－x＜0.001ならばxの値を近似値として終了する。\n(4) ƒ(x)≧0ならばx₁←xとして，そうでなければx₀←xとする。\n(5) (2)に戻る。"
+      },
+      "rationale": "公式冊子の各手順を直視し、手順番号(1)〜(5)と分母2を復元。手順番号(2)と数式の分母を分離し、終了判定0.001と戻り先(2)を保持。",
+      "evidence": [
+        {
+          "sourceClass": "official",
+          "title": "ネットワークスペシャリスト平成28年秋期 午前Ⅰ 問1 問題冊子",
+          "locator": "output/nw/scrape_reports/official_evidence_20261004/2016h28a_koudo_am1_qs.pdf / 午前Ⅰ 問1（PDF 3ページ）",
+          "verifiedAt": "2026-10-05T02:01:12.187440+09:00",
+          "contentHash": "e9461212d4ec4ceeb98745b5ea252745be04684e87c82947f4e1c43d7e76a987"
+        }
+      ]
+    }
+  ]
+}

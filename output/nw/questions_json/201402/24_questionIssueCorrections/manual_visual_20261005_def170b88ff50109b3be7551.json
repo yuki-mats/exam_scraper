@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "question-issue-correction/v1",
+  "origin": "user_problem_report",
+  "category": "question_content",
+  "reviewProtocol": "human-visual-review/v1",
+  "author": "root manual visual review",
+  "userAuthorization": "直接パッチを目視整備により作成していいので、NWスペシャリストの過去問の整備を完了させてほしい",
+  "createdAt": "2026-10-05T02:01:12.187440+09:00",
+  "independentBlindReviewPerformed": false,
+  "modelReceipt": null,
+  "entries": [
+    {
+      "original_question_id": "b1eda657b9753332",
+      "sourceQuestionKey": "nw:201402:b1eda657b9753332",
+      "reviewQuestionId": "b1eda657b9753332",
+      "sourceRecordRef": "question_201402_2.json#5",
+      "expectedBeforeHash": "7c47685715a788f91d67948b20ad6afb49f7b0f76879b39b38e6ce6f2cbed199",
+      "changes": {
+        "questionBodyText": "IPv6が利用できるネットワークに接続したPCにおいて，二つのIPv6アドレスが割り当てられていた。\n(1) 2001:db8::b083:ba94:60c7:7c36\n(2) fe80::200:c0ff:fea8:2\nこのうち，(2)はリンクローカルユニキャストアドレスである。この説明として適切なものはどれか。"
+      },
+      "rationale": "公式冊子の二つのアドレスを直視し、脱落した(1)/(2)と行区切りを復元。第1アドレス末尾は7c36であり、取得元の7c26とは異なる。選択肢、リンクローカルの正誤・解説は保持。",
+      "evidence": [
+        {
+          "sourceClass": "official",
+          "title": "ネットワークスペシャリスト平成26年秋期 午前Ⅱ 問1 問題冊子",
+          "locator": "output/nw/scrape_reports/official_evidence_20261004/201402_am2.pdf / 午前Ⅱ 問1（PDF 3ページ）",
+          "verifiedAt": "2026-10-05T02:01:12.187440+09:00",
+          "contentHash": "70ad80659351ee8f90ed418519dbc1eb27d582671cba7e4c60946a8d78b9292a"
+        }
+      ]
+    }
+  ]
+}

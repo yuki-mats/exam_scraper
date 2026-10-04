@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "question-issue-correction/v1",
+  "origin": "user_problem_report",
+  "category": "question_content",
+  "reviewProtocol": "human-visual-review/v1",
+  "author": "root manual visual review",
+  "userAuthorization": "直接パッチを目視整備により作成していいので、NWスペシャリストの過去問の整備を完了させてほしい",
+  "createdAt": "2026-10-05T02:01:12.187440+09:00",
+  "independentBlindReviewPerformed": false,
+  "modelReceipt": null,
+  "entries": [
+    {
+      "original_question_id": "9ba5917c9af77eb0",
+      "sourceQuestionKey": "nw:202501:9ba5917c9af77eb0",
+      "reviewQuestionId": "9ba5917c9af77eb0",
+      "sourceRecordRef": "question_202501_1.json#0",
+      "expectedBeforeHash": "eb9cbcfe78b502a48e745c10796222a1efe8e1201de47d0cdd3b70923c7f67ee",
+      "changes": {
+        "questionBodyText": "0≦x≦1の範囲で単調に増加する連続関数 ƒ(x) が ƒ(0)＜0≦ƒ(1) を満たすときに，区間内で ƒ(x)＝0 であるxの値を近似的に求めるアルゴリズムにおいて，(2)は何回実行されるか。\n〔アルゴリズム〕\n(1) x₀←0，x₁←1とする。\n(2) x←(x₀＋x₁)/2とする。\n(3) x₁－x＜0.001ならばxの値を近似値として終了する。\n(4) ƒ(x)≧0ならばx₁←xとして，そうでなければx₀←xとする。\n(5) (2)に戻る。"
+      },
+      "rationale": "2025公式冊子そのものの各手順を直視し、手順番号(1)〜(5)と分母2を復元。別年度からの配列依存流し込みをせず、この冊子の終了判定0.001と戻り先(2)を確認。",
+      "evidence": [
+        {
+          "sourceClass": "official",
+          "title": "ネットワークスペシャリスト令和7年春期 午前Ⅰ 問1 問題冊子",
+          "locator": "output/nw/scrape_reports/official_evidence_20261004/2025r07h_koudo_am1_qs.pdf / 午前Ⅰ 問1（PDF 4ページ）",
+          "verifiedAt": "2026-10-05T02:01:12.187440+09:00",
+          "contentHash": "ad34ffa99163fb1ec0ebe97f3f874dcb129fc0925820d53f43a9abf41f5d9f53",
+          "url": "https://www.ipa.go.jp/shiken/mondai-kaiotu/nl10bi0000009lh8-att/2025r07h_koudo_am1_qs.pdf"
+        }
+      ]
+    }
+  ]
+}
