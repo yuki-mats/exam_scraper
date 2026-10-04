@@ -169,3 +169,11 @@ MIME補正後一問は新GUI exactpreview/currentstateHash一致とWeb残18%/625
 各問題の四fieldを修正前後に個別直視した。21解説及び参照資料だけ変更し、source・ID・本文・選択肢・正誤・形式・計算フラグ・法令監査状態を保持した。3年度の正常merge/convert/upload dry-runは成功。実施していないmodel/工程版receiptは作成していない。根拠はdirect_technical4_applied_20261005.jsonと同期ログ。独立Sol監査は待機中で、品質確定212/880を増やさない。Firestore書込みなし。
 
 必須3検査は48merged/48実正答patch880entriesで全て成功。全suite未実行。
+
+### 2026-10-05 02:40 技術解説の適用条件4問を直接目視整備
+
+201702午前I問16は、木構造データと関連操作の一体管理・情報隠蔽を説明し、旧解説の機能的強度という分類への断定を除いた。SWEBOKの結束性・情報隠蔽の原則を確認し、日本語の分類名を同資料が証明すると扱っていない。同年度午前II問17は、NICTのバックスキャッタの説明から、SYN/ACKの観測に整合する攻撃の推定と、単一パケットによる確定の違いを示した。
+
+201802午前II問18はChromiumの一次資料から、X-XSS-Protectionが旧ブラウザのフィルタを制御し、Chrome 78でXSS Auditorが削除された時点を明示した。202101午前II問11はRFC2637とRFC2661を読み、PPPのIP搬送をPPTPだけに限定せず、GREとUDP/IPの違い及びMPLSのラベル転送を区別した。
+
+各問題自身の四fieldを修正前後に一問ずつ直視。21解説・参照資料だけ変更し、source・ID・本文・全選択肢・正誤・形式・metadataは保持した。3年度の正常merge/convert/upload dry-run及び必須3検査48merged/48実正答patch880entriesは成功、全suite未実行。AI/model/作業版receiptを作成していない。独立Sol未完、品質確定212/880は不変、Firestore書込みなし。根拠direct_technical_scope4_applied_20261005.json。

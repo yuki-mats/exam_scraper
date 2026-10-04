@@ -2792,7 +2792,7 @@
   },
   {
     "explanationText": [
-      "正しい。答えはStrict-Transport-Securityである。このヘッダーフィールドはHSTSを有効にし、max-ageで指定した期間、そのWebサイトへHTTPSで接続するようブラウザに指示する。Content-Security-Policyは読み込みや実行を許可するリソースを制限し、X-Content-Type-OptionsはMIMEタイプの推測を抑止し、X-XSS-ProtectionはブラウザのXSSフィルタリングを制御する。"
+      "正しい。答えはStrict-Transport-Securityである。このヘッダーフィールドはHSTSを有効にし、max-ageで指定した期間、そのWebサイトへHTTPSで接続するようブラウザに指示する。Content-Security-Policyは読み込みや実行を許可するリソースを制限し、X-Content-Type-OptionsはMIMEタイプの推測を抑止する。X-XSS-Protectionは、旧来のブラウザが備えていたXSSフィルタの動作を制御するヘッダーであり、HTTPSでの接続を指示するものではない。現在は非推奨で、ChromeのXSS AuditorもChrome 78で削除されている。"
     ],
     "original_question_id": "61b389bafe9afcb3",
     "question_url": "https://www.nw-siken.com/kakomon/30_aki/am2_18.html",
@@ -2820,6 +2820,11 @@
         "referenceDate": "2026-10-04",
         "sourceUrl": "https://learn.microsoft.com/th-th/windows-server/identity/ad-fs/operations/customize-http-security-headers-ad-fs",
         "title": "Customize HTTP security response headers with AD FS"
+      },
+      {
+        "title": "Chromium XSS Auditor：X-XSS-Protectionと2019年の廃止",
+        "sourceUrl": "https://www.chromium.org/developers/design-documents/xss-auditor/",
+        "referenceDate": "2026-10-05"
       }
     ],
     "questionLearningPatternId": "differences_relationships",

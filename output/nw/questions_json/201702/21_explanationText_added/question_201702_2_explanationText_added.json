@@ -2751,7 +2751,7 @@
   },
   {
     "explanationText": [
-      "正しい。想定されるのは、IPアドレスAを攻撃先とするサービス妨害攻撃である。ダークネットの未使用アドレスを送信元に偽装したSYNをAが受信すると、Aはその未使用アドレスへSYN/ACKを返す。この応答がダークネットで観測されたことから、Aは攻撃元ではなく、SYN floodによる攻撃を受けたサーバと判断できる。パスワードリスト攻撃は認証情報を使ったログイン試行であり、今回のTCP応答からは想定しにくい。"
+      "正しい。IPアドレスAを攻撃先とするSYN floodによるサービス妨害攻撃が想定される。攻撃者がダークネットの未使用アドレスを送信元に偽装してAへSYNを送ると、AのWebサーバはその未使用アドレスへSYN/ACKを返す。この跳ね返りの応答をバックスキャッタという。観測されたSYN/ACKは、Aが攻撃を受けた側であるという推定と整合する。ただし、単一のパケットだけで攻撃の発生や送信元の真正性が確定するわけではない。パスワードリスト攻撃には認証情報を使うログイン試行が必要であり、この応答だけではその試行は読み取れない。"
     ],
     "original_question_id": "6bb01ee143225ff7",
     "question_url": "https://www.nw-siken.com/kakomon/29_aki/am2_17.html",
@@ -2759,7 +2759,13 @@
     "sourceQuestionKey": "nw:201702:6bb01ee143225ff7",
     "reviewQuestionId": "6bb01ee143225ff7",
     "sourceRecordRef": "question_201702_2.json#21",
-    "explanationReferences": [],
+    "explanationReferences": [
+      {
+        "title": "NICT NICTER観測レポート2020の公開：バックスキャッタの説明",
+        "sourceUrl": "https://www.nict.go.jp/press/2021/02/16-1.html",
+        "referenceDate": "2026-10-05"
+      }
+    ],
     "questionLearningPatternId": "scenario_application",
     "suggestedQuestionDetailsByChoice": [],
     "isLawRelated": false,

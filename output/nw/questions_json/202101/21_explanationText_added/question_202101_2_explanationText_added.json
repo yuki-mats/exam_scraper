@@ -1937,7 +1937,7 @@
     "explanationText": [
       "間違い。IPプロトコルに暗号化や認証などのセキュリティ機能を付加する規格はIPsecである。選択肢はIPsecの機能をMPLSの説明としているため誤りである。",
       "間違い。L2FとPPTPを統合して改良したデータリンク層のトンネリングプロトコルはL2TPである。選択肢はL2TPの特徴をMPLSの説明としているため誤りである。",
-      "間違い。PPPデータフレームをIPパケットでカプセル化し、インターネットを通過させるトンネリングプロトコルはPPTPである。選択肢はPPTPの機能をMPLSの説明としているため誤りである。",
+      "間違い。PPPフレームをIPネットワークで運ぶのは、PPTPやL2TPなどのトンネリング方式である。PPTPはGREでPPPをカプセル化し、L2TPもUDP/IP上でPPPを運べるため、この記述だけでPPTPに一意に限定することはできない。MPLSは、PPPを包む方式ではなく、付与したラベルを参照してパケットを転送する技術である。",
       "正しい。MPLSはパケットにラベルを付け、ルータがそのラベルを参照して転送する技術である。IPアドレスだけに基づく転送とは異なり、ラベルスイッチングを利用する。"
     ],
     "original_question_id": "9860119b3e8b8e6b",
@@ -1970,6 +1970,18 @@
         "referenceDate": "2001-01-01",
         "sourceUrl": "https://www.rfc-editor.org/rfc/rfc3031",
         "title": "Multiprotocol Label Switching Architecture"
+      },
+      {
+        "choiceIndex": 2,
+        "title": "RFC2637 §4 PPTPのPPP/GRE/IP形式",
+        "sourceUrl": "https://datatracker.ietf.org/doc/html/rfc2637#section-4",
+        "referenceDate": "2026-10-05"
+      },
+      {
+        "choiceIndex": 2,
+        "title": "RFC2661 §8.1・8.2 L2TPのUDP/IPカプセル化",
+        "sourceUrl": "https://datatracker.ietf.org/doc/html/rfc2661#section-8.1",
+        "referenceDate": "2026-10-05"
       }
     ],
     "questionLearningPatternId": "differences_relationships",
