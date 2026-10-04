@@ -7,7 +7,7 @@ goal:
   title: "情報処理安全確保支援士の過去問整備と暗記プラス公開"
   slug: "sc-ankiplus-release"
   kind: specific # specific | open_ended | existing_plan | recovery | audit
-  tranche: "取得確認済み32回から500問を問題整備システムで最大500並列で整備中。2009年春55問は取得元画像404の解決待ち。整備・評価・公開は未完了。"
+  tranche: "指定500問の選択済み整備工程を完了（保留0、必須検査成功、原本90ファイル不変）。カテゴリ・問題集、公開前の別session評価と公開は未完了。2009年春55問は取得元画像404の解決待ち。"
   status: active # active | blocked | done
   oracle:
     signal: "公開回・問題URL集合の全件一致、IPA正答照合、問題ごとの整備・独立評価、実機検証、App Store公開確認。"
@@ -123,14 +123,17 @@ tasks:
     verify: ["工程固有の一問検査", "00_source不変", "run終端receiptとartifactSync", "merged選択肢整合・必須項目・patch coverage", "別sessionの問題単位評価"]
     stop_if: ["scope又は根拠が曖昧", "00_sourceの手動変更が必要", "allowed_files外の変更が必要"]
     receipt:
-      result: running_not_complete
-      summary: "ユーザーの500問並列指示に従い、画面から対象500問・questionConcurrency=500でrunを開始。候補1,760問、200901は取得未完了として対象外。現時点は準備・review中で整備完了ではない。"
-      run_id: "20261004T001014806835-c38516a2"
-      system_url: "http://127.0.0.1:63150/?qualification=sc"
+      result: selected_maintenance_stages_completed_publication_evaluation_pending
+      summary: "元runと同じ500問を現行基準で再整備し500/500問完了・保留0・未処理0。選択済み工程のreceipt、500問の検証専用projection、正答整合・必須項目・90組のpatch coverage・原本hashを独立確認。年度全体の公開用生成は対象外の未整備問題で停止。カテゴリ・問題集と公開前の別session評価は未完了のためT004全体は継続。"
+      run_id: "20261004T161940473797-bcc6b56e"
+      system_url: "http://127.0.0.1:56845/?qualification=sc"
       evidence:
         - output/question_review_console/workflow_runs/sc/20261004T001014806835-c38516a2/manifest.json
+        - output/question_review_console/workflow_runs/sc/20261004T161940473797-bcc6b56e/manifest.json
         - output/sc/reports/maintenance_500_start_receipt.json
         - docs/goals/sc-ankiplus-release/notes/T004-maintenance-500-start.json
+        - docs/goals/sc-ankiplus-release/notes/T004-maintenance-500-completion.json
+        - output/sc/reports/maintenance_500_completion_audit.json
       full_outcome_complete: false
   - id: T005
     type: pm
@@ -155,6 +158,6 @@ tasks:
 checks:
   dirty_fingerprint: unknown
   last_verification:
-    result: target_tests_passed_run_in_progress
+    result: selected_500_maintenance_and_mechanical_checks_passed
     task: T004
-    commands: ["pytest -k 'concurrency or above_one_hundred or five_hundred'（7 tests・8 subtests成功）", "source 99ファイルhash一致", "全体検証・artifactSync・別session評価はrun終端後"]
+    commands: ["exact scope・workflow関連53 tests成功", "patch checker関連9 tests・2 subtests成功", "500問の選択肢整合・必須項目・90組のpatch coverage成功", "原本90ファイルhash一致", "年度全体artifactSyncは対象外問題で停止・公開前の別session評価は未完了"]

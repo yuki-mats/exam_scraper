@@ -1,0 +1,134 @@
+{
+  "originalRunId": "20261004T001014806835-c38516a2",
+  "currentRunId": "20261004T161940473797-bcc6b56e",
+  "exactQuestionSetMatch": true,
+  "targetCount": 500,
+  "questionConcurrency": 500,
+  "status": "selected_maintenance_stages_completed",
+  "pendingCompletionVerification": false,
+  "uiPreviewPath": "output/sc/reports/maintenance_500_current_preview.json",
+  "implementationCommit": "fab745bca",
+  "questionSetMatchVerifiedAtCompletion": true,
+  "sourceFileCount": 90,
+  "sourceHashMismatchCount": 0,
+  "projectionErrorCount": 0,
+  "projectionRecordCount": 500,
+  "verificationSnapshotOnly": true,
+  "verificationSnapshotPath": "output/sc/reports/maintenance_500_verification/sc/questions_json",
+  "patchCoverageFailureCount": 0,
+  "explanationStyleErrorCount": 0,
+  "explanationStyleErrors": [],
+  "questionTypeCounts": {
+    "true_false": 329,
+    "flash_card": 145,
+    "group_choice": 26
+  },
+  "recordedAt": "2026-10-04T16:42:24.752428+09:00",
+  "finishedAt": "2026-10-04T16:32:20+09:00",
+  "receiptValidated": true,
+  "questionExecutionSummary": {
+    "questionCount": 500,
+    "validatedQuestionCount": 500,
+    "blockedQuestionCount": 0,
+    "workItemCount": 1001,
+    "validatedWorkItemCount": 516,
+    "notApplicableWorkItemCount": 485,
+    "completedWorkItemCount": 1001,
+    "blockedWorkItemCount": 0,
+    "pendingWorkItemCount": 0,
+    "preparingWorkItemCount": 0,
+    "preparedWorkItemCount": 0,
+    "committingWorkItemCount": 0
+  },
+  "allQuestionStageStatuses": {
+    "validated": 516,
+    "not_applicable": 485
+  },
+  "selectedUpdateTargetIds": [
+    "originalize.content",
+    "originalize.images",
+    "question_type.question_type",
+    "question_type.calculation_flag",
+    "question_intent.intent",
+    "correct_choice.correct_answer",
+    "law_context.law_classification",
+    "law_context.law_grounding",
+    "explanation.learning_pattern",
+    "explanation.basic_explanation",
+    "explanation.supplementary_questions",
+    "law_audit.law_audit"
+  ],
+  "targetQuestionIdsSha256": "13c5c79bf4710f639b93c075b86ecebb0df9e1683939832ed96c323aeae236a4",
+  "mandatoryMergedChecks": [
+    {
+      "command": [
+        "/Users/yuki/development/exam_scraper_work/.venv/bin/python",
+        "scripts/check/check_choice_text_alignment.py",
+        "--base-dir",
+        "output/sc/reports/maintenance_500_verification/sc/questions_json",
+        "--stage",
+        "merged"
+      ],
+      "returncode": 0,
+      "output": "[OK] 32 ファイルの全問題において、選択肢と正答テキストの一致を確認しました。\n",
+      "logPath": "output/sc/reports/maintenance_500_check_logs/check_choice_text_alignment.py.log"
+    },
+    {
+      "command": [
+        "/Users/yuki/development/exam_scraper_work/.venv/bin/python",
+        "scripts/check/check_required_fields.py",
+        "--base-dir",
+        "output/sc/reports/maintenance_500_verification/sc/questions_json",
+        "--stage",
+        "merged"
+      ],
+      "returncode": 0,
+      "output": "[OK] requirements check passed\n",
+      "logPath": "output/sc/reports/maintenance_500_check_logs/check_required_fields.py.log"
+    }
+  ],
+  "patchMatchedRecordCount": 500,
+  "targetPatchCoverageCount": 500,
+  "sourceHashesUnchanged": true,
+  "independentPublicationEvaluationCompleted": false,
+  "categoryAndQuestionSetPreparationCompleted": false,
+  "firestoreWritten": false,
+  "appPublished": false,
+  "requiredBoundary": "500問の選択済み整備工程完了。カテゴリ・問題集・年度全体のmerge/convert、公開前の別session評価、Firestore反映・アプリ公開は未完了。",
+  "checkerTests": {
+    "passed": 9,
+    "subtestsPassed": 2,
+    "files": [
+      "tests/test_correct_choice_patch_coverage.py",
+      "tests/test_patch_entry_matching.py"
+    ],
+    "verifiedCommit": "828756303"
+  },
+  "exactScopeAndWorkflowTests": {
+    "passed": 53,
+    "verifiedCommit": "fab745bca"
+  },
+  "snapshotRecordFingerprintsSha256": "518416858001aaacb6cef77195bc0060f0a45760f7232e86a4226c554d9ccf73",
+  "artifactSync": {
+    "status": "blocked",
+    "blockedGroupCount": 32,
+    "reason": "対象外の未整備問題が同じ年度内にあるため、年度全体の公開用生成は停止。"
+  },
+  "detailedAuditPath": "output/sc/reports/maintenance_500_completion_audit.json",
+  "detailedAuditSha256": "544c0e17375e0a37121b56c2400f24df9a244a0285ee08f78cd984fd8d1a6f68",
+  "sourceFileHashesSha256": "8be583dfbf0dc7fcbd0a52af0dbfeeaea216cc55d269f475c6b8dd79da3e08f1",
+  "formerHeldQuestionCount": 4,
+  "formerHeldQuestionsResolved": true,
+  "verificationGitHead": "828756303f37c460129bc835a9f24365703349ea",
+  "dirtyAtReceiptFinalization": "M config/question_maintenance_workflow.toml\n M docs/goals/sc-ankiplus-release/state.yaml\n M document/reference/question_field_contract.md\n M output/chintaikanrishi/category/category.json\n M prompt/01_prompt_fix_questionType.md\n M prompt/03b_prompt_audit_current_law_and_patch.md\n M prompt/qualification_docs/chintaikanrishi/03_category_preparation.md\n M scripts/common/aggregate_answer_decomposition.py\n M scripts/convert/convert_merged_to_firestore.py\n M tests/test_aggregate_answer_decomposition.py\n M tests/test_chintaikanrishi_acquisition.py\n M tests/test_convert_merged_to_firestore.py\n M tests/test_question_review_qualification_runs.py\n M tools/question_review_console/qualification_runs.py\n?? docs/goals/sc-ankiplus-release/notes/T004-maintenance-500-completion.json\n?? document/sources/chintaikanrishi/\n?? prompt/qualification_docs/chintaikanrishi/01_law_reference_policy.md\n?? scripts/common/question_answer_scope.py\n?? tests/test_question_answer_scope.py",
+  "checkerCommit": "828756303",
+  "checkerInputHashes": {
+    "scripts/check/check_correct_choice_patch_coverage.py": "7b33de2acf9fd890a63a8d421839461fdabbd4e8bf0e7dbca676511032fa4cb1",
+    "scripts/check/check_choice_text_alignment.py": "721cca74a16973086c11a5f6e8d4f61a2f506a10123699cdbe4dc56ce879b770",
+    "scripts/check/check_required_fields.py": "05e7707d23f2594108afd891956548f32d7965f1d19febc928a326b3b4903818",
+    "scripts/check/patch_entry_matching.py": "22c684ba2bc84d384de79323fea1194caf0d6e480ccc7176a39660b56541c621",
+    "scripts/common/question_answer_contract.py": "88701f4b347d15b19da98d07ddb29bd22c51eb247cb5ba6232ae30cd61e449ab"
+  },
+  "screenshotPath": "output/sc/reports/maintenance_500_completed.png",
+  "receiptFinalizedAt": "2026-10-04T16:44:18.154737+09:00"
+}
