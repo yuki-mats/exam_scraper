@@ -1,0 +1,41 @@
+{
+  "result": "done",
+  "summary": "実台帳をowner-only backup後にmigrationし、2025追加案を独立system_blocked/already_askedとして登録。同一再送は同一ID、既存6tablesは登録前後不変。全4caseへ32カテゴリ判断・根拠・範囲・最新gatesを同期。base patch_ref/commit/published_at・正式patch・Firestore/Storageは保持。",
+  "evidence": [
+    "output/user_feedback_response_system/daily/2026-10-04/ledger-amendment/registration-result.json",
+    "output/user_feedback_response_system/daily/2026-10-04/ledger-amendment/case-sync-result.json",
+    "notes/T044-existing-approval-request-provenance.json"
+  ],
+  "commands": [
+    {
+      "cmd": "SQLite mode=ro prewrite backup → fixed binding/base verification → register_amendment twice → summary/list/history",
+      "status": "pass"
+    },
+    {
+      "cmd": "4 private case reviews all8category reasons/evidence/scopes → record_decision → base-state/count consistency verification",
+      "status": "pass"
+    },
+    {
+      "cmd": "private directories700/files600 and 4case category completeness",
+      "status": "pass"
+    },
+    {
+      "cmd": "git diff --check",
+      "status": "pass"
+    }
+  ],
+  "counts": {
+    "reports": 72,
+    "intakeGaps": 0,
+    "unjudged": 67,
+    "fixesAwaitingProposal": 4,
+    "baseApprovalsWaiting": 0,
+    "basePublicationWaiting": 1,
+    "amendmentResponsesWaiting": 1,
+    "amendmentReadyApprovalsWaiting": 0,
+    "amendmentState": "system_blocked",
+    "improvementsOpen": 10,
+    "aiUnreviewed": 12004
+  },
+  "full_outcome_complete": false
+}

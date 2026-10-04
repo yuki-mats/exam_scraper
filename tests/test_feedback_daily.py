@@ -4,6 +4,11 @@ import hashlib
 import json
 import tempfile
 import unittest
+import copy
+import subprocess
+import sys
+import os
+from datetime import datetime, timezone
 from pathlib import Path
 
 from tools.question_bank.feedback_daily import (
@@ -15,6 +20,11 @@ from tools.question_bank.feedback_daily import (
     reconcile,
     record_decision,
     record_proposal,
+    register_amendment,
+    list_amendments,
+    amendment_history,
+    refresh_amendments,
+    AMENDMENT_FIELDS,
 )
 
 
@@ -189,6 +199,183 @@ class FeedbackDailyTest(unittest.TestCase):
         self.assertEqual(self.db.execute(
             "SELECT COUNT(*) FROM decision_history WHERE task_id=?", (task_id,)
         ).fetchone()[0], 2)
+
+
+    def amendment_fixture(self):
+        # Complete the unrelated rejected intake too: CLI summary intentionally
+        # returns nonzero for any actual intake gap.
+        self.snapshot['receipts'].append({'sourceSubmissionPath':self.path3,'status':'rejected'})
+        reconcile(self.db, self.snapshot, source='fixture')
+        task = sha(self.path1)
+        for case in ['case-a', 'case-b']:
+            record_decision(self.db, task_id=task, case_id=case, decision='fix_required', reason='fixture decision', evidence_ref='fixture evidence')
+        record_proposal(self.db, task_id=task, proposal_hash='a'*64, proposal_ref='existing-base-proposal')
+        directory = Path(self.temp.name).resolve() / 'artifacts'; directory.mkdir()
+        def artifact(name, value):
+            path=directory/name;path.write_text(json.dumps(value,sort_keys=True));path.chmod(0o600)
+            return {'ref':str(path),'hash':hashlib.sha256(path.read_bytes()).hexdigest(),'hashKind':'file_bytes_sha256'}
+        base=artifact('base.json',{'approvedBase':True})
+        with self.db:
+            self.db.execute('UPDATE report_tasks SET patch_ref=?,commit_sha=?,published_at=? WHERE task_id=?',(base['ref'],'b'*40,'already-published',task))
+        source={'sourceQuestionKey':'fixture:source','reviewQuestionId':'fixture-source','sourceRecordRef':'source.json#0'}
+        proposal=artifact('proposal.json',{'sourceIdentity':source,'changes':[{'field':f,'before':None,'after':[]} for f in sorted(AMENDMENT_FIELDS)]})
+        policy=artifact('policy.json',{'version':'fixture-current'})
+        code=artifact('reader.py',{'fixtureCode':True})
+        evidence=artifact('evidence.json',{'verifiedPrimaryFixture':True})
+        binding={'schemaVersion':'approval-amendment-binding/v1','taskId':task,'caseId':'case-a',
+            'base':{'patchRef':base['ref'],'commitSha':'b'*40,'patchHash':base['hash']},
+            'proposal':proposal,'fieldScope':sorted(AMENDMENT_FIELDS),'inputs':[code], 'policy':policy,'evidence':[evidence],
+            'contextMissing':False,'formalPlan':{'recordType':'source-bound-field-amendment/v1','sourceBinding':source,'publicationIds':['fixture-public'],
+                'fieldStages':{f:{'patchRef':f'output/fixture/{f}.json','stage':'18' if f=='lawReferences' else '21'} for f in AMENDMENT_FIELDS}}}
+        proof=artifact('binding.json',binding)
+        args={'task_id':task,'case_id':'case-a','request_id':'fixture-request','expected_revision':0,
+            'binding_ref':proof['ref'],'binding_hash':proof['hash'],'state':'pending'}
+        return artifact,binding,args
+
+    def test_amendment_pending_is_independent_and_idempotent(self):
+        artifact,binding,args=self.amendment_fixture()
+        before=dict(self.db.execute('SELECT * FROM report_tasks WHERE task_id=?',(args['task_id'],)).fetchone())
+        identifier=register_amendment(self.db,**args)
+        self.assertEqual(register_amendment(self.db,**args),identifier)
+        self.assertEqual(dict(self.db.execute('SELECT * FROM report_tasks WHERE task_id=?',(args['task_id'],)).fetchone()),before)
+        summary=daily_summary(self.db)
+        self.assertEqual(summary['patchApprovalsWaiting'],0)
+        self.assertEqual(summary['amendmentApprovalsWaiting'],1)
+        self.assertEqual(summary['amendmentsByState'],{'pending':1})
+        self.assertEqual(len(list_amendments(self.db)),1)
+        self.assertIn(args['task_id'],[r['taskId'] for r in list_report_tasks(self.db,limit=100)])
+        self.assertEqual(len(amendment_history(self.db,identifier)),1)
+        changed={**args,'state':'draft'}
+        with self.assertRaises(ValueError): register_amendment(self.db,**changed)
+        with self.assertRaises(ValueError): register_amendment(self.db,**{**args,'request_id':'new-stale-request','expected_revision':9})
+
+    def test_amendment_supersession_preserves_history(self):
+        artifact,binding,args=self.amendment_fixture();old=register_amendment(self.db,**args)
+        new=register_amendment(self.db,**{**args,'request_id':'new-request','expected_revision':1})
+        self.assertNotEqual(old,new)
+        self.assertEqual(list_amendments(self.db)[0]['revision'],2)
+        self.assertEqual(len(list_amendments(self.db)),1)
+        self.assertEqual(amendment_history(self.db,old)[-1]['to_state'],'superseded')
+        self.assertEqual(register_amendment(self.db,**args),old)
+
+    def test_amendment_binding_ref_hash_case_base_and_fields_refused(self):
+        artifact,binding,args=self.amendment_fixture()
+        for mutation in ['hash','case','base','scope','proposal_hash']:
+            altered=copy.deepcopy(binding)
+            changed=dict(args)
+            if mutation=='hash': changed['binding_hash']='0'*64
+            if mutation=='case': altered['caseId']='different-case'
+            if mutation=='base': altered['base']['commitSha']='c'*40
+            if mutation=='scope': altered['fieldScope'].append('questionText')
+            if mutation=='proposal_hash': altered['proposal']['hash']='0'*64
+            if mutation!='hash':
+                proof=artifact(mutation+'.json',altered);changed.update(binding_ref=proof['ref'],binding_hash=proof['hash'])
+            with self.subTest(mutation=mutation),self.assertRaises(ValueError):register_amendment(self.db,**changed)
+        self.assertEqual(list_amendments(self.db),[])
+
+    def test_amendment_unready_cases_never_become_pending(self):
+        artifact,binding,args=self.amendment_fixture()
+        for year in ['2018','2024','2020']:
+            draft=copy.deepcopy(binding);draft['contextMissing']=True;draft['formalPlan']={};draft['ready']=True
+            proof=artifact(year+'.json',draft)
+            with self.subTest(year=year),self.assertRaises(ValueError):
+                register_amendment(self.db,**{**args,'binding_ref':proof['ref'],'binding_hash':proof['hash']})
+        self.assertEqual(daily_summary(self.db)['amendmentApprovalsWaiting'],0)
+        draft=copy.deepcopy(binding);draft['policy']=None;draft['inputs']=[]
+        proof=artifact('asked-blocked.json',draft)
+        identifier=register_amendment(self.db,**{**args,'binding_ref':proof['ref'],'binding_hash':proof['hash'],
+            'state':'system_blocked','answer_status':'already_asked','asked_at':'2026-10-03T12:00:00Z'})
+        summary=daily_summary(self.db)
+        self.assertEqual(summary['amendmentApprovalsWaiting'],0)
+        self.assertEqual(summary['amendmentResponsesWaiting'],1)
+        self.assertEqual(list_amendments(self.db)[0]['state'],'system_blocked')
+        self.assertIn('policy_code_revalidation_missing',list_amendments(self.db)[0]['blockers'])
+
+    def test_amendment_rescan_reopen_and_changed_policy_stay_visible(self):
+        artifact,binding,args=self.amendment_fixture();identifier=register_amendment(self.db,**args)
+        reconcile(self.db,self.snapshot,source='fixture')
+        self.assertEqual(list_amendments(self.db)[0]['state'],'pending')
+        self.snapshot['cases'][0]['workflowStatus']='published';reconcile(self.db,self.snapshot,source='fixture')
+        self.snapshot['cases'][0]['workflowStatus']='unreviewed';reconcile(self.db,self.snapshot,source='fixture')
+        self.assertEqual(list_amendments(self.db)[0]['state'],'stale')
+        parent=self.db.execute('SELECT patch_ref,commit_sha,decision FROM report_tasks WHERE task_id=?',(args['task_id'],)).fetchone()
+        self.assertEqual(tuple(parent),(binding['base']['patchRef'],'b'*40,'fix_required'))
+        self.assertEqual(amendment_history(self.db,identifier)[-1]['reason'],'case_reopened')
+        self.assertEqual(daily_summary(self.db)['amendmentApprovalsWaiting'],0)
+        self.assertIn(args['task_id'],[r['taskId'] for r in list_report_tasks(self.db,limit=100)])
+        # Re-establishing case decision/rescanning never revives the old amendment.
+        record_decision(self.db,task_id=args['task_id'],case_id='case-a',decision='fix_required',reason='new review',evidence_ref='new proof')
+        reconcile(self.db,self.snapshot,source='fixture');self.assertEqual(list_amendments(self.db)[0]['state'],'stale')
+
+    def test_amendment_input_drift_and_migration_preserve_base_and_proposal(self):
+        artifact,binding,args=self.amendment_fixture();identifier=register_amendment(self.db,**args)
+        before=dict(self.db.execute('SELECT * FROM report_tasks WHERE task_id=?',(args['task_id'],)).fetchone())
+        # Simulate a legacy database without the additive migration tables.
+        with self.db:
+            self.db.execute('DROP TABLE amendment_history');self.db.execute('DROP TABLE proposal_amendments');self.db.execute('DROP TABLE report_task_cases')
+        reopened=_private_db(self.db_path);reopened.close();reopened=_private_db(self.db_path)
+        self.assertEqual(dict(reopened.execute('SELECT * FROM report_tasks WHERE task_id=?',(args['task_id'],)).fetchone()),before)
+        identifier=register_amendment(reopened,**args)
+        Path(binding['policy']['ref']).write_text('{"changed":true}')
+        refresh_amendments(reopened)
+        self.assertEqual(list_amendments(reopened)[0]['state'],'stale')
+        self.assertEqual(amendment_history(reopened,identifier)[-1]['reason'],'fixed_input_or_policy_changed')
+        self.assertEqual(dict(reopened.execute('SELECT * FROM report_tasks WHERE task_id=?',(args['task_id'],)).fetchone()),before)
+        reopened.close()
+
+    def test_amendment_report_input_and_base_reference_changes_are_stale(self):
+        artifact,binding,args=self.amendment_fixture();identifier=register_amendment(self.db,**args)
+        self.snapshot['submissions'][0]['questionId']='changed-fixture-question'
+        reconcile(self.db,self.snapshot,source='fixture')
+        self.assertEqual(list_amendments(self.db)[0]['state'],'stale')
+        self.assertEqual(amendment_history(self.db,identifier)[-1]['reason'],'report_input_or_case_binding_changed')
+        # A new explicit revision is required. Changing the parent commit cannot
+        # silently rebase the old binding or make it ready again.
+        with self.db:self.db.execute('UPDATE report_tasks SET commit_sha=? WHERE task_id=?',('c'*40,args['task_id']))
+        with self.assertRaises(ValueError):register_amendment(self.db,**args)
+        self.assertEqual(len(list_amendments(self.db)),1)
+
+    def test_amendment_canonical_hash_contract_and_content_conflict(self):
+        artifact,binding,args=self.amendment_fixture()
+        canonical=hashlib.sha256(json.dumps(binding,ensure_ascii=False,sort_keys=True,separators=(',',':')).encode()).hexdigest()
+        amended={**args,'binding_hash':canonical,'binding_hash_kind':'canonical_json_sha256'}
+        identifier=register_amendment(self.db,**amended)
+        self.assertEqual(register_amendment(self.db,**amended),identifier)
+        altered=copy.deepcopy(binding);altered['policy']=None
+        proof=artifact('changed-content.json',altered)
+        with self.assertRaises(ValueError):
+            register_amendment(self.db,**{**args,'binding_ref':proof['ref'],'binding_hash':proof['hash'],'state':'system_blocked'})
+
+    def test_amendment_real_cli_register_summary_list_and_refusal(self):
+        artifact,binding,args=self.amendment_fixture()
+        cli=[sys.executable,'-m','tools.question_bank.feedback_daily','--db',str(self.db_path)]
+        def run(*arguments,success=True):
+            started=datetime.now(timezone.utc).isoformat()
+            result=subprocess.run([*cli,*arguments],capture_output=True,text=True,env={**os.environ,'PYTHONDONTWRITEBYTECODE':'1'})
+            print(json.dumps({'fixtureCli':{'command':arguments[0],'startedAt':started,
+                'finishedAt':datetime.now(timezone.utc).isoformat(),'exitCode':result.returncode,
+                'bindingHash':arguments[arguments.index('--binding-hash')+1] if '--binding-hash' in arguments else args['binding_hash'],
+                'stdoutHash':sha(result.stdout),'stderrHash':sha(result.stderr)}},sort_keys=True))
+            self.assertEqual(result.returncode,0 if success else 1,result.stderr)
+            if success:
+                self.assertNotIn('source_path',result.stdout);self.assertNotIn('reporter',result.stdout)
+                return json.loads(result.stdout)
+        command=['amend-register',args['task_id'],'--case-id','case-a','--request-id','fixture-request','--expected-revision','0',
+            '--binding-ref',args['binding_ref'],'--binding-hash',args['binding_hash'],'--state','pending']
+        first=run(*command);self.assertEqual(run(*command)['amendmentId'],first['amendmentId'])
+        self.assertEqual(run('summary')['amendmentApprovalsWaiting'],1)
+        self.assertEqual(len(run('amend-list')['amendments']),1)
+        self.assertEqual(len(run('amend-history',first['amendmentId'])['history']),1)
+        run(*[x if x!='case-a' else 'wrong-case' for x in command],success=False)
+        self.assertEqual(run('amend-check')['amendmentApprovalsWaiting'],1)
+        blocked=copy.deepcopy(binding);blocked['policy']=None;blocked['inputs']=[]
+        proof=artifact('cli-blocked-binding.json',blocked)
+        result=run('amend-register',args['task_id'],'--case-id','case-a','--request-id','blocked-explicit-revision',
+            '--expected-revision','1','--binding-ref',proof['ref'],'--binding-hash',proof['hash'],
+            '--state','system_blocked','--answer-status','already_asked','--asked-at','2026-10-03T12:00:00Z')
+        summary=run('summary');self.assertEqual(summary['amendmentApprovalsWaiting'],0);self.assertEqual(summary['amendmentResponsesWaiting'],1)
+        latest=run('amend-list')['amendments'];self.assertEqual(len(latest),1)
+        self.assertEqual(latest[0]['state'],'system_blocked');self.assertEqual(latest[0]['answerStatus'],'already_asked')
 
 
 if __name__ == "__main__":

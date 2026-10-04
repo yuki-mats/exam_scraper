@@ -59,7 +59,7 @@ visual_board:
     url: http://goalbuddy.localhost:41737/feedback-correction-recovery/
     command: node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs
       --goal docs/goals/feedback-correction-recovery
-active_task: T043
+active_task: T045
 tasks:
   - id: T001
     type: scout
@@ -5710,7 +5710,7 @@ tasks:
   - id: T043
     type: worker
     assignee: Worker
-    status: active
+    status: done
     objective: 承認済みbase patchを維持したまま、追加proposalをversioned amendmentとして独立追跡するSQLite migration・Python API・実CLI・summary/list・対象tests・既存仕様正本を一式実装する。2025追加4fieldをPMが後でprivateDBへ登録できる契約を作り、未readyな3件のdraftを承認待ちへ誤登録しない。
     allowed_files:
       - tools/question_bank/feedback_daily.py
@@ -5756,6 +5756,223 @@ tasks:
       - 2repair後もverify不合格
     expected_output:
       - 真正goalbuddy_receipt_v1 T043、API/CLI schemaとstate semantics、実fixture CLIの結果、PMが2025をbackup後に登録する具体手順。正式patch/Firestore/Storage/actual ledger不変。
+    receipt:
+      result: done
+      task_id: T043
+      board_path: /Users/yuki/development/exam_scraper_feedback/docs/goals/feedback-correction-recovery/state.yaml
+      changed_files:
+        - tools/question_bank/feedback_daily.py
+        - tests/test_feedback_daily.py
+        - document/operations/user_feedback_response_system.md
+      commands:
+        - command: PYTHONDONTWRITEBYTECODE=1 /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest tests.test_feedback_daily
+          status: pass
+          exit_code: 0
+          started_at: '2026-10-04T02:40:55.853811+00:00'
+          finished_at: '2026-10-04T02:40:57.015009+00:00'
+          tests_run: 15
+          test_elapsed_seconds: 1.044
+        - command: 'isolated fixture DB: amend-register → 同一再送 → summary → amend-list → amend-history → amend-check'
+          status: pass
+          exit_code: 0
+          started_at: '2026-10-04T02:40:56.019848+00:00'
+          finished_at: '2026-10-04T02:40:56.628998+00:00'
+          result: 独立pending1件、base集計とbase patch/commit保持、再送同一ID、重複なし
+        - command: 'isolated fixture CLI: 別caseへのamend-register拒否'
+          status: pass
+          exit_code: 1
+          expected_exit_code: 1
+          started_at: '2026-10-04T02:40:56.446992+00:00'
+          finished_at: '2026-10-04T02:40:56.537310+00:00'
+          result: 期待どおり拒否し、台帳を変更しない
+        - command: 'isolated fixture CLI: 新revisionをsystem_blocked/already_askedで登録 → summary → amend-list'
+          status: pass
+          exit_code: 0
+          started_at: '2026-10-04T02:40:56.629786+00:00'
+          finished_at: '2026-10-04T02:40:56.896124+00:00'
+          result: pending0件、回答待ち1件、旧version superseded、現blocked version1件
+        - command: 旧schema migration二度・base/proposal保持・hash/case/base/scope/revision競合・draft拒否・rescan/reopen/input/policy stale化・history保持
+          status: pass
+          exit_code: 0
+          verification: 対象15tests内で実検証
+        - command: git diff --check
+          status: pass
+          exit_code: 0
+          started_at: '2026-10-04T02:41:32.528706+00:00'
+          finished_at: '2026-10-04T02:41:32.595220+00:00'
+        - command: 固定2025 proposalとPM提示base fileのread-only hash確認
+          status: pass
+          exit_code: 0
+          proposal_file_bytes_sha256: 96c86f57e1005ab0a7790046b2b0f7bbf37e3f39814b0b8b691387b99dabe8b8
+          approval_proposal_markdown_sha256: ba2b8b64ceee7a544e746a3c908e47865ad9f70e5210c5f9cdc848d5f918eef0
+          base_file_bytes_sha256: 53fa1d74d0955f005327b81cf6bcf94d321ee9a8cfeb1d302922b7db66b4d9ce
+      historical_commands: [{"command": "対象tests初回", "status": "fail", "exit_code": 1, "started_at": "2026-10-04T02:34:42.123816+00:00", "finished_at": "2026-10-04T02:34:42.636086+00:00", "tests_run": 13, "failure": "fixtureの無関係な第3報告にintake_gapが残り、既存summary CLIが仕様どおりexit1", "repair1": "fixture receiptをrejectedで完結。製品のintake gap guardは変更しない"}, {"command": "repair1後の対象tests", "status": "pass", "exit_code": 0, "started_at": "2026-10-04T02:38:08.860172+00:00", "finished_at": "2026-10-04T02:38:09.739766+00:00", "tests_run": 15}]
+      summary: 追加案専用SQLite migration/API/CLI/履歴・集計・一覧を実装。base承認を保持し、固定proposal/input/policyとrevisionへ結合する。blocked/staleでも既存回答待ちを表示し、未ready draftのpending登録を拒否。15testsと実fixture
+        CLIが成功。actual台帳・正式patch・Firestore・Storageは変更していない。
+      head: 0d7eff0d8c00d16deea0bbed1049ba1aec4f90c8
+      input_hashes:
+        tools/question_bank/feedback_daily.py: c822d985f97e6910a72109455e7c6bf6e75be652090e2e6949dc127649892c1c
+        tests/test_feedback_daily.py: eb5890c88922bedbbf0bf01d8210f8725edc8550e410e448de49c261b596a088
+        document/operations/user_feedback_response_system.md: 5e0b983c3ec8dbc833385d4503d9fbb3e49e078c88c26f974335044ee8124c67
+      api_cli_contract:
+        tables:
+          - report_task_cases
+          - proposal_amendments
+          - amendment_history
+        binding_schema: approval-amendment-binding/v1
+        hash_kinds:
+          - file_bytes_sha256
+          - canonical_json_sha256
+        canonical_serialization: UTF8、ensure_ascii=false、sort_keys=true、separators=(comma,colon)、末尾LFなし
+        states:
+          - pending
+          - draft
+          - system_blocked
+          - stale
+          - superseded
+        answer_states:
+          - not_requested
+          - already_asked
+        api:
+          - register_amendment
+          - refresh_amendments
+          - list_amendments
+          - amendment_history
+        cli:
+          - amend-register
+          - amend-list
+          - amend-history
+          - amend-check
+        summary_fields:
+          - amendmentsByState
+          - amendmentApprovalsWaiting
+          - amendmentResponsesWaiting
+          - approvalWaitingTotal
+        base_patchApprovalsWaiting_semantics_preserved: true
+        caller_ready_true_insufficient: true
+        same_request_idempotent: true
+        content_and_revision_conflicts_rejected: true
+        rescan_does_not_restore_pending: true
+      pm_registration_steps:
+        - actual private DBをSQLite backup API等で600 fileへbackupする。Workerはactual DBを開いていない
+        - PM確認済みtask/caseと現base patch_ref/commit_sha・実bytes hashを再確認する
+        - 固定2025追加4field proposalのhashを結合したprivate binding JSONを700 directory/600 fileへ保存する。未再検証input/policyと未確定formalPlanをreadyとして記載しない
+        - 初回expected-revision=0、固定request ID、state=system_blocked、answer-status=already_asked、asked-at=2026-10-03T11:27:51.394Zでamend-registerを実行する
+        - summary/amend-list/amend-historyで追加案の回答待ち1件、pending-ready0件、base不変を確認する。承認質問を再送しない
+        - 同一登録の再送は同じrequest/bindingを用いる。将来の再検証・置換は現在revisionを指定した新requestと新versionで履歴を残す
+      preservation:
+        actual_private_db_opened_or_modified: false
+        formal_patch_modified: false
+        WORK_modified: false
+        Firestore_written: false
+        Storage_written: false
+        existing_base_approval_extended: false
+        approval_question_resent: false
+        board_commit_push_performed: false
+        PM_control_file_diffs_preserved: true
+      remaining_blockers:
+        - actual2025登録はPMのbackup後作業。Workerはfixture検証のみ
+        - 2025追加4fieldの現在input/policy/code再検証は未済。既存回答待ちとpending-readyを区別しsystem_blockedで追跡する
+        - 2018/2024/2020の正式path・型・source/public対応未確定draftをpending登録しない
+        - 人間承認・正式保存・真正checkpoint/evaluation・production許可と公開は未実行
+      needs_judge: true
+      verification_attempts: 3
+      repair_attempts: 1
+  - id: T044
+    type: pm
+    assignee: PM
+    status: done
+    objective: T043の実APIを使い2025追加案をprivate台帳へ欠落なく登録し、確認済み4件の全8カテゴリ判断と最新draft/承認/公開境界をcase記録へ反映する。
+    allowed_files:
+      - ~/Library/Application Support/Repaso/feedback-ops/ledger.sqlite3
+      - ~/Library/Application Support/Repaso/feedback-ops/ledger.backup.sqlite3
+      - output/user_feedback_response_system/daily/2026-10-04/ledger-amendment/**
+      - output/user_feedback_response_system/cases/bc3f782815feeff4d523e71c7ee580fa3328f2fc22fd61ccde9abfc82cfb53cd/case_review.json
+      - output/user_feedback_response_system/cases/90de1e5a2893760f7ce1373af32566f33139220c34cc2bf3df6c91d51a78d3d1/case_review.json
+      - output/user_feedback_response_system/cases/ccfa41d8a0209ea9ded787325ebfea3ad167b5765da9b78e429373a8ce74891a/case_review.json
+      - output/user_feedback_response_system/cases/1e8f90f94aad2d4febcc27ff1aa2d29083d9393b1cca454d60454dfa96847c79/case_review.json
+    inputs:
+      - notes/T042-review-receipt.json
+      - T043 native receipt/API登録手順
+      - 固定2025追加案96c86f57e1005ab0a7790046b2b0f7bbf37e3f39814b0b8b691387b99dabe8b8
+      - base patch SHA53fa1d74d0955f005327b81cf6bcf94d321ee9a8cfeb1d302922b7db66b4d9ce/commit cfc633f5c22bf6b121ac1e290b3edd1a344a73ef
+      - T041実候補とT028/29/33/37/39受理された内容審査
+    constraints:
+      - SQLite migration前にmode=ro接続からowner-only prewrite backupを作る。base patch_ref/commit_sha/published_at・既存承認は不変。
+      - 2025のalready askedと現在のready gateを区別する。再検証未済ならblocked/staleとして可視化し、pending-ready件数へ偽昇格しない。既存承認質問を再送しない。
+      - 2018/2024/2020の正式保存path未確定/source未結合draftは承認待ち登録しない。個別caseへ新根拠/最新blockers/全8カテゴリ判断理由と範囲を残す。旧記録は日付付き履歴として保持する。
+      - 正式patch/WORK/Firestore/Storageは不変。生利用者本文・source_path・識別情報はGit/通常log/通知へ出さない。private dirs700/files600。
+    verify:
+      - 登録前後base row/patch bytes不変、追加案binding/hash/revisionを実照合
+      - 同じrequest再登録で重複しない。summary/listで追加案表示し、未ready3draftは承認待ちにならない
+      - 全4caseの8カテゴリに判断/reason/evidence/scopeが揃い、最新stateが実検証結果に一致
+      - git diff --check
+    receipt:
+      result: done
+      summary: 実台帳をowner-only backup後にmigrationし、2025追加案を独立system_blocked/already_askedとして登録。同一再送は同一ID、既存6tablesは登録前後不変。全4caseへ32カテゴリ判断・根拠・範囲・最新gatesを同期。base patch_ref/commit/published_at・正式patch・Firestore/Storageは保持。
+      evidence:
+        - output/user_feedback_response_system/daily/2026-10-04/ledger-amendment/registration-result.json
+        - output/user_feedback_response_system/daily/2026-10-04/ledger-amendment/case-sync-result.json
+        - notes/T044-existing-approval-request-provenance.json
+      commands:
+        - cmd: SQLite mode=ro prewrite backup → fixed binding/base verification → register_amendment twice → summary/list/history
+          status: pass
+        - cmd: 4 private case reviews all8category reasons/evidence/scopes → record_decision → base-state/count consistency verification
+          status: pass
+        - cmd: private directories700/files600 and 4case category completeness
+          status: pass
+        - cmd: git diff --check
+          status: pass
+      counts:
+        reports: 72
+        intakeGaps: 0
+        unjudged: 67
+        fixesAwaitingProposal: 4
+        baseApprovalsWaiting: 0
+        basePublicationWaiting: 1
+        amendmentResponsesWaiting: 1
+        amendmentReadyApprovalsWaiting: 0
+        amendmentState: system_blocked
+        improvementsOpen: 10
+        aiUnreviewed: 12004
+      full_outcome_complete: false
+  - id: T045
+    type: judge
+    assignee: Judge
+    status: active
+    objective: 受理済み3件の内容を実際の正式patch保存案へ進めるため、既存reader/source-public対応を使う正確な保存path・型・private dry-runと承認後保存契約を具体化する最大安全Worker packageを選ぶ。
+    inputs:
+      - notes/T042-review-receipt.json
+      - notes/T043-amendment-receipt.json
+      - T044 receiptとprivate4case最新review
+      - output/user_feedback_response_system/staging/recovery-three-cases/execution-contract/runs/T041-repair1-e1ed4d7c4c27/manifest.json
+      - 同runの全3candidate、2018/2024 source-patch-preview、actual-preview-gates、approval-proposal
+      - scripts/common/scoped_canonical_context.py
+      - scripts/pipeline/prepare_scoped_question_artifacts.py
+      - scripts/merge/record_projection.py
+      - scripts/merge/patch_views.py
+      - tools/question_review_console/scoped_corrections.py
+      - tools/question_review_console/scoped_artifacts.py
+      - tools/question_review_console/inventory.py
+      - tools/question_review_console/validated_evidence_import.py
+      - tools/question_review_console/coordinator.py
+      - tools/question_review_console/work_versions.py
+      - tools/question_bank/question_issue_reports.py
+      - document/operations/artifact_contract.md
+      - document/operations/delivery_workflow.md
+      - document/operations/question_issue_report_workflow.md
+      - 対応testsと必要な狭い実依存のread-only参照
+    constraints:
+      - Read-only、PMのみcontrol。受理済み全肢の内容・一次法令判断を全面再審査しない。
+      - 原問source正答4/2とoriginal body/ordered choices・公開TF真偽を別に保持し、同じscopeの正式source patchとpublic variantを型付きsource-public mappingで結合する。候補before/afterを変えず、exact planned正式file
+        pathsを提示する。
+      - 2020は原公式rawが正しく、改題公開snapshotのquestionTextだけが誤字。production_snapshotとして正直なprovenance/既存ID/before/updateTimeへ結合し、原取得sourceやFirestore listGroupIdを創作しない。必要なsource
+        group/refは根拠に基づく明示対応またはsnapshot専用保存契約として具体化する。
+      - 既存generic artifact契約・readerを活用し、別の大きなprovider/UI/frameworkを作らない。通常00_source/IDを保持。既存immutable runs/nativechain/WORK/正式patchは保持。
+      - まだ正式保存承認はない。次packageはproduct contractとprivate候補・正式保存dry-run/拒否検証まで。actual正式保存は承認後。2025追加案質問再送禁止。
+      - 正式保存前の現行版照合・checkpoint/evaluation未済をpassにせず残す。production durable approval/atomic SDK/unknown outcome回復は後続必須だが今回最初の保存案具体化に混ぜて無制限に広げない。
+    expected_output:
+      - 真正goalbuddy_receipt_v1 T045。最大安全な次Worker packageのobjective/allowed_files/verify/stop_if。正確plannedpath/型/source-public bindingの方針、必要readiness証明、full_outcome_complete=false。
     receipt: null
   - id: T004
     type: pm

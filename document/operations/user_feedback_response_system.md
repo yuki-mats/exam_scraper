@@ -224,6 +224,63 @@ output/user_feedback_response_system/
 
 ## 精度指標と改善
 
+### 承認済みbaseへの追加案台帳
+
+`feedback_daily` は追加案を `proposal_amendments` と `amendment_history` に独立保存します。
+親task/case、baseの `patch_ref` / `commit_sha` / 実bytes hash、固定proposal、input、policyへ結合し、
+既存baseの承認・公開情報を更新しません。起動migrationは既存proposalを保持し、再実行しても重複しません。
+追加案の登録は正式patch保存・人間承認・checkpoint・評価・production公開ではありません。
+
+状態は `pending`（技術的な承認案gate通過）、`draft`、`system_blocked`、`stale`、`superseded`。
+回答状態 `already_asked` はready gateから独立です。既に質問した2025追加4fieldは、code/policy再検証未済なら
+`system_blocked` と `already_asked` で追跡します。承認質問を再送せず、base承認を追加fieldへ拡張しません。
+2018/2024/2020の正式path・型・source/public対応未確定なdraftを `pending` にしません。
+
+binding JSONは `approval-amendment-binding/v1` で、次を含みます。
+
+- `taskId`, `caseId`, `base:{patchRef,commitSha,patchHash}`
+- `proposal:{ref,hash,hashKind}`, `fieldScope`（lawReferences、explanationText、lawRevisionFacts、suggestedQuestionDetailsByChoiceの4field）
+- `inputs` と `evidence`（各 `{ref,hash,hashKind}` の配列）、`policy`（同形式、未再検証ならnull）
+- `formalPlan:{recordType,sourceBinding,publicationIds,fieldStages}`、`contextMissing`
+
+`hashKind` は `file_bytes_sha256` または `canonical_json_sha256`。後者はUTF-8・ensure_ascii=false・
+sort_keys=true・separators=(comma,colon)・末尾LFなしのJSON object serializationです。
+refだけ、callerの `ready=true` だけではpending登録できません。proposal scope、現在の各file hash、code input、
+policyと一次証拠、source/public結合、正式型 `source-bound-field-amendment/v1` と4fieldの18/21保存計画を確認します。
+fieldStagesは各fieldの `{patchRef,stage}`（lawReferencesは18、他3fieldは21）で、相対JSON pathを要求します。
+この検証は正式reader/materializerやproduction承認の代わりにはなりません。
+
+同一request/base/bindingの再送は同じamendment ID。内容やexpected revisionの競合は拒否します。
+置換は現在revisionを明示した新requestで新versionを作り、旧versionとsupersession履歴を残します。
+case reopen・case/input変化・base参照変化・固定証拠/policy変化はstale化し、rescanからpendingを復活させません。
+`scan` または `amend-check` が現在のbindingを再照合します。
+
+summaryの従来 `patchApprovalsWaiting` はbaseのみです。追加案は `amendmentsByState`、
+`amendmentApprovalsWaiting`、`amendmentResponsesWaiting`、`approvalWaitingTotal` に分けます。
+`list-reports` はpatch_refありでも独立追加案を表示し、`amend-list` はblocked/staleを含む現versionを表示します。
+`amend-history` で旧versionの履歴を確認できます。通常出力へ利用者本文・source_path・reporter情報は追加しません。
+
+#### PMによる2025登録手順
+
+1. private DBをSQLite backup APIなどで別の600 fileへbackupし、現在のtask/case・base patch_ref/commit_shaと実bytes hashをread-only確認する。
+2. 固定 `staging/recovery-law-2025/final-candidate-field-diff.json` と承認案のhashを確認し、上記binding JSONをprivate700 directory/600 fileへ保存する。未再検証のinput/policyや未確定formalPlanをreadyと記載しない。
+3. 既に送った質問の実時刻を確認し、下記CLIで `system_blocked` / `already_asked` として登録する。actual DB登録はPMが実施する。
+4. summary/list/historyで回答待ち1件と技術gate未済を確認する。再送には同一request IDとbindingを用いる。次の明示再検証・新revisionまでpending-readyへ昇格しない。
+
+```sh
+python -m tools.question_bank.feedback_daily --db "$PRIVATE_DB" amend-register "$TASK_ID" \
+  --case-id "$CASE_ID" --request-id "$REQUEST_ID" --expected-revision 0 \
+  --binding-ref "$PRIVATE_BINDING" --binding-hash "$BINDING_FILE_SHA256" \
+  --binding-hash-kind file_bytes_sha256 --state system_blocked \
+  --answer-status already_asked --asked-at "$ACTUAL_QUESTION_TIMESTAMP"
+python -m tools.question_bank.feedback_daily --db "$PRIVATE_DB" summary
+python -m tools.question_bank.feedback_daily --db "$PRIVATE_DB" amend-list
+python -m tools.question_bank.feedback_daily --db "$PRIVATE_DB" amend-check
+```
+
+初回expected revisionは0。既存versionの置換は現在revisionを取得して指定します。
+Worker検証はisolated fixture DBのみで実CLIを実行し、actual private DB・正式patch・Firestore・Storageを変更しません。
+
 資格・カテゴリ単位で次を集計します。
 
 - AI判定と松田の一致率
