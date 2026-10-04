@@ -1,0 +1,34 @@
+{
+  "result": "done",
+  "task_id": "T054",
+  "harness": "codex",
+  "summary": "backup後に2025amendment技術bindingを明示revision2として追記。旧revision1/request/asked_atを保存し、新revisionは旧native質問callへ結合、system_blocked/already_asked継続。正式保存/モデル評価/本番なし。",
+  "evidence": {
+    "artifact": "output/user_feedback_response_system/daily/2026-10-04/amendment-current2025/registration-result.json",
+    "revision": 2,
+    "changedTables": [
+      "amendment_history",
+      "proposal_amendments"
+    ],
+    "otherTablesUnchanged": true,
+    "pendingPlanValid": true,
+    "formalDataUpdated": false,
+    "FirestoreModified": false,
+    "questionsResent": false
+  },
+  "commands": [
+    {
+      "command": "register_amendment expected_revision=1、事前SQLitebackup、全table比較、summary/list_reports/list_improvements/read_plan",
+      "status": "pass",
+      "exit_code": 0,
+      "native_output_ref": "78ebeb",
+      "finished_at": "2026-10-04T05:02:32.595605+00:00"
+    }
+  ],
+  "remaining_blockers": [
+    "human_reply_pending",
+    "WORK_save_root_approval_scope_pending",
+    "current_checkpoints_missing",
+    "genuine_model_evaluation_not_run"
+  ]
+}

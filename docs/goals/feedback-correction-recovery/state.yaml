@@ -59,7 +59,7 @@ visual_board:
     url: http://goalbuddy.localhost:41737/feedback-correction-recovery/
     command: node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs
       --goal docs/goals/feedback-correction-recovery
-active_task: T053
+active_task: T057
 tasks:
   - id: T001
     type: scout
@@ -7342,7 +7342,7 @@ tasks:
   - id: T053
     type: worker
     assignee: Worker
-    status: active
+    status: done
     objective: 既存2025追加4fieldsを一切変更せず、fresh private runに現行context・canonical/candidate再生成・型付き18/21保存予定bytes・generic reader replay・現在の機械検証とpreview・PM用amendment技術bindingを一式生成する。既存質問への回答待ちを保持し、正式保存と真正checkpoint/model評価は実行しない。
     allowed_files:
       - output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/verify.py
@@ -7404,6 +7404,507 @@ tasks:
       - 指定private runが既に存在する、途中で入力hashが変わる、他作者差分の巻戻しが必要になる。
     expected_output:
       - 真正goalbuddy_receipt_v1 T053。private成果とexact2planned bytes・再生成/reader機械整合/currentpreview・PM用amendment binding。真正評価/正式保存/本番未実行。
+    receipt:
+      result: done
+      task_id: T053
+      board_path: /Users/yuki/development/exam_scraper_feedback/docs/goals/feedback-correction-recovery/state.yaml
+      artifact_root: /Users/yuki/development/exam_scraper_feedback/output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025
+      changed_files:
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/verify.py
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/baseline.json
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/input-context.json
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/canonical/manifest.json
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/canonical/merged.json
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/canonical/converted.json
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/canonical/uploadReady.json
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/private/manifest.json
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/private/merged.json
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/private/converted.json
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/private/uploadReady.json
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/planned/18_law_context_prepared/question_85011_empty_1_lawContext_prepared_20261004_0000.json
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/planned/21_explanationText_added/question_85011_empty_1_explanationText_added_20261004_0000.json
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/formal-stage-plan.json
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/evidence-import.json
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/gate-results.json
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/previews.json
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/amendment-binding.json
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/readiness-summary.md
+      commands:
+        - command: PYTHONDONTWRITEBYTECODE=1 /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest tests.test_scoped_canonical_context tests.test_question_review_scoped_artifacts
+            tests.test_question_review_validated_evidence_import tests.test_feedback_daily
+          status: pass
+          started_at: '2026-10-04T04:57:44Z'
+          finished_at: '2026-10-04T04:57:47Z'
+          exit_code: 0
+          tests: 30
+          native_output_ref: 7cae26
+        - command: PYTHONDONTWRITEBYTECODE=1 /Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/verify.py
+          status: pass
+          started_at: '2026-10-04T04:58:55.397755Z'
+          finished_at: '2026-10-04T04:59:08.001922Z'
+          exit_code: 0
+          native_output_ref: d7a94f
+          runner_sha256: d34957a1d3ab27bcc518a86b40ed2f29afafe6af1385645f27a8b4fa091364c1
+        - command: git diff --check
+          status: pass
+          started_at: '2026-10-04T04:59:13Z'
+          finished_at: '2026-10-04T04:59:13Z'
+          exit_code: 0
+          native_output_ref: beb45c
+        - command: private19files・700/600・final hashes・actual gate resultsの読取り確認
+          status: pass
+          started_at: '2026-10-04T04:59:13Z'
+          finished_at: '2026-10-04T04:59:13Z'
+          exit_code: 0
+          native_output_ref: a6b9b0
+      verification_history:
+        - command: T053 verify.py 初回
+          status: pass
+          started_at: '2026-10-04T04:57:47Z'
+          finished_at: 2026-10-04T04:57:57Z以降
+          exit_code: 0
+          native_output_ref: '100746'
+          note: 失敗なし。最終実行では公開docの保護field比較とpolicy/required/blocker記録を追加。
+      evidence:
+        HEAD: e0d7f3f37da37210a730b5a1ddda9e63872d9164
+        current_input_count: 416
+        current_input_hash: 2e4da8a5a8545bb54450cffc99469c1131703339e360f55f14f9a737ae9687ce
+        planned18_byte_hash: 749e34db69a59050e3a091caf459e75686e44fa7e4912665cf423c51a7064608
+        planned21_byte_hash: 578e0a799600d8148ed17e6f15fb784a66ea878c906f39a72333366d3aec4c06
+        formal_stage_plan_hash: 353085fde4043947a86592b83ab3b8e3ce0df14425ceadb34ddcf128c5964536
+        amendment_binding_hash: a12f2016d6f88a8fb36a094796d87da62d21a6e9cf9dd30e45af23e0bf0c86ff
+        gate_results_hash: dd464721b1ccee73c2dc6ae0117ddac876a69fa671968b6a151b4998b984b4cd
+        previews_hash: a8d47a3d39acc9e3385852a4a2a171078455f8e4c7a83cc9050eeae84231bab5
+        native_import_hash: 1f6970e2dc89d4d91b1f3a7b13369264904ecdabbb9f4a9a68fa4a367380a563
+        generic_reader_replay_exact: true
+        candidate_four_fields_unchanged: true
+        publication_document_count: 5
+        protected_fields_unchanged: true
+        other_source_bindings_untouched: true
+        required_schema_coverage_errors: []
+        sidecar_errors: []
+        required_field_warnings: []
+        amendment_technical_blockers: []
+        law_audit_policy: '6.0'
+        evaluation_policy: '5.6'
+        canonical_blockers:
+          - answer_explanation_mismatch
+          - law_audit_metadata_incomplete
+        private_blockers:
+          - scoped_formal_approval_pending
+        machineReady: false
+        canEvaluate: false
+        canPublish: false
+        checkpointStages: []
+        modelRunPerformed: false
+        formalDataUpdated: false
+        publicationReady: false
+        baseline_unchanged: true
+        pending_T049_plan_hash: 91866ce7a82b35abacea10200d298c2608bdf53396f0de0b0b9e80bf83ae10ce
+        pending_T049_inputs: 699
+        formal_nine_paths_absent: true
+        planned_two_WORK_paths_absent: true
+        case_and_ledger_bytes_unchanged: true
+        questions_resent: false
+        private_permissions: directories700/files600
+      summary: 指定private19filesで現行context、canonical/private再生成、exact18/21予定bytes、generic reader replay、真正native再import、実Inventory/Evaluation/Publisher previewとamendment技術bindingを完成しました。固定4fields・公開5ID・保護field・既存699inputs・case/ledgerを保持。技術gate成功と正式保存readinessは別で、system_blocked/already_askedを維持しています。
+      remaining_blockers:
+        - 追加4fieldsの真正回答待ち。既存質問の承認範囲をWORK保存先変更へ拡張していません。
+        - 通常18/21はWORK、承認済み24はROOT overlayを読むため、保存root範囲の明示承認が必要です。
+        - 正式保存後のcurrent checkpointと真正model評価は未実行。全workVersionsは未記録です。
+        - PMのみが台帳backup後、amendment-binding.jsonのexact hashを同じbase/proposalの次revisionへ登録します。既存質問は再送しません。
+      needs_judge: false
+      verification_attempts: 2
+      repair_attempts: 0
+  - id: T054
+    type: pm
+    assignee: PM
+    status: done
+    objective: T053の現技術bindingを実台帳へbackup後の明示次revisionとして追記し、旧質問already_askedと旧base/proposalを保持する。正式保存/評価/公開の未完了を保全する。
+    allowed_files:
+      - docs/goals/feedback-correction-recovery/state.yaml
+      - docs/goals/feedback-correction-recovery/notes/T054-*
+      - output/user_feedback_response_system/daily/2026-10-04/amendment-current2025/*
+      - /Users/yuki/Library/Application Support/Repaso/feedback-ops/ledger.sqlite3
+    inputs:
+      - notes/T053-current2025-receipt.json
+      - staging/recovery-scoped-2025/runs/T053-current2025/amendment-binding.json
+      - 実台帳2025amendmentrevision0
+    constraints:
+      - 実DB backupを600/700の私的領域へ保存し、expectedrevision一致のみでAPI追記する。既存report/basepatch/他proposal/改善tasks不変を照合。
+      - state=system_blocked、answer_status=already_askedと元asked_at/元request_idを保持。技術成功だけで正式ready又は承認済みへ昇格しない。
+      - 質問再送、実正式18/21/24保存、Firestore/Storage write、case_review/699inputs改変禁止。
+      - 本PMtaskは運用台帳とcontrolのみ。保存先の具体化は承認済みと称さず、実範囲差を保留として記録。
+    verify:
+      - 台帳backupとtable比較
+      - register_amendment expected revision/元固定proposal/base不変
+      - summary/listreports/listimprovements readbackとpending T049 read_plan699inputs不変
+      - git diff --check
+    expected_output:
+      - 実登録結果・変更row範囲・再開条件のPMreceipt、正式未保存/本番未公開
+    receipt:
+      result: done
+      task_id: T054
+      harness: codex
+      summary: backup後に2025amendment技術bindingを明示revision2として追記。旧revision1/request/asked_atを保存し、新revisionは旧native質問callへ結合、system_blocked/already_asked継続。正式保存/モデル評価/本番なし。
+      evidence:
+        artifact: output/user_feedback_response_system/daily/2026-10-04/amendment-current2025/registration-result.json
+        revision: 2
+        changedTables:
+          - amendment_history
+          - proposal_amendments
+        otherTablesUnchanged: true
+        pendingPlanValid: true
+        formalDataUpdated: false
+        FirestoreModified: false
+        questionsResent: false
+      commands:
+        - command: register_amendment expected_revision=1、事前SQLitebackup、全table比較、summary/list_reports/list_improvements/read_plan
+          status: pass
+          exit_code: 0
+          native_output_ref: 78ebeb
+          finished_at: '2026-10-04T05:02:32.595605+00:00'
+      remaining_blockers:
+        - human_reply_pending
+        - WORK_save_root_approval_scope_pending
+        - current_checkpoints_missing
+        - genuine_model_evaluation_not_run
+  - id: T055
+    type: worker
+    assignee: Worker
+    status: blocked
+    objective: 日次新着の2020管理業務主任者問39の参照文章欠落について、公式原問と現行対象・siblingを照合し、必要なfieldだけの変更前後と根拠・影響範囲・予定patchを私的proposal一式へまとめる。元4件とは別case。正式保存/本番writeなし。
+    allowed_files:
+      - output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T055-proposal/verify.py
+      - output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T055-proposal/baseline.json
+      - output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T055-proposal/source-evidence.json
+      - output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T055-proposal/official-transcription.txt
+      - output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T055-proposal/live-selected.json
+      - output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T055-proposal/proposed-field-diff.json
+      - output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T055-proposal/proposed-patch.json
+      - output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T055-proposal/proposal.md
+      - output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T055-proposal/verification.json
+    inputs:
+      - daily/2026-10-04/private-inspection/manifest.json、report-current.json、公式2020PDF/第27頁画像（実filenameは限定rgで確認）
+      - cases/23c47f347bc30e1cf53a8485bd34f54c946d3212776add153491f0b62c4d2fc5/case_review.json（read-only）
+      - raw WORK output/kanrigyoumu/questions_json/94006/00_source/question_94006_2.json、canonical_question_key=kanrigyoumu:2020:q039
+      - 公式 https://www.kanrikyo.or.jp/kanri/shiken_r02/pdf/mondai_021.pdf PDF27頁/印刷25
+      - 対象condominiummanager-C-11410、originalQuestionId=kanrigyo-2020-39、task afe1570a185fd83d5da8e69c0bd7060f80f5b2b9cff45b6d154d60b116942810
+    constraints:
+      - 私的9filesのみ所有、dir700/file600。共有作業で他作者変更を巻き戻さない。PMのみstate/実DB/Git。
+      - 公式PDF hash417defdbeb15e09c97707ac9431f5ed82e18f3f6da9a527808f43dcd1bf77df1と既viewedpageを利用。原問判決文章と空欄ア〜エを照合しrawの（エ）よるは公式（エ）によるへ転記する。法的再判定/解説改変はしない。
+      - 読取りのみSDK masked projectionを使用し、対象questionId/originalQuestionIdの一致・全siblingの実ID、現在fieldpresence/updateTime/nanosを照合する。fullgetは無関係なprojects/undefined参照decode障害があるため使わない。資格/group/sourceRefを推測補完しない。
+      - questionText/questionBodyText/originalQuestionBodyTextの文章欠落と実表示上の使い分けを必要な既存実装へ照らし、必要なfieldsのbefore/afterを具体化。原問保持と公開改題を別snapshotで表す。選択肢2の正誤、4組合せ、既存choiceText/解説/分類/画像/IDは変更しない。
+      - 対象sibling未取得・存在重複・year/choice binding不一致なら安全にholdを残す。現在CONTENT_FIELDSのoriginalQuestionBodyText未対応など、patch保存/公開入口の技術不足があれば明記し、schema/allowlistや既存codeを緩めない。
+      - proposed-patch.jsonは既存SnapshotCorrection相当のID/updateTime/fieldpresence/before/after/allowlist/fullDocumentUploadAllowed=falseを明記するdraft。既存型で未許可fieldを承認readyと称さない。具体source/ref/provenance、必要fieldと除外field・影響範囲、実正式保存先は対応schema未確定ならunresolvedを残す。
+      - T049の699inputs/固定資料/正式9paths、T053private416inputs/19files、5case_review/台帳・approved24/旧proposal全て不変。新caseだけのactualproposal登録はPM後続。
+      - 利用者の生本文・識別情報・Firestore受付原本をGit/通常ログ/通知へ出さない。Firestore/Storage write/運用ledger更新/正式24/18/21/00_source変更禁止。
+      - 初回verify+repair2まで、native失敗履歴保全。scope拡張不要なdata-only最大packageに留める。
+    verify:
+      - 指定private verify.pyを実行し公式転記hashとactual masked対象/全sibling/fieldpresence/nanos/4choice bindingを確認。本文はログに出さない。
+      - 各proposedfield afterは参照文章と既存改題/choiceの組合せとして完全性と保持field不変を確認。公式肢2正答を維持、原問と改題差は明示。
+      - SnapshotCorrection.from_mappingで対応field部分のみ型チェックし、未対応fieldがあれば明示技術blockerを記録。fixtures又は成功labelでfullreadinessを偽らない。
+      - 元case_review/台帳/699pendinginputs/416T053inputs/正式path不在が不変か照合。新proposalのhashを固定。
+      - git diff --check
+    stop_if:
+      - 既存code/schema/config/case/台帳/正式patch/source又はpending入力を変更する必要がある。
+      - 本文欠落を直すためにchoice/正誤/解説/法令改正判断まで変更する必要がある。
+      - 正式保存又は公開承認、Firestore/Storage write、原生利用者データのログ出力が必要になる。
+      - allowedfiles外成果を作る必要がある、input drift又はrepair2超過。
+    expected_output:
+      - 真正goalbuddy_receipt_v1 T055。具体proposal/hash/根拠/影響対象/予定patchと実blocked条件、正式未保存/未公開。
+    receipt:
+      result: blocked
+      task_id: T055
+      board_path: /Users/yuki/development/exam_scraper_feedback/docs/goals/feedback-correction-recovery/state.yaml
+      artifact_root: /Users/yuki/development/exam_scraper_feedback/output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T055-proposal
+      changed_files:
+        - output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T055-proposal/verify.py
+        - output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T055-proposal/baseline.json
+        - output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T055-proposal/source-evidence.json
+        - output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T055-proposal/official-transcription.txt
+        - output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T055-proposal/live-selected.json
+        - output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T055-proposal/proposed-field-diff.json
+        - output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T055-proposal/proposed-patch.json
+        - output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T055-proposal/proposal.md
+        - output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T055-proposal/verification.json
+      commands:
+        - command: PYTHONDONTWRITEBYTECODE=1 /Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T055-proposal/verify.py
+          status: fail
+          attempt: 1
+          started_at: '2026-10-04T05:09:26Z'
+          finished_at: '2026-10-04T05:09:27Z'
+          exit_code: 1
+          native_output_ref: '636367'
+          failure: 'AssertionError: raw/official combination mismatch'
+          cause: 公式肢2/4は「生命、身体及び財産」、rawとliveは「生命、身体又は財産」。
+        - command: PYTHONDONTWRITEBYTECODE=1 /Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T055-proposal/verify.py
+          status: pass
+          attempt: 2
+          repair: 1
+          started_at: '2026-10-04T05:10:58.883138Z'
+          finished_at: '2026-10-04T05:10:59.860425Z'
+          exit_code: 0
+          native_output_ref: 42428c
+          limitation: raw/liveの対応、保持field、型拒否、保全を検査した限定結果。公式4choice整合の成功ではありません。生成verification.jsonのcomplete=trueをwhole slice完了へ採用しません。
+        - command: git diff --check
+          status: not_run
+          reason: PMの即時停止指示後、追加検証を実行していません。
+      evidence:
+        official_pdf_sha256: 417defdbeb15e09c97707ac9431f5ed82e18f3f6da9a527808f43dcd1bf77df1
+        official_page: 27
+        printed_page: 25
+        official_page_viewed: true
+        masked_sibling_count: 4
+        draft_field_delta_count: 12
+        masked_query_and_get_all: true
+        presence_and_nanosecond_versions_saved: true
+        target_choice_two_correctness_preserved: true
+        choices_and_explanations_changed: false
+        official_transcription_sha256: fcea748be0ed495b92109c407407010cd61922c50d158c5c62f9289ad65c20b5
+        initial_incomplete_transcription_sha256: 702033a179cf433b8bdba21813c126705c682b94ac41c19241c834b15d5aff3c
+        proposal_sha256: 8cce7a5bc655efda382e9b14cdabb3e1bee942e92645d88c7dae9b7040ea5cdc
+        field_diff_sha256: 171e50be7785bf2cbcf419c473af8bf84f8e625e3df8d2e89b4b546f5a9fc3de
+        patch_sha256: cf397532c380092c56cad6078427deef305727cd9aa7250ef136091562e38a8f
+        runner_sha256: d26b39f6b1684a94e02245c2c49abe9ab4a03cd4c75a1be82320c2c7b567b380
+        supported_partial_type_checked: true
+        full_draft_rejected_by_existing_type: true
+        input_preservation_passed: true
+        T049_699_inputs_and_materials_unchanged: true
+        T053_416_inputs_and_private_files_unchanged: true
+        case_and_ledger_bytes_unchanged: true
+        formal_nine_paths_absent: true
+        private_permissions_checked: directories700/files600
+        actual_network_write_performed: false
+        questions_resent: false
+        approvalReady: false
+        formalDataUpdated: false
+        publicationReady: false
+      summary: 参照段落欠落を実masked全4siblingsで確認し、3本文field・12差分のprivate draftを生成しました。しかし公式肢2/4とraw/liveの「及び／又は」不一致で初回verifyが失敗。repair1の限定成功を公式整合成功へ置換せず、PM指示で停止しました。既存choice・正誤・解説・原資料・台帳は変更していません。
+      remaining_blockers:
+        - 公式4choiceとraw/liveの語句不一致。参照段落復元だけで十分か、独立Judgeの判断が必要です。
+        - originalQuestionBodyTextは既存CONTENT_FIELDS未対応。全draftは既存型で拒否されます。
+        - 正式保存schema/root/pathは未確定です。
+        - whole proposalの公式4choice consistencyは未達。verification.jsonの限定complete=trueを承認readyやdoneに使用できません。
+        - git diff --checkは停止指示により未実行です。
+      needs_judge: true
+      verification_attempts: 2
+      repair_attempts: 1
+      stopped_because: 公式選択肢との一次資料不一致にT055 stop_ifを適用し、PMから追加編集・検証停止指示を受領。
+  - id: T056
+    type: judge
+    assignee: Judge
+    status: done
+    objective: 新Q39の公式選択肢（及び）とraw/live（又は）の一次矛盾を独立確認し、参照文章復元と選択肢/原問metadataを含む必要な訂正範囲を判断する。既存T055 draftをwholeverified扱いせず、data-onlyの最大具体proposal package又は実blocked理由を示す。
+    inputs:
+      - notes/T055-q39-blocked-receipt.json
+      - notes/T055-q39-blocked-provenance.json
+      - staging/recovery-kanri-2020-q39/T055-proposal/9files
+      - 公式2020管理業務主任者PDF 第27頁/印刷25、公式答2、primaryhash417def...
+      - 新case23c47...（元4件とは別）、report task afe157...、T049pending699inputs固定、T0532025fixed416inputs
+    constraints:
+      - read-only genuine Judge。PMのみstate/ledger/Git。受付本文と識別情報をログ/通知/Gitへ出さない。
+      - 公式PDF画像を独立照合し、4choiceの文字・空欄引用・raw/live対応を確認。単に又は/及び同義と推定せず、原問忠実性と公開改題を区別する。新法的判例監査は追加しない。
+      - T055初回verifyfailとrepair1限定complete=trueをそのまま保全し、公式全整合成功に置換しない。全3本文復元必要性、実4sibling12fieldsと追加choice関連fieldsの必要性を判断する。
+      - 選択肢/正誤を変える必要があるならscopeを新data-onlyproposalタスクとして明示。実正式patch/source/body/case/ledger/699inputs/416inputsを変更しない。原問改題の正当な変換なのか又は訂正必要なのか一次根拠と現field文脈へ照らす。
+      - 新caseの全8カテゴリ判断は現case_reviewを改変せず追記linkageで保全できる。old no_changeの範囲を今回追加一次矛盾で全面正常と解釈しない。
+      - 既存partial型originalQuestionBodyText未対応、formal path未確定、11docgatewayを4docに無理に利用する不足を明記。今コード/schema/allowlist/frameworkを増やす案を選ばない。approval-readyではなく提案内容完成と実正式入口不足を区別。
+      - largestnext Workerは新private runの具体限定filesのみ。全4docの必要差分/根拠/影響/予定patch/全カテゴリ判断を完成させる。既存3件質問/2025質問再送禁止。新Q39承認は技術整合未済なら送らない。
+      - full_outcome_complete=false、元4件current formal/eval/prodapproval依存維持。safe data-onlyproposalが可能ならexactallowed_files/verify/stop_ifを指定して継続。
+    verify:
+      - 公式PDF問39全4肢と判決引用を画像/一次テキストで照合、snapshot候補と比較
+      - 違いの実影響/訂正必要scopeを判断、既存input不変の安全proposal package又はblockedを指定
+    expected_output:
+      - 真正goalbuddy_receipt_v1 T056。独立primary判断と必要field scope・largestnewprivateproposal slice。
+    receipt:
+      result: done
+      task_id: T056
+      board_path: /Users/yuki/development/exam_scraper_feedback/docs/goals/feedback-correction-recovery/state.yaml
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: 公式画像は肢2/4の「生命、身体及び財産」を示す。原問metadataと公開quoteの「又は」は、正当な改題変換として裏付けられていないため訂正案が必要。全4文書の引用段落復元に加え、2選択肢metadataと肢1解説の明確な語句不整合をprivate提案に含める。正答変更や新しい法的判断は不要。保存型・正式path・公開gatewayは未対応であり、承認readyにはならない。
+      evidence:
+        - kind: independent_primary_image_review
+          pdf_sha256: 417defdbeb15e09c97707ac9431f5ed82e18f3f6da9a527808f43dcd1bf77df1
+          page_image_sha256: acac6d21e6ffe40541cd062e253b37cfcd5ec0c0e5aeb142cb0672df7c0061f4
+          pdf_page: 27
+          printed_page: 25
+          pdf_hash_recomputed: true
+          image_independently_viewed: true
+          findings:
+            - 公式肢1/3の（ウ）は「生命又は身体」、肢2/4は「生命、身体及び財産」。
+            - 引用段落と空欄ア・イ・ウ・エが公式本文に存在する。
+            - 引用末尾は「（エ）による」。rawの「（エ）よる」は原問転記との差である。
+            - 肢2/4のraw/liveにある「又は」を「及び」と同義として受理しない。
+        - kind: field_context
+          findings:
+            - 全4siblingsのquestionText、questionBodyText、originalQuestionBodyTextから引用段落が欠落している。12本文差分が必要。
+            - 肢2/4のoriginalQuestionChoiceTextとquestionText内quoteも公式表へ一致させる。questionTextの変更は既存12本文差分に含まれる。
+            - choiceTextは全4文書で不在。新規追加しない。
+            - 肢1解説は、その肢に存在しない「工事注文者」を誤り箇所としている。肢1に実在する語句と公式の正しい組合せを比較する最小修復が必要。
+            - 肢3/4解説の全面改稿や新しい法的責任範囲の説明は、この一次資料照合から要求しない。
+            - 原問の選択問題と公開flash_cardの組合せ正誤形式を区別し、改題表示を保持する。
+          required_delta: 4文書×3本文fieldの12差分＋肢2/4のoriginalQuestionChoiceTextの2差分＋肢1explanationTextの1差分＝15 field差分。
+          correct_answer_scope: 提示された公式答2とraw/liveの正誤ベクトル「間違い・正しい・間違い・間違い」が一致するためcorrectChoiceTextを保持する。新しい判例現効性・個別侵害事案の法的判定は行わない。
+        - kind: native_stop_receipt_verified
+          native_output_ref: e72350
+          event_hash_matches: true
+          assistant_output_hash_matches: true
+          saved_receipt_file_hash_matches: true
+          native_inner_compact_object_hash_matches: true
+          native_result: blocked
+          accepted_scope: repair1の成功はraw/live対応と保全の限定検証。verification.jsonのcomplete=trueを公式全整合・承認readyへ転用しない。
+        - kind: current_preservation_readonly_verified
+          native_output_ref: 8010f9
+          T049_read_plan_valid: true
+          T049_input_count: 699
+          T053_input_count: 416
+          T053_inputs_unchanged: true
+          baseline_fixed_files_unchanged: true
+          formal_nine_paths_absent: true
+        - kind: append_category_judgments
+          judgments:
+            question_content:
+              decision: fix
+              scope: 引用段落復元、原問本文metadata、肢2/4の公式語句への一致。
+            correct_answer:
+              decision: no_change
+              scope: 公式答2に対応する現在の4肢正誤を保持。新しい法的真偽の全面保証ではない。
+            explanation:
+              decision: fix
+              scope: 肢1の実在しない誤り箇所を最小修復。旧no_changeを今回の追加発見へ拡張しない。肢2/3/4は今回の限定案では保持。
+            outdated_law_or_information:
+              decision: hold
+              scope: 今回の公式転記照合は判例現効性・現在法監査の証拠ではない。
+            image:
+              decision: hold
+              scope: 一次PDF画像を読んだ事実と、公開画像配信の検証を区別する。新画像fieldを追加しない。
+            classification:
+              decision: no_change
+              scope: 現snapshotの資格・年度・問題番号・flash_cardを保持。source/public保存bindingの技術holdを解消した扱いにはしない。
+            answer_format_or_display:
+              decision: fix
+              scope: 空欄を読むための引用段落と肢2/4の公開quoteを復元・訂正する。
+            other:
+              decision: no_change
+              scope: ID・欠落field・監査metadata・対象外fieldを保持。未読対象の全面正常を意味しない。
+          storage_rule: 旧case_reviewを凍結したまま、そのhashに結合する新private append judgmentsとして保存する。
+      next_allowed_task:
+        role: Worker
+        objective: 新Q39の全4siblingsについて、一次画像に一致する15 field差分、原問と公開改題の対応、最小解説修復、全8カテゴリ追記判断、技術holdを含む具体的private提案を完成させる。正式保存・本番適用・承認質問は実行しない。
+        allowed_files:
+          - output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T057-proposal/verify.py
+          - output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T057-proposal/baseline.json
+          - output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T057-proposal/source-evidence.json
+          - output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T057-proposal/official-transcription.txt
+          - output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T057-proposal/live-selected.json
+          - output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T057-proposal/proposed-field-diff.json
+          - output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T057-proposal/proposed-patch.json
+          - output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T057-proposal/category-judgments-append.json
+          - output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T057-proposal/proposal.md
+          - output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T057-proposal/verification.json
+        implementation_contract:
+          - T055の9files・native停止receipt・raw・公式PDF・旧case・ledger・既存productを変更しない。新runだけに成果を保存する。
+          - 公式4肢と引用段落をrawからの一括置換だけで生成せず、画像から独立確定した語句表に照合する。許容する正規化は改行・空欄周辺空白などに限定し、及び/又はや「による」の差を消さない。
+          - originalQuestionBodyTextは公式の選択問題本文、questionBodyTextは現在の組合せ正誤への改題本文として区別し、両方に必要な引用段落を含める。
+          - questionTextは復元後の公開本文と各肢quoteを結合する。肢2/4のquoteとoriginalQuestionChoiceTextを「生命、身体及び財産」へ一致させ、肢1/3の「生命又は身体」を保持する。
+          - 肢1explanationTextは実在する（イ）契約適合性・（ウ）生命又は身体と、公式の正しい組合せを比較する最小案にする。新しい法的原則、判例現効性、責任範囲を作らない。肢2/3/4の解説と全correctChoiceTextを保持する。
+          - 各差分を対象doc、field、beforePresent/before、after、updateTimeExact、一次根拠へ結合する。15差分を列挙し、questionText内の本文復元とchoice訂正の両根拠を追跡する。
+          - 欠落choiceText、listGroupId、questionIntent等を創作しない。公開ID、qualificationId、原問ID、年度・番号・型・画像field・対象外fieldのpresence/valueを保持する。
+          - proposed-patchは既存private draft形式で作る。正式root/pathは未確定のまま明示し、schema対応済みや実行可能な正式patchと表現しない。
+          - originalQuestionBodyTextの既存型拒否、正式保存root/path未確定、11doc限定gatewayの4doc不対応を技術holdとして保持する。allowlist・schema・gatewayを今回変更しない。
+          - 全8カテゴリ判断を旧case hashへ結合したappend artifactに保存する。旧explanation=no_changeの範囲と今回のfixを明示し、actual case/ledgerへの同期はPMの後続責務とする。
+          - proposal.mdに全4docのbefore/after、各根拠、保持field、実影響、正答保持、技術holdを人間が読める形で記載する。private本文を通常log・Gitへ出さない。
+          - proposalContentCompleteとapprovalReadyを区別する。内容完成時もapprovalReady=false、formalDataUpdated=false、publicationReady=false、genuineModelRunPerformed=falseを保持する。
+        verify:
+          - PYTHONDONTWRITEBYTECODE=1 /Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T057-proposal/verify.py
+          - verify.pyは全4docの15差分、公式4肢と引用段落、空欄対応、原問/公開本文の役割、肢1解説の語句一致、正誤ベクトル不変、選択肢metadataと公開quote一致を別assertで検査する。
+          - 必要なlive確認は対象4siblingsのmasked readだけを使い、全beforePresent/before/updateTimeExactをT055保存snapshotと照合する。変化を見つけたら旧baselineを書き換えず停止する。
+          - 既存型が支持する部分と拒否する部分を分けて実照合する。全draftの拒否を期待結果として残し、支持部分の成功をwhole execution-readyへ転用しない。
+          - 前後にT049 read_planの699inputs、T053の416inputsとprivate成果、T055全9files、case/ledger bytes、raw/PDF、正式9paths不在を照合する。
+          - directory700/file600、network writeなし、質問送信なし、既存product差分なしを確認する。
+          - git diff --check
+        stop_if:
+          - 公式画像・全4肢・現在snapshotの一意対応が成立しない、又はsnapshot内容/versionが変化する。
+          - correctChoiceText変更、新しい法的判断、肢2/3/4解説の根拠未確認の改稿が必要になる。
+          - 15差分以外のfield追加、欠落metadataの推測補完、原資料・正式sourceの書換えが必要になる。
+          - 既存schema/allowlist/gateway、正式root/path、product codeの変更が必要になる。
+          - T049/T053の固定入力、旧case/ledger、T055停止証跡を変更する必要がある。
+          - 正式保存、Firestore/Storage write、承認質問送信、既存2質問の再送が必要になる。
+          - 指定新runが存在する、他作者差分の巻戻し、生利用者本文・識別情報の通常log/Git混入が生じる。
+      parallel_safety:
+        decision: single_worker_private_data_only
+        reason: 新private runの明示10filesだけを所有し、既存依存・case・台帳・正式保存先を変更しない。
+      blocked_tasks:
+        - Q39の正式保存：originalQuestionBodyText等の型対応と正式root/pathが未確定。
+        - Q39の本番適用：4doc対象の正式実行契約・真正評価・別production承認が未済。
+        - Q39の承認質問：技術ready未済。
+        - 元4件の正式保存・評価・公開：既存の人間回答と正式入力への依存を維持。
+      missing_evidence:
+        - 公式choice metadataと最小解説修復を含む、全4docの完成したprivate提案。
+        - Q39の正式保存型・root/path・4doc実行契約。
+        - 正式入力に結合したcurrent checkpoint・真正評価・別production承認・独立readback。
+      required_board_updates:
+        - T055を真正blockedとして保持し、repair1 complete=trueをwholepassへ変更しない。
+        - PMが上記data-only proposal packageを次Workerへ登録する。
+        - 新Q39のカテゴリ追記案は旧caseへ直接上書きせず、固定hashとappend linkageで保全する。
+        - 提案内容完成と技術readyを分け、技術holdが残る間はQ39の承認質問を送らない。
+        - 元4件と新Q39を別caseとして追跡し、既存2承認質問を再送しない。
+        - full_outcome_complete=falseを維持する。
+  - id: T057
+    type: worker
+    assignee: Worker
+    status: active
+    objective: 新Q39の全4siblingsについて、一次画像に一致する15 field差分、原問と公開改題の対応、最小解説修復、全8カテゴリ追記判断、技術holdを含む具体的private提案を完成させる。正式保存・本番適用・承認質問は実行しない。
+    allowed_files:
+      - output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T057-proposal/verify.py
+      - output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T057-proposal/baseline.json
+      - output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T057-proposal/source-evidence.json
+      - output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T057-proposal/official-transcription.txt
+      - output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T057-proposal/live-selected.json
+      - output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T057-proposal/proposed-field-diff.json
+      - output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T057-proposal/proposed-patch.json
+      - output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T057-proposal/category-judgments-append.json
+      - output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T057-proposal/proposal.md
+      - output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T057-proposal/verification.json
+    inputs:
+      - notes/T056-q39-decision-receipt.json
+      - notes/T056-q39-decision-provenance.json
+      - T055 blocked native/9draftfilesとlive snapshot、公式PDFpage27
+      - T049pending699、T053416/19files、5case/台帳全不変
+    constraints:
+      - T055の9files・native停止receipt・raw・公式PDF・旧case・ledger・既存productを変更しない。新runだけに成果を保存する。
+      - 公式4肢と引用段落をrawからの一括置換だけで生成せず、画像から独立確定した語句表に照合する。許容する正規化は改行・空欄周辺空白などに限定し、及び/又はや「による」の差を消さない。
+      - originalQuestionBodyTextは公式の選択問題本文、questionBodyTextは現在の組合せ正誤への改題本文として区別し、両方に必要な引用段落を含める。
+      - questionTextは復元後の公開本文と各肢quoteを結合する。肢2/4のquoteとoriginalQuestionChoiceTextを「生命、身体及び財産」へ一致させ、肢1/3の「生命又は身体」を保持する。
+      - 肢1explanationTextは実在する（イ）契約適合性・（ウ）生命又は身体と、公式の正しい組合せを比較する最小案にする。新しい法的原則、判例現効性、責任範囲を作らない。肢2/3/4の解説と全correctChoiceTextを保持する。
+      - 各差分を対象doc、field、beforePresent/before、after、updateTimeExact、一次根拠へ結合する。15差分を列挙し、questionText内の本文復元とchoice訂正の両根拠を追跡する。
+      - 欠落choiceText、listGroupId、questionIntent等を創作しない。公開ID、qualificationId、原問ID、年度・番号・型・画像field・対象外fieldのpresence/valueを保持する。
+      - proposed-patchは既存private draft形式で作る。正式root/pathは未確定のまま明示し、schema対応済みや実行可能な正式patchと表現しない。
+      - originalQuestionBodyTextの既存型拒否、正式保存root/path未確定、11doc限定gatewayの4doc不対応を技術holdとして保持する。allowlist・schema・gatewayを今回変更しない。
+      - 全8カテゴリ判断を旧case hashへ結合したappend artifactに保存する。旧explanation=no_changeの範囲と今回のfixを明示し、actual case/ledgerへの同期はPMの後続責務とする。
+      - proposal.mdに全4docのbefore/after、各根拠、保持field、実影響、正答保持、技術holdを人間が読める形で記載する。private本文を通常log・Gitへ出さない。
+      - proposalContentCompleteとapprovalReadyを区別する。内容完成時もapprovalReady=false、formalDataUpdated=false、publicationReady=false、genuineModelRunPerformed=falseを保持する。
+      - 一人でなく共有作業。他作者変更を巻き戻さない、PMのみcontrol/実DB/Git。新private10filesのみ。
+      - 初回verify+repair2まで、失敗履歴を保全、scopeを拡張しない。
+    verify:
+      - PYTHONDONTWRITEBYTECODE=1 /Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T057-proposal/verify.py
+      - verify.pyは全4docの15差分、公式4肢と引用段落、空欄対応、原問/公開本文の役割、肢1解説の語句一致、正誤ベクトル不変、選択肢metadataと公開quote一致を別assertで検査する。
+      - 必要なlive確認は対象4siblingsのmasked readだけを使い、全beforePresent/before/updateTimeExactをT055保存snapshotと照合する。変化を見つけたら旧baselineを書き換えず停止する。
+      - 既存型が支持する部分と拒否する部分を分けて実照合する。全draftの拒否を期待結果として残し、支持部分の成功をwhole execution-readyへ転用しない。
+      - 前後にT049 read_planの699inputs、T053の416inputsとprivate成果、T055全9files、case/ledger bytes、raw/PDF、正式9paths不在を照合する。
+      - directory700/file600、network writeなし、質問送信なし、既存product差分なしを確認する。
+      - git diff --check
+    stop_if:
+      - 公式画像・全4肢・現在snapshotの一意対応が成立しない、又はsnapshot内容/versionが変化する。
+      - correctChoiceText変更、新しい法的判断、肢2/3/4解説の根拠未確認の改稿が必要になる。
+      - 15差分以外のfield追加、欠落metadataの推測補完、原資料・正式sourceの書換えが必要になる。
+      - 既存schema/allowlist/gateway、正式root/path、product codeの変更が必要になる。
+      - T049/T053の固定入力、旧case/ledger、T055停止証跡を変更する必要がある。
+      - 正式保存、Firestore/Storage write、承認質問送信、既存2質問の再送が必要になる。
+      - 指定新runが存在する、他作者差分の巻戻し、生利用者本文・識別情報の通常log/Git混入が生じる。
+    expected_output:
+      - 真正goalbuddy_receipt_v1 T057、全15field差分の内容proposal completeとwholeexecution不対応を区別。実assert/日時/hash、未正式/未評価/未公開。
     receipt: null
   - id: T004
     type: pm
