@@ -243,6 +243,10 @@ def run(root, source_run, destination, concurrency=20, resume=False):
                         finishedAt=now(), status="completed" if not changed and not policy_changed
                         and all(r["status"] in {"passed", "needs_rework"} for r in results.values()) else "needs_followup")
         persist()
+    except Exception as exc:
+        manifest.update(status="failed", errorType=type(exc).__name__, error=str(exc), finishedAt=now())
+        persist()
+        raise
     finally:
         client.close()
     return manifest
