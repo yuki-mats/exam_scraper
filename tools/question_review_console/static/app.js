@@ -6518,7 +6518,7 @@ function patchSyncAction({
   return actionWithHelp(
     label,
     className,
-    () => openSyncDialog(true),
+    () => openSyncDialog(false),
     "パッチ変更を反映",
     `${emergency ? "非常用の操作です。" : ""}現在の資格・フォルダだけを対象に、最新patchからMerge、Convert、upload-readyを再生成し、upload dry-runまで自動で検証します。${emergency ? "成果物が一致済みでも、必要な場合に限り強制再実行できます。" : ""}Firestoreへの書き込みは行いません。必須field不足がある場合は開始しません。`,
   );
