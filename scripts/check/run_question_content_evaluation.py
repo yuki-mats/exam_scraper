@@ -145,10 +145,26 @@ def result_progress(results):
             "statusCounts": dict(counts)}
 
 
-def run(root, source_run, destination, concurrency=20, resume=False):
+def select_scope(questions, question_ids=None):
+    """Bind a requested subset by stable ID; never by array position."""
+    if question_ids is None:
+        return questions
+    if (not isinstance(question_ids, list) or not question_ids
+            or any(not isinstance(value, str) or not value for value in question_ids)
+            or len(question_ids) != len(set(question_ids))):
+        raise ValueError("再評価対象は重複のない非空の問題ID一覧が必要です。")
+    by_id = {question["id"]: question for question in questions}
+    unknown = set(question_ids) - set(by_id)
+    if unknown:
+        raise ValueError("元runに含まれない問題IDがあります: " + ", ".join(sorted(unknown)))
+    return [by_id[question_id] for question_id in question_ids]
+
+
+def run(root, source_run, destination, concurrency=20, resume=False, question_ids=None):
     if destination.exists() and not resume:
         raise ValueError("既存runへは--resumeを明示してください。")
     questions, protected = load_scope(root, source_run)
+    questions = select_scope(questions, question_ids)
     config = load_model_backend_config(root / "config/question_maintenance_llm.toml")
     client = CodexAppServerClient(root)
     router = ProfileModelRouter(config, client)
@@ -285,13 +301,16 @@ def main():
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--concurrency", type=int, default=20)
     parser.add_argument("--resume", action="store_true")
+    parser.add_argument("--question-ids", type=Path,
+                        help="元run内の再評価対象の問題IDを記載したJSON配列")
     args = parser.parse_args()
     destination = args.output.resolve()
     if not destination.is_relative_to(ROOT / "output/sc/reports/content_evaluations"):
         parser.error("出力先はoutput/sc/reports/content_evaluations内に限定してください。")
     if not 1 <= args.concurrency <= 100:
         parser.error("監査batch並列数は1〜100です。")
-    manifest = run(ROOT, args.source_run, destination, args.concurrency, args.resume)
+    question_ids = json.loads(args.question_ids.read_text()) if args.question_ids else None
+    manifest = run(ROOT, args.source_run, destination, args.concurrency, args.resume, question_ids)
     print(json.dumps({k: manifest[k] for k in ("status", "completedCount", "statusCounts")}, ensure_ascii=False))
     if manifest["status"] != "completed":
         raise SystemExit(2)

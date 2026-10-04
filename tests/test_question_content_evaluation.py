@@ -2,7 +2,7 @@ import copy
 from pathlib import Path
 import unittest
 
-from scripts.check.run_question_content_evaluation import ContentAuditService, result_progress, validated_content_result
+from scripts.check.run_question_content_evaluation import ContentAuditService, result_progress, select_scope, validated_content_result
 from tools.question_review_console.evaluation import EvaluationError
 
 
@@ -84,6 +84,16 @@ class ContentEvaluationTests(unittest.TestCase):
         self.question["projected"]["questionImageStorageUrls"] = ["https://example.com/diagram.png"]
         with self.assertRaises(EvaluationError):
             validated_content_result(self.question, self.worker, self.metadata)
+
+    def test_recheck_subset_resolves_exact_stable_ids(self):
+        second = {**self.question, "id": "q2"}
+        self.assertEqual(select_scope([self.question, second], ["q2"]), [second])
+        self.assertEqual(select_scope([self.question, second], ["q2", "q1"]), [second, self.question])
+
+    def test_invalid_subset_rejected_before_model_execution(self):
+        for ids in ([], ["q1", "q1"], ["other"], [None], "q1"):
+            with self.subTest(ids=ids), self.assertRaises(ValueError):
+                select_scope([self.question], ids)
 
 
 if __name__ == "__main__":
