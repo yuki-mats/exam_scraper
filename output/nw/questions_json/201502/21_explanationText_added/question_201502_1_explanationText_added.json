@@ -124,7 +124,7 @@
   },
   {
     "explanationText": [
-      "正しい。行と列のパリティを確認すると、誤りがある行と列の交点から1ビットの誤り位置を特定できるため、1ビットを訂正できる。2ビット以上では不一致となる行や列が複数になり、誤り位置を一意に定められないため、訂正できるのは1ビットまでである。"
+      "正しい。行と列のパリティを調べると、1ビットだけの誤りでは、不一致となる行と列の交点から誤り位置を特定して訂正できる。複数ビットの誤りは、検査結果だけでは位置を一意に定められない場合がある。例えば、同じ行の2ビットが反転すると、その行のパリティは一致したままになる。また、長方形の四隅の4ビットが反転すると、各行・各列で反転が2個ずつになるため、すべてのパリティが一致して誤りを検出できない。したがって、確実に訂正できるのは1ビットまでである。"
     ],
     "original_question_id": "0b9b34069eb3715c",
     "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_2.html",
@@ -853,7 +853,7 @@
   },
   {
     "explanationText": [
-      "正しい。コード値から対象物を連想できるのはニモニックコードである。ニモニックコードは対象の名称や意味を表す略号などを用いる。シーケンスコードは連番、デシマルコードは数字、ブロックコードは分類単位ごとの符号を使うため、コード値から個々の対象を直接連想しにくい。"
+      "正しい。該当する方式はニモニックコードである。対象の名称や意味を表す略号を使うため、コード値から対象を連想できる。シーケンスコードは対象に連番を付け、デシマルコードは分類を10区分ずつ細分化して数字の桁で階層を表す。ブロックコードは分類ごとに番号の範囲を割り当てる。いずれも名称を表す略号を使う方式ではない。"
     ],
     "original_question_id": "96584671e9054852",
     "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_8.html",
@@ -861,7 +861,13 @@
     "sourceQuestionKey": "nw:201502:96584671e9054852",
     "reviewQuestionId": "96584671e9054852",
     "sourceRecordRef": "question_201502_1.json#7",
-    "explanationReferences": [],
+    "explanationReferences": [
+      {
+        "title": "https://lab.ndl.go.jp/oldfile/presentation1.pdf",
+        "sourceUrl": "https://lab.ndl.go.jp/oldfile/presentation1.pdf",
+        "referenceDate": "2026-10-05"
+      }
+    ],
     "questionLearningPatternId": "terms_basics",
     "suggestedQuestionDetailsByChoice": [],
     "isLawRelated": false,
@@ -1343,7 +1349,10 @@
   },
   {
     "explanationText": [
-      "正しい。公開鍵暗号方式のアルゴリズムはRSAである。RSAは公開鍵と秘密鍵の組を使うのに対し、AESとKCipher-2は共通鍵暗号方式、SHA-256はデータの要約値を生成するハッシュ関数であり、暗号化方式ではない。"
+      "間違い。正しくは、AESは共通鍵暗号方式のブロック暗号である。暗号化と復号に同じ秘密の鍵を用い、公開鍵と秘密鍵の組を使う方式ではない。",
+      "間違い。正しくは、KCipher-2は共通鍵暗号方式のストリーム暗号である。秘密の鍵と初期化ベクトルから生成した鍵ストリームを使って暗号化し、復号にも同じ秘密の鍵を用いる。",
+      "正しい。RSAは公開鍵と秘密鍵の組を使う公開鍵暗号方式である。受信者の公開鍵で暗号化したデータは、対応する秘密鍵で復号する。",
+      "間違い。正しくは、SHA-256はデータから256ビットの要約値を生成するハッシュ関数である。要約値から元のデータを復号する暗号方式ではない。"
     ],
     "original_question_id": "bb4b0faa3396a9f5",
     "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_12.html",
@@ -1351,7 +1360,28 @@
     "sourceQuestionKey": "nw:201502:bb4b0faa3396a9f5",
     "reviewQuestionId": "bb4b0faa3396a9f5",
     "sourceRecordRef": "question_201502_1.json#11",
-    "explanationReferences": [],
+    "explanationReferences": [
+      {
+        "title": "abstract/1",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc7008.html",
+        "referenceDate": "2026-10-05"
+      },
+      {
+        "title": "abstract/3.1/3.2",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc8017.html",
+        "referenceDate": "2026-10-05"
+      },
+      {
+        "title": "https://csrc.nist.gov/pubs/fips/197/final",
+        "sourceUrl": "https://csrc.nist.gov/pubs/fips/197/final",
+        "referenceDate": "2026-10-05"
+      },
+      {
+        "title": "https://csrc.nist.gov/pubs/fips/180-4/upd1/final",
+        "sourceUrl": "https://csrc.nist.gov/pubs/fips/180-4/upd1/final",
+        "referenceDate": "2026-10-05"
+      }
+    ],
     "questionLearningPatternId": "differences_relationships",
     "suggestedQuestionDetailsByChoice": [],
     "isLawRelated": false,
@@ -1463,7 +1493,7 @@
   },
   {
     "explanationText": [
-      "正しい。ゼロデイ攻撃は、ソフトウェアの脆弱性に対する修正プログラム（パッチ）や回避策が提供される前に、その脆弱性を悪用する攻撃である。",
+      "正しい。ゼロデイ攻撃は、脆弱性を修正するセキュリティパッチが提供される前に、その脆弱性を悪用する攻撃である。暫定的な回避策が公表されていても、脆弱性を修正するパッチが提供済みとは限らない。",
       "間違い。正しくは、複数台のPCから同時に特定のWebサイトを攻撃するのは、分散型サービス妨害（DDoS）攻撃である。選択肢は複数台のPCから同時に攻撃することを述べているため、ゼロデイ攻撃の特徴ではない。",
       "間違い。正しくは、フィッシングメールで不正サイトへ誘導するのは、利用者をだまして情報を盗むフィッシング攻撃である。選択肢はフィッシングメールによる誘導を述べているため、ゼロデイ攻撃の特徴ではない。",
       "間違い。正しくは、不正中継が可能なメールサーバを踏み台にして大量送信するのは、メールサーバの不正中継を利用した攻撃である。選択肢はメールサーバを踏み台にした大量送信を述べているため、ゼロデイ攻撃の特徴ではない。"
@@ -1479,6 +1509,11 @@
         "referenceDate": "2023-01-25",
         "sourceUrl": "https://www.ipa.go.jp/security/10threats/ps6vr70000009r2f-att/kaisetsu_2023.pdf",
         "title": "情報セキュリティ10大脅威 2023 解説書（修正プログラムの公開前を狙う攻撃）"
+      },
+      {
+        "title": "CERT-EU advisory2020-006 PDF1 summary/2 recommendations",
+        "sourceUrl": "https://cert.europa.eu/publications/security-advisories/2020-006/pdf",
+        "referenceDate": "2026-10-05"
       }
     ],
     "questionLearningPatternId": "differences_relationships",
@@ -2210,7 +2245,7 @@
   },
   {
     "explanationText": [
-      "正しい。作業Aの遅れを1日取り戻すには、最長経路であるA→B→E→Gを1日短縮する必要がある。各経路の日数は、A→B→E→Gが\\[4+6+5+5=20\\]日、A→C→GとA→D→F→Gがそれぞれ17日なので、A→B→E→Gがクリティカルパスとなる。この経路上で短縮できるBとEの費用増加率を比べると、Bは6、Eは5である。したがって、費用増加を最も少なくするにはEを1日短縮する。"
+      "正しい。増加費用を最も少なくするには、作業Eを1日短縮する。当初の各経路の所要日数は、\n\\[A\\to B\\to E\\to G:\\quad4+6+5+5=20\\text{日}\\]\n\\[A\\to C\\to G:\\quad4+8+5=17\\text{日}\\]\n\\[A\\to D\\to F\\to G:\\quad4+4+4+5=17\\text{日}\\]\nであり、A→B→E→Gがクリティカルパスである。Aの1日遅延後は、この経路が21日、他の2経路が18日となる。CやDを短縮しても21日の経路は変わらない。候補のうち、この経路を短縮できるBとEの費用増加率は、それぞれ6と2.5である。Eの標準日数5日と費用増加率2.5を区別し、費用の低いEを1日短縮すれば、最長経路が20日に戻る。"
     ],
     "original_question_id": "b52c5a4a687cc095",
     "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_19.html",
@@ -2464,10 +2499,10 @@
   },
   {
     "explanationText": [
-      "間違い。監査項目と監査手続を設定して個別監査計画書に記載するのは、予備調査で得た情報を基に個別監査計画を策定する段階である。選択肢はこの計画策定の作業を予備調査の作業としているため誤りである。",
+      "間違い。監査項目と監査手続を決めて個別監査計画書に記載するのは、個別監査計画の策定である。資料を閲覧して監査対象の実態を把握する予備調査とは、作業の目的が異なる。",
       "間違い。経営戦略・方針や経営上の問題を確認して監査テーマを設定するのは、個別監査に先立つ監査計画の立案である。選択肢は監査テーマの設定を予備調査の作業としているため誤りである。",
-      "間違い。被監査部門と監査スケジュールを調整するのは、予備調査の結果を踏まえて個別監査計画を策定する段階である。選択肢はこの調整を予備調査の作業としているため誤りである。",
-      "正しい。予備調査では、あらかじめ入手した資料を閲覧し、監査対象となるシステムや業務の実態を把握する。把握した情報は、その後の個別監査計画の策定や本調査に活用する。"
+      "間違い。被監査部門と監査スケジュールを調整するのは、監査の日程を具体化する計画策定の作業である。予備調査で行う、監査対象の業務やシステムの実態把握ではない。",
+      "正しい。予備調査では、事前に入手した規程、手順書、システム資料などを閲覧し、監査対象の業務やシステムの実態を把握する。その情報を使い、本調査で詳しく確認する事項や監査手続を具体化する。"
     ],
     "original_question_id": "f74493e5be77fe52",
     "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_21.html",
@@ -2480,6 +2515,11 @@
         "referenceDate": "2018-04-20",
         "sourceUrl": "https://www.meti.go.jp/policy/netsecurity/downloadfiles/system_kansa_h30.pdf",
         "title": "システム監査基準（平成30年4月20日）"
+      },
+      {
+        "title": "IPA AU6.1 pp3/5 1-3 and 2-1",
+        "sourceUrl": "https://www.ipa.go.jp/shiken/syllabus/nq6ept00000014b0-att/syllabus_au_ver6_1.pdf",
+        "referenceDate": "2026-10-05"
       }
     ],
     "questionLearningPatternId": "sequence_flow",
@@ -2845,9 +2885,9 @@
   },
   {
     "explanationText": [
-      "正しい。RFIはRequest for Informationの略で、調達者が供給者候補から、システム化の目的や業務内容などに関する情報を集めるために使う。",
+      "正しい。RFIは、調達者が供給者候補から製品、技術、導入実績などの情報を集めるための情報提供依頼書である。調達者が自らのシステム化の目的や業務内容を示し、供給者候補はそれに対応できる製品や技術などの情報を提供する。集めた情報は、調達条件の検討や、その後の提案依頼に活用する。",
       "間違い。提案書の提出を依頼するのはRFP（Request for Proposal）である。選択肢はRFIを提案書の提出依頼としているため誤りである。",
-      "間違い。契約内容の変更を要請するのはRFC（Request for Change）である。選択肢はRFIを契約内容の変更要請としているため誤りである。",
+      "間違い。契約内容の変更を要請するのは、契約締結後の変更手続である。RFIは調達の初期段階で情報を集めるためのものであり、契約内容の変更要請とは目的と段階が異なる。",
       "間違い。RFIは調達の初期段階で情報を集めるためのもので、契約の締結を要請するものではない。選択肢はRFIを契約締結の要請としているため誤りである。"
     ],
     "original_question_id": "62fdd2ee3ed3e706",
@@ -2856,7 +2896,13 @@
     "sourceQuestionKey": "nw:201502:62fdd2ee3ed3e706",
     "reviewQuestionId": "62fdd2ee3ed3e706",
     "sourceRecordRef": "question_201502_1.json#23",
-    "explanationReferences": [],
+    "explanationReferences": [
+      {
+        "title": "IPA AP7.1 PDF111/print108 (2)②〜③",
+        "sourceUrl": "https://www.ipa.go.jp/shiken/syllabus/nl10bi0000007tge-att/syllabus_ap_ver7_1.pdf",
+        "referenceDate": "2026-10-05"
+      }
+    ],
     "questionLearningPatternId": "differences_relationships",
     "suggestedQuestionDetailsByChoice": [],
     "isLawRelated": false,
@@ -2968,10 +3014,10 @@
   },
   {
     "explanationText": [
-      "間違い。正しくは、排出枠の過不足を市場で売買する仕組みは排出量取引制度である。環境表示は、製品やサービスの環境面を伝える表示を指すため、選択肢は排出量取引制度を環境表示としているため誤りである。",
-      "間違い。正しくは、国や地方公共団体が環境物品の調達を進める仕組みは、グリーン購入法に基づく取組である。環境表示は調達を促す制度そのものではないため、選択肢は公的機関による環境物品の調達促進を環境表示としているため誤りである。",
-      "正しい。環境表示は、製品やサービスの環境側面や事業者の環境配慮への姿勢を、説明文、シンボルマーク、図表などで伝える。",
-      "間違い。正しくは、再生可能エネルギーで発電した電力の環境価値を証書にして取引するものはグリーン電力証書である。環境表示は証書そのものではなく、製品やサービスなどの環境面を伝える表示なので、選択肢はグリーン電力証書を環境表示としているため誤りである。"
+      "間違い。排出枠の過不足を市場で売買する仕組みは、排出量取引制度である。環境表示は、製品やサービスの環境面を購入者などへ伝えるための主張であり、排出枠を売買する制度そのものではない。",
+      "間違い。国や地方公共団体などが環境物品の調達を進める仕組みは、グリーン購入法に基づく取組である。公的機関の調達方針を定めることと、製品やサービスの環境面を表示することは役割が異なる。",
+      "正しい。環境表示は、製品やサービスの環境面の特徴を、購入者などに伝えるための主張である。表示の形が文章かマークかではなく、何の環境面を伝えているかで判断する。排出枠の売買や公的機関の調達を進める制度そのものとは役割が異なる。",
+      "間違い。再生可能エネルギーで発電した電力の環境価値を証書にして取引するものは、グリーン電力証書である。環境表示は環境面の特徴を伝える主張を指し、取引する証書そのものを意味しない。"
     ],
     "original_question_id": "54e392dd1d6b2ec4",
     "question_url": "https://www.nw-siken.com/kakomon/27_aki/am1_25.html",
@@ -2984,6 +3030,11 @@
         "referenceDate": "2010-01-01",
         "sourceUrl": "https://www.env.go.jp/policy/hozen/green/ecolabel/guideline/h21_mat01.pdf",
         "title": "環境表示ガイドライン（平成22年1月改訂二版）"
+      },
+      {
+        "title": "概要（1）環境表示とガイドラインの適用範囲。現行2026案内、2015規定の直接引用とは区別。",
+        "sourceUrl": "https://www.env.go.jp/policy/hozen/green/ecolabel/guideline/",
+        "referenceDate": "2026-10-05"
       }
     ],
     "questionLearningPatternId": "terms_basics",

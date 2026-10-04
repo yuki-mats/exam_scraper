@@ -508,7 +508,7 @@
   {
     "explanationText": [
       "間違い。正しくは、対象となる情報は外交や国家安全に関する機密情報に限らず、電磁的方式によって記録、発信、伝送又は受信される情報である。サイバーセキュリティ基本法（平成二十六年法律第百四号）第2条は、機密情報だけに限定していないため、選択肢は対象を狭く限定しており誤りである。",
-      "間違い。正しくは、対象となる情報は公共機関で扱われる手書き書類に限らず、電磁的方式によって記録、発信、伝送又は受信される情報である。サイバーセキュリティ基本法第2条は、公共機関や手書き書類に限定していないため、選択肢は対象を誤って限定しており誤りである。",
+      "間違い。対象となるのは、電子的・磁気的な方式などによって記録、発信、伝送又は受信される情報であり、情報を扱う主体は公共機関に限らない。紙だけに記載された手書き書類そのものは、この電磁的方式による情報には当たらない。手書きの内容を電子データとして記録した場合は、その電子データを区別して考える。",
       "間違い。正しくは、対象となる情報は個人の属性を含むプライバシー情報に限らず、電磁的方式によって記録、発信、伝送又は受信される情報である。サイバーセキュリティ基本法第2条は、プライバシー情報だけを対象としていないため、選択肢は対象を狭く限定しており誤りである。",
       "正しい。サイバーセキュリティ基本法（平成二十六年法律第百四号）第2条は、電子的方式、磁気的方式その他人の知覚では認識できない方式を電磁的方式とし、その方式によって記録、発信、伝送又は受信される情報を定義に含めている。"
     ],
@@ -523,6 +523,11 @@
         "referenceDate": "2026-10-04",
         "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/426AC1000000104?asof=2026-10-04",
         "title": "e-Gov法令検索 サイバーセキュリティ基本法 第二条"
+      },
+      {
+        "title": "平成26年法律104号制定本文 PDF1第2条。出題以前の一次条文。",
+        "sourceUrl": "https://www.sangiin.go.jp/japanese/joho1/kousei/gian/187/pdf/s051860351870.pdf",
+        "referenceDate": "2026-10-05"
       }
     ],
     "questionLearningPatternId": "terms_basics",
@@ -815,7 +820,7 @@
     "explanationText": [
       "間違い。Bluetoothのピコネットは、1台のマスタと最大7台のスレーブで構成するスター型ネットワークである。選択肢はこの特徴をZigBeeのものとしているため誤りである。",
       "間違い。5.8GHz帯を使い、ETCなどに利用される近距離無線通信はDSRCである。選択肢はDSRCの特徴をZigBeeのものとしているため誤りである。",
-      "正しい。ZigBeeはIEEE 802.15.4を下位層に用いる低消費電力の無線通信方式で、センサーネットワークやスマートメーターなどに利用される。",
+      "正しい。ZigBeeは、IEEE 802.15.4の無線通信を土台として、複数の機器をネットワークにつなぐための機能などを定めた方式である。電池の消費を抑えて小さなデータをやり取りする用途に適しており、センサの計測値やスマートメーターの情報を伝えるために使われる。",
       "間違い。広い周波数帯に信号を拡散して高速通信を行う方式はUWBである。選択肢はUWBの特徴をZigBeeのものとしているため誤りである。"
     ],
     "original_question_id": "e36edb54bc28a68f",
@@ -836,6 +841,11 @@
         "referenceDate": "2026-10-03",
         "sourceUrl": "https://csa-iot.org/all-solutions/zigbee/",
         "title": "Zigbee Standard: Full-Stack Wireless IoT Solution | Connectivity Standards Alliance"
+      },
+      {
+        "title": "What is Zigbee / IEEE802.15.4 technical attributes / utility-energy / low power benefits。現行説明、2015規格本文と区別。",
+        "sourceUrl": "https://csa-iot.org/all-solutions/zigbee/zigbee-faq/",
+        "referenceDate": "2026-10-05"
       }
     ],
     "questionLearningPatternId": "differences_relationships",
@@ -1219,7 +1229,7 @@
   },
   {
     "explanationText": [
-      "正しい。200,000バイトを100バイトずつに分けるので、電文は\\(200,000\\div100=2,000\\)個になる。1電文は\\(100\\times8=800\\)ビットである。ビット誤り率を\\(p=10^{-5}\\)、1電文のビット数を\\(L=800\\)とすると、1電文に誤りが一つもない確率は\\((1-p)^L\\)である。したがって、誤りが一つ以上発生する電文の平均個数は\\(2,000\\{1-(1-10^{-5})^{800}\\}\\approx15.94\\)個となるため、最も近い値は16である。"
+      "正しい。公式解答は16個である。誤りが各ビットで独立に生じるモデルを用い、誤り率が小さいため、同じ電文に複数の誤りが入る影響を無視して近似する。\n送信する電文数は、\n\\[\n200,000\\div100=2,000\n\\]\n個であり、1電文は800ビットである。1電文に誤りが含まれる確率を近似すると、\n\\[\n800\\times10^{-5}=0.008\n\\]\nとなるので、誤り電文数の平均は、\n\\[\n2,000\\times0.008=16\n\\]\n個となる。独立誤りモデルで重複を含めて計算した値は約15.936個であり、16個はその近似値である。\nなお、本文には誤りの独立性や分散の条件が明記されていない。誤りが特定の電文へ集中する場合には、同じ平均ビット誤り率でも誤り電文数は変わるため、上記は本問の想定するモデルに基づく計算として区別する。"
     ],
     "original_question_id": "b0c67fba6eb0597f",
     "question_url": "https://www.nw-siken.com/kakomon/27_aki/am2_5.html",
@@ -1227,7 +1237,18 @@
     "sourceQuestionKey": "nw:201502:b0c67fba6eb0597f",
     "reviewQuestionId": "b0c67fba6eb0597f",
     "sourceRecordRef": "question_201502_2.json#9",
-    "explanationReferences": [],
+    "explanationReferences": [
+      {
+        "title": "問5 エ=16。Root official answer text read.",
+        "sourceUrl": "https://www.ipa.go.jp/shiken/mondai-kaiotu/gmcbt8000000gxj0-att/2015h27a_nw_am2_ans.pdf",
+        "referenceDate": "2026-10-05"
+      },
+      {
+        "title": "AppendixII PDF28/print22、ビット誤りとブロック誤りの区別・モデル依存",
+        "sourceUrl": "https://www.itu.int/rec/dologin_pub.asp?id=T-REC-G.826-199608-S%21%21PDF-E&lang=e&type=items",
+        "referenceDate": "2026-10-05"
+      }
+    ],
     "questionLearningPatternId": "calculation",
     "suggestedQuestionDetailsByChoice": [],
     "isLawRelated": false,
@@ -1848,7 +1869,7 @@
       "正しい。RSVP（Resource ReSerVation Protocol）は、IPネットワーク上のデータフローに必要な資源を予約し、QoSを実現するためのプロトコルである。",
       "間違い。正しくは、VLANの説明である。VLANは、物理的な接続形態に左右されず、ネットワークを論理的なグループに分ける。選択肢は、VLANの機能をRSVPの説明としているため誤りである。",
       "間違い。正しくは、MLPPPの説明である。MLPPPは、複数のPPPリンクを束ねて利用するためのプロトコルである。選択肢は、PPPリンクを束ねる機能をRSVPの説明としているため誤りである。",
-      "間違い。正しくは、リモートアクセス利用者の認証を行うプロトコルの説明である。RSVPは利用者を認証するのではなく、通信フローの資源予約を扱う。選択肢は、利用者認証の機能をRSVPの説明としているため誤りである。"
+      "間違い。リモートアクセス利用者の認証には、RADIUSなどの認証プロトコルを用いる。RADIUSでは、ネットワークアクセスサーバが認証情報を認証サーバへ送り、その応答に基づいて利用を許可する。RSVPが扱うのは通信フローの資源予約であり、利用者の認証ではない。"
     ],
     "original_question_id": "7e6527663bccf4f6",
     "question_url": "https://www.nw-siken.com/kakomon/27_aki/am2_10.html",
@@ -1861,6 +1882,11 @@
         "referenceDate": "2026-10-04",
         "sourceUrl": "https://www.rfc-editor.org/rfc/rfc2205",
         "title": "RFC 2205: Resource ReSerVation Protocol (RSVP) -- Version 1 Functional Specification"
+      },
+      {
+        "title": "RFC2865 abstract/1/4.1 認証情報とNAS/共有認証サーバ",
+        "sourceUrl": "https://www.rfc-editor.org/rfc/rfc2865.html",
+        "referenceDate": "2026-10-05"
       }
     ],
     "questionLearningPatternId": "differences_relationships",
@@ -1974,7 +2000,10 @@
   },
   {
     "explanationText": [
-      "正しい。DHCPは、IPアドレスなどのネットワーク設定を自動配布するプロトコルで、UDPを使って通信する。DHCPの通信には、サーバー側のUDP 67番ポートとクライアント側のUDP 68番ポートが使われる。FTPとSMTPはTCPを使い、2015年当時に一般的だったHTTP/1.1もTCPを使うため、この問題の正答はDHCPである。なお、現在のHTTP/3はQUIC上で動作し、QUICはUDPを使うので、HTTPはバージョンによって使うトランスポートが異なる。"
+      "正しい。DHCPは、IPアドレスなどのネットワーク設定を自動配布するためにUDPを使う。サーバ側はUDPの67番ポート、クライアント側は68番ポートを使用する。",
+      "間違い。FTPはTCP接続を使ってファイル転送を行う。転送を制御する接続とファイルなどのデータを送る接続を区別するが、どちらもTCPを使用する。",
+      "間違い。2015年の出題時点で一般に使われたHTTP/1.1はTCPを使用する。後年に標準化されたHTTP/3はQUIC上で動作し、QUICはUDPを使うため、現在のHTTPについてはバージョンを区別する必要がある。",
+      "間違い。SMTPはTCP接続を使って電子メールを転送する。標準のSMTP通信ではTCPの25番ポートを使用する。"
     ],
     "original_question_id": "45f9753725ff44e8",
     "question_url": "https://www.nw-siken.com/kakomon/27_aki/am2_11.html",
