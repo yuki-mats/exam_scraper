@@ -155,6 +155,10 @@ queueがterminalになった後、`improvement_report.json`へ工程・指摘cod
 
 ## 評価と公開の安全境界
 
+公開前の問題集設定・年度全体の成果物生成を待たずに、整備済みの限定対象だけを独立に評価する場合は、`scripts/check/run_question_content_evaluation.py --source-run <検証済みSC整備run ID> --output output/sc/reports/content_evaluations/<評価run名> --concurrency 20`を使います。これは既存の監査model、全選択肢validator、画像送信receiptを再利用するread-onlyの**内容評価**です。対象は元runの問題IDとsource参照から固定し、現在の正答対応を渡さず、03正本に照らして解説も採点します。問題ごとの結果、native session証拠、固定prompt、入力・policy hashは指定したreport内へ保存します。入力・policyが同じ場合だけ`--resume`で未完了対象を再評価できます。サブスクリプション枠を使い、既存creditsの承認は付与しません。
+
+内容評価の`passed`は公開承認ではありません。source、patch、作業版、GUIの正式評価projection、Firestoreは更新せず、`publicationReady=false`を保存します。全選択肢が根拠未確認の場合は`inconclusive`、session・画像・schemaの証拠が不足する場合は`failed`として未完了を区別します。対象入力又はpolicyが途中で変わった場合も再確認待ちを残します。公開時は通常の問題集設定、成果物生成、機械検査と正式評価を完了してください。
+
 - 評価は`questionType`、問題文、全選択肢を一問ずつ独立に判定する。現在の正答は先に渡さず、serverが全肢の結果、正答対応、解説品質、重大指摘を検証する。`00_source`のjudge欄を機械検証できる取得元、又は同一問題文・同一選択肢・同一正誤を持つ`isOfficial: true`のFirestore取得スナップショットは、現在patchとは分離した取得元正答証拠として評価へ渡す。一般資料の用語解釈だけではこの証拠を覆さず、同年度・同資格・同科目・同問番号の公式問題冊子と公式解答が明白に衝突する場合だけ別の正誤を返す。`true_false`は各選択肢を独立した○×問題として公開するため、元問題の選択指示から正しい肢又は誤った肢の個数を一つへ制限しない。複数の正しい肢又は誤った肢があることだけでは不合格にしない。
 - 評価待ちqueueは、同じ資格・評価policy・法令区分・画像有無の問題を、最大5問かつ実際のUTF-8 prompt 120,000 bytesまで一つのCodex read-only監査turnへまとめる。件数とbytesは設定値を使い、入力順を保つ。結果はquestionIdとstateHashで問題別に検証し、欠落、重複、余分なID、stateHash不一致、全選択肢不足を確定しない。有効な問題だけを既存の問題別run manifest、result receipt、作業版、projectionへ戻し、不正な問題だけを単問で一度再試行する。batch transport失敗は単問へfan-outせず、そのbatchを失敗として再開待ちにする。
 - 監査sessionは、単問では一問分、batchでは入力された全問題分の根拠と全選択肢を独立に確認し、指定schemaに一致する最終JSON objectを一つだけ公開`agentMessage`へ返す。進捗表示、対象識別、検証、保存及びreceiptはserverが所有する。調査途中の報告や仮の評価を最終結果の配列へ混ぜず、単問用の指示でbatch対象を一問へ縮めない。
