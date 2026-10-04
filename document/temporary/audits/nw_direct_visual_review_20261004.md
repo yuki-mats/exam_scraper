@@ -265,3 +265,7 @@ source・ID・本文・全肢・正誤・形式・保存済み法令監査metada
 ### 2015年 IPv6とIPsecの一次資料照合（2026-10-05）
 
 `5d8b4a8f2fc0f534b8a42c84`（午前Ⅱ問9）の全四fieldを読み、公式冊子5頁の第4肢とsourceの一致、公式解答「エ」を確認した。一方、2011年12月の[RFC 6434 §11/11.1](https://datatracker.ietf.org/doc/html/rfc6434#section-11)はIPv6 nodeのIPsec対応を必須から推奨へ変更している。これは2015年の出題前であり、現在の「正しい。」だけでは仕様上の差を説明できない。公式解答と技術上の判定の衝突を未確定として保持し、別Solの内容評価へ渡す。source、正答及びpatchの変更はない。読取証跡は`output/nw/scrape_reports/direct_ipv6_ipsec2015_primary_conflict_20261005.json`。
+
+### 独立評価の再開（2026-10-05 04:17）
+
+SCの100問job `SwJQgb-yRNLTM2Tq`が04:13:41にsucceededとなり、全資格の実稼働runがないことを再確認して共有server PID79168を通常SIGINTで停止した。同じ56845でPID51804/session7498を04:15:41に通常起動し、保存済み904c42f10・評価5.8を反映した。別port追加、lock削除及び別資格runの停止はない。MIME修正候補`0a28eb13f0889c31dee158c8`のGUI exact1と読取preview1/current hash一致、Web週残9%・既存62500credits・自動チャージOFF確認後、Sol/high/Standardのjob `3qSTj_FPpLgfsABC`をGUI開始した。報告合格、実session及びreceipt照合は終端待ち。機械工程数を880問の内容品質完了として扱わない。証跡は`mime_official1_sol_started_20261005.json`及び`evaluation_scope_runtime_reflection_20261005.json`。
