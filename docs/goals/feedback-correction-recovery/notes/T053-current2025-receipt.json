@@ -1,0 +1,130 @@
+{
+  "result": "done",
+  "task_id": "T053",
+  "board_path": "/Users/yuki/development/exam_scraper_feedback/docs/goals/feedback-correction-recovery/state.yaml",
+  "artifact_root": "/Users/yuki/development/exam_scraper_feedback/output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025",
+  "changed_files": [
+    "output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/verify.py",
+    "output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/baseline.json",
+    "output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/input-context.json",
+    "output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/canonical/manifest.json",
+    "output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/canonical/merged.json",
+    "output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/canonical/converted.json",
+    "output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/canonical/uploadReady.json",
+    "output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/private/manifest.json",
+    "output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/private/merged.json",
+    "output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/private/converted.json",
+    "output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/private/uploadReady.json",
+    "output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/planned/18_law_context_prepared/question_85011_empty_1_lawContext_prepared_20261004_0000.json",
+    "output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/planned/21_explanationText_added/question_85011_empty_1_explanationText_added_20261004_0000.json",
+    "output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/formal-stage-plan.json",
+    "output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/evidence-import.json",
+    "output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/gate-results.json",
+    "output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/previews.json",
+    "output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/amendment-binding.json",
+    "output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/readiness-summary.md"
+  ],
+  "commands": [
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest tests.test_scoped_canonical_context tests.test_question_review_scoped_artifacts tests.test_question_review_validated_evidence_import tests.test_feedback_daily",
+      "status": "pass",
+      "started_at": "2026-10-04T04:57:44Z",
+      "finished_at": "2026-10-04T04:57:47Z",
+      "exit_code": 0,
+      "tests": 30,
+      "native_output_ref": "7cae26"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/verify.py",
+      "status": "pass",
+      "started_at": "2026-10-04T04:58:55.397755Z",
+      "finished_at": "2026-10-04T04:59:08.001922Z",
+      "exit_code": 0,
+      "native_output_ref": "d7a94f",
+      "runner_sha256": "d34957a1d3ab27bcc518a86b40ed2f29afafe6af1385645f27a8b4fa091364c1"
+    },
+    {
+      "command": "git diff --check",
+      "status": "pass",
+      "started_at": "2026-10-04T04:59:13Z",
+      "finished_at": "2026-10-04T04:59:13Z",
+      "exit_code": 0,
+      "native_output_ref": "beb45c"
+    },
+    {
+      "command": "private19files・700/600・final hashes・actual gate resultsの読取り確認",
+      "status": "pass",
+      "started_at": "2026-10-04T04:59:13Z",
+      "finished_at": "2026-10-04T04:59:13Z",
+      "exit_code": 0,
+      "native_output_ref": "a6b9b0"
+    }
+  ],
+  "verification_history": [
+    {
+      "command": "T053 verify.py 初回",
+      "status": "pass",
+      "started_at": "2026-10-04T04:57:47Z",
+      "finished_at": "2026-10-04T04:57:57Z以降",
+      "exit_code": 0,
+      "native_output_ref": "100746",
+      "note": "失敗なし。最終実行では公開docの保護field比較とpolicy/required/blocker記録を追加。"
+    }
+  ],
+  "evidence": {
+    "HEAD": "e0d7f3f37da37210a730b5a1ddda9e63872d9164",
+    "current_input_count": 416,
+    "current_input_hash": "2e4da8a5a8545bb54450cffc99469c1131703339e360f55f14f9a737ae9687ce",
+    "planned18_byte_hash": "749e34db69a59050e3a091caf459e75686e44fa7e4912665cf423c51a7064608",
+    "planned21_byte_hash": "578e0a799600d8148ed17e6f15fb784a66ea878c906f39a72333366d3aec4c06",
+    "formal_stage_plan_hash": "353085fde4043947a86592b83ab3b8e3ce0df14425ceadb34ddcf128c5964536",
+    "amendment_binding_hash": "a12f2016d6f88a8fb36a094796d87da62d21a6e9cf9dd30e45af23e0bf0c86ff",
+    "gate_results_hash": "dd464721b1ccee73c2dc6ae0117ddac876a69fa671968b6a151b4998b984b4cd",
+    "previews_hash": "a8d47a3d39acc9e3385852a4a2a171078455f8e4c7a83cc9050eeae84231bab5",
+    "native_import_hash": "1f6970e2dc89d4d91b1f3a7b13369264904ecdabbb9f4a9a68fa4a367380a563",
+    "generic_reader_replay_exact": true,
+    "candidate_four_fields_unchanged": true,
+    "publication_document_count": 5,
+    "protected_fields_unchanged": true,
+    "other_source_bindings_untouched": true,
+    "required_schema_coverage_errors": [],
+    "sidecar_errors": [],
+    "required_field_warnings": [],
+    "amendment_technical_blockers": [],
+    "law_audit_policy": "6.0",
+    "evaluation_policy": "5.6",
+    "canonical_blockers": [
+      "answer_explanation_mismatch",
+      "law_audit_metadata_incomplete"
+    ],
+    "private_blockers": [
+      "scoped_formal_approval_pending"
+    ],
+    "machineReady": false,
+    "canEvaluate": false,
+    "canPublish": false,
+    "checkpointStages": [],
+    "modelRunPerformed": false,
+    "formalDataUpdated": false,
+    "publicationReady": false,
+    "baseline_unchanged": true,
+    "pending_T049_plan_hash": "91866ce7a82b35abacea10200d298c2608bdf53396f0de0b0b9e80bf83ae10ce",
+    "pending_T049_inputs": 699,
+    "formal_nine_paths_absent": true,
+    "planned_two_WORK_paths_absent": true,
+    "case_and_ledger_bytes_unchanged": true,
+    "questions_resent": false,
+    "private_permissions": "directories700/files600"
+  },
+  "summary": "指定private19filesで現行context、canonical/private再生成、exact18/21予定bytes、generic reader replay、真正native再import、実Inventory/Evaluation/Publisher previewとamendment技術bindingを完成しました。固定4fields・公開5ID・保護field・既存699inputs・case/ledgerを保持。技術gate成功と正式保存readinessは別で、system_blocked/already_askedを維持しています。",
+  "remaining_blockers": [
+    "追加4fieldsの真正回答待ち。既存質問の承認範囲をWORK保存先変更へ拡張していません。",
+    "通常18/21はWORK、承認済み24はROOT overlayを読むため、保存root範囲の明示承認が必要です。",
+    "正式保存後のcurrent checkpointと真正model評価は未実行。全workVersionsは未記録です。",
+    "PMのみが台帳backup後、amendment-binding.jsonのexact hashを同じbase/proposalの次revisionへ登録します。既存質問は再送しません。"
+  ],
+  "needs_judge": false,
+  "verification_attempts": 2,
+  "repair_attempts": 0,
+  "stopped_because": null
+}

@@ -59,7 +59,7 @@ visual_board:
     url: http://goalbuddy.localhost:41737/feedback-correction-recovery/
     command: node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs
       --goal docs/goals/feedback-correction-recovery
-active_task: T053
+active_task: T055
 tasks:
   - id: T001
     type: scout
@@ -7342,7 +7342,7 @@ tasks:
   - id: T053
     type: worker
     assignee: Worker
-    status: active
+    status: done
     objective: 既存2025追加4fieldsを一切変更せず、fresh private runに現行context・canonical/candidate再生成・型付き18/21保存予定bytes・generic reader replay・現在の機械検証とpreview・PM用amendment技術bindingを一式生成する。既存質問への回答待ちを保持し、正式保存と真正checkpoint/model評価は実行しない。
     allowed_files:
       - output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/verify.py
@@ -7404,6 +7404,215 @@ tasks:
       - 指定private runが既に存在する、途中で入力hashが変わる、他作者差分の巻戻しが必要になる。
     expected_output:
       - 真正goalbuddy_receipt_v1 T053。private成果とexact2planned bytes・再生成/reader機械整合/currentpreview・PM用amendment binding。真正評価/正式保存/本番未実行。
+    receipt:
+      result: done
+      task_id: T053
+      board_path: /Users/yuki/development/exam_scraper_feedback/docs/goals/feedback-correction-recovery/state.yaml
+      artifact_root: /Users/yuki/development/exam_scraper_feedback/output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025
+      changed_files:
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/verify.py
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/baseline.json
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/input-context.json
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/canonical/manifest.json
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/canonical/merged.json
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/canonical/converted.json
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/canonical/uploadReady.json
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/private/manifest.json
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/private/merged.json
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/private/converted.json
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/private/uploadReady.json
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/planned/18_law_context_prepared/question_85011_empty_1_lawContext_prepared_20261004_0000.json
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/planned/21_explanationText_added/question_85011_empty_1_explanationText_added_20261004_0000.json
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/formal-stage-plan.json
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/evidence-import.json
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/gate-results.json
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/previews.json
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/amendment-binding.json
+        - output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/readiness-summary.md
+      commands:
+        - command: PYTHONDONTWRITEBYTECODE=1 /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest tests.test_scoped_canonical_context tests.test_question_review_scoped_artifacts
+            tests.test_question_review_validated_evidence_import tests.test_feedback_daily
+          status: pass
+          started_at: '2026-10-04T04:57:44Z'
+          finished_at: '2026-10-04T04:57:47Z'
+          exit_code: 0
+          tests: 30
+          native_output_ref: 7cae26
+        - command: PYTHONDONTWRITEBYTECODE=1 /Users/yuki/development/exam_scraper_work/.venv/bin/python output/user_feedback_response_system/staging/recovery-scoped-2025/runs/T053-current2025/verify.py
+          status: pass
+          started_at: '2026-10-04T04:58:55.397755Z'
+          finished_at: '2026-10-04T04:59:08.001922Z'
+          exit_code: 0
+          native_output_ref: d7a94f
+          runner_sha256: d34957a1d3ab27bcc518a86b40ed2f29afafe6af1385645f27a8b4fa091364c1
+        - command: git diff --check
+          status: pass
+          started_at: '2026-10-04T04:59:13Z'
+          finished_at: '2026-10-04T04:59:13Z'
+          exit_code: 0
+          native_output_ref: beb45c
+        - command: private19files・700/600・final hashes・actual gate resultsの読取り確認
+          status: pass
+          started_at: '2026-10-04T04:59:13Z'
+          finished_at: '2026-10-04T04:59:13Z'
+          exit_code: 0
+          native_output_ref: a6b9b0
+      verification_history:
+        - command: T053 verify.py 初回
+          status: pass
+          started_at: '2026-10-04T04:57:47Z'
+          finished_at: 2026-10-04T04:57:57Z以降
+          exit_code: 0
+          native_output_ref: '100746'
+          note: 失敗なし。最終実行では公開docの保護field比較とpolicy/required/blocker記録を追加。
+      evidence:
+        HEAD: e0d7f3f37da37210a730b5a1ddda9e63872d9164
+        current_input_count: 416
+        current_input_hash: 2e4da8a5a8545bb54450cffc99469c1131703339e360f55f14f9a737ae9687ce
+        planned18_byte_hash: 749e34db69a59050e3a091caf459e75686e44fa7e4912665cf423c51a7064608
+        planned21_byte_hash: 578e0a799600d8148ed17e6f15fb784a66ea878c906f39a72333366d3aec4c06
+        formal_stage_plan_hash: 353085fde4043947a86592b83ab3b8e3ce0df14425ceadb34ddcf128c5964536
+        amendment_binding_hash: a12f2016d6f88a8fb36a094796d87da62d21a6e9cf9dd30e45af23e0bf0c86ff
+        gate_results_hash: dd464721b1ccee73c2dc6ae0117ddac876a69fa671968b6a151b4998b984b4cd
+        previews_hash: a8d47a3d39acc9e3385852a4a2a171078455f8e4c7a83cc9050eeae84231bab5
+        native_import_hash: 1f6970e2dc89d4d91b1f3a7b13369264904ecdabbb9f4a9a68fa4a367380a563
+        generic_reader_replay_exact: true
+        candidate_four_fields_unchanged: true
+        publication_document_count: 5
+        protected_fields_unchanged: true
+        other_source_bindings_untouched: true
+        required_schema_coverage_errors: []
+        sidecar_errors: []
+        required_field_warnings: []
+        amendment_technical_blockers: []
+        law_audit_policy: '6.0'
+        evaluation_policy: '5.6'
+        canonical_blockers:
+          - answer_explanation_mismatch
+          - law_audit_metadata_incomplete
+        private_blockers:
+          - scoped_formal_approval_pending
+        machineReady: false
+        canEvaluate: false
+        canPublish: false
+        checkpointStages: []
+        modelRunPerformed: false
+        formalDataUpdated: false
+        publicationReady: false
+        baseline_unchanged: true
+        pending_T049_plan_hash: 91866ce7a82b35abacea10200d298c2608bdf53396f0de0b0b9e80bf83ae10ce
+        pending_T049_inputs: 699
+        formal_nine_paths_absent: true
+        planned_two_WORK_paths_absent: true
+        case_and_ledger_bytes_unchanged: true
+        questions_resent: false
+        private_permissions: directories700/files600
+      summary: 指定private19filesで現行context、canonical/private再生成、exact18/21予定bytes、generic reader replay、真正native再import、実Inventory/Evaluation/Publisher previewとamendment技術bindingを完成しました。固定4fields・公開5ID・保護field・既存699inputs・case/ledgerを保持。技術gate成功と正式保存readinessは別で、system_blocked/already_askedを維持しています。
+      remaining_blockers:
+        - 追加4fieldsの真正回答待ち。既存質問の承認範囲をWORK保存先変更へ拡張していません。
+        - 通常18/21はWORK、承認済み24はROOT overlayを読むため、保存root範囲の明示承認が必要です。
+        - 正式保存後のcurrent checkpointと真正model評価は未実行。全workVersionsは未記録です。
+        - PMのみが台帳backup後、amendment-binding.jsonのexact hashを同じbase/proposalの次revisionへ登録します。既存質問は再送しません。
+      needs_judge: false
+      verification_attempts: 2
+      repair_attempts: 0
+  - id: T054
+    type: pm
+    assignee: PM
+    status: done
+    objective: T053の現技術bindingを実台帳へbackup後の明示次revisionとして追記し、旧質問already_askedと旧base/proposalを保持する。正式保存/評価/公開の未完了を保全する。
+    allowed_files:
+      - docs/goals/feedback-correction-recovery/state.yaml
+      - docs/goals/feedback-correction-recovery/notes/T054-*
+      - output/user_feedback_response_system/daily/2026-10-04/amendment-current2025/*
+      - /Users/yuki/Library/Application Support/Repaso/feedback-ops/ledger.sqlite3
+    inputs:
+      - notes/T053-current2025-receipt.json
+      - staging/recovery-scoped-2025/runs/T053-current2025/amendment-binding.json
+      - 実台帳2025amendmentrevision0
+    constraints:
+      - 実DB backupを600/700の私的領域へ保存し、expectedrevision一致のみでAPI追記する。既存report/basepatch/他proposal/改善tasks不変を照合。
+      - state=system_blocked、answer_status=already_askedと元asked_at/元request_idを保持。技術成功だけで正式ready又は承認済みへ昇格しない。
+      - 質問再送、実正式18/21/24保存、Firestore/Storage write、case_review/699inputs改変禁止。
+      - 本PMtaskは運用台帳とcontrolのみ。保存先の具体化は承認済みと称さず、実範囲差を保留として記録。
+    verify:
+      - 台帳backupとtable比較
+      - register_amendment expected revision/元固定proposal/base不変
+      - summary/listreports/listimprovements readbackとpending T049 read_plan699inputs不変
+      - git diff --check
+    expected_output:
+      - 実登録結果・変更row範囲・再開条件のPMreceipt、正式未保存/本番未公開
+    receipt:
+      result: done
+      task_id: T054
+      harness: codex
+      summary: backup後に2025amendment技術bindingを明示revision2として追記。旧revision1/request/asked_atを保存し、新revisionは旧native質問callへ結合、system_blocked/already_asked継続。正式保存/モデル評価/本番なし。
+      evidence:
+        artifact: output/user_feedback_response_system/daily/2026-10-04/amendment-current2025/registration-result.json
+        revision: 2
+        changedTables:
+          - amendment_history
+          - proposal_amendments
+        otherTablesUnchanged: true
+        pendingPlanValid: true
+        formalDataUpdated: false
+        FirestoreModified: false
+        questionsResent: false
+      commands:
+        - command: register_amendment expected_revision=1、事前SQLitebackup、全table比較、summary/list_reports/list_improvements/read_plan
+          status: pass
+          exit_code: 0
+          native_output_ref: 78ebeb
+          finished_at: '2026-10-04T05:02:32.595605+00:00'
+      remaining_blockers:
+        - human_reply_pending
+        - WORK_save_root_approval_scope_pending
+        - current_checkpoints_missing
+        - genuine_model_evaluation_not_run
+  - id: T055
+    type: worker
+    assignee: Worker
+    status: active
+    objective: 日次新着の2020管理業務主任者問39の参照文章欠落について、公式原問と現行対象・siblingを照合し、必要なfieldだけの変更前後と根拠・影響範囲・予定patchを私的proposal一式へまとめる。元4件とは別case。正式保存/本番writeなし。
+    allowed_files:
+      - output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T055-proposal/verify.py
+      - output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T055-proposal/baseline.json
+      - output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T055-proposal/source-evidence.json
+      - output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T055-proposal/official-transcription.txt
+      - output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T055-proposal/live-selected.json
+      - output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T055-proposal/proposed-field-diff.json
+      - output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T055-proposal/proposed-patch.json
+      - output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T055-proposal/proposal.md
+      - output/user_feedback_response_system/staging/recovery-kanri-2020-q39/T055-proposal/verification.json
+    inputs:
+      - daily/2026-10-04/private-inspection/manifest.json、report-current.json、公式2020PDF/第27頁画像（実filenameは限定rgで確認）
+      - cases/23c47f347bc30e1cf53a8485bd34f54c946d3212776add153491f0b62c4d2fc5/case_review.json（read-only）
+      - raw WORK output/kanrigyoumu/questions_json/94006/00_source/question_94006_2.json、canonical_question_key=kanrigyoumu:2020:q039
+      - 公式 https://www.kanrikyo.or.jp/kanri/shiken_r02/pdf/mondai_021.pdf PDF27頁/印刷25
+      - 対象condominiummanager-C-11410、originalQuestionId=kanrigyo-2020-39、task afe1570a185fd83d5da8e69c0bd7060f80f5b2b9cff45b6d154d60b116942810
+    constraints:
+      - 私的9filesのみ所有、dir700/file600。共有作業で他作者変更を巻き戻さない。PMのみstate/実DB/Git。
+      - 公式PDF hash417defdbeb15e09c97707ac9431f5ed82e18f3f6da9a527808f43dcd1bf77df1と既viewedpageを利用。原問判決文章と空欄ア〜エを照合しrawの（エ）よるは公式（エ）によるへ転記する。法的再判定/解説改変はしない。
+      - 読取りのみSDK masked projectionを使用し、対象questionId/originalQuestionIdの一致・全siblingの実ID、現在fieldpresence/updateTime/nanosを照合する。fullgetは無関係なprojects/undefined参照decode障害があるため使わない。資格/group/sourceRefを推測補完しない。
+      - questionText/questionBodyText/originalQuestionBodyTextの文章欠落と実表示上の使い分けを必要な既存実装へ照らし、必要なfieldsのbefore/afterを具体化。原問保持と公開改題を別snapshotで表す。選択肢2の正誤、4組合せ、既存choiceText/解説/分類/画像/IDは変更しない。
+      - 対象sibling未取得・存在重複・year/choice binding不一致なら安全にholdを残す。現在CONTENT_FIELDSのoriginalQuestionBodyText未対応など、patch保存/公開入口の技術不足があれば明記し、schema/allowlistや既存codeを緩めない。
+      - proposed-patch.jsonは既存SnapshotCorrection相当のID/updateTime/fieldpresence/before/after/allowlist/fullDocumentUploadAllowed=falseを明記するdraft。既存型で未許可fieldを承認readyと称さない。具体source/ref/provenance、必要fieldと除外field・影響範囲、実正式保存先は対応schema未確定ならunresolvedを残す。
+      - T049の699inputs/固定資料/正式9paths、T053private416inputs/19files、5case_review/台帳・approved24/旧proposal全て不変。新caseだけのactualproposal登録はPM後続。
+      - 利用者の生本文・識別情報・Firestore受付原本をGit/通常ログ/通知へ出さない。Firestore/Storage write/運用ledger更新/正式24/18/21/00_source変更禁止。
+      - 初回verify+repair2まで、native失敗履歴保全。scope拡張不要なdata-only最大packageに留める。
+    verify:
+      - 指定private verify.pyを実行し公式転記hashとactual masked対象/全sibling/fieldpresence/nanos/4choice bindingを確認。本文はログに出さない。
+      - 各proposedfield afterは参照文章と既存改題/choiceの組合せとして完全性と保持field不変を確認。公式肢2正答を維持、原問と改題差は明示。
+      - SnapshotCorrection.from_mappingで対応field部分のみ型チェックし、未対応fieldがあれば明示技術blockerを記録。fixtures又は成功labelでfullreadinessを偽らない。
+      - 元case_review/台帳/699pendinginputs/416T053inputs/正式path不在が不変か照合。新proposalのhashを固定。
+      - git diff --check
+    stop_if:
+      - 既存code/schema/config/case/台帳/正式patch/source又はpending入力を変更する必要がある。
+      - 本文欠落を直すためにchoice/正誤/解説/法令改正判断まで変更する必要がある。
+      - 正式保存又は公開承認、Firestore/Storage write、原生利用者データのログ出力が必要になる。
+      - allowedfiles外成果を作る必要がある、input drift又はrepair2超過。
+    expected_output:
+      - 真正goalbuddy_receipt_v1 T055。具体proposal/hash/根拠/影響対象/予定patchと実blocked条件、正式未保存/未公開。
     receipt: null
   - id: T004
     type: pm
