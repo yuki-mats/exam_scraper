@@ -219,3 +219,9 @@ source・ID・metadataは不変。正常merge/convert/upload dry-runと型patch�
 同年度午前I問30は文化庁の2024年概要3・5〜6・11〜12・15頁と出題時著作権法第21・23・30条の4を直接読み、第1肢の解説で開発・学習と生成・公開の判断を分け、第30条の4ただし書の限界を示した。正誤・source・ID・本文・全肢・形式・保存済みlawRevisionFacts/model/工程版receiptは保持し、新AI確認として扱わない。
 
 同期scriptの年度指定を取り違えて202301を一度正常同期したため、対象202501を改めて正常同期し、両履歴をreportへ残した。202501のmerge/convert/upload dry-run及び必須3検査48merged/48実正答patch880entries成功、全suite未実行。修正後の四fieldを個別再読。独立Sol未完、品質確定212/880不変、Firestore未書込。根拠direct_law_scope2_applied_20261005.json。
+
+### 2026-10-05 2022年開発委託プログラムの原始的帰属
+
+202201午前I問30の四fieldを個別に読み、2022-04-17著作権法の本則第15条第2項を直接確認した。21の第1・4肢の解説を、創作時の原始的帰属と後日の譲渡合意の区別、B社の発意・業務への従事・職務上作成・別段の定めがないことを示す説明へ整備し、出題時条文参照を加えた。要求仕様を提示しただけではA社の原始的帰属とならない理由も確認した。
+
+source・ID・本文・全肢・正誤・形式・metadata・他2肢は保持。正常merge/convert/upload dry-run及び必須3検査48merged/48実正答patch880entriesは成功、全suite未実行。修正後の四fieldを再読し、新model/作業版receiptなし。独立Sol未完、品質確定212/880不変、Firestore未書込。根拠direct_office2022_applied_20261005.json。
