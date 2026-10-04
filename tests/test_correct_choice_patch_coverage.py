@@ -64,6 +64,45 @@ class CorrectChoicePatchCoverageTests(unittest.TestCase):
             any("must contain only 正しい/間違い" in error for error in errors)
         )
 
+    def test_partial_question_type_projection_preserves_correct_patch_scope(self):
+        source = [
+            {"original_question_id": "q1", "choiceTextList": ["A"],
+             "correctChoiceText": ["A"], "questionType": "true_false"},
+            {"original_question_id": "q2", "choiceTextList": ["B"],
+             "correctChoiceText": ["B"], "questionType": "true_false"},
+        ]
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source_path = root / "source.json"
+            type_path = root / "type.json"
+            patch_path = root / "patch.json"
+            source_path.write_text(json.dumps({"question_bodies": source}))
+            type_path.write_text(json.dumps([
+                {"original_question_id": "q1", "questionType": "true_false",
+                 "isCalculationQuestion": False},
+            ]))
+            for require_full in (False, True):
+                with self.subTest(require_full=require_full):
+                    entries = [{"original_question_id": "q1",
+                                "correctChoiceText": ["正しい"]}]
+                    if require_full:
+                        entries.append({"original_question_id": "q2",
+                                        "correctChoiceText": ["間違い"]})
+                    patch_path.write_text(json.dumps(entries, ensure_ascii=False))
+                    self.assertEqual(check_pair(
+                        source_path, patch_path, require_full, False, False,
+                        question_type_patch_path=type_path,
+                    ), 0)
+
+            # Partial scope must still reject a type patch bound to another question.
+            type_path.write_text(json.dumps([
+                {"original_question_id": "other", "questionType": "true_false"},
+            ]))
+            self.assertEqual(check_pair(
+                source_path, patch_path, False, False, False,
+                question_type_patch_path=type_path,
+            ), 1)
+
     def test_checker_uses_question_type_projection_for_aggregate_choices(self):
         source_text = "前提。Aは正しい。Bは誤り。"
         spans = [

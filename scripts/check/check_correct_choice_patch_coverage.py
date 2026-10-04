@@ -16,7 +16,11 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from scripts.common.question_identity import review_question_id
-from scripts.common.question_answer_contract import choice_text_content_alignment_issue
+from scripts.common.question_answer_contract import (
+    CORRECT_LABELS,
+    INCORRECT_LABELS,
+    choice_text_content_alignment_issue,
+)
 from scripts.merge.patch_views import apply_question_type
 from scripts.check.patch_entry_matching import (
     bind_source_records,
@@ -177,6 +181,13 @@ def compare_entries(
             errors.append(f"index {idx}: {text_alignment_issue}")
 
         if isinstance(correct_choices, list):
+            if correct_choices and all(
+                isinstance(value, str) and value in CORRECT_LABELS | INCORRECT_LABELS
+                for value in correct_choices
+            ) and any(value not in {"正しい", "間違い"} for value in correct_choices):
+                errors.append(
+                    f"index {idx}: correctChoiceText must contain only 正しい/間違い"
+                )
             if all(isinstance(v, str) and v in {"正しい", "間違い"} for v in correct_choices):
                 source_choices = source.get("choiceTextList") or []
                 if isinstance(source_choices, list) and len(correct_choices) != len(source_choices):
@@ -258,6 +269,7 @@ def check_pair(
         question_type_matches, identity_errors, _ = match_patch_entries(
             source_questions,
             question_type_entries,
+            require_full=False,
         )
         if identity_errors:
             for error in identity_errors:
