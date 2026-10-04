@@ -1,0 +1,196 @@
+{
+  "result": "done",
+  "task_id": "T039",
+  "board_path": "/Users/yuki/development/exam_scraper_feedback/docs/goals/feedback-correction-recovery/state.yaml",
+  "decision": "approve_next",
+  "full_outcome_complete": false,
+  "rationale": "T037の2参照修復、parserの誤認拒否、XML locator、候補差分、native証跡との結合を受け入れる。原問・公開ID・限定deltaは保持され、現行680入力hashも一致した。固定候補はhold/unverifiedのままでstrict成功ではない。次世代private出力で証跡付きの限定昇格と実検証を進められる。正式patch承認、真正checkpoint/evaluation、別の本番承認、適用後readbackは未達。",
+  "evidence": [
+    {
+      "kind": "exact_input",
+      "run": "output/user_feedback_response_system/staging/recovery-three-cases/runs/T037-b3d34b0c439c",
+      "currentCommit": "e9c8b63216928a5b051c973f497b7672693a9bef",
+      "reviewInputFileSha256": "6505840fd923e4345a3a1f0ae885ef2fcc4cc457de9b5660611c217b4866b502",
+      "reviewInputCanonicalObjectHash": "00aaa8c91b5c0c169ba097c8d8e1ad0c2b8150e0774d6ad52ffb93998c9d0f47",
+      "filesMapInputHash": "6f50122782f0ec851f2e4364211a260d14246a1a641992634559d837e9105d2e",
+      "nativeEvidenceCanonicalObjectHash": "05bc6dd7c3dec672088bd8b72cb6ddac3249b701a459b486bbf962ba061060fd",
+      "currentManifestFilesMatched": 680,
+      "currentManifestFilesDrifted": 0,
+      "candidateCanonicalHashes": {
+        "2018": "cde4ac608c777b6d5921b6efce45573746122023e1f85bfd2fab37111d14d95e",
+        "2024": "4035a4d4caee7e41e38bd1620e133ca8faa8f415e2c21cab0a73da742224fd30",
+        "2020": "373de55f3d0551cac6fb70b48f2b124b0b0d81d864c773232d9b2680bc2abdfa"
+      }
+    },
+    {
+      "kind": "narrow_content_accept",
+      "decision": "accept",
+      "scope": [
+        "2024 choice2の参照indices3・11は115の3条から115条の3へのみ変更された。",
+        "public参照、sourceProposal、sidecarはArticleNum=115_3・Item3に一致し、試験時・現行XMLの本文hashとrevisionも一致した。",
+        "primary_law_evidence.py:137-145は不正な枝条表記を部分一致させず拒否する。115条の3は(115,3)、115の3条はlocatorなしとなる。関連回帰はtest_question_review_primary_law_evidence.py:199。",
+        "2018参照本文は不変。両年のfacts変更はauditInputHash・evidenceBindingHash・sourceEvidenceVersionIdの結合値に限定され、法的判定・解説・原問・選択肢順は不変。",
+        "11docのbeforePresent/before、snapshot hash、updateTime、delta allowlist、projectionを照合した。2020候補はT031と同一でquestionText一文字削除だけ。",
+        "2018/2024の既存公開IDを保持し、原選択答4/2はsourceProposalとsidecarに残る。public TF factsのcorrectChoiceTextは各docのscalarを維持する。",
+        "2024の否定形原問と肯定形公開TF variantを別責務として扱う。原問に肯定形TF正誤をそのまま適用することは承認しない。"
+      ],
+      "limits": [
+        "T033の独立内容審査を再実施したという主張ではない。",
+        "full converterが原問を上書きした診断artifactは、保存・公開の候補として採用しない。",
+        "未選択の本番全fieldについて、今回のsnapshot比較だけで全面一致を主張しない。限定field updateによる構造的保持が必要。"
+      ]
+    },
+    {
+      "kind": "native_hash_contract",
+      "decision": "accept",
+      "T033": {
+        "nativeSessionId": "01a10442-335b-72c1-8992-d4cf6d0bc6ce",
+        "eventLine": 261,
+        "eventLineSha256WithoutFinalLf": "4215052684fd2610fd51e2a93830325f7e803c1066508358810285a3b13afef6",
+        "assistantOutputSha256": "ca1aa65dc7ebbab8f6f5f09fdd5d4749b0ccc0002acadc24d68e628f364c2bc4",
+        "receiptFileSha256": "6b99ecd4f91e63dda88c53a16941ce724d041f6c0b8b89cfbe10ea26145d934b",
+        "oldManifestFilesMapInputHash": "88f978e342a61178f44e086bff5483d99019c62a65b5e6382c47a849b03a94fa",
+        "oldManifestCanonicalObjectHash": "35e7ab7e73c838db0326c427aa05cc8b8035e4040339a3b1fb31bd075f89c3c0",
+        "finding": "原receiptのmanifestObjectHashという名前は実際にはfiles-map inputHashを指した。二値を再計算し、native event/outputと保存receiptの一致を確認した。原証跡の改変は不要。"
+      },
+      "T037": {
+        "nativeSessionId": "01a101b4-330a-7392-a7b8-f72e5890db4a",
+        "eventLine": 1376,
+        "eventLineSha256IncludingFinalLf": "e01eaea8e17e6630c315405fce994df59aa9adebbaa314e8c49309570a7fa97f",
+        "assistantOutputSha256": "1e38410900af0d3d74d3336df5af54afb718c0671a07ab35cd1cd96e3984b710",
+        "receiptFileSha256": "49de021352dbaa6d472855d977f75d5546cf24f48eaac3fd2af8027b776b6d53",
+        "nativeInnerReceiptObjectHash": "853dde2707b1af7d1cffc3762fe22ae2f2b8eee5d1473fb18441f0eb1bc2b44b",
+        "serialization": "native外側goalbuddy_receipt_v1の内側objectを、元のkey順でjson.dumps(r,ensure_ascii=False,separators=(',',':'))、UTF-8、最終改行なしとしてhash化。",
+        "finding": "compact object hash、保存file hash、native event/outputを実再計算した。notes/native-receipt-hash-contract-T036-T037.jsonの説明と一致し、証跡欠落ではない。"
+      }
+    },
+    {
+      "kind": "machine_evidence",
+      "decision": "accept_with_scope",
+      "observed": [
+        "T037の関連18+14 testsは実成功。",
+        "required、choice alignment、correctChoice coverageの対象検証は実成功。",
+        "2018/2024、merged/public snapshot projectionのstrict計4実行は全てexit1。hold/unverifiedによる拒否が保持されている。",
+        "現行680入力hash一致によりT037の対象検証を利用できる。T033時点の旧manifestに対する8コードdriftを隠した再利用ではない。"
+      ],
+      "notEstablished": [
+        "昇格後候補のstrict成功",
+        "現行work versionに結合した真正checkpoint",
+        "真正evaluationの合格",
+        "正式patch保存",
+        "本番適用と別公開readback"
+      ]
+    },
+    {
+      "kind": "permitted_metadata_promotion",
+      "decision": "conditional_accept",
+      "destination": "固定T037を変更せず、新しいprivate runへ派生する。",
+      "scope": {
+        "references": "2018/2024の既審査60参照と、その対応する試験時・現行snapshotのverificationStatusをverifiedへ昇格可能。",
+        "facts": "10docのlawRevisionFacts.auditStatusはsame_as_current、reviewStateはtertiary_verifiedへ昇格可能。これは両時点の法的正誤判定の一致であり、既存解説の修復や表示variantの意味変更が不要という意味ではない。",
+        "2020": "法令昇格対象外。questionText一文字deltaのみを維持する。"
+      },
+      "requiredFields": [
+        "既存schema内のauditedAt、nextAuditDueAt、auditMethodVersion、auditInputHash、auditRunId、lawCorpusSnapshotId、primaryAuditRunId、secondaryAuditRunId、tertiaryAuditRunId、reconciliationStatus",
+        "law-revision-audit/v2の完全なsource binding、examYear、選択肢順examTimeDecision/currentLawDecision、isLawRelated、userVisibleNoticeRequired、noticeReason、sourceSummary、lawReferences、remainingRisk",
+        "sourceEvidenceVersionIdとevidenceBindingHashを、新候補・新sidecar・XML evidence・真正native chainへ再結合する。",
+        "T028/T029の実native審査、T033の全文challenge、T037の限定修復、T039の限定受入を役割と対象hash付きで保持する。T039を新しい全文A/B審査や機械checkpointとして扱わない。",
+        "receiptFileSha256とnativeInnerReceiptObjectHash、eventのLF契約、serialization契約を別名で記録する。原receipt/provenanceは保持する。",
+        "昇格後のrequired/alignment/coverage/strictを実行し、成功してから対象機械gateを成功と記録する。"
+      ]
+    },
+    {
+      "kind": "existing_route_basis",
+      "observed": [
+        "scoped_canonical_context.py:146以降は原問binding、publicationIds、alias closure、依存hashを検証し、306以降で再検証する。",
+        "scoped_artifacts.pyの既存private候補は2025の4fieldに限定される。今回のTF表示variantを同じ意味として押し込めず、別のtyped local manifestで扱う必要がある。",
+        "firestore_readback.py:189はselected field読取りを持つが、updateTimeを返さず、fallbackは無mask読取りになる。今回の経路にはpresenceとupdateTimeを返す専用APIが必要。",
+        "publisher.py:948以降はfull uploader実行経路であり、今回のsnapshot-bound delta公開へそのまま流用できない。",
+        "upload_questions_to_firestore.py:583のLastUpdateOptionは既存の競合防止根拠となる。一方、同ファイルの限定tuple allowlistと解説prefix制約は今回の自然文解説・questionText一文字deltaと一致しないため、既存guardを緩めない。",
+        "inventory/evaluationのscoped hash、policy、work version、genuine receiptのgateを維持し、private法令審査をcheckpointやevaluation成功へ変換しない。"
+      ]
+    }
+  ],
+  "next_allowed_task": {
+    "role": "Worker",
+    "objective": "T037と真正審査chainから新private世代を作り、限定metadata昇格と実strict検証を行う。既存canonical contextと記録済みsource/public対応を使い、原問保持の正式patchプレビュー、独立した公開TF variant、対象checkpoint/evaluationの結合、承認後限定field update/readbackの実行契約を実装・対象テストする。今回は具体的なpreviewと阻害gateを出し、正式patch保存と本番実行は行わない。",
+    "allowed_files": [
+      "scripts/common/scoped_canonical_context.py",
+      "scripts/pipeline/prepare_scoped_question_artifacts.py",
+      "tools/question_review_console/scoped_artifacts.py",
+      "tools/question_review_console/scoped_corrections.py",
+      "tools/question_review_console/validated_evidence_import.py",
+      "tools/question_review_console/firestore_readback.py",
+      "tools/question_review_console/inventory.py",
+      "tools/question_review_console/evaluation.py",
+      "tools/question_review_console/publisher.py",
+      "tests/test_scoped_canonical_context.py",
+      "tests/test_question_review_scoped_artifacts.py",
+      "tests/test_question_review_scoped_corrections.py",
+      "tests/test_question_review_validated_evidence_import.py",
+      "tests/test_question_review_firestore_readback.py",
+      "tests/test_question_review_inventory.py",
+      "tests/test_question_review_evaluation.py",
+      "tests/test_question_review_publisher_safety.py",
+      "document/operations/artifact_contract.md",
+      "document/operations/delivery_workflow.md",
+      "output/user_feedback_response_system/staging/recovery-three-cases/execution-contract/runs/<fresh-run-id>/**"
+    ],
+    "implementation_contract": [
+      "新scoped_corrections.pyはlocal/private typed manifestの検証と既存経路へのadapterを所有する。Firestore schema fieldを増やさない。",
+      "既存prepare_scoped_question_artifacts.pyへ限定preview modeを追加し、T037 review-inputからsource patch preview、public variant delta、証跡、machine gate結果、承認待ち状態をprivate出力する。",
+      "2018/2024は記録済みbindingとlegacy公開ID対応を一意に検証する。source原問・ordered choices・原選択答とpublic TF表示variantを別々に保持し、sourceの否定形へ肯定形の正誤を直接保存しない。",
+      "2020はquestionText内の指定一文字削除だけ。originalQuestionChoiceTextの修復や他field追加は含めない。",
+      "正式patchプレビューは実保存候補の具体的内容とexpectedBeforeHashを示す。正式保存の承認とproduction適用の承認を別gateとして結合し、2025既存4fieldのpending承認をそのまま維持する。",
+      "selected snapshot APIは対象docだけをmask読取りし、ID、exists、updateTime、readAt、field presence/valueを返す。今回の経路で無mask fallbackを使わない。",
+      "beforePresentとbeforeを厳密に比較し、missingとnullを区別する。全対象のupdateTime precondition付きfield updateを用い、set/merge/full converter/full uploaderによる置換・削除を行わない。",
+      "変更field以外を構造的に保持する。updatedAt/updatedByIdなど既存監査制約が必要なら、内容deltaと別の既存監査責務としてpreviewで明示し、無断の内容allowlist拡張をしない。",
+      "source/candidate/policy/work version/manifest/live snapshot hashをpreview tokenと結合する。実checkpoint/evaluationは既存真正gateを使い、承認前や未実行時はblockerを返す。",
+      "適用後readbackはdeltaのafterとpresenceを比較する。競合時は自動でbeforeを更新せず拒否する。再送は同じ操作の既適用を証跡付きで識別し、rollbackは競合のない更新と別の承認済み補償契約に限定する。",
+      "実装したwrite adapterはfixture/injected gatewayで検証する。今回の実行はpreview/read-onlyのみとし、本番writeを呼び出さない。"
+    ],
+    "verify": [
+      "PYTHONDONTWRITEBYTECODE=1 /Users/yuki/development/exam_scraper_work/.venv/bin/python -m unittest tests.test_scoped_canonical_context tests.test_question_review_scoped_artifacts tests.test_question_review_scoped_corrections tests.test_question_review_validated_evidence_import tests.test_question_review_firestore_readback tests.test_question_review_inventory tests.test_question_review_evaluation tests.test_question_review_publisher_safety",
+      "PYTHONDONTWRITEBYTECODE=1 /Users/yuki/development/exam_scraper_work/.venv/bin/python scripts/pipeline/prepare_scoped_question_artifacts.py --snapshot-corrections output/user_feedback_response_system/staging/recovery-three-cases/runs/T037-b3d34b0c439c/review-input.json --output output/user_feedback_response_system/staging/recovery-three-cases/execution-contract/runs/<fresh-run-id> --preview-only",
+      "新private世代の両年・merged/public projection計4形態でrequired/alignment/coverage/strictを実行し、実コマンド・入力hash・時刻・exit・ログを残す。固定T037の4 exit1は保持する。",
+      "保存拒否、承認未済、token drift、before missing/null差、updateTime競合、missing doc、重複/別ID、対象外field保持、無mask fallback拒否、再送、rollback競合をfixture gatewayで実検証する。",
+      "git diff --check",
+      "固定T037と元native証跡、00_source、正式patch、既存2025候補が不変であることをhashと今回のdiffで確認する。"
+    ],
+    "stop_if": [
+      "既存差分と今回変更の所有範囲を分離できない、または他作者の差分を戻す必要がある。",
+      "記録済みsource/public対応が欠落・曖昧・衝突する。新ID生成や推測対応で継続しない。",
+      "昇格が法的本文・判定・選択肢・原問の追加変更を必要とする。",
+      "真正native event/output/receipt/input/XMLのbindingが一致しない、または再検証で固定入力が変化した。",
+      "full SDK decode、full uploader、解説の自動prefix書換え、既存guard緩和、Firestore schema追加が必要になる。",
+      "正式保存やproduction承認を未承認候補・private receiptから推定する必要がある。",
+      "named allowed_files外の実装変更が必要になる。必要pathと既存経路上の根拠をPMへ共有する。",
+      "新private strictが失敗する。失敗を残し、承認候補・machineReady・checkpoint/evaluation成功へ進めない。"
+    ]
+  },
+  "subgoal_contract": null,
+  "parallel_safety": {
+    "decision": "sequential_only",
+    "reason": "inventory、evaluation、publisher、scoped artifact契約を共有するため、このpackageのWorker編集を並列化しない。他者差分の保持を必須とする。"
+  },
+  "blocked_tasks": [
+    "未承認の2018/2024/2020正式patch実保存",
+    "別production承認前のFirestore/Storage書込み",
+    "未実行checkpoint/evaluationを成功として登録すること",
+    "full converter/full uploaderによる今回allowlist外の更新"
+  ],
+  "missing_evidence": [
+    "新metadata世代の標準sidecarと4形態strict実成功",
+    "原問とpublic variantを分離した具体的な正式patchプレビューへの承認",
+    "承認後の対象work versionに結合した真正checkpoint/evaluation結果",
+    "別production承認と、限定適用後の独立readback"
+  ],
+  "required_board_updates": [
+    "T039を限定challenge完了として記録し、full outcomeはfalseを維持する。",
+    "T037固定候補のhold/unverifiedと4 strict exit1を保持する。昇格後の結果は新runとして分ける。",
+    "T033 manifest hashの二値とT037 compact object/file hash契約を原証跡の改変なしで結合する。",
+    "上記Worker packageの実行前にexact allowed_filesとfresh private destinationをcardへ登録する。",
+    "内容審査受入、metadata昇格、機械gate、正式承認、checkpoint/evaluation、本番承認、公開readbackを別状態で追跡する。",
+    "2025既存4fieldの承認pendingを維持し、重複した再承認要求を作らない。"
+  ]
+}
