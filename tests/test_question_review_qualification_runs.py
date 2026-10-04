@@ -1665,6 +1665,27 @@ class ManifestRuntimeCacheTests(unittest.TestCase):
             previews[0]["previewToken"], previews[1]["previewToken"]
         )
 
+    def test_public_preview_keeps_human_feedback_in_cached_execution_plan(self):
+        class HumanReviewWorkflow(FakeWorkflow):
+            def plan(self, *args, **kwargs):
+                plan = super().plan(*args, **kwargs)
+                for target in plan.get("progressTargets") or []:
+                    target["stateHash"] = "current-human-snapshot"
+                return plan
+
+        with tempfile.TemporaryDirectory() as directory:
+            coordinator = QualificationRunCoordinator(
+                Path(directory), HumanReviewWorkflow(), FakeSynchronizer(), JobManager(), "secret",
+                reviews=SimpleNamespace(latest_current_question_needs_review=lambda *args: {
+                    "reviewId": "human-current", "fields": ["explanationText"],
+                    "note": "事例のHTML変換設定を明示する。"}),
+            )
+            coordinator.preview("sample", "explanation", "refresh")
+            cached = next(iter(coordinator._prepared_previews.values()))
+            feedback = cached.plan.get("evaluationFeedbackByQuestion")
+            self.assertTrue(feedback)
+            self.assertTrue(all(items[0]["reviewId"] == "human-current" for items in feedback.values()))
+
     def test_prepared_preview_stamp_changes_with_human_review_content(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

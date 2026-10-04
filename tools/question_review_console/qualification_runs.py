@@ -9846,6 +9846,7 @@ class QualificationRunCoordinator:
                 evaluation_rework_snapshots,
             )
             self._apply_blocked_rework_plan(plan, blocked_rework_from)
+            self._apply_current_human_review_feedback(qualification, plan)
             preview = self._preview_uncached(
                 qualification,
                 stage_id,
