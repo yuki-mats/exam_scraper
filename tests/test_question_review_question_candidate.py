@@ -25,6 +25,78 @@ from tools.question_review_console.question_candidate import (
 
 
 class QuestionCandidateTest(unittest.TestCase):
+    def test_law_audit_accepts_one_verified_question_scoped_reference(self):
+        import copy
+
+        targets = candidate_targets("q1", "law_audit", {
+            "allowedPatchFiles": [
+                "output/sample/questions_json/2026/18_law_context_prepared/patch.json",
+                "output/sample/questions_json/2026/21_explanationText_added/patch.json",
+                "output/sample/questions_json/2026/23_correctChoiceText_fixed/patch.json",
+            ],
+            "allowedWriteFiles": ["output/sample/review/law_revision_audit/2026.jsonl"],
+        })
+        audit = next(target for target in targets if target.role == "law_audit")
+        reference = {
+            "role": "current_basis", "scope": "question",
+            "lawId": "123AC0000000001", "lawTitle": "試験法",
+            "article": "1", "referenceDate": "2026-10-04",
+            "verificationStatus": "verified", "source": "egov_xml",
+        }
+        values = {
+            "auditStatus": "same_as_current", "reviewState": "secondary_verified",
+            "sourceSummary": "基準の背景条文と公的資料を確認した。",
+            "verificationSummary": "各肢を資料の定義に照らして確認した。",
+            "reconciliationStatus": "matched",
+            "examTimeDecision": ["正しい", "間違い"],
+            "currentLawDecision": ["正しい", "間違い"],
+            "correctChoiceText": ["正しい", "間違い"],
+            "explanationText": ["正しい。定義に当たる。", "間違い。定義に当たらない。"],
+            "isLawRelated": True, "lawGroundedExplanationNotNeeded": False,
+            "lawReferences": [[reference], []],
+            "lawRevisionFacts": [{
+                "auditStatus": "same_as_current", "reviewState": "secondary_verified",
+                "examTime": {"correctChoiceText": verdict},
+                "current": {"correctChoiceText": verdict},
+                "evidenceSummary": {"verdict": "same_as_current", "explanationText": "公的資料を確認した。"},
+            } for verdict in ("正しい", "間違い")],
+        }
+        current = {
+            "questionType": "true_false", "questionIntent": "select_correct",
+            "choiceTextList": ["制度の記述A", "制度の記述B"],
+            "correctChoiceText": ["正しい", "間違い"],
+            "explanationText": ["正しい。定義に当たる。", "間違い。定義に当たらない。"],
+        }
+
+        def errors_for(fields):
+            candidate = _parse_prepared_candidates({
+                "schemaVersion": CANDIDATE_PAYLOAD_SCHEMA_VERSION,
+                "questionResults": [{
+                    "questionId": "q1", "status": "candidate", "summary": "監査済み",
+                    "updates": [{"targetId": audit.target_id,
+                        "setFields": [{"field": k, "value": v} for k, v in fields.items()],
+                        "unsetFields": []}],
+                }],
+            }, ["q1"], {"q1": targets})[0]
+            return validate_candidate_content(candidate, targets, current)
+
+        self.assertEqual(errors_for(values), ())
+        for mutation in ("choice_scope", "unverified", "missing_article", "no_reference", "malformed_slot"):
+            with self.subTest(mutation=mutation):
+                changed = copy.deepcopy(values)
+                ref = changed["lawReferences"][0][0]
+                if mutation == "choice_scope":
+                    ref.update(scope="choice", choiceIndex=0)
+                elif mutation == "unverified":
+                    ref["verificationStatus"] = "unverified"
+                elif mutation == "missing_article":
+                    del ref["article"]
+                elif mutation == "no_reference":
+                    changed["lawReferences"][0] = []
+                else:
+                    changed["lawReferences"][1] = None
+                self.assertTrue(any("lawReferences[1]" in error for error in errors_for(changed)))
+
     def test_roman_combination_is_compared_by_explicit_statement_labels(self):
         body = '\n'.join(f'{label}. 記述{label}。' for label in ['i', 'ii', 'iii', 'iv', 'v', 'vi', 'vii', 'viii'])
         labels = ['i', 'ii', 'iii', 'iv', 'v', 'vi', 'vii', 'viii']

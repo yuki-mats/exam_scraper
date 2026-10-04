@@ -125,6 +125,7 @@ output/<qualification>/review/law_revision_audit/<list_group_id>_law_revision_au
 - 複数選択肢では`lawRevisionFacts`を選択肢順の配列とし、各`current.correctChoiceText`をトップレベルの同じ選択肢と一致させる。
 - `lawRevisionFacts`は`choiceTextList`と同じ件数にし、問題全体だけを説明する追加要素を末尾へ作らない。問題全体の要約は監査sidecarの`sourceSummary`等へ保存する。
 - `lawReferences`の`verified`は、法令名、`lawId`、条番号まで確認できた場合だけ使う。現行法は`current_basis`、確認済みの出題時法令は`exam_time_basis`とする。
+- 設問全体に適用する根拠は`scope="question"`として一度だけ保存できる。外側配列の件数と位置は維持し、同じ背景条文を全肢へ複製しない。各肢の正誤と直接根拠は独立に確認し、背景条文だけでは決まらない公的資料等の確認記録を`lawRevisionFacts`と監査記録へ残す。肢別の参照は`scope="choice"`と正しい`choiceIndex`を持たせ、他の肢へ流用しない。
 - 長い条文本文を保存せず、locatorとhashを残す。
 - `isLawRelated=true`では、正誤変更の有無にかかわらず、`explanationText`に検証済みの法令名、条項、別表又は公的基準名を明記する。正誤を変更した場合は、現行法に合わせたことと出題時正答との関係も受験者へ明示する。
 - `suggestedQuestionDetailsByChoice`は工程03の共通契約に従う。既存の質問と回答を更新後の基本解説と比べ、同じ結論・理由・根拠の言い換えなら削除する。追加情報が残らなければ0件とし、保存する場合は検証済みの事実だけを使う。

@@ -550,6 +550,9 @@ _LAW_REFERENCES_RULE: dict[str, Any] = {
         "lawId、条番号、基準日、一次情報sourceを省略しない。変更不要な選択肢の"
         "検証済み根拠は保持する。法令肢と技術肢が混在する問題では、法令肢だけに"
         "verified根拠を入れ、技術肢は空配列にする。"
+        "設問全体の検証済み根拠はscope=questionで一度だけ保存でき、"
+        "同じ根拠を全肢へ複製する必要はない。外側配列の空位置は保持し、"
+        "各肢の判定と直接根拠の確認記録はlawRevisionFacts等へ残す。"
     ),
     "items": {
         "type": "array",
@@ -2388,6 +2391,22 @@ def _validate_candidate_content_messages(
                         "isLawRelated=trueですが、全選択肢が"
                         "not_law_relatedになっています。"
                     )
+                reference_required_fields = (
+                    "role", "scope", "lawId", "lawTitle", "referenceDate",
+                    "article", "verificationStatus", "source",
+                )
+                verified_question_reference = any(
+                    isinstance(reference, Mapping)
+                    and reference.get("scope") == "question"
+                    and reference.get("verificationStatus") == "verified"
+                    and all(
+                        str(reference.get(field) or "").strip()
+                        for field in reference_required_fields
+                    )
+                    for references in law_references
+                    if isinstance(references, list)
+                    for reference in references
+                )
                 for choice_index, references in enumerate(law_references):
                     fact = (
                         per_choice_facts[choice_index]
@@ -2410,6 +2429,10 @@ def _validate_candidate_content_messages(
                                 "not_law_relatedの選択肢では空配列にしてください。"
                             )
                         continue
+                    if references == [] and verified_question_reference:
+                        # A question-scoped reference applies to the whole question;
+                        # duplicating it into every choice changes its attribution.
+                        continue
                     if not isinstance(references, list) or not references:
                         errors.append(
                             f"lawReferences[{choice_index}]にverified根拠がありません。"
@@ -2424,16 +2447,7 @@ def _validate_candidate_content_messages(
                             continue
                         missing = [
                             field
-                            for field in (
-                                "role",
-                                "scope",
-                                "lawId",
-                                "lawTitle",
-                                "referenceDate",
-                                "article",
-                                "verificationStatus",
-                                "source",
-                            )
+                            for field in reference_required_fields
                             if not str(reference.get(field) or "").strip()
                         ]
                         if missing:
