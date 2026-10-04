@@ -5,6 +5,7 @@ from collections.abc import Sequence
 from typing import Any
 
 from scripts.common.aggregate_answer_decomposition import is_approved_target
+from scripts.common.question_answer_scope import unordered_answer_evidence
 
 
 QUESTION_LEVEL_TYPES = frozenset({"flash_card", "group_choice"})
@@ -415,6 +416,12 @@ def official_answer_alignment_issue(record: Any) -> str | None:
     official_numbers = parse_official_answer_numbers(record.get("answer_result_text"))
     if not official_numbers:
         return None
+    unordered = unordered_answer_evidence(record)
+    if unordered:
+        accepted_numbers = tuple(unordered["acceptedChoiceNumbers"])
+        if not set(official_numbers).issubset(accepted_numbers):
+            return "公式表示解答と原本の順不同の解答範囲が矛盾しています。"
+        official_numbers = accepted_numbers
     selected_labels = selected_choice_labels(intent)
     if selected_labels is None:
         return None

@@ -108,7 +108,8 @@ kind = "human"
 # 洗い替え不要の改訂はMINOR、必要な改訂はMAJORを上げる。
 # 6.4: 合意済みの集約回答分解を01の読取入力へ保持し、記述単位の回答操作を再確認する。
 # 6.5: 同一解答群から複数の下線部に該当する用語を独立判定する操作と、単一想起を区別する。
-policy_version = "6.5"
+# 6.6: 原本が明示する順不同の解答範囲を一例の固定位置と取り違えない。
+policy_version = "6.6"
 qualification_document_patterns = ["README.md", "01_exam_profile.md"]
 batch_selectable = true
 session_group = "maintenance"
@@ -268,7 +269,8 @@ kind = "human"
 # 10.9: 経過期間と両端を含む保持対象の個数を区別する数え方の例を加える。
 # 10.10: 問題単位の正誤配列を明示し、計算条件の独立導出と図の接続確認を先に行う。
 # 11.0: 命題自体の正誤と設問の選択方向、対象概念と近接概念の成立条件を独立に再確認する。
-policy_version = "11.0"
+# 11.1: 既存対策と追加対策の効果、原本の順不同の範囲を独立に照合する。
+policy_version = "11.1"
 qualification_document_patterns = [
   "README.md",
   "*law_reference*.md",
