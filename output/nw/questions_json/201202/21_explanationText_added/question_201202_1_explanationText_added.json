@@ -3091,8 +3091,8 @@
     "explanationText": [
       "間違い。正しくは、サービス内容と合意したサービスレベルを定める文書はSLA（サービスレベル合意書）である。選択肢はSLAをRFIとしているため誤りである。",
       "間違い。正しくは、調達対象のシステムや提案依頼事項、調達条件を示して提案書の提出を求める文書はRFP（提案依頼書）である。選択肢はRFPをRFIとしているため誤りである。",
-      "正しい。RFI（情報提供依頼書）は、ベンダーに利用可能な技術・製品や導入実績といった実現手段に関する情報の提供を求める文書である。",
-      "間違い。正しくは、業務処理の概要、入出力情報、データフローをまとめ、要求定義との整合性を確保してユーザーと開発・運用要員で共有する文書である。選択肢はこの要求定義・業務共有の文書をRFIとしているため誤りである。"
+      "正しい。",
+      "間違い。正しくは、要求定義に基づく業務処理の内容を関係者で共有する要件定義の成果物である。IPAの資料では、業務処理ごとのインプット・処理・アウトプットを定義する成果物を「業務処理定義書」と呼び、業務機能間のデータの流れはDFD（機能情報関連図）として整理している。ただし、選択肢は複数の成果物を一つの文書として述べているため、組織固有の正式名称まではこの記述だけでは確定できない。RFIは、調達前にベンダーへシステム化の目的や業務内容を示し、利用可能な技術・製品などの情報提供を求める文書であり、要件定義の成果物を利用者・開発要員・運用要員で共有する文書とは役割が異なる。選択肢はこの成果物をRFIとしているため誤りである。"
     ],
     "original_question_id": "fbaebe974dfb6892",
     "question_url": "https://www.nw-siken.com/kakomon/24_aki/am1_25.html",
@@ -3106,16 +3106,16 @@
         "sourceUrl": "https://www.ipa.go.jp/shiken/mondai-kaiotu/ug65p90000002h5m-att/2012h24a_koudo_am1_qs.pdf",
         "title": "平成24年度秋期 高度試験共通 午前Ⅰ 問題冊子"
       },
-      {
-        "referenceDate": "2026-10-04",
-        "sourceUrl": "https://www.ipa.go.jp/shiken/mondai-kaiotu/ug65p90000002h5m-att/2012h24a_koudo_am1_ans.pdf",
-        "title": "平成24年度秋期 高度試験共通 午前Ⅰ 解答例"
-      },
-      {
-        "referenceDate": "2026-10-04",
-        "sourceUrl": "https://www.ipa.go.jp/shiken/syllabus/nl10bi0000007tge-att/syllabus_ap_ver7_1.pdf",
-        "title": "応用情報技術者試験（レベル3）シラバス Ver.7.1"
-      }
+    {
+      "referenceDate": "2026-10-04",
+      "sourceUrl": "https://www.ipa.go.jp/shiken/syllabus/nl10bi0000007tge-att/syllabus_ap_ver7_1.pdf",
+      "title": "応用情報技術者試験（レベル3）シラバス Ver.7.1"
+    },
+    {
+      "referenceDate": "2026-10-04",
+      "sourceUrl": "https://www.ipa.go.jp/archive/digital/tools/ep/ep2.html",
+      "title": "超上流から攻めるIT化の事例集：要件定義"
+    }
     ],
     "questionLearningPatternId": "differences_relationships",
     "suggestedQuestionDetailsByChoice": [],
