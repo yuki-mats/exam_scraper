@@ -1354,7 +1354,7 @@
       "間違い。NAPTだけで、DMZ上の公開Webサーバの脆弱性を突く攻撃を防ぐことはできない。NAPTはIPアドレスとポート番号を変換する機能であり、Webサーバの脆弱性を検査・防御する機能ではない。",
       "間違い。インターネットからの侵入を検知し、検知後の通信を遮断するのは、主にIDSやIPSの役割である。NAPTはIPアドレスとポート番号を変換する機能であり、侵入の検知や攻撃通信の判定を行う機能ではない。",
       "間違い。特定のWebサービスを利用するHTTP通信を判別して遮断するには、アプリケーション制御やURLフィルタリングなどの機能が必要である。NAPTは通信内容をサービス単位で検査して遮断する機能ではない。",
-      "正しい。NAPTは、内部ネットワークの端末のプライベートIPアドレスとポート番号を、外部向けのIPアドレスとポート番号に変換する。そのため、外部から内部端末へ直接接続するための対応付けがなく、インターネットからの不正アクセスが困難になる。"
+      "正しい。NAPTは、内部端末のIPアドレスとポート番号を外部向けのアドレスとポート番号に対応付けて変換する。内部から始めた通信のために動的な対応付けを作り、ポート転送などを設定していなければ、対応付けのない外部からの通信を内部端末へ届けられない。このため、外部から新たに始める不正アクセスを困難にできる。ただし、既存の対応付けを使った通信の許可条件は機器のフィルタリング方式や設定にも依存し、NAPTだけで攻撃内容を検査できるわけではない。"
     ],
     "original_question_id": "a4569f93fcc51804",
     "question_url": "https://www.nw-siken.com/kakomon/01_aki/am1_12.html",
@@ -1362,7 +1362,14 @@
     "sourceQuestionKey": "nw:201902:a4569f93fcc51804",
     "reviewQuestionId": "a4569f93fcc51804",
     "sourceRecordRef": "question_201902_1.json#11",
-    "explanationReferences": [],
+    "explanationReferences": [
+      {
+        "choiceIndex": 3,
+        "title": "RFC 4787 §3・§5 NAPTの対応付けとフィルタリング方式",
+        "sourceUrl": "https://datatracker.ietf.org/doc/html/rfc4787#section-5",
+        "referenceDate": "2026-10-05"
+      }
+    ],
     "questionLearningPatternId": "mechanisms_reasons",
     "suggestedQuestionDetailsByChoice": [],
     "isLawRelated": false,

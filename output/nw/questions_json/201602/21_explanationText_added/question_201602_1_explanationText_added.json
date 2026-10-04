@@ -620,8 +620,8 @@
     "explanationText": [
       "間違い。正しくは、主記憶の空き領域を結合して一つの連続した領域にする操作は、メモリコンパクションである。可変区画方式は、プログラムの大きさに応じて主記憶を区画する方式である。選択肢は、空き領域を結合する操作を可変区画方式としているため誤りである。",
       "正しい。",
-      "間違い。正しくは、プログラムの実行中に主記憶内でモジュールの格納位置を移動させる処理は、動的再配置である。動的リンキングは、実行時に必要なモジュールをロードして結合する処理である。選択肢は、格納位置を移動させる処理を動的リンキングとしているため誤りである。",
-      "間違い。正しくは、プログラムの実行中に必要になった時点でモジュールをロードして結合する処理は、動的リンキングである。動的再配置は、主記憶内でモジュールの格納位置を移動させる処理である。選択肢は、モジュールを必要時にロードする処理を動的再配置としているため誤りである。"
+      "間違い。主記憶内でモジュールの格納位置を移動させるのは、動的再配置である。動的リンキングは、実行時にライブラリなどへの参照を解決し、呼出し先とプログラムを結び付ける処理である。",
+      "間違い。必要になった時点でモジュールを主記憶へ読み込むのは、動的ロードである。主記憶内の格納位置を移す動的再配置や、モジュール間の参照を解決する動的リンキングと区別する。"
     ],
     "original_question_id": "bc72429b59188543",
     "question_url": "https://www.nw-siken.com/kakomon/28_aki/am1_6.html",
@@ -634,6 +634,11 @@
         "referenceDate": "2016-10-16",
         "sourceUrl": "https://www.ipa.go.jp/shiken/mondai-kaiotu/gmcbt8000000g6fw-att/2016h28a_ap_am_qs.pdf",
         "title": "IPA 平成28年度秋期 応用情報技術者試験 午前問題（問16）"
+      },
+      {
+        "title": "Oracle Solaris Linker and Libraries Guide: Runtime Linker（loadingとsymbol bindingの区別）",
+        "sourceUrl": "https://docs.oracle.com/cd/E19120-01/open.solaris/819-0690/chapter3-1/index.html",
+        "referenceDate": "2026-10-05"
       }
     ],
     "questionLearningPatternId": "differences_relationships",
@@ -2941,7 +2946,7 @@
   },
   {
     "explanationText": [
-      "間違い。競合他社の刊行物を集めて経営戦略や財務状況を把握する活動は、競合情報の収集・分析であり、業務データを分析して意思決定に役立てるBIとは異なる。選択肢は競合他社の公開資料を調べる活動をBIの活用事例としているため誤りである。",
+      "間違い。ここに示されているのは、競合他社の公開資料を調べる情報収集活動である。本問のBIの活用例は、蓄積されたデータを分析し、業績評価や経営判断に役立てる活動である。ただし、BIの分析対象は社内データに限らず、外部データを組み合わせることもできる。",
       "正しい。BIは、業務システムなどに蓄積されたデータを分析し、業績評価や経営戦略の策定などの意思決定に活用する。",
       "間違い。電子化された教材をネットワーク経由で利用し、学習や成績を管理する仕組みはeラーニングである。選択肢はeラーニングの活用事例をBIの事例としているため誤りである。",
       "間違い。りん議や決裁などの定型業務を電子化し、手続を効率化する仕組みはワークフローシステムである。選択肢はワークフローシステムの活用事例をBIの事例としているため誤りである。"
@@ -2952,7 +2957,14 @@
     "sourceQuestionKey": "nw:201602:584ea0a5c7ad0f94",
     "reviewQuestionId": "584ea0a5c7ad0f94",
     "sourceRecordRef": "question_201602_1.json#23",
-    "explanationReferences": [],
+    "explanationReferences": [
+      {
+        "choiceIndex": 0,
+        "title": "Oracle Analytics: Connect（第三者データを含む分析対象）",
+        "sourceUrl": "https://www.oracle.com/analytics/capabilities/connect/",
+        "referenceDate": "2026-10-05"
+      }
+    ],
     "questionLearningPatternId": "differences_relationships",
     "suggestedQuestionDetailsByChoice": [],
     "isLawRelated": false,
