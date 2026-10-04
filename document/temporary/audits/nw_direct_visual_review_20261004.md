@@ -333,3 +333,9 @@ job QM2smltk-_v4ShsRは7報告5合格/2要再整備/通信失敗0で終端。全
 ### 2026-10-05 07:10 独立監査batchの通常並行実行
 
 全資格の実稼働manifest0と2015監査終端を確認後、評価queueのbatch順次ループを独立batchのThreadPoolExecutorへ変更した。対象識別、入力順、問題別予約、policy/state判定、schema単問再試行、通信失敗の非fanout、既存共有turnbudgetを維持する。preview上限は設定の問題並列数・LLM並列数・500・予定session数の最小値、実model同時数とは区別。evaluation5.9/MAJOR5保持、関連109tests及び必須3検査48merged/48正答patch880entries成功、全suite未実行。unitの実overlap2をproductionの実Sol同時成功と表現しない。旧独立合格をminor更新で再監査しない。保存後の通常singleton再起動とGUI実監査は別証跡で確認予定。根拠direct_audit_parallel_fix_20261005.json。
+
+### 2026-10-05 07:39 修正16問の独立監査終端
+
+Job XNMBCs6WghXDI9cjは16問14合格・1要再整備・1未確定で終端。初回16attemptと通常の未確定再試行2attemptを全て読み、18結果のidentity/stateHash/resultHash/実Solsessionturn、確定結果のworkVersionReceipt1/ledger5.9、宣言画像の実送信bytes/hash/帰属とlocal原本を確認した。全16問の四fieldと全Sol肢理由を個別に再読。HTTPの最終要再整備86点と誤り電文の最終未確定94点は初回82/72点と分け、公式05や正答合わせで閉じない。解説の条件付き計算はSolも正しいと確認したが、公式本文の分布条件不足は保留。14合格を追加し、品質確定316/880、残564。実監査同時数7を確認、設定500と区別。ソース・パッチ・IDは監査中不変、Firestore未書込。根拠direct_repaired16_terminal_201502_20261005.json。
+
+201602はGUI exact55/eligible55/28sessions/premaintenance0、readonly preview55 unique IDs/reviewKeys及び現在候補55hashを確認。Fresh Web週残6%/62500既存credits/autochargeOFFを再確認して正常GUI開始。Job JaJg9vbHesC_SHrtは開始前再照合後running、manifestと実model/session/receiptは未確認。開始を合格に数えない。他資格の通常整備は並行可能、共有実装/prompt変更とrestartは終端境界に限る。
