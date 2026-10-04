@@ -241,3 +241,5 @@ source・ID・本文・全肢・正誤・形式・metadata・他2肢は保持。
 21解説4件と出題時参照だけ変更し、source・ID・本文・全肢・正誤・形式・保存済みlawRevisionFacts/AIreceiptは保持。正常同期、参照専用検査及び必須3検査48merged/48実正答patch880entries成功、全suite未実行。四fieldを新投影で再読。新model/作業版receiptなし、独立Sol未完、品質確定212/880不変、Firestore未書込。根拠direct_domain2024_applied_20261005.json。
 
 2026-10-05 03:40 JST: 202401午前II問13（9980ac0b2e7fe1c49a441966）の本文・全肢・正誤・解説を個別直視し、RFC1122 §3.2.1.3、RFC1918 §3、RFC1112 §4の一次根拠と照合した。指定済みアドレスの予約範囲とhost部全1条件の比較であり、新しい数値回答の算出を要求しないため01正本の単純比較として計算判定falseを保持する。現行4肢・正誤・解説は変更なし。根拠は`output/nw/scrape_reports/direct_host_address_classification_202401_20261005.json`。root分類懸念は解消、別Sol評価は未実施、212/880から進捗を加算しない。
+
+2026-10-05 03:45 JST: 201202午前I問17（155708a4ec854c769836b426）の4fieldを再直視。文化庁会議資料の平成10年ワーキング・グループ報告書抄（印刷16頁）は、私的使用複製とプログラム複製物所有者のバックアップ例外を区別している。検討資料であり出題時/現行条文そのものではない。eGov 2012-10-21 XMLは400で条文未取得。所有関係・保護方式の不明を埋めず、既存正答及びSol報告を書き換えず追加懸念を保持。根拠は`output/nw/scrape_reports/direct_copyright_protection_exception_primary_201202_20261005.json`。
