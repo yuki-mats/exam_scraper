@@ -23,6 +23,7 @@ from tools.question_review_console.codex_app_server import (
     CodexRpcError,
     CodexTerminalTurnFailedError,
     CodexTurnTimeoutError,
+    CodexStructuredOutputStallError,
     DEFAULT_TURN_TIMEOUT_SECONDS,
     DISABLED_EXTERNAL_FEATURES,
     FAST_SPEED_MODE,
@@ -34,6 +35,8 @@ from tools.question_review_console.codex_app_server import (
     RESEARCH_AGENT_ROLE,
     SAFE_SHELL_PATH,
     STRUCTURED_OUTPUT_TRAILING_WHITESPACE_CHARS,
+    STRUCTURED_OUTPUT_DIAGNOSTIC_CHARS,
+    STRUCTURED_OUTPUT_DIAGNOSTIC_ITEMS,
     SUBSCRIPTION_STATUS_READ_ATTEMPTS,
     SubscriptionGateError,
     _inline_image_url,
@@ -79,6 +82,47 @@ class OutputSchemaAdapterTests(unittest.TestCase):
 
 
 class StructuredMessageCompletionTests(unittest.TestCase):
+    def test_stall_capture_is_bounded_and_preserves_item_identity_and_whitespace(self):
+        state = _TurnState("thread-1", "turn-1", lambda _line: None)
+        client = object.__new__(CodexAppServerClient)
+        delta = '{"x":1}' + " " * (STRUCTURED_OUTPUT_DIAGNOSTIC_CHARS * 2)
+        client._capture_structured_delta(state, {"itemId": "a"}, delta)
+        client._capture_structured_delta(state, {"itemId": "b"}, '{"y":2}')
+        client._record_turn_item(state, {
+            "type": "agentMessage", "id": "b", "phase": "commentary",
+            "text": '{"y":2}',
+        })
+        for index in range(STRUCTURED_OUTPUT_DIAGNOSTIC_ITEMS + 2):
+            client._capture_structured_delta(state, {"itemId": f"extra-{index}"}, " ")
+        diagnostic = client._structured_stall_diagnostic(
+            state, 10, model="gpt-5.6-sol", session_id="session-1"
+        )
+        self.assertEqual(len(diagnostic["streams"]), STRUCTURED_OUTPUT_DIAGNOSTIC_ITEMS)
+        self.assertEqual(diagnostic["untrackedDeltaCount"], 4)
+        first, second = diagnostic["streams"][:2]
+        self.assertEqual(first["itemId"], "a")
+        self.assertEqual(first["charCount"], len(delta))
+        self.assertEqual(first["sha256"], hashlib.sha256(delta.encode()).hexdigest())
+        self.assertEqual(first["prefix"], delta[:STRUCTURED_OUTPUT_DIAGNOSTIC_CHARS])
+        self.assertEqual(first["tail"], " " * 1024)
+        self.assertTrue(first["captureTruncated"])
+        self.assertIsNone(first["completeJsonObserved"])
+        self.assertTrue(second["completeJsonObserved"])
+        self.assertEqual(second["phase"], "commentary")
+        self.assertTrue(second["itemCompleted"])
+        self.assertFalse(diagnostic["validatedResult"])
+
+    def test_stall_diagnostic_redacts_sensitive_fragment_across_deltas(self):
+        state = _TurnState("thread-1", "turn-1", lambda _line: None)
+        client = object.__new__(CodexAppServerClient)
+        client._capture_structured_delta(state, {"itemId": "a"}, '{"api_')
+        client._capture_structured_delta(state, {"itemId": "a"}, 'key":"private-value"}')
+        stream = client._structured_stall_diagnostic(
+            state, 10, model="gpt-5.6-sol", session_id="session-1"
+        )["streams"][0]
+        self.assertTrue(stream["contentRedacted"])
+        self.assertNotIn("private-value", json.dumps(stream))
+
     def test_only_final_answer_starts_missing_completion_grace(self):
         state = _TurnState(
             thread_id="thread-1",
@@ -2076,7 +2120,7 @@ class AppServerTurnTests(unittest.TestCase):
         with self.assertRaisesRegex(
             CodexTurnTimeoutError,
             "実質的な出力進捗のない空白生成",
-        ):
+        ) as raised:
             client.run_turn(
                 "question",
                 work_type="maintenance_explanation_candidate",
@@ -2086,6 +2130,13 @@ class AppServerTurnTests(unittest.TestCase):
             )
 
         self.assertEqual(client.interrupted, [("thread-1", "turn-1")])
+        self.assertIsInstance(raised.exception, CodexStructuredOutputStallError)
+        diagnostic = raised.exception.diagnostic
+        self.assertFalse(diagnostic["validatedResult"])
+        self.assertEqual(diagnostic["threadId"], "thread-1")
+        stream = diagnostic["streams"][0]
+        self.assertEqual(stream["prefix"], '{"status":"ok"' + " " * 256)
+        self.assertFalse(stream["completeJsonObserved"])
         self.assertEqual(client._turns, {})
 
     def test_completed_structured_message_without_turn_completion_is_validated(self):

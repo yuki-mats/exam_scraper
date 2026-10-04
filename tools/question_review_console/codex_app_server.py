@@ -198,6 +198,8 @@ DEFAULT_TURN_TIMEOUT_SECONDS = 1800
 # 区別して早期に再試行へ送る。短い整形用空白では発火させない。
 STRUCTURED_OUTPUT_STALL_TIMEOUT_SECONDS = 30.0
 STRUCTURED_OUTPUT_TRAILING_WHITESPACE_CHARS = 256
+STRUCTURED_OUTPUT_DIAGNOSTIC_ITEMS = 8
+STRUCTURED_OUTPUT_DIAGNOSTIC_CHARS = 4096
 # 完成した構造化messageを受信してもturn/completedだけが欠落する場合がある。
 # messageは後段のschema検証を必ず通すため、短い猶予後にturnを閉じて検証へ渡す。
 STRUCTURED_OUTPUT_COMPLETION_GRACE_SECONDS = 30.0
@@ -287,6 +289,14 @@ class CodexControlRequestTimeoutError(CodexAppServerError):
 
 class CodexTurnTimeoutError(CodexAppServerError):
     """The deadline of one active model turn expired."""
+
+
+class CodexStructuredOutputStallError(CodexTurnTimeoutError):
+    """An incomplete stream stopped progressing; diagnostics are not a result."""
+
+    def __init__(self, message: str, diagnostic: Mapping[str, Any]) -> None:
+        super().__init__(message)
+        self.diagnostic = copy.deepcopy(dict(diagnostic))
 
 
 class CodexTerminalTurnFailedError(CodexAppServerError):
@@ -400,6 +410,8 @@ class _TurnState:
     recorded_item_ids: set[str] = field(default_factory=set)
     last_semantic_delta_at: float | None = None
     trailing_whitespace_chars: int = 0
+    structured_streams: dict[str, dict[str, Any]] = field(default_factory=dict)
+    untracked_structured_delta_count: int = 0
     completed_message_at: float | None = None
     protocol_started_at: str | None = None
     protocol_started_monotonic: float | None = None
@@ -2105,9 +2117,15 @@ class CodexAppServerClient:
                         and now - state.last_semantic_delta_at
                         >= self.structured_output_stall_timeout
                     ):
-                        raise CodexTurnTimeoutError(
+                        with self._state_lock:
+                            diagnostic = self._structured_stall_diagnostic(
+                                state, now, model=actual_model,
+                                session_id=session_id,
+                            )
+                        raise CodexStructuredOutputStallError(
                             "Codex App Serverの構造化応答が、実質的な"
-                            "出力進捗のない空白生成で停止しました。"
+                            "出力進捗のない空白生成で停止しました。",
+                            diagnostic,
                         )
                     if (
                         state.structured_output
@@ -3235,6 +3253,76 @@ class CodexAppServerClient:
             return
         state.emit(str(event.get("message") or "")[:1200])
 
+    @staticmethod
+    def _capture_structured_delta(
+        state: _TurnState, params: Mapping[str, Any], delta: str
+    ) -> None:
+        item_id = str(params.get("itemId") or "")
+        stream = state.structured_streams.get(item_id)
+        if stream is None:
+            if len(state.structured_streams) >= STRUCTURED_OUTPUT_DIAGNOSTIC_ITEMS:
+                state.untracked_structured_delta_count += 1
+                return
+            stream = {
+                "chars": 0, "deltaCount": 0, "prefix": "", "tail": "",
+                "sha256": hashlib.sha256(), "completed": False, "phase": None,
+            }
+            state.structured_streams[item_id] = stream
+        stream["chars"] += len(delta)
+        stream["deltaCount"] += 1
+        stream["sha256"].update(delta.encode("utf-8"))
+        remaining = STRUCTURED_OUTPUT_DIAGNOSTIC_CHARS - len(stream["prefix"])
+        if remaining > 0:
+            stream["prefix"] += delta[:remaining]
+        stream["tail"] = (stream["tail"] + delta)[-1024:]
+
+    @staticmethod
+    def _structured_stall_diagnostic(
+        state: _TurnState, now: float, *, model: str, session_id: str
+    ) -> dict[str, Any]:
+        # Capture only public agentMessage output. Never persist reasoning,
+        # requests, environment values or authentication data.
+        sensitive = re.compile(
+            r"(?i)(?:\b(?:authorization|api[_-]?key|token|secret|password|cookie)\b"
+            r"[\"']?\s*[:=]|\bBearer\s+\S+|\bsk-[A-Za-z0-9_-]{8,}|"
+            r"\bgh[pousr]_[A-Za-z0-9_]{8,}|\bAKIA[A-Z0-9]{12,})"
+        )
+        streams = []
+        for item_id, stream in state.structured_streams.items():
+            prefix, tail = stream["prefix"], stream["tail"]
+            redacted = bool(sensitive.search(prefix) or sensitive.search(tail))
+            complete_json = None
+            if stream["chars"] <= STRUCTURED_OUTPUT_DIAGNOSTIC_CHARS:
+                try:
+                    json.loads(prefix)
+                    complete_json = True
+                except (ValueError, RecursionError):
+                    complete_json = False
+            streams.append({
+                "itemId": item_id or None,
+                "phase": stream["phase"], "itemCompleted": stream["completed"],
+                "deltaCount": stream["deltaCount"], "charCount": stream["chars"],
+                "sha256": stream["sha256"].hexdigest(),
+                "captureTruncated": stream["chars"] > len(prefix),
+                "completeJsonObserved": complete_json,
+                "contentRedacted": redacted,
+                "prefix": "<redacted sensitive output>" if redacted else prefix,
+                "tail": "<redacted sensitive output>" if redacted else tail,
+            })
+        return {
+            "schemaVersion": "codex-structured-stall/v1",
+            "threadId": state.thread_id, "sessionId": session_id,
+            "turnId": state.turn_id, "observedModel": model,
+            "observedAt": datetime.now().astimezone().isoformat(),
+            "trailingWhitespaceChars": state.trailing_whitespace_chars,
+            "secondsWithoutSemanticDelta": round(
+                max(0.0, now - state.last_semantic_delta_at), 6
+            ) if state.last_semantic_delta_at is not None else None,
+            "untrackedDeltaCount": state.untracked_structured_delta_count,
+            "streams": streams,
+            "validatedResult": False,
+        }
+
     def _record_turn_item(self, state: _TurnState, item: Mapping[str, Any]) -> None:
         item_id = str(item.get("id") or "").strip()
         if item_id:
@@ -3243,6 +3331,10 @@ class CodexAppServerClient:
             state.recorded_item_ids.add(item_id)
         item_type = str(item.get("type") or "")
         if item_type == "agentMessage":
+            stream = state.structured_streams.get(item_id)
+            if stream is not None:
+                stream["completed"] = True
+                stream["phase"] = item.get("phase")
             message_text = str(item.get("text") or "")
             if message_text:
                 phase = item.get("phase")
@@ -3442,12 +3534,14 @@ class CodexAppServerClient:
             delta = params.get("delta")
             if not isinstance(delta, str) or not delta:
                 return
-            semantic_prefix = delta.rstrip()
-            if semantic_prefix:
-                state.last_semantic_delta_at = time.monotonic()
-                state.trailing_whitespace_chars = len(delta) - len(semantic_prefix)
-            elif state.last_semantic_delta_at is not None:
-                state.trailing_whitespace_chars += len(delta)
+            with self._state_lock:
+                self._capture_structured_delta(state, params, delta)
+                semantic_prefix = delta.rstrip()
+                if semantic_prefix:
+                    state.last_semantic_delta_at = time.monotonic()
+                    state.trailing_whitespace_chars = len(delta) - len(semantic_prefix)
+                elif state.last_semantic_delta_at is not None:
+                    state.trailing_whitespace_chars += len(delta)
             return
         if method == "error":
             state.error = params.get("error")

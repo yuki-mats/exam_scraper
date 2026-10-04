@@ -2299,6 +2299,41 @@ class QuestionEvaluationServiceTests(unittest.TestCase):
         self.assertEqual(result["completedCount"], 0)
         self.assertEqual(result["failedCount"], 7)
 
+    def test_structured_stall_diagnostic_is_saved_without_promoting_failed_questions(self):
+        from tools.question_review_console.codex_app_server import CodexStructuredOutputStallError
+
+        diagnostic = {
+            "schemaVersion": "codex-structured-stall/v1", "threadId": "failed-thread",
+            "observedModel": "gpt-5.6-sol", "validatedResult": False,
+            "streams": [{"prefix": '{"evaluations":['}],
+        }
+        calls = []
+        def runner(prompt):
+            calls.append(prompt)
+            raise CodexStructuredOutputStallError("stream stalled", diagnostic)
+
+        questions = [question_payload(question_id="api-q1", state_hash="state-1")]
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            service = QuestionEvaluationService(root, "secret", result_runner=runner)
+            preview = service.preview_many(questions)
+            result = service.run_many(questions, preview["previewToken"], lambda _line: None)
+            self.assertEqual(result["failedCount"], 1)
+            self.assertEqual(len(calls), 1)
+            paths = list((root / "output/question_review_console/workflow_runs").glob("*/*/result.json"))
+            self.assertEqual(len(paths), 1)
+            failed = json.loads(paths[0].read_text())
+            saved = failed["transportDiagnostic"]
+            self.assertEqual(saved["threadId"], "failed-thread")
+            self.assertEqual(saved["questionId"], "api-q1")
+            self.assertEqual(saved["stateHash"], "state-1")
+            self.assertEqual(failed["status"], "failed")
+            self.assertFalse(saved["validatedResult"])
+            manifest = json.loads((paths[0].parent / "manifest.json").read_text())
+            self.assertIsNone(manifest.get("workVersionReceipt"))
+            self.assertIsNone(service.store.load(questions[0]))
+        self.assertNotIn("questionId", diagnostic)
+
     def test_invalid_batch_item_retries_only_that_question(self):
         calls = []
 

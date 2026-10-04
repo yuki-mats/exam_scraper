@@ -20,6 +20,7 @@ from tools.question_review_console.review_store import atomic_write
 from tools.question_review_console.failed_delta import unresolved_failed_delta_paths
 from tools.question_review_console.qualification_runs import QualificationRunStore
 from tools.question_review_console.codex_app_server import (
+    CodexStructuredOutputStallError,
     QUESTION_MAINTENANCE_AUDIT_MODEL,
     TURN_REASONING_EFFORT,
 )
@@ -1144,7 +1145,12 @@ class QuestionEvaluationService:
                 for _, item in runnable:
                     question_id = str(item["questionId"])
                     self._fail_reserved_question(
-                        by_id[question_id], reserved[question_id], error
+                        by_id[question_id], reserved[question_id], error,
+                        transport_diagnostic=(
+                            exc.diagnostic
+                            if isinstance(exc, CodexStructuredOutputStallError)
+                            else None
+                        ),
                     )
                     emit(f"監査batch失敗: {item.get('questionLabel') or question_id} / {error}")
                     outcomes.append((None, {"questionId": question_id, "error": error}))
@@ -1672,6 +1678,11 @@ class QuestionEvaluationService:
                     attempt_sequence=sequence,
                     error=str(exc),
                     release_active=False,
+                    transport_diagnostic=(
+                        exc.diagnostic
+                        if isinstance(exc, CodexStructuredOutputStallError)
+                        else None
+                    ),
                 )
             raise
 
@@ -1683,12 +1694,19 @@ class QuestionEvaluationService:
         attempt_sequence: int | None,
         error: str,
         release_active: bool = True,
+        transport_diagnostic: Mapping[str, Any] | None = None,
     ) -> None:
         qualification = str(question["qualification"])
         try:
-            self.run_store.write_result(
-                qualification, run_id, {"status": "failed", "summary": error}
-            )
+            failed_result: dict[str, Any] = {"status": "failed", "summary": error}
+            if transport_diagnostic is not None:
+                failed_result["transportDiagnostic"] = {
+                    **copy.deepcopy(dict(transport_diagnostic)),
+                    "questionId": str(question["id"]),
+                    "stateHash": str(question["stateHash"]),
+                    "runId": run_id,
+                }
+            self.run_store.write_result(qualification, run_id, failed_result)
         except Exception:
             pass
         try:
@@ -1718,12 +1736,15 @@ class QuestionEvaluationService:
         question: Mapping[str, Any],
         reservation: Mapping[str, Any],
         error: str,
+        *,
+        transport_diagnostic: Mapping[str, Any] | None = None,
     ) -> None:
         self._best_effort_fail_question(
             question,
             run_id=str(reservation["runId"]),
             attempt_sequence=int(reservation["attemptSequence"]),
             error=error,
+            transport_diagnostic=transport_diagnostic,
         )
 
     def _run_active(
@@ -1973,6 +1994,11 @@ class QuestionEvaluationService:
                     attempt_sequence=attempt_sequence,
                     error=str(exc),
                     release_active=False,
+                    transport_diagnostic=(
+                        exc.diagnostic
+                        if isinstance(exc, CodexStructuredOutputStallError)
+                        else None
+                    ),
                 )
             raise
 
