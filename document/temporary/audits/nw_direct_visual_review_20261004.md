@@ -67,3 +67,11 @@ PCIExpress202401午前Ⅱ問22は公式32レーンとPCI-SIGのbase specificatio
 ### MIME公式冊子照合（23:04開始）
 
 201302午前II問16の取得元のISO-2011-JPを、公式冊子PDF9ページのISO-2022-JPへ24 overlayで補正した。Blind A/Bの完全値一致、Challenge fix、各受信receipt hashと実画像466475 bytes/SHA一致を確認した。各receiptはmodel fieldを持たないため、設定Lunaと実model証明を区別する。source・ID・正誤・解説は保持し、本文と4選択肢だけ変更した。通常GUIの公開用データ再生成完了を観測。必須3検査は48 merged/48実正答patch880 entriesで成功。全suite未実行、別Sol評価待ち。根拠 `output/nw/scrape_reports/mime_official1_terminal_20261004.json`。
+
+### 201402午前Ⅰ問1〜5の直視と計算解説3問の直接整備
+
+各問の本文・全選択肢・正誤・解説をsourceとmergedで読んだ。問1カルノー図のAB=00/CD=00,10とAB=01,11/CD=01,11をlocal画像から確認し、A̅B̅D̅＋BDを確認した。問3の全辺をlocal画像から読み、V₁→V₃→V₂→V₄が3、V₆が4、V₅が5と他経路を比較した。問2はM/M/1の利用率50%境界、問5は排反な片側稼働0.28＋0.18＝0.46を独立導出した。問4は変更済みcache行の書戻しと主記憶書込み頻度を確認した。
+
+直接変更は問2・3・5の21解説patchだけ。全25recordのidentity比較でこの3 originalQuestionIdsだけが変わり、source・本文・選択肢・正誤・形式・法令metadataは保持された。正常ArtifactSynchronizerの201402 merge/convert/upload dry-run成功、220docsを生成した。Firestore未書込。AGENTS必須3検査は48 merged/48実正答patch880 entriesで成功、全suite未実行。人間判断patchでありLuna又は工程版receiptは作っていない。独立Sol評価は未完。根拠output/nw/scrape_reports/direct_manual3_201402_applied_20261004.json。
+
+MIME補正後一問は新GUI exactpreview/currentstateHash一致とWeb残18%/62500 credits/autocharge OFFを確認したが、開始は2回とも通常競合guardで拒否された。最初のSC job終了後にも別SC runが開始されていた。NW新評価run・合格は作られていない。評価batchのREPOSITORY_OPERATION_KEYは別資格のoperation keyとも競合する。現lockを迂回・削除せず、共有実装変更は正常終端境界で行う。根拠mime_official1_sol_conflict_20261004.json。品質確定212/880は不変である。
