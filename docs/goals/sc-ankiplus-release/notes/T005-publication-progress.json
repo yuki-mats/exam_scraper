@@ -43,7 +43,8 @@
       "passed": 40,
       "reserved": 3
     },
-    "remainingOrderReceipt": "output/sc/reports/publication_20261004/evaluation_remaining_order.json"
+    "remainingOrderReceipt": "output/sc/reports/publication_20261004/evaluation_remaining_order.json",
+    "continuation": "one-shot: finish all 499 genuine evaluations, then return needs_rework to native maintenance; never publishes or submits"
   },
   "firestoreQuestionsWriteCompleted": false,
   "reviewSubmitted": false,
@@ -68,7 +69,8 @@
       "candidateOldClientLastUsed": "2025-12-15",
       "candidateOldClientReferencedByCurrentConfig": false,
       "userDecisionPending": true,
-      "proof": "/Users/yuki/StudioProjects/repaso/build/sc-oauth-unused-candidate.png"
+      "proof": "/Users/yuki/StudioProjects/repaso/build/sc-oauth-unused-candidate.png",
+      "candidateOldClientId": "967790239352-c6sreit8akta7oacphti5niuh4t6cemp.apps.googleusercontent.com"
     }
   },
   "nextActions": [
@@ -78,5 +80,10 @@
     "publish questions/category with full live readback",
     "capture actual published-question screenshots; release gates; build; submit; ASC readback"
   ],
-  "updatedAt": "2026-10-05T00:49:32.239429+09:00"
+  "updatedAt": "2026-10-05T01:02:48.125977+09:00",
+  "firestoreBefore": {
+    "existingQuestionDocuments": 0,
+    "heldOriginalPresent": false,
+    "receipt": "output/sc/reports/publication_20261004/firestore_before.json"
+  }
 }
