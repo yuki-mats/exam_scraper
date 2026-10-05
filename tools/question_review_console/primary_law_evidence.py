@@ -170,7 +170,13 @@ def locator_parts(value: Any) -> tuple[tuple[str, LocatorNumber], ...]:
             if branch_numbers
             else article_number
         )
-        parts.append(("article", number))
+        prefix_segment = re.split(r"[、,・]", prefix)[-1].strip()
+        kind = (
+            "supplementary_article"
+            if prefix_segment == "附則"
+            else "article"
+        )
+        parts.append((kind, number))
     for match in _APPENDIX_RE.finditer(text):
         number = _japanese_number(match.group(1))
         if number is not None:
@@ -198,18 +204,28 @@ def extract_locator_text(
     number: LocatorNumber,
 ) -> str:
     root = ET.fromstring(xml_text)
-    if kind not in {"article", "appendix_table"}:
-        raise PrimaryLawEvidenceError("附則を含む未対応の抽出領域は指定できません。")
+    if kind not in {"article", "supplementary_article", "appendix_table"}:
+        raise PrimaryLawEvidenceError("未対応の抽出領域は指定できません。")
     bodies = root.findall("LawBody")
     if len(bodies) != 1:
         raise PrimaryLawEvidenceError("LawBodyを一意に解決できません。")
     body = bodies[0]
-    tag = "Article" if kind == "article" else "AppdxTable"
+    tag = "AppdxTable" if kind == "appendix_table" else "Article"
     if kind == "article":
         main = body.findall("MainProvision")
         if len(main) != 1:
             raise PrimaryLawEvidenceError("本則MainProvisionを一意に解決できません。")
         elements = main[0].iter(tag)
+    elif kind == "supplementary_article":
+        # Amendment-law supplements are separate sources. Only the original
+        # law's own supplementary provision belongs to this lawId.
+        supplements = [
+            element for element in body.findall("SupplProvision")
+            if not element.attrib.get("AmendLawNum")
+        ]
+        if len(supplements) != 1:
+            raise PrimaryLawEvidenceError("元法令の附則を一意に解決できません。")
+        elements = supplements[0].iter(tag)
     else:
         # e-Gov's main-law appendices are direct LawBody children. Supplementary
         # appendices must never be resolved by a descendant-wide traversal.
@@ -236,7 +252,7 @@ def extract_locator_text(
             values.append(text)
     if matched != 1 or not values:
         raise PrimaryLawEvidenceError(
-            f"e-Gov本則法令XMLの{kind}:{_locator_num(number)}が欠落又は複数一致です。"
+            f"e-Gov法令XMLの{kind}:{_locator_num(number)}が欠落又は複数一致です。"
         )
     return values[0]
 
@@ -563,11 +579,16 @@ class PrimaryLawEvidenceResolver:
             "sourceUrl": snapshot.source_url,
             "locator": _locator_payload(kind, number),
             "xmlHash": _sha256(snapshot.xml_text),
-            "extractionRegion": (
-                "LawBody/MainProvision/descendant::Article"
-                if kind == "article" else "LawBody/AppdxTable"
+            "extractionRegion": {
+                "article": "LawBody/MainProvision/descendant::Article",
+                "supplementary_article": "LawBody/SupplProvision[not(@AmendLawNum)]/descendant::Article",
+                "appendix_table": "LawBody/AppdxTable",
+            }[kind],
+            "extractionVersion": (
+                "egov-original-supplementary-provision/v1"
+                if kind == "supplementary_article"
+                else "egov-main-provision/v2"
             ),
-            "extractionVersion": "egov-main-provision/v2",
             "normalizationVersion": "itertext-whitespace-collapse-utf8-sha256/v1",
             "textHash": _sha256(text),
             "text": text[:12_000],

@@ -50,17 +50,28 @@ class PrimaryLawEvidenceTests(unittest.TestCase):
 
     def test_main_and_supplementary_articles_are_separate(self):
         xml = _law_xml(article_text="本則本文").replace(
-            "</LawBody>", '<SupplProvision><Article Num="11">附則本文</Article></SupplProvision></LawBody>'
+            "</LawBody>",
+            '<SupplProvision><Article Num="11">元法令附則本文</Article></SupplProvision>'
+            '<SupplProvision AmendLawNum="改正法"><Article Num="11">改正法附則本文</Article></SupplProvision>'
+            '</LawBody>',
         )
         self.assertIn("本則本文", extract_locator_text(xml, "article", 11))
-        self.assertNotIn("附則本文", extract_locator_text(xml, "article", 11))
+        self.assertNotIn("元法令附則本文", extract_locator_text(xml, "article", 11))
+        self.assertIn("元法令附則本文", extract_locator_text(xml, "supplementary_article", 11))
+        self.assertNotIn("改正法附則本文", extract_locator_text(xml, "supplementary_article", 11))
         with self.assertRaises(PrimaryLawEvidenceError):
             extract_locator_text(xml.replace('Num="11"', 'Num="12"', 1), "article", 11)
         duplicate = xml.replace("</MainProvision>", '<Article Num="11">重複</Article></MainProvision>')
         with self.assertRaises(PrimaryLawEvidenceError):
             extract_locator_text(duplicate, "article", 11)
+        duplicate_original_supplement = xml.replace(
+            '</LawBody>',
+            '<SupplProvision><Article Num="11">重複元法令附則</Article></SupplProvision></LawBody>',
+        )
         with self.assertRaises(PrimaryLawEvidenceError):
-            extract_locator_text(xml, "supplementary_article", 11)
+            extract_locator_text(duplicate_original_supplement, "supplementary_article", 11)
+        with self.assertRaises(PrimaryLawEvidenceError):
+            extract_locator_text(_law_xml(article_text="本則のみ"), "supplementary_article", 11)
 
     def test_snapshot_versions_new_hash_without_overwriting_old(self):
         import hashlib
@@ -202,6 +213,50 @@ class PrimaryLawEvidenceTests(unittest.TestCase):
         self.assertEqual(
             locator_parts("64第1項"),
             (("article", 64),),
+        )
+        self.assertEqual(
+            locator_parts("第20条、附則第3条"),
+            (("article", 20), ("supplementary_article", 3)),
+        )
+        self.assertEqual(
+            locator_parts("附則第3条第1項"),
+            (("supplementary_article", 3),),
+        )
+
+    def test_resolver_keeps_original_supplement_separate_from_main_article(self):
+        xml = _law_xml(article_text="本則第二十条の報告").replace(
+            'Num="11"', 'Num="20"', 1,
+        ).replace(
+            '</LawBody>',
+            '<SupplProvision><Article Num="3">施行前契約への経過措置</Article></SupplProvision>'
+            '<SupplProvision AmendLawNum="改正法"><Article Num="3">別の附則</Article></SupplProvision>'
+            '</LawBody>',
+        )
+
+        def fetcher(law_id: str, as_of: str) -> LawFileSnapshot:
+            return LawFileSnapshot(
+                law_id=law_id, as_of=as_of,
+                source_url=f"https://example.test/{law_id}?asof={as_of}",
+                revision_id=f"{law_id}_{as_of}", xml_text=xml,
+            )
+
+        with tempfile.TemporaryDirectory() as directory:
+            resolver = PrimaryLawEvidenceResolver(Path(directory), fetcher=fetcher)
+            result = resolver.resolve({"lawReferences": [{
+                "lawId": "502AC0000000060", "lawTitle": "試験法",
+                "article": "第20条、附則第3条", "role": "exam_time_basis",
+                "referenceDate": "2023-04-01", "choiceIndex": 0,
+            }]}, current_as_of="2026-10-05")
+
+        self.assertEqual(result["status"], "complete")
+        self.assertEqual(
+            [item["locator"]["kind"] for item in result["items"]],
+            ["article", "supplementary_article"],
+        )
+        self.assertIn("経過措置", result["items"][1]["examSnapshot"]["text"])
+        self.assertEqual(
+            result["items"][1]["examSnapshot"]["extractionVersion"],
+            "egov-original-supplementary-provision/v1",
         )
 
     def test_article_branch_grammar_rejects_partial_suffix_matches(self):
