@@ -188,6 +188,14 @@ class PrimaryLawEvidenceTests(unittest.TestCase):
         )
         self.assertEqual(locator_parts("145"), (("article", 145),))
         self.assertEqual(
+            locator_parts("26・28・30"),
+            (("article", 26), ("article", 28), ("article", 30)),
+        )
+        self.assertEqual(
+            locator_parts("13、14"),
+            (("article", 13), ("article", 14)),
+        )
+        self.assertEqual(
             locator_parts("第4条の4の7"),
             (("article", (4, 4, 7)),),
         )

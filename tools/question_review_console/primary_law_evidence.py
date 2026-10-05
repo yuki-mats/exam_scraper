@@ -34,6 +34,10 @@ _OMITTED_ARTICLE_RE = re.compile(
     rf"^\s*({_JAPANESE_NUMBER_PATTERN})\s*"
     rf"第\s*{_JAPANESE_NUMBER_PATTERN}\s*項"
 )
+_BARE_ARTICLE_LIST_RE = re.compile(
+    rf"^\s*{_JAPANESE_NUMBER_PATTERN}"
+    rf"(?:\s*[・、,]\s*{_JAPANESE_NUMBER_PATTERN})+\s*$"
+)
 _APPENDIX_RE = re.compile(r"別表第?\s*([0-9０-９一二三四五六七八九十百]+)")
 _REVISION_FILENAME_RE = re.compile(r'filename="?([^";]+)"?')
 _DEFAULT_MAX_PARALLEL_FETCHES = 8
@@ -132,6 +136,16 @@ def locator_parts(value: Any) -> tuple[tuple[str, LocatorNumber], ...]:
     """Extract every article/appendix locator declared in one reference."""
 
     text = str(value or "")
+    if _BARE_ARTICLE_LIST_RE.fullmatch(text):
+        numbers = (
+            _japanese_number(component.strip())
+            for component in re.split(r"[・、,]", text)
+        )
+        return tuple(
+            dict.fromkeys(
+                ("article", number) for number in numbers if number is not None
+            )
+        )
     parts: list[tuple[str, LocatorNumber]] = []
     for match in _ARTICLE_RE.finditer(text):
         # Do not salvage a suffix from malformed number/branch syntax.
