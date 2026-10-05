@@ -14,12 +14,14 @@ class LawAuditVerificationTests(unittest.TestCase):
         self.fields = {
             'isLawRelated': True, 'auditStatus': 'updated_to_current_law',
             'reviewState': 'needs_secondary_review',
+            'reconciliationStatus': 'pending_secondary_review',
+            'verificationSummary': '一次提案のため二次確認待ち。',
             'examTimeDecision': ['正しい', '間違い'],
             'currentLawDecision': ['間違い', '間違い'],
             'correctChoiceText': ['間違い', '間違い'],
             'lawRevisionFacts': [
-                {'auditStatus': 'updated_to_current_law', 'reviewState': 'needs_secondary_review', 'examTime': {'correctChoiceText': '正しい'}, 'current': {'correctChoiceText': '間違い'}},
-                {'auditStatus': 'same_as_current', 'reviewState': 'needs_secondary_review', 'examTime': {'correctChoiceText': '間違い'}, 'current': {'correctChoiceText': '間違い'}},
+                {'auditStatus': 'updated_to_current_law', 'reviewState': 'needs_secondary_review', 'reconciliationStatus': 'pending_secondary_review', 'examTime': {'correctChoiceText': '正しい'}, 'current': {'correctChoiceText': '間違い'}},
+                {'auditStatus': 'same_as_current', 'reviewState': 'needs_secondary_review', 'reconciliationStatus': 'pending_secondary_review', 'examTime': {'correctChoiceText': '間違い'}, 'current': {'correctChoiceText': '間違い'}},
             ],
         }
         self.candidate = QuestionCandidate('q1', 'candidate', '一次提案', (
@@ -84,6 +86,9 @@ class LawAuditVerificationTests(unittest.TestCase):
         fields = candidate_fields(promoted)
         self.assertEqual(fields['reviewState'], 'tertiary_verified')
         self.assertEqual([x['reviewState'] for x in fields['lawRevisionFacts']], ['tertiary_verified', 'secondary_verified'])
+        self.assertEqual(fields['reconciliationStatus'], 'reconciled')
+        self.assertEqual([x['reconciliationStatus'] for x in fields['lawRevisionFacts']], ['reconciled', 'reconciled'])
+        self.assertIn('独立三次監査', fields['verificationSummary'])
         self.assertEqual(self.fields, original)
 
     def test_missing_tertiary_or_hold_never_produces_patch_updates(self):
@@ -98,7 +103,10 @@ class LawAuditVerificationTests(unittest.TestCase):
         self.fields['examTimeDecision'] = ['間違い', '間違い']
         self.fields['lawRevisionFacts'][0]['examTime']['correctChoiceText'] = '間違い'
         result = promote_candidate(self.candidate, [self.approval])
-        self.assertEqual(candidate_fields(result)['reviewState'], 'secondary_verified')
+        fields = candidate_fields(result)
+        self.assertEqual(fields['reviewState'], 'secondary_verified')
+        self.assertEqual(fields['reconciliationStatus'], 'reconciled')
+        self.assertIn('独立二次監査', fields['verificationSummary'])
 
     def test_conflicting_targets_rejected(self):
         candidate = QuestionCandidate('q1', 'candidate', '', (CandidateUpdate('a', {'isLawRelated': True}, ()), CandidateUpdate('b', {'isLawRelated': False}, ())))

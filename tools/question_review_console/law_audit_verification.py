@@ -150,10 +150,19 @@ def promote_candidate(candidate: QuestionCandidate, reviews: list[Mapping[str, A
         values = copy.deepcopy(update.set_fields)
         if 'reviewState' in values:
             values['reviewState'] = state
+        if 'reconciliationStatus' in values:
+            values['reconciliationStatus'] = 'reconciled'
+        if 'verificationSummary' in values:
+            phase = '三次' if changed else '二次'
+            values['verificationSummary'] = (
+                f'独立{phase}監査で出題時と現行法の正誤、法令根拠、解説を照合し承認した。'
+            )
         facts = values.get('lawRevisionFacts')
         if isinstance(facts, list):
             for fact in facts:
                 if isinstance(fact, dict) and fact.get('auditStatus') in ['same_as_current', 'updated_to_current_law']:
                     fact['reviewState'] = 'tertiary_verified' if fact['auditStatus'] == 'updated_to_current_law' else 'secondary_verified'
+                    if 'reconciliationStatus' in fact:
+                        fact['reconciliationStatus'] = 'reconciled'
         updates.append(replace(update, set_fields=values))
     return replace(candidate, updates=tuple(updates))
