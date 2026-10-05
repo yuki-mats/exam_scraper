@@ -864,11 +864,20 @@ def _server_law_audit_fields(
                 if audit_status == "updated_to_current_law"
                 else ""
             ),
-            "remainingRisk": str(
-                candidate_fields.get("holdReason")
-                or candidate_fields.get("reviewNotes")
-                or ""
-            ).strip(),
+            "remainingRisk": (
+                str(candidate_fields.get("reviewNotes") or "").strip()
+                if any(
+                    isinstance(fact, Mapping)
+                    and isinstance(fact.get("examTime"), Mapping)
+                    and fact["examTime"].get("verificationStatus")
+                    in {
+                        "not_referenced_current_law_only_policy",
+                        "from_original_answer",
+                    }
+                    for fact in (facts if isinstance(facts, list) else [])
+                )
+                else ""
+            ),
         }
     )
     values["tertiaryAuditRunId"] = (

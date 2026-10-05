@@ -320,7 +320,7 @@ serverは合意したcandidate IDを元の候補spanへ解決し、順序、非�
 
 `isLawRelated=true` の問題は、差分がある問題だけでなく全件が作成対象です。差分がない問題は `auditStatus="same_as_current"`、出題当時との差分が未確定なら `auditStatus="hold"` として残します。
 
-e-Gov API v2 / 整備済み corpus に出題当時 revision が保持されておらず、資格別方針で認めた一次資料でも出題当時条文を固定できない場合は、出題当時条文を参照していないことを明示したうえで現行法ベースのみの監査としてよい。この場合は `examTime.correctChoiceText` に公式元正答を残し、`examTime.verificationStatus="not_referenced_current_law_only_policy"` または `"from_original_answer"`、`notes` / review sidecar の `remainingRisk` に未参照理由を保存する。出題当時の `lawRevisionId`、`articleTextHash`、`exam_time_basis` は推測で作らない。出題当時 revision が e-Gov API v2 にないこと自体は `hold` 理由にせず、現行法根拠・委任規定・別表等が不足する場合だけ `hold` に戻す。
+e-Gov API v2 / 整備済み corpus に出題当時 revision が保持されておらず、資格別方針で認めた一次資料でも出題当時条文を固定できない場合は、出題当時条文を参照していないことを明示したうえで現行法ベースのみの監査としてよい。この場合は `examTime.correctChoiceText` に公式元正答を残し、`examTime.verificationStatus="not_referenced_current_law_only_policy"` または `"from_original_answer"`、`notes` / review sidecar の `remainingRisk` に未参照理由を保存する。sidecar の `remainingRisk` は、この構造化された未参照状態があるときに限り `reviewNotes` の理由を引き継ぐ。独立監査で承認済みの通常の `reviewNotes` は作業記録として保持し、未解消リスクに転記しない。出題当時の `lawRevisionId`、`articleTextHash`、`exam_time_basis` は推測で作らない。出題当時 revision が e-Gov API v2 にないこと自体は `hold` 理由にせず、現行法根拠・委任規定・別表等が不足する場合だけ `hold` に戻す。
 
 法令根拠監査は次の三段階で扱います。
 

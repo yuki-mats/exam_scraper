@@ -1949,6 +1949,34 @@ class ServerLawAuditFieldsTests(unittest.TestCase):
         self.assertEqual(fields["noticeReason"], "")
         self.assertEqual(fields["remainingRisk"], "")
 
+        candidate["reviewNotes"] = "一次監査候補。独立二次確認が必要。"
+        candidate["holdReason"] = "なし"
+        verified = _server_law_audit_fields(
+            qualification="sample-exam",
+            list_group_id="2026",
+            run_id="run-1",
+            policy_version="4.0",
+            projected=projected,
+            candidate_fields=candidate,
+            audited_at=observed_at,
+        )
+        self.assertEqual(verified["remainingRisk"], "")
+
+        candidate["lawRevisionFacts"][0]["examTime"] = {
+            "verificationStatus": "from_original_answer"
+        }
+        candidate["reviewNotes"] = "出題当時の条文本文を確認できず、公式正答で判定した。"
+        current_law_only = _server_law_audit_fields(
+            qualification="sample-exam",
+            list_group_id="2026",
+            run_id="run-1",
+            policy_version="4.0",
+            projected=projected,
+            candidate_fields=candidate,
+            audited_at=observed_at,
+        )
+        self.assertEqual(current_law_only["remainingRisk"], candidate["reviewNotes"])
+
     def test_server_assigns_tertiary_run_id_for_current_law_update(self):
         fields = _server_law_audit_fields(
             qualification="sample-exam",
