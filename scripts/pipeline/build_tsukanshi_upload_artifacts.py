@@ -617,7 +617,9 @@ def normalize_first_snippet_list(source_snippets: Any) -> list[list[str]]:
 def resolved_correct_choice_text(question: dict[str, Any]) -> tuple[list[str], bool, str]:
     source_labels = question.get("correctChoiceText")
     source_list = source_labels if isinstance(source_labels, list) else []
-    expected, reason = build_expected_correct_choice_text(question)
+    q_calc = dict(question)
+    q_calc["correctChoiceText"] = []
+    expected, reason = build_expected_correct_choice_text(q_calc)
     if expected is None:
         detail = ""
         if reason:
