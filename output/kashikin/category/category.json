@@ -1,0 +1,545 @@
+{
+  "metadata": {
+    "qualificationId": "kashikin",
+    "licenseName": "貸金業務取扱主任者",
+    "taxonomySource": "日本貸金業協会の試験科目区分、2015〜2025年度の00_source 547問、kashikin試験プロフィール",
+    "officialCategoryMappings": [
+      {
+        "officialCategoryId": "kashikin_official_01",
+        "officialCategoryName": "法及び関係法令に関すること",
+        "folderIds": [
+          "kashikin_f01_hourei"
+        ]
+      },
+      {
+        "officialCategoryId": "kashikin_official_02",
+        "officialCategoryName": "貸付け及び貸付けに付随する取引に関する法令及び実務に関すること",
+        "folderIds": [
+          "kashikin_f02_lending_practice"
+        ]
+      },
+      {
+        "officialCategoryId": "kashikin_official_03",
+        "officialCategoryName": "資金需要者等の保護に関すること",
+        "folderIds": [
+          "kashikin_f03_customer_protection"
+        ]
+      },
+      {
+        "officialCategoryId": "kashikin_official_04",
+        "officialCategoryName": "財務及び会計に関すること",
+        "folderIds": [
+          "kashikin_f04_finance_accounting"
+        ]
+      }
+    ]
+  },
+  "folders": [
+    {
+      "folderId": "kashikin_f01_hourei",
+      "name": "01_法及び関係法令",
+      "description": "貸金業法、利息制限法その他の貸金業者の登録・業務運営・金利規制を扱う。民法上の貸付取引、消費者保護法制及び会計は別カテゴリとする。",
+      "questionCount": 1172,
+      "isDeleted": false
+    },
+    {
+      "folderId": "kashikin_f02_lending_practice",
+      "name": "02_貸付けと付随取引の法令・実務",
+      "description": "貸付取引に関係する民法、手形・電子記録債権、倒産処理及び犯罪収益移転防止法を扱う。貸金業法上の貸金業者規制は01、資金需要者保護の一般法制は03とする。",
+      "questionCount": 656,
+      "isDeleted": false
+    },
+    {
+      "folderId": "kashikin_f03_customer_protection",
+      "name": "03_資金需要者等の保護",
+      "description": "個人情報、消費者契約、広告表示、自主規制、貸付自粛及び金融ADRなど、資金需要者等の利益を守る制度を扱う。貸金業法の貸付条件・禁止行為そのものは01とする。",
+      "questionCount": 228,
+      "isDeleted": false
+    },
+    {
+      "folderId": "kashikin_f04_finance_accounting",
+      "name": "04_財務及び会計",
+      "description": "企業会計原則、貸借対照表、損益計算書、キャッシュ・フロー計算書及び収入確認に必要な税務資料を扱う。貸金業法上の返済能力調査は01とする。",
+      "questionCount": 126,
+      "isDeleted": false
+    }
+  ],
+  "questionSets": [
+    {
+      "questionSetId": "kashikin_qs01_01_definitions_registration",
+      "folderId": "kashikin_f01_hourei",
+      "name": "1-1 貸金業法の用語・登録",
+      "description": "貸金業、顧客等、債務者等などの定義、貸金業の登録・拒否事由を扱う。主任者登録は1-3、届出は1-2と分ける。",
+      "matchingHints": [
+        "貸金業",
+        "資金需要者等",
+        "登録",
+        "登録拒否",
+        "貸金業法第6条"
+      ],
+      "questionCount": 92,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "kashikin_qs01_02_notifications_supervision",
+      "folderId": "kashikin_f01_hourei",
+      "name": "1-2 届出・監督・業務管理",
+      "description": "変更・廃業・開始等の届出、行政庁の監督、経営管理、内部管理、外部委託、情報管理及び反社会的勢力対応を扱う。主任者の配置・名簿は1-3とする。",
+      "matchingHints": [
+        "変更の届出",
+        "廃業等の届出",
+        "開始等の届出",
+        "監督",
+        "内部管理",
+        "外部委託"
+      ],
+      "questionCount": 192,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "kashikin_qs01_03_chief_supervisor",
+      "folderId": "kashikin_f01_hourei",
+      "name": "1-3 貸金業務取扱主任者制度",
+      "description": "主任者の登録・選任、営業所等への配置、常時勤務及び従業者名簿を扱う。貸金業者の一般的な登録拒否は1-1とする。",
+      "matchingHints": [
+        "貸金業務取扱主任者",
+        "主任者登録",
+        "営業所等",
+        "従業者名簿",
+        "50人"
+      ],
+      "questionCount": 52,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "kashikin_qs01_04_repayment_capacity",
+      "folderId": "kashikin_f01_hourei",
+      "name": "1-4 返済能力調査・過剰貸付け防止",
+      "description": "返済能力調査、年収証明書、総量規制、個人過剰貸付契約の除外契約及び利益保護の例外契約を扱う。極度方式基本契約の定期調査は1-5とする。",
+      "matchingHints": [
+        "返済能力の調査",
+        "年収証明書",
+        "過剰貸付け",
+        "総量規制",
+        "除外契約",
+        "例外契約"
+      ],
+      "questionCount": 144,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "kashikin_qs01_05_revolving_credit_review",
+      "folderId": "kashikin_f01_hourei",
+      "name": "1-5 極度方式基本契約の調査",
+      "description": "極度方式基本契約、基準額超過極度方式基本契約、所定期間ごとの調査及び緊急・特例の取扱いを扱う。一般的な返済能力調査は1-4とする。",
+      "matchingHints": [
+        "極度方式基本契約",
+        "基準額超過",
+        "3か月以内",
+        "所定の期間",
+        "信用情報を使用"
+      ],
+      "questionCount": 60,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "kashikin_qs01_06_advertising_prohibited",
+      "folderId": "kashikin_f01_hourei",
+      "name": "1-6 広告・掲示・禁止行為",
+      "description": "貸付条件の広告、掲示・標識、契約締結の勧誘、禁止行為及び説明態勢を扱う。自主規制団体の広告・勧誘規則は03-4とする。",
+      "matchingHints": [
+        "貸付条件の広告",
+        "貸付条件等の掲示",
+        "標識",
+        "禁止行為",
+        "説明態勢",
+        "断定的判断"
+      ],
+      "questionCount": 112,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "kashikin_qs01_07_documents_records",
+      "folderId": "kashikin_f01_hourei",
+      "name": "1-7 書面・帳簿・保存",
+      "description": "契約締結前後の書面、契約内容の変更、帳簿、調査記録及び保存義務を扱う。個人情報の管理そのものは03-1とする。",
+      "matchingHints": [
+        "契約締結前の書面",
+        "契約締結時の書面",
+        "帳簿",
+        "保存",
+        "貸金業法第17条",
+        "貸金業法第19条"
+      ],
+      "questionCount": 200,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "kashikin_qs01_08_collection_assignment",
+      "folderId": "kashikin_f01_hourei",
+      "name": "1-8 取立て・債権譲渡・弁済",
+      "description": "取立て行為の規制、証明書の携帯、債権譲渡等の規制及び貸金業法上の弁済に関する手続を扱う。民法上の債権譲渡・弁済は02-3又は02-4とする。",
+      "matchingHints": [
+        "取立て行為",
+        "証明書の携帯",
+        "債権譲渡等の規制",
+        "弁済",
+        "正当な理由"
+      ],
+      "questionCount": 104,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "kashikin_qs01_09_credit_information",
+      "folderId": "kashikin_f01_hourei",
+      "name": "1-9 指定信用情報機関",
+      "description": "指定信用情報機関への信用情報の提供、照会、同意取得及び記録保存を扱う。個人情報保護法・第三者提供の一般論は03-1とする。",
+      "matchingHints": [
+        "指定信用情報機関",
+        "個人信用情報",
+        "信用情報の提供",
+        "同意",
+        "加入貸金業者"
+      ],
+      "questionCount": 72,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "kashikin_qs01_10_interest_rate_regulation",
+      "folderId": "kashikin_f01_hourei",
+      "name": "1-10 利息・金利の規制",
+      "description": "利息制限法、出資法、営業的金銭消費貸借、利息の天引き、みなし利息及び遅延損害金の規制を扱う。民法上の契約効力は02-1又は02-5とする。",
+      "matchingHints": [
+        "利息制限法",
+        "出資法",
+        "金利等の規制",
+        "みなし利息",
+        "遅延損害金"
+      ],
+      "questionCount": 144,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "kashikin_qs02_01_legal_act_capacity",
+      "folderId": "kashikin_f02_lending_practice",
+      "name": "2-1 意思表示・行為能力・法律行為",
+      "description": "意思表示、意思能力、制限行為能力、法律行為の無効・取消し、代理及び条件・期限を扱う。契約の履行・解除は2-5とする。",
+      "matchingHints": [
+        "意思表示",
+        "意思能力",
+        "行為能力",
+        "無効",
+        "取消し",
+        "代理",
+        "条件",
+        "期限"
+      ],
+      "questionCount": 148,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "kashikin_qs02_02_security_interests",
+      "folderId": "kashikin_f02_lending_practice",
+      "name": "2-2 担保物権",
+      "description": "貸付債権の担保に関係する質権、抵当権及び根抵当権を扱う。保証・連帯保証は2-4、担保目的物の売買は2-5とする。",
+      "matchingHints": [
+        "質権",
+        "抵当権",
+        "根抵当権",
+        "担保物権",
+        "被担保債権"
+      ],
+      "questionCount": 40,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "kashikin_qs02_03_claim_performance",
+      "folderId": "kashikin_f02_lending_practice",
+      "name": "2-3 債権の効力・弁済・相殺",
+      "description": "債権の効力、債務不履行、弁済、債権の消滅及び相殺を扱う。貸金業法上の取立て・弁済手続は01-8とする。",
+      "matchingHints": [
+        "債権の効力",
+        "債務不履行",
+        "弁済",
+        "相殺",
+        "債権の消滅"
+      ],
+      "questionCount": 112,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "kashikin_qs02_04_guarantee_assignment",
+      "folderId": "kashikin_f02_lending_practice",
+      "name": "2-4 保証・連帯債務・債権譲渡",
+      "description": "保証、連帯保証、連帯債務及び民法上の債権譲渡を扱う。貸金業法第24条の債権譲渡規制は01-8とする。",
+      "matchingHints": [
+        "保証",
+        "連帯保証",
+        "連帯債務",
+        "債権譲渡",
+        "保証人"
+      ],
+      "questionCount": 56,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "kashikin_qs02_05_contracts_agency",
+      "folderId": "kashikin_f02_lending_practice",
+      "name": "2-5 契約・売買・委任・解除",
+      "description": "売買、委任、契約の成立・履行・解除及び不動産等の取引を扱う。意思表示・代理の一般論は2-1、民法上の担保は2-2とする。",
+      "matchingHints": [
+        "売買",
+        "委任",
+        "契約の解除",
+        "契約",
+        "所有権",
+        "契約不適合"
+      ],
+      "questionCount": 92,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "kashikin_qs02_06_time_inheritance",
+      "folderId": "kashikin_f02_lending_practice",
+      "name": "2-6 時効・相続",
+      "description": "消滅時効その他の時効及び相続による債務・債権の承継を扱う。債権一般の弁済・消滅は2-3とする。",
+      "matchingHints": [
+        "時効",
+        "消滅時効",
+        "相続",
+        "相続人",
+        "承認",
+        "放棄"
+      ],
+      "questionCount": 88,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "kashikin_qs02_07_tort_unjust_enrichment",
+      "folderId": "kashikin_f02_lending_practice",
+      "name": "2-7 不当利得・不法行為",
+      "description": "不当利得及び不法行為の成立要件・効果を扱う。契約上の債務不履行は2-3、消費者契約の取消しは03-2とする。",
+      "matchingHints": [
+        "不当利得",
+        "不法行為",
+        "損害賠償",
+        "故意",
+        "過失"
+      ],
+      "questionCount": 16,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "kashikin_qs02_08_bills_electronic_claims",
+      "folderId": "kashikin_f02_lending_practice",
+      "name": "2-8 手形・電子記録債権",
+      "description": "手形法及び電子記録債権法に基づく貸付取引・債権回収上の制度を扱う。一般の債権譲渡は2-4とする。",
+      "matchingHints": [
+        "手形法",
+        "電子記録債権",
+        "手形",
+        "電子記録",
+        "裏書"
+      ],
+      "questionCount": 32,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "kashikin_qs02_09_insolvency",
+      "folderId": "kashikin_f02_lending_practice",
+      "name": "2-9 倒産処理手続",
+      "description": "破産法その他の倒産処理手続と、貸金債権の回収・届出に関係する制度を扱う。通常の弁済・相殺は2-3とする。",
+      "matchingHints": [
+        "倒産処理",
+        "破産法",
+        "破産手続",
+        "破産債権",
+        "免責"
+      ],
+      "questionCount": 28,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "kashikin_qs02_10_aml",
+      "folderId": "kashikin_f02_lending_practice",
+      "name": "2-10 犯罪収益移転防止法",
+      "description": "犯罪収益移転防止法に基づく取引時確認、本人確認及び疑わしい取引の届出を扱う。個人情報の取扱いは03-1とする。",
+      "matchingHints": [
+        "犯罪収益移転防止法",
+        "取引時確認",
+        "本人確認",
+        "疑わしい取引",
+        "外国PEPs"
+      ],
+      "questionCount": 44,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "kashikin_qs03_01_personal_information",
+      "folderId": "kashikin_f03_customer_protection",
+      "name": "3-1 個人情報・信用情報の保護",
+      "description": "個人情報保護法及び金融分野ガイドラインに基づく取得、安全管理、第三者提供及び漏えい等対応を扱う。貸金業法上の信用情報提供義務は01-9とする。",
+      "matchingHints": [
+        "個人情報保護法",
+        "個人データ",
+        "第三者提供",
+        "安全管理措置",
+        "漏えい"
+      ],
+      "questionCount": 68,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "kashikin_qs03_02_consumer_contract",
+      "folderId": "kashikin_f03_customer_protection",
+      "name": "3-2 消費者契約法",
+      "description": "消費者契約の不当な勧誘・条項、取消し及び無効を扱う。民法上の法律行為の無効・取消しは02-1とする。",
+      "matchingHints": [
+        "消費者契約法",
+        "消費者契約",
+        "不当な勧誘",
+        "不当条項",
+        "取消し"
+      ],
+      "questionCount": 40,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "kashikin_qs03_03_advertising_display",
+      "folderId": "kashikin_f03_customer_protection",
+      "name": "3-3 広告表示・景品表示法",
+      "description": "不当景品類及び不当表示防止法による表示・景品規制を扱う。貸金業法の表示事項・広告規制は01-6とする。",
+      "matchingHints": [
+        "景品表示法",
+        "不当表示",
+        "景品",
+        "優良誤認",
+        "有利誤認"
+      ],
+      "questionCount": 36,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "kashikin_qs03_04_self_regulation",
+      "folderId": "kashikin_f03_customer_protection",
+      "name": "3-4 自主規制・広告勧誘・苦情対応",
+      "description": "日本貸金業協会の自主規制基本規則、広告・勧誘規制、苦情等への対処及び貸付業務の利用者対応を扱う。法令上の禁止行為は01-6とする。",
+      "matchingHints": [
+        "自主規制基本規則",
+        "広告及び勧誘",
+        "苦情等対処",
+        "協会員",
+        "資金需要者等の利益"
+      ],
+      "questionCount": 32,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "kashikin_qs03_05_financial_adr",
+      "folderId": "kashikin_f03_customer_protection",
+      "name": "3-5 金融ADR・紛争解決",
+      "description": "日本貸金業協会の紛争解決等業務、指定紛争解決機関及び金融ADRの手続を扱う。一般的な苦情対応は3-4とする。",
+      "matchingHints": [
+        "金融ADR",
+        "紛争解決",
+        "指定紛争解決機関",
+        "紛争解決等業務",
+        "苦情"
+      ],
+      "questionCount": 44,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "kashikin_qs03_06_self_restriction_overloan",
+      "folderId": "kashikin_f03_customer_protection",
+      "name": "3-6 貸付自粛・過剰貸付の保護制度",
+      "description": "貸付自粛対応及び資金需要者等の保護を目的とする過剰貸付契約の除外制度を扱う。貸金業者側の返済能力調査・例外契約の要件は01-4とする。",
+      "matchingHints": [
+        "貸付自粛",
+        "過剰貸付契約",
+        "個人過剰貸付契約",
+        "資金需要者等の保護",
+        "自粛情報"
+      ],
+      "questionCount": 8,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "kashikin_qs04_01_accounting_principles",
+      "folderId": "kashikin_f04_finance_accounting",
+      "name": "4-1 企業会計原則",
+      "description": "企業会計原則の一般原則及び貸借対照表・損益計算書に共通する会計処理の考え方を扱う。各財務諸表の表示・計算は4-2〜4-4とする。",
+      "matchingHints": [
+        "企業会計原則",
+        "一般原則",
+        "真実性の原則",
+        "正規の簿記",
+        "継続性"
+      ],
+      "questionCount": 44,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "kashikin_qs04_02_balance_sheet",
+      "folderId": "kashikin_f04_finance_accounting",
+      "name": "4-2 貸借対照表",
+      "description": "貸借対照表、連結貸借対照表の区分・表示及び資産、負債、純資産の分類を扱う。損益の表示は4-3、資金収支は4-4とする。",
+      "matchingHints": [
+        "貸借対照表",
+        "連結貸借対照表",
+        "資産",
+        "負債",
+        "純資産",
+        "流動資産"
+      ],
+      "questionCount": 32,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "kashikin_qs04_03_income_statement",
+      "folderId": "kashikin_f04_finance_accounting",
+      "name": "4-3 損益計算書",
+      "description": "損益計算書、連結損益計算書の区分・表示及び利益計算を扱う。貸借対照表の分類は4-2、キャッシュ・フローは4-4とする。",
+      "matchingHints": [
+        "損益計算書",
+        "連結損益計算書",
+        "売上高",
+        "営業利益",
+        "経常利益",
+        "当期純利益"
+      ],
+      "questionCount": 30,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "kashikin_qs04_04_cash_flow",
+      "folderId": "kashikin_f04_finance_accounting",
+      "name": "4-4 キャッシュ・フロー計算書",
+      "description": "キャッシュ・フロー計算書の区分、営業・投資・財務活動によるキャッシュ・フロー及び表示方法を扱う。損益計算書上の利益は4-3とする。",
+      "matchingHints": [
+        "キャッシュ・フロー計算書",
+        "営業活動",
+        "投資活動",
+        "財務活動",
+        "現金及び現金同等物"
+      ],
+      "questionCount": 12,
+      "isDeleted": false
+    },
+    {
+      "questionSetId": "kashikin_qs04_05_income_documents",
+      "folderId": "kashikin_f04_finance_accounting",
+      "name": "4-5 収入・源泉徴収票",
+      "description": "給与所得、収入金額及び源泉徴収票の記載内容を扱う。貸金業法上の年収証明書の提出要件は01-4とする。",
+      "matchingHints": [
+        "給与所得",
+        "源泉徴収票",
+        "収入金額",
+        "給与所得控除",
+        "所得"
+      ],
+      "questionCount": 8,
+      "isDeleted": false
+    }
+  ]
+}
