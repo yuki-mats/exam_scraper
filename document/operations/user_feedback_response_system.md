@@ -16,6 +16,10 @@
 
 AI解説は公開設定かつ未削除の `memoType=ai_explanation` の利用者発話だけを候補にし、source path・問題ID・本文SHA-256だけを台帳へ保存します。AI回答、非公開memo、削除済みmemoは対象外です。利用者が非公開化・削除した候補は次の全件走査で台帳から除きます。候補は即座に改善タスクへ変換せず、一件ずつ内容を確認して必要なニーズのみ `improvement_tasks` へ登録します。既存の改善タスクへ関連候補を追加できます。公開設定は改善分析への同意と同義ではないため、継続運用前に利用目的の説明、App Privacy、保持方針を確認します。
 
+改善タスクの作業は `open`（未着手）、`in_progress`（作業中）、`review_pending`（成果物の審査待ち）、`blocked`（根拠・対応確認待ち）で追跡します。`record-improvement-result` は、task ID・状態・SHA-256に結び付いた非公開の `feedback-improvement-result/v1` 成果物と理由を記録します。履歴には参照とhashだけを保存し、利用者本文を複製しません。成果物の改変、異なるtaskへの関連付け、想定状態からの競合を拒否し、同じ記録の再送は重複しません。正式patch保存・Firestore書込み・承認済みを主張する成果物はこのコマンドでは登録できません。
+
+`list-improvements` は未完了タスクを状態にかかわらず表示し、最新の成果物参照を付けます。`improvementTasksOpen` は未完了全体、`improvementTasksByStatus` は状態別件数です。案の作成だけで完了や公開済みにせず、審査・正式patch承認・別途の本番公開判断・live readbackを引き続き追跡します。
+
 ```bash
 .venv/bin/python -m tools.question_bank.feedback_daily scan
 .venv/bin/python -m tools.question_bank.feedback_daily summary

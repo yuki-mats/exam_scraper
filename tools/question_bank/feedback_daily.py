@@ -34,6 +34,7 @@ TERMINAL_CASE_STATUSES = {
 }
 AMENDMENT_FIELDS = frozenset({'lawReferences', 'explanationText', 'lawRevisionFacts', 'suggestedQuestionDetailsByChoice'})
 AMENDMENT_STATES = {'pending', 'draft', 'system_blocked', 'stale', 'superseded'}
+IMPROVEMENT_WORK_STATES = {'open', 'in_progress', 'review_pending', 'blocked'}
 
 
 def _now() -> str:
@@ -102,6 +103,15 @@ def _private_db(path: Path) -> sqlite3.Connection:
           status TEXT NOT NULL DEFAULT 'open',
           created_at TEXT NOT NULL,
           updated_at TEXT NOT NULL
+        );
+        CREATE TABLE IF NOT EXISTS improvement_result_history (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          task_id TEXT NOT NULL REFERENCES improvement_tasks(task_id),
+          status TEXT NOT NULL,
+          reason TEXT NOT NULL,
+          artifact_ref TEXT NOT NULL,
+          artifact_sha256 TEXT NOT NULL,
+          recorded_at TEXT NOT NULL
         );
         CREATE TABLE IF NOT EXISTS decision_history (
           id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -468,9 +478,11 @@ def daily_summary(connection: sqlite3.Connection, *, scan_id: str = "",
     ai_unreviewed = connection.execute(
         "SELECT COUNT(*) FROM ai_question_candidates WHERE review_status='unreviewed'"
     ).fetchone()[0]
-    improvement_open = connection.execute(
-        "SELECT COUNT(*) FROM improvement_tasks WHERE status='open'"
-    ).fetchone()[0]
+    improvement_states = dict(connection.execute(
+        "SELECT status, COUNT(*) FROM improvement_tasks GROUP BY status"
+    ).fetchall())
+    improvement_open = sum(count for status, count in improvement_states.items()
+                           if status not in {'completed', 'cancelled'})
     amendments = dict(connection.execute("SELECT state,COUNT(*) FROM proposal_amendments WHERE state!='superseded' GROUP BY state").fetchall())
     answers = connection.execute("SELECT COUNT(*) FROM proposal_amendments WHERE state!='superseded' AND answer_status='already_asked'").fetchone()[0]
     return {
@@ -485,6 +497,7 @@ def daily_summary(connection: sqlite3.Connection, *, scan_id: str = "",
         "patchesAwaitingPublication": pending_publication,
         "aiQuestionsAwaitingReview": ai_unreviewed,
         "improvementTasksOpen": improvement_open,
+        "improvementTasksByStatus": improvement_states,
         "amendmentsByState": amendments,
         "amendmentApprovalsWaiting": amendments.get('pending', 0),
         "amendmentResponsesWaiting": answers,
@@ -866,11 +879,66 @@ def list_ai_candidates(connection: sqlite3.Connection, *, limit: int,
     ]
 
 
-def list_improvement_tasks(connection: sqlite3.Connection, *, limit: int) -> list[dict[str, str]]:
+def record_improvement_result(connection: sqlite3.Connection, *, task_id: str,
+                              status: str, expected_status: str, reason: str,
+                              artifact_ref: Path, artifact_sha256: str) -> int:
+    """Record local work only; this cannot approve, publish or complete a task."""
+    if status not in IMPROVEMENT_WORK_STATES or expected_status not in IMPROVEMENT_WORK_STATES:
+        raise ValueError("unsupported improvement work status")
+    if not reason.strip():
+        raise ValueError("reason is required")
+    path = artifact_ref.expanduser().resolve()
+    content = path.read_bytes()
+    if hashlib.sha256(content).hexdigest() != artifact_sha256:
+        raise ValueError("improvement artifact hash differs")
+    artifact = json.loads(content)
+    if (not isinstance(artifact, dict)
+            or artifact.get('schemaVersion') != 'feedback-improvement-result/v1'
+            or artifact.get('taskId') != task_id
+            or artifact.get('status') != status
+            or artifact.get('formalPatchSaved') is not False
+            or artifact.get('FirestoreWritten') is not False
+            or artifact.get('approvalReady') is not False):
+        raise ValueError("improvement artifact binding differs")
+    task = connection.execute(
+        'SELECT status FROM improvement_tasks WHERE task_id=?', (task_id,)
+    ).fetchone()
+    if task is None:
+        raise ValueError("improvement task not found")
+    latest = connection.execute(
+        'SELECT * FROM improvement_result_history WHERE task_id=? ORDER BY id DESC LIMIT 1',
+        (task_id,),
+    ).fetchone()
+    if (latest is not None and task['status'] == status
+            and latest['status'] == status and latest['reason'] == reason.strip()
+            and latest['artifact_ref'] == str(path)
+            and latest['artifact_sha256'] == artifact_sha256):
+        return latest['id']
+    now = _now()
+    with connection:
+        updated = connection.execute(
+            'UPDATE improvement_tasks SET status=?, updated_at=? WHERE task_id=? AND status=?',
+            (status, now, task_id, expected_status),
+        )
+        if updated.rowcount != 1:
+            raise ValueError("improvement task status changed; read it again")
+        inserted = connection.execute(
+            '''INSERT INTO improvement_result_history
+               (task_id,status,reason,artifact_ref,artifact_sha256,recorded_at)
+               VALUES (?,?,?,?,?,?)''',
+            (task_id,status,reason.strip(),str(path),artifact_sha256,now),
+        )
+    return inserted.lastrowid
+
+
+def list_improvement_tasks(connection: sqlite3.Connection, *, limit: int) -> list[dict[str, Any]]:
     rows = connection.execute(
-        """SELECT task_id, title, need, target, status, created_at
-           FROM improvement_tasks WHERE status='open'
-           ORDER BY created_at, task_id LIMIT ?""", (limit,)
+        """SELECT t.task_id, t.title, t.need, t.target, t.status, t.created_at,
+                  r.reason AS work_reason, r.artifact_ref, r.artifact_sha256
+           FROM improvement_tasks t LEFT JOIN improvement_result_history r
+             ON r.id=(SELECT MAX(h.id) FROM improvement_result_history h WHERE h.task_id=t.task_id)
+           WHERE t.status NOT IN ('completed', 'cancelled')
+           ORDER BY t.created_at, t.task_id LIMIT ?""", (limit,)
     ).fetchall()
     return [dict(row) for row in rows]
 
@@ -893,6 +961,13 @@ def _parse_args() -> argparse.Namespace:
     ai_list.add_argument("--since", default="")
     improvements = sub.add_parser("list-improvements")
     improvements.add_argument("--limit", type=int, default=20)
+    work = sub.add_parser('record-improvement-result', help='Record local work and evidence; never approve or publish')
+    work.add_argument('task_id')
+    work.add_argument('--status', required=True, choices=sorted(IMPROVEMENT_WORK_STATES))
+    work.add_argument('--expected-status', required=True, choices=sorted(IMPROVEMENT_WORK_STATES))
+    work.add_argument('--reason', required=True)
+    work.add_argument('--artifact-ref', required=True, type=Path)
+    work.add_argument('--artifact-sha256', required=True)
     inspect = sub.add_parser("inspect-ai")
     inspect.add_argument("candidate_id")
     inspect.add_argument("--credentials-json", type=Path)
@@ -940,7 +1015,7 @@ def main() -> int:
     args = _parse_args()
     db_path = args.db.expanduser().resolve()
     connection = _private_db(db_path)
-    changed = args.command in {"scan", "dismiss-ai", "decide", "propose", "promote-ai", 'amend-register', 'amend-check'}
+    changed = args.command in {"scan", "dismiss-ai", "decide", "propose", "promote-ai", 'amend-register', 'amend-check', 'record-improvement-result'}
     if args.command == "scan":
         if args.fixture:
             snapshot = json.loads(args.fixture.read_text(encoding="utf-8"))
@@ -969,6 +1044,13 @@ def main() -> int:
         result = {"improvementTasks": list_improvement_tasks(
             connection, limit=args.limit,
         )}
+    elif args.command == 'record-improvement-result':
+        result_id = record_improvement_result(
+            connection, task_id=args.task_id, status=args.status,
+            expected_status=args.expected_status, reason=args.reason,
+            artifact_ref=args.artifact_ref, artifact_sha256=args.artifact_sha256,
+        )
+        result = {'resultId': result_id, 'summary': daily_summary(connection)}
     elif args.command == "inspect-ai":
         result = inspect_ai_candidate(
             connection, candidate_id=args.candidate_id,
