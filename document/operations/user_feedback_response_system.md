@@ -20,6 +20,12 @@ AI解説は公開設定かつ未削除の `memoType=ai_explanation` の利用者
 
 `list-improvements` は未完了タスクを状態にかかわらず表示し、最新の成果物参照を付けます。`improvementTasksOpen` は未完了全体、`improvementTasksByStatus` は状態別件数です。案の作成だけで完了や公開済みにせず、審査・正式patch承認・別途の本番公開判断・live readbackを引き続き追跡します。
 
+### 検証済みガス正本の改善保存preview
+
+`python -m tools.question_bank.feedback_improvement_plan --manifest <改善成果物manifest> --bindings <source対応表> --output <新規private実行directory>` は、`25_verified_publication`と公開問題の修正前値が一致する解説改善だけ、保存予定ファイルと同じJSON bytesをprivate領域に生成します。解説・補足2field以外の変更、競合、IDの曖昧さ、補足のミラー不一致は拒否します。全年度を再整備せず、対象年度の全IDと対象外recordを保持した25候補、通常のガス正本と同じ30/40のpreviewを作ります。対象原問の全sibling ID、原本hash、候補hash、field差分をplanへ結合します。分類・参考URLはmaintenance用の別記録に置き、公開fieldへ追加しません。
+
+このCLIは審査・承認・正式保存・Firestore書込みを実行しません。別形式のsourceや訂正unitは`remainingTasks`へ残し、25形式へ変換して代用しません。原本が保全manifestから消失していれば、manifestを消して再取得せず、バックアップ復元又はIDを検証する復旧作業へ送ります。生成後にも別セッション内容審査、最新のmasked readback、固定差分の人間承認、専用保存処理のreceiptを必要とします。既存のgas再生成処理は25を入力にするため、21候補を置くだけで正式反映済みとは扱いません。
+
 ```bash
 .venv/bin/python -m tools.question_bank.feedback_daily scan
 .venv/bin/python -m tools.question_bank.feedback_daily summary
