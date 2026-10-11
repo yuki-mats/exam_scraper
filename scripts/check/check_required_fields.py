@@ -18,6 +18,18 @@ from scripts.common.requirements import (
     validate_records,
 )
 from scripts.common.question_answer_contract import choice_text_content_alignment_issue
+from scripts.common.fill_in_blank_contract import validate_fill_in_blank_question
+
+
+def fill_in_blank_errors(records: list[dict], path: Path) -> list[str]:
+    errors = []
+    for idx, record in enumerate(records, start=1):
+        qid = str(record.get("questionId") or record.get("original_question_id") or record.get("public_question_id") or f"index_{idx}")
+        try:
+            validate_fill_in_blank_question(record, doc_id=qid)
+        except ValueError as error:
+            errors.append(f"{path}: record {idx} ({qid}): {error}")
+    return errors
 
 
 def infer_qualification_from_base_dir(base_dir: Path) -> str | None:
@@ -107,6 +119,7 @@ def main(argv: list[str] | None = None) -> int:
         rules = get_stage_rules(requirements, stage="merged", record_array="question_bodies", qualification=qualification)
         for path in iter_merged_files(base_dir):
             records = load_records(path, "question_bodies")
+            all_errors.extend(fill_in_blank_errors(records, path))
             all_errors.extend(validate_records(records=records, rules=rules, source_path=path))
             for idx, r in enumerate(records, start=1):
                 issue = choice_text_content_alignment_issue(r)
@@ -117,6 +130,7 @@ def main(argv: list[str] | None = None) -> int:
         rules = get_stage_rules(requirements, stage="firestore", record_array="questions", qualification=qualification)
         for path in iter_firestore_files(base_dir, args.list_group_id):
             records = load_records(path, "questions")
+            all_errors.extend(fill_in_blank_errors(records, path))
             all_errors.extend(validate_records(records=records, rules=rules, source_path=path, id_keys=("questionId",)))
             for idx, r in enumerate(records, start=1):
                 issue = choice_text_content_alignment_issue(r)

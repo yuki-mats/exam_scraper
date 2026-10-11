@@ -19,6 +19,21 @@
 
 上記の実装を変えた場合は、この文書も同じ commit で更新します。
 
+## 穴埋めのデータ構造
+
+`questionType=fill_in_blank` は `fillInBlankContent` が必須で、`isChoiceOnly` / `isGroupable` は `false` とする。他の形式ではこのフィールドを省略する。旧 `fillInBlanks` は代用にならない。
+
+構造の正本は Repaso の `lib/shared/dtos/fill_in_blank_content.dart` と `firestore.rules`。`scripts/common/fill_in_blank_contract.py` が同じ契約を機械検証し、merged / Firestore の必須項目検査、convert、upload dry-run・通常uploadから共通利用する。
+
+- `schemaVersion=1`、`segments`、`blanks`、`answerInput` が必須。未知のキー、型違い、空の必須値、規定件数超過を拒否する。
+- 本文の空欄参照と定義の `blankId` が一致し、定義の `blankId` / `blankIndex` と配置の `placementId` はそれぞれ重複しない。同じ空欄を複数の位置に置くことは許可する。
+- 各空欄の `correctAnswerText` は `acceptedAnswerTexts` に含まれる。入力方式は `word_bank` / `text_input` で、既定方式は許可方式に含まれる。
+- `word_bank` を許可する場合、選択肢のID・出自・使用上限を検査し、許容解答と `maxUses` の範囲で全空欄を同時に埋められることを確認する。
+
+検査は構造だけを判定する。内容の正しさを推測したり、正答・ID・原文を自動補正したりしない。不整合は問題IDと項目名を示して停止する。
+
+構造検証の成功は、公開承認や対応するアプリ版の公開確認を代替しない。
+
 ## 基本原則
 
 1. Firestore の `questions` に未知のキーを増やさない。

@@ -5,6 +5,7 @@ from datetime import datetime
 from typing import Any, Iterable
 
 from scripts.common.question_learning_patterns import QUESTION_LEARNING_PATTERN_IDS
+from scripts.common.fill_in_blank_contract import validate_fill_in_blank_question
 
 
 REPASO_QUESTION_TYPES = {
@@ -164,6 +165,7 @@ QUESTION_SCHEMA = CollectionSchema(
         "isGroupable",
         "importKey",
         "fillInBlanks",
+        "fillInBlankContent",
         "createdById",
         "updatedById",
         "createdAt",
@@ -708,6 +710,7 @@ def validate_question_doc(doc: dict[str, Any], *, doc_id: str) -> None:
     qt = doc.get("questionType")
     if not isinstance(qt, str) or qt not in REPASO_QUESTION_TYPES:
         raise ValueError(f"questions:{doc_id} questionType must be one of {sorted(REPASO_QUESTION_TYPES)}")
+    validate_fill_in_blank_question(doc, doc_id=doc_id)
     learning_pattern_id = doc.get("questionLearningPatternId")
     if learning_pattern_id is not None and learning_pattern_id not in (
         QUESTION_LEARNING_PATTERN_IDS

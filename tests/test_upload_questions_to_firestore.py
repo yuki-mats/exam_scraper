@@ -559,8 +559,18 @@ class UploadQuestionsToFirestoreTests(unittest.TestCase):
             "isGroupable": False,
         }
 
+        blank_question = {
+            "questionType": "fill_in_blank",
+            "fillInBlankContent": {
+                "schemaVersion": 1,
+                "segments": [{"type": "blank", "blankId": "b1", "placementId": "p1"}],
+                "blanks": [{"blankId": "b1", "blankIndex": 1,
+                            "correctAnswerText": "答え", "acceptedAnswerTexts": ["答え"]}],
+                "answerInput": {"allowedMethods": ["text_input"], "defaultMethod": "text_input"},
+            },
+        }
         self.assertEqual(
-            set(module.build_doc_data_base(question)),
+            set(module.build_doc_data_base(question)) | set(module.build_doc_data_base(blank_question)),
             set(module.DOC_COMPARE_KEYS)
             - set(module.PRODUCTION_CLIENT_OMITTED_FIELDS),
         )

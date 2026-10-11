@@ -15,6 +15,8 @@ python3 scripts/merge/00_merge_all.py <list_group_id> \
 
 通常はmerge、convert、upload dry-runまでをまとめます。
 
+穴埋め (`fill_in_blank`) も既存の公開前検査に含めます。merged / Firestore の必須項目検査、convert、upload dry-run・通常uploadで共通の[データ構造契約](../reference/question_field_contract.md#穴埋めのデータ構造)を検証し、不整合があれば公開前に停止します。`00_source` を補正したり、不足データを推測で生成したりしません。
+
 ```bash
 python3 scripts/pipeline/prepare_firestore_upload.py <list_group_id> \
   -b output/<qualification>/questions_json \

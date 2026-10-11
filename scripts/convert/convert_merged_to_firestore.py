@@ -10,6 +10,7 @@ from pathlib import Path
 from typing import Any
 import re
 import shutil
+from copy import deepcopy
 from datetime import datetime
 
 if __package__ in {None, ""}:
@@ -64,6 +65,7 @@ from scripts.common.question_answer_contract import (
     question_level_answer_cardinality_issue,
 )
 from scripts.common.question_answer_scope import question_body_for_answer
+from scripts.common.fill_in_blank_contract import validate_fill_in_blank_question
 from scripts.common.question_learning_patterns import (
     question_learning_pattern_id_error,
 )
@@ -846,6 +848,8 @@ def new_question_id_for_choice(
 
 def is_groupable_question(question: dict) -> bool:
     """複数選択肢モードの候補かどうか判定"""
+    if question.get("questionType") == "fill_in_blank":
+        return False
     if question.get("isChoiceOnly"):
         return False
     if not question.get("originalQuestionId"):
@@ -1242,6 +1246,10 @@ def convert_question_to_firestore(question_body: dict) -> list[dict]:
     true_false / flash_card / group_choice は複数レコードに分割して返す
     それ以外は1要素のリストで返す
     """
+    validate_fill_in_blank_question(
+        question_body,
+        doc_id=str(question_body.get("original_question_id") or question_body.get("public_question_id") or "unknown"),
+    )
     learning_pattern_error = question_learning_pattern_id_error(
         question_body.get("questionLearningPatternId"),
         required=False,
@@ -1303,6 +1311,10 @@ def convert_question_to_firestore(question_body: dict) -> list[dict]:
         learning_pattern_id = str(
             question_body.get("questionLearningPatternId") or ""
         ).strip()
+        if question_type == "fill_in_blank":
+            firestore_question["fillInBlankContent"] = deepcopy(question_body["fillInBlankContent"])
+            firestore_question["isChoiceOnly"] = False
+            firestore_question["isGroupable"] = False
         if learning_pattern_id:
             firestore_question["questionLearningPatternId"] = learning_pattern_id
         if is_independent_question(question_body) and isinstance(

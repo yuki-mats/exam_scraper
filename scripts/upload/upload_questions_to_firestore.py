@@ -19,6 +19,7 @@ from scripts.upload.firebase_credentials import (  # noqa: E402
     initialize_firebase_app,
 )
 from scripts.common.repaso_firestore_schema import validate_question_doc
+from scripts.common.fill_in_blank_contract import validate_fill_in_blank_question
 from scripts.common.independent_question_images import (
     validate_independent_upload_image_gate,
 )
@@ -79,6 +80,7 @@ DOC_COMPARE_KEYS = (
     "originalQuestionChoiceImageUrls",
     "questionText",
     "questionType",
+    "fillInBlankContent",
     "qualificationId",
     "correctChoiceText",
     "questionLearningPatternId",
@@ -200,6 +202,8 @@ def validate_required_question_fields(questions: list[dict], source_label: str) 
         qid = str(q.get("questionId") or "").strip()
         if not qid:
             raise ValueError(f"questionId is required: {source_label}")
+
+        validate_fill_in_blank_question(q, doc_id=qid)
 
         body = str(q.get("originalQuestionBodyText") or "")
         if not body.strip():
@@ -420,6 +424,7 @@ def build_doc_data_base(question: dict) -> dict:
         doc_data["examYear"] = question["examYear"]
     # オプションフィールド
     for opt_key in (
+        "fillInBlankContent",
         "questionLearningPatternId",
         "knowledgeText",
         "suggestedQuestions",
@@ -455,6 +460,8 @@ def stale_public_fields_to_delete(
         for field in PRODUCTION_CLIENT_OMITTED_FIELDS
         if field in existing
     ]
+    if new_base.get("questionType") != "fill_in_blank" and "fillInBlankContent" in existing:
+        fields.append("fillInBlankContent")
     is_choice_only = new_base.get("isChoiceOnly") is True
     if not is_choice_only:
         fields.extend(
