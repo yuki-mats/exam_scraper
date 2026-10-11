@@ -5,6 +5,8 @@
 > [!IMPORTANT]
 > 利用者から届いた問題報告のbatch処理は、引き続きこの文書のCLI手順を使います。運用者が同年度の公式問題冊子を手元で確認できる一問は、問題整備システムの問題詳細にある`公式冊子と照合`から、同じBlind A/B・Challenge・24 patch契約を実行できます。Mac常駐、自動検知、スマホでの一件承認、承認後はpatchのcommit・pushまでとしてFirestore公開を既存フローへ分離する目標仕様は、[ユーザーフィードバック対応システム](user_feedback_response_system.md)で設計確定していますが、まだ実装されていません。
 
+日次heartbeatでは、同文書の[日次自動処理の承認・公開方針](user_feedback_response_system.md#日次自動処理の承認公開方針)に従い、包括的なユーザー許可の下で独立サブエージェント監査後に公開まで進めます。以下のCLIの固定入力・レビュー・公開gateを省略しません。
+
 ## 目的と境界
 
 Repaso の公式問題報告を、利用者の主張を正解扱いせず、客観レビューから `exam_scraper` 正本の patch、Firestore 公開、live readback まで処理する。この文書の旧batch CLIは運用者が依頼した時に起動する。個別報告の登録漏れを毎日確認する読み取り専用の台帳照合は[ユーザーフィードバック対応システム](user_feedback_response_system.md#個別受付台帳と日次照合先行実装)に従う。

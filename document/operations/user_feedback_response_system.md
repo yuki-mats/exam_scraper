@@ -1,12 +1,36 @@
 # ユーザーフィードバック対応システム
 
-状態: 実装中。個別受付台帳と読み取り専用の日次照合を先行実装。常駐審査・スマホ承認・自動patch昇格は未実装。
+状態: 実装中。個別受付台帳と読み取り専用の日次照合を実装済み。日次heartbeatが既存CLIを使って調査・独立監査・公開を進める。専用の常駐GUIとスマホ承認画面は未実装。
 
-最終更新: 2026-10-01
+最終更新: 2026-10-11
 
-この文書は、Repasoから届くユーザーフィードバックをMac上で審査し、松田が訂正patchの内容を一件ずつ最終承認する「ユーザーフィードバック対応システム」の目標仕様正本です。公式問題の誤り報告を修正レーンとし、AI解説への利用者質問から学習上のニーズを見つける改善レーンを別に置きます。将来はアプリ不具合、UI改善、要望も追加します。
+この文書は、Repasoから届くユーザーフィードバックの調査、改善、独立監査、patch保存、Firestore公開を扱う運用正本です。公式問題の誤り報告を修正レーンとし、AI解説への利用者質問から学習上のニーズを見つける改善レーンを置きます。将来はアプリ不具合、UI改善、要望も追加します。
 
-常駐審査と承認後の自動patch昇格はまだ実装されていません。実装完了までは[公式問題の問題報告workflow](question_issue_report_workflow.md)が現行CLIの運用正本です。公式問題レーンのintake schema、blind review、許可field、`24_questionIssueCorrections`契約は同文書と[`config/question_issue_reports.json`](../../config/question_issue_reports.json)を再利用します。
+専用の常駐審査サービスと自動patch昇格サービスはまだ実装されていません。日次heartbeatは[公式問題の問題報告workflow](question_issue_report_workflow.md)と[公開workflow](delivery_workflow.md)の既存CLIを使います。公式問題レーンのintake schema、blind review、許可field、`24_questionIssueCorrections`契約は同文書と[`config/question_issue_reports.json`](../../config/question_issue_reports.json)を再利用します。
+
+## 日次自動処理の承認・公開方針
+
+2026-10-11、ユーザーは既存・新規のフィードバックに必要な問題データの修正について、作成者とは別のサブエージェントの承認を条件に、正式patch保存からFirestore本番公開までを包括的に許可しました。日次処理では個別の人間承認や公開確認を待ちません。この文書の後段にある人間への提示・個別承認・スマホ承認画面・取消し期間・次回公開待ち・手動対応待ちは手動モードの設計資料であり、日次自動処理にはこの節を適用します。旧CLIの承認flagとreceiptも、独立監査の固定対象と今回の包括ユーザー許可に正確に対応させます。人間回答を必須とする機械契約は、監査結果で代用又は偽装せず、対応する実装を検証してから使用します。
+
+日次処理は受付照合後、既存の未着手タスクを原則として古い順に進めます。正答・採点への影響等を理由に優先順位を変えた場合は理由を記録します。調査、改善案の作成、監査、正式保存、公開、読み戻しを区別し、登録や案の作成だけで完了にしません。
+
+1. 一次根拠と現在のローカル正本・Firestoreを照合し、一問の本文、全選択肢、正答、解説、必要な画像・分類・回答形式を確認します。安定IDと`00_source`を維持し、責務に合うpatch層へ修正候補を作ります。
+2. 対象task/case、資格・年度・原問・全sibling ID、対象fieldの変更前後、根拠locatorとhash、正本入力hash、差分hash、影響範囲、必要な検証、復元手順を固定します。
+3. 作成者とは別の読み取り専用サブエージェントが、一次根拠から独立に監査します。公式報告のBlind A/B・Challenge、法令の三段階監査等、既存の必須レビューも維持します。承認には実際のサブエージェント識別、固定対象のhash、判定、根拠、未解決指摘0件を持つ監査結果を保存します。自己承認、合意数だけによる正当化、人間承認を装った記録は使いません。
+4. 指摘を修正し、変更後の候補を再監査します。基準を緩めて承認を取得せず、同一入力・同一失敗の無限再試行もしません。根拠不足、判断の不一致、技術的な障害や競合で進めないタスクは理由と再開条件を残して保留し、ほかのタスクを進めます。
+5. 独立監査で承認された同一差分だけを正式patchへ保存し、保存receipt、merge/convert、必須checker、quality gate、対象の独立評価、upload dry-runを確認します。patch保存後の公開artifactが承認対象から変わった場合は再監査します。必要な検証の失敗・未実行を承認で免除しません。
+6. 公開直前に最新のFirestore値・document更新時刻と承認時の修正前値を照合します。承認済みの既存document・許可fieldだけを既存uploaderの限定書込みで反映し、対象外不変と全対象fieldのlive readback一致を確認して公開receiptを残します。競合を上書きせず最新入力へ戻って調査・監査を再実行します。
+7. 公開後の読み戻しが一致したタスクだけを公開済みとします。書込み後の確認失敗は公開未確認としてreceiptと再開位置を保持し、再実行時に現在値を読み戻してから既存の公開再試行経路へ進めます。既存CLIがサブエージェント承認による正式保存・公開契約又は公開後の状態を受理できない場合は結果を偽装せず、実装不足を記録して該当工程を保留し、その対応を関連検証付きで進めます。検証済み公開receiptがある場合は別に保全します。
+
+この包括承認はフィードバックに必要な問題データの修正・改善が対象です。アプリ配布、Firestore rules、権限、課金などの変更には拡張しません。差分や判断入力が変更された場合は旧監査承認を失効させます。既存の人間承認待ち候補も最新入力で監査し、上記条件を満たせば人間の返答を待たずに進めます。
+
+日次設定は`~/.codex/automations/repaso/automation.toml`に保存されます。生の利用者本文・識別情報をGit、通常ログ、通知に載せず、進展、公開結果、保留・失敗等の必要な変化だけを通知します。
+
+### 無人実行経路の既知の未対応
+
+この方針と日次設定の更新は、すべての正式保存・公開経路の無人対応完了を意味しません。`tools/question_review_console/formal_correction_save.py`の限定immutable unit保存は、固定した質問に対する真正な人間回答と`formal-correction-human-approval/v1`を保存・receipt再検証で必須としています。`tools/question_bank/feedback_improvement_plan.py`も次gateとして`exact_diff_human_formal_save_approval`を返します。改善台帳の`record-improvement-result`は公開済み状態を登録できません。
+
+日次処理はこれらを前提不足の対応タスクとして優先し、サブエージェントの実際の承認元・固定入力hash・包括ユーザー許可に結び付いた独自の承認契約、保存receipt再検証、公開結果の状態記録を実装します。人間用schemaへAIの回答を入れず、既存の手動経路も保持します。差分・ID・入力変更、自己承認、承認根拠不足、競合、再送、中断・復元に関する必要な対象検証と独立サブエージェント監査を通した経路だけを使用します。既にこの方針を満たす既存公開経路のタスクは、未対応経路の実装を待たずに進めます。
 
 ## 個別受付台帳と日次照合（先行実装）
 
@@ -24,7 +48,7 @@ AI解説は公開設定かつ未削除の `memoType=ai_explanation` の利用者
 
 `python -m tools.question_bank.feedback_improvement_plan --manifest <改善成果物manifest> --bindings <source対応表> --output <新規private実行directory>` は、`25_verified_publication`と公開問題の修正前値が一致する解説改善だけ、保存予定ファイルと同じJSON bytesをprivate領域に生成します。解説・補足2field以外の変更、競合、IDの曖昧さ、補足のミラー不一致は拒否します。全年度を再整備せず、対象年度の全IDと対象外recordを保持した25候補、通常のガス正本と同じ30/40のpreviewを作ります。対象原問の全sibling ID、原本hash、候補hash、field差分をplanへ結合します。分類・参考URLはmaintenance用の別記録に置き、公開fieldへ追加しません。
 
-このCLIは審査・承認・正式保存・Firestore書込みを実行しません。別形式のsourceや訂正unitは`remainingTasks`へ残し、25形式へ変換して代用しません。原本が保全manifestから消失していれば、manifestを消して再取得せず、バックアップ復元又はIDを検証する復旧作業へ送ります。生成後にも別セッション内容審査、最新のmasked readback、固定差分の人間承認、専用保存処理のreceiptを必要とします。既存のgas再生成処理は25を入力にするため、21候補を置くだけで正式反映済みとは扱いません。
+このCLIは審査・承認・正式保存・Firestore書込みを実行しません。別形式のsourceや訂正unitは`remainingTasks`へ残し、25形式へ変換して代用しません。原本が保全manifestから消失していれば、manifestを消して再取得せず、バックアップ復元又はIDを検証する復旧作業へ送ります。生成後にも別セッション内容審査、最新のmasked readback、実行モードに応じた固定差分の承認、専用保存処理のreceiptを必要とします。日次自動処理の承認条件は上記方針に従います。既存のgas再生成処理は25を入力にするため、21候補を置くだけで正式反映済みとは扱いません。
 
 ```bash
 .venv/bin/python -m tools.question_bank.feedback_daily scan
@@ -34,7 +58,7 @@ AI解説は公開設定かつ未削除の `memoType=ai_explanation` の利用者
 .venv/bin/python -m tools.question_bank.feedback_daily list-improvements --limit 20
 ```
 
-`scan` はFirestoreへ書き込みません。AI候補の全件取得を省く受付経路の確認は `scan --reports-only` を使います。`decide` は対象報告・case・判断・理由・根拠参照を記録し、`propose` は承認前の固定proposal hashとprivate参照先だけを記録します。`propose` でも正式patchは更新されません。報告内容に基づく `24_questionIssueCorrections` の作成・変更は、変更前後の具体的なfield差分と根拠を松田が承認した後だけ実行します。Firestore問題の公開には別の明示確認とlive readbackを要します。
+`scan` はFirestoreへ書き込みません。AI候補の全件取得を省く受付経路の確認は `scan --reports-only` を使います。`decide` は対象報告・case・判断・理由・根拠参照を記録し、`propose` は承認前の固定proposal hashとprivate参照先だけを記録します。`propose` でも正式patchは更新されません。報告内容に基づく `24_questionIssueCorrections` の作成・変更とFirestore公開には、日次自動処理では上記の独立監査承認と公開gateを適用し、手動モードでは松田の差分承認と別の公開確認を適用します。いずれもlive readbackを必要とします。
 
 `summary` の `fixesAwaitingProposal` は訂正必要の判断後、まだ承認案を作っていない件数です。`list-reports` には未判断に加え、この状態と承認待ちの報告も残します。
 
