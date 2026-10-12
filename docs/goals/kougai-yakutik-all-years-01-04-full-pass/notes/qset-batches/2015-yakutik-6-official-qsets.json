@@ -1,0 +1,88 @@
+{
+  "batchId": "kougai-2015-yakutik-6-official-qsets",
+  "targetFile": "output/kougai/questions_json/2015/22_questionSetId_linked/question_2015_yakutik_6_questionSetId_linked.json",
+  "sourceReviewFile": "output/kougai/questions_json/2015/00_source/question_2015_yakutik_6.json",
+  "reviewPolicy": "大規模大気特論の各問について、00_sourceの問題文・選択肢・解説を目視確認し、output/kougai/category/category.jsonの公式小項目questionSetIdへ割り当てる。",
+  "assignments": [
+    {
+      "label": "大規模大気特論 問1",
+      "original_question_id": "f2a30da682543cdc",
+      "question_url": "https://yaku-tik.com/kougai/h27-daitai-01/",
+      "fromQuestionSetId": "kougai_qs03_daitai",
+      "toQuestionSetId": "kougai_qs06_01",
+      "reason": "自由対流・強制対流と風の乱れ及び大気安定度を問うため、拡散現象一般に該当する。"
+    },
+    {
+      "label": "大規模大気特論 問2",
+      "original_question_id": "70ddb794f3f3b5d6",
+      "question_url": "https://yaku-tik.com/kougai/h27-daitai-02/",
+      "fromQuestionSetId": "kougai_qs03_daitai",
+      "toQuestionSetId": "kougai_qs06_01",
+      "reason": "パスキルの大気安定度と風速のべき乗則による上空風速計算を問うため、拡散現象一般に該当する。"
+    },
+    {
+      "label": "大規模大気特論 問3",
+      "original_question_id": "9d1b4a87ad17f9d9",
+      "question_url": "https://yaku-tik.com/kougai/h27-daitai-03/",
+      "fromQuestionSetId": "kougai_qs03_daitai",
+      "toQuestionSetId": "kougai_qs06_01",
+      "reason": "混合層の発生機構・温位分布・リッドの特徴を問うため、拡散現象一般に該当する。"
+    },
+    {
+      "label": "大規模大気特論 問4",
+      "original_question_id": "92a72a05dddd1e3d",
+      "question_url": "https://yaku-tik.com/kougai/h27-daitai-04/",
+      "fromQuestionSetId": "kougai_qs03_daitai",
+      "toQuestionSetId": "kougai_qs06_02",
+      "reason": "煙突排ガス上昇式（CONCAWE式・モーゼスとカーソンの式・ブリッグスの式）と拡散式の適用を問うため、拡散濃度の計算法に該当する。"
+    },
+    {
+      "label": "大規模大気特論 問5",
+      "original_question_id": "7751d29a1780fb16",
+      "question_url": "https://yaku-tik.com/kougai/h27-daitai-05/",
+      "fromQuestionSetId": "kougai_qs03_daitai",
+      "toQuestionSetId": "kougai_qs06_02",
+      "reason": "正規形プルーム式におけるパスキルの水平拡散幅・鉛直拡散幅の特性を問うため、拡散濃度の計算法に該当する。"
+    },
+    {
+      "label": "大規模大気特論 問6",
+      "original_question_id": "9b304ea0e1d9eac0",
+      "question_url": "https://yaku-tik.com/kougai/h27-daitai-06/",
+      "fromQuestionSetId": "kougai_qs03_daitai",
+      "toQuestionSetId": "kougai_qs06_04",
+      "reason": "平均化時間の相違による大気汚染濃度の推定法を問うため、大気環境濃度の予測手法に該当する。"
+    },
+    {
+      "label": "大規模大気特論 問7",
+      "original_question_id": "c3a27bd17f0df8d8",
+      "question_url": "https://yaku-tik.com/kougai/h27-daitai-07/",
+      "fromQuestionSetId": "kougai_qs03_daitai",
+      "toQuestionSetId": "kougai_qs06_05",
+      "reason": "製油所・石炭火力・セメント・ごみ焼却・鉄鋼など大規模施設の大気汚染防止対策を問うため、大規模設備の大気汚染防止対策事例に該当する。"
+    },
+    {
+      "label": "大規模大気特論 問8",
+      "original_question_id": "81922400ddd724ce",
+      "question_url": "https://yaku-tik.com/kougai/h27-daitai-08/",
+      "fromQuestionSetId": "kougai_qs03_daitai",
+      "toQuestionSetId": "kougai_qs06_05",
+      "reason": "火力発電所の燃料性状と排ガス排出特性を問うため、大規模設備の大気汚染防止対策事例に該当する。"
+    },
+    {
+      "label": "大規模大気特論 問9",
+      "original_question_id": "62d429eaa8fd59af",
+      "question_url": "https://yaku-tik.com/kougai/h27-daitai-09/",
+      "fromQuestionSetId": "kougai_qs03_daitai",
+      "toQuestionSetId": "kougai_qs06_05",
+      "reason": "低低温形電気集じん装置を用いた高性能排煙処理システムの装置配置順序を問うため、大規模設備の大気汚染防止対策事例に該当する。"
+    },
+    {
+      "label": "大規模大気特論 問10",
+      "original_question_id": "13228fe685ea002a",
+      "question_url": "https://yaku-tik.com/kougai/h27-daitai-10/",
+      "fromQuestionSetId": "kougai_qs03_daitai",
+      "toQuestionSetId": "kougai_qs06_05",
+      "reason": "ごみ焼却設備の炉形式と排ガス中の汚染物質低減対策を問うため、大規模設備の大気汚染防止対策事例に該当する。"
+    }
+  ]
+}

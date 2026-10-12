@@ -1,0 +1,208 @@
+{
+  "batchId": "kougai-2012-yakutik-5-official-qsets",
+  "targetFile": "output/kougai/questions_json/2012/22_questionSetId_linked/question_2012_yakutik_5_questionSetId_linked.json",
+  "sourceReviewFile": "output/kougai/questions_json/2012/00_source/question_2012_yakutik_5.json",
+  "reviewPolicy": "問題文と選択肢・解説の主題を一問ずつ目視確認し、旧 coarse questionSetId を公式 category.json の questionSets[].questionSetId へ割り当てる。",
+  "assignments": [
+    {
+      "label": "ばいじん・粉じん特論 問1",
+      "original_question_id": "9cf6273f8ba6ca7e",
+      "question_url": "https://yaku-tik.com/kougai/h24-baifun-01/",
+      "fromQuestionSetId": "kougai_qs02_baifun",
+      "toQuestionSetId": "kougai_qs04_01",
+      "reason": "直列接続した集じん装置の総合集じん率の計算を問うため、処理計画に該当する。"
+    },
+    {
+      "label": "ばいじん・粉じん特論 問2",
+      "original_question_id": "967e700cbf777746",
+      "question_url": "https://yaku-tik.com/kougai/h24-baifun-02/",
+      "fromQuestionSetId": "kougai_qs02_baifun",
+      "toQuestionSetId": "kougai_qs04_02",
+      "reason": "サイクロン・充填塔・バグフィルターの基本流速の大小関係を問うため、集じん装置の原理・構造・特性に該当する。"
+    },
+    {
+      "label": "ばいじん・粉じん特論 問3",
+      "original_question_id": "93a306ee82a600f8",
+      "question_url": "https://yaku-tik.com/kougai/h24-baifun-03/",
+      "fromQuestionSetId": "kougai_qs02_baifun",
+      "toQuestionSetId": "kougai_qs04_02",
+      "reason": "遠心力集じん装置における球形粒子の遠心沈降速度の式を問うため、集じん装置の原理・構造・特性に該当する。"
+    },
+    {
+      "label": "ばいじん・粉じん特論 問4",
+      "original_question_id": "1e873fbbc5e7d7b8",
+      "question_url": "https://yaku-tik.com/kougai/h24-baifun-04/",
+      "fromQuestionSetId": "kougai_qs02_baifun",
+      "toQuestionSetId": "kougai_qs04_02",
+      "reason": "電気集じん装置におけるコロナ放電・火花電圧・電界荷電および拡散荷電の原理を問うため、集じん装置の原理・構造・特性に該当する。"
+    },
+    {
+      "label": "ばいじん・粉じん特論 問5",
+      "original_question_id": "59bf6ccffae53ea0",
+      "question_url": "https://yaku-tik.com/kougai/h24-baifun-05/",
+      "fromQuestionSetId": "kougai_qs02_baifun",
+      "toQuestionSetId": "kougai_qs04_02",
+      "reason": "電気集じん装置の動作電流密度・見掛け電気抵抗率（逆電離・異常再飛散）・平均ガス流速・部分集じん率の特性を問うため、集じん装置の原理・構造・特性に該当する。"
+    },
+    {
+      "label": "ばいじん・粉じん特論 問6",
+      "original_question_id": "235661b90f2eba2f",
+      "question_url": "https://yaku-tik.com/kougai/h24-baifun-06/",
+      "fromQuestionSetId": "kougai_qs02_baifun",
+      "toQuestionSetId": "kougai_qs04_02",
+      "reason": "洗浄集じん装置における液滴捕集・凝集・慣性捕集・増湿効果の特性を問うため、集じん装置の原理・構造・特性に該当する。"
+    },
+    {
+      "label": "ばいじん・粉じん特論 問7",
+      "original_question_id": "5537fa903596f5f8",
+      "question_url": "https://yaku-tik.com/kougai/h24-baifun-07/",
+      "fromQuestionSetId": "kougai_qs02_baifun",
+      "toQuestionSetId": "kougai_qs04_02",
+      "reason": "バグフィルターの織布・不織布およびダスト層の圧力損失特性を問うため、集じん装置の原理・構造・特性に該当する。"
+    },
+    {
+      "label": "ばいじん・粉じん特論 問8",
+      "original_question_id": "24d24aa1e53ea1a9",
+      "question_url": "https://yaku-tik.com/kougai/h24-baifun-08/",
+      "fromQuestionSetId": "kougai_qs02_baifun",
+      "toQuestionSetId": "kougai_qs04_02",
+      "reason": "バグフィルターろ布材（ナイロン等）の耐酸性・耐アルカリ性を問うため、集じん装置の原理・構造・特性に該当する。"
+    },
+    {
+      "label": "ばいじん・粉じん特論 問9",
+      "original_question_id": "994d706ea2dc7b99",
+      "question_url": "https://yaku-tik.com/kougai/h24-baifun-09/",
+      "fromQuestionSetId": "kougai_qs02_baifun",
+      "toQuestionSetId": "kougai_qs04_03",
+      "reason": "バグフィルターの起動・高温/湿りダスト対策・粉じん爆発対策など運転・維持管理を問うため、集じん装置の維持管理に該当する。"
+    },
+    {
+      "label": "ばいじん・粉じん特論 問10",
+      "original_question_id": "4ddc4b288c184c71",
+      "question_url": "https://yaku-tik.com/kougai/h24-baifun-10/",
+      "fromQuestionSetId": "kougai_qs02_baifun",
+      "toQuestionSetId": "kougai_qs04_04",
+      "reason": "堆積場および屋外施設における散水・舗装・締め固めなど一般粉じん飛散防止対策を問うため、一般粉じん発生施設と対策に該当する。"
+    },
+    {
+      "label": "ばいじん・粉じん特論 問11",
+      "original_question_id": "45d8c0d865a972e5",
+      "question_url": "https://yaku-tik.com/kougai/h24-baifun-11/",
+      "fromQuestionSetId": "kougai_qs02_baifun",
+      "toQuestionSetId": "kougai_qs04_05",
+      "reason": "石綿（クリソタイル・クロシドライト）の組成・結晶形態・耐酸性を問うため、特定粉じん発生施設と対策・測定に該当する。"
+    },
+    {
+      "label": "ばいじん・粉じん特論 問12",
+      "original_question_id": "5ffa1b717fdd3bba",
+      "question_url": "https://yaku-tik.com/kougai/h24-baifun-12/",
+      "fromQuestionSetId": "kougai_qs02_baifun",
+      "toQuestionSetId": "kougai_qs04_05",
+      "reason": "環境庁告示第93号による石綿（特定粉じん）濃度測定に用いる器具・位相差顕微鏡倍率を問うため、特定粉じん発生施設と対策・測定に該当する。"
+    },
+    {
+      "label": "ばいじん・粉じん特論 問13",
+      "original_question_id": "92153b9351a919a5",
+      "question_url": "https://yaku-tik.com/kougai/h24-baifun-13/",
+      "fromQuestionSetId": "kougai_qs02_baifun",
+      "toQuestionSetId": "kougai_qs04_06",
+      "reason": "排ガス中ダスト濃度測定における等速吸引の原理と非等速吸引時の誤差を問うため、ばいじん・粉じんの測定に該当する。"
+    },
+    {
+      "label": "ばいじん・粉じん特論 問14",
+      "original_question_id": "ebe7cce5bc272c82",
+      "question_url": "https://yaku-tik.com/kougai/h24-baifun-14/",
+      "fromQuestionSetId": "kougai_qs02_baifun",
+      "toQuestionSetId": "kougai_qs04_06",
+      "reason": "JISによる排ガス中の水分量測定法と吸湿剤の選定を問うため、ばいじん・粉じんの測定に該当する。"
+    },
+    {
+      "label": "ばいじん・粉じん特論 問15",
+      "original_question_id": "ae3bfcea7a9bfea8",
+      "question_url": "https://yaku-tik.com/kougai/h24-baifun-15/",
+      "fromQuestionSetId": "kougai_qs02_baifun",
+      "toQuestionSetId": "kougai_qs04_06",
+      "reason": "排ガス中のダスト捕集器に用いるろ過材（メンブレン・ガラス繊維・シリカ繊維）の耐熱温度と特性を問うため、ばいじん・粉じんの測定に該当する。"
+    },
+    {
+      "label": "大気有害物質特論 問1",
+      "original_question_id": "d9bceb669a52d96f",
+      "question_url": "https://yaku-tik.com/kougai/h24-taiyuu-01/",
+      "fromQuestionSetId": "kougai_qs10_taiyuu",
+      "toQuestionSetId": "kougai_qs05_01",
+      "reason": "ふっ素・ふっ化水素・ふっ化けい素の発生源となる製造工程を問うため、有害物質の発生過程に該当する。"
+    },
+    {
+      "label": "大気有害物質特論 問2",
+      "original_question_id": "9893648b90d8162a",
+      "question_url": "https://yaku-tik.com/kougai/h24-taiyuu-02/",
+      "fromQuestionSetId": "kougai_qs10_taiyuu",
+      "toQuestionSetId": "kougai_qs05_02",
+      "reason": "ガス吸収における物理吸収・液側/ガス側抵抗・操作線・移動単位数（NTU）を問うため、有害物質処理方式に該当する。"
+    },
+    {
+      "label": "大気有害物質特論 問3",
+      "original_question_id": "40467d7da22aa84f",
+      "question_url": "https://yaku-tik.com/kougai/h24-taiyuu-03/",
+      "fromQuestionSetId": "kougai_qs10_taiyuu",
+      "toQuestionSetId": "kougai_qs05_02",
+      "reason": "充填塔によるガス吸収の構造（向流接触・充填物・ホールドアップ・フラッディング）を問うため、有害物質処理方式に該当する。"
+    },
+    {
+      "label": "大気有害物質特論 問4",
+      "original_question_id": "9d0d893c19ef424e",
+      "question_url": "https://yaku-tik.com/kougai/h24-taiyuu-04/",
+      "fromQuestionSetId": "kougai_qs10_taiyuu",
+      "toQuestionSetId": "kougai_qs05_02",
+      "reason": "ガス吸着における単分子層吸着等温線を表すラングミュアーの式を問うため、有害物質処理方式に該当する。"
+    },
+    {
+      "label": "大気有害物質特論 問5",
+      "original_question_id": "ca2112e91bcbb32e",
+      "question_url": "https://yaku-tik.com/kougai/h24-taiyuu-05/",
+      "fromQuestionSetId": "kougai_qs10_taiyuu",
+      "toQuestionSetId": "kougai_qs05_02",
+      "reason": "ガス吸着に用いる活性炭の製法・比表面積・添着炭・非極性物質吸着特性を問うため、有害物質処理方式に該当する。"
+    },
+    {
+      "label": "大気有害物質特論 問6",
+      "original_question_id": "151e7a44a385c125",
+      "question_url": "https://yaku-tik.com/kougai/h24-taiyuu-06/",
+      "fromQuestionSetId": "kougai_qs10_taiyuu",
+      "toQuestionSetId": "kougai_qs05_03",
+      "reason": "水に溶けたときの液性（酸性・塩基性）など特定物質の性状を問うため、特定物質の事故時の措置に該当する。"
+    },
+    {
+      "label": "大気有害物質特論 問7",
+      "original_question_id": "dad5c50f95316700",
+      "question_url": "https://yaku-tik.com/kougai/h24-taiyuu-07/",
+      "fromQuestionSetId": "kougai_qs10_taiyuu",
+      "toQuestionSetId": "kougai_qs05_03",
+      "reason": "事故時に注水が不適当な特定物質（クロロ硫酸・塩素）の応急措置を問うため、特定物質の事故時の措置に該当する。"
+    },
+    {
+      "label": "大気有害物質特論 問8",
+      "original_question_id": "1c555178dc5a10ff",
+      "question_url": "https://yaku-tik.com/kougai/h24-taiyuu-08/",
+      "fromQuestionSetId": "kougai_qs10_taiyuu",
+      "toQuestionSetId": "kougai_qs05_04",
+      "reason": "JISのイオン電極法による排ガス中ふっ素化合物の分析方法を問うため、有害物質の測定に該当する。"
+    },
+    {
+      "label": "大気有害物質特論 問9",
+      "original_question_id": "fd742e626183c0fa",
+      "question_url": "https://yaku-tik.com/kougai/h24-taiyuu-09/",
+      "fromQuestionSetId": "kougai_qs10_taiyuu",
+      "toQuestionSetId": "kougai_qs05_04",
+      "reason": "JISのフレーム原子吸光法による排ガス中鉛の分析方法を問うため、有害物質の測定に該当する。"
+    },
+    {
+      "label": "大気有害物質特論 問10",
+      "original_question_id": "5f901ebf99773f44",
+      "question_url": "https://yaku-tik.com/kougai/h24-taiyuu-10/",
+      "fromQuestionSetId": "kougai_qs10_taiyuu",
+      "toQuestionSetId": "kougai_qs05_04",
+      "reason": "JISのICP質量分析法による排ガス中カドミウムの分析方法を問うため、有害物質の測定に該当する。"
+    }
+  ]
+}

@@ -1,0 +1,208 @@
+{
+  "batchId": "kougai-2018-yakutik-3-official-qsets",
+  "targetFile": "output/kougai/questions_json/2018/22_questionSetId_linked/question_2018_yakutik_3_questionSetId_linked.json",
+  "sourceReviewFile": "output/kougai/questions_json/2018/20_merged_1/question_2018_yakutik_3_merged.json",
+  "reviewPolicy": "問題文と選択肢の主題を確認し、水質有害物質特論・大規模水質特論の旧 coarse questionSetId を公式 category.json の questionSets[].questionSetId へ一問ずつ割り当てる。",
+  "assignments": [
+    {
+      "label": "水質有害物質特論 問1",
+      "original_question_id": "64cb55c3c74b4c99",
+      "question_url": "https://yaku-tik.com/kougai/h30-suiyuu-01/",
+      "fromQuestionSetId": "kougai_qs07_suiyuu",
+      "toQuestionSetId": "kougai_qs09_01",
+      "reason": "硫化物法による重金属排水の処理を問うため、有害物質の性質と処理に該当する。"
+    },
+    {
+      "label": "水質有害物質特論 問2",
+      "original_question_id": "221e8f2991fe7689",
+      "question_url": "https://yaku-tik.com/kougai/h30-suiyuu-02/",
+      "fromQuestionSetId": "kougai_qs07_suiyuu",
+      "toQuestionSetId": "kougai_qs09_01",
+      "reason": "カドミウム及び鉛排水の錯体形成と水酸化物法等の処理を問うため、有害物質の性質と処理に該当する。"
+    },
+    {
+      "label": "水質有害物質特論 問3",
+      "original_question_id": "cadf1bd665446757",
+      "question_url": "https://yaku-tik.com/kougai/h30-suiyuu-03/",
+      "fromQuestionSetId": "kougai_qs07_suiyuu",
+      "toQuestionSetId": "kougai_qs09_01",
+      "reason": "亜硫酸塩還元法によるクロム(Ⅵ)排水処理とORP変化を問うため、有害物質の性質と処理に該当する。"
+    },
+    {
+      "label": "水質有害物質特論 問4",
+      "original_question_id": "d0813eeee5c2db7c",
+      "question_url": "https://yaku-tik.com/kougai/h30-suiyuu-04/",
+      "fromQuestionSetId": "kougai_qs07_suiyuu",
+      "toQuestionSetId": "kougai_qs09_01",
+      "reason": "活性炭吸着法やキレート樹脂吸着法による水銀排水の処理を問うため、有害物質の性質と処理に該当する。"
+    },
+    {
+      "label": "水質有害物質特論 問5",
+      "original_question_id": "2c0ad094ac89b97a",
+      "question_url": "https://yaku-tik.com/kougai/h30-suiyuu-05/",
+      "fromQuestionSetId": "kougai_qs07_suiyuu",
+      "toQuestionSetId": "kougai_qs09_01",
+      "reason": "凝集沈殿法とイオン交換樹脂吸着法を組合せたほう素排水処理フローを問うため、有害物質の性質と処理に該当する。"
+    },
+    {
+      "label": "水質有害物質特論 問6",
+      "original_question_id": "939573c13b8bb229",
+      "question_url": "https://yaku-tik.com/kougai/h30-suiyuu-06/",
+      "fromQuestionSetId": "kougai_qs07_suiyuu",
+      "toQuestionSetId": "kougai_qs09_01",
+      "reason": "紺青法によるシアン排水処理を問うため、有害物質の性質と処理に該当する。"
+    },
+    {
+      "label": "水質有害物質特論 問7",
+      "original_question_id": "592e1b2b6c536e49",
+      "question_url": "https://yaku-tik.com/kougai/h30-suiyuu-07/",
+      "fromQuestionSetId": "kougai_qs07_suiyuu",
+      "toQuestionSetId": "kougai_qs09_01",
+      "reason": "オゾン酸化法によるシアン排水の処理を問うため、有害物質の性質と処理に該当する。"
+    },
+    {
+      "label": "水質有害物質特論 問8",
+      "original_question_id": "458f05efeef28bc2",
+      "question_url": "https://yaku-tik.com/kougai/h30-suiyuu-08/",
+      "fromQuestionSetId": "kougai_qs07_suiyuu",
+      "toQuestionSetId": "kougai_qs09_01",
+      "reason": "有機りん（農薬）排水の性質と処理方法を問うため、有害物質の性質と処理に該当する。"
+    },
+    {
+      "label": "水質有害物質特論 問9",
+      "original_question_id": "e0af7e2612fc68e3",
+      "question_url": "https://yaku-tik.com/kougai/h30-suiyuu-09/",
+      "fromQuestionSetId": "kougai_qs07_suiyuu",
+      "toQuestionSetId": "kougai_qs09_01",
+      "reason": "排水又は地下水からトリクロロエチレンを除去する処理方法を問うため、有害物質の性質と処理に該当する。"
+    },
+    {
+      "label": "水質有害物質特論 問10",
+      "original_question_id": "e8a8ba2b2c87d0f7",
+      "question_url": "https://yaku-tik.com/kougai/h30-suiyuu-10/",
+      "fromQuestionSetId": "kougai_qs07_suiyuu",
+      "toQuestionSetId": "kougai_qs09_02",
+      "reason": "ふっ素排水の処理装置における反応pH管理・スケール対策・pH計点検を問うため、有害物質含有排水処理施設の維持管理に該当する。"
+    },
+    {
+      "label": "水質有害物質特論 問11",
+      "original_question_id": "1f83cd4a706c686f",
+      "question_url": "https://yaku-tik.com/kougai/h30-suiyuu-11/",
+      "fromQuestionSetId": "kougai_qs07_suiyuu",
+      "toQuestionSetId": "kougai_qs09_03",
+      "reason": "有害物質（1,4-ジオキサン・ベンゼン・PCB等）の検定に用いる前処理法と分析法を問うため、有害物質の測定に該当する。"
+    },
+    {
+      "label": "水質有害物質特論 問12",
+      "original_question_id": "e9520016dcc7b0e6",
+      "question_url": "https://yaku-tik.com/kougai/h30-suiyuu-12/",
+      "fromQuestionSetId": "kougai_qs07_suiyuu",
+      "toQuestionSetId": "kougai_qs09_03",
+      "reason": "イオンクロマトグラフ法によるふっ素等の検定原理を問うため、有害物質の測定に該当する。"
+    },
+    {
+      "label": "水質有害物質特論 問13",
+      "original_question_id": "ac41a5d483ae591d",
+      "question_url": "https://yaku-tik.com/kougai/h30-suiyuu-13/",
+      "fromQuestionSetId": "kougai_qs07_suiyuu",
+      "toQuestionSetId": "kougai_qs09_03",
+      "reason": "クロム(Ⅵ)化合物の検定法を問うため、有害物質の測定に該当する。"
+    },
+    {
+      "label": "水質有害物質特論 問14",
+      "original_question_id": "fd24411e48aa9b3b",
+      "question_url": "https://yaku-tik.com/kougai/h30-suiyuu-14/",
+      "fromQuestionSetId": "kougai_qs07_suiyuu",
+      "toQuestionSetId": "kougai_qs09_03",
+      "reason": "総水銀の検定法（還元気化原子吸光法等）を問うため、有害物質の測定に該当する。"
+    },
+    {
+      "label": "水質有害物質特論 問15",
+      "original_question_id": "f0e6264e4318a14a",
+      "question_url": "https://yaku-tik.com/kougai/h30-suiyuu-15/",
+      "fromQuestionSetId": "kougai_qs07_suiyuu",
+      "toQuestionSetId": "kougai_qs09_03",
+      "reason": "排水中のアンモニア・亜硝酸・硝酸化合物の定量法と試料保存を問うため、有害物質の測定に該当する。"
+    },
+    {
+      "label": "大規模水質特論 問1",
+      "original_question_id": "11db8dd21addd382",
+      "question_url": "https://yaku-tik.com/kougai/h30-daisui-01/",
+      "fromQuestionSetId": "kougai_qs04_daisui",
+      "toQuestionSetId": "kougai_qs10_01",
+      "reason": "閉鎖性水域におけるCODの内部生産と挙動を問うため、水質汚濁物質の挙動に該当する。"
+    },
+    {
+      "label": "大規模水質特論 問2",
+      "original_question_id": "a7077c4c85f1717a",
+      "question_url": "https://yaku-tik.com/kougai/h30-daisui-02/",
+      "fromQuestionSetId": "kougai_qs04_daisui",
+      "toQuestionSetId": "kougai_qs10_01",
+      "reason": "閉鎖性水域の貧酸素水塊形成と生態系モデルを問うため、水質汚濁物質の挙動に該当する。"
+    },
+    {
+      "label": "大規模水質特論 問3",
+      "original_question_id": "401b780efc1364df",
+      "question_url": "https://yaku-tik.com/kougai/h30-daisui-03/",
+      "fromQuestionSetId": "kougai_qs04_daisui",
+      "toQuestionSetId": "kougai_qs10_01",
+      "reason": "生態系モデルにおける植物プランクトンの増殖速度計算を問うため、水質汚濁物質の挙動に該当する。"
+    },
+    {
+      "label": "大規模水質特論 問4",
+      "original_question_id": "258e6af19cded8d2",
+      "question_url": "https://yaku-tik.com/kougai/h30-daisui-04/",
+      "fromQuestionSetId": "kougai_qs04_daisui",
+      "toQuestionSetId": "kougai_qs10_01",
+      "reason": "飽和酸素量を求めるWeissの式を問うため、水質汚濁物質の挙動に該当する。"
+    },
+    {
+      "label": "大規模水質特論 問5",
+      "original_question_id": "04b8df670972602e",
+      "question_url": "https://yaku-tik.com/kougai/h30-daisui-05/",
+      "fromQuestionSetId": "kougai_qs04_daisui",
+      "toQuestionSetId": "kougai_qs10_02",
+      "reason": "ビール製造業における水合理化計画後の用排水系統図の水量計算を問うため、処理水の再利用に該当する。"
+    },
+    {
+      "label": "大規模水質特論 問6",
+      "original_question_id": "dda039ea705dfa6a",
+      "question_url": "https://yaku-tik.com/kougai/h30-daisui-06/",
+      "fromQuestionSetId": "kougai_qs04_daisui",
+      "toQuestionSetId": "kougai_qs10_02",
+      "reason": "開放循環式冷却水系の濃縮倍率計算を問うため、処理水の再利用に該当する。"
+    },
+    {
+      "label": "大規模水質特論 問7",
+      "original_question_id": "49d0762cf7808bc6",
+      "question_url": "https://yaku-tik.com/kougai/h30-daisui-07/",
+      "fromQuestionSetId": "kougai_qs04_daisui",
+      "toQuestionSetId": "kougai_qs10_03",
+      "reason": "製鉄所における表面処理工程及びその排水処理を問うため、大規模設備の水質汚濁防止対策事例に該当する。"
+    },
+    {
+      "label": "大規模水質特論 問8",
+      "original_question_id": "edb6561be97d712e",
+      "question_url": "https://yaku-tik.com/kougai/h30-daisui-08/",
+      "fromQuestionSetId": "kougai_qs04_daisui",
+      "toQuestionSetId": "kougai_qs10_03",
+      "reason": "製油所の排水系統と排水処理を問うため、大規模設備の水質汚濁防止対策事例に該当する。"
+    },
+    {
+      "label": "大規模水質特論 問9",
+      "original_question_id": "e52fc3ba1d5e16cf",
+      "question_url": "https://yaku-tik.com/kougai/h30-daisui-09/",
+      "fromQuestionSetId": "kougai_qs04_daisui",
+      "toQuestionSetId": "kougai_qs10_03",
+      "reason": "紙・パルプ業における汚濁負荷削減技術を問うため、大規模設備の水質汚濁防止対策事例に該当する。"
+    },
+    {
+      "label": "大規模水質特論 問10",
+      "original_question_id": "f952f88d2b028113",
+      "question_url": "https://yaku-tik.com/kougai/h30-daisui-10/",
+      "fromQuestionSetId": "kougai_qs04_daisui",
+      "toQuestionSetId": "kougai_qs10_03",
+      "reason": "食料品製造業からの排水処理を問うため、大規模設備の水質汚濁防止対策事例に該当する。"
+    }
+  ]
+}

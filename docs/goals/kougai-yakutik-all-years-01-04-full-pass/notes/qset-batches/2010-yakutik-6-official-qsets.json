@@ -1,0 +1,88 @@
+{
+  "batchId": "kougai-2010-yakutik-6-official-qsets",
+  "targetFile": "output/kougai/questions_json/2010/22_questionSetId_linked/question_2010_yakutik_6_questionSetId_linked.json",
+  "sourceReviewFile": "output/kougai/questions_json/2010/00_source/question_2010_yakutik_6.json",
+  "reviewPolicy": "問題文と選択肢の主題を確認し、旧 coarse questionSetId を公式 category.json の questionSets[].questionSetId へ一問ずつ割り当てる。",
+  "assignments": [
+    {
+      "label": "大規模大気特論 問1",
+      "original_question_id": "3843004a5e18ed26",
+      "question_url": "https://yaku-tik.com/kougai/h22-daitai-01/",
+      "fromQuestionSetId": "kougai_qs03_daitai",
+      "toQuestionSetId": "kougai_qs06_01",
+      "reason": "煙上昇・ダウンウォッシュ・ダウンドラフトを問うため、拡散現象及び拡散計算に該当する。"
+    },
+    {
+      "label": "大規模大気特論 問2",
+      "original_question_id": "1990412437408e6b",
+      "question_url": "https://yaku-tik.com/kougai/h22-daitai-02/",
+      "fromQuestionSetId": "kougai_qs03_daitai",
+      "toQuestionSetId": "kougai_qs06_01",
+      "reason": "煙の最大着地濃度距離と最大着地濃度を問うため、拡散現象及び拡散計算に該当する。"
+    },
+    {
+      "label": "大規模大気特論 問3",
+      "original_question_id": "e5b5d9488047fb45",
+      "question_url": "https://yaku-tik.com/kougai/h22-daitai-03/",
+      "fromQuestionSetId": "kougai_qs03_daitai",
+      "toQuestionSetId": "kougai_qs06_01",
+      "reason": "鉛直方向の気温分布・乾燥断熱減率・大気安定度を問うため、拡散現象及び拡散計算に該当する。"
+    },
+    {
+      "label": "大規模大気特論 問4",
+      "original_question_id": "66cd64f9aeee841c",
+      "question_url": "https://yaku-tik.com/kougai/h22-daitai-04/",
+      "fromQuestionSetId": "kougai_qs03_daitai",
+      "toQuestionSetId": "kougai_qs06_01",
+      "reason": "煙の拡散幅とパスキル安定度階級・ヒュミゲーションを問うため、拡散現象及び拡散計算に該当する。"
+    },
+    {
+      "label": "大規模大気特論 問5",
+      "original_question_id": "c77dc49516ff2ae9",
+      "question_url": "https://yaku-tik.com/kougai/h22-daitai-05/",
+      "fromQuestionSetId": "kougai_qs03_daitai",
+      "toQuestionSetId": "kougai_qs06_01",
+      "reason": "プルーム式を用いた煙流中心軸直下の地上濃度計算を問うため、拡散現象及び拡散計算に該当する。"
+    },
+    {
+      "label": "大規模大気特論 問6",
+      "original_question_id": "b5ef86d5eee1d8fe",
+      "question_url": "https://yaku-tik.com/kougai/h22-daitai-06/",
+      "fromQuestionSetId": "kougai_qs03_daitai",
+      "toQuestionSetId": "kougai_qs06_02",
+      "reason": "大気環境濃度予測モデルの特徴を問うため、大気汚染予測に該当する。"
+    },
+    {
+      "label": "大規模大気特論 問7",
+      "original_question_id": "6db9168afd510595",
+      "question_url": "https://yaku-tik.com/kougai/h22-daitai-07/",
+      "fromQuestionSetId": "kougai_qs03_daitai",
+      "toQuestionSetId": "kougai_qs06_03",
+      "reason": "鉄鋼・火力発電・セメント・製油所など大規模設備の大気汚染防止対策を問うため、大規模設備の大気汚染防止対策・実例に該当する。"
+    },
+    {
+      "label": "大規模大気特論 問8",
+      "original_question_id": "feb6b71128e2e138",
+      "question_url": "https://yaku-tik.com/kougai/h22-daitai-08/",
+      "fromQuestionSetId": "kougai_qs03_daitai",
+      "toQuestionSetId": "kougai_qs06_03",
+      "reason": "揮発油等の品質の確保等に関する法律におけるガソリン中の鉛とベンゼンの規格値を問うため、大規模設備の大気汚染防止対策・実例に該当する。"
+    },
+    {
+      "label": "大規模大気特論 問9",
+      "original_question_id": "df7178545c087872",
+      "question_url": "https://yaku-tik.com/kougai/h22-daitai-09/",
+      "fromQuestionSetId": "kougai_qs03_daitai",
+      "toQuestionSetId": "kougai_qs06_03",
+      "reason": "石炭火力発電設備用電気集じん装置の運転温度と特性を問うため、大規模設備の大気汚染防止対策・実例に該当する。"
+    },
+    {
+      "label": "大規模大気特論 問10",
+      "original_question_id": "2da781d14e3b8b4f",
+      "question_url": "https://yaku-tik.com/kougai/h22-daitai-10/",
+      "fromQuestionSetId": "kougai_qs03_daitai",
+      "toQuestionSetId": "kougai_qs06_03",
+      "reason": "一般廃棄物焼却施設の炉形式と排ガス処理方式を問うため、大規模設備の大気汚染防止対策・実例に該当する。"
+    }
+  ]
+}

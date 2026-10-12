@@ -1,0 +1,208 @@
+{
+  "batchId": "kougai-2020-yakutik-2-official-qsets",
+  "targetFile": "output/kougai/questions_json/2020/22_questionSetId_linked/question_2020_yakutik_2_questionSetId_linked.json",
+  "sourceReviewFile": "output/kougai/questions_json/2020/00_source/question_2020_yakutik_2.json",
+  "reviewPolicy": "問題文と選択肢の主題を確認し、汚水処理特論の旧 coarse questionSetId を公式 category.json の questionSets[].questionSetId へ一問ずつ割り当てる。",
+  "assignments": [
+    {
+      "label": "",
+      "original_question_id": "1b964aa8d761b832",
+      "question_url": "https://yaku-tik.com/kougai/r2-osui-01/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_01",
+      "reason": "工場排水等の処理計画・分別処理の原則を問うため、汚水等処理計画に該当する。"
+    },
+    {
+      "label": "",
+      "original_question_id": "640540a57418df72",
+      "question_url": "https://yaku-tik.com/kougai/r2-osui-02/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_01",
+      "reason": "3段向流多段洗浄における不純物減少率の計算を問うため、汚水等処理計画に該当する。"
+    },
+    {
+      "label": "",
+      "original_question_id": "41f3248b91377755",
+      "question_url": "https://yaku-tik.com/kougai/r2-osui-03/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_02",
+      "reason": "ストークスの式による懸濁粒子の沈降速度計算を問うため、物理・化学的処理法に該当する。"
+    },
+    {
+      "label": "",
+      "original_question_id": "b36ba3cc9642d89f",
+      "question_url": "https://yaku-tik.com/kougai/r2-osui-04/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_02",
+      "reason": "横流式沈殿池の表面積負荷と沈降速度分布曲線による分離効率を問うため、物理・化学的処理法に該当する。"
+    },
+    {
+      "label": "",
+      "original_question_id": "c0fbc28e318a98e6",
+      "question_url": "https://yaku-tik.com/kougai/r2-osui-05/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_02",
+      "reason": "凝集分離の原理・無機凝集剤・ジャーテストを問うため、物理・化学的処理法に該当する。"
+    },
+    {
+      "label": "",
+      "original_question_id": "0f99e7615cbafae3",
+      "question_url": "https://yaku-tik.com/kougai/r2-osui-06/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_02",
+      "reason": "加圧浮上分離法の特徴と適用例を問うため、物理・化学的処理法に該当する。"
+    },
+    {
+      "label": "",
+      "original_question_id": "ae7a009c9d275268",
+      "question_url": "https://yaku-tik.com/kougai/r2-osui-07/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_02",
+      "reason": "塩素による酸化処理と不連続点塩素処理を問うため、物理・化学的処理法に該当する。"
+    },
+    {
+      "label": "",
+      "original_question_id": "abde3e90a39e6f75",
+      "question_url": "https://yaku-tik.com/kougai/r2-osui-08/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_02",
+      "reason": "イオン交換反応・交換容量・破過点を問うため、物理・化学的処理法に該当する。"
+    },
+    {
+      "label": "",
+      "original_question_id": "0d8bf182beba8a8a",
+      "question_url": "https://yaku-tik.com/kougai/r2-osui-09/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_02",
+      "reason": "電気透析法による溶解塩類除去の原理と特徴を問うため、物理・化学的処理法に該当する。"
+    },
+    {
+      "label": "",
+      "original_question_id": "da9abbe52f12261b",
+      "question_url": "https://yaku-tik.com/kougai/r2-osui-10/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_02",
+      "reason": "流動焼却炉や階段式ストーカー炉による汚泥の焼却を問うため、物理・化学的処理法に該当する。"
+    },
+    {
+      "label": "",
+      "original_question_id": "f5c220d1deb0953b",
+      "question_url": "https://yaku-tik.com/kougai/r2-osui-11/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_03",
+      "reason": "活性汚泥法の曝気槽におけるBOD容積負荷の計算を問うため、生物的処理法に該当する。"
+    },
+    {
+      "label": "",
+      "original_question_id": "c87d4c224e8d4ed8",
+      "question_url": "https://yaku-tik.com/kougai/r2-osui-12/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_03",
+      "reason": "活性汚泥法の汚泥容量指標SVIの計算を問うため、生物的処理法に該当する。"
+    },
+    {
+      "label": "",
+      "original_question_id": "4789029ea9a43425",
+      "question_url": "https://yaku-tik.com/kougai/r2-osui-13/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_03",
+      "reason": "活性汚泥法における汚泥滞留時間SRTの計算を問うため、生物的処理法に該当する。"
+    },
+    {
+      "label": "",
+      "original_question_id": "ae8f02e021025780",
+      "question_url": "https://yaku-tik.com/kougai/r2-osui-14/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_03",
+      "reason": "活性汚泥法の汚泥生成量式を用いたSRTの計算を問うため、生物的処理法に該当する。"
+    },
+    {
+      "label": "",
+      "original_question_id": "253324cae9cc3725",
+      "question_url": "https://yaku-tik.com/kougai/r2-osui-15/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_03",
+      "reason": "活性汚泥法とメタン発酵法・UASB法の運転指標比較を問うため、生物的処理法に該当する。"
+    },
+    {
+      "label": "",
+      "original_question_id": "f3a8c72e00074af2",
+      "question_url": "https://yaku-tik.com/kougai/r2-osui-16/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_03",
+      "reason": "アナモックスプロセスの特徴と反応を問うため、生物的処理法に該当する。"
+    },
+    {
+      "label": "",
+      "original_question_id": "a37cee0fd3bd05f2",
+      "question_url": "https://yaku-tik.com/kougai/r2-osui-17/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_03",
+      "reason": "HAP法・MAP法および生物的脱りん法によるりんの除去を問うため、生物的処理法に該当する。"
+    },
+    {
+      "label": "",
+      "original_question_id": "5522c81040479319",
+      "question_url": "https://yaku-tik.com/kougai/r2-osui-18/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_04",
+      "reason": "酸化還元装置およびORP計の維持管理を問うため、汚水等処理装置の維持管理に該当する。"
+    },
+    {
+      "label": "",
+      "original_question_id": "1098128a9c9147b3",
+      "question_url": "https://yaku-tik.com/kougai/r2-osui-19/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_04",
+      "reason": "活性汚泥処理装置の運転条件・維持管理を問うため、汚水等処理装置の維持管理に該当する。"
+    },
+    {
+      "label": "",
+      "original_question_id": "13de4b5fd642635e",
+      "question_url": "https://yaku-tik.com/kougai/r2-osui-20/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_05",
+      "reason": "隔膜式電極法および光学式センサ法による溶存酸素の測定を問うため、測定に該当する。"
+    },
+    {
+      "label": "",
+      "original_question_id": "d43f90e17ef50c15",
+      "question_url": "https://yaku-tik.com/kougai/r2-osui-21/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_05",
+      "reason": "ノルマルヘキサン抽出物質の検定方法を問うため、測定に該当する。"
+    },
+    {
+      "label": "",
+      "original_question_id": "7408adf51401bb44",
+      "question_url": "https://yaku-tik.com/kougai/r2-osui-22/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_05",
+      "reason": "4-アミノアンチピリン吸光光度法によるフェノール類の検定を問うため、測定に該当する。"
+    },
+    {
+      "label": "",
+      "original_question_id": "ab90decd92a58097",
+      "question_url": "https://yaku-tik.com/kougai/r2-osui-23/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_05",
+      "reason": "紫外線吸光光度法による全窒素の検定方法を問うため、測定に該当する。"
+    },
+    {
+      "label": "",
+      "original_question_id": "c4d62c419d632eee",
+      "question_url": "https://yaku-tik.com/kougai/r2-osui-24/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_05",
+      "reason": "燃焼酸化－赤外線式TOC計を用いた測定を問うため、測定に該当する。"
+    },
+    {
+      "label": "",
+      "original_question_id": "4b38fe888abb0a94",
+      "question_url": "https://yaku-tik.com/kougai/r2-osui-25/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_05",
+      "reason": "ペルオキソ二硫酸カリウム分解法による全りんの検定を問うため、測定に該当する。"
+    }
+  ]
+}

@@ -1,0 +1,208 @@
+{
+  "batchId": "kougai-2012-yakutik-2-official-qsets",
+  "targetFile": "output/kougai/questions_json/2012/22_questionSetId_linked/question_2012_yakutik_2_questionSetId_linked.json",
+  "sourceReviewFile": "output/kougai/questions_json/2012/00_source/question_2012_yakutik_2.json",
+  "reviewPolicy": "問題文と選択肢・解説の主題を一問ずつ目視確認し、旧 coarse questionSetId を公式 category.json の questionSets[].questionSetId へ割り当てる。",
+  "assignments": [
+    {
+      "label": "汚水処理特論 問1",
+      "original_question_id": "3e6120494392c3b0",
+      "question_url": "https://yaku-tik.com/kougai/h24-osui-01/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_01",
+      "reason": "向流多段洗浄・生産工程変更・歩留り向上・濃厚排水の分別処理など工場の汚水処理計画を問うため、汚水等処理計画に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問2",
+      "original_question_id": "e4197b9fe0294ae8",
+      "question_url": "https://yaku-tik.com/kougai/h24-osui-02/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_02",
+      "reason": "粒子の沈降速度に関するストークスの式の各因子との関係を問うため、物理・化学的処理法に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問3",
+      "original_question_id": "bdfc2e6ddcc21f9c",
+      "question_url": "https://yaku-tik.com/kougai/h24-osui-03/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_02",
+      "reason": "普通沈殿・上昇流式沈殿池・横流式沈殿池・回分沈降曲線・連続シックナーの沈降分離特性を問うため、物理・化学的処理法に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問4",
+      "original_question_id": "c84ab8c8b3c7f2be",
+      "question_url": "https://yaku-tik.com/kougai/h24-osui-04/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_02",
+      "reason": "無機凝集剤（硫酸アルミニウム・塩化鉄(III)）および有機高分子凝集剤の凝集機構を問うため、物理・化学的処理法に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問5",
+      "original_question_id": "68b0f0aef4d2c871",
+      "question_url": "https://yaku-tik.com/kougai/h24-osui-05/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_02",
+      "reason": "接触凝集沈殿装置の性能を表す凝集速度式を問うため、物理・化学的処理法に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問6",
+      "original_question_id": "f7bde418f4cab32f",
+      "question_url": "https://yaku-tik.com/kougai/h24-osui-06/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_02",
+      "reason": "各種金属イオンの溶解度とpHの関係および水酸化物沈殿除去条件を問うため、物理・化学的処理法に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問7",
+      "original_question_id": "42200c61857355c7",
+      "question_url": "https://yaku-tik.com/kougai/h24-osui-07/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_02",
+      "reason": "水溶液中における酸化還元反応・標準酸化還元電位・塩素やオゾンの酸化力を問うため、物理・化学的処理法に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問8",
+      "original_question_id": "087aa4492d2ec7bc",
+      "question_url": "https://yaku-tik.com/kougai/h24-osui-08/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_02",
+      "reason": "アンモニア含有水への塩素注入における不連続点塩素処理（クロロアミン生成と塩素要求量）を問うため、物理・化学的処理法に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問9",
+      "original_question_id": "e9e7515d88b22802",
+      "question_url": "https://yaku-tik.com/kougai/h24-osui-09/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_02",
+      "reason": "イオン交換樹脂の強酸性活性基（スルホン酸基）と弱塩基性活性基（第三級・第二級アミン）の組合せを問うため、物理・化学的処理法に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問10",
+      "original_question_id": "c14641cb90625454",
+      "question_url": "https://yaku-tik.com/kougai/h24-osui-10/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_02",
+      "reason": "強酸性陽イオン交換樹脂における1価（Na+）と2価（Mg2+）イオンのイオン交換容量と通水可能水量の計算を問うため、物理・化学的処理法に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問11",
+      "original_question_id": "03e1b8377e762048",
+      "question_url": "https://yaku-tik.com/kougai/h24-osui-11/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_02",
+      "reason": "汚泥焼却における自燃水分率・燃焼温度管理（ダイオキシン類抑制）および流動焼却炉の構造を問うため、物理・化学的処理法に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問12",
+      "original_question_id": "bcfe70bbbf700bd5",
+      "question_url": "https://yaku-tik.com/kougai/h24-osui-12/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_03",
+      "reason": "標準活性汚泥法におけるBOD容積負荷・汚泥負荷・HRT（水理学的滞留時間）・SRT等の定義式を問うため、生物的処理法に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問13",
+      "original_question_id": "bf057142ac17670f",
+      "question_url": "https://yaku-tik.com/kougai/h24-osui-13/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_03",
+      "reason": "活性汚泥法の処理プロセスにおける物質収支から返送汚泥MLSS濃度を求める計算を問うため、生物的処理法に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問14",
+      "original_question_id": "34a328a517ea141f",
+      "question_url": "https://yaku-tik.com/kougai/h24-osui-14/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_03",
+      "reason": "活性汚泥処理施設における除去BOD量と曝気槽内汚泥量から1日当たりの余剰汚泥生成量を求める計算を問うため、生物的処理法に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問15",
+      "original_question_id": "97f0d7005380598e",
+      "question_url": "https://yaku-tik.com/kougai/h24-osui-15/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_03",
+      "reason": "膜分離活性汚泥法（MF/UF膜・高MLSS運転・最終沈殿池不要）の特徴を問うため、生物的処理法に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問16",
+      "original_question_id": "7bafc5daf97c8bac",
+      "question_url": "https://yaku-tik.com/kougai/h24-osui-16/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_03",
+      "reason": "嫌気性処理において酢酸から生成するメタン量の化学量論計算を問うため、生物的処理法に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問17",
+      "original_question_id": "40e8322d180e4331",
+      "question_url": "https://yaku-tik.com/kougai/h24-osui-17/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_03",
+      "reason": "循環式硝化脱窒素法のフローにおける水素供与体添加位置と循環硝化液引き抜き位置を問うため、生物的処理法に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問18",
+      "original_question_id": "88d04491309fbf0b",
+      "question_url": "https://yaku-tik.com/kougai/h24-osui-18/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_04",
+      "reason": "pH計・加圧浮上装置・清澄ろ過装置・活性炭吸着装置・膜ろ過装置など物理化学処理装置の維持管理を問うため、汚水等処理装置の維持管理に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問19",
+      "original_question_id": "2bd716a515eb7a16",
+      "question_url": "https://yaku-tik.com/kougai/h24-osui-19/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_04",
+      "reason": "凝集沈殿装置の維持管理（凝集剤の特徴・ジャーテスト・スカム除去・傾斜板洗浄・汚泥引き抜き）を問うため、汚水等処理装置の維持管理に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問20",
+      "original_question_id": "8b23f73fc84f4d43",
+      "question_url": "https://yaku-tik.com/kougai/h24-osui-20/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_05",
+      "reason": "水質試料の採取および保存方法（BOD/COD・金属類・ノルマルヘキサン抽出物質・ハイロート採水器・大腸菌群）を問うため、測定に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問21",
+      "original_question_id": "cf01e3637adc1f27",
+      "question_url": "https://yaku-tik.com/kougai/h24-osui-21/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_05",
+      "reason": "ICP発光分光分析法の原理・プラズマガス・対象元素の特徴を問うため、測定に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問22",
+      "original_question_id": "d768d55258f3170b",
+      "question_url": "https://yaku-tik.com/kougai/h24-osui-22/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_05",
+      "reason": "浮遊物質（SS）・フェノール類・ノルマルヘキサン抽出物質・BOD・大腸菌群の検定項目定義を問うため、測定に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問23",
+      "original_question_id": "a96472efffabb75b",
+      "question_url": "https://yaku-tik.com/kougai/h24-osui-23/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_05",
+      "reason": "段階希釈した試料の溶存酸素減少率（40〜70%）から排水のBODを算出する計算を問うため、測定に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問24",
+      "original_question_id": "a2cfc2733612a627",
+      "question_url": "https://yaku-tik.com/kougai/h24-osui-24/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_05",
+      "reason": "銅・亜鉛・溶解性鉄・溶解性マンガン・クロムのJIS検定方法（ICP質量分析法・吸光光度法）の適用有無を問うため、測定に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問25",
+      "original_question_id": "c15671374b5f641f",
+      "question_url": "https://yaku-tik.com/kougai/h24-osui-25/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_05",
+      "reason": "TOC計（有機体炭素計）の酸化方式・検出方式（非分散型赤外線ガス分析計）および1/2チャンネル方式の特徴を問うため、測定に該当する。"
+    }
+  ]
+}

@@ -1,0 +1,208 @@
+{
+  "batchId": "kougai-2019-yakutik-2-official-qsets",
+  "targetFile": "output/kougai/questions_json/2019/22_questionSetId_linked/question_2019_yakutik_2_questionSetId_linked.json",
+  "sourceReviewFile": "output/kougai/questions_json/2019/20_merged_1/question_2019_yakutik_2_merged.json",
+  "reviewPolicy": "問題文と選択肢の主題を確認し、汚水処理特論の旧 coarse questionSetId を公式 category.json の questionSets[].questionSetId へ一問ずつ割り当てる。",
+  "assignments": [
+    {
+      "label": "汚水処理特論 問1",
+      "original_question_id": "17822c73a3f1b682",
+      "question_url": "https://yaku-tik.com/kougai/r1-osui-01/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_01",
+      "reason": "工程排水の管理と汚濁負荷削減計画を問うため、汚水処理計画に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問2",
+      "original_question_id": "bd73bf60b63d4b35",
+      "question_url": "https://yaku-tik.com/kougai/r1-osui-02/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_02",
+      "reason": "凝集沈殿法の原理と凝集剤を問うため、物理化学的処理法に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問3",
+      "original_question_id": "0d5a49d2e7378669",
+      "question_url": "https://yaku-tik.com/kougai/r1-osui-03/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_02",
+      "reason": "工場排水処理における清澄ろ過の目的と役割を問うため、物理化学的処理法に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問4",
+      "original_question_id": "58790fb22accadf2",
+      "question_url": "https://yaku-tik.com/kougai/r1-osui-04/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_02",
+      "reason": "金属水酸化物の溶解度積とpHによる沈殿除去を問うため、物理化学的処理法に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問5",
+      "original_question_id": "cc7b8ada7bf9910f",
+      "question_url": "https://yaku-tik.com/kougai/r1-osui-05/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_02",
+      "reason": "各種金属イオンの溶解度とpHの関係図を用いた沈殿処理を問うため、物理化学的処理法に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問6",
+      "original_question_id": "8ed733722da56ca3",
+      "question_url": "https://yaku-tik.com/kougai/r1-osui-06/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_02",
+      "reason": "酸化還元反応における標準酸化還元電位の比較を問うため、物理化学的処理法に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問7",
+      "original_question_id": "3f68950606a6b5aa",
+      "question_url": "https://yaku-tik.com/kougai/r1-osui-07/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_02",
+      "reason": "オゾンによる酸化処理の特徴とオゾン発生機を問うため、物理化学的処理法に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問8",
+      "original_question_id": "91d56af511183719",
+      "question_url": "https://yaku-tik.com/kougai/r1-osui-08/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_02",
+      "reason": "膜分離法における全量ろ過式プロセスとクロスフロー式プロセスを問うため、物理化学的処理法に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問9",
+      "original_question_id": "0ba1c6be90275b92",
+      "question_url": "https://yaku-tik.com/kougai/r1-osui-09/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_02",
+      "reason": "汚泥の脱水機と前処理を問うため、物理化学的処理法に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問10",
+      "original_question_id": "c48ade315278f47f",
+      "question_url": "https://yaku-tik.com/kougai/r1-osui-10/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_03",
+      "reason": "嫌気処理におけるグルコースからのバイオガス生成量計算を問うため、生物処理法に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問11",
+      "original_question_id": "e8a4c0c124a93bc8",
+      "question_url": "https://yaku-tik.com/kougai/r1-osui-11/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_03",
+      "reason": "流入BOD量と除去率からの汚泥生成量計算を問うため、生物処理法に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問12",
+      "original_question_id": "b05bb3b975f79846",
+      "question_url": "https://yaku-tik.com/kougai/r1-osui-12/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_03",
+      "reason": "膜分離活性汚泥法におけるBOD汚泥負荷とMLSS濃度の計算を問うため、生物処理法に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問13",
+      "original_question_id": "9dab8461d609f11d",
+      "question_url": "https://yaku-tik.com/kougai/r1-osui-13/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_03",
+      "reason": "活性汚泥法の汚泥滞留時間（SRT）の計算を問うため、生物処理法に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問14",
+      "original_question_id": "2c36458284c57ec0",
+      "question_url": "https://yaku-tik.com/kougai/r1-osui-14/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_03",
+      "reason": "種々の活性汚泥法の運転条件と特徴を問うため、生物処理法に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問15",
+      "original_question_id": "06c40cafe632c569",
+      "question_url": "https://yaku-tik.com/kougai/r1-osui-15/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_03",
+      "reason": "生物処理における担体添加法の特徴を問うため、生物処理法に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問16",
+      "original_question_id": "838247f3df4880bf",
+      "question_url": "https://yaku-tik.com/kougai/r1-osui-16/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_03",
+      "reason": "嫌気処理法のメタン発酵の特徴を問うため、生物処理法に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問17",
+      "original_question_id": "f941d2975f0f7f5d",
+      "question_url": "https://yaku-tik.com/kougai/r1-osui-17/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_03",
+      "reason": "生物的硝化脱窒素法の原理と運転条件を問うため、生物処理法に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問18",
+      "original_question_id": "967b98b912380d62",
+      "question_url": "https://yaku-tik.com/kougai/r1-osui-18/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_04",
+      "reason": "物理化学処理装置（貯留槽・pH計・凝集沈殿・ろ過・ORP計）の維持管理を問うため、汚水処理装置の維持管理に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問19",
+      "original_question_id": "50ad8f4fe8060cfe",
+      "question_url": "https://yaku-tik.com/kougai/r1-osui-19/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_04",
+      "reason": "嫌気処理装置の維持管理を問うため、汚水処理装置の維持管理に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問20",
+      "original_question_id": "093935fb00bf1773",
+      "question_url": "https://yaku-tik.com/kougai/r1-osui-20/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_05",
+      "reason": "フレーム原子吸光法の原理と光源を問うため、水質汚濁物質の測定技術に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問21",
+      "original_question_id": "84e86b0af0c1baf8",
+      "question_url": "https://yaku-tik.com/kougai/r1-osui-21/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_05",
+      "reason": "pH標準液の保存方法と性質を問うため、水質汚濁物質の測定技術に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問22",
+      "original_question_id": "136c32365647fd43",
+      "question_url": "https://yaku-tik.com/kougai/r1-osui-22/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_05",
+      "reason": "ICP発光分光分析法の原理を問うため、水質汚濁物質の測定技術に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問23",
+      "original_question_id": "3b69414f48cf7155",
+      "question_url": "https://yaku-tik.com/kougai/r1-osui-23/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_05",
+      "reason": "紫外線吸光光度法による全窒素の測定を問うため、水質汚濁物質の測定技術に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問24",
+      "original_question_id": "007d51284384d34e",
+      "question_url": "https://yaku-tik.com/kougai/r1-osui-24/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_05",
+      "reason": "ORP計の酸化還元電位を表すネルンストの式を問うため、水質汚濁物質の測定技術に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問25",
+      "original_question_id": "f58b96f73a65ff80",
+      "question_url": "https://yaku-tik.com/kougai/r1-osui-25/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_05",
+      "reason": "濁度計に用いられる測定方式を問うため、水質汚濁物質の測定技術に該当する。"
+    }
+  ]
+}

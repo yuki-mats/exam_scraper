@@ -1,0 +1,88 @@
+{
+  "batchId": "kougai-2012-yakutik-6-official-qsets",
+  "targetFile": "output/kougai/questions_json/2012/22_questionSetId_linked/question_2012_yakutik_6_questionSetId_linked.json",
+  "sourceReviewFile": "output/kougai/questions_json/2012/00_source/question_2012_yakutik_6.json",
+  "reviewPolicy": "問題文と選択肢・解説の主題を一問ずつ目視確認し、旧 coarse questionSetId を公式 category.json の questionSets[].questionSetId へ割り当てる。",
+  "assignments": [
+    {
+      "label": "大規模大気特論 問1",
+      "original_question_id": "389747c58930aaff",
+      "question_url": "https://yaku-tik.com/kougai/h24-daitai-01/",
+      "fromQuestionSetId": "kougai_qs03_daitai",
+      "toQuestionSetId": "kougai_qs06_01",
+      "reason": "煙突から排出された煙の最大着地濃度・最大着地濃度距離と有効煙突高さ・ダウンウォッシュ・大気安定度の関係を問うため、拡散現象一般に該当する。"
+    },
+    {
+      "label": "大規模大気特論 問2",
+      "original_question_id": "5bfc3eb88b66ec20",
+      "question_url": "https://yaku-tik.com/kougai/h24-daitai-02/",
+      "fromQuestionSetId": "kougai_qs03_daitai",
+      "toQuestionSetId": "kougai_qs06_01",
+      "reason": "放射性逆転・沈降性逆転・移流性逆転など逆転層の成因と特徴を問うため、拡散現象一般に該当する。"
+    },
+    {
+      "label": "大規模大気特論 問3",
+      "original_question_id": "554bdff16ab90883",
+      "question_url": "https://yaku-tik.com/kougai/h24-daitai-03/",
+      "fromQuestionSetId": "kougai_qs03_daitai",
+      "toQuestionSetId": "kougai_qs06_02",
+      "reason": "煙突排ガスの上昇高さを与えるモーゼスとカーソンの式の構成因子（吐出速度・排出熱量）を問うため、拡散濃度の計算法に該当する。"
+    },
+    {
+      "label": "大規模大気特論 問4",
+      "original_question_id": "23f4aae384daa01a",
+      "question_url": "https://yaku-tik.com/kougai/h24-daitai-04/",
+      "fromQuestionSetId": "kougai_qs03_daitai",
+      "toQuestionSetId": "kougai_qs06_02",
+      "reason": "有効煙突高さ変化時の規格化着地濃度（Cu/Q）と風下距離の関係図の読み取りと拡散式特性を問うため、拡散濃度の計算法に該当する。"
+    },
+    {
+      "label": "大規模大気特論 問5",
+      "original_question_id": "15785f5db3ecd642",
+      "question_url": "https://yaku-tik.com/kougai/h24-daitai-05/",
+      "fromQuestionSetId": "kougai_qs03_daitai",
+      "toQuestionSetId": "kougai_qs06_03",
+      "reason": "長時間平均濃度を求める拡散シミュレーション（風向セクター・バックグラウンド濃度・積分パフ式）を問うため、大気環境影響評価の拡散モデルに該当する。"
+    },
+    {
+      "label": "大規模大気特論 問6",
+      "original_question_id": "2a795dfc5aea998e",
+      "question_url": "https://yaku-tik.com/kougai/h24-daitai-06/",
+      "fromQuestionSetId": "kougai_qs03_daitai",
+      "toQuestionSetId": "kougai_qs06_04",
+      "reason": "大気汚染シミュレーションにおける対象物質ごとの評価平均化時間（NOxの1時間平均値）を問うため、大気環境濃度の予測手法に該当する。"
+    },
+    {
+      "label": "大規模大気特論 問7",
+      "original_question_id": "fbbbf5436733f797",
+      "question_url": "https://yaku-tik.com/kougai/h24-daitai-07/",
+      "fromQuestionSetId": "kougai_qs03_daitai",
+      "toQuestionSetId": "kougai_qs06_05",
+      "reason": "製油所・石炭火力・セメント工場・ごみ焼却炉・製鉄所など大規模設備におけるSOx排出防止対策事例を問うため、大規模設備の大気汚染防止対策事例に該当する。"
+    },
+    {
+      "label": "大規模大気特論 問8",
+      "original_question_id": "9873bb9db82abe41",
+      "question_url": "https://yaku-tik.com/kougai/h24-daitai-08/",
+      "fromQuestionSetId": "kougai_qs03_daitai",
+      "toQuestionSetId": "kougai_qs06_05",
+      "reason": "製油所におけるVOCの蒸発抑制・回収設備とクラウス法（硫黄回収設備）の区分を問うため、大規模設備の大気汚染防止対策事例に該当する。"
+    },
+    {
+      "label": "大規模大気特論 問9",
+      "original_question_id": "870352d7af9280b6",
+      "question_url": "https://yaku-tik.com/kougai/h24-daitai-09/",
+      "fromQuestionSetId": "kougai_qs03_daitai",
+      "toQuestionSetId": "kougai_qs06_05",
+      "reason": "石炭火力発電ボイラー用排煙処理システム（脱硝→集じん→脱硫）の配列事例を問うため、大規模設備の大気汚染防止対策事例に該当する。"
+    },
+    {
+      "label": "大規模大気特論 問10",
+      "original_question_id": "644513002576b73f",
+      "question_url": "https://yaku-tik.com/kougai/h24-daitai-10/",
+      "fromQuestionSetId": "kougai_qs03_daitai",
+      "toQuestionSetId": "kougai_qs06_05",
+      "reason": "ごみ焼却設備における炉形式およびHCl・SOx・NOx・水銀の発生と対策事例を問うため、大規模設備の大気汚染防止対策事例に該当する。"
+    }
+  ]
+}

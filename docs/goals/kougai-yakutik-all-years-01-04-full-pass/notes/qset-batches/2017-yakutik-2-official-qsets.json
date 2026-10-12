@@ -1,0 +1,208 @@
+{
+  "batchId": "kougai-2017-yakutik-2-official-qsets",
+  "targetFile": "output/kougai/questions_json/2017/22_questionSetId_linked/question_2017_yakutik_2_questionSetId_linked.json",
+  "sourceReviewFile": "output/kougai/questions_json/2017/00_source/question_2017_yakutik_2.json",
+  "reviewPolicy": "汚水処理特論の各問について、00_sourceの問題文・選択肢・解説を目視確認し、output/kougai/category/category.jsonの公式小項目questionSetIdへ割り当てる。",
+  "assignments": [
+    {
+      "label": "汚水処理特論 問1",
+      "original_question_id": "5fc879ee0e6970be",
+      "question_url": "https://yaku-tik.com/kougai/h29-osui-01/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_01",
+      "reason": "排水量原単位や向流多段洗浄・調整槽など汚水等処理計画を問うため、汚水等処理計画に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問2",
+      "original_question_id": "f5468a7e637ae325",
+      "question_url": "https://yaku-tik.com/kougai/h29-osui-02/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_02",
+      "reason": "横流式沈殿池における粒子の除去率計算を問うため、物理・化学的処理法に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問3",
+      "original_question_id": "4da575c812af3774",
+      "question_url": "https://yaku-tik.com/kougai/h29-osui-03/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_02",
+      "reason": "凝集沈殿法による除去対象物質を問うため、物理・化学的処理法に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問4",
+      "original_question_id": "33a654d890c710b4",
+      "question_url": "https://yaku-tik.com/kougai/h29-osui-04/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_02",
+      "reason": "金属イオン含有排水の中和・酸化・水酸化物沈殿処理を問うため、物理・化学的処理法に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問5",
+      "original_question_id": "71b756ea137543b1",
+      "question_url": "https://yaku-tik.com/kougai/h29-osui-05/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_02",
+      "reason": "酸化還元系の標準酸化還元電位の大小関係を問うため、物理・化学的処理法に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問6",
+      "original_question_id": "83b2eab78a930e34",
+      "question_url": "https://yaku-tik.com/kougai/h29-osui-06/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_02",
+      "reason": "活性炭吸着法の吸着特性と再生方法を問うため、物理・化学的処理法に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問7",
+      "original_question_id": "596cdb4f8522d481",
+      "question_url": "https://yaku-tik.com/kougai/h29-osui-07/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_02",
+      "reason": "溶解塩類の除去に用いられる膜分離法を問うため、物理・化学的処理法に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問8",
+      "original_question_id": "82690c255d57e93c",
+      "question_url": "https://yaku-tik.com/kougai/h29-osui-08/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_02",
+      "reason": "汚泥脱水に用いるろ過助剤・凝集剤・脱水機の特徴を問うため、物理・化学的処理法に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問9",
+      "original_question_id": "3d0cd6d3be0659da",
+      "question_url": "https://yaku-tik.com/kougai/h29-osui-09/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_02",
+      "reason": "流動焼却炉・ロータリーキルン・階段式ストーカー炉による汚泥焼却を問うため、物理・化学的処理法に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問10",
+      "original_question_id": "bdf6772780d15f0f",
+      "question_url": "https://yaku-tik.com/kougai/h29-osui-10/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_03",
+      "reason": "反応槽の水理学的滞留時間(HRT)の合計が4Tとなるフローを問うため、生物的処理法に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問11",
+      "original_question_id": "35ba41db838f1bca",
+      "question_url": "https://yaku-tik.com/kougai/h29-osui-11/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_03",
+      "reason": "活性汚泥処理施設の1日当たり必要酸素量の計算を問うため、生物的処理法に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問12",
+      "original_question_id": "bd246aa67d55a49d",
+      "question_url": "https://yaku-tik.com/kougai/h29-osui-12/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_03",
+      "reason": "活性汚泥の増殖曲線と各増殖期の特徴を問うため、生物的処理法に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問13",
+      "original_question_id": "2dbfd4c56f38f4fe",
+      "question_url": "https://yaku-tik.com/kougai/h29-osui-13/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_03",
+      "reason": "嫌気処理法の特徴と反応を問うため、生物的処理法に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問14",
+      "original_question_id": "6e95b22920dde78a",
+      "question_url": "https://yaku-tik.com/kougai/h29-osui-14/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_03",
+      "reason": "アンモニウムイオンの亜硝酸・硝酸酸化に必要な酸素量比を問うため、生物的処理法に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問15",
+      "original_question_id": "fd53f755229eb842",
+      "question_url": "https://yaku-tik.com/kougai/h29-osui-15/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_03",
+      "reason": "循環式硝化脱窒素法の各槽の役割と循環比を問うため、生物的処理法に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問16",
+      "original_question_id": "e89f681591293b76",
+      "question_url": "https://yaku-tik.com/kougai/h29-osui-16/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_03",
+      "reason": "アナモックスプロセスの反応と特徴を問うため、生物的処理法に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問17",
+      "original_question_id": "c524dbc7d4ce5563",
+      "question_url": "https://yaku-tik.com/kougai/h29-osui-17/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_03",
+      "reason": "窒素とりんを同時除去する嫌気・無酸素・好気法のフローを問うため、生物的処理法に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問18",
+      "original_question_id": "32fce78579e90296",
+      "question_url": "https://yaku-tik.com/kougai/h29-osui-18/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_04",
+      "reason": "活性汚泥処理装置の維持管理を問うため、汚水等処理装置の維持管理に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問19",
+      "original_question_id": "6b593b1480c50a3d",
+      "question_url": "https://yaku-tik.com/kougai/h29-osui-19/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_04",
+      "reason": "二相嫌気処理装置の運転・維持管理を問うため、汚水等処理装置の維持管理に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問20",
+      "original_question_id": "2777086b4fbd67f4",
+      "question_url": "https://yaku-tik.com/kougai/h29-osui-20/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_05",
+      "reason": "流速計による河川・水路の流量測定を問うため、測定に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問21",
+      "original_question_id": "08f6b3e6af6c838f",
+      "question_url": "https://yaku-tik.com/kougai/h29-osui-21/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_05",
+      "reason": "光学式センサ法による溶存酸素の測定原理を問うため、測定に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問22",
+      "original_question_id": "bff4039a7031ae39",
+      "question_url": "https://yaku-tik.com/kougai/h29-osui-22/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_05",
+      "reason": "水質測定項目と測定方法・用語の組合せを問うため、測定に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問23",
+      "original_question_id": "fab0d4f002b056f9",
+      "question_url": "https://yaku-tik.com/kougai/h29-osui-23/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_05",
+      "reason": "総和法及び紫外線吸光光度法による全窒素の測定を問うため、測定に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問24",
+      "original_question_id": "08e561b7fe4d795d",
+      "question_url": "https://yaku-tik.com/kougai/h29-osui-24/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_05",
+      "reason": "酸化還元電位計(ORP計)の原理と取扱いを問うため、測定に該当する。"
+    },
+    {
+      "label": "汚水処理特論 問25",
+      "original_question_id": "7dc8e6cb62ae41ef",
+      "question_url": "https://yaku-tik.com/kougai/h29-osui-25/",
+      "fromQuestionSetId": "kougai_qs05_osui",
+      "toQuestionSetId": "kougai_qs08_05",
+      "reason": "濁度計の測定方式と特徴を問うため、測定に該当する。"
+    }
+  ]
+}

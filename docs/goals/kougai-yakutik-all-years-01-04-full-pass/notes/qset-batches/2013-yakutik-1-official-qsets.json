@@ -1,0 +1,208 @@
+{
+  "batchId": "kougai-2013-yakutik-1-official-qsets",
+  "targetFile": "output/kougai/questions_json/2013/22_questionSetId_linked/question_2013_yakutik_1_questionSetId_linked.json",
+  "sourceReviewFile": "output/kougai/questions_json/2013/20_merged_1/question_2013_yakutik_1_merged.json",
+  "reviewPolicy": "問題文と選択肢の主題を確認し、公害総論・水質概論の旧 coarse questionSetId を公式 category.json の questionSets[].questionSetId へ一問ずつ割り当てる。",
+  "assignments": [
+    {
+      "label": "公害総論 問1",
+      "original_question_id": "67b01c7d4509f262",
+      "question_url": "https://yaku-tik.com/kougai/h25-kousou-01/",
+      "fromQuestionSetId": "kougai_qs01_kousou",
+      "toQuestionSetId": "kougai_qs01_01",
+      "reason": "環境基本法第16条の環境基準に関する条文を問うため、環境基本法・環境関連法規の概要に該当する。"
+    },
+    {
+      "label": "公害総論 問2",
+      "original_question_id": "86f64b74acf75960",
+      "question_url": "https://yaku-tik.com/kougai/h25-kousou-02/",
+      "fromQuestionSetId": "kougai_qs01_kousou",
+      "toQuestionSetId": "kougai_qs01_01",
+      "reason": "土壌汚染対策法第1条の目的規定を問うため、環境基本法・環境関連法規の概要に該当する。"
+    },
+    {
+      "label": "公害総論 問3",
+      "original_question_id": "4dd09eee3c19da79",
+      "question_url": "https://yaku-tik.com/kougai/h25-kousou-03/",
+      "fromQuestionSetId": "kougai_qs01_kousou",
+      "toQuestionSetId": "kougai_qs01_01",
+      "reason": "環境基本法の定義及び基本理念に規定される用語を問うため、環境基本法・環境関連法規の概要に該当する。"
+    },
+    {
+      "label": "公害総論 問4",
+      "original_question_id": "cfcfc30102b734a6",
+      "question_url": "https://yaku-tik.com/kougai/h25-kousou-04/",
+      "fromQuestionSetId": "kougai_qs01_kousou",
+      "toQuestionSetId": "kougai_qs01_02",
+      "reason": "特定工場における公害防止組織の整備に関する法律の選任・承継・解任命令等を問うため、同法律体系に該当する。"
+    },
+    {
+      "label": "公害総論 問5",
+      "original_question_id": "3af75fb18954ea97",
+      "question_url": "https://yaku-tik.com/kougai/h25-kousou-05/",
+      "fromQuestionSetId": "kougai_qs01_kousou",
+      "toQuestionSetId": "kougai_qs01_02",
+      "reason": "特定工場における公害防止組織の整備に関する法律における公害防止管理者不選任時の罰則を問うため、同法律体系に該当する。"
+    },
+    {
+      "label": "公害総論 問6",
+      "original_question_id": "c5ce42389a287976",
+      "question_url": "https://yaku-tik.com/kougai/h25-kousou-06/",
+      "fromQuestionSetId": "kougai_qs01_kousou",
+      "toQuestionSetId": "kougai_qs01_03",
+      "reason": "二酸化硫黄・二酸化窒素・光化学オキシダント・微小粒子状物質など大気環境の現状を問うため、環境問題全般に該当する。"
+    },
+    {
+      "label": "公害総論 問7",
+      "original_question_id": "831d8db3fbf6c728",
+      "question_url": "https://yaku-tik.com/kougai/h25-kousou-07/",
+      "fromQuestionSetId": "kougai_qs01_kousou",
+      "toQuestionSetId": "kougai_qs01_03",
+      "reason": "浮遊粒子状物質及び微小粒子状物質の定義と発生源を問うため、環境問題全般に該当する。"
+    },
+    {
+      "label": "公害総論 問8",
+      "original_question_id": "0e88ae193b913179",
+      "question_url": "https://yaku-tik.com/kougai/h25-kousou-08/",
+      "fromQuestionSetId": "kougai_qs01_kousou",
+      "toQuestionSetId": "kougai_qs01_01",
+      "reason": "大気の汚染に係る環境基準が設定されている有害大気汚染物質を問うため、環境基本法・環境関連法規の概要に該当する。"
+    },
+    {
+      "label": "公害総論 問9",
+      "original_question_id": "7ed4e2720ccf1300",
+      "question_url": "https://yaku-tik.com/kougai/h25-kousou-09/",
+      "fromQuestionSetId": "kougai_qs01_kousou",
+      "toQuestionSetId": "kougai_qs01_03",
+      "reason": "全国公共用水域の水質測定結果と環境基準達成状況を問うため、環境問題全般に該当する。"
+    },
+    {
+      "label": "公害総論 問10",
+      "original_question_id": "34289e806b8bc83b",
+      "question_url": "https://yaku-tik.com/kougai/h25-kousou-10/",
+      "fromQuestionSetId": "kougai_qs01_kousou",
+      "toQuestionSetId": "kougai_qs01_03",
+      "reason": "生活排水・工場排水など水質汚濁物質の発生源と汚濁負荷を問うため、環境問題全般に該当する。"
+    },
+    {
+      "label": "公害総論 問11",
+      "original_question_id": "0167b83928a3ade0",
+      "question_url": "https://yaku-tik.com/kougai/h25-kousou-11/",
+      "fromQuestionSetId": "kougai_qs01_kousou",
+      "toQuestionSetId": "kougai_qs01_03",
+      "reason": "自動車交通騒音・新幹線騒音・低周波音など騒音の評価と対策を問うため、環境問題全般に該当する。"
+    },
+    {
+      "label": "公害総論 問12",
+      "original_question_id": "cde46ac1f73df5ce",
+      "question_url": "https://yaku-tik.com/kougai/h25-kousou-12/",
+      "fromQuestionSetId": "kougai_qs01_kousou",
+      "toQuestionSetId": "kougai_qs01_03",
+      "reason": "産業廃棄物の業種別排出量の順位を問う環境統計問題であり、環境問題全般に該当する。"
+    },
+    {
+      "label": "公害総論 問13",
+      "original_question_id": "5c367cee60aedb4d",
+      "question_url": "https://yaku-tik.com/kougai/h25-kousou-13/",
+      "fromQuestionSetId": "kougai_qs01_kousou",
+      "toQuestionSetId": "kougai_qs01_04",
+      "reason": "SAICM・PRTR・MSDS・GHS・TEQなど化学物質管理及び環境管理に関する略語を問うため、環境管理手法に該当する。"
+    },
+    {
+      "label": "公害総論 問14",
+      "original_question_id": "823d1ca6c9e67dea",
+      "question_url": "https://yaku-tik.com/kougai/h25-kousou-14/",
+      "fromQuestionSetId": "kougai_qs01_kousou",
+      "toQuestionSetId": "kougai_qs01_03",
+      "reason": "ダイオキシン類の毒性等価係数・性質・排出総量の推移を問うため、環境問題全般に該当する。"
+    },
+    {
+      "label": "公害総論 問15",
+      "original_question_id": "1e2ca230a1c19d31",
+      "question_url": "https://yaku-tik.com/kougai/h25-kousou-15/",
+      "fromQuestionSetId": "kougai_qs01_kousou",
+      "toQuestionSetId": "kougai_qs01_04",
+      "reason": "リスクマネジメントにおけるハザード・リスク対応等の用語と概念を問うため、環境管理手法に該当する。"
+    },
+    {
+      "label": "水質概論 問1",
+      "original_question_id": "15e179b5dce59679",
+      "question_url": "https://yaku-tik.com/kougai/h25-suigai-01/",
+      "fromQuestionSetId": "kougai_qs06_suigai",
+      "toQuestionSetId": "kougai_qs07_01",
+      "reason": "水質汚濁防止法に規定する指定物質を問うため、水質汚濁防止対策の法規制に該当する。"
+    },
+    {
+      "label": "水質概論 問2",
+      "original_question_id": "e9ad7ebcd2710c27",
+      "question_url": "https://yaku-tik.com/kougai/h25-suigai-02/",
+      "fromQuestionSetId": "kougai_qs06_suigai",
+      "toQuestionSetId": "kougai_qs07_01",
+      "reason": "水質汚濁防止法に規定する有害物質貯蔵指定施設の設置届出事項を問うため、水質汚濁防止対策の法規制に該当する。"
+    },
+    {
+      "label": "水質概論 問3",
+      "original_question_id": "f70c795887392512",
+      "question_url": "https://yaku-tik.com/kougai/h25-suigai-03/",
+      "fromQuestionSetId": "kougai_qs06_suigai",
+      "toQuestionSetId": "kougai_qs07_01",
+      "reason": "特定工場における公害防止組織の整備に関する法律に規定する汚水等排出施設を問うため、水質汚濁防止対策の法規制に該当する。"
+    },
+    {
+      "label": "水質概論 問4",
+      "original_question_id": "cbebfd3f1c8feee5",
+      "question_url": "https://yaku-tik.com/kougai/h25-suigai-04/",
+      "fromQuestionSetId": "kougai_qs06_suigai",
+      "toQuestionSetId": "kougai_qs07_01",
+      "reason": "特定工場における公害防止組織の整備に関する法律に規定する水質関係公害防止管理者の業務を問うため、水質汚濁防止対策の法規制に該当する。"
+    },
+    {
+      "label": "水質概論 問5",
+      "original_question_id": "7a9e3c7557ca6b8c",
+      "question_url": "https://yaku-tik.com/kougai/h25-suigai-05/",
+      "fromQuestionSetId": "kougai_qs06_suigai",
+      "toQuestionSetId": "kougai_qs07_01",
+      "reason": "水質の環境基準及び排水基準の改定内容を問うため、水質汚濁防止対策の法規制に該当する。"
+    },
+    {
+      "label": "水質概論 問6",
+      "original_question_id": "47e4170d37c9dd06",
+      "question_url": "https://yaku-tik.com/kougai/h25-suigai-06/",
+      "fromQuestionSetId": "kougai_qs06_suigai",
+      "toQuestionSetId": "kougai_qs07_02",
+      "reason": "我が国の水質汚濁の歴史と関連する公害・事故の組合せを問うため、水質汚濁の現状に該当する。"
+    },
+    {
+      "label": "水質概論 問7",
+      "original_question_id": "67698dc4c17dcfd3",
+      "question_url": "https://yaku-tik.com/kougai/h25-suigai-07/",
+      "fromQuestionSetId": "kougai_qs06_suigai",
+      "toQuestionSetId": "kougai_qs07_02",
+      "reason": "我が国周辺海域における海洋汚染の発生件数の統計を問うため、水質汚濁の現状に該当する。"
+    },
+    {
+      "label": "水質概論 問8",
+      "original_question_id": "3ed93daeebe9a6ba",
+      "question_url": "https://yaku-tik.com/kougai/h25-suigai-08/",
+      "fromQuestionSetId": "kougai_qs06_suigai",
+      "toQuestionSetId": "kougai_qs07_04",
+      "reason": "BOD・COD・大腸菌群・クロロフィルa・カビ臭物質などの水質指標を問うため、水質汚濁の機構に該当する。"
+    },
+    {
+      "label": "水質概論 問9",
+      "original_question_id": "489a02bf62275785",
+      "question_url": "https://yaku-tik.com/kougai/h25-suigai-09/",
+      "fromQuestionSetId": "kougai_qs06_suigai",
+      "toQuestionSetId": "kougai_qs07_04",
+      "reason": "河川への有機物排水流入に伴う酸素消費と再曝気による溶存酸素濃度変化を問うため、水質汚濁の機構に該当する。"
+    },
+    {
+      "label": "水質概論 問10",
+      "original_question_id": "0fc6382763047afc",
+      "question_url": "https://yaku-tik.com/kougai/h25-suigai-10/",
+      "fromQuestionSetId": "kougai_qs06_suigai",
+      "toQuestionSetId": "kougai_qs07_05",
+      "reason": "HCH・DDT・トリクロロエチレン・有機りん剤など有害化学物質の人体影響を問うため、水質汚濁の影響に該当する。"
+    }
+  ]
+}

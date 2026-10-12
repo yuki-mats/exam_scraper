@@ -1,0 +1,88 @@
+{
+  "batchId": "kougai-2019-yakutik-6-official-qsets",
+  "targetFile": "output/kougai/questions_json/2019/22_questionSetId_linked/question_2019_yakutik_6_questionSetId_linked.json",
+  "sourceReviewFile": "output/kougai/questions_json/2019/20_merged_1/question_2019_yakutik_6_merged.json",
+  "reviewPolicy": "問題文と選択肢の主題を確認し、大規模大気特論の旧 coarse questionSetId を公式 category.json の questionSets[].questionSetId へ一問ずつ割り当てる。",
+  "assignments": [
+    {
+      "label": "大規模大気特論 問1",
+      "original_question_id": "bb233e1f0842e048",
+      "question_url": "https://yaku-tik.com/kougai/r1-daitai-01/",
+      "fromQuestionSetId": "kougai_qs03_daitai",
+      "toQuestionSetId": "kougai_qs06_01",
+      "reason": "有効煙突高さ・最大着地濃度・乾燥断熱減率・温位など煙の拡散に関する用語定義を問うため、大気拡散と気象要素に該当する。"
+    },
+    {
+      "label": "大規模大気特論 問2",
+      "original_question_id": "361a5c31fc5d2625",
+      "question_url": "https://yaku-tik.com/kougai/r1-daitai-02/",
+      "fromQuestionSetId": "kougai_qs03_daitai",
+      "toQuestionSetId": "kougai_qs06_01",
+      "reason": "ダウンウォッシュ・ダウンドラフトの発生機構と防止条件を問うため、大気拡散と気象要素に該当する。"
+    },
+    {
+      "label": "大規模大気特論 問3",
+      "original_question_id": "2b75766addc11623",
+      "question_url": "https://yaku-tik.com/kougai/r1-daitai-03/",
+      "fromQuestionSetId": "kougai_qs03_daitai",
+      "toQuestionSetId": "kougai_qs06_01",
+      "reason": "海陸風・ヒュミゲーション・ヒートアイランド現象などの局地気象現象を問うため、大気拡散と気象要素に該当する。"
+    },
+    {
+      "label": "大規模大気特論 問4",
+      "original_question_id": "43f6bd8e6d655d51",
+      "question_url": "https://yaku-tik.com/kougai/r1-daitai-04/",
+      "fromQuestionSetId": "kougai_qs03_daitai",
+      "toQuestionSetId": "kougai_qs06_02",
+      "reason": "パスキルの安定度分類と正規化着地濃度図を用いた最大着地濃度の計算を問うため、拡散計算と煙突高さに該当する。"
+    },
+    {
+      "label": "大規模大気特論 問5",
+      "original_question_id": "54d49ca9d472014f",
+      "question_url": "https://yaku-tik.com/kougai/r1-daitai-05/",
+      "fromQuestionSetId": "kougai_qs03_daitai",
+      "toQuestionSetId": "kougai_qs06_03",
+      "reason": "正規形プルームモデルの前提条件と適用限界を問うため、大気汚染予測モデルに該当する。"
+    },
+    {
+      "label": "大規模大気特論 問6",
+      "original_question_id": "c71e91516ee2e2aa",
+      "question_url": "https://yaku-tik.com/kougai/r1-daitai-06/",
+      "fromQuestionSetId": "kougai_qs03_daitai",
+      "toQuestionSetId": "kougai_qs06_04",
+      "reason": "風洞実験による大気拡散再現と平均化時間を問うため、総量規制と環境影響評価に該当する。"
+    },
+    {
+      "label": "大規模大気特論 問7",
+      "original_question_id": "fa998b014ed43585",
+      "question_url": "https://yaku-tik.com/kougai/r1-daitai-07/",
+      "fromQuestionSetId": "kougai_qs03_daitai",
+      "toQuestionSetId": "kougai_qs06_05",
+      "reason": "低低温形電気集じん装置を用いた微粉炭火力の高性能排煙処理システム構成順を問うため、大規模設備の大気汚染防止対策の事例に該当する。"
+    },
+    {
+      "label": "大規模大気特論 問8",
+      "original_question_id": "7e7b10e94adf5bda",
+      "question_url": "https://yaku-tik.com/kougai/r1-daitai-08/",
+      "fromQuestionSetId": "kougai_qs03_daitai",
+      "toQuestionSetId": "kougai_qs06_05",
+      "reason": "セメント産業における大気汚染防止対策を問うため、大規模設備の大気汚染防止対策の事例に該当する。"
+    },
+    {
+      "label": "大規模大気特論 問9",
+      "original_question_id": "dd522683e6e566df",
+      "question_url": "https://yaku-tik.com/kougai/r1-daitai-09/",
+      "fromQuestionSetId": "kougai_qs03_daitai",
+      "toQuestionSetId": "kougai_qs06_05",
+      "reason": "ごみ焼却設備の排ガス処理装置を問うため、大規模設備の大気汚染防止対策の事例に該当する。"
+    },
+    {
+      "label": "大規模大気特論 問10",
+      "original_question_id": "4c5ff9b8c76a7453",
+      "question_url": "https://yaku-tik.com/kougai/r1-daitai-10/",
+      "fromQuestionSetId": "kougai_qs03_daitai",
+      "toQuestionSetId": "kougai_qs06_05",
+      "reason": "製油所・鉄鋼プロセス・石炭火力発電所における大気汚染物質排出防止対策を問うため、大規模設備の大気汚染防止対策の事例に該当する。"
+    }
+  ]
+}

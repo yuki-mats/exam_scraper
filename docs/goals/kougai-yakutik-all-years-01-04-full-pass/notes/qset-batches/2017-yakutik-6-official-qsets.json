@@ -1,0 +1,88 @@
+{
+  "batchId": "kougai-2017-yakutik-6-official-qsets",
+  "targetFile": "output/kougai/questions_json/2017/22_questionSetId_linked/question_2017_yakutik_6_questionSetId_linked.json",
+  "sourceReviewFile": "output/kougai/questions_json/2017/00_source/question_2017_yakutik_6.json",
+  "reviewPolicy": "大規模大気特論の各問について、00_sourceの問題文・選択肢・解説を目視確認し、output/kougai/category/category.jsonの公式小項目questionSetIdへ割り当てる。",
+  "assignments": [
+    {
+      "label": "大規模大気特論 問1",
+      "original_question_id": "e2b5759daf666a4e",
+      "question_url": "https://yaku-tik.com/kougai/h29-daitai-01/",
+      "fromQuestionSetId": "kougai_qs03_daitai",
+      "toQuestionSetId": "kougai_qs06_01",
+      "reason": "煙突出口や周辺の構造物におけるダウンウォッシュ発生抑制を問うため、拡散現象一般に該当する。"
+    },
+    {
+      "label": "大規模大気特論 問2",
+      "original_question_id": "8bb21440a6adf1e6",
+      "question_url": "https://yaku-tik.com/kougai/h29-daitai-02/",
+      "fromQuestionSetId": "kougai_qs03_daitai",
+      "toQuestionSetId": "kougai_qs06_01",
+      "reason": "中立境界層の形成条件と風速分布を問うため、拡散現象一般に該当する。"
+    },
+    {
+      "label": "大規模大気特論 問3",
+      "original_question_id": "91c48f460e1dabde",
+      "question_url": "https://yaku-tik.com/kougai/h29-daitai-03/",
+      "fromQuestionSetId": "kougai_qs03_daitai",
+      "toQuestionSetId": "kougai_qs06_01",
+      "reason": "沈降性逆転など温度逆転層の成因を問うため、拡散現象一般に該当する。"
+    },
+    {
+      "label": "大規模大気特論 問4",
+      "original_question_id": "8fc2ba184a7b6099",
+      "question_url": "https://yaku-tik.com/kougai/h29-daitai-04/",
+      "fromQuestionSetId": "kougai_qs03_daitai",
+      "toQuestionSetId": "kougai_qs06_02",
+      "reason": "正規型プルーム拡散式による煙流中心軸直下の地上濃度計算を問うため、拡散濃度の計算法に該当する。"
+    },
+    {
+      "label": "大規模大気特論 問5",
+      "original_question_id": "8cc33ed91ac39790",
+      "question_url": "https://yaku-tik.com/kougai/h29-daitai-05/",
+      "fromQuestionSetId": "kougai_qs03_daitai",
+      "toQuestionSetId": "kougai_qs06_04",
+      "reason": "濃度や拡散幅の平均化時間と拡散シミュレーションを問うため、大気環境濃度の予測手法に該当する。"
+    },
+    {
+      "label": "大規模大気特論 問6",
+      "original_question_id": "06eb3d524a8c9417",
+      "question_url": "https://yaku-tik.com/kougai/h29-daitai-06/",
+      "fromQuestionSetId": "kougai_qs03_daitai",
+      "toQuestionSetId": "kougai_qs06_03",
+      "reason": "数値解モデル・解析解モデルなど大気拡散モデルの分類を問うため、大気環境影響評価の拡散モデルに該当する。"
+    },
+    {
+      "label": "大規模大気特論 問7",
+      "original_question_id": "fef4c625a4eaabab",
+      "question_url": "https://yaku-tik.com/kougai/h29-daitai-07/",
+      "fromQuestionSetId": "kougai_qs03_daitai",
+      "toQuestionSetId": "kougai_qs06_05",
+      "reason": "石炭火力発電設備の排煙処理システム構成を問うため、大規模設備の大気汚染防止対策事例に該当する。"
+    },
+    {
+      "label": "大規模大気特論 問8",
+      "original_question_id": "be8e4d52be33f56c",
+      "question_url": "https://yaku-tik.com/kougai/h29-daitai-08/",
+      "fromQuestionSetId": "kougai_qs03_daitai",
+      "toQuestionSetId": "kougai_qs06_05",
+      "reason": "セメント製造工程におけるSOx対策を問うため、大規模設備の大気汚染防止対策事例に該当する。"
+    },
+    {
+      "label": "大規模大気特論 問9",
+      "original_question_id": "a440ab40fa891f27",
+      "question_url": "https://yaku-tik.com/kougai/h29-daitai-09/",
+      "fromQuestionSetId": "kougai_qs03_daitai",
+      "toQuestionSetId": "kougai_qs06_05",
+      "reason": "ごみ焼却設備で発生する有害物質と排ガス処理方法の組合せを問うため、大規模設備の大気汚染防止対策事例に該当する。"
+    },
+    {
+      "label": "大規模大気特論 問10",
+      "original_question_id": "f5c2e88c6ebd0b04",
+      "question_url": "https://yaku-tik.com/kougai/h29-daitai-10/",
+      "fromQuestionSetId": "kougai_qs03_daitai",
+      "toQuestionSetId": "kougai_qs06_05",
+      "reason": "鉄鋼プロセスにおける大気汚染物質の発生と処理方法を問うため、大規模設備の大気汚染防止対策事例に該当する。"
+    }
+  ]
+}
