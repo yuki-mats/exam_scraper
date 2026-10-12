@@ -2,7 +2,7 @@
 
 状態: 実装中。個別受付台帳と読み取り専用の日次照合を実装済み。日次heartbeatが既存CLIを使って調査・独立監査・公開を進める。専用の常駐GUIとスマホ承認画面は未実装。
 
-最終更新: 2026-10-11
+最終更新: 2026-10-12
 
 この文書は、Repasoから届くユーザーフィードバックの調査、改善、独立監査、patch保存、Firestore公開を扱う運用正本です。公式問題の誤り報告を修正レーンとし、AI解説への利用者質問から学習上のニーズを見つける改善レーンを置きます。将来はアプリ不具合、UI改善、要望も追加します。
 
@@ -28,7 +28,13 @@
 
 ### 無人実行経路の既知の未対応
 
-この方針と日次設定の更新は、すべての正式保存・公開経路の無人対応完了を意味しません。`tools/question_review_console/formal_correction_save.py`の限定immutable unit保存は、固定した質問に対する真正な人間回答と`formal-correction-human-approval/v1`を保存・receipt再検証で必須としています。`tools/question_bank/feedback_improvement_plan.py`も次gateとして`exact_diff_human_formal_save_approval`を返します。改善台帳の`record-improvement-result`は公開済み状態を登録できません。
+この方針と日次設定の更新は、すべての正式保存・公開経路の無人対応完了を意味しません。2026-10-12、`formal_correction_save.save_formal_units(..., subagent_approval=...)`に人間承認とは別の`native-independent-approval/v1`契約とv2保存receiptを追加しました。既存の限定immutable unitが対象であり、任意の問題や正式patch層をこのAPIへ流し込めるわけではありません。人間承認経路と法令再照合、exclusive保存、入力再検証は維持します。
+
+`independent_approval`は親sessionの直接ユーザー包括許可、固定planを検証するCLIのnative出力、実委任のcallとSubAgentActivity、子identity、同じ暗号文の配送、親子turn、平文の構造化最終回答とtask_completeを照合します。暗号化された依頼本文を復号したとは扱いません。承認scopeは作者の検証出力と子の最終回答が一致した内容です。ローカルnative記録は暗号学的署名ではありません。作者と同一の監査者、未解決指摘、別scope、未完了turn、入力変更は拒否し、正式保存直前とreceipt読込時にも再検証します。
+
+改善previewは`--approval-mode independent`で`exact_diff_native_subagent_formal_save_approval`を要求します。候補を作るだけで正式保存済み・公開済みにはなりません。とくに`25_verified_publication`の候補を正式正本へ保存する専用契約は未対応であり、previewのモード変更だけで代替しません。
+
+改善台帳の`record-improvement-result`は引き続き調査・候補作成だけを記録します。公開完了は別CLIの`record-improvement-publication`で記録します。`feedback-improvement-publication/v1`に正式planとv2保存receipt、既存publisherの`manifest.json`・`preflight.json`・`artifact.json`・`readback.json`・`result.json`の相対pathとfile SHA256を結合します。正式planの`feedbackTasks`には台帳から取得したtask ID・title/need/target・全source集合とhash、改善ニーズの充足に必要なunit hashを固定し、独立監査scopeへ含めます。同じ問題への別目的の修正では完了にしません。実taskの全質問との紐付け、全sibling、独立監査済みfieldと値、評価gate、記録済みreadback、最新の本番readbackと保存対象外fieldの不変を検証し、書込みtransactionでsource集合と要件の不変を再確認してからCASで`completed`へ進めます。同じreceiptの再送は重複登録しません。このCLIはFirestoreへ書き込みません。現時点で対応するのは、改善の充足に必要なunitが一つで、全task sourceを覆う限定writeFields付き`question-publish-result/v1`と既存immutable unitの組合せです。複数unitや複数runを要する改善、別形式の公開receipt、未対応の保存経路は理由を記録して保留し、互換のないreceiptを偽装しません。
 
 日次処理はこれらを前提不足の対応タスクとして優先し、サブエージェントの実際の承認元・固定入力hash・包括ユーザー許可に結び付いた独自の承認契約、保存receipt再検証、公開結果の状態記録を実装します。人間用schemaへAIの回答を入れず、既存の手動経路も保持します。差分・ID・入力変更、自己承認、承認根拠不足、競合、再送、中断・復元に関する必要な対象検証と独立サブエージェント監査を通した経路だけを使用します。既にこの方針を満たす既存公開経路のタスクは、未対応経路の実装を待たずに進めます。
 

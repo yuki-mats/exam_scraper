@@ -147,6 +147,14 @@ class VerifiedExplanationPlanTest(unittest.TestCase):
         self.assertTrue(candidate.is_relative_to(destination))
         self.assertEqual(candidate.stat().st_mode & 0o777, 0o600)
         self.assertIn('independent_content_review', plan['requiredNext'])
+        self.assertIn('exact_diff_human_formal_save_approval', plan['requiredNext'])
+        automated = prepare_plan(self.root, manifest, bindings,
+            self.root/'output/user_feedback_response_system/execution/independent-run', approval_mode='independent')
+        self.assertEqual(automated['approvalMode'], 'independent')
+        self.assertIn('exact_diff_native_subagent_formal_save_approval', automated['requiredNext'])
+        self.assertNotIn('exact_diff_human_formal_save_approval', automated['requiredNext'])
+        self.assertFalse(automated['executablePatch'])
+        self.assertEqual(source.read_bytes(), source_bytes)
 
 
 if __name__ == '__main__':

@@ -943,6 +943,50 @@ def list_improvement_tasks(connection: sqlite3.Connection, *, limit: int) -> lis
     return [dict(row) for row in rows]
 
 
+def record_improvement_publication(connection: sqlite3.Connection, *, task_id: str,
+        expected_status: str, reason: str, artifact_ref: Path, artifact_sha256: str,
+        repo_root: Path, live_reader=None) -> int:
+    """Complete only after native audit/save, publisher receipts and fresh readback."""
+    from tools.question_bank.feedback_publication_result import verify_improvement_publication
+    from tools.question_bank.feedback_task_requirements import task_requirement_binding
+    if expected_status not in IMPROVEMENT_WORK_STATES or not reason.strip():
+        raise ValueError('valid expected work status and reason required')
+    path = artifact_ref.expanduser().resolve(); content = path.read_bytes()
+    if hashlib.sha256(content).hexdigest() != artifact_sha256:
+        raise ValueError('publication artifact hash differs')
+    if connection.in_transaction:
+        raise ValueError('completion requires an independent transaction')
+    def source_binding():
+        return [tuple(r) for r in connection.execute(
+            'SELECT candidate_id,question_id,text_hash,review_status FROM ai_question_candidates WHERE improvement_task_id=? ORDER BY candidate_id', (task_id,)).fetchall()]
+    bound_sources = source_binding()
+    requirement = task_requirement_binding(connection, task_id)
+    sources = {r[1] for r in bound_sources}
+    if not sources:
+        raise ValueError('improvement task source binding missing')
+    verify_improvement_publication(repo_root, json.loads(content), task_id=task_id,
+        source_question_ids=sources, task_requirement=requirement, live_reader=live_reader)
+    if path.read_bytes() != content:
+        raise ValueError('completion artifact changed during verification')
+    now = _now()
+    with connection:
+        connection.execute('BEGIN IMMEDIATE')
+        if source_binding() != bound_sources:
+            raise ValueError('improvement task sources changed during verification')
+        if task_requirement_binding(connection, task_id) != requirement:
+            raise ValueError('improvement task requirement changed during verification')
+        task = connection.execute('SELECT status FROM improvement_tasks WHERE task_id=?', (task_id,)).fetchone()
+        if task is None: raise ValueError('improvement task not found')
+        latest = connection.execute('SELECT * FROM improvement_result_history WHERE task_id=? ORDER BY id DESC LIMIT 1', (task_id,)).fetchone()
+        if (task['status'] == 'completed' and latest is not None and latest['status'] == 'completed'
+                and latest['artifact_ref'] == str(path) and latest['artifact_sha256'] == artifact_sha256 and latest['reason'] == reason.strip()):
+            return latest['id']
+        updated = connection.execute('UPDATE improvement_tasks SET status=?, updated_at=? WHERE task_id=? AND status=?', ('completed', now, task_id, expected_status))
+        if updated.rowcount != 1: raise ValueError('improvement task status changed; read it again')
+        inserted = connection.execute('INSERT INTO improvement_result_history (task_id,status,reason,artifact_ref,artifact_sha256,recorded_at) VALUES (?,?,?,?,?,?)', (task_id,'completed',reason.strip(),str(path),artifact_sha256,now))
+    return inserted.lastrowid
+
+
 def _parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--db", type=Path, default=DEFAULT_DB)
@@ -968,6 +1012,12 @@ def _parse_args() -> argparse.Namespace:
     work.add_argument('--reason', required=True)
     work.add_argument('--artifact-ref', required=True, type=Path)
     work.add_argument('--artifact-sha256', required=True)
+    published = sub.add_parser('record-improvement-publication', help='Verify saved native audit and production readback before completing')
+    published.add_argument('task_id')
+    published.add_argument('--expected-status', required=True, choices=sorted(IMPROVEMENT_WORK_STATES))
+    published.add_argument('--reason', required=True)
+    published.add_argument('--artifact-ref', required=True, type=Path)
+    published.add_argument('--artifact-sha256', required=True)
     inspect = sub.add_parser("inspect-ai")
     inspect.add_argument("candidate_id")
     inspect.add_argument("--credentials-json", type=Path)
@@ -1015,7 +1065,7 @@ def main() -> int:
     args = _parse_args()
     db_path = args.db.expanduser().resolve()
     connection = _private_db(db_path)
-    changed = args.command in {"scan", "dismiss-ai", "decide", "propose", "promote-ai", 'amend-register', 'amend-check', 'record-improvement-result'}
+    changed = args.command in {"scan", "dismiss-ai", "decide", "propose", "promote-ai", 'amend-register', 'amend-check', 'record-improvement-result', 'record-improvement-publication'}
     if args.command == "scan":
         if args.fixture:
             snapshot = json.loads(args.fixture.read_text(encoding="utf-8"))
@@ -1050,6 +1100,12 @@ def main() -> int:
             expected_status=args.expected_status, reason=args.reason,
             artifact_ref=args.artifact_ref, artifact_sha256=args.artifact_sha256,
         )
+        result = {'resultId': result_id, 'summary': daily_summary(connection)}
+    elif args.command == 'record-improvement-publication':
+        result_id = record_improvement_publication(connection, task_id=args.task_id,
+            expected_status=args.expected_status, reason=args.reason,
+            artifact_ref=args.artifact_ref, artifact_sha256=args.artifact_sha256,
+            repo_root=Path(__file__).resolve().parents[2])
         result = {'resultId': result_id, 'summary': daily_summary(connection)}
     elif args.command == "inspect-ai":
         result = inspect_ai_candidate(

@@ -96,7 +96,9 @@ def project_verified_bundle(bundle, updates):
     return projected
 
 
-def prepare_plan(root, manifest_path, bindings_path, destination):
+def prepare_plan(root, manifest_path, bindings_path, destination, *, approval_mode='human'):
+    if approval_mode not in {'human', 'independent'}:
+        raise ValueError('unknown formal save approval mode')
     root = Path(root).resolve()
     destination = Path(destination).absolute()
     private_root = root / "output/user_feedback_response_system/execution"
@@ -174,7 +176,10 @@ def prepare_plan(root, manifest_path, bindings_path, destination):
         if file_hash(Path(path)) != digest:
             raise ValueError("input changed during preparation")
     plan = {"schemaVersion": "feedback-verified-explanation-save-preview/v1", "inputs": inputs, "units": units, "artifacts": artifacts, "remainingTasks": remaining,
-        "requiredNext": ["independent_content_review", "fresh_masked_live_readback", "exact_diff_human_formal_save_approval", "dedicated_verified_canonical_save_receipt"],
+        "approvalMode": approval_mode,
+        "requiredNext": ["independent_content_review", "fresh_masked_live_readback",
+            "exact_diff_native_subagent_formal_save_approval" if approval_mode == 'independent' else "exact_diff_human_formal_save_approval",
+            "dedicated_verified_canonical_save_receipt"],
         "formalPatchSaved": False, "FirestoreWritten": False, "approvalReady": False, "executablePatch": False, "fullDocumentUploadAllowed": False}
     plan["planHash"] = sha256_json(plan)
     write_json(destination / "save-preview-plan.json", plan)
@@ -186,8 +191,9 @@ def main():
     parser.add_argument("--manifest", type=Path, required=True)
     parser.add_argument("--bindings", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--approval-mode", choices=['human', 'independent'], default='human')
     args = parser.parse_args()
-    plan = prepare_plan(Path(__file__).resolve().parents[2], args.manifest, args.bindings, args.output)
+    plan = prepare_plan(Path(__file__).resolve().parents[2], args.manifest, args.bindings, args.output, approval_mode=args.approval_mode)
     print(json.dumps({"plannedTasks": len(plan["units"]), "remainingTasks": len(plan["remainingTasks"]), "formalPatchSaved": False, "FirestoreWritten": False}))
 
 

@@ -13,6 +13,8 @@ import json
 import os
 from pathlib import Path
 import shutil
+import shlex
+import sys
 import tempfile
 
 from scripts.common.scoped_canonical_context import file_hash, reader_dependencies, SnapshotCorrectionContext
@@ -132,6 +134,17 @@ def read_plan(root, path, *, check_inputs=True):
     plan = json.loads(path.read_bytes())
     if plan.get('schemaVersion') != PLAN_SCHEMA or plan.get('planHash') != sha256_json({k: v for k, v in plan.items() if k != 'planHash'}) or plan.get('inputHash') != sha256_json(plan['inputs']):
         raise ValueError('plan object hash differs')
+    feedback = plan.get('feedbackTasks', {})
+    if not isinstance(feedback, dict):
+        raise ValueError('feedback task scope mapping required')
+    for task_id, binding in feedback.items():
+        if (not isinstance(binding, dict) or set(binding) != {'requirement','requirementHash','satisfiedByUnitHashes'}
+                or binding['requirement'].get('taskId') != task_id
+                or binding['requirementHash'] != sha256_json(binding['requirement'])
+                or not isinstance(binding['satisfiedByUnitHashes'], list) or not binding['satisfiedByUnitHashes']
+                or len(set(binding['satisfiedByUnitHashes'])) != len(binding['satisfiedByUnitHashes'])
+                or not set(binding['satisfiedByUnitHashes']) <= {u['unitHash'] for u in plan['units']}):
+            raise ValueError('feedback task fulfillment scope differs')
     if check_inputs:
         for name, expected in plan['inputs'].items():
             if file_hash(Path(name)) != expected:
@@ -175,7 +188,7 @@ def read_plan(root, path, *, check_inputs=True):
     return plan
 
 
-def prepare_formal_save_plan(root, manifest_path, destination):
+def prepare_formal_save_plan(root, manifest_path, destination, *, feedback_tasks=None):
     from tools.question_review_console.validated_evidence_import import replay_recovery_native_chain
     root = Path(root).resolve()
     path = Path(manifest_path)
@@ -311,6 +324,8 @@ def prepare_formal_save_plan(root, manifest_path, destination):
     write_json(destination / 'approval-details.json', appendix)
     plan['approvalMaterials'] = {name: file_hash(destination / name) for name in ('approval-proposal.md', 'approval-details.json')}
     plan['approvalMaterialPaths'] = {name: str(destination / name) for name in plan['approvalMaterials']}
+    if feedback_tasks:
+        plan['feedbackTasks'] = deepcopy(feedback_tasks)
     plan['planHash'] = sha256_json(plan)
     write_json(destination / 'formal-save-plan.json', plan)
     read_plan(root, destination / 'formal-save-plan.json')
@@ -513,18 +528,47 @@ def approval_scope(plan):
         'inputHash': plan['inputHash'], 'files': {f['path']: f['sha256'] for u in plan['units'] for f in u['files']}, 'unitHashes': [u['unitHash'] for u in plan['units']], 'approvalMaterials': plan['approvalMaterials'], 'approvalMaterialPaths': plan['approvalMaterialPaths']}
 
 
-def save_formal_units(root, plan_path, *, human_approval, law_recheck, receipt_path, failure_hook=None):
-    """Explicit API only. Caller supplies human native approval and dated law HTTP retrieval evidence.
+def independent_approval_scope(plan, plan_path, *, root=None):
+    """Bind formal save and the limited publication plan; no gate is waived."""
+    scope = {**approval_scope(plan), 'schemaVersion': 'formal-correction-independent-scope/v1',
+             'action': 'save_immutable_units_and_review_limited_publication_plan'}
+    documents = []
+    for unit in plan['units']:
+        manifest = json.loads(physical(Path(plan_path).parent, unit['files'][0]['privatePath']).read_bytes())
+        documents.extend({'questionId': d['questionId'], 'writeFields': d['allowlist'],
+                          'deltaHash': sha256_json(d)} for d in manifest['limitedDelta'])
+    scope['publicationDocuments'] = documents
+    if plan.get('feedbackTasks'):
+        scope['feedbackTasks'] = plan['feedbackTasks']
+        scope['action'] = 'save_immutable_units_review_publication_and_task_fulfillment'
+    root = Path(root).resolve() if root is not None else Path(__file__).resolve().parents[2]
+    command = ' '.join(shlex.quote(s) for s in [sys.executable, '-m',
+        'tools.question_review_console.independent_approval', '--formal-save-plan', str(Path(plan_path).resolve()), '--repo-root', str(root)])
+    scope['nativeCreationCall'] = 'text((await tools.exec_command(' + json.dumps({'cmd': command, 'workdir': str(root), 'max_output_tokens': 12000}, ensure_ascii=False) + ')).output);'
+    return scope
+
+
+def _save_approval(root, plan, plan_path, human, subagent):
+    if (human is None) == (subagent is None):
+        raise ValueError('exactly one human or independent approval mode required')
+    production = Path(root).resolve() == Path(__file__).resolve().parents[2]
+    if subagent is not None:
+        from tools.question_review_console.independent_approval import verify_independent_approval
+        return ('subagentApproval', verify_independent_approval(subagent, independent_approval_scope(plan, plan_path, root=root), production=True), subagent)
+    if production and (not isinstance(human, dict) or not Path(human.get('sessionPath', '')).is_relative_to(Path.home() / '.codex/sessions')):
+        raise ValueError('production repository requires native Codex session provenance')
+    return 'humanApproval', _native_approval(human, plan), human
+
+
+def save_formal_units(root, plan_path, *, human_approval=None, subagent_approval=None, law_recheck, receipt_path, failure_hook=None):
+    """Explicit API only. Replay native approval and dated law HTTP retrieval.
 
     No production write, checkpoint or evaluation is performed by this API.
     A directory lacking the final save receipt is deliberately not loadable.
     """
     root, plan_path = Path(root).resolve(), Path(plan_path)
     plan = read_plan(root, plan_path)
-    if root == Path(__file__).resolve().parents[2]:
-        if not isinstance(human_approval, dict) or not Path(human_approval.get('sessionPath', '')).is_relative_to(Path.home() / '.codex/sessions'):
-            raise ValueError('production repository requires native Codex session provenance')
-    approved = _native_approval(human_approval, plan)
+    approval_key, approved, approval_evidence = _save_approval(root, plan, plan_path, human_approval, subagent_approval)
     receipt_path = Path(receipt_path)
     if not receipt_path.is_absolute():
         receipt_path = root / receipt_path
@@ -537,7 +581,9 @@ def save_formal_units(root, plan_path, *, human_approval, law_recheck, receipt_p
         if existing_receipt.get('planHash') != plan['planHash']:
             raise ValueError('existing receipt belongs to a different plan')
         load_saved_units(root, plan_path, receipt_path)
-        if existing_receipt['humanApprovalBinding'] != approved or existing_receipt.get('lawRecheckEvidence') != law_recheck:
+        if (existing_receipt.get(approval_key + 'Binding') != approved
+                or existing_receipt.get(approval_key + 'Evidence') != approval_evidence
+                or existing_receipt.get('lawRecheckEvidence') != law_recheck):
             raise ValueError('immutable save receipt evidence conflict')
         return existing_receipt
     law_binding = _law_recheck(law_recheck, plan)
@@ -571,6 +617,8 @@ def save_formal_units(root, plan_path, *, human_approval, law_recheck, receipt_p
             hook('before_rename', unit['unitHash'])
             # Recheck staged bytes and current inputs after the last hook.
             read_plan(root, plan_path)
+            if _save_approval(root, plan, plan_path, human_approval, subagent_approval)[1] != approved:
+                raise ValueError('native approval changed before formal finalize')
             for f in unit['files']:
                 if file_hash(staging / Path(f['path']).name) != f['sha256']:
                     raise ValueError('staged approved bytes changed before finalize')
@@ -580,15 +628,17 @@ def save_formal_units(root, plan_path, *, human_approval, law_recheck, receipt_p
         finally:
             if staging.exists():
                 shutil.rmtree(staging)
-    receipt = {'schemaVersion': 'formal-correction-save-receipt/v1', 'planHash': plan['planHash'], 'inputHash': plan['inputHash'],
-        'files': approval_scope(plan)['files'], 'humanApprovalBinding': approved, 'lawRecheckBinding': law_binding,
-        'humanApprovalEvidence': human_approval, 'lawRecheckEvidence': law_recheck,
+    receipt = {'schemaVersion': 'formal-correction-save-receipt/v2' if subagent_approval is not None else 'formal-correction-save-receipt/v1', 'planHash': plan['planHash'], 'inputHash': plan['inputHash'],
+        'files': approval_scope(plan)['files'], approval_key + 'Binding': approved, 'lawRecheckBinding': law_binding,
+        approval_key + 'Evidence': approval_evidence, 'lawRecheckEvidence': law_recheck,
         'result': 'saved', 'checkpointRecorded': False, 'evaluationPerformed': False, 'publicationReady': False}
     for f in [f for unit in plan['units'] for f in unit['files']]:
         if file_hash(physical(root, f['path'])) != f['sha256']:
             raise ValueError('finalized immutable file differs')
     hook('before_receipt', plan['planHash'])
     read_plan(root, plan_path)
+    if _save_approval(root, plan, plan_path, human_approval, subagent_approval)[1] != approved:
+        raise ValueError('native approval changed before receipt finalize')
     for f in [f for unit in plan['units'] for f in unit['files']]:
         if file_hash(physical(root, f['path'])) != f['sha256']:
             raise ValueError('saved bytes changed before receipt finalize')
@@ -612,13 +662,19 @@ def save_formal_units(root, plan_path, *, human_approval, law_recheck, receipt_p
 def load_saved_units(root, plan_path, receipt_path):
     plan = read_plan(root, plan_path)
     receipt = json.loads(Path(receipt_path).read_bytes())
-    if (receipt.get('schemaVersion') != 'formal-correction-save-receipt/v1' or receipt.get('result') != 'saved'
+    version = receipt.get('schemaVersion')
+    key = 'subagentApproval' if version == 'formal-correction-save-receipt/v2' else 'humanApproval'
+    other = 'humanApproval' if key == 'subagentApproval' else 'subagentApproval'
+    if (version not in {'formal-correction-save-receipt/v1', 'formal-correction-save-receipt/v2'} or receipt.get('result') != 'saved'
             or receipt.get('planHash') != plan['planHash'] or receipt.get('inputHash') != plan['inputHash']
-            or receipt.get('files') != approval_scope(plan)['files'] or not receipt.get('humanApprovalBinding') or not receipt.get('lawRecheckBinding')):
+            or receipt.get('files') != approval_scope(plan)['files'] or not receipt.get(key + 'Binding') or not receipt.get('lawRecheckBinding')
+            or other + 'Binding' in receipt or other + 'Evidence' in receipt):
         raise ValueError('approved immutable save receipt required')
-    approved = _native_approval(receipt.get('humanApprovalEvidence'), plan)
+    _, approved, _ = _save_approval(root, plan, plan_path,
+        receipt.get('humanApprovalEvidence') if key == 'humanApproval' else None,
+        receipt.get('subagentApprovalEvidence') if key == 'subagentApproval' else None)
     law = _law_recheck(receipt.get('lawRecheckEvidence'), plan, require_fresh=False)
-    if approved != receipt['humanApprovalBinding'] or law != receipt['lawRecheckBinding']:
+    if approved != receipt[key + 'Binding'] or law != receipt['lawRecheckBinding']:
         raise ValueError('saved native binding differs')
     result = []
     for unit in plan['units']:
