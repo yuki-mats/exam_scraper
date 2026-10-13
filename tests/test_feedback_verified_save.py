@@ -71,6 +71,17 @@ class VerifiedSaveTest(unittest.TestCase):
     def save(self,hook=None):
         return saver.save(self.root,self.path,self.approval,connection=self.connection,failure_hook=hook)
 
+    def test_scope_matches_terminal_lf_in_actual_native_exec_format(self):
+        from tests.test_native_independent_approval import native_audit
+        from tools.question_review_console.independent_approval import verify_independent_approval
+        scope=saver.approval_scope(self.root,self.path,self.plan)
+        record=native_audit(self.root,scope)
+        parent=Path(record['creation']['sessionPath'])
+        lines=parent.read_bytes().splitlines(keepends=True)
+        call=json.loads(lines[2]); call['payload']['input']=call['payload']['input'].rstrip('\n')+'\n'
+        lines[2]=(json.dumps(call,ensure_ascii=False)+'\n').encode(); parent.write_bytes(b''.join(lines))
+        self.assertEqual(verify_independent_approval(record,scope,production=False)['reviewerSessionId'],'reviewer')
+
     @unittest.skipUnless(shutil.which('node'), 'Node is required to verify native creation JS')
     def test_native_creation_keeps_marker_after_yield_and_rejects_failed_command(self):
         code=saver.approval_scope(self.root,self.path,self.plan)['nativeCreationCall']
