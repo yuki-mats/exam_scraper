@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import json
+import contextlib
+import io
 import tempfile
 import unittest
 from pathlib import Path
@@ -10,6 +12,23 @@ from scripts.pipeline import rebuild_gas_shunin_all_year_artifacts as module
 
 
 class RebuildGasShuninAllYearArtifactsTest(unittest.TestCase):
+    def test_normal_apply_reads_canonical_and_only_regenerates_outputs(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory).resolve()
+            bundle={'list_group_id':'2021','questions':[{'questionId':'q'}],'total_count':1}
+            with mock.patch.object(module,'ROOT_DIR',root), \
+                 mock.patch.object(module,'QUALIFICATIONS',('gas-shunin-otsu',)), \
+                 mock.patch.object(module,'YEARS',(2021,)), \
+                 mock.patch.object(module,'EXPECTED_COUNTS',{'gas-shunin-otsu':1}), \
+                 mock.patch.object(module,'verify_official_pdf_evidence',return_value={}), \
+                 mock.patch.object(module,'official_index_by_id',return_value=({},{})), \
+                 mock.patch.object(module,'load_canonical_bundles',return_value={'gas-shunin-otsu':{2021:bundle}}), \
+                 mock.patch.object(module,'save_initial_canonical') as creation, \
+                 contextlib.redirect_stdout(io.StringIO()):
+                self.assertEqual(module.main(['--apply','--receipt',str(root/'receipt.json')]),0)
+                creation.assert_not_called()
+            self.assertEqual(len(list((root/'output/gas-shunin-otsu/questions_json/2021/40_convert').glob('2021_firestore_*.json'))),1)
+
     def test_normalize_publication_document_keeps_first_three_complete_details(self) -> None:
         question = {
             "questionId": "q1",

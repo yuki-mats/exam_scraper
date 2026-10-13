@@ -147,7 +147,7 @@ def official_index_by_id(path: Path) -> tuple[dict[str, dict[str, Any]], dict[st
 
 
 def verify_official_pdf_evidence(
-    *, document_index: Path, pdf_verification: Path
+    *, document_index: Path, pdf_verification: Path, root: Path = ROOT_DIR
 ) -> dict[str, Any]:
     indexed, payload = official_index_by_id(document_index)
     verification = load_json(pdf_verification)
@@ -173,7 +173,7 @@ def verify_official_pdf_evidence(
                 raise ValueError(f"同一PDFに異なるhashがあります: {path_text}")
     mismatches = []
     for path_text, expected_hash in sorted(pdfs.items()):
-        path = (ROOT_DIR / path_text).resolve()
+        path = (root / path_text).resolve()
         if not path.is_file() or sha256(path) != expected_hash:
             mismatches.append(path_text)
     if mismatches:
@@ -184,6 +184,33 @@ def verify_official_pdf_evidence(
         "documentIndexSha256": sha256(document_index),
         "pdfVerificationSha256": sha256(pdf_verification),
     }
+
+
+def save_initial_canonical(path: Path, bundle: dict[str, Any]) -> None:
+    """Bootstrap is creation only; never replace an existing or recovering 25."""
+    from tools.question_review_console.question_patch_proposal import _canonical_file_locks
+    from tools.question_review_console.formal_correction_save import _rename_exclusive
+    import os
+    import tempfile
+    with _canonical_file_locks(ROOT_DIR, [path.relative_to(ROOT_DIR)]):
+        if path.exists() or any(path.parent.glob('.feedback-save-*')):
+            raise ValueError('既存又は復元中の25正本をbootstrapで上書きできません。')
+        path.parent.mkdir(parents=True, exist_ok=True)
+        fd, temporary = tempfile.mkstemp(dir=path.parent, prefix='.bootstrap-')
+        try:
+            with os.fdopen(fd, 'wb') as stream:
+                stream.write((json.dumps(bundle, ensure_ascii=False, sort_keys=True, indent=2) + '\n').encode())
+                stream.flush()
+                os.fsync(stream.fileno())
+            _rename_exclusive(temporary, path)
+            fd = os.open(path.parent, os.O_RDONLY)
+            try:
+                os.fsync(fd)
+            finally:
+                os.close(fd)
+        finally:
+            if os.path.exists(temporary):
+                os.unlink(temporary)
 
 
 def active_snapshot_documents(snapshot_dir: Path) -> list[dict[str, Any]]:
@@ -593,7 +620,8 @@ def main(argv: list[str] | None = None) -> int:
             bundle = built[qualification][year]
             questions = bundle.get("questions") or []
             if args.apply:
-                write_json(canonical_path(qualification, year), bundle)
+                if args.bootstrap_from_snapshots:
+                    save_initial_canonical(canonical_path(qualification, year), bundle)
             all_questions.extend(copy.deepcopy(questions))
             merged = copy.deepcopy(bundle)
             merged["schemaVersion"] = MERGED_SCHEMA_VERSION

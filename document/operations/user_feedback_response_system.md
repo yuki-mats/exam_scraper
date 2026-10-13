@@ -2,7 +2,7 @@
 
 状態: 実装中。個別受付台帳と読み取り専用の日次照合を実装済み。日次heartbeatが既存CLIを使って調査・独立監査・公開を進める。専用の常駐GUIとスマホ承認画面は未実装。
 
-最終更新: 2026-10-12
+最終更新: 2026-10-13
 
 この文書は、Repasoから届くユーザーフィードバックの調査、改善、独立監査、patch保存、Firestore公開を扱う運用正本です。公式問題の誤り報告を修正レーンとし、AI解説への利用者質問から学習上のニーズを見つける改善レーンを置きます。将来はアプリ不具合、UI改善、要望も追加します。
 
@@ -32,7 +32,11 @@
 
 `independent_approval`は親sessionの直接ユーザー包括許可、固定planを検証するCLIのnative出力、実委任のcallとSubAgentActivity、子identity、同じ暗号文の配送、親子turn、平文の構造化最終回答とtask_completeを照合します。暗号化された依頼本文を復号したとは扱いません。承認scopeは作者の検証出力と子の最終回答が一致した内容です。ローカルnative記録は暗号学的署名ではありません。作者と同一の監査者、未解決指摘、別scope、未完了turn、入力変更は拒否し、正式保存直前とreceipt読込時にも再検証します。
 
-改善previewは`--approval-mode independent`で`exact_diff_native_subagent_formal_save_approval`を要求します。候補を作るだけで正式保存済み・公開済みにはなりません。とくに`25_verified_publication`の候補を正式正本へ保存する専用契約は未対応であり、previewのモード変更だけで代替しません。
+改善previewは`--approval-mode independent`で`exact_diff_native_subagent_formal_save_approval`を要求します。候補を作るだけで正式保存済み・公開済みにはなりません。2026-10-13、ガスの`25_verified_publication`に対する一task・一年度・一既存documentの解説改善に専用CLI `tools.question_bank.feedback_verified_save`を追加しました。対象fieldは`explanationText`・`suggestedQuestions`・`suggestedQuestionDetails`だけです。公式indexとPDF現物、元bytes、候補再投影、一次根拠、全siblingのmasked snapshotとexact updateTime、task要件、実装依存を固定します。`prepare`はprivate planだけを作り、`scope --stage final`のnative作成出力と別subagentの承認から`save`へ進みます。法令対象では`scope --stage primary/secondary/tertiary`に対する三名の異なるnative監査者の証跡を順に`law-<stage>-approval.json`へ保存し、最終scopeにも全証跡hashを結合します。監査者は既存の三段階法令監査の内容条件を確認し、古い法令本文のhashだけで現行法確認を済ませません。保存直前はfresh readの後に入力・scope・native承認を再照合します。
+
+この保存は元ファイルのexclusive退避と候補のexclusive確定を使い、`feedback-verified-explanation-save-receipt/v1`を残します。短い置換区間及び中断時には正本が不存在となるため、readerは失敗として停止します。bootstrapは既存又は復元中の25を上書きしません。第三値があれば上書き・自動rollbackせず元bytesと再開位置を保持します。`save`の同一再送と`restore`の中断復元を検証します。`restore`後は旧planを再保存せず新planを作ります。元の入力・根拠又は承認が変わって再検証できない場合は復元も保留し、新たな監査・復旧判断を必要とします。保存receiptは正式保存だけを証明し、Firestore公開を意味しません。詳しい保存境界は[artifact契約](artifact_contract.md)を参照してください。
+
+未対応なのは、新25保存receiptを使う公開・改善台帳の完了記録adapter、複数task/年度/変更document、ガス25以外のsource-bound改善保存です。新receiptを既存immutable unitのv2 receiptへ偽装せず、対応実装と独立監査を済ませるまで該当工程を保留します。
 
 改善台帳の`record-improvement-result`は引き続き調査・候補作成だけを記録します。公開完了は別CLIの`record-improvement-publication`で記録します。`feedback-improvement-publication/v1`に正式planとv2保存receipt、既存publisherの`manifest.json`・`preflight.json`・`artifact.json`・`readback.json`・`result.json`の相対pathとfile SHA256を結合します。正式planの`feedbackTasks`には台帳から取得したtask ID・title/need/target・全source集合とhash、改善ニーズの充足に必要なunit hashを固定し、独立監査scopeへ含めます。同じ問題への別目的の修正では完了にしません。実taskの全質問との紐付け、全sibling、独立監査済みfieldと値、評価gate、記録済みreadback、最新の本番readbackと保存対象外fieldの不変を検証し、書込みtransactionでsource集合と要件の不変を再確認してからCASで`completed`へ進めます。同じreceiptの再送は重複登録しません。このCLIはFirestoreへ書き込みません。現時点で対応するのは、改善の充足に必要なunitが一つで、全task sourceを覆う限定writeFields付き`question-publish-result/v1`と既存immutable unitの組合せです。複数unitや複数runを要する改善、別形式の公開receipt、未対応の保存経路は理由を記録して保留し、互換のないreceiptを偽装しません。
 

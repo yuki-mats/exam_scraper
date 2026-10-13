@@ -113,6 +113,16 @@ promotion時は`result.json`のhashと問題identity、state、App Server sessio
 - 新fieldを公開artifactへ入れる前に、field契約、repaso schema、convert、upload、quality-gateを同時に更新する。
 - 正誤が02a又は03bで変わった場合は`23`を更新し、`20`と03以降を再生成する。
 
+### フィードバックによる検証済みガス解説の保存
+
+`python -m tools.question_bank.feedback_verified_save prepare --repo-root <physical checkout> --result <調査result> --canonical <25正本> --output <新規private実行directory> --document-index <公式index> --pdf-verification <公式検証>`は、一task・一年度・一変更documentの固定候補を作る。公式PDF現物、全siblingのmasked snapshot、元bytes、対象外不変、task要件を再検証する。正本とFirestoreは変更しない。
+
+`scope --plan <formal-save-plan.json> --stage primary|secondary|tertiary|final`は検証済みscopeのnative markerを出す。法令対象は三段階の異なる監査者によるnative証跡を固定し、finalの別subagent承認を専用schemaで検証する。`save --plan <plan> --approval <native-independent-approval/v1 JSON>`だけが正式25を保存する。fieldと判断の条件は[フィードバック運用正本](user_feedback_response_system.md#無人実行経路の既知の未対応)に従う。
+
+`.feedback-save-<planHash>/`は25の親directory内に作るowner-onlyの復旧領域であり、`intent.json`・`original.json`・`replacement.json`・必要時の復元状態を保持する。元正本をexclusive退避して実bytesのhashを照合し、候補もexclusive確定する。置換途中の正本不存在を読取側は失敗として扱い、生成物やsnapshotで補わない。通常rebuildは25を読取専用とし、初回bootstrapは既存正本又は復旧領域があれば拒否する。
+
+private planと同じdirectoryの`save-receipt.json`は`feedback-verified-explanation-save-receipt/v1`で、native承認・元bytes・候補bytesを再照合する。保存中断は同じplan/intentの再検証後に再開し、第三値は保持して停止する。`restore`は現candidateと退避元が一致する場合だけexclusiveに元へ戻し、復元中断と同一再送を追跡する。復元済みplanは再保存しない。receiptは公開結果を示さず、merge/convert・checker・quality gate・独立評価・限定upload dry-run・本番readbackは別途必須とする。
+
 ### 読取専用canonical contextによる限定生成
 
 `scripts/pipeline/prepare_scoped_question_artifacts.py --context <JSON> --output <private-directory>` は、明示したcanonical rootの全source・選択patchとproduct rootの正式24を固定し、一問bindingの全公開IDを生成します。入力JSONは `canonicalRoot`、`overlayRoot`、`qualification`、`listGroupId`、完全な `binding`、`publicationIds`、`referencePaths` を持ちます。保存先は `output/user_feedback_response_system/staging/recovery-scoped-2025/` 配下に限り、manifestには入力・実装・projection・各artifactのhash、候補別対象外証明、全group診断を保存します。通常の全group gateは継続して適用されます。
