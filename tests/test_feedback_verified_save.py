@@ -3,6 +3,8 @@ import hashlib
 import json
 from pathlib import Path
 import sqlite3
+import shutil
+import subprocess
 import tempfile
 import unittest
 from unittest.mock import patch
@@ -68,6 +70,20 @@ class VerifiedSaveTest(unittest.TestCase):
 
     def save(self,hook=None):
         return saver.save(self.root,self.path,self.approval,connection=self.connection,failure_hook=hook)
+
+    @unittest.skipUnless(shutil.which('node'), 'Node is required to verify native creation JS')
+    def test_native_creation_keeps_marker_after_yield_and_rejects_failed_command(self):
+        code=saver.approval_scope(self.root,self.path,self.plan)['nativeCreationCall']
+        script='const chunks=JSON.parse(process.argv[1]);const tools={exec_command:async()=>chunks.shift(),write_stdin:async()=>chunks.shift()};const text=s=>process.stdout.write(s);(async()=>{'+code+'})().catch(e=>{process.stderr.write(e.message);process.exitCode=1;});'
+        success=subprocess.run(['node','-e',script,json.dumps([
+            {'output':'','session_id':7},{'output':'','session_id':7},
+            {'output':'NATIVE_CANDIDATE_SCOPE=fixed\n','exit_code':0}])],capture_output=True,text=True)
+        self.assertEqual(success.returncode,0,success.stderr)
+        self.assertEqual(success.stdout,'NATIVE_CANDIDATE_SCOPE=fixed\n')
+        failed=subprocess.run(['node','-e',script,json.dumps([
+            {'output':'','session_id':7},{'output':'invalid candidate','exit_code':1}])],capture_output=True,text=True)
+        self.assertNotEqual(failed.returncode,0)
+        self.assertEqual(failed.stdout,'')
 
     def selected_snapshots(self,ids,fields):
         return {i:{**deepcopy(self.snapshots[i]),'fields':{k:deepcopy(v) for k,v in self.snapshots[i]['fields'].items() if k in fields}} for i in ids}

@@ -345,7 +345,9 @@ def _scope(root,path,plan,stage,reviews):
         'planHash':plan['planHash'],'candidateSha256':plan['candidateSha256'],
         'taskRequirement':plan['taskRequirement'], 'publicationDocuments':plan['publicationDocuments'],
         'lawReviewRequired':plan['lawReviewRequired'],'priorLawReviews':reviews,
-        'nativeCreationCall':'text((await tools.exec_command(' + json.dumps({'cmd':command,'workdir':str(root),'max_output_tokens':12000},ensure_ascii=False) + ')).output);'}
+        'nativeCreationCall':'let r=await tools.exec_command(' + json.dumps({'cmd':command,'workdir':str(root),'max_output_tokens':12000,'yield_time_ms':30000},ensure_ascii=False)
+            + ');let out=r.output;while(r.session_id){r=await tools.write_stdin({session_id:r.session_id,chars:"",yield_time_ms:1000,max_output_tokens:12000});out+=r.output;}'
+            + 'if(r.exit_code!==0)throw new Error("scope creation failed");text(out);'}
 
 
 def approval_scope(root,path,plan,stage='final'):
