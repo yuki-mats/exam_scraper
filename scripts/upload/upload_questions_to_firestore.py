@@ -31,8 +31,11 @@ BATCH_SIZE = 500  # Firestoreバッチ書き込みの上限
 CONFIG_DOC_ID = "08zYvCuKUcvGTNYqehrm"
 OFFICIAL_EXAM_YEARS_FIELD = "official_exam_years_by_qualification"
 WRITE_FIELDS_KEY = "writeFields"
+EXPECTED_UPDATE_TIMES_KEY = "expectedUpdateTimes"
+EXPLANATION_DETAILS_WRITE_FIELDS = ("explanationText", "suggestedQuestionDetails")
 ALLOWED_PATCH_WRITE_FIELD_SETS = (
     ("explanationText",),
+    EXPLANATION_DETAILS_WRITE_FIELDS,
     ("suggestedQuestions", "suggestedQuestionDetails"),
     ("qualificationId", "listGroupId"),
     ("correctChoiceText", "explanationText"),
@@ -292,6 +295,16 @@ def validate_question_patch_questions(
 ) -> None:
     """Validate narrow question repairs, including answer-correction repairs."""
 
+    if write_fields == EXPLANATION_DETAILS_WRITE_FIELDS:
+        validate_explanation_patch_questions(questions, source_label)
+        validate_suggestion_patch_questions(questions, source_label, max_entries=3)
+        for question in questions:
+            details = question["suggestedQuestionDetails"]
+            if (any(not isinstance(item["question"], str) or not isinstance(item["answer"], str)
+                    for item in details)
+                    or question["suggestedQuestions"] != [item["question"] for item in details]):
+                raise ValueError("explanation/detail patch requires an exact string suggestion mirror")
+        return
     if write_fields == ("suggestedQuestions", "suggestedQuestionDetails"):
         validate_suggestion_patch_questions(
             questions,
@@ -509,6 +522,76 @@ def resolve_write_fields(data: dict) -> tuple[str, ...] | None:
     return fields
 
 
+class _UploadJSONObject(dict):
+    """Retain duplicate JSON keys for the opt-in update-time contract only."""
+
+    def __init__(self, pairs):
+        super().__init__()
+        self.duplicate_keys = set()
+        for key, value in pairs:
+            if key in self:
+                self.duplicate_keys.add(key)
+            self[key] = value
+
+
+def resolve_expected_update_times(data: dict, questions, write_fields) -> dict[str, str] | None:
+    if EXPECTED_UPDATE_TIMES_KEY not in data:
+        return None
+    expected = data[EXPECTED_UPDATE_TIMES_KEY]
+    if (not write_fields or not isinstance(expected, dict) or not expected
+            or EXPECTED_UPDATE_TIMES_KEY in getattr(data, "duplicate_keys", ())
+            or getattr(expected, "duplicate_keys", ())):
+        raise ValueError("expectedUpdateTimes requires a unique nonempty map and narrow writeFields")
+    if not isinstance(questions, list) or not questions:
+        raise ValueError("expectedUpdateTimes requires nonempty upload questions")
+    ids = [q.get("questionId") if isinstance(q, dict) else None for q in questions]
+    if (any(not isinstance(i, str) or not i or i.strip() != i or "/" in i for i in ids)
+            or len(set(ids)) != len(ids) or set(expected) != set(ids)):
+        raise ValueError("expectedUpdateTimes keys must exactly cover unique upload questionIds")
+    pattern = r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,9})?(?:Z|[+-](?:[01]\d|2[0-3]):[0-5]\d)"
+    for value in expected.values():
+        if not isinstance(value, str) or re.fullmatch(pattern, value) is None:
+            raise ValueError("expectedUpdateTimes must contain exact RFC3339 timestamps")
+        try:
+            datetime.fromisoformat(value.replace("Z", "+00:00"))
+        except ValueError as exc:
+            raise ValueError("expectedUpdateTimes contains an invalid timestamp") from exc
+    return dict(expected)
+
+
+def checked_existing_snapshots(document_ids: list[str], snapshots: list) -> dict:
+    by_id = {}
+    for snapshot in snapshots:
+        identity = getattr(snapshot, "id", None)
+        if (identity not in document_ids or identity in by_id
+                or getattr(snapshot, "exists", False) is not True):
+            raise RuntimeError("existing snapshot scope is missing, duplicate or unexpected")
+        by_id[identity] = snapshot
+    if set(by_id) != set(document_ids):
+        raise RuntimeError("existing snapshot scope is incomplete")
+    return by_id
+
+
+def require_expected_update_times(document_ids: list[str], snapshots: list, expected: dict[str, str]) -> dict:
+    by_id = checked_existing_snapshots(document_ids, snapshots)
+    for identity in document_ids:
+        timestamp = getattr(by_id[identity], "update_time", None)
+        render = getattr(timestamp, "rfc3339", None)
+        if not callable(render) or render() != expected[identity]:
+            raise RuntimeError("expectedUpdateTimes conflict: document update_time changed")
+    return by_id
+
+
+def require_explanation_details_live_mirror(questions: list[dict], snapshots: list) -> dict:
+    by_id = checked_existing_snapshots([q["questionId"] for q in questions], snapshots)
+    for question in questions:
+        live = by_id[question["questionId"]].to_dict() or {}
+        if (live.get("isDeleted") is not False or live.get("isChoiceOnly") is not False
+                or live.get("suggestedQuestions") != question["suggestedQuestions"]):
+            raise RuntimeError("explanation/detail patch live flags or preserved suggestion mirror changed")
+    return by_id
+
+
 def build_patch_doc_data(new_base: dict, write_fields: tuple[str, ...], now: datetime) -> dict:
     """Build a partial update that cannot alter fields outside the explicit contract."""
 
@@ -706,10 +789,11 @@ def upload_questions(
 
     # JSONファイルを読み込み
     with open(json_file_path, "r", encoding="utf-8") as f:
-        data = json.load(f)
+        data = json.load(f, object_pairs_hook=_UploadJSONObject)
 
     write_fields = resolve_write_fields(data)
     questions = data.get("questions", [])
+    expected_update_times = resolve_expected_update_times(data, questions, write_fields)
     if not questions:
         print("アップロードする質問データがありません。")
         return
@@ -777,7 +861,7 @@ def upload_questions(
 
     expected_live_hash = os.environ.get("QUESTION_PUBLISH_EXPECTED_LIVE_HASH", "").strip()
     guarded_snapshots_by_id = None
-    if expected_live_hash:
+    if expected_live_hash or expected_update_times is not None or write_fields == EXPLANATION_DETAILS_WRITE_FIELDS:
         guarded_ids = [str(question.get("questionId") or "").strip() for question in questions]
         if not all(guarded_ids) or len(set(guarded_ids)) != len(guarded_ids):
             raise RuntimeError("公開対象のquestionIdが空又は重複しています。")
@@ -786,11 +870,12 @@ def upload_questions(
             for question_id in guarded_ids
         ]
         guarded_snapshots = fetch_existing_question_snapshots(db, guarded_refs)
-        require_expected_live_fingerprint(
-            guarded_ids,
-            guarded_snapshots,
-            expected_live_hash,
-        )
+        if expected_update_times is not None:
+            require_expected_update_times(guarded_ids, guarded_snapshots, expected_update_times)
+        if write_fields == EXPLANATION_DETAILS_WRITE_FIELDS:
+            require_explanation_details_live_mirror(questions, guarded_snapshots)
+        if expected_live_hash:
+            require_expected_live_fingerprint(guarded_ids, guarded_snapshots, expected_live_hash)
         guarded_snapshots_by_id = {
             str(snapshot.id): snapshot for snapshot in guarded_snapshots
         }

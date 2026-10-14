@@ -7,7 +7,7 @@ import time
 import unittest
 from pathlib import Path
 
-from scripts.upload.upload_questions_to_firestore import build_doc_data_base
+from scripts.upload.upload_questions_to_firestore import build_doc_data_base, resolve_write_fields, build_patch_doc_data
 from tools.question_review_console.jobs import (
     REPOSITORY_OPERATION_KEY,
     JobManager,
@@ -150,6 +150,70 @@ class QuestionPublisherSafetyTests(unittest.TestCase):
         self.assertEqual(preview["deletedDocumentIds"], ["doc-1"])
         self.assertIn("isDeleted=true", preview["reason"])
         self.assertEqual(firestore.read_count, 0)
+
+    def test_narrow_document_mask_reaches_actual_uploader_root_and_preserves_other_fields(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            question = question_payload()
+            for doc in question['uploadReadyDocs']:
+                doc['writeFields'] = ['explanationText']
+            write_inputs(root, question)
+            live = {d['questionId']: build_doc_data_base(d) for d in question['uploadReadyDocs']}
+            live['doc-1']['explanationText'] = '旧解説'
+            firestore = FakeFirestore(live)
+            seen = []
+            def upload(command, **kwargs):
+                payload = json.loads(Path(command[-1]).read_bytes())
+                mask = resolve_write_fields(payload)
+                self.assertEqual(mask, ('explanationText',))
+                for doc in payload['questions']:
+                    before = dict(firestore.documents[doc['questionId']])
+                    patch = build_patch_doc_data(build_doc_data_base(doc), mask, None)
+                    self.assertEqual(set(patch), {'explanationText','updatedAt','updatedById'})
+                    firestore.documents[doc['questionId']].update(patch)
+                    self.assertEqual({k:v for k,v in firestore.documents[doc['questionId']].items() if k not in patch},
+                        {k:v for k,v in before.items() if k not in patch})
+                seen.append(payload)
+                return 0
+            pub = self.publisher(root, question, firestore, command_runner=upload)
+            preview = pub.preview(question)
+            self.assertTrue(preview['canPublish'])
+            self.assertFalse(preview['alsoUpdatesOfficialExamYearsManifest'])
+            result = pub.run(question, preview, lambda _: None)
+            self.assertEqual(result['status'], 'succeeded')
+            self.assertEqual(len(seen), 1)
+            artifact = root / 'output/question_review_console/publish_runs/sample' / result['runId'] / 'artifact.json'
+            self.assertEqual(json.loads(artifact.read_bytes())['writeFields'], ['explanationText'])
+
+    def test_narrow_masks_missing_mixed_or_unsupported_stop_before_upload(self):
+        variants = [[None, None], [[], []], [['explanationText'], None],
+            [['explanationText'], ['correctChoiceText','explanationText']], [['questionText'], ['questionText']]]
+        for masks in variants:
+            with self.subTest(masks=masks), tempfile.TemporaryDirectory() as directory:
+                root = Path(directory); question = question_payload()
+                for doc, mask in zip(question['uploadReadyDocs'], masks):
+                    doc['writeFields'] = mask
+                write_inputs(root, question)
+                seen = []
+                pub = self.publisher(root, question, FakeFirestore(), command_runner=lambda *a,**k: seen.append(a))
+                with self.assertRaises(PublicationError):
+                    pub.preview(question)
+                self.assertEqual(seen, [])
+
+    def test_narrow_publication_rejects_missing_document_and_outside_mask_changes(self):
+        for mode in ('missing', 'outside'):
+            with self.subTest(mode=mode), tempfile.TemporaryDirectory() as directory:
+                root = Path(directory); question = question_payload()
+                for doc in question['uploadReadyDocs']:
+                    doc['writeFields'] = ['explanationText']
+                write_inputs(root, question)
+                live = {d['questionId']:build_doc_data_base(d) for d in question['uploadReadyDocs']}
+                if mode == 'missing': live.pop('doc-1')
+                else: live['doc-1']['correctChoiceText'] = '間違い'
+                seen = []
+                pub = self.publisher(root, question, FakeFirestore(live), command_runner=lambda *a,**k: seen.append(a))
+                with self.assertRaises(PublicationError): pub.preview(question)
+                self.assertEqual(seen, [])
 
     def test_preview_blocks_when_source_directory_is_missing(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

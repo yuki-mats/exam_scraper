@@ -19,6 +19,7 @@ from scripts.upload.upload_questions_to_firestore import (
     firestore_live_fingerprint,
     stale_public_fields_to_delete,
     validate_required_question_fields,
+    resolve_write_fields,
 )
 from tools.question_review_console.firestore_readback import (
     PRODUCTION_PROJECT_ID,
@@ -39,6 +40,23 @@ class PublicationError(RuntimeError):
 
 
 MAX_QUESTION_PUBLISH_QUEUE_SIZE = 100
+
+
+def _uploader_payload(documents: list[dict[str, Any]]) -> dict[str, Any]:
+    """Carry explicit per-document limits into the uploader's root contract."""
+    payload = {"questions": documents}
+    if not any("writeFields" in document for document in documents):
+        return payload
+    masks = [document.get("writeFields") for document in documents]
+    if not masks or any(mask != masks[0] for mask in masks):
+        raise PublicationError("documentごとに異なるwriteFieldsは、この公開経路では扱えません。")
+    payload["writeFields"] = masks[0]
+    try:
+        if not resolve_write_fields(payload):
+            raise ValueError("explicit nonempty narrow writeFields required")
+    except ValueError as exc:
+        raise PublicationError("限定公開のwriteFieldsが既存uploader契約と一致しません。") from exc
+    return payload
 
 
 def _source_fingerprint(
@@ -963,7 +981,7 @@ class QuestionPublisher:
             "canPublish": bool(changed),
             "status": "mismatch" if changed else "match",
             "preflightToken": self._token(token_payload),
-            "alsoUpdatesOfficialExamYearsManifest": True,
+            "alsoUpdatesOfficialExamYearsManifest": "writeFields" not in _uploader_payload(documents),
         }
 
     def run(
@@ -987,6 +1005,7 @@ class QuestionPublisher:
             if not fresh.get("canPublish"):
                 raise PublicationError("実行直前の確認で本番反映対象がなくなりました。")
             path, documents, artifact_hash = self._load_question_artifact(current)
+            upload_payload = _uploader_payload(documents)
             if artifact_hash != fresh.get("artifactHash"):
                 raise PublicationError("確認後にupload-readyが更新されました。")
             _require_source_fingerprint(
@@ -1043,7 +1062,7 @@ class QuestionPublisher:
         )
         atomic_write(
             candidate_path,
-            json.dumps({"questions": documents}, ensure_ascii=False, indent=2, sort_keys=True)
+            json.dumps(upload_payload, ensure_ascii=False, indent=2, sort_keys=True)
             + "\n",
         )
 
@@ -1350,12 +1369,14 @@ class QuestionPublisher:
                 != publication_original_id
             ):
                 raise PublicationError("対象問題に別の元問題documentが含まれています。")
+        _uploader_payload(documents)
         return path, documents, GroupPublisher._file_hash(path)
 
     @staticmethod
     def _changes(
         documents: list[dict[str, Any]], live: Mapping[str, Mapping[str, Any]]
     ) -> tuple[list[dict[str, Any]], list[str]]:
+        mask = resolve_write_fields(_uploader_payload(documents))
         changed: list[dict[str, Any]] = []
         missing: list[str] = []
         for document in documents:
@@ -1363,6 +1384,8 @@ class QuestionPublisher:
             existing = live.get(question_id)
             base = build_doc_data_base(document)
             if existing is None:
+                if mask:
+                    raise PublicationError("限定公開では新規documentを作成できません。")
                 missing.append(question_id)
                 changed.append({"questionId": question_id, "fields": ["document"]})
                 continue
@@ -1372,6 +1395,8 @@ class QuestionPublisher:
                 for field in DOC_COMPARE_KEYS
                 if field in base and existing.get(field) != base.get(field)
             )
+            if mask and set(fields) - set(mask):
+                raise PublicationError("限定公開のwriteFields外に未解決の差分があります。")
             if fields:
                 changed.append(
                     {

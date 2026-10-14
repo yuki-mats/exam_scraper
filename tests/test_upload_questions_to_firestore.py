@@ -1,7 +1,16 @@
 from __future__ import annotations
 
 import unittest
+import contextlib
+import io
+import json
+from pathlib import Path
+import tempfile
+from copy import deepcopy
 from datetime import datetime
+from types import SimpleNamespace
+from unittest.mock import patch
+from google.api_core.datetime_helpers import DatetimeWithNanoseconds
 
 from scripts.upload import upload_questions_to_firestore as module
 from scripts.common.image_storage_urls import build_public_storage_url
@@ -871,6 +880,183 @@ class UploadQuestionsToFirestoreTests(unittest.TestCase):
         expected = module.firestore_live_fingerprint(["q1"], {})
 
         module.require_expected_live_fingerprint(["q1"], [Snapshot()], expected)
+
+
+class NarrowExplanationUploadTests(unittest.TestCase):
+    stamp = "2026-10-14T00:00:00.123456789Z"
+    mask = ["explanationText", "suggestedQuestionDetails"]
+
+    def question(self, identity="target"):
+        return {"questionId": identity, "qualificationId": "fixture", "questionText": "問題",
+                "isDeleted": False, "isChoiceOnly": False, "explanationText": "正しい。新しい説明。",
+                "suggestedQuestions": ["補足"],
+                "suggestedQuestionDetails": [{"question": "補足", "answer": "新しい回答"}]}
+
+    def payload(self, ids=("target",)):
+        return {"writeFields": self.mask, "questions": [self.question(i) for i in ids],
+                "expectedUpdateTimes": {i: self.stamp for i in ids}}
+
+    def snapshots(self, ids=("target",), *, unchanged=False):
+        result = []
+        for identity in ids:
+            fields = self.question(identity)
+            if not unchanged:
+                fields["explanationText"] = "正しい。旧説明。"
+                fields["suggestedQuestionDetails"][0]["answer"] = "旧回答"
+            result.append(SimpleNamespace(id=identity, exists=True,
+                update_time=DatetimeWithNanoseconds.from_rfc3339(self.stamp),
+                to_dict=lambda fields=fields: deepcopy(fields)))
+        return result
+
+    class Database:
+        def __init__(self, snapshots, *, conflict_after_read=False):
+            self.snapshots = snapshots; self.reads = []; self.collection_names = []
+            self.pending = []; self.committed = []; self.batch_count = 0
+            self.conflict_after_read = conflict_after_read
+
+        def collection(self, name):
+            self.collection_names.append(name)
+            return self
+
+        def document(self, identity): return identity
+
+        def get_all(self, refs, field_paths):
+            self.reads.append((refs, field_paths))
+            return self.snapshots
+
+        def batch(self):
+            self.batch_count += 1
+            db = self
+            class Batch:
+                def update(self, ref, data, *, option): db.pending.append((ref, data, option))
+                def create(self, ref, data): raise AssertionError("narrow upload must not create")
+                def commit(self):
+                    if db.conflict_after_read: raise RuntimeError("LastUpdateOption conflict")
+                    db.committed.extend(db.pending)
+            return Batch()
+
+    def upload(self, payload, db, *, dry_run=False, expected_hash=None, raw=None):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "upload.json"
+            path.write_text(raw if raw is not None else json.dumps(payload), encoding="utf-8")
+            with patch.object(module, "init_firestore", return_value=db) as init, \
+                    patch.dict(module.os.environ, {"QUESTION_PUBLISH_EXPECTED_LIVE_HASH": expected_hash or ""}), \
+                    contextlib.redirect_stdout(io.StringIO()) as output:
+                module.upload_questions(str(path), dry_run=dry_run)
+                return output.getvalue(), init.call_count
+
+    def test_new_mask_validates_payload_mirror_types_flags_and_never_relaxes_rollback(self):
+        self.assertEqual(module.resolve_write_fields(self.payload()), tuple(self.mask))
+        question = self.question()
+        module.validate_question_patch_questions([question], tuple(self.mask), "fixture")
+        invalid = [dict(explanationText=""), dict(suggestedQuestions=["別の補足"]),
+                   dict(isDeleted=True), dict(isChoiceOnly=True),
+                   dict(suggestedQuestionDetails=[{"question": "補足", "answer": ""}]),
+                   dict(suggestedQuestions=["12"], suggestedQuestionDetails=[{"question": 12, "answer": "答え"}]),
+                   dict(suggestedQuestions=["補足"] * 4,
+                        suggestedQuestionDetails=[{"question": "補足", "answer": "回答"}] * 4)]
+        for change in invalid:
+            with self.subTest(change=change), self.assertRaises(ValueError):
+                module.validate_question_patch_questions([{**question, **change}], tuple(self.mask),
+                    "fixture", allow_legacy_suggestion_rollback=True)
+
+    def test_update_time_structure_rejected_without_sdk_even_in_dry_run(self):
+        original = self.payload()
+        invalid = [None, {}, [], {"target": True}, {"target": "bad"},
+                   {"target": "2026-02-30T00:00:00.123456789Z"},
+                   {"target": "2026-10-14T00:00:00.1234567890Z"},
+                   {"target": "2026-10-14T00:00:00"}, {"other": self.stamp},
+                   {"target": self.stamp, "extra": self.stamp}]
+        for value in invalid:
+            with self.subTest(value=value), patch.object(module, "init_firestore") as init:
+                with self.assertRaises(ValueError):
+                    self.upload({**original, "expectedUpdateTimes": value}, object(), dry_run=True)
+                init.assert_not_called()
+        for mutation in (dict(writeFields=None), dict(questions=[]),
+                         dict(questions=[self.question(), self.question()]),
+                         dict(questions=[self.question("parent/child")])):
+            with self.subTest(mutation=mutation), self.assertRaises(ValueError):
+                self.upload({**original, **mutation}, object(), dry_run=True)
+
+    def test_duplicate_timestamp_json_keys_rejected(self):
+        raw = json.dumps(self.payload()).replace(
+            '"expectedUpdateTimes": {"target": "' + self.stamp + '"}',
+            '"expectedUpdateTimes": {"target": "' + self.stamp + '", "target": "' + self.stamp + '"}')
+        with self.assertRaisesRegex(ValueError, "unique nonempty"):
+            self.upload(None, object(), dry_run=True, raw=raw)
+        raw = json.dumps(self.payload()).replace(
+            '"expectedUpdateTimes": {', '"expectedUpdateTimes": {}, "expectedUpdateTimes": {')
+        with self.assertRaisesRegex(ValueError, "unique nonempty"):
+            self.upload(None, object(), dry_run=True, raw=raw)
+
+    def test_valid_nano_contract_dry_run_has_no_sdk(self):
+        _, initialized = self.upload(self.payload(), object(), dry_run=True)
+        self.assertEqual(initialized, 0)
+
+    def test_upload_only_changes_approved_fields_and_reuses_guarded_snapshot(self):
+        snapshots = self.snapshots(); db = self.Database(snapshots)
+        expected = module.firestore_live_fingerprint(["target"], {"target": snapshots[0].to_dict()})
+        self.upload(self.payload(), db, expected_hash=expected)
+        self.assertEqual(len(db.reads), 1)
+        self.assertEqual(db.reads[0][0], ["target"])
+        self.assertEqual(db.reads[0][1], module.EXISTING_DOC_FIELD_PATHS)
+        self.assertEqual(len(db.committed), 1)
+        identity, fields, option = db.committed[0]
+        self.assertEqual(identity, "target")
+        self.assertEqual(set(fields), {"explanationText", "suggestedQuestionDetails", "updatedAt", "updatedById"})
+        self.assertNotIn("suggestedQuestions", fields)
+        self.assertNotIn("createdAt", fields)
+        self.assertEqual(option._last_update_time, snapshots[0].update_time)
+        self.assertEqual(set(db.collection_names), {"questions"})
+
+    def test_mismatch_missing_duplicate_or_extra_snapshot_prevents_all_batches(self):
+        snapshots = self.snapshots(("target", "second"))
+        newer = deepcopy(snapshots)
+        newer[1].update_time = DatetimeWithNanoseconds.from_rfc3339("2026-10-14T00:00:00.123456790Z")
+        missing = deepcopy(snapshots); missing[1].exists = False
+        no_time = deepcopy(snapshots); no_time[1].update_time = datetime(2026, 10, 14)
+        invalid = [newer, missing, no_time, snapshots[:1], snapshots + snapshots[:1],
+                   snapshots + self.snapshots(("outside",))]
+        for values in invalid:
+            db = self.Database(values)
+            with self.subTest(values=values), patch.object(module, "BATCH_SIZE", 1), self.assertRaises(RuntimeError):
+                self.upload(self.payload(("target", "second")), db)
+            self.assertEqual(db.batch_count, 0)
+            self.assertEqual(db.pending, [])
+            self.assertEqual(db.committed, [])
+
+    def test_live_value_hash_conflict_prevents_write_with_matching_timestamps(self):
+        db = self.Database(self.snapshots())
+        with self.assertRaises(RuntimeError): self.upload(self.payload(), db, expected_hash="wrong")
+        self.assertEqual(db.batch_count, 0)
+
+    def test_time_contract_also_guards_existing_explanation_only_mask(self):
+        payload = self.payload(); payload["writeFields"] = ["explanationText"]
+        db = self.Database(self.snapshots())
+        self.upload(payload, db)
+        self.assertEqual(set(db.committed[0][1]), {"explanationText", "updatedAt", "updatedById"})
+
+    def test_preserved_live_suggestion_mirror_and_flags_cannot_be_faked_in_payload(self):
+        for change in (dict(suggestedQuestions=["different"]), dict(isDeleted=True), dict(isChoiceOnly=True)):
+            values = self.snapshots(); fields = {**values[0].to_dict(), **change}
+            values[0].to_dict = lambda fields=fields: fields
+            db = self.Database(values)
+            with self.subTest(change=change), self.assertRaises(RuntimeError): self.upload(self.payload(), db)
+            self.assertEqual(db.batch_count, 0)
+
+    def test_same_payload_resend_skips_without_metadata_or_manifest_write(self):
+        db = self.Database(self.snapshots(unchanged=True))
+        output, _ = self.upload(self.payload(), db)
+        self.assertEqual(db.committed, [])
+        self.assertIn("スキップ 1", output)
+        self.assertEqual(set(db.collection_names), {"questions"})
+
+    def test_read_after_guard_conflict_keeps_last_update_option_and_no_committed_write(self):
+        db = self.Database(self.snapshots(), conflict_after_read=True)
+        output, _ = self.upload(self.payload(), db)
+        self.assertEqual(db.committed, [])
+        self.assertIsInstance(db.pending[0][2], module.firestore.LastUpdateOption)
+        self.assertIn("エラー 1", output)
 
 
 if __name__ == "__main__":

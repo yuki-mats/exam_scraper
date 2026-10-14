@@ -16,7 +16,7 @@ from tools.question_review_console.projection import sha256_json
 from tools.question_review_console.scoped_artifacts import write_json, load_formal_correction_unit
 
 
-def fixture_plan(root):
+def fixture_plan(root, *, changed_field='questionText'):
     """Three independent typed units, with an absent optional public group."""
     directory = root / 'private-run'
     xml = root / 'law-cache/fixture-law/2026-10-03.json'
@@ -24,6 +24,7 @@ def fixture_plan(root):
     value['xmlHash'] = digest(value['xmlText'].encode()); write_json(xml, value)
     units = []
     for year in (2018, 2024, 2020):
+        field = 'questionText' if year == 2020 else changed_field
         qualification = 'kanrigyoumu' if year == 2020 else '2nd-class-kenchikushi'
         binding = {'sourceQuestionKey': 'fixture-source', 'reviewQuestionId': 'fixture-original', 'sourceRecordRef': 'fixture.json#0'}
         count = 1 if year == 2020 else 5
@@ -32,10 +33,10 @@ def fixture_plan(root):
             identity = f'fixture-{year}-{index}'
             before = '明らかなたとき' if year == 2020 else '公開before'
             after = '明らかなとき' if year == 2020 else '公開after'
-            fields = {'questionText': before, 'unknownField': {'keep': index}, 'originalQuestionBodyText': '原問は保持', 'originalQuestionChoiceText': '肢は保持', 'qualificationId': 'condominiummanager' if year == 2020 else '2nd-class-kenchikushi'}
+            fields = {'questionText': '保持する問題文', field: before, 'unknownField': {'keep': index}, 'originalQuestionBodyText': '原問は保持', 'originalQuestionChoiceText': '肢は保持', 'qualificationId': 'condominiummanager' if year == 2020 else '2nd-class-kenchikushi'}
             snapshots[identity] = {'questionId': identity, 'exists': True, 'updateTime': 'fixture-version', 'fields': {**{k: {'present': True, 'value': v} for k, v in fields.items()}, 'listGroupId': {'present': False, 'value': None}}}
-            deltas.append({'questionId': identity, 'updateTime': 'fixture-version', 'allowlist': ['questionText'], 'fields': {'questionText': {'beforePresent': True, 'before': before, 'after': after}}, 'fullDocumentUploadAllowed': False})
-            projection.append({**fields, 'questionText': after})
+            deltas.append({'questionId': identity, 'updateTime': 'fixture-version', 'allowlist': [field], 'fields': {field: {'beforePresent': True, 'before': before, 'after': after}}, 'fullDocumentUploadAllowed': False})
+            projection.append({**fields, field: after})
         candidate = {'delta': deltas, 'projection': projection}
         if year != 2020:
             candidate.update({'sourceProposal': {'sourceBinding': binding, 'answer_result_inferred_correct_choice_numbers': [4 if year == 2018 else 2]}, 'lawSidecar': {'fixture': 'separate immutable metadata'}})

@@ -22,14 +22,14 @@ class FeedbackPublicationResultTests(unittest.TestCase):
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory(); self.addCleanup(self.tmp.cleanup)
         self.root = Path(self.tmp.name).resolve()
-        self.plan_path, self.plan = fixture_plan(self.root)
-        self.identity = 'fixture-2020-0'
+        self.plan_path, self.plan = fixture_plan(self.root, changed_field='explanationText')
+        self.identity = 'fixture-2018-0'
         self.db = _private_db(self.root/'private/ledger.sqlite3'); self.addCleanup(self.db.close)
         reconcile(self.db, {'submissions': [], 'receipts': [], 'cases': [], 'caseReports': {}, 'aiQuestions': [dict(sourcePath='memos/fixture', questionId=self.identity, createdAt='2026-10-01T00:00:00Z', textHash=hashlib.sha256(b'fixture learning need').hexdigest(), visibility='public')]}, source='fixture')
         cid = self.db.execute('SELECT candidate_id FROM ai_question_candidates').fetchone()[0]
         self.task_id = promote_ai_candidate(self.db, candidate_id=cid, title='fix typo', need='fix typo', target=self.identity)
         self.requirement = task_requirement_binding(self.db,self.task_id)
-        self.plan['feedbackTasks'] = {self.task_id:{**self.requirement,'satisfiedByUnitHashes':[self.plan['units'][2]['unitHash']]}}
+        self.plan['feedbackTasks'] = {self.task_id:{**self.requirement,'satisfiedByUnitHashes':[self.plan['units'][0]['unitHash']]}}
         self.plan['planHash'] = sha256_json({k:v for k,v in self.plan.items() if k!='planHash'})
         self.plan_path.write_text(json.dumps(self.plan))
         mocked_root = patch('tools.question_review_console.independent_approval.NATIVE_SESSION_ROOT',self.root)
@@ -38,25 +38,27 @@ class FeedbackPublicationResultTests(unittest.TestCase):
         evidence = native_audit(self.root, independent_approval_scope(self.plan, self.plan_path, root=self.root))
         self.receipt = self.root / 'save.json'
         save_formal_units(self.root, self.plan_path, subagent_approval=evidence, law_recheck=law, receipt_path=self.receipt)
-        unit = self.plan['units'][2]
+        unit = self.plan['units'][0]
+        unit_manifest = json.loads((self.root / unit['files'][0]['path']).read_bytes())
         public = json.loads((self.root / unit['files'][2]['path']).read_bytes())
-        self.identity = 'fixture-2020-0'
-        self.doc = public['candidate']['projection'][0]
-        self.upload = {**self.doc, 'questionId': self.identity, 'writeFields': ['questionText']}
+        self.docs = dict(zip(unit_manifest['publicationIds'], public['candidate']['projection'], strict=True))
+        self.doc = self.docs[self.identity]
+        self.uploads = [{**doc, 'questionId': identity, 'writeFields': ['explanationText']} for identity,doc in self.docs.items()]
+        self.upload = self.uploads[0]
         self.directory = self.root / 'output/question_review_console/publish_runs/fixture/run'
         self.directory.mkdir(parents=True)
-        self.readback = {'projectId': PRODUCTION_PROJECT_ID, 'status': 'match', 'documentCount': 1,
+        self.readback = {'projectId': PRODUCTION_PROJECT_ID, 'status': 'match', 'documentCount': 5,
             'missingDocumentIds': [], 'differenceCount': 0, 'sourceUnchanged': True, 'sourceHash': 'source',
-            'documents': [{'questionId': self.identity, 'status': 'match', 'differences': [], 'live': self.doc}]}
+            'documents': [{'questionId': identity, 'status': 'match', 'differences': [], 'live': doc} for identity,doc in self.docs.items()]}
         self.files = {
             'manifest.json': {'schemaVersion': 'question-publish-run/v1', 'runId': 'run', 'status': 'succeeded', 'projectId': PRODUCTION_PROJECT_ID,
-                'documentIds': [self.identity], 'evaluationHash': 'evaluation', 'candidateHash': sha256_json([self.upload]), 'sourceHash': 'source'},
+                'documentIds': list(self.docs), 'evaluationHash': 'evaluation', 'candidateHash': sha256_json(self.uploads), 'sourceHash': 'source'},
             'preflight.json': {'projectId': PRODUCTION_PROJECT_ID, 'canPublish': True, 'publishReady': True, 'evaluationStatus': 'passed',
-                'evaluationHash': 'evaluation', 'missingCount': 0, 'failedDeltaPaths': [], 'documentCount': 1,
-                'candidateHash': sha256_json([self.upload]), 'sourceHash': 'source', 'changedCount': 1},
-            'artifact.json': {'questions': [self.upload]},
+                'evaluationHash': 'evaluation', 'missingCount': 0, 'failedDeltaPaths': [], 'documentCount': 5,
+                'candidateHash': sha256_json(self.uploads), 'sourceHash': 'source', 'changedCount': 5},
+            'artifact.json': {'questions': self.uploads, 'writeFields': ['explanationText']},
             'readback.json': self.readback,
-            'result.json': {'schemaVersion': 'question-publish-result/v1', 'runId': 'run', 'status': 'succeeded', 'publishedCount': 1, 'documentCount': 1, 'readback': self.readback}}
+            'result.json': {'schemaVersion': 'question-publish-result/v1', 'runId': 'run', 'status': 'succeeded', 'publishedCount': 5, 'documentCount': 5, 'readback': self.readback}}
         self.artifact_path = self.root/'completion.json'
         self.rebuild()
 
@@ -71,7 +73,7 @@ class FeedbackPublicationResultTests(unittest.TestCase):
         self.artifact_path.write_text(json.dumps(self.artifact))
         self.artifact_hash = hashlib.sha256(self.artifact_path.read_bytes()).hexdigest()
 
-    def reader(self, ids, *, fields): return {self.identity: deepcopy(self.doc)}
+    def reader(self, ids, *, fields): return deepcopy(self.docs)
 
     def record(self, **kwargs):
         return record_improvement_publication(self.db, task_id=self.task_id, expected_status=kwargs.pop('expected_status','open'), reason='verified fixture',
@@ -92,6 +94,9 @@ class FeedbackPublicationResultTests(unittest.TestCase):
             lambda f: f['manifest.json'].update(projectId='other'),
             lambda f: f['result.json'].update(status='failed'),
             lambda f: f['artifact.json']['questions'][0].update(writeFields=['questionText','unknownField']),
+            lambda f: f['artifact.json'].pop('writeFields'),
+            lambda f: f['artifact.json'].update(writeFields=['questionText']),
+            lambda f: f['artifact.json'].update(writeFields=['correctChoiceText','explanationText']),
             lambda f: f['artifact.json']['questions'][0].update(questionText='unapproved'),
             lambda f: f['readback.json'].update(sourceUnchanged=False),
             lambda f: f['result.json'].update(documentCount=2),
@@ -154,7 +159,7 @@ class FeedbackPublicationResultTests(unittest.TestCase):
 
     def test_multiple_required_units_cannot_be_completed_by_one_run(self):
         # A newly audited plan requiring A+B must not accept only B's publication.
-        self.plan['feedbackTasks'][self.task_id]['satisfiedByUnitHashes'].append(self.plan['units'][0]['unitHash'])
+        self.plan['feedbackTasks'][self.task_id]['satisfiedByUnitHashes'].append(self.plan['units'][2]['unitHash'])
         self.plan['planHash']=sha256_json({k:v for k,v in self.plan.items() if k!='planHash'})
         self.plan_path.write_text(json.dumps(self.plan))
         # Bind a genuine separate fixture audit and save receipt for that plan.

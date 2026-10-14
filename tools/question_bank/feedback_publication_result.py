@@ -12,6 +12,7 @@ from pathlib import Path
 from tools.question_review_console.formal_correction_save import load_saved_units, physical
 from tools.question_review_console.firestore_readback import FirestoreReadback, PRODUCTION_PROJECT_ID
 from tools.question_review_console.projection import sha256_json
+from scripts.upload.upload_questions_to_firestore import resolve_write_fields
 
 
 def _bound_json(root, ref):
@@ -78,6 +79,11 @@ def verify_improvement_publication(root, artifact, *, task_id, source_question_i
             masks[identity] = delta['allowlist']
             absent[identity] = {k for k,v in unit.source['snapshot'][identity]['fields'].items() if v['present'] is False and k not in delta['fields']}
     documents = values['artifact.json'].get('questions', [])
+    # A per-document mask alone is ignored by the actual uploader. Completion
+    # requires its real root-level contract, equal to every approved mask.
+    upload_mask = resolve_write_fields(values['artifact.json'])
+    if not upload_mask:
+        raise ValueError('actual uploader narrow writeFields contract required')
     ids = [d.get('questionId') for d in documents]
     if (not ids or len(ids) != len(set(ids)) or not any(set(ids) == s for s in allowed_sets)
             or manifest.get('documentIds') != ids or result.get('documentCount') != len(ids)
@@ -94,6 +100,7 @@ def verify_improvement_publication(root, artifact, *, task_id, source_question_i
     for document in documents:
         identity = document['questionId']
         if (document.get('writeFields') != masks[identity] or not masks[identity]
+                or tuple(masks[identity]) != upload_mask
                 or any(k not in document or document[k] != approved[identity].get(k) for k in masks[identity])):
             raise ValueError('published field mask or values differ from independent approval')
     recorded = readback.get('documents', [])
