@@ -200,6 +200,43 @@ class QuestionPublisherSafetyTests(unittest.TestCase):
                     pub.preview(question)
                 self.assertEqual(seen, [])
 
+    def test_artifact_root_mask_is_preserved_even_without_document_masks(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory); question = question_payload()
+            write_inputs(root, question)
+            path = root / question['paths']['uploadReady']
+            payload = json.loads(path.read_bytes()); payload['writeFields'] = ['explanationText']
+            path.write_text(json.dumps(payload))
+            live = {d['questionId']:build_doc_data_base(d) for d in question['uploadReadyDocs']}
+            live['doc-1']['explanationText'] = '旧解説'
+            firestore = FakeFirestore(live); seen = []
+            def upload(command, **kwargs):
+                saved = json.loads(Path(command[-1]).read_bytes())
+                self.assertEqual(resolve_write_fields(saved), ('explanationText',))
+                for doc in saved['questions']:
+                    self.assertEqual(doc['writeFields'], ['explanationText'])
+                    firestore.documents[doc['questionId']]['explanationText'] = doc['explanationText']
+                seen.append(saved); return 0
+            pub = self.publisher(root, question, firestore, command_runner=upload)
+            preview = pub.preview(question)
+            self.assertFalse(preview['alsoUpdatesOfficialExamYearsManifest'])
+            self.assertEqual(pub.run(question, preview, lambda _:None)['status'], 'succeeded')
+            self.assertEqual(len(seen), 1)
+
+    def test_input_root_mask_conflict_and_unconnected_version_guard_are_not_ignored(self):
+        for mode in ('null', 'conflict', 'versions'):
+            with self.subTest(mode=mode), tempfile.TemporaryDirectory() as directory:
+                root = Path(directory); question = question_payload(); write_inputs(root, question)
+                path = root / question['paths']['uploadReady']; payload = json.loads(path.read_bytes())
+                payload['writeFields'] = None if mode == 'null' else ['explanationText']
+                if mode == 'conflict': payload['questions'][0]['writeFields'] = ['correctChoiceText','explanationText']
+                if mode == 'versions': payload['expectedUpdateTimes'] = {'doc-1':'2026-10-14T00:00:00.123456789Z'}
+                path.write_text(json.dumps(payload))
+                firestore = FakeFirestore(); seen = []
+                pub = self.publisher(root, question, firestore, command_runner=lambda *a,**k:seen.append(a))
+                with self.assertRaises(PublicationError):pub.preview(question)
+                self.assertEqual(seen, []); self.assertEqual(firestore.read_count, 0)
+
     def test_narrow_publication_rejects_missing_document_and_outside_mask_changes(self):
         for mode in ('missing', 'outside'):
             with self.subTest(mode=mode), tempfile.TemporaryDirectory() as directory:

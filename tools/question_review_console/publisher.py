@@ -1352,6 +1352,20 @@ class QuestionPublisher:
             if isinstance(document, dict)
             and str(document.get("questionId") or "") in expected_ids
         ]
+        if "expectedUpdateTimes" in payload:
+            # This legacy selector has value-only previews. Silently dropping
+            # an exact-version contract would weaken the caller's guard.
+            raise PublicationError("この公開経路はexpectedUpdateTimesの接続に未対応です。")
+        if "writeFields" in payload:
+            try:
+                if not resolve_write_fields(payload):
+                    raise ValueError("explicit nonempty narrow writeFields required")
+            except ValueError as exc:
+                raise PublicationError("入力最上位のwriteFieldsが既存uploader契約と一致しません。") from exc
+            for document in documents:
+                if "writeFields" in document and document["writeFields"] != payload["writeFields"]:
+                    raise PublicationError("入力最上位とdocumentのwriteFieldsが一致しません。")
+                document["writeFields"] = copy.deepcopy(payload["writeFields"])
         actual_ids = {str(document.get("questionId") or "") for document in documents}
         if actual_ids != expected_ids or len(documents) != len(expected_ids):
             raise PublicationError("対象問題の全documentをupload-readyから抽出できません。")
