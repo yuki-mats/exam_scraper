@@ -544,7 +544,13 @@ def independent_approval_scope(plan, plan_path, *, root=None):
     root = Path(root).resolve() if root is not None else Path(__file__).resolve().parents[2]
     command = ' '.join(shlex.quote(s) for s in [sys.executable, '-m',
         'tools.question_review_console.independent_approval', '--formal-save-plan', str(Path(plan_path).resolve()), '--repo-root', str(root)])
-    scope['nativeCreationCall'] = 'text((await tools.exec_command(' + json.dumps({'cmd': command, 'workdir': str(root), 'max_output_tokens': 12000}, ensure_ascii=False) + ')).output);'
+    scope['nativeCreationCall'] = (
+        'let r=await tools.exec_command(' + json.dumps({
+            'cmd': command, 'workdir': str(root), 'max_output_tokens': 12000,
+            'yield_time_ms': 30000}, ensure_ascii=False)
+        + ');let out=r.output;while(r.session_id){r=await tools.write_stdin('
+        + '{session_id:r.session_id,chars:"",yield_time_ms:1000,max_output_tokens:12000});out+=r.output;}'
+        + 'if(r.exit_code!==0)throw new Error("scope creation failed");text(out);\n')
     return scope
 
 

@@ -3,6 +3,8 @@ from copy import deepcopy
 import hashlib
 import json
 from pathlib import Path
+import shutil
+import subprocess
 import tempfile
 import unittest
 from unittest.mock import patch
@@ -70,6 +72,41 @@ class NativeIndependentApprovalTests(unittest.TestCase):
 
     def verify(self):
         return verify_independent_approval(self.record, self.scope, production=False)
+
+    def test_scope_matches_actual_native_exec_terminal_lf(self):
+        parent = Path(self.record['creation']['sessionPath'])
+        lines = parent.read_bytes().splitlines(keepends=True)
+        call = json.loads(lines[2])
+        call['payload']['input'] = call['payload']['input'].rstrip('\n') + '\n'
+        lines[2] = (json.dumps(call, ensure_ascii=False) + '\n').encode()
+        parent.write_bytes(b''.join(lines))
+        self.assertEqual(self.verify()['reviewerSessionId'], 'reviewer')
+        # Exact provenance still rejects a call with different bytes.
+        call['payload']['input'] = call['payload']['input'].rstrip('\n')
+        lines[2] = (json.dumps(call, ensure_ascii=False) + '\n').encode()
+        parent.write_bytes(b''.join(lines))
+        with self.assertRaises(ValueError):
+            self.verify()
+
+    @unittest.skipUnless(shutil.which('node'), 'Node is required to verify native creation JS')
+    def test_scope_creation_collects_yielded_output_and_rejects_failure(self):
+        script = ('const chunks=JSON.parse(process.argv[1]);'
+            'const tools={exec_command:async()=>chunks.shift(),write_stdin:async()=>chunks.shift()};'
+            'const text=s=>process.stdout.write(s);(async()=>{'
+            + self.scope['nativeCreationCall']
+            + '})().catch(e=>{process.stderr.write(e.message);process.exitCode=1;});')
+        success = subprocess.run(['node', '-e', script, json.dumps([
+            {'output': 'prefix\n', 'session_id': 7}, {'output': '', 'session_id': 7},
+            {'output': 'NATIVE_CANDIDATE_SCOPE=fixed\n', 'exit_code': 0}])],
+            capture_output=True, text=True)
+        self.assertEqual(success.returncode, 0, success.stderr)
+        self.assertEqual(success.stdout, 'prefix\nNATIVE_CANDIDATE_SCOPE=fixed\n')
+        for chunks in ([{'output': 'invalid candidate', 'exit_code': 1}],
+                       [{'output': '', 'session_id': 7}, {'output': 'invalid candidate', 'exit_code': 1}]):
+            failed = subprocess.run(['node', '-e', script, json.dumps(chunks)],
+                capture_output=True, text=True)
+            self.assertNotEqual(failed.returncode, 0)
+            self.assertEqual(failed.stdout, '')
 
     def test_delivered_encrypted_native_audit_and_plain_request(self):
         self.assertNotEqual(self.verify()['authorSessionId'], self.verify()['reviewerSessionId'])

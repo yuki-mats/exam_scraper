@@ -2,7 +2,7 @@
 
 状態: 実装中。個別受付台帳と読み取り専用の日次照合を実装済み。日次heartbeatが既存CLIを使って調査・独立監査・公開を進める。専用の常駐GUIとスマホ承認画面は未実装。
 
-最終更新: 2026-10-13
+最終更新: 2026-10-14
 
 この文書は、Repasoから届くユーザーフィードバックの調査、改善、独立監査、patch保存、Firestore公開を扱う運用正本です。公式問題の誤り報告を修正レーンとし、AI解説への利用者質問から学習上のニーズを見つける改善レーンを置きます。将来はアプリ不具合、UI改善、要望も追加します。
 
@@ -31,6 +31,8 @@
 この方針と日次設定の更新は、すべての正式保存・公開経路の無人対応完了を意味しません。2026-10-12、`formal_correction_save.save_formal_units(..., subagent_approval=...)`に人間承認とは別の`native-independent-approval/v1`契約とv2保存receiptを追加しました。既存の限定immutable unitが対象であり、任意の問題や正式patch層をこのAPIへ流し込めるわけではありません。人間承認経路と法令再照合、exclusive保存、入力再検証は維持します。
 
 `independent_approval`は親sessionの直接ユーザー包括許可、固定planを検証するCLIのnative出力、実委任のcallとSubAgentActivity、子identity、同じ暗号文の配送、親子turn、平文の構造化最終回答とtask_completeを照合します。暗号化された依頼本文を復号したとは扱いません。承認scopeは作者の検証出力と子の最終回答が一致した内容です。ローカルnative記録は暗号学的署名ではありません。作者と同一の監査者、未解決指摘、別scope、未完了turn、入力変更は拒否し、正式保存直前とreceipt読込時にも再検証します。
+
+native作成callはCLIの正常終了まで、途中でyieldされた出力も連結して保持します。失敗時にはscopeを発行しません。実際のnative exec入力と同じ末尾改行を含めて固定し、入力bytesの厳密な照合は維持します。生成callを変更した旧plan・scopeは、そのままの承認再利用をせず再生成・再監査します。
 
 改善previewは`--approval-mode independent`で`exact_diff_native_subagent_formal_save_approval`を要求します。候補を作るだけで正式保存済み・公開済みにはなりません。2026-10-13、ガスの`25_verified_publication`に対する一task・一年度・一既存documentの解説改善に専用CLI `tools.question_bank.feedback_verified_save`を追加しました。対象fieldは`explanationText`・`suggestedQuestions`・`suggestedQuestionDetails`だけです。公式indexとPDF現物、元bytes、候補再投影、一次根拠、全siblingのmasked snapshotとexact updateTime、task要件、実装依存を固定します。`prepare`はprivate planだけを作り、`scope --stage final`のnative作成出力と別subagentの承認から`save`へ進みます。法令対象では`scope --stage primary/secondary/tertiary`に対する三名の異なるnative監査者の証跡を順に`law-<stage>-approval.json`へ保存し、最終scopeにも全証跡hashを結合します。監査者は既存の三段階法令監査の内容条件を確認し、古い法令本文のhashだけで現行法確認を済ませません。保存直前はfresh readの後に入力・scope・native承認を再照合します。
 
