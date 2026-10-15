@@ -99,6 +99,7 @@ export QUESTION_ISSUE_REVIEW_COMMAND="your-reviewer --json --read-prompt-from-st
 
 1. Blind A/B
    - raw report、case ID、報告数、他 reviewer の結果を渡さない。
+   - 公開問題を直接取得する場合も、`lawRevisionFacts`、監査sidecar、過去reviewや指示を含むmetadataはfield maskから除外する。独立判定を固定した後、Challengeで現在のmetadataと比較する。先に過去判断へ接触したturnは逸脱記録を残し、厳密なBlind完了として採用せず、未接触の別reviewerで実施する。
    - `config/question_issue_reports.json` がカテゴリへ route した既存 01〜04 / 02b / 03b prompt 本文と content hash を読み、公式資料・一次情報だけから現在値と置換後の構造化完全値 `proposedChanges` を独立導出する。
    - UIでPDFを指定した場合はlocatorの`PDF Nページ`を自動画像化し、元PDF hash、対象ページ画像hash、検証済み転記を同じsnapshotへ固定する。Blind A/BとChallengeの各turnには固定画像のbytesを直接添付する。返却された画像送信証跡のhashとbytes数を照合し、証跡がない結果を採用しない。証跡は各attemptの受信receiptへ保存する。reviewerは添付画像を直接照合し、PDF抽出手段を探索しない。
    - `judgeChoiceMarkers`がある問題は、内部`choiceTextList`の各位置と公式記号の対応を同fieldで確定する。公式記号順への配列並べ替えは行わず、相違する記号の要素だけを最小修正する。
