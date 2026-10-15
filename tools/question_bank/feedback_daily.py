@@ -483,6 +483,12 @@ def daily_summary(connection: sqlite3.Connection, *, scan_id: str = "",
     ).fetchall())
     improvement_open = sum(count for status, count in improvement_states.items()
                            if status not in {'completed', 'cancelled'})
+    maintenance_exists = connection.execute(
+        "SELECT 1 FROM sqlite_master WHERE type='table' AND name='maintenance_tasks'"
+    ).fetchone()
+    maintenance_states = dict(connection.execute(
+        "SELECT status, COUNT(*) FROM maintenance_tasks GROUP BY status"
+    ).fetchall()) if maintenance_exists else {}
     amendments = dict(connection.execute("SELECT state,COUNT(*) FROM proposal_amendments WHERE state!='superseded' GROUP BY state").fetchall())
     answers = connection.execute("SELECT COUNT(*) FROM proposal_amendments WHERE state!='superseded' AND answer_status='already_asked'").fetchone()[0]
     return {
@@ -498,6 +504,9 @@ def daily_summary(connection: sqlite3.Connection, *, scan_id: str = "",
         "aiQuestionsAwaitingReview": ai_unreviewed,
         "improvementTasksOpen": improvement_open,
         "improvementTasksByStatus": improvement_states,
+        "maintenanceTasksOpen": sum(count for status, count in maintenance_states.items()
+                                    if status not in {'completed', 'cancelled'}),
+        "maintenanceTasksByStatus": maintenance_states,
         "amendmentsByState": amendments,
         "amendmentApprovalsWaiting": amendments.get('pending', 0),
         "amendmentResponsesWaiting": answers,

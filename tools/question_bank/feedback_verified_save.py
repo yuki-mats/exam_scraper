@@ -28,6 +28,8 @@ from tools.question_review_console.scoped_artifacts import write_json
 
 SCHEMA = 'feedback-verified-explanation-save/v1'
 RECEIPT = 'feedback-verified-explanation-save-receipt/v1'
+MAINTENANCE_SCHEMA = 'feedback-verified-maintenance-save/v1'
+MAINTENANCE_RECEIPT = 'feedback-verified-maintenance-save-receipt/v1'
 PRIVATE = Path('output/user_feedback_response_system/execution')
 LEDGER = Path.home() / 'Library/Application Support/Repaso/feedback-ops/ledger.sqlite3'
 DEPENDENCIES = [Path(__file__), Path(gas.__file__)]
@@ -83,6 +85,48 @@ def _requirement(connection, task_id):
     return task_requirement_binding(connection, task_id)
 
 
+def _maintenance(root, plan, connection):
+    if plan.get('schemaVersion') != MAINTENANCE_SCHEMA:
+        if 'maintenanceBinding' in plan:
+            raise ValueError('maintenance authority requires dedicated schema')
+        return None
+    if (not isinstance(plan.get('maintenanceBinding'),dict)
+            or not isinstance(plan['maintenanceBinding'].get('taskId'),str)
+            or not plan['maintenanceBinding']['taskId']):
+        raise ValueError('dedicated maintenance task authority required')
+    from tools.question_bank.feedback_maintenance_tasks import load_binding
+    if connection is None:
+        with _connection() as current:
+            binding = load_binding(current, root=root, task_id=plan['maintenanceBinding']['taskId'])
+    else:
+        binding = load_binding(connection, root=root, task_id=plan['maintenanceBinding']['taskId'])
+    if binding != plan['maintenanceBinding'] or binding['relatedImprovementTaskId'] != plan['taskId']:
+        raise ValueError('maintenance task authority changed')
+    return binding
+
+
+def _project(before, updates, binding=None):
+    if binding is None:
+        return project_verified_bundle(before, updates)
+    from tools.question_bank.feedback_verified_maintenance import project_maintenance_bundle
+    return project_maintenance_bundle(before, updates, binding)
+
+
+def _validate_patch(update, task_id, binding=None):
+    patch = checked_json(update['preparedPatch'])
+    if binding is not None:
+        from tools.question_bank.feedback_verified_maintenance import validate_private_patch
+        validate_private_patch(patch, update, task_id, binding)
+        return
+    if (patch.get('schemaVersion') != 'feedback-improvement-private-patch/v1'
+            or patch.get('taskId') != task_id or patch.get('questionId') != update['questionId']
+            or patch.get('fieldDiffs') != update['fieldDiffs']
+            or patch.get('precondition') != {'updateTimeExact':update['baseline']['updateTimeExact'],
+                'baselineSha256':update['baseline']['sha256']}
+            or any(patch.get(k) is not False for k in ('approvalReady','formalPatchSaved','FirestoreWritten','executablePatch','fullDocumentUploadAllowed'))):
+        raise ValueError('fixed private patch differs')
+
+
 def _snapshots(ids, fields):
     db = FirestoreReadback()._database()
     refs = [db.collection('questions').document(i) for i in ids]
@@ -115,6 +159,8 @@ def _dependencies():
     paths = set(DEPENDENCIES)
     for module in ('tools.question_bank.feedback_improvement_plan',
         'tools.question_bank.feedback_task_requirements',
+        'tools.question_bank.feedback_verified_maintenance',
+        'tools.question_bank.feedback_maintenance_tasks',
         'tools.question_review_console.independent_approval',
         'tools.question_review_console.formal_correction_save',
         'tools.question_review_console.question_patch_proposal',
@@ -130,17 +176,22 @@ def _dependencies():
 
 
 def prepare(root, result_path, canonical_path, destination, *, document_index,
-            pdf_verification, connection):
+            pdf_verification, connection, maintenance_task_id=None):
     root = _physical(root)
     destination = _private(root, destination)
     if destination.exists():
         raise ValueError('fresh plan directory required')
     result_path, canonical_path = _physical(result_path), _physical(canonical_path)
     result = json.loads(result_path.read_bytes())
+    binding = None
+    if maintenance_task_id is not None:
+        from tools.question_bank.feedback_maintenance_tasks import load_binding
+        binding = load_binding(connection, root=root, task_id=maintenance_task_id)
     if (result.get('schemaVersion') != 'feedback-improvement-result/v1'
             or result.get('status') != 'review_pending'
             or any(result.get(k) is not False for k in ('approvalReady','formalPatchSaved','FirestoreWritten'))
-            or len(result.get('proposedUpdates', [])) != 1 or not result.get('primaryEvidence')):
+            or not result.get('proposedUpdates') or (binding is None and len(result['proposedUpdates']) != 1)
+            or not result.get('primaryEvidence')):
         raise ValueError('one unapproved researched task update required')
     updates = result['proposedUpdates']; update = updates[0]
     before_bytes = canonical_path.read_bytes()
@@ -154,7 +205,9 @@ def prepare(root, result_path, canonical_path, destination, *, document_index,
         pdf_verification=Path(pdf_verification), root=root)
     if any(before.get('evidence', {}).get(k) != official[k] for k in ('documentIndexSha256','pdfVerificationSha256')):
         raise ValueError('official provenance differs from canonical')
-    projected = project_verified_bundle(before, updates)
+    if binding is not None and binding['relatedImprovementTaskId'] != result['taskId']:
+        raise ValueError('maintenance belongs to another improvement')
+    projected = _project(before, updates, binding)
     requirement = _requirement(connection, result['taskId'])
     selected = next(r for r in before['questions'] if r['questionId'] == update['questionId'])
     siblings = [r for r in before['questions'] if r['originalQuestionId'] == selected['originalQuestionId']]
@@ -168,19 +221,16 @@ def prepare(root, result_path, canonical_path, destination, *, document_index,
     for row in siblings:
         if live[row['questionId']]['fields'] != {k:v for k,v in row.items() if k in mask}:
             raise ValueError('canonical and fresh sibling baseline differ')
-    baseline = checked_json(update['baseline'])
-    target = live[update['questionId']]
-    if target['updateTimeExact'] != baseline.get('updateTimeExact'):
-        raise ValueError('target baseline version changed')
-    patch = checked_json(update['preparedPatch'])
-    if (patch.get('schemaVersion') != 'feedback-improvement-private-patch/v1'
-            or patch.get('taskId') != result['taskId'] or patch.get('questionId') != update['questionId']
-            or patch.get('fieldDiffs') != update['fieldDiffs']
-            or patch.get('precondition') != {'updateTimeExact': baseline['updateTimeExact'], 'baselineSha256': update['baseline']['sha256']}
-            or any(patch.get(k) is not False for k in ('approvalReady','formalPatchSaved','FirestoreWritten','executablePatch','fullDocumentUploadAllowed'))):
-        raise ValueError('private patch binding differs')
+    for change in updates:
+        baseline = checked_json(change['baseline'])
+        target = live.get(change['questionId'])
+        if target is None or target['updateTimeExact'] != baseline.get('updateTimeExact'):
+            raise ValueError('target baseline version changed')
+        _validate_patch(change, result['taskId'], binding)
     inputs = _dependencies()
-    refs = [update['baseline'], update['preparedPatch'], *result['primaryEvidence']]
+    refs = [r for u in updates for r in (u['baseline'],u['preparedPatch'])] + result['primaryEvidence']
+    if binding is not None:
+        refs += [binding['proposalRef'], binding['auditRef']]
     for ref in refs:
         checked_json(ref) if Path(ref['ref']).suffix == '.json' else None
         path = _physical(ref['ref'])
@@ -199,8 +249,8 @@ def prepare(root, result_path, canonical_path, destination, *, document_index,
     destination.mkdir(parents=True, mode=0o700)
     _exclusive(destination/'before.json', before_bytes)
     write_json(destination/'candidate.json', projected)
-    changed = {update['questionId']: sorted(d['field'] for d in update['fieldDiffs'])}
-    plan = {'schemaVersion': SCHEMA, 'taskId': result['taskId'], 'taskRequirement':requirement,
+    changed = {u['questionId']: sorted(d['field'] for d in u['fieldDiffs']) for u in updates}
+    plan = {'schemaVersion': MAINTENANCE_SCHEMA if binding else SCHEMA, 'taskId': result['taskId'], 'taskRequirement':requirement,
         'formalPath':str(canonical_path.relative_to(root)), 'beforeSha256':before_hash,
         'beforeRef':str(destination/'before.json'), 'beforeCopySha256':file_hash(destination/'before.json'),
         'candidateRef':str(destination/'candidate.json'), 'candidateSha256':file_hash(destination/'candidate.json'),
@@ -214,11 +264,13 @@ def prepare(root, result_path, canonical_path, destination, *, document_index,
             'independent_evaluation','scoped_upload_dry_run','fresh_live_preconditions','live_readback'],
         'lawReviewRequired':_law_required(before,updates),
         'FirestoreWritten':False}
+    if binding is not None:
+        plan['maintenanceBinding'] = binding
     plan['planHash'] = sha256_json(plan)
     if file_hash(canonical_path) != before_hash:
         raise ValueError('canonical changed during preparation')
     write_json(destination/'formal-save-plan.json',plan)
-    read_plan(root, destination/'formal-save-plan.json',verify_law=False)
+    read_plan(root, destination/'formal-save-plan.json',verify_law=False,connection=connection)
     return plan
 
 
@@ -228,10 +280,10 @@ def _law_required(before,updates):
         for r in before['questions'] if r['questionId'] in ids)
 
 
-def read_plan(root, path, *, verify_law=True):
+def read_plan(root, path, *, verify_law=True, connection=None):
     root = _physical(root); path = _private(root,path)
     plan = json.loads(path.read_bytes())
-    if plan.get('schemaVersion') != SCHEMA or sha256_json({k:v for k,v in plan.items() if k!='planHash'}) != plan.get('planHash'):
+    if plan.get('schemaVersion') not in {SCHEMA,MAINTENANCE_SCHEMA} or sha256_json({k:v for k,v in plan.items() if k!='planHash'}) != plan.get('planHash'):
         raise ValueError('save plan hash or schema differs')
     if plan.get('projectId') != PRODUCTION_PROJECT_ID or plan.get('FirestoreWritten') is not False:
         raise ValueError('formal save is not publication')
@@ -248,6 +300,7 @@ def read_plan(root, path, *, verify_law=True):
             raise ValueError('save input changed')
     if not set(_dependencies()) <= set(plan['inputs']) or any(plan['inputs'][p] != h for p,h in _dependencies().items()):
         raise ValueError('current implementation binding differs')
+    binding = _maintenance(root,plan,connection)
     before = json.loads(before_path.read_bytes())
     result = checked_json(plan['resultRef'])
     if (result.get('schemaVersion') != 'feedback-improvement-result/v1'
@@ -266,14 +319,9 @@ def read_plan(root, path, *, verify_law=True):
         *result['primaryEvidence']]
     for update in plan['updates']:
         required_refs.extend([update['baseline'],update['preparedPatch']])
-        patch=checked_json(update['preparedPatch'])
-        if (patch.get('schemaVersion') != 'feedback-improvement-private-patch/v1'
-                or patch.get('taskId') != plan['taskId'] or patch.get('questionId') != update['questionId']
-                or patch.get('fieldDiffs') != update['fieldDiffs']
-                or patch.get('precondition') != {'updateTimeExact':update['baseline']['updateTimeExact'],
-                    'baselineSha256':update['baseline']['sha256']}
-                or any(patch.get(k) is not False for k in ('approvalReady','formalPatchSaved','FirestoreWritten','executablePatch','fullDocumentUploadAllowed'))):
-            raise ValueError('fixed private patch differs')
+        _validate_patch(update,plan['taskId'],binding)
+    if binding is not None:
+        required_refs.extend([binding['proposalRef'],binding['auditRef']])
     for record in index['records']:
         for key in ('officialQuestionPdf','officialAnswerPdf'):
             ref=record[key]
@@ -283,9 +331,9 @@ def read_plan(root, path, *, verify_law=True):
         if plan['inputs'].get(str(p)) != ref['sha256'] or file_hash(p) != ref['sha256']:
             raise ValueError('required evidence input missing or changed')
     expected = root/'output'/before['qualificationId']/'questions_json'/str(before['list_group_id'])/'25_verified_publication'/f"{before['list_group_id']}_verified_publication.json"
-    if formal != expected or len(plan['updates']) != 1:
+    if formal != expected or not plan['updates'] or (binding is None and len(plan['updates']) != 1):
         raise ValueError('one canonical update scope required')
-    projected = project_verified_bundle(before,plan['updates'])
+    projected = _project(before,plan['updates'],binding)
     if type(plan.get('lawReviewRequired')) is not bool or plan['lawReviewRequired'] != bool(_law_required(before,plan['updates'])):
         raise ValueError('required law review gate differs')
     if candidate_path.read_bytes() != _bytes(projected):
@@ -294,7 +342,8 @@ def read_plan(root, path, *, verify_law=True):
     ids = [r['questionId'] for r in before['questions'] if r['originalQuestionId']==row['originalQuestionId']]
     if ids != plan['siblingIds'] or set(plan['baseline']) != set(ids):
         raise ValueError('complete sibling scope differs')
-    expected_documents = [{'questionId':i,'writeFields':sorted(d['field'] for d in plan['updates'][0]['fieldDiffs']) if i==row['questionId'] else []} for i in ids]
+    changed = {u['questionId']:sorted(d['field'] for d in u['fieldDiffs']) for u in plan['updates']}
+    expected_documents = [{'questionId':i,'writeFields':changed.get(i,[])} for i in ids]
     if plan['publicationDocuments'] != expected_documents:
         raise ValueError('limited publication fields differ')
     siblings = [r for r in before['questions'] if r['questionId'] in ids]
@@ -340,7 +389,7 @@ def _law_review_bindings(root,path,plan,stop):
 def _scope(root,path,plan,stage,reviews):
     command = ' '.join(shlex.quote(s) for s in [sys.executable,'-m','tools.question_bank.feedback_verified_save',
         'scope','--repo-root',str(root),'--plan',str(path),'--stage',stage])
-    return {'schemaVersion':'feedback-verified-explanation-independent-scope/v1',
+    scope = {'schemaVersion':'feedback-verified-maintenance-independent-scope/v1' if plan['schemaVersion']==MAINTENANCE_SCHEMA else 'feedback-verified-explanation-independent-scope/v1',
         'action':'save_single_verified_explanation_and_review_limited_publication' if stage=='final' else f'independent_{stage}_law_grounding_review',
         'planHash':plan['planHash'],'candidateSha256':plan['candidateSha256'],
         'taskRequirement':plan['taskRequirement'], 'publicationDocuments':plan['publicationDocuments'],
@@ -348,6 +397,10 @@ def _scope(root,path,plan,stage,reviews):
         'nativeCreationCall':'let r=await tools.exec_command(' + json.dumps({'cmd':command,'workdir':str(root),'max_output_tokens':12000,'yield_time_ms':30000},ensure_ascii=False)
             + ');let out=r.output;while(r.session_id){r=await tools.write_stdin({session_id:r.session_id,chars:"",yield_time_ms:1000,max_output_tokens:12000});out+=r.output;}'
             + 'if(r.exit_code!==0)throw new Error("scope creation failed");text(out);\n'}
+    if plan['schemaVersion']==MAINTENANCE_SCHEMA:
+        scope['maintenanceBinding']=plan['maintenanceBinding']
+        if stage=='final': scope['action']='save_verified_sibling_maintenance_and_review_limited_publication'
+    return scope
 
 
 def approval_scope(root,path,plan,stage='final'):
@@ -369,11 +422,11 @@ def _fresh(plan,connection):
 
 def save(root,path,approval,*,connection,failure_hook=None):
     root = _physical(root); path = _private(root,path)
-    plan = read_plan(root,path); formal = _physical(root/plan['formalPath'])
+    plan = read_plan(root,path,connection=connection); formal = _physical(root/plan['formalPath'])
     scope = approval_scope(root,path,plan)
     def validate():
         _fresh(plan,connection)
-        current=read_plan(root,path)
+        current=read_plan(root,path,connection=connection)
         if current != plan or approval_scope(root,path,current) != scope:
             raise ValueError('audited save scope changed')
         binding = verify_independent_approval(approval,scope,production=True)
@@ -429,7 +482,7 @@ def save(root,path,approval,*,connection,failure_hook=None):
             if file_hash(formal)!=plan['candidateSha256']:
                 raise ValueError('canonical third value; recovery held')
             binding = validate()
-            receipt = {'schemaVersion':RECEIPT,'planHash':plan['planHash'],
+            receipt = {'schemaVersion':MAINTENANCE_RECEIPT if plan['schemaVersion']==MAINTENANCE_SCHEMA else RECEIPT,'planHash':plan['planHash'],
                 'formalPath':plan['formalPath'],'beforeSha256':plan['beforeSha256'],
                 'candidateSha256':plan['candidateSha256'],'originalRef':str(old),
                 'approvalEvidence':approval,'approvalBinding':binding,'FirestoreWritten':False}
@@ -441,12 +494,12 @@ def save(root,path,approval,*,connection,failure_hook=None):
 
 def load_saved(root,path,receipt_path,*,connection):
     root = _physical(root); path = _private(root,path)
-    plan = read_plan(root,path); receipt_path = _private(root,receipt_path)
+    plan = read_plan(root,path,connection=connection); receipt_path = _private(root,receipt_path)
     if receipt_path != path.parent/'save-receipt.json':
         raise ValueError('save receipt path differs')
     receipt = json.loads(receipt_path.read_bytes())
     original_ref=str(_physical(root/plan['formalPath']).parent/('.feedback-save-'+plan['planHash'])/'original.json')
-    if (receipt.get('schemaVersion') != RECEIPT or receipt.get('planHash') != plan['planHash']
+    if (receipt.get('schemaVersion') != (MAINTENANCE_RECEIPT if plan['schemaVersion']==MAINTENANCE_SCHEMA else RECEIPT) or receipt.get('planHash') != plan['planHash']
             or receipt.get('formalPath') != plan['formalPath'] or receipt.get('candidateSha256') != plan['candidateSha256']
             or receipt.get('beforeSha256') != plan['beforeSha256'] or receipt.get('FirestoreWritten') is not False
             or receipt.get('originalRef') != original_ref
@@ -465,7 +518,7 @@ def load_saved(root,path,receipt_path,*,connection):
 def restore_original(root,path,approval,*,connection):
     """Restore local before bytes exclusively. A third value is never replaced."""
     root=_physical(root); path=_private(root,path)
-    plan=read_plan(root,path); formal=_physical(root/plan['formalPath'])
+    plan=read_plan(root,path,connection=connection); formal=_physical(root/plan['formalPath'])
     binding=verify_independent_approval(approval,approval_scope(root,path,plan),production=True)
     journal=_physical(formal.parent/('.feedback-save-'+plan['planHash']))
     with _canonical_file_locks(root,[formal.relative_to(root)]):
@@ -518,6 +571,7 @@ def main():
     parser.add_argument('--pdf-verification',type=Path)
     parser.add_argument('--approval',type=Path)
     parser.add_argument('--stage',choices=[*LAW_STAGES,'final'],default='final')
+    parser.add_argument('--maintenance-task-id')
     args=parser.parse_args()
     root=_physical(args.repo_root)
     if args.command=='scope':
@@ -526,7 +580,7 @@ def main():
     with _connection() as connection:
         if args.command=='prepare':
             plan=prepare(root,args.result,args.canonical,args.output,document_index=args.document_index,
-                pdf_verification=args.pdf_verification,connection=connection)
+                pdf_verification=args.pdf_verification,connection=connection,maintenance_task_id=args.maintenance_task_id)
             print(json.dumps({'planHash':plan['planHash'],'formalPatchSaved':False,'FirestoreWritten':False}))
         elif args.command=='save':
             receipt=save(root,args.plan,json.loads(args.approval.read_bytes()),connection=connection)

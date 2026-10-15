@@ -79,6 +79,20 @@ class FeedbackDailyTest(unittest.TestCase):
             ],
         }
 
+    def test_summary_tracks_maintenance_without_creating_optional_table(self) -> None:
+        self.assertEqual(daily_summary(self.db)['maintenanceTasksByStatus'], {})
+        self.assertEqual(daily_summary(self.db)['maintenanceTasksOpen'], 0)
+        self.assertIsNone(self.db.execute(
+            "SELECT 1 FROM sqlite_master WHERE name='maintenance_tasks'"
+        ).fetchone())
+        self.db.execute('CREATE TABLE maintenance_tasks (task_id TEXT, status TEXT)')
+        self.db.executemany('INSERT INTO maintenance_tasks VALUES (?, ?)',
+                            [('m1', 'open'), ('m2', 'open'), ('m3', 'completed')])
+        self.db.commit()
+        summary = daily_summary(self.db)
+        self.assertEqual(summary['maintenanceTasksByStatus'], {'open': 2, 'completed': 1})
+        self.assertEqual(summary['maintenanceTasksOpen'], 2)
+
     def test_each_submission_has_one_task_and_reconciliation_flags_gap(self) -> None:
         result = reconcile(self.db, self.snapshot, source="fixture")
         self.assertEqual(result["reportTasks"], 3)

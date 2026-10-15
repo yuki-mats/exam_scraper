@@ -2,7 +2,7 @@
 
 状態: 実装中。個別受付台帳と読み取り専用の日次照合を実装済み。日次heartbeatが既存CLIを使って調査・独立監査・公開を進める。専用の常駐GUIとスマホ承認画面は未実装。
 
-最終更新: 2026-10-14
+最終更新: 2026-10-15
 
 この文書は、Repasoから届くユーザーフィードバックの調査、改善、独立監査、patch保存、Firestore公開を扱う運用正本です。公式問題の誤り報告を修正レーンとし、AI解説への利用者質問から学習上のニーズを見つける改善レーンを置きます。将来はアプリ不具合、UI改善、要望も追加します。
 
@@ -38,7 +38,11 @@ native作成callはCLIの正常終了まで、途中でyieldされた出力も�
 
 この保存は元ファイルのexclusive退避と候補のexclusive確定を使い、`feedback-verified-explanation-save-receipt/v1`を残します。短い置換区間及び中断時には正本が不存在となるため、readerは失敗として停止します。bootstrapは既存又は復元中の25を上書きしません。第三値があれば上書き・自動rollbackせず元bytesと再開位置を保持します。`save`の同一再送と`restore`の中断復元を検証します。`restore`後は旧planを再保存せず新planを作ります。元の入力・根拠又は承認が変わって再検証できない場合は復元も保留し、新たな監査・復旧判断を必要とします。保存receiptは正式保存だけを証明し、Firestore公開を意味しません。詳しい保存境界は[artifact契約](artifact_contract.md)を参照してください。
 
-未対応なのは、新25保存receiptを使う公開・改善台帳の完了記録adapter、複数task/年度/変更document、ガス25以外のsource-bound改善保存です。新receiptを既存immutable unitのv2 receiptへ偽装せず、対応実装と独立監査を済ませるまで該当工程を保留します。
+2026-10-15、調査中に見つかった関連不備を`feedback_maintenance_tasks`で既存の私有台帳へ登録する経路を追加しました。共通引数`--repo-root <repo> --db <既存台帳>`に続けて`register --proposal <scope> --proposal-sha256 <hash> --audit <content監査> --audit-sha256 <hash> --creator-session-id <作者session>`を指定します。`inspect --task-id <ID>`で保存結果を読み戻します。登録は真正な別subagentの完了した内容監査、固定候補・差分・全sibling・一次根拠、既存改善taskの要件と結び付けます。同じ登録の再送は冪等で、入力変更・別task・履歴不整合は拒否します。現在の登録状態は`open`のみで、正式保存・公開・完了への状態遷移はまだ行いません。内容監査や登録を正式保存・公開の承認には流用しません。
+
+同じ年度・原問の複数documentについて、登録済み差分だけを扱う専用plan `feedback-verified-maintenance-save/v1`とprivate patch `feedback-verified-maintenance-private-patch/v1`を追加しました。`feedback_verified_save prepare --maintenance-task-id <登録ID>`で既存改善taskの要件を維持し、説明fieldと既存`lawRevisionFacts.differenceFacts`の説明文だけを投影します。法令locator・判定・監査metadataは変えません。候補全体との完全一致、全siblingの書込みfield、修正前値とexact時刻を再確認します。従来の単一document schemaは複数document用に読み替えません。三段階法令監査と別subagentの最終native承認を経た同一候補だけ、既存のexclusive保存・中断復元経路を使い、専用`feedback-verified-maintenance-save-receipt/v1`を残します。このreceiptも公開の証明ではありません。
+
+未対応なのは、新25保存receiptを使う公開・改善台帳の完了記録adapter、maintenance台帳の保存後状態記録、複数task/年度/原問をまたぐ保存、ガス25以外のsource-bound改善保存です。新receiptを既存immutable unitのv2 receiptへ偽装せず、対応実装と独立監査を済ませるまで該当工程を保留します。
 
 限定公開の実upload JSONでは、最上位の`writeFields`を既存uploaderへ渡します。各documentの`writeFields`がある場合、`QuestionPublisher`は全対象で同一の対応済みmaskだけを最上位へ結合し、空・欠落・異なるmask・未対応field、新規document、mask外の差分を拒否します。改善完了の検証でも、document内のmaskだけでは限定更新の証跡として受理しません。`explanationText`と`suggestedQuestionDetails`の限定更新は、最大3件・非空・`suggestedQuestions`との厳密な対応を検証し、書込み前に保存済みの質問一覧との一致も確認します。質問一覧自体は書き込みません。
 
@@ -58,7 +62,7 @@ AI解説は公開設定かつ未削除の `memoType=ai_explanation` の利用者
 
 改善タスクの作業は `open`（未着手）、`in_progress`（作業中）、`review_pending`（成果物の審査待ち）、`blocked`（根拠・対応確認待ち）で追跡します。`record-improvement-result` は、task ID・状態・SHA-256に結び付いた非公開の `feedback-improvement-result/v1` 成果物と理由を記録します。履歴には参照とhashだけを保存し、利用者本文を複製しません。成果物の改変、異なるtaskへの関連付け、想定状態からの競合を拒否し、同じ記録の再送は重複しません。正式patch保存・Firestore書込み・承認済みを主張する成果物はこのコマンドでは登録できません。
 
-`list-improvements` は未完了タスクを状態にかかわらず表示し、最新の成果物参照を付けます。`improvementTasksOpen` は未完了全体、`improvementTasksByStatus` は状態別件数です。案の作成だけで完了や公開済みにせず、審査・正式patch承認・別途の本番公開判断・live readbackを引き続き追跡します。
+`list-improvements` は未完了タスクを状態にかかわらず表示し、最新の成果物参照を付けます。`improvementTasksOpen` は未完了全体、`improvementTasksByStatus` は状態別件数です。関連不備の登録後は`maintenanceTasksOpen`・`maintenanceTasksByStatus`も日次summaryで追跡します。summaryは未作成のmaintenance表を作成しません。案の作成だけで完了や公開済みにせず、審査・正式patch承認・別途の本番公開判断・live readbackを引き続き追跡します。
 
 ### 検証済みガス正本の改善保存preview
 
