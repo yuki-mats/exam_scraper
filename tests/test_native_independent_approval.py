@@ -196,6 +196,14 @@ class NativeIndependentApprovalTests(unittest.TestCase):
         change(self.record, 'reviewerFinal', lambda e: e['payload']['content'].append({'type':'encrypted_content','encrypted_content':'gAAAA-hidden'}))
         with self.assertRaises(ValueError): self.verify()
 
+    def test_present_completion_without_final_memory_footer_is_not_an_exact_match(self):
+        footer = '\n<oai-mem-citation>fixture footer</oai-mem-citation>'
+        change(self.record, 'reviewerFinal',
+            lambda e: e['payload']['content'][0].update(text=e['payload']['content'][0]['text'] + footer))
+        # The JSON verdict is unchanged; task_complete still omits the footer.
+        with self.assertRaisesRegex(ValueError, 'reviewer completed turn binding differs'):
+            self.verify()
+
     def test_real_save_rejects_fixture_sessions_even_for_another_repository_root(self):
         _, law = approvals(self.root,self.plan)
         with patch('tools.question_review_console.independent_approval.NATIVE_SESSION_ROOT', Path.home()/'.codex/sessions'):

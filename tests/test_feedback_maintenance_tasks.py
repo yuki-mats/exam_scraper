@@ -159,6 +159,19 @@ class MaintenanceTaskTests(unittest.TestCase):
         self.seal(); self.session.write_bytes(self.session.read_bytes().splitlines(keepends=True)[0] + b"{}\n")
         with self.assertRaises(ValueError): self.register()
 
+    def test_present_completion_missing_final_memory_footer_rejected(self):
+        self.audit["rawFinal"] += "\n<oai-mem-citation>fixture footer</oai-mem-citation>"
+        lines = self.session.read_bytes().splitlines(keepends=True)
+        event = json.loads(lines[2])
+        event["payload"]["content"][0]["text"] = self.audit["rawFinal"]
+        lines[2] = (json.dumps(event, ensure_ascii=False) + "\n").encode()
+        self.session.write_bytes(b"".join(lines))
+        self.audit["reviewerFinal"]["eventSha256IncludingFinalLf"] = hashlib.sha256(lines[2]).hexdigest()
+        self.audit_ref = self.write(self.private / "audit.json", self.audit)
+        # rawFinal/result/native final bind, but the present completion text differs.
+        with self.assertRaisesRegex(ValueError, "native completed final/record binding differs"):
+            self.register()
+
     def test_native_event_bytes_and_scope_material_hash_drift_rejected(self):
         binding = self.register()
         self.session.write_bytes(self.session.read_bytes().replace(b'"review-turn"', b'"other-turn"'))
