@@ -18,7 +18,7 @@ from scripts.upload.firebase_credentials import (  # noqa: E402
     DEFAULT_PROJECT_ID,
     initialize_firebase_app,
 )
-from scripts.common.repaso_firestore_schema import validate_question_doc
+from scripts.common.repaso_firestore_schema import validate_question_doc, is_law_revision_facts_shape
 from scripts.common.fill_in_blank_contract import validate_fill_in_blank_question
 from scripts.common.independent_question_images import (
     validate_independent_upload_image_gate,
@@ -33,9 +33,15 @@ OFFICIAL_EXAM_YEARS_FIELD = "official_exam_years_by_qualification"
 WRITE_FIELDS_KEY = "writeFields"
 EXPECTED_UPDATE_TIMES_KEY = "expectedUpdateTimes"
 EXPLANATION_DETAILS_WRITE_FIELDS = ("explanationText", "suggestedQuestionDetails")
+DETAILS_ONLY_WRITE_FIELDS = ("suggestedQuestionDetails",)
+LAW_FACTS_DETAILS_WRITE_FIELDS = ("explanationText", "lawRevisionFacts", "suggestedQuestionDetails")
+PRESERVED_SUGGESTION_MASKS = (EXPLANATION_DETAILS_WRITE_FIELDS, DETAILS_ONLY_WRITE_FIELDS,
+                            LAW_FACTS_DETAILS_WRITE_FIELDS)
 ALLOWED_PATCH_WRITE_FIELD_SETS = (
     ("explanationText",),
     EXPLANATION_DETAILS_WRITE_FIELDS,
+    DETAILS_ONLY_WRITE_FIELDS,
+    LAW_FACTS_DETAILS_WRITE_FIELDS,
     ("suggestedQuestions", "suggestedQuestionDetails"),
     ("qualificationId", "listGroupId"),
     ("correctChoiceText", "explanationText"),
@@ -295,7 +301,7 @@ def validate_question_patch_questions(
 ) -> None:
     """Validate narrow question repairs, including answer-correction repairs."""
 
-    if write_fields == EXPLANATION_DETAILS_WRITE_FIELDS:
+    if write_fields in PRESERVED_SUGGESTION_MASKS:
         validate_explanation_patch_questions(questions, source_label)
         validate_suggestion_patch_questions(questions, source_label, max_entries=3)
         for question in questions:
@@ -304,6 +310,13 @@ def validate_question_patch_questions(
                     for item in details)
                     or question["suggestedQuestions"] != [item["question"] for item in details]):
                 raise ValueError("explanation/detail patch requires an exact string suggestion mirror")
+            if write_fields == LAW_FACTS_DETAILS_WRITE_FIELDS:
+                facts = question.get("lawRevisionFacts")
+                if (not is_law_revision_facts_shape(facts)
+                        or not isinstance(facts.get("differenceFacts"), list)
+                        or not facts['differenceFacts']
+                        or any(not isinstance(item, str) or not item.strip() for item in facts['differenceFacts'])):
+                    raise ValueError("legal explanation patch requires nonempty valid difference facts")
         return
     if write_fields == ("suggestedQuestions", "suggestedQuestionDetails"):
         validate_suggestion_patch_questions(
@@ -592,6 +605,18 @@ def require_explanation_details_live_mirror(questions: list[dict], snapshots: li
     return by_id
 
 
+def require_preserved_legal_metadata(questions: list[dict], snapshots: list) -> None:
+    """A narrow explanatory repair cannot replace legal verdicts or provenance."""
+    by_id = checked_existing_snapshots([q['questionId'] for q in questions], snapshots)
+    for question in questions:
+        old = (by_id[question['questionId']].to_dict() or {}).get('lawRevisionFacts')
+        new = question['lawRevisionFacts']
+        if (not is_law_revision_facts_shape(old) or not isinstance(old.get('differenceFacts'), list)
+                or {k:v for k,v in old.items() if k != 'differenceFacts'}
+                != {k:v for k,v in new.items() if k != 'differenceFacts'}):
+            raise RuntimeError('legal explanatory patch would change preserved law metadata')
+
+
 def build_patch_doc_data(new_base: dict, write_fields: tuple[str, ...], now: datetime) -> dict:
     """Build a partial update that cannot alter fields outside the explicit contract."""
 
@@ -794,6 +819,8 @@ def upload_questions(
     write_fields = resolve_write_fields(data)
     questions = data.get("questions", [])
     expected_update_times = resolve_expected_update_times(data, questions, write_fields)
+    if write_fields in (DETAILS_ONLY_WRITE_FIELDS, LAW_FACTS_DETAILS_WRITE_FIELDS) and expected_update_times is None:
+        raise ValueError('maintenance patches require exact expectedUpdateTimes')
     if not questions:
         print("アップロードする質問データがありません。")
         return
@@ -861,7 +888,7 @@ def upload_questions(
 
     expected_live_hash = os.environ.get("QUESTION_PUBLISH_EXPECTED_LIVE_HASH", "").strip()
     guarded_snapshots_by_id = None
-    if expected_live_hash or expected_update_times is not None or write_fields == EXPLANATION_DETAILS_WRITE_FIELDS:
+    if expected_live_hash or expected_update_times is not None or write_fields in PRESERVED_SUGGESTION_MASKS:
         guarded_ids = [str(question.get("questionId") or "").strip() for question in questions]
         if not all(guarded_ids) or len(set(guarded_ids)) != len(guarded_ids):
             raise RuntimeError("公開対象のquestionIdが空又は重複しています。")
@@ -872,8 +899,10 @@ def upload_questions(
         guarded_snapshots = fetch_existing_question_snapshots(db, guarded_refs)
         if expected_update_times is not None:
             require_expected_update_times(guarded_ids, guarded_snapshots, expected_update_times)
-        if write_fields == EXPLANATION_DETAILS_WRITE_FIELDS:
+        if write_fields in PRESERVED_SUGGESTION_MASKS:
             require_explanation_details_live_mirror(questions, guarded_snapshots)
+        if write_fields == LAW_FACTS_DETAILS_WRITE_FIELDS:
+            require_preserved_legal_metadata(questions, guarded_snapshots)
         if expected_live_hash:
             require_expected_live_fingerprint(guarded_ids, guarded_snapshots, expected_live_hash)
         guarded_snapshots_by_id = {

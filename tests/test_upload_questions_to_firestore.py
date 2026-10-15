@@ -1059,5 +1059,118 @@ class NarrowExplanationUploadTests(unittest.TestCase):
         self.assertIn("エラー 1", output)
 
 
+class VerifiedMaintenanceUploadTests(unittest.TestCase):
+    stamp = NarrowExplanationUploadTests.stamp
+    mask = list(module.LAW_FACTS_DETAILS_WRITE_FIELDS)
+    Database = NarrowExplanationUploadTests.Database
+    upload = NarrowExplanationUploadTests.upload
+    payload = NarrowExplanationUploadTests.payload
+
+    def question(self, identity='target'):
+        return {**NarrowExplanationUploadTests.question(self, identity),
+                'lawRevisionFacts': {'auditStatus': 'same_as_current',
+                                     'auditedAt': '2026-07-28',
+                                     'differenceFacts': ['条文で定める測定場所を説明する。']}}
+
+    def snapshots(self, ids=('target',), *, unchanged=False):
+        snapshots = NarrowExplanationUploadTests.snapshots(self, ids, unchanged=unchanged)
+        if not unchanged:
+            for snapshot in snapshots:
+                value = snapshot.to_dict()
+                value['lawRevisionFacts']['differenceFacts'] = ['旧説明。']
+                snapshot.to_dict = lambda value=value: deepcopy(value)
+        return snapshots
+
+    def test_all_maintenance_masks_dry_run_and_exact_version_requirement(self):
+        for mask in [module.DETAILS_ONLY_WRITE_FIELDS, module.LAW_FACTS_DETAILS_WRITE_FIELDS]:
+            payload = self.payload(); payload['writeFields'] = list(mask)
+            with self.subTest(mask=mask):
+                self.assertEqual(module.resolve_write_fields(payload), mask)
+                _, initialized = self.upload(payload, object(), dry_run=True)
+                self.assertEqual(initialized, 0)
+                del payload['expectedUpdateTimes']
+                with self.assertRaisesRegex(ValueError, 'exact expectedUpdateTimes'):
+                    self.upload(payload, object(), dry_run=True)
+
+    def test_details_only_writes_no_question_or_explanation_fields(self):
+        payload = self.payload(); payload['writeFields'] = list(module.DETAILS_ONLY_WRITE_FIELDS)
+        db = self.Database(self.snapshots())
+        self.upload(payload, db)
+        self.assertEqual(set(db.committed[0][1]), {'suggestedQuestionDetails', 'updatedAt', 'updatedById'})
+        self.assertEqual(db.committed[0][2]._last_update_time, db.snapshots[0].update_time)
+        self.assertEqual(len(db.reads), 1)
+
+    def test_legal_map_only_replaces_difference_facts_and_preserves_audit_metadata(self):
+        payload = self.payload(); db = self.Database(self.snapshots())
+        self.upload(payload, db)
+        values = db.committed[0][1]
+        self.assertEqual(set(values), set(self.mask) | {'updatedAt', 'updatedById'})
+        self.assertEqual(values['lawRevisionFacts'], payload['questions'][0]['lawRevisionFacts'])
+        self.assertEqual(values['lawRevisionFacts']['auditedAt'], '2026-07-28')
+        self.assertNotIn('suggestedQuestions', values)
+
+    def test_legal_payload_shape_empty_facts_and_non_string_facts_are_refused(self):
+        for facts in [None, {}, {'auditStatus': 'same_as_current'},
+                      {'auditStatus': 'same_as_current', 'differenceFacts': []},
+                      {'auditStatus': 'same_as_current', 'differenceFacts': [' ']},
+                      {'auditStatus': 'same_as_current', 'differenceFacts': [12]},
+                      {'auditStatus': 'same_as_current', 'differenceFacts': ['new'], 'unknown': 'value'}]:
+            payload = self.payload(); payload['questions'][0]['lawRevisionFacts'] = facts
+            with self.subTest(facts=facts), self.assertRaises(ValueError):
+                self.upload(payload, object(), dry_run=True)
+
+    def test_live_provenance_verdict_missing_facts_and_extra_metadata_cannot_change(self):
+        for change in [None, {'auditStatus': 'hold'}, {'auditedAt': '2026-10-15'},
+                       {'current': {'correctChoiceText': '間違い'}}, {'notes': ['extra']}]:
+            snapshots = self.snapshots(); value = snapshots[0].to_dict()
+            if change is None:
+                del value['lawRevisionFacts']
+            else:
+                value['lawRevisionFacts'].update(change)
+            snapshots[0].to_dict = lambda value=value: deepcopy(value)
+            db = self.Database(snapshots)
+            with self.subTest(change=change), self.assertRaises(RuntimeError):
+                self.upload(self.payload(), db)
+            self.assertEqual(db.batch_count, 0)
+            self.assertFalse(db.pending)
+
+    def test_new_masks_refuse_live_question_mirror_or_flags_before_any_batch(self):
+        for mask in [module.DETAILS_ONLY_WRITE_FIELDS, module.LAW_FACTS_DETAILS_WRITE_FIELDS]:
+            for key, value in [('suggestedQuestions', ['other']), ('isDeleted', True), ('isChoiceOnly', True)]:
+                snapshots = self.snapshots(); fields = {**snapshots[0].to_dict(), key: value}
+                snapshots[0].to_dict = lambda fields=fields: deepcopy(fields)
+                db = self.Database(snapshots); payload = self.payload(); payload['writeFields'] = list(mask)
+                with self.subTest(mask=mask, key=key), self.assertRaises(RuntimeError):
+                    self.upload(payload, db)
+                self.assertEqual(db.batch_count, 0)
+
+    def test_legal_payload_cannot_relabel_preserved_metadata_with_matching_time(self):
+        payload = self.payload(); payload['questions'][0]['lawRevisionFacts']['auditedAt'] = '2026-10-15'
+        db = self.Database(self.snapshots())
+        with self.assertRaisesRegex(RuntimeError, 'preserved law metadata'):
+            self.upload(payload, db)
+        self.assertFalse(db.pending)
+
+    def test_legal_resend_skips_and_read_after_guard_conflict_uses_CAS(self):
+        db = self.Database(self.snapshots(unchanged=True))
+        output, _ = self.upload(self.payload(), db)
+        self.assertFalse(db.committed)
+        self.assertIn('スキップ 1', output)
+        db = self.Database(self.snapshots(), conflict_after_read=True)
+        output, _ = self.upload(self.payload(), db)
+        self.assertFalse(db.committed)
+        self.assertEqual(db.pending[0][2]._last_update_time, db.snapshots[0].update_time)
+        self.assertIn('エラー 1', output)
+
+    def test_new_routes_never_accept_four_suggestions_or_mismatched_prompt_types(self):
+        for mask in [module.DETAILS_ONLY_WRITE_FIELDS, module.LAW_FACTS_DETAILS_WRITE_FIELDS]:
+            payload = self.payload(); payload['writeFields'] = list(mask)
+            payload['questions'][0]['suggestedQuestions'] *= 4
+            payload['questions'][0]['suggestedQuestionDetails'] *= 4
+            payload['allowLegacySuggestionRollback'] = True
+            with self.subTest(mask=mask), self.assertRaises(ValueError):
+                self.upload(payload, object(), dry_run=True)
+
+
 if __name__ == "__main__":
     unittest.main()
