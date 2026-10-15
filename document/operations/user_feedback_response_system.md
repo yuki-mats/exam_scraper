@@ -42,7 +42,11 @@ native作成callはCLIの正常終了まで、途中でyieldされた出力も�
 
 同じ年度・原問の複数documentについて、登録済み差分だけを扱う専用plan `feedback-verified-maintenance-save/v1`とprivate patch `feedback-verified-maintenance-private-patch/v1`を追加しました。`feedback_verified_save prepare --maintenance-task-id <登録ID>`で既存改善taskの要件を維持し、説明fieldと既存`lawRevisionFacts.differenceFacts`の説明文だけを投影します。法令locator・判定・監査metadataは変えません。候補全体との完全一致、全siblingの書込みfield、修正前値とexact時刻を再確認します。従来の単一document schemaは複数document用に読み替えません。三段階法令監査と別subagentの最終native承認を経た同一候補だけ、既存のexclusive保存・中断復元経路を使い、専用`feedback-verified-maintenance-save-receipt/v1`を残します。このreceiptも公開の証明ではありません。
 
-未対応なのは、新25保存receiptを使う公開・改善台帳の完了記録adapter、maintenance台帳の保存後状態記録、複数task/年度/原問をまたぐ保存、ガス25以外のsource-bound改善保存です。新receiptを既存immutable unitのv2 receiptへ偽装せず、対応実装と独立監査を済ませるまで該当工程を保留します。
+正式保存の台帳記録は、独立監査を通した専用CLI `python -m tools.question_bank.feedback_verified_save_record --repo-root <repo> --db <既存台帳> record --plan <保存plan>`で行います。`inspect --task-kind maintenance --task-id <登録ID>`で再検証して読み戻します。真正な保存receipt・native承認・元bytes・候補・正式正本・復元journal・固定入力と、現在の改善要件・maintenance登録を確認してから、`verified_formal_save_records`へ追記します。検証中の入力変更・競合・中断では記録を確定せず、同一再送は重複しません。生の利用者本文やnative session本文は保存しません。日々追記されるsession全体のhashは検証中の一時的な競合検知にだけ使い、保存記録には含めません。
+
+この記録は`formally_saved`だけを表します。maintenance登録自体は変更できない`open`の受付根拠として保持し、summaryの`verifiedFormalSavesRecorded`で保存証跡を別に数えます。改善taskを完了へ移したり、Firestore公開・readbackを証明したりする経路ではありません。
+
+未対応なのは、新25保存receiptを使う真正checkpoint・独立評価・限定公開・公開完了記録のadapter、複数task/年度/原問をまたぐ保存、ガス25以外のsource-bound改善保存です。新receiptを既存immutable unitのv2 receiptへ偽装せず、対応実装と独立監査を済ませるまで該当工程を保留します。
 
 限定公開の実upload JSONでは、最上位の`writeFields`を既存uploaderへ渡します。各documentの`writeFields`がある場合、`QuestionPublisher`は全対象で同一の対応済みmaskだけを最上位へ結合し、空・欠落・異なるmask・未対応field、新規document、mask外の差分を拒否します。改善完了の検証でも、document内のmaskだけでは限定更新の証跡として受理しません。`explanationText`と`suggestedQuestionDetails`の限定更新は、最大3件・非空・`suggestedQuestions`との厳密な対応を検証し、書込み前に保存済みの質問一覧との一致も確認します。質問一覧自体は書き込みません。
 

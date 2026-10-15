@@ -93,6 +93,29 @@ class FeedbackDailyTest(unittest.TestCase):
         self.assertEqual(summary['maintenanceTasksByStatus'], {'open': 2, 'completed': 1})
         self.assertEqual(summary['maintenanceTasksOpen'], 2)
 
+    def test_summary_counts_formal_save_records_without_creating_optional_table(self) -> None:
+        result = daily_summary(self.db)
+        self.assertEqual(result['verifiedFormalSavesRecorded'], 0)
+        self.assertEqual(result['verifiedFormalSavesByTaskKind'], {})
+        self.assertIsNone(self.db.execute(
+            "SELECT 1 FROM sqlite_master WHERE name='verified_formal_save_records'"
+        ).fetchone())
+
+    def test_summary_separates_formal_save_records_from_open_authority(self) -> None:
+        self.db.execute('CREATE TABLE maintenance_tasks (task_id TEXT, status TEXT)')
+        self.db.execute("INSERT INTO maintenance_tasks VALUES ('maintenance', 'open')")
+        self.db.execute('CREATE TABLE verified_formal_save_records (task_kind TEXT, task_id TEXT, state TEXT)')
+        self.db.executemany('INSERT INTO verified_formal_save_records VALUES (?, ?, ?)', [
+            ('maintenance', 'maintenance', 'formally_saved'),
+            ('improvement', 'improvement', 'formally_saved')])
+        self.db.commit()
+        result = daily_summary(self.db)
+        self.assertEqual(result['verifiedFormalSavesRecorded'], 2)
+        self.assertEqual(result['verifiedFormalSavesByTaskKind'], {'improvement': 1, 'maintenance': 1})
+        self.assertEqual(result['maintenanceTasksOpen'], 1)
+        self.assertEqual(result['maintenanceTasksByStatus'], {'open': 1})
+        self.assertEqual(self.db.execute("SELECT status FROM maintenance_tasks").fetchone()[0], 'open')
+
     def test_each_submission_has_one_task_and_reconciliation_flags_gap(self) -> None:
         result = reconcile(self.db, self.snapshot, source="fixture")
         self.assertEqual(result["reportTasks"], 3)
