@@ -19,6 +19,7 @@ from scripts.common.requirements import (
 )
 from scripts.common.question_answer_contract import choice_text_content_alignment_issue
 from scripts.common.fill_in_blank_contract import validate_fill_in_blank_question
+from scripts.check import verified_feedback_contract as verified
 
 
 def fill_in_blank_errors(records: list[dict], path: Path) -> list[str]:
@@ -76,7 +77,6 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument(
         "--base-dir",
         type=Path,
-        required=True,
         help="questions_json ルート（例: output/2nd-class-kenchikushi/questions_json）",
     )
     parser.add_argument(
@@ -88,7 +88,6 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument(
         "--stage",
         choices=("source", "merged", "firestore"),
-        required=True,
         help="チェック対象ステージ",
     )
     parser.add_argument(
@@ -96,7 +95,14 @@ def main(argv: list[str] | None = None) -> int:
         default=None,
         help="firestoreステージで特定のlist_group_idに限定（任意）",
     )
+    verified.add_arguments(parser)
+    argv = sys.argv[1:] if argv is None else argv
     args = parser.parse_args(argv)
+    if verified.selected_mode(parser, args, argv, legacy_options={
+            '--base-dir', '--requirements', '--stage', '--list-group-id'}):
+        return verified.run_cli('required', args)
+    if args.base_dir is None or args.stage is None:
+        parser.error('--base-dir and --stage are required in legacy mode')
 
     base_dir = args.base_dir.resolve()
     qualification = infer_qualification_from_base_dir(base_dir)

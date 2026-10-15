@@ -26,6 +26,7 @@ from scripts.check.patch_entry_matching import (
     bind_source_records,
     match_patch_entries,
 )
+from scripts.check import verified_feedback_contract as verified
 
 
 REQUIRED_FIELDS = [
@@ -307,14 +308,13 @@ def check_pair(
     return 0
 
 
-def main() -> int:
+def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
         description="Validate correctChoiceText patch coverage and format."
     )
-    parser.add_argument("--source", required=True, help="Path to source question_*.json")
+    parser.add_argument("--source", help="Path to source question_*.json")
     parser.add_argument(
         "--patch",
-        required=True,
         help="Path to *_correctChoiceText_fixed_YYYYMMDD_HHMM.json (旧形式 *_correctChoiceText_fixed.json も可)",
     )
     parser.add_argument(
@@ -336,7 +336,15 @@ def main() -> int:
         "--question-type-patch",
         help="Apply the corresponding 10_questionType_fixed patch before validating choice counts.",
     )
-    args = parser.parse_args()
+    verified.add_arguments(parser)
+    argv = sys.argv[1:] if argv is None else argv
+    args = parser.parse_args(argv)
+    if verified.selected_mode(parser, args, argv, legacy_options={
+            '--source', '--patch', '--require-full', '--require-snippets',
+            '--require-change-meta', '--question-type-patch'}):
+        return verified.run_cli('coverage', args)
+    if args.source is None or args.patch is None:
+        parser.error('--source and --patch are required in legacy mode')
     return check_pair(
         Path(args.source),
         Path(args.patch),

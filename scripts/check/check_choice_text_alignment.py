@@ -18,6 +18,7 @@ if str(REPO_ROOT) not in sys.path:
 
 from scripts.common.question_answer_contract import choice_text_content_alignment_issue
 from scripts.common.question_identity import review_question_id
+from scripts.check import verified_feedback_contract as verified
 
 
 def load_json(path: Path) -> Any:
@@ -80,7 +81,6 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument(
         "--base-dir",
         type=Path,
-        required=True,
         help="対象資格のquestions_jsonディレクトリ（例: output/anma/questions_json）",
     )
     parser.add_argument(
@@ -95,7 +95,14 @@ def main(argv: list[str] | None = None) -> int:
         default=None,
         help="特定の年度（例: 1994）。未指定時は全年度を検査",
     )
+    verified.add_arguments(parser)
+    argv = sys.argv[1:] if argv is None else argv
     args = parser.parse_args(argv)
+    if verified.selected_mode(parser, args, argv, legacy_options={
+            '--base-dir', '--stage', '--list-group-id'}):
+        return verified.run_cli('alignment', args)
+    if args.base_dir is None:
+        parser.error('--base-dir is required in legacy mode')
 
     base_dir = args.base_dir.resolve()
     if not base_dir.exists():
