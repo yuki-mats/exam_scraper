@@ -9,6 +9,7 @@ from datetime import datetime
 import argparse
 from pathlib import Path
 import sys
+from copy import deepcopy
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 if str(REPO_ROOT) not in sys.path:
@@ -32,6 +33,12 @@ CONFIG_DOC_ID = "08zYvCuKUcvGTNYqehrm"
 OFFICIAL_EXAM_YEARS_FIELD = "official_exam_years_by_qualification"
 WRITE_FIELDS_KEY = "writeFields"
 EXPECTED_UPDATE_TIMES_KEY = "expectedUpdateTimes"
+ATOMIC_MAINTENANCE_SCHEMA = "question-maintenance-atomic-upload/v1"
+ATOMIC_MAINTENANCE_RESULT_SCHEMA = "question-maintenance-atomic-upload-result/v1"
+ATOMIC_MAINTENANCE_KEYS = frozenset((
+    "schemaVersion", "originalQuestionId", "questions", "writeFieldsByDocument",
+    EXPECTED_UPDATE_TIMES_KEY, "expectedLiveFingerprint",
+))
 EXPLANATION_DETAILS_WRITE_FIELDS = ("explanationText", "suggestedQuestionDetails")
 DETAILS_ONLY_WRITE_FIELDS = ("suggestedQuestionDetails",)
 LAW_FACTS_DETAILS_WRITE_FIELDS = ("explanationText", "lawRevisionFacts", "suggestedQuestionDetails")
@@ -519,6 +526,8 @@ def build_doc_data(question: dict, now: datetime) -> dict:
 def resolve_write_fields(data: dict) -> tuple[str, ...] | None:
     """Return an explicitly requested narrow update contract, if present."""
 
+    if _requests_atomic_maintenance(data):
+        raise ValueError("atomic maintenance must use its explicit schema resolver")
     raw = data.get(WRITE_FIELDS_KEY)
     if raw is None:
         return None
@@ -545,6 +554,87 @@ class _UploadJSONObject(dict):
             if key in self:
                 self.duplicate_keys.add(key)
             self[key] = value
+
+
+def _requests_atomic_maintenance(data: dict) -> bool:
+    schema = data.get("schemaVersion")
+    return ("writeFieldsByDocument" in data or "expectedLiveFingerprint" in data
+            or (isinstance(schema, str) and schema.startswith("question-maintenance-atomic-upload")))
+
+
+def _reject_duplicate_json_keys(value) -> None:
+    if isinstance(value, dict):
+        if getattr(value, "duplicate_keys", ()):
+            raise ValueError("atomic maintenance JSON contains duplicate keys")
+        for child in value.values():
+            _reject_duplicate_json_keys(child)
+    elif isinstance(value, list):
+        for child in value:
+            _reject_duplicate_json_keys(child)
+
+
+def resolve_atomic_maintenance_contract(data: dict, source_label: str) -> dict:
+    """Validate the transport contract without SDK initialization or live reads.
+
+    Exactly one original question is accepted, with one of the three existing
+    maintenance masks per document. All IDs, versions and the ordered live
+    fingerprint are mandatory. Full sibling membership, current evaluation and
+    checkpoint gates, publication authority and before/after readback belong to
+    the calling publication orchestrator; this transport never establishes
+    publishReady or publication completion.
+    """
+    if not isinstance(data, dict):
+        raise ValueError("atomic maintenance JSON root must be an object")
+    _reject_duplicate_json_keys(data)
+    if (set(data) != ATOMIC_MAINTENANCE_KEYS
+            or data.get("schemaVersion") != ATOMIC_MAINTENANCE_SCHEMA):
+        raise ValueError("atomic maintenance requires its exact schema and six root keys")
+    original = data["originalQuestionId"]
+    if (not isinstance(original, str) or not original or original.strip() != original
+            or "/" in original):
+        raise ValueError("atomic maintenance originalQuestionId must be a nonempty ID")
+    questions = data["questions"]
+    if not isinstance(questions, list) or not 1 <= len(questions) <= BATCH_SIZE:
+        raise ValueError("atomic maintenance questions must fit one nonempty batch")
+    masks = data["writeFieldsByDocument"]
+    if not isinstance(masks, dict) or not masks:
+        raise ValueError("writeFieldsByDocument must be a nonempty exact-ID map")
+    # Reuse the strict ID/time parser; this sentinel mask is never a write mask.
+    expected = resolve_expected_update_times(
+        data, questions, DETAILS_ONLY_WRITE_FIELDS,
+    )
+    ids = [question["questionId"] for question in questions]
+    if set(masks) != set(ids):
+        raise ValueError("writeFieldsByDocument keys must exactly cover questionIds")
+    qualification_ids = set()
+    resolved_masks = {}
+    for question in questions:
+        identity = question["questionId"]
+        if (question.get("originalQuestionId") != original
+                or any(key in question for key in (WRITE_FIELDS_KEY, "writeFieldsByDocument",
+                                                    EXPECTED_UPDATE_TIMES_KEY, "expectedLiveFingerprint"))):
+            raise ValueError("atomic maintenance question identity/control fields differ")
+        qualification = question.get("qualificationId")
+        if (not isinstance(qualification, str) or not qualification
+                or qualification.strip() != qualification or "/" in qualification):
+            raise ValueError("atomic maintenance requires an explicit qualificationId")
+        qualification_ids.add(qualification)
+        raw = masks[identity]
+        if not isinstance(raw, list) or tuple(raw) not in PRESERVED_SUGGESTION_MASKS:
+            raise ValueError("atomic maintenance has an unsupported document write mask")
+        mask = tuple(raw)
+        validate_question_patch_questions([question], mask, source_label)
+        # No missing field may be silently constructed by the DTO conversion.
+        if any(field not in question for field in mask):
+            raise ValueError("atomic maintenance payload is missing a masked field")
+        build_patch_doc_data(build_doc_data_base(question), mask, datetime.now())
+        resolved_masks[identity] = mask
+    if len(qualification_ids) != 1:
+        raise ValueError("atomic maintenance must target one qualification")
+    fingerprint = data["expectedLiveFingerprint"]
+    if not isinstance(fingerprint, str) or re.fullmatch(r"[0-9a-f]{64}", fingerprint) is None:
+        raise ValueError("expectedLiveFingerprint must be a lowercase SHA256")
+    return {"documentIds": ids, "masks": resolved_masks, "expectedUpdateTimes": expected}
 
 
 def resolve_expected_update_times(data: dict, questions, write_fields) -> dict[str, str] | None:
@@ -710,6 +800,115 @@ def add_guarded_question_write(batch, doc_ref, doc_data: dict, snapshot) -> None
     batch.create(doc_ref, doc_data)
 
 
+class AtomicMaintenanceCommitUnconfirmed(RuntimeError):
+    """A commit was attempted, but its result cannot establish every write version.
+
+    Callers must persist their operation intent before invoking the transport.
+    They must reconcile this exception through readback/operation evidence, not
+    automatically resend with freshly substituted expected versions.
+    """
+
+    def __init__(self, prepared_result: dict):
+        super().__init__("atomic maintenance commit outcome is unconfirmed; reconcile before retry")
+        self.prepared_result = prepared_result
+
+
+def upload_atomic_maintenance_questions(
+    data: dict, source_label: str, *, dry_run: bool = False,
+    credentials_json: Path | None = None,
+) -> dict:
+    """One existing-original maintenance transport, never publication approval.
+
+    Content writes are exactly each document's mask plus updatedAt/updatedById.
+    There are no creates, deletes, manifest writes or full-document sets. All
+    local/live validation finishes before a batch is constructed. A partially
+    unchanged scope is refused: skipping such documents would leave their CAS
+    outside the atomic batch. All-unchanged is a no-write observation, not proof
+    of publication. The orchestrator owns sibling-membership before/after checks
+    (including concurrent new siblings), all current gates and durable recovery.
+    """
+    # Own the entire request before validating it or yielding to SDK calls.
+    # deepcopy also retains _UploadJSONObject.duplicate_keys at every depth;
+    # serializing through plain dict/JSON here would erase that rejection evidence.
+    data = deepcopy(data)
+    contract = resolve_atomic_maintenance_contract(data, source_label)
+    ids = contract["documentIds"]
+    masks = contract["masks"]
+    result = {
+        "schemaVersion": ATOMIC_MAINTENANCE_RESULT_SCHEMA,
+        "status": "dry_run" if dry_run else "prepared",
+        "originalQuestionId": data["originalQuestionId"],
+        "documentIds": list(ids),
+        "writeFieldsByDocument": {identity: list(masks[identity]) for identity in ids},
+        "auditWriteFields": ["updatedAt", "updatedById"],
+        "expectedUpdateTimes": dict(contract["expectedUpdateTimes"]),
+        "expectedLiveFingerprint": data["expectedLiveFingerprint"],
+        "changedDocumentIds": [], "unchangedDocumentIds": [], "writeResults": [],
+        "publicationConfirmed": False,
+    }
+    if dry_run:
+        return result
+
+    db = init_firestore(credentials_json)
+    refs = {identity: db.collection("questions").document(identity) for identity in ids}
+    snapshots = fetch_existing_question_snapshots(db, list(refs.values()))
+    by_id = require_expected_update_times(ids, snapshots, contract["expectedUpdateTimes"])
+    require_expected_live_fingerprint(ids, snapshots, data["expectedLiveFingerprint"])
+    require_explanation_details_live_mirror(data["questions"], snapshots)
+    now = datetime.now()
+    updates = {}
+    for question in data["questions"]:
+        identity = question["questionId"]
+        snapshot = by_id[identity]
+        existing = snapshot.to_dict() or {}
+        if (existing.get("originalQuestionId") != data["originalQuestionId"]
+                or existing.get("qualificationId") != question["qualificationId"]):
+            raise RuntimeError("atomic maintenance live original/qualification identity differs")
+        mask = masks[identity]
+        if mask == LAW_FACTS_DETAILS_WRITE_FIELDS:
+            require_preserved_legal_metadata([question], [snapshot])
+        base = build_doc_data_base(question)
+        # Include presence in comparisons: absent is not equivalent to null.
+        changed = any(field not in existing or existing[field] != base[field] for field in mask)
+        if changed:
+            result["changedDocumentIds"].append(identity)
+            updates[identity] = build_patch_doc_data(base, mask, now)
+        else:
+            result["unchangedDocumentIds"].append(identity)
+    if not updates:
+        result["status"] = "no_changes"
+        return result
+    if result["unchangedDocumentIds"]:
+        raise RuntimeError("atomic maintenance partially unchanged scope requires reconciliation")
+
+    # Every approved document is changed and participates in this single CAS.
+    batch = db.batch()
+    for identity in ids:
+        add_guarded_question_write(batch, refs[identity], updates[identity], by_id[identity])
+    try:
+        responses = batch.commit()
+        if not isinstance(responses, (list, tuple)) or len(responses) != len(ids):
+            raise ValueError("atomic maintenance commit response coverage differs")
+        versions = {}
+        for identity, response in zip(ids, responses):
+            stamp = getattr(response, "update_time", None)
+            render = getattr(stamp, "rfc3339", None)
+            if not callable(render):
+                raise ValueError("atomic maintenance commit response has no exact updateTime")
+            versions[identity] = render()
+        # Validate exact nanosecond timestamps without normalizing their text.
+        resolve_expected_update_times(
+            {EXPECTED_UPDATE_TIMES_KEY: versions}, data["questions"], DETAILS_ONLY_WRITE_FIELDS,
+        )
+    except Exception as exc:
+        raise AtomicMaintenanceCommitUnconfirmed(result) from exc
+    result["writeResults"] = [
+        {"questionId": identity, "updateTime": versions[identity]} for identity in ids
+    ]
+    result["status"] = "committed"
+    return result
+
+
 def normalize_exam_year(value: object) -> int | None:
     if isinstance(value, bool):
         return None
@@ -816,6 +1015,13 @@ def upload_questions(
     with open(json_file_path, "r", encoding="utf-8") as f:
         data = json.load(f, object_pairs_hook=_UploadJSONObject)
 
+    if not isinstance(data, dict):
+        raise ValueError("upload JSON root must be an object")
+    # Resolve the explicit atomic transport before legacy mask/full-upload paths.
+    if _requests_atomic_maintenance(data):
+        return upload_atomic_maintenance_questions(
+            data, str(json_file_path), dry_run=dry_run, credentials_json=credentials_json,
+        )
     write_fields = resolve_write_fields(data)
     questions = data.get("questions", [])
     expected_update_times = resolve_expected_update_times(data, questions, write_fields)
