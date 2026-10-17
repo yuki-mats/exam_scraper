@@ -10,6 +10,7 @@ from __future__ import annotations
 import argparse
 from copy import deepcopy
 from contextvars import ContextVar
+from datetime import datetime
 from functools import wraps
 import json
 from pathlib import Path
@@ -289,6 +290,8 @@ def prepare(root, context_dir, output, *, connection, phase, candidate=None, pri
     context_dir = context_api._private(root, context_dir)
     output = context_api._private(root, output)
     priors = tuple(context_api._private(root, p) for p in priors)
+    for prior in priors:
+        _pin_execution_guards(root, prior)
     if phase != "classification" and candidate is None:
         _, review, _ = _load_context(root, context_dir, connection)
         candidate = {"schemaVersion": aggregate.REVIEW_SCHEMA_VERSION,
@@ -317,6 +320,9 @@ def _read_plan(root, output, connection):
     if (plan.get("schemaVersion") != SCHEMA or plan.get("planHash") != sha256_json({k: v for k, v in plan.items() if k != "planHash"})
             or stage_output.get("schemaVersion") != OUTPUT_SCHEMA or stage_output.get("phase") != plan.get("phase")):
         raise ValueError("dedicated sealed stage plan required")
+    _pin_execution_guards(root, output)
+    for prior in plan["priorExecutions"]:
+        _pin_execution_guards(root, prior["directory"])
     derived = _derive(root, context_api._private(root, plan["contextDirectory"]), plan["phase"],
                       stage_output["output"], tuple(Path(p["directory"]) for p in plan["priorExecutions"]), connection,
                       plan["requiredReviewerProfile"])
@@ -350,8 +356,42 @@ def scope(root, output, *, connection):
     return _scope(root, output, plan, refs)
 
 
+def _native_journal_bytes(path, *, bootstrap=False):
+    """Never expand a bootstrap baseline by retrying into newly appended input."""
+    context_api._physical(path)
+    observed_length = 0
+    for _ in range(3):
+        before = path.stat()
+        raw = path.read_bytes()
+        after = path.stat()
+        if (before.st_dev, before.st_ino) != (after.st_dev, after.st_ino):
+            raise ValueError("native journal replaced during verification")
+        if len(raw) < max(observed_length, before.st_size) or after.st_size < max(before.st_size, len(raw)):
+            raise ValueError("native journal truncated during verification")
+        # Before the first prefix is hashed there is no evidence that a changed
+        # file was only appended to (rather than rewritten and appended to).
+        # Hold this short bootstrap window even for usage-only activity. Once
+        # pinned, normal appends are proved against immutable prefix bytes.
+        if bootstrap:
+            signature = lambda s: (s.st_dev, s.st_ino, s.st_size, s.st_mtime_ns, s.st_ctime_ns)
+            if signature(before) != signature(after) or len(raw) != before.st_size:
+                raise ValueError("native bootstrap changed during verification; fresh operation required")
+            return before, after, raw
+        observed_length = max(observed_length, after.st_size)
+        if len(raw) == after.st_size:
+            return before, after, raw
+    raise ValueError("native session changed during verification: append did not settle")
+
+
 def _capture_native_guard(approvals):
-    """Ephemeral session snapshots only; never persisted in a plan or receipt."""
+    """Pin consumed journal prefixes for this operation, never journal length.
+
+    Native journals are append-only runtime streams. Their observed prefix and
+    session identity are authority; a file's later size/mtime is not. Keep the
+    earliest prefix in the private operation context so a new instruction or
+    reviewer event between two replays cannot become an unnoticed new baseline.
+    Nothing from this guard is persisted in plans or receipts.
+    """
     paths = set()
     for approval in approvals:
         if not isinstance(approval, dict):
@@ -366,29 +406,114 @@ def _capture_native_guard(approvals):
             raise ValueError("native session evidence required")
     result = {}
     for path in sorted(paths):
-        before = path.stat()
-        digest = context_api._hash(path.read_bytes())
-        after = path.stat()
-        signature = lambda s: (s.st_ino, s.st_size, s.st_mtime_ns, s.st_ctime_ns)
-        if signature(before) != signature(after):
-            raise ValueError("native session changed during verification")
-        result[path] = (signature(after), digest)
+        cache = _OPERATION_CONTEXT.get()
+        key = ("native-journal-prefix", str(path))
+        if cache is not None and key in cache:
+            result[path] = cache[key]
+            _assert_native_guard({path: result[path]})
+            continue
+        before, after, raw = _native_journal_bytes(path, bootstrap=True)
+        prefix = raw[:before.st_size]
+        if not prefix or not prefix.endswith(b"\n"):
+            raise ValueError("complete LF-terminated native journal required")
+        try:
+            meta = json.loads(prefix[:prefix.index(b"\n")])
+            # Referenced events are replayed by the genuine native verifier.
+            # Check the current tail too so an incomplete JSON append cannot be
+            # hidden merely because it happened before this guard was captured.
+            tail = json.loads(prefix[prefix.rfind(b"\n", 0, len(prefix) - 1) + 1:-1])
+        except (ValueError, UnicodeDecodeError) as exc:
+            raise ValueError("complete native journal JSON required") from exc
+        if (not isinstance(meta, dict) or meta.get("type") != "session_meta"
+                or not isinstance(meta.get("payload"), dict) or not meta["payload"].get("id")
+                or not isinstance(tail, dict)):
+            raise ValueError("native journal session identity required")
+        result[path] = {"device": before.st_dev, "inode": before.st_ino, "length": before.st_size,
+                        "observedLength": max(len(raw), after.st_size),
+                        "prefixSha256": context_api._hash(prefix), "sessionId": meta["payload"]["id"]}
+        _validate_native_suffix(raw[before.st_size:], result[path]["sessionId"])
+        _assert_native_guard({path: result[path]})
+        if cache is not None:
+            cache[key] = result[path]
     return result
 
 
+def _pin_execution_guards(root, output):
+    """Start the operation's authority window before expensive context replay."""
+    output = context_api._private(root, output)
+    approval_path = output / "native-approval.json"
+    if approval_path.exists():
+        _capture_native_guard([_snapshot(approval_path)[1]])
+
+
+def _observational_runtime_event(event, session_id):
+    """Recognize the runtime's usage-only envelope, not conversational input.
+
+    Only same-session identities plus integer counters can be ignored by an
+    authority replay. Messages, tool requests/results, delegation, turn context,
+    completions, and world state can change instructions, scope, input, model or
+    approval and must force a fresh operation. Unknown metadata schemas are held
+    too; adding a type name to a loose allowlist would not establish authority.
+    """
+    if (not isinstance(event, dict) or event.get("type") != "token_usage_record"
+            or set(event) - {"type", "timestamp", "ordinal", "payload"}):
+        return False
+    if "ordinal" in event and (type(event["ordinal"]) is not int or event["ordinal"] < 0):
+        return False
+    if "timestamp" in event:
+        try:
+            datetime.fromisoformat(event["timestamp"].replace("Z", "+00:00"))
+        except (ValueError, TypeError, AttributeError):
+            return False
+    payload = event.get("payload")
+    identities = {"thread_id", "turn_id", "session_id", "root_turn_id", "response_id"}
+    usages = {"usage", "turn_token_usage", "thread_token_usage"}
+    counters = {"input_tokens", "cached_input_tokens", "cache_write_input_tokens",
+                "output_tokens", "reasoning_output_tokens", "total_tokens"}
+    if (not isinstance(payload, dict) or set(payload) != identities | usages
+            or any(not isinstance(payload[k], str) or not payload[k] for k in identities)
+            or payload["thread_id"] != session_id):
+        return False
+    return all(isinstance(payload[k], dict) and set(payload[k]) == counters
+               and all(type(v) is int and v >= 0 for v in payload[k].values()) for k in usages)
+
+
+def _validate_native_suffix(suffix, session_id):
+    if suffix and not suffix.endswith(b"\n"):
+        raise ValueError("complete LF-terminated native append required")
+    for line in suffix.splitlines():
+        try:
+            event = json.loads(line)
+        except (ValueError, UnicodeDecodeError) as exc:
+            raise ValueError("complete native append JSON required") from exc
+        if not _observational_runtime_event(event, session_id):
+            raise ValueError("native session changed during verification: new decision input")
+
+
 def _assert_native_guard(guard):
-    for path, (signature, digest) in guard.items():
-        current = path.stat()
-        if ((current.st_ino, current.st_size, current.st_mtime_ns, current.st_ctime_ns) != signature
-                or context_api._hash(path.read_bytes()) != digest):
+    for path, snapshot in guard.items():
+        before, after, raw = _native_journal_bytes(path)
+        identity = (snapshot["device"], snapshot["inode"])
+        if ((after.st_dev, after.st_ino) != identity
+                or min(before.st_size, len(raw)) < snapshot["observedLength"]
+                or context_api._hash(raw[:snapshot["length"]]) != snapshot["prefixSha256"]):
             raise ValueError("native session changed during verification")
-        after = path.stat()
-        if (after.st_ino, after.st_size, after.st_mtime_ns, after.st_ctime_ns) != signature:
-            raise ValueError("native session changed during verification")
+        _validate_native_suffix(raw[snapshot["length"]:], snapshot["sessionId"])
+        snapshot["observedLength"] = max(snapshot["observedLength"], after.st_size)
 
 
 def _native_binding(approval, scope_value, plan):
     guard = _capture_native_guard([approval])
+    cache = _OPERATION_CONTEXT.get()
+    key = ("native-binding", sha256_json(approval), sha256_json(scope_value),
+           plan["planHash"], sha256_json(plan["requiredReviewerProfile"]))
+    if cache is not None and key in cache:
+        # The first replay proved native origin, exact scope, completed turn,
+        # profile and latest verdict. An unchanged consumed prefix plus usage-
+        # only suffix cannot introduce a new verdict or instruction. Re-prove
+        # that invariant at every reuse; semantic append requires a fresh run.
+        _assert_native_guard(guard)
+        return deepcopy(cache[key])
     binding = native.verify_independent_approval(approval, scope_value, production=True)
     _, _, lines = native._event(approval["reviewerFinal"], production=True)
     profiles = []
@@ -413,6 +538,8 @@ def _native_binding(approval, scope_value, plan):
     if binding["reviewerSessionId"] in previous:
         raise ValueError("classification requires a new independent native reviewer session")
     _assert_native_guard(guard)
+    if cache is not None:
+        cache[key] = deepcopy(binding)
     return binding
 
 
@@ -494,6 +621,7 @@ def _receipt(root, output, plan, stage_output, approval, refs):
 def record(root, output, approval, *, connection, failure_hook=None):
     root = context_api._physical(root); output = context_api._private(root, output)
     approval = deepcopy(approval)
+    _capture_native_guard([approval])
     plan, _, stage_output, refs, contents = _read_plan(root, output, connection)
     receipt = _receipt(root, output, plan, stage_output, approval, refs)
     contents.update({"native-approval.json": context_api._bytes(approval), "execution-receipt.json": context_api._bytes(receipt)})

@@ -266,7 +266,7 @@ class VerifiedStageExecutionTests(unittest.TestCase):
         approval = self.approval(reviewer='classification')
         def revoke_prior(name):
             if name == 'native-approval.json': self.revoke(priors[0])
-        with self.assertRaisesRegex(ValueError, 'replaced or revoked'):
+        with self.assertRaisesRegex(ValueError, 'replaced or revoked|new decision input'):
             self.record(approval, failure_hook=revoke_prior)
         with self.assertRaises(ValueError): self.inspect()
 
@@ -369,6 +369,291 @@ class VerifiedStageExecutionTests(unittest.TestCase):
                 self.prepare('classification', candidate=self.classification(), priors=priors)
         self.assertFalse(self.output.exists())
         self.assertIsNone(module._OPERATION_CONTEXT.get())
+
+    @staticmethod
+    def usage_event(session_id):
+        counters = {key: 0 for key in ('input_tokens', 'cached_input_tokens', 'cache_write_input_tokens',
+                                      'output_tokens', 'reasoning_output_tokens', 'total_tokens')}
+        return {'timestamp': '2026-10-17T00:00:00Z', 'ordinal': 1, 'type': 'token_usage_record',
+                'payload': {'thread_id': session_id, 'session_id': 'distinct-runtime-session',
+                    'turn_id': 'runtime-turn', 'root_turn_id': 'runtime-root-turn', 'response_id': 'runtime-response',
+                    'usage': deepcopy(counters), 'turn_token_usage': deepcopy(counters), 'thread_token_usage': deepcopy(counters)}}
+
+    @staticmethod
+    def append_event(path, event):
+        with path.open('ab') as stream:
+            stream.write((json.dumps(event, ensure_ascii=False) + '\n').encode())
+
+    def test_runtime_usage_append_is_accepted_for_author_and_reviewer_during_real_native_replay(self):
+        self.prepare()
+        approval = self.approval()
+        original = module.native.verify_independent_approval
+        appended = 0
+        def usage_after_verify(*args, **kwargs):
+            nonlocal appended
+            binding = original(*args, **kwargs)
+            for ref, identity in (('authorization', 'author'), ('reviewerFinal', 'reviewer')):
+                self.append_event(Path(approval[ref]['sessionPath']), self.usage_event(identity))
+                appended += 1
+            return binding
+        with patch.object(module.native, 'verify_independent_approval', side_effect=usage_after_verify):
+            receipt = self.record(approval)
+        self.assertGreaterEqual(appended, 2)
+        self.assertEqual(receipt, self.inspect())
+        self.assertNotIn('journal', json.dumps(receipt))
+
+    def test_runtime_usage_append_during_record_and_final_output_reads_is_accepted(self):
+        self.prepare()
+        approval = self.approval()
+        parent = Path(approval['authorization']['sessionPath'])
+        def runtime_activity(name):
+            self.append_event(parent, self.usage_event('author'))
+        original_finish, original_read = module._finish, Path.read_bytes
+        active = False
+        def finish(*args, **kwargs):
+            nonlocal active
+            active = True
+            return original_finish(*args, **kwargs)
+        def read(path):
+            raw = original_read(path)
+            if active and path == self.output / 'stage-output.json':
+                self.append_event(parent, self.usage_event('author'))
+            return raw
+        with patch.object(module, '_finish', side_effect=finish), patch.object(Path, 'read_bytes', read):
+            receipt = self.record(approval, failure_hook=runtime_activity)
+        self.assertEqual(receipt, self.inspect())
+
+    def test_consumed_prefix_rewrite_replacement_or_truncation_is_refused(self):
+        self.prepare()
+        approval = self.approval()
+        parent = Path(approval['authorization']['sessionPath'])
+        raw = parent.read_bytes()
+        original = module.native.verify_independent_approval
+        for mutation in ('rewrite', 'replace', 'truncate'):
+            with self.subTest(mutation=mutation):
+                parent.write_bytes(raw)
+                def mutate_after_verify(*args, **kwargs):
+                    binding = original(*args, **kwargs)
+                    if mutation == 'rewrite':
+                        events = raw.splitlines(keepends=True)
+                        first = json.loads(events[0]); first['payload']['fixtureOnly'] = True
+                        events[0] = (json.dumps(first) + '\n').encode()
+                        parent.write_bytes(b''.join(events))
+                    elif mutation == 'replace':
+                        replacement = parent.with_suffix('.replacement')
+                        replacement.write_bytes(raw); replacement.replace(parent)
+                    else: parent.write_bytes(raw[:raw.find(b'\n') + 1])
+                    return binding
+                with patch.object(module.native, 'verify_independent_approval', side_effect=mutate_after_verify):
+                    with self.assertRaisesRegex(ValueError, 'native session changed|journal replaced|journal truncated'):
+                        self.record(approval)
+        parent.write_bytes(raw)
+
+    def test_new_author_instruction_or_scope_context_between_replays_requires_fresh_operation(self):
+        self.prepare()
+        approval = self.approval()
+        parent = Path(approval['authorization']['sessionPath'])
+        raw = parent.read_bytes()
+        events = [
+            {'type': 'response_item', 'payload': {'type': 'message', 'role': 'user',
+                'content': [{'type': 'input_text', 'text': 'fixture: stop this operation'}]}},
+            {'type': 'response_item', 'payload': {'type': 'agent_message', 'content': []}},
+            {'type': 'turn_context', 'payload': {'turn_id': 'different', 'model': 'different'}},
+            {'type': 'response_item', 'payload': {'type': 'custom_tool_call_output', 'output': 'changed scope'}},
+        ]
+        for event in events:
+            with self.subTest(type=event['type'], payloadType=event['payload'].get('type')):
+                parent.write_bytes(raw)
+                def instruction_during_write(name):
+                    if name == 'native-approval.json': self.append_event(parent, event)
+                with self.assertRaisesRegex(ValueError, 'new decision input'):
+                    self.record(approval, failure_hook=instruction_during_write)
+                # A failed operation may retain immutable partial artifacts;
+                # only the fixture removes them to isolate the next scenario.
+                for filename in module.FINAL_FILES[len(module.BASE_FILES):]:
+                    (self.output / filename).unlink(missing_ok=True)
+        parent.write_bytes(raw)
+
+    def test_usage_envelope_cannot_smuggle_text_unknown_keys_or_noninteger_counters(self):
+        self.prepare()
+        approval = self.approval()
+        parent = Path(approval['authorization']['sessionPath'])
+        raw = parent.read_bytes()
+        original = module.native.verify_independent_approval
+        mutations = [
+            lambda e: e.update(text='hidden directive'),
+            lambda e: e['payload'].update(text='hidden directive'),
+            lambda e: e['payload']['usage'].update(text='hidden directive'),
+            lambda e: e['payload']['usage'].update(output_tokens=True),
+            lambda e: e['payload']['usage'].update(output_tokens=-1),
+            lambda e: e['payload'].update(thread_id='another-session'),
+            lambda e: e.update(type='unrecognized-observation-schema'),
+        ]
+        for number, mutate in enumerate(mutations):
+            with self.subTest(number=number):
+                parent.write_bytes(raw)
+                event = self.usage_event('author'); mutate(event)
+                def append_after_verify(*args, **kwargs):
+                    binding = original(*args, **kwargs)
+                    self.append_event(parent, event)
+                    return binding
+                with patch.object(module.native, 'verify_independent_approval', side_effect=append_after_verify):
+                    with self.assertRaisesRegex(ValueError, 'new decision input'):
+                        self.record(approval)
+                self.assertFalse((self.output / 'execution-receipt.json').exists())
+        parent.write_bytes(raw)
+
+    def test_incomplete_or_malformed_journal_tail_is_never_accepted(self):
+        self.prepare()
+        approval = self.approval()
+        parent = Path(approval['authorization']['sessionPath'])
+        raw = parent.read_bytes()
+        original = module.native.verify_independent_approval
+        for suffix in (b'{"type":', b'not-json\n', b'{"type":\n'):
+            for timing in ('before', 'during'):
+                with self.subTest(suffix=suffix, timing=timing):
+                    parent.write_bytes(raw)
+                    def append_bad_tail(*args, **kwargs):
+                        binding = original(*args, **kwargs)
+                        with parent.open('ab') as stream: stream.write(suffix)
+                        return binding
+                    if timing == 'before':
+                        with parent.open('ab') as stream: stream.write(suffix)
+                    manager = patch.object(module.native, 'verify_independent_approval', side_effect=append_bad_tail)
+                    with manager if timing == 'during' else patch.object(module.native, 'verify_independent_approval', wraps=original):
+                        with self.assertRaises(ValueError): self.record(approval)
+                    self.assertFalse((self.output / 'execution-receipt.json').exists())
+        parent.write_bytes(raw)
+
+    def test_native_binding_is_replayed_once_per_exact_proof_and_public_operation(self):
+        priors = self.priors()
+        self.prepare('classification', candidate=self.classification(), priors=priors)
+        approval = self.approval(reviewer='classification')
+        original = module.native.verify_independent_approval
+        with patch.object(module.native, 'verify_independent_approval', wraps=original) as verify:
+            receipt = self.record(approval)
+            self.assertEqual(verify.call_count, 3)  # Each prior + own native proof.
+            verify.reset_mock()
+            self.assertEqual(receipt, self.inspect())
+            self.assertEqual(verify.call_count, 3)  # No reuse across operations.
+        self.assertIsNone(module._OPERATION_CONTEXT.get())
+
+    def test_native_binding_cache_never_accepts_a_different_exact_scope(self):
+        self.prepare()
+        approval = self.approval()
+        plan, _, _, refs, _ = module._read_plan(self.root, self.output, self.db)
+        scope = module._scope(self.root, self.output, plan, refs)
+        original = module.native.verify_independent_approval
+        @module._operation
+        def two_different_scopes():
+            module._native_binding(approval, scope, plan)
+            other = deepcopy(scope); other['action'] = 'different-action'
+            module._native_binding(approval, other, plan)
+        with patch.object(module.native, 'verify_independent_approval', wraps=original) as verify:
+            with self.assertRaises(ValueError): two_different_scopes()
+            self.assertEqual(verify.call_count, 2)
+        self.assertIsNone(module._OPERATION_CONTEXT.get())
+
+    def test_author_instruction_during_expensive_genuine_context_replay_is_refused(self):
+        self.prepare()
+        approval = self.approval()
+        parent = Path(approval['authorization']['sessionPath'])
+        original = module.context_api.inspect
+        def new_instruction(*args, **kwargs):
+            value = original(*args, **kwargs)
+            self.append_event(parent, {'type': 'response_item', 'payload': {'type': 'message', 'role': 'user',
+                'content': [{'type': 'input_text', 'text': 'fixture: stop before native validation'}]}})
+            return value
+        with patch.object(module.context_api, 'inspect', side_effect=new_instruction):
+            with self.assertRaisesRegex(ValueError, 'new decision input'):
+                self.record(approval)
+        self.assertFalse((self.output / 'native-approval.json').exists())
+        self.assertFalse((self.output / 'execution-receipt.json').exists())
+
+    def test_bootstrap_never_absorbs_user_append_before_or_after_first_raw_read(self):
+        self.prepare()
+        approval = self.approval()
+        parent = Path(approval['authorization']['sessionPath'])
+        initial = parent.read_bytes()
+        original = Path.read_bytes
+        stop = {'type': 'response_item', 'payload': {'type': 'message', 'role': 'user',
+            'content': [{'type': 'input_text', 'text': 'fixture: stop in initial native read'}]}}
+        for timing in ('before_raw', 'after_raw'):
+            with self.subTest(timing=timing):
+                parent.write_bytes(initial)
+                injected = False
+                def initial_read(path):
+                    nonlocal injected
+                    if path == parent and not injected:
+                        injected = True
+                        if timing == 'before_raw': self.append_event(parent, stop)
+                        raw = original(path)
+                        if timing == 'after_raw': self.append_event(parent, stop)
+                        return raw
+                    return original(path)
+                with patch.object(Path, 'read_bytes', initial_read):
+                    with self.assertRaisesRegex(ValueError, 'bootstrap changed'):
+                        self.record(approval)
+                self.assertTrue(injected)
+                self.assertFalse((self.output / 'native-approval.json').exists())
+                self.assertFalse((self.output / 'execution-receipt.json').exists())
+                self.assertIsNone(module._OPERATION_CONTEXT.get())
+        parent.write_bytes(initial)
+
+    def test_bootstrap_usage_append_is_held_then_a_fresh_stable_operation_can_replay(self):
+        self.prepare()
+        approval = self.approval()
+        parent = Path(approval['authorization']['sessionPath'])
+        original = Path.read_bytes
+        injected = False
+        def initial_read(path):
+            nonlocal injected
+            raw = original(path)
+            if path == parent and not injected:
+                injected = True
+                self.append_event(parent, self.usage_event('author'))
+            return raw
+        with patch.object(Path, 'read_bytes', initial_read):
+            with self.assertRaisesRegex(ValueError, 'bootstrap changed'):
+                self.record(approval)
+        self.assertFalse((self.output / 'execution-receipt.json').exists())
+        self.assertEqual(self.record(approval), self.inspect())
+
+    def test_bootstrap_prefix_rewrite_truncate_and_replacement_are_refused_in_both_read_windows(self):
+        self.prepare()
+        approval = self.approval()
+        parent = Path(approval['authorization']['sessionPath'])
+        initial = parent.read_bytes()
+        original = Path.read_bytes
+        for timing in ('before_raw', 'after_raw'):
+            for mutation in ('rewrite', 'truncate', 'replace'):
+                with self.subTest(timing=timing, mutation=mutation):
+                    parent.write_bytes(initial)
+                    injected = False
+                    def mutate():
+                        if mutation == 'rewrite':
+                            # Same byte length and ID; native provenance alone
+                            # would not notice a non-authoritative metadata edit.
+                            parent.write_bytes(initial.replace(b'vscode', b'otherx', 1))
+                        elif mutation == 'truncate': parent.write_bytes(initial[:-1])
+                        else:
+                            replacement = parent.with_suffix('.bootstrap-replacement')
+                            replacement.write_bytes(initial); replacement.replace(parent)
+                    def initial_read(path):
+                        nonlocal injected
+                        if path == parent and not injected:
+                            injected = True
+                            if timing == 'before_raw': mutate()
+                            raw = original(path)
+                            if timing == 'after_raw': mutate()
+                            return raw
+                        return original(path)
+                    with patch.object(Path, 'read_bytes', initial_read):
+                        with self.assertRaisesRegex(ValueError, 'bootstrap changed|journal replaced|journal truncated'):
+                            self.record(approval)
+                    self.assertTrue(injected)
+                    self.assertFalse((self.output / 'execution-receipt.json').exists())
+        parent.write_bytes(initial)
 
 
 if __name__ == '__main__': unittest.main()
