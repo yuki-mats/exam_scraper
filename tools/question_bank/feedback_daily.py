@@ -981,8 +981,19 @@ def record_improvement_publication(connection: sqlite3.Connection, *, task_id: s
     sources = {r[1] for r in bound_sources}
     if not sources:
         raise ValueError('improvement task source binding missing')
-    verify_improvement_publication(repo_root, json.loads(content), task_id=task_id,
+    artifact = json.loads(content)
+    verification = verify_improvement_publication(repo_root, artifact, task_id=task_id,
         source_question_ids=sources, task_requirement=requirement, live_reader=live_reader)
+    terminal = None
+    if artifact.get('schemaVersion') == 'feedback-verified-improvement-publication/v1':
+        from tools.question_bank.feedback_verified_delivery import _CompletionVerification
+        if not isinstance(verification, _CompletionVerification):
+            raise ValueError('verified delivery requires an in-process terminal proof')
+        verification.assert_completion_arguments(expected_status, reason.strip())
+        def terminal():
+            if path.read_bytes() != content:
+                raise ValueError('completion artifact changed inside transaction')
+            verification.assert_current(connection)
     if path.read_bytes() != content:
         raise ValueError('completion artifact changed during verification')
     now = _now()
@@ -997,10 +1008,13 @@ def record_improvement_publication(connection: sqlite3.Connection, *, task_id: s
         latest = connection.execute('SELECT * FROM improvement_result_history WHERE task_id=? ORDER BY id DESC LIMIT 1', (task_id,)).fetchone()
         if (task['status'] == 'completed' and latest is not None and latest['status'] == 'completed'
                 and latest['artifact_ref'] == str(path) and latest['artifact_sha256'] == artifact_sha256 and latest['reason'] == reason.strip()):
+            if terminal is not None: terminal()
             return latest['id']
+        if terminal is not None: terminal()
         updated = connection.execute('UPDATE improvement_tasks SET status=?, updated_at=? WHERE task_id=? AND status=?', ('completed', now, task_id, expected_status))
         if updated.rowcount != 1: raise ValueError('improvement task status changed; read it again')
         inserted = connection.execute('INSERT INTO improvement_result_history (task_id,status,reason,artifact_ref,artifact_sha256,recorded_at) VALUES (?,?,?,?,?,?)', (task_id,'completed',reason.strip(),str(path),artifact_sha256,now))
+        if terminal is not None: terminal()
     return inserted.lastrowid
 
 

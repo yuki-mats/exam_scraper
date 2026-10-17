@@ -26,6 +26,13 @@ def _bound_json(root, ref):
 
 
 def verify_improvement_publication(root, artifact, *, task_id, source_question_ids, task_requirement, live_reader=None):
+    # Dedicated verified25 revisions have their own genuine native stage,
+    # evaluation and atomic-commit contract. Do not cast them as old v2 units.
+    if isinstance(artifact, dict) and artifact.get('schemaVersion') == 'feedback-verified-improvement-publication/v1':
+        from tools.question_bank.feedback_verified_delivery import verify_completion
+        return verify_completion(root, artifact, task_id=task_id,
+            source_question_ids=source_question_ids, task_requirement=task_requirement,
+            live_reader=live_reader)
     root = Path(root).resolve()
     if (not isinstance(artifact, dict) or set(artifact) != {'schemaVersion', 'taskId', 'formalPlan', 'formalReceipt', 'publicationFiles'}
             or artifact['schemaVersion'] != 'feedback-improvement-publication/v1' or artifact['taskId'] != task_id):

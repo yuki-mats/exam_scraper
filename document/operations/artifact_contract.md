@@ -125,6 +125,14 @@ promotion時は`result.json`のhashと問題identity、state、App Server sessio
 
 private planと同じdirectoryの`save-receipt.json`は`feedback-verified-explanation-save-receipt/v1`で、native承認・元bytes・候補bytesを再照合する。保存中断は同じplan/intentの再検証後に再開し、第三値は保持して停止する。`restore`は現candidateと退避元が一致する場合だけexclusiveに元へ戻し、復元中断と同一再送を追跡する。復元済みplanは再保存しない。receiptは公開結果を示さず、merge/convert・checker・quality gate・独立評価・限定upload dry-run・本番readbackは別途必須とする。
 
+### 検証済み25の正式revisionと公開
+
+`tools.question_bank.feedback_verified_delivery`は、真正な保存receiptと全5肢の公式対応を持つ25に限り、現在の工程に必要なauthoring情報と解説改善を別の正式revisionへ保存する。元の25と保存証跡は変更しない。独立native承認後に`25_verified_publication/revisions/<deliveryPlanHash>.json`へ`gas-shunin-verified-authoring-revision/v1`をexclusive保存し、同一bytesだけ再送できる。base hash・task要件・IDごとの差分・effective hash・承認bindingを保持する。通常patchや通常work versionへ読み替えない。
+
+専用生成処理はbaseと承認revisionから全年度recordを再投影する。対象外record、安定ID、正誤とsourceを維持し、公開しないauthoring fieldは既存DTOで除外する。現行の適用工程、独立評価、3checkerの実検査件数、quality gate、upload dry-run、Gitのcommit/push、限定公開のnative承認を別々に検証する。CLIによるchecker実行は専用のnative command receiptで実呼出し・結果と結合する。
+
+公開には全siblingのfresh snapshot・値のfingerprint・exact更新時刻とdocument別maskを固定し、既存atomic uploaderだけを使う。永続intentとattemptを保存し、応答不明時は再書込みせずreadbackする。全対象field・更新時刻・対象外field・sibling集合が一致した後だけ専用公開証跡を作る。改善完了は既存台帳のCAS/history/backup経路で記録し、同じtransaction内でも固定入力・native承認・公開contractを再確認する。工程receipt、正式保存receipt、upload応答だけで公開済み又は完了と扱わない。
+
 ### 読取専用canonical contextによる限定生成
 
 `scripts/pipeline/prepare_scoped_question_artifacts.py --context <JSON> --output <private-directory>` は、明示したcanonical rootの全source・選択patchとproduct rootの正式24を固定し、一問bindingの全公開IDを生成します。入力JSONは `canonicalRoot`、`overlayRoot`、`qualification`、`listGroupId`、完全な `binding`、`publicationIds`、`referencePaths` を持ちます。保存先は `output/user_feedback_response_system/staging/recovery-scoped-2025/` 配下に限り、manifestには入力・実装・projection・各artifactのhash、候補別対象外証明、全group診断を保存します。通常の全group gateは継続して適用されます。

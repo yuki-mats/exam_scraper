@@ -46,7 +46,7 @@ native作成callはCLIの正常終了まで、途中でyieldされた出力も�
 
 この記録は`formally_saved`だけを表します。maintenance登録自体は変更できない`open`の受付根拠として保持し、summaryの`verifiedFormalSavesRecorded`で保存証跡を別に数えます。改善taskを完了へ移したり、Firestore公開・readbackを証明したりする経路ではありません。
 
-未対応なのは、新25保存receiptを使う真正checkpoint・独立評価・限定公開・公開完了記録のadapter、複数task/年度/原問をまたぐ保存、ガス25以外のsource-bound改善保存です。新receiptを既存immutable unitのv2 receiptへ偽装せず、対応実装と独立監査を済ませるまで該当工程を保留します。
+複数task/年度/原問をまたぐ保存、ガス25以外のsource-bound改善保存は未対応です。新receiptを既存immutable unitのv2 receiptへ偽装せず、対応実装と独立監査を済ませるまで該当工程を保留します。全5肢の公式対応が確定した25の専用delivery経路は以下の条件で別に扱います。
 
 2026-10-16、`python -m tools.question_bank.feedback_verified_review_context prepare --repo-root <repo> --plan <保存plan> --output <新規private directory> [--official-order <固定対応表>]`で、真正な保存receiptと現在の25を読み取り専用の評価入力へ結ぶ経路を追加しました。専用identityは25のpath/hash・公式index/PDF・原問と全sibling ID・現在policyを保持し、`00_source`の参照を作りません。各fieldはIDで結合します。公式順は、保存時native最終承認が明示したIDと肢labelに一致する`feedback-verified-official-order/v1`だけを受け付け、配列順・既存choiceIndex・OCRから推定しません。対応表がなければ公式順は未解決として保留します。既存の法令metadata内のindexや監査状態を、現在の工程完了記録へ読み替えません。
 
@@ -57,6 +57,10 @@ native作成callはCLIの正常終了まで、途中でyieldされた出力も�
 `classification`は`--prior <A directory> --prior <B directory> --candidate <候補JSON>`で全siblingの`questionType`・`isCalculationQuestion`とそれぞれの理由を固定します。集約レビューのmodel・effortはworkflow設定を使い、分類の実行profileは`--model`・`--reasoning-effort`で別に固定します。実native turnのprofile、作者との分離、異なるレビューsession、未解決指摘0件、全先行承認の撤回・入力変更を保存終了時にも確認します。候補が現在の25と異なる場合は差分を`remainingFieldDiffs`に残し、`stageCompleted=false`で正式保存へ戻します。この専用receiptは通常の作業版・checkpointへ変換せず、ほかの工程・独立評価・Firestore公開の成功も表しません。
 
 長時間のnative検証は、`native_operation_call()`が生成する正規wrapperと、CLIの実引数を照合して開始します。起動した親session・turn・tool callと、そのcallが返した待機cellを固定し、同じturnの進捗出力及び同じcellへの停止を伴わない空出力の待機だけを受け付けます。利用者・別agentの新しい入力、別tool、別turn、reviewerの追記・承認撤回、未知のruntime形式は引き続き停止理由です。固定prefixの改変・切詰めを検知し、操作中の重複読取りを省く場合も終了時には必ず全文を再検証します。この実行支援を有効にできるのは、明示したstage・deliveryの二CLIだけです。修正後は旧stage planを再利用せず、新しい入力hashで独立監査を取り直します。
+
+専用`tools.question_bank.feedback_verified_delivery`は、`bootstrap --context <真正context> --candidate <全5肢の判断候補> --evidence <一次根拠>`で固定planを作ります。`prepare`・`scope`・`record`をrevision、適用順のstage、evaluation、publicationごとに実行し、別subagentの真正native承認を記録します。01の二者集約監査と別sessionの分類、法令監査の異なる三者も省略しません。revisionは元25を維持した正式別層で、通常checkpointへの偽装はしません。保存契約は[artifact契約](artifact_contract.md#検証済み25の正式revisionと公開)を参照します。
+
+`check`は実際の3checker・quality gate・upload dry-runを実行します。`record-check-command --command-evidence <専用native command証跡>`で実呼出しと正常終了を検証し、自己申告JSONだけを検査成功にしません。正式revisionをmainへcommit/pushした後、最新snapshot、限定mask、台帳のCAS状態と完了理由を固定して公開監査します。`publish`・`reconcile`で既存atomic uploaderと全件readbackを通し、`completion`・`record-completion`で既存台帳の公開完了記録へ接続します。台帳transaction内でも入力・承認・公開contractを再検証し、別CLIからの異なるCAS状態や理由による迂回を拒否します。未確定応答・競合・撤回は証跡を保持して停止し、完了へ進めません。この専用実装の存在だけで各taskの公開完了とは扱いません。
 
 限定公開の実upload JSONでは、最上位の`writeFields`を既存uploaderへ渡します。各documentの`writeFields`がある場合、`QuestionPublisher`は全対象で同一の対応済みmaskだけを最上位へ結合し、空・欠落・異なるmask・未対応field、新規document、mask外の差分を拒否します。改善完了の検証でも、document内のmaskだけでは限定更新の証跡として受理しません。`explanationText`と`suggestedQuestionDetails`の限定更新は、最大3件・非空・`suggestedQuestions`との厳密な対応を検証し、書込み前に保存済みの質問一覧との一致も確認します。質問一覧自体は書き込みません。
 
