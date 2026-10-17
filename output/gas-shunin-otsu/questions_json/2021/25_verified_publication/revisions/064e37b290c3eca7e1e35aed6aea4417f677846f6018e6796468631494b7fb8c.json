@@ -1,0 +1,407 @@
+{
+  "approvalBindings": [
+    {
+      "authorSessionId": "01a0f2e6-34a0-7660-a17a-afb87125aada",
+      "nativeEvidenceHash": "62ad23c2ac363bf7f8449d02dc43fa45b2bc034a4048118ec75ecdbaa5abb130",
+      "resultHash": "52d69397c4649260f22d13beff4444f6e953a00a82fc9070ceef81348556795f",
+      "reviewerAgentPath": "/root/gas_recovery_revision",
+      "reviewerProfile": {
+        "model": "gpt-6.1-sol",
+        "reasoningEffort": "high"
+      },
+      "reviewerSessionId": "01a14809-135b-7261-9291-dd9f08439754",
+      "reviewerTurnId": "01a14809-143e-7843-a074-fd0cbc6e2127",
+      "scopeHash": "7793113b0428ee464fbd90d4b50bd0783de5bc79b732d46d057d15d73c3fef0e"
+    }
+  ],
+  "base": {
+    "ref": "/Users/yuki/development/exam_scraper_feedback/output/gas-shunin-otsu/questions_json/2021/25_verified_publication/2021_verified_publication.json",
+    "sha256": "e6a669924b4783aef8e95306367a515a56b421a9b731d4ea04f4e1646641ee2f"
+  },
+  "deliveryPlanHash": "064e37b290c3eca7e1e35aed6aea4417f677846f6018e6796468631494b7fb8c",
+  "deltas": [
+    {
+      "after": [
+        {
+          "referenceDate": "2026-10-17",
+          "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
+          "title": "ガス事業法"
+        }
+      ],
+      "before": null,
+      "beforePresent": false,
+      "field": "explanationReferences",
+      "questionId": "gas-shunin-otsu-2021-law-q02-s01"
+    },
+    {
+      "after": "間違い。一般ガス導管事業者は、託送供給約款について経済産業大臣の認可を受ける必要があります。届出だけでは足りません（ガス事業法〔昭和29年法律第51号〕第48条第1項）。",
+      "before": "間違い。一般ガス導管事業者が託送供給約款を定める場合は、経済産業大臣への届出ではなく、経済産業大臣の認可を受けなければならないため誤りである（ガス事業法第48条第1項）。",
+      "beforePresent": true,
+      "field": "explanationText",
+      "questionId": "gas-shunin-otsu-2021-law-q02-s01"
+    },
+    {
+      "after": false,
+      "before": null,
+      "beforePresent": false,
+      "field": "isCalculationQuestion",
+      "questionId": "gas-shunin-otsu-2021-law-q02-s01"
+    },
+    {
+      "after": "select_correct",
+      "before": null,
+      "beforePresent": false,
+      "field": "questionIntent",
+      "questionId": "gas-shunin-otsu-2021-law-q02-s01"
+    },
+    {
+      "after": "differences_relationships",
+      "before": null,
+      "beforePresent": false,
+      "field": "questionLearningPatternId",
+      "questionId": "gas-shunin-otsu-2021-law-q02-s01"
+    },
+    {
+      "after": [],
+      "before": [
+        {
+          "answer": "間違い。一般ガス導管事業者は、託送供給約款を定め、経済産業大臣の認可を受けなければならない。経済産業大臣に届け出るとしている点が誤り。",
+          "question": "託送供給約款は経済産業大臣への届出で足りるか。"
+        },
+        {
+          "answer": "間違い。ガス製造事業者は、毎年度、ガスの製造並びにガス工作物の設置及び運用について製造計画を作成し、当該年度の開始前に経済産業大臣へ届け出なければならない。供給計画としている点が誤り。",
+          "question": "ガス製造事業者が毎年度作成するのは供給計画か。"
+        },
+        {
+          "answer": "拒めません。ガス事業法第47条第2項が、正当な理由がなければ最終保障供給を拒んではならないと定めています。最終保障供給が無条件・無料という意味ではなく、第51条の最終保障供給約款により料金等の条件を定めます。",
+          "question": "一般ガス導管事業者は正当な理由なく最終保障供給を拒めるか。"
+        }
+      ],
+      "beforePresent": true,
+      "field": "suggestedQuestionDetails",
+      "questionId": "gas-shunin-otsu-2021-law-q02-s01"
+    },
+    {
+      "after": [],
+      "before": [
+        "託送供給約款は経済産業大臣への届出で足りるか。",
+        "ガス製造事業者が毎年度作成するのは供給計画か。",
+        "一般ガス導管事業者は正当な理由なく最終保障供給を拒めるか。"
+      ],
+      "beforePresent": true,
+      "field": "suggestedQuestions",
+      "questionId": "gas-shunin-otsu-2021-law-q02-s01"
+    },
+    {
+      "after": [
+        {
+          "referenceDate": "2026-10-17",
+          "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
+          "title": "ガス事業法"
+        }
+      ],
+      "before": null,
+      "beforePresent": false,
+      "field": "explanationReferences",
+      "questionId": "gas-shunin-otsu-2021-law-q02-s02"
+    },
+    {
+      "after": "間違い。ガス製造事業者が毎年度作成するのは製造計画です。ガスの製造とガス工作物の設置・運用について計画を作り、年度開始前に経済産業大臣へ届け出ます。供給計画ではありません（ガス事業法〔昭和29年法律第51号〕第93条第1項）。",
+      "before": "間違い。ガス製造事業者が毎年度作成するのは供給計画ではなく、ガスの製造並びにガス工作物の設置及び運用についての製造計画であるため誤りである（ガス事業法第93条第1項）。",
+      "beforePresent": true,
+      "field": "explanationText",
+      "questionId": "gas-shunin-otsu-2021-law-q02-s02"
+    },
+    {
+      "after": false,
+      "before": null,
+      "beforePresent": false,
+      "field": "isCalculationQuestion",
+      "questionId": "gas-shunin-otsu-2021-law-q02-s02"
+    },
+    {
+      "after": "select_correct",
+      "before": null,
+      "beforePresent": false,
+      "field": "questionIntent",
+      "questionId": "gas-shunin-otsu-2021-law-q02-s02"
+    },
+    {
+      "after": "differences_relationships",
+      "before": null,
+      "beforePresent": false,
+      "field": "questionLearningPatternId",
+      "questionId": "gas-shunin-otsu-2021-law-q02-s02"
+    },
+    {
+      "after": [],
+      "before": [
+        {
+          "answer": "間違い。一般ガス導管事業者は、託送供給約款を定め、経済産業大臣の認可を受けなければならない。経済産業大臣に届け出るとしている点が誤り。",
+          "question": "託送供給約款は経済産業大臣への届出で足りるか。"
+        },
+        {
+          "answer": "間違い。ガス製造事業者は、毎年度、ガスの製造並びにガス工作物の設置及び運用について製造計画を作成し、当該年度の開始前に経済産業大臣へ届け出なければならない。供給計画としている点が誤り。",
+          "question": "ガス製造事業者が毎年度作成するのは供給計画か。"
+        },
+        {
+          "answer": "拒めません。ガス事業法第47条第2項が、正当な理由がなければ最終保障供給を拒んではならないと定めています。最終保障供給が無条件・無料という意味ではなく、第51条の最終保障供給約款により料金等の条件を定めます。",
+          "question": "一般ガス導管事業者は正当な理由なく最終保障供給を拒めるか。"
+        }
+      ],
+      "beforePresent": true,
+      "field": "suggestedQuestionDetails",
+      "questionId": "gas-shunin-otsu-2021-law-q02-s02"
+    },
+    {
+      "after": [],
+      "before": [
+        "託送供給約款は経済産業大臣への届出で足りるか。",
+        "ガス製造事業者が毎年度作成するのは供給計画か。",
+        "一般ガス導管事業者は正当な理由なく最終保障供給を拒めるか。"
+      ],
+      "beforePresent": true,
+      "field": "suggestedQuestions",
+      "questionId": "gas-shunin-otsu-2021-law-q02-s02"
+    },
+    {
+      "after": [
+        {
+          "referenceDate": "2026-10-17",
+          "sourceUrl": "https://laws.e-gov.go.jp/law/329AC0000000051",
+          "title": "ガス事業法"
+        }
+      ],
+      "before": null,
+      "beforePresent": false,
+      "field": "explanationReferences",
+      "questionId": "gas-shunin-otsu-2021-law-q02-s03"
+    },
+    {
+      "after": "正しい。最終保障供給は、一般ガス導管事業者が、自分の供給区域内でガス小売事業者から小売供給を受けていない者の一般の需要に応じて行う小売供給です（ガス事業法〔昭和29年法律第51号〕第2条第5項）。契約先が見つからないなどの場合にも、ガスの供給を受けられなくなることを防ぐための仕組みです。通常はガス小売事業者と契約して供給を受けますが、最終保障供給では一般ガス導管事業者が供給を担います。\n第47条第2項により、正当な理由がなければ最終保障供給を拒めません。無条件・無料の供給を意味するわけではなく、料金などの条件は第51条第1項の約款で定めます。",
+      "before": "正しい。最終保障供給とは、一般ガス導管事業者が、その供給区域内でガス小売事業者から小売供給を受けていない者の一般の需要に応じて行う小売供給です（ガス事業法第2条第5項）。通常は利用者がガス小売事業者と契約して供給を受けますが、最終保障供給は、ガス小売事業者から小売供給を受けていない者を対象とする仕組みです。\n供給する主体は一般ガス導管事業者であり、第47条第2項は正当な理由がない拒否を禁止します。どの地域・誰に対しても無条件に供給する義務、あるいは無料・自動的な契約という意味ではありません。料金などの供給条件は第51条の最終保障供給約款で確認します。",
+      "beforePresent": true,
+      "field": "explanationText",
+      "questionId": "gas-shunin-otsu-2021-law-q02-s03"
+    },
+    {
+      "after": false,
+      "before": null,
+      "beforePresent": false,
+      "field": "isCalculationQuestion",
+      "questionId": "gas-shunin-otsu-2021-law-q02-s03"
+    },
+    {
+      "after": "select_correct",
+      "before": null,
+      "beforePresent": false,
+      "field": "questionIntent",
+      "questionId": "gas-shunin-otsu-2021-law-q02-s03"
+    },
+    {
+      "after": "principles_exceptions",
+      "before": null,
+      "beforePresent": false,
+      "field": "questionLearningPatternId",
+      "questionId": "gas-shunin-otsu-2021-law-q02-s03"
+    },
+    {
+      "after": [],
+      "before": [
+        {
+          "answer": "間違い。一般ガス導管事業者は、託送供給約款を定め、経済産業大臣の認可を受けなければならない。経済産業大臣に届け出るとしている点が誤り。",
+          "question": "託送供給約款は経済産業大臣への届出で足りるか。"
+        },
+        {
+          "answer": "間違い。ガス製造事業者は、毎年度、ガスの製造並びにガス工作物の設置及び運用について製造計画を作成し、当該年度の開始前に経済産業大臣へ届け出なければならない。供給計画としている点が誤り。",
+          "question": "ガス製造事業者が毎年度作成するのは供給計画か。"
+        },
+        {
+          "answer": "拒めません。ガス事業法第47条第2項が、正当な理由がなければ最終保障供給を拒んではならないと定めています。最終保障供給が無条件・無料という意味ではなく、第51条の最終保障供給約款により料金等の条件を定めます。",
+          "question": "一般ガス導管事業者は正当な理由なく最終保障供給を拒めるか。"
+        }
+      ],
+      "beforePresent": true,
+      "field": "suggestedQuestionDetails",
+      "questionId": "gas-shunin-otsu-2021-law-q02-s03"
+    },
+    {
+      "after": [],
+      "before": [
+        "託送供給約款は経済産業大臣への届出で足りるか。",
+        "ガス製造事業者が毎年度作成するのは供給計画か。",
+        "一般ガス導管事業者は正当な理由なく最終保障供給を拒めるか。"
+      ],
+      "beforePresent": true,
+      "field": "suggestedQuestions",
+      "questionId": "gas-shunin-otsu-2021-law-q02-s03"
+    },
+    {
+      "after": [
+        {
+          "referenceDate": "2026-10-17",
+          "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
+          "title": "ガス事業法施行規則"
+        }
+      ],
+      "before": null,
+      "beforePresent": false,
+      "field": "explanationReferences",
+      "questionId": "gas-shunin-otsu-2021-law-q02-s04"
+    },
+    {
+      "after": "間違い。ガス製造事業者が圧力を測定するのは、ガスホルダーの出口と経済産業大臣が指定する場所です。ここで、圧力値を自動記録する圧力計を使い、常時測定します。製造所の出口ではありません（ガス事業法施行規則〔昭和45年通商産業省令第97号〕第144条第1項第2号）。",
+      "before": "間違い。ガス製造事業者がガスの圧力を測定する場所は、ガスホルダーの出口と経済産業大臣が指定する場所です。製造所の出口ではありません。これらの場所で常時、圧力値を自動的に記録する圧力計を使って測定します（ガス事業法施行規則第144条第1項第2号）。",
+      "beforePresent": true,
+      "field": "explanationText",
+      "questionId": "gas-shunin-otsu-2021-law-q02-s04"
+    },
+    {
+      "after": false,
+      "before": null,
+      "beforePresent": false,
+      "field": "isCalculationQuestion",
+      "questionId": "gas-shunin-otsu-2021-law-q02-s04"
+    },
+    {
+      "after": "select_correct",
+      "before": null,
+      "beforePresent": false,
+      "field": "questionIntent",
+      "questionId": "gas-shunin-otsu-2021-law-q02-s04"
+    },
+    {
+      "after": "conditions_scope",
+      "before": null,
+      "beforePresent": false,
+      "field": "questionLearningPatternId",
+      "questionId": "gas-shunin-otsu-2021-law-q02-s04"
+    },
+    {
+      "after": [],
+      "before": [
+        {
+          "answer": "間違い。一般ガス導管事業者は、託送供給約款を定め、経済産業大臣の認可を受けなければならない。経済産業大臣に届け出るとしている点が誤り。",
+          "question": "託送供給約款は経済産業大臣への届出で足りるか。"
+        },
+        {
+          "answer": "間違い。ガス製造事業者は、毎年度、ガスの製造並びにガス工作物の設置及び運用について製造計画を作成し、当該年度の開始前に経済産業大臣へ届け出なければならない。供給計画としている点が誤り。",
+          "question": "ガス製造事業者が毎年度作成するのは供給計画か。"
+        },
+        {
+          "answer": "拒めません。ガス事業法第47条第2項が、正当な理由がなければ最終保障供給を拒んではならないと定めています。最終保障供給が無条件・無料という意味ではなく、第51条の最終保障供給約款により料金等の条件を定めます。",
+          "question": "一般ガス導管事業者は正当な理由なく最終保障供給を拒めるか。"
+        }
+      ],
+      "beforePresent": true,
+      "field": "suggestedQuestionDetails",
+      "questionId": "gas-shunin-otsu-2021-law-q02-s04"
+    },
+    {
+      "after": [],
+      "before": [
+        "託送供給約款は経済産業大臣への届出で足りるか。",
+        "ガス製造事業者が毎年度作成するのは供給計画か。",
+        "一般ガス導管事業者は正当な理由なく最終保障供給を拒めるか。"
+      ],
+      "beforePresent": true,
+      "field": "suggestedQuestions",
+      "questionId": "gas-shunin-otsu-2021-law-q02-s04"
+    },
+    {
+      "after": [
+        {
+          "referenceDate": "2026-10-17",
+          "sourceUrl": "https://laws.e-gov.go.jp/law/345M50000400097",
+          "title": "ガス事業法施行規則"
+        }
+      ],
+      "before": null,
+      "beforePresent": false,
+      "field": "explanationReferences",
+      "questionId": "gas-shunin-otsu-2021-law-q02-s05"
+    },
+    {
+      "after": "正しい。託送供給約款には、料金だけでなく、導管で受け入れられるガスの条件も定めます。熱量等の範囲や組成が、その受入条件として規定されています（ガス事業法施行規則〔昭和45年通商産業省令第97号〕第64条第1項第1号ホ・第2号ヘ）。",
+      "before": "正しい。一般ガス導管事業者の託送供給約款には、託送供給を行うことができるガスの熱量等の範囲、組成その他の受入条件を定めなければならない（ガス事業法施行規則第64条第1項第1号ホ及び第2号ヘ）。",
+      "beforePresent": true,
+      "field": "explanationText",
+      "questionId": "gas-shunin-otsu-2021-law-q02-s05"
+    },
+    {
+      "after": false,
+      "before": null,
+      "beforePresent": false,
+      "field": "isCalculationQuestion",
+      "questionId": "gas-shunin-otsu-2021-law-q02-s05"
+    },
+    {
+      "after": "select_correct",
+      "before": null,
+      "beforePresent": false,
+      "field": "questionIntent",
+      "questionId": "gas-shunin-otsu-2021-law-q02-s05"
+    },
+    {
+      "after": "conditions_scope",
+      "before": null,
+      "beforePresent": false,
+      "field": "questionLearningPatternId",
+      "questionId": "gas-shunin-otsu-2021-law-q02-s05"
+    },
+    {
+      "after": [],
+      "before": [
+        {
+          "answer": "間違い。一般ガス導管事業者は、託送供給約款を定め、経済産業大臣の認可を受けなければならない。経済産業大臣に届け出るとしている点が誤り。",
+          "question": "託送供給約款は経済産業大臣への届出で足りるか。"
+        },
+        {
+          "answer": "間違い。ガス製造事業者は、毎年度、ガスの製造並びにガス工作物の設置及び運用について製造計画を作成し、当該年度の開始前に経済産業大臣へ届け出なければならない。供給計画としている点が誤り。",
+          "question": "ガス製造事業者が毎年度作成するのは供給計画か。"
+        },
+        {
+          "answer": "拒めません。ガス事業法第47条第2項が、正当な理由がなければ最終保障供給を拒んではならないと定めています。最終保障供給が無条件・無料という意味ではなく、第51条の最終保障供給約款により料金等の条件を定めます。",
+          "question": "一般ガス導管事業者は正当な理由なく最終保障供給を拒めるか。"
+        }
+      ],
+      "beforePresent": true,
+      "field": "suggestedQuestionDetails",
+      "questionId": "gas-shunin-otsu-2021-law-q02-s05"
+    },
+    {
+      "after": [],
+      "before": [
+        "託送供給約款は経済産業大臣への届出で足りるか。",
+        "ガス製造事業者が毎年度作成するのは供給計画か。",
+        "一般ガス導管事業者は正当な理由なく最終保障供給を拒めるか。"
+      ],
+      "beforePresent": true,
+      "field": "suggestedQuestions",
+      "questionId": "gas-shunin-otsu-2021-law-q02-s05"
+    }
+  ],
+  "effectiveHash": "0b4d35f03be7f29f0ffc68ddeb4e495d119d7f1014a1c9c65b2d10cd914eb593",
+  "revisionKind": "maintenance",
+  "schemaVersion": "gas-shunin-verified-authoring-revision/v1",
+  "taskRequirement": {
+    "requirement": {
+      "definition": {
+        "need": "現行解説は供給を拒めないという義務のみを示す。契約先が見つからない等の場合の供給制度の目的、一般ガス導管事業者と小売事業者の役割、対象・条件を一次法令と所管官庁資料に照らして整理する。",
+        "target": "gas-shunin-otsu-2021-law-q02-s03、最終保障供給の解説補足",
+        "title": "最終保障供給の意味と通常のガス小売契約との違いを説明する"
+      },
+      "schemaVersion": "feedback-task-requirement/v1",
+      "sources": [
+        {
+          "candidate_id": "fcc31e3d04e5536448e187a970e6f2043ee3184086eb304e986862239a51f223",
+          "question_id": "gas-shunin-otsu-2021-law-q02-s03",
+          "review_status": "promoted",
+          "text_hash": "2b8fdb3138a38cb9020e726aedcd01de4b789300116a3b9ed220eb2a71b1f650"
+        }
+      ],
+      "taskId": "1b2e0247ceb5fd116b7dcc82e3f519e99e84de04bfd98a9d1e931836368e4b43"
+    },
+    "requirementHash": "725ee353a42aa0142a3062e4df9fa1714fc086dedaecb79bdb5c1588675749ea"
+  }
+}
