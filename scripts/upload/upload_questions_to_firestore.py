@@ -44,6 +44,14 @@ DETAILS_ONLY_WRITE_FIELDS = ("suggestedQuestionDetails",)
 LAW_FACTS_DETAILS_WRITE_FIELDS = ("explanationText", "lawRevisionFacts", "suggestedQuestionDetails")
 PRESERVED_SUGGESTION_MASKS = (EXPLANATION_DETAILS_WRITE_FIELDS, DETAILS_ONLY_WRITE_FIELDS,
                             LAW_FACTS_DETAILS_WRITE_FIELDS)
+# Replacing both sides of the suggestion mirror is an explicit atomic-only
+# contract. Legacy masks continue to preserve the saved question list.
+ATOMIC_SUGGESTION_REPLACEMENT_MASKS = (
+    ("suggestedQuestions", "suggestedQuestionDetails"),
+    ("explanationText", "suggestedQuestions", "suggestedQuestionDetails"),
+    ("explanationText", "lawRevisionFacts", "suggestedQuestions", "suggestedQuestionDetails"),
+)
+ATOMIC_MAINTENANCE_WRITE_FIELD_SETS = (*PRESERVED_SUGGESTION_MASKS, *ATOMIC_SUGGESTION_REPLACEMENT_MASKS)
 ALLOWED_PATCH_WRITE_FIELD_SETS = (
     ("explanationText",),
     EXPLANATION_DETAILS_WRITE_FIELDS,
@@ -357,7 +365,7 @@ def validate_question_patch_questions(
 
 
 def validate_suggestion_patch_questions(
-    questions: list[dict], source_label: str, *, max_entries: int = 3
+    questions: list[dict], source_label: str, *, max_entries: int = 3, min_entries: int = 1
 ) -> None:
     """Validate an existing-document-only normalization of saved suggestions."""
 
@@ -379,10 +387,10 @@ def validate_suggestion_patch_questions(
             raise ValueError(f"questionText is required: {question_id}")
         details = question.get("suggestedQuestionDetails")
         prompts = question.get("suggestedQuestions")
-        if not isinstance(details, list) or not 1 <= len(details) <= max_entries:
+        if not isinstance(details, list) or not min_entries <= len(details) <= max_entries:
             raise ValueError(
                 "suggestedQuestionDetails must contain "
-                f"1 to {max_entries} entries: {question_id}"
+                f"{min_entries} to {max_entries} entries: {question_id}"
             )
         normalized_prompts: list[str] = []
         for item in details:
@@ -401,6 +409,27 @@ def validate_suggestion_patch_questions(
             raise ValueError(
                 f"suggestedQuestions must match suggestedQuestionDetails: {question_id}"
             )
+
+
+def validate_atomic_suggestion_replacement(questions, mask, source_label):
+    """Replace the paired fields together, including an audited zero-suggestion result."""
+    if mask not in ATOMIC_SUGGESTION_REPLACEMENT_MASKS:
+        raise ValueError("explicit atomic suggestion replacement mask required")
+    validate_explanation_patch_questions(questions, source_label)
+    validate_suggestion_patch_questions(questions, source_label, max_entries=3, min_entries=0)
+    for question in questions:
+        details = question["suggestedQuestionDetails"]
+        if (any(not isinstance(item["question"], str) or not isinstance(item["answer"], str)
+                for item in details)
+                or question["suggestedQuestions"] != [item["question"] for item in details]):
+            raise ValueError("atomic suggestion replacement requires an exact string mirror")
+        if "lawRevisionFacts" in mask:
+            facts = question.get("lawRevisionFacts")
+            if (not is_law_revision_facts_shape(facts)
+                    or not isinstance(facts.get("differenceFacts"), list)
+                    or not facts["differenceFacts"]
+                    or any(not isinstance(item, str) or not item.strip() for item in facts["differenceFacts"])):
+                raise ValueError("legal explanation patch requires nonempty valid difference facts")
 
 
 def validate_routing_patch_questions(questions: list[dict], source_label: str) -> None:
@@ -576,8 +605,8 @@ def _reject_duplicate_json_keys(value) -> None:
 def resolve_atomic_maintenance_contract(data: dict, source_label: str) -> dict:
     """Validate the transport contract without SDK initialization or live reads.
 
-    Exactly one original question is accepted, with one of the three existing
-    maintenance masks per document. All IDs, versions and the ordered live
+    Exactly one original question is accepted, with an explicit preserved-list
+    or paired-replacement mask per document. All IDs, versions and the ordered live
     fingerprint are mandatory. Full sibling membership, current evaluation and
     checkpoint gates, publication authority and before/after readback belong to
     the calling publication orchestrator; this transport never establishes
@@ -620,10 +649,14 @@ def resolve_atomic_maintenance_contract(data: dict, source_label: str) -> dict:
             raise ValueError("atomic maintenance requires an explicit qualificationId")
         qualification_ids.add(qualification)
         raw = masks[identity]
-        if not isinstance(raw, list) or tuple(raw) not in PRESERVED_SUGGESTION_MASKS:
+        if (not isinstance(raw, list)
+                or tuple(raw) not in ATOMIC_MAINTENANCE_WRITE_FIELD_SETS):
             raise ValueError("atomic maintenance has an unsupported document write mask")
         mask = tuple(raw)
-        validate_question_patch_questions([question], mask, source_label)
+        if mask in ATOMIC_SUGGESTION_REPLACEMENT_MASKS:
+            validate_atomic_suggestion_replacement([question], mask, source_label)
+        else:
+            validate_question_patch_questions([question], mask, source_label)
         # No missing field may be silently constructed by the DTO conversion.
         if any(field not in question for field in mask):
             raise ValueError("atomic maintenance payload is missing a masked field")
@@ -854,7 +887,6 @@ def upload_atomic_maintenance_questions(
     snapshots = fetch_existing_question_snapshots(db, list(refs.values()))
     by_id = require_expected_update_times(ids, snapshots, contract["expectedUpdateTimes"])
     require_expected_live_fingerprint(ids, snapshots, data["expectedLiveFingerprint"])
-    require_explanation_details_live_mirror(data["questions"], snapshots)
     now = datetime.now()
     updates = {}
     for question in data["questions"]:
@@ -865,7 +897,12 @@ def upload_atomic_maintenance_questions(
                 or existing.get("qualificationId") != question["qualificationId"]):
             raise RuntimeError("atomic maintenance live original/qualification identity differs")
         mask = masks[identity]
-        if mask == LAW_FACTS_DETAILS_WRITE_FIELDS:
+        if mask in ATOMIC_SUGGESTION_REPLACEMENT_MASKS:
+            if existing.get("isDeleted") is not False or existing.get("isChoiceOnly") is not False:
+                raise RuntimeError("atomic suggestion replacement live flags changed")
+        else:
+            require_explanation_details_live_mirror([question], [snapshot])
+        if "lawRevisionFacts" in mask:
             require_preserved_legal_metadata([question], [snapshot])
         base = build_doc_data_base(question)
         # Include presence in comparisons: absent is not equivalent to null.

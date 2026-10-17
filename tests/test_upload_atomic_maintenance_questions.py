@@ -53,6 +53,15 @@ class AtomicMaintenanceUploadTests(unittest.TestCase):
                    "expectedLiveFingerprint": module.firestore_live_fingerprint(self.ids, live)}
         return payload, live
 
+    def replacement_fixture(self):
+        payload, live = self.fixture()
+        masks = module.ATOMIC_SUGGESTION_REPLACEMENT_MASKS
+        for index, question in enumerate(payload["questions"]):
+            question["suggestedQuestions"] = []
+            question["suggestedQuestionDetails"] = []
+            payload["writeFieldsByDocument"][question["questionId"]] = list(masks[index % len(masks)])
+        return payload, live
+
     class Database:
         def __init__(self, live, stamp, *, mode=None, snapshot_transform=None):
             self.live = deepcopy(live)
@@ -161,6 +170,79 @@ class AtomicMaintenanceUploadTests(unittest.TestCase):
         self.assertEqual(result["writeResults"], [])
         self.assertEqual(result["auditWriteFields"], ["updatedAt", "updatedById"])
 
+    def test_paired_replacement_can_remove_all_suggestions_in_one_guarded_batch(self):
+        payload, live = self.replacement_fixture()
+        db = self.Database(live, self.before_stamp)
+        result, initialized = self.upload(payload, db)
+        self.assertEqual((initialized, db.batches, db.commits), (1, 1, 1))
+        self.assertEqual(result["status"], "committed")
+        self.assertFalse(result["publicationConfirmed"])
+        for identity, values, option in db.pending:
+            self.assertEqual(values["suggestedQuestions"], [])
+            self.assertEqual(values["suggestedQuestionDetails"], [])
+            self.assertEqual(set(values), set(payload["writeFieldsByDocument"][identity]) | {"updatedAt", "updatedById"})
+            self.assertEqual(option._last_update_time.rfc3339(), self.before_stamp)
+            for field, value in live[identity].items():
+                if field not in values:
+                    self.assertEqual(db.live[identity][field], value)
+
+    def test_new_and_preserved_masks_can_share_the_same_atomic_batch(self):
+        payload, live = self.replacement_fixture()
+        original, _ = self.fixture()
+        payload["questions"][-1] = original["questions"][-1]
+        payload["writeFieldsByDocument"][self.ids[-1]] = list(module.DETAILS_ONLY_WRITE_FIELDS)
+        db = self.Database(live, self.before_stamp)
+        result, _ = self.upload(payload, db)
+        self.assertEqual((result["status"], db.commits), ("committed", 1))
+        self.assertEqual(db.live[self.ids[-1]]["suggestedQuestions"], ["補足"])
+        self.assertEqual(db.live[self.ids[0]]["suggestedQuestions"], [])
+
+    def test_replacement_mirrors_and_strict_strings_are_checked_before_sdk(self):
+        payload, _ = self.replacement_fixture()
+        invalid = [([], [{"question": "補足", "answer": "回答"}]),
+                   (["補足"], []),
+                   ([42], [{"question": 42, "answer": "回答"}]),
+                   (["補足"], [{"question": "補足", "answer": 42}]),
+                   (["補足"] * 4, [{"question": "補足", "answer": "回答"}] * 4)]
+        for questions, details in invalid:
+            changed = deepcopy(payload)
+            changed["questions"][0].update(suggestedQuestions=questions, suggestedQuestionDetails=details)
+            with self.subTest(questions=questions), patch.object(module, "init_firestore") as init:
+                with self.assertRaises(ValueError):
+                    module.upload_atomic_maintenance_questions(changed, "fixture", dry_run=True)
+                init.assert_not_called()
+
+    def test_zero_suggestions_do_not_relax_old_atomic_or_legacy_masks(self):
+        payload, _ = self.fixture()
+        for index in (0, 2, 3):
+            changed = deepcopy(payload)
+            changed["questions"][index].update(suggestedQuestions=[], suggestedQuestionDetails=[])
+            with self.subTest(index=index), self.assertRaises(ValueError):
+                self.upload(changed, dry_run=True)
+        legacy = {"questions": payload["questions"], "writeFields": ["suggestedQuestions", "suggestedQuestionDetails"]}
+        legacy["questions"][0].update(suggestedQuestions=[], suggestedQuestionDetails=[])
+        with self.assertRaises(ValueError):
+            self.upload(legacy, dry_run=True)
+
+    def test_replacement_cannot_change_legal_provenance_or_inactive_flags(self):
+        payload, live = self.replacement_fixture()
+        for field, value in (("auditedAt", "changed"), ("auditStatus", "updated_to_current_law")):
+            changed = deepcopy(payload)
+            changed["questions"][2]["lawRevisionFacts"][field] = value
+            db = self.Database(live, self.before_stamp)
+            with self.subTest(field=field), self.assertRaises((ValueError, RuntimeError)):
+                self.upload(changed, db)
+            self.assertEqual((db.batches, db.commits, db.applied), (0, 0, []))
+        for field in ("isDeleted", "isChoiceOnly"):
+            changed_live = deepcopy(live)
+            changed_live[self.ids[0]][field] = True
+            changed = deepcopy(payload)
+            changed["expectedLiveFingerprint"] = module.firestore_live_fingerprint(self.ids, changed_live)
+            db = self.Database(changed_live, self.before_stamp)
+            with self.subTest(field=field), self.assertRaisesRegex(RuntimeError, "live flags"):
+                self.upload(changed, db)
+            self.assertEqual((db.batches, db.commits), (0, 0))
+
     def test_caller_mutation_during_sdk_read_cannot_replace_validated_request(self):
         payload, live = self.fixture()
         approved = deepcopy(payload)
@@ -261,7 +343,7 @@ class AtomicMaintenanceUploadTests(unittest.TestCase):
         ]
         invalid = [{**deepcopy(payload), key: value} for key, value in mutations]
         for mask in ([], None, ["explanationText"], ["suggestedQuestionDetails"] * 2,
-                     ["suggestedQuestions", "suggestedQuestionDetails"], ["unknown"]):
+                     ["suggestedQuestionDetails", "suggestedQuestions"], ["unknown"]):
             changed = deepcopy(payload)
             changed["writeFieldsByDocument"][self.ids[0]] = mask
             invalid.append(changed)
