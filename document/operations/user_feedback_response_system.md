@@ -2,7 +2,7 @@
 
 状態: 実装中。個別受付台帳と読み取り専用の日次照合を実装済み。日次heartbeatが既存CLIを使って調査・独立監査・公開を進める。専用の常駐GUIとスマホ承認画面は未実装。
 
-最終更新: 2026-10-15
+最終更新: 2026-10-17
 
 この文書は、Repasoから届くユーザーフィードバックの調査、改善、独立監査、patch保存、Firestore公開を扱う運用正本です。公式問題の誤り報告を修正レーンとし、AI解説への利用者質問から学習上のニーズを見つける改善レーンを置きます。将来はアプリ不具合、UI改善、要望も追加します。
 
@@ -51,6 +51,10 @@ native作成callはCLIの正常終了まで、途中でyieldされた出力も�
 2026-10-16、`python -m tools.question_bank.feedback_verified_review_context prepare --repo-root <repo> --plan <保存plan> --output <新規private directory> [--official-order <固定対応表>]`で、真正な保存receiptと現在の25を読み取り専用の評価入力へ結ぶ経路を追加しました。専用identityは25のpath/hash・公式index/PDF・原問と全sibling ID・現在policyを保持し、`00_source`の参照を作りません。各fieldはIDで結合します。公式順は、保存時native最終承認が明示したIDと肢labelに一致する`feedback-verified-official-order/v1`だけを受け付け、配列順・既存choiceIndex・OCRから推定しません。対応表がなければ公式順は未解決として保留します。既存の法令metadata内のindexや監査状態を、現在の工程完了記録へ読み替えません。
 
 この経路の`context.json`・`review-input.json`・`receipt.json`は固定入力とpolicyのhashを持ち、`inspect --repo-root <repo> --output <directory>`で再検証します。同じbytesの再送だけを受け付け、変更された入力・出力、別scope混入を拒否します。法令対象の適用7工程と公式問題に非適用の05を区別しますが、工程実行receipt・作業版・checkpoint・独立評価・公開adapterは生成しません。`machineReady`・`publicationReady`・`checkpointRecorded`・`evaluationPerformed`はfalseです。この読取contextを作成しただけで既知の未対応が解消したとは扱いません。
+
+2026-10-17、`python -m tools.question_bank.feedback_verified_stage_execution`に、画像のない検証済み25を対象とする01の専用実行経路を追加しました。`prepare --repo-root <repo> --context <検証済みcontext directory> --execution <新規private directory> --phase aggregate_a|aggregate_b`で、同じ入力に対する二つの独立した集約回答レビューを準備します。`scope`の固定native出力を別subagentへ委任し、真正な承認を`record --approval <native-independent-approval/v1>`で保存、`inspect`で再検証します。二者が現在の入力について`non_target/approve`で一致した場合だけ、別sessionの`classification`へ進みます。`target`・`hold`・画像を必要とする問題は、未対応の分解・画像経路へ保留します。
+
+`classification`は`--prior <A directory> --prior <B directory> --candidate <候補JSON>`で全siblingの`questionType`・`isCalculationQuestion`とそれぞれの理由を固定します。集約レビューのmodel・effortはworkflow設定を使い、分類の実行profileは`--model`・`--reasoning-effort`で別に固定します。実native turnのprofile、作者との分離、異なるレビューsession、未解決指摘0件、全先行承認の撤回・入力変更を保存終了時にも確認します。候補が現在の25と異なる場合は差分を`remainingFieldDiffs`に残し、`stageCompleted=false`で正式保存へ戻します。この専用receiptは通常の作業版・checkpointへ変換せず、ほかの工程・独立評価・Firestore公開の成功も表しません。
 
 限定公開の実upload JSONでは、最上位の`writeFields`を既存uploaderへ渡します。各documentの`writeFields`がある場合、`QuestionPublisher`は全対象で同一の対応済みmaskだけを最上位へ結合し、空・欠落・異なるmask・未対応field、新規document、mask外の差分を拒否します。改善完了の検証でも、document内のmaskだけでは限定更新の証跡として受理しません。`explanationText`と`suggestedQuestionDetails`の限定更新は、最大3件・非空・`suggestedQuestions`との厳密な対応を検証し、書込み前に保存済みの質問一覧との一致も確認します。質問一覧自体は書き込みません。
 
