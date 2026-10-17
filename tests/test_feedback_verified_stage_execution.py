@@ -655,5 +655,298 @@ class VerifiedStageExecutionTests(unittest.TestCase):
                     self.assertFalse((self.output / 'execution-receipt.json').exists())
         parent.write_bytes(initial)
 
+    def owner_launch(self, approval, *, command='record', call_id='owner-launch', module_name=None):
+        argv = [command, '--repo-root', str(self.root), '--execution', str(self.output)]
+        if command == 'record': argv += ['--approval', str(self.private / 'approval.json')]
+        module_name = module_name or 'tools.question_bank.feedback_verified_stage_execution'
+        parent = Path(approval['authorization']['sessionPath'])
+        self.append_event(parent, {'type': 'turn_context', 'payload': {'turn_id': 'owner-turn'}})
+        latest = max((event.get('metadata', {}).get('user_input_order', -1)
+                      for event in (json.loads(line) for line in parent.read_bytes().splitlines())), default=-1)
+        self.owner_order = latest + 1
+        launch = self.owner_response('custom_tool_call', name='exec',
+            call_id=call_id, input=module.native_operation_call(argv, module_name=module_name), status='completed')
+        launch['metadata'] = {'client_authored': False, 'user_input_order': self.owner_order}
+        self.append_event(parent, launch)
+        return parent, argv
+
+    @staticmethod
+    def owner_response(kind, **fields):
+        return {'type': 'response_item', 'payload': {'type': kind, 'id': 'runtime-id', **fields,
+            'internal_chat_message_metadata_passthrough': {'turn_id': 'owner-turn'}}}
+
+    def owner_progress(self, *, launch='owner-launch', cell='327'):
+        def running(call, kind):
+            event = self.owner_response(kind, call_id=call,
+                output=f'Script running with cell ID {cell}\nWall time 1.0 seconds\nOutput:\n')
+            event['metadata'] = {'client_authored': False, 'fallback_token_limit_override': 12000}
+            return event
+        events = [running(launch, 'custom_tool_call_output'),
+            {'type': 'event_msg', 'payload': {'type': 'item_completed', 'thread_id': 'author',
+                'turn_id': 'owner-turn', 'item': {'type': 'Reasoning', 'id': 'reasoning',
+                'summary_text': [], 'raw_content': []}, 'started_at_ms': 1, 'completed_at_ms': 2}},
+            self.owner_response('reasoning', summary=[], encrypted_content='runtime-output'),
+            {'type': 'event_msg', 'payload': {'type': 'item_completed', 'thread_id': 'author',
+                'turn_id': 'owner-turn', 'item': {'type': 'AgentMessage', 'id': 'message', 'phase': 'commentary',
+                    'content': [{'type': 'Text', 'text': 'verification continues'}]},
+                'started_at_ms': 3, 'completed_at_ms': 4}},
+            self.owner_response('message', role='assistant', phase='commentary', status='completed',
+                content=[{'type': 'output_text', 'text': 'verification continues', 'annotations': [], 'logprobs': []}]),
+            self.owner_response('function_call', name='wait', call_id='own-wait',
+                arguments=json.dumps({'cell_id': cell, 'yield_time_ms': 1000, 'max_tokens': 1500})),
+            running('own-wait', 'function_call_output')]
+        events[4]['metadata'] = {'client_authored': False, 'user_input_order': self.owner_order + 1,
+            'retained_source': {'complete': True, 'id': {'role': 'assistant', 'turn_id': 'owner-turn',
+                'message_id': events[4]['payload']['id']},
+                'revision': 'retained_00000000-0000-0000-0000-000000000000'}}
+        events[5]['metadata'] = {'client_authored': False, 'user_input_order': self.owner_order + 2}
+        return events
+
+    def test_owner_wait_and_own_output_protocol_survives_record_and_fresh_inspect(self):
+        self.prepare(); approval = self.approval()
+        parent, argv = self.owner_launch(approval)
+        def runtime(name):
+            if name == 'native-approval.json':
+                for event in self.owner_progress(): self.append_event(parent, event)
+        with module.native_operation(argv):
+            receipt = self.record(approval, failure_hook=runtime)
+        parent, argv = self.owner_launch(approval, command='inspect', call_id='inspect-launch')
+        original = module.context_api.inspect
+        def during_context(*args, **kwargs):
+            value = original(*args, **kwargs)
+            for event in self.owner_progress(launch='inspect-launch'): self.append_event(parent, event)
+            return value
+        with module.native_operation(argv), patch.object(module.context_api, 'inspect', side_effect=during_context):
+            self.assertEqual(receipt, self.inspect())
+        self.assertIsNone(module._CLI_OPERATION.get())
+        self.assertIsNone(module._OPERATION_CONTEXT.get())
+
+    def test_owner_wait_protocol_rejects_wrong_cell_terminate_tool_result_and_new_input(self):
+        self.prepare(); approval = self.approval()
+        parent, argv = self.owner_launch(approval)
+        initial = parent.read_bytes()
+        mutations = [
+            lambda e: e[5]['payload'].update(arguments=json.dumps({'cell_id': 'different'})),
+            lambda e: e[5]['payload'].update(arguments=json.dumps({'cell_id': '327', 'terminate': True})),
+            lambda e: e[5]['payload'].update(name='exec'),
+            lambda e: e[6]['payload'].update(call_id='unrelated-tool'),
+            lambda e: e[6]['payload'].update(output='Script running with cell ID 327\nWall time 1.0 seconds\nOutput:\nnew information'),
+            lambda e: e[6]['payload'].update(output='Script running with cell ID 328\nWall time 1.0 seconds\nOutput:\n'),
+            lambda e: e[4]['payload'].update(role='user'),
+            lambda e: e[4]['payload'].update(status='in_progress'),
+            lambda e: e[4]['payload']['content'][0].update(annotations=[{'text': 'new source'}]),
+            lambda e: e[4]['payload']['content'][0].update(logprobs=[{'text': 'new information'}]),
+            lambda e: e[4]['payload']['content'][0].update(logprobs=None),
+            lambda e: e[4]['payload']['internal_chat_message_metadata_passthrough'].update(turn_id='other-turn'),
+            lambda e: e.append({'type': 'turn_context', 'payload': {'turn_id': 'new-turn'}}),
+            lambda e: e.append({'type': 'response_item', 'payload': {'type': 'agent_message', 'content': []}}),
+        ]
+        for number, mutate in enumerate(mutations):
+            with self.subTest(number=number):
+                parent.write_bytes(initial)
+                events = self.owner_progress(); mutate(events)
+                with module.native_operation(argv):
+                    guard = module.capture_native_guard([approval])
+                    for event in events: self.append_event(parent, event)
+                    with self.assertRaisesRegex(ValueError, 'new decision input'):
+                        module.assert_native_guard(guard, terminal=True)
+        parent.write_bytes(initial)
+
+    def test_owner_continuation_is_not_allowed_in_reviewer_or_without_exact_launch(self):
+        self.prepare(); approval = self.approval()
+        parent, argv = self.owner_launch(approval)
+        reviewer = Path(approval['reviewerFinal']['sessionPath'])
+        with module.native_operation(argv):
+            guard = module.capture_native_guard([approval])
+            self.append_event(reviewer, self.owner_progress()[0])
+            with self.assertRaisesRegex(ValueError, 'new decision input'):
+                module.assert_native_guard(guard, terminal=True)
+        with module.native_operation([*argv, '--different']):
+            with self.assertRaisesRegex(ValueError, 'canonical native owner'):
+                module.capture_native_guard([approval])
+        # The exact operation must be observed already at bootstrap. A caller's
+        # claimed argv cannot retroactively legitimize arbitrary assistant tools.
+        with self.assertRaises(ValueError): module.native_operation_call(argv, module_name='untrusted.module')
+
+    def test_owner_input_after_launch_before_bootstrap_is_not_absorbed(self):
+        self.prepare(); approval = self.approval()
+        parent, argv = self.owner_launch(approval)
+        self.append_event(parent, self.owner_response('message', role='user',
+            content=[{'type': 'input_text', 'text': 'stop'}]))
+        with module.native_operation(argv):
+            with self.assertRaisesRegex(ValueError, 'after owner launch'):
+                module.capture_native_guard([approval])
+
+    def test_owner_wait_requires_output_first_and_matching_pending_call(self):
+        self.prepare(); approval = self.approval()
+        parent, argv = self.owner_launch(approval)
+        initial = parent.read_bytes()
+        invalid = [self.owner_progress()[5],
+                   self.owner_response('function_call_output', call_id='owner-launch',
+                       output='Script running with cell ID 327\nWall time 1.0 seconds\nOutput:\n'),
+                   self.owner_response('custom_tool_call_output', call_id='owner-launch',
+                       output='Script running with cell ID 327\nWall time 1.0 seconds\nOutput:\n\n')]
+        for event in invalid:
+            parent.write_bytes(initial)
+            with module.native_operation(argv):
+                guard = module.capture_native_guard([approval]); self.append_event(parent, event)
+                with self.assertRaises(ValueError): module.assert_native_guard(guard, terminal=True)
+        parent.write_bytes(initial)
+
+    def test_owner_guard_signature_cache_rehashes_on_change_and_always_at_terminal(self):
+        self.prepare(); approval = self.approval()
+        parent, argv = self.owner_launch(approval)
+        original = Path.read_bytes
+        reads = []
+        def read(path):
+            if path == parent: reads.append(path)
+            return original(path)
+        with module.native_operation(argv), patch.object(Path, 'read_bytes', read):
+            guard = module.capture_native_guard([approval])
+            count = len(reads)
+            module.assert_native_guard(guard)
+            self.assertEqual(len(reads), count)
+            self.append_event(parent, self.usage_event('author'))
+            module.assert_native_guard(guard)
+            self.assertGreater(len(reads), count)
+            count = len(reads)
+            module.assert_native_guard(guard, terminal=True)
+            self.assertGreater(len(reads), count)
+
+    def test_terminal_guard_does_not_trust_even_a_matching_cached_stat(self):
+        self.prepare(); approval = self.approval()
+        parent, argv = self.owner_launch(approval)
+        with module.native_operation(argv):
+            guard = module.capture_native_guard([approval])
+            original = module._signature
+            pinned = guard[parent]['signature']
+            raw = parent.read_bytes(); parent.write_bytes(raw.replace(b'owner-launch', b'other-launch'))
+            with patch.object(module, '_signature', side_effect=lambda stat: pinned if stat.st_ino == parent.stat().st_ino else original(stat)):
+                with self.assertRaisesRegex(ValueError, 'native session changed'):
+                    module.assert_native_guard(guard, terminal=True)
+
+    def test_owner_partial_record_resumes_only_with_fresh_real_launch(self):
+        self.prepare(); approval = self.approval()
+        parent, argv = self.owner_launch(approval)
+        def interrupted(name):
+            if name == 'native-approval.json':
+                for event in self.owner_progress(): self.append_event(parent, event)
+                raise RuntimeError('process interrupted after immutable approval')
+        with module.native_operation(argv):
+            with self.assertRaises(RuntimeError): self.record(approval, failure_hook=interrupted)
+        self.assertFalse((self.output / 'execution-receipt.json').exists())
+        parent, argv = self.owner_launch(approval, call_id='resume-launch')
+        with module.native_operation(argv): receipt = self.record(approval)
+        parent, argv = self.owner_launch(approval, command='inspect', call_id='fresh-inspect')
+        with module.native_operation(argv): self.assertEqual(receipt, self.inspect())
+
+    def test_delivery_module_uses_same_explicit_owner_guard_contract(self):
+        self.prepare(); approval = self.approval()
+        name = 'tools.question_bank.feedback_verified_delivery'
+        parent, argv = self.owner_launch(approval, command='inspect', module_name=name)
+        with module.native_operation(argv, module_name=name):
+            guard = module.capture_native_guard([approval])
+            for event in self.owner_progress(): self.append_event(parent, event)
+            module.assert_native_guard(guard, terminal=True)
+
+    def token_count_event(self):
+        counters = self.usage_event('author')['payload']['usage']
+        return {'type': 'event_msg', 'payload': {'type': 'token_count',
+            'info': {'total_token_usage': deepcopy(counters), 'last_token_usage': deepcopy(counters),
+                     'model_context_window': 475000},
+            'rate_limits': {'limit_id': 'codex', 'limit_name': None,
+                'primary': {'used_percent': 31.0, 'window_minutes': 10080, 'resets_at': 1792649641},
+                'secondary': None, 'credits': {'has_credits': True, 'unlimited': False, 'balance': '62449.1090800000'},
+                'individual_limit': None, 'spend_control_reached': None, 'plan_type': 'pro',
+                'rate_limit_reached_type': None}}}
+
+    def test_owner_actual_runtime_metrics_and_commentary_metadata_are_accepted_but_not_text_smuggling(self):
+        self.prepare(); approval = self.approval()
+        parent, argv = self.owner_launch(approval)
+        events = self.owner_progress()
+        events[4]['payload']['internal_chat_message_metadata_passthrough']['content_item_kinds'] = ['unknown']
+        events.insert(1, self.token_count_event())
+        with module.native_operation(argv):
+            guard = module.capture_native_guard([approval])
+            for event in events: self.append_event(parent, event)
+            module.assert_native_guard(guard, terminal=True)
+        base = parent.read_bytes()
+        for mutate in (lambda e: e['payload']['info'].update(text='new instruction'),
+                       lambda e: e['payload']['info']['last_token_usage'].update(output_tokens=True),
+                       lambda e: e['payload']['rate_limits'].update(plan_type='new instruction')):
+            parent.write_bytes(base)
+            with module.native_operation(argv):
+                guard = module.capture_native_guard([approval])
+                event = self.token_count_event(); mutate(event); self.append_event(parent, event)
+                with self.assertRaises(ValueError): module.assert_native_guard(guard, terminal=True)
+
+    def test_owner_cannot_reuse_wait_call_identity_or_adopt_unfinished_other_tool(self):
+        self.prepare(); approval = self.approval()
+        parent, argv = self.owner_launch(approval)
+        with module.native_operation(argv):
+            guard = module.capture_native_guard([approval])
+            for event in self.owner_progress(): self.append_event(parent, event)
+            self.append_event(parent, self.owner_progress()[5])  # same wait call ID twice
+            with self.assertRaises(ValueError): module.assert_native_guard(guard, terminal=True)
+
+    def test_owner_outer_metadata_rejects_wrong_authorship_source_identity_and_order(self):
+        self.prepare(); approval = self.approval()
+        parent, argv = self.owner_launch(approval)
+        initial = parent.read_bytes()
+        mutations = [
+            lambda e: e[0]['metadata'].update(client_authored=True),
+            lambda e: e[0]['metadata'].update(fallback_token_limit_override=True),
+            lambda e: e[0]['metadata'].update(fallback_token_limit_override=0),
+            lambda e: e[0]['metadata'].update(other='input'),
+            lambda e: e[4]['metadata']['retained_source'].update(complete=False),
+            lambda e: e[4]['metadata']['retained_source']['id'].update(role='user'),
+            lambda e: e[4]['metadata']['retained_source']['id'].update(turn_id='other-turn'),
+            lambda e: e[4]['metadata']['retained_source']['id'].update(message_id='different-message'),
+            lambda e: e[4]['metadata']['retained_source'].update(revision='unrecognized-revision'),
+            lambda e: e[4]['metadata'].update(user_input_order=True),
+            lambda e: e[5]['metadata'].update(user_input_order=-1),
+            lambda e: e[5]['metadata'].update(user_input_order=self.owner_order),
+        ]
+        for number, mutate in enumerate(mutations):
+            with self.subTest(number=number):
+                parent.write_bytes(initial)
+                with module.native_operation(argv):
+                    guard = module.capture_native_guard([approval])
+                    events = self.owner_progress(); mutate(events)
+                    for event in events: self.append_event(parent, event)
+                    with self.assertRaises(ValueError): module.assert_native_guard(guard, terminal=True)
+        parent.write_bytes(initial)
+
+    def test_full_observed_owner_runtime_sequence_replays_all_running_event_shapes(self):
+        # Structural fixture of the complete real running interval: initial
+        # yield, six waits, six reasoning outputs, seven metric envelopes, and
+        # one assistant commentary. No real native IDs or message text retained.
+        self.prepare(); approval = self.approval()
+        parent, argv = self.owner_launch(approval)
+        base_order = self.owner_order
+        progress = self.owner_progress()
+        events = [progress[0], self.token_count_event()]
+        for number in range(6):
+            events.extend(deepcopy(progress[1:3]))
+            if number == 1:
+                commentary = deepcopy(progress[3:5])
+                commentary[1]['metadata']['user_input_order'] = base_order + number * 2 + 1
+                events.extend(commentary)
+            wait = deepcopy(progress[5]); wait['payload']['call_id'] = f'wait-{number}'
+            wait['metadata']['user_input_order'] = base_order + number * 2 + 2
+            result = deepcopy(progress[6]); result['payload']['call_id'] = f'wait-{number}'
+            events.extend([wait, self.usage_event('author'), result, self.token_count_event()])
+        self.assertEqual(len(events), 40)
+        with module.native_operation(argv):
+            guard = module.capture_native_guard([approval])
+            for event in events: self.append_event(parent, event)
+            module.assert_native_guard(guard, terminal=True)
+            # A completed shell result carries new decision data. It is outside
+            # the running interval, and is deliberately not a progress event.
+            self.append_event(parent, {'type': 'event_msg', 'payload': {'type': 'item_completed',
+                'thread_id': 'author', 'turn_id': 'owner-turn', 'started_at_ms': 1, 'completed_at_ms': 2,
+                'item': {'type': 'CommandExecution', 'id': 'completed-command', 'status': 'completed', 'exit_code': 0}}})
+            with self.assertRaises(ValueError): module.assert_native_guard(guard, terminal=True)
+
 
 if __name__ == '__main__': unittest.main()

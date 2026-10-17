@@ -56,6 +56,8 @@ native作成callはCLIの正常終了まで、途中でyieldされた出力も�
 
 `classification`は`--prior <A directory> --prior <B directory> --candidate <候補JSON>`で全siblingの`questionType`・`isCalculationQuestion`とそれぞれの理由を固定します。集約レビューのmodel・effortはworkflow設定を使い、分類の実行profileは`--model`・`--reasoning-effort`で別に固定します。実native turnのprofile、作者との分離、異なるレビューsession、未解決指摘0件、全先行承認の撤回・入力変更を保存終了時にも確認します。候補が現在の25と異なる場合は差分を`remainingFieldDiffs`に残し、`stageCompleted=false`で正式保存へ戻します。この専用receiptは通常の作業版・checkpointへ変換せず、ほかの工程・独立評価・Firestore公開の成功も表しません。
 
+長時間のnative検証は、`native_operation_call()`が生成する正規wrapperと、CLIの実引数を照合して開始します。起動した親session・turn・tool callと、そのcallが返した待機cellを固定し、同じturnの進捗出力及び同じcellへの停止を伴わない空出力の待機だけを受け付けます。利用者・別agentの新しい入力、別tool、別turn、reviewerの追記・承認撤回、未知のruntime形式は引き続き停止理由です。固定prefixの改変・切詰めを検知し、操作中の重複読取りを省く場合も終了時には必ず全文を再検証します。この実行支援を有効にできるのは、明示したstage・deliveryの二CLIだけです。修正後は旧stage planを再利用せず、新しい入力hashで独立監査を取り直します。
+
 限定公開の実upload JSONでは、最上位の`writeFields`を既存uploaderへ渡します。各documentの`writeFields`がある場合、`QuestionPublisher`は全対象で同一の対応済みmaskだけを最上位へ結合し、空・欠落・異なるmask・未対応field、新規document、mask外の差分を拒否します。改善完了の検証でも、document内のmaskだけでは限定更新の証跡として受理しません。`explanationText`と`suggestedQuestionDetails`の限定更新は、最大3件・非空・`suggestedQuestions`との厳密な対応を検証し、書込み前に保存済みの質問一覧との一致も確認します。質問一覧自体は書き込みません。
 
 最上位の`expectedUpdateTimes`は、限定更新する全document IDと更新時刻を固定する任意契約です。キー重複、IDの過不足、日時の不正をdry-runでも拒否し、実行時は全対象の既存性とRFC3339 nano更新時刻をbatch開始前に確認します。値のfingerprintも指定されていれば同じsnapshotで検証し、読取り後の競合には既存`LastUpdateOption`を使います。新25経路はこの契約へ保存planの時刻を結び付ける必要があります。これらのuploader対応だけでは、25固有の全sibling検証、真正checkpoint・評価、checkerの検査件数証明、専用公開receiptと完了台帳のadapterは完成しません。

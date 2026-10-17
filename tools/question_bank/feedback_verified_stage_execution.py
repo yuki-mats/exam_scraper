@@ -9,10 +9,12 @@ from __future__ import annotations
 
 import argparse
 from copy import deepcopy
+from contextlib import contextmanager
 from contextvars import ContextVar
 from datetime import datetime
 from functools import wraps
 import json
+import re
 from pathlib import Path
 import shlex
 import sqlite3
@@ -37,6 +39,7 @@ FIELDS = ("questionType", "isCalculationQuestion")
 IMAGE_FIELDS = ("questionImageUrls", "questionImagePaths", "questionImageStorageUrls",
                 "originalQuestionChoiceImageUrls", "correctChoiceImageUrls", "correctChoiceImagePaths")
 _OPERATION_CONTEXT = ContextVar("verified_stage_operation_context", default=None)
+_CLI_OPERATION = ContextVar("verified_stage_cli_operation", default=None)
 
 
 def _operation(function):
@@ -52,6 +55,9 @@ def _operation(function):
             _OPERATION_CONTEXT.reset(token)
     return run
 
+
+# Shared only by the two explicitly allowlisted stage/delivery entry points.
+operation = _operation
 
 def _snapshot(path):
     return context_api._json_snapshot(path)
@@ -255,7 +261,7 @@ def _finish(output, contents, plan, *, allowed, required):
         if context_api._physical(output / name).read_bytes() != raw:
             raise ValueError("immutable stage output changed during native replay")
     _current(plan)
-    _assert_native_guard(guard)
+    _assert_native_guard(guard, terminal=True)
     for prior in plan["priorExecutions"]:
         _check_files(context_api._physical(prior["directory"]), allowed=FINAL_FILES, required=FINAL_FILES)
     _check_files(output, allowed=allowed, required=required)
@@ -334,10 +340,7 @@ def _read_plan(root, output, connection):
 
 
 def _scope(root, output, plan, refs):
-    command = " ".join(shlex.quote(s) for s in (sys.executable, "-m", "tools.question_bank.feedback_verified_stage_execution",
-                     "scope", "--repo-root", str(root), "--execution", str(output)))
-    call = '// @exec: {"yield_time_ms": 60000,"max_output_tokens":16000}\nlet r=await tools.exec_command(' + json.dumps({"cmd": command, "workdir": str(root), "max_output_tokens": 16000,
-            "yield_time_ms": 30000}, ensure_ascii=False) + ");let out=r.output;while(r.session_id){r=await tools.write_stdin({session_id:r.session_id,chars:\"\",yield_time_ms:1000,max_output_tokens:16000});out+=r.output;}if(r.exit_code!==0)throw new Error(\"stage scope creation failed\");text(out);\n"
+    call = native_operation_call(["scope", "--repo-root", str(root), "--execution", str(output)])
     return {"schemaVersion": SCOPE_SCHEMA, "action": "execute_current_01_readonly_phase",
             "stageId": plan["stageId"], "phase": plan["phase"], "planHash": plan["planHash"],
             "contextHash": plan["contextHash"], "identity": plan["identity"], "policy": plan["policy"],
@@ -354,6 +357,65 @@ def scope(root, output, *, connection):
     root = context_api._physical(root); output = context_api._private(root, output)
     plan, _, _, refs, _ = _read_plan(root, output, connection)
     return _scope(root, output, plan, refs)
+
+
+def native_operation_call(argv, *, module_name="tools.question_bank.feedback_verified_stage_execution"):
+    """Canonical native owner envelope: one exact CLI, no shell redirection/code.
+
+    This is an origin binding, not an approval. main binds its real argv; a
+    caller must execute this exact text to receive owner-only liveness support.
+    Library callers and reviewer journals retain the usage-only boundary.
+    """
+    if module_name not in {"tools.question_bank.feedback_verified_stage_execution",
+                           "tools.question_bank.feedback_verified_delivery"}:
+        raise ValueError("owner-operation module is outside the explicit allowlist")
+    if not argv or any(not isinstance(arg, str) or not arg for arg in argv):
+        raise ValueError("exact nonempty CLI argv required")
+    command = " ".join(shlex.quote(str(s)) for s in (sys.executable, "-m", module_name, *argv))
+    error = "stage scope creation failed" if argv[0] == "scope" else "stage operation failed"
+    return ('// @exec: {"yield_time_ms": 60000,"max_output_tokens":16000}\n'
+            'let r=await tools.exec_command(' + json.dumps({"cmd": command, "workdir": str(Path(_cli_root(argv))),
+                "max_output_tokens": 16000, "yield_time_ms": 30000}, ensure_ascii=False)
+            + ');let out=r.output;while(r.session_id){r=await tools.write_stdin({session_id:r.session_id,chars:"",yield_time_ms:1000,max_output_tokens:16000});out+=r.output;}if(r.exit_code!==0)throw new Error('
+            + json.dumps(error) + ');text(out);\n')
+
+
+@contextmanager
+def native_operation(argv, *, module_name="tools.question_bank.feedback_verified_stage_execution"):
+    """Bind a CLI's actual argv and a fresh non-persisted authority window.
+
+    Only the two explicit production entry points may opt into this protocol.
+    Their caller must supply actual parsed invocation arguments, not a guessed
+    earlier command. All native origin and latest-verdict checks remain real.
+    """
+    if _OPERATION_CONTEXT.get() is not None or _CLI_OPERATION.get() is not None:
+        raise ValueError("native owner operation must have one outermost scope")
+    request_token = _CLI_OPERATION.set(native_operation_call(list(argv), module_name=module_name))
+    cache_token = _OPERATION_CONTEXT.set({})
+    try:
+        yield
+    finally:
+        _OPERATION_CONTEXT.reset(cache_token)
+        _CLI_OPERATION.reset(request_token)
+
+
+def capture_native_guard(approvals):
+    return _capture_native_guard(approvals)
+
+
+def assert_native_guard(guard, *, terminal=False):
+    return _assert_native_guard(guard, terminal=terminal)
+
+
+def _cli_root(argv):
+    try:
+        return argv[argv.index("--repo-root") + 1]
+    except (ValueError, IndexError) as exc:
+        raise ValueError("native operation requires an explicit repository root") from exc
+
+
+def _signature(stat):
+    return (stat.st_dev, stat.st_ino, stat.st_size, stat.st_mtime_ns, stat.st_ctime_ns)
 
 
 def _native_journal_bytes(path, *, bootstrap=False):
@@ -373,8 +435,7 @@ def _native_journal_bytes(path, *, bootstrap=False):
         # Hold this short bootstrap window even for usage-only activity. Once
         # pinned, normal appends are proved against immutable prefix bytes.
         if bootstrap:
-            signature = lambda s: (s.st_dev, s.st_ino, s.st_size, s.st_mtime_ns, s.st_ctime_ns)
-            if signature(before) != signature(after) or len(raw) != before.st_size:
+            if _signature(before) != _signature(after) or len(raw) != before.st_size:
                 raise ValueError("native bootstrap changed during verification; fresh operation required")
             return before, after, raw
         observed_length = max(observed_length, after.st_size)
@@ -392,16 +453,18 @@ def _capture_native_guard(approvals):
     reviewer event between two replays cannot become an unnoticed new baseline.
     Nothing from this guard is persisted in plans or receipts.
     """
-    paths = set()
+    paths, author_paths, reviewer_paths = set(), set(), set()
     for approval in approvals:
         if not isinstance(approval, dict):
             raise ValueError("native approval object required")
-        for ref in approval.values():
+        for key, ref in approval.items():
             if isinstance(ref, dict) and "sessionPath" in ref:
                 path = context_api._physical(ref["sessionPath"])
                 if not path.is_relative_to(native.NATIVE_SESSION_ROOT):
                     raise ValueError("genuine native session path required")
                 paths.add(path)
+                if key == "authorization": author_paths.add(path)
+                if key.startswith("reviewer"): reviewer_paths.add(path)
         if not paths:
             raise ValueError("native session evidence required")
     result = {}
@@ -431,7 +494,11 @@ def _capture_native_guard(approvals):
         result[path] = {"device": before.st_dev, "inode": before.st_ino, "length": before.st_size,
                         "observedLength": max(len(raw), after.st_size),
                         "prefixSha256": context_api._hash(prefix), "sessionId": meta["payload"]["id"]}
-        _validate_native_suffix(raw[before.st_size:], result[path]["sessionId"])
+        request = _CLI_OPERATION.get()
+        result[path]["owner"] = (_operation_owner(prefix, result[path]["sessionId"], request)
+                                  if request and path in author_paths and path not in reviewer_paths else None)
+        result[path]["signature"] = _signature(after)
+        _validate_native_suffix(raw[before.st_size:], result[path]["sessionId"], result[path]["owner"])
         _assert_native_guard({path: result[path]})
         if cache is not None:
             cache[key] = result[path]
@@ -478,28 +545,232 @@ def _observational_runtime_event(event, session_id):
                and all(type(v) is int and v >= 0 for v in payload[k].values()) for k in usages)
 
 
-def _validate_native_suffix(suffix, session_id):
+def _event_payload(event, owner):
+    if (not isinstance(event, dict) or set(event) - {"type", "timestamp", "ordinal", "payload", "metadata"}
+            or not isinstance(event.get("payload"), dict)):
+        return None
+    if "ordinal" in event and (type(event["ordinal"]) is not int or event["ordinal"] < 0):
+        return None
+    if "timestamp" in event:
+        try: datetime.fromisoformat(event["timestamp"].replace("Z", "+00:00"))
+        except (ValueError, TypeError, AttributeError): return None
+    if "metadata" in event and not _transport_metadata(event, owner): return None
+    return event["payload"]
+
+
+def _transport_metadata(event, owner):
+    """Accept only observed owner-output transport schemas, never user input.
+
+    user_input_order is the native message ordering counter, despite its name.
+    It must not go backwards from the launch prefix. Retained-source identity
+    belongs to this assistant message, this turn and its completed revision.
+    """
+    meta, payload = event.get("metadata"), event.get("payload", {})
+    if (event.get("type") != "response_item" or not isinstance(meta, dict)
+            or meta.get("client_authored") is not False): return False
+    tag = payload.get("type")
+    if tag in {"custom_tool_call_output", "function_call_output"}:
+        return (set(meta) == {"client_authored", "fallback_token_limit_override"}
+                and type(meta["fallback_token_limit_override"]) is int
+                and meta["fallback_token_limit_override"] == 12000)
+    expected = {"client_authored", "user_input_order"}
+    if tag == "message": expected.add("retained_source")
+    if tag not in {"message", "function_call", "custom_tool_call"} or set(meta) != expected:
+        return False
+    order = meta["user_input_order"]
+    if type(order) is not int or order < max(0, owner["lastInputOrder"]): return False
+    if tag == "message":
+        source = meta["retained_source"]
+        if (not isinstance(source, dict) or set(source) != {"id", "revision", "complete"}
+                or source["complete"] is not True or not isinstance(source["id"], dict)
+                or set(source["id"]) != {"message_id", "turn_id", "role"}
+                or source["id"] != {"message_id": payload.get("id"), "turn_id": owner["turnId"], "role": "assistant"}
+                or not isinstance(source["id"]["message_id"], str) or not source["id"]["message_id"]
+                or not isinstance(source["revision"], str)
+                or re.fullmatch(r"retained_[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}", source["revision"]) is None):
+            return False
+    owner["lastInputOrder"] = order
+    return True
+
+
+def _metadata(payload, owner):
+    value = payload.get("internal_chat_message_metadata_passthrough")
+    return (isinstance(value, dict) and set(value) <= {"turn_id", "create_time", "content_item_kinds"}
+            and value.get("turn_id") == owner["turnId"]
+            and ("create_time" not in value or type(value["create_time"]) in (int, float))
+            and ("content_item_kinds" not in value or value["content_item_kinds"] == ["unknown"]))
+
+
+def _operation_owner(prefix, session_id, request):
+    """Find the actual launch in the initial immutable prefix, never an append."""
+    events = [json.loads(line) for line in prefix.splitlines()]
+    turn_id, found, last_order = None, None, -1
+    for number, event in enumerate(events):
+        payload = event.get("payload", {})
+        if event.get("type") == "turn_context":
+            next_turn = payload.get("turn_id")
+            if next_turn != turn_id: last_order = -1
+            turn_id = next_turn
+        meta = event.get("metadata", {})
+        if (isinstance(meta, dict) and type(meta.get("user_input_order")) is int
+                and meta["user_input_order"] >= 0
+                and payload.get("internal_chat_message_metadata_passthrough", {}).get("turn_id") == turn_id):
+            last_order = max(last_order, meta["user_input_order"])
+        if (event.get("type") == "response_item" and payload.get("type") == "custom_tool_call"
+                and payload.get("name") == "exec" and payload.get("input") == request):
+            metadata = payload.get("internal_chat_message_metadata_passthrough", {})
+            if (not turn_id or metadata.get("turn_id") != turn_id or not payload.get("call_id")
+                    or set(payload) - {"type", "id", "status", "name", "input", "call_id",
+                                      "internal_chat_message_metadata_passthrough"}):
+                raise ValueError("native owner operation launch identity required")
+            found = (number, {"sessionId": session_id, "turnId": turn_id,
+                             "launchCallId": payload["call_id"], "pendingCallId": payload["call_id"],
+                             "cellId": None, "usedCallIds": {payload["call_id"]}, "lastInputOrder": last_order})
+            if "metadata" in event and not _transport_metadata(event, found[1]):
+                raise ValueError("native owner launch transport identity required")
+    if found is None:
+        raise ValueError("canonical native owner operation launch required")
+    number, owner = found
+    # Input arriving after launch but before Python starts must not be absorbed.
+    for event in events[number + 1:]:
+        if not (_observational_runtime_event(event, session_id) or _owner_event(event, owner)):
+            raise ValueError("native session changed after owner launch: new decision input")
+    return owner
+
+
+def _token_count(payload):
+    """Exact observed numeric runtime schema, without conversational text."""
+    counters = {"input_tokens", "cached_input_tokens", "cache_write_input_tokens", "output_tokens",
+                "reasoning_output_tokens", "total_tokens"}
+    info, rates = payload.get("info"), payload.get("rate_limits")
+    if (set(payload) != {"type", "info", "rate_limits"} or not isinstance(info, dict)
+            or set(info) != {"total_token_usage", "last_token_usage", "model_context_window"}
+            or type(info["model_context_window"]) is not int or info["model_context_window"] <= 0
+            or not isinstance(rates, dict)
+            or set(rates) != {"limit_id", "limit_name", "primary", "secondary", "credits", "individual_limit",
+                              "spend_control_reached", "plan_type", "rate_limit_reached_type"}):
+        return False
+    for key in ("total_token_usage", "last_token_usage"):
+        if (not isinstance(info[key], dict) or set(info[key]) != counters
+                or any(type(v) is not int or v < 0 for v in info[key].values())): return False
+    for key in ("primary", "secondary"):
+        value = rates[key]
+        if value is not None and (not isinstance(value, dict)
+                or set(value) != {"used_percent", "window_minutes", "resets_at"}
+                or type(value["used_percent"]) not in (int, float) or not 0 <= value["used_percent"] <= 100
+                or any(type(value[k]) is not int or value[k] < 0 for k in ("window_minutes", "resets_at"))):
+            return False
+    credits = rates["credits"]
+    return (rates["limit_id"] == "codex" and rates["limit_name"] is None
+            and rates["individual_limit"] is None and rates["rate_limit_reached_type"] is None
+            and (rates["spend_control_reached"] is None or type(rates["spend_control_reached"]) is bool)
+            and rates["plan_type"] in {"pro", "plus", "free", "team", "enterprise", "business"}
+            and isinstance(credits, dict) and set(credits) == {"has_credits", "unlimited", "balance"}
+            and type(credits["has_credits"]) is bool and type(credits["unlimited"]) is bool
+            and (credits["balance"] is None or isinstance(credits["balance"], str)
+                 and re.fullmatch(r"[0-9]+(?:\.[0-9]+)?", credits["balance"]) is not None))
+
+
+def _owner_event(event, owner):
+    """Finite owner-only wait protocol; no other tool/output is observational."""
+    payload = _event_payload(event, owner)
+    if payload is None: return False
+    kind = event["type"]
+    if kind == "event_msg" and payload.get("type") == "token_count":
+        return _token_count(payload)
+    if kind == "event_msg" and payload.get("type") == "item_completed":
+        item = payload.get("item", {})
+        if (set(payload) != {"type", "thread_id", "turn_id", "item", "started_at_ms", "completed_at_ms"}
+                or payload["thread_id"] != owner["sessionId"] or payload["turn_id"] != owner["turnId"]
+                or any(type(payload[k]) is not int or payload[k] < 0 for k in ("started_at_ms", "completed_at_ms"))
+                or not isinstance(item, dict) or not isinstance(item.get("id"), str)):
+            return False
+        if item.get("type") == "Reasoning":
+            return (set(item) == {"type", "id", "summary_text", "raw_content"}
+                    and isinstance(item["summary_text"], list) and isinstance(item["raw_content"], list))
+        return (item.get("type") == "AgentMessage" and set(item) == {"type", "id", "content", "phase"}
+                and item["phase"] == "commentary" and _text_blocks(item["content"], "Text"))
+    if kind != "response_item" or not _metadata(payload, owner): return False
+    tag = payload.get("type")
+    common = {"type", "id", "internal_chat_message_metadata_passthrough"}
+    if tag == "reasoning":
+        return (set(payload) <= common | {"summary", "content", "encrypted_content"}
+                and isinstance(payload.get("summary"), list)
+                and ("encrypted_content" not in payload or isinstance(payload["encrypted_content"], str)))
+    if tag == "message":
+        return (set(payload) <= common | {"role", "phase", "content", "end_turn", "status"}
+                and payload.get("role") == "assistant" and payload.get("phase") == "commentary"
+                and ("status" not in payload or payload["status"] == "completed")
+                and _text_blocks(payload.get("content"), "output_text"))
+    if tag == "function_call":
+        if (set(payload) - common - {"name", "arguments", "call_id", "status"}
+                or payload.get("name") != "wait" or owner["cellId"] is None or owner["pendingCallId"] is not None):
+            return False
+        try: args = json.loads(payload["arguments"])
+        except (ValueError, TypeError, KeyError): return False
+        if (not isinstance(args, dict) or set(args) - {"cell_id", "yield_time_ms", "max_tokens", "terminate"}
+                or args.get("cell_id") != owner["cellId"] or args.get("terminate", False) is not False
+                or any(type(args[k]) is not int or args[k] < 0 for k in ("yield_time_ms", "max_tokens") if k in args)
+                or not isinstance(payload.get("call_id"), str) or not payload["call_id"]
+                or payload["call_id"] in owner["usedCallIds"]):
+            return False
+        owner["usedCallIds"].add(payload["call_id"])
+        owner["pendingCallId"] = payload["call_id"]
+        return True
+    if tag in {"custom_tool_call_output", "function_call_output"}:
+        if (set(payload) - common - {"call_id", "output"} or payload.get("call_id") != owner["pendingCallId"]
+                or owner["pendingCallId"] is None
+                or (tag == "custom_tool_call_output") != (payload["call_id"] == owner["launchCallId"])):
+            return False
+        if not isinstance(payload.get("output"), str): return False
+        match = re.fullmatch(r"Script running with cell ID ([0-9]+)\nWall time [0-9]+(?:\.[0-9]+)? seconds\nOutput:\n", payload.get("output", ""))
+        if not match or owner["cellId"] not in (None, match[1]): return False
+        owner["cellId"], owner["pendingCallId"] = match[1], None
+        return True
+    return False
+
+
+def _text_blocks(value, kind):
+    def valid(block):
+        if (not isinstance(block, dict) or block.get("type") != kind
+                or not isinstance(block.get("text"), str)):
+            return False
+        if set(block) == {"type", "text"}: return True
+        # The live assistant commentary envelope also carries two empty
+        # transport arrays. Nonempty annotations/logprobs are not interpreted
+        # here and therefore remain unsupported rather than becoming inputs.
+        return (kind == "output_text" and set(block) == {"type", "text", "annotations", "logprobs"}
+                and block["annotations"] == [] and block["logprobs"] == [])
+    return isinstance(value, list) and all(valid(block) for block in value)
+
+
+def _validate_native_suffix(suffix, session_id, owner=None):
     if suffix and not suffix.endswith(b"\n"):
         raise ValueError("complete LF-terminated native append required")
+    state = deepcopy(owner)
     for line in suffix.splitlines():
-        try:
-            event = json.loads(line)
+        try: event = json.loads(line)
         except (ValueError, UnicodeDecodeError) as exc:
             raise ValueError("complete native append JSON required") from exc
-        if not _observational_runtime_event(event, session_id):
+        if not (_observational_runtime_event(event, session_id) or state is not None and _owner_event(event, state)):
             raise ValueError("native session changed during verification: new decision input")
 
 
-def _assert_native_guard(guard):
+def _assert_native_guard(guard, *, terminal=False):
     for path, snapshot in guard.items():
+        context_api._physical(path)
+        signature = _signature(path.stat())
+        if not terminal and signature == snapshot.get("signature"):
+            continue
         before, after, raw = _native_journal_bytes(path)
         identity = (snapshot["device"], snapshot["inode"])
         if ((after.st_dev, after.st_ino) != identity
                 or min(before.st_size, len(raw)) < snapshot["observedLength"]
                 or context_api._hash(raw[:snapshot["length"]]) != snapshot["prefixSha256"]):
             raise ValueError("native session changed during verification")
-        _validate_native_suffix(raw[snapshot["length"]:], snapshot["sessionId"])
+        _validate_native_suffix(raw[snapshot["length"]:], snapshot["sessionId"], snapshot.get("owner"))
         snapshot["observedLength"] = max(snapshot["observedLength"], after.st_size)
+        snapshot["signature"] = _signature(after) if _signature(before) == _signature(after) else None
 
 
 def _native_binding(approval, scope_value, plan):
@@ -658,31 +929,33 @@ def main(argv=None):
     parser.add_argument("--approval", type=Path)
     parser.add_argument("--model")
     parser.add_argument("--reasoning-effort")
-    args = parser.parse_args(argv)
+    actual_argv = list(sys.argv[1:] if argv is None else argv)
+    args = parser.parse_args(actual_argv)
     if args.command == "prepare" and (args.context is None or args.phase is None):
         parser.error("prepare requires --context and --phase")
     if args.command == "record" and args.approval is None:
         parser.error("record requires --approval")
     if bool(args.model) != bool(args.reasoning_effort):
         parser.error("execution model and reasoning effort must be selected together")
-    connection = sqlite3.connect(context_api.saver.LEDGER.as_uri() + "?mode=ro", uri=True)
-    connection.row_factory = sqlite3.Row
-    try:
-        if args.command == "prepare":
-            candidate = _snapshot(args.candidate)[1] if args.candidate else None
-            value = prepare(args.repo_root, args.context, args.execution, connection=connection, phase=args.phase,
-                            candidate=candidate, priors=args.prior,
-                            execution_profile={"model": args.model, "reasoningEffort": args.reasoning_effort} if args.model else None)
-        elif args.command == "scope":
-            print(native.scope_marker(scope(args.repo_root, args.execution, connection=connection), creation=True))
-            return
-        elif args.command == "record":
-            value = record(args.repo_root, args.execution, _snapshot(args.approval)[1], connection=connection)
-        else:
-            value = inspect(args.repo_root, args.execution, connection=connection)
-        print(json.dumps(value, ensure_ascii=False, sort_keys=True))
-    finally:
-        connection.close()
+    with native_operation(actual_argv):
+        connection = sqlite3.connect(context_api.saver.LEDGER.as_uri() + "?mode=ro", uri=True)
+        connection.row_factory = sqlite3.Row
+        try:
+            if args.command == "prepare":
+                candidate = _snapshot(args.candidate)[1] if args.candidate else None
+                value = prepare(args.repo_root, args.context, args.execution, connection=connection, phase=args.phase,
+                                candidate=candidate, priors=args.prior,
+                                execution_profile={"model": args.model, "reasoningEffort": args.reasoning_effort} if args.model else None)
+            elif args.command == "scope":
+                print(native.scope_marker(scope(args.repo_root, args.execution, connection=connection), creation=True))
+                return
+            elif args.command == "record":
+                value = record(args.repo_root, args.execution, _snapshot(args.approval)[1], connection=connection)
+            else:
+                value = inspect(args.repo_root, args.execution, connection=connection)
+            print(json.dumps(value, ensure_ascii=False, sort_keys=True))
+        finally:
+            connection.close()
 
 
 if __name__ == "__main__":
