@@ -37,7 +37,8 @@ DIFF_FIELDS = frozenset({"explanationText", "suggestedQuestions", "suggestedQues
 FLAGS = {key: False for key in ("machineReady", "publicationReady", "checkpointRecorded",
     "evaluationPerformed", "formalPatchSaved", "FirestoreWritten", "officialMappingApproved")}
 GATES = ["真正に独立した集約分解レビューA/B（候補境界の生成はレビュー完了ではない）",
-    "全siblingのsource label・unique key・原文span・live ID対応の独立mapping監査",
+    "全siblingのsource label・原文span・statement hash・live ID対応の独立mapping監査",
+    "真正A/B後のcanonical derived_source_unique_keys materialize正式adapter（未対応）",
     "専用adapterによる正式保存と保存receipt検証", "全現行MAJOR工程と真正checkpoint",
     "出題当時と現行法の法令監査", "真正に独立した評価", "必須checker・quality gate・限定upload dry-runの検査",
     "全sibling read-setと実変更write-setを守る限定公開・CAS・対象内外のlive readback"]
@@ -164,13 +165,15 @@ def _request(root, path, files):
     if not isinstance(request["mappings"], list) or not request["mappings"]:
         raise ValueError("explicit full sibling mapping required")
     for mapping in request["mappings"]:
-        _object(mapping, {"label", "uniqueKey", "span", "questionId"})
+        _object(mapping, {"label", "sourceStatementSha256", "span", "questionId"})
         _object(mapping["span"], {"start", "end"})
-        for key in ("label", "uniqueKey", "questionId"):
+        for key in ("label", "questionId"):
             _text(mapping[key])
+        if not re.fullmatch(r"[a-f0-9]{64}", str(mapping["sourceStatementSha256"])):
+            raise ValueError("exact source statement bytes SHA256 required")
         if any(type(mapping["span"][k]) is not int for k in ("start", "end")):
             raise ValueError("integer source spans required")
-    for key in ("label", "uniqueKey", "questionId"):
+    for key in ("label", "questionId"):
         if len({m[key] for m in request["mappings"]}) != len(request["mappings"]):
             raise ValueError("duplicate sibling mapping")
     return request
@@ -229,12 +232,11 @@ def _source(root, request, files):
     if {tuple(m["span"][k] for k in ("start", "end")) for m in mappings} != {
             (s["start"], s["end"]) for s in chosen[0]["spans"]} or len(mappings) != len(chosen[0]["spans"]):
         raise ValueError("all source spans must be explicitly mapped once")
-    keys = record.get("sourceUniqueKeys")
-    if not isinstance(keys, list) or len(set(keys)) != len(keys) or set(keys) != {m["uniqueKey"] for m in mappings}:
-        raise ValueError("source unique key coverage differs")
     for mapping in mappings:
         span = mapping["span"]
         text = record["questionBodyText"][span["start"]:span["end"]]
+        if _hash(text.encode("utf-8")) != mapping["sourceStatementSha256"]:
+            raise ValueError("source statement span bytes hash differs")
         if not text.startswith(mapping["label"]) or not text[len(mapping["label"]):].startswith((" ", "\u3000", "\t")):
             raise ValueError("source label/span disagree")
     official = request["officialPdf"]
@@ -358,8 +360,11 @@ def _build(root, request_path, connection, snapshots, observation):
         "tools/question_bank/feedback_task_requirements.py")]
     for path in reader_dependencies(root, initial):
         _read(root, path, files)
+    # These source keys belong to aggregate answer choices, never statements.
+    # Canonical statement keys require the still-missing post-A/B save adapter.
     context = {"schemaVersion": SCHEMA, "request": request, "requestPath": str(request_path.relative_to(root)), "inputFiles": files, "taskRequirement": requirement,
-        "sourceRecord": record, "statementCandidates": candidates, "mappings": mappings, "officialPdf": request["officialPdf"],
+        "sourceRecord": record, "sourceChoiceUniqueKeys": deepcopy(record.get("sourceUniqueKeys")),
+        "sourceChoiceUniqueKeysAreStatementKeys": False, "statementCandidates": candidates, "mappings": mappings, "officialPdf": request["officialPdf"],
         "sourceCorrectChoiceVectorTrusted": False, "officialAnswerTransfersToTf": False,
         "independentMappingReviewRequired": True, "observation": observation,
         "readFields": mask, "readSet": [snapshots[qid] for qid in sorted(ids)],
@@ -373,6 +378,7 @@ def _build(root, request_path, connection, snapshots, observation):
 def _outputs(context):
     review = {"schemaVersion": REVIEW, "contextSha256": _hash(_bytes(context)),
         "taskRequirement": context["taskRequirement"], "sourceRecord": context["sourceRecord"],
+        "sourceChoiceUniqueKeys": context["sourceChoiceUniqueKeys"], "sourceChoiceUniqueKeysAreStatementKeys": False,
         "officialPdf": context["officialPdf"], "statementCandidates": context["statementCandidates"],
         "mappings": context["mappings"], "readSet": context["readSet"], "writeSet": context["writeSet"],
         "remainingGates": GATES, "independentMappingReviewRequired": True, **FLAGS}
@@ -394,6 +400,9 @@ def inspect(root, destination, *, connection):
     stored = {name: _read(root, destination / name, {}, private=True)
         for name in ("context.json", "review-input.json", "receipt.json")}
     context = _json(stored["context.json"])
+    # Verify the saved implementation fingerprint before interpreting its request.
+    # A context made by an older mapping contract cannot survive a code revision.
+    _unchanged(root, context["inputFiles"])
     request_path = _inside(root, root / context["requestPath"], private=True)
     if context["requestPath"] not in context["inputFiles"]:
         raise ValueError("fixed request input required")

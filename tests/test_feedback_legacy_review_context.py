@@ -50,7 +50,7 @@ class LegacyReviewContextTest(unittest.TestCase):
             "questionLabel": "問33", "examYear": 2023, "choiceTextList": ["一つ", "二つ", "三つ", "四つ"],
             "correctChoiceText": ["正しい"] * 4, "canonical_question_key": "qualification:2023:q033",
             "source_question_id": "qualification:source:33", "original_question_id": "original-source",
-            "public_question_id": "original-source", "sourceUniqueKeys": [f"unique-{label}" for label in "アイウエ"]}
+            "public_question_id": "original-source", "sourceUniqueKeys": [f"choice-count-{number}" for number in (1, 2, 3, 4)]}
         self.source_path = self.root / "output/qualification/questions_json/group/00_source/source.json"
         source_ref = self.ref(self.source_path, {"question_bodies": [self.record]})
         self.preservation()
@@ -61,7 +61,9 @@ class LegacyReviewContextTest(unittest.TestCase):
         self.snapshots = {}
         for label, qid, span in zip("アイウエ", self.ids, chosen["spans"]):
             offsets = {k: span[k] for k in ("start", "end")}
-            self.mappings.append(dict(label=label, uniqueKey=f"unique-{label}", span=offsets, questionId=qid))
+            exact_span = self.record["questionBodyText"][span["start"]:span["end"]]
+            self.mappings.append(dict(label=label, sourceStatementSha256=hashlib.sha256(exact_span.encode("utf-8")).hexdigest(),
+                                      span=offsets, questionId=qid))
             statement = self.record["questionBodyText"][span["start"]:span["end"]][1:].lstrip()
             if label == "エ":
                 statement = "承認決議を議決し、承諾。"
@@ -136,6 +138,14 @@ class LegacyReviewContextTest(unittest.TestCase):
         self.assertEqual(list(self.connection.iterdump()), ledger_before)
         context = json.loads((self.output / "context.json").read_bytes())
         self.assertEqual(context["sourceRecord"], self.record)
+        self.assertEqual(context["sourceChoiceUniqueKeys"], self.record["sourceUniqueKeys"])
+        self.assertFalse(context["sourceChoiceUniqueKeysAreStatementKeys"])
+        review = json.loads((self.output / "review-input.json").read_bytes())
+        self.assertEqual(review["sourceChoiceUniqueKeys"], self.record["sourceUniqueKeys"])
+        self.assertFalse(review["sourceChoiceUniqueKeysAreStatementKeys"])
+        for mapping in context["mappings"]:
+            self.assertEqual(mapping["sourceStatementSha256"], hashlib.sha256(mapping["sourceSpanText"].encode("utf-8")).hexdigest())
+            self.assertNotIn("uniqueKey", mapping)
         self.assertFalse(context["sourceCorrectChoiceVectorTrusted"])
         self.assertFalse(context["officialAnswerTransfersToTf"])
         self.assertEqual(context["observation"]["reader"], "injected-test-reader")
@@ -186,19 +196,68 @@ class LegacyReviewContextTest(unittest.TestCase):
             self.prepare()
 
     def test_missing_duplicate_and_mixed_sibling_mapping_are_rejected(self):
-        for mode in ("missing", "id", "label", "uniqueKey", "span", "foreign-key"):
+        for mode in ("missing", "id", "label", "sourceStatementSha256", "span", "foreign-hash"):
             with self.subTest(mode=mode):
                 changed = deepcopy(self.request)
                 mappings = changed["mappings"]
                 if mode == "missing": mappings.pop()
-                elif mode in ("id", "label", "uniqueKey"):
+                elif mode in ("id", "label", "sourceStatementSha256"):
                     key = "questionId" if mode == "id" else mode
                     mappings[1][key] = mappings[0][key]
                 elif mode == "span": mappings[1]["span"] = mappings[0]["span"]
-                else: mappings[0]["uniqueKey"] = "other-source"
+                else: mappings[0]["sourceStatementSha256"] = "0" * 64
                 self.ref(self.request_path, changed)
                 with self.assertRaises(ValueError): self.prepare()
         self.assertEqual(self.read_calls, [])
+
+    def test_old_choice_keys_are_rejected_as_statement_mapping_authority(self):
+        for mode in ("extra-old-key", "replace-statement-hash", "old-key-as-hash"):
+            with self.subTest(mode=mode):
+                changed = deepcopy(self.request)
+                mapping = changed["mappings"][0]
+                if mode == "old-key-as-hash":
+                    mapping["sourceStatementSha256"] = self.record["sourceUniqueKeys"][0]
+                else:
+                    mapping["uniqueKey"] = self.record["sourceUniqueKeys"][0]
+                    if mode == "replace-statement-hash": del mapping["sourceStatementSha256"]
+                self.ref(self.request_path, changed)
+                with self.assertRaises(ValueError): self.prepare()
+        self.assertEqual(self.read_calls, [])
+
+    def test_span_hash_covers_label_and_exact_unmodified_utf8_bytes(self):
+        for mode in ("label-mix", "hash-mix", "label-excluded", "byte-drift", "duplicate-span"):
+            with self.subTest(mode=mode):
+                changed = deepcopy(self.request)
+                mapping = changed["mappings"][0]
+                text = self.record["questionBodyText"][mapping["span"]["start"]:mapping["span"]["end"]]
+                if mode == "label-mix":
+                    mapping["label"], changed["mappings"][1]["label"] = changed["mappings"][1]["label"], mapping["label"]
+                elif mode == "hash-mix": mapping["sourceStatementSha256"] = changed["mappings"][1]["sourceStatementSha256"]
+                elif mode == "label-excluded": mapping["sourceStatementSha256"] = hashlib.sha256(text[1:].lstrip().encode("utf-8")).hexdigest()
+                elif mode == "byte-drift": mapping["sourceStatementSha256"] = hashlib.sha256((text + " ").encode("utf-8")).hexdigest()
+                else:
+                    changed["mappings"][1]["span"] = deepcopy(mapping["span"])
+                    changed["mappings"][1]["sourceStatementSha256"] = mapping["sourceStatementSha256"]
+                self.ref(self.request_path, changed)
+                with self.assertRaises(ValueError): self.prepare()
+        self.assertEqual(self.read_calls, [])
+
+    def test_choice_unique_keys_are_preserved_as_metadata_without_statement_join(self):
+        # Different choice metadata must not change the explicit statement binding.
+        self.record["sourceUniqueKeys"] = ["count-choice-a", "count-choice-b", "count-choice-c", "count-choice-d"]
+        source_ref = self.ref(self.source_path, {"question_bodies": [self.record]})
+        self.preservation()
+        self.request["source"].update(source_ref)
+        self.candidate["sourceBinding"]["source"] = source_ref
+        self.save_candidate()
+        before = self.source_path.read_bytes()
+        self.prepare()
+        context = json.loads((self.output / "context.json").read_bytes())
+        self.assertEqual(context["sourceRecord"]["sourceUniqueKeys"], self.record["sourceUniqueKeys"])
+        self.assertEqual(context["sourceChoiceUniqueKeys"], self.record["sourceUniqueKeys"])
+        self.assertEqual(self.source_path.read_bytes(), before)
+        self.assertEqual([m["questionId"] for m in context["mappings"]], self.ids)
+        self.assertTrue(any("derived_source_unique_keys" in gate for gate in context["remainingGates"]))
 
     def test_cross_source_identity_candidate_and_pdf_locator_are_rejected(self):
         mutations = [("source", "sourceQuestionId", "other"), ("source", "canonicalQuestionKey", "other"),
@@ -216,6 +275,13 @@ class LegacyReviewContextTest(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "manifest"):
             self.prepare()
         self.assertEqual(self.read_calls, [])
+
+    def test_previous_implementation_context_fails_dependency_check_before_reinterpretation(self):
+        self.prepare()
+        implementation = self.root / "tools/question_bank/feedback_legacy_review_context.py"
+        implementation.write_bytes(implementation.read_bytes() + b"\n# mapping-contract revision\n")
+        with self.assertRaisesRegex(ValueError, "fixed input/implementation drift"):
+            self.inspect()
 
     def test_source_candidate_pdf_and_dependency_drift_fail_inspect(self):
         self.prepare()

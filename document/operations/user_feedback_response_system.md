@@ -48,7 +48,7 @@ native作成callはCLIの正常終了まで、途中でyieldされた出力も�
 
 複数task/年度/原問をまたぐ保存、ガス25以外のsource-bound改善保存は未対応です。新receiptを既存immutable unitのv2 receiptへ偽装せず、対応実装と独立監査を済ませるまで該当工程を保留します。全5肢の公式対応が確定した25の専用delivery経路は以下の条件で別に扱います。
 
-2026-10-19、集約された`00_source`と公開済みの旧形式TFを照合する、読取専用の`tools.question_bank.feedback_legacy_review_context`を追加しました。`--repo-root <repo> --db <既存台帳> prepare --request <private request> --output <新規private directory>`で、保全manifestと一致する原本、完全な`SourceIdentityBinding`、公式PDF、同一taskの候補・全siblingの修正前値、台帳要件、実装依存を固定します。requestは`feedback-legacy-review-context-request/v1`で、sourceの記号・unique key・原文spanと既存live IDを一件ずつ明示します。配列位置からlive IDを作らず、原本と公開本文の違いも保存します。原問の「二つ」等の選択番号とsourceの正誤vectorをTFの正誤へ転用しません。
+2026-10-19、集約された`00_source`と公開済みの旧形式TFを照合する、読取専用の`tools.question_bank.feedback_legacy_review_context`を追加しました。`--repo-root <repo> --db <既存台帳> prepare --request <private request> --output <新規private directory>`で、保全manifestと一致する原本、完全な`SourceIdentityBinding`、公式PDF、同一taskの候補・全siblingの修正前値、台帳要件、実装依存を固定します。requestは`feedback-legacy-review-context-request/v1`で、sourceの記号・原文span・その全文の`sourceStatementSha256`と既存live IDを一件ずつ明示します。配列位置からlive IDを作らず、原本と公開本文の違いも保存します。原問の「二つ」等の選択番号とsourceの正誤vectorをTFの正誤へ転用しません。旧`sourceUniqueKeys`も個数回答の選択肢に由来するmetadataとして`sourceChoiceUniqueKeys`へ保持し、ア〜エの記述用keyとは認証しません。正式な記述用keyは、真正な分解レビューの後に正規の集約分解処理で生成する別工程です。
 
 `prepare`は全siblingの最新masked読取・所属集合・exact更新時刻を確認し、全件の`readSet`と実変更だけの`writeSet`を分けて、私有実行領域に`context.json`・`review-input.json`・`receipt.json`をexclusive保存します。`inspect --output <directory>`は固定入力・台帳要件・出力を再検証しますが、新しいFirestore観測は行いません。同一再送の`prepare`は再度fresh読取を行い、同じ入力・観測値・出力bytesだけを受理します。symlink・領域外path・不完全な保存・第三値・presenceや時刻の競合は停止し、部分出力を埋めて成功にしません。
 
