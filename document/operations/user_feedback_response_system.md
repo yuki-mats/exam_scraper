@@ -2,7 +2,7 @@
 
 状態: 実装中。個別受付台帳と読み取り専用の日次照合を実装済み。日次heartbeatが既存CLIを使って調査・独立監査・公開を進める。専用の常駐GUIとスマホ承認画面は未実装。
 
-最終更新: 2026-10-17
+最終更新: 2026-10-19
 
 この文書は、Repasoから届くユーザーフィードバックの調査、改善、独立監査、patch保存、Firestore公開を扱う運用正本です。公式問題の誤り報告を修正レーンとし、AI解説への利用者質問から学習上のニーズを見つける改善レーンを置きます。将来はアプリ不具合、UI改善、要望も追加します。
 
@@ -47,6 +47,12 @@ native作成callはCLIの正常終了まで、途中でyieldされた出力も�
 この記録は`formally_saved`だけを表します。maintenance登録自体は変更できない`open`の受付根拠として保持し、summaryの`verifiedFormalSavesRecorded`で保存証跡を別に数えます。改善taskを完了へ移したり、Firestore公開・readbackを証明したりする経路ではありません。
 
 複数task/年度/原問をまたぐ保存、ガス25以外のsource-bound改善保存は未対応です。新receiptを既存immutable unitのv2 receiptへ偽装せず、対応実装と独立監査を済ませるまで該当工程を保留します。全5肢の公式対応が確定した25の専用delivery経路は以下の条件で別に扱います。
+
+2026-10-19、集約された`00_source`と公開済みの旧形式TFを照合する、読取専用の`tools.question_bank.feedback_legacy_review_context`を追加しました。`--repo-root <repo> --db <既存台帳> prepare --request <private request> --output <新規private directory>`で、保全manifestと一致する原本、完全な`SourceIdentityBinding`、公式PDF、同一taskの候補・全siblingの修正前値、台帳要件、実装依存を固定します。requestは`feedback-legacy-review-context-request/v1`で、sourceの記号・unique key・原文spanと既存live IDを一件ずつ明示します。配列位置からlive IDを作らず、原本と公開本文の違いも保存します。原問の「二つ」等の選択番号とsourceの正誤vectorをTFの正誤へ転用しません。
+
+`prepare`は全siblingの最新masked読取・所属集合・exact更新時刻を確認し、全件の`readSet`と実変更だけの`writeSet`を分けて、私有実行領域に`context.json`・`review-input.json`・`receipt.json`をexclusive保存します。`inspect --output <directory>`は固定入力・台帳要件・出力を再検証しますが、新しいFirestore観測は行いません。同一再送の`prepare`は再度fresh読取を行い、同じ入力・観測値・出力bytesだけを受理します。symlink・領域外path・不完全な保存・第三値・presenceや時刻の競合は停止し、部分出力を埋めて成功にしません。
+
+このcontextは独立した分解A/Bや対応表監査を完了しません。`officialMappingApproved`・`machineReady`・`publicationReady`・`checkpointRecorded`・`evaluationPerformed`・`formalPatchSaved`・`FirestoreWritten`はすべてfalseです。旧形式向けの正式保存、全工程、独立評価、checker、全siblingの読取条件を守る限定公開・readbackのadapterは引き続き未対応として追跡し、この読取処理の追加だけで公開可能とは扱いません。
 
 2026-10-16、`python -m tools.question_bank.feedback_verified_review_context prepare --repo-root <repo> --plan <保存plan> --output <新規private directory> [--official-order <固定対応表>]`で、真正な保存receiptと現在の25を読み取り専用の評価入力へ結ぶ経路を追加しました。専用identityは25のpath/hash・公式index/PDF・原問と全sibling ID・現在policyを保持し、`00_source`の参照を作りません。各fieldはIDで結合します。公式順は、保存時native最終承認が明示したIDと肢labelに一致する`feedback-verified-official-order/v1`だけを受け付け、配列順・既存choiceIndex・OCRから推定しません。対応表がなければ公式順は未解決として保留します。既存の法令metadata内のindexや監査状態を、現在の工程完了記録へ読み替えません。
 
