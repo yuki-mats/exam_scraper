@@ -12934,394 +12934,14 @@ class QualificationRunCoordinator:
                 },
             }
 
-        def spec_requires_retry_model(
-            spec: Mapping[str, Any],
-            stage_id: str,
-        ) -> bool:
-            stage = spec.get("queueStage") or {}
-            return bool(stage.get("retryModelRequired")) or any(
-                isinstance(attempt, Mapping)
-                and str(attempt.get("status") or "")
-                in {"failed", "blocked", "interrupted"}
-                for attempt in stage.get("validationAttempts") or []
-            )
-
         def prepare_batch(
-            specs: list[Mapping[str, Any]],
-            phase: Mapping[str, Any],
-            phase_prompt: str,
-            parent_snapshot: Mapping[str, Any],
+            specs: list[Mapping[str, Any]], phase: Mapping[str, Any],
+            phase_prompt: str, parent_snapshot: Mapping[str, Any],
         ) -> dict[str, Any]:
-            if len(specs) != 1:
-                raise QualificationRunError(
-                    "候補生成は一問一つのmodel turnで実行してください。"
-                )
-            single_spec = specs[0]
-            stage_id = str(phase["id"])
-            retry_flags = {
-                spec_requires_retry_model(spec, stage_id) for spec in specs
-            }
-            if len(retry_flags) != 1:
-                raise QualificationRunError(
-                    "初回問題と再試行問題を同じmodel turnへ混在できません。"
-                )
-            retrying = retry_flags.pop()
-            catalog_loader = getattr(self.workflow, "catalog", None)
-            catalog = catalog_loader(qualification) if callable(catalog_loader) else {}
-            definition = next(
-                (
-                    value for value in catalog.get("stages") or []
-                    if isinstance(value, Mapping) and str(value.get("id") or "") == stage_id
-                ),
-                {},
+            return self._prepare_question_candidate_attempt(
+                qualification, run_id, specs, phase, phase_prompt, parent_snapshot,
+                parent=parent, emit=emit,
             )
-            agent_policy = dict(definition.get("agentPolicy") or {})
-            candidate_role = "candidate_retry" if retrying else "candidate_initial"
-            candidate_policy = dict(agent_policy.get(candidate_role) or {})
-            requested_model = str(
-                candidate_policy.get("model")
-                or (QUESTION_MAINTENANCE_RETRY_MODEL if retrying else QUESTION_MAINTENANCE_MODEL)
-            )
-            requested_effort = str(
-                candidate_policy.get("reasoningEffort") or TURN_REASONING_EFFORT
-            )
-            queue_stage = single_spec.get("queueStage") or {}
-            validation_attempts = [
-                dict(value)
-                for value in queue_stage.get("validationAttempts") or []
-                if isinstance(value, Mapping)
-            ]
-            profile_snapshot = parent_snapshot.get("llmProfile")
-            profile_name = (
-                str(profile_snapshot.get("name") or "codex_only")
-                if isinstance(profile_snapshot, Mapping)
-                else "codex_only"
-            )
-            route_resolver = getattr(
-                self.app_server,
-                "resolve_maintenance_attempt",
-                None,
-            )
-            attempt_route = (
-                route_resolver(
-                    profile_name,
-                    validation_attempts,
-                    workflow_model=requested_model,
-                )
-                if callable(route_resolver)
-                else None
-            )
-            route_metadata = (
-                attempt_route.as_mapping()
-                if isinstance(attempt_route, MaintenanceAttemptRoute)
-                else {
-                    "profileName": profile_name,
-                    "profileFingerprint": str(
-                        (profile_snapshot or {}).get("fingerprint") or ""
-                    ),
-                    "attemptMode": "primary" if not retrying else "retry",
-                    "backend": "codex_app_server",
-                    "backendKind": "codex_app_server",
-                    "requestedModel": requested_model,
-                    "fallbackUsed": False,
-                    "localSuccess": False,
-                }
-            )
-            requested_model = str(route_metadata["requestedModel"])
-            batch_plan, target = self._question_plan_for_spec(
-                single_spec,
-                parent_run_id=run_id,
-            )
-            targets = [target]
-            batch_plan.update(
-                requestedModel=requested_model,
-                requestedReasoningEffort=requested_effort,
-                retryModelFallback=retrying,
-                modelAttempt=copy.deepcopy(route_metadata),
-                agentPolicy=agent_policy,
-                speedMode=normalize_speed_mode(
-                    parent.get("speedMode") or STANDARD_SPEED_MODE
-                ),
-                requestedServiceTier=parent.get("requestedServiceTier"),
-            )
-            batch_question_ids = [
-                str(target.get("id") or target.get("uiQuestionId") or "")
-                for target in targets
-            ]
-            prompt_from_plan = getattr(self.workflow, "prompt_from_plan", None)
-            if callable(prompt_from_plan):
-                batch_stage_prompt = prompt_from_plan(batch_plan)["prompt"]
-            else:
-                batch_stage_prompt = self.workflow.prompt(
-                    qualification,
-                    stage_id,
-                    str(
-                        batch_plan.get("mode")
-                        or parent.get("mode")
-                        or "remaining"
-                    ),
-                    list_group_ids=list(
-                        batch_plan.get("scopeListGroupIds") or []
-                    ),
-                    update_target_ids=list(
-                        batch_plan.get("selectedUpdateTargetIds") or []
-                    ),
-                    question_ids=batch_question_ids,
-                )["prompt"]
-            feedback_by_question: dict[str, list[Mapping[str, Any]]] = {}
-            for target in targets:
-                question_id = str(target.get("id") or target.get("uiQuestionId") or "")
-                current = self._queue_stage(
-                    parent_snapshot,
-                    question_id,
-                    stage_id,
-                ) or {}
-                prior_feedback = [
-                    dict(value)
-                    for value in current.get("priorValidationFeedback") or []
-                    if isinstance(value, Mapping)
-                ]
-                current_feedback = [
-                    dict(value["feedback"])
-                    for value in current.get("validationAttempts") or []
-                    if isinstance(value, Mapping)
-                    and isinstance(value.get("feedback"), Mapping)
-                ]
-                feedback_by_question[question_id] = [
-                    *prior_feedback,
-                    *current_feedback,
-                ]
-            records_by_question = {
-                str(spec["target"].get("id") or spec["target"].get("uiQuestionId") or ""):
-                copy.deepcopy(dict(spec["candidateRecord"]))
-                for spec in specs
-            }
-            originalization_source_by_question = {
-                str(spec["target"].get("id") or spec["target"].get("uiQuestionId") or ""):
-                copy.deepcopy(dict(spec["sourceRecord"]))
-                for spec in specs
-                if isinstance(spec.get("sourceRecord"), Mapping)
-                and stage_id in {"originalize", "correct_choice", "explanation"}
-            }
-            source_answer_evidence_by_question = {
-                question_id: evidence
-                for spec in specs
-                if isinstance(spec.get("sourceRecord"), Mapping)
-                for question_id in [
-                    str(
-                        spec["target"].get("id")
-                        or spec["target"].get("uiQuestionId")
-                        or ""
-                    )
-                ]
-                for evidence in [
-                    _trusted_source_answer_evidence(
-                        spec["sourceRecord"],
-                        spec["target"],
-                        spec["candidateRecord"],
-                        spec.get("questionIssueCorrectionEvidence") or (),
-                    )
-                ]
-                if stage_id == "correct_choice" and evidence is not None
-            }
-            candidate_targets_by_question = {
-                str(spec["target"].get("id") or spec["target"].get("uiQuestionId") or ""):
-                tuple(spec["candidateTargets"])
-                for spec in specs
-            }
-            list_group_id_by_question = {
-                str(spec["target"].get("id") or spec["target"].get("uiQuestionId") or ""):
-                str(spec["target"].get("listGroupId") or "")
-                for spec in specs
-            }
-            question_issue_evidence_by_question = {
-                str(spec["target"].get("id") or spec["target"].get("uiQuestionId") or ""):
-                tuple(
-                    copy.deepcopy(
-                        list(spec.get("questionIssueCorrectionEvidence") or ())
-                    )
-                )
-                for spec in specs
-                if spec.get("questionIssueCorrectionEvidence")
-            }
-            primary_law_evidence_by_question = (
-                {
-                    question_id: self.primary_law_evidence.resolve(
-                        record,
-                        current_as_of=str(
-                            parent_snapshot.get("startedAt") or _now()
-                        )[:10],
-                        qualification=qualification,
-                        list_group_id=list_group_id_by_question.get(
-                            question_id,
-                            "",
-                        ),
-                    )
-                    for question_id, record in records_by_question.items()
-                }
-                if stage_id in {"law_context", "explanation", "law_audit"}
-                else {}
-            )
-            original_aggregate_evidence = (
-                _aggregate_downstream_source_evidence(
-                    self.repo_root,
-                    qualification,
-                    batch_plan,
-                    targets,
-                    records_by_question,
-                )
-                if stage_id in {"question_type", "question_intent", "correct_choice", "law_context", "explanation", "law_audit"}
-                else {}
-            )
-            canonical_guidance = _canonical_document_guidance(
-                self.repo_root,
-                batch_plan.get("canonicalDocs") or [],
-            )
-            batch_prompt = _structured_candidate_prompt(
-                batch_stage_prompt,
-                targets,
-                canonical_guidance=canonical_guidance,
-                stage_id=stage_id,
-                records_by_question=records_by_question,
-                candidate_targets_by_question=candidate_targets_by_question,
-                feedback_by_question=feedback_by_question,
-                stage_context=_structured_candidate_stage_context(
-                    self.repo_root,
-                    qualification,
-                    stage_id,
-                ),
-                original_aggregate_evidence_by_question=(
-                    original_aggregate_evidence
-                ),
-                originalization_source_by_question=(
-                    originalization_source_by_question
-                ),
-                question_issue_evidence_by_question=(
-                    question_issue_evidence_by_question
-                ),
-                source_answer_evidence_by_question=(
-                    source_answer_evidence_by_question
-                ),
-                primary_law_evidence_by_question=(
-                    primary_law_evidence_by_question
-                ),
-                current_record_fields=(
-                    (batch_plan.get("readFieldsByStage") or {}).get(stage_id)
-                    if isinstance(batch_plan.get("readFieldsByStage"), Mapping)
-                    else None
-                ),
-            )
-            child = self.store.create_question_attempt(
-                qualification,
-                run_id,
-                batch_question_ids[0],
-                stage_id,
-                batch_plan,
-                batch_prompt,
-            )
-            child_id = str(child["runId"])
-            input_fingerprint_value = str(
-                queue_stage.get("inputFingerprint") or ""
-            )
-            projected_input_hash = str(
-                (
-                    single_spec.get("projectionUpdate") or {}
-                ).get("changes", {}).get("projectedInputHash")
-                or ""
-            )
-            reused_from_attempt_id = ""
-            reused_reason = ""
-            latest_attempt = (
-                validation_attempts[-1] if validation_attempts else {}
-            )
-            latest_feedback = latest_attempt.get("feedback")
-            latest_issue_codes = {
-                str(issue.get("code") or "")
-                for issue in (
-                    latest_feedback.get("issues") or []
-                    if isinstance(latest_feedback, Mapping)
-                    else []
-                )
-                if isinstance(issue, Mapping)
-            }
-            prior_attempt_id = str(
-                latest_attempt.get("childRunId") or ""
-            )
-            reusable_candidate = (
-                self.store.reusable_prewrite_candidate(
-                    qualification,
-                    run_id,
-                    prior_attempt_id,
-                    batch_question_ids[0],
-                    stage_id,
-                    input_fingerprint_value=input_fingerprint_value,
-                    projected_input_hash=projected_input_hash,
-                )
-                if (
-                    prior_attempt_id
-                    and "canonical_contention" in latest_issue_codes
-                )
-                else None
-            )
-            if reusable_candidate is not None:
-                reused_from_attempt_id = prior_attempt_id
-                reused_reason = "canonical_prewrite_contention"
-            elif parent.get("resumedFrom"):
-                reusable = self.store.reusable_prepared_candidate(
-                    qualification,
-                    str(parent["resumedFrom"]),
-                    batch_question_ids[0],
-                    stage_id,
-                    input_fingerprint_value=input_fingerprint_value,
-                    projected_input_hash=projected_input_hash,
-                )
-                if reusable is not None:
-                    reused_from_attempt_id, reusable_candidate = reusable
-                    reused_reason = "interrupted_before_patch_apply"
-            if reused_from_attempt_id:
-                self.store.persist_prepared_candidate(
-                    qualification,
-                    child_id,
-                    reusable_candidate,
-                )
-                self.store.update(
-                    qualification,
-                    child_id,
-                    preparedCandidateReusedFromAttemptId=(
-                        reused_from_attempt_id
-                    ),
-                    preparedCandidateReusedReason=reused_reason,
-                )
-            if reused_from_attempt_id:
-                emit(
-                    f"{stage_id}: 入力が一致する検証済み候補を再利用し、"
-                    "modelを呼ばずpatch toolだけを再試行します。"
-                )
-            elif retrying:
-                emit(
-                    f"{stage_id}: 失敗済み{len(targets)}問だけを"
-                    f"{requested_model} / 推論 {requested_effort}で"
-                    f"{route_metadata['attemptMode']}として再試行します。"
-                )
-            return {
-                "childId": child_id,
-                "child": child,
-                "questionId": batch_question_ids[0],
-                "batchPlan": batch_plan,
-                "stageId": stage_id,
-                "targets": targets,
-                "prompt": batch_prompt,
-                "recordsByQuestion": records_by_question,
-                "sourceRecordsByQuestion": originalization_source_by_question,
-                "candidateTargetsByQuestion": candidate_targets_by_question,
-                "requestedModel": requested_model,
-                "requestedReasoningEffort": requested_effort,
-                "attemptRoute": attempt_route,
-                "attemptMetadata": route_metadata,
-                "inputFingerprint": input_fingerprint_value,
-                "projectedInputHash": projected_input_hash,
-                "reusedPreparedCandidate": bool(reused_from_attempt_id),
-            }
 
         def failed_question_outcome(
             prepared: Mapping[str, Any],
@@ -15378,6 +14998,389 @@ class QualificationRunCoordinator:
             "message": message,
         }
 
+    def _prepare_question_candidate_attempt(
+        self, qualification: str, run_id: str, specs: list[Mapping[str, Any]],
+        phase: Mapping[str, Any], phase_prompt: str, parent_snapshot: Mapping[str, Any],
+        *, parent: Mapping[str, Any], emit: Callable[[str], None],
+    ) -> dict[str, Any]:
+        """Shared normal one-question preparation; never starts the writer."""
+        if len(specs) != 1:
+            raise QualificationRunError(
+                "候補生成は一問一つのmodel turnで実行してください。"
+            )
+        single_spec = specs[0]
+        stage_id = str(phase["id"])
+        retry_flags = {
+            bool((spec.get("queueStage") or {}).get("retryModelRequired")) or any(
+                    isinstance(attempt, Mapping) and str(attempt.get("status") or "")
+                    in {"failed", "blocked", "interrupted"}
+                    for attempt in (spec.get("queueStage") or {}).get("validationAttempts") or []
+                ) for spec in specs
+        }
+        if len(retry_flags) != 1:
+            raise QualificationRunError(
+                "初回問題と再試行問題を同じmodel turnへ混在できません。"
+            )
+        retrying = retry_flags.pop()
+        catalog_loader = getattr(self.workflow, "catalog", None)
+        catalog = catalog_loader(qualification) if callable(catalog_loader) else {}
+        definition = next(
+            (
+                value for value in catalog.get("stages") or []
+                if isinstance(value, Mapping) and str(value.get("id") or "") == stage_id
+            ),
+            {},
+        )
+        agent_policy = dict(definition.get("agentPolicy") or {})
+        candidate_role = "candidate_retry" if retrying else "candidate_initial"
+        candidate_policy = dict(agent_policy.get(candidate_role) or {})
+        requested_model = str(
+            candidate_policy.get("model")
+            or (QUESTION_MAINTENANCE_RETRY_MODEL if retrying else QUESTION_MAINTENANCE_MODEL)
+        )
+        requested_effort = str(
+            candidate_policy.get("reasoningEffort") or TURN_REASONING_EFFORT
+        )
+        queue_stage = single_spec.get("queueStage") or {}
+        validation_attempts = [
+            dict(value)
+            for value in queue_stage.get("validationAttempts") or []
+            if isinstance(value, Mapping)
+        ]
+        profile_snapshot = parent_snapshot.get("llmProfile")
+        profile_name = (
+            str(profile_snapshot.get("name") or "codex_only")
+            if isinstance(profile_snapshot, Mapping)
+            else "codex_only"
+        )
+        route_resolver = getattr(
+            self.app_server,
+            "resolve_maintenance_attempt",
+            None,
+        )
+        attempt_route = (
+            route_resolver(
+                profile_name,
+                validation_attempts,
+                workflow_model=requested_model,
+            )
+            if callable(route_resolver)
+            else None
+        )
+        route_metadata = (
+            attempt_route.as_mapping()
+            if isinstance(attempt_route, MaintenanceAttemptRoute)
+            else {
+                "profileName": profile_name,
+                "profileFingerprint": str(
+                    (profile_snapshot or {}).get("fingerprint") or ""
+                ),
+                "attemptMode": "primary" if not retrying else "retry",
+                "backend": "codex_app_server",
+                "backendKind": "codex_app_server",
+                "requestedModel": requested_model,
+                "fallbackUsed": False,
+                "localSuccess": False,
+            }
+        )
+        requested_model = str(route_metadata["requestedModel"])
+        batch_plan, target = self._question_plan_for_spec(
+            single_spec,
+            parent_run_id=run_id,
+        )
+        targets = [target]
+        batch_plan.update(
+            requestedModel=requested_model,
+            requestedReasoningEffort=requested_effort,
+            retryModelFallback=retrying,
+            modelAttempt=copy.deepcopy(route_metadata),
+            agentPolicy=agent_policy,
+            speedMode=normalize_speed_mode(
+                parent.get("speedMode") or STANDARD_SPEED_MODE
+            ),
+            requestedServiceTier=parent.get("requestedServiceTier"),
+        )
+        batch_question_ids = [
+            str(target.get("id") or target.get("uiQuestionId") or "")
+            for target in targets
+        ]
+        prompt_from_plan = getattr(self.workflow, "prompt_from_plan", None)
+        if callable(prompt_from_plan):
+            batch_stage_prompt = prompt_from_plan(batch_plan)["prompt"]
+        else:
+            batch_stage_prompt = self.workflow.prompt(
+                qualification,
+                stage_id,
+                str(
+                    batch_plan.get("mode")
+                    or parent.get("mode")
+                    or "remaining"
+                ),
+                list_group_ids=list(
+                    batch_plan.get("scopeListGroupIds") or []
+                ),
+                update_target_ids=list(
+                    batch_plan.get("selectedUpdateTargetIds") or []
+                ),
+                question_ids=batch_question_ids,
+            )["prompt"]
+        feedback_by_question: dict[str, list[Mapping[str, Any]]] = {}
+        for target in targets:
+            question_id = str(target.get("id") or target.get("uiQuestionId") or "")
+            current = self._queue_stage(
+                parent_snapshot,
+                question_id,
+                stage_id,
+            ) or {}
+            prior_feedback = [
+                dict(value)
+                for value in current.get("priorValidationFeedback") or []
+                if isinstance(value, Mapping)
+            ]
+            current_feedback = [
+                dict(value["feedback"])
+                for value in current.get("validationAttempts") or []
+                if isinstance(value, Mapping)
+                and isinstance(value.get("feedback"), Mapping)
+            ]
+            feedback_by_question[question_id] = [
+                *prior_feedback,
+                *current_feedback,
+            ]
+        records_by_question = {
+            str(spec["target"].get("id") or spec["target"].get("uiQuestionId") or ""):
+            copy.deepcopy(dict(spec["candidateRecord"]))
+            for spec in specs
+        }
+        originalization_source_by_question = {
+            str(spec["target"].get("id") or spec["target"].get("uiQuestionId") or ""):
+            copy.deepcopy(dict(spec["sourceRecord"]))
+            for spec in specs
+            if isinstance(spec.get("sourceRecord"), Mapping)
+            and stage_id in {"originalize", "correct_choice", "explanation"}
+        }
+        source_answer_evidence_by_question = {
+            question_id: evidence
+            for spec in specs
+            if isinstance(spec.get("sourceRecord"), Mapping)
+            for question_id in [
+                str(
+                    spec["target"].get("id")
+                    or spec["target"].get("uiQuestionId")
+                    or ""
+                )
+            ]
+            for evidence in [
+                _trusted_source_answer_evidence(
+                    spec["sourceRecord"],
+                    spec["target"],
+                    spec["candidateRecord"],
+                    spec.get("questionIssueCorrectionEvidence") or (),
+                )
+            ]
+            if stage_id == "correct_choice" and evidence is not None
+        }
+        candidate_targets_by_question = {
+            str(spec["target"].get("id") or spec["target"].get("uiQuestionId") or ""):
+            tuple(spec["candidateTargets"])
+            for spec in specs
+        }
+        list_group_id_by_question = {
+            str(spec["target"].get("id") or spec["target"].get("uiQuestionId") or ""):
+            str(spec["target"].get("listGroupId") or "")
+            for spec in specs
+        }
+        question_issue_evidence_by_question = {
+            str(spec["target"].get("id") or spec["target"].get("uiQuestionId") or ""):
+            tuple(
+                copy.deepcopy(
+                    list(spec.get("questionIssueCorrectionEvidence") or ())
+                )
+            )
+            for spec in specs
+            if spec.get("questionIssueCorrectionEvidence")
+        }
+        primary_law_evidence_by_question = (
+            {
+                question_id: self.primary_law_evidence.resolve(
+                    record,
+                    current_as_of=str(
+                        parent_snapshot.get("startedAt") or _now()
+                    )[:10],
+                    qualification=qualification,
+                    list_group_id=list_group_id_by_question.get(
+                        question_id,
+                        "",
+                    ),
+                )
+                for question_id, record in records_by_question.items()
+            }
+            if stage_id in {"law_context", "explanation", "law_audit"}
+            else {}
+        )
+        original_aggregate_evidence = (
+            _aggregate_downstream_source_evidence(
+                self.repo_root,
+                qualification,
+                batch_plan,
+                targets,
+                records_by_question,
+            )
+            if stage_id in {"question_type", "question_intent", "correct_choice", "law_context", "explanation", "law_audit"}
+            else {}
+        )
+        canonical_guidance = _canonical_document_guidance(
+            self.repo_root,
+            batch_plan.get("canonicalDocs") or [],
+        )
+        batch_prompt = _structured_candidate_prompt(
+            batch_stage_prompt,
+            targets,
+            canonical_guidance=canonical_guidance,
+            stage_id=stage_id,
+            records_by_question=records_by_question,
+            candidate_targets_by_question=candidate_targets_by_question,
+            feedback_by_question=feedback_by_question,
+            stage_context=_structured_candidate_stage_context(
+                self.repo_root,
+                qualification,
+                stage_id,
+            ),
+            original_aggregate_evidence_by_question=(
+                original_aggregate_evidence
+            ),
+            originalization_source_by_question=(
+                originalization_source_by_question
+            ),
+            question_issue_evidence_by_question=(
+                question_issue_evidence_by_question
+            ),
+            source_answer_evidence_by_question=(
+                source_answer_evidence_by_question
+            ),
+            primary_law_evidence_by_question=(
+                primary_law_evidence_by_question
+            ),
+            current_record_fields=(
+                (batch_plan.get("readFieldsByStage") or {}).get(stage_id)
+                if isinstance(batch_plan.get("readFieldsByStage"), Mapping)
+                else None
+            ),
+        )
+        child = self.store.create_question_attempt(
+            qualification,
+            run_id,
+            batch_question_ids[0],
+            stage_id,
+            batch_plan,
+            batch_prompt,
+        )
+        child_id = str(child["runId"])
+        if parent_snapshot.get("externalApprovalRequired") is True:
+            child = self.store.update(qualification, child_id, externalApprovalRequired=True)
+        input_fingerprint_value = str(
+            queue_stage.get("inputFingerprint") or ""
+        )
+        projected_input_hash = str(
+            (
+                single_spec.get("projectionUpdate") or {}
+            ).get("changes", {}).get("projectedInputHash")
+            or ""
+        )
+        reused_from_attempt_id = ""
+        reused_reason = ""
+        latest_attempt = (
+            validation_attempts[-1] if validation_attempts else {}
+        )
+        latest_feedback = latest_attempt.get("feedback")
+        latest_issue_codes = {
+            str(issue.get("code") or "")
+            for issue in (
+                latest_feedback.get("issues") or []
+                if isinstance(latest_feedback, Mapping)
+                else []
+            )
+            if isinstance(issue, Mapping)
+        }
+        prior_attempt_id = str(
+            latest_attempt.get("childRunId") or ""
+        )
+        reusable_candidate = (
+            self.store.reusable_prewrite_candidate(
+                qualification,
+                run_id,
+                prior_attempt_id,
+                batch_question_ids[0],
+                stage_id,
+                input_fingerprint_value=input_fingerprint_value,
+                projected_input_hash=projected_input_hash,
+            )
+            if (
+                prior_attempt_id
+                and "canonical_contention" in latest_issue_codes
+            )
+            else None
+        )
+        if reusable_candidate is not None:
+            reused_from_attempt_id = prior_attempt_id
+            reused_reason = "canonical_prewrite_contention"
+        elif parent.get("resumedFrom"):
+            reusable = self.store.reusable_prepared_candidate(
+                qualification,
+                str(parent["resumedFrom"]),
+                batch_question_ids[0],
+                stage_id,
+                input_fingerprint_value=input_fingerprint_value,
+                projected_input_hash=projected_input_hash,
+            )
+            if reusable is not None:
+                reused_from_attempt_id, reusable_candidate = reusable
+                reused_reason = "interrupted_before_patch_apply"
+        if reused_from_attempt_id:
+            self.store.persist_prepared_candidate(
+                qualification,
+                child_id,
+                reusable_candidate,
+            )
+            self.store.update(
+                qualification,
+                child_id,
+                preparedCandidateReusedFromAttemptId=(
+                    reused_from_attempt_id
+                ),
+                preparedCandidateReusedReason=reused_reason,
+            )
+        if reused_from_attempt_id:
+            emit(
+                f"{stage_id}: 入力が一致する検証済み候補を再利用し、"
+                "modelを呼ばずpatch toolだけを再試行します。"
+            )
+        elif retrying:
+            emit(
+                f"{stage_id}: 失敗済み{len(targets)}問だけを"
+                f"{requested_model} / 推論 {requested_effort}で"
+                f"{route_metadata['attemptMode']}として再試行します。"
+            )
+        return {
+            "childId": child_id,
+            "child": child,
+            "questionId": batch_question_ids[0],
+            "batchPlan": batch_plan,
+            "stageId": stage_id,
+            "targets": targets,
+            "prompt": batch_prompt,
+            "recordsByQuestion": records_by_question,
+            "sourceRecordsByQuestion": originalization_source_by_question,
+            "candidateTargetsByQuestion": candidate_targets_by_question,
+            "requestedModel": requested_model,
+            "requestedReasoningEffort": requested_effort,
+            "attemptRoute": attempt_route,
+            "attemptMetadata": route_metadata,
+            "inputFingerprint": input_fingerprint_value,
+            "projectedInputHash": projected_input_hash,
+            "reusedPreparedCandidate": bool(reused_from_attempt_id),
+        }
+
     def _run_structured_question(
         self,
         qualification: str,
@@ -15406,6 +15409,8 @@ class QualificationRunCoordinator:
         on_patch_lock_released: Callable[[], None] | None = None,
         prepare_only: bool = False,
         apply_prepared: bool = False,
+        preview_prepared: bool = False,
+        before_canonical_commit: Callable[[Mapping[str, Any]], None] | None = None,
     ) -> dict[str, Any]:
         """Generate a read-only candidate, then validate and apply it by tool."""
 
@@ -15420,6 +15425,12 @@ class QualificationRunCoordinator:
                 "構造化候補pipelineは現行の一問attemptだけを処理します。"
             )
         existing_child = self.store.get(qualification, run_id)
+        if preview_prepared and (not apply_prepared or prepare_only):
+            raise QualificationRunError("保存予定bytesのpreviewは保存済み候補だけを扱います。")
+        if (existing_child.get("externalApprovalRequired") is True
+                and not prepare_only and not preview_prepared
+                and not callable(before_canonical_commit)):
+            raise QualificationRunError("独立承認をcommit直前に再検証するguardが必要です。")
         llm_profile = existing_child.get("llmProfile")
         model_profile_name = (
             str(llm_profile["name"])
@@ -16662,10 +16673,8 @@ class QualificationRunCoordinator:
                     ),
                     "child": self.store.get(qualification, run_id),
                 }
-            self.store.mark_patch_apply_started(
-                qualification,
-                run_id,
-            )
+            if not preview_prepared:
+                self.store.mark_patch_apply_started(qualification, run_id)
             patch_lock_wait_seconds: float | None = None
             patch_lock_paths: tuple[str, ...] = ()
 
@@ -17153,7 +17162,7 @@ class QualificationRunCoordinator:
                     commands.append(
                         {"command": "00_source immutability", "status": "pass"}
                     )
-                    if self.store.is_question_attempt(run_id):
+                    if self.store.is_question_attempt(run_id) and not preview_prepared:
                         self.store.update_attempt_stage_status(
                             qualification,
                             run_id,
@@ -17279,6 +17288,46 @@ class QualificationRunCoordinator:
                                     "正本書込み前に対象fileが更新されました: "
                                     + ", ".join(prewrite_delta)
                                 )
+                            commit_view = None
+                            if preview_prepared or callable(before_canonical_commit):
+                                pending = prepared_patch.pending if prepared_patch is not None else ()
+                                commit_view = {
+                                    "questionId": question_id,
+                                    "stageId": stage_id,
+                                    "recordWorkVersion": record_work_version,
+                                    "patches": [
+                                        {"path": relative.as_posix(), "afterUtf8": content,
+                                         "afterSha256": hashlib.sha256(content.encode("utf-8")).hexdigest()}
+                                        for relative, content in pending
+                                    ],
+                                    "transactionBefore": [
+                                        {"path": path.relative_to(self.repo_root).as_posix(),
+                                         "exists": path.is_file(),
+                                         "bytesHex": path.read_bytes().hex() if path.is_file() else None}
+                                        for path in transaction_roots
+                                    ],
+                                }
+                            if preview_prepared:
+                                if len(question_ids) != 1 or hold_cleanup_required:
+                                    raise QualificationRunError("一問の正常候補だけをpreviewできます。")
+                                closed = self.store.close_unwritten_baseline(
+                                    qualification, run_id, observed_changed_files=[],
+                                )
+                                if closed.get("deltaUnknown") is True or closed.get("remainingChangedFiles"):
+                                    raise QualificationRunError("preview baselineを安全に閉じられません。")
+                                self.store.update_attempt_stage_status(qualification, run_id, "prepared")
+                                preview_child = self.store.update(
+                                    qualification, run_id, status="prepared",
+                                    executionPhase="structured_candidate_preview",
+                                    candidateTransactionOpen=False, canonicalWriteStarted=False,
+                                    batchQuestionResults=[], workVersionReceipt={"recordedCount": 0, "items": []},
+                                )
+                                return {"qualification": qualification, "runId": run_id,
+                                        "preview": commit_view, "child": preview_child}
+                            if callable(before_canonical_commit):
+                                # This guard runs inside canonical file locks, after rebase,
+                                # scope checks and baseline CAS, before any formal write.
+                                before_canonical_commit(commit_view)
                             patch_write_required = bool(
                                 prepared_patch is not None
                                 and prepared_patch.changed_files

@@ -2,7 +2,7 @@
 
 状態: 実装中。個別受付台帳と読み取り専用の日次照合を実装済み。日次heartbeatが既存CLIを使って調査・独立監査・公開を進める。専用の常駐GUIとスマホ承認画面は未実装。
 
-最終更新: 2026-10-19
+最終更新: 2026-10-20
 
 この文書は、Repasoから届くユーザーフィードバックの調査、改善、独立監査、patch保存、Firestore公開を扱う運用正本です。公式問題の誤り報告を修正レーンとし、AI解説への利用者質問から学習上のニーズを見つける改善レーンを置きます。将来はアプリ不具合、UI改善、要望も追加します。
 
@@ -46,7 +46,11 @@ native作成callはCLIの正常終了まで、途中でyieldされた出力も�
 
 この記録は`formally_saved`だけを表します。maintenance登録自体は変更できない`open`の受付根拠として保持し、summaryの`verifiedFormalSavesRecorded`で保存証跡を別に数えます。改善taskを完了へ移したり、Firestore公開・readbackを証明したりする経路ではありません。
 
-複数task/年度/原問をまたぐ保存、ガス25以外のsource-bound改善保存は未対応です。新receiptを既存immutable unitのv2 receiptへ偽装せず、対応実装と独立監査を済ませるまで該当工程を保留します。全5肢の公式対応が確定した25の専用delivery経路は以下の条件で別に扱います。
+ガス25専用の保存APIは、複数task/年度/原問をまたぐ保存や、ガス25以外のsource-bound改善を扱いません。通常source-boundの一問・一工程の保存は後述の専用CLIを使います。新receiptを既存immutable unitのv2 receiptへ偽装せず、対応実装と独立監査を済ませるまで該当工程を保留します。全5肢の公式対応が確定した25の専用delivery経路は以下の条件で別に扱います。
+
+2026-10-20、通常のsource-bound問題を一問・一工程ずつ進める`tools.question_bank.feedback_prepared_stage`を追加しました。共通引数`--repo-root <repo> --db <既存台帳>`に続けて、`prepare --request <private request> --output <新規private directory>`で構成済みruntimeの通常候補生成と既存writerの保存予定bytes検証を実行します。通常schedulerと同じ準備method・工程policy・source reader・compilerを使い、この段階では正式patch・workVersion・validated checkpointを保存しません。完全なsource binding、保全manifest、task要件又は個別の`fix_required` report/case、一次根拠、実装依存、全active live siblingの所属集合・masked値・exact更新時刻を固定します。sourceから既存公開IDへの対応は別の監査責務であり、このCLIは`sourceToLiveMappingApproved=false`と明示します。
+
+`scope --plan <plan.json>`の正常なnative出力を別subagentへ委任し、真正な`native-independent-approval/v1`を得た後、`apply --plan <plan.json> --approval <approval.json>`で同じ候補を通常writerへ渡します。入口とcanonical file lock取得後のcommit直前に、承認・現在入力・台帳要件・live集合を再検証します。実際のpatch bytes・workVersion・親checkpointの読戻しが一致した場合だけ専用保存receiptを確定し、同じ成功再送もこれらを再検証します。中断・部分保存・第三値は旧planの自動再適用を停止し、通常writerのbaselineとrollbackを保持します。次工程は前工程保存後の現在入力から新しく計画します。この保存receiptは公式報告のBlind A/B・Challenge、法令三段階監査、全工程完了、独立評価、公開用表示variant、限定公開・readbackを代替しません。既存T041の固定immutable unitを任意の問題へ流用しません。
 
 2026-10-19、集約された`00_source`と公開済みの旧形式TFを照合する、読取専用の`tools.question_bank.feedback_legacy_review_context`を追加しました。`--repo-root <repo> --db <既存台帳> prepare --request <private request> --output <新規private directory>`で、保全manifestと一致する原本、完全な`SourceIdentityBinding`、公式PDF、同一taskの候補・全siblingの修正前値、台帳要件、実装依存を固定します。requestは`feedback-legacy-review-context-request/v1`で、sourceの記号・原文span・その全文の`sourceStatementSha256`と既存live IDを一件ずつ明示します。配列位置からlive IDを作らず、原本と公開本文の違いも保存します。原問の「二つ」等の選択番号とsourceの正誤vectorをTFの正誤へ転用しません。旧`sourceUniqueKeys`も個数回答の選択肢に由来するmetadataとして`sourceChoiceUniqueKeys`へ保持し、ア〜エの記述用keyとは認証しません。正式な記述用keyは、真正な分解レビューの後に正規の集約分解処理で生成する別工程です。
 
