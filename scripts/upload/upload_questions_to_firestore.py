@@ -42,6 +42,8 @@ ATOMIC_MAINTENANCE_KEYS = frozenset((
 ))
 READ_SET_MAINTENANCE_SCHEMA = "question-maintenance-read-set-upload/v1"
 READ_SET_MAINTENANCE_RESULT_SCHEMA = "question-maintenance-read-set-upload-result/v1"
+READ_SET_DISPLAY_SCHEMA = "question-maintenance-read-set-upload/v2"
+READ_SET_DISPLAY_RESULT_SCHEMA = "question-maintenance-read-set-upload-result/v2"
 READ_SET_MAINTENANCE_KEYS = frozenset({"schemaVersion", "originalQuestionId", "qualificationId", "examYear",
     "readDocumentIds", "questions", "writeFieldsByDocument", "expectedReadUpdateTimes", "expectedLiveFingerprint"})
 EXPLANATION_DETAILS_WRITE_FIELDS = ("explanationText", "suggestedQuestionDetails")
@@ -58,6 +60,17 @@ ATOMIC_SUGGESTION_REPLACEMENT_MASKS = (
 )
 ATOMIC_MAINTENANCE_WRITE_FIELD_SETS = (*PRESERVED_SUGGESTION_MASKS, *ATOMIC_SUGGESTION_REPLACEMENT_MASKS)
 READ_SET_MAINTENANCE_WRITE_FIELD_SETS = (("explanationText",), ATOMIC_SUGGESTION_REPLACEMENT_MASKS[1])
+DISPLAY_WRITE_FIELDS = ("questionBodyText", "questionText")
+READ_SET_DISPLAY_WRITE_FIELD_SETS = (
+    DISPLAY_WRITE_FIELDS,
+    (*DISPLAY_WRITE_FIELDS, "suggestedQuestions", "suggestedQuestionDetails"),
+    (*DISPLAY_WRITE_FIELDS, "explanationText"),
+    (*DISPLAY_WRITE_FIELDS, "explanationText", "suggestedQuestions", "suggestedQuestionDetails"),
+)
+READ_SET_PROFILES = {
+    READ_SET_MAINTENANCE_SCHEMA: (READ_SET_MAINTENANCE_RESULT_SCHEMA, READ_SET_MAINTENANCE_WRITE_FIELD_SETS),
+    READ_SET_DISPLAY_SCHEMA: (READ_SET_DISPLAY_RESULT_SCHEMA, READ_SET_DISPLAY_WRITE_FIELD_SETS),
+}
 ALLOWED_PATCH_WRITE_FIELD_SETS = (
     ("explanationText",),
     EXPLANATION_DETAILS_WRITE_FIELDS,
@@ -682,13 +695,51 @@ def _requests_read_set_maintenance(data: dict) -> bool:
             or isinstance(schema, str) and schema.startswith("question-maintenance-read-set-upload"))
 
 
+def read_set_profile(schema):
+    if not isinstance(schema, str) or schema not in READ_SET_PROFILES:
+        raise ValueError("unsupported explicit read-set transport profile")
+    return READ_SET_PROFILES[schema]
+
+
+def validate_display_questions(questions):
+    """Check display structure only; semantic neutrality requires content review."""
+    if not isinstance(questions, list) or not questions:
+        raise ValueError("nonempty explicit display rows required")
+    bodies = set()
+    originals = set()
+    ids = set()
+    for question in questions:
+        if not isinstance(question, dict):
+            raise ValueError("display row must be an object")
+        identity = question.get("questionId")
+        if not isinstance(identity, str) or not identity or identity in ids:
+            raise ValueError("explicit unique display IDs required")
+        ids.add(identity)
+        for field in ("originalQuestionBodyText", "originalQuestionChoiceText", *DISPLAY_WRITE_FIELDS):
+            if not isinstance(question.get(field), str) or not question[field].strip():
+                raise ValueError("explicit nonempty original/display field presence required")
+        if (question.get("questionType") != "true_false" or question.get("isDeleted") is not False
+                or question.get("isChoiceOnly") is not False):
+            raise ValueError("display maintenance requires active true_false rows")
+        bodies.add(question["questionBodyText"])
+        originals.add(question["originalQuestionBodyText"])
+        expected = (question["questionBodyText"].replace("\n", "") + "[quote]"
+                    + question["originalQuestionChoiceText"].replace("\n", "") + "[/quote]")
+        if question["questionText"] != expected:
+            raise ValueError("display questionText must exactly quote its own original statement")
+    if len(bodies) != 1 or len(originals) != 1:
+        raise ValueError("display siblings require common display and original question bodies")
+
+
 def resolve_read_set_maintenance_contract(data: dict, source_label: str) -> dict:
     """Separate complete active-sibling reads from changed explanation writes."""
     if not isinstance(data, dict):
         raise ValueError("read-set maintenance JSON root must be an object")
     _reject_duplicate_json_keys(data)
-    if set(data) != READ_SET_MAINTENANCE_KEYS or data.get("schemaVersion") != READ_SET_MAINTENANCE_SCHEMA:
+    if set(data) != READ_SET_MAINTENANCE_KEYS:
         raise ValueError("read-set maintenance requires its dedicated exact schema")
+    _, permitted_masks = read_set_profile(data.get("schemaVersion"))
+    display = data["schemaVersion"] == READ_SET_DISPLAY_SCHEMA
     for key in ("originalQuestionId", "qualificationId"):
         value = data[key]
         if not isinstance(value, str) or not value or value.strip() != value or "/" in value:
@@ -717,7 +768,7 @@ def resolve_read_set_maintenance_contract(data: dict, source_label: str) -> dict
     for question in questions:
         identity = question["questionId"]
         raw_mask = masks[identity]
-        if (not isinstance(raw_mask, list) or tuple(raw_mask) not in READ_SET_MAINTENANCE_WRITE_FIELD_SETS
+        if (not isinstance(raw_mask, list) or tuple(raw_mask) not in permitted_masks
                 or question.get("originalQuestionId") != data["originalQuestionId"]
                 or question.get("qualificationId") != data["qualificationId"] or question.get("examYear") != data["examYear"]
                 or any(k in question for k in (WRITE_FIELDS_KEY, "writeFieldsByDocument", EXPECTED_UPDATE_TIMES_KEY,
@@ -725,10 +776,13 @@ def resolve_read_set_maintenance_contract(data: dict, source_label: str) -> dict
             raise ValueError("read-set transport permits only its explicit existing explanation/suggestion masks")
         if any(field not in question for field in raw_mask):
             raise ValueError("read-set request must preserve explicit masked field presence")
-        if tuple(raw_mask) in ATOMIC_SUGGESTION_REPLACEMENT_MASKS:
-            validate_atomic_suggestion_replacement([question], tuple(raw_mask), source_label)
-        else:
-            validate_question_patch_questions([question], tuple(raw_mask), source_label)
+        content_mask = tuple(f for f in raw_mask if f not in DISPLAY_WRITE_FIELDS) if display else tuple(raw_mask)
+        if content_mask in ATOMIC_SUGGESTION_REPLACEMENT_MASKS:
+            validate_atomic_suggestion_replacement([question], content_mask, source_label)
+        elif content_mask:
+            validate_question_patch_questions([question], content_mask, source_label)
+    if display:
+        validate_display_questions(questions)
     fingerprint = data["expectedLiveFingerprint"]
     if not isinstance(fingerprint, str) or re.fullmatch(r"[0-9a-f]{64}", fingerprint) is None:
         raise ValueError("read-set live fingerprint requires lowercase SHA256")
@@ -929,7 +983,7 @@ def upload_read_set_maintenance_questions(data: dict, source_label: str, *, dry_
     data = deepcopy(data)
     contract = resolve_read_set_maintenance_contract(data, source_label)
     ids, write_ids = contract["readDocumentIds"], contract["writeDocumentIds"]
-    result = {"schemaVersion": READ_SET_MAINTENANCE_RESULT_SCHEMA, "status": "dry_run" if dry_run else "prepared",
+    result = {"schemaVersion": read_set_profile(data["schemaVersion"])[0], "status": "dry_run" if dry_run else "prepared",
         "originalQuestionId": data["originalQuestionId"], "qualificationId": data["qualificationId"], "examYear": data["examYear"],
         "readDocumentIds": ids, "writeDocumentIds": write_ids,
         "readOnlyDocumentIds": [i for i in ids if i not in write_ids],
@@ -966,7 +1020,11 @@ def upload_read_set_maintenance_questions(data: dict, source_label: str, *, dry_
                                          publication_unit(data))
         if active != set(ids):
             raise RuntimeError("complete active sibling read-set membership changed")
+        display = data["schemaVersion"] == READ_SET_DISPLAY_SCHEMA
+        if display:
+            validate_display_questions([{"questionId": i, **(by_id[i].to_dict() or {})} for i in ids])
         updates = {}
+        projected_rows = {i: {"questionId": i, **(by_id[i].to_dict() or {})} for i in ids}
         for question in data["questions"]:
             identity = question["questionId"]
             existing = by_id[identity].to_dict() or {}
@@ -974,9 +1032,15 @@ def upload_read_set_maintenance_questions(data: dict, source_label: str, *, dry_
             if any(field not in existing for field in mask):
                 raise RuntimeError("existing masked field presence required")
             base = build_doc_data_base(question)
+            if display and any((f in existing) != (f in base) or existing.get(f) != base.get(f)
+                               for f in DOC_COMPARE_KEYS if f not in mask):
+                raise RuntimeError("display candidate changed a non-owned live field/presence")
             if any(existing[field] == base[field] for field in mask):
                 raise RuntimeError("read-set write subset contains unchanged/no-op masked field")
             updates[identity] = build_patch_doc_data(base, mask, datetime.now())
+            projected_rows[identity].update({f: base[f] for f in mask})
+        if display:
+            validate_display_questions(list(projected_rows.values()))
         for identity in write_ids:
             add_guarded_question_write(txn, refs[identity], updates[identity], by_id[identity])
         commit_expected = True

@@ -806,3 +806,107 @@ class ReadSetMaintenanceUploadTests(unittest.TestCase):
         db = self.Database(live)
         with self.assertRaises(ValueError): self.upload(payload, db)
         self.assertEqual((db.updates, db.commits), ([], 0))
+
+
+class ReadSetDisplayUploadTests(unittest.TestCase):
+    Database = ReadSetMaintenanceUploadTests.Database
+    transactional = staticmethod(ReadSetMaintenanceUploadTests.transactional)
+    upload = ReadSetMaintenanceUploadTests.upload
+
+    def fixture(self, mask=None):
+        mask = mask or module.DISPLAY_WRITE_FIELDS
+        payload, raw = ReadSetMaintenanceUploadTests().fixture()
+        live = {}
+        for identity, values in raw.items():
+            values.update(questionType='true_false', originalQuestionBodyText='誤っているものはいくつあるか。',
+                          originalQuestionChoiceText=identity + 'の原記述。', questionBodyText='誤っているものはいくつあるか。')
+            values['questionText'] = values['questionBodyText'] + '[quote]' + values['originalQuestionChoiceText'] + '[/quote]'
+            live[identity] = module.build_doc_data_base(values)
+        payload['schemaVersion'] = module.READ_SET_DISPLAY_SCHEMA
+        payload['questions'] = []
+        payload['writeFieldsByDocument'] = {}
+        for identity in payload['readDocumentIds']:
+            row = {'questionId': identity, **deepcopy(live[identity])}
+            row['questionBodyText'] = '次の記述の正誤を判断してください。'
+            row['questionText'] = row['questionBodyText'] + '[quote]' + row['originalQuestionChoiceText'] + '[/quote]'
+            if 'explanationText' in mask: row['explanationText'] = '正しい。新しい根拠。'
+            if 'suggestedQuestions' in mask:
+                row['suggestedQuestions'] = ['新しい補足']
+                row['suggestedQuestionDetails'] = [{'question': '新しい補足', 'answer': '新しい回答'}]
+            payload['questions'].append(row)
+            payload['writeFieldsByDocument'][identity] = list(mask)
+        payload['expectedLiveFingerprint'] = module.firestore_live_fingerprint(payload['readDocumentIds'], live)
+        return payload, live
+
+    def test_four_exact_display_masks_preserve_originals_ids_truth_and_every_outside_field(self):
+        for mask in module.READ_SET_DISPLAY_WRITE_FIELD_SETS:
+            with self.subTest(mask=mask):
+                payload, live = self.fixture(mask); db = self.Database(live)
+                result = self.upload(payload, db)
+                self.assertEqual(result['schemaVersion'], module.READ_SET_DISPLAY_RESULT_SCHEMA)
+                self.assertEqual(result['writeDocumentIds'], payload['readDocumentIds'])
+                self.assertEqual(len(result['writeResults']), 5)
+                for identity, written, _ in db.updates:
+                    self.assertEqual(set(written), {*mask, 'updatedAt', 'updatedById'})
+                    self.assertEqual({f: v for f, v in db.live[identity].items() if f not in written},
+                                     {f: v for f, v in live[identity].items() if f not in written})
+
+    def test_bad_display_shape_profile_noop_and_non_owned_changes_never_queue_writes(self):
+        mutations = ('v1', 'unknown', 'one-field', 'extra-mask', 'no-body', 'no-original', 'no-quote',
+                     'other-quote', 'different-body', 'type', 'truth', 'original', 'choice', 'category',
+                     'set', 'law', 'id', 'noop', 'partial-noop', 'missing-live-body', 'current-quote')
+        for mutation in mutations:
+            payload, live = self.fixture(); first, other = payload['questions'][:2]; qid = first['questionId']
+            if mutation == 'v1': payload['schemaVersion'] = module.READ_SET_MAINTENANCE_SCHEMA
+            elif mutation == 'unknown': payload['schemaVersion'] = 'question-maintenance-read-set-upload/v999'
+            elif mutation == 'one-field': payload['writeFieldsByDocument'][qid] = ['questionBodyText']
+            elif mutation == 'extra-mask': payload['writeFieldsByDocument'][qid].append('correctChoiceText')
+            elif mutation == 'no-body': del first['questionBodyText']
+            elif mutation == 'no-original': del first['originalQuestionBodyText']
+            elif mutation == 'no-quote': first['questionText'] = first['questionBodyText']
+            elif mutation == 'other-quote': first['questionText'] = other['questionText']
+            elif mutation == 'different-body':
+                first['questionBodyText'] = '異なる本文'
+                first['questionText'] = '異なる本文[quote]' + first['originalQuestionChoiceText'] + '[/quote]'
+            elif mutation == 'type': first['questionType'] = 'group_choice'
+            elif mutation == 'truth': first['correctChoiceText'] = '間違い'
+            elif mutation == 'original': first['originalQuestionBodyText'] = '偽造した原題幹'
+            elif mutation == 'choice':
+                first['originalQuestionChoiceText'] = '偽造原記述'
+                first['questionText'] = first['questionBodyText'] + '[quote]偽造原記述[/quote]'
+            elif mutation == 'category': first['questionTags'] = ['new-category']
+            elif mutation == 'set': first['questionSetId'] = 'new-set'
+            elif mutation == 'law': first['lawReferences'] = [{'law': 'new'}]
+            elif mutation == 'id': first['questionId'] = 'foreign'
+            elif mutation in ('noop', 'partial-noop'):
+                for row in payload['questions'][:5 if mutation == 'noop' else 1]:
+                    row.update({f: live[row['questionId']][f] for f in module.DISPLAY_WRITE_FIELDS})
+            elif mutation == 'missing-live-body': del live[qid]['questionBodyText']
+            elif mutation == 'current-quote': live[qid]['questionText'] = 'broken current quote'
+            payload['expectedLiveFingerprint'] = module.firestore_live_fingerprint(payload['readDocumentIds'], live)
+            db = self.Database(live)
+            with self.subTest(mutation=mutation), self.assertRaises((ValueError, RuntimeError)):
+                self.upload(payload, db)
+            self.assertEqual((db.updates, db.commits, db.applied), ([], 0, []))
+
+    def test_readonly_sibling_nanosecond_conflict_and_unconfirmed_commit_keep_distinct_v2_evidence(self):
+        payload, live = self.fixture()
+        # All five body changes are real; omit one only after its exact proposed
+        # display is already present, so the read-only sibling is still checked.
+        readonly = payload['questions'].pop()
+        identity = readonly['questionId']; payload['writeFieldsByDocument'].pop(identity)
+        live[identity].update({f: readonly[f] for f in module.DISPLAY_WRITE_FIELDS})
+        payload['expectedLiveFingerprint'] = module.firestore_live_fingerprint(payload['readDocumentIds'], live)
+        # A mixed before-body set is itself inconsistent and must be held.
+        with self.assertRaises(ValueError): self.upload(payload, self.Database(live))
+        for mode in ('before-commit', 'after-commit', 'wrong-count', 'bad-time', 'new-sibling'):
+            payload, live = self.fixture(); db = self.Database(live, mode=mode)
+            with self.subTest(mode=mode), self.assertRaises(module.ReadSetMaintenanceCommitUnconfirmed) as caught:
+                self.upload(payload, db)
+            self.assertEqual(caught.exception.prepared_result['schemaVersion'], module.READ_SET_DISPLAY_RESULT_SCHEMA)
+            self.assertEqual(caught.exception.prepared_result['status'], 'commit_unconfirmed')
+            self.assertEqual(caught.exception.prepared_result['writeResults'], [])
+        payload, live = self.fixture(); db = self.Database(live)
+        db.times[payload['readDocumentIds'][-1]] = DatetimeWithNanoseconds.from_rfc3339('2026-10-16T00:00:00.123456790Z')
+        with self.assertRaises(RuntimeError): self.upload(payload, db)
+        self.assertEqual(db.updates, [])

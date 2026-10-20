@@ -37,6 +37,12 @@ PUBLICATION_SCHEMA = "feedback-verified-improvement-publication/v1"
 REVISION_SCHEMA = "gas-shunin-verified-authoring-revision/v1"
 AUTHORING_FIELDS = frozenset({"isCalculationQuestion", "questionIntent", "questionLearningPatternId"})
 MAINTENANCE_FIELDS = frozenset({"explanationText", "suggestedQuestions", "suggestedQuestionDetails", "explanationReferences"})
+DISPLAY_FIELDS = frozenset(uploader.DISPLAY_WRITE_FIELDS)
+TRANSPORT_SCHEMAS = {
+    uploader.ATOMIC_MAINTENANCE_SCHEMA: None,
+    uploader.READ_SET_MAINTENANCE_SCHEMA: "v1",
+    uploader.READ_SET_DISPLAY_SCHEMA: "v2",
+}
 ALIASES = {"suggestedQuestionDetailsByChoice": "suggestedQuestionDetails"}
 KINDS = ("revision", "stage", "evaluation", "publication")
 COMPLETION_REASON = "独立監査・正式revision・限定公開・全対象live readback一致を確認。"
@@ -158,16 +164,20 @@ def _learning_patterns():
 def _revision(base, candidate, ids, evidence):
     if (set(candidate) != {"schemaVersion", "revisionKind", "decisionsByDocument"}
             or candidate["schemaVersion"] != "feedback-verified-authoring-candidate/v1"
-            or candidate["revisionKind"] not in {"authoring_only", "maintenance"}
+            or candidate["revisionKind"] not in {"authoring_only", "maintenance", "maintenance_display"}
             or set(candidate["decisionsByDocument"]) != set(ids)):
         raise ValueError("complete explicit-ID authoring revision required")
     effective = deepcopy(base)
     by_id, all_ids = _rows(effective)
     before, _ = _rows(base)
     deltas = []
+    display = candidate["revisionKind"] == "maintenance_display"
+    maintenance = candidate["revisionKind"] in {"maintenance", "maintenance_display"}
+    if display:
+        uploader.validate_display_questions([before[i] for i in ids])
     for identity in ids:
         decisions = candidate["decisionsByDocument"][identity]
-        allowed = AUTHORING_FIELDS | (MAINTENANCE_FIELDS if candidate["revisionKind"] == "maintenance" else set())
+        allowed = AUTHORING_FIELDS | (MAINTENANCE_FIELDS if maintenance else set()) | (DISPLAY_FIELDS if display else set())
         if set(decisions) != allowed:
             raise ValueError("revision has non-owned or missing authoring fields")
         for field, decision in decisions.items():
@@ -181,8 +191,13 @@ def _revision(base, candidate, ids, evidence):
                 raise ValueError("invalid authoring field value")
             previous = before[identity]
             if field not in previous or previous[field] != value:
-                deltas.append({"questionId": identity, "field": field, "beforePresent": field in previous,
-                               "before": previous.get(field), "after": deepcopy(value)})
+                delta = {"questionId": identity, "field": field, "beforePresent": field in previous,
+                         "before": previous.get(field), "after": deepcopy(value)}
+                if display and field in DISPLAY_FIELDS:
+                    delta.update(beforeSha256=sha256_json(previous[field]), afterSha256=sha256_json(value),
+                        displayBaseline={f: {"present": f in previous, "sha256": sha256_json(previous[f])}
+                            for f in ("originalQuestionBodyText", "originalQuestionChoiceText", *uploader.DISPLAY_WRITE_FIELDS)})
+                deltas.append(delta)
             by_id[identity][field] = deepcopy(value)
     # No guessed masks: prove the actual uploader's projection is unchanged for
     # the entire nonempty year, including every non-target row and optional field.
@@ -190,19 +205,23 @@ def _revision(base, candidate, ids, evidence):
         raise ValueError("revision must make a nonempty approved field change")
     for identity in all_ids:
         old_dto, new_dto = uploader.build_doc_data_base(before[identity]), uploader.build_doc_data_base(by_id[identity])
-        allowed_public = MAINTENANCE_FIELDS if identity in ids and candidate["revisionKind"] == "maintenance" else set()
+        allowed_public = (MAINTENANCE_FIELDS | (DISPLAY_FIELDS if display else set())) if identity in ids and maintenance else set()
         if any((f in old_dto) != (f in new_dto) or old_dto.get(f) != new_dto.get(f)
                for f in set(old_dto) | set(new_dto) if f not in allowed_public):
             raise ValueError("revision changed a non-owned public DTO field")
         if identity not in ids and before[identity] != by_id[identity]:
             raise ValueError("non-target authoring row changed")
-        if identity in ids and candidate["revisionKind"] == "maintenance":
+        if identity in ids and maintenance:
             details = by_id[identity]["suggestedQuestionDetails"]
             if (not isinstance(details, list) or len(details) > 3
                     or any(not isinstance(d, dict) or set(d) != {"question", "answer"}
                            or any(not isinstance(v, str) or not v.strip() for v in d.values()) for d in details)
                     or by_id[identity]["suggestedQuestions"] != [d["question"] for d in details]):
                 raise ValueError("revised supplementary question mirror/shape differs")
+    if display:
+        uploader.validate_display_questions([by_id[i] for i in ids])
+        if any(any(before[i][f] == by_id[i][f] for f in DISPLAY_FIELDS) for i in ids):
+            raise ValueError("display revision requires real changes to both display fields for every sibling")
     return effective, deltas
 
 
@@ -427,10 +446,17 @@ def _type_execution(root, directory, plan, effective, connection):
             "binding": receipt["binding"], "aggregateBindings": [p["receipt"]["binding"] for p in type_plan["priorExecutions"]]}
 
 
-def _evaluation_question(review, effective, context):
+def _evaluation_question(review, effective, context, revision_kind=None):
     rows, _ = _rows(effective)
     selected = [rows[s["questionId"]] for s in context["officialOrder"]]
     projected = deepcopy(review["projected"])
+    if revision_kind == "maintenance_display":
+        uploader.validate_display_questions(selected)
+        projected["questionBodyText"] = selected[0]["questionBodyText"]
+        projected["originalQuestionBodyText"] = selected[0]["originalQuestionBodyText"]
+        projected["originalQuestionBodyTextByChoice"] = [row["originalQuestionBodyText"] for row in selected]
+        projected["originalQuestionChoiceTextByChoice"] = [row["originalQuestionChoiceText"] for row in selected]
+        projected["questionTextByChoice"] = [row["questionText"] for row in selected]
     projected["correctChoiceText"] = [row["correctChoiceText"] for row in selected]
     projected["explanationText"] = [row["explanationText"] for row in selected]
     projected["classificationByChoice"] = [{f: row[f] for f in AUTHORING_FIELDS} for row in selected]
@@ -475,10 +501,10 @@ def _validate_schema(value, schema):
         raise ValueError("evaluation schema number outside range")
 
 
-def _evaluation(candidate, review, effective, context):
+def _evaluation(candidate, review, effective, context, revision_kind=None):
     schema = json.loads(Path(sys.modules[EvaluationStore.__module__].__file__).with_name("evaluation_result.schema.json").read_bytes())
     _validate_schema(candidate, schema)
-    result = EvaluationStore._validate_result(_evaluation_question(review, effective, context), candidate)
+    result = EvaluationStore._validate_result(_evaluation_question(review, effective, context, revision_kind), candidate)
     if result["status"] != "passed" or result["reworkItems"]:
         raise ValueError("independent evaluation requires verified all-choice pass with no rework")
     return result
@@ -521,7 +547,7 @@ def prepare(root, output, kind, candidate_path=None, *, connection, stage_id=Non
                 if candidate_path is None:
                     raise ValueError("evaluation worker result required")
                 candidate_ref, candidate = context_api._json_snapshot(candidate_path)
-                result = {"evaluationInput": _evaluation_question(review, effective, context), "evaluation": _evaluation(candidate, review, effective, context)}
+                result = {"evaluationInput": _evaluation_question(review, effective, context, plan["revisionKind"]), "evaluation": _evaluation(candidate, review, effective, context, plan["revisionKind"])}
             else:
                 _verify_node(root, output, "evaluation", connection=connection)
                 _verify_checks(root, output, plan, connection)
@@ -633,7 +659,7 @@ def _validate_node(root, output, node, plan, context, review, effective, evidenc
                 if node["parents"][stage_id] != _ref(_node_dir(output, "stage", stage_id) / "receipt.json"):
                     raise ValueError("current stage parent changed")
             if node["kind"] == "evaluation":
-                if node["result"] != {"evaluationInput": _evaluation_question(review, effective, context), "evaluation": _evaluation(candidate, review, effective, context)}:
+                if node["result"] != {"evaluationInput": _evaluation_question(review, effective, context, plan["revisionKind"]), "evaluation": _evaluation(candidate, review, effective, context, plan["revisionKind"])}:
                     raise ValueError("evaluation result changed")
             else:
                 _verify_node(root, output, "evaluation", connection=connection)
@@ -1012,29 +1038,46 @@ def _public_changes(plan, effective):
 def _transport_profile(plan, effective):
     _, _, changes = _public_changes(plan, effective)
     changed = [fields for fields in changes.values() if fields]
+    if plan.get("revisionKind") == "maintenance_display":
+        if changed and all(any(fields == set(mask) for mask in uploader.READ_SET_DISPLAY_WRITE_FIELD_SETS) for fields in changed):
+            return uploader.READ_SET_DISPLAY_SCHEMA
+        raise ValueError("display revision requires exact v2 display masks")
     # Preserve the existing full-sibling atomic route whenever it already fits.
     if len(changed) == len(changes) and all(
             any(fields == set(mask) for mask in uploader.ATOMIC_MAINTENANCE_WRITE_FIELD_SETS) for fields in changed):
         return uploader.ATOMIC_MAINTENANCE_SCHEMA
     if changed and all(any(fields == set(mask) for mask in uploader.READ_SET_MAINTENANCE_WRITE_FIELD_SETS) for fields in changed):
         return uploader.READ_SET_MAINTENANCE_SCHEMA
-    return uploader.ATOMIC_MAINTENANCE_SCHEMA
+    raise ValueError("no supported exact transport mask for revised public fields")
+
+
+def _profile_version(schema):
+    if not isinstance(schema, str) or schema not in TRANSPORT_SCHEMAS:
+        raise ValueError("unsupported explicit publication transport profile")
+    return TRANSPORT_SCHEMAS[schema]
+
+
+def _read_set_schema(profile, artifact):
+    version = _profile_version(profile)
+    if version is None:
+        raise ValueError("read-set artifact requires an explicit read-set profile")
+    return "feedback-verified-delivery-read-set-" + artifact + "/" + version
 
 
 def _transport(payload, label, *, dry_run=False):
-    if payload.get("schemaVersion") == uploader.READ_SET_MAINTENANCE_SCHEMA:
+    if _read_set(payload):
         return uploader.upload_read_set_maintenance_questions(payload, label, dry_run=dry_run)
     return uploader.upload_atomic_maintenance_questions(payload, label, dry_run=dry_run)
 
 
 def _resolve_transport(payload):
-    if payload.get("schemaVersion") == uploader.READ_SET_MAINTENANCE_SCHEMA:
+    if _read_set(payload):
         return uploader.resolve_read_set_maintenance_contract(payload, "verified delivery")
     return uploader.resolve_atomic_maintenance_contract(payload, "verified delivery")
 
 
 def _read_set(payload):
-    return payload.get("schemaVersion") == uploader.READ_SET_MAINTENANCE_SCHEMA
+    return _profile_version(payload.get("schemaVersion")) is not None
 
 
 def _payload(plan, effective, snapshots):
@@ -1044,20 +1087,25 @@ def _payload(plan, effective, snapshots):
         raise ValueError("complete sibling production baseline required")
     unit = _membership_binding(plan, effective, old_plan)
     profile = _transport_profile(plan, effective)
-    if profile == uploader.READ_SET_MAINTENANCE_SCHEMA and unit is None:
+    read_set = _profile_version(profile) is not None
+    if read_set and unit is None:
         raise ValueError("read-set transport requires explicit source-save publication unit authority")
     if plan.get("transportProfile", profile) != profile:
         raise ValueError("fixed publication transport profile changed")
     masks = {}
     permitted = {"explanationText", "suggestedQuestions", "suggestedQuestionDetails", "lawRevisionFacts"}
+    if profile == uploader.READ_SET_DISPLAY_SCHEMA:
+        permitted |= DISPLAY_FIELDS
+        uploader.validate_display_questions([rows[i] for i in ids])
+        uploader.validate_display_questions([{"questionId": i, **snapshots[i]["fields"]} for i in ids])
     for identity in ids:
         changed = changes[identity]
-        if not changed and profile == uploader.READ_SET_MAINTENANCE_SCHEMA:
+        if not changed and read_set:
             continue
         if not changed or not changed <= permitted:
             raise ValueError("public revision expanded outside permitted explanation/supplementary scope")
-        if profile == uploader.READ_SET_MAINTENANCE_SCHEMA:
-            masks[identity] = next(list(mask) for mask in uploader.READ_SET_MAINTENANCE_WRITE_FIELD_SETS if set(mask) == changed)
+        if read_set:
+            masks[identity] = next(list(mask) for mask in uploader.read_set_profile(profile)[1] if set(mask) == changed)
         else:
             matching = [list(mask) for mask in uploader.ATOMIC_MAINTENANCE_WRITE_FIELD_SETS if set(mask) == changed]
             if len(matching) != 1:
@@ -1070,7 +1118,7 @@ def _payload(plan, effective, snapshots):
     payload = {"schemaVersion": profile, "originalQuestionId": plan["identity"]["originalQuestionId"],
                "questions": documents, "writeFieldsByDocument": masks,
                "expectedLiveFingerprint": uploader.firestore_live_fingerprint(ids, {i: snapshots[i]["fields"] for i in ids})}
-    if profile == uploader.READ_SET_MAINTENANCE_SCHEMA:
+    if read_set:
         payload.update(qualificationId=unit["qualificationId"], examYear=unit["examYear"], readDocumentIds=ids,
                        expectedReadUpdateTimes=expected_times)
     else:
@@ -1080,7 +1128,7 @@ def _payload(plan, effective, snapshots):
         baseline = old_plan["baseline"][identity]["fields"]
         actual = snapshots[identity]["fields"]
         mask = masks.get(identity, [])
-        compare_fields = uploader.DOC_COMPARE_KEYS if profile == uploader.READ_SET_MAINTENANCE_SCHEMA else [f for f in uploader.DOC_COMPARE_KEYS if f not in mask]
+        compare_fields = uploader.DOC_COMPARE_KEYS if read_set else [f for f in uploader.DOC_COMPARE_KEYS if f not in mask]
         if any((f in actual) != (f in baseline) or actual.get(f) != baseline.get(f) for f in compare_fields):
             raise ValueError("outside-mask/approved production baseline changed; investigate and re-audit")
         if mask and not any(f not in actual or actual[f] != uploader.build_doc_data_base(rows[identity])[f] for f in mask):
@@ -1126,7 +1174,7 @@ def _prepare_publication(root, output, plan, effective, connection):
                  "documentIds": plan["identity"]["siblingIds"], "taskRequirement": plan["taskRequirement"],
                  "revision": _ref(revision), "completionContract": _completion_contract(connection, plan)}
     if _read_set(payload):
-        candidate.update(schemaVersion="feedback-verified-delivery-read-set-publication-candidate/v1",
+        candidate.update(schemaVersion=_read_set_schema(payload["schemaVersion"], "publication-candidate"),
             transportProfile=payload["schemaVersion"], readDocumentIds=payload["readDocumentIds"],
             writeDocumentIds=[q["questionId"] for q in payload["questions"]])
     return _write(directory / "candidate.json", candidate), candidate
@@ -1134,14 +1182,15 @@ def _prepare_publication(root, output, plan, effective, connection):
 
 def _publication_candidate(root, output, plan, candidate):
     expected_keys = {"schemaVersion", "deliveryPlanHash", "baseline", "payload", "dryRun", "git", "documentIds", "taskRequirement", "revision", "completionContract"}
-    is_read_set = candidate.get("schemaVersion") == "feedback-verified-delivery-read-set-publication-candidate/v1"
+    profile = candidate.get("transportProfile", uploader.ATOMIC_MAINTENANCE_SCHEMA)
+    is_read_set = _profile_version(profile) is not None
     if is_read_set:
         expected_keys |= {"transportProfile", "readDocumentIds", "writeDocumentIds"}
     completion = candidate.get("completionContract", {})
     from tools.question_bank.feedback_daily import IMPROVEMENT_WORK_STATES
     if (set(candidate) != expected_keys or set(completion) != {"expectedStatus", "reason"}
             or completion.get("expectedStatus") not in IMPROVEMENT_WORK_STATES or completion.get("reason") != COMPLETION_REASON
-            or candidate.get("schemaVersion") != ("feedback-verified-delivery-read-set-publication-candidate/v1" if is_read_set else "feedback-verified-delivery-publication-candidate/v1") or candidate.get("deliveryPlanHash") != plan["planHash"]
+            or candidate.get("schemaVersion") != (_read_set_schema(profile, "publication-candidate") if is_read_set else "feedback-verified-delivery-publication-candidate/v1") or candidate.get("deliveryPlanHash") != plan["planHash"]
             or candidate.get("documentIds") != plan["identity"]["siblingIds"] or candidate.get("taskRequirement") != plan["taskRequirement"]
             or candidate.get("revision") != _ref(_revision_path(root, plan))):
         raise ValueError("fixed limited publication candidate differs")
@@ -1239,8 +1288,8 @@ def _intent_value(output, plan, node, candidate):
     value = {"schemaVersion": "feedback-verified-delivery-publication-intent/v1", "deliveryPlanHash": plan["planHash"],
         "node": _ref(_node_dir(output, "publication") / "plan.json"), "approval": _ref(_node_dir(output, "publication") / "receipt.json"),
         "candidate": node["candidate"], "payload": candidate["payload"], "git": candidate["git"]}
-    if candidate.get("transportProfile") == uploader.READ_SET_MAINTENANCE_SCHEMA:
-        value.update(schemaVersion="feedback-verified-delivery-read-set-publication-intent/v1",
+    if _profile_version(candidate.get("transportProfile", uploader.ATOMIC_MAINTENANCE_SCHEMA)) is not None:
+        value.update(schemaVersion=_read_set_schema(candidate["transportProfile"], "publication-intent"),
             transportProfile=candidate["transportProfile"], readDocumentIds=candidate["readDocumentIds"],
             writeDocumentIds=candidate["writeDocumentIds"])
     return value
@@ -1248,8 +1297,8 @@ def _intent_value(output, plan, node, candidate):
 
 def _attempt_value(directory, intent):
     value = {"schemaVersion": "feedback-verified-delivery-write-attempt/v1", "intent": _ref(directory / "intent.json")}
-    if intent.get("transportProfile") == uploader.READ_SET_MAINTENANCE_SCHEMA:
-        value.update(schemaVersion="feedback-verified-delivery-read-set-write-attempt/v1", transportProfile=intent["transportProfile"])
+    if _profile_version(intent.get("transportProfile", uploader.ATOMIC_MAINTENANCE_SCHEMA)) is not None:
+        value.update(schemaVersion=_read_set_schema(intent["transportProfile"], "write-attempt"), transportProfile=intent["transportProfile"])
     return value
 
 
@@ -1356,7 +1405,7 @@ def _read_set_readback_match(plan, candidate, payload, commit, current):
     ids = plan["identity"]["siblingIds"]
     write_ids = [q["questionId"] for q in payload["questions"]]
     readonly = [i for i in ids if i not in write_ids]
-    expected = {"schemaVersion": uploader.READ_SET_MAINTENANCE_RESULT_SCHEMA, "status": "committed",
+    expected = {"schemaVersion": uploader.read_set_profile(payload["schemaVersion"])[0], "status": "committed",
         "originalQuestionId": payload["originalQuestionId"], "qualificationId": payload["qualificationId"], "examYear": payload["examYear"],
         "readDocumentIds": ids, "writeDocumentIds": write_ids, "readOnlyDocumentIds": readonly,
         "writeFieldsByDocument": payload["writeFieldsByDocument"], "auditWriteFields": ["updatedAt", "updatedById"],
@@ -1377,6 +1426,9 @@ def _read_set_readback_match(plan, candidate, payload, commit, current):
         raise ValueError("read-set baseline fingerprint differs")
     if set(current) != set(ids) or set(baseline) != set(ids) or payload["readDocumentIds"] != ids:
         raise ValueError("complete readback sibling membership differs")
+    if payload["schemaVersion"] == uploader.READ_SET_DISPLAY_SCHEMA:
+        uploader.validate_display_questions([{"questionId": i, **baseline[i]["fields"]} for i in ids])
+        uploader.validate_display_questions([{"questionId": i, **current[i]["fields"]} for i in ids])
     for identity in ids:
         before_snapshot, after_snapshot = baseline[identity], current[identity]
         before, after = before_snapshot["fields"], after_snapshot["fields"]
@@ -1424,7 +1476,7 @@ def reconcile(root, output, *, connection):
               "readback": current_ref, "documentIds": plan["identity"]["siblingIds"], "commitUpdateTimes": versions,
               "publicationConfirmed": True, "liveReadbackMatched": True, "outsideMaskUnchanged": True}
     if _read_set(payload):
-        result.update(schemaVersion="feedback-verified-delivery-read-set-publication-result/v1",
+        result.update(schemaVersion=_read_set_schema(payload["schemaVersion"], "publication-result"),
             transportProfile=payload["schemaVersion"], readDocumentIds=payload["readDocumentIds"],
             writeDocumentIds=[q["questionId"] for q in payload["questions"]], readOnlySiblingsUnchanged=True)
     # Readback readAt is not persisted by the existing snapshot reader. Identical
@@ -1442,7 +1494,7 @@ def reconcile(root, output, *, connection):
 @stages.operation
 def verify_completion(root, artifact, *, task_id, source_question_ids, task_requirement, live_reader=None, connection=None):
     artifact_keys = {"schemaVersion", "taskId", "execution", "deliveryPlan", "publicationResult"}
-    if isinstance(artifact, dict) and artifact.get("transportProfile") == uploader.READ_SET_MAINTENANCE_SCHEMA:
+    if isinstance(artifact, dict) and _profile_version(artifact.get("transportProfile", uploader.ATOMIC_MAINTENANCE_SCHEMA)) is not None:
         artifact_keys |= {"transportProfile", "readDocumentIds", "writeDocumentIds"}
     if (not isinstance(artifact, dict) or set(artifact) != artifact_keys
             or artifact["schemaVersion"] != PUBLICATION_SCHEMA or artifact["taskId"] != task_id):
@@ -1480,7 +1532,7 @@ def verify_completion(root, artifact, *, task_id, source_question_ids, task_requ
                 or result.get("writeDocumentIds") != [q["questionId"] for q in payload["questions"]]
                 or result.get("readOnlySiblingsUnchanged") is not True):
             raise ValueError("completion read/write transport profile differs")
-    result_schema = ("feedback-verified-delivery-read-set-publication-result/v1" if _read_set(payload)
+    result_schema = (_read_set_schema(payload["schemaVersion"], "publication-result") if _read_set(payload)
                      else "feedback-verified-delivery-publication-result/v1")
     if (set(result) != expected_keys or result["schemaVersion"] != result_schema
             or result["deliveryPlanHash"] != plan["planHash"] or result["documentIds"] != plan["identity"]["siblingIds"]
@@ -1524,7 +1576,7 @@ def completion_artifact(root, output, *, connection):
     plan, _, _, _, _ = _environment(root, output, connection)
     artifact = {"schemaVersion": PUBLICATION_SCHEMA, "taskId": plan["taskId"], "execution": str(output),
                 "deliveryPlan": _ref(Path(output) / "plan.json"), "publicationResult": _ref(Path(output) / "publication/result.json")}
-    if plan.get("transportProfile") == uploader.READ_SET_MAINTENANCE_SCHEMA:
+    if _profile_version(plan.get("transportProfile", uploader.ATOMIC_MAINTENANCE_SCHEMA)) is not None:
         result = _json(root, artifact["publicationResult"])[1]
         artifact.update(transportProfile=plan["transportProfile"], readDocumentIds=plan["identity"]["siblingIds"],
                         writeDocumentIds=result["writeDocumentIds"])

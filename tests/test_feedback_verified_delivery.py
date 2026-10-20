@@ -154,7 +154,7 @@ def publication_fixture(sample):
                              "fields": {**fields, "explanationText": "after", "updatedAt": "2026-10-17T01:01:00Z", "updatedById": delivery.uploader.UPDATED_BY_ID}}
         docs.append({"questionId": identity, "originalQuestionId": "original", "qualificationId": "gas-shunin-otsu", "explanationText": "after"})
     baseline = root / "baseline.json"; delivery._write(baseline, before)
-    payload = {"questions": docs, "writeFieldsByDocument": {i: ["explanationText"] for i in ids},
+    payload = {"schemaVersion": delivery.uploader.ATOMIC_MAINTENANCE_SCHEMA, "questions": docs, "writeFieldsByDocument": {i: ["explanationText"] for i in ids},
                "expectedUpdateTimes": {i: before[i]["updateTimeExact"] for i in ids}, "expectedLiveFingerprint": "a" * 64}
     commit = {"schemaVersion": delivery.uploader.ATOMIC_MAINTENANCE_RESULT_SCHEMA, "status": "committed", "documentIds": ids,
               "changedDocumentIds": ids, "unchangedDocumentIds": [], "writeFieldsByDocument": payload["writeFieldsByDocument"],
@@ -867,3 +867,224 @@ def test_publication_unit_cannot_be_inferred_or_rebound(rig, mutation):
 def test_publication_unit_helper_is_a_fixed_delivery_dependency():
     dependency = Path(delivery.sys.modules[delivery.publication_unit.__module__].__file__).resolve()
     assert delivery._dependencies()[str(dependency)] == delivery.context_api._hash(dependency.read_bytes())
+
+
+def display_rig(rig, mask=None):
+    mask = mask or delivery.uploader.DISPLAY_WRITE_FIELDS
+    ids = rig['ids']; root = rig['root']; output = rig['output']
+    base = delivery._json(root, rig['plan']['identity']['canonical'])[1]
+    for row in base['questions']:
+        if row['questionId'] not in ids: continue
+        row.update(questionBodyText='誤っているものはいくつあるか。', originalQuestionBodyText='公式の元題幹。',
+                   explanationReferences=[])
+        row['questionText'] = row['questionBodyText'] + '[quote]' + row['originalQuestionChoiceText'] + '[/quote]'
+    candidate = {'schemaVersion': 'feedback-verified-authoring-candidate/v1', 'revisionKind': 'maintenance_display', 'decisionsByDocument': {}}
+    authoring = {r['questionId']: r for r in rig['effective']['questions']}
+    for row in base['questions']:
+        identity = row['questionId']
+        if identity not in ids: continue
+        values = {field: deepcopy(authoring[identity][field]) for field in delivery.AUTHORING_FIELDS}
+        values.update({field: deepcopy(row[field]) for field in delivery.MAINTENANCE_FIELDS})
+        values['questionBodyText'] = '次の記述の正誤を判断してください。'
+        values['questionText'] = values['questionBodyText'] + '[quote]' + row['originalQuestionChoiceText'] + '[/quote]'
+        if 'explanationText' in mask: values['explanationText'] = '正しい。新しい根拠。'
+        if 'suggestedQuestions' in mask:
+            values.update(suggestedQuestions=['新補足'], suggestedQuestionDetails=[{'question': '新補足', 'answer': '新回答'}])
+        candidate['decisionsByDocument'][identity] = {f: rig['value'](v) for f, v in values.items()}
+    effective, deltas = delivery._revision(base, candidate, ids, rig['evidence'])
+    baseline = {r['questionId']: {'questionId': r['questionId'], 'exists': True, 'fields': delivery.uploader.build_doc_data_base(r),
+                'updateTimeExact': '2026-10-20T00:00:00.123456789Z'} for r in base['questions'] if r['questionId'] in ids}
+    unit = {'qualificationId': 'gas-shunin-otsu', 'examYear': 2021, 'originalQuestionId': 'original'}
+    rig['context']['save']['plan'] = delivery._write(output / 'display-old-save-plan.json', {
+        'baseline': baseline, 'membershipMode': 'qualified-exam-publication-unit/v1', 'publicationUnit': unit})
+    rig['plan']['contextFiles']['context.json'] = delivery._write(output / 'display-context.json', rig['context'])
+    rig['plan']['identity']['canonical'] = delivery._write(output / 'display-canonical.json', base)
+    rig['plan'].update(candidate=delivery._write(output / 'display-candidate.json', candidate), revisionKind='maintenance_display',
+        effectiveHash=sha256_json(effective), revisionDeltas=deltas, transportProfile=delivery.uploader.READ_SET_DISPLAY_SCHEMA,
+        membershipMode='qualified-exam-publication-unit/v1', publicationUnit=unit)
+    rig['plan'].update(delivery._seal({k: v for k, v in rig['plan'].items() if k != 'planHash'}))
+    (output / 'plan.json').write_bytes(delivery.context_api._bytes(rig['plan']))
+    rig['effective'].clear(); rig['effective'].update(effective)
+    rig['baseline'].clear(); rig['baseline'].update(baseline)
+    return base, candidate, effective
+
+
+@pytest.mark.parametrize('mask', delivery.uploader.READ_SET_DISPLAY_WRITE_FIELD_SETS)
+def test_display_revision_binds_exact_originals_presence_and_real_display_deltas(rig, mask):
+    base, candidate, effective = display_rig(rig, mask)
+    assert delivery._transport_profile(rig['plan'], effective) == delivery.uploader.READ_SET_DISPLAY_SCHEMA
+    for delta in rig['plan']['revisionDeltas']:
+        if delta['field'] not in delivery.DISPLAY_FIELDS: continue
+        before = next(r for r in base['questions'] if r['questionId'] == delta['questionId'])
+        assert delta['beforeSha256'] == sha256_json(before[delta['field']])
+        assert delta['afterSha256'] == sha256_json(delta['after'])
+        assert delta['displayBaseline'] == {f: {'present': True, 'sha256': sha256_json(before[f])}
+            for f in ('originalQuestionBodyText', 'originalQuestionChoiceText', *delivery.uploader.DISPLAY_WRITE_FIELDS)}
+    payload = delivery._payload(rig['plan'], effective, rig['baseline'])
+    assert all(fields == list(mask) for fields in payload['writeFieldsByDocument'].values())
+    assert base['questions'][-1] == effective['questions'][-1]
+    evaluation = delivery._evaluation_question({'projected': {'questionBodyText': '古い評価本文'}}, effective,
+        rig['context'], 'maintenance_display')
+    assert evaluation['projected']['questionBodyText'] == '次の記述の正誤を判断してください。'
+    assert evaluation['projected']['originalQuestionBodyText'] == '公式の元題幹。'
+    assert evaluation['projected']['originalQuestionBodyTextByChoice'] == ['公式の元題幹。'] * 5
+    assert 'originalQuestionBodyTextByChoice' not in delivery._evaluation_question({'projected': {}}, effective, rig['context'])['projected']
+
+
+@pytest.mark.parametrize('mutation', ['missing-display', 'missing-original', 'missing-quote', 'other-quote', 'different-body',
+    'noop', 'truth', 'original', 'set', 'category', 'law', 'id', 'old-kind', 'missing-decision'])
+def test_display_revision_rejects_incomplete_or_foreign_scope(rig, mutation):
+    base, candidate, _ = display_rig(rig); identity = rig['ids'][0]
+    row = next(r for r in base['questions'] if r['questionId'] == identity)
+    decisions = candidate['decisionsByDocument'][identity]
+    if mutation == 'missing-display': del row['questionBodyText']
+    elif mutation == 'missing-original': del row['originalQuestionBodyText']
+    elif mutation == 'missing-quote': decisions['questionText']['value'] = 'quoteなし'
+    elif mutation == 'other-quote': decisions['questionText']['value'] = candidate['decisionsByDocument'][rig['ids'][1]]['questionText']['value']
+    elif mutation == 'different-body': decisions['questionBodyText']['value'] = '別本文'
+    elif mutation == 'noop':
+        for i in rig['ids']:
+            old = next(r for r in base['questions'] if r['questionId'] == i)
+            for f in delivery.DISPLAY_FIELDS: candidate['decisionsByDocument'][i][f]['value'] = old[f]
+    elif mutation == 'id': candidate['decisionsByDocument']['foreign'] = candidate['decisionsByDocument'].pop(identity)
+    elif mutation == 'old-kind': candidate['revisionKind'] = 'maintenance'
+    elif mutation == 'missing-decision': decisions.pop('questionText')
+    else:
+        field = {'truth': 'correctChoiceText', 'original': 'originalQuestionBodyText', 'set': 'questionSetId',
+                 'category': 'questionTags', 'law': 'lawRevisionFacts'}[mutation]
+        decisions[field] = rig['value']('unowned')
+    with pytest.raises(ValueError): delivery._revision(base, candidate, rig['ids'], rig['evidence'])
+
+
+@pytest.mark.parametrize('mask', delivery.uploader.READ_SET_DISPLAY_WRITE_FIELD_SETS)
+def test_v2_display_publish_reconcile_replay_and_completion(rig, monkeypatch, mask):
+    display_rig(rig, mask); snapshots = prepare_flow(rig, monkeypatch); calls = []
+    monkeypatch.setattr(delivery.uploader, 'upload_read_set_maintenance_questions', fake_read_set_transport(snapshots, calls))
+    result = delivery.publish(rig['root'], rig['output'], connection=rig['db'])
+    assert result['schemaVersion'] == 'feedback-verified-delivery-read-set-publication-result/v2'
+    assert result['transportProfile'] == delivery.uploader.READ_SET_DISPLAY_SCHEMA
+    assert result['readDocumentIds'] == result['writeDocumentIds'] == rig['ids']
+    assert delivery.publish(rig['root'], rig['output'], connection=rig['db']) == result
+    assert len(calls) == 1
+    rig['db'].execute('CREATE TABLE ai_question_candidates(question_id TEXT, improvement_task_id TEXT)')
+    rig['db'].execute("INSERT INTO ai_question_candidates VALUES('original','task')")
+    artifact = delivery.completion_artifact(rig['root'], rig['output'], connection=rig['db'])
+    proof = delivery.verify_completion(rig['root'], artifact, task_id='task', source_question_ids=set(rig['ids']),
+        task_requirement=rig['plan']['taskRequirement'], connection=rig['db'])
+    assert proof['transportProfile'] == delivery.uploader.READ_SET_DISPLAY_SCHEMA
+    node = delivery._read_node(rig['root'], rig['output'], 'publication', None)
+    candidate = delivery._json(rig['root'], node['candidate'])[1]
+    payload = delivery._json(rig['root'], candidate['payload'])[1]
+    commit = json.loads((rig['output'] / 'publication/commit.json').read_bytes())
+    commit['schemaVersion'] = delivery.uploader.READ_SET_MAINTENANCE_RESULT_SCHEMA
+    with pytest.raises(ValueError): delivery._readback_match(rig['plan'], candidate, payload, commit, snapshots['current'])
+    assert json.loads((rig['output'] / 'publication/intent.json').read_bytes())['schemaVersion'].endswith('/v2')
+    assert json.loads((rig['output'] / 'publication/attempt.json').read_bytes())['schemaVersion'].endswith('/v2')
+
+
+@pytest.mark.parametrize('schema', [None, 'question-maintenance-read-set-upload/v999', 'unknown', []])
+def test_unknown_transport_never_falls_back_to_atomic(schema, monkeypatch):
+    atomic = Mock(side_effect=AssertionError('atomic fallback forbidden'))
+    monkeypatch.setattr(delivery.uploader, 'upload_atomic_maintenance_questions', atomic)
+    with pytest.raises(ValueError): delivery._transport({'schemaVersion': schema}, 'fixture')
+    with pytest.raises(ValueError): delivery._resolve_transport({'schemaVersion': schema})
+    atomic.assert_not_called()
+
+
+@pytest.mark.parametrize('phase', ['intent_saved', 'commit_saved'])
+def test_v2_interrupted_publication_resumes_same_intent_without_duplicate_write(rig, monkeypatch, phase):
+    display_rig(rig); snapshots = prepare_flow(rig, monkeypatch); calls = []
+    monkeypatch.setattr(delivery.uploader, 'upload_read_set_maintenance_questions', fake_read_set_transport(snapshots, calls))
+    def interrupt(moment):
+        if moment == phase: raise RuntimeError('fixture interruption')
+    with pytest.raises(RuntimeError, match='fixture interruption'):
+        delivery.publish(rig['root'], rig['output'], connection=rig['db'], failure_hook=interrupt)
+    assert not (rig['output'] / 'publication/result.json').exists()
+    result = delivery.publish(rig['root'], rig['output'], connection=rig['db'])
+    assert len(calls) == 1 and result['schemaVersion'].endswith('/v2')
+
+
+def test_v2_unknown_commit_records_fresh_observation_without_blind_retry(rig, monkeypatch):
+    display_rig(rig); snapshots = prepare_flow(rig, monkeypatch); calls = []
+    transport = fake_read_set_transport(snapshots, calls)
+    def lose_response(payload, label, *, dry_run=False):
+        result = transport(payload, label, dry_run=dry_run)
+        if dry_run: return result
+        result.update(status='commit_unconfirmed', writeResults=[])
+        raise delivery.uploader.ReadSetMaintenanceCommitUnconfirmed(result)
+    monkeypatch.setattr(delivery.uploader, 'upload_read_set_maintenance_questions', lose_response)
+    with pytest.raises(ValueError, match='unconfirmed'): delivery.publish(rig['root'], rig['output'], connection=rig['db'])
+    with pytest.raises(ValueError, match='no blind retry'): delivery.publish(rig['root'], rig['output'], connection=rig['db'])
+    assert len(calls) == 1 and not (rig['output'] / 'publication/result.json').exists()
+    assert list((rig['output'] / 'publication').glob('unconfirmed-readback-*.json'))
+    unconfirmed = json.loads((rig['output'] / 'publication/commit-unconfirmed.json').read_bytes())
+    assert unconfirmed['transportResult']['schemaVersion'] == delivery.uploader.READ_SET_DISPLAY_RESULT_SCHEMA
+
+
+def test_v2_completion_uses_existing_ledger_cas_and_history_with_profile_preserved(rig, monkeypatch):
+    import contextlib
+    daily, db = prepare_actual_completion_ledger(rig, monkeypatch)
+    try:
+        display_rig(rig); snapshots = prepare_flow(rig, monkeypatch); calls = []
+        monkeypatch.setattr(delivery.uploader, 'upload_read_set_maintenance_questions', fake_read_set_transport(snapshots, calls))
+        delivery.publish(rig['root'], rig['output'], connection=db)
+        @contextlib.contextmanager
+        def readonly():
+            connection = sqlite3.connect(db.execute('PRAGMA database_list').fetchone()[2]); connection.row_factory = sqlite3.Row
+            try: yield connection
+            finally: connection.close()
+        monkeypatch.setattr(delivery.checker, 'readonly_connection', readonly)
+        artifact = delivery.completion_artifact(rig['root'], rig['output'], connection=db)
+        assert artifact['transportProfile'] == delivery.uploader.READ_SET_DISPLAY_SCHEMA
+        ledger = Path(db.execute('PRAGMA database_list').fetchone()[2])
+        monkeypatch.setattr(daily, 'DEFAULT_DB', ledger)
+        result = delivery.record_completion(rig['root'], rig['output'], expected_status='open', reason=delivery.COMPLETION_REASON)
+        assert result['status'] == 'completed'
+        assert delivery.record_completion(rig['root'], rig['output'], expected_status='open', reason=delivery.COMPLETION_REASON)['resultId'] == result['resultId']
+        assert db.execute("SELECT COUNT(*) FROM improvement_result_history WHERE status='completed'").fetchone()[0] == 1
+        assert len(calls) == 1
+    finally:
+        db.close()
+
+
+@pytest.mark.parametrize('field', ['originalQuestionBodyText', 'originalQuestionChoiceText', 'questionBodyText', 'questionText'])
+def test_display_before_fields_require_explicit_presence_without_original_fallback(rig, field):
+    base, candidate, _ = display_rig(rig)
+    row = next(r for r in base['questions'] if r['questionId'] == rig['ids'][0])
+    del row[field]
+    with pytest.raises(ValueError, match='presence'):
+        delivery._revision(base, candidate, rig['ids'], rig['evidence'])
+    snapshots = deepcopy(rig['baseline']); del snapshots[rig['ids'][0]]['fields'][field]
+    with pytest.raises(ValueError): delivery._payload(rig['plan'], rig['effective'], snapshots)
+
+
+def test_v2_candidate_intent_attempt_and_completion_cannot_claim_v1(rig, monkeypatch):
+    display_rig(rig); snapshots = prepare_flow(rig, monkeypatch); calls = []
+    monkeypatch.setattr(delivery.uploader, 'upload_read_set_maintenance_questions', fake_read_set_transport(snapshots, calls))
+    delivery.publish(rig['root'], rig['output'], connection=rig['db'])
+    node = delivery._read_node(rig['root'], rig['output'], 'publication', None)
+    candidate = delivery._json(rig['root'], node['candidate'])[1]
+    for field, value in [('schemaVersion', 'feedback-verified-delivery-read-set-publication-candidate/v1'),
+                         ('transportProfile', delivery.uploader.READ_SET_MAINTENANCE_SCHEMA), ('transportProfile', 'unknown')]:
+        changed = {**candidate, field: value}
+        with pytest.raises(ValueError): delivery._publication_candidate(rig['root'], rig['output'], rig['plan'], changed)
+    for name, schema in [('intent', 'feedback-verified-delivery-read-set-publication-intent/v1'),
+                         ('attempt', 'feedback-verified-delivery-read-set-write-attempt/v1')]:
+        path = rig['output'] / ('publication/' + name + '.json'); original = path.read_bytes()
+        changed = json.loads(original); changed['schemaVersion'] = schema; path.write_bytes(delivery.context_api._bytes(changed))
+        try:
+            with pytest.raises(ValueError, match='intent/attempt'):
+                delivery._intent(rig['root'], rig['output'], rig['plan'], node, candidate)
+        finally: path.write_bytes(original)
+    artifact = {'schemaVersion': delivery.PUBLICATION_SCHEMA, 'taskId': 'task', 'execution': str(rig['output']),
+        'deliveryPlan': delivery._ref(rig['output'] / 'plan.json'), 'publicationResult': delivery._ref(rig['output'] / 'publication/result.json'),
+        'transportProfile': delivery.uploader.READ_SET_MAINTENANCE_SCHEMA, 'readDocumentIds': rig['ids'], 'writeDocumentIds': rig['ids']}
+    with pytest.raises(ValueError, match='transport'):
+        delivery.verify_completion(rig['root'], artifact, task_id='task', source_question_ids={'original'},
+            task_requirement=rig['plan']['taskRequirement'], connection=rig['db'])
+    path = rig['output'] / 'publication/result.json'; result = json.loads(path.read_bytes())
+    result['schemaVersion'] = 'feedback-verified-delivery-read-set-publication-result/v1'
+    path.write_bytes(delivery.context_api._bytes(result)); artifact.update(transportProfile=delivery.uploader.READ_SET_DISPLAY_SCHEMA, publicationResult=delivery._ref(path))
+    with pytest.raises(ValueError, match='schema/plan/intent'):
+        delivery.verify_completion(rig['root'], artifact, task_id='task', source_question_ids={'original'},
+            task_requirement=rig['plan']['taskRequirement'], connection=rig['db'])

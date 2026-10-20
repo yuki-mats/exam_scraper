@@ -76,6 +76,8 @@ native作成callはCLIの正常終了まで、途中でyieldされた出力も�
 
 2026-10-20、専用deliveryは全siblingの読取集合と実変更documentの書込集合を分ける`question-maintenance-read-set-upload/v1`にも対応します。新保存planの明示unitと全候補を結び、transport profileをplan・native scope・公開候補・intent・readback・完了証跡に固定します。1肢だけの解説改善や説明と補足の置換のために他肢を人工的に変更しません。正確なmaskとtransactionの契約は[artifact契約](artifact_contract.md#検証済み25の正式revisionと公開)を参照してください。
 
+公式の個数問題等を正誤問題へ展開した際の表示不整合には、原文を保全する専用`maintenance_display` revisionとread-set v2を使います。作者とは別の内容監査で表示の中立性を確認し、新表示を含む工程・独立評価・限定公開・live readbackを取り直します。具体的なfield・mask・証跡の契約は同じartifact契約を正本とし、経路の実装だけで個別taskを公開可能又は完了とはしません。
+
 `check`は実際の3checker・quality gate・upload dry-runを実行します。`record-check-command --command-evidence <専用native command証跡>`で実呼出しと正常終了を検証し、自己申告JSONだけを検査成功にしません。正式revisionをmainへcommit/pushした後、最新snapshot、限定mask、台帳のCAS状態と完了理由を固定して公開監査します。`publish`・`reconcile`で既存atomic uploaderと全件readbackを通し、`completion`・`record-completion`で既存台帳の公開完了記録へ接続します。台帳transaction内でも入力・承認・公開contractを再検証し、別CLIからの異なるCAS状態や理由による迂回を拒否します。未確定応答・競合・撤回は証跡を保持して停止し、完了へ進めません。この専用実装の存在だけで各taskの公開完了とは扱いません。
 
 限定公開の実upload JSONでは、最上位の`writeFields`を既存uploaderへ渡します。各documentの`writeFields`がある場合、`QuestionPublisher`は全対象で同一の対応済みmaskだけを最上位へ結合し、空・欠落・異なるmask・未対応field、新規document、mask外の差分を拒否します。改善完了の検証でも、document内のmaskだけでは限定更新の証跡として受理しません。`explanationText`と`suggestedQuestionDetails`の限定更新は、最大3件・非空・`suggestedQuestions`との厳密な対応を検証し、書込み前に保存済みの質問一覧との一致も確認します。質問一覧自体は書き込みません。

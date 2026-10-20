@@ -135,6 +135,10 @@ private planと同じdirectoryの`save-receipt.json`は`feedback-verified-explan
 
 `question-maintenance-read-set-upload/v1`は、資格・整数試験年・原問を固定した全active siblingの`readDocumentIds`と、実変更だけの`questions/writeFieldsByDocument`を分離する。許可maskは`explanationText`単独、又は`explanationText`・`suggestedQuestions`・`suggestedQuestionDetails`の3field完全一致だけ。全読取IDの`expectedReadUpdateTimes`と値・presenceのfingerprintを必須とし、同じFirestore transaction内で全件の存在・公開flag・所属と完全なactive集合を検証した後、実変更documentだけをupdateする。明確な別資格・別年度のunitは書込範囲へ加えない。不明unit・同unitの不足余剰・no-op混入・第三値・競合は拒否する。`max_attempts=1`を使い、期待値を最新値へ置換して再送しない。
 
+`maintenance_display`は、公式原題幹を保持したまま、既存の全true_false siblingの表示を整える専用revisionである。全IDについてauthoringの3field、maintenanceの4fieldと`questionBodyText`・`questionText`の2fieldを、理由・根拠付きで明示する。原題幹・原記述・変更前表示のpresenceとhashを差分へ固定し、正誤・ID・分類・法令metadataを変更しない。表示本文は全sibling共通の非空文字列とし、`questionText`は改行を除去した表示本文と、そのID自身の原記述を`[quote]`で結合したものに限る。両表示fieldの実変更を全siblingに要求する。表示の中立性と日本語は独立内容監査で判断する。評価入力では新表示と公式原文を別fieldで明示し、旧表示を評価本文へ残さない。
+
+このrevisionの公開は`question-maintenance-read-set-upload/v2`と対応するresult/v2だけを使う。許可maskは表示2fieldに、解説1fieldと補足2fieldの各組を必要に応じて加える4種類の完全一致で、各fieldは実差分でなければならない。v1とatomicの許可maskは拡張しない。transaction内の実baselineと適用後の全siblingでも表示構造と対象外不変を検証する。profileはcandidate・intent・attempt・commit・readback・completionまで結合し、未知profile、v1/v2証跡の混同、未確定commitの再書込みを拒否する。
+
 専用の公開candidate・intent・attempt・commit・resultはprofileとread/write集合を結合する。transactionの実`write_results`から書込集合のexact更新時刻を確認し、読取専用siblingは値・presence・更新時刻すべて不変、書込documentは対象field一致と対象外不変をreadbackする。不明commitは永続証跡を残して再観測し、再書込み又は完了へ自動的に進めない。従来の全対象変更atomic契約は維持し、旧receiptをこの専用証跡へ読み替えない。コード監査やtransport応答は、固定候補の内容監査・正式保存・独立評価・本番公開確認を代替しない。
 
 ### 読取専用canonical contextによる限定生成
