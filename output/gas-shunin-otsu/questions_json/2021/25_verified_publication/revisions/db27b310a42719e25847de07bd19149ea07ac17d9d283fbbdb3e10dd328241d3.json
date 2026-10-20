@@ -1,0 +1,620 @@
+{
+  "approvalBindings": [
+    {
+      "authorSessionId": "01a0f2e6-34a0-7660-a17a-afb87125aada",
+      "nativeEvidenceHash": "77103cbff2982a1c5ce576c6c140f835848db89d906d9c8cecfb3e8364eee557",
+      "resultHash": "a47f5dcbc3b77ed24dc4094145ce431ccd3f363dbba2cc8ecdd772ab11d6d9a1",
+      "reviewerAgentPath": "/root/gas2024_revision_audit",
+      "reviewerProfile": {
+        "model": "gpt-6.1-sol",
+        "reasoningEffort": "high"
+      },
+      "reviewerSessionId": "01a156dd-5422-7d23-b0ac-fe1109340918",
+      "reviewerTurnId": "01a1575f-88df-76b3-9818-d4b105b8b5a3",
+      "scopeHash": "a0de1a55876a742a5d9da48a3f330b4a4b553a99770570b85b3dc6771169a97b"
+    }
+  ],
+  "base": {
+    "ref": "/Users/yuki/development/exam_scraper_feedback/output/gas-shunin-otsu/questions_json/2021/25_verified_publication/2021_verified_publication.json",
+    "sha256": "6c2440154429694dbf0c2e3cd1e02d24da50551ac1bf2bb2d0f8ed175319f180"
+  },
+  "deliveryPlanHash": "db27b310a42719e25847de07bd19149ea07ac17d9d283fbbdb3e10dd328241d3",
+  "deltas": [
+    {
+      "after": [
+        {
+          "referenceDate": "2026-10-20",
+          "sourceUrl": "https://ac-faq.industrial.panasonic.com/ja/knowledge/fasys/sensor/area/areasensor/term-interlock-safety",
+          "title": "用語解説：安全上のインターロックとはどういう意味ですか？"
+        },
+        {
+          "referenceDate": "2026-10-20",
+          "sourceUrl": "https://www.yoshitake.co.jp/support/sup02_list.php?id=3",
+          "title": "よくある質問：安全弁（株式会社ヨシタケ）"
+        }
+      ],
+      "before": null,
+      "beforePresent": false,
+      "field": "explanationReferences",
+      "questionId": "gas-shunin-otsu-2021-law-q09-s01"
+    },
+    {
+      "after": false,
+      "before": null,
+      "beforePresent": false,
+      "field": "isCalculationQuestion",
+      "questionId": "gas-shunin-otsu-2021-law-q09-s01"
+    },
+    {
+      "after": "ガス工作物の技術基準について、次の記述の正誤を判断してください。",
+      "afterSha256": "7ce532e17bcaa742047a75bc900e3f92848bf425e9782bb7ca9166d01ceaa784",
+      "before": "技術基準で規定されているガス工作物に関する次の記述のうち、誤っているものはいくつあるか。(令和3年度乙種)",
+      "beforePresent": true,
+      "beforeSha256": "387a494175022bc3de1f107dae3c294e1674f68af94d1959857ea0fac52bf052",
+      "displayBaseline": {
+        "originalQuestionBodyText": {
+          "present": true,
+          "sha256": "387a494175022bc3de1f107dae3c294e1674f68af94d1959857ea0fac52bf052"
+        },
+        "originalQuestionChoiceText": {
+          "present": true,
+          "sha256": "1aaea61b8dff10a7d2119e4d484f84771b5e946e97dcd600b16e8e49df593af8"
+        },
+        "questionBodyText": {
+          "present": true,
+          "sha256": "387a494175022bc3de1f107dae3c294e1674f68af94d1959857ea0fac52bf052"
+        },
+        "questionText": {
+          "present": true,
+          "sha256": "0244f8b53f6b4dd72ca1feb1cbdf4d56e1af25ab7821bdfeceff15e7c2cc860e"
+        }
+      },
+      "field": "questionBodyText",
+      "questionId": "gas-shunin-otsu-2021-law-q09-s01"
+    },
+    {
+      "after": "select_incorrect",
+      "before": null,
+      "beforePresent": false,
+      "field": "questionIntent",
+      "questionId": "gas-shunin-otsu-2021-law-q09-s01"
+    },
+    {
+      "after": "differences_relationships",
+      "before": null,
+      "beforePresent": false,
+      "field": "questionLearningPatternId",
+      "questionId": "gas-shunin-otsu-2021-law-q09-s01"
+    },
+    {
+      "after": "ガス工作物の技術基準について、次の記述の正誤を判断してください。[quote]最高使用圧力が中圧のガス発生設備であって、過圧が生ずるおそれのあるものには、その圧力を逃がすために適切なインターロック機構を設けなければならない。[/quote]",
+      "afterSha256": "6b1cea6e0df7d75cbde67964acd1806896dd0ea11d2b2e8019e6bb836b4cb001",
+      "before": "技術基準で規定されているガス工作物に関する次の記述のうち、誤っているものはいくつあるか。(令和3年度乙種)[quote]最高使用圧力が中圧のガス発生設備であって、過圧が生ずるおそれのあるものには、その圧力を逃がすために適切なインターロック機構を設けなければならない。[/quote]",
+      "beforePresent": true,
+      "beforeSha256": "0244f8b53f6b4dd72ca1feb1cbdf4d56e1af25ab7821bdfeceff15e7c2cc860e",
+      "displayBaseline": {
+        "originalQuestionBodyText": {
+          "present": true,
+          "sha256": "387a494175022bc3de1f107dae3c294e1674f68af94d1959857ea0fac52bf052"
+        },
+        "originalQuestionChoiceText": {
+          "present": true,
+          "sha256": "1aaea61b8dff10a7d2119e4d484f84771b5e946e97dcd600b16e8e49df593af8"
+        },
+        "questionBodyText": {
+          "present": true,
+          "sha256": "387a494175022bc3de1f107dae3c294e1674f68af94d1959857ea0fac52bf052"
+        },
+        "questionText": {
+          "present": true,
+          "sha256": "0244f8b53f6b4dd72ca1feb1cbdf4d56e1af25ab7821bdfeceff15e7c2cc860e"
+        }
+      },
+      "field": "questionText",
+      "questionId": "gas-shunin-otsu-2021-law-q09-s01"
+    },
+    {
+      "after": [],
+      "before": null,
+      "beforePresent": false,
+      "field": "explanationReferences",
+      "questionId": "gas-shunin-otsu-2021-law-q09-s02"
+    },
+    {
+      "after": "正しい。漏えい時は、ガスの流出と流入の両方を速やかに止められる必要があります（ガス工作物の技術上の基準を定める省令〔平成12年通商産業省令第111号〕第33条第1項）。",
+      "before": "正しい。ガスホルダーの送出・受入配管には、ガス漏えいによる災害を防止するため、ガスの流出及び流入を速やかに遮断できる適切な装置を適切な箇所に設ける。この基準は、ガス工作物の技術上の基準を定める省令第33条第1項に規定されている。",
+      "beforePresent": true,
+      "field": "explanationText",
+      "questionId": "gas-shunin-otsu-2021-law-q09-s02"
+    },
+    {
+      "after": false,
+      "before": null,
+      "beforePresent": false,
+      "field": "isCalculationQuestion",
+      "questionId": "gas-shunin-otsu-2021-law-q09-s02"
+    },
+    {
+      "after": "ガス工作物の技術基準について、次の記述の正誤を判断してください。",
+      "afterSha256": "7ce532e17bcaa742047a75bc900e3f92848bf425e9782bb7ca9166d01ceaa784",
+      "before": "技術基準で規定されているガス工作物に関する次の記述のうち、誤っているものはいくつあるか。(令和3年度乙種)",
+      "beforePresent": true,
+      "beforeSha256": "387a494175022bc3de1f107dae3c294e1674f68af94d1959857ea0fac52bf052",
+      "displayBaseline": {
+        "originalQuestionBodyText": {
+          "present": true,
+          "sha256": "387a494175022bc3de1f107dae3c294e1674f68af94d1959857ea0fac52bf052"
+        },
+        "originalQuestionChoiceText": {
+          "present": true,
+          "sha256": "24de136a8cc0db12d974ee6d9e897dfc9f62167bb13ed67476c92ea6cd285a99"
+        },
+        "questionBodyText": {
+          "present": true,
+          "sha256": "387a494175022bc3de1f107dae3c294e1674f68af94d1959857ea0fac52bf052"
+        },
+        "questionText": {
+          "present": true,
+          "sha256": "30830cc709f2492070dcbf59df643674a34edf238adeb7dddaf90a64351923c1"
+        }
+      },
+      "field": "questionBodyText",
+      "questionId": "gas-shunin-otsu-2021-law-q09-s02"
+    },
+    {
+      "after": "select_incorrect",
+      "before": null,
+      "beforePresent": false,
+      "field": "questionIntent",
+      "questionId": "gas-shunin-otsu-2021-law-q09-s02"
+    },
+    {
+      "after": "conditions_scope",
+      "before": null,
+      "beforePresent": false,
+      "field": "questionLearningPatternId",
+      "questionId": "gas-shunin-otsu-2021-law-q09-s02"
+    },
+    {
+      "after": "ガス工作物の技術基準について、次の記述の正誤を判断してください。[quote]ガスホルダーのガスを送り出し、又は受け入れるために用いられる配管には、ガスが漏えいした場合の災害の発生を防止するため、ガスの流出及び流入を速やかに遮断することができる適切な装置を適切な箇所に設けなければならない。[/quote]",
+      "afterSha256": "a772f044548b27db64c6b4863096a978e0b1866b2fa12ad205cace05a4f9d3c3",
+      "before": "技術基準で規定されているガス工作物に関する次の記述のうち、誤っているものはいくつあるか。(令和3年度乙種)[quote]ガスホルダーのガスを送り出し、又は受け入れるために用いられる配管には、ガスが漏えいした場合の災害の発生を防止するため、ガスの流出及び流入を速やかに遮断することができる適切な装置を適切な箇所に設けなければならない。[/quote]",
+      "beforePresent": true,
+      "beforeSha256": "30830cc709f2492070dcbf59df643674a34edf238adeb7dddaf90a64351923c1",
+      "displayBaseline": {
+        "originalQuestionBodyText": {
+          "present": true,
+          "sha256": "387a494175022bc3de1f107dae3c294e1674f68af94d1959857ea0fac52bf052"
+        },
+        "originalQuestionChoiceText": {
+          "present": true,
+          "sha256": "24de136a8cc0db12d974ee6d9e897dfc9f62167bb13ed67476c92ea6cd285a99"
+        },
+        "questionBodyText": {
+          "present": true,
+          "sha256": "387a494175022bc3de1f107dae3c294e1674f68af94d1959857ea0fac52bf052"
+        },
+        "questionText": {
+          "present": true,
+          "sha256": "30830cc709f2492070dcbf59df643674a34edf238adeb7dddaf90a64351923c1"
+        }
+      },
+      "field": "questionText",
+      "questionId": "gas-shunin-otsu-2021-law-q09-s02"
+    },
+    {
+      "after": [],
+      "before": [
+        {
+          "answer": "インターロック機構ではない。技術基準省令第17条第1項は、高圧のガス発生設備等に安全弁を求めている。",
+          "question": "過圧のおそれがあるガス発生設備に求められる装置はインターロック機構か。"
+        },
+        {
+          "answer": "ガスの流出及び流入を速やかに遮断できる装置が必要である。",
+          "question": "ガスホルダーの送出し・受入れ配管には、ガス漏えい時に何を遮断できる装置が必要か。"
+        },
+        {
+          "answer": "対象ではない。技術基準省令第19条第1項では、ガス発生設備から移動式ガス発生設備が除かれている。",
+          "question": "移動式ガス発生設備は、損傷に至るおそれのある状態を検知し警報する装置の対象か。"
+        }
+      ],
+      "beforePresent": true,
+      "field": "suggestedQuestionDetails",
+      "questionId": "gas-shunin-otsu-2021-law-q09-s02"
+    },
+    {
+      "after": [],
+      "before": [
+        "過圧のおそれがあるガス発生設備に求められる装置はインターロック機構か。",
+        "ガスホルダーの送出し・受入れ配管には、ガス漏えい時に何を遮断できる装置が必要か。",
+        "移動式ガス発生設備は、損傷に至るおそれのある状態を検知し警報する装置の対象か。"
+      ],
+      "beforePresent": true,
+      "field": "suggestedQuestions",
+      "questionId": "gas-shunin-otsu-2021-law-q09-s02"
+    },
+    {
+      "after": [],
+      "before": null,
+      "beforePresent": false,
+      "field": "explanationReferences",
+      "questionId": "gas-shunin-otsu-2021-law-q09-s03"
+    },
+    {
+      "after": "間違い。設備の損傷に至るおそれのある状態を検知して警報する装置の設置対象から、移動式ガス発生設備は除かれています（ガス工作物の技術上の基準を定める省令〔平成12年通商産業省令第111号〕第19条第1項）。",
+      "before": "間違い。設備の損傷に至るおそれのある状態を検知して警報する装置の設置対象から、移動式ガス発生設備は除かれている。この基準は、ガス工作物の技術上の基準を定める省令第19条第1項に規定されている。",
+      "beforePresent": true,
+      "field": "explanationText",
+      "questionId": "gas-shunin-otsu-2021-law-q09-s03"
+    },
+    {
+      "after": false,
+      "before": null,
+      "beforePresent": false,
+      "field": "isCalculationQuestion",
+      "questionId": "gas-shunin-otsu-2021-law-q09-s03"
+    },
+    {
+      "after": "ガス工作物の技術基準について、次の記述の正誤を判断してください。",
+      "afterSha256": "7ce532e17bcaa742047a75bc900e3f92848bf425e9782bb7ca9166d01ceaa784",
+      "before": "技術基準で規定されているガス工作物に関する次の記述のうち、誤っているものはいくつあるか。(令和3年度乙種)",
+      "beforePresent": true,
+      "beforeSha256": "387a494175022bc3de1f107dae3c294e1674f68af94d1959857ea0fac52bf052",
+      "displayBaseline": {
+        "originalQuestionBodyText": {
+          "present": true,
+          "sha256": "387a494175022bc3de1f107dae3c294e1674f68af94d1959857ea0fac52bf052"
+        },
+        "originalQuestionChoiceText": {
+          "present": true,
+          "sha256": "c5411c491c9399ed3ed81b1b8086962014f82941064fca1258133c9eceb75c83"
+        },
+        "questionBodyText": {
+          "present": true,
+          "sha256": "387a494175022bc3de1f107dae3c294e1674f68af94d1959857ea0fac52bf052"
+        },
+        "questionText": {
+          "present": true,
+          "sha256": "76de60c484352c7b50e294f11faeb0ca8d36c05395591a02b0127d9bc3ff7baf"
+        }
+      },
+      "field": "questionBodyText",
+      "questionId": "gas-shunin-otsu-2021-law-q09-s03"
+    },
+    {
+      "after": "select_incorrect",
+      "before": null,
+      "beforePresent": false,
+      "field": "questionIntent",
+      "questionId": "gas-shunin-otsu-2021-law-q09-s03"
+    },
+    {
+      "after": "principles_exceptions",
+      "before": null,
+      "beforePresent": false,
+      "field": "questionLearningPatternId",
+      "questionId": "gas-shunin-otsu-2021-law-q09-s03"
+    },
+    {
+      "after": "ガス工作物の技術基準について、次の記述の正誤を判断してください。[quote]移動式ガス発生設備には、ガス又は液化ガスを通ずる設備の損傷に至るおそれのある状態を検知し警報する適切な装置を設けなければならない。[/quote]",
+      "afterSha256": "c9d21eb6f60d2fe07360e7d184b69dcdae894493aae56254afe14d117194981c",
+      "before": "技術基準で規定されているガス工作物に関する次の記述のうち、誤っているものはいくつあるか。(令和3年度乙種)[quote]移動式ガス発生設備には、ガス又は液化ガスを通ずる設備の損傷に至るおそれのある状態を検知し警報する適切な装置を設けなければならない。[/quote]",
+      "beforePresent": true,
+      "beforeSha256": "76de60c484352c7b50e294f11faeb0ca8d36c05395591a02b0127d9bc3ff7baf",
+      "displayBaseline": {
+        "originalQuestionBodyText": {
+          "present": true,
+          "sha256": "387a494175022bc3de1f107dae3c294e1674f68af94d1959857ea0fac52bf052"
+        },
+        "originalQuestionChoiceText": {
+          "present": true,
+          "sha256": "c5411c491c9399ed3ed81b1b8086962014f82941064fca1258133c9eceb75c83"
+        },
+        "questionBodyText": {
+          "present": true,
+          "sha256": "387a494175022bc3de1f107dae3c294e1674f68af94d1959857ea0fac52bf052"
+        },
+        "questionText": {
+          "present": true,
+          "sha256": "76de60c484352c7b50e294f11faeb0ca8d36c05395591a02b0127d9bc3ff7baf"
+        }
+      },
+      "field": "questionText",
+      "questionId": "gas-shunin-otsu-2021-law-q09-s03"
+    },
+    {
+      "after": [],
+      "before": [
+        {
+          "answer": "インターロック機構ではない。技術基準省令第17条第1項は、高圧のガス発生設備等に安全弁を求めている。",
+          "question": "過圧のおそれがあるガス発生設備に求められる装置はインターロック機構か。"
+        },
+        {
+          "answer": "ガスの流出及び流入を速やかに遮断できる装置が必要である。",
+          "question": "ガスホルダーの送出し・受入れ配管には、ガス漏えい時に何を遮断できる装置が必要か。"
+        },
+        {
+          "answer": "対象ではない。技術基準省令第19条第1項では、ガス発生設備から移動式ガス発生設備が除かれている。",
+          "question": "移動式ガス発生設備は、損傷に至るおそれのある状態を検知し警報する装置の対象か。"
+        }
+      ],
+      "beforePresent": true,
+      "field": "suggestedQuestionDetails",
+      "questionId": "gas-shunin-otsu-2021-law-q09-s03"
+    },
+    {
+      "after": [],
+      "before": [
+        "過圧のおそれがあるガス発生設備に求められる装置はインターロック機構か。",
+        "ガスホルダーの送出し・受入れ配管には、ガス漏えい時に何を遮断できる装置が必要か。",
+        "移動式ガス発生設備は、損傷に至るおそれのある状態を検知し警報する装置の対象か。"
+      ],
+      "beforePresent": true,
+      "field": "suggestedQuestions",
+      "questionId": "gas-shunin-otsu-2021-law-q09-s03"
+    },
+    {
+      "after": [],
+      "before": null,
+      "beforePresent": false,
+      "field": "explanationReferences",
+      "questionId": "gas-shunin-otsu-2021-law-q09-s04"
+    },
+    {
+      "after": "間違い。正しくは、最高使用圧力が高圧のガスホルダーと、その支持物に求められる措置です。受けるおそれのある熱に十分耐える構造にするか、適切な冷却装置を設けます（ガス工作物の技術上の基準を定める省令〔平成12年通商産業省令第111号〕第37条第1項）。設問の「低圧」は「高圧」の取り違えです。",
+      "before": "間違い。熱に十分耐える構造又は適切な冷却装置が必要なガスホルダーは、最高使用圧力が高圧のもの及びその支持物であり、低圧のものではない。この基準は、ガス工作物の技術上の基準を定める省令第37条第1項に規定されている。",
+      "beforePresent": true,
+      "field": "explanationText",
+      "questionId": "gas-shunin-otsu-2021-law-q09-s04"
+    },
+    {
+      "after": false,
+      "before": null,
+      "beforePresent": false,
+      "field": "isCalculationQuestion",
+      "questionId": "gas-shunin-otsu-2021-law-q09-s04"
+    },
+    {
+      "after": "ガス工作物の技術基準について、次の記述の正誤を判断してください。",
+      "afterSha256": "7ce532e17bcaa742047a75bc900e3f92848bf425e9782bb7ca9166d01ceaa784",
+      "before": "技術基準で規定されているガス工作物に関する次の記述のうち、誤っているものはいくつあるか。(令和3年度乙種)",
+      "beforePresent": true,
+      "beforeSha256": "387a494175022bc3de1f107dae3c294e1674f68af94d1959857ea0fac52bf052",
+      "displayBaseline": {
+        "originalQuestionBodyText": {
+          "present": true,
+          "sha256": "387a494175022bc3de1f107dae3c294e1674f68af94d1959857ea0fac52bf052"
+        },
+        "originalQuestionChoiceText": {
+          "present": true,
+          "sha256": "bb6ae1b53c9f0a43d41d7148ebf0b2128260914214704b993de733252104fb8c"
+        },
+        "questionBodyText": {
+          "present": true,
+          "sha256": "387a494175022bc3de1f107dae3c294e1674f68af94d1959857ea0fac52bf052"
+        },
+        "questionText": {
+          "present": true,
+          "sha256": "e8bc98660087f414a46d2c5382369ed0493396b3a85b93c74effe2d800103d01"
+        }
+      },
+      "field": "questionBodyText",
+      "questionId": "gas-shunin-otsu-2021-law-q09-s04"
+    },
+    {
+      "after": "select_incorrect",
+      "before": null,
+      "beforePresent": false,
+      "field": "questionIntent",
+      "questionId": "gas-shunin-otsu-2021-law-q09-s04"
+    },
+    {
+      "after": "conditions_scope",
+      "before": null,
+      "beforePresent": false,
+      "field": "questionLearningPatternId",
+      "questionId": "gas-shunin-otsu-2021-law-q09-s04"
+    },
+    {
+      "after": "ガス工作物の技術基準について、次の記述の正誤を判断してください。[quote]最高使用圧力が低圧のガスホルダーは、受けるおそれのある熱に対し十分に耐えるものとし、又は適切な冷却装置を設けなければならない。[/quote]",
+      "afterSha256": "5a5017973508699ba81f4234633e00828f3da89371ea7f7e0e85f0372df336a1",
+      "before": "技術基準で規定されているガス工作物に関する次の記述のうち、誤っているものはいくつあるか。(令和3年度乙種)[quote]最高使用圧力が低圧のガスホルダーは、受けるおそれのある熱に対し十分に耐えるものとし、又は適切な冷却装置を設けなければならない。[/quote]",
+      "beforePresent": true,
+      "beforeSha256": "e8bc98660087f414a46d2c5382369ed0493396b3a85b93c74effe2d800103d01",
+      "displayBaseline": {
+        "originalQuestionBodyText": {
+          "present": true,
+          "sha256": "387a494175022bc3de1f107dae3c294e1674f68af94d1959857ea0fac52bf052"
+        },
+        "originalQuestionChoiceText": {
+          "present": true,
+          "sha256": "bb6ae1b53c9f0a43d41d7148ebf0b2128260914214704b993de733252104fb8c"
+        },
+        "questionBodyText": {
+          "present": true,
+          "sha256": "387a494175022bc3de1f107dae3c294e1674f68af94d1959857ea0fac52bf052"
+        },
+        "questionText": {
+          "present": true,
+          "sha256": "e8bc98660087f414a46d2c5382369ed0493396b3a85b93c74effe2d800103d01"
+        }
+      },
+      "field": "questionText",
+      "questionId": "gas-shunin-otsu-2021-law-q09-s04"
+    },
+    {
+      "after": [],
+      "before": [
+        {
+          "answer": "インターロック機構ではない。技術基準省令第17条第1項は、高圧のガス発生設備等に安全弁を求めている。",
+          "question": "過圧のおそれがあるガス発生設備に求められる装置はインターロック機構か。"
+        },
+        {
+          "answer": "ガスの流出及び流入を速やかに遮断できる装置が必要である。",
+          "question": "ガスホルダーの送出し・受入れ配管には、ガス漏えい時に何を遮断できる装置が必要か。"
+        },
+        {
+          "answer": "対象ではない。技術基準省令第19条第1項では、ガス発生設備から移動式ガス発生設備が除かれている。",
+          "question": "移動式ガス発生設備は、損傷に至るおそれのある状態を検知し警報する装置の対象か。"
+        }
+      ],
+      "beforePresent": true,
+      "field": "suggestedQuestionDetails",
+      "questionId": "gas-shunin-otsu-2021-law-q09-s04"
+    },
+    {
+      "after": [],
+      "before": [
+        "過圧のおそれがあるガス発生設備に求められる装置はインターロック機構か。",
+        "ガスホルダーの送出し・受入れ配管には、ガス漏えい時に何を遮断できる装置が必要か。",
+        "移動式ガス発生設備は、損傷に至るおそれのある状態を検知し警報する装置の対象か。"
+      ],
+      "beforePresent": true,
+      "field": "suggestedQuestions",
+      "questionId": "gas-shunin-otsu-2021-law-q09-s04"
+    },
+    {
+      "after": [],
+      "before": null,
+      "beforePresent": false,
+      "field": "explanationReferences",
+      "questionId": "gas-shunin-otsu-2021-law-q09-s05"
+    },
+    {
+      "after": "正しい。誤操作を防ぐだけでなく、必要なときに確実に操作できることも求められます（ガス工作物の技術上の基準を定める省令〔平成12年通商産業省令第111号〕第20条第1項）。",
+      "before": "正しい。製造所、供給所又は移動式ガス発生設備に設置する遮断装置には、誤操作を防止し、確実に操作できる措置を講じる。この基準は、ガス工作物の技術上の基準を定める省令第20条第1項に規定されている。",
+      "beforePresent": true,
+      "field": "explanationText",
+      "questionId": "gas-shunin-otsu-2021-law-q09-s05"
+    },
+    {
+      "after": false,
+      "before": null,
+      "beforePresent": false,
+      "field": "isCalculationQuestion",
+      "questionId": "gas-shunin-otsu-2021-law-q09-s05"
+    },
+    {
+      "after": "ガス工作物の技術基準について、次の記述の正誤を判断してください。",
+      "afterSha256": "7ce532e17bcaa742047a75bc900e3f92848bf425e9782bb7ca9166d01ceaa784",
+      "before": "技術基準で規定されているガス工作物に関する次の記述のうち、誤っているものはいくつあるか。(令和3年度乙種)",
+      "beforePresent": true,
+      "beforeSha256": "387a494175022bc3de1f107dae3c294e1674f68af94d1959857ea0fac52bf052",
+      "displayBaseline": {
+        "originalQuestionBodyText": {
+          "present": true,
+          "sha256": "387a494175022bc3de1f107dae3c294e1674f68af94d1959857ea0fac52bf052"
+        },
+        "originalQuestionChoiceText": {
+          "present": true,
+          "sha256": "6e9a845ca864e33bc9c932c09bd5369709cee8d5cfd08022397e1b3e80e87a61"
+        },
+        "questionBodyText": {
+          "present": true,
+          "sha256": "387a494175022bc3de1f107dae3c294e1674f68af94d1959857ea0fac52bf052"
+        },
+        "questionText": {
+          "present": true,
+          "sha256": "a2d5cae66a0fe0ef76ab4fc0cca3ecff16bce42aff3ef2cb857f31874cc57c4a"
+        }
+      },
+      "field": "questionBodyText",
+      "questionId": "gas-shunin-otsu-2021-law-q09-s05"
+    },
+    {
+      "after": "select_incorrect",
+      "before": null,
+      "beforePresent": false,
+      "field": "questionIntent",
+      "questionId": "gas-shunin-otsu-2021-law-q09-s05"
+    },
+    {
+      "after": "conditions_scope",
+      "before": null,
+      "beforePresent": false,
+      "field": "questionLearningPatternId",
+      "questionId": "gas-shunin-otsu-2021-law-q09-s05"
+    },
+    {
+      "after": "ガス工作物の技術基準について、次の記述の正誤を判断してください。[quote]製造所、供給所又は移動式ガス発生設備に設置する遮断装置には、誤操作を防止し、かつ、確実に操作することができる措置を講じなければならない。[/quote]",
+      "afterSha256": "a55f6bbbe9a956b19ec3c0644e7ffbc086151a5ee0b4202751a06dc2bda7ee4c",
+      "before": "技術基準で規定されているガス工作物に関する次の記述のうち、誤っているものはいくつあるか。(令和3年度乙種)[quote]製造所、供給所又は移動式ガス発生設備に設置する遮断装置には、誤操作を防止し、かつ、確実に操作することができる措置を講じなければならない。[/quote]",
+      "beforePresent": true,
+      "beforeSha256": "a2d5cae66a0fe0ef76ab4fc0cca3ecff16bce42aff3ef2cb857f31874cc57c4a",
+      "displayBaseline": {
+        "originalQuestionBodyText": {
+          "present": true,
+          "sha256": "387a494175022bc3de1f107dae3c294e1674f68af94d1959857ea0fac52bf052"
+        },
+        "originalQuestionChoiceText": {
+          "present": true,
+          "sha256": "6e9a845ca864e33bc9c932c09bd5369709cee8d5cfd08022397e1b3e80e87a61"
+        },
+        "questionBodyText": {
+          "present": true,
+          "sha256": "387a494175022bc3de1f107dae3c294e1674f68af94d1959857ea0fac52bf052"
+        },
+        "questionText": {
+          "present": true,
+          "sha256": "a2d5cae66a0fe0ef76ab4fc0cca3ecff16bce42aff3ef2cb857f31874cc57c4a"
+        }
+      },
+      "field": "questionText",
+      "questionId": "gas-shunin-otsu-2021-law-q09-s05"
+    },
+    {
+      "after": [],
+      "before": [
+        {
+          "answer": "インターロック機構ではない。技術基準省令第17条第1項は、高圧のガス発生設備等に安全弁を求めている。",
+          "question": "過圧のおそれがあるガス発生設備に求められる装置はインターロック機構か。"
+        },
+        {
+          "answer": "ガスの流出及び流入を速やかに遮断できる装置が必要である。",
+          "question": "ガスホルダーの送出し・受入れ配管には、ガス漏えい時に何を遮断できる装置が必要か。"
+        },
+        {
+          "answer": "対象ではない。技術基準省令第19条第1項では、ガス発生設備から移動式ガス発生設備が除かれている。",
+          "question": "移動式ガス発生設備は、損傷に至るおそれのある状態を検知し警報する装置の対象か。"
+        }
+      ],
+      "beforePresent": true,
+      "field": "suggestedQuestionDetails",
+      "questionId": "gas-shunin-otsu-2021-law-q09-s05"
+    },
+    {
+      "after": [],
+      "before": [
+        "過圧のおそれがあるガス発生設備に求められる装置はインターロック機構か。",
+        "ガスホルダーの送出し・受入れ配管には、ガス漏えい時に何を遮断できる装置が必要か。",
+        "移動式ガス発生設備は、損傷に至るおそれのある状態を検知し警報する装置の対象か。"
+      ],
+      "beforePresent": true,
+      "field": "suggestedQuestions",
+      "questionId": "gas-shunin-otsu-2021-law-q09-s05"
+    }
+  ],
+  "effectiveHash": "a8ac1c33ed44694cebc7bdce23b684f27cd4ee4c2a444c5a4651e84268571e4c",
+  "revisionKind": "maintenance_display",
+  "schemaVersion": "gas-shunin-verified-authoring-revision/v1",
+  "taskRequirement": {
+    "requirement": {
+      "definition": {
+        "need": "インターロック機構の連動・停止の仕組みを説明し、安全弁の圧力逃し機能との違いを一次根拠に基づいて示す。現行の正誤判定を用語補足だけで変更しない。",
+        "target": "gas-shunin-otsu-2021-law-q09-s01",
+        "title": "インターロック機構の意味と安全弁との役割を補足する"
+      },
+      "schemaVersion": "feedback-task-requirement/v1",
+      "sources": [
+        {
+          "candidate_id": "c7f30073f4a7db1d6026baab13c7b8d5c81dfe8b5a9d8f885e752277c6e91480",
+          "question_id": "gas-shunin-otsu-2021-law-q09-s01",
+          "review_status": "promoted",
+          "text_hash": "1aa6c7a8e52338b7f7ab148326a1fe1408eb1f9b11d39b9f4b270dbf9287584d"
+        }
+      ],
+      "taskId": "ca06bb11150061a0ad4b88f6d17ba6e3c2b3f82a229e1ae5fe589197e3fc02ab"
+    },
+    "requirementHash": "ba7ee4654a8a8fb9ea9081dca0a9a7579622ba0f7ed3e46eb1cb258e77a9729a"
+  }
+}
