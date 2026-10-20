@@ -4,10 +4,23 @@ import json
 from pathlib import Path
 import unittest
 from unittest.mock import patch
+import pytest
 
 from tools.question_bank import feedback_verified_stage_execution as module
 from tests import test_feedback_verified_review_context as context_fixtures
 from tests.test_native_independent_approval import native_audit, change
+from tools.question_review_console.firestore_readback import FirestoreReadback
+from scripts.upload import upload_questions_to_firestore as uploader
+
+
+@pytest.fixture(autouse=True)
+def prohibit_live_firestore(monkeypatch):
+    def forbidden(*args, **kwargs):
+        raise AssertionError('live Firestore SDK is forbidden in native-stage tests')
+    monkeypatch.setattr(FirestoreReadback, '_database', forbidden)
+    monkeypatch.setattr(uploader, 'init_firestore', forbidden)
+    monkeypatch.setattr(uploader.firestore, 'client', forbidden)
+    monkeypatch.setattr(uploader.firebase_admin, 'initialize_app', forbidden)
 
 
 class VerifiedStageExecutionTests(unittest.TestCase):
@@ -655,9 +668,10 @@ class VerifiedStageExecutionTests(unittest.TestCase):
                     self.assertFalse((self.output / 'execution-receipt.json').exists())
         parent.write_bytes(initial)
 
-    def owner_launch(self, approval, *, command='record', call_id='owner-launch', module_name=None):
-        argv = [command, '--repo-root', str(self.root), '--execution', str(self.output)]
-        if command == 'record': argv += ['--approval', str(self.private / 'approval.json')]
+    def owner_launch(self, approval, *, command='record', call_id='owner-launch', module_name=None, argv=None):
+        if argv is None:
+            argv = [command, '--repo-root', str(self.root), '--execution', str(self.output)]
+            if command == 'record': argv += ['--approval', str(self.private / 'approval.json')]
         module_name = module_name or 'tools.question_bank.feedback_verified_stage_execution'
         parent = Path(approval['authorization']['sessionPath'])
         self.append_event(parent, {'type': 'turn_context', 'payload': {'turn_id': 'owner-turn'}})
@@ -848,6 +862,28 @@ class VerifiedStageExecutionTests(unittest.TestCase):
             guard = module.capture_native_guard([approval])
             for event in self.owner_progress(): self.append_event(parent, event)
             module.assert_native_guard(guard, terminal=True)
+
+    def test_formal_save_record_module_allows_only_its_two_exact_cli_shapes(self):
+        self.prepare(); approval = self.approval()
+        name = 'tools.question_bank.feedback_verified_save_record'
+        base = ['--repo-root', str(self.root), '--db', str(self.private / 'ledger.sqlite3')]
+        for command in (['record', '--plan', str(self.private / 'formal-save-plan.json')],
+                        ['inspect', '--task-id', 'task', '--task-kind', 'maintenance']):
+            parent, argv = self.owner_launch(approval, module_name=name, argv=[*base, *command])
+            with module.native_operation(argv, module_name=name):
+                guard = module.capture_native_guard([approval])
+                for event in self.owner_progress(): self.append_event(parent, event)
+                module.assert_native_guard(guard, terminal=True)
+        for argv in ([*base, 'scope'], [*base, 'save', '--plan', 'plan'], [*base, 'record'],
+                     [*base, 'record', '--plan', 'plan', '--force', 'true'],
+                     [*base, 'inspect', '--task-id', 'task', '--task-kind', 'unknown'],
+                     [*base, 'inspect', '--task-id', 'task', '--task-id', 'other'],
+                     [*base, 'inspect', '--task-id', 'task', '--execution', 'other'],
+                     ['record', '--repo-root', str(self.root), '--plan', 'plan'],
+                     [*base, '--repo-root', str(self.root), 'inspect', '--task-id', 'task']):
+            with self.subTest(argv=argv), self.assertRaises(ValueError): module.native_operation_call(argv, module_name=name)
+        with self.assertRaises(ValueError):
+            module.native_operation_call([*base, 'record', '--plan', 'plan'], module_name='tools.question_bank.feedback_verified_save')
 
     def token_count_event(self):
         counters = self.usage_event('author')['payload']['usage']

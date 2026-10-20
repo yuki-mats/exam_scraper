@@ -7,12 +7,39 @@ from pathlib import Path
 import sqlite3
 import unittest
 from unittest.mock import patch
+import pytest
 
 from tests import test_feedback_verified_save as fixtures
 from tests import test_feedback_verified_maintenance as maintenance_fixtures
 from tools.question_bank import feedback_verified_save as saver
 from tools.question_bank import feedback_verified_save_record as records
 from tools.question_review_console.scoped_artifacts import write_json
+from tools.question_review_console.firestore_readback import FirestoreReadback
+from scripts.upload import upload_questions_to_firestore as uploader
+from tests.test_native_independent_approval import native_audit
+from tests import test_feedback_verified_stage_execution as native_fixtures
+
+
+@pytest.fixture(autouse=True)
+def prohibit_live_firestore(monkeypatch):
+    def forbidden(*args, **kwargs):
+        raise AssertionError('live Firestore SDK is forbidden in save-record tests')
+    monkeypatch.setattr(FirestoreReadback, '_database', forbidden)
+    monkeypatch.setattr(uploader, 'init_firestore', forbidden)
+    monkeypatch.setattr(uploader.firestore, 'client', forbidden)
+    monkeypatch.setattr(uploader.firebase_admin, 'initialize_app', forbidden)
+
+
+def genuine_save_approval(fixture):
+    fixture.mock_approval.stop()
+    p = patch.object(records.stages.native, 'NATIVE_SESSION_ROOT', fixture.root)
+    p.start(); fixture.addCleanup(p.stop)
+    folder = fixture.root / 'native-save'; folder.mkdir()
+    scope = saver.approval_scope(fixture.root, fixture.path, fixture.plan)
+    fixture.approval = native_audit(folder, scope, encrypted=False)
+    fixture.binding = records.stages.native.verify_independent_approval(fixture.approval, scope, production=True)
+    fixture.mock_approval = patch.object(saver, 'verify_independent_approval', wraps=records.stages.native.verify_independent_approval)
+    fixture.mock_approval.start(); fixture.addCleanup(fixture.mock_approval.stop)
 
 
 def file_ledger(fixture):
@@ -28,12 +55,27 @@ def file_ledger(fixture):
 class VerifiedSaveRecordTest(unittest.TestCase):
     selected_snapshots = fixtures.VerifiedSaveTest.selected_snapshots
     save = fixtures.VerifiedSaveTest.save
+    append_event = staticmethod(native_fixtures.VerifiedStageExecutionTests.append_event)
+    owner_response = staticmethod(native_fixtures.VerifiedStageExecutionTests.owner_response)
+    owner_progress = native_fixtures.VerifiedStageExecutionTests.owner_progress
+
+    def owner_launch(self, argv, *, call_id='owner-launch'):
+        parent = Path(self.approval['authorization']['sessionPath'])
+        self.append_event(parent, {'type': 'turn_context', 'payload': {'turn_id': 'owner-turn'}})
+        self.owner_order = max((e.get('metadata', {}).get('user_input_order', -1)
+            for e in map(json.loads, parent.read_bytes().splitlines())), default=-1) + 1
+        launch = self.owner_response('custom_tool_call', name='exec', call_id=call_id,
+            input=records.stages.native_operation_call(argv, module_name=records.MODULE), status='completed')
+        launch['metadata'] = {'client_authored': False, 'user_input_order': self.owner_order}
+        self.append_event(parent, launch)
+        return parent
 
     def setUp(self):
         # Existing fixture mocks native approval and live reads only. Plan,
         # projectors, saved journal, references and load_saved remain real.
         fixtures.VerifiedSaveTest.setUp(self)
         self.ledger = file_ledger(self)
+        genuine_save_approval(self)
         self.receipt = self.save()
 
     def record(self, hook=None):
@@ -92,8 +134,10 @@ class VerifiedSaveRecordTest(unittest.TestCase):
         self.assertEqual(artifact_bytes, {p: p.read_bytes() for p in artifact_bytes})
 
     def test_missing_native_approval_never_creates_optional_table(self):
-        self.mock_approval.stop()
-        with self.assertRaisesRegex(ValueError, 'approval evidence'):
+        path = self.path.parent / 'save-receipt.json'; value = json.loads(path.read_bytes())
+        value['approvalEvidence'] = {}
+        write_json(path, value)
+        with self.assertRaisesRegex(ValueError, 'native session evidence'):
             self.record()
         self.assertEqual(self.table_count(), 0)
         self.assertFalse(records._exists(self.connection))
@@ -192,27 +236,20 @@ class VerifiedSaveRecordTest(unittest.TestCase):
         self.assertEqual(self.table_count(), 1)
 
     def test_native_session_change_is_ephemeral_guard_not_persisted_body(self):
-        session = self.root / 'native-fixture.jsonl'
-        session.write_bytes(b'private native fixture\n')
-        receipt_path = self.path.parent / 'save-receipt.json'
-        receipt = json.loads(receipt_path.read_bytes())
-        receipt['approvalEvidence']['fixtureSession'] = {'sessionPath': str(session)}
-        write_json(receipt_path, receipt)
-        intent_path = Path(receipt['originalRef']).parent / 'intent.json'
-        intent = json.loads(intent_path.read_bytes())
-        intent['approvalEvidence'] = receipt['approvalEvidence']
-        write_json(intent_path, intent)
+        session = Path(self.approval['authorization']['sessionPath'])
+        original = session.read_bytes()
         def race(stage):
             if stage == 'before_insert':
-                session.write_bytes(session.read_bytes() + b'revocation or new event\n')
-        with self.assertRaisesRegex(ValueError, 'native evidence changed'):
+                self.append_event(session, {'type': 'response_item', 'payload': {'type': 'message', 'role': 'user', 'content': []}})
+        with self.assertRaisesRegex(ValueError, 'new decision input'):
             self.record(race)
         self.assertFalse(records._exists(self.connection))
+        session.write_bytes(original)
         result = self.record()
         self.assertNotIn(str(session), json.dumps(result))
         # Unrelated later activity is re-verified by load_saved at inspect,
         # without becoming an immutable whole-session hash conflict.
-        session.write_bytes(session.read_bytes() + b'unrelated later activity\n')
+        self.append_event(session, {'type': 'response_item', 'payload': {'type': 'message', 'role': 'assistant', 'phase': 'commentary', 'content': []}})
         self.assertEqual(self.inspect(), result)
 
     def test_append_only_triggers_and_future_transition_refused(self):
@@ -356,10 +393,12 @@ class VerifiedSaveRecordTest(unittest.TestCase):
     def test_cli_record_inspect_missing_db_and_future_state(self):
         base = ['--repo-root', str(self.root), '--db', str(self.ledger)]
         output = io.StringIO()
+        self.owner_launch([*base, 'record', '--plan', str(self.path)])
         with redirect_stdout(output):
             self.assertEqual(records.main([*base, 'record', '--plan', str(self.path)]), 0)
         result = json.loads(output.getvalue())
         output = io.StringIO()
+        self.owner_launch([*base, 'inspect', '--task-id', 'task'])
         with redirect_stdout(output):
             self.assertEqual(records.main([*base, 'inspect', '--task-id', 'task']), 0)
         self.assertEqual(json.loads(output.getvalue()), result)
@@ -370,6 +409,184 @@ class VerifiedSaveRecordTest(unittest.TestCase):
             self.assertFalse(missing.exists())
         with redirect_stderr(io.StringIO()), self.assertRaises(SystemExit):
             records.main([*base, 'record', '--plan', str(self.path), '--state', 'completed'])
+
+    def test_canonical_cli_record_inspect_and_replay_allow_progress_and_same_cell_wait(self):
+        genuine = saver.load_saved
+        expected = None
+        base = ['--repo-root', str(self.root), '--db', str(self.ledger)]
+        for command in ('record', 'inspect', 'record'):
+            argv = [*base, command, *(['--plan', str(self.path)] if command == 'record' else ['--task-id', 'task'])]
+            parent = self.owner_launch(argv)
+            def heavy(*args, **kwargs):
+                self.assertFalse(kwargs['connection'].in_transaction)
+                for event in self.owner_progress(): self.append_event(parent, event)
+                return genuine(*args, **kwargs)
+            output = io.StringIO()
+            with patch.object(saver, 'load_saved', side_effect=heavy), redirect_stdout(output):
+                self.assertEqual(records.main(argv), 0)
+            result = json.loads(output.getvalue())
+            expected = expected or result
+            self.assertEqual(result, expected)
+        self.assertEqual(self.table_count(), 1)
+        self.assertEqual(result['schemaVersion'], records.SCHEMA)
+
+    def test_library_call_does_not_invent_a_cli_owner_from_a_record_launch(self):
+        argv = ['--repo-root', str(self.root), '--db', str(self.ledger), 'record', '--plan', str(self.path)]
+        parent = self.owner_launch(argv)
+        def progress(moment):
+            if moment == 'before_insert':
+                for event in self.owner_progress(): self.append_event(parent, event)
+        with self.assertRaisesRegex(ValueError, 'new decision input'):
+            self.record(progress)
+        self.assertFalse(records._exists(self.connection))
+
+    def test_owner_rejects_other_cell_tool_turn_input_unknown_suffix_and_revocation(self):
+        argv = ['--repo-root', str(self.root), '--db', str(self.ledger), 'record', '--plan', str(self.path)]
+        parent = self.owner_launch(argv); reviewer = Path(self.approval['reviewerFinal']['sessionPath'])
+        initial = parent.read_bytes(); review_before = reviewer.read_bytes()
+        for mutation in ('cell', 'tool', 'turn', 'user', 'agent', 'unknown', 'revocation'):
+            parent.write_bytes(initial); reviewer.write_bytes(review_before)
+            def race(moment):
+                if moment != 'before_commit': return
+                events = self.owner_progress()
+                if mutation == 'cell': events[5]['payload']['arguments'] = json.dumps({'cell_id': 'other'})
+                elif mutation == 'tool': events[5]['payload']['name'] = 'exec'
+                elif mutation == 'turn': events[4]['payload']['internal_chat_message_metadata_passthrough']['turn_id'] = 'other'
+                elif mutation == 'user': events.append(self.owner_response('message', role='user', content=[]))
+                elif mutation == 'agent': events.append({'type': 'response_item', 'payload': {'type': 'agent_message', 'author': '/root/other', 'content': []}})
+                elif mutation == 'unknown': events.append({'type': 'unknown_native_suffix', 'payload': {}})
+                for event in events: self.append_event(parent, event)
+                if mutation == 'revocation': self.append_event(reviewer, self.owner_response('message', role='assistant', phase='final_answer', content=[{'type': 'output_text', 'text': 'rejected'}]))
+            with self.subTest(mutation=mutation), records.stages.native_operation(argv, module_name=records.MODULE):
+                with self.assertRaisesRegex(ValueError, 'new decision input'):
+                    self.record(race)
+            self.assertFalse(records._exists(self.connection))
+            self.assertFalse(self.connection.in_transaction)
+        parent.write_bytes(initial); reviewer.write_bytes(review_before)
+
+    def test_consumed_prefix_rewrite_truncate_replace_and_identity_change_roll_back(self):
+        parent = Path(self.approval['authorization']['sessionPath']); original = parent.read_bytes()
+        for mutation in ('rewrite', 'truncate', 'replace', 'identity'):
+            parent.write_bytes(original)
+            def race(moment):
+                if moment != 'after_insert': return
+                if mutation == 'rewrite': parent.write_bytes(original.replace(b'author', b'Author', 1))
+                elif mutation == 'truncate': parent.write_bytes(original[:-1])
+                elif mutation == 'identity': parent.write_bytes(original.replace(b'"id": "author"', b'"id": "otherx"', 1))
+                else:
+                    other = parent.with_suffix('.replacement'); other.write_bytes(original); other.replace(parent)
+            with self.subTest(mutation=mutation), self.assertRaises(ValueError): self.record(race)
+            self.assertFalse(records._exists(self.connection))
+        parent.write_bytes(original)
+
+    def test_full_reference_coverage_and_shared_helper_input_hashes_are_required(self):
+        self.record()
+        stored = records._stored(self.connection, 'improvement', 'task')
+        self.assertIn(str(Path(records.stages.__file__).resolve()), stored['inputFiles'])
+        self.assertIn(str(Path(records.stages.context_api.__file__).resolve()), stored['inputFiles'])
+        genuine = records._file_hash
+        helper = Path(records.stages.__file__).resolve()
+        def changed(path): return '0' * 64 if Path(path) == helper else genuine(path)
+        with patch.object(records, '_file_hash', side_effect=changed):
+            with self.assertRaisesRegex(ValueError, 'conflicts'): self.inspect()
+            with self.assertRaisesRegex(ValueError, 'conflicts'): self.record()
+        self.assertEqual(records._stored(self.connection, 'improvement', 'task'), stored)
+
+    def test_nested_native_reference_not_in_direct_approval_guard_is_rejected(self):
+        folder = self.root / 'unconsumed'; folder.mkdir()
+        extra = native_audit(folder, {'nativeCreationCall': 'unused'}, encrypted=False)
+        path = self.path.parent / 'save-receipt.json'; receipt = json.loads(path.read_bytes())
+        receipt['extraNestedReference'] = {'deep': extra['authorization']}
+        write_json(path, receipt)
+        with self.assertRaisesRegex(ValueError, 'guard coverage'):
+            self.record()
+        self.assertFalse(records._exists(self.connection))
+
+    def legacy_record(self):
+        payload = records._prepare(self.connection, self.root, self.path)['payload']
+        payload['schemaVersion'] = records.LEGACY_SCHEMA
+        payload['inputFiles'][str(Path(records.__file__).resolve())] = 'a' * 64  # Historical verifier, never adopted as current.
+        raw = records._json(payload); digest = records._hash(payload); now = '2026-10-19T00:00:00Z'
+        records._tables(self.connection)
+        self.connection.execute('INSERT INTO verified_formal_save_records VALUES (?,?,?,?,?,?,?,?,?)',
+            ('improvement', 'task', 'task', 'formally_saved', str(self.path), raw, digest, now,
+             records._hash({'recordSha256': digest, 'recordedAt': now})))
+        self.connection.commit()
+        return self.connection.execute('SELECT * FROM verified_formal_save_records').fetchall()
+
+    def test_legacy_v1_replay_and_inspect_preserve_fact_but_require_explicit_migration(self):
+        before = self.legacy_record(); count = self.connection.total_changes
+        for operation in (self.inspect, self.record):
+            with self.assertRaises(records.LegacyRuntimeMigrationRequired) as caught: operation()
+            value = caught.exception.observation
+            self.assertTrue(value['recorded'])
+            self.assertFalse(value['currentRuntimeVerified'])
+            self.assertEqual(value['holdReason'], 'legacy_runtime_migration_required')
+            self.assertFalse(value['FirestoreWritten']); self.assertFalse(value['publicationCompleted'])
+        for command in (['inspect', '--task-id', 'task'], ['record', '--plan', str(self.path)]):
+            output = io.StringIO()
+            with redirect_stdout(output):
+                self.assertEqual(records.main(['--repo-root', str(self.root), '--db', str(self.ledger), *command]), 1)
+            self.assertTrue(json.loads(output.getvalue())['recorded'])
+        self.assertEqual(self.connection.total_changes, count)
+        self.assertEqual([tuple(r) for r in before], [tuple(r) for r in self.connection.execute('SELECT * FROM verified_formal_save_records')])
+
+    def test_legacy_structure_hash_event_and_trigger_corruption_are_not_accepted_as_saved_fact(self):
+        self.legacy_record()
+        for column in ('record_json', 'record_hash', 'event_hash'):
+            self.connection.execute('SAVEPOINT fixture')
+            self.connection.execute('DROP TRIGGER verified_formal_save_records_no_update')
+            self.connection.execute('UPDATE verified_formal_save_records SET ' + column + "='corrupted'")
+            self.connection.execute(records.TRIGGERS['verified_formal_save_records_no_update'])
+            with self.assertRaises((ValueError, json.JSONDecodeError)): self.inspect()
+            self.connection.execute('ROLLBACK TO fixture'); self.connection.execute('RELEASE fixture')
+        self.connection.execute('DROP TRIGGER verified_formal_save_records_no_delete'); self.connection.commit()
+        with self.assertRaisesRegex(ValueError, 'trigger differs'): self.inspect()
+
+    def test_every_successful_terminal_rechecks_native_prefix_and_idempotent_ledger_identity(self):
+        genuine = records.stages.assert_native_guard
+        for operation in (self.record, self.record, self.inspect):
+            with patch.object(records.stages, 'assert_native_guard', wraps=genuine) as verify:
+                operation()
+            self.assertTrue(any(c.kwargs.get('terminal') is True for c in verify.call_args_list))
+        def replace_at_terminal(guard, *, terminal=False):
+            result = genuine(guard, terminal=terminal)
+            if terminal:
+                replacement = self.ledger.with_suffix('.replacement')
+                other = sqlite3.connect(replacement); other.close(); replacement.replace(self.ledger)
+            return result
+        with patch.object(records.stages, 'assert_native_guard', side_effect=replace_at_terminal):
+            with self.assertRaisesRegex(ValueError, 'ledger file replaced'):
+                self.record()
+        self.assertFalse(self.connection.in_transaction)
+
+    def test_native_revocation_at_final_inspect_reread_preserves_existing_record(self):
+        result = self.record(); before = self.connection.total_changes
+        genuine = records._stored; calls = 0
+        reviewer = Path(self.approval['reviewerFinal']['sessionPath'])
+        def revoke(connection, kind, task_id):
+            nonlocal calls
+            value = genuine(connection, kind, task_id); calls += 1
+            if calls == 2:
+                self.append_event(reviewer, {'type': 'response_item', 'payload': {'type': 'message', 'role': 'assistant',
+                    'phase': 'final_answer', 'content': [{'type': 'output_text', 'text': 'rejected'}]}})
+            return value
+        with patch.object(records, '_stored', side_effect=revoke):
+            with self.assertRaisesRegex(ValueError, 'new decision input'): self.inspect()
+        self.assertEqual(self.connection.total_changes, before)
+        self.assertEqual(genuine(self.connection, 'improvement', 'task'), result)
+
+    def test_guard_implementation_change_during_heavy_verification_is_a_cas_failure(self):
+        changed = False; helper = Path(records.stages.__file__).resolve()
+        genuine_load, genuine_hash = saver.load_saved, records._file_hash
+        def drift(*args, **kwargs):
+            nonlocal changed
+            result = genuine_load(*args, **kwargs); changed = True
+            return result
+        def digest(path): return '0' * 64 if changed and Path(path) == helper else genuine_hash(path)
+        with patch.object(saver, 'load_saved', side_effect=drift), patch.object(records, '_file_hash', side_effect=digest):
+            with self.assertRaisesRegex(ValueError, 'evidence changed'): self.record()
+        self.assertFalse(records._exists(self.connection))
 
 
 class MaintenanceFormalSaveRecordTest(unittest.TestCase):
@@ -389,7 +606,18 @@ class MaintenanceFormalSaveRecordTest(unittest.TestCase):
         self.laws.start()
         self.addCleanup(self.laws.stop)
         for stage in saver.LAW_STAGES:
-            write_json(self.fixture.path.parent / f'law-{stage}-approval.json', {'fixture': 'law transaction only'})
+            folder = self.fixture.root / ('native-law-' + stage); folder.mkdir()
+            write_json(self.fixture.path.parent / f'law-{stage}-approval.json', native_audit(folder, {'nativeCreationCall': 'law fixture'}, encrypted=False))
+        f = self.fixture
+        folder = f.root / 'native-maintenance'; folder.mkdir()
+        audit = Path(f.authority['auditRef']['ref'])
+        write_json(audit, native_audit(folder, {'nativeCreationCall': 'maintenance fixture'}, encrypted=False))
+        f.authority['auditRef']['sha256'] = saver.file_hash(audit)
+        f.plan['maintenanceBinding'] = deepcopy(f.authority)
+        f.plan['inputs'][str(audit)] = saver.file_hash(audit)
+        f.plan['planHash'] = saver.sha256_json({k: v for k, v in f.plan.items() if k != 'planHash'})
+        write_json(f.path, f.plan)
+        genuine_save_approval(f)
         self.fixture.save()
 
     def test_formal_task_id_and_immutable_authority_are_separate(self):

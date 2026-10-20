@@ -56,7 +56,7 @@ def _operation(function):
     return run
 
 
-# Shared only by the two explicitly allowlisted stage/delivery entry points.
+# Shared by explicitly allowlisted entry points; library calls gain no CLI owner.
 operation = _operation
 
 def _snapshot(path):
@@ -367,24 +367,58 @@ def native_operation_call(argv, *, module_name="tools.question_bank.feedback_ver
     Library callers and reviewer journals retain the usage-only boundary.
     """
     if module_name not in {"tools.question_bank.feedback_verified_stage_execution",
-                           "tools.question_bank.feedback_verified_delivery"}:
+                           "tools.question_bank.feedback_verified_delivery",
+                           "tools.question_bank.feedback_verified_save_record"}:
         raise ValueError("owner-operation module is outside the explicit allowlist")
     if not argv or any(not isinstance(arg, str) or not arg for arg in argv):
         raise ValueError("exact nonempty CLI argv required")
+    if module_name == "tools.question_bank.feedback_verified_save_record":
+        # This module has two subcommands with global options before them.
+        # Do not turn the module addition into an arbitrary CLI whitelist.
+        options = {}
+        position = 0
+        while position < len(argv) and argv[position] in {"--repo-root", "--db"}:
+            key = argv[position]
+            if key in options or position + 1 >= len(argv):
+                raise ValueError("exact formal-save record CLI argv required")
+            options[key] = argv[position + 1]
+            if options[key].startswith("--"):
+                raise ValueError("exact formal-save record CLI option value required")
+            position += 2
+        if "--repo-root" not in options or position >= len(argv) or argv[position] not in {"record", "inspect"}:
+            raise ValueError("formal-save owner supports only record/inspect")
+        command_name = argv[position]
+        tail = argv[position + 1:]
+        permitted = {"--plan"} if command_name == "record" else {"--task-id", "--task-kind"}
+        required = {"--plan"} if command_name == "record" else {"--task-id"}
+        selected = {}
+        if len(tail) % 2:
+            raise ValueError("exact formal-save record CLI argv required")
+        for key, value in zip(tail[::2], tail[1::2]):
+            if key not in permitted or key in selected or value.startswith("--"):
+                raise ValueError("unsupported formal-save owner CLI option")
+            selected[key] = value
+        if not required <= set(selected) or selected.get("--task-kind", "improvement") not in {"improvement", "maintenance"}:
+            raise ValueError("exact formal-save record/inspect scope required")
     command = " ".join(shlex.quote(str(s)) for s in (sys.executable, "-m", module_name, *argv))
     error = "stage scope creation failed" if argv[0] == "scope" else "stage operation failed"
+    # Preserve the new CLI's structured legacy hold observation on failure;
+    # it must not disappear behind a generic wrapper exception.
+    failure = ('{text(out);throw new Error("formal-save record operation failed");}'
+               if module_name == "tools.question_bank.feedback_verified_save_record"
+               else 'throw new Error(' + json.dumps(error) + ')')
     return ('// @exec: {"yield_time_ms": 60000,"max_output_tokens":16000}\n'
             'let r=await tools.exec_command(' + json.dumps({"cmd": command, "workdir": str(Path(_cli_root(argv))),
                 "max_output_tokens": 16000, "yield_time_ms": 30000}, ensure_ascii=False)
-            + ');let out=r.output;while(r.session_id){r=await tools.write_stdin({session_id:r.session_id,chars:"",yield_time_ms:1000,max_output_tokens:16000});out+=r.output;}if(r.exit_code!==0)throw new Error('
-            + json.dumps(error) + ');text(out);\n')
+            + ');let out=r.output;while(r.session_id){r=await tools.write_stdin({session_id:r.session_id,chars:"",yield_time_ms:1000,max_output_tokens:16000});out+=r.output;}if(r.exit_code!==0)'
+            + failure + ';text(out);\n')
 
 
 @contextmanager
 def native_operation(argv, *, module_name="tools.question_bank.feedback_verified_stage_execution"):
     """Bind a CLI's actual argv and a fresh non-persisted authority window.
 
-    Only the two explicit production entry points may opt into this protocol.
+    Only explicit production entry points may opt into this protocol.
     Their caller must supply actual parsed invocation arguments, not a guessed
     earlier command. All native origin and latest-verdict checks remain real.
     """

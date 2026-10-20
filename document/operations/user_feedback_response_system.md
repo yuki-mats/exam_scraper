@@ -44,7 +44,11 @@ native作成callはCLIの正常終了まで、途中でyieldされた出力も�
 
 同じ年度・原問の複数documentについて、登録済み差分だけを扱う専用plan `feedback-verified-maintenance-save/v1`とprivate patch `feedback-verified-maintenance-private-patch/v1`を追加しました。`feedback_verified_save prepare --maintenance-task-id <登録ID>`で既存改善taskの要件を維持し、説明fieldと既存`lawRevisionFacts.differenceFacts`の説明文だけを投影します。法令locator・判定・監査metadataは変えません。候補全体との完全一致、全siblingの書込みfield、修正前値とexact時刻を再確認します。従来の単一document schemaは複数document用に読み替えません。三段階法令監査と別subagentの最終native承認を経た同一候補だけ、既存のexclusive保存・中断復元経路を使い、専用`feedback-verified-maintenance-save-receipt/v1`を残します。このreceiptも公開の証明ではありません。
 
-正式保存の台帳記録は、独立監査を通した専用CLI `python -m tools.question_bank.feedback_verified_save_record --repo-root <repo> --db <既存台帳> record --plan <保存plan>`で行います。`inspect --task-kind maintenance --task-id <登録ID>`で再検証して読み戻します。真正な保存receipt・native承認・元bytes・候補・正式正本・復元journal・固定入力と、現在の改善要件・maintenance登録を確認してから、`verified_formal_save_records`へ追記します。検証中の入力変更・競合・中断では記録を確定せず、同一再送は重複しません。生の利用者本文やnative session本文は保存しません。日々追記されるsession全体のhashは検証中の一時的な競合検知にだけ使い、保存記録には含めません。
+正式保存の台帳記録は、独立監査を通した専用CLI `python -m tools.question_bank.feedback_verified_save_record --repo-root <repo> --db <既存台帳> record --plan <保存plan>`で行います。`inspect --task-kind maintenance --task-id <登録ID>`で再検証して読み戻します。真正な保存receipt・native承認・元bytes・候補・正式正本・復元journal・固定入力と、現在の改善要件・maintenance登録を確認してから、`verified_formal_save_records`へ追記します。検証中の入力変更・競合・中断では記録を確定せず、同一再送は重複しません。生の利用者本文やnative session本文は保存しません。
+
+2026-10-20のv2記録は、重い保存証跡検証の前に全native承認のjournal prefix・session identityを固定します。`feedback_verified_stage_execution.native_operation_call()`が生成する正規wrapperで`record`・`inspect`の実引数を結び、同じ実行の進捗と同じ待機cellへの継続だけを許します。新指示、別tool・turn・cell、承認撤回、prefixの書換え・切詰めは拒否します。固定ファイル、要件・権限、DB実体のCASを維持し、新規記録・同一再送・inspectの終了直前にも全文を検証します。journalの本文・変化する全体hashは保存recordへ含めません。
+
+旧v1は記録実装の現在hashもimmutable payloadに含むため、実装更新後は現行runtimeの再検証が保留になります。構造・record/event hash・追記専用制約を確認した保存事実を保持し、`legacy_runtime_migration_required`を明示します。旧recordの上書きや同じtaskへのv2置換は行いません。新policy・入力・独立native監査を固定し、旧record hashに結ぶ別の追記専用再検証経路を整備する技術taskとして追跡します。私有work itemは`execution/2026-10-20-daily/formal-save-record-v1-migration-work-item.json`にあり、この保留を公開完了や人間承認待ちへ読み替えません。
 
 この記録は`formally_saved`だけを表します。maintenance登録自体は変更できない`open`の受付根拠として保持し、summaryの`verifiedFormalSavesRecorded`で保存証跡を別に数えます。改善taskを完了へ移したり、Firestore公開・readbackを証明したりする経路ではありません。
 
@@ -68,7 +72,7 @@ native作成callはCLIの正常終了まで、途中でyieldされた出力も�
 
 `classification`は`--prior <A directory> --prior <B directory> --candidate <候補JSON>`で全siblingの`questionType`・`isCalculationQuestion`とそれぞれの理由を固定します。集約レビューのmodel・effortはworkflow設定を使い、分類の実行profileは`--model`・`--reasoning-effort`で別に固定します。実native turnのprofile、作者との分離、異なるレビューsession、未解決指摘0件、全先行承認の撤回・入力変更を保存終了時にも確認します。候補が現在の25と異なる場合は差分を`remainingFieldDiffs`に残し、`stageCompleted=false`で正式保存へ戻します。この専用receiptは通常の作業版・checkpointへ変換せず、ほかの工程・独立評価・Firestore公開の成功も表しません。
 
-長時間のnative検証は、`native_operation_call()`が生成する正規wrapperと、CLIの実引数を照合して開始します。起動した親session・turn・tool callと、そのcallが返した待機cellを固定し、同じturnの進捗出力及び同じcellへの停止を伴わない空出力の待機だけを受け付けます。利用者・別agentの新しい入力、別tool、別turn、reviewerの追記・承認撤回、未知のruntime形式は引き続き停止理由です。固定prefixの改変・切詰めを検知し、操作中の重複読取りを省く場合も終了時には必ず全文を再検証します。この実行支援を有効にできるのは、明示したstage・deliveryの二CLIだけです。修正後は旧stage planを再利用せず、新しい入力hashで独立監査を取り直します。
+長時間のnative検証は、`native_operation_call()`が生成する正規wrapperと、CLIの実引数を照合して開始します。起動した親session・turn・tool callと、そのcallが返した待機cellを固定し、同じturnの進捗出力及び同じcellへの停止を伴わない空出力の待機だけを受け付けます。利用者・別agentの新しい入力、別tool、別turn、reviewerの追記・承認撤回、未知のruntime形式は引き続き停止理由です。固定prefixの改変・切詰めを検知し、操作中の重複読取りを省く場合も終了時には必ず全文を再検証します。この実行支援の対象は明示したstage・deliveryと正式保存台帳のCLIです。修正後は旧stage planを再利用せず、新しい入力hashで独立監査を取り直します。
 
 専用`tools.question_bank.feedback_verified_delivery`は、`bootstrap --context <真正context> --candidate <全5肢の判断候補> --evidence <一次根拠>`で固定planを作ります。`prepare`・`scope`・`record`をrevision、適用順のstage、evaluation、publicationごとに実行し、別subagentの真正native承認を記録します。01の二者集約監査と別sessionの分類、法令監査の異なる三者も省略しません。revisionは元25を維持した正式別層で、通常checkpointへの偽装はしません。保存契約は[artifact契約](artifact_contract.md#検証済み25の正式revisionと公開)を参照します。
 

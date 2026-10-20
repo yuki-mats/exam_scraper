@@ -14,12 +14,20 @@ import json
 from pathlib import Path
 import re
 import sqlite3
+import sys
 
-SCHEMA = 'feedback-verified-formal-save-record/v1'
+from tools.question_bank import feedback_verified_stage_execution as stages
+
+LEGACY_SCHEMA = 'feedback-verified-formal-save-record/v1'
+SCHEMA = 'feedback-verified-formal-save-record/v2'
+MODULE = 'tools.question_bank.feedback_verified_save_record'
 TABLE = 'verified_formal_save_records'
 PRIVATE = Path('output/user_feedback_response_system/execution')
 DEFAULT_DB = Path.home() / 'Library/Application Support/Repaso/feedback-ops/ledger.sqlite3'
 KINDS = ('improvement', 'maintenance')
+PAYLOAD_KEYS = frozenset({'schemaVersion', 'taskKind', 'taskId', 'improvementTaskId', 'requirementHash',
+    'candidateSha256', 'state', 'FirestoreWritten', 'publicationCompleted', 'artifacts', 'lawReviewRefs',
+    'maintenanceBindingSha256', 'approvalEvidenceSha256', 'approvalBindingSha256', 'inputFiles'})
 WORK_STATES = frozenset({'open', 'in_progress', 'review_pending', 'blocked'})
 TRIGGERS = {
     'verified_formal_save_records_no_update':
@@ -27,6 +35,17 @@ TRIGGERS = {
     'verified_formal_save_records_no_delete':
         "CREATE TRIGGER verified_formal_save_records_no_delete BEFORE DELETE ON verified_formal_save_records BEGIN SELECT RAISE(ABORT, 'formal save records are append-only'); END",
 }
+
+
+class LegacyRuntimeMigrationRequired(ValueError):
+    """The immutable v1 save fact exists; its old runtime is not reinterpreted."""
+    def __init__(self, stored):
+        super().__init__('legacy_runtime_migration_required: formal save remains recorded; current runtime verification is held')
+        self.observation = {'schemaVersion': SCHEMA, 'state': 'formally_saved', 'recorded': True,
+            'taskKind': stored['taskKind'], 'taskId': stored['taskId'], 'recordSchemaVersion': LEGACY_SCHEMA,
+            'recordSha256': stored['recordSha256'], 'recordedAt': stored['recordedAt'],
+            'currentRuntimeVerified': False, 'holdReason': 'legacy_runtime_migration_required',
+            'FirestoreWritten': False, 'publicationCompleted': False}
 
 
 def _json(value):
@@ -164,20 +183,27 @@ def _prepare(connection, root, plan_path):
         'original': capture(receipt['originalRef'], plan['beforeSha256']),
         'saveIntent': capture(Path(receipt['originalRef']).parent / 'intent.json'),
     }
-    native_records = [receipt]
+    native_records = [receipt['approvalEvidence']]
+    session_records = [receipt]
     laws = []
     if plan.get('lawReviewRequired') is True:
         for stage in saver.LAW_STAGES:
             ref, evidence = read(path.parent / f'law-{stage}-approval.json')
             laws.append({'stage': stage, **ref})
             native_records.append(evidence)
+            session_records.append(evidence)
     if kind == 'maintenance':
         _, evidence = read(binding['auditRef']['ref'])
         native_records.append(evidence)
-    # Full session hashes are ephemeral CAS guards. Never persist raw sessions
-    # or their evolving whole-file hashes into the immutable save record.
-    sessions = {str(p): _file_hash(p) for record in native_records for p in _session_paths(record)}
-    for implementation in (Path(__file__), Path(__file__).with_name('feedback_daily.py')):
+        session_records.append(evidence)
+    if any(not set(_session_paths(record)) for record in native_records):
+        raise ValueError('genuine native session evidence required for every approval/audit')
+    expected_sessions = {p for record in session_records for p in _session_paths(record)}
+    guard = stages.capture_native_guard(native_records)
+    if set(guard) != expected_sessions:
+        raise ValueError('complete native reference/guard coverage differs')
+    for implementation in (Path(__file__), Path(__file__).with_name('feedback_daily.py'),
+                           Path(stages.__file__), Path(stages.context_api.__file__), Path(stages.native.__file__)):
         capture(implementation)
     verified = saver.load_saved(root, path, path.parent / 'save-receipt.json', connection=connection)
     if verified != receipt:
@@ -193,21 +219,22 @@ def _prepare(connection, root, plan_path):
         'approvalBindingSha256': _hash(receipt['approvalBinding']),
         'inputFiles': dict(sorted(files.items())),
     }
-    proof = {'payload': payload, 'sessions': sessions, 'requirement': requirement,
+    proof = {'payload': payload, 'nativeGuard': guard, 'requirement': requirement,
              'taskState': task_state, 'authority': authority}
     _cas(connection, proof)
     return proof
 
 
-def _cas(connection, proof):
+def _cas(connection, proof, *, terminal=False):
     payload = proof['payload']
     if (_requirement(connection, payload['improvementTaskId']) != proof['requirement']
             or _task_state(connection, payload['improvementTaskId']) != proof['taskState']
             or _authority(connection, payload['taskKind'], payload['taskId']) != proof['authority']):
         raise ValueError('task/source/maintenance authority changed during recording')
-    for file, digest in {**payload['inputFiles'], **proof['sessions']}.items():
+    for file, digest in payload['inputFiles'].items():
         if _file_hash(file) != digest:
             raise ValueError('formal-save/native evidence changed during recording')
+    stages.assert_native_guard(proof['nativeGuard'], terminal=terminal)
 
 
 def _exists(connection):
@@ -233,7 +260,7 @@ def _stored(connection, kind, task_id):
         return None
     row = dict(zip((d[0] for d in cursor.description), value))
     payload = json.loads(row['record_json'])
-    if (not isinstance(payload, dict) or payload.get('schemaVersion') != SCHEMA
+    if (not isinstance(payload, dict) or set(payload) != PAYLOAD_KEYS or payload.get('schemaVersion') not in {SCHEMA, LEGACY_SCHEMA}
             or payload.get('taskKind') != kind or payload.get('taskId') != task_id
             or payload.get('improvementTaskId') != row['improvement_task_id']
             or payload.get('state') != row['state'] or row['state'] != 'formally_saved'
@@ -250,18 +277,36 @@ def _stored(connection, kind, task_id):
 
 
 def _same(stored, payload):
+    if stored is not None and stored['schemaVersion'] == LEGACY_SCHEMA:
+        raise LegacyRuntimeMigrationRequired(stored)
     if stored is None or {k: v for k, v in stored.items() if k not in {'recordSha256', 'recordedAt'}} != payload:
         raise ValueError('formal-save record conflicts with current saved evidence')
     return stored
 
 
+@stages.operation
 def record(connection, *, root, plan_path, failure_hook=None):
     ledger, identity = _ledger(connection)
+    root, plan_path = _physical(root), _physical(plan_path)
+    if not plan_path.is_relative_to(root / PRIVATE):
+        raise ValueError('saved plan outside private execution root')
+    if _exists(connection):
+        row = connection.execute('SELECT task_kind, task_id FROM verified_formal_save_records WHERE plan_ref=?', (str(plan_path),)).fetchone()
+        if row is not None:
+            stored = _stored(connection, row[0], row[1])
+            if stored['schemaVersion'] == LEGACY_SCHEMA:
+                if (ledger.stat().st_dev, ledger.stat().st_ino) != identity:
+                    raise ValueError('ledger file replaced during recording')
+                raise LegacyRuntimeMigrationRequired(stored)
     proof = _prepare(connection, root, plan_path)
     payload = proof['payload']
     if failure_hook:
         failure_hook('after_verification')
     existing = _stored(connection, payload['taskKind'], payload['taskId']) if _exists(connection) else None
+    if existing is not None and existing['schemaVersion'] == LEGACY_SCHEMA:
+        if (ledger.stat().st_dev, ledger.stat().st_ino) != identity:
+            raise ValueError('ledger file replaced during recording')
+        raise LegacyRuntimeMigrationRequired(existing)
     if existing is None:
         from tools.question_bank.feedback_daily import _backup_db
         _backup_db(connection, ledger)
@@ -274,11 +319,14 @@ def record(connection, *, root, plan_path, failure_hook=None):
             raise ValueError('ledger file replaced during recording')
         if current is not None:
             result = _same(current, payload)
+            _cas(connection, proof, terminal=True)
+            if (ledger.stat().st_dev, ledger.stat().st_ino) != identity:
+                raise ValueError('ledger file replaced during recording')
             connection.rollback()
             return result
         if failure_hook:
             failure_hook('before_insert')
-        _cas(connection, proof)
+        _cas(connection, proof, terminal=True)
         now = datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z')
         digest = _hash(payload)
         connection.execute('INSERT INTO verified_formal_save_records VALUES (?,?,?,?,?,?,?,?,?)',
@@ -290,7 +338,7 @@ def record(connection, *, root, plan_path, failure_hook=None):
         result = _same(_stored(connection, payload['taskKind'], payload['taskId']), payload)
         if failure_hook:
             failure_hook('before_commit')
-        _cas(connection, proof)
+        _cas(connection, proof, terminal=True)
         if (ledger.stat().st_dev, ledger.stat().st_ino) != identity:
             raise ValueError('ledger file replaced during recording')
         connection.commit()
@@ -300,6 +348,7 @@ def record(connection, *, root, plan_path, failure_hook=None):
         raise
 
 
+@stages.operation
 def inspect(connection, *, root, task_id, task_kind=None):
     ledger, identity = _ledger(connection)
     if task_kind is not None and task_kind not in KINDS:
@@ -311,6 +360,10 @@ def inspect(connection, *, root, task_id, task_kind=None):
     if len(rows) != 1:
         raise ValueError('one unambiguous formal-save record required')
     stored = _stored(connection, rows[0][0], task_id)
+    if stored['schemaVersion'] == LEGACY_SCHEMA:
+        if (ledger.stat().st_dev, ledger.stat().st_ino) != identity:
+            raise ValueError('ledger file replaced during inspection')
+        raise LegacyRuntimeMigrationRequired(stored)
     proof = _prepare(connection, root, stored['artifacts']['plan']['ref'])
     # Heavy validation above holds no read/write transaction. The final record
     # and authority reads share one short read-only snapshot; files and native
@@ -324,7 +377,7 @@ def inspect(connection, *, root, task_id, task_kind=None):
         current = _stored(connection, rows[0][0], task_id)
         if current != stored:
             raise ValueError('formal-save record changed during inspection')
-        _cas(connection, proof)
+        _cas(connection, proof, terminal=True)
         if (ledger.stat().st_dev, ledger.stat().st_ino) != identity:
             raise ValueError('ledger file replaced during inspection')
         return _same(current, proof['payload'])
@@ -335,6 +388,7 @@ def inspect(connection, *, root, task_id, task_kind=None):
 
 
 def main(argv=None):
+    actual_argv = list(sys.argv[1:] if argv is None else argv)
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--repo-root', type=Path, required=True)
     parser.add_argument('--db', type=Path, default=DEFAULT_DB)
@@ -344,18 +398,22 @@ def main(argv=None):
     show = commands.add_parser('inspect')
     show.add_argument('--task-id', required=True)
     show.add_argument('--task-kind', choices=KINDS)
-    args = parser.parse_args(argv)
+    args = parser.parse_args(actual_argv)
     connection = None
     try:
-        root, db = _physical(args.repo_root.expanduser()), _physical(args.db.expanduser())
-        connection = sqlite3.connect(db.as_uri() + ('?mode=rw' if args.command == 'record' else '?mode=ro'), uri=True)
-        connection.row_factory = sqlite3.Row
-        if args.command == 'record':
-            result = record(connection, root=root, plan_path=_physical(args.plan.expanduser()))
-        else:
-            result = inspect(connection, root=root, task_id=args.task_id, task_kind=args.task_kind)
+        with stages.native_operation(actual_argv, module_name=MODULE):
+            root, db = _physical(args.repo_root.expanduser()), _physical(args.db.expanduser())
+            connection = sqlite3.connect(db.as_uri() + ('?mode=rw' if args.command == 'record' else '?mode=ro'), uri=True)
+            connection.row_factory = sqlite3.Row
+            if args.command == 'record':
+                result = record(connection, root=root, plan_path=_physical(args.plan.expanduser()))
+            else:
+                result = inspect(connection, root=root, task_id=args.task_id, task_kind=args.task_kind)
         print(_json(result))
         return 0
+    except LegacyRuntimeMigrationRequired as error:
+        print(_json(error.observation))
+        return 1
     except (OSError, ValueError, TypeError, KeyError, ImportError, sqlite3.Error) as error:
         print(_json({'schemaVersion': SCHEMA, 'error': str(error), 'recorded': False,
                      'FirestoreWritten': False, 'publicationCompleted': False}))
