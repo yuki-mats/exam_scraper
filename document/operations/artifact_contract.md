@@ -131,7 +131,11 @@ private planと同じdirectoryの`save-receipt.json`は`feedback-verified-explan
 
 専用生成処理はbaseと承認revisionから全年度recordを再投影する。対象外record、安定ID、正誤とsourceを維持し、公開しないauthoring fieldは既存DTOで除外する。現行の適用工程、独立評価、3checkerの実検査件数、quality gate、upload dry-run、Gitのcommit/push、限定公開のnative承認を別々に検証する。CLIによるchecker実行は専用のnative command receiptで実呼出し・結果と結合する。
 
-公開には全siblingのfresh snapshot・値のfingerprint・exact更新時刻とdocument別maskを固定し、既存atomic uploaderだけを使う。永続intentとattemptを保存し、応答不明時は再書込みせずreadbackする。全対象field・更新時刻・対象外field・sibling集合が一致した後だけ専用公開証跡を作る。改善完了は既存台帳のCAS/history/backup経路で記録し、同じtransaction内でも固定入力・native承認・公開contractを再確認する。工程receipt、正式保存receipt、upload応答だけで公開済み又は完了と扱わない。
+公開には全siblingのfresh snapshot・値のfingerprint・exact更新時刻とdocument別maskを固定し、承認されたtransport profileの既存uploaderを使う。永続intentとattemptを保存し、応答不明時は再書込みせずreadbackする。全対象field・更新時刻・対象外field・sibling集合が一致した後だけ専用公開証跡を作る。改善完了は既存台帳のCAS/history/backup経路で記録し、同じtransaction内でも固定入力・native承認・公開contractを再確認する。工程receipt、正式保存receipt、upload応答だけで公開済み又は完了と扱わない。
+
+`question-maintenance-read-set-upload/v1`は、資格・整数試験年・原問を固定した全active siblingの`readDocumentIds`と、実変更だけの`questions/writeFieldsByDocument`を分離する。許可maskは`explanationText`単独、又は`explanationText`・`suggestedQuestions`・`suggestedQuestionDetails`の3field完全一致だけ。全読取IDの`expectedReadUpdateTimes`と値・presenceのfingerprintを必須とし、同じFirestore transaction内で全件の存在・公開flag・所属と完全なactive集合を検証した後、実変更documentだけをupdateする。明確な別資格・別年度のunitは書込範囲へ加えない。不明unit・同unitの不足余剰・no-op混入・第三値・競合は拒否する。`max_attempts=1`を使い、期待値を最新値へ置換して再送しない。
+
+専用の公開candidate・intent・attempt・commit・resultはprofileとread/write集合を結合する。transactionの実`write_results`から書込集合のexact更新時刻を確認し、読取専用siblingは値・presence・更新時刻すべて不変、書込documentは対象field一致と対象外不変をreadbackする。不明commitは永続証跡を残して再観測し、再書込み又は完了へ自動的に進めない。従来の全対象変更atomic契約は維持し、旧receiptをこの専用証跡へ読み替えない。コード監査やtransport応答は、固定候補の内容監査・正式保存・独立評価・本番公開確認を代替しない。
 
 ### 読取専用canonical contextによる限定生成
 

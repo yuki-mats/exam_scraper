@@ -96,7 +96,7 @@ class VerifiedSaveTest(unittest.TestCase):
         self.assertNotEqual(failed.returncode,0)
         self.assertEqual(failed.stdout,'')
 
-    def selected_snapshots(self,ids,fields):
+    def selected_snapshots(self,ids,fields,**kwargs):
         return {i:{**deepcopy(self.snapshots[i]),'fields':{k:deepcopy(v) for k,v in self.snapshots[i]['fields'].items() if k in fields}} for i in ids}
 
     def rewrite_plan(self,change):
@@ -212,7 +212,7 @@ class VerifiedSaveTest(unittest.TestCase):
             with self.assertRaisesRegex(ValueError,'上書き'): gas.save_initial_canonical(self.formal,{})
 
     def test_prepare_detects_outside_scope_update_during_live_read(self):
-        def race(ids,fields):
+        def race(ids,fields,**kwargs):
             value=json.loads(self.formal.read_bytes()); value['sourcePolicy']='competing change'
             write_json(self.formal,value)
             return self.selected_snapshots(ids,fields)
@@ -295,7 +295,7 @@ class VerifiedSaveTest(unittest.TestCase):
 
     def test_evidence_change_during_network_read_is_rejected_before_candidate_save(self):
         calls=0
-        def race(ids,fields):
+        def race(ids,fields,**kwargs):
             nonlocal calls
             calls+=1
             if calls==2: (self.root/'question.pdf').write_bytes(b'changed during second live read')
@@ -310,7 +310,7 @@ class VerifiedSaveTest(unittest.TestCase):
     def test_law_scope_change_during_network_read_is_rejected_before_candidate_save(self):
         calls=0; changed=False
         original=saver.approval_scope
-        def race(ids,fields):
+        def race(ids,fields,**kwargs):
             nonlocal calls,changed
             calls+=1
             if calls==2: changed=True
@@ -323,6 +323,31 @@ class VerifiedSaveTest(unittest.TestCase):
                 self.save()
         self.assertFalse(self.formal.exists())
         self.assertEqual((self.formal.parent/('.feedback-save-'+self.plan['planHash'])/'original.json').read_bytes(),self.before)
+
+    def test_qualified_publication_unit_is_fixed_in_plan_scope_and_saved_receipt(self):
+        expected={'qualificationId':'gas-shunin-otsu','examYear':2021,'originalQuestionId':'original'}
+        self.assertEqual(self.plan['publicationUnit'],expected)
+        self.assertEqual(self.plan['membershipMode'],saver.QUALIFIED_MEMBERSHIP)
+        self.assertEqual(saver.approval_scope(self.root,self.path,self.plan)['publicationUnit'],expected)
+        receipt=self.save()
+        self.assertEqual(receipt['publicationUnit'],expected)
+        self.assertEqual(receipt['membershipMode'],saver.QUALIFIED_MEMBERSHIP)
+        receipt['publicationUnit']['qualificationId']='gas-shunin-kou'
+        write_json(self.destination/'save-receipt.json',receipt)
+        with self.assertRaisesRegex(ValueError,'qualified publication unit'):
+            saver.load_saved(self.root,self.path,self.destination/'save-receipt.json',connection=self.connection)
+
+    def test_changed_or_incomplete_qualified_publication_unit_is_refused(self):
+        for key,value in [('examYear',True),('qualificationId','gas-shunin-kou'),('originalQuestionId','another')]:
+            self.rewrite_plan(lambda p:p['publicationUnit'].update({key:value}))
+            with self.subTest(key=key),self.assertRaisesRegex(ValueError,'qualified publication unit'):
+                saver.read_plan(self.root,self.path,verify_law=False,connection=self.connection)
+            write_json(self.path,self.plan)
+        for keys in [('membershipMode',),('publicationUnit',),('membershipMode','publicationUnit')]:
+            self.rewrite_plan(lambda p:[p.pop(key) for key in keys])
+            with self.subTest(removed=keys),self.assertRaisesRegex(ValueError,'qualified publication unit'):
+                saver.read_plan(self.root,self.path,verify_law=False,connection=self.connection)
+            write_json(self.path,self.plan)
 
     def test_production_snapshot_identity_is_metadata_and_membership_is_checked(self):
         snapshot=lambda i:SimpleNamespace(id=i,exists=True,

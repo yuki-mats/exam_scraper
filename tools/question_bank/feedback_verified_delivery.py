@@ -17,6 +17,7 @@ import subprocess
 import sys
 
 from scripts.check import verified_feedback_contract as checker
+from scripts.common.question_publication_unit import publication_unit
 from scripts.pipeline import rebuild_gas_shunin_all_year_artifacts as gas
 from scripts.upload import upload_questions_to_firestore as uploader
 from tools.question_bank import feedback_verified_review_context as context_api
@@ -92,7 +93,8 @@ def _verify_seal(value, key="planHash"):
 
 
 def _dependencies():
-    modules = (sys.modules[__name__], stages, uploader, checker, gas, native)
+    modules = (sys.modules[__name__], stages, uploader, checker, gas, native,
+               sys.modules[publication_unit.__module__])
     files = {Path(module.__file__).resolve() for module in modules}
     from tools.question_bank import feedback_publication_result, feedback_daily
     from tools.question_review_console import evaluation
@@ -229,6 +231,11 @@ def bootstrap(root, context_dir, output, candidate_path, evidence_path, *, conne
                   "effectivePublicProjectionHash": sha256_json({r["questionId"]: uploader.build_doc_data_base(r) for r in effective["questions"]}),
                   "requiredStages": context["preflight"]["requiredStageIds"], "policies": context["policies"],
                   "inputs": inputs})
+    _, source_save, _ = _public_changes(plan, effective)
+    unit = _source_publication_unit(source_save, effective, ids)
+    extra = {"membershipMode": "qualified-exam-publication-unit/v1", "publicationUnit": unit} if unit is not None else {}
+    plan = _seal({**{k: v for k, v in plan.items() if k != "planHash"}, **extra,
+                  "transportProfile": _transport_profile(plan, effective)})
     _current(plan); _write(output / "plan.json", plan); _current(plan)
     return plan
 
@@ -280,6 +287,9 @@ def _environment(root, output, connection):
     effective, deltas = _revision(base, candidate, plan["identity"]["siblingIds"], evidence)
     if sha256_json(effective) != plan["effectiveHash"] or deltas != plan["revisionDeltas"]:
         raise ValueError("effective authoring replay differs")
+    _membership_binding(plan, effective)
+    if plan.get("transportProfile", uploader.ATOMIC_MAINTENANCE_SCHEMA) != _transport_profile(plan, effective):
+        raise ValueError("publication transport profile differs from exact public changes")
     environment = (plan, context, review, effective, evidence)
     for ref in old_native_files:
         context_api._bound(root, ref)
@@ -302,13 +312,18 @@ def _scope(root, output, node):
     argv = ["scope", "--repo-root", str(root), "--execution", str(output), "--kind", node["kind"]]
     if node["stageId"]:
         argv += ["--stage-id", node["stageId"]]
-    return {"schemaVersion": SCOPE_SCHEMA, "action": "audit_verified_delivery_" + node["kind"],
+    result = {"schemaVersion": SCOPE_SCHEMA, "action": "audit_verified_delivery_" + node["kind"],
             "planHash": node["planHash"], "deliveryPlanHash": node["deliveryPlanHash"],
             "deliveryPlan": _ref(Path(output) / "plan.json"),
             "node": _ref(directory / "plan.json"), "taskId": node["taskId"],
             "identity": node["identity"], "kind": node["kind"], "stageId": node["stageId"],
+            "transportProfile": node.get("transportProfile", uploader.ATOMIC_MAINTENANCE_SCHEMA),
             "formalPatchSaved": False, "publicationApproved": False, "publicationRequested": node["kind"] == "publication",
             "nativeCreationCall": stages.native_operation_call(argv, module_name=MODULE)}
+
+    if "membershipMode" in node:
+        result.update(membershipMode=node["membershipMode"], publicationUnit=node["publicationUnit"])
+    return result
 
 
 def _native(approval, scope_value, node):
@@ -516,8 +531,12 @@ def prepare(root, output, kind, candidate_path=None, *, connection, stage_id=Non
                 result = candidate
     node = _seal({"schemaVersion": NODE_SCHEMA, "deliveryPlanHash": plan["planHash"], "taskId": plan["taskId"],
                   "identity": plan["identity"], "kind": kind, "stageId": stage_id, "candidate": candidate_ref,
+                  "transportProfile": plan.get("transportProfile", uploader.ATOMIC_MAINTENANCE_SCHEMA),
                   "parents": parents, "result": result, "typeExecution": type_chain,
                   "reviewCount": _review_count(kind, stage_id), "reviewerProfile": profile})
+    if "membershipMode" in plan:
+        node = _seal({**{k: v for k, v in node.items() if k != "planHash"},
+                      "membershipMode": plan["membershipMode"], "publicationUnit": plan["publicationUnit"]})
     _check_graph(graph, root, plan, guard=graph_guard, connection=connection)
     _json(root, candidate_ref)
     _write(directory / "plan.json", node)
@@ -571,6 +590,10 @@ def _verify_node(root, output, kind, *, connection, stage_id=None):
 
 
 def _validate_node(root, output, node, plan, context, review, effective, evidence, connection):
+    if (node.get("membershipMode") != plan.get("membershipMode") or node.get("publicationUnit") != plan.get("publicationUnit")):
+        raise ValueError("review node explicit publication unit differs")
+    if node.get("transportProfile", uploader.ATOMIC_MAINTENANCE_SCHEMA) != plan.get("transportProfile", uploader.ATOMIC_MAINTENANCE_SCHEMA):
+        raise ValueError("review node publication transport profile differs")
     expected_profile = plan["policies"]["maintenance"].get(node["stageId"], {}).get("agentPolicy", {}).get("independent_review") if node["kind"] == "stage" else None
     if (node["reviewCount"] != _review_count(node["kind"], node["stageId"])
             or node["reviewerProfile"] != expected_profile):
@@ -933,43 +956,134 @@ def _git(root, *, revision=None):
     return {"branch": "main", "head": head, "originMain": head}
 
 
+def _source_publication_unit(source_save, effective, ids):
+    if "membershipMode" not in source_save and "publicationUnit" not in source_save:
+        return None  # Historical original-only strict contract; never infer a year.
+    if source_save.get("membershipMode") != "qualified-exam-publication-unit/v1":
+        raise ValueError("explicit supported source-save membership mode required")
+    unit = publication_unit(source_save.get("publicationUnit"))
+    if source_save["publicationUnit"] != unit:
+        raise ValueError("exact source-save publication unit required")
+    rows, _ = _rows(effective)
+    if any(publication_unit(rows[i]) != unit for i in ids):
+        raise ValueError("candidate full-sibling source-save publication unit differs")
+    return unit
+
+
+def _membership_binding(plan, effective, source_save=None):
+    if source_save is None:
+        _, source_save, _ = _public_changes(plan, effective)
+    unit = _source_publication_unit(source_save, effective, plan["identity"]["siblingIds"])
+    if unit is None:
+        if "membershipMode" in plan or "publicationUnit" in plan:
+            raise ValueError("legacy source-save scope cannot be reinterpreted as qualified membership")
+        return None
+    if plan.get("membershipMode") != "qualified-exam-publication-unit/v1" or plan.get("publicationUnit") != unit:
+        raise ValueError("delivery membership mode/unit differs from source-save authority")
+    return unit
+
+
 def _snapshot(plan):
     fields = sorted(set(uploader.DOC_COMPARE_KEYS) | {"createdAt", "createdById", "updatedAt", "updatedById"})
+    if "membershipMode" in plan or "publicationUnit" in plan:
+        if plan.get("membershipMode") != "qualified-exam-publication-unit/v1":
+            raise ValueError("unsupported explicit delivery membership mode")
+        unit = publication_unit(plan.get("publicationUnit"))
+        if unit != plan["publicationUnit"]:
+            raise ValueError("exact delivery publication unit required")
+        return context_api.saver._snapshots(plan["identity"]["siblingIds"], fields, expected_unit=unit)
     return context_api.saver._snapshots(plan["identity"]["siblingIds"], fields)
 
 
-def _payload(plan, effective, snapshots):
-    rows, _ = _rows(effective); ids = plan["identity"]["siblingIds"]
-    scopes = _json(Path(plan["repoRoot"]), plan["contextFiles"]["context.json"])[1]["fieldScopes"]
-    old_plan = _json(Path(plan["repoRoot"]), _json(Path(plan["repoRoot"]), plan["contextFiles"]["context.json"])[1]["save"]["plan"])[1]
-    masks = {}
-    allowed_masks = getattr(uploader, "ATOMIC_MAINTENANCE_WRITE_FIELD_SETS", uploader.PRESERVED_SUGGESTION_MASKS)
-    for identity in ids:
+def _public_changes(plan, effective):
+    rows, _ = _rows(effective)
+    root = Path(plan["repoRoot"])
+    context = _json(root, plan["contextFiles"]["context.json"])[1]
+    old_plan = _json(root, context["save"]["plan"])[1]
+    changes = {}
+    for identity in plan["identity"]["siblingIds"]:
         baseline = old_plan["baseline"][identity]["fields"]
         projected = uploader.build_doc_data_base(rows[identity])
-        changed = {f for f in set(baseline) | set(projected) if (f in baseline) != (f in projected) or baseline.get(f) != projected.get(f)}
-        permitted = {"explanationText", "suggestedQuestions", "suggestedQuestionDetails", "lawRevisionFacts"}
+        changes[identity] = {f for f in set(baseline) | set(projected)
+            if (f in baseline) != (f in projected) or baseline.get(f) != projected.get(f)}
+    return rows, old_plan, changes
+
+
+def _transport_profile(plan, effective):
+    _, _, changes = _public_changes(plan, effective)
+    changed = [fields for fields in changes.values() if fields]
+    # Preserve the existing full-sibling atomic route whenever it already fits.
+    if len(changed) == len(changes) and all(
+            any(fields == set(mask) for mask in uploader.ATOMIC_MAINTENANCE_WRITE_FIELD_SETS) for fields in changed):
+        return uploader.ATOMIC_MAINTENANCE_SCHEMA
+    if changed and all(any(fields == set(mask) for mask in uploader.READ_SET_MAINTENANCE_WRITE_FIELD_SETS) for fields in changed):
+        return uploader.READ_SET_MAINTENANCE_SCHEMA
+    return uploader.ATOMIC_MAINTENANCE_SCHEMA
+
+
+def _transport(payload, label, *, dry_run=False):
+    if payload.get("schemaVersion") == uploader.READ_SET_MAINTENANCE_SCHEMA:
+        return uploader.upload_read_set_maintenance_questions(payload, label, dry_run=dry_run)
+    return uploader.upload_atomic_maintenance_questions(payload, label, dry_run=dry_run)
+
+
+def _resolve_transport(payload):
+    if payload.get("schemaVersion") == uploader.READ_SET_MAINTENANCE_SCHEMA:
+        return uploader.resolve_read_set_maintenance_contract(payload, "verified delivery")
+    return uploader.resolve_atomic_maintenance_contract(payload, "verified delivery")
+
+
+def _read_set(payload):
+    return payload.get("schemaVersion") == uploader.READ_SET_MAINTENANCE_SCHEMA
+
+
+def _payload(plan, effective, snapshots):
+    rows, old_plan, changes = _public_changes(plan, effective)
+    ids = plan["identity"]["siblingIds"]
+    if set(snapshots) != set(ids):
+        raise ValueError("complete sibling production baseline required")
+    unit = _membership_binding(plan, effective, old_plan)
+    profile = _transport_profile(plan, effective)
+    if profile == uploader.READ_SET_MAINTENANCE_SCHEMA and unit is None:
+        raise ValueError("read-set transport requires explicit source-save publication unit authority")
+    if plan.get("transportProfile", profile) != profile:
+        raise ValueError("fixed publication transport profile changed")
+    masks = {}
+    permitted = {"explanationText", "suggestedQuestions", "suggestedQuestionDetails", "lawRevisionFacts"}
+    for identity in ids:
+        changed = changes[identity]
+        if not changed and profile == uploader.READ_SET_MAINTENANCE_SCHEMA:
+            continue
         if not changed or not changed <= permitted:
             raise ValueError("public revision expanded outside permitted explanation/supplementary scope")
-        matching = [list(mask) for mask in allowed_masks if set(mask) == changed]
-        if len(matching) != 1:
-            raise ValueError("existing atomic uploader has no exact revised field mask")
-        masks[identity] = matching[0]
-    documents = [deepcopy(rows[identity]) for identity in ids]
-    payload = {"schemaVersion": uploader.ATOMIC_MAINTENANCE_SCHEMA, "originalQuestionId": plan["identity"]["originalQuestionId"],
+        if profile == uploader.READ_SET_MAINTENANCE_SCHEMA:
+            masks[identity] = next(list(mask) for mask in uploader.READ_SET_MAINTENANCE_WRITE_FIELD_SETS if set(mask) == changed)
+        else:
+            matching = [list(mask) for mask in uploader.ATOMIC_MAINTENANCE_WRITE_FIELD_SETS if set(mask) == changed]
+            if len(matching) != 1:
+                raise ValueError("existing atomic uploader has no exact revised field mask")
+            masks[identity] = matching[0]
+    if not masks:
+        raise ValueError("public revision contains no changed write-set")
+    documents = [deepcopy(rows[identity]) for identity in ids if identity in masks]
+    expected_times = {identity: snapshots[identity]["updateTimeExact"] for identity in ids}
+    payload = {"schemaVersion": profile, "originalQuestionId": plan["identity"]["originalQuestionId"],
                "questions": documents, "writeFieldsByDocument": masks,
-               "expectedUpdateTimes": {identity: snapshots[identity]["updateTimeExact"] for identity in ids},
                "expectedLiveFingerprint": uploader.firestore_live_fingerprint(ids, {i: snapshots[i]["fields"] for i in ids})}
-    uploader.resolve_atomic_maintenance_contract(payload, "verified delivery")
-    # Every outside-mask field must agree with the saved baseline, including
-    # absence. This stops an unrelated live edit from being blessed as baseline.
-    old_plan = _json(Path(plan["repoRoot"]), _json(Path(plan["repoRoot"]), plan["contextFiles"]["context.json"])[1]["save"]["plan"])[1]
+    if profile == uploader.READ_SET_MAINTENANCE_SCHEMA:
+        payload.update(qualificationId=unit["qualificationId"], examYear=unit["examYear"], readDocumentIds=ids,
+                       expectedReadUpdateTimes=expected_times)
+    else:
+        payload["expectedUpdateTimes"] = expected_times
+    _resolve_transport(payload)
     for identity in ids:
         baseline = old_plan["baseline"][identity]["fields"]
         actual = snapshots[identity]["fields"]
-        if any((f in actual) != (f in baseline) or actual.get(f) != baseline.get(f) for f in uploader.DOC_COMPARE_KEYS if f not in masks[identity]):
-            raise ValueError("outside-mask production baseline changed; investigate and re-audit")
-        if not any(f not in actual or actual[f] != uploader.build_doc_data_base(rows[identity])[f] for f in masks[identity]):
+        mask = masks.get(identity, [])
+        compare_fields = uploader.DOC_COMPARE_KEYS if profile == uploader.READ_SET_MAINTENANCE_SCHEMA else [f for f in uploader.DOC_COMPARE_KEYS if f not in mask]
+        if any((f in actual) != (f in baseline) or actual.get(f) != baseline.get(f) for f in compare_fields):
+            raise ValueError("outside-mask/approved production baseline changed; investigate and re-audit")
+        if mask and not any(f not in actual or actual[f] != uploader.build_doc_data_base(rows[identity])[f] for f in mask):
             raise ValueError("partially/already published scope requires reconciliation")
     return payload
 
@@ -1002,7 +1116,7 @@ def _prepare_publication(root, output, plan, effective, connection):
     git = _git(root, revision=revision)
     baseline = _snapshot(plan)
     payload = _payload(plan, effective, baseline)
-    dry_run = uploader.upload_atomic_maintenance_questions(payload, "verified delivery", dry_run=True)
+    dry_run = _transport(payload, "verified delivery", dry_run=True)
     directory = Path(output) / "publication"
     baseline_ref = _write(directory / "baseline.json", baseline)
     payload_ref = _write(directory / "payload.json", payload)
@@ -1011,30 +1125,42 @@ def _prepare_publication(root, output, plan, effective, connection):
                  "baseline": baseline_ref, "payload": payload_ref, "dryRun": dry_ref, "git": git,
                  "documentIds": plan["identity"]["siblingIds"], "taskRequirement": plan["taskRequirement"],
                  "revision": _ref(revision), "completionContract": _completion_contract(connection, plan)}
+    if _read_set(payload):
+        candidate.update(schemaVersion="feedback-verified-delivery-read-set-publication-candidate/v1",
+            transportProfile=payload["schemaVersion"], readDocumentIds=payload["readDocumentIds"],
+            writeDocumentIds=[q["questionId"] for q in payload["questions"]])
     return _write(directory / "candidate.json", candidate), candidate
 
 
 def _publication_candidate(root, output, plan, candidate):
     expected_keys = {"schemaVersion", "deliveryPlanHash", "baseline", "payload", "dryRun", "git", "documentIds", "taskRequirement", "revision", "completionContract"}
+    is_read_set = candidate.get("schemaVersion") == "feedback-verified-delivery-read-set-publication-candidate/v1"
+    if is_read_set:
+        expected_keys |= {"transportProfile", "readDocumentIds", "writeDocumentIds"}
     completion = candidate.get("completionContract", {})
     from tools.question_bank.feedback_daily import IMPROVEMENT_WORK_STATES
     if (set(candidate) != expected_keys or set(completion) != {"expectedStatus", "reason"}
             or completion.get("expectedStatus") not in IMPROVEMENT_WORK_STATES or completion.get("reason") != COMPLETION_REASON
-            or candidate.get("schemaVersion") != "feedback-verified-delivery-publication-candidate/v1" or candidate.get("deliveryPlanHash") != plan["planHash"]
+            or candidate.get("schemaVersion") != ("feedback-verified-delivery-read-set-publication-candidate/v1" if is_read_set else "feedback-verified-delivery-publication-candidate/v1") or candidate.get("deliveryPlanHash") != plan["planHash"]
             or candidate.get("documentIds") != plan["identity"]["siblingIds"] or candidate.get("taskRequirement") != plan["taskRequirement"]
             or candidate.get("revision") != _ref(_revision_path(root, plan))):
         raise ValueError("fixed limited publication candidate differs")
     for key in ("baseline", "payload", "dryRun"):
         _json(root, candidate[key])
     payload = _json(root, candidate["payload"])[1]
-    uploader.resolve_atomic_maintenance_contract(payload, "verified delivery")
+    _resolve_transport(payload)
+    if is_read_set != _read_set(payload) or is_read_set and (
+            candidate["transportProfile"] != payload["schemaVersion"]
+            or candidate["readDocumentIds"] != payload["readDocumentIds"]
+            or candidate["writeDocumentIds"] != [q["questionId"] for q in payload["questions"]]):
+        raise ValueError("explicit publication read/write transport profile differs")
     base = _json(root, plan["identity"]["canonical"])[1]
     authoring = _json(root, plan["candidate"])[1]
     evidence = _json(root, plan["evidence"])[1]
     effective, _ = _revision(base, authoring, plan["identity"]["siblingIds"], evidence)
     if payload != _payload(plan, effective, _json(root, candidate["baseline"])[1]):
         raise ValueError("atomic payload differs from complete formally audited revision")
-    if _json(root, candidate["dryRun"])[1] != uploader.upload_atomic_maintenance_questions(payload, "verified delivery", dry_run=True):
+    if _json(root, candidate["dryRun"])[1] != _transport(payload, "verified delivery", dry_run=True):
         raise ValueError("atomic dry-run differs")
     return payload
 
@@ -1109,14 +1235,29 @@ def _capture_delivery(root, output):
     return graph, guard
 
 
+def _intent_value(output, plan, node, candidate):
+    value = {"schemaVersion": "feedback-verified-delivery-publication-intent/v1", "deliveryPlanHash": plan["planHash"],
+        "node": _ref(_node_dir(output, "publication") / "plan.json"), "approval": _ref(_node_dir(output, "publication") / "receipt.json"),
+        "candidate": node["candidate"], "payload": candidate["payload"], "git": candidate["git"]}
+    if candidate.get("transportProfile") == uploader.READ_SET_MAINTENANCE_SCHEMA:
+        value.update(schemaVersion="feedback-verified-delivery-read-set-publication-intent/v1",
+            transportProfile=candidate["transportProfile"], readDocumentIds=candidate["readDocumentIds"],
+            writeDocumentIds=candidate["writeDocumentIds"])
+    return value
+
+
+def _attempt_value(directory, intent):
+    value = {"schemaVersion": "feedback-verified-delivery-write-attempt/v1", "intent": _ref(directory / "intent.json")}
+    if intent.get("transportProfile") == uploader.READ_SET_MAINTENANCE_SCHEMA:
+        value.update(schemaVersion="feedback-verified-delivery-read-set-write-attempt/v1", transportProfile=intent["transportProfile"])
+    return value
+
+
 def _intent(root, output, plan, node, candidate):
     directory = Path(output) / "publication"
-    expected = {"schemaVersion": "feedback-verified-delivery-publication-intent/v1", "deliveryPlanHash": plan["planHash"],
-                "node": _ref(_node_dir(output, "publication") / "plan.json"), "approval": _ref(_node_dir(output, "publication") / "receipt.json"),
-                "candidate": node["candidate"], "payload": candidate["payload"], "git": candidate["git"]}
     value = json.loads((directory / "intent.json").read_bytes())
     attempt = json.loads((directory / "attempt.json").read_bytes())
-    if value != expected or attempt != {"schemaVersion": "feedback-verified-delivery-write-attempt/v1", "intent": _ref(directory / "intent.json")}:
+    if value != _intent_value(output, plan, node, candidate) or attempt != _attempt_value(directory, value):
         raise ValueError("durable publication intent/attempt binding differs")
     return value
 
@@ -1151,18 +1292,16 @@ def publish(root, output, *, connection, failure_hook=None):
         raise ValueError("fresh production fingerprint/updateTime drift; re-audit required")
     _check_graph(graph, root, plan, guard=guard, connection=connection)
     _check_task_status(connection, output, plan, candidate, allow_completed=False)
-    intent = {"schemaVersion": "feedback-verified-delivery-publication-intent/v1", "deliveryPlanHash": plan["planHash"],
-              "node": _ref(_node_dir(output, "publication") / "plan.json"), "approval": _ref(_node_dir(output, "publication") / "receipt.json"),
-              "candidate": node["candidate"], "payload": candidate["payload"], "git": candidate["git"]}
+    intent = _intent_value(output, plan, node, candidate)
     _write(directory / "intent.json", intent)
     if failure_hook:
         failure_hook("intent_saved")
     _check_graph(graph, root, plan, guard=guard, connection=connection)
     _check_task_status(connection, output, plan, candidate, allow_completed=False)
-    _write(directory / "attempt.json", {"schemaVersion": "feedback-verified-delivery-write-attempt/v1", "intent": _ref(directory / "intent.json")})
+    _write(directory / "attempt.json", _attempt_value(directory, intent))
     try:
-        result = uploader.upload_atomic_maintenance_questions(payload, "audited verified delivery")
-    except uploader.AtomicMaintenanceCommitUnconfirmed as error:
+        result = _transport(payload, "audited verified delivery")
+    except (uploader.AtomicMaintenanceCommitUnconfirmed, uploader.ReadSetMaintenanceCommitUnconfirmed) as error:
         _write(directory / "commit-unconfirmed.json", {"schemaVersion": "feedback-verified-delivery-commit-unconfirmed/v1", "intent": _ref(directory / "intent.json"), "transportResult": error.prepared_result})
         raise ValueError("publication unconfirmed; exact commit versions unavailable; reconcile before retry") from error
     except Exception:
@@ -1180,6 +1319,8 @@ def publish(root, output, *, connection, failure_hook=None):
 
 
 def _readback_match(plan, candidate, payload, commit, current):
+    if _read_set(payload):
+        return _read_set_readback_match(plan, candidate, payload, commit, current)
     ids = plan["identity"]["siblingIds"]
     if (commit.get("schemaVersion") != uploader.ATOMIC_MAINTENANCE_RESULT_SCHEMA or commit.get("status") != "committed"
             or commit.get("documentIds") != ids or commit.get("changedDocumentIds") != ids or commit.get("unchangedDocumentIds") != []
@@ -1210,6 +1351,56 @@ def _readback_match(plan, candidate, payload, commit, current):
     return versions
 
 
+def _read_set_readback_match(plan, candidate, payload, commit, current):
+    _resolve_transport(payload)
+    ids = plan["identity"]["siblingIds"]
+    write_ids = [q["questionId"] for q in payload["questions"]]
+    readonly = [i for i in ids if i not in write_ids]
+    expected = {"schemaVersion": uploader.READ_SET_MAINTENANCE_RESULT_SCHEMA, "status": "committed",
+        "originalQuestionId": payload["originalQuestionId"], "qualificationId": payload["qualificationId"], "examYear": payload["examYear"],
+        "readDocumentIds": ids, "writeDocumentIds": write_ids, "readOnlyDocumentIds": readonly,
+        "writeFieldsByDocument": payload["writeFieldsByDocument"], "auditWriteFields": ["updatedAt", "updatedById"],
+        "expectedReadUpdateTimes": payload["expectedReadUpdateTimes"], "expectedLiveFingerprint": payload["expectedLiveFingerprint"],
+        "publicationConfirmed": False}
+    if (set(commit) != set(expected) | {"writeResults"} or any(commit.get(k) != v for k, v in expected.items())
+            or not isinstance(commit.get("writeResults"), list) or len(commit["writeResults"]) != len(write_ids)):
+        raise ValueError("exact read-set transaction commit evidence required")
+    if any(not isinstance(entry, dict) or set(entry) != {"questionId", "updateTime"} for entry in commit["writeResults"]):
+        raise ValueError("exact write result entries required")
+    versions = {entry["questionId"]: entry["updateTime"] for entry in commit["writeResults"]}
+    if set(versions) != set(write_ids) or len(versions) != len(commit["writeResults"]):
+        raise ValueError("read-set commit write version coverage differs")
+    uploader.resolve_expected_update_times({"expectedUpdateTimes": versions}, payload["questions"], ("explanationText",))
+    baseline = _json(Path(plan["repoRoot"]), candidate["baseline"])[1]
+    docs = {q["questionId"]: uploader.build_doc_data_base(q) for q in payload["questions"]}
+    if uploader.firestore_live_fingerprint(ids, {i: baseline[i]["fields"] for i in ids}) != payload["expectedLiveFingerprint"]:
+        raise ValueError("read-set baseline fingerprint differs")
+    if set(current) != set(ids) or set(baseline) != set(ids) or payload["readDocumentIds"] != ids:
+        raise ValueError("complete readback sibling membership differs")
+    for identity in ids:
+        before_snapshot, after_snapshot = baseline[identity], current[identity]
+        before, after = before_snapshot["fields"], after_snapshot["fields"]
+        if before_snapshot.get("exists") is not True or after_snapshot.get("exists") is not True or after_snapshot.get("questionId") != identity:
+            raise ValueError("read-set existing snapshot identity/presence differs")
+        if before_snapshot["updateTimeExact"] != payload["expectedReadUpdateTimes"][identity]:
+            raise ValueError("read-set baseline exact updateTime differs")
+        if identity in readonly:
+            if after_snapshot["updateTimeExact"] != before_snapshot["updateTimeExact"] or after != before:
+                raise ValueError("read-only sibling field presence/value/updateTime changed")
+            continue
+        mask = payload["writeFieldsByDocument"][identity]
+        if after_snapshot["updateTimeExact"] != versions[identity]:
+            raise ValueError("write-set exact commit updateTime differs")
+        if any(field not in after or after[field] != docs[identity][field] for field in mask):
+            raise ValueError("write-set published field readback differs")
+        if any((field in before) != (field in after) or before.get(field) != after.get(field)
+               for field in set(before) | set(after) if field not in {*mask, "updatedAt", "updatedById"}):
+            raise ValueError("outside-mask field presence/value changed")
+        if "updatedAt" not in after or after.get("updatedById") != uploader.UPDATED_BY_ID:
+            raise ValueError("write audit fields missing or writer differs")
+    return versions
+
+
 @stages.operation
 def reconcile(root, output, *, connection):
     graph, guard = _capture_delivery(root, output)
@@ -1232,6 +1423,10 @@ def reconcile(root, output, *, connection):
               "intent": _ref(directory / "intent.json"), "commit": _ref(directory / "commit.json"),
               "readback": current_ref, "documentIds": plan["identity"]["siblingIds"], "commitUpdateTimes": versions,
               "publicationConfirmed": True, "liveReadbackMatched": True, "outsideMaskUnchanged": True}
+    if _read_set(payload):
+        result.update(schemaVersion="feedback-verified-delivery-read-set-publication-result/v1",
+            transportProfile=payload["schemaVersion"], readDocumentIds=payload["readDocumentIds"],
+            writeDocumentIds=[q["questionId"] for q in payload["questions"]], readOnlySiblingsUnchanged=True)
     # Readback readAt is not persisted by the existing snapshot reader. Identical
     # replay therefore preserves this exact success artifact.
     _check_graph(graph, root, plan, guard=guard, connection=connection)
@@ -1246,7 +1441,10 @@ def reconcile(root, output, *, connection):
 
 @stages.operation
 def verify_completion(root, artifact, *, task_id, source_question_ids, task_requirement, live_reader=None, connection=None):
-    if (not isinstance(artifact, dict) or set(artifact) != {"schemaVersion", "taskId", "execution", "deliveryPlan", "publicationResult"}
+    artifact_keys = {"schemaVersion", "taskId", "execution", "deliveryPlan", "publicationResult"}
+    if isinstance(artifact, dict) and artifact.get("transportProfile") == uploader.READ_SET_MAINTENANCE_SCHEMA:
+        artifact_keys |= {"transportProfile", "readDocumentIds", "writeDocumentIds"}
+    if (not isinstance(artifact, dict) or set(artifact) != artifact_keys
             or artifact["schemaVersion"] != PUBLICATION_SCHEMA or artifact["taskId"] != task_id):
         raise ValueError("dedicated verified delivery completion artifact required")
     if connection is None:
@@ -1267,10 +1465,24 @@ def verify_completion(root, artifact, *, task_id, source_question_ids, task_requ
     if artifact["publicationResult"] != result_ref:
         raise ValueError("publication result binding differs")
     result = _json(root, result_ref)[1]
+    if _read_set(payload) and (artifact.get("transportProfile") != payload["schemaVersion"]
+            or artifact.get("readDocumentIds") != payload["readDocumentIds"]
+            or artifact.get("writeDocumentIds") != [q["questionId"] for q in payload["questions"]]):
+        raise ValueError("completion artifact transport read/write set differs")
+    if not _read_set(payload) and "transportProfile" in artifact:
+        raise ValueError("atomic completion artifact cannot claim a read-set profile")
     _intent(root, output, plan, node, candidate)
     directory = Path(output) / "publication"
     expected_keys = {"schemaVersion", "deliveryPlanHash", "intent", "commit", "readback", "documentIds", "commitUpdateTimes", "publicationConfirmed", "liveReadbackMatched", "outsideMaskUnchanged"}
-    if (set(result) != expected_keys or result["schemaVersion"] != "feedback-verified-delivery-publication-result/v1"
+    if _read_set(payload):
+        expected_keys |= {"transportProfile", "readDocumentIds", "writeDocumentIds", "readOnlySiblingsUnchanged"}
+        if (result.get("transportProfile") != payload["schemaVersion"] or result.get("readDocumentIds") != payload["readDocumentIds"]
+                or result.get("writeDocumentIds") != [q["questionId"] for q in payload["questions"]]
+                or result.get("readOnlySiblingsUnchanged") is not True):
+            raise ValueError("completion read/write transport profile differs")
+    result_schema = ("feedback-verified-delivery-read-set-publication-result/v1" if _read_set(payload)
+                     else "feedback-verified-delivery-publication-result/v1")
+    if (set(result) != expected_keys or result["schemaVersion"] != result_schema
             or result["deliveryPlanHash"] != plan["planHash"] or result["documentIds"] != plan["identity"]["siblingIds"]
             or result["intent"] != _ref(directory / "intent.json") or result["commit"] != _ref(directory / "commit.json")):
         raise ValueError("publication result schema/plan/intent/document binding differs")
@@ -1281,7 +1493,13 @@ def verify_completion(root, artifact, *, task_id, source_question_ids, task_requ
     versions = _readback_match(plan, candidate, payload, commit, recorded)
     # Completion must use the production snapshot/membership reader with exact
     # commit versions, not the generic value-only read_documents API.
-    current = _snapshot(plan) if live_reader is None else live_reader(plan["identity"]["siblingIds"], fields=sorted(set(uploader.DOC_COMPARE_KEYS) | {"createdAt", "createdById", "updatedAt", "updatedById"}))
+    if live_reader is None:
+        current = _snapshot(plan)
+    else:
+        read_options = {"fields": sorted(set(uploader.DOC_COMPARE_KEYS) | {"createdAt", "createdById", "updatedAt", "updatedById"})}
+        if "membershipMode" in plan:
+            read_options["expected_unit"] = publication_unit(plan["publicationUnit"])
+        current = live_reader(plan["identity"]["siblingIds"], **read_options)
     _readback_match(plan, candidate, payload, commit, current)
     _check_graph(graph, root, plan, guard=guard, connection=connection)
     _check_task_status(connection, output, plan, candidate, allow_completed=True)
@@ -1293,7 +1511,11 @@ def verify_completion(root, artifact, *, task_id, source_question_ids, task_requ
     def terminal(transaction_connection):
         _check_graph(graph, root, plan, guard=guard, connection=transaction_connection)
         _check_task_status(transaction_connection, output, plan, candidate, allow_completed=True)
-    return _CompletionVerification({"runId": plan["planHash"], "documentIds": plan["identity"]["siblingIds"], "liveReadbackMatched": True}, terminal, candidate["completionContract"])
+    proof = {"runId": plan["planHash"], "documentIds": plan["identity"]["siblingIds"], "liveReadbackMatched": True}
+    if _read_set(payload):
+        proof.update(transportProfile=payload["schemaVersion"], readDocumentIds=payload["readDocumentIds"],
+                     writeDocumentIds=[q["questionId"] for q in payload["questions"]])
+    return _CompletionVerification(proof, terminal, candidate["completionContract"])
 
 
 @stages.operation
@@ -1302,6 +1524,10 @@ def completion_artifact(root, output, *, connection):
     plan, _, _, _, _ = _environment(root, output, connection)
     artifact = {"schemaVersion": PUBLICATION_SCHEMA, "taskId": plan["taskId"], "execution": str(output),
                 "deliveryPlan": _ref(Path(output) / "plan.json"), "publicationResult": _ref(Path(output) / "publication/result.json")}
+    if plan.get("transportProfile") == uploader.READ_SET_MAINTENANCE_SCHEMA:
+        result = _json(root, artifact["publicationResult"])[1]
+        artifact.update(transportProfile=plan["transportProfile"], readDocumentIds=plan["identity"]["siblingIds"],
+                        writeDocumentIds=result["writeDocumentIds"])
     sources = {r["question_id"] for r in connection.execute("SELECT question_id FROM ai_question_candidates WHERE improvement_task_id=?", (plan["taskId"],))}
     verify_completion(root, artifact, task_id=plan["taskId"], source_question_ids=sources,
                       task_requirement=plan["taskRequirement"], connection=connection)

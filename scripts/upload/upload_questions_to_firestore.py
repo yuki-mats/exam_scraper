@@ -19,6 +19,7 @@ from scripts.upload.firebase_credentials import (  # noqa: E402
     DEFAULT_PROJECT_ID,
     initialize_firebase_app,
 )
+from scripts.common.question_publication_unit import publication_unit, active_unit_document_ids
 from scripts.common.repaso_firestore_schema import validate_question_doc, is_law_revision_facts_shape
 from scripts.common.fill_in_blank_contract import validate_fill_in_blank_question
 from scripts.common.independent_question_images import (
@@ -39,6 +40,10 @@ ATOMIC_MAINTENANCE_KEYS = frozenset((
     "schemaVersion", "originalQuestionId", "questions", "writeFieldsByDocument",
     EXPECTED_UPDATE_TIMES_KEY, "expectedLiveFingerprint",
 ))
+READ_SET_MAINTENANCE_SCHEMA = "question-maintenance-read-set-upload/v1"
+READ_SET_MAINTENANCE_RESULT_SCHEMA = "question-maintenance-read-set-upload-result/v1"
+READ_SET_MAINTENANCE_KEYS = frozenset({"schemaVersion", "originalQuestionId", "qualificationId", "examYear",
+    "readDocumentIds", "questions", "writeFieldsByDocument", "expectedReadUpdateTimes", "expectedLiveFingerprint"})
 EXPLANATION_DETAILS_WRITE_FIELDS = ("explanationText", "suggestedQuestionDetails")
 DETAILS_ONLY_WRITE_FIELDS = ("suggestedQuestionDetails",)
 LAW_FACTS_DETAILS_WRITE_FIELDS = ("explanationText", "lawRevisionFacts", "suggestedQuestionDetails")
@@ -52,6 +57,7 @@ ATOMIC_SUGGESTION_REPLACEMENT_MASKS = (
     ("explanationText", "lawRevisionFacts", "suggestedQuestions", "suggestedQuestionDetails"),
 )
 ATOMIC_MAINTENANCE_WRITE_FIELD_SETS = (*PRESERVED_SUGGESTION_MASKS, *ATOMIC_SUGGESTION_REPLACEMENT_MASKS)
+READ_SET_MAINTENANCE_WRITE_FIELD_SETS = (("explanationText",), ATOMIC_SUGGESTION_REPLACEMENT_MASKS[1])
 ALLOWED_PATCH_WRITE_FIELD_SETS = (
     ("explanationText",),
     EXPLANATION_DETAILS_WRITE_FIELDS,
@@ -670,6 +676,65 @@ def resolve_atomic_maintenance_contract(data: dict, source_label: str) -> dict:
     return {"documentIds": ids, "masks": resolved_masks, "expectedUpdateTimes": expected}
 
 
+def _requests_read_set_maintenance(data: dict) -> bool:
+    schema = data.get("schemaVersion")
+    return ("readDocumentIds" in data or "expectedReadUpdateTimes" in data
+            or isinstance(schema, str) and schema.startswith("question-maintenance-read-set-upload"))
+
+
+def resolve_read_set_maintenance_contract(data: dict, source_label: str) -> dict:
+    """Separate complete active-sibling reads from changed explanation writes."""
+    if not isinstance(data, dict):
+        raise ValueError("read-set maintenance JSON root must be an object")
+    _reject_duplicate_json_keys(data)
+    if set(data) != READ_SET_MAINTENANCE_KEYS or data.get("schemaVersion") != READ_SET_MAINTENANCE_SCHEMA:
+        raise ValueError("read-set maintenance requires its dedicated exact schema")
+    for key in ("originalQuestionId", "qualificationId"):
+        value = data[key]
+        if not isinstance(value, str) or not value or value.strip() != value or "/" in value:
+            raise ValueError("read-set original/qualification identity required")
+    publication_unit(data)
+    ids = data["readDocumentIds"]
+    if (not isinstance(ids, list) or not 1 <= len(ids) <= BATCH_SIZE
+            or any(not isinstance(i, str) or not i or i != i.strip() or "/" in i for i in ids)
+            or len(set(ids)) != len(ids)):
+        raise ValueError("read-set IDs must be unique nonempty existing documents")
+    expected = resolve_expected_update_times(
+        {EXPECTED_UPDATE_TIMES_KEY: data["expectedReadUpdateTimes"]},
+        [{"questionId": identity} for identity in ids], ("explanationText",),
+    )
+    questions = data["questions"]
+    if (not isinstance(questions, list) or not 1 <= len(questions) <= len(ids)
+            or any(not isinstance(q, dict) for q in questions)):
+        raise ValueError("nonempty changed write subset required")
+    write_ids = [q.get("questionId") for q in questions]
+    if (any(not isinstance(i, str) or i not in ids for i in write_ids)
+            or len(set(write_ids)) != len(write_ids)):
+        raise ValueError("write-set IDs must be unique members of read-set")
+    masks = data["writeFieldsByDocument"]
+    if not isinstance(masks, dict) or set(masks) != set(write_ids):
+        raise ValueError("write masks must exactly cover write-set")
+    for question in questions:
+        identity = question["questionId"]
+        raw_mask = masks[identity]
+        if (not isinstance(raw_mask, list) or tuple(raw_mask) not in READ_SET_MAINTENANCE_WRITE_FIELD_SETS
+                or question.get("originalQuestionId") != data["originalQuestionId"]
+                or question.get("qualificationId") != data["qualificationId"] or question.get("examYear") != data["examYear"]
+                or any(k in question for k in (WRITE_FIELDS_KEY, "writeFieldsByDocument", EXPECTED_UPDATE_TIMES_KEY,
+                                               "expectedReadUpdateTimes", "readDocumentIds", "expectedLiveFingerprint"))):
+            raise ValueError("read-set transport permits only its explicit existing explanation/suggestion masks")
+        if any(field not in question for field in raw_mask):
+            raise ValueError("read-set request must preserve explicit masked field presence")
+        if tuple(raw_mask) in ATOMIC_SUGGESTION_REPLACEMENT_MASKS:
+            validate_atomic_suggestion_replacement([question], tuple(raw_mask), source_label)
+        else:
+            validate_question_patch_questions([question], tuple(raw_mask), source_label)
+    fingerprint = data["expectedLiveFingerprint"]
+    if not isinstance(fingerprint, str) or re.fullmatch(r"[0-9a-f]{64}", fingerprint) is None:
+        raise ValueError("read-set live fingerprint requires lowercase SHA256")
+    return {"readDocumentIds": list(ids), "writeDocumentIds": write_ids, "expectedReadUpdateTimes": expected}
+
+
 def resolve_expected_update_times(data: dict, questions, write_fields) -> dict[str, str] | None:
     if EXPECTED_UPDATE_TIMES_KEY not in data:
         return None
@@ -844,6 +909,99 @@ class AtomicMaintenanceCommitUnconfirmed(RuntimeError):
     def __init__(self, prepared_result: dict):
         super().__init__("atomic maintenance commit outcome is unconfirmed; reconcile before retry")
         self.prepared_result = prepared_result
+
+
+class ReadSetMaintenanceCommitUnconfirmed(RuntimeError):
+    """A read-set transaction needs reconciliation; never blindly retry it."""
+    def __init__(self, prepared_result):
+        super().__init__("read-set maintenance commit outcome unconfirmed; reconcile before retry")
+        self.prepared_result = prepared_result
+
+
+def upload_read_set_maintenance_questions(data: dict, source_label: str, *, dry_run: bool = False,
+                                          credentials_json: Path | None = None) -> dict:
+    """Validate every sibling in one transaction; write only real explanations.
+
+    This transport grants no approval or publication completion. The caller owns
+    a durable intent and exact before/after readback, including read-only siblings.
+    max_attempts=1 prevents automatic reuse after a read-set conflict.
+    """
+    data = deepcopy(data)
+    contract = resolve_read_set_maintenance_contract(data, source_label)
+    ids, write_ids = contract["readDocumentIds"], contract["writeDocumentIds"]
+    result = {"schemaVersion": READ_SET_MAINTENANCE_RESULT_SCHEMA, "status": "dry_run" if dry_run else "prepared",
+        "originalQuestionId": data["originalQuestionId"], "qualificationId": data["qualificationId"], "examYear": data["examYear"],
+        "readDocumentIds": ids, "writeDocumentIds": write_ids,
+        "readOnlyDocumentIds": [i for i in ids if i not in write_ids],
+        "writeFieldsByDocument": deepcopy(data["writeFieldsByDocument"]),
+        "auditWriteFields": ["updatedAt", "updatedById"],
+        "expectedReadUpdateTimes": contract["expectedReadUpdateTimes"],
+        "expectedLiveFingerprint": data["expectedLiveFingerprint"], "writeResults": [], "publicationConfirmed": False}
+    if dry_run:
+        return result
+    db = init_firestore(credentials_json)
+    collection = db.collection("questions")
+    refs = {identity: collection.document(identity) for identity in ids}
+    transaction = db.transaction(max_attempts=1)
+    commit_expected = False
+
+    @firestore.transactional
+    def write_in_transaction(txn):
+        nonlocal commit_expected
+        snapshots = list(db.get_all(list(refs.values()), field_paths=EXISTING_DOC_FIELD_PATHS, transaction=txn))
+        by_id = require_expected_update_times(ids, snapshots, contract["expectedReadUpdateTimes"])
+        require_expected_live_fingerprint(ids, snapshots, data["expectedLiveFingerprint"])
+        for identity in ids:
+            existing = by_id[identity].to_dict() or {}
+            if (existing.get("originalQuestionId") != data["originalQuestionId"]
+                    or existing.get("qualificationId") != data["qualificationId"] or existing.get("examYear") != data["examYear"]
+                    or existing.get("isDeleted") is not False or existing.get("isChoiceOnly") is not False):
+                raise RuntimeError("read-set existing original/qualification/active flags differ")
+        from google.cloud.firestore_v1.base_query import FieldFilter
+        query = collection.where(filter=FieldFilter("originalQuestionId", "==", data["originalQuestionId"]))
+        membership = list(txn.get(query.select(["originalQuestionId", "qualificationId", "examYear", "isDeleted", "isChoiceOnly"])))
+        if any(snapshot.exists is not True for snapshot in membership):
+            raise RuntimeError("existing membership snapshots required")
+        active = active_unit_document_ids(((snapshot.id, snapshot.to_dict() or {}) for snapshot in membership),
+                                         publication_unit(data))
+        if active != set(ids):
+            raise RuntimeError("complete active sibling read-set membership changed")
+        updates = {}
+        for question in data["questions"]:
+            identity = question["questionId"]
+            existing = by_id[identity].to_dict() or {}
+            mask = tuple(data["writeFieldsByDocument"][identity])
+            if any(field not in existing for field in mask):
+                raise RuntimeError("existing masked field presence required")
+            base = build_doc_data_base(question)
+            if any(existing[field] == base[field] for field in mask):
+                raise RuntimeError("read-set write subset contains unchanged/no-op masked field")
+            updates[identity] = build_patch_doc_data(base, mask, datetime.now())
+        for identity in write_ids:
+            add_guarded_question_write(txn, refs[identity], updates[identity], by_id[identity])
+        commit_expected = True
+
+    try:
+        write_in_transaction(transaction)
+        responses = transaction.write_results
+        if not isinstance(responses, (list, tuple)) or len(responses) != len(write_ids):
+            raise ValueError("read-set transaction commit write-result coverage differs")
+        versions = {}
+        for identity, response in zip(write_ids, responses):
+            stamp = getattr(response, "update_time", None)
+            render = getattr(stamp, "rfc3339", None)
+            if not callable(render):
+                raise ValueError("read-set commit result has no exact updateTime")
+            versions[identity] = render()
+        resolve_expected_update_times({EXPECTED_UPDATE_TIMES_KEY: versions}, data["questions"], ("explanationText",))
+    except Exception as exc:
+        if not commit_expected:
+            raise
+        result["status"] = "commit_unconfirmed"
+        raise ReadSetMaintenanceCommitUnconfirmed(result) from exc
+    result["writeResults"] = [{"questionId": i, "updateTime": versions[i]} for i in write_ids]
+    result["status"] = "committed"
+    return result
 
 
 def upload_atomic_maintenance_questions(
@@ -1054,6 +1212,10 @@ def upload_questions(
 
     if not isinstance(data, dict):
         raise ValueError("upload JSON root must be an object")
+    if _requests_read_set_maintenance(data):
+        return upload_read_set_maintenance_questions(
+            data, str(json_file_path), dry_run=dry_run, credentials_json=credentials_json,
+        )
     # Resolve the explicit atomic transport before legacy mask/full-upload paths.
     if _requests_atomic_maintenance(data):
         return upload_atomic_maintenance_questions(

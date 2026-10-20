@@ -16,6 +16,7 @@ import sqlite3
 import sys
 
 from scripts.common.scoped_canonical_context import file_hash
+from scripts.common.question_publication_unit import publication_unit, active_unit_document_ids, UNIT_FIELDS
 from scripts.pipeline import rebuild_gas_shunin_all_year_artifacts as gas
 from tools.question_bank.feedback_improvement_plan import checked_json, project_verified_bundle, EXPLANATION_FIELDS
 from tools.question_bank.feedback_task_requirements import task_requirement_binding
@@ -33,6 +34,7 @@ MAINTENANCE_RECEIPT = 'feedback-verified-maintenance-save-receipt/v1'
 PRIVATE = Path('output/user_feedback_response_system/execution')
 LEDGER = Path.home() / 'Library/Application Support/Repaso/feedback-ops/ledger.sqlite3'
 DEPENDENCIES = [Path(__file__), Path(gas.__file__)]
+QUALIFIED_MEMBERSHIP = 'qualified-exam-publication-unit/v1'
 
 
 def _physical(path):
@@ -127,19 +129,26 @@ def _validate_patch(update, task_id, binding=None):
         raise ValueError('fixed private patch differs')
 
 
-def _snapshots(ids, fields):
+def _snapshots(ids, fields, *, expected_unit=None):
+    unit = publication_unit(expected_unit) if expected_unit is not None else None
+    if expected_unit is not None and dict(expected_unit) != unit:
+        raise ValueError('exact expected publication unit required')
+    read_fields = sorted(set(fields) | set(UNIT_FIELDS)) if unit is not None else fields
     db = FirestoreReadback()._database()
     refs = [db.collection('questions').document(i) for i in ids]
     from tools.question_bank.question_issue_report_store import _json_value
     result = {}
-    for snapshot in db.get_all(refs, field_paths=fields):
+    for snapshot in db.get_all(refs, field_paths=read_fields):
         if snapshot.id not in ids or snapshot.id in result or not snapshot.exists:
             raise ValueError('existing complete sibling snapshot required')
         if not hasattr(snapshot.update_time, 'rfc3339'):
             raise ValueError('exact production update time required')
+        values = _json_value(snapshot.to_dict() or {})
+        if unit is not None and publication_unit(values) != unit:
+            raise ValueError('requested sibling publication unit differs')
         result[snapshot.id] = {'questionId': snapshot.id, 'exists': True,
             'updateTimeExact': snapshot.update_time.rfc3339(),
-            'fields': _json_value(snapshot.to_dict() or {})}
+            'fields': {k:v for k,v in values.items() if k in fields}}
     if set(result) != set(ids):
         raise ValueError('missing sibling snapshot')
     originals={s['fields'].get('originalQuestionId') for s in result.values()}
@@ -147,8 +156,12 @@ def _snapshots(ids, fields):
         raise ValueError('one original sibling identity required')
     from google.cloud.firestore_v1.base_query import FieldFilter
     query=db.collection('questions').where(filter=FieldFilter('originalQuestionId','==',next(iter(originals))))
-    all_ids={s.id for s in query.select(['isDeleted','isChoiceOnly']).stream()
-        if (s.to_dict() or {}).get('isDeleted') is False and (s.to_dict() or {}).get('isChoiceOnly') is False}
+    if unit is None:
+        all_ids={s.id for s in query.select(['isDeleted','isChoiceOnly']).stream()
+            if (s.to_dict() or {}).get('isDeleted') is False and (s.to_dict() or {}).get('isChoiceOnly') is False}
+    else:
+        all_ids=active_unit_document_ids(
+            ((s.id, s.to_dict() or {}) for s in query.select([*UNIT_FIELDS,'isDeleted','isChoiceOnly']).stream()), unit)
     if all_ids != set(ids):
         raise ValueError('live sibling membership changed')
     return result
@@ -168,6 +181,7 @@ def _dependencies():
         'tools.question_review_console.projection',
         'tools.question_review_console.scoped_artifacts',
         'tools.question_bank.question_issue_report_store',
+        'scripts.common.question_publication_unit',
         'scripts.common.scoped_canonical_context',
         'scripts.common.repaso_firestore_schema'):
         import importlib
@@ -211,13 +225,17 @@ def prepare(root, result_path, canonical_path, destination, *, document_index,
     requirement = _requirement(connection, result['taskId'])
     selected = next(r for r in before['questions'] if r['questionId'] == update['questionId'])
     siblings = [r for r in before['questions'] if r['originalQuestionId'] == selected['originalQuestionId']]
+    unit = publication_unit(selected)
+    if (unit['qualificationId'] != qualification or str(unit['examYear']) != year
+            or any(publication_unit(r) != unit for r in siblings)):
+        raise ValueError('canonical publication unit differs')
     ids = [r['questionId'] for r in siblings]
     source_ids = {s['question_id'] for s in requirement['requirement']['sources']}
     if not source_ids <= set(ids) | {selected['originalQuestionId']}:
         raise ValueError('one sibling unit must cover all task sources')
     # questionId is the document identity, not a stored Firestore payload field.
     mask = sorted((set().union(*(set(r) for r in siblings)) | EXPLANATION_FIELDS) - gas.METADATA_FIELDS - {'questionId'})
-    live = _snapshots(ids, mask)
+    live = _snapshots(ids, mask, expected_unit=unit)
     for row in siblings:
         if live[row['questionId']]['fields'] != {k:v for k,v in row.items() if k in mask}:
             raise ValueError('canonical and fresh sibling baseline differ')
@@ -259,6 +277,7 @@ def prepare(root, result_path, canonical_path, destination, *, document_index,
         'documentIndexRef':{'ref':str(_physical(document_index)),'sha256':file_hash(document_index)},
         'pdfVerificationRef':{'ref':str(_physical(pdf_verification)),'sha256':file_hash(pdf_verification)},
         'siblingIds':ids, 'snapshotFields':mask, 'baseline':live,
+        'membershipMode':QUALIFIED_MEMBERSHIP, 'publicationUnit':unit,
         'publicationDocuments':[{'questionId':i, 'writeFields':changed.get(i,[])} for i in ids],
         'requiredPublicationGates':['merge_convert','required_checkers','quality_gate',
             'independent_evaluation','scoped_upload_dry_run','fresh_live_preconditions','live_readback'],
@@ -347,6 +366,11 @@ def read_plan(root, path, *, verify_law=True, connection=None):
     if plan['publicationDocuments'] != expected_documents:
         raise ValueError('limited publication fields differ')
     siblings = [r for r in before['questions'] if r['questionId'] in ids]
+    unit = publication_unit(row)
+    if (plan.get('membershipMode') != QUALIFIED_MEMBERSHIP or plan.get('publicationUnit') != unit
+            or unit['qualificationId'] != before['qualificationId'] or str(unit['examYear']) != str(before['list_group_id'])
+            or any(publication_unit(r) != unit for r in siblings)):
+        raise ValueError('fixed qualified publication unit differs')
     mask = sorted((set().union(*(set(r) for r in siblings)) | EXPLANATION_FIELDS) - gas.METADATA_FIELDS - {'questionId'})
     requirement = plan['taskRequirement']
     if (plan['snapshotFields'] != mask
@@ -400,6 +424,8 @@ def _scope(root,path,plan,stage,reviews):
     if plan['schemaVersion']==MAINTENANCE_SCHEMA:
         scope['maintenanceBinding']=plan['maintenanceBinding']
         if stage=='final': scope['action']='save_verified_sibling_maintenance_and_review_limited_publication'
+    if 'membershipMode' in plan:
+        scope.update(membershipMode=plan['membershipMode'], publicationUnit=plan['publicationUnit'])
     return scope
 
 
@@ -416,7 +442,8 @@ def _fresh(plan,connection):
         raise ValueError('review-pending task required for new save')
     if _requirement(connection,plan['taskId']) != plan['taskRequirement']:
         raise ValueError('current task requirement changed')
-    if _snapshots(plan['siblingIds'],plan['snapshotFields']) != plan['baseline']:
+    kwargs = {'expected_unit':plan['publicationUnit']} if 'membershipMode' in plan else {}
+    if _snapshots(plan['siblingIds'],plan['snapshotFields'],**kwargs) != plan['baseline']:
         raise ValueError('fresh sibling live precondition changed')
 
 
@@ -486,6 +513,8 @@ def save(root,path,approval,*,connection,failure_hook=None):
                 'formalPath':plan['formalPath'],'beforeSha256':plan['beforeSha256'],
                 'candidateSha256':plan['candidateSha256'],'originalRef':str(old),
                 'approvalEvidence':approval,'approvalBinding':binding,'FirestoreWritten':False}
+            if 'membershipMode' in plan:
+                receipt.update(membershipMode=plan['membershipMode'], publicationUnit=plan['publicationUnit'])
             _exclusive(receipt_path,_bytes(receipt))
             return load_saved(root,path,receipt_path,connection=connection)
         finally:
@@ -506,6 +535,9 @@ def load_saved(root,path,receipt_path,*,connection):
             or file_hash(_physical(root/plan['formalPath'])) != plan['candidateSha256']
             or file_hash(_physical(receipt['originalRef'])) != plan['beforeSha256']):
         raise ValueError('saved canonical receipt differs')
+    if ('membershipMode' in plan and (receipt.get('membershipMode') != plan['membershipMode']
+            or receipt.get('publicationUnit') != plan['publicationUnit'])):
+        raise ValueError('saved qualified publication unit differs')
     binding = verify_independent_approval(receipt['approvalEvidence'],approval_scope(root,path,plan),production=True)
     intent=json.loads((_physical(Path(original_ref).parent/'intent.json')).read_bytes())
     if intent != {'planHash':plan['planHash'],'approvalEvidence':receipt['approvalEvidence'],'approvalBinding':binding}:

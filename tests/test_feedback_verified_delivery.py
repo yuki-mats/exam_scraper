@@ -11,6 +11,25 @@ import pytest
 from tools.question_bank import feedback_verified_delivery as delivery
 from tools.question_bank import feedback_publication_result
 from tools.question_review_console.projection import sha256_json
+from tools.question_review_console.firestore_readback import FirestoreReadback
+
+
+@pytest.fixture(autouse=True)
+def prohibit_live_firestore(monkeypatch):
+    def forbidden(*args, **kwargs):
+        raise AssertionError("live Firestore SDK is forbidden in delivery contract tests")
+    monkeypatch.setattr(delivery.uploader, "init_firestore", forbidden)
+    monkeypatch.setattr(FirestoreReadback, "_database", forbidden)
+    monkeypatch.setattr(delivery.uploader.firestore, "client", forbidden)
+    monkeypatch.setattr(delivery.uploader.firebase_admin, "initialize_app", forbidden)
+
+
+def test_default_fixture_denies_live_read_and_write_initialization():
+    for initialize in (delivery.uploader.init_firestore, FirestoreReadback()._database,
+                       delivery.uploader.firestore.client, delivery.uploader.firebase_admin.initialize_app,
+                       lambda: delivery._snapshot({'identity': {'siblingIds': ['fixture-only']}})):
+        with pytest.raises(AssertionError, match='live Firestore SDK is forbidden'):
+            initialize()
 
 
 @pytest.fixture
@@ -684,3 +703,167 @@ def test_check_cli_marker_binds_returned_verified_receipt_not_later_file_bytes(t
     (output / 'checks/receipt.json').write_text('{"forged":true}')
     assert actual_marker != delivery._check_command_marker(output, {'planHash': 'verified'})
     assert actual_marker == delivery._check_command_marker(output, {'planHash': 'verified'}, completed_receipt=result)
+
+
+def sparse_read_set_rig(rig, *, replacement=False):
+    """One real field delta, with the other four baseline documents unchanged."""
+    ids = rig['ids']; target = ids[2] if replacement else ids[3]
+    rows = {row['questionId']: row for row in rig['effective']['questions']}
+    before = {}
+    for identity in ids:
+        fields = delivery.uploader.build_doc_data_base(rows[identity])
+        if identity == target:
+            fields['explanationText'] = '正しい。旧説明。'
+            if replacement:
+                fields['suggestedQuestions'] = ['旧比較']
+                fields['suggestedQuestionDetails'] = [{'question': '旧比較', 'answer': '旧回答'}]
+        before[identity] = {'questionId': identity, 'exists': True, 'fields': fields,
+                            'updateTimeExact': '2026-10-20T00:00:00.123456789Z'}
+    unit = {'qualificationId': 'gas-shunin-otsu', 'examYear': 2021, 'originalQuestionId': 'original'}
+    save = delivery._write(rig['output'] / 'sparse-old-save-plan.json', {'baseline': before,
+        'membershipMode': 'qualified-exam-publication-unit/v1', 'publicationUnit': unit})
+    rig['context']['save']['plan'] = save
+    context_ref = delivery._write(rig['output'] / 'sparse-context.json', rig['context'])
+    rig['plan']['contextFiles']['context.json'] = context_ref
+    rig['plan']['transportProfile'] = delivery.uploader.READ_SET_MAINTENANCE_SCHEMA
+    rig['plan']['membershipMode'] = 'qualified-exam-publication-unit/v1'; rig['plan']['publicationUnit'] = unit
+    sealed = delivery._seal({k: v for k, v in rig['plan'].items() if k != 'planHash'})
+    rig['plan'].clear(); rig['plan'].update(sealed)
+    (rig['output'] / 'plan.json').write_text(json.dumps(rig['plan'], ensure_ascii=False))
+    rig['baseline'].clear(); rig['baseline'].update(before)
+    return target
+
+
+def fake_read_set_transport(snapshots, calls):
+    original = delivery.uploader.upload_read_set_maintenance_questions
+    def transport(payload, label, *, dry_run=False, **kwargs):
+        result = original(payload, label, dry_run=True)
+        if dry_run: return result
+        calls.append(deepcopy(payload))
+        for question in payload['questions']:
+            identity = question['questionId']; current = snapshots['current'][identity]
+            for field in payload['writeFieldsByDocument'][identity]:
+                current['fields'][field] = delivery.uploader.build_doc_data_base(question)[field]
+            current['fields'].update(updatedById=delivery.uploader.UPDATED_BY_ID, updatedAt='2026-10-20T01:00:00Z')
+            current['updateTimeExact'] = '2026-10-20T01:00:00.987654321Z'
+        result.update(status='committed', writeResults=[{'questionId': q['questionId'],
+            'updateTime': snapshots['current'][q['questionId']]['updateTimeExact']} for q in payload['questions']])
+        return result
+    return transport
+
+
+@pytest.mark.parametrize('replacement', [False, True])
+def test_sparse_explanation_and_three_field_publication_preserve_full_read_set_and_replay_completion(rig, monkeypatch, replacement):
+    target = sparse_read_set_rig(rig, replacement=replacement)
+    calls = []; snapshots = prepare_flow(rig, monkeypatch)
+    baseline = deepcopy(snapshots['current'])
+    monkeypatch.setattr(delivery.uploader, 'upload_read_set_maintenance_questions', fake_read_set_transport(snapshots, calls))
+    result = delivery.publish(rig['root'], rig['output'], connection=rig['db'])
+    assert result['schemaVersion'] == 'feedback-verified-delivery-read-set-publication-result/v1'
+    assert result['transportProfile'] == delivery.uploader.READ_SET_MAINTENANCE_SCHEMA
+    assert result['readDocumentIds'] == rig['ids'] and result['writeDocumentIds'] == [target]
+    assert result['readOnlySiblingsUnchanged'] is True
+    assert set(result['commitUpdateTimes']) == {target}
+    payload = calls[0]
+    assert len(payload['questions']) == 1 and payload['readDocumentIds'] == rig['ids']
+    assert payload['writeFieldsByDocument'][target] == (['explanationText', 'suggestedQuestions', 'suggestedQuestionDetails'] if replacement else ['explanationText'])
+    for identity in rig['ids']:
+        if identity != target: assert snapshots['current'][identity] == baseline[identity]
+    assert delivery.publish(rig['root'], rig['output'], connection=rig['db']) == result
+    assert len(calls) == 1
+    publication_node = delivery._read_node(rig['root'], rig['output'], 'publication', None)
+    scope = delivery._scope(rig['root'], rig['output'], publication_node)
+    assert scope['transportProfile'] == delivery.uploader.READ_SET_MAINTENANCE_SCHEMA
+    intent = json.loads((rig['output'] / 'publication/intent.json').read_bytes())
+    assert intent['schemaVersion'] == 'feedback-verified-delivery-read-set-publication-intent/v1'
+    assert intent['readDocumentIds'] == rig['ids'] and intent['writeDocumentIds'] == [target]
+    artifact = {'schemaVersion': delivery.PUBLICATION_SCHEMA, 'taskId': 'task', 'execution': str(rig['output']),
+        'deliveryPlan': delivery._ref(rig['output'] / 'plan.json'), 'publicationResult': delivery._ref(rig['output'] / 'publication/result.json'),
+        'transportProfile': delivery.uploader.READ_SET_MAINTENANCE_SCHEMA, 'readDocumentIds': rig['ids'], 'writeDocumentIds': [target]}
+    proof = delivery.verify_completion(rig['root'], artifact, task_id='task', source_question_ids={target},
+                                      task_requirement=rig['plan']['taskRequirement'], connection=rig['db'])
+    assert proof['writeDocumentIds'] == [target] and proof['readDocumentIds'] == rig['ids']
+
+
+@pytest.mark.parametrize('mutation', ['readonly-time', 'readonly-value', 'readonly-presence', 'extra-write-result', 'old-schema', 'wrong-mask'])
+def test_sparse_readback_refuses_readonly_drift_or_old_all_write_receipts(rig, monkeypatch, mutation):
+    target = sparse_read_set_rig(rig); calls = []; snapshots = prepare_flow(rig, monkeypatch)
+    monkeypatch.setattr(delivery.uploader, 'upload_read_set_maintenance_questions', fake_read_set_transport(snapshots, calls))
+    delivery.publish(rig['root'], rig['output'], connection=rig['db'])
+    publication = delivery._read_node(rig['root'], rig['output'], 'publication', None)
+    candidate = delivery._json(rig['root'], publication['candidate'])[1]
+    payload = delivery._json(rig['root'], candidate['payload'])[1]
+    commit = json.loads((rig['output'] / 'publication/commit.json').read_bytes())
+    current = deepcopy(snapshots['current']); readonly = next(i for i in rig['ids'] if i != target)
+    if mutation == 'readonly-time': current[readonly]['updateTimeExact'] = '2026-10-20T00:00:00.123456790Z'
+    elif mutation == 'readonly-value': current[readonly]['fields']['explanationText'] = 'third value'
+    elif mutation == 'readonly-presence': current[readonly]['fields']['unexpected'] = None
+    elif mutation == 'extra-write-result': commit['writeResults'].append({'questionId': readonly, 'updateTime': current[readonly]['updateTimeExact']})
+    elif mutation == 'old-schema': commit['schemaVersion'] = delivery.uploader.ATOMIC_MAINTENANCE_RESULT_SCHEMA
+    else: commit['writeFieldsByDocument'][target].append('suggestedQuestions')
+    with pytest.raises(ValueError): delivery._readback_match(rig['plan'], candidate, payload, commit, current)
+
+
+def test_sparse_unknown_commit_keeps_intent_and_never_resends(rig, monkeypatch):
+    sparse_read_set_rig(rig); prepare_flow(rig, monkeypatch); calls = []
+    original = delivery.uploader.upload_read_set_maintenance_questions
+    def uncertain(payload, label, *, dry_run=False):
+        if dry_run: return original(payload, label, dry_run=True)
+        calls.append(True)
+        raise delivery.uploader.ReadSetMaintenanceCommitUnconfirmed({'schemaVersion': delivery.uploader.READ_SET_MAINTENANCE_RESULT_SCHEMA,
+                                                                    'status': 'commit_unconfirmed'})
+    monkeypatch.setattr(delivery.uploader, 'upload_read_set_maintenance_questions', uncertain)
+    with pytest.raises(ValueError, match='unconfirmed'): delivery.publish(rig['root'], rig['output'], connection=rig['db'])
+    with pytest.raises(ValueError, match='no blind retry'): delivery.publish(rig['root'], rig['output'], connection=rig['db'])
+    assert len(calls) == 1 and not (rig['output'] / 'publication/result.json').exists()
+    assert json.loads((rig['output'] / 'publication/intent.json').read_bytes())['schemaVersion'] == 'feedback-verified-delivery-read-set-publication-intent/v1'
+
+
+@pytest.mark.parametrize('target_field', [True, False])
+def test_sparse_live_third_value_cannot_be_blessed_as_a_new_baseline(rig, target_field):
+    target = sparse_read_set_rig(rig)
+    snapshots = deepcopy(rig['baseline'])
+    identity = target if target_field else next(i for i in rig['ids'] if i != target)
+    snapshots[identity]['fields']['explanationText'] = 'unapproved third value'
+    with pytest.raises(ValueError, match='baseline changed'):
+        delivery._payload(rig['plan'], rig['effective'], snapshots)
+
+
+@pytest.mark.parametrize('qualified', [False, True])
+def test_snapshot_forwards_only_explicit_qualified_membership(sample, monkeypatch, qualified):
+    _, ids, _, _, _, _ = sample
+    plan = {'identity': {'siblingIds': ids}}
+    unit = {'qualificationId': 'gas-shunin-otsu', 'examYear': 2021, 'originalQuestionId': 'original'}
+    if qualified:
+        plan.update(membershipMode='qualified-exam-publication-unit/v1', publicationUnit=unit)
+    snapshots = Mock(return_value='snapshots')
+    monkeypatch.setattr(delivery.context_api.saver, '_snapshots', snapshots)
+    assert delivery._snapshot(plan) == 'snapshots'
+    assert snapshots.call_args.args[0] == ids
+    assert snapshots.call_args.kwargs == ({'expected_unit': unit} if qualified else {})
+
+
+@pytest.mark.parametrize('mutation', ['missing-mode', 'missing-unit', 'unknown-mode', 'extra-unit-field',
+                                      'candidate-year', 'candidate-qualification', 'candidate-original', 'plan-year', 'legacy-reinterpreted'])
+def test_publication_unit_cannot_be_inferred_or_rebound(rig, mutation):
+    sparse_read_set_rig(rig)
+    unit = deepcopy(rig['plan']['publicationUnit'])
+    source_save = {'membershipMode': 'qualified-exam-publication-unit/v1', 'publicationUnit': deepcopy(unit)}
+    if mutation == 'missing-mode': source_save.pop('membershipMode')
+    elif mutation == 'missing-unit': source_save.pop('publicationUnit')
+    elif mutation == 'unknown-mode': source_save['membershipMode'] = 'inferred/v1'
+    elif mutation == 'extra-unit-field': source_save['publicationUnit']['extra'] = 'unapproved'
+    elif mutation.startswith('candidate-'):
+        row = next(r for r in rig['effective']['questions'] if r['questionId'] == rig['ids'][-1])
+        field = {'candidate-year': 'examYear', 'candidate-qualification': 'qualificationId',
+                 'candidate-original': 'originalQuestionId'}[mutation]
+        row[field] = 2022 if field == 'examYear' else 'foreign'
+    elif mutation == 'plan-year': rig['plan']['publicationUnit']['examYear'] = 2022
+    else: source_save = {}
+    with pytest.raises(ValueError):
+        delivery._membership_binding(rig['plan'], rig['effective'], source_save)
+
+
+def test_publication_unit_helper_is_a_fixed_delivery_dependency():
+    dependency = Path(delivery.sys.modules[delivery.publication_unit.__module__].__file__).resolve()
+    assert delivery._dependencies()[str(dependency)] == delivery.context_api._hash(dependency.read_bytes())

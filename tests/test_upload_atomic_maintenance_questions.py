@@ -16,10 +16,29 @@ import io
 import json
 import tempfile
 import unittest
+import pytest
 
 from google.api_core.datetime_helpers import DatetimeWithNanoseconds
 
 from scripts.upload import upload_questions_to_firestore as module
+from tools.question_review_console.firestore_readback import FirestoreReadback
+
+
+@pytest.fixture(autouse=True)
+def prohibit_live_firestore(monkeypatch):
+    def forbidden(*args, **kwargs):
+        raise AssertionError("live Firestore SDK is forbidden in uploader contract tests")
+    monkeypatch.setattr(module, "init_firestore", forbidden)
+    monkeypatch.setattr(FirestoreReadback, "_database", forbidden)
+    monkeypatch.setattr(module.firestore, "client", forbidden)
+    monkeypatch.setattr(module.firebase_admin, "initialize_app", forbidden)
+
+
+def test_default_fixture_denies_live_read_and_write_initialization():
+    for initialize in (module.init_firestore, FirestoreReadback()._database,
+                       module.firestore.client, module.firebase_admin.initialize_app):
+        with pytest.raises(AssertionError, match='live Firestore SDK is forbidden'):
+            initialize()
 
 
 class AtomicMaintenanceUploadTests(unittest.TestCase):
@@ -532,3 +551,258 @@ class AtomicMaintenanceUploadTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class ReadSetMaintenanceUploadTests(unittest.TestCase):
+    """Public transaction API fixture: every read participates in commit CAS."""
+    def fixture(self):
+        old, live = AtomicMaintenanceUploadTests().fixture()
+        qid = old['questions'][3]['questionId']
+        for question in old['questions']: question['examYear'] = 2024
+        for values in live.values(): values['examYear'] = 2024
+        payload = {'schemaVersion': module.READ_SET_MAINTENANCE_SCHEMA,
+            'originalQuestionId': old['originalQuestionId'], 'qualificationId': 'gas-fixture', 'examYear': 2024,
+            'readDocumentIds': list(AtomicMaintenanceUploadTests.ids),
+            'questions': [deepcopy(old['questions'][3])], 'writeFieldsByDocument': {qid: ['explanationText']},
+            'expectedReadUpdateTimes': old['expectedUpdateTimes'], 'expectedLiveFingerprint': module.firestore_live_fingerprint(old['expectedUpdateTimes'].keys(), live)}
+        return payload, live
+
+    class Database:
+        def __init__(self, live, *, mode=None):
+            self.live = deepcopy(live)
+            self.times = {i: DatetimeWithNanoseconds.from_rfc3339(AtomicMaintenanceUploadTests.before_stamp) for i in live}
+            self.mode = mode; self.reads = []; self.updates = []; self.applied = []; self.commits = 0
+            self.transactions = []; self.read_transform = None; self.on_read = None; self.filters = {}
+
+        def collection(self, name):
+            if name != 'questions': raise AssertionError('unexpected collection')
+            return self
+
+        def document(self, identity): return identity
+        def where(self, *, filter):
+            self.filters[filter.field_path] = filter.value
+            return self
+        def select(self, fields): return ('membership', fields, deepcopy(self.filters))
+        def snapshot(self, identity, fields=None):
+            values = deepcopy(self.live.get(identity))
+            if values is not None and fields is not None: values = {k: v for k, v in values.items() if k in fields}
+            return SimpleNamespace(id=identity, exists=identity in self.live, update_time=self.times.get(identity),
+                                   to_dict=lambda: deepcopy(values))
+
+        def get_all(self, refs, field_paths, *, transaction):
+            self.reads.append((list(refs), tuple(field_paths), transaction))
+            transaction.read_versions.update({i: self.times.get(i) for i in refs})
+            values = [self.snapshot(i, field_paths) for i in reversed(refs)]
+            if self.on_read: self.on_read()
+            return self.read_transform(values) if self.read_transform else values
+
+        def transaction(self, *, max_attempts):
+            if max_attempts != 1: raise AssertionError('automatic retries forbidden')
+            database = self
+            class Transaction:
+                def __init__(self):
+                    self.read_versions = {}; self.members = set(); self.write_results = []
+                def get(self, query):
+                    if query[0] != 'membership': raise AssertionError('unexpected transaction read')
+                    self.query_filters = query[2]
+                    self.members = {i for i, values in database.live.items() if all(values.get(k) == v for k, v in self.query_filters.items())}
+                    self.read_versions.update({i: database.times[i] for i in self.members})
+                    return [database.snapshot(i, query[1]) for i in self.members]
+                def update(self, ref, data, *, option):
+                    database.updates.append((ref, deepcopy(data), option))
+                def create(self, *args, **kwargs): raise AssertionError('creates forbidden')
+                def set(self, *args, **kwargs): raise AssertionError('full writes forbidden')
+                def finish(self):
+                    database.commits += 1
+                    if database.mode == 'readonly-conflict':
+                        readonly = next(i for i in self.members if i not in {r for r, _, _ in database.updates})
+                        database.times[readonly] = DatetimeWithNanoseconds.from_rfc3339('2026-10-16T00:00:00.123456790Z')
+                    if database.mode == 'new-sibling':
+                        database.live['new'] = deepcopy(next(iter(database.live.values())))
+                        database.times['new'] = next(iter(database.times.values()))
+                    if (any(database.times.get(i) is None or database.times[i].rfc3339() != stamp.rfc3339() for i, stamp in self.read_versions.items())
+                            or self.members != {i for i, values in database.live.items() if all(values.get(k) == v for k, v in self.query_filters.items())}):
+                        raise RuntimeError('transaction read-set conflict')
+                    if database.mode == 'before-commit': raise RuntimeError('unavailable before commit')
+                    for ref, data, option in database.updates:
+                        if option._last_update_time.rfc3339() != database.times[ref].rfc3339(): raise RuntimeError('write CAS conflict')
+                        database.live[ref].update(data)
+                        database.times[ref] = DatetimeWithNanoseconds.from_rfc3339(AtomicMaintenanceUploadTests.after_stamp)
+                        database.applied.append(ref)
+                        self.write_results.append(SimpleNamespace(update_time=database.times[ref]))
+                    if database.mode == 'after-commit': raise RuntimeError('response lost')
+                    if database.mode == 'wrong-count': self.write_results = []
+                    if database.mode == 'no-time': self.write_results = [SimpleNamespace(update_time=None)]
+                    if database.mode == 'bad-time': self.write_results = [SimpleNamespace(update_time=SimpleNamespace(rfc3339=lambda: 'bad'))]
+            txn = Transaction(); self.transactions.append(txn); return txn
+
+    @staticmethod
+    def transactional(function):
+        def wrapped(transaction):
+            result = function(transaction)
+            transaction.finish()
+            return result
+        return wrapped
+
+    def upload(self, payload, database=None, *, dry_run=False):
+        with patch.object(module, 'init_firestore', return_value=database), patch.object(module.firestore, 'transactional', self.transactional):
+            return module.upload_read_set_maintenance_questions(payload, 'read-set fixture', dry_run=dry_run)
+
+    def test_one_explanation_write_five_transactional_reads_preserves_every_readonly_value_and_version(self):
+        payload, live = self.fixture(); db = self.Database(live)
+        result = self.upload(payload, db)
+        self.assertEqual(result['schemaVersion'], module.READ_SET_MAINTENANCE_RESULT_SCHEMA)
+        self.assertEqual((len(db.transactions), db.commits, len(db.updates)), (1, 1, 1))
+        self.assertEqual(result['readDocumentIds'], payload['readDocumentIds'])
+        self.assertEqual(result['writeDocumentIds'], [payload['questions'][0]['questionId']])
+        self.assertEqual(result['status'], 'committed'); self.assertFalse(result['publicationConfirmed'])
+        qid = result['writeDocumentIds'][0]
+        self.assertEqual(result['writeResults'], [{'questionId': qid, 'updateTime': AtomicMaintenanceUploadTests.after_stamp}])
+        for identity in payload['readDocumentIds']:
+            if identity != qid:
+                self.assertEqual(db.live[identity], live[identity])
+                self.assertEqual(db.times[identity].rfc3339(), AtomicMaintenanceUploadTests.before_stamp)
+            else:
+                self.assertEqual(set(db.updates[0][1]), {'explanationText', 'updatedAt', 'updatedById'})
+                self.assertEqual({k: v for k, v in db.live[qid].items() if k not in db.updates[0][1]},
+                                 {k: v for k, v in live[qid].items() if k not in db.updates[0][1]})
+        self.assertEqual(set(db.reads[0][0]), set(payload['readDocumentIds']))
+        self.assertEqual(db.reads[0][2], db.transactions[0])
+        self.assertEqual(db.reads[0][1], module.EXISTING_DOC_FIELD_PATHS)
+
+    def test_dry_run_and_distinct_schema_never_initialize_firestore(self):
+        payload, _ = self.fixture()
+        with patch.object(module, 'init_firestore') as init:
+            result = module.upload_read_set_maintenance_questions(payload, 'fixture', dry_run=True)
+            init.assert_not_called()
+        self.assertEqual(result['status'], 'dry_run')
+        with self.assertRaises(ValueError): module.resolve_atomic_maintenance_contract(payload, 'fixture')
+
+    def test_unknown_missing_duplicate_and_unsupported_masks_are_rejected(self):
+        payload, live = self.fixture(); qid = payload['questions'][0]['questionId']
+        for mode in ('unknown', 'missing-time', 'duplicate-read', 'duplicate-write', 'outside-write', 'old-mask', 'extra-mask', 'empty-writes', 'bad-time', 'missing-year', 'wrong-year'):
+            changed = deepcopy(payload)
+            if mode == 'unknown': changed['writeFields'] = ['explanationText']
+            elif mode == 'missing-time': del changed['expectedReadUpdateTimes'][changed['readDocumentIds'][0]]
+            elif mode == 'duplicate-read': changed['readDocumentIds'].append(changed['readDocumentIds'][0])
+            elif mode == 'duplicate-write': changed['questions'].append(deepcopy(changed['questions'][0]))
+            elif mode == 'outside-write': changed['questions'][0]['questionId'] = 'outside'
+            elif mode == 'old-mask': changed['writeFieldsByDocument'][qid] = ['explanationText', 'suggestedQuestionDetails']
+            elif mode == 'extra-mask': changed['writeFieldsByDocument']['outside'] = ['explanationText']
+            elif mode == 'empty-writes': changed['questions'] = []
+            elif mode == 'missing-year': del changed['examYear']
+            elif mode == 'wrong-year': changed['questions'][0]['examYear'] = 2023
+            else: changed['expectedReadUpdateTimes'][changed['readDocumentIds'][0]] = 'invalid'
+            with self.subTest(mode=mode), self.assertRaises(ValueError): self.upload(changed, self.Database(live))
+
+    def test_noop_presence_snapshot_scope_and_nanosecond_conflicts_prevent_any_update(self):
+        payload, live = self.fixture(); qid = payload['questions'][0]['questionId']
+        for mode in ('noop', 'absent', 'missing', 'extra', 'duplicate', 'nanosecond', 'flags', 'qualification', 'outside-value'):
+            changed = deepcopy(payload); db = self.Database(live)
+            if mode == 'noop': changed['questions'][0]['explanationText'] = live[qid]['explanationText']
+            elif mode == 'absent':
+                del db.live[qid]['explanationText']; changed['expectedLiveFingerprint'] = module.firestore_live_fingerprint(changed['readDocumentIds'], db.live)
+            elif mode == 'missing': db.read_transform = lambda values: values[:-1]
+            elif mode == 'extra': db.read_transform = lambda values: values + [db.snapshot('unknown')]
+            elif mode == 'duplicate': db.read_transform = lambda values: values + [values[0]]
+            elif mode == 'nanosecond': db.times[changed['readDocumentIds'][0]] = DatetimeWithNanoseconds.from_rfc3339('2026-10-16T00:00:00.123456788Z')
+            elif mode == 'flags': db.live[qid]['isDeleted'] = True
+            elif mode == 'qualification': db.live[qid]['qualificationId'] = 'other'
+            else: db.live[changed['readDocumentIds'][0]]['questionText'] = 'third value'
+            with self.subTest(mode=mode), self.assertRaises((RuntimeError, ValueError)): self.upload(changed, db)
+            self.assertEqual((db.commits, db.updates, db.applied), (0, [], []))
+
+    def test_active_membership_subset_and_new_sibling_conflicts_fail(self):
+        payload, live = self.fixture()
+        changed = deepcopy(payload); omitted = changed['readDocumentIds'].pop()
+        changed['expectedReadUpdateTimes'].pop(omitted)
+        changed['expectedLiveFingerprint'] = module.firestore_live_fingerprint(changed['readDocumentIds'], live)
+        db = self.Database(live)
+        with self.assertRaisesRegex(RuntimeError, 'membership'): self.upload(changed, db)
+        self.assertEqual((db.commits, db.updates), (0, []))
+        for mode in ('readonly-conflict', 'new-sibling'):
+            db = self.Database(live, mode=mode)
+            with self.subTest(mode=mode), self.assertRaises(module.ReadSetMaintenanceCommitUnconfirmed) as error:
+                self.upload(payload, db)
+            self.assertEqual(db.applied, [])
+            self.assertEqual(error.exception.prepared_result['status'], 'commit_unconfirmed')
+
+    def test_uncertain_commit_response_is_never_success(self):
+        payload, live = self.fixture()
+        for mode in ('before-commit', 'after-commit', 'wrong-count', 'no-time', 'bad-time'):
+            db = self.Database(live, mode=mode)
+            with self.subTest(mode=mode), self.assertRaises(module.ReadSetMaintenanceCommitUnconfirmed) as error:
+                self.upload(payload, db)
+            self.assertFalse(error.exception.prepared_result['publicationConfirmed'])
+            self.assertEqual(error.exception.prepared_result['writeResults'], [])
+
+    def test_owned_request_is_immune_to_mutation_during_read(self):
+        payload, live = self.fixture(); before = deepcopy(payload); db = self.Database(live)
+        db.on_read = lambda: payload['questions'][0].update(explanationText='unapproved')
+        self.upload(payload, db)
+        qid = before['questions'][0]['questionId']
+        self.assertEqual(db.live[qid]['explanationText'], before['questions'][0]['explanationText'])
+
+    def test_subset_three_field_replacement_reuses_exact_mirror_contract(self):
+        payload, live = self.fixture(); question = payload['questions'][0]
+        question['suggestedQuestions'] = ['比較の観点1', '比較の観点2', '比較の観点3']
+        question['suggestedQuestionDetails'] = [{'question': q, 'answer': '根拠と対象の違いを確認する。'} for q in question['suggestedQuestions']]
+        payload['writeFieldsByDocument'][question['questionId']] = ['explanationText', 'suggestedQuestions', 'suggestedQuestionDetails']
+        db = self.Database(live)
+        result = self.upload(payload, db)
+        self.assertEqual(result['writeDocumentIds'], [question['questionId']])
+        self.assertEqual(len(db.updates), 1)
+        self.assertEqual(set(db.updates[0][1]), {'explanationText', 'suggestedQuestions', 'suggestedQuestionDetails', 'updatedAt', 'updatedById'})
+        for identity in result['readOnlyDocumentIds']:
+            self.assertEqual(db.live[identity], live[identity])
+            self.assertEqual(db.times[identity].rfc3339(), AtomicMaintenanceUploadTests.before_stamp)
+
+    def test_three_field_replacement_rejects_padding_wrong_mirror_and_unsupported_extra_fields(self):
+        payload, live = self.fixture(); question = payload['questions'][0]
+        question['suggestedQuestions'] = ['新補足']; question['suggestedQuestionDetails'] = [{'question': '新補足', 'answer': '新しい回答。'}]
+        qid = question['questionId']; payload['writeFieldsByDocument'][qid] = ['explanationText', 'suggestedQuestions', 'suggestedQuestionDetails']
+        for mode in ('mirror', 'count', 'nonstrings', 'padding', 'extra-mask'):
+            changed = deepcopy(payload); q = changed['questions'][0]; db = self.Database(live)
+            if mode == 'mirror': q['suggestedQuestions'] = ['別の補足']
+            elif mode == 'count':
+                q['suggestedQuestions'] *= 4; q['suggestedQuestionDetails'] *= 4
+            elif mode == 'nonstrings': q['suggestedQuestionDetails'][0]['answer'] = 42
+            elif mode == 'padding':
+                q['suggestedQuestions'] = live[qid]['suggestedQuestions']
+                q['suggestedQuestionDetails'] = [{'question': item, 'answer': 'new answer'} for item in q['suggestedQuestions']]
+            else: changed['writeFieldsByDocument'][qid].append('lawRevisionFacts')
+            with self.subTest(mode=mode), self.assertRaises((ValueError, RuntimeError)): self.upload(changed, db)
+            self.assertEqual((db.commits, db.applied), (0, []))
+
+    def test_same_original_in_other_qualification_or_year_is_not_added_to_the_read_set(self):
+        payload, live = self.fixture()
+        other = deepcopy(next(iter(live.values())))
+        live['other-qualification'] = {**other, 'qualificationId': 'another-qualification'}
+        live['other-year'] = {**other, 'examYear': 2023}
+        db = self.Database(live)
+        result = self.upload(payload, db)
+        self.assertEqual(result['readDocumentIds'], payload['readDocumentIds'])
+        self.assertNotIn('other-qualification', db.reads[0][0])
+        self.assertNotIn('other-year', db.reads[0][0])
+        self.assertEqual(db.filters, {'originalQuestionId': payload['originalQuestionId']})
+        self.assertEqual(db.live['other-qualification'], live['other-qualification'])
+        self.assertEqual(db.live['other-year'], live['other-year'])
+
+    def test_partially_noop_write_subset_is_rejected_before_queueing_any_update(self):
+        payload, live = self.fixture()
+        changed = deepcopy(payload['questions'][0])
+        second = next(i for i in payload['readDocumentIds'] if i != changed['questionId'])
+        payload['questions'].append({**deepcopy(live[second]), 'questionId': second})
+        payload['writeFieldsByDocument'][second] = ['explanationText']
+        db = self.Database(live)
+        with self.assertRaisesRegex(RuntimeError, 'unchanged/no-op'):
+            self.upload(payload, db)
+        self.assertEqual((db.updates, db.commits, db.applied), ([], 0, []))
+
+    def test_ambiguous_active_membership_unit_is_rejected_instead_of_silently_filtered(self):
+        payload, live = self.fixture()
+        live['ambiguous'] = deepcopy(next(iter(live.values())))
+        del live['ambiguous']['examYear']
+        db = self.Database(live)
+        with self.assertRaises(ValueError): self.upload(payload, db)
+        self.assertEqual((db.updates, db.commits), ([], 0))

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import unittest
+import pytest
 import contextlib
 import io
 import json
@@ -13,10 +14,28 @@ from unittest.mock import patch
 from google.api_core.datetime_helpers import DatetimeWithNanoseconds
 
 from scripts.upload import upload_questions_to_firestore as module
+from tools.question_review_console.firestore_readback import FirestoreReadback
 from scripts.common.image_storage_urls import build_public_storage_url
 from scripts.common.independent_question_images import (
     INDEPENDENT_IMAGE_REQUIRED_FIELD,
 )
+
+
+@pytest.fixture(autouse=True)
+def prohibit_live_firestore(monkeypatch):
+    def forbidden(*args, **kwargs):
+        raise AssertionError("live Firestore SDK is forbidden in legacy uploader contract tests")
+    monkeypatch.setattr(module, "init_firestore", forbidden)
+    monkeypatch.setattr(FirestoreReadback, "_database", forbidden)
+    monkeypatch.setattr(module.firestore, "client", forbidden)
+    monkeypatch.setattr(module.firebase_admin, "initialize_app", forbidden)
+
+
+def test_default_fixture_denies_live_read_and_write_initialization():
+    for initialize in (module.init_firestore, FirestoreReadback()._database,
+                       module.firestore.client, module.firebase_admin.initialize_app):
+        with pytest.raises(AssertionError, match='live Firestore SDK is forbidden'):
+            initialize()
 
 
 class UploadQuestionsToFirestoreTests(unittest.TestCase):
