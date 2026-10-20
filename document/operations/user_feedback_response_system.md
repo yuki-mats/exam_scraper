@@ -72,6 +72,8 @@ native作成callはCLIの正常終了まで、途中でyieldされた出力も�
 
 専用`tools.question_bank.feedback_verified_delivery`は、`bootstrap --context <真正context> --candidate <全5肢の判断候補> --evidence <一次根拠>`で固定planを作ります。`prepare`・`scope`・`record`をrevision、適用順のstage、evaluation、publicationごとに実行し、別subagentの真正native承認を記録します。01の二者集約監査と別sessionの分類、法令監査の異なる三者も省略しません。revisionは元25を維持した正式別層で、通常checkpointへの偽装はしません。保存契約は[artifact契約](artifact_contract.md#検証済み25の正式revisionと公開)を参照します。
 
+分類不一致を検出した場合、現行の専用revisionと限定公開maskは`questionSetId`の変更を扱わないため、その工程を保留します。[04正本](../../prompt/04_prompt_link_questionSetId.md)に従い、削除済みの分類先へ移したり現在値を正解として維持したりせず、必要な03c分類正本整備と分類差分の保存・公開契約を別scopeで検証します。一方、ローカル`category.json`の空`qualificationId`だけを新しい拒否条件にはしません。通常04の資格別正本pathと候補条件、既存category uploaderの資格解決契約、本番の分類先・親folderの所属と公開状態を照合し、ローカルmetadataと本番DTOの制約を区別します。
+
 2026-10-20、専用deliveryは全siblingの読取集合と実変更documentの書込集合を分ける`question-maintenance-read-set-upload/v1`にも対応します。新保存planの明示unitと全候補を結び、transport profileをplan・native scope・公開候補・intent・readback・完了証跡に固定します。1肢だけの解説改善や説明と補足の置換のために他肢を人工的に変更しません。正確なmaskとtransactionの契約は[artifact契約](artifact_contract.md#検証済み25の正式revisionと公開)を参照してください。
 
 `check`は実際の3checker・quality gate・upload dry-runを実行します。`record-check-command --command-evidence <専用native command証跡>`で実呼出しと正常終了を検証し、自己申告JSONだけを検査成功にしません。正式revisionをmainへcommit/pushした後、最新snapshot、限定mask、台帳のCAS状態と完了理由を固定して公開監査します。`publish`・`reconcile`で既存atomic uploaderと全件readbackを通し、`completion`・`record-completion`で既存台帳の公開完了記録へ接続します。台帳transaction内でも入力・承認・公開contractを再検証し、別CLIからの異なるCAS状態や理由による迂回を拒否します。未確定応答・競合・撤回は証跡を保持して停止し、完了へ進めません。この専用実装の存在だけで各taskの公開完了とは扱いません。
