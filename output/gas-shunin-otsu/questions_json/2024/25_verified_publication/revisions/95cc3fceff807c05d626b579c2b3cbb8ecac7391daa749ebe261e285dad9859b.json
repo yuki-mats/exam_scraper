@@ -1,0 +1,152 @@
+{
+  "approvalBindings": [
+    {
+      "authorSessionId": "01a0f2e6-34a0-7660-a17a-afb87125aada",
+      "nativeEvidenceHash": "595d05e72a91d7f987283e329f28773c1404ac528cfa40864da1b54179e886e2",
+      "resultHash": "cd39305d18debd141bc8855eed88bc890cd2177867f7f076cfc11a7c05471c38",
+      "reviewerAgentPath": "/root/gas2024_revision_audit",
+      "reviewerProfile": {
+        "model": "gpt-6.1-sol",
+        "reasoningEffort": "high"
+      },
+      "reviewerSessionId": "01a156dd-5422-7d23-b0ac-fe1109340918",
+      "reviewerTurnId": "01a156dd-54cd-7691-b578-bc73f5ed62f5",
+      "scopeHash": "bd22d5cc57f84627a44f46ef3b27bb94be7fdd266d88fb7d358a22747008bd26"
+    }
+  ],
+  "base": {
+    "ref": "/Users/yuki/development/exam_scraper_feedback/output/gas-shunin-otsu/questions_json/2024/25_verified_publication/2024_verified_publication.json",
+    "sha256": "b866193f630adc8f12d4af26afcd14f94f96c6aff0f5dc23ca3d23689425191a"
+  },
+  "deliveryPlanHash": "95cc3fceff807c05d626b579c2b3cbb8ecac7391daa749ebe261e285dad9859b",
+  "deltas": [
+    {
+      "after": false,
+      "before": null,
+      "beforePresent": false,
+      "field": "isCalculationQuestion",
+      "questionId": "gas-shunin-otsu-2024-law-q14-s01"
+    },
+    {
+      "after": "select_correct",
+      "before": null,
+      "beforePresent": false,
+      "field": "questionIntent",
+      "questionId": "gas-shunin-otsu-2024-law-q14-s01"
+    },
+    {
+      "after": "conditions_scope",
+      "before": null,
+      "beforePresent": false,
+      "field": "questionLearningPatternId",
+      "questionId": "gas-shunin-otsu-2024-law-q14-s01"
+    },
+    {
+      "after": false,
+      "before": null,
+      "beforePresent": false,
+      "field": "isCalculationQuestion",
+      "questionId": "gas-shunin-otsu-2024-law-q14-s02"
+    },
+    {
+      "after": "select_correct",
+      "before": null,
+      "beforePresent": false,
+      "field": "questionIntent",
+      "questionId": "gas-shunin-otsu-2024-law-q14-s02"
+    },
+    {
+      "after": "differences_relationships",
+      "before": null,
+      "beforePresent": false,
+      "field": "questionLearningPatternId",
+      "questionId": "gas-shunin-otsu-2024-law-q14-s02"
+    },
+    {
+      "after": false,
+      "before": null,
+      "beforePresent": false,
+      "field": "isCalculationQuestion",
+      "questionId": "gas-shunin-otsu-2024-law-q14-s03"
+    },
+    {
+      "after": "select_correct",
+      "before": null,
+      "beforePresent": false,
+      "field": "questionIntent",
+      "questionId": "gas-shunin-otsu-2024-law-q14-s03"
+    },
+    {
+      "after": "conditions_scope",
+      "before": null,
+      "beforePresent": false,
+      "field": "questionLearningPatternId",
+      "questionId": "gas-shunin-otsu-2024-law-q14-s03"
+    },
+    {
+      "after": false,
+      "before": null,
+      "beforePresent": false,
+      "field": "isCalculationQuestion",
+      "questionId": "gas-shunin-otsu-2024-law-q14-s04"
+    },
+    {
+      "after": "select_correct",
+      "before": null,
+      "beforePresent": false,
+      "field": "questionIntent",
+      "questionId": "gas-shunin-otsu-2024-law-q14-s04"
+    },
+    {
+      "after": "differences_relationships",
+      "before": null,
+      "beforePresent": false,
+      "field": "questionLearningPatternId",
+      "questionId": "gas-shunin-otsu-2024-law-q14-s04"
+    },
+    {
+      "after": false,
+      "before": null,
+      "beforePresent": false,
+      "field": "isCalculationQuestion",
+      "questionId": "gas-shunin-otsu-2024-law-q14-s05"
+    },
+    {
+      "after": "select_correct",
+      "before": null,
+      "beforePresent": false,
+      "field": "questionIntent",
+      "questionId": "gas-shunin-otsu-2024-law-q14-s05"
+    },
+    {
+      "after": "conditions_scope",
+      "before": null,
+      "beforePresent": false,
+      "field": "questionLearningPatternId",
+      "questionId": "gas-shunin-otsu-2024-law-q14-s05"
+    }
+  ],
+  "effectiveHash": "4e4e151807a4e60d1c5aedf585c62c7c1d570e13f5effc23c97c85fc71a4a733",
+  "revisionKind": "authoring_only",
+  "schemaVersion": "gas-shunin-verified-authoring-revision/v1",
+  "taskRequirement": {
+    "requirement": {
+      "definition": {
+        "need": "特定ガス用品・特定ガス消費機器・特定工事の定義、対象範囲、代表例及び混同しやすい点を一次法令・政令・所管官庁資料で確認する。現在の誤り指摘から一歩進め、用語同士を比較する解説を用意する。",
+        "target": "gas-shunin-otsu-2024-law-q14-s04、用語の比較解説",
+        "title": "特定ガス用品と特定ガス消費機器の違いを整理する"
+      },
+      "schemaVersion": "feedback-task-requirement/v1",
+      "sources": [
+        {
+          "candidate_id": "948e1d94d0d965e901ccd9c98331b66a6d5e3758f698ed5576e3b90d8318eb9b",
+          "question_id": "gas-shunin-otsu-2024-law-q14-s04",
+          "review_status": "promoted",
+          "text_hash": "8727bcc436a3eef59240514be9af1c444acddce59fd2acb6da0aa37d0239faf7"
+        }
+      ],
+      "taskId": "2cc9c7e7bda44e343dae14aba546e6ba1d2cb25972c5150b63f86c00d7d2e936"
+    },
+    "requirementHash": "55c89c5152ffe49e95f9730ee4513db94f4bab6509f4282d6fd9d9f1506300fd"
+  }
+}
