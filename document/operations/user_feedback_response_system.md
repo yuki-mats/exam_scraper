@@ -2,7 +2,7 @@
 
 状態: 実装中。個別受付台帳と読み取り専用の日次照合を実装済み。日次heartbeatが既存CLIを使って調査・独立監査・公開を進める。専用の常駐GUIとスマホ承認画面は未実装。
 
-最終更新: 2026-10-20
+最終更新: 2026-10-21
 
 この文書は、Repasoから届くユーザーフィードバックの調査、改善、独立監査、patch保存、Firestore公開を扱う運用正本です。公式問題の誤り報告を修正レーンとし、AI解説への利用者質問から学習上のニーズを見つける改善レーンを置きます。将来はアプリ不具合、UI改善、要望も追加します。
 
@@ -63,6 +63,8 @@ native作成callはCLIの正常終了まで、途中でyieldされた出力も�
 `prepare`は全siblingの最新masked読取・所属集合・exact更新時刻を確認し、全件の`readSet`と実変更だけの`writeSet`を分けて、私有実行領域に`context.json`・`review-input.json`・`receipt.json`をexclusive保存します。`inspect --output <directory>`は固定入力・台帳要件・出力を再検証しますが、新しいFirestore観測は行いません。同一再送の`prepare`は再度fresh読取を行い、同じ入力・観測値・出力bytesだけを受理します。symlink・領域外path・不完全な保存・第三値・presenceや時刻の競合は停止し、部分出力を埋めて成功にしません。
 
 このcontextは独立した分解A/Bや対応表監査を完了しません。`officialMappingApproved`・`machineReady`・`publicationReady`・`checkpointRecorded`・`evaluationPerformed`・`formalPatchSaved`・`FirestoreWritten`はすべてfalseです。旧形式向けの正式保存、全工程、独立評価、checker、全siblingの読取条件を守る限定公開・readbackのadapterは引き続き未対応として追跡し、この読取処理の追加だけで公開可能とは扱いません。
+
+通常sourceのTF公開では、公式原文と中立表示を別に保全する正式variant、converterでの表示本文と原文の分離、表示2fieldと個別正誤を同時に更新する限定transactionの結合が未対応です。問題形式や設問意図の工程を正式保存しても、この公開境界の完了とは扱いません。検証済み25専用の`maintenance_display`や固定案件の正式保存manifestを別資格へ読み替えず、sourceと全公式肢・live原記述の一意なID対応、真正な固定差分監査、競合拒否・再送・中断復元・readbackを検証する経路を先に整備します。
 
 2026-10-16、`python -m tools.question_bank.feedback_verified_review_context prepare --repo-root <repo> --plan <保存plan> --output <新規private directory> [--official-order <固定対応表>]`で、真正な保存receiptと現在の25を読み取り専用の評価入力へ結ぶ経路を追加しました。専用identityは25のpath/hash・公式index/PDF・原問と全sibling ID・現在policyを保持し、`00_source`の参照を作りません。各fieldはIDで結合します。公式順は、保存時native最終承認が明示したIDと肢labelに一致する`feedback-verified-official-order/v1`だけを受け付け、配列順・既存choiceIndex・OCRから推定しません。対応表がなければ公式順は未解決として保留します。既存の法令metadata内のindexや監査状態を、現在の工程完了記録へ読み替えません。
 
