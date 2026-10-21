@@ -33,6 +33,8 @@ from scripts.merge.merge_utils import (
 )
 from scripts.common.question_identity import (
     SourceIdentityBinding,
+    SOURCE_IDENTITY_FIELDS,
+    WORKFLOW_IDENTITY_FIELDS,
     question_id_from_source_unique_key,
     source_question_key,
     source_record_ref,
@@ -77,7 +79,14 @@ from scripts.common.aggregate_answer_decomposition import (
     stable_parent_identity,
     source_text_hash,
 )
-from scripts.fix.materialize_minimal_patch import materialize_question_type
+from scripts.fix.materialize_minimal_patch import (
+    materialize_question_type,
+    materialize_question_intent,
+    materialize_correct_choice,
+    materialize_law_context,
+    materialize_explanation,
+    materialize_question_set,
+)
 from tools.question_review_console.jobs import (
     REPOSITORY_OPERATION_KEY,
     JobConflictError,
@@ -783,6 +792,19 @@ QUESTION_TYPE_ARTIFACT_FIELDS = frozenset({
     "original_question_id", "question_url", "sourceQuestionKey", "reviewQuestionId", "sourceRecordRef",
 })
 QUESTION_TYPE_BINDING_FIELDS = frozenset({"sourceQuestionKey", "reviewQuestionId", "sourceRecordRef"})
+# Field responsibility only; stage order and target selection remain in workflow config.
+STAGE_PATCH_MATERIALIZERS = {
+    "10_questionType_fixed": ("question_type", materialize_question_type),
+    "15_correctChoiceText_fixed": ("question_intent", materialize_question_intent),
+    "23_correctChoiceText_fixed": ("correct_choice", materialize_correct_choice),
+    "18_law_context_prepared": ("law_context", materialize_law_context),
+    "21_explanationText_added": ("explanation", materialize_explanation),
+    "22_questionSetId_linked": ("question_set", materialize_question_set),
+}
+CORRECT_CHOICE_CHANGE_FIELDS = frozenset({
+    "correctChoiceText_changed", "correctChoiceText_change_detail", "correctChoiceText_change_reason",
+})
+
 
 
 def _artifact_sync_result(
@@ -1101,6 +1123,8 @@ def _record_snapshot(path: Path) -> list[dict[str, Any]]:
                 "contractFields": contract_fields,
                 **({"questionTypeFieldHashes": {field: sha256_json(value) for field, value in record.items()}}
                    if "10_questionType_fixed" in path.parts else {}),
+                **({"stagePatchFieldHashes": {field: sha256_json(value) for field, value in record.items()}}
+                   if set(path.parts) & (set(STAGE_PATCH_MATERIALIZERS) - {"10_questionType_fixed"}) else {}),
             }
         )
     return snapshot
@@ -1698,21 +1722,8 @@ def _candidate_unset_fields(
     """Keep the per-choice field as the sole explanation-patch authority."""
 
     unset_fields = set(requested_unset_fields)
-    if target.role == "question_intent":
-        unset_fields.update(
-            {
-                "correctChoiceText",
-                "answer_result_text",
-                "answer_result_inferred_correct_choice_numbers",
-            }
-        )
-    elif target.role == "correct_choice":
-        unset_fields.update(
-            {
-                "answer_result_text",
-                "answer_result_inferred_correct_choice_numbers",
-            }
-        )
+    # Legacy answer fields remain authoritative until an explicit migration.
+    # An intent/correct-choice judgment alone does not prove such a migration.
     if (
         target.role == "explanation"
         and "suggestedQuestionDetailsByChoice" in set_fields
@@ -1748,6 +1759,33 @@ def _question_type_base_record(projected, binding, set_fields):
     judgment = {field: set_fields.get(field, projected.get(field))
                 for field in ("questionType", "isCalculationQuestion")}
     return materialize_question_type(context, judgment)
+
+
+def _stage_patch_base_record(role, projected, binding, set_fields):
+    """Build a new stage row from judged fields, never from a whole projection.
+
+    The shared writer ignores this seed for ordinary existing rows. Its separate
+    stale aggregate replacement uses this same minimal seed plus verified context.
+    """
+    if role == "question_type":
+        return _question_type_base_record(projected, binding, set_fields)
+    materializer = next((function for name, function in STAGE_PATCH_MATERIALIZERS.values() if name == role), None)
+    if materializer is None:
+        raise QualificationRunError(f"最小patch生成に未対応のroleです: {role}")
+    context = {**projected, "original_question_id": binding.review_question_id}
+    materialized = materializer(context, dict(set_fields))
+    # Old batch materializers emit defaults and legacy metadata. Normal partial
+    # execution owns only its explicit judgments and mechanical identity fields.
+    fields = {"original_question_id"} | set(set_fields)
+    if role != "question_intent":
+        fields.add("question_url")
+    if role == "correct_choice":
+        fields.update(CORRECT_CHOICE_CHANGE_FIELDS)
+    result = {field: value for field, value in materialized.items() if field in fields}
+    # Newer judged fields (e.g. explanationReferences) need no legacy default.
+    result.update(copy.deepcopy(dict(set_fields)))
+    result.update(_aggregate_patch_context(projected))
+    return result
 
 
 def _aggregate_calculation_flag(
@@ -17023,16 +17061,18 @@ class QualificationRunCoordinator:
                                 "schemaVersion": "law-revision-audit/v2",
                                 "examYear": projected.get("examYear"),
                             }
-                        elif target.role == "question_type":
-                            base_record = _question_type_base_record(
-                                records_by_question[question_id], binding, update.set_fields,
-                            )
-                        else:
+                        elif target.role == "originalized":
+                            # 05 owns source rewriting/images and has its own scope contract.
                             base_record = records_by_question[question_id]
+                        else:
+                            base_record = _stage_patch_base_record(
+                                target.role, records_by_question[question_id], binding, update.set_fields,
+                            )
                         server_set_fields = dict(update.set_fields)
                         server_unset_fields = set(update.unset_fields)
-                        if target.role not in {"question_type", "law_audit"}:
-                            server_set_fields.update(_aggregate_patch_context(base_record))
+                        aggregate_context = (_aggregate_patch_context(records_by_question[question_id])
+                            if target.role not in {"question_type", "law_audit"} else {})
+                        server_set_fields.update(aggregate_context)
                         if (
                             consensus is not None
                             and consensus["classification"] == "target"
@@ -17141,8 +17181,7 @@ class QualificationRunCoordinator:
                                 tuple(server_unset_fields),
                             ),
                             base_record=base_record,
-                            refresh_aggregate_context=(target.role not in {"question_type", "law_audit"}
-                                                       and bool(_aggregate_patch_context(base_record))),
+                            refresh_aggregate_context=bool(aggregate_context),
                         )
                     candidate_paths = set(workspace.changed_paths())
                     target_group_ids = tuple(
@@ -20039,6 +20078,9 @@ class QualificationRunCoordinator:
                 and "10_questionType_fixed" in relative.parts
                 and relative.parts[:3] == ("output", qualification, "questions_json")
             )
+            minimal_patch_role = next((role for part, (role, _function) in STAGE_PATCH_MATERIALIZERS.items()
+                if part in relative.parts and role != "question_type"
+                and relative.parts[:3] == ("output", qualification, "questions_json")), None)
             is_originalized_patch = bool(
                 "originalize" in stage_ids
                 and "05_originalized" in relative.parts
@@ -20457,6 +20499,59 @@ class QualificationRunCoordinator:
                             expected.add("sourceUniqueKeys")
                         if set(field_hashes) != expected:
                             raise QualificationRunError(f"新規01 artifactの担当外又は欠落fieldを検出しました: {relative} / {sorted(set(field_hashes) ^ expected)}")
+                if minimal_patch_role is not None and record_changed:
+                    field_hashes = after_entry.get("stagePatchFieldHashes")
+                    if not isinstance(field_hashes, Mapping) or matched_binding is None:
+                        raise QualificationRunError(f"工程patchのfield別snapshot又はbindingがありません: {relative}")
+                    stage_targets = [target for stage in stage_ids for target in candidate_targets(
+                        str(matched_binding["uiQuestionId"]), stage, run, current_record=projected_record)
+                        if target.role == minimal_patch_role and Path(target.path) == relative]
+                    if not stage_targets:
+                        raise QualificationRunError(f"工程patchの担当fieldを確認できません: {relative}")
+                    judged_fields = set().union(*(set(target.allowed_fields) for target in stage_targets))
+                    current_aggregate = _aggregate_patch_context(projected_record or {})
+                    for field, value in current_aggregate.items():
+                        if field_hashes.get(field) != sha256_json(value):
+                            raise QualificationRunError(f"工程patchの集約contextが現在入力と一致しません: {relative} / {field}")
+                    common = {"original_question_id"} | QUESTION_TYPE_BINDING_FIELDS
+                    if minimal_patch_role != "question_intent":
+                        common.add("question_url")
+                    generated = set(CORRECT_CHOICE_CHANGE_FIELDS) if minimal_patch_role == "correct_choice" else set()
+                    allowed_new = common | judged_fields | generated | set(current_aggregate)
+                    previous_hashes = [entry.get("stagePatchFieldHashes") for entry in before_matches]
+                    stale_aggregate = bool(current_aggregate and any(
+                        "aggregateAnswerDecomposition" in (entry.get("stagePatchFieldHashes") or {})
+                        and any((entry.get("stagePatchFieldHashes") or {}).get(field) != sha256_json(current_aggregate[field])
+                            for field in ("aggregateAnswerDecomposition", "choiceTextList", "sourceUniqueKeys"))
+                        for entry in before_matches))
+                    if stale_aggregate:
+                        # The shared writer retains the old row's explicit IDs/URL
+                        # when discarding stale judgments. They may not be invented
+                        # by the new seed or changed during that replacement.
+                        identity_fields = set(SOURCE_IDENTITY_FIELDS) | set(WORKFLOW_IDENTITY_FIELDS)
+                        for previous in previous_hashes:
+                            if not isinstance(previous, Mapping):
+                                raise QualificationRunError(f"既存工程patchのfield別snapshotがありません: {relative}")
+                            for field in identity_fields & set(previous):
+                                if field_hashes.get(field) != previous[field]:
+                                    raise QualificationRunError(f"集約再生成で既存identityが変わりました: {relative} / {field}")
+                                allowed_new.add(field)
+                    if not before_matches or stale_aggregate:
+                        if set(field_hashes) - allowed_new or common - set(field_hashes):
+                            raise QualificationRunError(f"新規工程artifactの担当外又は欠落fieldを検出しました: {relative}")
+                    else:
+                        if (any(not isinstance(value, Mapping) for value in previous_hashes)
+                                or any(value != previous_hashes[0] for value in previous_hashes)):
+                            raise QualificationRunError(f"既存工程patchのfield別snapshotが一意ではありません: {relative}")
+                        previous = previous_hashes[0]
+                        changed = {field for field in set(previous) | set(field_hashes)
+                            if (field in previous) != (field in field_hashes) or previous.get(field) != field_hashes.get(field)}
+                        server_removed = set(_candidate_unset_fields(stage_targets[0],
+                            {field: None for field in judged_fields & set(field_hashes)}, ()))
+                        removed = set(previous) - set(field_hashes)
+                        owned = judged_fields | QUESTION_TYPE_BINDING_FIELDS | set(current_aggregate) | (server_removed & removed)
+                        if changed - owned:
+                            raise QualificationRunError(f"工程担当外fieldの変更を検出しました: {relative} / {sorted(changed - owned)}")
                 if before_identity is not None:
                     if after_identity != before_identity:
                         allowed_empty_identity_cleanup = bool(

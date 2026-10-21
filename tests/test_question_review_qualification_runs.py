@@ -2400,7 +2400,7 @@ class StructuredCandidateStageContextTests(unittest.TestCase):
             ("reviewNotes",),
         )
 
-    def test_stage_commit_unsets_non_owned_legacy_answer_fields(self):
+    def test_stage_commit_preserves_non_owned_legacy_answer_fields(self):
         intent = CandidateTarget(
             target_id="q1:question_intent",
             role="question_intent",
@@ -2416,18 +2416,11 @@ class StructuredCandidateStageContextTests(unittest.TestCase):
 
         self.assertEqual(
             _candidate_unset_fields(intent, {"questionIntent": "select_correct"}, ()),
-            (
-                "answer_result_inferred_correct_choice_numbers",
-                "answer_result_text",
-                "correctChoiceText",
-            ),
+            (),
         )
         self.assertEqual(
             _candidate_unset_fields(correct, {"correctChoiceText": ["正しい"]}, ()),
-            (
-                "answer_result_inferred_correct_choice_numbers",
-                "answer_result_text",
-            ),
+            (),
         )
 
     def test_question_set_context_includes_options_and_no_op_rule(self):
@@ -11228,3 +11221,91 @@ class QuestionConcurrencyNormalizationTests(unittest.TestCase):
             with self.subTest(value=value):
                 with self.assertRaises(QualificationRunError):
                     normalize_question_concurrency(value)
+
+
+class MinimalStagePatchTests(unittest.TestCase):
+    def test_supported_stage_seeds_use_only_judged_fields_and_server_metadata(self):
+        from tools.question_review_console.qualification_runs import _stage_patch_base_record
+        binding = SourceIdentityBinding('sample:2026:q1', 'q1', 'question_2026.json#0')
+        projected = {'original_question_id': 'q1', 'question_url': 'https://example.test/q1',
+            'questionBodyText': '本文', 'choiceTextList': ['原肢'], 'questionType': 'true_false',
+            'questionIntent': 'select_correct', 'isCalculationQuestion': False, 'correctChoiceText': ['正しい'],
+            'explanation_choice_snippets': [['監査前の断片']], 'explanationText': ['監査前の解説'],
+            'isLawRelated': True, 'questionSetId': 'old-category', 'privateSourceMetadata': 'do not copy'}
+        cases = [
+            ('question_type', {'questionType': 'true_false', 'isCalculationQuestion': False},
+                {'questionBodyText', 'choiceTextList', 'questionType', 'isCalculationQuestion', 'original_question_id', 'question_url'}),
+            ('question_intent', {'questionIntent': 'select_incorrect'}, {'questionIntent', 'original_question_id'}),
+            ('correct_choice', {'correctChoiceText': ['間違い']},
+                {'correctChoiceText', 'correctChoiceText_changed', 'correctChoiceText_change_detail', 'correctChoiceText_change_reason', 'original_question_id', 'question_url'}),
+            ('law_context', {'isLawRelated': False}, {'isLawRelated', 'original_question_id', 'question_url'}),
+            ('explanation', {'explanationReferences': [], 'questionLearningPatternId': 'compare_concepts'},
+                {'explanationReferences', 'questionLearningPatternId', 'original_question_id', 'question_url'}),
+            ('question_set', {'questionSetId': 'new-category'}, {'questionSetId', 'original_question_id', 'question_url'}),
+        ]
+        for role, judgments, expected in cases:
+            with self.subTest(role=role):
+                row = _stage_patch_base_record(role, projected, binding, judgments)
+                self.assertEqual(set(row), expected)
+                for field, value in judgments.items(): self.assertEqual(row[field], value)
+        with self.assertRaisesRegex(QualificationRunError, '未対応'):
+            _stage_patch_base_record('unknown', projected, binding, {})
+        # The normal coverage checker does not require old source snippets.
+        from scripts.check.check_correct_choice_patch_coverage import compare_entries
+        row = _stage_patch_base_record('correct_choice', projected, binding, {'correctChoiceText': ['間違い']})
+        errors, _warnings = compare_entries([projected], [row], True, False, True)
+        self.assertEqual(errors, [])
+
+    def test_stale_aggregate_reseed_keeps_current_spans_without_copying_old_judgments(self):
+        self._assert_stale_aggregate_reseed({'stale': True})
+
+    def test_null_aggregate_presence_uses_the_same_server_reseed_contract(self):
+        self._assert_stale_aggregate_reseed(None)
+
+    def _assert_stale_aggregate_reseed(self, old_decomposition):
+        from scripts.common.aggregate_answer_decomposition import derived_source_unique_keys, extract_source_statements
+        from tools.question_review_console.qualification_runs import _stage_patch_base_record, _record_snapshot
+        from tools.question_review_console.question_patch_proposal import IsolatedQuestionPatchWorkspace
+        body = 'A 原文一。\nB 原文二。'; newline = body.index('\n')
+        decomposition = {'schemaVersion': 'aggregate-answer-decomposition/v1', 'sourceHash': source_text_hash(body),
+            'classification': 'target', 'decision': 'approve', 'issueCodes': [],
+            'spans': [{'start': 0, 'end': newline}, {'start': newline + 1, 'end': len(body)}]}
+        binding = SourceIdentityBinding('sample:2026:q1', 'q1', 'question_2026.json#0')
+        source = {**binding.as_mapping(), 'original_question_id': 'q1', 'canonical_question_key': 'sample:2026:q001',
+            'question_url': 'https://example.test/q1', 'source_question_id': 'upstream-q1',
+            'questionBodyText': body, 'choiceTextList': ['一つ', '二つ']}
+        projected = {**source, 'questionType': 'true_false', 'aggregateAnswerDecomposition': decomposition,
+            'choiceTextList': extract_source_statements(body, decomposition),
+            'sourceUniqueKeys': derived_source_unique_keys(source, decomposition),
+            'correctChoiceText': ['正しい', '間違い'], 'explanationText': ['前工程からは複写しない']}
+        relative = Path('output/sample/questions_json/2026/15_correctChoiceText_fixed/question_2026_merged_correctChoiceText_fixed.json')
+        source_relative = Path('output/sample/questions_json/2026/00_source/question_2026.json')
+        stale = {**binding.as_mapping(), 'original_question_id': 'q1', 'question_url': source['question_url'],
+            'source_question_id': source['source_question_id'], 'aggregateAnswerDecomposition': old_decomposition,
+            'questionBodyText': '旧本文', 'choiceTextList': ['旧肢'], 'sourceUniqueKeys': ['old-key'],
+            'questionIntent': 'select_correct', 'correctChoiceText': ['旧正答'], 'explanationText': ['旧解説']}
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory); canonical = root / relative; canonical.parent.mkdir(parents=True)
+            canonical.write_text(json.dumps([stale]), encoding='utf-8')
+            src = root / source_relative; src.parent.mkdir(parents=True); src.write_text(json.dumps({'question_bodies': [source]}))
+            baseline = {'recordSnapshots': {str(relative): _record_snapshot(canonical)},
+                'sourceRecordSnapshots': {str(source_relative): _record_snapshot(src)}}
+            workspace = IsolatedQuestionPatchWorkspace.create(root, root / 'output/sample/review/private',
+                qualification='sample', mutable_paths=[str(relative)])
+            seed = _stage_patch_base_record('question_intent', projected, binding, {'questionIntent': 'select_incorrect'})
+            workspace.apply_record_update(relative, binding=binding, aliases=set(binding.as_tuple()),
+                set_fields={'questionIntent': 'select_incorrect'}, base_record=seed, refresh_aggregate_context=True)
+            actual = json.loads((workspace.root / relative).read_bytes())[0]
+            self.assertEqual(set(actual), set(seed) | set(binding.as_mapping()) | {'question_url', 'source_question_id'})
+            self.assertEqual(actual['question_url'], stale['question_url'])
+            self.assertEqual(actual['source_question_id'], stale['source_question_id'])
+            self.assertNotIn('correctChoiceText', actual); self.assertNotIn('explanationText', actual)
+            self.assertEqual(actual['aggregateAnswerDecomposition'], decomposition)
+            self.assertEqual(actual['sourceUniqueKeys'], projected['sourceUniqueKeys'])
+            aliases = list(binding.as_tuple())
+            run = {'stageId': 'question_intent', 'targetRecordBindings': [{'uiQuestionId': 'q1', **binding.as_mapping(), 'aliases': aliases}],
+                'targetRecordAliases': aliases, 'targetRecordAliasGroups': [aliases],
+                'targetRecordScopes': {str(relative): [aliases]}, 'allowedPatchFiles': [str(relative)]}
+            coordinator = QualificationRunCoordinator(root, FakeWorkflow(), FakeSynchronizer(), JobManager(), 'secret')
+            coordinator._validate_record_scope('sample', 'fixture', run, {relative}, validation_root=workspace.root,
+                baseline_payload=baseline, projected_records={'q1': projected})

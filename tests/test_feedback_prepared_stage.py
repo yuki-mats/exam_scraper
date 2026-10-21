@@ -419,3 +419,86 @@ class PreparedStageTests(unittest.TestCase):
 
 
 if __name__ == '__main__': unittest.main()
+
+
+class PreparedIntentStageTests(unittest.TestCase):
+    """Run the actual bounded 02 writer with the same isolated native fixtures."""
+
+    write = staticmethod(PreparedStageTests.write)
+    prepare = PreparedStageTests.prepare
+    plan = PreparedStageTests.plan
+    apply = PreparedStageTests.apply
+    test_approved_same_candidate_normal_save_and_exact_retry = PreparedStageTests.test_approved_same_candidate_normal_save_and_exact_retry
+    test_prepared_candidate_drift_or_canonical_third_value_rejected = PreparedStageTests.test_prepared_candidate_drift_or_canonical_third_value_rejected
+    test_normal_work_version_failure_rolls_back_exact_patch = PreparedStageTests.test_normal_work_version_failure_rolls_back_exact_patch
+    test_receipt_write_interruption_holds_without_second_application = PreparedStageTests.test_receipt_write_interruption_holds_without_second_application
+
+    def setUp(self):
+        PreparedStageTests.setUp(self)
+        self.request['stageId'] = 'question_intent'
+        self.write(self.request_path, self.request)
+
+    def test_intent_new_row_is_judgment_and_server_identity_only(self):
+        source = Path(self.request['source']['ref']); before = source.read_bytes()
+        self.prepare(); plan = self.plan()
+        planned = next(value for value in plan['commitView']['patches'] if '15_correctChoiceText_fixed' in value['path'])
+        row = json.loads(planned['afterUtf8'])[0]
+        self.assertEqual(set(row), {'original_question_id', 'questionIntent', 'sourceQuestionKey', 'reviewQuestionId', 'sourceRecordRef'})
+        self.assertEqual(row['questionIntent'], 'select_correct')
+        self.assertEqual(source.read_bytes(), before)
+        self.assertFalse((self.root / planned['path']).exists())
+
+    def test_intent_legacy_answers_metadata_and_other_records_are_preserved(self):
+        source = Path(self.request['source']['ref'])
+        path = source.parent.parent / '15_correctChoiceText_fixed' / (source.stem + '_merged_correctChoiceText_fixed.json')
+        binding = self.request['source']['binding']
+        legacy = {**binding, 'original_question_id': binding['reviewQuestionId'], 'questionIntent': 'select_incorrect',
+            'correctChoiceText': ['正しい'], 'answer_result_text': '正解は 1 です。',
+            'answer_result_inferred_correct_choice_numbers': [1], 'explanationText': ['旧説明を保持'],
+            'questionIntent_changed': True, 'questionIntent_change_reason': '旧根拠', 'legacyPrivateMetadata': {'old': True}}
+        other = {'original_question_id': 'other', 'sourceQuestionKey': 'new-exam:2026:other',
+                 'reviewQuestionId': 'other', 'sourceRecordRef': 'other.json#0', 'questionIntent': 'select_incorrect'}
+        self.write(path, [legacy, other]); source_before = source.read_bytes()
+        unrelated = path.parent / 'unrelated.json'; self.write(unrelated, [other]); unrelated_before = unrelated.read_bytes()
+        self.prepare(); plan = self.plan()
+        planned = next(value for value in plan['commitView']['patches'] if '15_correctChoiceText_fixed' in value['path'])
+        rows = json.loads(planned['afterUtf8'])
+        self.assertEqual(rows, [{**legacy, 'questionIntent': 'select_correct'}, other])
+        with patch.object(stage, 'verify_independent_approval', return_value={'reviewerSessionId': 'independent'}):
+            receipt = self.apply()
+            self.assertEqual(self.apply(), receipt)
+        self.assertEqual(path.read_bytes(), planned['afterUtf8'].encode())
+        self.assertEqual(unrelated.read_bytes(), unrelated_before)
+        self.assertEqual(source.read_bytes(), source_before)
+
+    def test_intent_scope_rejects_new_answer_injection(self):
+        from tools.question_review_console.question_patch_proposal import IsolatedQuestionPatchWorkspace
+        original = IsolatedQuestionPatchWorkspace.apply_record_update
+        def inject(workspace, relative, **kwargs):
+            result = original(workspace, relative, **kwargs)
+            if '15_correctChoiceText_fixed' in Path(relative).parts:
+                path = workspace.root / relative; rows = json.loads(path.read_bytes())
+                rows[0]['correctChoiceText'] = ['正しい']; self.write(path, rows)
+            return result
+        with patch.object(IsolatedQuestionPatchWorkspace, 'apply_record_update', inject):
+            with self.assertRaises(ValueError): self.prepare()
+        self.assertFalse((self.output / 'plan.json').exists())
+
+    def test_intent_scope_rejects_deleting_existing_legacy_answer(self):
+        from tools.question_review_console.question_patch_proposal import IsolatedQuestionPatchWorkspace
+        source = Path(self.request['source']['ref'])
+        path = source.parent.parent / '15_correctChoiceText_fixed' / (source.stem + '_merged_correctChoiceText_fixed.json')
+        binding = self.request['source']['binding']
+        legacy = {**binding, 'original_question_id': binding['reviewQuestionId'], 'questionIntent': 'select_incorrect',
+            'correctChoiceText': ['正しい'], 'answer_result_text': '正解は 1 です。'}
+        self.write(path, [legacy]); before = path.read_bytes()
+        original = IsolatedQuestionPatchWorkspace.apply_record_update
+        def inject(workspace, relative, **kwargs):
+            result = original(workspace, relative, **kwargs)
+            if '15_correctChoiceText_fixed' in Path(relative).parts:
+                file = workspace.root / relative; rows = json.loads(file.read_bytes())
+                rows[0].pop('correctChoiceText'); self.write(file, rows)
+            return result
+        with patch.object(IsolatedQuestionPatchWorkspace, 'apply_record_update', inject):
+            with self.assertRaises(ValueError): self.prepare()
+        self.assertEqual(path.read_bytes(), before)
