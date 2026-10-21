@@ -111,6 +111,12 @@ class PreparedStageTests(unittest.TestCase):
         self.assertEqual(plan['liveMembershipPredicate'], {'originalQuestionId': 'original-live',
                                                          'isDeleted': False, 'isChoiceOnly': False})
         self.assertTrue(plan['commitView']['patches'])
+        normal_patch = next(p for p in plan['commitView']['patches'] if '10_questionType_fixed' in p['path'])
+        row = json.loads(normal_patch['afterUtf8'])[0]
+        self.assertEqual(set(row), {'questionBodyText', 'choiceTextList', 'questionType', 'isCalculationQuestion',
+            'original_question_id', 'question_url', 'sourceQuestionKey', 'reviewQuestionId', 'sourceRecordRef'})
+        self.assertEqual(row['questionBodyText'], json.loads(original)['question_bodies'][0]['questionBodyText'])
+        self.assertEqual(row['choiceTextList'], json.loads(original)['question_bodies'][0]['choiceTextList'])
         self.assertIn(plan['stagePlan']['progressTargets'][0]['_projectedInputPath'], plan['inputFiles'])
         for before in plan['commitView']['transactionBefore']:
             path = self.root / before['path']
@@ -134,6 +140,7 @@ class PreparedStageTests(unittest.TestCase):
 
     def test_approved_same_candidate_normal_save_and_exact_retry(self):
         self.prepare()
+        expected = self.plan()['commitView']['patches']
         binding = {'authorSessionId': 'author', 'reviewerSessionId': 'independent'}
         with patch.object(stage, 'verify_independent_approval', return_value=binding) as verifier:
             receipt = self.apply()
@@ -141,11 +148,74 @@ class PreparedStageTests(unittest.TestCase):
             self.assertIs(receipt['workVersionRecorded'], True)
             self.assertIs(receipt['checkpointRecorded'], True)
             self.assertIs(receipt['FirestoreWritten'], False)
+            for planned_patch in expected:
+                self.assertEqual((self.root / planned_patch['path']).read_bytes(), planned_patch['afterUtf8'].encode('utf-8'))
             saved_files = {path: (self.root / path).read_bytes() for path in receipt['actualFiles'] if (self.root / path).is_file()}
             self.assertEqual(receipt, self.apply())
             self.assertEqual(saved_files, {path: (self.root / path).read_bytes() for path in saved_files})
             self.assertGreaterEqual(verifier.call_count, 4)
         self.assertEqual(len(self.model.calls), 1)
+
+    def legacy_question_type(self):
+        source = Path(self.request['source']['ref'])
+        path = source.parent.parent / '10_questionType_fixed' / (source.stem + '_questionType_fixed.json')
+        binding = self.request['source']['binding']
+        legacy = {**binding, 'original_question_id': binding['reviewQuestionId'], 'questionType': 'group_choice',
+            'isCalculationQuestion': True, 'questionBodyText': '残す旧本文', 'choiceTextList': ['残す旧肢'],
+            'correctChoiceText': ['間違い'], 'explanationText': ['残す旧説明'], 'firestoreQuestionIds': ['existing-live-id'],
+            'legacyPrivateMetadata': {'presence': None}}
+        other = {'original_question_id': 'other', 'sourceQuestionKey': 'new-exam:2026:other',
+            'reviewQuestionId': 'other', 'sourceRecordRef': source.name + '#1', 'questionType': 'flash_card',
+            'explanationText': ['別問題の説明'], 'legacyPrivateMetadata': [None, False]}
+        self.write(path, [legacy, other])
+        return path, legacy, other
+
+    def test_existing_legacy_row_and_other_record_are_preserved_without_migration(self):
+        path, legacy, other = self.legacy_question_type()
+        source = Path(self.request['source']['ref']); source_before = source.read_bytes()
+        unrelated = path.with_name('another_questionType_fixed.json'); self.write(unrelated, [other])
+        untouched = unrelated.read_bytes()
+        self.prepare()
+        preview = next(p for p in self.plan()['commitView']['patches'] if p['path'] == str(path.relative_to(self.root)))
+        rows = json.loads(preview['afterUtf8'])
+        self.assertEqual(rows[1], other)
+        for field, value in legacy.items():
+            if field not in {'questionType', 'isCalculationQuestion'}: self.assertEqual(rows[0][field], value)
+        with patch.object(stage, 'verify_independent_approval', return_value={'authorSessionId': 'author', 'reviewerSessionId': 'independent'}):
+            self.apply()
+        self.assertEqual(path.read_bytes(), preview['afterUtf8'].encode('utf-8'))
+        self.assertEqual(unrelated.read_bytes(), untouched)
+        self.assertEqual(source.read_bytes(), source_before)
+
+    def test_new_question_type_scope_refuses_non_owned_field_injection_before_save(self):
+        from tools.question_review_console.question_patch_proposal import IsolatedQuestionPatchWorkspace
+        original = IsolatedQuestionPatchWorkspace.apply_record_update
+        def inject(workspace, relative, **kwargs):
+            result = original(workspace, relative, **kwargs)
+            if '10_questionType_fixed' in Path(relative).parts:
+                path = workspace.root / relative; rows = json.loads(path.read_bytes())
+                rows[0]['correctChoiceText'] = ['正しい']
+                self.write(path, rows)
+            return result
+        with patch.object(IsolatedQuestionPatchWorkspace, 'apply_record_update', inject):
+            with self.assertRaises(ValueError): self.prepare()
+        source = Path(self.request['source']['ref'])
+        self.assertFalse((source.parent.parent / '10_questionType_fixed' / (source.stem + '_questionType_fixed.json')).exists())
+
+    def test_existing_question_type_scope_refuses_non_owned_change_or_deletion(self):
+        from tools.question_review_console.question_patch_proposal import IsolatedQuestionPatchWorkspace
+        path, legacy, other = self.legacy_question_type(); before = path.read_bytes()
+        original = IsolatedQuestionPatchWorkspace.apply_record_update
+        def inject(workspace, relative, **kwargs):
+            result = original(workspace, relative, **kwargs)
+            if '10_questionType_fixed' in Path(relative).parts:
+                file = workspace.root / relative; rows = json.loads(file.read_bytes())
+                rows[0]['correctChoiceText'] = ['正しい']; rows[0].pop('legacyPrivateMetadata')
+                self.write(file, rows)
+            return result
+        with patch.object(IsolatedQuestionPatchWorkspace, 'apply_record_update', inject):
+            with self.assertRaises(ValueError): self.prepare()
+        self.assertEqual(path.read_bytes(), before)
 
     def test_marker_requires_guard_even_when_internal_apply_is_called(self):
         self.prepare(); plan = self.plan()

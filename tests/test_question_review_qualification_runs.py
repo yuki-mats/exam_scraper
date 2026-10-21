@@ -2103,6 +2103,57 @@ class SourceBindingAliasTests(unittest.TestCase):
 
 
 class StructuredCandidateStageContextTests(unittest.TestCase):
+    def test_existing_aggregate_target_forces_true_false_for_calculation_only_scope(self):
+        from scripts.common.aggregate_answer_decomposition import derived_source_unique_keys, extract_source_statements
+        from tools.question_review_console.qualification_runs import _record_snapshot
+
+        source_text = "A　原文一。\nB　原文二。"
+        newline = source_text.index("\n")
+        decomposition = {
+            "schemaVersion": "aggregate-answer-decomposition/v1",
+            "sourceHash": source_text_hash(source_text),
+            "classification": "target", "decision": "approve", "issueCodes": [],
+            "spans": [{"start": 0, "end": newline}, {"start": newline + 1, "end": len(source_text)}],
+        }
+        binding = SourceIdentityBinding("new-exam:2026:q1", "new-exam-2026-q1", "question_2026_1.json#0")
+        source = {
+            **binding.as_mapping(), "original_question_id": binding.review_question_id,
+            "canonical_question_key": "new-exam:2026:q001",
+            "questionBodyText": source_text, "choiceTextList": ["一つ", "二つ"],
+            "questionType": "group_choice", "isCalculationQuestion": False,
+        }
+        relative = Path("output/new-exam/questions_json/2026/10_questionType_fixed/question_2026_1_questionType_fixed.json")
+        source_relative = Path("output/new-exam/questions_json/2026/00_source/question_2026_1.json")
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            patch_path, source_path = root / relative, root / source_relative
+            patch_path.parent.mkdir(parents=True)
+            source_path.parent.mkdir(parents=True)
+            patch_path.write_text(json.dumps([source], ensure_ascii=False), encoding="utf-8")
+            source_path.write_text(json.dumps({"question_bodies": [source]}, ensure_ascii=False), encoding="utf-8")
+            baseline = {"recordSnapshots": {str(relative): _record_snapshot(patch_path)},
+                        "sourceRecordSnapshots": {str(source_relative): _record_snapshot(source_path)}}
+            aliases = list(binding.as_tuple())
+            run = {
+                "stageId": "question_type", "selectedFieldsByStage": {"question_type": ["isCalculationQuestion"]},
+                "targetRecordBindings": [{"uiQuestionId": binding.review_question_id, **binding.as_mapping(), "aliases": aliases}],
+                "targetRecordAliases": aliases, "targetRecordAliasGroups": [aliases],
+                "targetRecordScopes": {str(relative): [aliases]}, "allowedPatchFiles": [str(relative)],
+            }
+            after = {**source, "isCalculationQuestion": True, "questionType": "true_false",
+                     "aggregateAnswerDecomposition": decomposition,
+                     "choiceTextList": extract_source_statements(source_text, decomposition),
+                     "sourceUniqueKeys": derived_source_unique_keys(source, decomposition)}
+            coordinator = QualificationRunCoordinator(root, FakeWorkflow(), FakeSynchronizer(), JobManager(), "secret")
+            def validate():
+                patch_path.write_text(json.dumps([after], ensure_ascii=False), encoding="utf-8")
+                coordinator._validate_record_scope("new-exam", "fixture", run, {relative},
+                    baseline_payload=baseline, projected_records={binding.review_question_id: source})
+            validate()
+            after["questionType"] = "flash_card"
+            with self.assertRaisesRegex(QualificationRunError, "true_false"):
+                validate()
+
     def test_answer_slot_scope_survives_stage_field_filtering(self):
         url = "https://www.sg-siken.com/kakomon/28_haru/pm01.html"
         record = {
@@ -4146,9 +4197,14 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
         )
         self.assertEqual(patch_records[0]["questionType"], "flash_card")
         self.assertEqual(
-            patch_records[0]["originalQuestionId"],
+            patch_records[0]["original_question_id"],
             "new-exam-2026-q1",
         )
+        self.assertNotIn("originalQuestionId", patch_records[0])
+        self.assertEqual(set(patch_records[0]), {
+            "questionBodyText", "choiceTextList", "questionType", "isCalculationQuestion",
+            "original_question_id", "question_url", "sourceQuestionKey", "reviewQuestionId", "sourceRecordRef",
+        })
         self.assertEqual(result["queueStatus"], "succeeded")
         self.assertEqual(completed["status"], "succeeded")
         self.assertEqual(completed["queueStatus"], "succeeded")

@@ -77,6 +77,7 @@ from scripts.common.aggregate_answer_decomposition import (
     stable_parent_identity,
     source_text_hash,
 )
+from scripts.fix.materialize_minimal_patch import materialize_question_type
 from tools.question_review_console.jobs import (
     REPOSITORY_OPERATION_KEY,
     JobConflictError,
@@ -777,6 +778,11 @@ CODEX_PROTECTED_IDENTITY_FIELDS = (
     "uploadOriginalQuestionId",
     "firestoreQuestionIds",
 )
+QUESTION_TYPE_ARTIFACT_FIELDS = frozenset({
+    "questionBodyText", "choiceTextList", "questionType", "isCalculationQuestion",
+    "original_question_id", "question_url", "sourceQuestionKey", "reviewQuestionId", "sourceRecordRef",
+})
+QUESTION_TYPE_BINDING_FIELDS = frozenset({"sourceQuestionKey", "reviewQuestionId", "sourceRecordRef"})
 
 
 def _artifact_sync_result(
@@ -1093,6 +1099,8 @@ def _record_snapshot(path: Path) -> list[dict[str, Any]]:
                     if field in identity_record
                 },
                 "contractFields": contract_fields,
+                **({"questionTypeFieldHashes": {field: sha256_json(value) for field, value in record.items()}}
+                   if "10_questionType_fixed" in path.parts else {}),
             }
         )
     return snapshot
@@ -1732,6 +1740,14 @@ def _aggregate_patch_context(record: Mapping[str, Any]) -> dict[str, Any]:
         )
         if field in record
     }
+
+
+def _question_type_base_record(projected, binding, set_fields):
+    """Seed only a new 01 row; the shared writer preserves existing legacy rows."""
+    context = {**projected, "original_question_id": binding.review_question_id}
+    judgment = {field: set_fields.get(field, projected.get(field))
+                for field in ("questionType", "isCalculationQuestion")}
+    return materialize_question_type(context, judgment)
 
 
 def _aggregate_calculation_flag(
@@ -17007,6 +17023,10 @@ class QualificationRunCoordinator:
                                 "schemaVersion": "law-revision-audit/v2",
                                 "examYear": projected.get("examYear"),
                             }
+                        elif target.role == "question_type":
+                            base_record = _question_type_base_record(
+                                records_by_question[question_id], binding, update.set_fields,
+                            )
                         else:
                             base_record = records_by_question[question_id]
                         server_set_fields = dict(update.set_fields)
@@ -20014,6 +20034,11 @@ class QualificationRunCoordinator:
             return values[0]
 
         for relative in sorted(changed_record_files):
+            is_question_type_patch = bool(
+                "question_type" in stage_ids
+                and "10_questionType_fixed" in relative.parts
+                and relative.parts[:3] == ("output", qualification, "questions_json")
+            )
             is_originalized_patch = bool(
                 "originalize" in stage_ids
                 and "05_originalized" in relative.parts
@@ -20157,6 +20182,7 @@ class QualificationRunCoordinator:
                     else None
                 )
                 projected_fields: dict[str, Any] = {}
+                projected_record = None
                 projected_source_aliases: set[str] = set()
                 projected_workflow_aliases: set[str] = set()
                 current_source_fields: dict[str, Any] = {}
@@ -20391,6 +20417,46 @@ class QualificationRunCoordinator:
                             )
                         else:
                             allowed_server_removed_fields.add(field)
+                if is_question_type_patch and record_changed:
+                    field_hashes = after_entry.get("questionTypeFieldHashes")
+                    if not isinstance(field_hashes, Mapping):
+                        raise QualificationRunError(f"01のfield別snapshotがありません: {relative}")
+                    aggregate_target = bool(isinstance(source_text, str) and is_approved_target(decomposition, source_text))
+                    prior_aggregate = bool(isinstance(source_text, str) and (
+                        any(is_approved_target(contract(entry).get("aggregateAnswerDecomposition"), source_text)
+                            for entry in before_matches)
+                        or isinstance(projected_record, Mapping) and is_approved_target(
+                            projected_record.get("aggregateAnswerDecomposition"), source_text)))
+                    if aggregate_target and field_hashes.get("questionType") != sha256_json("true_false"):
+                        raise QualificationRunError(f"集約targetの01 questionTypeがtrue_falseではありません: {relative}")
+                    if before_matches:
+                        previous_hashes = [entry.get("questionTypeFieldHashes") for entry in before_matches]
+                        if (any(not isinstance(value, Mapping) for value in previous_hashes)
+                                or any(value != previous_hashes[0] for value in previous_hashes)):
+                            raise QualificationRunError(f"既存01のfield別snapshotが一意ではありません: {relative}")
+                        previous = previous_hashes[0]
+                        selected = (set(raw_selected_fields_by_stage["question_type"])
+                            if isinstance(raw_selected_fields_by_stage, Mapping) and "question_type" in raw_selected_fields_by_stage
+                            else {"questionType", "isCalculationQuestion"})
+                        owned = (selected & {"questionType", "isCalculationQuestion"}) | QUESTION_TYPE_BINDING_FIELDS
+                        if aggregate_target:
+                            owned |= {"aggregateAnswerDecomposition", "questionType", "questionBodyText", "choiceTextList", "sourceUniqueKeys"}
+                        elif prior_aggregate and decomposition is None:
+                            owned |= {"aggregateAnswerDecomposition", "choiceTextList", "sourceUniqueKeys"}
+                        changed = {field for field in set(previous) | set(field_hashes)
+                                   if (field in previous) != (field in field_hashes) or previous.get(field) != field_hashes.get(field)}
+                        if changed - owned:
+                            raise QualificationRunError(f"01担当外fieldの変更を検出しました: {relative} / {sorted(changed - owned)}")
+                    else:
+                        expected = set(QUESTION_TYPE_ARTIFACT_FIELDS)
+                        if aggregate_target:
+                            expected |= {"aggregateAnswerDecomposition", "sourceUniqueKeys"}
+                        elif (prior_aggregate and decomposition is None and "sourceUniqueKeys" in allowed_derived_fields):
+                            # A held/non-target cleanup restores source choice keys,
+                            # without approving a new decomposition or stage version.
+                            expected.add("sourceUniqueKeys")
+                        if set(field_hashes) != expected:
+                            raise QualificationRunError(f"新規01 artifactの担当外又は欠落fieldを検出しました: {relative} / {sorted(set(field_hashes) ^ expected)}")
                 if before_identity is not None:
                     if after_identity != before_identity:
                         allowed_empty_identity_cleanup = bool(
