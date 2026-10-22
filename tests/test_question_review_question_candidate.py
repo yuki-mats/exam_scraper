@@ -1688,6 +1688,30 @@ class QuestionCandidateTest(unittest.TestCase):
             role_rules[2]["lawReferences"],
         )
 
+    def test_only_02b_discovery_turn_can_return_unverified_locator(self):
+        targets = candidate_targets('q1', 'law_context', {'allowedPatchFiles': [
+            'output/sample/questions_json/2026/18_law_context_prepared/patch.json'], 'allowedWriteFiles': []})
+        fields = {'isLawRelated': True, 'lawGroundedExplanationNotNeeded': False,
+            'lawContextForExplanation': '本文取得後に確認する。', 'lawReferences': [[{
+                'role': 'current_basis', 'scope': 'choice', 'choiceIndex': 0,
+                'lawId': '123AC0000000001', 'lawTitle': '試験法', 'referenceDate': '2026-10-22',
+                'article': '11', 'verificationStatus': 'unverified', 'source': 'egov_xml'}]]}
+        payload = json.dumps({'decision': 'candidate', 'summary': '探索候補', 'update': {
+            'setFields': [{'field': key, 'value': value} for key, value in fields.items()], 'unsetFields': []}})
+        with self.assertRaises(QuestionCandidateError): parse_model_candidate_v3(payload, ['q1'], {'q1': targets})
+        candidate = parse_model_candidate_v3(payload, ['q1'], {'q1': targets}, law_reference_discovery=True)[0]
+        self.assertEqual(candidate.status, 'candidate')
+        self.assertIn('unverified', json.dumps(output_schema(['q1'], {'q1': targets}, law_reference_discovery=True)))
+        self.assertNotIn('unverified', json.dumps(output_schema(['q1'], {'q1': targets})))
+        self.assertIn('unverified', json.dumps(targets[0].prompt_value(law_reference_discovery=True)))
+        self.assertNotIn('unverified', json.dumps(targets[0].prompt_value()))
+        from tools.question_review_console.qualification_runs import _question_candidates_payload
+        with self.assertRaises(QuestionCandidateError):
+            parse_prepared_candidate_payload(_question_candidates_payload([candidate]), ['q1'], {'q1': targets})
+        explanation = candidate_targets('q1', 'explanation', self.plan())
+        with self.assertRaises(QuestionCandidateError):
+            output_schema(['q1'], {'q1': explanation}, law_reference_discovery=True)
+
     def test_correct_choice_target_requires_canonical_full_choice_markers(self):
         plan = {
             "allowedPatchFiles": [

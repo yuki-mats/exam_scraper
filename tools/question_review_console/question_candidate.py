@@ -1021,7 +1021,9 @@ class CandidateTarget:
     path: str
     allowed_fields: tuple[str, ...]
 
-    def prompt_value(self) -> dict[str, Any]:
+    def prompt_value(self, *, law_reference_discovery: bool = False) -> dict[str, Any]:
+        if law_reference_discovery and self.role != 'law_context':
+            raise QuestionCandidateError('法令探索promptは02bの探索turnだけに使用できます。')
         value = {
             "role": self.role,
             "allowedFields": list(self.allowed_fields),
@@ -1033,6 +1035,10 @@ class CandidateTarget:
                 for field, rule in field_rules.items()
                 if field in self.allowed_fields
             }
+        if law_reference_discovery and 'lawReferences' in value.get('fieldRules', {}):
+            value['fieldRules'] = json.loads(json.dumps(value['fieldRules']))
+            value['fieldRules']['lawReferences']['items']['items']['properties']['verificationStatus']['allowedValues'] = [
+                'candidate', 'unverified', 'verified']
         return value
 
 
@@ -1205,8 +1211,11 @@ def _without_schema_descriptions(value: Any) -> Any:
 def _semantic_field_rules(
     question_id: str,
     targets: Iterable[CandidateTarget],
+    *, law_reference_discovery: bool = False,
 ) -> dict[str, dict[str, Any]]:
     target_values = tuple(targets)
+    if law_reference_discovery and (not target_values or any(target.role != 'law_context' for target in target_values)):
+        raise QuestionCandidateError('法令探索schemaは02bの探索turnだけに使用できます。')
     allowed_targets = {target.target_id: target for target in target_values}
     result: dict[str, dict[str, Any]] = {}
     for target in target_values:
@@ -1219,6 +1228,8 @@ def _semantic_field_rules(
                     f"native JSON schemaが未定義です: {question_id} / {field}"
                 )
             normalized = _json_schema_rule(rule)
+            if law_reference_discovery and field == 'lawReferences':
+                normalized['items']['items']['properties']['verificationStatus']['enum'] = ['candidate', 'unverified', 'verified']
             previous = result.get(field)
             if (
                 previous is not None
@@ -1302,13 +1313,14 @@ def _output_schema_rule(rule: Mapping[str, Any]) -> dict[str, Any]:
 def output_schema(
     expected_question_ids: Iterable[str],
     targets_by_question: Mapping[str, Iterable[CandidateTarget]],
+    *, law_reference_discovery: bool = False,
 ) -> dict[str, Any]:
     question_ids = tuple(dict.fromkeys(str(value) for value in expected_question_ids))
     if len(question_ids) != 1:
         raise QuestionCandidateError("model候補は厳密に一問でなければなりません。")
     question_id = question_ids[0]
     field_rules = _semantic_field_rules(
-        question_id, targets_by_question.get(question_id, ())
+        question_id, targets_by_question.get(question_id, ()), law_reference_discovery=law_reference_discovery,
     )
     target_values = tuple(targets_by_question.get(question_id, ()))
     must_set_fields = semantic_fields_must_be_set(target_values)
@@ -1464,6 +1476,7 @@ def parse_model_candidate_v3(
     raw_json: str,
     expected_question_ids: Iterable[str],
     targets_by_question: Mapping[str, Iterable[CandidateTarget]],
+    *, law_reference_discovery: bool = False,
 ) -> tuple[QuestionCandidate, ...]:
     """Read one fresh semantic model response."""
     if not isinstance(raw_json, str):
@@ -1477,7 +1490,7 @@ def parse_model_candidate_v3(
     if not isinstance(payload, Mapping):
         raise QuestionCandidateError("model候補のrootがobjectではありません。")
     return _parse_semantic_candidate(
-        payload, expected_question_ids, targets_by_question
+        payload, expected_question_ids, targets_by_question, law_reference_discovery=law_reference_discovery,
     )
 
 
@@ -1782,6 +1795,7 @@ def _parse_semantic_candidate(
     payload: Mapping[str, Any],
     expected_question_ids: Iterable[str],
     targets_by_question: Mapping[str, Iterable[CandidateTarget]],
+    *, law_reference_discovery: bool = False,
 ) -> tuple[QuestionCandidate, ...]:
     expected = tuple(dict.fromkeys(str(value) for value in expected_question_ids))
     if len(expected) != 1:
@@ -1807,7 +1821,7 @@ def _parse_semantic_candidate(
     if decision == "blocked" and (set_fields or unset_fields):
         raise QuestionCandidateError("blocked候補はupdateを空にしてください。")
     target_values = tuple(targets_by_question.get(question_id, ()))
-    rules = _semantic_field_rules(question_id, target_values)
+    rules = _semantic_field_rules(question_id, target_values, law_reference_discovery=law_reference_discovery)
     must_set_fields = semantic_fields_must_be_set(target_values)
     values: dict[str, Any] = {}
     for item in set_fields:

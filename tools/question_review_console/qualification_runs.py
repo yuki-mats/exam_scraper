@@ -112,6 +112,7 @@ from tools.question_review_console.law_audit_sidecar_normalizer import (
 )
 from tools.question_review_console.primary_law_evidence import (
     PrimaryLawEvidenceResolver,
+    PRIMARY_LAW_EVIDENCE_SCHEMA, locator_parts,
 )
 from tools.question_review_console.patch_validation import (
     stage_input_readiness_issues,
@@ -1902,6 +1903,59 @@ def _law_reference_discovery_plan(
     }
 
 
+def _law_context_reference_key(references: Any) -> str:
+    """Only locator/classification inputs decide whether another read is needed."""
+    return sha256_json([[{key: reference.get(key) for key in
+        ('lawId', 'lawTitle', 'article', 'role', 'scope', 'choiceIndex', 'referenceDate')}
+        for reference in bucket] for bucket in references])
+
+
+def _law_context_current_evidence(record: Mapping[str, Any], evidence: Mapping[str, Any], *, require_source: bool = True) -> list[dict[str, Any]]:
+    """Require actual current snapshots; missing historical snapshots belong to 03b."""
+    references = record.get('lawReferences')
+    if (not isinstance(references, list) or len(references) != len(record.get('choiceTextList') or [])
+            or any(not isinstance(bucket, list) for bucket in references)):
+        raise QualificationRunError('02bの法令locator配列と全選択肢が一致しません。')
+    expected = []
+    for bucket in references:
+        for reference in bucket:
+            if not isinstance(reference, Mapping) or not locator_parts(reference.get('article')):
+                raise QualificationRunError('02bに実取得可能な法令locatorがありません。')
+            for kind, number in locator_parts(reference['article']):
+                expected.append((reference, kind, number))
+    if not expected or evidence.get('schemaVersion') != PRIMARY_LAW_EVIDENCE_SCHEMA:
+        raise QualificationRunError('02bの現行条文をserver一次取得で確認できません。')
+    items = evidence.get('items') or []
+    verified = []
+    for reference, kind, number in expected:
+        if reference.get('role') == 'current_basis' and reference.get('referenceDate') != evidence.get('currentAsOf'):
+            raise QualificationRunError('02bの現行根拠の基準日と実取得日が一致しません。')
+        number_parts = number if isinstance(number, tuple) else (number,)
+        matches = [item for item in items if item.get('lawId') == reference.get('lawId')
+            and item.get('role') == reference.get('role') and item.get('scope') == reference.get('scope')
+            and item.get('choiceIndex') == reference.get('choiceIndex')
+            and item.get('declaredArticle') == reference.get('article')
+            and item.get('locator', {}).get('kind') == kind
+            and item.get('locator', {}).get('num') == '_'.join(map(str, number_parts))]
+        if len(matches) != 1:
+            raise QualificationRunError('02bの全locatorに対応する取得結果を一意に確認できません。')
+        snapshot = matches[0].get('currentSnapshot')
+        if (not isinstance(snapshot, Mapping) or not snapshot.get('text') or snapshot.get('textTruncated') is not False
+                or snapshot.get('asOf') != evidence.get('currentAsOf')
+                or snapshot.get('lawTitle') != reference.get('lawTitle')
+                or not str(snapshot.get('sourceUrl') or '').startswith('https://laws.e-gov.go.jp/')
+                or not re.fullmatch(r'[a-f0-9]{64}', str(snapshot.get('xmlHash') or ''))
+                or snapshot.get('textHash') != hashlib.sha256(snapshot['text'].encode('utf-8')).hexdigest()):
+            raise QualificationRunError('02bの現行本文・正式法令名・URL・取得hashを確認できません。')
+        if require_source and reference.get('source') not in ('egov_xml', snapshot['sourceUrl']):
+            raise QualificationRunError('02bの最終sourceは実取得したegov_xml provider又は取得URLと一致する必要があります。')
+        verified.append({'lawId': reference['lawId'], 'role': reference['role'], 'scope': reference['scope'],
+            'choiceIndex': reference.get('choiceIndex'), 'declaredArticle': reference['article'],
+            'sourceProvider': 'egov_xml', 'declaredSource': reference.get('source'),
+            'snapshot': copy.deepcopy(dict(snapshot))})
+    return verified
+
+
 def _structured_candidate_prompt(
     stage_prompt: str,
     targets: list[Mapping[str, Any]],
@@ -2037,7 +2091,7 @@ def _structured_candidate_prompt(
                 candidate_targets,
             ),
             "candidateTargets": [
-                value.prompt_value()
+                value.prompt_value(law_reference_discovery=stage_id == 'law_context')
                 for value in candidate_targets
             ],
             "previousValidationFeedback": previous_feedback,
@@ -2474,7 +2528,7 @@ def _structured_candidate_stage_context(
                 "既存lawReferencesは正答根拠として信用せず、lawId・article又は保存済みURLから一次情報本文を直接開く入口として先に使う。",
                 "既存の紐付け先だけで全選択肢を十分に説明できると確認した場合は、広域検索とlawReferencesの再構築を行わず、有効な紐付けを保持する。",
                 "不足、404又は内容不一致がある場合だけ、その選択肢と不足箇所に限定してe-Gov又は所管官庁の一次情報を探索する。",
-                "primaryLawEvidenceがない又はstatus=not_applicableであること自体はhold理由にしない。lawReferenceDiscoveryPlanがdiscover_requiredなら、Codex組み込みweb検索からe-Gov又は所管官庁の一次情報を開き、法令名、lawId、条番号、本文の一致を確認する。",
+                "primaryLawEvidenceがない又はstatus=not_applicableであること自体はhold理由にしない。lawReferenceDiscoveryPlan.strategyがdiscover_after_classificationなら、まず法令関連性を判定し、必要なlocatorを探索する。02bの探索turnだけcandidate/unverifiedを使え、serverが取得した現行本文を受け取ってから最終候補をverifiedとして再生成する。未取得の現行本文をverifiedと自己申告しない。",
                 "出題時本文だけを取得できない場合は、それだけでholdにしない。00_sourceの公式元正答をexamTime、確認済みcurrentSnapshotを現行判定として独立に記録し、両者の正誤が一致すればsame_as_current、異なればupdated_to_current_lawの三次確認へ送る。本文が不変だったとは記載せず、未参照理由をnotesへ残す。",
                 "現行本文又は公式元正答を確認できない場合、又は両者と現在の問題内容が衝突する場合だけ、未確認事項を明記して対象問題をholdにする。一次情報で確認できないlawIdや改正versionは作らない。",
                 "別問題のlawReferencesを類似性だけで流用しない。",
@@ -15052,6 +15106,114 @@ class QualificationRunCoordinator:
             "message": message,
         }
 
+    def _ground_law_context_candidate(self, qualification, candidate, candidate_prompt, *,
+            batch_plan, records_by_question, targets_by_question, raw_target_by_question, regenerate):
+        """Discover locators, obtain real XML evidence, then regenerate within three rounds."""
+        question_id = candidate.question_id
+        original = copy.deepcopy(records_by_question[question_id])
+        grounding_selected = any({'lawReferences', 'lawContextForExplanation'} & set(target.allowed_fields)
+            for target in targets_by_question[question_id])
+        question = law_question_inputs(candidate_prompt)[question_id]
+        current_as_of = str((question.get('primaryLawEvidence') or {}).get('currentAsOf') or _now())[:10]
+        rounds = []
+        for number in range(1, 4):
+            fields = law_candidate_fields(candidate)
+            if (candidate.status != 'candidate' or not grounding_selected
+                    or fields.get('isLawRelated', original.get('isLawRelated')) is not True):
+                break
+            proposed = copy.deepcopy(original)
+            proposed['lawReferences'] = copy.deepcopy(fields.get('lawReferences', original.get('lawReferences')) or [])
+            evidence = self.primary_law_evidence.resolve(proposed, current_as_of=current_as_of,
+                qualification=qualification, list_group_id=str(raw_target_by_question[question_id].get('listGroupId') or ''))
+            try:
+                current_view = _law_context_current_evidence(proposed, evidence, require_source=False)
+                evidence_error = None
+            except QualificationRunError as exc:
+                current_view = None
+                evidence_error = str(exc)
+            # Rebuild through the normal prompt contract; retain the original
+            # question/truth, prior feedback and source evidence unchanged.
+            regenerated_prompt = _structured_candidate_prompt(
+                self.workflow.prompt_from_plan(batch_plan)['prompt'], [raw_target_by_question[question_id]],
+                canonical_guidance=_canonical_document_guidance(self.repo_root, batch_plan.get('canonicalDocs') or []),
+                stage_id='law_context', records_by_question={question_id: original},
+                candidate_targets_by_question={question_id: targets_by_question[question_id]},
+                feedback_by_question={question_id: question.get('previousValidationFeedback') or []},
+                stage_context=_structured_candidate_stage_context(self.repo_root, qualification, 'law_context'),
+                original_aggregate_evidence_by_question={question_id: question['originalAggregateAnswerEvidence']}
+                    if 'originalAggregateAnswerEvidence' in question else {},
+                question_issue_evidence_by_question={question_id: question.get('questionIssueCorrectionEvidence') or []},
+                primary_law_evidence_by_question={question_id: evidence},
+                current_record_fields=(batch_plan.get('readFieldsByStage') or {}).get('law_context'),
+            ) + '\n# server取得後の02b再生成\n' + json.dumps({
+                'round': number, 'maximumRounds': 3, 'proposedLawReferences': proposed['lawReferences'],
+                'currentEvidenceError': evidence_error,
+                'instruction': '取得本文と各肢を照合し、未確認ならlocatorを訂正するかblockedにする。現行本文が確認済みなら最終候補はverifiedだけ。出題時本文だけの不足は03bへ残す。元問題と正答は変更しない。',
+            }, ensure_ascii=False)
+            result, generated = regenerate(regenerated_prompt)
+            next_candidate = generated[0]
+            rounds.append({'round': number, 'discoveryCandidateHash': sha256_json(_question_candidates_payload([candidate])),
+                'lawReferences': proposed['lawReferences'], 'primaryLawEvidence': copy.deepcopy(evidence),
+                'evidenceHash': sha256_json(evidence), 'generatedCandidateHash': sha256_json(_question_candidates_payload(generated)),
+                'execution': {'threadId': result.thread_id, 'sessionId': result.session_id, 'turnId': result.turn_id,
+                    'model': result.model, 'responseHash': hashlib.sha256(result.final_message.encode('utf-8')).hexdigest()}})
+            next_fields = law_candidate_fields(next_candidate)
+            candidate = next_candidate
+            if candidate.status != 'candidate' or next_fields.get('isLawRelated', original.get('isLawRelated')) is not True:
+                break
+            same_locators = (_law_context_reference_key(next_fields.get('lawReferences', original.get('lawReferences')) or [])
+                == _law_context_reference_key(proposed['lawReferences']))
+            if current_view is not None and same_locators:
+                try:
+                    parse_prepared_candidate_payload(_question_candidates_payload([candidate]), [question_id], targets_by_question)
+                except QuestionCandidateError:
+                    continue
+                break
+        else:
+            raise QualificationRunError('02bの実一次取得と再生成が3周で確定しません。未確認の現行本文を正式保存できません。')
+        fields = law_candidate_fields(candidate)
+        proof = {'schemaVersion': 'law-context-primary-evidence/v1', 'questionId': question_id,
+            'inputRecordHash': sha256_json(original), 'candidateHash': sha256_json(_question_candidates_payload([candidate])),
+            'currentAsOf': current_as_of, 'rounds': rounds}
+        if candidate.status == 'candidate' and grounding_selected and fields.get('isLawRelated', original.get('isLawRelated')) is True:
+            final_record = {**original, 'lawReferences': fields.get('lawReferences', original.get('lawReferences')) or []}
+            proof['currentEvidence'] = _law_context_current_evidence(final_record, rounds[-1]['primaryLawEvidence'])
+        else:
+            proof['currentEvidence'] = []
+        proof['proofHash'] = sha256_json(proof)
+        return candidate, proof
+
+    def _verify_law_context_primary_candidate(self, qualification, candidate, record, proof, *, list_group_id):
+        if (not isinstance(proof, Mapping) or proof.get('schemaVersion') != 'law-context-primary-evidence/v1'
+                or proof.get('questionId') != candidate.question_id
+                or proof.get('inputRecordHash') != sha256_json(record)
+                or proof.get('candidateHash') != sha256_json(_question_candidates_payload([candidate]))
+                or proof.get('proofHash') != sha256_json({key: value for key, value in proof.items() if key != 'proofHash'})):
+            raise QualificationRunError('02b保存候補と実一次取得receiptのhashが一致しません。')
+        fields = law_candidate_fields(candidate)
+        grounding_written = any({'lawReferences', 'lawContextForExplanation'} & (set(update.set_fields) | set(update.unset_fields))
+            for update in candidate.updates)
+        if (candidate.status != 'candidate' or not grounding_written
+                or fields.get('isLawRelated', record.get('isLawRelated')) is not True):
+            if proof.get('currentEvidence') != []:
+                raise QualificationRunError('02bの非法令・保留候補に異なる一次取得結果があります。')
+            return
+        rounds = proof.get('rounds') or []
+        if not 1 <= len(rounds) <= 3:
+            raise QualificationRunError('02bの有限な実一次取得履歴がありません。')
+        for index, item in enumerate(rounds, 1):
+            if (item.get('round') != index or item.get('evidenceHash') != sha256_json(item.get('primaryLawEvidence'))
+                    or not item.get('execution', {}).get('threadId') or not item.get('execution', {}).get('turnId')):
+                raise QualificationRunError('02bの実一次取得履歴が変更されています。')
+        if rounds[-1].get('generatedCandidateHash') != proof['candidateHash']:
+            raise QualificationRunError('02bの最終native候補と取得後再生成が一致しません。')
+        proposed = {**copy.deepcopy(record), 'lawReferences': copy.deepcopy(fields.get('lawReferences', record.get('lawReferences')) or [])}
+        pinned = _law_context_current_evidence(proposed, rounds[-1]['primaryLawEvidence'])
+        actual = self.primary_law_evidence.resolve(proposed, current_as_of=proof['currentAsOf'],
+            qualification=qualification, list_group_id=list_group_id)
+        if proof.get('currentEvidence') != pinned or _law_context_current_evidence(proposed, actual) != pinned:
+            raise QualificationRunError('02bの保存前現行本文・URL・xml/text hashが固定取得結果と異なります。')
+
     def _prepare_question_candidate_attempt(
         self, qualification: str, run_id: str, specs: list[Mapping[str, Any]],
         phase: Mapping[str, Any], phase_prompt: str, parent_snapshot: Mapping[str, Any],
@@ -16476,6 +16638,12 @@ class QualificationRunCoordinator:
                 prepared_execution_metadata = copy.deepcopy(
                     dict(raw_execution)
                 )
+                if stage_id == 'law_context':
+                    proofs = prepared_execution_metadata.get('lawContextPrimaryEvidence') or {}
+                    for candidate in candidates:
+                        self._verify_law_context_primary_candidate(qualification, candidate,
+                            records_by_question[candidate.question_id], proofs.get(candidate.question_id),
+                            list_group_id=str(raw_target_by_question[candidate.question_id].get('listGroupId') or ''))
             else:
                 invalid_question_ids = set(checkpoint_mismatches)
                 candidate_question_ids = [
@@ -16501,6 +16669,7 @@ class QualificationRunCoordinator:
                         output_schema=candidate_output_schema(
                             candidate_question_ids,
                             targets_by_question,
+                            law_reference_discovery=stage_id == 'law_context',
                         ),
                         on_thread_started=on_thread_started,
                         on_turn_started=on_turn_started,
@@ -16535,6 +16704,7 @@ class QualificationRunCoordinator:
                         result.final_message,
                         candidate_question_ids,
                         targets_by_question,
+                        law_reference_discovery=stage_id == 'law_context',
                     )
                     prepared_execution_metadata = {
                         "model": result.model,
@@ -16588,6 +16758,39 @@ class QualificationRunCoordinator:
                     )
                 else:
                     candidates = []
+                if stage_id == 'law_context' and candidates:
+                    def regenerate_law_context(evidence_prompt):
+                        if pipeline_stop.is_set():
+                            raise QualificationRunError('02bの根拠付き再生成は停止要求により中断しました。')
+                        regenerated = self.app_server.run_turn(evidence_prompt,
+                            model_profile=model_profile_name, work_type='maintenance_law_context_candidate',
+                            sandbox='read-only', emit=emit,
+                            image_urls=_candidate_image_urls(records_by_question, candidate_question_ids),
+                            output_schema=candidate_output_schema(candidate_question_ids, targets_by_question,
+                                law_reference_discovery=True),
+                            on_thread_started=on_thread_started, on_turn_started=on_turn_started,
+                            on_model_turn_event=model_turn_callback('maintenance_law_context_candidate', capture_candidate=True),
+                            heartbeat=heartbeat, cwd=self.repo_root, model=model, maintenance_attempt=maintenance_attempt,
+                            reasoning_effort=reasoning_effort, speed_mode=speed_mode, turn_group=qualification,
+                            monitor_context=self._monitor_context(qualification, run_id, parent_run_id=parent_run_id,
+                                question_ids=candidate_question_ids, work_item_keys=batch_work_item_keys,
+                                list_group_ids=batch_list_group_ids, stage_id=stage_id,
+                                work_type='maintenance_law_context_candidate', phase='primary_evidence_regeneration'))
+                        if regenerated.changed_files or not regenerated.thread_id or not regenerated.turn_id:
+                            raise QualificationRunError('02bの根拠付き再生成でread-onlyのnative完了を確認できません。')
+                        return regenerated, parse_model_candidate_v3(regenerated.final_message,
+                            candidate_question_ids, targets_by_question, law_reference_discovery=True)
+                    grounded = []
+                    proofs = {}
+                    for candidate in candidates:
+                        grounded_candidate, proof = self._ground_law_context_candidate(qualification, candidate, candidate_prompt,
+                            batch_plan=batch_plan, records_by_question=records_by_question,
+                            targets_by_question=targets_by_question, raw_target_by_question=raw_target_by_question,
+                            regenerate=regenerate_law_context)
+                        grounded.append(grounded_candidate); proofs[candidate.question_id] = proof
+                    candidates = parse_prepared_candidate_payload(_question_candidates_payload(grounded),
+                        candidate_question_ids, targets_by_question)
+                    prepared_execution_metadata['lawContextPrimaryEvidence'] = proofs
                 if stage_id == "law_audit" and candidates:
                     questions = law_question_inputs(candidate_prompt)
                     reference_guidance = _canonical_document_guidance(

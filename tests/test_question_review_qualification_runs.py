@@ -2863,7 +2863,7 @@ class StructuredCandidateStageContextTests(unittest.TestCase):
         self.assertTrue(
             any(
                 "status=not_applicableであること自体はhold理由にしない" in rule
-                and "discover_required" in rule
+                and "discover_after_classification" in rule
                 for rule in context["rules"]
             )
         )
