@@ -145,6 +145,20 @@ v3のresultも`publicationConfirmed=false`であり、transportの検証・commi
 
 専用の公開candidate・intent・attempt・commit・resultはprofileとread/write集合を結合する。transactionの実`write_results`から書込集合のexact更新時刻を確認し、読取専用siblingは値・presence・更新時刻すべて不変、書込documentは対象field一致と対象外不変をreadbackする。不明commitは永続証跡を残して再観測し、再書込み又は完了へ自動的に進めない。従来の全対象変更atomic契約は維持し、旧receiptをこの専用証跡へ読み替えない。コード監査やtransport応答は、固定候補の内容監査・正式保存・独立評価・本番公開確認を代替しない。
 
+### 通常sourceのTF公開unit
+
+`python -m tools.question_bank.feedback_source_tf_delivery --repo-root <repo> --db <既存台帳>`は、通常sourceから整備した一問と既存TF全siblingを扱う明示経路である。`prepare --request <source-bound-public-tf-request/v1> --output <新規private directory>`は、完全なsource binding、保全manifest、公式資料とページ、公式選択答、各記述全文とlive IDの一意な対応、通常工程の真正な保存証跡、現在の台帳要件・状態・live所属集合を固定する。公式選択答と各記述の真偽は別に確認する。生成物を手で編集したり、原問の否定指示から真偽を反転したりしない。
+
+`scope --plan <plan> --action save`のnative出力に対する別subagent承認を得てから、`save --plan <plan> --approval <承認>`を実行する。正式保存先は`output/<qualification>/publication_corrections/<unitHash>/`。`source.json`・`public.json`・`manifest.json`と`receipt.json`をexclusive保存し、同じ成功再送だけを受理する。schemaは`source-bound-public-tf-unit/v1`、保存receiptは`source-bound-public-tf-save-receipt/v1`である。通常の24探索へ自動で混ぜず、このplanを明示するselectorだけで読み込む。途中中断や第三値を新規成功として埋め合わせない。
+
+正常工程の証跡は、固定された候補・実保存bytes・native承認・実child・work version・checkpointを照合する。後続工程が同じpatchを正当に更新する場合は、真正な保存履歴から各工程時点の入力を通常projectorで再構築し、現在の投影と最後の真正な保存内容を確認する。03bは通常のcandidateに結び付いた法令監査metadataと実child内のレビューを再検証し、必要人数と一次根拠を通常のvalidatorに従って確認する。工程名や自己申告の成功flagだけで代替しない。
+
+`check --plan <plan>`は真正な工程履歴を通常projector・converterで投影した一問artifactに対し、実3checker・quality gate・v3 upload dry-runを実行し、検査対象0件を成功にしない。`evaluate --plan <plan>`は公式原文・公式選択答・公開表示を分けた入力で通常の別session評価を実行する。公開scopeは現在の正確な評価policyと永続評価結果を結び、候補作者の作成した検査JSONや旧評価を流用しない。
+
+`scope --action publish`と別subagentの新たな承認を経て、`publish`はpush済みmainの実入力、fresh snapshot、全active集合、値・presence・exact時刻を照合し、既存uploaderのv3だけで限定更新する。`reconcile`は永続intent・attempt・実commit結果を再検証し、全対象field・対象外不変・読取専用siblingの時刻を読み戻す。確認結果は`source-bound-public-tf-publication-result/v1`として保存する。応答不明時は新規書込みせず、実SDKのcommit結果がなければ`commit_unconfirmed`で保留する。実commit証跡がある場合だけ現在値と同じ証跡を照合して再開し、現在値からcommit成功を推定しない。通常unitとガス25の専用receiptは相互に読み替えない。
+
+公式報告のBlind A/B・Challenge readerと台帳完了dispatchの未接続状態は[フィードバック運用正本](user_feedback_response_system.md#無人実行経路の既知の未対応)で追跡する。公開のreadback一致とtask完了を区別し、未接続dispatchを`completed`記録で迂回しない。
+
 ### 読取専用canonical contextによる限定生成
 
 `scripts/pipeline/prepare_scoped_question_artifacts.py --context <JSON> --output <private-directory>` は、明示したcanonical rootの全source・選択patchとproduct rootの正式24を固定し、一問bindingの全公開IDを生成します。入力JSONは `canonicalRoot`、`overlayRoot`、`qualification`、`listGroupId`、完全な `binding`、`publicationIds`、`referencePaths` を持ちます。保存先は `output/user_feedback_response_system/staging/recovery-scoped-2025/` 配下に限り、manifestには入力・実装・projection・各artifactのhash、候補別対象外証明、全group診断を保存します。通常の全group gateは継続して適用されます。

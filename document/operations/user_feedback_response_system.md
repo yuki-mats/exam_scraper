@@ -2,7 +2,7 @@
 
 状態: 実装中。個別受付台帳と読み取り専用の日次照合を実装済み。日次heartbeatが既存CLIを使って調査・独立監査・公開を進める。専用の常駐GUIとスマホ承認画面は未実装。
 
-最終更新: 2026-10-21
+最終更新: 2026-10-22
 
 この文書は、Repasoから届くユーザーフィードバックの調査、改善、独立監査、patch保存、Firestore公開を扱う運用正本です。公式問題の誤り報告を修正レーンとし、AI解説への利用者質問から学習上のニーズを見つける改善レーンを置きます。将来はアプリ不具合、UI改善、要望も追加します。
 
@@ -66,7 +66,9 @@ native作成callはCLIの正常終了まで、途中でyieldされた出力も�
 
 このcontextは独立した分解A/Bや対応表監査を完了しません。`officialMappingApproved`・`machineReady`・`publicationReady`・`checkpointRecorded`・`evaluationPerformed`・`formalPatchSaved`・`FirestoreWritten`はすべてfalseです。旧形式向けの正式保存、全工程、独立評価、checker、全siblingの読取条件を守る限定公開・readbackのadapterは引き続き未対応として追跡し、この読取処理の追加だけで公開可能とは扱いません。
 
-通常sourceのTF公開では、公式原文と中立表示を別に保全する正式variant、converterでの表示本文と原文の分離、表示2fieldと個別正誤を同時に更新する限定transactionの結合が未対応です。問題形式や設問意図の工程を正式保存しても、この公開境界の完了とは扱いません。検証済み25専用の`maintenance_display`や固定案件の正式保存manifestを別資格へ読み替えず、sourceと全公式肢・live原記述の一意なID対応、真正な固定差分監査、競合拒否・再送・中断復元・readbackを検証する経路を先に整備します。
+通常sourceのTFには専用CLI `tools.question_bank.feedback_source_tf_delivery`を追加しています。通常工程の保存receipt・work version・checkpointを使い、公式原文と中立表示を分けた正式unitから通常の独立評価、read-set v3の限定公開・readbackへ接続します。固定案件のmanifestやガス25専用schemaには読み替えません。CLI、正式unitと各証跡の契約は[artifact契約](artifact_contract.md#通常sourceのtf公開unit)を正本とします。
+
+この経路の実装だけで各taskを公開可能・完了とは扱いません。公式報告の真正なBlind A/B・Challenge証跡のreaderと日次台帳の完了dispatchは未接続で、CLIはそれぞれ公開・完了を保留します。全active siblingが既存TFである単位を対象とし、組合せflash_cardやTFとの混在単位、原記述が一致しないID対応は別の対応を要します。通常工程の適用漏れ、法令の実取得根拠不足、独立評価不合格、checkerの未実行・失敗も、包括ユーザー許可やコード監査で免除しません。
 
 2026-10-16、`python -m tools.question_bank.feedback_verified_review_context prepare --repo-root <repo> --plan <保存plan> --output <新規private directory> [--official-order <固定対応表>]`で、真正な保存receiptと現在の25を読み取り専用の評価入力へ結ぶ経路を追加しました。専用identityは25のpath/hash・公式index/PDF・原問と全sibling ID・現在policyを保持し、`00_source`の参照を作りません。各fieldはIDで結合します。公式順は、保存時native最終承認が明示したIDと肢labelに一致する`feedback-verified-official-order/v1`だけを受け付け、配列順・既存choiceIndex・OCRから推定しません。対応表がなければ公式順は未解決として保留します。既存の法令metadata内のindexや監査状態を、現在の工程完了記録へ読み替えません。
 

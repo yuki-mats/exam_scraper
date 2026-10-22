@@ -161,6 +161,9 @@ def load_scoped_artifacts(repo_root, manifest_path):
 
 
 def validate_scoped_question(repo_root, question):
+    if question.get("sourceTfUnit"):
+        from tools.question_bank.feedback_source_tf_delivery import validate_source_tf_question
+        return validate_source_tf_question(repo_root, question)
     path = question.get("scopedArtifactManifest")
     if not path:
         return None

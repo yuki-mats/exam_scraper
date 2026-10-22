@@ -2597,6 +2597,11 @@ class QuestionEvaluationService:
             "lawRevisionFacts": projected.get("lawRevisionFacts"),
             "examYear": projected.get("examYear"),
         }
+        if question.get("sourceTfUnit"):
+            # Explicit normal-source TF variant: evaluate its public proposition
+            # while retaining the immutable official question/selected-answer.
+            input_payload["originalQuestionBodyText"] = question["sourceTfOriginalBody"]
+            input_payload["officialSelectedAnswer"] = copy.deepcopy(question["sourceTfOfficialAnswer"])
         if display_body != source_body:
             input_payload["sourceQuestionBodyText"] = source_body
             input_payload["answerTarget"] = answer_target
