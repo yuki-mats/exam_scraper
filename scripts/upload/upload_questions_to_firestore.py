@@ -44,6 +44,8 @@ READ_SET_MAINTENANCE_SCHEMA = "question-maintenance-read-set-upload/v1"
 READ_SET_MAINTENANCE_RESULT_SCHEMA = "question-maintenance-read-set-upload-result/v1"
 READ_SET_DISPLAY_SCHEMA = "question-maintenance-read-set-upload/v2"
 READ_SET_DISPLAY_RESULT_SCHEMA = "question-maintenance-read-set-upload-result/v2"
+READ_SET_TF_TRUTH_SCHEMA = "question-maintenance-read-set-upload/v3"
+READ_SET_TF_TRUTH_RESULT_SCHEMA = "question-maintenance-read-set-upload-result/v3"
 READ_SET_MAINTENANCE_KEYS = frozenset({"schemaVersion", "originalQuestionId", "qualificationId", "examYear",
     "readDocumentIds", "questions", "writeFieldsByDocument", "expectedReadUpdateTimes", "expectedLiveFingerprint"})
 EXPLANATION_DETAILS_WRITE_FIELDS = ("explanationText", "suggestedQuestionDetails")
@@ -67,9 +69,17 @@ READ_SET_DISPLAY_WRITE_FIELD_SETS = (
     (*DISPLAY_WRITE_FIELDS, "explanationText"),
     (*DISPLAY_WRITE_FIELDS, "explanationText", "suggestedQuestions", "suggestedQuestionDetails"),
 )
+TF_TRUTH_WRITE_FIELDS = (*DISPLAY_WRITE_FIELDS, "correctChoiceText")
+READ_SET_TF_TRUTH_WRITE_FIELD_SETS = (
+    TF_TRUTH_WRITE_FIELDS,
+    (*TF_TRUTH_WRITE_FIELDS, "explanationText"),
+    (*TF_TRUTH_WRITE_FIELDS, "suggestedQuestions", "suggestedQuestionDetails"),
+    (*TF_TRUTH_WRITE_FIELDS, "explanationText", "suggestedQuestions", "suggestedQuestionDetails"),
+)
 READ_SET_PROFILES = {
     READ_SET_MAINTENANCE_SCHEMA: (READ_SET_MAINTENANCE_RESULT_SCHEMA, READ_SET_MAINTENANCE_WRITE_FIELD_SETS),
     READ_SET_DISPLAY_SCHEMA: (READ_SET_DISPLAY_RESULT_SCHEMA, READ_SET_DISPLAY_WRITE_FIELD_SETS),
+    READ_SET_TF_TRUTH_SCHEMA: (READ_SET_TF_TRUTH_RESULT_SCHEMA, READ_SET_TF_TRUTH_WRITE_FIELD_SETS),
 }
 ALLOWED_PATCH_WRITE_FIELD_SETS = (
     ("explanationText",),
@@ -731,6 +741,35 @@ def validate_display_questions(questions):
         raise ValueError("display siblings require common display and original question bodies")
 
 
+def validate_tf_truth_questions(questions, *, before=False):
+    """Validate TF structure without deriving truth from the original exam intent.
+
+    Existing displays may be defective: only the complete projected state must
+    have consistent display bodies/quotes and explanation prefixes. Original
+    field preservation is checked separately against each transaction snapshot.
+    """
+    originals = set()
+    for question in questions:
+        if (question.get("questionType") != "true_false" or question.get("isDeleted") is not False
+                or question.get("isChoiceOnly") is not False):
+            raise ValueError("TF truth transport requires active true_false siblings")
+        for field in ("originalQuestionBodyText", "originalQuestionChoiceText"):
+            if not isinstance(question.get(field), str) or not question[field].strip():
+                raise ValueError("TF truth transport requires explicit nonempty original fields")
+        originals.add(question["originalQuestionBodyText"])
+        if not before:
+            truth = question.get("correctChoiceText")
+            if not isinstance(truth, str) or truth not in ("正しい", "間違い"):
+                raise ValueError("TF truth must be the exact canonical 正しい or 間違い string")
+            explanation = question.get("explanationText")
+            if not isinstance(explanation, str) or not explanation.startswith(truth):
+                raise ValueError("TF truth/explanationText prefix mismatch")
+    if len(originals) != 1:
+        raise ValueError("TF truth siblings require one common original question body")
+    if not before:
+        validate_display_questions(questions)
+
+
 def resolve_read_set_maintenance_contract(data: dict, source_label: str) -> dict:
     """Separate complete active-sibling reads from changed explanation writes."""
     if not isinstance(data, dict):
@@ -739,7 +778,8 @@ def resolve_read_set_maintenance_contract(data: dict, source_label: str) -> dict
     if set(data) != READ_SET_MAINTENANCE_KEYS:
         raise ValueError("read-set maintenance requires its dedicated exact schema")
     _, permitted_masks = read_set_profile(data.get("schemaVersion"))
-    display = data["schemaVersion"] == READ_SET_DISPLAY_SCHEMA
+    tf_truth = data["schemaVersion"] == READ_SET_TF_TRUTH_SCHEMA
+    display = data["schemaVersion"] in (READ_SET_DISPLAY_SCHEMA, READ_SET_TF_TRUTH_SCHEMA)
     for key in ("originalQuestionId", "qualificationId"):
         value = data[key]
         if not isinstance(value, str) or not value or value.strip() != value or "/" in value:
@@ -776,12 +816,15 @@ def resolve_read_set_maintenance_contract(data: dict, source_label: str) -> dict
             raise ValueError("read-set transport permits only its explicit existing explanation/suggestion masks")
         if any(field not in question for field in raw_mask):
             raise ValueError("read-set request must preserve explicit masked field presence")
-        content_mask = tuple(f for f in raw_mask if f not in DISPLAY_WRITE_FIELDS) if display else tuple(raw_mask)
+        structural_fields = TF_TRUTH_WRITE_FIELDS if tf_truth else DISPLAY_WRITE_FIELDS
+        content_mask = tuple(f for f in raw_mask if f not in structural_fields) if display else tuple(raw_mask)
         if content_mask in ATOMIC_SUGGESTION_REPLACEMENT_MASKS:
             validate_atomic_suggestion_replacement([question], content_mask, source_label)
         elif content_mask:
             validate_question_patch_questions([question], content_mask, source_label)
-    if display:
+    if tf_truth:
+        validate_tf_truth_questions(questions)
+    elif display:
         validate_display_questions(questions)
     fingerprint = data["expectedLiveFingerprint"]
     if not isinstance(fingerprint, str) or re.fullmatch(r"[0-9a-f]{64}", fingerprint) is None:
@@ -974,7 +1017,7 @@ class ReadSetMaintenanceCommitUnconfirmed(RuntimeError):
 
 def upload_read_set_maintenance_questions(data: dict, source_label: str, *, dry_run: bool = False,
                                           credentials_json: Path | None = None) -> dict:
-    """Validate every sibling in one transaction; write only real explanations.
+    """Validate every sibling in one transaction; write only the explicit profile.
 
     This transport grants no approval or publication completion. The caller owns
     a durable intent and exact before/after readback, including read-only siblings.
@@ -1020,8 +1063,11 @@ def upload_read_set_maintenance_questions(data: dict, source_label: str, *, dry_
                                          publication_unit(data))
         if active != set(ids):
             raise RuntimeError("complete active sibling read-set membership changed")
-        display = data["schemaVersion"] == READ_SET_DISPLAY_SCHEMA
-        if display:
+        tf_truth = data["schemaVersion"] == READ_SET_TF_TRUTH_SCHEMA
+        display = data["schemaVersion"] in (READ_SET_DISPLAY_SCHEMA, READ_SET_TF_TRUTH_SCHEMA)
+        if tf_truth:
+            validate_tf_truth_questions([{"questionId": i, **(by_id[i].to_dict() or {})} for i in ids], before=True)
+        elif display:
             validate_display_questions([{"questionId": i, **(by_id[i].to_dict() or {})} for i in ids])
         updates = {}
         projected_rows = {i: {"questionId": i, **(by_id[i].to_dict() or {})} for i in ids}
@@ -1035,11 +1081,16 @@ def upload_read_set_maintenance_questions(data: dict, source_label: str, *, dry_
             if display and any((f in existing) != (f in base) or existing.get(f) != base.get(f)
                                for f in DOC_COMPARE_KEYS if f not in mask):
                 raise RuntimeError("display candidate changed a non-owned live field/presence")
-            if any(existing[field] == base[field] for field in mask):
+            # v3 couples display and truth, including components already correct.
+            # Each written document must still contain at least one real change.
+            unchanged = [existing[field] == base[field] for field in mask]
+            if (all(unchanged) if tf_truth else any(unchanged)):
                 raise RuntimeError("read-set write subset contains unchanged/no-op masked field")
             updates[identity] = build_patch_doc_data(base, mask, datetime.now())
             projected_rows[identity].update({f: base[f] for f in mask})
-        if display:
+        if tf_truth:
+            validate_tf_truth_questions(list(projected_rows.values()))
+        elif display:
             validate_display_questions(list(projected_rows.values()))
         for identity in write_ids:
             add_guarded_question_write(txn, refs[identity], updates[identity], by_id[identity])

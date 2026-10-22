@@ -910,3 +910,174 @@ class ReadSetDisplayUploadTests(unittest.TestCase):
         db.times[payload['readDocumentIds'][-1]] = DatetimeWithNanoseconds.from_rfc3339('2026-10-16T00:00:00.123456790Z')
         with self.assertRaises(RuntimeError): self.upload(payload, db)
         self.assertEqual(db.updates, [])
+
+
+class ReadSetTFTruthUploadTests(unittest.TestCase):
+    """The v3 correction joins display and proposition truth under sibling CAS."""
+    Database = ReadSetMaintenanceUploadTests.Database
+    transactional = staticmethod(ReadSetMaintenanceUploadTests.transactional)
+    upload = ReadSetMaintenanceUploadTests.upload
+
+    def fixture(self, mask=None):
+        mask = mask or module.TF_TRUTH_WRITE_FIELDS
+        payload, live = ReadSetDisplayUploadTests().fixture()
+        payload['schemaVersion'] = module.READ_SET_TF_TRUTH_SCHEMA
+        for index, row in enumerate(payload['questions']):
+            identity = row['questionId']
+            live[identity]['correctChoiceText'] = '正しい'
+            row['correctChoiceText'] = '間違い' if index == 0 and 'explanationText' in mask else '正しい'
+            row['explanationText'] = row['correctChoiceText'] + '。' + (
+                '新しい根拠。' if 'explanationText' in mask else '元の説明。')
+            if 'suggestedQuestions' in mask:
+                row['suggestedQuestions'] = []
+                row['suggestedQuestionDetails'] = []
+            payload['writeFieldsByDocument'][identity] = list(mask)
+        payload['expectedLiveFingerprint'] = module.firestore_live_fingerprint(payload['readDocumentIds'], live)
+        return payload, live
+
+    def test_all_v3_masks_couple_display_truth_and_preserve_every_outside_value_and_presence(self):
+        for mask in module.READ_SET_TF_TRUTH_WRITE_FIELD_SETS:
+            with self.subTest(mask=mask):
+                payload, live = self.fixture(mask)
+                # Private fields are outside transport projection, but update()
+                # must retain them, original fields, absent optional fields and IDs.
+                for values in live.values():
+                    values['privateUnchangedField'] = {'kept': True}
+                db = self.Database(live)
+                result = self.upload(payload, db)
+                self.assertEqual(result['schemaVersion'], module.READ_SET_TF_TRUTH_RESULT_SCHEMA)
+                self.assertEqual((db.commits, len(db.updates)), (1, 5))
+                self.assertFalse(result['publicationConfirmed'])
+                self.assertEqual(len(result['writeResults']), 5)
+                for identity, values, option in db.updates:
+                    self.assertEqual(set(values), {*mask, 'updatedAt', 'updatedById'})
+                    self.assertEqual(option._last_update_time.rfc3339(), AtomicMaintenanceUploadTests.before_stamp)
+                    self.assertEqual({k: v for k, v in db.live[identity].items() if k not in values},
+                                     {k: v for k, v in live[identity].items() if k not in values})
+
+    def test_v3_explicit_dry_run_never_initializes_sdk_and_old_profiles_reject_truth(self):
+        payload, live = self.fixture()
+        with patch.object(module, 'init_firestore') as init:
+            result = module.upload_read_set_maintenance_questions(payload, 'fixture', dry_run=True)
+            init.assert_not_called()
+        self.assertEqual(result['schemaVersion'], module.READ_SET_TF_TRUTH_RESULT_SCHEMA)
+        self.assertEqual(result['status'], 'dry_run')
+        self.assertFalse(result['publicationConfirmed'])
+        for schema in (module.READ_SET_MAINTENANCE_SCHEMA, module.READ_SET_DISPLAY_SCHEMA):
+            with self.subTest(schema=schema), self.assertRaises(ValueError):
+                self.upload({**payload, 'schemaVersion': schema}, self.Database(live))
+
+    def test_strict_canonical_truth_masks_and_candidate_identity_rejected_before_writes(self):
+        mutations = ('true', 'space', 'bool', 'integer', 'missing-truth', 'truth-only', 'display-only',
+                     'one-suggestion-mirror', 'extra-original-mask', 'original-body', 'original-choice',
+                     'category', 'missing-optional-presence', 'explanation-mismatch', 'candidate-type',
+                     'duplicate-write', 'unknown-id', 'duplicate-read', 'missing-read-time')
+        for mutation in mutations:
+            payload, live = self.fixture(); first = payload['questions'][0]; identity = first['questionId']
+            if mutation in ('true', 'space', 'bool', 'integer'):
+                first['correctChoiceText'] = {'true': 'true', 'space': ' 正しい', 'bool': True, 'integer': 1}[mutation]
+            elif mutation == 'missing-truth': del first['correctChoiceText']
+            elif mutation == 'truth-only': payload['writeFieldsByDocument'][identity] = ['correctChoiceText']
+            elif mutation == 'display-only': payload['writeFieldsByDocument'][identity] = list(module.DISPLAY_WRITE_FIELDS)
+            elif mutation == 'one-suggestion-mirror': payload['writeFieldsByDocument'][identity].append('suggestedQuestions')
+            elif mutation == 'extra-original-mask': payload['writeFieldsByDocument'][identity].append('originalQuestionBodyText')
+            elif mutation == 'original-body': first['originalQuestionBodyText'] = '別の原文。'
+            elif mutation == 'original-choice':
+                first['originalQuestionChoiceText'] = '別の原記述。'
+                first['questionText'] = first['questionBodyText'] + '[quote]別の原記述。[/quote]'
+            elif mutation == 'category': first['questionTags'] = ['other']
+            elif mutation == 'missing-optional-presence': del first['suggestedQuestionDetails']
+            elif mutation == 'explanation-mismatch': first['correctChoiceText'] = '間違い'
+            elif mutation == 'candidate-type': first['questionType'] = 'group_choice'
+            elif mutation == 'duplicate-write': payload['questions'].append(deepcopy(first))
+            elif mutation == 'unknown-id': first['questionId'] = 'outside'
+            elif mutation == 'duplicate-read': payload['readDocumentIds'].append(identity)
+            elif mutation == 'missing-read-time': del payload['expectedReadUpdateTimes'][identity]
+            db = self.Database(live)
+            with self.subTest(mutation=mutation), self.assertRaises((ValueError, RuntimeError)):
+                self.upload(payload, db)
+            self.assertEqual((db.updates, db.commits, db.applied), ([], 0, []))
+
+    def test_changed_write_subset_reads_all_siblings_and_checks_readonly_tf_and_originals(self):
+        payload, live = self.fixture()
+        # Repair only truth on one document whose neutral display is already
+        # correct; every other sibling participates as a read-only target.
+        for row in payload['questions']:
+            identity = row['questionId']
+            live[identity].update({f: row[f] for f in module.DISPLAY_WRITE_FIELDS})
+        first = payload['questions'][0]
+        first['correctChoiceText'] = '間違い'; first['explanationText'] = '間違い。新しい根拠。'
+        payload['questions'] = [first]
+        payload['writeFieldsByDocument'] = {first['questionId']: [*module.TF_TRUTH_WRITE_FIELDS, 'explanationText']}
+        payload['expectedLiveFingerprint'] = module.firestore_live_fingerprint(payload['readDocumentIds'], live)
+        db = self.Database(live)
+        result = self.upload(payload, db)
+        self.assertEqual(result['readOnlyDocumentIds'], payload['readDocumentIds'][1:])
+        self.assertEqual((db.commits, len(db.updates)), (1, 1))
+        self.assertEqual(set(db.reads[0][0]), set(payload['readDocumentIds']))
+        for identity in result['readOnlyDocumentIds']:
+            self.assertEqual(db.live[identity], live[identity])
+            self.assertEqual(db.times[identity].rfc3339(), AtomicMaintenanceUploadTests.before_stamp)
+        db = self.Database(live, mode='readonly-conflict')
+        with self.assertRaises(module.ReadSetMaintenanceCommitUnconfirmed) as caught:
+            self.upload(payload, db)
+        self.assertEqual(caught.exception.prepared_result['schemaVersion'], module.READ_SET_TF_TRUTH_RESULT_SCHEMA)
+        self.assertFalse(caught.exception.prepared_result['publicationConfirmed'])
+        self.assertEqual((db.commits, db.applied), (1, []))
+        for mutation in ('type', 'original', 'absent-original', 'truth', 'explanation'):
+            changed_live = deepcopy(live); readonly = payload['readDocumentIds'][-1]
+            if mutation == 'type': changed_live[readonly]['questionType'] = 'group_choice'
+            elif mutation == 'original': changed_live[readonly]['originalQuestionBodyText'] = '異なる原文'
+            elif mutation == 'absent-original': del changed_live[readonly]['originalQuestionChoiceText']
+            elif mutation == 'truth': changed_live[readonly]['correctChoiceText'] = 'true'
+            else: changed_live[readonly]['explanationText'] = '間違い。矛盾。'
+            changed = {**payload, 'expectedLiveFingerprint': module.firestore_live_fingerprint(payload['readDocumentIds'], changed_live)}
+            db = self.Database(changed_live)
+            with self.subTest(mutation=mutation), self.assertRaises((ValueError, RuntimeError)):
+                self.upload(changed, db)
+            self.assertEqual(db.updates, [])
+
+    def test_missing_extra_membership_fingerprint_and_noop_are_held_without_writes(self):
+        for mutation in ('missing', 'extra', 'duplicate', 'fingerprint', 'noop'):
+            payload, live = self.fixture(); db = self.Database(live)
+            if mutation == 'missing': db.read_transform = lambda rows: rows[:-1]
+            elif mutation == 'extra':
+                db.live['outside'] = deepcopy(next(iter(live.values())))
+                db.times['outside'] = next(iter(db.times.values()))
+            elif mutation == 'duplicate': db.read_transform = lambda rows: rows + [rows[0]]
+            elif mutation == 'fingerprint': payload['expectedLiveFingerprint'] = '0' * 64
+            else:
+                row = payload['questions'][0]
+                row.update({f: live[row['questionId']][f] for f in module.TF_TRUTH_WRITE_FIELDS})
+            with self.subTest(mutation=mutation), self.assertRaises((ValueError, RuntimeError)):
+                self.upload(payload, db)
+            self.assertEqual((db.updates, db.commits), ([], 0))
+
+    def test_commit_conflict_interruption_unknown_commit_and_stale_replay_do_not_confirm_publication(self):
+        for mode in ('before-commit', 'after-commit', 'wrong-count', 'no-time', 'bad-time', 'new-sibling'):
+            payload, live = self.fixture(); db = self.Database(live, mode=mode)
+            with self.subTest(mode=mode), self.assertRaises(module.ReadSetMaintenanceCommitUnconfirmed) as caught:
+                self.upload(payload, db)
+            receipt = caught.exception.prepared_result
+            self.assertEqual(receipt['schemaVersion'], module.READ_SET_TF_TRUTH_RESULT_SCHEMA)
+            self.assertEqual(receipt['status'], 'commit_unconfirmed')
+            self.assertEqual(receipt['writeResults'], [])
+            self.assertFalse(receipt['publicationConfirmed'])
+            self.assertEqual((len(db.transactions), db.commits), (1, 1))
+            if mode == 'after-commit':
+                self.assertEqual(len(db.applied), 5)
+                db.mode = None
+                with self.assertRaisesRegex(RuntimeError, 'update_time changed'):
+                    self.upload(payload, db)
+                self.assertEqual(db.commits, 1)
+        payload, live = self.fixture(); db = self.Database(live)
+        self.upload(payload, db)
+        with self.assertRaisesRegex(RuntimeError, 'update_time changed'):
+            self.upload(payload, db)
+        self.assertEqual(db.commits, 1)
+        rebound = {**payload,
+                   'expectedReadUpdateTimes': {identity: db.times[identity].rfc3339() for identity in payload['readDocumentIds']},
+                   'expectedLiveFingerprint': module.firestore_live_fingerprint(payload['readDocumentIds'], db.live)}
+        with self.assertRaisesRegex(RuntimeError, 'unchanged/no-op'):
+            self.upload(rebound, db)
+        self.assertEqual(db.commits, 1)

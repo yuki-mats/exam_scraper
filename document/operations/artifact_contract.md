@@ -139,6 +139,10 @@ private planと同じdirectoryの`save-receipt.json`は`feedback-verified-explan
 
 このrevisionの公開は`question-maintenance-read-set-upload/v2`と対応するresult/v2だけを使う。許可maskは表示2fieldに、解説1fieldと補足2fieldの各組を必要に応じて加える4種類の完全一致で、各fieldは実差分でなければならない。v1とatomicの許可maskは拡張しない。transaction内の実baselineと適用後の全siblingでも表示構造と対象外不変を検証する。profileはcandidate・intent・attempt・commit・readback・completionまで結合し、未知profile、v1/v2証跡の混同、未確定commitの再書込みを拒否する。
 
+`question-maintenance-read-set-upload/v3`は、既存TFの表示と個別正誤を同時に訂正する専用transportである。必須maskは`questionBodyText`・`questionText`・`correctChoiceText`で、解説1field、補足2fieldの組を任意に加える4種類だけを認める。全active siblingの所属・値・presence・exact更新時刻を同じtransactionで検証し、既存documentだけを限定更新する。原文・ID・分類等のmask外差分は拒否する。正誤は`正しい`又は`間違い`に限定し、適用後の全siblingの表示構造と解説の正誤を検査する。結合maskの一部が現値と同じでもよいが、各write documentには実差分を必要とする。v1/v2のmaskとno-op条件は変更しない。
+
+v3のresultも`publicationConfirmed=false`であり、transportの検証・commit応答は内容承認や公開完了を表さない。呼出し元は専用profile・差分・全read/write集合を真正な独立承認と永続intentへ結び、全対象field・対象外不変・読取専用siblingの時刻をreadbackしてから公開を確定する。通常sourceの正式variant・全工程・独立評価との接続が未完なら、このtransportを直接呼んで公開しない。
+
 専用の公開candidate・intent・attempt・commit・resultはprofileとread/write集合を結合する。transactionの実`write_results`から書込集合のexact更新時刻を確認し、読取専用siblingは値・presence・更新時刻すべて不変、書込documentは対象field一致と対象外不変をreadbackする。不明commitは永続証跡を残して再観測し、再書込み又は完了へ自動的に進めない。従来の全対象変更atomic契約は維持し、旧receiptをこの専用証跡へ読み替えない。コード監査やtransport応答は、固定候補の内容監査・正式保存・独立評価・本番公開確認を代替しない。
 
 ### 読取専用canonical contextによる限定生成
