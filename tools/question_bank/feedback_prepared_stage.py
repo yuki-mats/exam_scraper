@@ -31,6 +31,7 @@ from tools.question_review_console.projection import sha256_json
 from tools.question_review_console.qualification_runs import (
     QualificationRunCoordinator, QualificationRunError, _maintenance_session_phases,
     _validated_question_work_queue, stage_input_readiness_issues, candidate_targets,
+    QuestionValidationResult,
 )
 from tools.question_review_console.question_patch_proposal import assert_target_resolvable
 
@@ -38,6 +39,7 @@ REQUEST = 'feedback-prepared-stage-request/v1'
 PLAN = 'feedback-prepared-stage-plan/v1'
 PREVIEW = 'feedback-prepared-stage-preview-receipt/v1'
 SAVED = 'feedback-prepared-stage-save-receipt/v1'
+FAILED = 'feedback-prepared-stage-validation-failure/v1'
 STAGES = frozenset({'question_type', 'question_intent', 'correct_choice', 'law_context', 'explanation', 'law_audit', 'question_set'})
 LIVE_FIELDS = frozenset(DOC_COMPARE_KEYS) | {'choiceTextList', 'isCalculationQuestion', 'questionIntent'}
 REQUIRED_LIVE = frozenset({'originalQuestionId', 'qualificationId', 'isDeleted', 'isChoiceOnly'})
@@ -71,7 +73,7 @@ def _requirements(connection, authority):
 def _request(root, path, files):
     value = _json(_read(root, path, files, private=True))
     _object(value, {'schemaVersion', 'qualification', 'listGroupId', 'questionId', 'stageId', 'source',
-                    'authority', 'live', 'primaryEvidence'})
+                    'authority', 'live', 'primaryEvidence'}, {'retryFromFailure'})
     if value['schemaVersion'] != REQUEST or value['stageId'] not in STAGES:
         raise ValueError('dedicated single-stage request required')
     for field in ('qualification', 'listGroupId', 'questionId'):
@@ -124,7 +126,175 @@ def _request(root, path, files):
         raise ValueError('fixed primary evidence required')
     for evidence in value['primaryEvidence']:
         _ref(root, evidence, files, private=True, decode=False)
+    if 'retryFromFailure' in value:
+        _ref(root, value['retryFromFailure'], files, private=True, decode=False)
     return value
+
+
+def _request_identity(request):
+    return {key: value for key, value in request.items() if key != 'retryFromFailure'}
+
+
+def _preparation_input_hash(plan):
+    """Bind complete prospective inputs, including retry ancestry, before preview."""
+    return sha256_json({key: value for key, value in plan.items()
+                        if key not in ('preparationBinding', 'commitView', 'planHash')})
+
+
+def _failed_attempt(coordinator, fixed, output, previous):
+    """Derive normal retry feedback only from the writer's persisted validation."""
+    child = coordinator.store.get(fixed['qualification'], fixed['childRunId'])
+    results = output.get('questionResults')
+    if (output.get('preview') or not isinstance(results, list) or len(results) != 1
+            or child.get('parentRunId') != fixed['parentRunId']
+            or child.get('externalApprovalRequired') is not True
+            or child.get('preparedStagePreparation') != fixed.get('preparationBinding')
+            or not fixed.get('preparationBinding')
+            or fixed['preparationBinding'].get('preparationInputHash') != _preparation_input_hash(fixed)
+            or child.get('batchQuestionResults') != results
+            or child.get('candidateTransactionOpen') is not False
+            or child.get('canonicalWriteStarted') is not False
+            or child.get('deltaUnknown') is True
+            or child.get('workVersionReceipt', {}).get('recordedCount') != 0):
+        raise ValueError('safe actual normal preview failure required')
+    result = results[0]
+    if (result.get('questionId') != fixed['request']['questionId'] or result.get('status') != 'failed'
+            or result.get('changedFiles') or result.get('policyChanged')
+            or not any(command.get('status') == 'fail' for command in result.get('commands') or [])):
+        raise ValueError('actual same-question mechanical validation failure required')
+    attempt_number = len(previous) + 1
+    normalized = QuestionValidationResult(question_id=result['questionId'], status='failed',
+        summary=str(result.get('summary') or '機械検査に失敗しました。'),
+        commands=tuple(result.get('commands') or []), changed_files=())
+    feedback = coordinator._question_feedback(child, normalized, attempt=attempt_number,
+        stage_id=fixed['stageId'], validation_issues=result.get('validationIssues') or ())
+    owners = {issue.get('ownerStageId') for issue in feedback.get('issues') or []
+              if issue.get('schemaVersion') and issue.get('ownerStageId')}
+    blocked = feedback.get('status') == 'blocked' or bool(owners and owners != {fixed['stageId']}) or attempt_number >= 3
+    attempt = {'attempt': attempt_number, 'childRunId': fixed['childRunId'],
+        'status': 'blocked' if blocked else 'failed', 'feedback': feedback,
+        'requestedModel': child.get('requestedModel'), 'requestedReasoningEffort': child.get('requestedReasoningEffort'),
+        'modelAttempt': deepcopy(child.get('modelAttempt')), 'retryable': not blocked}
+    return attempt
+
+
+def _failure_marker(path, receipt):
+    return {'ref': str(path), 'sha256': _hash(_bytes(receipt)), 'failureHash': receipt['failureHash']}
+
+
+def _save_failure(root, destination, fixed, output, *, coordinator):
+    previous = (fixed.get('retryContext') or {}).get('validationAttempts', [])
+    attempt = _failed_attempt(coordinator, fixed, output, previous)
+    _unchanged(root, fixed['inputFiles'])
+    _canonical_before(root, {'transactionBefore': fixed['canonicalInputsBefore']})
+    receipt = {'schemaVersion': FAILED, 'failedPlan': fixed, 'validationResult': output['questionResults'][0],
+        'validationAttempts': [*previous, attempt], 'retryable': attempt['retryable'],
+        'formalPatchSaved': False, 'FirestoreWritten': False}
+    receipt['failureHash'] = sha256_json(receipt)
+    # Close the wrapper parent before receipt I/O. The normal writer's terminal
+    # child is immutable; its exact failed question result remains evidence.
+    coordinator.store.update(fixed['qualification'], fixed['parentRunId'], status='failed', receiptValidated=False)
+    destination.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
+    _inside(root, destination, private=True); destination.mkdir(mode=0o700)
+    path = destination / 'failure-receipt.json'
+    _exclusive(path, _bytes(receipt))
+    marker = _failure_marker(path, receipt)
+    coordinator.store.update_question_stage(fixed['qualification'], fixed['parentRunId'], fixed['request']['questionId'],
+        fixed['stageId'], status='queued' if receipt['retryable'] else 'blocked',
+        validationAttempts=receipt['validationAttempts'], retryDeferred=receipt['retryable'],
+        error=attempt['feedback'].get('reason'), preparedStageFailure=marker)
+    coordinator.store.update(fixed['qualification'], fixed['parentRunId'], preparedStageFailure=marker,
+        status='failed', receiptValidated=False, error=attempt['feedback'].get('reason'))
+    raise ValueError('normal preview validation failed; fixed failure receipt: ' + str(path))
+
+
+def _retry_context(root, request, files, *, coordinator, connection, _consumed_by=None, _seen=()):
+    reference = request.get('retryFromFailure')
+    if reference is None:
+        return None
+    path = _inside(root, reference['ref'], private=True)
+    if str(path) in _seen or len(_seen) >= 3:
+        raise ValueError('cyclic or excessive normal failure history')
+    seen = (*_seen, str(path))
+    receipt = _ref(root, reference, files, private=True)
+    _object(receipt, {'schemaVersion', 'failedPlan', 'validationResult', 'validationAttempts', 'retryable',
+                      'formalPatchSaved', 'FirestoreWritten', 'failureHash'})
+    if (receipt['schemaVersion'] != FAILED or receipt['formalPatchSaved'] is not False
+            or receipt['FirestoreWritten'] is not False or receipt['retryable'] is not True
+            or sha256_json({k: v for k, v in receipt.items() if k != 'failureHash'}) != receipt['failureHash']):
+        raise ValueError('exact retryable normal failure receipt required')
+    fixed = receipt['failedPlan']; path = _inside(root, reference['ref'], private=True)
+    if path.name != 'failure-receipt.json' or (path.parent / 'plan.json').exists():
+        raise ValueError('dedicated failed preparation required; successful scopes cannot be retried')
+    if fixed.get('preparationBinding', {}).get('destination') != str(path.parent):
+        raise ValueError('failure belongs to another preparation destination')
+    marker = _failure_marker(path, receipt)
+    if reference['sha256'] != marker['sha256']:
+        raise ValueError('exact persisted failure receipt bytes required')
+    parent = coordinator.store.get(fixed['qualification'], fixed['parentRunId'])
+    child = coordinator.store.get(fixed['qualification'], fixed['childRunId'])
+    queue = coordinator._queue_stage(parent, fixed['request']['questionId'], fixed['stageId']) or {}
+    if (parent.get('status') != 'failed' or parent.get('preparedStageFailure') != marker
+            or child.get('preparedStagePreparation') != fixed.get('preparationBinding')
+            or not fixed.get('preparationBinding')
+            or queue.get('preparedStageFailure') != marker or queue.get('validationAttempts') != receipt['validationAttempts']):
+        raise ValueError('completed actual parent/child/queue failure evidence required')
+    if fixed['preparationBinding'].get('preparationInputHash') != _preparation_input_hash(fixed):
+        raise ValueError('immutable normal preparation inputs/ancestry changed')
+    if _request_identity(fixed['request']) != _request_identity(request):
+        raise ValueError('failure belongs to another stage/question/request input')
+    _unchanged(root, fixed['inputFiles'])
+    for relative, digest in fixed['inputFiles'].items():
+        if relative in files and files[relative] != digest:
+            raise ValueError('failure input binding conflicts')
+        files[relative] = digest
+    if (_requirements(connection, request['authority']) != fixed['taskRequirement']
+            or _live(request) != fixed['liveSnapshots']
+            or not coordinator._phase_plan_policy_is_current(fixed['qualification'], fixed['stagePlan'], fixed['stageId'])):
+        raise ValueError('failed preparation task/live/current policy changed')
+    _canonical_before(root, {'transactionBefore': fixed['canonicalInputsBefore']})
+    _require_retry_claim(root, fixed, files=files)
+    candidate = coordinator.store.load_prepared_candidate(fixed['qualification'], fixed['childRunId'],
+        input_fingerprint_value=fixed['inputFingerprint'], projected_input_hash=fixed['projectedInputHash'])
+    if candidate != fixed['preparedCandidate']:
+        raise ValueError('failed native candidate changed')
+    retry = fixed.get('retryContext')
+    previous = retry.get('validationAttempts') if isinstance(retry, dict) else []
+    if receipt['validationAttempts'][:-1] != previous:
+        raise ValueError('failure history differs from immutable preparation ancestry')
+    if retry is not None:
+        ancestor = _retry_context(root, fixed['request'], files, coordinator=coordinator,
+            connection=connection, _consumed_by=fixed, _seen=seen)
+        if ancestor != retry:
+            raise ValueError('referenced actual failure history/claim chain differs')
+    elif 'retryFromFailure' in fixed['request']:
+        raise ValueError('fixed retry ancestry required')
+    attempt = _failed_attempt(coordinator, fixed, {'questionResults': [receipt['validationResult']]}, previous)
+    if receipt['validationAttempts'] != [*previous, attempt] or receipt['retryable'] != attempt['retryable']:
+        raise ValueError('normal failed result/feedback differs')
+    claim = path.parent / 'retry-claim.json'
+    if _consumed_by is not None:
+        if _consumed_by.get('retryContext', {}).get('failure') != reference:
+            raise ValueError('failure chain points to another consumed preparation')
+        _require_retry_claim(root, _consumed_by, files=files)
+    elif claim.exists():
+        raise ValueError('failure already consumed or interrupted; inspect retry claim, do not replay')
+    return {'failure': reference, 'failureHash': receipt['failureHash'],
+            'validationAttempts': receipt['validationAttempts'], 'failedInputFingerprint': fixed['inputFingerprint'],
+            'failedProjectedInputHash': fixed['projectedInputHash']}
+
+
+def _require_retry_claim(root, plan, *, files=None):
+    if 'retryContext' not in plan:
+        return
+    retry = plan['retryContext']
+    claim = _json(_read(root, _inside(root, retry['failure']['ref'], private=True).parent / 'retry-claim.json',
+                        files if files is not None else {}, private=True))
+    expected = {'schemaVersion': 'feedback-prepared-stage-retry-claim/v1', 'failureHash': retry['failureHash'],
+        'parentRunId': plan['parentRunId'], 'requestPath': plan['requestPath'],
+        'requestHash': plan['inputFiles'][plan['requestPath']]}
+    if plan['request'].get('retryFromFailure') != retry['failure'] or claim != expected:
+        raise ValueError('same fixed retry failure/claim required')
 
 
 def _live(request):
@@ -217,6 +387,7 @@ def prepare(root, request_path, destination, *, coordinator, connection):
         raise ValueError('exclusive new private plan directory required')
     files = {}; request = _request(root, request_path, files)
     requirement = _requirements(connection, request['authority']); _authority_matches(request, requirement)
+    retry = _retry_context(root, request, files, coordinator=coordinator, connection=connection)
     live = _live(request)
     qualification, stage = request['qualification'], request['stageId']
     plan = coordinator._plan(qualification, stage, 'refresh', None, stage_ids=[stage],
@@ -248,51 +419,79 @@ def prepare(root, request_path, destination, *, coordinator, connection):
             'bytesHex': target_path.read_bytes().hex() if target_path.is_file() else None})
     parent = coordinator._create_execution_run(plan, status='queued', prompt=prompt, append_receipt_contract=False)
     parent = coordinator.store.update(qualification, parent['runId'], externalApprovalRequired=True)
-    spec = _stage_inputs(coordinator, request, stage_plan, parent, prompt)
-    projected_bytes = _read(root, root / spec['target']['_projectedInputPath'], files)
-    if _hash(projected_bytes) != spec['projectionUpdate']['changes']['projectedInputHash']:
-        raise ValueError('normal projected input bytes changed before generation')
-    parent = coordinator.store.get(qualification, parent['runId'])
-    prepared = coordinator._prepare_question_candidate_attempt(qualification, parent['runId'], [spec], {'id': stage}, prompt,
-        parent, parent=parent, emit=lambda _: None)
-    route = prepared.get('attemptMetadata') or {}
-    if route.get('fallbackUsed') is not False or route.get('backendKind') != 'codex_app_server':
-        raise ValueError('configured native primary attempt required; fallback prohibited')
-    coordinator._run_structured_question(qualification, prepared['childId'], prepared['prompt'], lambda _: None,
-        batch_plan=prepared['batchPlan'], stage_id=stage, pipeline_stop=threading.Event(),
-        prepared_records=prepared['recordsByQuestion'], prepared_source_records=prepared['sourceRecordsByQuestion'],
-        prepared_targets=prepared['candidateTargetsByQuestion'], model=prepared['requestedModel'],
-        maintenance_attempt=prepared.get('attemptRoute'), reasoning_effort=prepared['requestedReasoningEffort'],
-        input_fingerprint_value=prepared['inputFingerprint'], projected_input_hash=prepared['projectedInputHash'], prepare_only=True)
-    fixed = {'schemaVersion': PLAN, 'qualification': qualification, 'stageId': stage,
-        'parentRunId': parent['runId'], 'childRunId': prepared['childId'],
-        'inputFingerprint': prepared['inputFingerprint'], 'projectedInputHash': prepared['projectedInputHash'],
-        'request': request, 'requestPath': str(Path(request_path).relative_to(root)), 'taskRequirement': requirement,
-        'liveSnapshots': live, 'liveMembershipReader': 'feedback_verified_save._snapshots',
-        'liveMembershipPredicate': {'originalQuestionId': request['live']['originalQuestionId'],
-                                    'isDeleted': False, 'isChoiceOnly': False},
-        'sourceToLiveMappingApproved': False, 'stagePlan': prepared['batchPlan'], 'inputFiles': files,
-        'groupInputSelection': selected_files, 'canonicalInputsBefore': canonical_inputs_before,
-        'formalPatchSaved': False, 'FirestoreWritten': False}
-    candidate = coordinator.store.load_prepared_candidate(qualification, prepared['childId'],
-        input_fingerprint_value=fixed['inputFingerprint'], projected_input_hash=fixed['projectedInputHash'])
-    fixed['preparedCandidate'] = candidate
-    output = _run(coordinator, fixed, preview=True)
-    if not output.get('preview') or output['preview'].get('recordWorkVersion') is not True:
-        raise ValueError('normal writer did not produce a valid prospective save')
-    fixed['commitView'] = output['preview']
-    _unchanged(root, files)
-    _canonical_before(root, {'transactionBefore': canonical_inputs_before})
-    if _requirements(connection, request['authority']) != requirement or _live(request) != live:
-        raise ValueError('task/live inputs changed during preparation')
-    fixed['planHash'] = sha256_json(fixed)
-    destination.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
-    _inside(root, destination, private=True); destination.mkdir(mode=0o700)
-    _exclusive(destination / 'plan.json', _bytes(fixed))
-    receipt = _preview_receipt(fixed)
-    _exclusive(destination / 'preview-receipt.json', _bytes(receipt))
-    load_plan(root, destination / 'plan.json', coordinator=coordinator, connection=connection)
-    return receipt
+    try:
+        spec = _stage_inputs(coordinator, request, stage_plan, parent, prompt)
+        projected_bytes = _read(root, root / spec['target']['_projectedInputPath'], files)
+        if _hash(projected_bytes) != spec['projectionUpdate']['changes']['projectedInputHash']:
+            raise ValueError('normal projected input bytes changed before generation')
+        if retry:
+            if ((spec.get('queueStage') or {}).get('inputFingerprint') != retry['failedInputFingerprint']
+                    or spec['projectionUpdate']['changes']['projectedInputHash'] != retry['failedProjectedInputHash']):
+                raise ValueError('retry requires the same normal stage input and projected bytes')
+            claim = {'schemaVersion': 'feedback-prepared-stage-retry-claim/v1', 'failureHash': retry['failureHash'],
+                'parentRunId': parent['runId'], 'requestPath': str(Path(request_path).relative_to(root)),
+                'requestHash': _hash(Path(request_path).read_bytes())}
+            claim_path = _inside(root, retry['failure']['ref'], private=True).parent / 'retry-claim.json'
+            _exclusive(claim_path, _bytes(claim))
+            _read(root, claim_path, files, private=True)
+            coordinator.store.update_question_stage(qualification, parent['runId'], request['questionId'], stage,
+                validationAttempts=retry['validationAttempts'], priorValidationFeedback=[], retryModelRequired=True)
+            parent = coordinator.store.get(qualification, parent['runId'])
+            spec['queueStage'] = coordinator._queue_stage(parent, request['questionId'], stage)
+        parent = coordinator.store.get(qualification, parent['runId'])
+        _unchanged(root, files)
+        prepared = coordinator._prepare_question_candidate_attempt(qualification, parent['runId'], [spec], {'id': stage}, prompt,
+            parent, parent=parent, emit=lambda _: None)
+        route = prepared.get('attemptMetadata') or {}
+        if route.get('fallbackUsed') is not False or route.get('backendKind') != 'codex_app_server':
+            raise ValueError('configured native primary attempt required; fallback prohibited')
+        coordinator._run_structured_question(qualification, prepared['childId'], prepared['prompt'], lambda _: None,
+            batch_plan=prepared['batchPlan'], stage_id=stage, pipeline_stop=threading.Event(),
+            prepared_records=prepared['recordsByQuestion'], prepared_source_records=prepared['sourceRecordsByQuestion'],
+            prepared_targets=prepared['candidateTargetsByQuestion'], model=prepared['requestedModel'],
+            maintenance_attempt=prepared.get('attemptRoute'), reasoning_effort=prepared['requestedReasoningEffort'],
+            input_fingerprint_value=prepared['inputFingerprint'], projected_input_hash=prepared['projectedInputHash'], prepare_only=True)
+        fixed = {'schemaVersion': PLAN, 'qualification': qualification, 'stageId': stage,
+            'parentRunId': parent['runId'], 'childRunId': prepared['childId'],
+            'inputFingerprint': prepared['inputFingerprint'], 'projectedInputHash': prepared['projectedInputHash'],
+            'request': request, 'requestPath': str(Path(request_path).relative_to(root)), 'taskRequirement': requirement,
+            'liveSnapshots': live, 'liveMembershipReader': 'feedback_verified_save._snapshots',
+            'liveMembershipPredicate': {'originalQuestionId': request['live']['originalQuestionId'],
+                                        'isDeleted': False, 'isChoiceOnly': False},
+            'sourceToLiveMappingApproved': False, 'stagePlan': prepared['batchPlan'], 'inputFiles': files,
+            'groupInputSelection': selected_files, 'canonicalInputsBefore': canonical_inputs_before,
+            'formalPatchSaved': False, 'FirestoreWritten': False}
+        if retry:
+            fixed['retryContext'] = retry
+        candidate = coordinator.store.load_prepared_candidate(qualification, prepared['childId'],
+            input_fingerprint_value=fixed['inputFingerprint'], projected_input_hash=fixed['projectedInputHash'])
+        fixed['preparedCandidate'] = candidate
+        fixed['preparationBinding'] = {'schemaVersion': 'feedback-prepared-stage-attempt-binding/v1',
+            'destination': str(destination), 'requestHash': files[fixed['requestPath']],
+            'inputFingerprint': fixed['inputFingerprint'], 'projectedInputHash': fixed['projectedInputHash'],
+            'candidateHash': candidate['contentHash'], 'preparationInputHash': _preparation_input_hash(fixed)}
+        coordinator.store.update(qualification, prepared['childId'], preparedStagePreparation=fixed['preparationBinding'])
+        output = _run(coordinator, fixed, preview=True)
+        if not output.get('preview') or output['preview'].get('recordWorkVersion') is not True:
+            if _requirements(connection, request['authority']) != requirement or _live(request) != live:
+                raise ValueError('task/live inputs changed during failed preparation')
+            _save_failure(root, destination, fixed, output, coordinator=coordinator)
+        fixed['commitView'] = output['preview']
+        _unchanged(root, files)
+        _canonical_before(root, {'transactionBefore': canonical_inputs_before})
+        if _requirements(connection, request['authority']) != requirement or _live(request) != live:
+            raise ValueError('task/live inputs changed during preparation')
+        fixed['planHash'] = sha256_json(fixed)
+        destination.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
+        _inside(root, destination, private=True); destination.mkdir(mode=0o700)
+        _exclusive(destination / 'plan.json', _bytes(fixed))
+        receipt = _preview_receipt(fixed)
+        _exclusive(destination / 'preview-receipt.json', _bytes(receipt))
+        load_plan(root, destination / 'plan.json', coordinator=coordinator, connection=connection)
+        return receipt
+    except BaseException as exc:
+        coordinator.store.update(qualification, parent['runId'], status='failed', receiptValidated=False, error=str(exc))
+        raise
 
 
 def _preview_receipt(plan):
@@ -336,9 +535,15 @@ def load_plan(root, path, *, coordinator, connection, saved=False):
         input_fingerprint_value=plan['inputFingerprint'], projected_input_hash=plan['projectedInputHash'])
     if current != plan['preparedCandidate']:
         raise ValueError('prepared candidate drift')
+    _require_retry_claim(root, plan)
     child = coordinator.store.get(plan['qualification'], plan['childRunId'])
     if child.get('externalApprovalRequired') is not True or child.get('parentRunId') != plan['parentRunId']:
         raise ValueError('required independent approval boundary changed')
+    if 'preparationBinding' in plan and child.get('preparedStagePreparation') != plan['preparationBinding']:
+        raise ValueError('fixed normal preparation binding changed')
+    if ('preparationInputHash' in plan.get('preparationBinding', {})
+            and plan['preparationBinding']['preparationInputHash'] != _preparation_input_hash(plan)):
+        raise ValueError('immutable normal preparation inputs/ancestry changed')
     if not coordinator._phase_plan_policy_is_current(plan['qualification'], plan['stagePlan'], plan['stageId']):
         raise ValueError('stage policy changed')
     changed_paths = {p['path'] for p in plan['commitView']['patches']} if saved else set()

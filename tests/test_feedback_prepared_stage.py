@@ -416,6 +416,201 @@ class PreparedStageTests(unittest.TestCase):
             patch_path.write_bytes(patch_path.read_bytes() + b' ')
             with self.assertRaises(ValueError): self.apply()
 
+    def failed_preparation(self):
+        with patch.object(self.coordinator, '_validate_record_scope', side_effect=ValueError('fixture scope validation failed')):
+            with self.assertRaisesRegex(ValueError, 'fixed failure receipt'):
+                self.prepare()
+        path = self.output / 'failure-receipt.json'
+        receipt = stage._json(path.read_bytes())
+        self.assertEqual(receipt['schemaVersion'], stage.FAILED)
+        self.assertFalse(receipt['formalPatchSaved'])
+        self.assertFalse(receipt['FirestoreWritten'])
+        return path, receipt
+
+    def retry_request(self, path):
+        self.request = {**self.request, 'retryFromFailure': {'ref': str(path), 'sha256': stage._hash(path.read_bytes())}}
+        self.request_path = self.private / ('retry-request-' + str(len(self.model.calls)) + '.json')
+        self.write(self.request_path, self.request)
+        self.output = self.private / ('retry-plan-' + str(len(self.model.calls)))
+
+    def test_real_preview_failure_is_recorded_and_normal_retry_receives_machine_feedback(self):
+        path, receipt = self.failed_preparation()
+        self.assertTrue(receipt['retryable'])
+        self.assertEqual(receipt['validationAttempts'][0]['status'], 'failed')
+        fixed = receipt['failedPlan']
+        self.assertFalse((path.parent / 'plan.json').exists())
+        parent = self.coordinator.store.get('new-exam', fixed['parentRunId'])
+        self.assertEqual(parent['status'], 'failed')
+        queue = self.coordinator._queue_stage(parent, self.request['questionId'], self.request['stageId'])
+        self.assertEqual(queue['validationAttempts'], receipt['validationAttempts'])
+        self.retry_request(path)
+        self.prepare(); plan = self.plan()
+        self.assertEqual(plan['retryContext']['failureHash'], receipt['failureHash'])
+        child = self.coordinator.store.get('new-exam', plan['childRunId'])
+        self.assertTrue(child['retryModelFallback'])
+        self.assertEqual(child['modelAttempt']['attemptMode'], 'retry')
+        self.assertIn('fixture scope validation failed', self.model.calls[-1][0])
+        self.assertIn('previousValidationFeedback', self.model.calls[-1][0])
+        self.assertEqual(len(self.model.calls), 2)
+        # Saving continues through the unchanged native approval boundary.
+        with self.assertRaises(ValueError): self.apply()
+        self.assertFalse((self.output / 'save-receipt.json').exists())
+        with patch.object(stage, 'verify_independent_approval', return_value={'reviewerSessionId': 'independent'}):
+            saved = self.apply()
+            self.assertTrue(saved['formalPatchSaved'])
+            self.assertEqual(saved, self.apply())
+        self.assertEqual(len(self.model.calls), 2)
+
+    def test_failure_reference_hash_foreign_identity_and_actual_evidence_tampering_are_rejected(self):
+        path, receipt = self.failed_preparation()
+        self.retry_request(path)
+        original = deepcopy(self.request)
+        for mutation in ('hash', 'stage', 'authority', 'candidate', 'failure-status', 'marker'):
+            self.request = deepcopy(original)
+            if mutation == 'hash': self.request['retryFromFailure']['sha256'] = '0' * 64
+            elif mutation == 'stage': self.request['stageId'] = 'question_intent'
+            elif mutation == 'authority':
+                self.connection.execute("UPDATE improvement_tasks SET need='changed'")
+            elif mutation == 'failure-status':
+                changed = deepcopy(receipt); changed['validationResult']['status'] = 'succeeded'
+                changed['failureHash'] = stage.sha256_json({k: v for k, v in changed.items() if k != 'failureHash'})
+                self.write(path, changed)
+                self.request['retryFromFailure']['sha256'] = stage._hash(path.read_bytes())
+            else:
+                self.coordinator.store.update('new-exam', receipt['failedPlan']['parentRunId'], preparedStageFailure=None)
+            self.write(self.request_path, self.request)
+            with self.subTest(mutation=mutation), self.assertRaises(Exception):
+                if mutation == 'candidate':
+                    with patch.object(self.coordinator.store, 'load_prepared_candidate', return_value={'forged': True}):
+                        self.prepare()
+                else:
+                    self.prepare()
+            self.assertEqual(len(self.model.calls), 1)
+            self.connection.execute("UPDATE improvement_tasks SET need='設問の性質'")
+            self.write(path, receipt)
+            marker = stage._failure_marker(path, receipt)
+            self.coordinator.store.update('new-exam', receipt['failedPlan']['parentRunId'], preparedStageFailure=marker)
+
+    def test_retry_claim_prevents_duplicate_and_interrupted_replays(self):
+        path, _ = self.failed_preparation()
+        self.retry_request(path)
+        with patch.object(self.coordinator, '_prepare_question_candidate_attempt', side_effect=RuntimeError('interrupted before model')):
+            with self.assertRaisesRegex(RuntimeError, 'interrupted'): self.prepare()
+        self.assertTrue((path.parent / 'retry-claim.json').is_file())
+        with self.assertRaisesRegex(ValueError, 'consumed or interrupted'): self.prepare()
+        self.assertEqual(len(self.model.calls), 1)
+
+    def test_failure_receipt_interruption_cannot_be_used_without_completed_runtime_markers(self):
+        original = stage._exclusive
+        def write_then_interrupt(path, value):
+            original(path, value)
+            if path.name == 'failure-receipt.json': raise OSError('failure receipt interrupted')
+        with patch.object(stage, '_exclusive', side_effect=write_then_interrupt), \
+                patch.object(self.coordinator, '_validate_record_scope', side_effect=ValueError('validation failed')):
+            with self.assertRaisesRegex(OSError, 'failure receipt interrupted'): self.prepare()
+        path = self.output / 'failure-receipt.json'
+        self.retry_request(path)
+        with self.assertRaisesRegex(ValueError, 'parent/child/queue'): self.prepare()
+        self.assertEqual(len(self.model.calls), 1)
+
+    def test_failed_input_policy_live_and_success_scope_cannot_be_substituted(self):
+        path, receipt = self.failed_preparation()
+        self.retry_request(path)
+        for mutation in ('policy', 'live', 'old-request', 'canonical'):
+            target = None; original = None
+            if mutation == 'policy': target = self.root / 'config/question_maintenance_workflow.toml'
+            elif mutation == 'old-request': target = self.root / receipt['failedPlan']['requestPath']
+            elif mutation == 'canonical':
+                entry = receipt['failedPlan']['canonicalInputsBefore'][0]; target = self.root / entry['path']
+            else: self.snapshots['live-a']['updateTimeExact'] = '2026-10-20T01:00:00Z'
+            if target:
+                original = target.read_bytes() if target.is_file() else None
+                self.write(target, original + b'\n' if original else b'{}')
+            try:
+                with self.subTest(mutation=mutation), self.assertRaises(ValueError): self.prepare()
+                self.assertEqual(len(self.model.calls), 1)
+            finally:
+                if target:
+                    if original is None: target.unlink()
+                    else: target.write_bytes(original)
+                self.snapshots['live-a']['updateTimeExact'] = '2026-10-20T00:00:00.123456789Z'
+        self.request['retryFromFailure'] = {'ref': str(path.parent / 'preview-receipt.json'), 'sha256': '0' * 64}
+        self.write(self.request_path, self.request)
+        with self.assertRaises((ValueError, FileNotFoundError)): self.prepare()
+        self.assertEqual(len(self.model.calls), 1)
+
+    def test_three_actual_quality_failures_are_bounded_by_normal_retry_policy(self):
+        for number in range(1, 4):
+            path, receipt = self.failed_preparation()
+            self.assertEqual(len(receipt['validationAttempts']), number)
+            self.assertEqual(receipt['retryable'], number < 3)
+            self.retry_request(path)
+        with self.assertRaisesRegex(ValueError, 'retryable normal failure'): self.prepare()
+        self.assertEqual(len(self.model.calls), 3)
+
+    def test_self_reported_history_cannot_reset_immutable_native_attempt_count(self):
+        first_path, _ = self.failed_preparation()
+        self.retry_request(first_path)
+        path, actual = self.failed_preparation()
+        self.assertEqual(len(actual['validationAttempts']), 2)
+        self.retry_request(path)
+        request_before = deepcopy(self.request)
+        fixed = actual['failedPlan']
+        child_before = self.coordinator.store.get('new-exam', fixed['childRunId'])
+        for mutation in ('counter-only', 'counter-and-context', 'context-and-binding', 'chain-swap'):
+            forged = deepcopy(actual)
+            # This is the reported exploit: rewrite only the receipt and mutable
+            # wrapper records, while leaving the real terminal native child intact.
+            forged['validationAttempts'] = [stage._failed_attempt(self.coordinator, fixed,
+                {'questionResults': [actual['validationResult']]}, [])]
+            if mutation != 'counter-only':
+                forged['failedPlan']['retryContext']['validationAttempts'] = []
+            if mutation == 'chain-swap':
+                forged['failedPlan']['retryContext']['failure'] = {'ref': str(path), 'sha256': '0' * 64}
+            if mutation in ('context-and-binding', 'chain-swap'):
+                forged['failedPlan']['preparationBinding']['preparationInputHash'] = stage._preparation_input_hash(forged['failedPlan'])
+            forged['failureHash'] = stage.sha256_json({k: v for k, v in forged.items() if k != 'failureHash'})
+            self.write(path, forged)
+            marker = stage._failure_marker(path, forged)
+            self.coordinator.store.update('new-exam', fixed['parentRunId'], preparedStageFailure=marker)
+            self.coordinator.store.update_question_stage('new-exam', fixed['parentRunId'], self.request['questionId'],
+                self.request['stageId'], preparedStageFailure=marker, validationAttempts=forged['validationAttempts'])
+            self.request = deepcopy(request_before)
+            self.request['retryFromFailure']['sha256'] = stage._hash(path.read_bytes())
+            self.write(self.request_path, self.request)
+            with self.subTest(mutation=mutation), self.assertRaisesRegex(ValueError, 'ancestry|parent/child/queue'):
+                self.prepare()
+            self.assertEqual(len(self.model.calls), 2)
+            self.assertEqual(child_before, self.coordinator.store.get('new-exam', fixed['childRunId']))
+        # Restore the genuine chain; it permits exactly the third candidate.
+        self.write(path, actual)
+        marker = stage._failure_marker(path, actual)
+        self.coordinator.store.update('new-exam', fixed['parentRunId'], preparedStageFailure=marker)
+        self.coordinator.store.update_question_stage('new-exam', fixed['parentRunId'], self.request['questionId'],
+            self.request['stageId'], preparedStageFailure=marker, validationAttempts=actual['validationAttempts'])
+        self.request = request_before; self.write(self.request_path, self.request)
+        _, final_failure = self.failed_preparation()
+        self.assertEqual(len(final_failure['validationAttempts']), 3)
+        self.assertFalse(final_failure['retryable'])
+        self.assertEqual(len(self.model.calls), 3)
+
+    def test_ancestor_claim_and_receipt_are_verified_through_the_actual_fixed_chain(self):
+        first_path, first = self.failed_preparation()
+        self.retry_request(first_path)
+        path, _ = self.failed_preparation()
+        self.retry_request(path)
+        claim_path = first_path.parent / 'retry-claim.json'
+        claim = stage._json(claim_path.read_bytes())
+        for mutation in ('claim-swap', 'claim-missing', 'receipt-drift'):
+            if mutation == 'claim-swap':
+                self.write(claim_path, {**claim, 'parentRunId': 'another-real-or-fake-parent'})
+            elif mutation == 'claim-missing': claim_path.unlink()
+            else: self.write(first_path, {**first, 'retryable': False})
+            with self.subTest(mutation=mutation), self.assertRaises((ValueError, FileNotFoundError)):
+                self.prepare()
+            self.assertEqual(len(self.model.calls), 2)
+            self.write(claim_path, claim); self.write(first_path, first)
+
 
 
 if __name__ == '__main__': unittest.main()
