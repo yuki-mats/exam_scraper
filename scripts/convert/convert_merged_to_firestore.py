@@ -747,7 +747,7 @@ def upload_choice_text_for_choice(question_body: dict, choice_index: int, fallba
 
 
 def upload_question_body_text_for_choice(question_body: dict, choice_index: int) -> str:
-    """Return the body text that should be written to upload JSON."""
+    """Return the original body, preserving reviewed Firestore provenance."""
     if should_preserve_firestore_source(question_body):
         source_question = firestore_source_question_for_choice(question_body, choice_index)
         if source_question:
@@ -755,6 +755,23 @@ def upload_question_body_text_for_choice(question_body: dict, choice_index: int)
             if text:
                 return text
     return get_original_question_body_text(question_body)
+
+
+def upload_display_question_body_text_for_choice(question_body: dict, choice_index: int) -> str:
+    """Select public TF text independently of the preserved original body."""
+    if should_preserve_firestore_source(question_body):
+        source_question = firestore_source_question_for_choice(question_body, choice_index)
+        if source_question:
+            display_body = source_question.get("questionBodyText")
+            if isinstance(display_body, str) and display_body.strip():
+                return display_body
+            # Legacy Firestore snapshots have only the original body. Keep the
+            # reviewed source text rather than substituting a new merged body.
+            return upload_question_body_text_for_choice(question_body, choice_index)
+    display_body = question_body.get("questionBodyText")
+    if isinstance(display_body, str) and display_body.strip():
+        return display_body
+    return upload_question_body_text_for_choice(question_body, choice_index)
 
 
 def question_set_id_for_choice(question_body: dict, choice_index: int) -> str | None:
@@ -1027,9 +1044,10 @@ def convert_true_false_to_firestore(question_body: dict) -> list[dict]:
         )
 
         # questionText: questionBodyText（改行除去） + 該当の選択肢1つ（改行除去）を[quote][/quote]で囲む
-        upload_question_body = upload_question_body_text_for_choice(question_body, i)
+        original_question_body = upload_question_body_text_for_choice(question_body, i)
+        display_question_body = upload_display_question_body_text_for_choice(question_body, i)
         question_body_text = question_body_for_answer(
-            question_body, body_text=upload_question_body
+            question_body, body_text=display_question_body
         ).replace('\n', '')
         choice_text = upload_choice.replace('\n', '')
         if choice_text:
@@ -1073,7 +1091,8 @@ def convert_true_false_to_firestore(question_body: dict) -> list[dict]:
             original_question_choice_image_urls=choice_images,
             question_set_id=question_set_id_for_choice(question_body, i),
             suggested_choice_index=i,
-            originalQuestionBodyText=upload_question_body,
+            originalQuestionBodyText=original_question_body,
+            questionBodyText=question_body_text,
             isLawRelated=is_law_related,
             lawReferences=format_choice_law_references_with_group_fallback(
                 question_body.get("lawReferences", []),

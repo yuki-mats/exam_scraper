@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+from copy import deepcopy
 import tempfile
 import unittest
 from pathlib import Path
@@ -52,6 +53,87 @@ class ConvertMergedToFirestoreTests(unittest.TestCase):
         self.assertTrue(public["questionBodyText"].endswith("解答対象：a"))
         self.assertEqual(public["originalQuestionBodyText"], question["questionBodyText"])
         self.assertEqual(question, before)
+
+    @staticmethod
+    def _tf_display_question() -> dict:
+        return {
+            "original_question_id": "neutral-tf", "questionBodyText": "次の記述は\n正しいか。",
+            "originalQuestionBodyText": "誤っているものはいくつあるか。",
+            "choiceTextList": ["記述A。", "記述B。", "記述C。"],
+            "correctChoiceText": ["間違い", "正しい", "正しい"],
+            "explanationText": ["間違い。", "正しい。", "正しい。"],
+            "questionType": "true_false", "questionIntent": "select_incorrect",
+            "answer_result_text": "正解は 1 です。", "examYear": 2026, "questionLabel": "問1",
+        }
+
+    def test_tf_public_body_and_original_body_are_independent_without_truth_inversion(self):
+        for original_key in ("originalQuestionBodyText", "original_question_body_text"):
+            with self.subTest(original_key=original_key):
+                question = self._tf_display_question()
+                original = question.pop("originalQuestionBodyText")
+                question[original_key] = original
+                before = deepcopy(question)
+                negative = convert_question_to_firestore(question)
+                positive = convert_question_to_firestore({**question, "questionIntent": "select_correct"})
+                self.assertEqual(question, before)
+                self.assertEqual([doc["correctChoiceText"] for doc in negative], question["correctChoiceText"])
+                self.assertEqual([doc["correctChoiceText"] for doc in positive], question["correctChoiceText"])
+                self.assertEqual([doc["questionId"] for doc in negative], [doc["questionId"] for doc in positive])
+                for doc, choice in zip(negative, question["choiceTextList"]):
+                    self.assertEqual(doc["originalQuestionBodyText"], original)
+                    self.assertEqual(doc["originalQuestionChoiceText"], choice)
+                    self.assertEqual(doc["questionBodyText"], "次の記述は正しいか。")
+                    self.assertEqual(doc["questionText"], f"{doc['questionBodyText']}[quote]{choice}[/quote]")
+                    self.assertNotIn(original, doc["questionText"])
+
+    def test_tf_legacy_missing_original_body_keeps_the_public_body_as_original(self):
+        question = self._tf_display_question(); question.pop("originalQuestionBodyText")
+        converted = convert_question_to_firestore(question)
+        for doc, choice in zip(converted, question["choiceTextList"]):
+            self.assertEqual(doc["originalQuestionBodyText"], question["questionBodyText"])
+            self.assertEqual(doc["questionText"], f"{doc['questionBodyText']}[quote]{choice}[/quote]")
+
+    def test_tf_legacy_missing_display_body_uses_the_original_for_both_display_fields(self):
+        for missing in (None, ""):
+            with self.subTest(display=missing):
+                question = self._tf_display_question()
+                if missing is None: question.pop("questionBodyText")
+                else: question["questionBodyText"] = missing
+                for doc in convert_question_to_firestore(question):
+                    self.assertEqual(doc["questionBodyText"], question["originalQuestionBodyText"])
+                    self.assertTrue(doc["questionText"].startswith(doc["questionBodyText"] + "[quote]"))
+
+    def test_reviewed_firestore_tf_source_preserves_its_display_original_and_ids(self):
+        for legacy in (False, True):
+            with self.subTest(legacy=legacy):
+                question = self._tf_display_question()
+                question["sourceConflictReviewDecision"] = "preserve_firestore"
+                question["firestoreQuestionIds"] = ["live-a", "live-b", "live-c"]
+                question["firestoreSourceQuestions"] = [
+                    {"questionId": qid, "questionBodyText": "公開済みの中立本文。",
+                     "originalQuestionBodyText": "公開済み公式原文。", "originalQuestionChoiceText": f"公開済み記述{qid}。"}
+                    for qid in question["firestoreQuestionIds"]]
+                if legacy:
+                    for source in question["firestoreSourceQuestions"]: source.pop("questionBodyText")
+                before = deepcopy(question)
+                for doc, source in zip(convert_question_to_firestore(question), question["firestoreSourceQuestions"]):
+                    display = source.get("questionBodyText", source["originalQuestionBodyText"])
+                    self.assertEqual(doc["questionId"], source["questionId"])
+                    self.assertEqual(doc["originalQuestionBodyText"], source["originalQuestionBodyText"])
+                    self.assertEqual(doc["questionBodyText"], display)
+                    self.assertEqual(doc["questionText"], f"{display}[quote]{source['originalQuestionChoiceText']}[/quote]")
+                self.assertEqual(question, before)
+
+    def test_non_tf_formats_keep_separate_display_and_original_body(self):
+        for kind in ("flash_card", "group_choice", "single_choice"):
+            with self.subTest(question_type=kind):
+                question = self._tf_display_question()
+                question.update(questionType=kind, questionIntent="select_correct", correctChoiceText=["正しい", "間違い", "間違い"])
+                for doc in convert_question_to_firestore(question):
+                    self.assertEqual(doc["originalQuestionBodyText"], question["originalQuestionBodyText"])
+                    self.assertEqual(doc["questionBodyText"], "次の記述は正しいか。")
+                    if not doc["isChoiceOnly"]:
+                        self.assertEqual(doc["questionText"], doc["questionBodyText"])
 
     def test_exam_name_uses_qualification_context_before_legacy_group(self) -> None:
         for code, name in [("nw", "ネットワークスペシャリスト"), ("sg", "情報セキュリティマネジメント")]:

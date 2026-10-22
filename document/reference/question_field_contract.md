@@ -134,7 +134,7 @@
 | 元問題ID | `originalQuestionId` | string | 任意 | 必須相当 | 原則omit | `00_source` では `public_question_id` または `original_question_id` が必須。 | scraper / convert | grouped choice、既存 ID 維持、source conflict 監査の軸。 |
 | 元設問本文 | `originalQuestionBodyText` | string | 任意 | 必須 | 原則omit | upload 前に空白不可。 | scraper / convert | Firestore上で分割する前の基礎問題。公式過去問は元設問を保持し、独自問題は`05_originalized`の本文を入れて取得元の原文を入れない。 |
 | 元選択肢本文 | `originalQuestionChoiceText` | string | 任意 | 条件付き必須 | 原則omit | `true_false` の表示対象では本文または画像が必須。 | convert | 独自問題では`05_originalized`の選択肢を使う。DB契約はstring。中間・legacyでは配列由来が残るため、最終upload形を確認する。 |
-| 画面用設問本文 | `questionBodyText` | string | 任意 | 推奨 | 原則omit | string。 | convert | `questionText` 生成の元。改行除去されることがある。 |
+| 画面用設問本文 | `questionBodyText` | string | 任意 | 推奨 | 原則omit | string。 | convert | `questionText` 生成の元。TFではこの表示本文と当該IDの原記述を結合し、公式原題幹を優先して表示へ戻さない。`originalQuestionBodyText`は別に保全する。改行除去されることがある。 |
 | 問題文 | `questionText` | string | 必須 | 必須 | 不可 | 空文字不可。 | convert | アプリで実際に表示・検索する主文。 |
 | 問題タイプ | `questionType` | string enum | 必須 | 必須 | 不可 | DBは`single_choice`, `true_false`, `flash_card`, `fill_in_blank`, `group_choice`。公式問題の整備は`true_false`, `flash_card`, `group_choice`だけ。 | `10_questionType_fixed` | 回答体験の分類。資格ごとに別の意味を持たせない。 |
 | 問題の学び方 | `questionLearningPatternId` | string enum | 任意 | 03実行後は必須 | 原則omit | `config/question_learning_patterns.json`のIDのいずれか。 | `21_explanationText_added`, convert | 資格横断で練習する考え方の主分類。`questionSetId`と独立に確定する。互換アプリの公開確認までupload対象から除外する。 |
