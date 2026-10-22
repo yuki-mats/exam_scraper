@@ -574,7 +574,7 @@ class WorkflowCatalogTests(unittest.TestCase):
         self.assertEqual(version_by_stage["originalize"], "2.10")
         self.assertEqual(version_by_stage["question_type"], "6.6")
         self.assertEqual(version_by_stage["question_intent"], "5.3")
-        self.assertEqual(version_by_stage["correct_choice"], "5.10")
+        self.assertEqual(version_by_stage["correct_choice"], "5.11")
         self.assertEqual(version_by_stage["question_set"], "2.0")
         self.assertEqual(
             stage_by_id["question_type"]["agentPolicy"]["independent_review"],
