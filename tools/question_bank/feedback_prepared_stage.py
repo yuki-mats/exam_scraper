@@ -40,6 +40,9 @@ PLAN = 'feedback-prepared-stage-plan/v1'
 PREVIEW = 'feedback-prepared-stage-preview-receipt/v1'
 SAVED = 'feedback-prepared-stage-save-receipt/v1'
 FAILED = 'feedback-prepared-stage-validation-failure/v1'
+HELD = 'feedback-prepared-stage-hold-receipt/v1'
+HOLD_CONTRACT = 'genuine-model-hold/v2'
+HOLD_RESUME = 'next_run_fresh_evidence_probe_change_must_be_fixed_before_fresh_preparation'
 STAGES = frozenset({'question_type', 'question_intent', 'correct_choice', 'law_context', 'explanation', 'law_audit', 'question_set'})
 LIVE_FIELDS = frozenset(DOC_COMPARE_KEYS) | {'choiceTextList', 'isCalculationQuestion', 'questionIntent'}
 REQUIRED_LIVE = frozenset({'originalQuestionId', 'qualificationId', 'isDeleted', 'isChoiceOnly'})
@@ -180,6 +183,164 @@ def _failed_attempt(coordinator, fixed, output, previous):
 
 def _failure_marker(path, receipt):
     return {'ref': str(path), 'sha256': _hash(_bytes(receipt)), 'failureHash': receipt['failureHash']}
+
+
+def _hold_candidate(fixed):
+    payload = fixed.get('preparedCandidate', {}).get('content', {}).get('candidatePayload', {})
+    rows = payload.get('questionResults') or []
+    return len(rows) == 1 and rows[0].get('status') == 'blocked'
+
+
+def _genuine_hold(coordinator, fixed, output):
+    """A successful protocol carrying a genuine blocked candidate is not a quality failure."""
+    child = coordinator.store.get(fixed['qualification'], fixed['childRunId'])
+    candidate = coordinator.store.load_prepared_candidate(fixed['qualification'], fixed['childRunId'],
+        input_fingerprint_value=fixed['inputFingerprint'], projected_input_hash=fixed['projectedInputHash'])
+    binding = fixed.get('preparationBinding') or {}
+    results = output.get('questionResults')
+    rollback = child.get('rollback') or {}
+    if (output.get('preview') or candidate != fixed['preparedCandidate']
+            or binding.get('holdContract') != HOLD_CONTRACT
+            or binding.get('preparationInputHash') != _preparation_input_hash(fixed)
+            or child.get('preparedStagePreparation') != binding
+            or child.get('parentRunId') != fixed['parentRunId']
+            or child.get('questionId') != fixed['request']['questionId'] or child.get('stageId') != fixed['stageId']
+            or child.get('externalApprovalRequired') is not True
+            or child.get('status') != 'succeeded' or child.get('receiptValidated') is not True
+            or child.get('candidateTransactionOpen') is not False or child.get('deltaUnknown') is not False
+            or (child.get('canonicalWriteStarted') is not None and child.get('canonicalWriteStarted') is not False)
+            or child.get('patchApplyStartedAt') is not None
+            or child.get('writeAttributionVerified') is not True
+            or child.get('unsafeChangedFiles') != [] or child.get('unsafeNotifiedChangedFiles') != []
+            or child.get('workVersionReceipt', {}).get('recordedCount') != 0
+            or rollback.get('status') != 'not_required' or rollback.get('deltaUnknown') is not False
+            or rollback.get('restoredFiles') != [] or rollback.get('remainingChangedFiles') != []
+            or not isinstance(results, list) or len(results) != 1 or child.get('batchQuestionResults') != results):
+        raise ValueError('genuine same-input unwritten model hold required')
+    payload = _object(candidate['content']['candidatePayload'], {'schemaVersion', 'questionResults'})
+    rows = payload['questionResults']
+    if payload['schemaVersion'] != 'question-maintenance-candidates/v3' or not isinstance(rows, list) or len(rows) != 1:
+        raise ValueError('one exact prepared model hold required')
+    held = _object(rows[0], {'questionId', 'status', 'summary', 'updates'})
+    result = results[0]
+    commands = result.get('commands')
+    if (held['questionId'] != fixed['request']['questionId'] or held['status'] != 'blocked' or held['updates'] != []
+            or not isinstance(held['summary'], str) or not held['summary'].strip()
+            or result.get('questionId') != held['questionId'] or result.get('status') != 'failed'
+            or result.get('summary') != held['summary'] or result.get('changedFiles') != [] or result.get('policyChanged')
+            or not isinstance(commands, list) or not commands or any(command.get('status') != 'pass' for command in commands)
+            or {'command': 'structured candidate schema', 'status': 'pass'} not in commands):
+        raise ValueError('actual blocked candidate and successful protocol checks must match')
+    return result
+
+
+def _hold_marker(path, receipt):
+    return {'ref': str(path), 'sha256': _hash(_bytes(receipt)), 'holdHash': receipt['holdHash']}
+
+
+def _hold_intent(receipt):
+    return {'schemaVersion': 'feedback-prepared-stage-hold-intent/v1', 'holdHash': receipt['holdHash'],
+        'parentRunId': receipt['holdPlan']['parentRunId'], 'childRunId': receipt['holdPlan']['childRunId']}
+
+
+def _work_version_inputs_before(root, coordinator, qualification, stage_plan):
+    """Pin exactly the normal one-question reader's paths, including absent canonical bytes.
+
+    Re-enumeration also detects a newly appearing legacy/alias path; unrelated
+    question files never become part of this preparation's read set.
+    """
+    targets = stage_plan.get('progressTargets') or []
+    if len(targets) != 1:
+        raise ValueError('one normal workVersion target required')
+    target = {**targets[0], 'qualification': qualification}
+    paths = coordinator.work_versions.transaction_paths_for_questions([target])
+    before = []
+    for path in paths:
+        path = _inside(root, path)
+        if path.exists() and not path.is_file():
+            raise ValueError('normal workVersion input must be a file or absent')
+        before.append({'path': str(path.relative_to(root)), 'exists': path.is_file(),
+                       'bytesHex': path.read_bytes().hex() if path.is_file() else None})
+    return before
+
+
+def _hold_inputs(root, fixed, *, coordinator, connection):
+    _unchanged(root, fixed['inputFiles'])
+    request = _request(root, root / fixed['requestPath'], {})
+    if (request != fixed['request'] or _requirements(connection, request['authority']) != fixed['taskRequirement']
+            or _live(request) != fixed['liveSnapshots']
+            or not coordinator._phase_plan_policy_is_current(fixed['qualification'], fixed['stagePlan'], fixed['stageId'])):
+        raise ValueError('held preparation request/task/live/current policy changed')
+    _authority_matches(request, fixed['taskRequirement'])
+    group = root / 'output' / request['qualification'] / 'questions_json' / request['listGroupId']
+    mutable = set(fixed['stagePlan'].get('allowedPatchFiles') or []) | set(fixed['stagePlan'].get('allowedWriteFiles') or [])
+    selection = [str(path.relative_to(root)) for path in sorted(group.rglob('*.json'))
+                 if str(path.relative_to(root)) not in mutable]
+    if selection != fixed['groupInputSelection']:
+        raise ValueError('held stage input file selection drift')
+    _canonical_before(root, {'transactionBefore': fixed['canonicalInputsBefore']})
+    if (not isinstance(fixed.get('workVersionInputsBefore'), list)
+            or fixed['workVersionInputsBefore'] != _work_version_inputs_before(
+                root, coordinator, fixed['qualification'], fixed['stagePlan'])):
+        raise ValueError('held normal workVersion path/presence/bytes changed')
+    _require_retry_claim(root, fixed)
+
+
+def load_hold(root, path, request_path, *, coordinator, connection):
+    root = _physical(root); path = _inside(root, path, private=True)
+    receipt = _json(_read(root, path, {}, private=True))
+    _object(receipt, {'schemaVersion', 'status', 'retryable', 'holdPlan', 'validationResult', 'reason',
+        'resumeCondition', 'qualityValidationAttempts', 'formalPatchSaved', 'FirestoreWritten', 'holdHash'})
+    if (receipt['schemaVersion'] != HELD or receipt['status'] != 'held' or receipt['retryable'] is not False
+            or receipt['formalPatchSaved'] is not False or receipt['FirestoreWritten'] is not False
+            or receipt['holdHash'] != sha256_json({key: value for key, value in receipt.items() if key != 'holdHash'})):
+        raise ValueError('exact nonretryable controlled hold receipt required')
+    fixed = receipt['holdPlan']
+    if (path.name != 'hold-receipt.json' or (path.parent / 'plan.json').exists()
+            or str(path.parent) != fixed['preparationBinding']['destination']
+            or _inside(root, request_path, private=True) != root / fixed['requestPath']):
+        raise ValueError('hold destination/request differs; hold is not an approvable plan')
+    _hold_inputs(root, fixed, coordinator=coordinator, connection=connection)
+    result = _genuine_hold(coordinator, fixed, {'questionResults': [receipt['validationResult']]})
+    if (receipt['reason'] != result['summary']
+            or receipt['qualityValidationAttempts'] != (fixed.get('retryContext') or {}).get('validationAttempts', [])
+            or receipt['resumeCondition'] != HOLD_RESUME):
+        raise ValueError('fixed genuine hold reason/history changed')
+    marker = _hold_marker(path, receipt)
+    parent = coordinator.store.get(fixed['qualification'], fixed['parentRunId'])
+    queue = coordinator._queue_stage(parent, fixed['request']['questionId'], fixed['stageId']) or {}
+    if (parent.get('status') != 'blocked' or parent.get('preparedStageHold') != marker
+            or parent.get('preparedStageHoldPending') is not None or queue.get('status') != 'blocked'
+            or queue.get('preparedStageHold') != marker or queue.get('retryDeferred') is not False
+            or queue.get('validationAttempts', []) != receipt['qualityValidationAttempts']
+            or _json(_read(root, path.parent / 'hold-intent.json', {}, private=True)) != _hold_intent(receipt)):
+        raise ValueError('hold disposition incomplete or changed; do not replay')
+    return receipt
+
+
+def _save_hold(root, destination, fixed, output, *, coordinator, connection):
+    result = _genuine_hold(coordinator, fixed, output)
+    _hold_inputs(root, fixed, coordinator=coordinator, connection=connection)
+    receipt = {'schemaVersion': HELD, 'status': 'held', 'retryable': False, 'holdPlan': fixed,
+        'validationResult': result, 'reason': result['summary'],
+        'resumeCondition': HOLD_RESUME,
+        'qualityValidationAttempts': (fixed.get('retryContext') or {}).get('validationAttempts', []),
+        'formalPatchSaved': False, 'FirestoreWritten': False}
+    receipt['holdHash'] = sha256_json(receipt)
+    destination.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
+    _inside(root, destination, private=True); destination.mkdir(mode=0o700)
+    path = destination / 'hold-receipt.json'; marker = _hold_marker(path, receipt)
+    coordinator.store.update(fixed['qualification'], fixed['parentRunId'], status='blocked', receiptValidated=False,
+        preparedStageHoldPending=marker, error=receipt['reason'])
+    coordinator.store.update_question_stage(fixed['qualification'], fixed['parentRunId'], fixed['request']['questionId'],
+        fixed['stageId'], status='blocked', block_dependents=True, retryDeferred=False, retryModelRequired=False,
+        validationAttempts=receipt['qualityValidationAttempts'], error=receipt['reason'])
+    _exclusive(destination / 'hold-intent.json', _bytes(_hold_intent(receipt)))
+    _exclusive(path, _bytes(receipt))
+    coordinator.store.update_question_stage(fixed['qualification'], fixed['parentRunId'], fixed['request']['questionId'],
+        fixed['stageId'], preparedStageHold=marker)
+    coordinator.store.update(fixed['qualification'], fixed['parentRunId'], preparedStageHold=marker, preparedStageHoldPending=None)
+    return load_hold(root, path, root / fixed['requestPath'], coordinator=coordinator, connection=connection)
 
 
 def _save_failure(root, destination, fixed, output, *, coordinator):
@@ -384,6 +545,9 @@ def _run(coordinator, plan, *, preview=False, guard=None):
 def prepare(root, request_path, destination, *, coordinator, connection):
     root = _physical(root); destination = _inside(root, destination, private=True)
     if destination.exists():
+        if (destination / 'hold-receipt.json').is_file():
+            return load_hold(root, destination / 'hold-receipt.json', request_path,
+                coordinator=coordinator, connection=connection)
         raise ValueError('exclusive new private plan directory required')
     files = {}; request = _request(root, request_path, files)
     requirement = _requirements(connection, request['authority']); _authority_matches(request, requirement)
@@ -417,6 +581,7 @@ def prepare(root, request_path, destination, *, coordinator, connection):
         target_path = _inside(root, root / relative)
         canonical_inputs_before.append({'path': relative, 'exists': target_path.is_file(),
             'bytesHex': target_path.read_bytes().hex() if target_path.is_file() else None})
+    work_version_inputs_before = _work_version_inputs_before(root, coordinator, qualification, stage_plan)
     parent = coordinator._create_execution_run(plan, status='queued', prompt=prompt, append_receipt_contract=False)
     parent = coordinator.store.update(qualification, parent['runId'], externalApprovalRequired=True)
     try:
@@ -460,6 +625,7 @@ def prepare(root, request_path, destination, *, coordinator, connection):
                                         'isDeleted': False, 'isChoiceOnly': False},
             'sourceToLiveMappingApproved': False, 'stagePlan': prepared['batchPlan'], 'inputFiles': files,
             'groupInputSelection': selected_files, 'canonicalInputsBefore': canonical_inputs_before,
+            'workVersionInputsBefore': work_version_inputs_before,
             'formalPatchSaved': False, 'FirestoreWritten': False}
         if retry:
             fixed['retryContext'] = retry
@@ -469,12 +635,15 @@ def prepare(root, request_path, destination, *, coordinator, connection):
         fixed['preparationBinding'] = {'schemaVersion': 'feedback-prepared-stage-attempt-binding/v1',
             'destination': str(destination), 'requestHash': files[fixed['requestPath']],
             'inputFingerprint': fixed['inputFingerprint'], 'projectedInputHash': fixed['projectedInputHash'],
-            'candidateHash': candidate['contentHash'], 'preparationInputHash': _preparation_input_hash(fixed)}
+            'candidateHash': candidate['contentHash'], 'preparationInputHash': _preparation_input_hash(fixed),
+            'holdContract': HOLD_CONTRACT}
         coordinator.store.update(qualification, prepared['childId'], preparedStagePreparation=fixed['preparationBinding'])
         output = _run(coordinator, fixed, preview=True)
         if not output.get('preview') or output['preview'].get('recordWorkVersion') is not True:
             if _requirements(connection, request['authority']) != requirement or _live(request) != live:
                 raise ValueError('task/live inputs changed during failed preparation')
+            if _hold_candidate(fixed):
+                return _save_hold(root, destination, fixed, output, coordinator=coordinator, connection=connection)
             _save_failure(root, destination, fixed, output, coordinator=coordinator)
         fixed['commitView'] = output['preview']
         _unchanged(root, files)
@@ -490,7 +659,9 @@ def prepare(root, request_path, destination, *, coordinator, connection):
         load_plan(root, destination / 'plan.json', coordinator=coordinator, connection=connection)
         return receipt
     except BaseException as exc:
-        coordinator.store.update(qualification, parent['runId'], status='failed', receiptValidated=False, error=str(exc))
+        interrupted = coordinator.store.get(qualification, parent['runId'])
+        if not (interrupted.get('status') == 'blocked' and interrupted.get('preparedStageHoldPending')):
+            coordinator.store.update(qualification, parent['runId'], status='failed', receiptValidated=False, error=str(exc))
         raise
 
 
@@ -719,7 +890,9 @@ def main(argv=None):
     coordinator = coordinator_for(root)
     with closing(sqlite3.connect(f'{_physical(args.db).as_uri()}?mode=ro', uri=True)) as connection:
         connection.execute('PRAGMA query_only=ON')
-        if args.command == 'prepare': result = prepare(root, args.request, args.output, coordinator=coordinator, connection=connection)
+        if args.command == 'prepare':
+            result = prepare(root, args.request, args.output, coordinator=coordinator, connection=connection)
+            if result.get('schemaVersion') == PREVIEW: result = {**result, 'status': 'prepared'}
         elif args.command == 'scope':
             result = approval_scope(root, args.plan, coordinator=coordinator, connection=connection)
             print(scope_marker(result, creation=True)); return 0

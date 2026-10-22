@@ -697,3 +697,257 @@ class PreparedIntentStageTests(unittest.TestCase):
         with patch.object(IsolatedQuestionPatchWorkspace, 'apply_record_update', inject):
             with self.assertRaises(ValueError): self.prepare()
         self.assertEqual(path.read_bytes(), before)
+
+
+class PreparedStageGenuineHoldTests(unittest.TestCase):
+    """Real normal preview protocol with an actual denied XML fetch and model hold."""
+    write = staticmethod(PreparedStageTests.write)
+    prepare = PreparedStageTests.prepare
+
+    def setUp(self):
+        from dataclasses import replace
+        from tests import test_law_context_primary_cycle as law
+        from tools.question_review_console.primary_law_evidence import PrimaryLawEvidenceResolver
+        law.LawContextPrimaryCycleTests.setUp(self)
+
+        class HoldModel(law.LawModel):
+            def run_turn(self, prompt, **kwargs):
+                result = super().run_turn(prompt, **kwargs)
+                if kwargs['work_type'] == 'maintenance_law_context_candidate' and len(self.calls) >= 2:
+                    payload = {'decision': 'blocked',
+                        'summary': '現行法本文は実取得HTTP 403のため確認できず、確定を保留する。',
+                        'update': {'setFields': [], 'unsetFields': []}}
+                    return replace(result, final_message=json.dumps(payload, ensure_ascii=False))
+                return result
+        self.model = HoldModel(); self.coordinator.app_server = self.model
+        self.fetcher = Mock(side_effect=OSError('HTTP 403'))
+        self.coordinator.primary_law_evidence = PrimaryLawEvidenceResolver(self.root, fetcher=self.fetcher)
+
+    def held(self):
+        return stage.load_hold(self.root, self.output / 'hold-receipt.json', self.request_path,
+                               coordinator=self.coordinator, connection=self.connection)
+
+    def test_actual_denied_fetch_hold_is_nonretryable_and_closes_parent_queue_without_quality_attempt(self):
+        source = Path(self.request['source']['ref']); before = source.read_bytes()
+        receipt = self.prepare(); self.assertEqual(receipt, self.held())
+        self.assertEqual(receipt['schemaVersion'], stage.HELD)
+        self.assertEqual(receipt['status'], 'held'); self.assertIs(receipt['retryable'], False)
+        self.assertIn('HTTP 403', receipt['reason']); self.assertEqual(receipt['qualityValidationAttempts'], [])
+        self.assertFalse(receipt['formalPatchSaved']); self.assertFalse(receipt['FirestoreWritten'])
+        fixed = receipt['holdPlan']; child = self.coordinator.store.get('new-exam', fixed['childRunId'])
+        parent = self.coordinator.store.get('new-exam', fixed['parentRunId'])
+        queue = self.coordinator._queue_stage(parent, self.request['questionId'], 'law_context')
+        self.assertEqual(child['status'], 'succeeded'); self.assertTrue(child['receiptValidated'])
+        self.assertEqual(parent['status'], 'blocked'); self.assertEqual(queue['status'], 'blocked')
+        self.assertEqual(queue['validationAttempts'], []); self.assertFalse(queue['retryDeferred'])
+        self.assertTrue(self.fetcher.called); self.assertEqual(len(self.model.calls), 2)
+        proof = fixed['preparedCandidate']['content']['executionMetadata']['lawContextPrimaryEvidence']
+        self.assertIn('HTTP 403', json.dumps(proof, ensure_ascii=False))
+        self.assertEqual(source.read_bytes(), before)
+        for name in ('plan.json', 'failure-receipt.json', 'save-receipt.json'):
+            self.assertFalse((self.output / name).exists())
+        stage._canonical_before(self.root, {'transactionBefore': fixed['canonicalInputsBefore']})
+
+    def test_same_destination_replay_returns_exact_hold_without_model_or_child_changes(self):
+        receipt = self.prepare(); fixed = receipt['holdPlan']
+        child = self.coordinator.store.get('new-exam', fixed['childRunId'])
+        self.assertEqual(receipt, self.prepare()); self.assertEqual(len(self.model.calls), 2)
+        self.assertEqual(child, self.coordinator.store.get('new-exam', fixed['childRunId']))
+
+    def test_hold_cannot_enter_approval_apply_or_mechanical_retry(self):
+        self.prepare(); path = self.output / 'hold-receipt.json'
+        with patch.object(stage, 'verify_independent_approval') as approval:
+            with self.assertRaisesRegex(ValueError, 'fixed prepared-stage plan'):
+                stage.approval_scope(self.root, path, coordinator=self.coordinator, connection=self.connection)
+            with self.assertRaisesRegex(ValueError, 'fixed prepared-stage plan'):
+                stage.apply(self.root, path, self.approval_path, coordinator=self.coordinator, connection=self.connection)
+            approval.assert_not_called()
+        self.request['retryFromFailure'] = {'ref': str(path), 'sha256': stage._hash(path.read_bytes())}
+        self.write(self.request_path, self.request); self.output = self.private / 'retry-held'
+        with self.assertRaises(ValueError): self.prepare()
+        self.assertEqual(len(self.model.calls), 2)
+
+    def test_forged_child_or_write_protocol_never_counts_as_genuine_hold(self):
+        receipt = self.prepare(); fixed = receipt['holdPlan']
+        child = self.coordinator.store.get('new-exam', fixed['childRunId'])
+        mutations = [
+            {'status': 'failed'}, {'questionId': 'other'}, {'parentRunId': 'other'}, {'stageId': 'explanation'},
+            {'receiptValidated': False}, {'canonicalWriteStarted': True}, {'canonicalWriteStarted': 0},
+            {'candidateTransactionOpen': True}, {'deltaUnknown': True}, {'writeAttributionVerified': False},
+            {'unsafeChangedFiles': ['other']}, {'unsafeNotifiedChangedFiles': ['other']},
+            {'workVersionReceipt': {'recordedCount': 1}}, {'patchApplyStartedAt': 'now'},
+            {'rollback': {**child['rollback'], 'remainingChangedFiles': ['other']}},
+            {'rollback': {**child['rollback'], 'status': 'succeeded', 'restoredFiles': ['other']}},
+        ]
+        for mutation in mutations:
+            with self.subTest(mutation=mutation), patch.object(self.coordinator.store, 'get', return_value={**child, **mutation}):
+                with self.assertRaisesRegex(ValueError, 'genuine same-input'):
+                    stage._genuine_hold(self.coordinator, fixed, {'questionResults': [receipt['validationResult']]})
+        altered = deepcopy(fixed); altered['preparationBinding'].pop('holdContract')
+        with self.assertRaises(ValueError):
+            stage._genuine_hold(self.coordinator, altered, {'questionResults': [receipt['validationResult']]})
+        with patch.object(self.coordinator.store, 'load_prepared_candidate', return_value={}):
+            with self.assertRaises(ValueError):
+                stage._genuine_hold(self.coordinator, fixed, {'questionResults': [receipt['validationResult']]})
+
+    def test_candidate_or_result_mutation_is_rejected(self):
+        receipt = self.prepare(); fixed = receipt['holdPlan']
+        child = self.coordinator.store.get('new-exam', fixed['childRunId'])
+        for mutation in ({'summary': 'fabricated'}, {'commands': [{'command': 'mechanical', 'status': 'fail'}]},
+                         {'questionId': 'other'}, {'changedFiles': ['patch.json']}):
+            result = {**receipt['validationResult'], **mutation}
+            with self.subTest(mutation=mutation), patch.object(self.coordinator.store, 'get',
+                    return_value={**child, 'batchQuestionResults': [result]}):
+                with self.assertRaises(ValueError): stage._genuine_hold(self.coordinator, fixed, {'questionResults': [result]})
+
+    def test_live_input_selection_and_canonical_third_value_conflicts_reject_replay(self):
+        receipt = self.prepare(); fixed = receipt['holdPlan']
+        self.snapshots['live-a']['updateTimeExact'] = 'changed'
+        with self.assertRaises(ValueError): self.prepare()
+        self.snapshots['live-a']['updateTimeExact'] = fixed['liveSnapshots']['live-a']['updateTimeExact']
+        added = Path(self.request['source']['ref']).parent.parent / 'unselected' / 'added.json'
+        self.write(added, {})
+        with self.assertRaisesRegex(ValueError, 'selection drift'): self.held()
+        added.unlink()
+        before = fixed['canonicalInputsBefore'][0]; path = self.root / before['path']
+        self.write(path, b'third value')
+        with self.assertRaisesRegex(ValueError, 'third value'): self.held()
+        self.assertEqual(len(self.model.calls), 2)
+
+    def test_interrupted_hold_receipt_keeps_blocked_pending_and_never_replays_model(self):
+        original = stage._exclusive
+        def interrupted(path, value):
+            if path.name == 'hold-receipt.json': raise OSError('hold receipt interrupted')
+            return original(path, value)
+        with patch.object(stage, '_exclusive', side_effect=interrupted):
+            with self.assertRaisesRegex(OSError, 'hold receipt interrupted'): self.prepare()
+        # The intent pins both real runs even when the receipt write never completed.
+        intent = json.loads((self.output / 'hold-intent.json').read_bytes())
+        parent = self.coordinator.store.get('new-exam', intent['parentRunId'])
+        self.assertEqual(parent['status'], 'blocked'); self.assertTrue(parent['preparedStageHoldPending'])
+        with self.assertRaisesRegex(ValueError, 'exclusive new private'): self.prepare()
+        self.assertEqual(len(self.model.calls), 2)
+        self.assertFalse((self.output / 'plan.json').exists())
+
+    def test_cli_controlled_hold_is_explicit_and_success_status_is_prepared(self):
+        import io
+        from contextlib import redirect_stdout
+        args = ['--repo-root', str(self.root), '--db', str(self.db), 'prepare',
+                '--request', str(self.request_path), '--output', str(self.output)]
+        with patch.object(stage, 'coordinator_for', return_value=self.coordinator), redirect_stdout(io.StringIO()) as stdout:
+            self.assertEqual(stage.main(args), 0)
+        self.assertEqual(json.loads(stdout.getvalue())['status'], 'held')
+        with patch.object(stage, 'coordinator_for', return_value=self.coordinator), \
+             patch.object(stage, 'prepare', return_value={'schemaVersion': stage.PREVIEW}), redirect_stdout(io.StringIO()) as stdout:
+            self.assertEqual(stage.main(args), 0)
+        self.assertEqual(json.loads(stdout.getvalue())['status'], 'prepared')
+
+    def test_hold_parent_marker_and_receipt_tampering_are_rejected_without_reexecution(self):
+        receipt = self.prepare(); fixed = receipt['holdPlan']
+        parent = self.coordinator.store.get('new-exam', fixed['parentRunId'])
+        original = self.coordinator.store.get
+        for changed in ({'preparedStageHold': {}}, {'preparedStageHoldPending': {'pending': True}}, {'status': 'succeeded'}):
+            def get(qualification, run_id, *args, **kwargs):
+                return {**parent, **changed} if run_id == fixed['parentRunId'] else original(qualification, run_id, *args, **kwargs)
+            with self.subTest(changed=changed), patch.object(self.coordinator.store, 'get', side_effect=get):
+                with self.assertRaisesRegex(ValueError, 'disposition'): self.held()
+        path = self.output / 'hold-receipt.json'
+        altered = deepcopy(receipt); altered['reason'] = 'arbitrary hold'
+        self.write(path, altered)
+        with self.assertRaisesRegex(ValueError, 'exact nonretryable'): self.held()
+        self.assertEqual(len(self.model.calls), 2)
+
+    def test_next_run_actual_recovered_evidence_can_be_fixed_for_a_fresh_preparation(self):
+        from tests import test_law_context_primary_cycle as law
+        from tools.question_review_console.primary_law_evidence import PrimaryLawEvidenceResolver
+        receipt = self.prepare()
+        proof = receipt['holdPlan']['preparedCandidate']['content']['executionMetadata']['lawContextPrimaryEvidence'][self.request['questionId']]
+        record = {'choiceTextList': ['記述'], 'lawReferences': proof['rounds'][0]['lawReferences']}
+        resolver = PrimaryLawEvidenceResolver(self.root / 'recovered-probe', fetcher=self.fetch)
+        recovered = resolver.resolve(record, current_as_of='2026-10-22')
+        self.assertTrue(recovered['items'][0]['currentSnapshot']['textHash'])
+        probe = self.private / 'actual-recovered-evidence.json'; self.write(probe, recovered)
+        self.request['primaryEvidence'].append({'ref': str(probe), 'sha256': stage._hash(probe.read_bytes())})
+        self.write(self.request_path, self.request)
+        self.output = self.private / 'next-run-recovered'
+        self.model = law.LawModel(); self.coordinator.app_server = self.model
+        self.coordinator.primary_law_evidence = resolver
+        resumed = self.prepare()
+        self.assertEqual(resumed['schemaVersion'], stage.PREVIEW)
+        self.assertEqual(len(self.model.calls), 2)
+        self.assertTrue((self.output / 'plan.json').is_file())
+        self.assertFalse(resumed['formalPatchSaved']); self.assertFalse(resumed['FirestoreWritten'])
+
+    def test_receipt_written_before_interruption_is_not_a_completed_hold_or_a_second_execution(self):
+        original = stage._exclusive
+        def interrupted(path, value):
+            original(path, value)
+            if path.name == 'hold-receipt.json': raise OSError('after receipt write')
+        with patch.object(stage, '_exclusive', side_effect=interrupted):
+            with self.assertRaisesRegex(OSError, 'after receipt write'): self.prepare()
+        self.assertTrue((self.output / 'hold-receipt.json').exists())
+        with self.assertRaisesRegex(ValueError, 'disposition incomplete'): self.prepare()
+        self.assertEqual(len(self.model.calls), 2)
+        self.assertFalse((self.output / 'plan.json').exists())
+
+    def normal_work_target(self):
+        plan = self.coordinator._plan('new-exam', 'law_context', 'refresh', None,
+            stage_ids=['law_context'], list_group_ids=['2026'], question_ids=[self.request['questionId']])
+        return {**plan['progressTargets'][0], 'qualification': 'new-exam'}
+
+    def test_new_normal_workversion_alias_and_legacy_paths_reject_held_replay(self):
+        receipt = self.prepare(); fixed = receipt['holdPlan']
+        target = {**fixed['stagePlan']['progressTargets'][0], 'qualification': 'new-exam'}
+        store = self.coordinator.work_versions
+        canonical = store.question_path_for(target)
+        alias = canonical.parent / (hashlib.sha256(target['id'].encode()).hexdigest()[:24] + '.json')
+        legacy = store.legacy_group_path_for('new-exam', '2026')
+        self.assertNotEqual(canonical, alias)
+        self.assertEqual(fixed['workVersionInputsBefore'],
+            [{'path': str(canonical.relative_to(self.root)), 'exists': False, 'bytesHex': None}])
+        unrelated = canonical.parent / 'unrelated-question.json'; self.write(unrelated, b'untouched unrelated')
+        self.assertEqual(receipt, self.held())
+        for path in (canonical, alias, legacy):
+            self.write(path, b'third workVersion value')
+            try:
+                with self.subTest(path=path.name), self.assertRaisesRegex(ValueError, 'workVersion'):
+                    self.prepare()
+            finally: path.unlink()
+        self.assertEqual(receipt, self.held()); self.assertEqual(len(self.model.calls), 2)
+        self.assertEqual(unrelated.read_bytes(), b'untouched unrelated')
+
+    def test_existing_normal_workversion_and_alias_legacy_bytes_and_presence_are_fixed(self):
+        target = self.normal_work_target(); store = self.coordinator.work_versions
+        store.record_stage([target], {'id': 'question_type', 'policyVersion': '1.0', 'policyFingerprint': 'fixture'},
+                           run_id='prior-real-fixture', source='validated_run')
+        canonical = store.question_path_for(target)
+        payload = json.loads(canonical.read_bytes())
+        alias_key = hashlib.sha256(target['id'].encode()).hexdigest()[:24]
+        alias = canonical.parent / (alias_key + '.json')
+        record = deepcopy(next(iter(payload['questions'].values())))
+        record['reviewKey'] = target['id']
+        self.write(alias, {**payload, 'questions': {alias_key: record}})
+        legacy = store.legacy_group_path_for('new-exam', '2026'); self.write(legacy, payload)
+        receipt = self.prepare()
+        self.assertEqual({row['path'] for row in receipt['holdPlan']['workVersionInputsBefore']},
+                         {str(path.relative_to(self.root)) for path in (canonical, alias, legacy)})
+        for path in (canonical, alias, legacy):
+            before = path.read_bytes()
+            for mode in ('changed', 'deleted'):
+                if mode == 'changed': path.write_bytes(before + b'\n')
+                else: path.unlink()
+                try:
+                    with self.subTest(path=path.name, mode=mode), self.assertRaisesRegex(ValueError, 'workVersion'):
+                        self.held()
+                finally: path.write_bytes(before)
+        self.assertEqual(receipt, self.held()); self.assertEqual(len(self.model.calls), 2)
+
+    def test_normal_workversion_created_during_generation_cannot_save_a_hold(self):
+        target = self.normal_work_target(); canonical = self.coordinator.work_versions.question_path_for(target)
+        def mutate(_):
+            if self.model.writer_count == 2: self.write(canonical, b'concurrent workVersion')
+        self.model.before_receipt = mutate
+        with self.assertRaisesRegex(ValueError, 'workVersion'): self.prepare()
+        self.assertFalse((self.output / 'hold-receipt.json').exists())
+        self.assertFalse((self.output / 'plan.json').exists())
+        self.assertEqual(canonical.read_bytes(), b'concurrent workVersion')
