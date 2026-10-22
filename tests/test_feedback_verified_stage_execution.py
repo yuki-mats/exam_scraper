@@ -885,6 +885,40 @@ class VerifiedStageExecutionTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             module.native_operation_call([*base, 'record', '--plan', 'plan'], module_name='tools.question_bank.feedback_verified_save')
 
+    def test_source_tf_module_allows_only_exact_bound_owner_commands(self):
+        self.prepare(); approval = self.approval()
+        name = 'tools.question_bank.feedback_source_tf_delivery'
+        base = ['--repo-root', str(self.root), '--db', str(self.private / 'ledger.sqlite3')]
+        commands = [
+            ['scope', '--plan', 'plan', '--action', 'save'],
+            ['scope', '--plan', 'plan', '--action', 'publish'],
+            *[[command, '--plan', 'plan'] for command in ('inspect', 'check', 'evaluate', 'reconcile')],
+            *[[command, '--plan', 'plan', '--approval', 'approval'] for command in ('save', 'publish')],
+        ]
+        for command in commands:
+            with self.subTest(command=command):
+                parent, argv = self.owner_launch(approval, module_name=name, argv=[*base, *command])
+                with module.native_operation(argv, module_name=name):
+                    guard = module.capture_native_guard([approval])
+                    for event in self.owner_progress(): self.append_event(parent, event)
+                    module.assert_native_guard(guard, terminal=True)
+        invalid = [
+            ['prepare', '--request', 'request', '--output', 'output'],
+            ['save', '--plan', 'plan'], ['publish', '--plan', 'plan'],
+            ['scope', '--plan', 'plan'], ['scope', '--plan', 'plan', '--action', 'unknown'],
+            ['check', '--plan', 'plan', '--force', 'true'],
+            ['inspect', '--plan', 'plan', '--plan', 'other'],
+            ['inspect', '--plan', '--approval'], ['evaluate', '--execution', 'other'],
+        ]
+        for command in invalid:
+            with self.subTest(command=command), self.assertRaises(ValueError):
+                module.native_operation_call([*base, *command], module_name=name)
+        for argv in (['inspect', '--repo-root', str(self.root), '--plan', 'plan'],
+                     ['--db', 'db', 'inspect', '--plan', 'plan'],
+                     [*base, '--repo-root', str(self.root), 'inspect', '--plan', 'plan']):
+            with self.subTest(argv=argv), self.assertRaises(ValueError):
+                module.native_operation_call(argv, module_name=name)
+
     def token_count_event(self):
         counters = self.usage_event('author')['payload']['usage']
         return {'type': 'event_msg', 'payload': {'type': 'token_count',

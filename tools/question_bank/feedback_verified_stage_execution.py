@@ -368,10 +368,39 @@ def native_operation_call(argv, *, module_name="tools.question_bank.feedback_ver
     """
     if module_name not in {"tools.question_bank.feedback_verified_stage_execution",
                            "tools.question_bank.feedback_verified_delivery",
-                           "tools.question_bank.feedback_verified_save_record"}:
+                           "tools.question_bank.feedback_verified_save_record",
+                           "tools.question_bank.feedback_source_tf_delivery"}:
         raise ValueError("owner-operation module is outside the explicit allowlist")
     if not argv or any(not isinstance(arg, str) or not arg for arg in argv):
         raise ValueError("exact nonempty CLI argv required")
+    if module_name == "tools.question_bank.feedback_source_tf_delivery":
+        options = {}
+        position = 0
+        while position < len(argv) and argv[position] in {"--repo-root", "--db"}:
+            key = argv[position]
+            if key in options or position + 1 >= len(argv) or argv[position + 1].startswith("--"):
+                raise ValueError("exact source TF owner global options required")
+            options[key] = argv[position + 1]
+            position += 2
+        if "--repo-root" not in options or position >= len(argv):
+            raise ValueError("source TF owner requires explicit repo and command")
+        commands = {
+            "scope": {"--plan", "--action"},
+            "inspect": {"--plan"}, "check": {"--plan"}, "evaluate": {"--plan"},
+            "reconcile": {"--plan"},
+            "save": {"--plan", "--approval"}, "publish": {"--plan", "--approval"},
+        }
+        command_name = argv[position]
+        tail = argv[position + 1:]
+        if command_name not in commands or len(tail) % 2:
+            raise ValueError("unsupported source TF owner command")
+        selected = {}
+        for key, value in zip(tail[::2], tail[1::2]):
+            if key not in commands[command_name] or key in selected or value.startswith("--"):
+                raise ValueError("unsupported source TF owner option")
+            selected[key] = value
+        if set(selected) != commands[command_name] or selected.get("--action", "save") not in {"save", "publish"}:
+            raise ValueError("exact source TF owner command scope required")
     if module_name == "tools.question_bank.feedback_verified_save_record":
         # This module has two subcommands with global options before them.
         # Do not turn the module addition into an arbitrary CLI whitelist.
