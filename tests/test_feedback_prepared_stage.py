@@ -1105,3 +1105,111 @@ class PreparedPrimaryEvidenceTests(unittest.TestCase):
             self.write(path, value); ref = {'ref': str(path), 'sha256': stage._hash(value)}
             selection = {'evidence': ref, 'format': kind, **({'articles': ['2']} if kind == 'xml_articles' else {'startLine': 1, 'endLine': 1})}
             with self.assertRaises(RuntimeError): _prepared_primary_evidence_entries(self.root, [selection])
+
+
+
+class EarlyContentFailureRetryTests(unittest.TestCase):
+    """Pre-baseline content rejection preserves the real new-attempt write state."""
+    setUp = PreparedStageTests.setUp
+    write = staticmethod(PreparedStageTests.write)
+    prepare = PreparedStageTests.prepare
+    plan = PreparedStageTests.plan
+    apply = PreparedStageTests.apply
+    retry_request = PreparedStageTests.retry_request
+
+    def bad_explanation_model(self):
+        from dataclasses import replace
+        self.request['stageId'] = 'explanation'; self.write(self.request_path, self.request)
+        original = self.model.run_turn
+        def run(prompt, **kwargs):
+            result = original(prompt, **kwargs)
+            if kwargs['work_type'] == 'maintenance_explanation_candidate':
+                payload = json.loads(result.final_message)
+                # This focused model fixture supplies the current 03 learning
+                # pattern contract as well as the prose under test.
+                for key, value in {'questionLearningPatternId': 'terms_basics', 'explanationReferences': []}.items():
+                    payload['update']['setFields'] = [item for item in payload['update']['setFields'] if item['field'] != key]
+                    payload['update']['setFields'].append({'field': key, 'value': value})
+                    payload['update']['unsetFields'] = [field for field in payload['update']['unsetFields'] if field != key]
+                for field in payload['update']['setFields']:
+                    if field['field'] == 'explanationText':
+                        field['value'] = (['正しい。ガス事業法第2条第1項は、小売供給を定義している。']
+                            if len(self.model.calls) == 1 else ['正しい。'])
+                return replace(result, final_message=json.dumps(payload, ensure_ascii=False))
+            return result
+        self.model.run_turn = run
+
+    def content_failure(self):
+        self.bad_explanation_model()
+        with patch.object(self.coordinator.store, 'write_baseline', wraps=self.coordinator.store.write_baseline) as baseline:
+            with self.assertRaisesRegex(ValueError, 'fixed failure receipt'): self.prepare()
+            baseline.assert_not_called()
+        path = self.output / 'failure-receipt.json'; receipt = stage._json(path.read_bytes())
+        return path, receipt
+
+    def test_real_prebaseline_content_failure_records_no_write_and_normal_retry_uses_feedback(self):
+        path, receipt = self.content_failure()
+        self.assertTrue(receipt['retryable'])
+        self.assertIn('機械的に文頭', receipt['validationResult']['summary'])
+        self.assertIn({'command': 'question content', 'status': 'fail'}, receipt['validationResult']['commands'])
+        fixed = receipt['failedPlan']; child = self.coordinator.store.get('new-exam', fixed['childRunId'])
+        self.assertIs(child['canonicalWriteStarted'], False)
+        self.assertIs(child['candidateTransactionOpen'], False)
+        self.assertIs(child['deltaUnknown'], False)
+        self.assertEqual(child['workVersionReceipt']['recordedCount'], 0)
+        self.assertFalse(child.get('baselinePath')); self.assertFalse(child.get('patchApplyStartedAt'))
+        self.retry_request(path)
+        try: self.prepare()
+        except ValueError:
+            failure = stage._json((self.output / 'failure-receipt.json').read_bytes())
+            self.fail(failure['validationResult']['summary'])
+        plan = self.plan()
+        retry_child = self.coordinator.store.get('new-exam', plan['childRunId'])
+        self.assertEqual(retry_child['modelAttempt']['attemptMode'], 'retry')
+        self.assertIn('機械的に文頭', self.model.calls[-1][0])
+        self.assertIs(retry_child['canonicalWriteStarted'], False)
+        self.assertEqual(child, self.coordinator.store.get('new-exam', fixed['childRunId']))
+        self.assertFalse((self.output / 'save-receipt.json').exists())
+        self.assertEqual(len(self.model.calls), 2)
+
+    def test_fresh_marker_stays_false_in_preview_and_flips_only_at_normal_commit(self):
+        self.prepare(); plan = self.plan()
+        before = self.coordinator.store.get('new-exam', plan['childRunId'])
+        self.assertIs(before['canonicalWriteStarted'], False)
+        observed = []
+        original_update = self.coordinator.store.update
+        def observe(*args, **kwargs):
+            if kwargs.get('canonicalWriteStarted') is True: observed.append(deepcopy(kwargs))
+            return original_update(*args, **kwargs)
+        with patch.object(self.coordinator.store, 'update', side_effect=observe):
+            with patch.object(stage, 'verify_independent_approval', return_value={'reviewerSessionId': 'independent'}):
+                self.assertTrue(self.apply()['formalPatchSaved'])
+        self.assertEqual(len(observed), 1)
+        self.assertIs(self.coordinator.store.get('new-exam', plan['childRunId'])['canonicalWriteStarted'], True)
+
+    def test_prior_started_unknown_or_open_state_is_not_reset_to_allow_preview(self):
+        for flags in ({'canonicalWriteStarted': True}, {'canonicalWriteStarted': None},
+                      {'deltaUnknown': True}, {'candidateTransactionOpen': True}, {'patchApplyStartedAt': 'already-started'}):
+            self.output = self.private / ('unsafe-preview-' + str(len(self.model.calls)))
+            real_prepare = self.coordinator._prepare_question_candidate_attempt
+            def unsafe(*args, **kwargs):
+                prepared = real_prepare(*args, **kwargs)
+                self.coordinator.store.update('new-exam', prepared['childId'], **flags)
+                return prepared
+            with self.subTest(flags=flags), patch.object(self.coordinator, '_prepare_question_candidate_attempt', side_effect=unsafe):
+                with self.assertRaisesRegex(RuntimeError, 'previewできません'): self.prepare()
+            self.assertFalse((self.output / 'failure-receipt.json').exists())
+            self.assertFalse((self.output / 'plan.json').exists())
+
+    def test_content_failure_with_changed_projected_input_cannot_become_retry_receipt(self):
+        self.bad_explanation_model()
+        real_prepare = self.coordinator._prepare_question_candidate_attempt
+        def drift(*args, **kwargs):
+            prepared = real_prepare(*args, **kwargs)
+            target = prepared['targets'][0]; path = self.root / target['_projectedInputPath']
+            self.model.before_receipt = lambda _: path.write_bytes(path.read_bytes() + b' ')
+            return prepared
+        with patch.object(self.coordinator, '_prepare_question_candidate_attempt', side_effect=drift):
+            with self.assertRaisesRegex((ValueError, RuntimeError), 'drift|hash|変更|一致'): self.prepare()
+        self.assertFalse((self.output / 'failure-receipt.json').exists())
+        self.assertFalse((self.output / 'plan.json').exists())

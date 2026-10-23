@@ -3414,6 +3414,10 @@ class QualificationRunStore:
             "stageId": stage_id,
             "parentRunId": parent_run_id,
             "status": "queued",
+            # A newly allocated attempt has not touched canonical bytes.
+            # Preserve this fact even when content validation fails before a
+            # baseline exists; only the actual commit boundary flips it True.
+            "canonicalWriteStarted": False,
             "createdAt": now,
             "updatedAt": now,
             "startedAt": None,
@@ -15824,6 +15828,13 @@ class QualificationRunCoordinator:
         existing_child = self.store.get(qualification, run_id)
         if preview_prepared and (not apply_prepared or prepare_only):
             raise QualificationRunError("保存予定bytesのpreviewは保存済み候補だけを扱います。")
+        if preview_prepared and (
+                existing_child.get("canonicalWriteStarted") is not False
+                or existing_child.get("candidateTransactionOpen") is True
+                or existing_child.get("deltaUnknown") is True
+                or existing_child.get("patchApplyStartedAt")
+                or (existing_child.get("workVersionReceipt") or {}).get("recordedCount", 0) != 0):
+            raise QualificationRunError("実書込み開始済み又は無書込みを確認できないattemptはpreviewできません。")
         if (existing_child.get("externalApprovalRequired") is True
                 and not prepare_only and not preview_prepared
                 and not callable(before_canonical_commit)):
