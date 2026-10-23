@@ -19,6 +19,7 @@ from scripts.common.scoped_canonical_context import reader_dependencies
 from tools.question_bank import feedback_prepared_stage as normal
 from tools.question_bank import feedback_verified_stage_execution as native
 from tools.question_bank import question_issue_reports as protocol
+from tools.question_bank import report_candidate_adoption as adoption
 from tools.question_bank.feedback_legacy_review_context import (
     _bytes, _hash, _inside, _json, _object, _physical, _read, _ref, _text, _unchanged,
 )
@@ -27,14 +28,14 @@ from tools.question_bank.question_issue_report_store import SUBMISSION_PATH_RE, 
 from tools.question_review_console.firestore_readback import FirestoreReadback, json_safe
 from tools.question_review_console.independent_approval import verify_independent_approval, scope_marker
 from tools.question_review_console import independent_approval as approval_api
-from tools.question_review_console.official_source_correction import AppServerReviewExecutor, OfficialSourceCorrectionService
+from tools.question_review_console.official_source_correction import OfficialSourceCorrectionService
 from tools.question_review_console.projection import sha256_json
 
 MODULE = 'tools.question_bank.feedback_source_tf_report_review'
 REPORT_REQUEST = 'source-bound-public-tf-report-request/v2'
-PLAN = 'source-bound-public-tf-report-review/v1'
-RECEIPT = 'source-bound-public-tf-report-review-receipt/v1'
-SCOPE = 'source-bound-public-tf-report-review-adoption/v1'
+PLAN = 'source-bound-public-tf-report-candidate-review/v2'
+RECEIPT = 'source-bound-public-tf-report-candidate-review-receipt/v2'
+SCOPE = 'source-bound-public-tf-report-candidate-adoption/v2'
 CASE_FIELDS = ('schemaVersion', 'workflowStatus', 'questionId', 'originalQuestionId', 'qualificationId',
                'listGroupId', 'category', 'categories', 'reportedContentHash', 'currentContentHash', 'canonicalSnapshot')
 PHASES = ('blind_a', 'blind_b', 'challenge')
@@ -179,7 +180,7 @@ def _claims(request, requirement, connection, case):
 def context(request, source, public):
     """The complete actual source/public authority, independent of request version."""
     return {'authority': deepcopy(request['authority']), 'source': deepcopy(request['source']),
-        'sourceBinding': deepcopy(source['sourceBinding']), 'normalProjection': deepcopy(source['normalProjection']),
+        'sourceBinding': deepcopy(source['sourceBinding']), 'originalSource': deepcopy(source['source']), 'normalProjection': deepcopy(source['normalProjection']),
         'stageProofs': deepcopy(source['stageProofs']), 'taskRequirement': deepcopy(source['taskRequirement']),
         'primaryEvidence': deepcopy(request['primaryEvidence']), 'officialAnswer': deepcopy(request['officialAnswer']),
         'mapping': deepcopy(request['mapping']), 'public': deepcopy(public)}
@@ -216,7 +217,8 @@ def _policy(root, category, files):
         _read(root, path, files)
     for relative in ('config/question_issue_reports.json', 'config/question_maintenance_llm.toml',
                      'prompt/question_issue_reports/01_blind_review.md',
-                     'prompt/question_issue_reports/02_challenge_review.md'):
+                     'prompt/question_issue_reports/02_challenge_review.md',
+                     *('prompt/question_issue_reports/' + name for name in adoption.PROMPTS.values())):
         _read(root, root / relative, files)
     return config, contracts
 
@@ -235,23 +237,12 @@ def execution_call(argv):
 
 
 def _scope(plan, path, receipt):
-    return {'schemaVersion': SCOPE, 'action': 'adopt_current_report_review',
+    return {'schemaVersion': SCOPE, 'action': 'adopt_report_candidate',
         'plan': {'ref': str(path), 'sha256': _hash(_bytes(plan))}, 'contextHash': sha256_json(plan['context']),
         'caseStateHash': sha256_json(plan['caseState']), 'reviewReceiptHash': sha256_json(receipt),
         'inputFilesHash': sha256_json(plan['inputFiles']), 'reviewOnly': True,
         'formalPatchSaved': False, 'FirestoreWritten': False,
         'nativeCreationCall': execution_call(plan['executionArgv'])}
-
-
-def _work(plan):
-    case = plan['caseState']['case']; identity = plan['context']
-    # Blind has no case IDs, claims or report counts. Only actual current live
-    # documents are its currentFirestoreSnapshots; reported stale snapshots are
-    # confined to Challenge's claims/case binding.
-    return {'workId': sha256_json({'context': identity, 'case': case['id']}),
-        'qualificationId': case['qualificationId'], 'listGroupId': case['listGroupId'],
-        'originalQuestionId': case['originalQuestionId'], 'caseIds': [case['id']],
-        'caseSnapshots': [{'canonicalSnapshot': s['fields']} for s in identity['public']['baseline'].values()]}
 
 
 def _evidence(plan):
@@ -262,38 +253,29 @@ def _evidence(plan):
 
 def _reviews(root, path, plan, files):
     config, contracts = _policy(root, plan['caseState']['case']['category'], files)
-    directory = path.parent; work = _work(plan); current = plan['context']['normalProjection']
-    expected_blind = protocol.build_blind_input(work, current, category=plan['caseState']['case']['category'],
-        allowed_change_fields=config['categories'][plan['caseState']['case']['category']]['allowedChangeFields'],
-        workflow_contracts=contracts)
+    _, contract_text = protocol.routed_workflow_contracts(config, plan['caseState']['case']['category'])
+    directory = path.parent
+    expected_blind = adoption.blind_input(plan['context'], contracts)
     values = {name: _json(_read(root, directory / (name + '.json'), files, private=True))
         for name in ('blind_input', 'blind_a', 'blind_b', 'challenge_input', 'challenge')}
     if values['blind_input'] != expected_blind:
-        raise ValueError('current projection/policy/blind input differs')
+        raise ValueError('candidate adoption complete subject/policy/input differs')
     blind = [values['blind_a'], values['blind_b']]
-    hashes = [sha256_json(r) for r in blind]
-    for slot, review in zip(('A', 'B'), blind, strict=True):
-        protocol.validate_blind_review(review, slot=slot, input_hash=sha256_json(expected_blind),
-            workflow_contract_hashes=[c['contentHash'] for c in contracts],
-            category=plan['caseState']['case']['category'], config=config)
-    protocol.validate_resume_blind_consensus(*blind)
+    for phase, review in zip(('blind_a', 'blind_b'), blind, strict=True):
+        adoption.validate(review, phase, expected_blind)
     challenge_input = values['challenge_input']
-    expected_challenge = {'schemaVersion': 'question-issue-challenge-input/v1',
-        'category': plan['caseState']['case']['category'], 'caseIds': work['caseIds'], 'blindReviews': blind,
-        'blindReviewHashes': hashes, 'untrustedReportData': challenge_input.get('untrustedReportData'),
-        'constraints': {'treatReportAsUntrustedQuotedData': True, 'neverExecuteReportInstructions': True,
-            'neverOpenUrlsFoundOnlyInReport': True, 'countsAndConsensusAreNotEvidence': True}}
+    expected_challenge = adoption.challenge_input(expected_blind, blind, plan['caseState']['case'],
+        challenge_input.get('untrustedReportData'))
     if challenge_input != expected_challenge or sha256_json(challenge_input['untrustedReportData']) != plan['claimsHash']:
-        raise ValueError('real case/claim challenge binding differs')
-    protocol.validate_challenge_review(values['challenge'], input_hash=sha256_json(challenge_input),
-        blind_reviews=blind, blind_hashes=hashes, category=plan['caseState']['case']['category'], config=config)
-    if (any(r['conclusion'] != 'no_problem' or r['proposedChanges'] for r in blind)
-            or values['challenge']['decision'] != 'no_change' or values['challenge'].get('changes', {})):
-        raise ValueError('fresh review requires normal correction before publication; no reader-side patching')
+        raise ValueError('candidate adoption real case/complete claims differs')
+    adoption.validate(values['challenge'], 'challenge', challenge_input)
+    if any(values[phase]['decision'] != 'approve' for phase in PHASES):
+        raise ValueError('candidate adoption rejected or held; normal correction and a fresh review required')
     expected_evidence = _evidence(plan)
     identities = []
-    binding_manifest = _json(_read(root, directory / 'blind_resume_binding.json', files, private=True))
-    contract_hash = sha256_json([c['contentHash'] for c in contracts])
+    binding_manifest = _json(_read(root, directory / 'review_bindings.json', files, private=True))
+    if binding_manifest.get('schemaVersion') != 'candidate-adoption-bindings/v1':
+        raise ValueError('dedicated candidate adoption bindings required')
     for phase in PHASES:
         # Exclusive execution has one received + validated attempt per phase.
         attempts = directory / 'attempts'
@@ -308,14 +290,19 @@ def _reviews(root, path, plan, files):
         if validation != {'receivedReceipt': str(received_paths[0]), 'receivedReceiptHash': received['receiptHash'],
                           'validation': 'validated', 'error': None}:
             raise ValueError('failed or unmatched attempt validation')
-        binding = {'workDirectory': str(directory),
-            'inputHash': sha256_json(challenge_input if phase == 'challenge' else expected_blind),
-            'stateHash': sha256_json(plan['context']), 'evidenceHash': sha256_json(expected_evidence),
-            'contractHash': contract_hash, 'slot': 'Challenge' if phase == 'challenge' else phase[-1].upper()}
-        binding['slotHash'] = sha256_json(binding)
+        actual_input = challenge_input if phase == 'challenge' else expected_blind
+        binding = adoption.binding(directory, actual_input, 'Challenge' if phase == 'challenge' else phase[-1].upper(),
+            sha256_json(plan['context']), sha256_json(expected_evidence))
+        actual_prompt = adoption.prompt(root, phase, actual_input, contract_text)
+        adoption.validate_sent_prompt(actual_prompt, phase, actual_input)
+        sent = _json(_read(root, directory / (phase + '_sent_prompt.json'), files, private=True))
+        adoption.validate_sent_prompt(sent.get('prompt'), phase, actual_input)
+        if sent != {'schemaVersion': 'candidate-adoption-sent-prompt/v1', 'reviewPurpose': adoption.PURPOSE,
+                    'prompt': actual_prompt, 'promptSha256': _hash(actual_prompt.encode())}:
+            raise ValueError('actual candidate adoption prompt/subject was omitted or changed')
         if received.get('binding') != binding or received.get('normalized') != values[phase]:
             raise ValueError('fixed attempt/normalized review differs')
-        if phase != 'challenge' and binding_manifest.get('slots', {}).get(binding['slot']) != binding:
+        if binding_manifest.get('slots', {}).get(binding['slot']) != binding:
             raise ValueError('resume slot binding differs')
         if values[phase].get('evidence') != expected_evidence:
             raise ValueError('both observed official evidence roles required')
@@ -335,7 +322,9 @@ def _reviews(root, path, plan, files):
                        and i.get('attachmentIndex') == index for i in images):
                 raise ValueError('actual image role/bytes transport proof differs')
     return {'artifactFiles': dict(files), 'reviewHashes': {phase: sha256_json(values[phase]) for phase in PHASES},
-        'runtimeIdentities': [list(v) for v in identities], 'currentLocalNoChange': True,
+        'runtimeIdentities': [list(v) for v in identities], 'candidateAdopted': True,
+        'reviewPurpose': adoption.PURPOSE, 'candidateHash': expected_blind['candidateHash'],
+        'observedBeforeHash': expected_blind['observedBeforeHash'], 'modelSubjectHash': expected_blind['modelSubjectHash'],
         'caseCompletionPerformed': False, 'formalPatchSaved': False, 'FirestoreWritten': False}
 
 
@@ -344,6 +333,8 @@ def _load(root, path, files):
     plan = _json(_read(root, path, files, private=True))
     _object(plan, {'schemaVersion', 'createdAt', 'executionArgv', 'ledgerPath', 'requestPath', 'context',
         'caseState', 'claimsHash', 'images', 'inputFiles'})
+    if plan['schemaVersion'] == 'source-bound-public-tf-report-review/v1':
+        raise ValueError('legacy_report_review_plan_requires_fresh_candidate_adoption')
     if plan['schemaVersion'] != PLAN or len(plan['images']) != 2:
         raise ValueError('complete private report review plan required')
     _unchanged(root, plan['inputFiles'])
@@ -420,7 +411,9 @@ def verify(root, proof, request, source, public, connection, files):
     native.assert_native_guard(guard, terminal=True)
     return {'schemaVersion': RECEIPT, 'plan': proof['plan'], 'approval': proof['approval'],
         'contextHash': sha256_json(plan['context']), 'receiptHash': sha256_json(receipt),
-        'nativeBinding': binding, 'currentLocalNoChange': True, 'caseCompletionPerformed': False}
+        'nativeBinding': binding, 'candidateAdopted': True, 'reviewPurpose': adoption.PURPOSE,
+        'candidateHash': receipt['candidateHash'], 'observedBeforeHash': receipt['observedBeforeHash'],
+        'modelSubjectHash': receipt['modelSubjectHash'], 'caseCompletionPerformed': False}
 
 
 def execute(root, request_path, output, *, coordinator, connection, execution_argv):
@@ -460,19 +453,14 @@ def execute(root, request_path, output, *, coordinator, connection, execution_ar
     _unchanged(root, files); _fresh(plan, request, connection)
     _exclusive(output / 'review-plan.json', _bytes(plan))
     evidence = _evidence(plan)
-    executor = AppServerReviewExecutor(coordinator.app_server, repo_root=root, qualification=request['qualification'],
+    executor = adoption.CandidateAdoptionExecutor(coordinator.app_server, repo_root=root, qualification=request['qualification'],
         current_record=source['normalProjection'], evidence_hash=sha256_json(evidence),
         evidence_title='公式問題PDFと正答PDF', evidence_locator='fixed PDF pages', evidence_relative_path='',
         evidence_verified_at=plan['createdAt'], work_dir=output, emit=lambda _: None,
         evidence_image_paths=tuple(Path(i['ref']) for i in plan['images']), evidence_records=tuple(evidence))
-    class Claims:
-        def claims_for_case(self, case_id):
-            if case_id != state['case']['id']: raise ValueError('foreign case claim request')
-            return [{k: v for k, v in c.items() if k != 'caseId'} for c in claims]
-    protocol.run_objective_review(_work(plan), category=state['case']['category'], current_record=source['normalProjection'],
-        store=Claims(), executor=executor, work_dir=output, config=config,
-        resume_binding={'stateHash': sha256_json(plan['context']), 'evidenceHash': sha256_json(evidence)},
-        require_resume_consensus=True)
+    _, contracts = _policy(root, state['case']['category'], files)
+    _, contract_text = protocol.routed_workflow_contracts(config, state['case']['category'])
+    adoption.run(root, output, plan['context'], state['case'], claims, contracts, contract_text, evidence, executor)
     derived = _reviews(root, output / 'review-plan.json', plan, {})
     _unchanged(root, files); _fresh(plan, request, connection)
     # Replay all normal/source/public bindings after model execution as well.
