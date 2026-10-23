@@ -919,6 +919,44 @@ class VerifiedStageExecutionTests(unittest.TestCase):
             with self.subTest(argv=argv), self.assertRaises(ValueError):
                 module.native_operation_call(argv, module_name=name)
 
+    def test_report_review_owner_is_exact_execute_and_same_cell_only(self):
+        self.prepare(); approval = self.approval()
+        name = 'tools.question_bank.feedback_source_tf_report_review'
+        base = ['--repo-root', str(self.root), '--db', str(self.private / 'ledger.sqlite3')]
+        command = ['execute', '--request', 'request', '--output', 'output']
+        parent, argv = self.owner_launch(approval, module_name=name, argv=[*base, *command])
+        initial = parent.read_bytes()
+        with module.native_operation(argv, module_name=name):
+            guard = module.capture_native_guard([approval])
+            for event in self.owner_progress(): self.append_event(parent, event)
+            module.assert_native_guard(guard, terminal=True)
+        # Same code, different owner input or cell cannot inherit the window.
+        bad_events = [self.owner_response('message', role='user', content=[{'type': 'input_text', 'text': 'stop'}]),
+            self.owner_response('function_call', name='wait', namespace='functions', call_id='wrong-cell',
+                arguments=json.dumps({'cell_id': 'different', 'max_tokens': 1000})),
+            self.owner_response('custom_tool_call', name='exec', call_id='other-tool', input='text(1);')]
+        for event in bad_events:
+            parent.write_bytes(initial)
+            with module.native_operation(argv, module_name=name):
+                guard = module.capture_native_guard([approval]); self.append_event(parent, event)
+                with self.assertRaises(ValueError): module.assert_native_guard(guard, terminal=True)
+        # The final LF and exact executable source are part of origin proof.
+        for mutate in (lambda text: text.rstrip(), lambda text: text.replace('max_output_tokens": 16000', 'max_output_tokens": 15999')):
+            events = [json.loads(line) for line in initial.splitlines()]
+            events[-1]['payload']['input'] = mutate(events[-1]['payload']['input'])
+            parent.write_bytes(b''.join((json.dumps(event) + '\n').encode() for event in events))
+            with module.native_operation(argv, module_name=name):
+                with self.assertRaises(ValueError): module.capture_native_guard([approval])
+        for invalid in (['scope', '--request', 'request', '--output', 'output'],
+                        ['execute', '--request', 'request'],
+                        [*command, '--approval', 'approval'],
+                        ['execute', '--request', 'request', '--request', 'other'],
+                        ['execute', '--request', '--output', '--output', 'output']):
+            with self.subTest(invalid=invalid), self.assertRaises(ValueError):
+                module.native_operation_call([*base, *invalid], module_name=name)
+        for invalid in ([*base[:2], *command], [*base, '--db', 'other', *command]):
+            with self.assertRaises(ValueError): module.native_operation_call(invalid, module_name=name)
+
     def token_count_event(self):
         counters = self.usage_event('author')['payload']['usage']
         return {'type': 'event_msg', 'payload': {'type': 'token_count',

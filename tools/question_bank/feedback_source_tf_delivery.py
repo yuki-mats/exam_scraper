@@ -152,6 +152,9 @@ def _pin_native_dependencies(root, request):
         receipt = _ref(root, proof['receipt'], {}, private=True)
         approval = _ref(root, receipt['approval'], {}, private=True)
         guards.update(native.capture_native_guard([approval]))
+    if request.get('reportReview'):
+        approval = _ref(root, request['reportReview']['approval'], {}, private=True)
+        guards.update(native.capture_native_guard([approval]))
     native.assert_native_guard(guards)
     return guards
 
@@ -363,8 +366,14 @@ def verify_normal_stage_proofs(root, request, coordinator, connection, files):
 def _request(root, request_path, files):
     value = _load(root, request_path, files, private=True)
     _object(value, {'schemaVersion', 'qualification', 'listGroupId', 'questionId', 'source', 'authority',
-        'publicationUnit', 'primaryEvidence', 'officialAnswer', 'stageProofs', 'mapping', 'public'})
-    if value['schemaVersion'] != REQUEST: raise ValueError('source TF request schema required')
+        'publicationUnit', 'primaryEvidence', 'officialAnswer', 'stageProofs', 'mapping', 'public'}, {'reportReview'})
+    from tools.question_bank.feedback_source_tf_report_review import REPORT_REQUEST
+    if value['schemaVersion'] == REQUEST:
+        if 'reportReview' in value: raise ValueError('legacy v1 cannot carry new report proof')
+    elif value['schemaVersion'] == REPORT_REQUEST:
+        if value['authority'].get('kind') != 'report' or 'reportReview' not in value:
+            raise ValueError('report v2 requires explicit report authority and review proof')
+    else: raise ValueError('source TF request schema required')
     for key in ('qualification', 'listGroupId', 'questionId'):
         _text(value[key])
         if '/' in value[key] or value[key] in ('.', '..'): raise ValueError('single identity segment required')
@@ -475,6 +484,8 @@ def _task_lifecycle(connection, request):
     if request['authority']['kind'] != 'improvement':
         # Report lifecycle is fixed by its normal individual-case requirement;
         # publication remains blocked until its blind/challenge reader connects.
+        if request['schemaVersion'] != REQUEST:
+            return {'kind': 'report', 'reviewAuthority': 'fresh_current_projection_review'}
         return {'kind': 'report', 'publicationGate': 'genuine_report_blind_a_b_challenge_reader_not_connected'}
     cursor = connection.cursor(); cursor.row_factory = sqlite3.Row
     try:
@@ -513,12 +524,15 @@ def _derive(root, path, coordinator, connection, files, *, baseline_override=Non
         'normalProjection': current, 'stageProofs': proofs, 'taskRequirement': requirement, 'taskLifecycle': lifecycle,
         'primaryEvidence': request['primaryEvidence'], 'officialAnswer': request['officialAnswer'], 'mapping': request['mapping']}
     source_payload['requiredReviewGates'] = []
-    if request['authority']['kind'] == 'report':
+    if request['authority']['kind'] == 'report' and request['schemaVersion'] == REQUEST:
         source_payload['requiredReviewGates'].append('genuine_report_blind_a_b_challenge_reader_not_connected')
     if current.get('isLawRelated') is True and not any(p.get('lawVerification') for p in proofs):
         source_payload['requiredReviewGates'].append('normal_03b_candidate_bound_reviews_missing')
     public_payload = {'schemaVersion': SCHEMA, 'publicationUnit': request['publicationUnit'], 'record': record,
         'questions': documents, 'baseline': baseline, 'writeFieldsByDocument': masks}
+    if request.get('reportReview'):
+        from tools.question_bank.feedback_source_tf_report_review import verify
+        source_payload['reportReview'] = verify(root, request['reportReview'], request, source_payload, public_payload, connection, files)
     if _task_lifecycle(connection, request) != lifecycle: raise ValueError('task lifecycle changed during replay')
     native.assert_native_guard(guards, terminal=True)
     return request, question, versions, source_payload, public_payload
@@ -879,6 +893,7 @@ def evaluate(root, path, *, coordinator, connection, evaluation=None):
 
 def _publication_gates(root, path, plan, coordinator, connection, evaluation):
     guards = _native_graph(root, path, plan)
+    _verify_report_boundary(root, plan, connection)
     if plan['source'].get('requiredReviewGates'):
         raise GateRequired(';'.join(plan['source']['requiredReviewGates']))
     saved_receipt = _verify_saved(root, path, plan)
@@ -941,6 +956,14 @@ def _git(root, plan):
     return head
 
 
+def _verify_report_boundary(root, plan, connection):
+    if plan['request'].get('reportReview'):
+        from tools.question_bank.feedback_source_tf_report_review import verify
+        value = verify(root, plan['request']['reportReview'], plan['request'], plan['source'], plan['public'], connection, {})
+        if value != plan['source'].get('reportReview'):
+            raise ValueError('current report review authority changed')
+
+
 def _terminal_publication_guard(root, path, plan, connection, gates, files, guard):
     """Close the last Git/native/check I/O window before write or result save."""
     dependency_guards = _native_graph(root, path, plan)
@@ -950,6 +973,9 @@ def _terminal_publication_guard(root, path, plan, connection, gates, files, guar
         if key in gates: _ref(root, gates[key], {}, decode=False)
     for reference in gates.get('formalFiles', {}).values(): _ref(root, reference, {}, decode=False)
     _unchanged(root, files)
+    native.assert_native_guard(dependency_guards, terminal=True)
+    native.assert_native_guard(guard, terminal=True)
+    _verify_report_boundary(root, plan, connection)
     native.assert_native_guard(dependency_guards, terminal=True)
     native.assert_native_guard(guard, terminal=True)
     # Keep the authority-state read last: the preceding I/O may race a hold or

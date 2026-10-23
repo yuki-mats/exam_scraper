@@ -74,6 +74,8 @@ class AppServerReviewExecutor(ReviewExecutor):
         emit: Callable[[str], None],
         work_dir: Path | None = None,
         evidence_image_path: Path | None = None,
+        evidence_image_paths: tuple[Path, ...] = (),
+        evidence_records: tuple[Mapping[str, Any], ...] = (),
     ):
         super().__init__(
             command=None,
@@ -93,7 +95,15 @@ class AppServerReviewExecutor(ReviewExecutor):
             f"{evidence_relative_path} / {evidence_locator}"
         )
         self.emit = emit
+        if evidence_image_path is not None and evidence_image_paths:
+            raise ValueError("single and multiple evidence image inputs are exclusive")
         self.evidence_image_path = evidence_image_path
+        self.evidence_image_paths = tuple(evidence_image_paths) or (
+            (evidence_image_path,) if evidence_image_path is not None else ()
+        )
+        if len(set(self.evidence_image_paths)) != len(self.evidence_image_paths):
+            raise ValueError("distinct evidence images required")
+        self.evidence_records = tuple(copy.deepcopy(dict(item)) for item in evidence_records)
 
     def execute(
         self,
@@ -118,8 +128,8 @@ class AppServerReviewExecutor(ReviewExecutor):
                 "workItemId": work_id,
                 "phase": phase,
             },
-            **({"image_paths": (self.evidence_image_path,)}
-               if self.evidence_image_path is not None else {}),
+            **({"image_paths": self.evidence_image_paths}
+               if self.evidence_image_paths else {}),
         )
         changed_files = tuple(getattr(result, "changed_files", ()) or ())
         if changed_files:
@@ -137,8 +147,8 @@ class AppServerReviewExecutor(ReviewExecutor):
         }
         identity["imageInputs"] = image_inputs
         try:
-            if self.evidence_image_path is not None:
-                expected_hash = hashlib.sha256(self.evidence_image_path.read_bytes()).hexdigest()
+            for evidence_image in self.evidence_image_paths:
+                expected_hash = hashlib.sha256(evidence_image.read_bytes()).hexdigest()
                 if not any(item.get("sha256") == expected_hash and item.get("byteCount", 0) > 0
                            for item in image_inputs):
                     raise OfficialSourceCorrectionError("公式原本画像の送信bytes証拠がありません。")
@@ -226,7 +236,7 @@ class AppServerReviewExecutor(ReviewExecutor):
         # Evidence provenance is fixed by the server before the model turn. The
         # reviewer owns only the conclusion and proposed changes; it must not be
         # able to add, omit, or mistype evidence metadata and its hashes.
-        payload["evidence"] = [
+        payload["evidence"] = list(copy.deepcopy(self.evidence_records)) or [
             {
                 "sourceClass": "official",
                 "title": self.evidence_title,

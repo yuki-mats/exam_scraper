@@ -337,6 +337,35 @@ class OfficialSourceCorrectionTests(unittest.TestCase):
                 self.assertEqual(app_server.options["image_paths"], (image,))
                 self.assertEqual(bool(received["imageInputs"]), valid_receipt)
 
+    def test_app_server_executor_requires_each_distinct_official_image(self):
+        for include_answer in (False, True):
+            with self.subTest(include_answer=include_answer), tempfile.TemporaryDirectory() as directory:
+                root = Path(directory)
+                images = (root / "question.png", root / "answer.png")
+                for image in images:
+                    image.write_bytes(image.name.encode())
+                evidence = ({"sourceClass": "official", "title": "question", "contentHash": "a" * 64},
+                            {"sourceClass": "official", "title": "answer", "contentHash": "b" * 64})
+                class AppServer:
+                    def run_turn(self, _prompt, **options):
+                        self.options = options
+                        selected = images if include_answer else images[:1]
+                        return SimpleNamespace(final_message='{"conclusion":"no_problem","proposedChanges":{}}',
+                            changed_files=(), image_inputs=tuple({"sha256": hashlib.sha256(p.read_bytes()).hexdigest(),
+                                "byteCount": len(p.read_bytes())} for p in selected))
+                runtime = AppServer()
+                executor = AppServerReviewExecutor(runtime, repo_root=root, qualification="sample", current_record={},
+                    evidence_hash="c" * 64, evidence_title="both", evidence_locator="q1", evidence_relative_path="",
+                    evidence_verified_at="2026-10-23T00:00:00Z", emit=lambda _: None, work_dir=root,
+                    evidence_image_paths=images, evidence_records=evidence)
+                if include_answer:
+                    result = executor.execute(work_id="work", phase="blind_a", prompt="review", replacements={})
+                    self.assertEqual(result["evidence"], list(evidence))
+                else:
+                    with self.assertRaises(OfficialSourceCorrectionError):
+                        executor.execute(work_id="work", phase="blind_a", prompt="review", replacements={})
+                self.assertEqual(runtime.options["image_paths"], images)
+
     def test_app_server_executor_persists_invalid_attempt_before_validation(self):
         class AppServer:
             def run_turn(self, _prompt, **_options):

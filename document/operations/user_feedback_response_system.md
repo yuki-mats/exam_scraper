@@ -72,7 +72,7 @@ native作成callはCLIの正常終了まで、途中でyieldされた出力も�
 
 通常sourceのTFには専用CLI `tools.question_bank.feedback_source_tf_delivery`を追加しています。通常工程の保存receipt・work version・checkpointを使い、公式原文と中立表示を分けた正式unitから通常の独立評価、read-set v3の限定公開・readbackへ接続します。固定案件のmanifestやガス25専用schemaには読み替えません。CLI、正式unitと各証跡の契約は[artifact契約](artifact_contract.md#通常sourceのtf公開unit)を正本とします。
 
-この経路の実装だけで各taskを公開可能・完了とは扱いません。公式報告の真正なBlind A/B・Challenge証跡のreaderと日次台帳の完了dispatchは未接続で、CLIはそれぞれ公開・完了を保留します。全active siblingが既存TFである単位を対象とし、組合せflash_cardやTFとの混在単位、原記述が一致しないID対応は別の対応を要します。通常工程の適用漏れ、法令の実取得根拠不足、独立評価不合格、checkerの未実行・失敗も、包括ユーザー許可やコード監査で免除しません。
+公式報告には、現投影に対するfresh Blind A/B・Challengeと真正な別subagentの採用承認を結ぶreport専用v2を使います。実行・証跡・v1との境界は[artifact契約](artifact_contract.md#通常sourceのtf公開unit)に従います。旧report v1は公開保留を維持し、新しい訂正が必要な審査結果をreaderで自動補正しません。日次台帳の完了dispatchは引き続き未接続です。全active siblingが既存TFである単位を対象とし、組合せflash_cardやTFとの混在単位、原記述が一致しないID対応は別の対応を要します。通常工程の適用漏れ、法令の実取得根拠不足、独立評価不合格、checkerの未実行・失敗も、包括ユーザー許可やコード監査で免除しません。
 
 2026-10-16、`python -m tools.question_bank.feedback_verified_review_context prepare --repo-root <repo> --plan <保存plan> --output <新規private directory> [--official-order <固定対応表>]`で、真正な保存receiptと現在の25を読み取り専用の評価入力へ結ぶ経路を追加しました。専用identityは25のpath/hash・公式index/PDF・原問と全sibling ID・現在policyを保持し、`00_source`の参照を作りません。各fieldはIDで結合します。公式順は、保存時native最終承認が明示したIDと肢labelに一致する`feedback-verified-official-order/v1`だけを受け付け、配列順・既存choiceIndex・OCRから推定しません。対応表がなければ公式順は未解決として保留します。既存の法令metadata内のindexや監査状態を、現在の工程完了記録へ読み替えません。
 

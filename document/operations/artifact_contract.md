@@ -157,7 +157,11 @@ v3のresultも`publicationConfirmed=false`であり、transportの検証・commi
 
 `scope --action publish`と別subagentの新たな承認を経て、`publish`はpush済みmainの実入力、fresh snapshot、全active集合、値・presence・exact時刻を照合し、既存uploaderのv3だけで限定更新する。`reconcile`は永続intent・attempt・実commit結果を再検証し、全対象field・対象外不変・読取専用siblingの時刻を読み戻す。確認結果は`source-bound-public-tf-publication-result/v1`として保存する。応答不明時は新規書込みせず、実SDKのcommit結果がなければ`commit_unconfirmed`で保留する。実commit証跡がある場合だけ現在値と同じ証跡を照合して再開し、現在値からcommit成功を推定しない。通常unitとガス25の専用receiptは相互に読み替えない。
 
-公式報告のBlind A/B・Challenge readerと台帳完了dispatchの未接続状態は[フィードバック運用正本](user_feedback_response_system.md#無人実行経路の既知の未対応)で追跡する。公開のreadback一致とtask完了を区別し、未接続dispatchを`completed`記録で迂回しない。
+公式報告の現投影を認証する場合は`tools.question_bank.feedback_source_tf_report_review`を使う。`execution_call()`へ`--repo-root`・`--db`・`execute --request <既存v1 request> --output <新規private directory>`の実引数を渡し、返された正規native wrapperを改変せず実行する。途中yieldは同じcellへの継続だけを許す。実AppServerによるBlind A/B・Challengeと全検証が完了した実行だけがnative採用scopeを発行し、別subagentの真正な承認を得てから、`source-bound-public-tf-report-request/v2`の`reportReview`にplanとapprovalのref/hashを結ぶ。旧v1 requestと既存24は保持し、後付けscopeで任意のreview JSONを認証しない。
+
+report審査は実task/case、caseが保持するcanonical snapshotとその内容hash、現policy、現在の正常投影、全sibling対応・readSet・実writeSetを固定する。報告claimsはprivateなChallengeだけへ渡し、Blindと正式unitへ生の利用者本文・識別情報を載せない。公式問題PDFと正答PDFの両役割を別の実画像として送り、実turnの送信bytes/hash、独立session、受領・検証結果を照合する。認証対象は既に訂正した現在の投影に対するA/Bの`no_problem`とChallengeの`no_change`であり、新たな訂正や保留は通常writerで再整備する。ローカル投影の`no_change`を、未反映のreport caseの処理済みへ転記しない。scope発行後の入力・採用承認の変化や撤回は、保存・公開直前、readback後、reconcileでも再検証する。
+
+中断した審査directoryは完成receiptやscopeを持たないまま保持し、同じdirectoryへ再実行して完成を装わない。旧report v1は審査reader未接続として公開保留を維持する。日次台帳の完了dispatchは[フィードバック運用正本](user_feedback_response_system.md#無人実行経路の既知の未対応)で追跡する。公開のreadback一致とtask完了を区別し、未接続dispatchを`completed`記録で迂回しない。
 
 ### 読取専用canonical contextによる限定生成
 

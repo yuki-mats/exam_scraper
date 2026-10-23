@@ -369,10 +369,32 @@ def native_operation_call(argv, *, module_name="tools.question_bank.feedback_ver
     if module_name not in {"tools.question_bank.feedback_verified_stage_execution",
                            "tools.question_bank.feedback_verified_delivery",
                            "tools.question_bank.feedback_verified_save_record",
-                           "tools.question_bank.feedback_source_tf_delivery"}:
+                           "tools.question_bank.feedback_source_tf_delivery",
+                           "tools.question_bank.feedback_source_tf_report_review"}:
         raise ValueError("owner-operation module is outside the explicit allowlist")
     if not argv or any(not isinstance(arg, str) or not arg for arg in argv):
         raise ValueError("exact nonempty CLI argv required")
+    if module_name == "tools.question_bank.feedback_source_tf_report_review":
+        options = {}
+        position = 0
+        while position < len(argv) and argv[position] in {"--repo-root", "--db"}:
+            key = argv[position]
+            if key in options or position + 1 >= len(argv) or argv[position + 1].startswith("--"):
+                raise ValueError("exact private report review global options required")
+            options[key] = argv[position + 1]
+            position += 2
+        if set(options) != {"--repo-root", "--db"} or position >= len(argv) or argv[position] != "execute":
+            raise ValueError("private report review owner supports only explicit execute")
+        tail = argv[position + 1:]
+        selected = {}
+        if len(tail) != 4:
+            raise ValueError("exact private report review request/output required")
+        for key, value in zip(tail[::2], tail[1::2]):
+            if key not in {"--request", "--output"} or key in selected or value.startswith("--"):
+                raise ValueError("unsupported private report review option")
+            selected[key] = value
+        if set(selected) != {"--request", "--output"}:
+            raise ValueError("exact private report review scope required")
     if module_name == "tools.question_bank.feedback_source_tf_delivery":
         options = {}
         position = 0
