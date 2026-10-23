@@ -2,7 +2,7 @@
 
 状態: 実装中。個別受付台帳と読み取り専用の日次照合を実装済み。日次heartbeatが既存CLIを使って調査・独立監査・公開を進める。専用の常駐GUIとスマホ承認画面は未実装。
 
-最終更新: 2026-10-22
+最終更新: 2026-10-23
 
 この文書は、Repasoから届くユーザーフィードバックの調査、改善、独立監査、patch保存、Firestore公開を扱う運用正本です。公式問題の誤り報告を修正レーンとし、AI解説への利用者質問から学習上のニーズを見つける改善レーンを置きます。将来はアプリ不具合、UI改善、要望も追加します。
 
@@ -57,6 +57,8 @@ native作成callはCLIの正常終了まで、途中でyieldされた出力も�
 2026-10-20、通常のsource-bound問題を一問・一工程ずつ進める`tools.question_bank.feedback_prepared_stage`を追加しました。共通引数`--repo-root <repo> --db <既存台帳>`に続けて、`prepare --request <private request> --output <新規private directory>`で構成済みruntimeの通常候補生成と既存writerの保存予定bytes検証を実行します。通常schedulerと同じ準備method・工程policy・source reader・compilerを使い、この段階では正式patch・workVersion・validated checkpointを保存しません。完全なsource binding、保全manifest、task要件又は個別の`fix_required` report/case、一次根拠、実装依存、全active live siblingの所属集合・masked値・exact更新時刻を固定します。sourceから既存公開IDへの対応は別の監査責務であり、このCLIは`sourceToLiveMappingApproved=false`と明示します。
 
 `scope --plan <plan.json>`の正常なnative出力を別subagentへ委任し、真正な`native-independent-approval/v1`を得た後、`apply --plan <plan.json> --approval <approval.json>`で同じ候補を通常writerへ渡します。入口とcanonical file lock取得後のcommit直前に、承認・現在入力・台帳要件・live集合を再検証します。実際のpatch bytes・workVersion・親checkpointの読戻しが一致した場合だけ専用保存receiptを確定し、同じ成功再送もこれらを再検証します。中断・部分保存・第三値は旧planの自動再適用を停止し、通常writerのbaselineとrollbackを保持します。次工程は前工程保存後の現在入力から新しく計画します。この保存receiptは公式報告のBlind A/B・Challenge、法令三段階監査、全工程完了、独立評価、公開用表示variant、限定公開・readbackを代替しません。既存T041の固定immutable unitを任意の問題へ流用しません。
+
+`primaryEvidence`の参照・hash固定と、モデルへ根拠本文を届ける処理は区別します。必要箇所を渡す場合は、新しいrequestに`primaryEvidenceSelections`を明示します。選択先は宣言済み`primaryEvidence`の同じref/hashに限り、XMLの`MainProvision`内の条番号、UTF-8の行範囲、JSON pointerだけを使います。serverが実bytesから限定抽出し、元byteshashと抽出hashを分け、一問・工程・source・task・policyと通常fingerprintへ結合します。固定bundleと実送信receiptを分けて保持し、通常候補生成と02bの実取得後再生成の各promptへ同じ根拠を届けます。保存前には実prompt原本と根拠を再検証します。未指定の資料を読んだとは記録せず、PDF本文抽出はこの経路では未対応として拒否します。この補助根拠を一次取得済み・監査済みの根拠へ自動昇格せず、02bの実取得、法令監査、正式保存の条件を維持します。
 
 候補のpreview検査が失敗した場合は、実候補・入力・policy・台帳要件・live snapshot・検査結果を`failure-receipt.json`へ固定し、親runを失敗で閉じます。終端childの記録は書き換えず、preview前のimmutable準備bindingへ再試行前史を含む入力hashを結合します。再試行は新しいrequestの`retryFromFailure: {ref, sha256}`から明示し、参照した実失敗と消費済みclaimの連鎖、現在入力、同じ問題・工程を照合して、通常の`candidate_retry`方針と検査feedbackを使います。履歴の短縮・差替、入力変更、循環参照を拒否し、通常の品質失敗上限を維持します。`retry-claim.json`のexclusive保存後に中断した場合は同じ失敗を再消費せず、再開位置を調査します。元requestの上書き、旧実装の失敗runへの後付けreceipt、失敗候補の正答数を合わせる自動補正は行いません。
 

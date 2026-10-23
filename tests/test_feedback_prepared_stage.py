@@ -951,3 +951,157 @@ class PreparedStageGenuineHoldTests(unittest.TestCase):
         self.assertFalse((self.output / 'hold-receipt.json').exists())
         self.assertFalse((self.output / 'plan.json').exists())
         self.assertEqual(canonical.read_bytes(), b'concurrent workVersion')
+
+
+class PreparedPrimaryEvidenceTests(unittest.TestCase):
+    """Explicit source spans reach the private normal model input."""
+    setUp = PreparedStageTests.setUp
+    write = staticmethod(PreparedStageTests.write)
+    prepare = PreparedStageTests.prepare
+    plan = PreparedStageTests.plan
+    apply = PreparedStageTests.apply
+    def selection(self):
+        path = self.private / 'primary.txt'
+        self.write(path, '不要な前文\n正式なlawId=123AC1000000001\n不要な後文\n'.encode())
+        ref = {'ref': str(path), 'sha256': stage._hash(path.read_bytes())}
+        self.request['primaryEvidence'].append(ref)
+        self.request['primaryEvidenceSelections'] = [{'evidence': ref, 'format': 'utf8_lines', 'startLine': 2, 'endLine': 2}]
+        self.write(self.request_path, self.request)
+        return path
+
+    def test_span_reaches_actual_prompt_and_receipt_replays_without_model(self):
+        from tools.question_review_console.law_audit_verification import question_inputs_from_prompt
+        path = self.selection(); receipt = self.prepare(); plan = self.plan()
+        question = question_inputs_from_prompt(self.model.calls[0][0])[self.request['questionId']]
+        bundle = question['preparedPrimaryEvidence']; entry = bundle['entries'][0]
+        self.assertEqual(entry['text'], '正式なlawId=123AC1000000001\n')
+        self.assertNotIn('不要な前文', self.model.calls[0][0])
+        self.assertEqual(entry['selection']['evidence']['sha256'], stage._hash(path.read_bytes()))
+        self.assertNotEqual(entry['selection']['evidence']['sha256'], entry['extractedTextSha256'])
+        self.assertEqual(bundle['scope']['sourceBinding'], self.request['source']['binding'])
+        self.assertEqual(bundle['scope']['authority'], self.request['authority'])
+        proof = plan['preparedCandidate']['content']['executionMetadata']['preparedPrimaryEvidenceDelivery']
+        self.assertEqual(proof['bundleHash'], bundle['bundleHash'])
+        self.assertEqual(proof['promptHash'], stage._hash(self.model.calls[0][0].encode()))
+        self.assertEqual(receipt['primaryEvidenceBundleHash'], bundle['bundleHash'])
+        self.assertEqual(plan['inputFingerprint'], bundle['scope']['inputFingerprint'])
+        before_calls = len(self.model.calls)
+        with patch.object(stage, 'verify_independent_approval', return_value={'reviewerSessionId': 'independent'}):
+            first = self.apply(); self.assertTrue(first['formalPatchSaved']); self.assertEqual(self.apply(), first)
+        self.assertEqual(len(self.model.calls), before_calls)
+
+    def test_old_request_does_not_claim_evidence_read(self):
+        from tools.question_review_console.law_audit_verification import question_inputs_from_prompt
+        receipt = self.prepare(); plan = self.plan()
+        self.assertNotIn('primaryEvidenceBundleHash', receipt)
+        self.assertNotIn('preparedPrimaryEvidence', question_inputs_from_prompt(self.model.calls[0][0])[self.request['questionId']])
+        self.assertNotIn('preparedPrimaryEvidenceDelivery', plan['preparedCandidate']['content']['executionMetadata'])
+
+    def test_missing_modified_unlisted_unsupported_empty_or_bad_range_never_starts_model(self):
+        path = self.selection(); original = path.read_bytes()
+        for mutation in ('missing', 'modified', 'unlisted', 'pdf', 'empty', 'range'):
+            self.write(path, original); request = deepcopy(self.request)
+            if mutation == 'missing': path.unlink()
+            elif mutation == 'modified': path.write_bytes(original + b'changed')
+            elif mutation == 'unlisted': request['primaryEvidenceSelections'][0]['evidence']['sha256'] = 'a' * 64
+            elif mutation == 'pdf': request['primaryEvidenceSelections'][0] = {'evidence': request['primaryEvidence'][0], 'format': 'pdf_pages', 'pages': [1]}
+            elif mutation == 'empty': request['primaryEvidenceSelections'] = []
+            elif mutation == 'range': request['primaryEvidenceSelections'][0]['endLine'] = 500
+            self.write(self.request_path, request)
+            with self.subTest(mutation=mutation), self.assertRaises((ValueError, RuntimeError, OSError)): self.prepare()
+            self.assertFalse(self.model.calls); self.assertFalse(self.output.exists())
+
+    def test_tamper_after_native_generation_cannot_create_plan(self):
+        path = self.selection()
+        self.model.before_receipt = lambda _: path.write_bytes(b'replaced after model read')
+        with self.assertRaises((ValueError, RuntimeError, OSError)): self.prepare()
+        self.assertEqual(len(self.model.calls), 1); self.assertFalse((self.output / 'plan.json').exists())
+
+    def test_plan_rejects_changed_source_selection_or_task(self):
+        path = self.selection(); self.prepare(); initial = path.read_bytes()
+        for mutation in ('source', 'request', 'task'):
+            if mutation == 'source': path.write_bytes(initial + b'changed')
+            elif mutation == 'request':
+                request = deepcopy(self.request); request['primaryEvidenceSelections'][0]['startLine'] = 1
+                self.write(self.request_path, request)
+            else: self.connection.execute("UPDATE improvement_tasks SET need='different'"); self.connection.commit()
+            with self.subTest(mutation=mutation), self.assertRaises(ValueError): self.plan()
+            path.write_bytes(initial); self.write(self.request_path, self.request)
+        self.assertFalse((self.output / 'save-receipt.json').exists())
+
+    def test_rebound_question_stage_source_input_policy_is_rejected(self):
+        from tools.question_review_console.qualification_runs import _validate_prepared_primary_evidence
+        self.selection(); self.prepare(); plan = self.plan()
+        bundle = plan['stagePlan']['preparedPrimaryEvidence']; target = plan['stagePlan']['progressTargets'][0]
+        original_record = stage._stage_inputs(self.coordinator, self.request, plan['stagePlan'],
+            self.coordinator.store.get('new-exam', plan['parentRunId']), '')['candidateRecord']
+        for field in ('qualification', 'stageId', 'questionId', 'listGroupId', 'inputFingerprint',
+                      'projectedInputHash', 'policyFingerprint', 'inputRecordHash', 'sourceBinding'):
+            mutated = deepcopy(bundle); mutated['scope'][field] = {'wrong': True} if field == 'sourceBinding' else 'other'
+            mutated['bundleHash'] = stage.sha256_json({k: v for k, v in mutated.items() if k != 'bundleHash'})
+            with self.subTest(field=field), self.assertRaises(RuntimeError):
+                _validate_prepared_primary_evidence(self.root, mutated, qualification='new-exam', stage_id=self.request['stageId'],
+                    target=target, input_fingerprint=plan['inputFingerprint'], projected_input_hash=plan['projectedInputHash'],
+                    policy_fingerprint=plan['stagePlan']['policyFingerprints'][self.request['stageId']], record=original_record)
+
+    def test_native_interruption_and_replaced_prompt_never_silently_reuse_evidence(self):
+        self.selection()
+        self.model.before_receipt = lambda _: (_ for _ in ()).throw(InterruptedError('interrupted native read'))
+        with self.assertRaises(InterruptedError): self.prepare()
+        self.assertFalse((self.output / 'plan.json').exists())
+        self.model.before_receipt = None
+        self.output = self.private / 'fresh-after-interruption'
+        self.prepare(); plan = self.plan(); count = len(self.model.calls)
+        with self.assertRaises(ValueError): self.prepare()
+        self.assertEqual(count, len(self.model.calls))
+        self.coordinator.store.update('new-exam', plan['childRunId'], preparedPrimaryEvidencePromptHash='a' * 64)
+        with self.assertRaises(ValueError): self.plan()
+
+    def test_xml_law_body_title_and_main_must_be_globally_unique_and_directly_associated(self):
+        from tools.question_review_console.qualification_runs import _prepared_primary_evidence_entries
+        path = self.private / 'ambiguous-law.xml'
+        title = '<LawTitle>First law</LawTitle>'
+        main = '<MainProvision><Article Num="2">First text</Article></MainProvision>'
+        body = '<LawBody>' + title + main + '</LawBody>'
+        law = '<Law>' + body + '</Law>'
+        variants = {
+            'two-laws': '<Laws>' + law + law.replace('First', 'Second') + '</Laws>',
+            'one-wrapped-law': '<Laws>' + law + '</Laws>',
+            'nested-law': '<Law>' + body + law + '</Law>',
+            'two-bodies': '<Law>' + body + body.replace('First', 'Second') + '</Law>',
+            'nested-body': '<Law><LawBody>' + title + main + body + '</LawBody></Law>',
+            'two-mains': '<Law><LawBody>' + title + main + main + '</LawBody></Law>',
+            'two-titles': '<Law><LawBody>' + title + title.replace('First', 'Second') + main + '</LawBody></Law>',
+            'title-outside-body': '<Law>' + title + '<LawBody>' + main + '</LawBody></Law>',
+            'main-outside-body': '<Law><LawBody>' + title + '</LawBody>' + main + '</Law>',
+            'title-nested': '<Law><LawBody><Other>' + title + '</Other>' + main + '</LawBody></Law>',
+            'main-nested': '<Law><LawBody>' + title + '<Other>' + main + '</Other></LawBody></Law>',
+            'empty-title': law.replace('First law', ' '),
+            'duplicate-article': law.replace('</MainProvision>', '<Article Num="2">Second text</Article></MainProvision>'),
+        }
+        for name, value in variants.items():
+            self.write(path, value.encode())
+            selection = {'evidence': {'ref': str(path), 'sha256': stage._hash(path.read_bytes())},
+                'format': 'xml_articles', 'articles': ['2']}
+            with self.subTest(mutation=name), self.assertRaises(RuntimeError):
+                _prepared_primary_evidence_entries(self.root, [selection])
+        self.write(path, law.encode())
+        selection['evidence']['sha256'] = stage._hash(path.read_bytes())
+        entry = _prepared_primary_evidence_entries(self.root, [selection])[0]
+        self.assertIn('First law', entry['text']); self.assertIn('First text', entry['text'])
+
+    def test_bounded_xml_json_and_binary_contracts(self):
+        from tools.question_review_console.qualification_runs import _prepared_primary_evidence_entries
+        path = self.private / 'law.xml'
+        xml = b'<Law><LawBody><LawTitle>Test</LawTitle><MainProvision><Article Num="2">Needed</Article><Article Num="42">Duty</Article></MainProvision></LawBody></Law>'
+        self.write(path, xml); ref = {'ref': str(path), 'sha256': stage._hash(xml)}
+        entries = _prepared_primary_evidence_entries(self.root, [{'evidence': ref, 'format': 'xml_articles', 'articles': ['2', '42']}])
+        self.assertIn('Needed', entries[0]['text']); self.assertIn('Duty', entries[0]['text'])
+        receipt = self.private / 'receipt.json'; self.write(receipt, {'lawId': '123AC100', 'unused': 'omit', 'a/b': [1, 2]})
+        reference = {'ref': str(receipt), 'sha256': stage._hash(receipt.read_bytes())}
+        entries = _prepared_primary_evidence_entries(self.root, [{'evidence': reference, 'format': 'json_pointers', 'pointers': ['/lawId', '/a~1b/1']}])
+        self.assertNotIn('unused', entries[0]['text']); self.assertEqual(json.loads(entries[0]['text'])['/a~1b/1'], 2)
+        for value, kind in ((b'%PDF fake', 'utf8_lines'), (b'<Law><Article Num="2">a</Article><Article Num="2">b</Article></Law>', 'xml_articles'), (b'x' * 16_001, 'utf8_lines')):
+            self.write(path, value); ref = {'ref': str(path), 'sha256': stage._hash(value)}
+            selection = {'evidence': ref, 'format': kind, **({'articles': ['2']} if kind == 'xml_articles' else {'startLine': 1, 'endLine': 1})}
+            with self.assertRaises(RuntimeError): _prepared_primary_evidence_entries(self.root, [selection])

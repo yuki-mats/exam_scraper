@@ -101,6 +101,41 @@ class LawContextPrimaryCycleTests(unittest.TestCase):
             self.assertEqual(receipt, self.apply())
         self.assertEqual(len(self.model.calls), 2)
 
+    def test_explicit_primary_spans_reach_discovery_and_every_regeneration_without_changing_normal_fingerprints(self):
+        xml = self.private / 'actual-primary.xml'; self.write(xml, XML.encode())
+        metadata = self.private / 'actual-primary-receipt.json'
+        self.write(metadata, {'lawId': LAW_ID, 'sourceUrl': 'https://laws.e-gov.go.jp/api/2/law_file/xml/' + LAW_ID,
+            'unused': 'not selected'})
+        xml_ref = {'ref': str(xml), 'sha256': stage._hash(xml.read_bytes())}
+        meta_ref = {'ref': str(metadata), 'sha256': stage._hash(metadata.read_bytes())}
+        self.request['primaryEvidence'].extend([xml_ref, meta_ref])
+        self.request['primaryEvidenceSelections'] = [
+            {'evidence': xml_ref, 'format': 'xml_articles', 'articles': ['11']},
+            {'evidence': meta_ref, 'format': 'json_pointers', 'pointers': ['/lawId', '/sourceUrl']}]
+        self.write(self.request_path, self.request)
+        original_turn = self.model.run_turn
+        def read_evidence(prompt, **kwargs):
+            question = PerQuestionQueueAppServer._candidate_questions(prompt)[0]
+            bundle = question['preparedPrimaryEvidence']
+            self.assertIn('制度の定義', bundle['entries'][0]['text'])
+            self.assertNotIn('登録の手続', bundle['entries'][0]['text'])
+            self.assertEqual(json.loads(bundle['entries'][1]['text'])['/lawId'], LAW_ID)
+            return original_turn(prompt, **kwargs)
+        self.model.run_turn = read_evidence
+        self.prepare(); plan = self.plan()
+        questions = [PerQuestionQueueAppServer._candidate_questions(call[0])[0] for call in self.model.calls]
+        self.assertEqual(len(questions), 2)
+        self.assertEqual(questions[0]['preparedPrimaryEvidence'], questions[1]['preparedPrimaryEvidence'])
+        bundle = questions[0]['preparedPrimaryEvidence']
+        self.assertEqual(bundle['scope']['inputFingerprint'], plan['inputFingerprint'])
+        self.assertEqual(bundle['scope']['projectedInputHash'], plan['projectedInputHash'])
+        proof = self.proof(plan)
+        self.assertEqual(proof['rounds'][0]['execution']['primaryEvidenceBundleHash'], bundle['bundleHash'])
+        self.assertEqual(proof['rounds'][0]['execution']['promptHash'], stage._hash(self.model.calls[1][0].encode()))
+        with patch.object(stage, 'verify_independent_approval', return_value={'reviewerSessionId': 'independent'}):
+            self.assertTrue(self.apply()['formalPatchSaved'])
+        self.assertEqual(len(self.model.calls), 2)
+
     def test_changed_locator_is_resolved_before_accepting_the_final_candidate(self):
         self.model.articles = ['11', '12', '12']
         self.prepare(); proof = self.proof(self.plan())

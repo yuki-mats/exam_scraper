@@ -31,7 +31,8 @@ from tools.question_review_console.projection import sha256_json
 from tools.question_review_console.qualification_runs import (
     QualificationRunCoordinator, QualificationRunError, _maintenance_session_phases,
     _validated_question_work_queue, stage_input_readiness_issues, candidate_targets,
-    QuestionValidationResult,
+    QuestionValidationResult, _prepared_primary_evidence_entries, PRIMARY_EVIDENCE_BUNDLE,
+    _filter_structured_candidate_prompt, _prepared_primary_evidence_prompt,
 )
 from tools.question_review_console.question_patch_proposal import assert_target_resolvable
 
@@ -76,7 +77,7 @@ def _requirements(connection, authority):
 def _request(root, path, files):
     value = _json(_read(root, path, files, private=True))
     _object(value, {'schemaVersion', 'qualification', 'listGroupId', 'questionId', 'stageId', 'source',
-                    'authority', 'live', 'primaryEvidence'}, {'retryFromFailure'})
+                    'authority', 'live', 'primaryEvidence'}, {'retryFromFailure', 'primaryEvidenceSelections'})
     if value['schemaVersion'] != REQUEST or value['stageId'] not in STAGES:
         raise ValueError('dedicated single-stage request required')
     for field in ('qualification', 'listGroupId', 'questionId'):
@@ -129,6 +130,14 @@ def _request(root, path, files):
         raise ValueError('fixed primary evidence required')
     for evidence in value['primaryEvidence']:
         _ref(root, evidence, files, private=True, decode=False)
+    if 'primaryEvidenceSelections' in value:
+        selections = value['primaryEvidenceSelections']
+        if not isinstance(selections, list) or not selections:
+            raise ValueError('nonempty primary evidence selections required')
+        for selection in selections:
+            if not isinstance(selection, dict) or selection.get('evidence') not in value['primaryEvidence']:
+                raise ValueError('model evidence selection must reference declared primaryEvidence exactly')
+        _prepared_primary_evidence_entries(root, selections)
     if 'retryFromFailure' in value:
         _ref(root, value['retryFromFailure'], files, private=True, decode=False)
     return value
@@ -604,6 +613,20 @@ def prepare(root, request_path, destination, *, coordinator, connection):
             parent = coordinator.store.get(qualification, parent['runId'])
             spec['queueStage'] = coordinator._queue_stage(parent, request['questionId'], stage)
         parent = coordinator.store.get(qualification, parent['runId'])
+        if 'primaryEvidenceSelections' in request:
+            bundle = {'schemaVersion': PRIMARY_EVIDENCE_BUNDLE,
+                'scope': {'qualification': qualification, 'stageId': stage,
+                    'questionId': request['questionId'], 'listGroupId': request['listGroupId'],
+                    'sourceBinding': request['source']['binding'], 'authority': request['authority'],
+                    'taskRequirementHash': requirement['requirementHash'],
+                    'requestHash': files[str(Path(request_path).relative_to(root))],
+                    'inputFingerprint': str((spec.get('queueStage') or {}).get('inputFingerprint') or ''),
+                    'projectedInputHash': spec['projectionUpdate']['changes']['projectedInputHash'],
+                    'policyFingerprint': str((spec['scopedPlan'].get('policyFingerprints') or {}).get(stage) or ''),
+                    'inputRecordHash': sha256_json(spec['candidateRecord'])},
+                'entries': _prepared_primary_evidence_entries(root, request['primaryEvidenceSelections'])}
+            bundle['bundleHash'] = sha256_json(bundle)
+            spec['preparedPrimaryEvidence'] = bundle
         _unchanged(root, files)
         prepared = coordinator._prepare_question_candidate_attempt(qualification, parent['runId'], [spec], {'id': stage}, prompt,
             parent, parent=parent, emit=lambda _: None)
@@ -637,6 +660,12 @@ def prepare(root, request_path, destination, *, coordinator, connection):
             'inputFingerprint': fixed['inputFingerprint'], 'projectedInputHash': fixed['projectedInputHash'],
             'candidateHash': candidate['contentHash'], 'preparationInputHash': _preparation_input_hash(fixed),
             'holdContract': HOLD_CONTRACT}
+        if spec.get('preparedPrimaryEvidence') is not None:
+            proof = candidate['content'].get('executionMetadata', {}).get('preparedPrimaryEvidenceDelivery') or {}
+            if proof.get('bundleHash') != spec['preparedPrimaryEvidence']['bundleHash']:
+                raise ValueError('actual model primary evidence receipt required')
+            fixed['preparationBinding']['primaryEvidenceBundleHash'] = proof['bundleHash']
+            fixed['preparationBinding']['primaryEvidencePromptHash'] = proof['promptHash']
         coordinator.store.update(qualification, prepared['childId'], preparedStagePreparation=fixed['preparationBinding'])
         output = _run(coordinator, fixed, preview=True)
         if not output.get('preview') or output['preview'].get('recordWorkVersion') is not True:
@@ -666,9 +695,13 @@ def prepare(root, request_path, destination, *, coordinator, connection):
 
 
 def _preview_receipt(plan):
-    return {'schemaVersion': PREVIEW, 'planHash': plan['planHash'], 'formalPatchSaved': False,
+    receipt = {'schemaVersion': PREVIEW, 'planHash': plan['planHash'], 'formalPatchSaved': False,
         'workVersionRecorded': False, 'checkpointRecorded': False, 'FirestoreWritten': False,
         'prospectivePatchHashes': {p['path']: p['afterSha256'] for p in plan['commitView']['patches']}}
+    if plan.get('preparationBinding', {}).get('primaryEvidenceBundleHash'):
+        receipt['primaryEvidenceBundleHash'] = plan['preparationBinding']['primaryEvidenceBundleHash']
+        receipt['primaryEvidencePromptHash'] = plan['preparationBinding']['primaryEvidencePromptHash']
+    return receipt
 
 
 def _canonical_before(root, view):
@@ -715,6 +748,24 @@ def load_plan(root, path, *, coordinator, connection, saved=False):
     if ('preparationInputHash' in plan.get('preparationBinding', {})
             and plan['preparationBinding']['preparationInputHash'] != _preparation_input_hash(plan)):
         raise ValueError('immutable normal preparation inputs/ancestry changed')
+    if checked.get('primaryEvidenceSelections') is not None:
+        bundle = plan['stagePlan'].get('preparedPrimaryEvidence') or {}
+        proof = current['content'].get('executionMetadata', {}).get('preparedPrimaryEvidenceDelivery') or {}
+        checks = {
+            'childBundle': child.get('preparedPrimaryEvidence') == bundle,
+            'authority': bundle.get('scope', {}).get('authority') == checked['authority'],
+            'taskRequirement': bundle.get('scope', {}).get('taskRequirementHash') == plan['taskRequirement']['requirementHash'],
+            'request': bundle.get('scope', {}).get('requestHash') == plan['inputFiles'][plan['requestPath']],
+            'selections': [item.get('selection') for item in bundle.get('entries', [])] == checked['primaryEvidenceSelections'],
+            'proofBundle': proof.get('bundleHash') == bundle.get('bundleHash'),
+            'boundBundle': proof.get('bundleHash') == plan['preparationBinding'].get('primaryEvidenceBundleHash'),
+            'childPrompt': proof.get('promptHash') == child.get('preparedPrimaryEvidencePromptHash'),
+            'boundPrompt': proof.get('promptHash') == plan['preparationBinding'].get('primaryEvidencePromptHash'),
+            'actualPrompt': proof.get('promptHash') == _hash(_filter_structured_candidate_prompt(
+                _prepared_primary_evidence_prompt(coordinator.store, plan['qualification'], plan['childRunId']),
+                {checked['questionId']}).encode('utf-8'))}
+        if not all(checks.values()):
+            raise ValueError('fixed primary evidence model input/receipt changed: ' + ','.join(key for key, valid in checks.items() if not valid))
     if not coordinator._phase_plan_policy_is_current(plan['qualification'], plan['stagePlan'], plan['stageId']):
         raise ValueError('stage policy changed')
     changed_paths = {p['path'] for p in plan['commitView']['patches']} if saved else set()
