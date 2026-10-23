@@ -219,6 +219,9 @@ from tools.question_review_console.law_audit_verification import (
     parse_review as parse_law_review,
     promote_candidate as promote_law_candidate,
     question_inputs_from_prompt as law_question_inputs,
+    statement_judgment_guidance, validate_statement_judgment_guidance,
+    validate_verification_bundle as validate_law_verification_bundle,
+    JUDGMENT_GUIDANCE_SOURCE,
 )
 from tools.question_review_console.workflow_runner import (
     ArtifactSynchronizer,
@@ -2252,6 +2255,9 @@ def _structured_candidate_prompt(
             question["questionScope"] = scope
         if stage_id == "law_audit":
             question["auditVerificationContract"] = "primary_proposal_then_independent_reviews/v1"
+            guidance = (stage_context or {}).get('statementJudgmentGuidance')
+            if guidance is not None:
+                question['statementJudgmentGuidance'] = validate_statement_judgment_guidance(guidance)
             question["preserveTechnicalFieldsWhenNotLawRelated"] = sorted(
                 allowed_fields
                 & {"correctChoiceText", "explanationText", "suggestedQuestionDetailsByChoice"}
@@ -2458,6 +2464,7 @@ def _structured_candidate_prompt(
 def _canonical_document_guidance(
     repo_root: Path,
     canonical_docs: Iterable[str],
+    *, stage_id: str | None = None,
 ) -> str:
     """Embed trusted canonical documents for no-tool question model turns."""
 
@@ -2487,7 +2494,9 @@ def _canonical_document_guidance(
         if not resolved.is_file():
             continue
         try:
-            content = resolved.read_text(encoding="utf-8").strip()
+            content = (statement_judgment_guidance(root)['sectionText']
+                if stage_id == 'law_audit' and relative.as_posix() == JUDGMENT_GUIDANCE_SOURCE
+                else resolved.read_text(encoding="utf-8")).strip()
         except (OSError, UnicodeError) as exc:
             raise QualificationRunError(
                 f"正本文書を読み込めません: {relative.as_posix()}"
@@ -2682,7 +2691,7 @@ def _structured_candidate_stage_context(
             ],
         }
     if stage_id in {"law_context", "law_audit"}:
-        return {
+        context = {
             "rules": [
                 "既存lawReferencesは正答根拠として信用せず、lawId・article又は保存済みURLから一次情報本文を直接開く入口として先に使う。",
                 "既存の紐付け先だけで全選択肢を十分に説明できると確認した場合は、広域検索とlawReferencesの再構築を行わず、有効な紐付けを保持する。",
@@ -2693,6 +2702,9 @@ def _structured_candidate_stage_context(
                 "別問題のlawReferencesを類似性だけで流用しない。",
             ],
         }
+        if stage_id == 'law_audit':
+            context['statementJudgmentGuidance'] = statement_judgment_guidance(repo_root)
+        return context
     if stage_id != "question_set":
         return {}
     category_path = (
@@ -15616,6 +15628,7 @@ class QualificationRunCoordinator:
         canonical_guidance = _canonical_document_guidance(
             self.repo_root,
             batch_plan.get("canonicalDocs") or [],
+            stage_id=stage_id,
         )
         prepared_primary_evidence = single_spec.get('preparedPrimaryEvidence')
         if prepared_primary_evidence is not None:
@@ -16845,6 +16858,23 @@ class QualificationRunCoordinator:
                 prepared_execution_metadata = copy.deepcopy(
                     dict(raw_execution)
                 )
+                if stage_id == 'law_audit':
+                    delivery = prepared_execution_metadata.get('lawAuditJudgmentGuidance') or {}
+                    guidance = statement_judgment_guidance(self.repo_root)
+                    validate_statement_judgment_guidance(delivery.get('guidance'), current=guidance)
+                    saved_prompt = _filter_structured_candidate_prompt(
+                        _prepared_primary_evidence_prompt(self.store, qualification, run_id), set(question_ids))
+                    if (law_question_inputs(saved_prompt)[question_ids[0]].get('statementJudgmentGuidance') != guidance
+                            or delivery.get('primaryPromptHash') != hashlib.sha256(saved_prompt.encode('utf-8')).hexdigest()
+                            or delivery.get('inputFingerprint') != input_fingerprint_value
+                            or delivery.get('projectedInputHash') != projected_input_hash
+                            or not delivery.get('primaryExecution', {}).get('threadId')
+                            or not delivery.get('primaryExecution', {}).get('turnId')):
+                        raise QualificationRunError('03bの実primary promptと命題判定guidanceの固定入力が一致しません。')
+                    for verification in (prepared_execution_metadata.get('lawAuditVerification') or {}).values():
+                        bundle = verification.get('bundle') or {}
+                        validate_law_verification_bundle(bundle)
+                        validate_statement_judgment_guidance(bundle.get('question', {}).get('statementJudgmentGuidance'), current=guidance)
                 if prepared_primary_evidence is not None:
                     proof = prepared_execution_metadata.get('preparedPrimaryEvidenceDelivery') or {}
                     if (proof.get('bundleHash') != prepared_primary_evidence['bundleHash']
@@ -16877,6 +16907,11 @@ class QualificationRunCoordinator:
                         if (law_question_inputs(candidate_prompt)[question_ids[0]].get('preparedPrimaryEvidence') != prepared_primary_evidence
                                 or hashlib.sha256(candidate_prompt.encode('utf-8')).hexdigest() != child.get('preparedPrimaryEvidencePromptHash')):
                             raise QualificationRunError('一次根拠bundleを含む実candidate promptが固定入力と一致しません。')
+                    if stage_id == 'law_audit':
+                        primary_guidance = statement_judgment_guidance(self.repo_root)
+                        validate_statement_judgment_guidance(
+                            law_question_inputs(candidate_prompt)[question_ids[0]].get('statementJudgmentGuidance'),
+                            current=primary_guidance)
                     result = self.app_server.run_turn(
                         candidate_prompt,
                         model_profile=model_profile_name,
@@ -16954,6 +16989,12 @@ class QualificationRunCoordinator:
                             'promptHash': hashlib.sha256(candidate_prompt.encode('utf-8')).hexdigest(),
                             'threadId': result.thread_id, 'turnId': result.turn_id,
                             'responseHash': hashlib.sha256(result.final_message.encode('utf-8')).hexdigest(),
+                            'inputFingerprint': input_fingerprint_value, 'projectedInputHash': projected_input_hash}
+                    if stage_id == 'law_audit':
+                        prepared_execution_metadata['lawAuditJudgmentGuidance'] = {
+                            'guidance': copy.deepcopy(primary_guidance),
+                            'primaryPromptHash': hashlib.sha256(candidate_prompt.encode('utf-8')).hexdigest(),
+                            'primaryExecution': {'threadId': result.thread_id, 'turnId': result.turn_id},
                             'inputFingerprint': input_fingerprint_value, 'projectedInputHash': projected_input_hash}
                     child_runtime = self.store.get(qualification, run_id)
                     executor_wait = float(
@@ -17056,6 +17097,8 @@ class QualificationRunCoordinator:
                                 or ""
                             ),
                         )
+                        validate_statement_judgment_guidance(review_question.get('statementJudgmentGuidance'),
+                            current=statement_judgment_guidance(self.repo_root))
                         bundle = law_verification_bundle(
                             review_question, candidate,
                             reference_guidance=reference_guidance,
@@ -17103,6 +17146,8 @@ class QualificationRunCoordinator:
                         verification_receipts[candidate.question_id] = {
                             "evidenceHash": bundle["evidenceHash"], "bundle": bundle, "reviews": executions,
                         }
+                    validate_statement_judgment_guidance(primary_guidance,
+                        current=statement_judgment_guidance(self.repo_root))
                     candidates = verified_candidates
                     prepared_execution_metadata["lawAuditVerification"] = verification_receipts
                 envelope = _prepared_candidate_envelope(

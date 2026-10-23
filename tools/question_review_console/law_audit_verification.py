@@ -4,6 +4,8 @@ from __future__ import annotations
 import copy
 import hashlib
 import json
+from pathlib import Path
+import re
 from dataclasses import replace
 from typing import Any, Mapping
 
@@ -11,6 +13,64 @@ from tools.question_review_console.question_candidate import QuestionCandidate
 
 
 SCHEMA_VERSION = 'law-audit-verification/v1'
+JUDGMENT_GUIDANCE_SCHEMA = 'statement-judgment-guidance/v1'
+JUDGMENT_GUIDANCE_SOURCE = 'prompt/02a_prompt_review_correctChoiceText.md'
+JUDGMENT_GUIDANCE_HEADING = '## 判定基準'
+
+
+def _json_hash(value):
+    return hashlib.sha256(json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(',', ':')).encode('utf-8')).hexdigest()
+
+
+def statement_judgment_guidance(repo_root: Path) -> dict[str, Any]:
+    """Read the whole existing 02a judgment section, never its output commands."""
+    root = Path(repo_root).resolve(); path = root / JUDGMENT_GUIDANCE_SOURCE
+    if path != path.resolve():
+        raise ValueError('命題判定の正本はrepository内の実体fileが必要です。')
+    data = path.read_bytes(); source = data.decode('utf-8')
+    headings = list(re.finditer(r'^## [^\n]+$', source, re.MULTILINE))
+    matches = [index for index, match in enumerate(headings) if match.group() == JUDGMENT_GUIDANCE_HEADING]
+    if len(matches) != 1:
+        raise ValueError('02aの判定基準sectionが欠損又は重複しています。')
+    index = matches[0]
+    end = headings[index + 1].start() if index + 1 < len(headings) else len(source)
+    text = source[headings[index].start():end]
+    if not text.removeprefix(JUDGMENT_GUIDANCE_HEADING).strip():
+        raise ValueError('02aの判定基準sectionが空です。')
+    value = {'schemaVersion': JUDGMENT_GUIDANCE_SCHEMA, 'sourceRef': JUDGMENT_GUIDANCE_SOURCE,
+        'sourceSha256': hashlib.sha256(data).hexdigest(), 'sectionHeading': JUDGMENT_GUIDANCE_HEADING,
+        'sectionText': text, 'sectionSha256': hashlib.sha256(text.encode('utf-8')).hexdigest()}
+    value['guidanceHash'] = _json_hash(value)
+    return value
+
+
+def validate_statement_judgment_guidance(value: Mapping[str, Any], *, current=None):
+    fields = {'schemaVersion', 'sourceRef', 'sourceSha256', 'sectionHeading', 'sectionText', 'sectionSha256', 'guidanceHash'}
+    if (not isinstance(value, Mapping) or set(value) != fields
+            or value.get('schemaVersion') != JUDGMENT_GUIDANCE_SCHEMA
+            or value.get('sourceRef') != JUDGMENT_GUIDANCE_SOURCE
+            or value.get('sectionHeading') != JUDGMENT_GUIDANCE_HEADING
+            or not isinstance(value.get('sectionText'), str)
+            or not value['sectionText'].startswith(JUDGMENT_GUIDANCE_HEADING + '\n')
+            or len(re.findall(r'^## ', value['sectionText'], re.MULTILINE)) != 1
+            or not re.fullmatch(r'[0-9a-f]{64}', str(value.get('sourceSha256')))
+            or value.get('sectionSha256') != hashlib.sha256(value['sectionText'].encode('utf-8')).hexdigest()
+            or value.get('guidanceHash') != _json_hash({key: item for key, item in value.items() if key != 'guidanceHash'})
+            or (current is not None and value != current)):
+        raise ValueError('命題判定guidanceの正本・section・contract hashが一致しません。')
+    return copy.deepcopy(dict(value))
+
+
+def validate_verification_bundle(bundle: Mapping[str, Any]):
+    if bundle.get('evidenceHash') != _json_hash({key: value for key, value in bundle.items() if key != 'evidenceHash'}):
+        raise ValueError('独立監査bundleの内容と根拠hashが一致しません。')
+    guidance = bundle['question'].get('statementJudgmentGuidance')
+    if guidance is not None:
+        validate_statement_judgment_guidance(guidance)
+        if bundle.get('statementJudgmentGuidanceHash') != guidance['guidanceHash']:
+            raise ValueError('独立監査bundleの命題判定guidance hashが一致しません。')
+    elif 'statementJudgmentGuidanceHash' in bundle:
+        raise ValueError('独立監査bundleの命題判定guidanceが欠損しています。')
 
 
 def question_inputs_from_prompt(prompt: str) -> dict[str, Any]:
@@ -72,11 +132,14 @@ def verification_bundle(
     proposed_primary_evidence: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     bundle = {'question': copy.deepcopy(dict(question)), 'proposedFields': candidate_fields(candidate)}
+    if question.get('statementJudgmentGuidance') is not None:
+        guidance = validate_statement_judgment_guidance(question['statementJudgmentGuidance'])
+        bundle['statementJudgmentGuidanceHash'] = guidance['guidanceHash']
     if reference_guidance:
         bundle['qualificationReferenceGuidance'] = reference_guidance
     if proposed_primary_evidence is not None:
         bundle['proposedPrimaryLawEvidence'] = copy.deepcopy(dict(proposed_primary_evidence))
-    bundle['evidenceHash'] = hashlib.sha256(json.dumps(bundle, ensure_ascii=False, sort_keys=True, separators=(',', ':')).encode()).hexdigest()
+    bundle['evidenceHash'] = _json_hash(bundle)
     return bundle
 
 
@@ -98,11 +161,13 @@ def review_schema(bundle: Mapping[str, Any]) -> dict[str, Any]:
 
 
 def review_prompt(bundle: Mapping[str, Any], phase: str) -> str:
+    validate_verification_bundle(bundle)
     return '\n'.join([
         f'# 現行法監査の独立した{phase}確認',
         '新しいsessionで、同じ問題・根拠bundle・候補を一問一肢ずつ照合する。file、patch、外部状態は変更しない。',
+        'question.statementJudgmentGuidanceがある場合、そのsectionTextは02aの判定基準全体をserverが限定読取した正本である。一次提案と同じguidanceHashで、完結記述・完結行為と肯定共通関係・本当の否定断片・番号ポインタを区別して判定命題を先に確定する。条項・列挙範囲・時点・分類を保持し、全肢を一律に肯定化又は否定化しない。この基準は候補生成の出力命令ではなく、候補値の正しさを保証しない。',
         '候補のverified宣言や保存済み正誤を信用せず、本文と各選択肢の完全命題から出題時判定と現行法判定を確認する。名前付き解答欄はquestionScopeの対象だけを問う。',
-        'primaryLawEvidenceの確認済み本文を使い、不足箇所は候補のlawReferencesのe-Gov又は所管官庁の一次情報を直接開く。検索要約だけでは承認しない。実際に確認した公式URLをverifiedSourceUrlsへ入れる。',
+        'primaryLawEvidenceの確認済み本文を使い、不足箇所は候補のlawReferencesのe-Gov又は所管官庁の一次情報を直接開く。検索要約だけでは承認しない。実際に本文を確認できた公式URLだけをverifiedSourceUrlsへ入れる。404や取得失敗のURLは確認済みとして記録しない。',
         'proposedPrimaryLawEvidenceは候補が宣言した法令locatorをserverが独立に取得した一次本文である。候補が追加又は変更した条文・基準日は、この本文と取得URLを照合する。候補のverified宣言とは区別し、partial又は取得失敗の箇所は一次情報を確認できるまで承認しない。',
         'qualificationReferenceGuidanceがある場合は、取得元の現在化と公式試験原文の差、判例・行政資料の確認先も読む。方針の記述を判定結果として信用せず、記載された公式問題PDF・正解番号PDFなどの一次資料を独立に確認する。現在化された文言を当時の法へそのまま当てはめず、公式原文と現在の表示を同じ選択位置で対応付けて、それぞれの時点の判定を行う。',
         '出題時条文を参照できない場合は、取得元の公式元正答と未参照理由を明示した候補だけを確認する。過去の条文・改正日・根拠を推測して作らない。',
@@ -114,6 +179,7 @@ def review_prompt(bundle: Mapping[str, Any], phase: str) -> str:
 
 
 def parse_review(message: str, bundle: Mapping[str, Any]) -> dict[str, Any]:
+    validate_verification_bundle(bundle)
     value = json.loads(message)
     fields = bundle['proposedFields']
     for key, expected in [('schemaVersion', SCHEMA_VERSION), ('questionId', bundle['question']['questionId']), ('evidenceHash', bundle['evidenceHash'])]:

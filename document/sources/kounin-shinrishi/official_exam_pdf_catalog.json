@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "kounin-shinrishi-official-exam-date-catalog/v1",
+  "generatedAt": "2026-10-23T01:50:09.109716+00:00",
+  "qualificationIds": [
+    "kounin-shinrishi",
+    "koushinri"
+  ],
+  "archiveRoot": "output/pdf/kounin-shinrishi-official",
+  "examDates": {
+    "97002": "2019-08-04"
+  },
+  "examDateEvidence": {
+    "97002": {
+      "dateSemantics": "exam_date",
+      "examName": "第2回公認心理師試験",
+      "basis": {
+        "ref": "output/pdf/kounin-shinrishi-official/2019/answers.pdf",
+        "sha256": "46b04349fa5559faac80472204545a220f62318e7927e590f2d2c0c2af4c3aca"
+      },
+      "pdfPage": 1,
+      "observedTitleDateText": "令和元年8月4日実施",
+      "questionEvidence": {
+        "ref": "output/pdf/kounin-shinrishi-official/2019/questions-pm.pdf",
+        "sha256": "8d9fc861217f89e22e8a0290764bfc8c25c8b57e41b78b6c019ce721a7c9d9b2",
+        "pdfPage": 19,
+        "questionNumber": 107
+      },
+      "verification": "Retained official question and answer PDF bytes were independently read as images on 2026-10-23. No fresh download is claimed.",
+      "limitation": "試験日のみを登録。公式の法令適用基準日lawBasisDatesは今回確認できていない。未確認の他回の日付を推定しない。"
+    }
+  }
+}

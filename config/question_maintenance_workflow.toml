@@ -341,7 +341,8 @@ kind = "human"
 # 6.2: 法令候補の一次提案を新規sessionで二次確認し、現行法更新は三次確認後だけ確定する。
 # 6.3: 資格別の一次資料方針も独立監査bundleへ保持し、現在化された文言と公式原文を照合する。
 # 6.5: 一次候補が追加・変更した条文locatorと基準日も公式本文を取得して独立監査bundleへ束ねる。
-policy_version = "6.5"
+# 6.6: 02aの判定基準sectionを正本のまま一次・二次・三次へ同hashで配送する。
+policy_version = "6.6"
 agent_policy = { independent_review = { model = "gpt-5.6-sol", reasoning_effort = "high" } }
 qualification_document_patterns = [
   "README.md",
@@ -358,6 +359,7 @@ issue_fields = [
 ]
 documents = [
   "prompt/03b_prompt_audit_current_law_and_patch.md",
+  "prompt/02a_prompt_review_correctChoiceText.md",
   "document/operations/current_law_question_maintenance_workflow.md",
 ]
 

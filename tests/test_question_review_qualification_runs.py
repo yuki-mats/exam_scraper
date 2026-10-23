@@ -2573,7 +2573,7 @@ class StructuredCandidateStageContextTests(unittest.TestCase):
 
     def test_law_stage_context_prioritizes_existing_binding(self):
         context = _structured_candidate_stage_context(
-            Path("."), "sample", "law_audit"
+            Path(__file__).resolve().parents[1], "sample", "law_audit"
         )
 
         self.assertTrue(

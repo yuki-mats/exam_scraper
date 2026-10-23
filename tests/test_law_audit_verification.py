@@ -129,3 +129,204 @@ class LawAuditVerificationTests(unittest.TestCase):
 
     def test_changed_law_with_no_current_correct_choice_requires_tertiary(self):
         self.assertEqual(required_review_count(self.fields), 2)
+
+
+class StatementJudgmentGuidanceTests(unittest.TestCase):
+    def setUp(self):
+        import tempfile
+        from pathlib import Path
+        from tools.question_review_console.law_audit_verification import JUDGMENT_GUIDANCE_SOURCE
+        self.temp = tempfile.TemporaryDirectory(); self.addCleanup(self.temp.cleanup)
+        self.root = Path(self.temp.name)
+        self.original = (Path(__file__).resolve().parents[1] / JUDGMENT_GUIDANCE_SOURCE).read_bytes()
+        self.path = self.root / JUDGMENT_GUIDANCE_SOURCE
+        self.path.parent.mkdir(parents=True); self.path.write_bytes(self.original)
+
+    def test_whole_canonical_criteria_is_read_without_output_commands_or_fixed_answers(self):
+        import hashlib
+        from tools.question_review_console.law_audit_verification import statement_judgment_guidance
+        guidance = statement_judgment_guidance(self.root)
+        source = self.original.decode()
+        expected = source[source.index('## 判定基準\n'):source.index('## 出力\n')]
+        self.assertEqual(guidance['sectionText'], expected)
+        self.assertEqual(guidance['sourceSha256'], hashlib.sha256(self.original).hexdigest())
+        self.assertEqual(guidance['sectionSha256'], hashlib.sha256(expected.encode()).hexdigest())
+        for required in ('完結した記述', '肯定形の共通述語', '条項、列挙範囲、時点又は分類',
+                         '述語を否定語も含めて一度だけ補い', '番号は本文中の語句又は記述へのポインタ',
+                         '現在の', '自動割当しません'):
+            self.assertIn(required, expected)
+        self.assertNotIn('## 出力', expected)
+        self.assertNotIn('materialize-patch', expected)
+        self.assertNotIn('FTTTT', json.dumps(guidance))
+        self.assertEqual(self.path.read_bytes(), self.original)
+
+    def test_missing_duplicate_empty_or_changed_section_and_contract_are_not_accepted(self):
+        from unittest.mock import patch
+        import tools.question_review_console.law_audit_verification as law
+        before = law.statement_judgment_guidance(self.root)
+        for data in (self.original.replace('## 判定基準'.encode(), b'## Missing'),
+                     self.original + '\n## 判定基準\n別基準\n'.encode(),
+                     b'## '+ '判定基準\n\n## 出力\n'.encode()):
+            self.path.write_bytes(data)
+            with self.subTest(dataHash=law._json_hash(data.hex())), self.assertRaises(ValueError):
+                law.statement_judgment_guidance(self.root)
+        self.path.write_bytes(self.original.replace('## 判定基準\n'.encode(), '## 判定基準\n改訂された基準。\n'.encode()))
+        with self.assertRaises(ValueError):
+            law.validate_statement_judgment_guidance(before, current=law.statement_judgment_guidance(self.root))
+        self.path.write_bytes(self.original)
+        with patch.object(law, 'JUDGMENT_GUIDANCE_SCHEMA', 'statement-judgment-guidance/v2'):
+            with self.assertRaises(ValueError): law.validate_statement_judgment_guidance(before)
+
+    def test_model_cannot_write_server_guidance_as_a_business_field(self):
+        from tools.question_review_console.question_candidate import (
+            CandidateTarget, parse_model_candidate_v3, QuestionCandidateError)
+        payload = {'decision': 'candidate', 'summary': 'forged guidance',
+            'update': {'setFields': [{'field': 'correctChoiceText', 'value': ['正しい']},
+                {'field': 'statementJudgmentGuidance', 'value': {'guidanceHash': 'forged'}}], 'unsetFields': []}}
+        target = CandidateTarget('q:correct_choice', 'correct_choice', 'patch.json', ('correctChoiceText',))
+        with self.assertRaises(QuestionCandidateError):
+            parse_model_candidate_v3(json.dumps(payload), ['q'], {'q': [target]})
+
+    def test_same_guidance_and_candidate_are_bound_to_both_independent_phases(self):
+        from tools.question_review_console.law_audit_verification import (
+            statement_judgment_guidance, review_prompt, validate_verification_bundle)
+        template = LawAuditVerificationTests(); template.setUp()
+        question = copy.deepcopy(template.bundle['question'])
+        guidance = statement_judgment_guidance(self.root)
+        question['statementJudgmentGuidance'] = guidance
+        bundle = verification_bundle(question, template.candidate)
+        before = copy.deepcopy(template.candidate)
+        for phase in ('二次', '三次'):
+            prompt = review_prompt(bundle, phase)
+            observed = json.loads(prompt.splitlines()[-1])
+            self.assertEqual(observed['question']['statementJudgmentGuidance'], guidance)
+            self.assertEqual(observed['statementJudgmentGuidanceHash'], guidance['guidanceHash'])
+            self.assertIn('全肢を一律に肯定化又は否定化しない', prompt)
+            self.assertIn('404や取得失敗', prompt)
+        approval = dict(template.approval, evidenceHash=bundle['evidenceHash'])
+        self.assertEqual(parse_review(json.dumps(approval), bundle), approval)
+        disagreement = dict(approval, currentLawDecision=['正しい', '正しい'])
+        with self.assertRaises(ValueError): parse_review(json.dumps(disagreement), bundle)
+        changed = copy.deepcopy(bundle)
+        changed['question']['statementJudgmentGuidance']['sectionText'] += '都合のよい基準'
+        with self.assertRaises(ValueError): validate_verification_bundle(changed)
+        self.path.write_bytes(self.original.replace('## 判定基準\n'.encode(), '## 判定基準\n新基準\n'.encode()))
+        new_question = dict(question, statementJudgmentGuidance=statement_judgment_guidance(self.root))
+        with self.assertRaises(ValueError):
+            parse_review(json.dumps(approval), verification_bundle(new_question, template.candidate))
+        self.assertEqual(template.candidate, before)
+
+
+class NormalLawJudgmentDeliveryTests(unittest.TestCase):
+    def setUp(self):
+        from tests.test_feedback_prepared_stage import PreparedStageTests
+        PreparedStageTests.setUp(self)
+        self.request['stageId'] = 'law_audit'; self.write(self.request_path, self.request)
+        original_group = self.inventory.group
+        def legal_group(*args):
+            group = original_group(*args)
+            for question in group['questions']:
+                question['isLawRelated'] = True
+                question['projected']['isLawRelated'] = True
+            return group
+        self.inventory.group = legal_group
+        from pathlib import Path
+        from tools.question_bank import feedback_prepared_stage as stage
+        source = Path(self.request['source']['ref'])
+        payload = json.loads(source.read_text()); payload['question_bodies'][0]['isLawRelated'] = True
+        self.write(source, payload); self.request['source']['sha256'] = stage._hash(source.read_bytes())
+        self.write(self.request_path, self.request)
+        self.write(self.root / stage.MANIFEST, (json.dumps({'path': str(source.relative_to(self.root)),
+            'sha256': stage._hash(source.read_bytes())}) + '\n').encode())
+
+    @staticmethod
+    def write(path, value):
+        from tests.test_feedback_prepared_stage import PreparedStageTests
+        PreparedStageTests.write(path, value)
+
+    def test_normal_primary_and_required_secondary_tertiary_receive_one_guidance_hash(self):
+        from dataclasses import replace
+        from unittest.mock import patch, Mock
+        from tools.question_bank import feedback_prepared_stage as stage
+        from tools.question_review_console.codex_app_server import AppServerTurnResult
+        from tools.question_review_console.law_audit_verification import statement_judgment_guidance
+        observed = []; original = self.model.run_turn
+        def run(prompt, **kwargs):
+            observed.append((prompt, kwargs['work_type']))
+            if kwargs['work_type'] in {'maintenance_law_audit_secondary_audit_candidate', 'maintenance_law_audit_tertiary_audit_candidate'}:
+                bundle = json.loads(prompt.splitlines()[-1]); fields = bundle['proposedFields']
+                number = len(observed)
+                return AppServerTurnResult(thread_id='review-' + str(number), session_id='session-' + str(number),
+                    turn_id='turn-' + str(number), model='fixture', service_tier=None,
+                    final_message=json.dumps({'schemaVersion': 'law-audit-verification/v1',
+                        'questionId': bundle['question']['questionId'], 'evidenceHash': bundle['evidenceHash'],
+                        'decision': 'approve', 'issues': [], 'verifiedSourceUrls': ['https://laws.e-gov.go.jp/fixture'],
+                        'examTimeDecision': fields['examTimeDecision'], 'currentLawDecision': fields['currentLawDecision']}))
+            result = original(prompt, **kwargs); payload = json.loads(result.final_message)
+            fields = {item['field']: item['value'] for item in payload['update']['setFields']}
+            fields.update(isLawRelated=True, auditStatus='updated_to_current_law', reviewState='needs_secondary_review',
+                reconciliationStatus='pending_secondary_review', examTimeDecision=['間違い'],
+                currentLawDecision=['正しい'], correctChoiceText=['正しい'])
+            facts = fields['lawRevisionFacts']; facts[0].update(auditStatus='updated_to_current_law',
+                reviewState='needs_secondary_review', reconciliationStatus='pending_secondary_review')
+            facts[0]['examTime']['correctChoiceText'] = '間違い'; facts[0]['current']['correctChoiceText'] = '正しい'
+            payload['update']['setFields'] = [{'field': key, 'value': value} for key, value in fields.items()]
+            return replace(result, final_message=json.dumps(payload, ensure_ascii=False))
+        self.model.run_turn = run
+        self.coordinator.primary_law_evidence.resolve = Mock(return_value={'status': 'complete', 'items': []})
+        class StopBeforePrivatePreview(Exception): pass
+        with patch.object(stage, '_run', side_effect=StopBeforePrivatePreview) as preview:
+            with self.assertRaises(StopBeforePrivatePreview):
+                stage.prepare(self.root, self.request_path, self.output,
+                    coordinator=self.coordinator, connection=self.connection)
+        self.assertEqual([kind for _, kind in observed], ['maintenance_law_audit_candidate',
+            'maintenance_law_audit_secondary_audit_candidate', 'maintenance_law_audit_tertiary_audit_candidate'])
+        guidance = statement_judgment_guidance(self.root)
+        primary = question_inputs_from_prompt(observed[0][0])[self.request['questionId']]
+        self.assertEqual(primary['statementJudgmentGuidance'], guidance)
+        self.assertNotIn('正式patchは同じ', observed[0][0])
+        for prompt, _kind in observed[1:]:
+            bundle = json.loads(prompt.splitlines()[-1])
+            self.assertEqual(bundle['question']['statementJudgmentGuidance'], guidance)
+            self.assertEqual(bundle['statementJudgmentGuidanceHash'], guidance['guidanceHash'])
+            self.assertEqual(bundle['proposedFields']['currentLawDecision'], ['正しい'])
+        fixed = preview.call_args.args[1]
+        metadata = fixed['preparedCandidate']['content']['executionMetadata']
+        delivery = metadata['lawAuditJudgmentGuidance']
+        self.assertEqual(delivery['guidance'], guidance)
+        self.assertEqual(delivery['primaryPromptHash'], stage._hash(observed[0][0].encode()))
+        self.assertEqual(delivery['inputFingerprint'], fixed['inputFingerprint'])
+        verification = metadata['lawAuditVerification'][self.request['questionId']]
+        self.assertEqual(len(verification['reviews']), 2)
+        self.assertEqual(len({review['threadId'] for review in verification['reviews']}), 2)
+        candidate_payload = json.dumps(fixed['preparedCandidate']['content']['candidatePayload'], ensure_ascii=False)
+        self.assertNotIn('statementJudgmentGuidance', candidate_payload)
+        self.assertNotIn('sectionText', candidate_payload)
+        self.assertFalse((self.output / 'plan.json').exists())
+        self.assertGreaterEqual(self.coordinator.primary_law_evidence.resolve.call_count, 2)
+        # A later source change invalidates the genuine prepared metadata at
+        # the normal writer boundary, before any baseline or canonical write.
+        path = self.root / 'prompt/02a_prompt_review_correctChoiceText.md'
+        path.write_text(path.read_text().replace('## 判定基準\n', '## 判定基準\n改訂された命題基準。\n'))
+        with patch.object(self.coordinator.store, 'write_baseline', wraps=self.coordinator.store.write_baseline) as baseline:
+            with self.assertRaisesRegex(ValueError, 'guidance'):
+                stage._run(self.coordinator, fixed, preview=True)
+            baseline.assert_not_called()
+        self.assertEqual(len(observed), 3)
+
+    def test_new_dependency_and_policy_version_change_only_law_audit_fingerprint(self):
+        from tools.question_review_console.qualification_workflow import QualificationWorkflow
+        before = self.coordinator.workflow.versioned_policies('new-exam')
+        self.assertEqual(before['law_audit']['policyVersion'], '6.6')
+        self.assertEqual(before['correct_choice']['policyVersion'], '5.11')
+        path = self.root / 'config/question_maintenance_workflow.toml'
+        source = path.read_text(); start = source.index('id = "law_audit"', source.index('policy_version = "11.2"'))
+        end = source.index('[[stages.update_targets]]', start)
+        old = source[start:end].replace('policy_version = "6.6"', 'policy_version = "6.5"').replace(
+            '  "prompt/02a_prompt_review_correctChoiceText.md",\n', '')
+        path.write_text(source[:start] + old + source[end:])
+        after = QualificationWorkflow(self.root, self.inventory).versioned_policies('new-exam')
+        self.assertNotEqual(before['law_audit']['policyFingerprint'], after['law_audit']['policyFingerprint'])
+        for stage_id in set(before) - {'law_audit'}:
+            with self.subTest(stageId=stage_id):
+                self.assertEqual(before[stage_id]['policyFingerprint'], after[stage_id]['policyFingerprint'])
