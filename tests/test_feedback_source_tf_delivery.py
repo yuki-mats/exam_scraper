@@ -290,6 +290,164 @@ def test_real_normal_stage_proofs_allow_later_truth_fix_and_reject_child_checkpo
         f.doCleanups()
 
 
+
+def test_real_explanation_mirrors_preserve_canonical_context_and_later_law_audit_history(monkeypatch):
+    from tests.test_feedback_prepared_stage import PreparedLawAuditTimestampTests
+    from tests.test_law_context_primary_cycle import LawModel, XML
+    from tools.question_review_console.primary_law_evidence import PrimaryLawEvidenceResolver, LawFileSnapshot
+    from tools.question_review_console.inventory import QuestionInventory
+    f = PreparedLawAuditTimestampTests(); f.setUp()
+    try:
+        reader = QuestionInventory(f.root)
+        for method in ('projected_input', 'projected_input_for_stage', 'source_input',
+                       '_projection_stage_maps', '_projection_issue_index'):
+            setattr(f.inventory, method, getattr(reader, method))
+        law_model = LawModel()
+        f.coordinator.primary_law_evidence = PrimaryLawEvidenceResolver(f.root, fetcher=lambda law_id, as_of:
+            LawFileSnapshot(law_id, as_of, f'https://laws.e-gov.go.jp/api/2/law_file/xml/{law_id}?asof={as_of}', 'fixture', XML))
+        category = f.root / 'output/new-exam/category/category.json'
+        f.write(category, {'folders': [{'folderId': 'folder', 'name': '分類'}],
+            'questionSets': [{'questionSetId': 'test-question-set', 'folderId': 'folder', 'name': '制度'}]})
+        original = f.model.run_turn
+        def run(prompt, **kwargs):
+            kind = kwargs['work_type']
+            if kind == 'maintenance_law_context_candidate':
+                return law_model.run_turn(prompt, **kwargs)
+            result = original(prompt, **kwargs)
+            if kind not in {'maintenance_explanation_candidate', 'maintenance_law_audit_candidate'}: return result
+            payload = json.loads(result.final_message)
+            fields = {item['field']: item['value'] for item in payload['update']['setFields']}
+            fields.update(explanationText=['正しい。設問に示された行為は制度の定義に該当する。'])
+            if kind == 'maintenance_explanation_candidate':
+                fields.update(questionLearningPatternId='terms_basics', explanationReferences=[])
+                reference = deepcopy(fields['lawReferences'][0][0]); reference['article'] = '12'
+                fields.update(lawReferences=[[reference]], lawContextForExplanation='以前の参照を残した歴史的な補助情報。')
+            else:
+                fields['lawContextForExplanation'] = '根拠条文の制度と設問の行為を照合した。'
+            payload['update']['setFields'] = [{'field': key, 'value': value} for key, value in fields.items()]
+            payload['update']['unsetFields'] = [key for key in payload['update']['unsetFields'] if key not in fields]
+            return replace(result, final_message=json.dumps(payload, ensure_ascii=False))
+        monkeypatch.setattr(f.model, 'run_turn', run)
+        monkeypatch.setattr(approval_api, 'NATIVE_SESSION_ROOT', f.private)
+        policies = f.coordinator.workflow.versioned_policies
+        stages = ('question_type', 'question_intent', 'correct_choice', 'law_context', 'explanation', 'law_audit', 'question_set')
+        monkeypatch.setattr(f.coordinator.workflow, 'versioned_policies',
+            lambda *a: {k: v for k, v in policies(*a).items() if k in stages})
+        proofs = []; plans = {}
+        for stage_id in stages:
+            f.request['stageId'] = stage_id
+            f.output = f.private / stage_id; f.request_path = f.private / (stage_id + '-request.json')
+            f.write(f.request_path, f.request); f.prepare(); plans[stage_id] = f.plan()
+            scope = api.normal.approval_scope(f.root, f.output / 'plan.json', coordinator=f.coordinator, connection=f.connection)
+            audit_dir = f.private / (stage_id + '-audit'); audit_dir.mkdir()
+            f.approval_path = audit_dir / 'approval.json'; f.write(f.approval_path, native_audit(audit_dir, scope))
+            f.apply()
+            proofs.append({'plan': write(f.output / 'plan.json', (f.output / 'plan.json').read_bytes()),
+                'receipt': write(f.output / 'save-receipt.json', (f.output / 'save-receipt.json').read_bytes())})
+        request = {k: deepcopy(f.request[k]) for k in ('qualification', 'listGroupId', 'questionId', 'source', 'authority')}
+        request['stageProofs'] = proofs
+        def verify(): return api.verify_normal_stage_proofs(f.root, request, f.coordinator, f.connection, {})
+        _, current, receipts, status = verify()
+        assert status['allCurrent'] and len(receipts) == 7
+        explanation = plans['explanation']
+        patch21 = next(p for p in explanation['commitView']['patches'] if '21_explanationText_added' in p['path'])
+        row21 = api._rows(patch21['afterUtf8'].encode())[0]
+        assert row21['lawReferences'][0][0]['article'] == '12'
+        assert current['lawReferences'][0][0]['article'] == '11'
+        assert current['lawContextForExplanation'] != row21['lawContextForExplanation']
+        receipt03 = next(r for r in receipts if r['stageId'] == 'explanation')
+        assert 'lawReferences' in receipt03['ownedFields'] and 'lawReferences' not in receipt03['effectiveProjectionFields']
+        assert 'explanationText' in receipt03['effectiveProjectionFields']
+        assert next(r for r in receipts if r['stageId'] == 'law_audit')['lawVerification']['reviewCount'] >= 1
+        real_predecessor = api._stage_predecessor_record
+        for changed_stage, field, value in (
+            ('law_context', 'lawContextForExplanation', '不一致の有効18投影。'),
+            ('explanation', 'explanationText', ['正しい。不一致の有効21投影。'])):
+            def changed_projection(*args, **kwargs):
+                record, fields = real_predecessor(*args, **kwargs)
+                if args[3] == changed_stage and kwargs.get('include_stage'):
+                    record = deepcopy(record); record[field] = value
+                return record, fields
+            with patch.object(api, '_stage_predecessor_record', side_effect=changed_projection):
+                with pytest.raises(api.GateRequired, match='normal_stage_projection_changed:' + changed_stage + ':' + field):
+                    verify()
+        # Both real owners and ignored mirror bytes remain immutable: a normal
+        # projector ignoring a mirror must never authorize modifying its file.
+        for stage_id, directory, field, value in (
+            ('law_audit', '18_law_context_prepared', 'lawContextForExplanation', '第三者による変更。'),
+            ('law_audit', '21_explanationText_added', 'explanationText', ['正しい。第三者による変更。']),
+            ('law_audit', '21_explanationText_added', 'lawContextForExplanation', '未承認のmirror変更。')):
+            candidate = next(p for p in plans[stage_id]['commitView']['patches'] if directory in p['path'])
+            path = f.root / candidate['path']; before = path.read_bytes(); rows = api._rows(before)
+            rows[0][field] = value; f.write(path, rows)
+            with pytest.raises(ValueError): verify()
+            path.write_bytes(before)
+        # A genuine old 03 projected input cannot be replaced by a stale 18
+        # value even though 21 had permission to store the same mirror field.
+        projected_path = f.root / explanation['stagePlan']['progressTargets'][0]['_projectedInputPath']
+        before = projected_path.read_bytes(); rows = api._rows(before)
+        rows[0]['lawContextForExplanation'] = '未認証の古い前工程入力。'; f.write(projected_path, rows)
+        with pytest.raises(ValueError, match='historical projected input changed'): verify()
+        projected_path.write_bytes(before)
+        # Exercise the predecessor semantic check independently of the byte
+        # guard: simulated matching bytes still cannot hide stale canonical input.
+        real_rows = api._rows
+        def stale_projection(raw):
+            rows = real_rows(raw)
+            if raw == before:
+                rows = deepcopy(rows); rows[0]['lawContextForExplanation'] = '未認証の古い前工程入力。'
+            return rows
+        with patch.object(api, '_rows', side_effect=stale_projection):
+            with pytest.raises(api.GateRequired, match='normal_stage_predecessor_changed:explanation:lawContextForExplanation'):
+                verify()
+        real_candidate = f.coordinator.store.load_prepared_candidate
+        def changed_candidate(*args, **kwargs):
+            candidate = real_candidate(*args, **kwargs)
+            if args[1] == explanation['childRunId']:
+                candidate = deepcopy(candidate); candidate['contentHash'] = 'sha256:' + '0' * 64
+            return candidate
+        with patch.object(f.coordinator.store, 'load_prepared_candidate', side_effect=changed_candidate):
+            with pytest.raises(ValueError, match='normal saved candidate changed'): verify()
+        assert verify()[3]['allCurrent']
+    finally:
+        f.doCleanups()
+
+
+@pytest.mark.parametrize('law_value', ['no-layer', 'absent', None, []])
+def test_explanation_effective_fields_use_normal_consumption_and_18_non_none_precedence(tmp_path, law_value):
+    from tools.question_review_console.question_candidate import CandidateTarget
+    from scripts.merge.record_projection import project_merge_record
+    from scripts.merge.patch_views import PatchArtifactEntry
+    request = {'qualification': 'sample', 'source': {'binding':
+        {'sourceQuestionKey': 'key', 'reviewQuestionId': 'question', 'sourceRecordRef': 'record'}}}
+    coordinator = SimpleNamespace(workflow=SimpleNamespace(catalog=lambda _: {'stages': [
+        {'id': 'law_context'}, {'id': 'explanation'}]}))
+    target = CandidateTarget('target', 'explanation', '21',
+        ('explanationText', 'lawContextForExplanation', 'lawReferences'))
+    row = {**request['source']['binding']}
+    fallback = law_value is None or law_value == 'absent' or law_value == 'no-layer'
+    if not (law_value == 'absent' or law_value == 'no-layer'): row['lawReferences'] = law_value
+    mirror = {'lawReferences': [['historical-mirror']], 'lawContextForExplanation': '消費されないmirror。',
+        'explanationText': ['正しい。説明本文。']}
+    snapshots = {'output/sample/questions_json/2026/18_law_context_prepared/patch.json': {'afterUtf8': api._bytes([row]).decode()},
+        '21': {'afterUtf8': api._bytes([{**request['source']['binding'], **mirror}]).decode()}}
+    if law_value == 'no-layer': snapshots.pop('output/sample/questions_json/2026/18_law_context_prepared/patch.json')
+    with patch.object(api, '_history_patches', return_value=snapshots):
+        fields = api._effective_projection_fields(tmp_path, request, coordinator, 'explanation',
+            {'law_context', 'explanation'}, target, {})
+    assert 'explanationText' in fields and 'lawContextForExplanation' not in fields
+    assert ('lawReferences' in fields) is fallback
+    # The expected ownership is observed through the real normal projector,
+    # including the legacy no-18 / None fallback and empty-list ownership.
+    source = {'original_question_id': 'question', 'questionBodyText': '設問。',
+        'choiceTextList': ['記述。'], 'correctChoiceText': ['正しい']}
+    projected = project_merge_record(source,
+        law_context=() if law_value == 'no-layer' else (PatchArtifactEntry(tmp_path / '18.json', row),),
+        explanation=(PatchArtifactEntry(tmp_path / '21.json', mirror),)).merged2
+    assert projected['lawReferences'] == (mirror['lawReferences'] if 'lawReferences' in fields else law_value)
+    assert 'lawContextForExplanation' not in projected
+
+
 def test_prepare_fixes_source_truth_mapping_complete_reads_and_actual_write_subset(rig):
     source_before = Path(rig.request['source']['ref']).read_bytes()
     plan = prepared(rig)

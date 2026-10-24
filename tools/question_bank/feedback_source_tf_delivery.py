@@ -183,6 +183,45 @@ def _history_patches(root, request, coordinator, *, stages=None):
     return latest
 
 
+def _stage_prefix(request, coordinator, stage, applicable, *, include_stage=False):
+    before = []
+    for policy in coordinator.workflow.catalog(request['qualification'])['stages']:
+        if policy['id'] == stage:
+            if include_stage: before.append(policy)
+            break
+        if policy['id'] in applicable: before.append(policy)
+    return before
+
+
+def _effective_projection_fields(root, request, coordinator, stage, applicable, target, stage_output):
+    """Artifact permissions include legacy mirrors which normal Merge ignores.
+
+    21 consumes EXPLANATION_FIELDS, then the normal projector reapplies the
+    compatible canonical 18 values. Keep its fallback when 18 omits a value.
+    This does not relax authentication of the artifact's complete saved bytes.
+    """
+    fields = set(target.allowed_fields)
+    if target.role != 'explanation': return fields
+    from scripts.merge.patch_views import EXPLANATION_FIELDS, LAW_CONTEXT_FIELDS
+    from scripts.merge.record_projection import _compatible_downstream_candidates
+    from tools.question_review_console.projection import STAGE_SPECS, PatchEntry
+    fields.intersection_update(EXPLANATION_FIELDS)
+    directory = next(directory for key, directory, _ in STAGE_SPECS if key == 'lawContext')
+    policies = _stage_prefix(request, coordinator, stage, applicable, include_stage=True)
+    snapshots = _history_patches(root, request, coordinator, stages={p['id'] for p in policies})
+    binding = SourceIdentityBinding.from_mapping(request['source']['binding'])
+    patch = snapshots.get(target.path)
+    row = _bound_row(_patch_rows(target.path, patch['afterUtf8'].encode()), binding) if patch else {}
+    fields.intersection_update(field for field, value in row.items() if value is not None)
+    candidates = tuple(PatchEntry(path=root / relative,
+        entry=_bound_row(_patch_rows(relative, patch['afterUtf8'].encode()), binding))
+        for relative, patch in snapshots.items() if directory in Path(relative).parts)
+    compatible, _ = _compatible_downstream_candidates(stage_output, candidates)
+    for candidate in compatible:
+        fields.difference_update(field for field in LAW_CONTEXT_FIELDS if candidate.entry.get(field) is not None)
+    return fields
+
+
 def _stage_predecessor_record(root, request, coordinator, stage, applicable, *, include_stage=False):
     """Use the normal pure projector with only applicable predecessor layers."""
     from tools.question_review_console.projection import STAGE_SPECS, project_record, PatchEntry
@@ -193,12 +232,7 @@ def _stage_predecessor_record(root, request, coordinator, stage, applicable, *, 
     target = next(e for e in sources if e.identity.binding == binding)
     identities = tuple(e.identity for e in sources)
     inventory = coordinator.workflow.inventory
-    before = []
-    for policy in coordinator.workflow.catalog(request['qualification'])['stages']:
-        if policy['id'] == stage:
-            if include_stage: before.append(policy)
-            break
-        if policy['id'] in applicable: before.append(policy)
+    before = _stage_prefix(request, coordinator, stage, applicable, include_stage=include_stage)
     snapshots = _history_patches(root, request, coordinator, stages={p['id'] for p in before})
     selected = {}
     for key, directory, _ in STAGE_SPECS:
@@ -326,6 +360,8 @@ def verify_normal_stage_proofs(root, request, coordinator, connection, files):
         targets = normal.candidate_targets(request['questionId'], stage, plan['stagePlan'], current_record=original_projection)
         stage_output, _ = _stage_predecessor_record(root, request, coordinator, stage, applicable, include_stage=True)
         owned = set().union(*(set(t.allowed_fields) for t in targets))
+        effective = {t.path: _effective_projection_fields(root, request, coordinator, stage, applicable, t, stage_output)
+            for t in targets}
         target_paths = {t.path for t in targets}
         if not target_paths: raise GateRequired('normal_stage_targets_missing:' + stage)
         for patch in plan['commitView']['patches']:
@@ -338,18 +374,19 @@ def verify_normal_stage_proofs(root, request, coordinator, connection, files):
             last_row = _bound_row(_patch_rows(patch['path'], latest[patch['path']]['afterUtf8'].encode()), binding)
             if actual_row != last_row: raise GateRequired('normal_stage_owned_patch_changed:' + stage)
             target = next(t for t in targets if t.path == patch['path'])
-            for field in target.allowed_fields:
+            for field in effective[target.path]:
                 if target.role != 'law_audit' and field in saved_row and saved_row[field] != stage_output.get(field):
                     raise GateRequired('normal_stage_projection_changed:' + stage + ':' + field)
         predecessor, predecessor_fields = _stage_predecessor_record(root, request, coordinator, stage, applicable)
         predecessor_fields.update(plan['stagePlan'].get('readFieldsByStage', {}).get(stage, []))
-        predecessor_fields -= owned
+        predecessor_fields -= set().union(*effective.values())
         for field in predecessor_fields:
             if (field in original_projection) != (field in predecessor) or original_projection.get(field) != predecessor.get(field):
                 raise GateRequired('normal_stage_predecessor_changed:' + stage + ':' + field)
         native.assert_native_guard(guard, terminal=True)
         summary = {'stageId': stage, 'planHash': plan['planHash'], 'receipt': proof['receipt'],
-            'nativeBinding': approval_binding, 'ownedFields': sorted(owned)}
+            'nativeBinding': approval_binding, 'ownedFields': sorted(owned),
+            'effectiveProjectionFields': sorted(set().union(*effective.values()))}
         if stage == 'law_audit':
             summary['lawVerification'] = _normal_law_verification(plan, coordinator.store.get(plan['qualification'], plan['childRunId']))
         receipts.append(summary)
