@@ -274,6 +274,7 @@ def _work_version_inputs_before(root, coordinator, qualification, stage_plan):
 
 
 def _hold_inputs(root, fixed, *, coordinator, connection):
+    _require_question_set_category_input(root, fixed)
     _unchanged(root, fixed['inputFiles'])
     request = _request(root, root / fixed['requestPath'], {})
     if (request != fixed['request'] or _requirements(connection, request['authority']) != fixed['taskRequirement']
@@ -493,10 +494,36 @@ def _authority_matches(request, requirement):
         raise ValueError('task/report requirements refer to another question')
 
 
+def _question_set_category_input(root, qualification, files):
+    # Same canonical location consumed by QualificationWorkflow._category_state
+    # and qualification_runs._structured_candidate_stage_context. Never a copy.
+    path = _inside(root, root / 'output' / qualification / 'category/category.json')
+    raw = _read(root, path, files)
+    return str(path.relative_to(root)), _hash(raw)
+
+
+def _require_question_set_category_input(root, plan, files=None):
+    request = plan.get('request') or {}
+    if 'question_set' not in {plan.get('stageId'), request.get('stageId')}:
+        return
+    if (plan.get('stageId') != 'question_set' or request.get('stageId') != 'question_set'
+            or plan.get('qualification') != request.get('qualification')):
+        raise ValueError('question_set canonical category qualification/stage differs')
+    relative = str(Path('output') / request['qualification'] / 'category/category.json')
+    expected = (plan.get('inputFiles') or {}).get(relative)
+    if not expected:
+        raise ValueError('question_set canonical category input missing; fresh prepare required')
+    actual_relative, actual = _question_set_category_input(root, request['qualification'], files if files is not None else {})
+    if actual_relative != relative or actual != expected:
+        raise ValueError('question_set canonical category input changed; fresh prepare required')
+
+
 def _inputs(root, request, stage_plan, files):
     group = root / 'output' / request['qualification'] / 'questions_json' / request['listGroupId']
     mutable = set(stage_plan.get('allowedPatchFiles') or []) | set(stage_plan.get('allowedWriteFiles') or [])
     selected = []
+    if request['stageId'] == 'question_set':
+        _question_set_category_input(root, request['qualification'], files)
     for path in sorted(group.rglob('*.json')):
         if str(path.relative_to(root)) not in mutable:
             _read(root, path, files)
@@ -725,6 +752,7 @@ def load_plan(root, path, *, coordinator, connection, saved=False):
         raise ValueError('preview must not claim a save/publication')
     if _json(_read(root, path.parent / 'preview-receipt.json', {}, private=True)) != _preview_receipt(plan):
         raise ValueError('complete exact preview receipt required')
+    _require_question_set_category_input(root, plan)
     _unchanged(root, plan['inputFiles'])
     checked = _request(root, root / plan['requestPath'], {})
     if checked != plan['request'] or _requirements(connection, checked['authority']) != plan['taskRequirement']:
@@ -781,6 +809,7 @@ def approval_scope(root, path, *, coordinator, connection):
 
 
 def _scope_data(root, path, plan, connection):
+    _require_question_set_category_input(root, plan)
     command = ' '.join(shlex.quote(s) for s in [sys.executable, '-m', 'tools.question_bank.feedback_prepared_stage',
         '--repo-root', str(root), '--db', _ledger_path(connection), 'scope', '--plan', str(path)])
     return {'schemaVersion': 'feedback-prepared-stage-independent-scope/v1', 'action': 'save_one_normal_source_bound_stage',

@@ -1382,3 +1382,78 @@ class PreparedLawAuditTimestampTests(unittest.TestCase):
         self.assertEqual(stage._run(self.coordinator,plan,preview=True)['preview'],plan['commitView'])
         with patch.object(stage,'verify_independent_approval',return_value={'reviewerSessionId':'independent'}):
             self.assertTrue(self.apply()['formalPatchSaved'])
+
+
+class PreparedQuestionSetCategoryBindingTests(unittest.TestCase):
+    setUp=PreparedStageTests.setUp
+    write=staticmethod(PreparedStageTests.write)
+    prepare=PreparedStageTests.prepare
+    plan=PreparedStageTests.plan
+    apply=PreparedStageTests.apply
+
+    def category(self):
+        path=self.root/'output/new-exam/category/category.json'
+        self.write(path,{'folders':[{'folderId':'folder','name':'分類'}],
+            'questionSets':[{'questionSetId':'test-question-set','folderId':'folder','name':'基本分類',
+                'description':'問題全体の判断基準','matchingHints':['一般的な技術知識']} ]})
+        return path
+
+    def question_set(self):
+        self.request['stageId']='question_set';self.write(self.request_path,self.request)
+        return self.category()
+
+    def test_canonical_category_is_actual_model_input_and_fixed_before_scope_apply(self):
+        category=self.question_set();self.prepare();plan=self.plan()
+        key=str(category.relative_to(self.root))
+        self.assertEqual(plan['inputFiles'][key],stage._hash(category.read_bytes()))
+        self.assertTrue(any('基本分類' in prompt for prompt,_ in self.model.calls))
+        with patch.object(stage,'verify_independent_approval',return_value={'reviewerSessionId':'independent'}):
+            self.assertTrue(self.apply()['formalPatchSaved'])
+        self.assertEqual(category.read_bytes(),stage._bytes({'folders':[{'folderId':'folder','name':'分類'}],
+            'questionSets':[{'questionSetId':'test-question-set','folderId':'folder','name':'基本分類',
+                'description':'問題全体の判断基準','matchingHints':['一般的な技術知識']} ]}))
+
+    def test_changed_or_missing_category_invalidates_load_scope_and_apply(self):
+        category=self.question_set();self.prepare();before=category.read_bytes()
+        for mutation in ('changed','missing'):
+            if mutation=='changed':category.write_bytes(before+b'\n')
+            else:category.unlink()
+            for name,operation in (('load',self.plan),('scope',lambda:stage.approval_scope(self.root,self.output/'plan.json',
+                    coordinator=self.coordinator,connection=self.connection)),('apply',self.apply)):
+                with self.subTest(mutation=mutation,operation=name),self.assertRaises((ValueError,OSError)):operation()
+            category.write_bytes(before)
+        self.assertFalse((self.output/'apply-intent.json').exists())
+        self.plan()
+
+    def test_changed_during_actual_generation_never_creates_a_plan(self):
+        category=self.question_set();original=self.model.run_turn
+        def changed(prompt,**kwargs):
+            result=original(prompt,**kwargs);category.write_bytes(category.read_bytes()+b'\n');return result
+        self.model.run_turn=changed
+        with self.assertRaises(ValueError):self.prepare()
+        self.assertFalse((self.output/'plan.json').exists())
+
+    def test_missing_own_category_and_foreign_symlink_never_start_model(self):
+        self.request['stageId']='question_set';self.write(self.request_path,self.request)
+        other=self.root/'output/other-exam/category/category.json'
+        self.write(other,{'folders':[{'folderId':'f'}],'questionSets':[{'questionSetId':'foreign','folderId':'f'}]})
+        with self.assertRaises((ValueError,OSError)):self.prepare()
+        own=self.root/'output/new-exam/category/category.json';own.parent.mkdir(parents=True,exist_ok=True);own.symlink_to(other)
+        with self.assertRaises((ValueError,OSError)):self.prepare()
+        self.assertFalse(self.model.calls)
+
+    def test_legacy_or_foreign_category_binding_is_not_silently_added_to_scope(self):
+        category=self.question_set();self.prepare();plan=self.plan();key=str(category.relative_to(self.root))
+        for kind in ('missing','foreign'):
+            changed=deepcopy(plan);digest=changed['inputFiles'].pop(key)
+            if kind=='foreign':changed['inputFiles']['output/other-exam/category/category.json']=digest
+            with self.subTest(kind=kind),self.assertRaisesRegex(ValueError,'fresh prepare'):
+                stage._scope_data(self.root,self.output/'plan.json',changed,self.connection)
+        self.assertEqual(plan['inputFiles'][key],stage._hash(category.read_bytes()))
+
+    def test_other_stage_does_not_add_category_or_change_its_existing_prompt(self):
+        category=self.category();receipt=self.prepare();plan=self.plan()
+        self.assertNotIn(str(category.relative_to(self.root)),plan['inputFiles'])
+        self.assertFalse(any('基本分類' in prompt for prompt,_ in self.model.calls))
+        category.write_bytes(category.read_bytes()+b'\n')
+        self.assertEqual(self.plan(),plan)

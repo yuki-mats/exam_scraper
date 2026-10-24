@@ -290,6 +290,7 @@ def verify_normal_stage_proofs(root, request, coordinator, connection, files):
         if (plan['qualification'] != request['qualification'] or plan['request']['questionId'] != request['questionId']
                 or plan['request']['source'] != request['source'] or plan['request']['authority'] != request['authority']):
             raise ValueError('foreign stage source/task')
+        normal._require_question_set_category_input(root, plan, files)
         if not coordinator._phase_plan_policy_is_current(request['qualification'], plan['stagePlan'], stage):
             raise GateRequired('normal_stage_policy_changed:' + stage)
         receipt = _ref(root, proof['receipt'], files, private=True)

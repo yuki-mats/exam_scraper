@@ -175,6 +175,10 @@ def test_real_normal_stage_proofs_allow_later_truth_fix_and_reject_child_checkpo
             def _projection_stage_maps(self, *args): return reader._projection_stage_maps(*args)
             def _projection_issue_index(self, *args): return reader._projection_issue_index(*args)
         f.coordinator.workflow.inventory = NormalProjectionInventory()
+        category_path = f.root / 'output/new-exam/category/category.json'
+        f.write(category_path, {'folders': [{'folderId': 'folder', 'name': '分類'}],
+            'questionSets': [{'questionSetId': 'test-question-set', 'folderId': 'folder',
+                'name': '基本分類', 'description': '問題全体の判断基準', 'matchingHints': ['一般的な技術知識']}]})
         original_turn = f.model.run_turn
         def run_turn(prompt, **kwargs):
             result = original_turn(prompt, **kwargs)
@@ -189,11 +193,11 @@ def test_real_normal_stage_proofs_allow_later_truth_fix_and_reject_child_checkpo
         monkeypatch.setattr(f.model, 'run_turn', run_turn)
         monkeypatch.setattr(approval_api, 'NATIVE_SESSION_ROOT', f.private)
         policies = f.coordinator.workflow.versioned_policies
-        selected = {'question_type', 'question_intent', 'correct_choice'}
+        selected = {'question_type', 'question_intent', 'correct_choice', 'question_set'}
         monkeypatch.setattr(f.coordinator.workflow, 'versioned_policies',
             lambda *a: {k: v for k, v in policies(*a).items() if k in selected})
         proofs = []
-        for stage_id in ('question_type', 'question_intent', 'correct_choice'):
+        for stage_id in ('question_type', 'question_intent', 'correct_choice', 'question_set'):
             f.request['stageId'] = stage_id
             f.output = f.private / stage_id
             f.request_path = f.private / (stage_id + '-request.json')
@@ -209,11 +213,39 @@ def test_real_normal_stage_proofs_allow_later_truth_fix_and_reject_child_checkpo
                 'receipt': write(f.output / 'save-receipt.json', (f.output / 'save-receipt.json').read_bytes())})
         request = {k: deepcopy(f.request[k]) for k in ('qualification', 'listGroupId', 'questionId', 'source', 'authority')}
         request['stageProofs'] = proofs
-        def verify(): return api.verify_normal_stage_proofs(f.root, request, f.coordinator, f.connection, {})
+        def verify(files=None): return api.verify_normal_stage_proofs(
+            f.root, request, f.coordinator, f.connection, files if files is not None else {})
         _, projected, receipts, status = verify()
         assert projected['correctChoiceText'] == ['間違い', '正しい', '正しい']
         assert {r['stageId'] for r in receipts} == selected and status['allCurrent']
-        final = api._json(Path(proofs[-1]['plan']['ref']).read_bytes())
+        files = {}; verify(files)
+        category_relative = str(category_path.relative_to(f.root))
+        category_before = category_path.read_bytes()
+        assert files[category_relative] == api._hash(category_before)
+        for mutation in ('changed', 'missing'):
+            if mutation == 'changed': category_path.write_bytes(category_before + b'\n')
+            else: category_path.unlink()
+            with pytest.raises((ValueError, FileNotFoundError)):
+                verify()
+            category_path.write_bytes(category_before)
+            assert verify()[3]['allCurrent']
+        # An old or foreign classification binding cannot gain authority by
+        # reconstructing its other historical fields from current state.
+        original_ref = api._ref
+        for mutation in ('missing', 'foreign'):
+            def legacy_category_ref(root, spec, files, *, private=False):
+                value = original_ref(root, spec, files, private=private)
+                if spec == proofs[-1]['plan']:
+                    value = deepcopy(value)
+                    expected = value['inputFiles'].pop(category_relative)
+                    if mutation == 'foreign':
+                        value['inputFiles']['output/other-exam/category/category.json'] = expected
+                    value.pop('planHash'); value = api._seal(value)
+                return value
+            with patch.object(api, '_ref', side_effect=legacy_category_ref):
+                with pytest.raises(ValueError, match='fresh prepare required'):
+                    verify()
+        final = api._json(Path(proofs[2]['plan']['ref']).read_bytes())
         # Pure history projector only: a later 03b may own the same 23 path.
         # This synthetic input is never accepted as a saved normal proof.
         last_patch = deepcopy(final['commitView']['patches'][0])
