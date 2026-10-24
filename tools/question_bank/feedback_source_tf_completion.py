@@ -302,11 +302,7 @@ def verify_completion(root, artifact, *, connection, artifact_ref, coordinator=N
                 raise ValueError('genuine source TF publication intent/attempt/approval/gates differ')
             recorded = result.get('liveReadback')
             versions = api._readback(plan, payload, commit, recorded)
-            expected = {'schemaVersion': api.RESULT, 'planHash': plan['planHash'], 'unitHash': plan['unitHash'],
-                'status': 'published_readback_matched', 'transportSchema': api.uploader.READ_SET_TF_TRUTH_SCHEMA,
-                'commit': {'ref': str(directory / 'commit.json'), 'sha256': _hash(commit_raw)},
-                'writeVersions': versions, 'liveReadbackHash': sha256_json(recorded), 'liveReadback': recorded,
-                'FirestoreWritten': True, 'completionRecorded': False, 'remainingGates': ['task_completion_dispatch']}
+            expected = api._publication_result(path, plan, payload, commit_raw, versions, recorded)
             if result != expected: raise ValueError('exact source TF publication/readback result required')
             snapshot = api._snapshot(plan['request']) if live_reader is None else live_reader(plan['request'])
             api._readback(plan, payload, commit, snapshot)

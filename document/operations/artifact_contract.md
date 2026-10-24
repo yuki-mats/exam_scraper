@@ -143,6 +143,8 @@ private planと同じdirectoryの`save-receipt.json`は`feedback-verified-explan
 
 v3のresultも`publicationConfirmed=false`であり、transportの検証・commit応答は内容承認や公開完了を表さない。呼出し元は専用profile・差分・全read/write集合を真正な独立承認と永続intentへ結び、全対象field・対象外不変・読取専用siblingの時刻をreadbackしてから公開を確定する。通常sourceの正式variant・全工程・独立評価との接続が未完なら、このtransportを直接呼んで公開しない。
 
+`question-maintenance-read-set-upload/v4`とresult/v4は、TF訂正と同じtransactionで欠損する`questionTags`だけを標準値`[]`へ初期化する専用profileである。共通keyに必須の`initializeMissingFieldsByDocument={writeId:["questionTags"]}`を加え、非空の初期化集合をwrite集合内へ限定する。該当IDのmaskはv3の許可maskに`questionTags`を末尾追加し、他IDは従来v3maskとする。候補値は厳密な空配列、transactionの実fieldはabsentであることを要求する。 初期化対象に正常authoring側の非空タグ指定があり、通常converterによる保持を検証できない場合は保留する。既存のvalidなliveタグを不変に保持する経路は従来v3の条件で照合する。既存値・null・任意field・別IDの初期化を拒否し、全read setのCAS・membership・対象外presence/値不変と既存v1/v2/v3契約を維持する。初期化mapとschemaをintent・commit応答・readback・completionへ結び、beforeの欠損とafterの空配列を確認する。private baselineには作成前のfield不在も保持する。
+
 専用の公開candidate・intent・attempt・commit・resultはprofileとread/write集合を結合する。transactionの実`write_results`から書込集合のexact更新時刻を確認し、読取専用siblingは値・presence・更新時刻すべて不変、書込documentは対象field一致と対象外不変をreadbackする。不明commitは永続証跡を残して再観測し、再書込み又は完了へ自動的に進めない。従来の全対象変更atomic契約は維持し、旧receiptをこの専用証跡へ読み替えない。コード監査やtransport応答は、固定候補の内容監査・正式保存・独立評価・本番公開確認を代替しない。
 
 ### 通常sourceのTF公開unit
@@ -153,15 +155,15 @@ v3のresultも`publicationConfirmed=false`であり、transportの検証・commi
 
 Git対象の正式source/public/manifest/receiptと、識別情報を含むprivateな実値を分離する。正式表現は識別情報・利用者本文・private台帳contextをpresence/digest又はprivate参照/hashへ置き換え、business候補・全ID・mask・raw contextのcommitmentと結ぶ。保存時と読戻し時はprivate planから再投影したbytesと正式fileを照合し、隠した値の改変も拒否する。raw before/current/CAS・実uploader payloadはprivateのまま保持し、限定mask、exact更新時刻、全sibling、対象外不変、評価・公開・完了の検査を変えない。旧plan/unit/receiptをその場で書き換えず、新しいprivate planと独立監査から開始する。 `scope`以外のCLI標準出力は固定schemaの状態・件数・hashだけとし、raw plan・live readback・台帳本文はprivate成果物から照合する。native `scope`もserver生成時点で台帳contextをprivate commitmentへ結ぶ専用v3とし、生の利用者本文・識別情報を出さない。出力後のredactで代用せず、実際に出力されたscopeと独立監査の完全一致を検証する。
 
-通常の独立評価へ渡す問題は、正式unitのpublic recordと全documentから選択肢対応・必須項目・品質上のissuesを再計算する。sourceと正答が異なる場合は、sourceTF専用の承認根拠を正常02a・公式根拠・真正な保存unit・必要なreport候補採用へ結ぶ。評価時に正式unitとcheckerを再検証し、comparison・承認根拠・全record/docs・画像fallback・warnings・issues・workflow・workVersionsを含む導出情報が完全一致することを要求する。単なる`approved=true`や古いgroup診断の除去で評価条件を満たさない。
+通常の独立評価へ渡す問題は、正式unitのpublic recordと全documentから選択肢対応・必須項目・品質上のissuesを再計算する。sourceと正答が異なる場合は、`source-bound-public-tf-answer-approval/v1`の承認根拠を正常02a・公式根拠・真正な保存unit・必要なreport候補採用へ結ぶ。評価時に正式unitとcheckerを再検証し、comparison・承認根拠・全record/docs・画像fallback・warnings・issues・workflow・workVersionsを含む導出情報が完全一致することを要求する。単なる`approved=true`や古いgroup診断の除去で評価条件を満たさない。
 
 正常工程の証跡は、固定された候補・実保存bytes・native承認・実child・work version・checkpointを照合する。後続工程が同じpatchを正当に更新する場合は、真正な保存履歴から各工程時点の入力を通常projectorで再構築し、現在の投影と最後の真正な保存内容を確認する。03bは通常のcandidateに結び付いた法令監査metadataと実child内のレビューを再検証し、必要人数と一次根拠を通常のvalidatorに従って確認する。工程名や自己申告の成功flagだけで代替しない。
 
 03bの監査日時は正式保存の実行時刻ではなく、候補と必要な独立レビューが完了した時刻とする。serverがprepared envelopeの初回確定前にUTC秒精度で一度だけ採時し、run・工程・対象問題・入力hash・最終候補・独立検証へ結んだmetadataをcontentHashに含める。previewとapplyは同じ固定時刻から`auditedAt`・`nextAuditDueAt`・`lawCorpusSnapshotId`を生成し、日を跨いでも同じ予定bytesを保存する。一次モデルの終了時刻を全監査完了時刻へ読み替えない。固定時刻の欠損、無効日時、timezone欠落、別run又は候補・検証との不一致は新しいprepareへ戻し、旧candidateやintentへ時刻を後付けしない。commitViewの対象path集合も生成時に安定順へ正規化し、別processの集合列挙順で`transactionBefore`が変わらないようにする。各pathの存在・before bytes、時刻以外の入力・scope・承認・live read set・commitViewの厳密一致と通常の競合拒否・rollbackは維持する。
 
-`check --plan <plan>`は真正な工程履歴を通常projector・converterで投影した一問artifactに対し、実3checker・quality gate・v3 upload dry-runを実行し、検査対象0件を成功にしない。`evaluate --plan <plan>`は公式原文・公式選択答・公開表示を分けた入力で通常の別session評価を実行する。公開scopeは現在の正確な評価policyと永続評価結果を結び、候補作者の作成した検査JSONや旧評価を流用しない。
+`check --plan <plan>`は真正な工程履歴を通常projector・converterで投影した一問artifactに対し、実3checker・quality gate・planに固定したv3又はv4のupload dry-runを実行し、検査対象0件を成功にしない。`evaluate --plan <plan>`は公式原文・公式選択答・公開表示を分けた入力で通常の別session評価を実行する。公開scopeは現在の正確な評価policyと永続評価結果を結び、候補作者の作成した検査JSONや旧評価を流用しない。
 
-`scope --action publish`と別subagentの新たな承認を経て、`publish`はpush済みmainの実入力、fresh snapshot、全active集合、値・presence・exact時刻を照合し、既存uploaderのv3だけで限定更新する。`reconcile`は永続intent・attempt・実commit結果を再検証し、全対象field・対象外不変・読取専用siblingの時刻を読み戻す。確認結果は`source-bound-public-tf-publication-result/v1`として保存する。応答不明時は新規書込みせず、実SDKのcommit結果がなければ`commit_unconfirmed`で保留する。実commit証跡がある場合だけ現在値と同じ証跡を照合して再開し、現在値からcommit成功を推定しない。通常unitとガス25の専用receiptは相互に読み替えない。
+`scope --action publish`と別subagentの新たな承認を経て、`publish`はpush済みmainの実入力、fresh snapshot、全active集合、値・presence・exact時刻を照合し、既存uploaderのplanに固定したv3又はv4のprofileで限定更新する。`reconcile`は永続intent・attempt・実commit結果を再検証し、全対象field・対象外不変・読取専用siblingの時刻を読み戻す。確認結果は`source-bound-public-tf-publication-result/v1`として保存する。応答不明時は新規書込みせず、実SDKのcommit結果がなければ`commit_unconfirmed`で保留する。実commit証跡がある場合だけ現在値と同じ証跡を照合して再開し、現在値からcommit成功を推定しない。通常unitとガス25の専用receiptは相互に読み替えない。
 
 公式報告の修正候補を採用審査する場合は`tools.question_bank.feedback_source_tf_report_review`を使う。`execution_call()`へ`--repo-root`・`--db`・`execute --request <既存v1 request> --output <新規private directory>`の実引数を渡し、返された正規native wrapperを改変せず実行する。途中yieldは同じcellへの継続だけを許す。実AppServerによるBlind A/B・Challengeと全検証が完了した実行だけがnative採用scopeを発行し、別subagentの真正な承認を得てから、`source-bound-public-tf-report-request/v2`の`reportReview`にplanとapprovalのref/hashを結ぶ。旧v1 requestと既存24は保持し、後付けscopeで任意のreview JSONを認証しない。
 

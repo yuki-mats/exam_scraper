@@ -1,7 +1,7 @@
 """Explicit normal-source TF public variants; no T041/verified25 schema reuse.
 
 Normal stages own their patches, versions and checkpoints. This adapter records a
-separately approved public display variant and transports only its exact v3 delta.
+separately approved public display variant and transports its exact TF delta.
 Missing normal evidence is a hold, never an asserted approval or successful gate.
 """
 from __future__ import annotations
@@ -624,6 +624,7 @@ def _variant(request, source, current, baseline):
         'sourceConflictReviewDecision': '', 'sourceContentConflictPolicy': ''}
     # Every ID above comes from an explicit full-text bijection, never a suffix.
     record.pop('original_question_body_text', None); record.pop('firestoreSourceQuestions', None)
+    if 'questionTags' in current: _require_question_tags(current['questionTags'])
     generated = convert_question_to_firestore(record)
     converted = {row['questionId']: row for row in generated}
     if set(converted) != set(candidates): raise ValueError('normal converter ID coverage differs')
@@ -631,6 +632,14 @@ def _variant(request, source, current, baseline):
     for qid in sorted(candidates):
         before = baseline[qid]['fields']; row = candidates[qid]; normal_doc = uploader.build_doc_data_base(converted[qid])
         expected = {**deepcopy(before), **{f: row[f] for f in row if f != 'questionId'}}
+        initialize_tags = 'questionTags' not in before
+        if initialize_tags:
+            # A missing schema field gets its explicit empty default. Existing
+            # values (including null) are never interpreted as an absence.
+            if current.get('questionTags', []) != [] or normal_doc.get('questionTags') != []:
+                raise GateRequired('missing_question_tags_requires_empty_normal_schema_default')
+            expected['questionTags'] = []
+        else: _require_question_tags(before['questionTags'])
         for field in CONTENT:
             if ((field in before) != (field in normal_doc) or before.get(field) != normal_doc.get(field)) and field not in row:
                 raise GateRequired('normal_explanation_or_suggestion_delta_required:' + field)
@@ -642,16 +651,23 @@ def _variant(request, source, current, baseline):
             raise ValueError('official original body/statement must remain unchanged')
         changed = {f for f in set(before) | set(expected) if (f in before) != (f in expected) or before.get(f) != expected.get(f)}
         if changed:
-            optional = changed - STRUCTURAL
+            optional = changed - STRUCTURAL - ({'questionTags'} if initialize_tags else set())
             matches = [list(mask) for mask in uploader.READ_SET_TF_TRUTH_WRITE_FIELD_SETS if set(mask) == STRUCTURAL | optional]
-            if len(matches) != 1 or not changed <= STRUCTURAL | CONTENT: raise ValueError('exact v3 owned mask required')
-            mask = matches[0]
-            if any(f not in before or f not in expected for f in mask): raise ValueError('v3 mask presence must be preserved')
+            if len(matches) != 1 or not changed <= STRUCTURAL | CONTENT | ({'questionTags'} if initialize_tags else set()):
+                raise ValueError('exact TF owned mask required')
+            mask = matches[0] + (['questionTags'] if initialize_tags else [])
+            if any((f not in before and not (f == 'questionTags' and initialize_tags)) or f not in expected for f in mask):
+                raise ValueError('TF mask presence must be preserved except explicit missing tags')
             masks[qid] = mask
         result.append({'questionId': qid, **expected})
     if not masks: raise ValueError('all-no-op public unit refused')
     uploader.validate_tf_truth_questions(result)
     return record, result, masks
+
+
+def _require_question_tags(value):
+    if type(value) is not list or any(not isinstance(tag, str) for tag in value):
+        raise ValueError('questionTags must be an existing list of strings or actually absent')
 
 
 def _task_lifecycle(connection, request):
@@ -746,10 +762,27 @@ def _plan(root, path, coordinator, connection, *, live=True):
 def _payload(plan):
     public = plan['public']; unit = public['publicationUnit']; ids = sorted(public['baseline'])
     masks = public['writeFieldsByDocument']; documents = [d for d in public['questions'] if d['questionId'] in masks]
-    payload = {'schemaVersion': uploader.READ_SET_TF_TRUTH_SCHEMA, **unit, 'readDocumentIds': ids,
+    all_documents = {d['questionId']: d for d in public['questions']}
+    if len(all_documents) != len(public['questions']) or set(all_documents) != set(ids):
+        raise ValueError('complete unique public TF sibling coverage required')
+    initializations = {}
+    for identity in ids:
+        before = public['baseline'][identity]['fields']; candidate = all_documents[identity]
+        _require_question_tags(candidate.get('questionTags'))
+        if 'questionTags' not in before:
+            if identity not in masks or 'questionTags' not in masks[identity] or candidate['questionTags'] != []:
+                raise ValueError('missing questionTags requires explicit empty initialization and write mask')
+            initializations[identity] = ['questionTags']
+        else:
+            _require_question_tags(before['questionTags'])
+            if candidate['questionTags'] != before['questionTags'] or 'questionTags' in masks.get(identity, []):
+                raise ValueError('existing questionTags must preserve presence/value outside write mask')
+    payload = {'schemaVersion': (uploader.READ_SET_TF_TRUTH_INITIALIZE_SCHEMA if initializations else uploader.READ_SET_TF_TRUTH_SCHEMA),
+        **unit, 'readDocumentIds': ids,
         'expectedReadUpdateTimes': {i: public['baseline'][i]['updateTimeExact'] for i in ids},
         'expectedLiveFingerprint': uploader.firestore_live_fingerprint(ids, {i: public['baseline'][i]['fields'] for i in ids}),
-        'writeFieldsByDocument': masks, 'questions': documents}
+        'writeFieldsByDocument': deepcopy(masks), 'questions': deepcopy(documents)}
+    if initializations: payload['initializeMissingFieldsByDocument'] = initializations
     uploader.resolve_read_set_maintenance_contract(payload, 'normal source TF public variant')
     return payload
 
@@ -807,7 +840,7 @@ def _scope(root, path, plan, action, *, gates=None):
         'completionContract': _private_commitment(plan['source']['completionContract']),
         'publicHash': sha256_json(plan['public']), 'gitPrivacyPolicyHash': _git_policy_hash(),
         'stageProofsHash': sha256_json(plan['source']['stageProofs']), 'inputFilesHash': sha256_json(plan['inputFiles']),
-        'transportSchema': uploader.READ_SET_TF_TRUTH_SCHEMA,
+        'transportSchema': _payload(plan)['schemaVersion'],
         'requiredReviewGates': plan['source'].get('requiredReviewGates', []), 'gates': gates,
         'nativeCreationCall': native.native_operation_call(argv, module_name=MODULE)}
 
@@ -1036,10 +1069,10 @@ def check(root, path, *, coordinator, connection):
     commands = _check_commands(root, path, plan)
     _check_coverage(root, path, plan)
     results = [_run_command(root, argv) for argv in commands]
-    # Actual dry-run validation uses the same public uploader v3 contract.
+    # Actual dry-run uses the exact derived public uploader TF profile.
     dry = uploader.upload_read_set_maintenance_questions(_payload(plan), 'source TF explicit unit', dry_run=True)
-    if dry.get('schemaVersion') != uploader.READ_SET_TF_TRUTH_RESULT_SCHEMA or dry.get('status') != 'dry_run':
-        raise ValueError('actual v3 dry-run result missing')
+    if dry.get('schemaVersion') != uploader.read_set_profile(_payload(plan)['schemaVersion'])[0] or dry.get('status') != 'dry_run':
+        raise ValueError('actual TF dry-run result missing')
     _plan(root, path, coordinator, connection)
     receipt = _seal({'schemaVersion': CHECKS, 'planHash': plan['planHash'], 'files': refs,
         'commands': results, 'dryRun': dry, 'FirestoreWritten': False}, 'checksHash')
@@ -1062,6 +1095,8 @@ def _verify_checks(root, path, plan, *, rerun):
     _check_coverage(root, path, plan)
     if [r.get('argv') for r in receipt['commands']] != commands or any(r.get('exitCode') != 0 for r in receipt['commands']):
         raise ValueError('complete normal CLI check results required')
+    if receipt.get('dryRun') != uploader.upload_read_set_maintenance_questions(_payload(plan), 'source TF explicit unit', dry_run=True):
+        raise ValueError('actual TF dry-run result differs from fixed payload/profile')
     # Re-execute at every use: a private JSON exitCode is not command-origin evidence.
     for argv in commands: _run_command(root, argv)
     for name, value in generated.items():
@@ -1195,15 +1230,18 @@ def _terminal_publication_guard(root, path, plan, connection, gates, files, guar
 
 
 def _readback(plan, payload, commit, current):
+    if payload != _payload(plan): raise ValueError('exact derived TF payload required')
     ids = payload['readDocumentIds']; write_ids = [q['questionId'] for q in payload['questions']]
     readonly = [i for i in ids if i not in write_ids]
-    expected = {'schemaVersion': uploader.READ_SET_TF_TRUTH_RESULT_SCHEMA, 'status': 'committed',
+    expected = {'schemaVersion': uploader.read_set_profile(payload['schemaVersion'])[0], 'status': 'committed',
         **plan['request']['publicationUnit'], 'readDocumentIds': ids, 'writeDocumentIds': write_ids,
         'readOnlyDocumentIds': readonly, 'writeFieldsByDocument': payload['writeFieldsByDocument'],
         'auditWriteFields': ['updatedAt', 'updatedById'], 'expectedReadUpdateTimes': payload['expectedReadUpdateTimes'],
         'expectedLiveFingerprint': payload['expectedLiveFingerprint'], 'publicationConfirmed': False}
+    if 'initializeMissingFieldsByDocument' in payload:
+        expected['initializeMissingFieldsByDocument'] = deepcopy(payload['initializeMissingFieldsByDocument'])
     if set(commit) != set(expected) | {'writeResults'} or any(commit.get(k) != v for k, v in expected.items()):
-        raise ValueError('exact v3 commit result required')
+        raise ValueError('exact TF commit result required')
     entries = commit['writeResults']
     if not isinstance(entries, list) or any(not isinstance(e, dict) or set(e) != {'questionId', 'updateTime'} for e in entries):
         raise ValueError('exact write-result entries required')
@@ -1220,6 +1258,9 @@ def _readback(plan, payload, commit, current):
             if after_snapshot != before_snapshot: raise ValueError('read-only sibling changed')
             continue
         mask = payload['writeFieldsByDocument'][identity]
+        for field in payload.get('initializeMissingFieldsByDocument', {}).get(identity, []):
+            if field in before or type(after.get(field)) is not list or after[field] != []:
+                raise ValueError('initialization readback requires before absence and explicit empty tags')
         if after_snapshot['updateTimeExact'] != versions[identity]: raise ValueError('exact commit readback time differs')
         if any(field not in after or after[field] != docs[identity][field] for field in mask): raise ValueError('public readback mismatch')
         if any((field in before) != (field in after) or before.get(field) != after.get(field)
@@ -1228,6 +1269,17 @@ def _readback(plan, payload, commit, current):
         if 'updatedAt' not in after or after.get('updatedById') != uploader.UPDATED_BY_ID: raise ValueError('write audit readback differs')
     uploader.validate_tf_truth_questions([{'questionId': i, **current[i]['fields']} for i in ids])
     return versions
+
+
+def _publication_result(path, plan, payload, commit_raw, versions, current):
+    result = {'schemaVersion': RESULT, 'planHash': plan['planHash'], 'unitHash': plan['unitHash'],
+        'status': 'published_readback_matched', 'transportSchema': payload['schemaVersion'],
+        'commit': _reference(path.parent / 'publication/commit.json', commit_raw),
+        'writeVersions': versions, 'liveReadbackHash': sha256_json(current), 'liveReadback': current,
+        'FirestoreWritten': True, 'completionRecorded': False, 'remainingGates': ['task_completion_dispatch']}
+    if 'initializeMissingFieldsByDocument' in payload:
+        result['initializeMissingFieldsByDocument'] = deepcopy(payload['initializeMissingFieldsByDocument'])
+    return result
 
 
 @native.operation
@@ -1310,11 +1362,7 @@ def reconcile(root, path, *, coordinator, connection, evaluation=None):
     if verify_independent_approval(approval, intent['scope'], production=True) != intent['nativeBinding']:
         raise ValueError('publication approval changed during readback')
     _plan(root, path, coordinator, connection, live=False)
-    result = {'schemaVersion': RESULT, 'planHash': plan['planHash'], 'unitHash': plan['unitHash'],
-        'status': 'published_readback_matched', 'transportSchema': uploader.READ_SET_TF_TRUTH_SCHEMA,
-        'commit': _reference(directory / 'commit.json', commit_raw),
-        'writeVersions': versions, 'liveReadbackHash': sha256_json(current), 'liveReadback': current,
-        'FirestoreWritten': True, 'completionRecorded': False, 'remainingGates': ['task_completion_dispatch']}
+    result = _publication_result(path, plan, intent['payload'], commit_raw, versions, current)
     _terminal_publication_guard(root, path, plan, connection, gates, publication_files, guard)
     output = directory / 'result.json'
     if output.exists():

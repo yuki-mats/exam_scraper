@@ -138,6 +138,13 @@ def saved(rig):
     return plan, approval, receipt
 
 
+def missing_tags(rig, identities=None):
+    """Change only temp observed fixtures; no real snapshots or source edits."""
+    selected = set(rig.baseline if identities is None else identities)
+    for observed in (rig.baseline, rig.snapshots):
+        for identity in selected: observed[identity]['fields'].pop('questionTags', None)
+
+
 def test_default_sdk_read_and_write_initialization_is_denied():
     for initialize in (FirestoreReadback()._database, api.uploader.init_firestore,
                        api.uploader.firestore.client, api.uploader.firebase_admin.initialize_app):
@@ -462,6 +469,94 @@ def test_prepare_fixes_source_truth_mapping_complete_reads_and_actual_write_subs
     with pytest.raises(ValueError): api.prepare(rig.root, rig.request_path, rig.output, **rig.options)
 
 
+def test_missing_tags_variant_is_explicit_all_sibling_adoption_delta_without_source_changes(rig):
+    from tools.question_bank import report_candidate_adoption as adoption
+    missing_tags(rig)
+    source_before = Path(rig.request['source']['ref']).read_bytes(); normal_before = deepcopy(rig.current)
+    plan = prepared(rig); public = plan['public']; payload = api._payload(plan)
+    assert payload['schemaVersion'] == api.uploader.READ_SET_TF_TRUTH_INITIALIZE_SCHEMA
+    assert payload['initializeMissingFieldsByDocument'] == {identity: ['questionTags'] for identity in sorted(rig.baseline)}
+    assert payload['readDocumentIds'] == sorted(rig.baseline)
+    assert set(public['writeFieldsByDocument']) == set(rig.baseline)
+    assert all(doc['questionTags'] == [] for doc in public['questions'])
+    assert all(mask[-1] == 'questionTags' and tuple(mask[:-1]) in api.uploader.READ_SET_TF_TRUTH_WRITE_FIELD_SETS
+        for mask in public['writeFieldsByDocument'].values())
+    assert all('questionTags' not in entry['fields'] for entry in public['baseline'].values())
+    assert Path(rig.request['source']['ref']).read_bytes() == source_before and rig.current == normal_before
+    assert 'questionTags' not in plan['source']['source'] and 'questionTags' not in plan['source']['normalProjection']
+    context = {**deepcopy(plan['source']), 'originalSource': plan['source']['source'], 'public': public}
+    subject = adoption.subject(context)
+    for identity in rig.baseline:
+        assert subject['fieldDifferencesByDocument'][identity]['questionTags'] == {
+            'beforePresent': False, 'before': None, 'afterPresent': True, 'after': []}
+    assert all(doc['questionTags'] == [] for doc in subject['candidate']['plannedPublic']['questions'])
+    assert api._scope(rig.root, rig.path, plan, 'save')['transportSchema'] == payload['schemaVersion']
+
+
+def test_mixed_tags_preserve_existing_nonempty_values_and_readonly_sibling(rig):
+    for observations in (rig.baseline, rig.snapshots):
+        observations['live-c']['fields']['questionTags'] = ['existing-public-tag']
+    missing_tags(rig, ['live-a'])
+    plan = prepared(rig); payload = api._payload(plan)
+    assert payload['initializeMissingFieldsByDocument'] == {'live-a': ['questionTags']}
+    assert set(payload['writeFieldsByDocument']) == {'live-a', 'live-b'}
+    assert 'questionTags' not in payload['writeFieldsByDocument']['live-b']
+    document = next(d for d in plan['public']['questions'] if d['questionId'] == 'live-c')
+    assert document['questionTags'] == ['existing-public-tag']
+    commit = commit_result(plan); current = readback(plan, commit)
+    assert api._readback(plan, payload, commit, current) == {
+        result['questionId']: result['updateTime'] for result in commit['writeResults']}
+    assert current['live-c'] == plan['public']['baseline']['live-c']
+
+
+def test_existing_valid_tags_with_nonempty_normal_tags_preserve_v3(rig):
+    rig.current['questionTags'] = ['normal-authoring-tag-not-owned-by-this-correction']
+    for observed in (rig.baseline, rig.snapshots):
+        for snapshot in observed.values(): snapshot['fields']['questionTags'] = ['existing-public-tag']
+    plan = prepared(rig); payload = api._payload(plan)
+    assert payload['schemaVersion'] == api.uploader.READ_SET_TF_TRUTH_SCHEMA
+    assert 'initializeMissingFieldsByDocument' not in payload
+    assert all(document['questionTags'] == ['existing-public-tag'] for document in plan['public']['questions'])
+    assert all('questionTags' not in mask for mask in payload['writeFieldsByDocument'].values())
+    assert plan['source']['normalProjection']['questionTags'] == rig.current['questionTags']
+
+
+@pytest.mark.parametrize('invalid', [None, '', {}, [None], [True]])
+def test_existing_invalid_or_null_tags_are_never_defaulted_even_for_readonly_sibling(rig, invalid):
+    for observed in (rig.baseline, rig.snapshots): observed['live-c']['fields']['questionTags'] = invalid
+    with pytest.raises(ValueError, match='questionTags'):
+        prepared(rig)
+    assert not rig.path.exists()
+
+
+def test_missing_tags_never_discards_nonempty_normal_tags_or_accepts_all_noop(rig):
+    missing_tags(rig)
+    rig.current['questionTags'] = ['normal-tag-not-owned-by-initialization']
+    with pytest.raises(api.GateRequired, match='empty_normal_schema_default'): prepared(rig)
+    # An already complete, identical public unit still cannot emit any write.
+    rig.current.pop('questionTags')
+    record, documents, masks = api._variant(rig.request, rig.source, rig.current, rig.baseline)
+    complete = {identity: {**deepcopy(before), 'fields': {k: v for k, v in next(d for d in documents
+        if d['questionId'] == identity).items() if k != 'questionId'}} for identity, before in rig.baseline.items()}
+    with pytest.raises(ValueError, match='all-no-op'): api._variant(rig.request, rig.source, rig.current, complete)
+
+
+def test_old_missing_tags_v3_context_is_held_instead_of_silently_upgrading(rig):
+    missing_tags(rig)
+    plan = prepared(rig)
+    # Explicit pre-initialization representation, not an accepted saved unit.
+    for document in plan['public']['questions']: document.pop('questionTags')
+    for identity in list(plan['public']['writeFieldsByDocument']):
+        mask = plan['public']['writeFieldsByDocument'][identity]
+        plan['public']['writeFieldsByDocument'][identity] = [f for f in mask if f != 'questionTags']
+    plan['public']['writeFieldsByDocument'].pop('live-c')
+    plan.pop('planHash'); write(rig.path, api._seal(plan))
+    before = rig.path.read_bytes()
+    with pytest.raises(ValueError, match='scope drift'):
+        api.inspect(rig.root, rig.path, **rig.options)
+    assert rig.path.read_bytes() == before and not (rig.root / plan['formalPath']).exists()
+
+
 @pytest.mark.parametrize('mutation', ['duplicate_id', 'wrong_hash', 'mixed_text', 'missing', 'foreign', 'unknown'])
 def test_source_live_mapping_and_unknown_fields_refuse_before_plan(rig, mutation):
     if mutation == 'duplicate_id': rig.request['mapping'][1]['questionId'] = 'live-a'
@@ -687,6 +782,24 @@ def test_actual_normal_checker_clis_cover_target_with_multi_record_source(rig):
     assert receipt['dryRun']['writeDocumentIds'] == ['live-a', 'live-b']
 
 
+def test_v4_checker_receipt_cannot_change_schema_or_initialization_map(rig, monkeypatch):
+    missing_tags(rig)
+    plan, _, _ = saved(rig)
+    receipt = api.check(rig.root, rig.path, **rig.options)
+    path = rig.output / 'checks/receipt.json'
+    def forbidden(*args): raise AssertionError('forged dry-run must be rejected before rerunning commands')
+    monkeypatch.setattr(api, '_run_command', forbidden)
+    for mutation in ('v3', 'missing', 'foreign'):
+        forged = deepcopy(receipt); forged.pop('checksHash')
+        if mutation == 'v3': forged['dryRun']['schemaVersion'] = api.uploader.READ_SET_TF_TRUTH_RESULT_SCHEMA
+        elif mutation == 'missing': forged['dryRun'].pop('initializeMissingFieldsByDocument')
+        else: forged['dryRun']['initializeMissingFieldsByDocument'] = {'foreign': ['questionTags']}
+        write(path, api._seal(forged, 'checksHash'))
+        with pytest.raises(ValueError, match='dry-run result differs'):
+            api._verify_checks(rig.root, rig.path, plan, rerun=False)
+    write(path, receipt)
+
+
 def commit_result(plan):
     payload = api._payload(plan); dry = api.uploader.upload_read_set_maintenance_questions(payload, 'fixture', dry_run=True)
     dry.update(status='committed', writeResults=[{'questionId': i, 'updateTime': '2026-10-22T02:00:00.123456789Z'} for i in dry['writeDocumentIds']])
@@ -715,6 +828,30 @@ def test_unknown_commit_partial_results_and_outside_field_changes_refuse(rig):
     with pytest.raises(ValueError, match='coverage'): api._readback(plan, api._payload(plan), partial, current)
     current['live-a']['fields']['questionSetId'] = 'forbidden-category'
     with pytest.raises(ValueError, match='outside-mask'): api._readback(plan, api._payload(plan), commit, current)
+
+
+@pytest.mark.parametrize('mutation', ['payload_map_missing', 'payload_map_foreign', 'payload_v3', 'payload_mask', 'payload_candidate_tags', 'commit_map_missing',
+    'commit_map_foreign', 'commit_v3', 'partial_versions', 'readonly', 'outside', 'version', 'after_null', 'after_nonempty', 'before_present'])
+def test_v4_readback_rejects_initialization_forgery_and_real_conflicts(rig, mutation):
+    missing_tags(rig, ['live-a'])
+    plan = prepared(rig); payload = api._payload(plan); commit = commit_result(plan); current = readback(plan, commit)
+    assert api._readback(plan, payload, commit, current)
+    if mutation == 'payload_map_missing': payload.pop('initializeMissingFieldsByDocument')
+    elif mutation == 'payload_map_foreign': payload['initializeMissingFieldsByDocument']['live-c'] = ['questionTags']
+    elif mutation == 'payload_v3': payload['schemaVersion'] = api.uploader.READ_SET_TF_TRUTH_SCHEMA
+    elif mutation == 'payload_mask': payload['writeFieldsByDocument']['live-a'].remove('questionTags')
+    elif mutation == 'payload_candidate_tags': next(d for d in payload['questions'] if d['questionId'] == 'live-a')['questionTags'] = ['foreign']
+    elif mutation == 'commit_map_missing': commit.pop('initializeMissingFieldsByDocument')
+    elif mutation == 'commit_map_foreign': commit['initializeMissingFieldsByDocument']['live-c'] = ['questionTags']
+    elif mutation == 'commit_v3': commit['schemaVersion'] = api.uploader.READ_SET_TF_TRUTH_RESULT_SCHEMA
+    elif mutation == 'partial_versions': commit['writeResults'].pop()
+    elif mutation == 'readonly': current['live-c']['fields']['questionTags'] = ['foreign']
+    elif mutation == 'outside': current['live-a']['fields']['questionSetId'] = 'foreign-set'
+    elif mutation == 'version': current['live-a']['updateTimeExact'] = '2026-10-23T00:00:00.000000001Z'
+    elif mutation == 'after_null': current['live-a']['fields']['questionTags'] = None
+    elif mutation == 'after_nonempty': current['live-a']['fields']['questionTags'] = ['foreign']
+    else: plan['public']['baseline']['live-a']['fields']['questionTags'] = []
+    with pytest.raises(ValueError): api._readback(plan, payload, commit, current)
 
 
 def test_unconnected_report_law_and_completion_gates_cannot_be_self_declared(rig, monkeypatch):
@@ -755,6 +892,45 @@ def test_actual_v3_dispatch_readback_and_exact_retry_never_recommit(rig, monkeyp
     assert len(calls) == 1
     assert rig.snapshots['live-c'] == rig.baseline['live-c']
     assert Path(rig.request['source']['ref']).read_bytes() == source_before
+
+
+def test_actual_v4_dispatch_binds_initializations_in_intent_result_and_retry_without_recommit(rig, monkeypatch):
+    missing_tags(rig, ['live-a'])
+    plan, approval, commit, calls = transport_rig(rig, monkeypatch)
+    result = api.publish(rig.root, rig.path, approval, **rig.options)
+    expected = {'live-a': ['questionTags']}
+    assert result['transportSchema'] == api.uploader.READ_SET_TF_TRUTH_INITIALIZE_SCHEMA
+    assert result['initializeMissingFieldsByDocument'] == commit['initializeMissingFieldsByDocument'] == expected
+    assert calls[0][0][0] == api._payload(plan)
+    assert calls[0][0][0]['initializeMissingFieldsByDocument'] == expected
+    assert api.publish(rig.root, rig.path, approval, **rig.options) == result
+    assert len(calls) == 1 and rig.snapshots['live-c'] == plan['public']['baseline']['live-c']
+
+
+@pytest.mark.parametrize('phase', ['intent', 'commit', 'unknown_commit'])
+def test_v4_interruption_and_unconfirmed_commit_never_infer_or_repeat_writes(rig, monkeypatch, phase):
+    missing_tags(rig)
+    plan, approval, commit, calls = transport_rig(rig, monkeypatch)
+    if phase == 'unknown_commit':
+        def unknown(payload, *a, **k):
+            calls.append('unknown'); result = deepcopy(commit); result.update(status='commit_unconfirmed', writeResults=[])
+            assert result['initializeMissingFieldsByDocument'] == payload['initializeMissingFieldsByDocument']
+            raise api.uploader.ReadSetMaintenanceCommitUnconfirmed(result)
+        monkeypatch.setattr(api.uploader, 'upload_read_set_maintenance_questions', unknown)
+        with pytest.raises(api.uploader.ReadSetMaintenanceCommitUnconfirmed): api.publish(rig.root, rig.path, approval, **rig.options)
+        with pytest.raises(api.GateRequired, match='commit_unconfirmed'): api.publish(rig.root, rig.path, approval, **rig.options)
+        assert calls == ['unknown'] and not (rig.output / 'publication/result.json').exists()
+        return
+    def stopped(boundary):
+        if boundary == phase: raise KeyboardInterrupt('isolated v4 interruption')
+    with pytest.raises(KeyboardInterrupt): api.publish(rig.root, rig.path, approval, failure_hook=stopped, **rig.options)
+    if phase == 'intent':
+        with pytest.raises(FileNotFoundError): api.reconcile(rig.root, rig.path, **rig.options)
+        assert calls == []
+    else:
+        result = api.reconcile(rig.root, rig.path, **rig.options)
+        assert result['initializeMissingFieldsByDocument'] == {i: ['questionTags'] for i in rig.baseline}
+        assert len(calls) == 1
 
 
 @pytest.mark.parametrize('phase', ['intent', 'commit'])
@@ -1035,8 +1211,10 @@ def test_explicit_evaluation_dispatch_replays_saved_unit_and_rejects_projected_d
         validate_scoped_question(rig.root, question)
 
 
-def test_source_tf_evaluation_recomputes_old_inventory_diagnostics_and_is_ready_after_real_checks(rig, monkeypatch):
+@pytest.mark.parametrize('initialize_missing_tags', [False, True], ids=['existing-v3', 'missing-v4'])
+def test_source_tf_evaluation_recomputes_old_inventory_diagnostics_and_is_ready_after_real_checks(rig, monkeypatch, initialize_missing_tags):
     from tools.question_review_console.evaluation import QuestionEvaluationService
+    if initialize_missing_tags: missing_tags(rig)
     group = rig.coordinator.workflow.inventory.group
     def stale_group(*args):
         result = group(*args)
@@ -1053,6 +1231,11 @@ def test_source_tf_evaluation_recomputes_old_inventory_diagnostics_and_is_ready_
     plan, _, _ = saved(rig)
     checks = api.check(rig.root, rig.path, **rig.options)
     assert len(checks['commands']) == 5
+    payload = api._payload(plan)
+    assert checks['dryRun']['schemaVersion'] == api.uploader.read_set_profile(payload['schemaVersion'])[0]
+    if initialize_missing_tags:
+        assert payload['schemaVersion'] == api.uploader.READ_SET_TF_TRUTH_INITIALIZE_SCHEMA
+        assert checks['dryRun']['initializeMissingFieldsByDocument'] == {i: ['questionTags'] for i in rig.baseline}
     question = api._question(rig.root, rig.path, plan, rig.coordinator, rig.connection, checked=True)
     question['sourceTfLedger'] = api.normal._ledger_path(rig.connection)
     monkeypatch.setattr(api.normal, 'coordinator_for', lambda *a: rig.coordinator)
@@ -1234,8 +1417,10 @@ def test_privacy_publication_and_completion_retain_exact_raw_readset_and_formal_
     assert rig.connection.execute('SELECT COUNT(*) FROM improvement_result_history').fetchone()[0] == 0
 
 
-def test_improvement_completion_records_and_exact_replay_recovers_receipt_interruption(rig, monkeypatch):
+@pytest.mark.parametrize('initialize_missing_tags', [False, True], ids=['existing-v3', 'missing-v4'])
+def test_improvement_completion_records_and_exact_replay_recovers_receipt_interruption(rig, monkeypatch, initialize_missing_tags):
     from tools.question_bank import feedback_daily as daily
+    if initialize_missing_tags: missing_tags(rig)
     plan, artifact, path, digest, calls = published_completion(rig, monkeypatch)
     assert plan['schemaVersion'] == 'source-bound-public-tf-plan/v3'
     assert api._scope(rig.root, rig.path, plan, 'save')['completionContract'] == api._private_commitment(artifact['completionContract'])
@@ -1321,8 +1506,10 @@ def report_rig(rig, monkeypatch, *, cases=('case-a',), undecided=()):
     monkeypatch.setattr(review, 'verify', verify)
 
 
-def test_report_completion_keeps_intake_decision_proposal_and_records_append_only_fact(rig, monkeypatch):
+@pytest.mark.parametrize('initialize_missing_tags', [False, True], ids=['existing-v3', 'missing-v4'])
+def test_report_completion_keeps_intake_decision_proposal_and_records_append_only_fact(rig, monkeypatch, initialize_missing_tags):
     from tools.question_bank import feedback_daily as daily
+    if initialize_missing_tags: missing_tags(rig)
     report_rig(rig, monkeypatch)
     before = dict(rig.connection.execute('SELECT * FROM report_tasks').fetchone())
     from tools.question_bank.feedback_source_tf_report_review import REPORT_REQUEST
@@ -1353,7 +1540,9 @@ def test_report_completion_keeps_intake_decision_proposal_and_records_append_onl
     rig.connection.rollback()
 
 
-def test_report_partial_completion_remains_open_and_receipt_interruption_is_resumable(rig, monkeypatch):
+@pytest.mark.parametrize('initialize_missing_tags', [False, True], ids=['existing-v3', 'missing-v4'])
+def test_report_partial_completion_remains_open_and_receipt_interruption_is_resumable(rig, monkeypatch, initialize_missing_tags):
+    if initialize_missing_tags: missing_tags(rig)
     report_rig(rig, monkeypatch, cases=('case-a','case-b'), undecided=('case-b',))
     _, artifact, path, digest, _ = published_completion(rig, monkeypatch)
     assert artifact['completionContract']['parentMayComplete'] is False
@@ -1363,6 +1552,27 @@ def test_report_partial_completion_remains_open_and_receipt_interruption_is_resu
     assert result['reportParentPublished'] is False
     assert rig.connection.execute('SELECT published_at FROM report_tasks').fetchone()[0] is None
     assert rig.connection.execute('SELECT COUNT(*) FROM source_tf_report_publication_history').fetchone()[0] == 1
+
+
+@pytest.mark.parametrize('mutation', ['result_map', 'result_v3', 'commit_map', 'live_null_tags'])
+def test_v4_completion_rejects_initialization_map_schema_and_live_value_changes(rig, monkeypatch, mutation):
+    missing_tags(rig, ['live-a'])
+    plan, artifact, path, digest, _ = published_completion(rig, monkeypatch)
+    if mutation == 'live_null_tags': rig.snapshots['live-a']['fields']['questionTags'] = None
+    else:
+        selected = rig.output / 'publication' / ('commit.json' if mutation == 'commit_map' else 'result.json')
+        value = api._json(selected.read_bytes())
+        if mutation == 'result_v3': value['transportSchema'] = api.uploader.READ_SET_TF_TRUTH_SCHEMA
+        else: value['initializeMissingFieldsByDocument'] = {'foreign': ['questionTags']}
+        write(selected, value)
+        # Even recomputing the enclosing private references cannot authorize a
+        # different initialization map/profile than the approved fixed payload.
+        artifact = api.completion_api.artifact_for(rig.root, rig.path, plan)
+        write(path, artifact)
+    with pytest.raises(ValueError):
+        api.completion_api.verify_completion(rig.root, artifact, connection=rig.connection,
+            artifact_ref=path, coordinator=rig.coordinator)
+    assert rig.connection.execute('SELECT status FROM improvement_tasks').fetchone()[0] == 'in_progress'
 
 
 @pytest.mark.parametrize('mutation', ['new_case','proposal','decision','fake_proof','foreign_case'])
