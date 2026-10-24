@@ -54,6 +54,9 @@ from tools.question_review_console.qualification_runs import (
     _resume_question_selection_matches,
     _source_binding_accepts_identity,
     _server_law_audit_fields,
+    _law_audit_completion_metadata,
+    _structured_commit_transaction_roots,
+    _validated_law_audit_completed_at,
     _structured_candidate_stage_context,
     _structured_candidate_prompt,
     _trusted_source_answer_evidence,
@@ -1863,6 +1866,83 @@ class ResumePolicyCompatibilityTests(unittest.TestCase):
                 ["q2"],
             )
         )
+
+
+class StructuredCommitRootOrderTests(unittest.TestCase):
+    def test_three_patches_and_workversion_use_identical_order_in_distinct_hashseed_processes(self):
+        import os, subprocess, sys
+        root=Path(__file__).resolve().parents[1]
+        script="""import code,sys,json
+from pathlib import Path
+sys.path.insert(0,sys.argv[1])
+from tools.question_review_console.qualification_runs import _structured_commit_transaction_roots
+root=Path('/tmp/transaction-order-fixture')
+patches=set(['output/test/22_explanation_fixed/q.json','output/test/15_lawContext/q.json','output/test/review/law_revision_audit/q.jsonl'])
+versions=set(['output/test/review/work_versions/q.json'])
+roots=_structured_commit_transaction_roots(root,patches,versions,record_work_version=True)
+print(json.dumps([p.relative_to(root).as_posix() for p in roots]))
+"""
+        results=[]
+        for seed in ('1','2','17','77'):
+            result=subprocess.run([sys.executable,'-c',script,str(root)],cwd='/private/tmp',
+                env={**os.environ,'PYTHONHASHSEED':seed},capture_output=True,text=True,check=True)
+            results.append(json.loads(result.stdout))
+        self.assertTrue(all(order==results[0] for order in results))
+        self.assertEqual(results[0],sorted(results[0]));self.assertEqual(len(results[0]),4)
+        candidate={'b.json','a.json'}
+        self.assertEqual(_structured_commit_transaction_roots(Path('/tmp/test'),candidate,('a.json','c.json'),record_work_version=False),
+            (Path('/tmp/test/a.json'),Path('/tmp/test/b.json')))
+
+
+class PreparedLawAuditCompletionBindingTests(unittest.TestCase):
+    def setUp(self):
+        self.inputs = dict(qualification='sample', run_id='run-one', question_ids=['q1'],
+            input_fingerprint_value='fixed-input', projected_input_hash='fixed-projection',
+            candidate_payload={'candidate':'final-after-review'})
+        self.execution = {'lawAuditVerification': {'q1': {'reviews':[{'threadId':'independent','turnId':'turn'}]}},
+            'lawAuditJudgmentGuidance': {'primaryExecution':{'threadId':'primary','turnId':'turn'}}}
+        self.execution['lawAuditCompletion'] = _law_audit_completion_metadata(**self.inputs,
+            execution_metadata=self.execution, completed_at=datetime(2026,10,23,23,59,59,tzinfo=timezone.utc))
+
+    def test_same_bound_utc_time_is_independent_of_read_time(self):
+        value = _validated_law_audit_completed_at(self.execution,**self.inputs)
+        self.assertEqual(value,datetime(2026,10,23,23,59,59,tzinfo=timezone.utc))
+        self.assertEqual(self.execution['lawAuditCompletion']['completedAt'],'2026-10-23T23:59:59+00:00')
+        self.assertNotIn('lawAuditCompletion',self.inputs['candidate_payload'])
+
+    def test_missing_invalid_naive_noncanonical_or_changed_time_refuses_fresh_prepare(self):
+        for time in (None,'not-time','2026-10-23T23:59:59','2026-10-24T08:59:59+09:00',
+                     '2026-10-23T23:59:59.001+00:00','2026-10-23T23:59:59Z','2026-10-24T00:00:00+00:00'):
+            changed=copy.deepcopy(self.execution);changed['lawAuditCompletion']['completedAt']=time
+            with self.subTest(time=time),self.assertRaisesRegex(QualificationRunError,'新規prepare'):
+                _validated_law_audit_completed_at(changed,**self.inputs)
+        changed=copy.deepcopy(self.execution);changed.pop('lawAuditCompletion')
+        with self.assertRaisesRegex(QualificationRunError,'新規prepare'):
+            _validated_law_audit_completed_at(changed,**self.inputs)
+        with self.assertRaises(QualificationRunError):
+            _law_audit_completion_metadata(**self.inputs,execution_metadata={},completed_at=datetime(2026,10,23))
+
+    def test_foreign_stage_run_question_input_candidate_or_reviews_cannot_reuse_stamp(self):
+        for key,value in {'qualification':'other','run_id':'run-two','question_ids':['q2'],
+                'input_fingerprint_value':'other','projected_input_hash':'other','candidate_payload':{'candidate':'other'}}.items():
+            with self.subTest(key=key),self.assertRaisesRegex(QualificationRunError,'新規prepare'):
+                _validated_law_audit_completed_at(self.execution,**{**self.inputs,key:value})
+        for key in ('lawAuditVerification','lawAuditJudgmentGuidance'):
+            changed=copy.deepcopy(self.execution);changed[key]={'foreign':'execution'}
+            with self.subTest(key=key),self.assertRaisesRegex(QualificationRunError,'新規prepare'):
+                _validated_law_audit_completed_at(changed,**self.inputs)
+        changed=copy.deepcopy(self.execution);changed['lawAuditCompletion']['stageId']='law_context'
+        with self.assertRaisesRegex(QualificationRunError,'新規prepare'):
+            _validated_law_audit_completed_at(changed,**self.inputs)
+
+    def test_metadata_change_invalidates_existing_envelope_content_hash(self):
+        envelope=_prepared_candidate_envelope(question_id='q1',stage_id='law_audit',
+            input_fingerprint_value='fixed-input',projected_input_hash='fixed-projection',
+            content={'executionMetadata':self.execution})
+        changed=copy.deepcopy(envelope)
+        changed['content']['executionMetadata']['lawAuditCompletion']['completedAt']='2026-10-24T00:00:00+00:00'
+        with self.assertRaisesRegex(QualificationRunError,'content hash'):
+            _validated_prepared_candidate(changed)
 
 
 class ServerLawAuditFieldsTests(unittest.TestCase):
@@ -8939,6 +9019,11 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
 
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
+            # 03b now consumes the actual 02a judgment section as a canonical
+            # input; retain that dependency in this two-question rollback repo.
+            from tools.question_review_console.law_audit_verification import JUDGMENT_GUIDANCE_SOURCE
+            guidance=root/JUDGMENT_GUIDANCE_SOURCE;guidance.parent.mkdir(parents=True,exist_ok=True)
+            guidance.write_bytes((Path(__file__).resolve().parents[1]/JUDGMENT_GUIDANCE_SOURCE).read_bytes())
             app_server = ReviewedLawAppServer()
             coordinator, _sync, _server, parent = self._start_deferred_flow(
                 root,

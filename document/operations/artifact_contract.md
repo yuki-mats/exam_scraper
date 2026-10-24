@@ -153,6 +153,8 @@ v3のresultも`publicationConfirmed=false`であり、transportの検証・commi
 
 正常工程の証跡は、固定された候補・実保存bytes・native承認・実child・work version・checkpointを照合する。後続工程が同じpatchを正当に更新する場合は、真正な保存履歴から各工程時点の入力を通常projectorで再構築し、現在の投影と最後の真正な保存内容を確認する。03bは通常のcandidateに結び付いた法令監査metadataと実child内のレビューを再検証し、必要人数と一次根拠を通常のvalidatorに従って確認する。工程名や自己申告の成功flagだけで代替しない。
 
+03bの監査日時は正式保存の実行時刻ではなく、候補と必要な独立レビューが完了した時刻とする。serverがprepared envelopeの初回確定前にUTC秒精度で一度だけ採時し、run・工程・対象問題・入力hash・最終候補・独立検証へ結んだmetadataをcontentHashに含める。previewとapplyは同じ固定時刻から`auditedAt`・`nextAuditDueAt`・`lawCorpusSnapshotId`を生成し、日を跨いでも同じ予定bytesを保存する。一次モデルの終了時刻を全監査完了時刻へ読み替えない。固定時刻の欠損、無効日時、timezone欠落、別run又は候補・検証との不一致は新しいprepareへ戻し、旧candidateやintentへ時刻を後付けしない。commitViewの対象path集合も生成時に安定順へ正規化し、別processの集合列挙順で`transactionBefore`が変わらないようにする。各pathの存在・before bytes、時刻以外の入力・scope・承認・live read set・commitViewの厳密一致と通常の競合拒否・rollbackは維持する。
+
 `check --plan <plan>`は真正な工程履歴を通常projector・converterで投影した一問artifactに対し、実3checker・quality gate・v3 upload dry-runを実行し、検査対象0件を成功にしない。`evaluate --plan <plan>`は公式原文・公式選択答・公開表示を分けた入力で通常の別session評価を実行する。公開scopeは現在の正確な評価policyと永続評価結果を結び、候補作者の作成した検査JSONや旧評価を流用しない。
 
 `scope --action publish`と別subagentの新たな承認を経て、`publish`はpush済みmainの実入力、fresh snapshot、全active集合、値・presence・exact時刻を照合し、既存uploaderのv3だけで限定更新する。`reconcile`は永続intent・attempt・実commit結果を再検証し、全対象field・対象外不変・読取専用siblingの時刻を読み戻す。確認結果は`source-bound-public-tf-publication-result/v1`として保存する。応答不明時は新規書込みせず、実SDKのcommit結果がなければ`commit_unconfirmed`で保留する。実commit証跡がある場合だけ現在値と同じ証跡を照合して再開し、現在値からcommit成功を推定しない。通常unitとガス25の専用receiptは相互に読み替えない。

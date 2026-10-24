@@ -1213,3 +1213,172 @@ class EarlyContentFailureRetryTests(unittest.TestCase):
             with self.assertRaisesRegex((ValueError, RuntimeError), 'drift|hash|変更|一致'): self.prepare()
         self.assertFalse((self.output / 'failure-receipt.json').exists())
         self.assertFalse((self.output / 'plan.json').exists())
+
+
+class PreparedLawAuditTimestampTests(unittest.TestCase):
+    """Normal prepared writer binds one server time after its independent audits."""
+    write = staticmethod(PreparedStageTests.write)
+    prepare = PreparedStageTests.prepare
+    plan = PreparedStageTests.plan
+    apply = PreparedStageTests.apply
+
+    def setUp(self):
+        from tests.test_law_audit_verification import NormalLawJudgmentDeliveryTests
+        from datetime import datetime, timezone
+        NormalLawJudgmentDeliveryTests.setUp(self)
+        source=Path(self.request['source']['ref'])
+        payload=json.loads(source.read_text());payload['question_bodies'][0]['examYear']=2026
+        self.write(source,payload);self.request['source']['sha256']=stage._hash(source.read_bytes())
+        self.write(self.request_path,self.request)
+        self.write(self.root/stage.MANIFEST,(json.dumps({'path':str(source.relative_to(self.root)),
+            'sha256':self.request['source']['sha256']})+'\n').encode())
+        self.clock = {'now': datetime(2026,10,23,23,58,tzinfo=timezone.utc)}
+        self.review_finished_at = datetime(2026,10,23,23,59,59,tzinfo=timezone.utc)
+        self.review_calls = []
+        from tools.question_review_console import qualification_runs as runs
+        class Clock(datetime):
+            @classmethod
+            def now(cls,tz=None):
+                current=self.clock['now']
+                return current.astimezone(tz) if tz is not None else current.replace(tzinfo=None)
+        clock = patch.object(runs,'datetime',Clock);clock.start();self.addCleanup(clock.stop)
+        self.runs=runs
+        # Checkpoints must observe the normal merged patch projection after the
+        # commit, rather than the source-only fixture's immutable initial DTO.
+        from tools.question_review_console.inventory import QuestionInventory
+        reader=QuestionInventory(self.root)
+        original_group=self.inventory.group
+        def current_group(qualification,list_group_id):
+            group=original_group(qualification,list_group_id)
+            for question in group['questions']:
+                projected=reader.projected_input(qualification,list_group_id,question['sourceRecordRef'])
+                question['projected']=dict(projected.record)
+                question['isLawRelated']=question['projected'].get('isLawRelated',False)
+                question['paths']['patches']=list(projected.applied_files)
+            return group
+        self.inventory.group=current_group
+        from dataclasses import replace
+        from tools.question_review_console.codex_app_server import AppServerTurnResult
+        original=self.model.run_turn
+        def run(prompt,**kwargs):
+            kind=kwargs['work_type']
+            if kind in {'maintenance_law_audit_secondary_audit_candidate','maintenance_law_audit_tertiary_audit_candidate'}:
+                bundle=json.loads(prompt.splitlines()[-1]);fields=bundle['proposedFields']
+                self.review_calls.append(kind)
+                self.clock['now']=self.review_finished_at
+                return AppServerTurnResult(thread_id='independent-review-'+str(len(self.review_calls)),
+                    session_id='independent-session',turn_id='independent-turn',model='fixture',service_tier=None,
+                    final_message=json.dumps({'schemaVersion':'law-audit-verification/v1',
+                        'questionId':bundle['question']['questionId'],'evidenceHash':bundle['evidenceHash'],
+                        'decision':'approve','issues':[],'verifiedSourceUrls':['https://laws.e-gov.go.jp/fixture'],
+                        'examTimeDecision':fields['examTimeDecision'],'currentLawDecision':fields['currentLawDecision']}))
+            result=original(prompt,**kwargs)
+            if kind=='maintenance_law_audit_candidate':
+                payload=json.loads(result.final_message)
+                fields={item['field']:item['value'] for item in payload['update']['setFields']}
+                fields.update(isLawRelated=True,auditStatus='same_as_current',reviewState='needs_secondary_review',
+                    reconciliationStatus='pending_secondary_review')
+                for fact in fields['lawRevisionFacts']:
+                    fact.update(auditStatus='same_as_current',reviewState='needs_secondary_review',reconciliationStatus='pending_secondary_review')
+                payload['update']['setFields']=[{'field':key,'value':value} for key,value in fields.items()]
+                result=replace(result,final_message=json.dumps(payload,ensure_ascii=False),
+                    model_turn_finished_at='2026-10-23T23:58:00+00:00')
+            return result
+        self.model.run_turn=run
+        self.coordinator.primary_law_evidence.resolve=Mock(return_value={'status':'complete','items':[]})
+
+    def test_independent_completion_time_survives_preview_and_next_day_normal_apply(self):
+        self.prepare();plan=self.plan()
+        metadata=plan['preparedCandidate']['content']['executionMetadata']
+        stamp=metadata['lawAuditCompletion']
+        self.assertEqual(stamp['completedAt'],'2026-10-23T23:59:59+00:00')
+        self.assertNotEqual(stamp['completedAt'],metadata['modelTurnFinishedAt'])
+        self.assertEqual(self.review_calls,['maintenance_law_audit_secondary_audit_candidate'])
+        self.assertEqual(stamp['runId'],plan['childRunId'])
+        self.clock['now']=self.review_finished_at.replace(day=24,hour=0,minute=1)
+        preview=stage._run(self.coordinator,plan,preview=True)
+        self.assertEqual(preview['preview'],plan['commitView'])
+        with patch.object(stage,'verify_independent_approval',return_value={'reviewerSessionId':'independent'}):
+            receipt=self.apply();self.assertTrue(receipt['formalPatchSaved'])
+            self.assertEqual(self.apply(),receipt)
+        for planned in plan['commitView']['patches']:
+            self.assertEqual((self.root/planned['path']).read_bytes(),planned['afterUtf8'].encode())
+        audit=next(p for p in plan['commitView']['patches'] if 'law_revision_audit' in p['path'])
+        sidecar=json.loads(audit['afterUtf8'].splitlines()[0])
+        self.assertEqual(sidecar['auditedAt'],stamp['completedAt'])
+        self.assertEqual(sidecar['nextAuditDueAt'],'2027-10-23')
+        self.assertTrue(sidecar['lawCorpusSnapshotId'].startswith('codex-web-primary:2026-10-23:'))
+
+    def test_timestamp_less_historical_envelope_is_not_filled_from_current_clock(self):
+        persist=self.coordinator.store.persist_prepared_candidate
+        def legacy_first_save(qualification,run_id,envelope):
+            changed=deepcopy(envelope);changed['content']['executionMetadata'].pop('lawAuditCompletion')
+            changed.pop('contentHash');changed['contentHash']='sha256:'+self.runs._canonical_json_hash(changed)
+            return persist(qualification,run_id,changed)
+        with patch.object(self.coordinator.store,'persist_prepared_candidate',side_effect=legacy_first_save), \
+                patch.object(self.coordinator.store,'write_baseline',wraps=self.coordinator.store.write_baseline) as baseline:
+            with self.assertRaisesRegex(self.runs.QualificationRunError,'新規prepare'):self.prepare()
+            baseline.assert_not_called()
+        self.assertFalse((self.output/'plan.json').exists())
+        self.assertEqual(len(self.review_calls),1)
+
+    def test_timestamp_from_another_run_is_rejected_even_with_valid_envelope_hash(self):
+        persist=self.coordinator.store.persist_prepared_candidate
+        def foreign_first_save(qualification,run_id,envelope):
+            changed=deepcopy(envelope);content=changed['content'];metadata=content['executionMetadata']
+            metadata['lawAuditCompletion']=self.runs._law_audit_completion_metadata(
+                qualification=qualification,run_id='foreign-run',question_ids=[changed['questionId']],
+                input_fingerprint_value=changed['inputFingerprint'],projected_input_hash=changed['projectedInputHash'],
+                candidate_payload=content['candidatePayload'],execution_metadata=metadata)
+            changed.pop('contentHash');changed['contentHash']='sha256:'+self.runs._canonical_json_hash(changed)
+            return persist(qualification,run_id,changed)
+        with patch.object(self.coordinator.store,'persist_prepared_candidate',side_effect=foreign_first_save), \
+                patch.object(self.coordinator.store,'write_baseline',wraps=self.coordinator.store.write_baseline) as baseline:
+            with self.assertRaisesRegex(self.runs.QualificationRunError,'新規prepare'):self.prepare()
+            baseline.assert_not_called()
+
+    def test_already_persisted_completion_cannot_be_replaced_for_another_approval_scope(self):
+        self.prepare();plan=self.plan();envelope=deepcopy(plan['preparedCandidate'])
+        metadata=envelope['content']['executionMetadata']
+        metadata['lawAuditCompletion']=self.runs._law_audit_completion_metadata(
+            qualification=plan['qualification'],run_id=plan['childRunId'],question_ids=[plan['request']['questionId']],
+            input_fingerprint_value=plan['inputFingerprint'],projected_input_hash=plan['projectedInputHash'],
+            candidate_payload=envelope['content']['candidatePayload'],execution_metadata=metadata,
+            completed_at=self.review_finished_at.replace(day=24))
+        envelope.pop('contentHash');envelope['contentHash']='sha256:'+self.runs._canonical_json_hash(envelope)
+        with self.assertRaisesRegex(self.runs.QualificationRunError,'preparedCandidateは変更できません'):
+            self.coordinator.store.persist_prepared_candidate(plan['qualification'],plan['childRunId'],envelope)
+        self.assertEqual(self.plan()['preparedCandidate'],plan['preparedCandidate'])
+        self.assertFalse((self.output/'apply-intent.json').exists())
+
+    def test_non_law_03b_has_one_fixed_server_time_without_independent_legal_reviews(self):
+        from dataclasses import replace
+        source=Path(self.request['source']['ref']);payload=json.loads(source.read_text())
+        record=payload['question_bodies'][0]
+        record.update(isLawRelated=False,lawGroundedExplanationNotNeeded=True,
+            explanationText=['正しい。水は高い所から低い所へ流れる。'])
+        self.write(source,payload);self.request['source']['sha256']=stage._hash(source.read_bytes())
+        self.write(self.request_path,self.request)
+        self.write(self.root/stage.MANIFEST,(json.dumps({'path':str(source.relative_to(self.root)),
+            'sha256':self.request['source']['sha256']})+'\n').encode())
+        original=NativeProfileFixture.run_turn.__get__(self.model,NativeProfileFixture)
+        def non_law(prompt,**kwargs):
+            result=original(prompt,**kwargs)
+            if kwargs['work_type']=='maintenance_law_audit_candidate':
+                value=json.loads(result.final_message)
+                fields={item['field']:item['value'] for item in value['update']['setFields']}
+                fields.update(auditStatus='not_law_related',isLawRelated=False,
+                    lawReferences=[[]],lawGroundedExplanationNotNeeded=True,lawContextForExplanation='法令に関係しない技術的事項である。')
+                for fact in fields['lawRevisionFacts']:
+                    fact.update(auditStatus='not_law_related',reviewState='secondary_verified')
+                value['update']['setFields']=[{'field':key,'value':val} for key,val in fields.items()]
+                result=replace(result,final_message=json.dumps(value,ensure_ascii=False))
+            return result
+        self.model.run_turn=non_law
+        self.prepare();plan=self.plan()
+        metadata=plan['preparedCandidate']['content']['executionMetadata']
+        self.assertFalse(metadata['lawAuditVerification']);self.assertFalse(self.review_calls)
+        self.clock['now']=self.review_finished_at.replace(day=24)
+        self.assertEqual(stage._run(self.coordinator,plan,preview=True)['preview'],plan['commitView'])
+        with patch.object(stage,'verify_independent_approval',return_value={'reviewerSessionId':'independent'}):
+            self.assertTrue(self.apply()['formalPatchSaved'])

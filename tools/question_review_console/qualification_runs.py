@@ -835,6 +835,62 @@ def _now() -> str:
     return datetime.now(timezone.utc).astimezone().isoformat(timespec="seconds")
 
 
+def _structured_commit_transaction_roots(repo_root, candidate_paths, work_version_paths, *, record_work_version):
+    """Generate the strict before-state in one process-independent path order."""
+    paths = {repo_root / value for value in candidate_paths}
+    if record_work_version:
+        paths.update(repo_root / value for value in work_version_paths)
+    return tuple(sorted(paths, key=lambda path: path.as_posix()))
+
+
+def _law_audit_completion_metadata(*, qualification, run_id, question_ids,
+        input_fingerprint_value, projected_input_hash, candidate_payload,
+        execution_metadata, completed_at=None):
+    """Freeze server completion after the final independent review, before persist.
+
+    This is private prepared execution evidence. It is not a model field, a
+    replacement for any review gate, or a repair path for historical candidates.
+    """
+    observed = completed_at if completed_at is not None else datetime.now(timezone.utc)
+    if observed.tzinfo is None or observed.utcoffset() is None:
+        raise QualificationRunError('監査完了時刻にはtimezoneが必要です。')
+    observed = observed.astimezone(timezone.utc).replace(microsecond=0)
+    value = {'schemaVersion': 'prepared-law-audit-completion/v1',
+        'qualification': qualification, 'runId': run_id, 'stageId': 'law_audit',
+        'questionIds': list(question_ids), 'inputFingerprint': input_fingerprint_value,
+        'projectedInputHash': projected_input_hash,
+        'candidatePayloadHash': sha256_json(candidate_payload),
+        'verificationHash': sha256_json(execution_metadata.get('lawAuditVerification') or {}),
+        'executionHash': sha256_json({key: value for key, value in execution_metadata.items()
+            if key != 'lawAuditCompletion'}),
+        'completedAt': observed.isoformat(timespec='seconds')}
+    value['bindingHash'] = sha256_json(value)
+    return value
+
+
+def _validated_law_audit_completed_at(execution_metadata, *, qualification, run_id,
+        question_ids, input_fingerprint_value, projected_input_hash, candidate_payload):
+    """Accept only the same run/input/candidate/reviews' canonical UTC timestamp."""
+    value = execution_metadata.get('lawAuditCompletion')
+    message = '03bの監査完了時刻と固定入力の結合が不正です。新規prepareが必要です。'
+    if not isinstance(value, Mapping) or not isinstance(value.get('completedAt'), str):
+        raise QualificationRunError(message)
+    try:
+        observed = datetime.fromisoformat(value['completedAt'])
+        if (observed.tzinfo is None or observed.utcoffset() != timedelta(0)
+                or observed.isoformat(timespec='seconds') != value['completedAt']):
+            raise ValueError('canonical UTC seconds required')
+        expected = _law_audit_completion_metadata(qualification=qualification, run_id=run_id,
+            question_ids=question_ids, input_fingerprint_value=input_fingerprint_value,
+            projected_input_hash=projected_input_hash, candidate_payload=candidate_payload,
+            execution_metadata=execution_metadata, completed_at=observed)
+    except (ValueError, TypeError, OverflowError) as exc:
+        raise QualificationRunError(message) from exc
+    if dict(value) != expected:
+        raise QualificationRunError(message)
+    return observed
+
+
 def _server_law_audit_fields(
     *,
     qualification: str,
@@ -17150,6 +17206,13 @@ class QualificationRunCoordinator:
                         current=statement_judgment_guidance(self.repo_root))
                     candidates = verified_candidates
                     prepared_execution_metadata["lawAuditVerification"] = verification_receipts
+                if stage_id == 'law_audit':
+                    prepared_execution_metadata['lawAuditCompletion'] = _law_audit_completion_metadata(
+                        qualification=qualification, run_id=run_id, question_ids=question_ids,
+                        input_fingerprint_value=input_fingerprint_value,
+                        projected_input_hash=projected_input_hash,
+                        candidate_payload=_question_candidates_payload(candidates),
+                        execution_metadata=prepared_execution_metadata)
                 envelope = _prepared_candidate_envelope(
                     question_id=question_ids[0],
                     stage_id=stage_id,
@@ -17187,6 +17250,16 @@ class QualificationRunCoordinator:
                     run_id,
                     envelope,
                 )
+            law_audit_completed_at = None
+            if stage_id == 'law_audit':
+                law_audit_completed_at = _validated_law_audit_completed_at(
+                    prepared_execution_metadata, qualification=qualification, run_id=run_id,
+                    question_ids=question_ids, input_fingerprint_value=input_fingerprint_value,
+                    projected_input_hash=projected_input_hash,
+                    # Bind immutable envelope bytes. The existing parser may
+                    # canonically reorder targets without changing their fields.
+                    candidate_payload=(prepared_content['candidatePayload'] if prepared_content is not None
+                        else _question_candidates_payload(candidates)))
             if self.store.is_question_attempt(run_id):
                 self.store.update_attempt_stage_status(
                     qualification,
@@ -17643,6 +17716,7 @@ class QualificationRunCoordinator:
                                 policy_version=policy_version,
                                 projected=projected,
                                 candidate_fields=server_set_fields,
+                                audited_at=law_audit_completed_at,
                                 verification=verification,
                             )
                             server_set_fields["schemaVersion"] = (
@@ -17759,20 +17833,9 @@ class QualificationRunCoordinator:
                             ),
                             on_released=on_patch_lock_released,
                         ) as canonical_transaction:
-                            transaction_roots = tuple(
-                                dict.fromkeys(
-                                    [
-                                        *(
-                                            self.repo_root / value
-                                            for value in candidate_paths
-                                        ),
-                                        *(
-                                            self.repo_root / value
-                                            for value in work_version_paths
-                                            if record_work_version
-                                        ),
-                                    ]
-                                )
+                            transaction_roots = _structured_commit_transaction_roots(
+                                self.repo_root, candidate_paths, work_version_paths,
+                                record_work_version=record_work_version,
                             )
                             baseline_path = self.store.write_baseline(
                                 qualification,
