@@ -1081,3 +1081,174 @@ class ReadSetTFTruthUploadTests(unittest.TestCase):
         with self.assertRaisesRegex(RuntimeError, 'unchanged/no-op'):
             self.upload(rebound, db)
         self.assertEqual(db.commits, 1)
+
+
+class ReadSetTFTruthInitializeUploadTests(unittest.TestCase):
+    """v4 grants only explicit absent questionTags -> [] in the v3 transaction."""
+    Database = ReadSetMaintenanceUploadTests.Database
+    transactional = staticmethod(ReadSetMaintenanceUploadTests.transactional)
+    upload = ReadSetMaintenanceUploadTests.upload
+
+    def fixture(self, mask=None, *, initialize_count=5):
+        payload, live = ReadSetTFTruthUploadTests().fixture(mask)
+        payload['schemaVersion'] = module.READ_SET_TF_TRUTH_INITIALIZE_SCHEMA
+        initialize_ids = payload['readDocumentIds'][:initialize_count]
+        payload['initializeMissingFieldsByDocument'] = {i: ['questionTags'] for i in initialize_ids}
+        for row in payload['questions']:
+            identity = row['questionId']
+            if identity in initialize_ids:
+                del live[identity]['questionTags']
+                row['questionTags'] = []
+                payload['writeFieldsByDocument'][identity].append('questionTags')
+            else:
+                live[identity]['questionTags'] = ['既存の分類']
+                row['questionTags'] = ['既存の分類']
+        payload['expectedLiveFingerprint'] = module.firestore_live_fingerprint(payload['readDocumentIds'], live)
+        return payload, live
+
+    def test_v4_all_masks_initialize_only_absent_tags_through_same_guarded_transaction(self):
+        for mask in module.READ_SET_TF_TRUTH_WRITE_FIELD_SETS:
+            with self.subTest(mask=mask):
+                payload, live = self.fixture(mask); db = self.Database(live)
+                before = deepcopy(payload)
+                with patch.object(module, 'add_guarded_question_write', wraps=module.add_guarded_question_write) as guarded:
+                    result = self.upload(payload, db)
+                self.assertEqual(payload, before)
+                self.assertEqual(guarded.call_count, 5)
+                self.assertEqual(result['schemaVersion'], module.READ_SET_TF_TRUTH_INITIALIZE_RESULT_SCHEMA)
+                self.assertEqual(result['initializeMissingFieldsByDocument'], payload['initializeMissingFieldsByDocument'])
+                self.assertEqual(result['status'], 'committed'); self.assertFalse(result['publicationConfirmed'])
+                self.assertEqual((len(db.transactions), db.commits, len(db.updates), len(result['writeResults'])), (1, 1, 5, 5))
+                self.assertEqual(set(db.reads[0][0]), set(payload['readDocumentIds']))
+                for identity, update, option in db.updates:
+                    self.assertEqual(db.live[identity]['questionTags'], [])
+                    self.assertEqual(set(update), {*mask, 'questionTags', 'updatedAt', 'updatedById'})
+                    self.assertEqual(option._last_update_time.rfc3339(), AtomicMaintenanceUploadTests.before_stamp)
+                    self.assertEqual({k: v for k, v in db.live[identity].items() if k not in update},
+                                     {k: v for k, v in live[identity].items() if k not in update})
+
+    def test_v4_dry_run_is_explicit_and_mixed_existing_tags_are_preserved(self):
+        payload, live = self.fixture(initialize_count=2)
+        with patch.object(module, 'init_firestore') as initialize:
+            dry = module.upload_read_set_maintenance_questions(payload, 'fixture', dry_run=True)
+            initialize.assert_not_called()
+        self.assertEqual(dry['schemaVersion'], module.READ_SET_TF_TRUTH_INITIALIZE_RESULT_SCHEMA)
+        self.assertEqual(dry['status'], 'dry_run')
+        self.assertEqual(dry['initializeMissingFieldsByDocument'], payload['initializeMissingFieldsByDocument'])
+        db = self.Database(live); result = self.upload(payload, db)
+        for identity in payload['readDocumentIds'][2:]:
+            self.assertEqual(db.live[identity]['questionTags'], ['既存の分類'])
+            self.assertNotIn('questionTags', result['writeFieldsByDocument'][identity])
+        for schema in (module.READ_SET_MAINTENANCE_SCHEMA, module.READ_SET_DISPLAY_SCHEMA, module.READ_SET_TF_TRUTH_SCHEMA):
+            with self.subTest(schema=schema), self.assertRaises(ValueError):
+                self.upload({**payload, 'schemaVersion': schema}, self.Database(live))
+        old = deepcopy(payload); old['schemaVersion'] = module.READ_SET_TF_TRUTH_SCHEMA
+        old.pop('initializeMissingFieldsByDocument')
+        with self.assertRaises(ValueError): self.upload(old, self.Database(live))
+        legacy, legacy_live = ReadSetTFTruthUploadTests().fixture()
+        legacy_live[legacy['readDocumentIds'][0]].pop('questionTags')
+        legacy['expectedLiveFingerprint'] = module.firestore_live_fingerprint(legacy['readDocumentIds'], legacy_live)
+        with self.assertRaisesRegex(RuntimeError, 'non-owned live field/presence'):
+            self.upload(legacy, self.Database(legacy_live))
+        for fixture in (ReadSetMaintenanceUploadTests(), ReadSetDisplayUploadTests(), ReadSetTFTruthUploadTests()):
+            legacy, _ = fixture.fixture()
+            self.assertNotIn('initializeMissingFieldsByDocument', self.upload(legacy, dry_run=True))
+
+    def test_v4_exact_initialization_authority_rejects_unknown_missing_foreign_and_nonempty_inputs(self):
+        modes = ('missing-map', 'empty-map', 'foreign-id', 'readonly-id', 'empty-fields', 'other-field', 'extra-field',
+            'duplicate-field', 'missing-mask', 'unauthorized-mask', 'wrong-order', 'missing-value', 'null-value',
+            'nonempty-value', 'non-list-value', 'unknown-top', 'unknown-row-metadata', 'unknown-schema',
+            'protected-original', 'other-created-field', 'duplicate-map-key')
+        for mode in modes:
+            payload, live = self.fixture(initialize_count=2); first = payload['questions'][0]; identity = first['questionId']
+            init = payload['initializeMissingFieldsByDocument']
+            if mode == 'missing-map': payload.pop('initializeMissingFieldsByDocument')
+            elif mode == 'empty-map': payload['initializeMissingFieldsByDocument'] = {}
+            elif mode == 'foreign-id': init['outside'] = ['questionTags']
+            elif mode == 'readonly-id':
+                payload['questions'] = [first]; payload['writeFieldsByDocument'] = {identity: payload['writeFieldsByDocument'][identity]}
+            elif mode in ('empty-fields', 'other-field', 'extra-field', 'duplicate-field'):
+                init[identity] = {'empty-fields': [], 'other-field': ['isOfficial'],
+                    'extra-field': ['questionTags', 'knowledgeText'], 'duplicate-field': ['questionTags', 'questionTags']}[mode]
+            elif mode == 'missing-mask': payload['writeFieldsByDocument'][identity].remove('questionTags')
+            elif mode == 'unauthorized-mask': payload['writeFieldsByDocument'][payload['readDocumentIds'][-1]].append('questionTags')
+            elif mode == 'wrong-order': payload['writeFieldsByDocument'][identity].reverse()
+            elif mode == 'missing-value': first.pop('questionTags')
+            elif mode == 'null-value': first['questionTags'] = None
+            elif mode == 'nonempty-value': first['questionTags'] = ['追加は許されない']
+            elif mode == 'non-list-value': first['questionTags'] = ()
+            elif mode == 'unknown-top': payload['allowInitialize'] = True
+            elif mode == 'unknown-row-metadata': first['initializeMissingFieldsByDocument'] = init
+            elif mode == 'unknown-schema': payload['schemaVersion'] = 'question-maintenance-read-set-upload/v5'
+            elif mode == 'protected-original': first['originalQuestionId'] = 'different-original'
+            elif mode == 'other-created-field': payload['writeFieldsByDocument'][identity].append('knowledgeText')
+            else:
+                duplicate = module._UploadJSONObject([(identity, ['questionTags']), (identity, ['questionTags'])])
+                payload['initializeMissingFieldsByDocument'] = duplicate
+            db = self.Database(live)
+            with self.subTest(mode=mode), self.assertRaises(ValueError): self.upload(payload, db)
+            self.assertEqual((db.updates, db.commits, db.applied), ([], 0, []))
+
+    def test_v4_rechecks_actual_absence_other_presence_and_noop_without_staging_writes(self):
+        for value in (None, [], ['既存タグ'], False):
+            payload, live = self.fixture(); identity = payload['questions'][0]['questionId']
+            live[identity]['questionTags'] = value
+            payload['expectedLiveFingerprint'] = module.firestore_live_fingerprint(payload['readDocumentIds'], live)
+            db = self.Database(live)
+            with self.subTest(value=value), self.assertRaisesRegex(RuntimeError, 'actually absent'):
+                self.upload(payload, db)
+            self.assertEqual((db.updates, db.commits), ([], 0))
+        for mode in ('masked-presence', 'outside-presence', 'noop-other-write', 'nanosecond', 'fingerprint'):
+            payload, live = self.fixture(initialize_count=1); identity = payload['readDocumentIds'][0]
+            if mode == 'masked-presence': live[identity].pop('questionBodyText')
+            elif mode == 'outside-presence': live[identity].pop('questionSetId')
+            elif mode == 'noop-other-write':
+                row = payload['questions'][1]
+                row.update({f: live[row['questionId']][f] for f in module.TF_TRUTH_WRITE_FIELDS})
+            payload['expectedLiveFingerprint'] = module.firestore_live_fingerprint(payload['readDocumentIds'], live)
+            db = self.Database(live)
+            if mode == 'nanosecond': db.times[identity] = DatetimeWithNanoseconds.from_rfc3339('2026-10-16T00:00:00.123456788Z')
+            elif mode == 'fingerprint': payload['expectedLiveFingerprint'] = '0' * 64
+            with self.subTest(mode=mode), self.assertRaises((RuntimeError, ValueError)): self.upload(payload, db)
+            self.assertEqual((db.updates, db.commits, db.applied), ([], 0, []))
+
+    def test_v4_unconfirmed_commit_keeps_exact_profile_map_and_stale_replay_is_rejected(self):
+        for mode in ('before-commit', 'after-commit', 'wrong-count', 'no-time', 'bad-time', 'new-sibling'):
+            payload, live = self.fixture(); db = self.Database(live, mode=mode)
+            with self.subTest(mode=mode), self.assertRaises(module.ReadSetMaintenanceCommitUnconfirmed) as caught:
+                self.upload(payload, db)
+            result = caught.exception.prepared_result
+            self.assertEqual(result['schemaVersion'], module.READ_SET_TF_TRUTH_INITIALIZE_RESULT_SCHEMA)
+            self.assertEqual(result['initializeMissingFieldsByDocument'], payload['initializeMissingFieldsByDocument'])
+            self.assertEqual(result['writeFieldsByDocument'], payload['writeFieldsByDocument'])
+            self.assertEqual(result['status'], 'commit_unconfirmed'); self.assertFalse(result['publicationConfirmed'])
+            self.assertEqual(result['writeResults'], [])
+            self.assertEqual((len(db.transactions), db.commits), (1, 1))
+            if mode == 'after-commit':
+                self.assertEqual(len(db.applied), 5); db.mode = None
+                with self.assertRaisesRegex(RuntimeError, 'update_time changed'): self.upload(payload, db)
+                rebound = {**payload, 'expectedReadUpdateTimes': {i: db.times[i].rfc3339() for i in payload['readDocumentIds']},
+                    'expectedLiveFingerprint': module.firestore_live_fingerprint(payload['readDocumentIds'], db.live)}
+                with self.assertRaisesRegex(RuntimeError, 'actually absent'): self.upload(rebound, db)
+                self.assertEqual(db.commits, 1)
+
+    def test_v4_readonly_sibling_presence_values_and_versions_remain_guarded(self):
+        payload, live = self.fixture([*module.TF_TRUTH_WRITE_FIELDS, 'explanationText'], initialize_count=1)
+        for row in payload['questions']:
+            live[row['questionId']].update({f: row[f] for f in module.DISPLAY_WRITE_FIELDS})
+        first = payload['questions'][0]; payload['questions'] = [first]
+        payload['writeFieldsByDocument'] = {first['questionId']: payload['writeFieldsByDocument'][first['questionId']]}
+        payload['expectedLiveFingerprint'] = module.firestore_live_fingerprint(payload['readDocumentIds'], live)
+        db = self.Database(live); result = self.upload(payload, db)
+        self.assertEqual(result['readOnlyDocumentIds'], payload['readDocumentIds'][1:])
+        for identity in result['readOnlyDocumentIds']:
+            self.assertEqual(db.live[identity], live[identity])
+            self.assertEqual(db.times[identity].rfc3339(), AtomicMaintenanceUploadTests.before_stamp)
+        readonly = result['readOnlyDocumentIds'][-1]
+        changed = self.Database(live); changed.live[readonly].pop('questionTags')
+        with self.assertRaises(RuntimeError): self.upload(payload, changed)
+        self.assertEqual(changed.updates, [])
+        conflict = self.Database(live, mode='readonly-conflict')
+        with self.assertRaises(module.ReadSetMaintenanceCommitUnconfirmed) as caught: self.upload(payload, conflict)
+        self.assertEqual(caught.exception.prepared_result['initializeMissingFieldsByDocument'], payload['initializeMissingFieldsByDocument'])
+        self.assertEqual(conflict.applied, [])

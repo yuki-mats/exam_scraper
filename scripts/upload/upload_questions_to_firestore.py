@@ -46,6 +46,8 @@ READ_SET_DISPLAY_SCHEMA = "question-maintenance-read-set-upload/v2"
 READ_SET_DISPLAY_RESULT_SCHEMA = "question-maintenance-read-set-upload-result/v2"
 READ_SET_TF_TRUTH_SCHEMA = "question-maintenance-read-set-upload/v3"
 READ_SET_TF_TRUTH_RESULT_SCHEMA = "question-maintenance-read-set-upload-result/v3"
+READ_SET_TF_TRUTH_INITIALIZE_SCHEMA = "question-maintenance-read-set-upload/v4"
+READ_SET_TF_TRUTH_INITIALIZE_RESULT_SCHEMA = "question-maintenance-read-set-upload-result/v4"
 READ_SET_MAINTENANCE_KEYS = frozenset({"schemaVersion", "originalQuestionId", "qualificationId", "examYear",
     "readDocumentIds", "questions", "writeFieldsByDocument", "expectedReadUpdateTimes", "expectedLiveFingerprint"})
 EXPLANATION_DETAILS_WRITE_FIELDS = ("explanationText", "suggestedQuestionDetails")
@@ -76,10 +78,15 @@ READ_SET_TF_TRUTH_WRITE_FIELD_SETS = (
     (*TF_TRUTH_WRITE_FIELDS, "suggestedQuestions", "suggestedQuestionDetails"),
     (*TF_TRUTH_WRITE_FIELDS, "explanationText", "suggestedQuestions", "suggestedQuestionDetails"),
 )
+READ_SET_TF_TRUTH_INITIALIZE_WRITE_FIELD_SETS = (
+    *READ_SET_TF_TRUTH_WRITE_FIELD_SETS,
+    *(mask + ("questionTags",) for mask in READ_SET_TF_TRUTH_WRITE_FIELD_SETS),
+)
 READ_SET_PROFILES = {
     READ_SET_MAINTENANCE_SCHEMA: (READ_SET_MAINTENANCE_RESULT_SCHEMA, READ_SET_MAINTENANCE_WRITE_FIELD_SETS),
     READ_SET_DISPLAY_SCHEMA: (READ_SET_DISPLAY_RESULT_SCHEMA, READ_SET_DISPLAY_WRITE_FIELD_SETS),
     READ_SET_TF_TRUTH_SCHEMA: (READ_SET_TF_TRUTH_RESULT_SCHEMA, READ_SET_TF_TRUTH_WRITE_FIELD_SETS),
+    READ_SET_TF_TRUTH_INITIALIZE_SCHEMA: (READ_SET_TF_TRUTH_INITIALIZE_RESULT_SCHEMA, READ_SET_TF_TRUTH_INITIALIZE_WRITE_FIELD_SETS),
 }
 ALLOWED_PATCH_WRITE_FIELD_SETS = (
     ("explanationText",),
@@ -775,11 +782,13 @@ def resolve_read_set_maintenance_contract(data: dict, source_label: str) -> dict
     if not isinstance(data, dict):
         raise ValueError("read-set maintenance JSON root must be an object")
     _reject_duplicate_json_keys(data)
-    if set(data) != READ_SET_MAINTENANCE_KEYS:
+    initialize = data.get("schemaVersion") == READ_SET_TF_TRUTH_INITIALIZE_SCHEMA
+    required_keys = READ_SET_MAINTENANCE_KEYS | {"initializeMissingFieldsByDocument"} if initialize else READ_SET_MAINTENANCE_KEYS
+    if set(data) != required_keys:
         raise ValueError("read-set maintenance requires its dedicated exact schema")
     _, permitted_masks = read_set_profile(data.get("schemaVersion"))
-    tf_truth = data["schemaVersion"] == READ_SET_TF_TRUTH_SCHEMA
-    display = data["schemaVersion"] in (READ_SET_DISPLAY_SCHEMA, READ_SET_TF_TRUTH_SCHEMA)
+    tf_truth = data["schemaVersion"] in (READ_SET_TF_TRUTH_SCHEMA, READ_SET_TF_TRUTH_INITIALIZE_SCHEMA)
+    display = data["schemaVersion"] in (READ_SET_DISPLAY_SCHEMA, READ_SET_TF_TRUTH_SCHEMA, READ_SET_TF_TRUTH_INITIALIZE_SCHEMA)
     for key in ("originalQuestionId", "qualificationId"):
         value = data[key]
         if not isinstance(value, str) or not value or value.strip() != value or "/" in value:
@@ -805,6 +814,11 @@ def resolve_read_set_maintenance_contract(data: dict, source_label: str) -> dict
     masks = data["writeFieldsByDocument"]
     if not isinstance(masks, dict) or set(masks) != set(write_ids):
         raise ValueError("write masks must exactly cover write-set")
+    initializations = data["initializeMissingFieldsByDocument"] if initialize else {}
+    if initialize and (not isinstance(initializations, dict) or not initializations
+            or not set(initializations) <= set(write_ids)
+            or any(type(fields) is not list or fields != ["questionTags"] for fields in initializations.values())):
+        raise ValueError("v4 initialization requires a nonempty write-subset questionTags-only map")
     for question in questions:
         identity = question["questionId"]
         raw_mask = masks[identity]
@@ -814,9 +828,15 @@ def resolve_read_set_maintenance_contract(data: dict, source_label: str) -> dict
                 or any(k in question for k in (WRITE_FIELDS_KEY, "writeFieldsByDocument", EXPECTED_UPDATE_TIMES_KEY,
                                                "expectedReadUpdateTimes", "readDocumentIds", "expectedLiveFingerprint"))):
             raise ValueError("read-set transport permits only its explicit existing explanation/suggestion masks")
+        if initialize:
+            expected_masks = (tuple(mask) + ("questionTags",) for mask in READ_SET_TF_TRUTH_WRITE_FIELD_SETS) if identity in initializations else READ_SET_TF_TRUTH_WRITE_FIELD_SETS
+            if (tuple(raw_mask) not in expected_masks or "initializeMissingFieldsByDocument" in question
+                    or identity in initializations and (type(question.get("questionTags")) is not list or question["questionTags"] != [])):
+                raise ValueError("v4 initialization requires its exact mask and explicit empty questionTags")
         if any(field not in question for field in raw_mask):
             raise ValueError("read-set request must preserve explicit masked field presence")
         structural_fields = TF_TRUTH_WRITE_FIELDS if tf_truth else DISPLAY_WRITE_FIELDS
+        if initialize: structural_fields = (*structural_fields, "questionTags")
         content_mask = tuple(f for f in raw_mask if f not in structural_fields) if display else tuple(raw_mask)
         if content_mask in ATOMIC_SUGGESTION_REPLACEMENT_MASKS:
             validate_atomic_suggestion_replacement([question], content_mask, source_label)
@@ -829,7 +849,9 @@ def resolve_read_set_maintenance_contract(data: dict, source_label: str) -> dict
     fingerprint = data["expectedLiveFingerprint"]
     if not isinstance(fingerprint, str) or re.fullmatch(r"[0-9a-f]{64}", fingerprint) is None:
         raise ValueError("read-set live fingerprint requires lowercase SHA256")
-    return {"readDocumentIds": list(ids), "writeDocumentIds": write_ids, "expectedReadUpdateTimes": expected}
+    contract = {"readDocumentIds": list(ids), "writeDocumentIds": write_ids, "expectedReadUpdateTimes": expected}
+    if initialize: contract["initializeMissingFieldsByDocument"] = deepcopy(initializations)
+    return contract
 
 
 def resolve_expected_update_times(data: dict, questions, write_fields) -> dict[str, str] | None:
@@ -1034,6 +1056,8 @@ def upload_read_set_maintenance_questions(data: dict, source_label: str, *, dry_
         "auditWriteFields": ["updatedAt", "updatedById"],
         "expectedReadUpdateTimes": contract["expectedReadUpdateTimes"],
         "expectedLiveFingerprint": data["expectedLiveFingerprint"], "writeResults": [], "publicationConfirmed": False}
+    if "initializeMissingFieldsByDocument" in contract:
+        result["initializeMissingFieldsByDocument"] = deepcopy(contract["initializeMissingFieldsByDocument"])
     if dry_run:
         return result
     db = init_firestore(credentials_json)
@@ -1063,8 +1087,8 @@ def upload_read_set_maintenance_questions(data: dict, source_label: str, *, dry_
                                          publication_unit(data))
         if active != set(ids):
             raise RuntimeError("complete active sibling read-set membership changed")
-        tf_truth = data["schemaVersion"] == READ_SET_TF_TRUTH_SCHEMA
-        display = data["schemaVersion"] in (READ_SET_DISPLAY_SCHEMA, READ_SET_TF_TRUTH_SCHEMA)
+        tf_truth = data["schemaVersion"] in (READ_SET_TF_TRUTH_SCHEMA, READ_SET_TF_TRUTH_INITIALIZE_SCHEMA)
+        display = data["schemaVersion"] in (READ_SET_DISPLAY_SCHEMA, READ_SET_TF_TRUTH_SCHEMA, READ_SET_TF_TRUTH_INITIALIZE_SCHEMA)
         if tf_truth:
             validate_tf_truth_questions([{"questionId": i, **(by_id[i].to_dict() or {})} for i in ids], before=True)
         elif display:
@@ -1075,7 +1099,10 @@ def upload_read_set_maintenance_questions(data: dict, source_label: str, *, dry_
             identity = question["questionId"]
             existing = by_id[identity].to_dict() or {}
             mask = tuple(data["writeFieldsByDocument"][identity])
-            if any(field not in existing for field in mask):
+            initial_fields = contract.get("initializeMissingFieldsByDocument", {}).get(identity, [])
+            if any(field in existing for field in initial_fields):
+                raise RuntimeError("v4 initialization requires an actually absent live field")
+            if any(field not in existing for field in mask if field not in initial_fields):
                 raise RuntimeError("existing masked field presence required")
             base = build_doc_data_base(question)
             if display and any((f in existing) != (f in base) or existing.get(f) != base.get(f)
@@ -1083,7 +1110,7 @@ def upload_read_set_maintenance_questions(data: dict, source_label: str, *, dry_
                 raise RuntimeError("display candidate changed a non-owned live field/presence")
             # v3 couples display and truth, including components already correct.
             # Each written document must still contain at least one real change.
-            unchanged = [existing[field] == base[field] for field in mask]
+            unchanged = [field in existing and existing[field] == base[field] for field in mask]
             if (all(unchanged) if tf_truth else any(unchanged)):
                 raise RuntimeError("read-set write subset contains unchanged/no-op masked field")
             updates[identity] = build_patch_doc_data(base, mask, datetime.now())
