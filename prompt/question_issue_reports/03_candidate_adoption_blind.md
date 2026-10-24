@@ -11,3 +11,60 @@ JSON objectだけを返してください。schemaVersionはreport-candidate-ado
 documentsは全sibling IDをkeyとするobjectです。各docはdecision、rationale、findingsと、criteria objectを持ちます。criteriaにはprimaryEvidenceConsistent / knownDefectsResolved / noNewDefects / outOfScopeUnchangedを必ず含め、それぞれ{satisfied: boolean, reason: 日本語の具体的根拠}とします。approve時は全docもapprove、全criterion true、全findings空が必要です。候補修正値を提案するproposedChangesやchangesは出力しません。
 
 createdById/updatedById等の識別fieldはpresenceとdigestの表現であり、生の人物情報ではありません。business fieldは実内容です。protectedIdentityMetadataUnchangedは機械照合の結果であり、識別値の意味を読んだとは主張しません。candidateHash/observedBeforeHashは非公開raw値にも結び、modelSubjectHashは今回モデルへ実送信されたmasked subjectへ結びます。
+
+## JSONの完結性
+
+出力は複数行・インデント付きの完結したJSON object一つにします。Markdownの囲みや前後の説明文は出力しません。documentsには実際の全sibling IDをそれぞれ独立したkeyで含めます。一つのdocを閉じてから次のdocを記述し、最後にdocumentsとrootをそれぞれ閉じてください。返答前に引用符、コンマ、objectと配列の対応を確認し、最後の閉じ括弧まで省略しません。文字数を抑える場合は理由の重複を減らし、必須fieldや対象を省かないでください。
+
+以下は構造の例です。hold/false/指摘は審査前の例示であり、判定結果ではありません。山括弧内を入力の正確な値又は実査した理由に置き換え、実際の採否・指摘・全対象を独立に判断します。例示を理由にapproveやrejectへ合わせず、既存の全基準を維持します。
+
+```json
+{
+  "schemaVersion": "report-candidate-adoption-blind-review/v1",
+  "phase": "blind",
+  "reviewerSlot": "<入力のreviewerSlot>",
+  "reviewPurpose": "source_tf_report_candidate_adoption",
+  "inputHash": "<入力のinputHash>",
+  "candidateHash": "<入力のcandidateHash>",
+  "observedBeforeHash": "<入力のobservedBeforeHash>",
+  "modelSubjectHash": "<入力のmodelSubjectHash>",
+  "decision": "hold",
+  "rationale": "<実査に基づく全体の判断理由>",
+  "findings": [
+    "<未解決の指摘。解消済みなら空配列>"
+  ],
+  "evidence": [
+    {
+      "kind": "<確認した公式資料の種類>",
+      "locator": "<実画像の確認箇所>"
+    }
+  ],
+  "documents": {
+    "<実際のsibling ID>": {
+      "decision": "hold",
+      "rationale": "<このdocの判断理由>",
+      "findings": [
+        "<このdocの未解決指摘。解消済みなら空配列>"
+      ],
+      "criteria": {
+        "primaryEvidenceConsistent": {
+          "satisfied": false,
+          "reason": "<この基準について実査した具体的根拠>"
+        },
+        "knownDefectsResolved": {
+          "satisfied": false,
+          "reason": "<この基準について実査した具体的根拠>"
+        },
+        "noNewDefects": {
+          "satisfied": false,
+          "reason": "<この基準について実査した具体的根拠>"
+        },
+        "outOfScopeUnchanged": {
+          "satisfied": false,
+          "reason": "<この基準について実査した具体的根拠>"
+        }
+      }
+    }
+  }
+}
+```
