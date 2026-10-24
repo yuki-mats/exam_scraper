@@ -942,6 +942,82 @@ class VerifiedStageExecutionTests(unittest.TestCase):
             with self.subTest(argv=argv), self.assertRaises(ValueError):
                 module.native_operation_call(argv, module_name=name)
 
+    def source_tf_prepare_argv(self):
+        database = self.private / 'prepare-ledger.sqlite3'
+        with module.sqlite3.connect(database) as connection:
+            connection.execute('CREATE TABLE IF NOT EXISTS fixture(id INTEGER)')
+        request = self.private / 'prepare-request.json'; request.write_text('{}\n')
+        output = self.private / 'new-source-tf-unit'
+        return ['--repo-root', str(self.root), '--db', str(database),
+            'prepare', '--request', str(request), '--output', str(output)]
+
+    def test_source_tf_prepare_owner_is_exact_actual_argv_and_survives_same_cell_wait(self):
+        self.prepare(); approval = self.approval()
+        name = 'tools.question_bank.feedback_source_tf_delivery'
+        argv = self.source_tf_prepare_argv(); canonical = module.native_operation_call(argv, module_name=name)
+        command = module._creation_command_spec(canonical)
+        self.assertEqual(module.shlex.split(command['cmd']), [module.sys.executable, '-m', name, *argv])
+        self.assertEqual(command['workdir'], str(self.root))
+        parent, argv = self.owner_launch(approval, module_name=name, argv=argv)
+        with module.native_operation(argv, module_name=name):
+            guard = module.capture_native_guard([approval])
+            for event in self.owner_progress(): self.append_event(parent, event)
+            # prepare creates a plan while its authority window is still open.
+            Path(argv[-1]).mkdir(); (Path(argv[-1]) / 'plan.json').write_text('{}\n')
+            module.assert_native_guard(guard, terminal=True)
+        self.assertEqual(module.native_operation_call(argv, module_name=name), canonical)
+        self.assertIsNone(module._CLI_OPERATION.get())
+
+    def test_source_tf_prepare_rejects_flags_paths_foreign_module_and_claimed_inspect(self):
+        self.prepare(); approval = self.approval()
+        name = 'tools.question_bank.feedback_source_tf_delivery'; argv = self.source_tf_prepare_argv()
+        root, database, request, output = (Path(argv[n]) for n in (1, 3, 6, 8))
+        alias = self.private / 'prepare-alias'; alias.symlink_to(self.private, target_is_directory=True)
+        invalid = [argv[:2] + argv[4:], argv + ['--force', 'true'], argv + ['--output', str(output)],
+            argv[:-2], argv[:5] + ['--output', str(output)], argv[:2] + ['--db', str(database)] + argv[2:],
+            [*argv[:5], '--request', '--output', '--output', str(output)]]
+        for n, values in ((1, (str(self.private / 'missing-root'), str(request), '.', str(alias))),
+                          (3, (str(self.private / 'missing-db'), str(self.private), 'relative-db', str(alias / database.name))),
+                          (6, (str(self.private / 'missing-request'), str(self.private), str(root / 'outside-private.json'),
+                               'relative-request', str(alias / request.name))),
+                          (8, (str(request), str(root / 'outside-private-output'), 'relative-output', str(alias / 'output')))):
+            for value in values:
+                changed = list(argv); changed[n] = value; invalid.append(changed)
+        for changed in invalid:
+            with self.subTest(argv=changed), self.assertRaises(ValueError):
+                module.native_operation_call(changed, module_name=name)
+        for foreign in ('untrusted.module', 'tools.question_bank.feedback_source_tf_report_review',
+                        'tools.question_bank.feedback_verified_save_record'):
+            with self.subTest(module=foreign), self.assertRaises(ValueError):
+                module.native_operation_call(argv, module_name=foreign)
+        parent, _ = self.owner_launch(approval, module_name=name, argv=argv)
+        changed = list(argv); changed[-1] = str(self.private / 'different-unit')
+        inspect = [*argv[:4], 'inspect', '--plan', str(output / 'plan.json')]
+        for claimed, foreign in ((changed, name), (inspect, name), (argv, 'tools.question_bank.feedback_verified_stage_execution')):
+            with module.native_operation(claimed, module_name=foreign):
+                with self.assertRaisesRegex(ValueError, 'canonical native owner'):
+                    module.capture_native_guard([approval])
+
+    def test_source_tf_prepare_wait_rejects_failure_interruption_other_cell_and_new_input(self):
+        self.prepare(); approval = self.approval()
+        name = 'tools.question_bank.feedback_source_tf_delivery'; argv = self.source_tf_prepare_argv()
+        parent, _ = self.owner_launch(approval, module_name=name, argv=argv); initial = parent.read_bytes()
+        mutations = [
+            lambda e: e[5]['payload'].update(arguments=json.dumps({'cell_id': 'other-cell'})),
+            lambda e: e[5]['payload'].update(arguments=json.dumps({'cell_id': '327', 'terminate': True})),
+            lambda e: e[6]['payload'].update(call_id='different-tool'),
+            lambda e: e[6]['payload'].update(output='Script failed\nOutput:\n'),
+            lambda e: e[6]['payload'].update(output='Script interrupted\nOutput:\n'),
+            lambda e: e[4]['payload'].update(role='user'),
+        ]
+        for n, mutate in enumerate(mutations):
+            parent.write_bytes(initial); events = self.owner_progress(); mutate(events)
+            with self.subTest(n=n), module.native_operation(argv, module_name=name):
+                guard = module.capture_native_guard([approval])
+                for event in events: self.append_event(parent, event)
+                with self.assertRaises(ValueError): module.assert_native_guard(guard, terminal=True)
+        self.assertFalse(Path(argv[-1]).exists())
+
     def test_report_review_owner_is_exact_execute_and_same_cell_only(self):
         self.prepare(); approval = self.approval()
         name = 'tools.question_bank.feedback_source_tf_report_review'

@@ -407,6 +407,7 @@ def native_operation_call(argv, *, module_name="tools.question_bank.feedback_ver
         if "--repo-root" not in options or position >= len(argv):
             raise ValueError("source TF owner requires explicit repo and command")
         commands = {
+            "prepare": {"--request", "--output"},
             "scope": {"--plan", "--action"},
             "inspect": {"--plan"}, "check": {"--plan"}, "evaluate": {"--plan"},
             "reconcile": {"--plan"}, "completion": {"--plan"},
@@ -428,6 +429,18 @@ def native_operation_call(argv, *, module_name="tools.question_bank.feedback_ver
             raise ValueError('source TF completion owner requires exact artifact SHA256')
         if set(selected) != commands[command_name] or selected.get("--action", "save") not in {"save", "publish"}:
             raise ValueError("exact source TF owner command scope required")
+        if command_name == 'prepare':
+            if set(options) != {'--repo-root', '--db'}:
+                raise ValueError('source TF prepare owner requires explicit authority database')
+            if any(not Path(value).is_absolute() for value in (*options.values(), *selected.values())):
+                raise ValueError('source TF prepare owner requires absolute physical paths')
+            root = context_api._physical(options['--repo-root'])
+            database = context_api._physical(options['--db'])
+            request = context_api._private(root, selected['--request'])
+            output = context_api._private(root, selected['--output'])
+            if (not root.is_dir() or not database.is_file() or not request.is_file()
+                    or output.exists() and not output.is_dir()):
+                raise ValueError('source TF prepare owner physical input/output types differ')
     if module_name == "tools.question_bank.feedback_verified_save_record":
         # This module has two subcommands with global options before them.
         # Do not turn the module addition into an arbitrary CLI whitelist.
