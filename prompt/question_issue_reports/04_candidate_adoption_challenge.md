@@ -57,3 +57,8 @@ createdById/updatedById等の識別fieldはpresenceとdigestの表現であり�
   ]
 }
 ```
+
+
+## 入力識別値の転記
+
+`<INPUT_JSON>`の外側wrapperを`W`とすると、出力の`inputHash`は`W.inputHash`、`candidateHash`・`observedBeforeHash`・`modelSubjectHash`はそれぞれ`W.input`内の同名fieldから文字列をそのまま転記します。各ハッシュは返答前に指定元の全文・文字数と照合してください。`caseScope`と`blindReviewHashes`は`W.input`内の同名fieldを構造・順序・値ごと転記します。
