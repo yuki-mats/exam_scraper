@@ -149,7 +149,9 @@ v3のresultも`publicationConfirmed=false`であり、transportの検証・commi
 
 `python -m tools.question_bank.feedback_source_tf_delivery --repo-root <repo> --db <既存台帳>`は、通常sourceから整備した一問と既存TF全siblingを扱う明示経路である。`prepare --request <source-bound-public-tf-request/v1> --output <新規private directory>`は、完全なsource binding、保全manifest、公式資料とページ、公式選択答、各記述全文とlive IDの一意な対応、通常工程の真正な保存証跡、現在の台帳要件・状態・live所属集合を固定する。公式選択答と各記述の真偽は別に確認する。生成物を手で編集したり、原問の否定指示から真偽を反転したりしない。
 
-`scope --plan <plan> --action save`のnative出力に対する別subagent承認を得てから、`save --plan <plan> --approval <承認>`を実行する。正式保存先は`output/<qualification>/publication_corrections/<unitHash>/`。`source.json`・`public.json`・`manifest.json`と`receipt.json`をexclusive保存し、同じ成功再送だけを受理する。schemaは`source-bound-public-tf-unit/v1`、保存receiptは`source-bound-public-tf-save-receipt/v1`である。通常の24探索へ自動で混ぜず、このplanを明示するselectorだけで読み込む。途中中断や第三値を新規成功として埋め合わせない。
+`scope --plan <plan> --action save`のnative出力に対する別subagent承認を得てから、`save --plan <plan> --approval <承認>`を実行する。正式保存先は`output/<qualification>/publication_corrections/<unitHash>/`。`source.json`・`public.json`・`manifest.json`と`receipt.json`をexclusive保存し、同じ成功再送だけを受理する。現行schemaは`source-bound-public-tf-unit/v2`、private planは`source-bound-public-tf-plan/v3`、保存receiptは`source-bound-public-tf-save-receipt/v2`である。通常の24探索へ自動で混ぜず、このplanを明示するselectorだけで読み込む。途中中断や第三値を新規成功として埋め合わせない。
+
+Git対象の正式source/public/manifest/receiptと、識別情報を含むprivateな実値を分離する。正式表現は識別情報・利用者本文・private台帳contextをpresence/digest又はprivate参照/hashへ置き換え、business候補・全ID・mask・raw contextのcommitmentと結ぶ。保存時と読戻し時はprivate planから再投影したbytesと正式fileを照合し、隠した値の改変も拒否する。raw before/current/CAS・実uploader payloadはprivateのまま保持し、限定mask、exact更新時刻、全sibling、対象外不変、評価・公開・完了の検査を変えない。旧plan/unit/receiptをその場で書き換えず、新しいprivate planと独立監査から開始する。 `scope`以外のCLI標準出力は固定schemaの状態・件数・hashだけとし、raw plan・live readback・台帳本文はprivate成果物から照合する。native `scope`もserver生成時点で台帳contextをprivate commitmentへ結ぶ専用v3とし、生の利用者本文・識別情報を出さない。出力後のredactで代用せず、実際に出力されたscopeと独立監査の完全一致を検証する。
 
 正常工程の証跡は、固定された候補・実保存bytes・native承認・実child・work version・checkpointを照合する。後続工程が同じpatchを正当に更新する場合は、真正な保存履歴から各工程時点の入力を通常projectorで再構築し、現在の投影と最後の真正な保存内容を確認する。03bは通常のcandidateに結び付いた法令監査metadataと実child内のレビューを再検証し、必要人数と一次根拠を通常のvalidatorに従って確認する。工程名や自己申告の成功flagだけで代替しない。
 
@@ -165,7 +167,7 @@ report審査は実task/case、caseが保持するcanonical snapshotとその内�
 
 中断した審査directoryは完成receiptやscopeを持たないまま保持し、同じdirectoryへ再実行して完成を装わない。旧report v1は審査reader未接続として公開保留を維持する。
 
-新しい`source-bound-public-tf-plan/v2`は専用`source-bound-public-tf-completion-contract/v1`を含み、対象authority・固定CAS前状態・完了理由・全case集合と親完了条件を正式保存及び公開scopeへ事前結合する。旧plan/v1から完了権限を推測しない。真正な公開resultの後に`completion --plan <plan>`で`source-bound-public-tf-completion/v1`の`completion.json`を作り、`record-completion --plan <plan> --completion <同じcompletion.json> --completion-sha256 <hash>`で記録する。両コマンドは正規native wrapperで実argvへ結び、台帳writer接続は`record-completion`に限定する。検証器が返すprocess内proofを要求し、保存・公開のnative承認、通常工程と現policy、実intent/attempt/commit、全read setのfresh readbackとexact更新時刻・対象外不変を、台帳transaction内の最終境界でも再検証する。
+現行`source-bound-public-tf-plan/v3`は専用`source-bound-public-tf-completion-contract/v1`を含み、対象authority・固定CAS前状態・完了理由・全case集合と親完了条件を正式保存及び公開scopeへ事前結合する。旧plan/v1・v2から現行の保存・公開・完了権限を推測しない。真正な公開resultの後に`completion --plan <plan>`で`source-bound-public-tf-completion/v1`の`completion.json`を作り、`record-completion --plan <plan> --completion <同じcompletion.json> --completion-sha256 <hash>`で記録する。両コマンドは正規native wrapperで実argvへ結び、台帳writer接続は`record-completion`に限定する。検証器が返すprocess内proofを要求し、保存・公開のnative承認、通常工程と現policy、実intent/attempt/commit、全read setのfresh readbackとexact更新時刻・対象外不変を、台帳transaction内の最終境界でも再検証する。
 
 改善taskは既存の完了履歴・CASを使い、reportはtask/case単位の追記専用公開履歴と固定contractを使う。全caseの正式判断と必要な公開事実が揃う場合だけ親`published_at`をCAS更新し、一部公開を全体完了へ拡張しない。自分と一致する完了履歴だけから固定前後状態を復元し、同一再送とDB確定後のreceipt中断復元を認める。別artifact・hash・contract又は別task/caseを受け入れず、旧scopeがその後の判断変更を吸収して新たに完了することも認めない。後続caseの進展と過去公開事実の扱い、状態表示と保留条件は[フィードバック運用正本](user_feedback_response_system.md#無人実行経路の既知の未対応)に従う。コードの存在や検査JSONだけで公開・task完了を主張しない。
 

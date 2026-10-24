@@ -494,6 +494,161 @@ def test_native_saved_unit_is_exclusive_idempotent_and_preserves_canonical_bytes
     assert sorted(p.name for p in (rig.root / plan['formalPath']).iterdir()) == sorted([*api.FILES, 'receipt.json'])
 
 
+def privacy_inputs(rig):
+    """Synthetic private markers only; no real user data or SDK access."""
+    actor = 'fixture-private-audit-actor-value'
+    comment = 'fixture-private-user-report-body-must-never-enter-git'
+    source_path = Path(rig.request['source']['ref'])
+    original = json.loads(source_path.read_bytes())
+    original['question_bodies'][0]['unknownMetadata'] = {
+        'nested': [{'updatedById': actor, 'detailComment': comment}]}
+    source_ref = write(source_path, original)
+    rig.request['source']['sha256'] = source_ref['sha256']
+    write(rig.root / api.MANIFEST, (json.dumps({'path': str(source_path.relative_to(rig.root)),
+        'sha256': source_ref['sha256']}) + '\n').encode())
+    rig.current['unknownMetadata'] = {'nested': {'created_by_id': actor, 'text': comment}}
+    for snapshots in (rig.snapshots, rig.baseline):
+        for snapshot in snapshots.values():
+            snapshot['fields'].update(createdById=actor, updatedById=actor)
+    rig.connection.execute('UPDATE improvement_tasks SET title=?,need=? WHERE task_id=?', (comment, comment, 'task'))
+    rig.connection.commit()
+    write(rig.request_path, rig.request)
+    return actor, comment
+
+
+def test_git_projection_excludes_private_context_and_recursive_metadata_without_changing_private_values(rig):
+    actor, comment = privacy_inputs(rig)
+    plan = prepared(rig); private_before = rig.path.read_bytes()
+    source_before = Path(rig.request['source']['ref']).read_bytes()
+    approval = approved(rig)
+    receipt = api.save(rig.root, rig.path, approval, **rig.options)
+    formal = rig.root / plan['formalPath']
+    artifacts = {name: api._json((formal / name).read_bytes()) for name in (*api.FILES, 'receipt.json')}
+    git_bytes = b'\n'.join((formal / name).read_bytes() for name in artifacts)
+    assert actor.encode() not in git_bytes and comment.encode() not in git_bytes
+    assert artifacts['source.json']['schemaVersion'] == api.GIT_ARTIFACT
+    assert artifacts['public.json']['privateValueHash'] == api.sha256_json(plan['public'])
+    assert artifacts['manifest.json']['gitPrivacy']['publicArtifactHash'] == api.sha256_json(artifacts['public.json'])
+    public = artifacts['public.json']['value']
+    assert public['baseline']['live-a']['fields']['privateMetadata']['privateValuePresent']
+    assert public['questions'][0]['businessFields']['questionBodyText'] == '次の命題は正しいか。'
+    assert plan['source']['source']['unknownMetadata']['nested'][0]['detailComment'] == comment
+    assert plan['source']['normalProjection']['unknownMetadata']['nested']['created_by_id'] == actor
+    assert plan['public']['baseline']['live-a']['fields']['updatedById'] == actor
+    assert all(row['updatedById'] == actor for row in api._payload(plan)['questions'])
+    assert rig.path.read_bytes() == private_before
+    assert Path(rig.request['source']['ref']).read_bytes() == source_before
+    assert rig.path.stat().st_mode & 0o777 == 0o600
+    assert api.save(rig.root, rig.path, approval, **rig.options) == receipt
+    assert api.load_saved_unit(rig.root, rig.path, **rig.options) == (plan, receipt)
+
+
+def test_git_business_projection_commits_unknown_and_nested_values_by_default():
+    actor = 'fixture-private-nested-actor'
+    comment = 'fixture-private-nested-report'
+    record = {'questionBodyText': '公開命題。', 'updatedById': actor,
+        'suggestedQuestionDetails': [{'question': '公開補足', 'metadata': {'reporterUid': actor, 'detailComment': comment}}],
+        'unrecognizedMetadata': {'freeform': comment}}
+    projected = api._git_business_record(record)
+    assert actor not in json.dumps(projected) and comment not in json.dumps(projected)
+    assert projected['businessFields']['questionBodyText'] == '公開命題。'
+    assert projected['businessFields']['suggestedQuestionDetails'][0] == api._private_commitment(record['suggestedQuestionDetails'][0])
+    changed = deepcopy(record); changed['unrecognizedMetadata']['freeform'] = comment + '-changed'
+    assert api._git_business_record(changed) != projected
+
+
+def test_native_scope_commits_all_freeform_private_context_without_redacting_the_emitted_marker(rig):
+    actor, comment = privacy_inputs(rig)
+    plan = prepared(rig)
+    scope = api.scope(rig.root, rig.path, action='save', **rig.options)
+    assert scope['schemaVersion'] == 'source-bound-public-tf-independent-scope/v3'
+    for field in ('taskRequirement', 'taskLifecycle', 'completionContract'):
+        assert scope[field] == api._private_commitment(plan['source'][field])
+    marker = api.scope_marker(scope, creation=True)
+    assert actor not in marker and comment not in marker
+    assert marker.endswith(json.dumps(scope, ensure_ascii=False, sort_keys=True, separators=(',', ':')))
+    assert scope['publicHash'] == api.sha256_json(plan['public'])
+    assert scope['gitPrivacyPolicyHash'] == api._git_policy_hash()
+
+
+def test_git_projection_is_not_substituted_for_raw_report_candidate_review_context(rig):
+    from tools.question_bank import feedback_source_tf_report_review as review
+    actor = 'fixture-private-review-context-actor'
+    for snapshot in rig.snapshots.values(): snapshot['fields']['updatedById'] = actor
+    plan = prepared(rig)
+    context = review.context(rig.request, plan['source'], plan['public'])
+    assert context['public'] == plan['public']
+    assert context['normalProjection'] == plan['source']['normalProjection']
+    assert all(row['updatedById'] == actor for row in context['public']['questions'])
+    subject = review.adoption.subject(context)
+    assert actor not in json.dumps(subject)
+    assert all(row['updatedById']['identityValueMasked'] for row in subject['candidate']['plannedPublic']['questions'])
+    assert subject['candidate']['plannedPublic']['questions'][0]['questionBodyText'] == '次の命題は正しいか。'
+    assert subject['observedBeforeHash'] == api.sha256_json(plan['public']['baseline'])
+    assert api._git_public(plan['public'])['value'] != context['public']
+
+
+@pytest.mark.parametrize('mutation', ['formal_public_hash', 'formal_content', 'manifest_readset', 'receipt_binding'])
+def test_masked_formal_hashes_and_receipt_cannot_replace_private_commitments(rig, mutation):
+    privacy_inputs(rig)
+    plan, _, _ = saved(rig); directory = rig.root / plan['formalPath']
+    if mutation in {'formal_public_hash', 'formal_content'}:
+        path = directory / 'public.json'; value = api._json(path.read_bytes())
+        if mutation == 'formal_public_hash': value['privateValueHash'] = '0' * 64
+        else: value['value']['questions'][0]['businessFields']['questionBodyText'] = '未承認の変更。'
+    elif mutation == 'manifest_readset':
+        path = directory / 'manifest.json'; value = api._json(path.read_bytes())
+        value['gitPrivacy']['privateReadSetHash'] = '0' * 64
+    else:
+        path = directory / 'receipt.json'; value = api._json(path.read_bytes())
+        value['privacyBinding']['privateReceiptBindingHash'] = '0' * 64
+    write(path, value)
+    with pytest.raises(ValueError): api.inspect(rig.root, rig.path, **rig.options)
+
+
+@pytest.mark.parametrize('mutation', ['hidden_source', 'hidden_normal', 'hidden_live_identity', 'private_requirement'])
+def test_redacted_values_still_invalidate_current_plan_and_approval(rig, mutation):
+    actor, comment = privacy_inputs(rig)
+    plan, approval, _ = saved(rig)
+    formal_before = {name: (rig.root / plan['formalPath'] / name).read_bytes() for name in (*api.FILES, 'receipt.json')}
+    if mutation == 'hidden_source':
+        path = Path(rig.request['source']['ref']); value = json.loads(path.read_bytes())
+        value['question_bodies'][0]['unknownMetadata']['nested'][0]['updatedById'] = actor + '-changed'
+        write(path, value)
+    elif mutation == 'hidden_normal': rig.current['unknownMetadata']['nested']['created_by_id'] = actor + '-changed'
+    elif mutation == 'hidden_live_identity': rig.snapshots['live-c']['fields']['updatedById'] = actor + '-changed'
+    else:
+        rig.connection.execute('UPDATE improvement_tasks SET need=? WHERE task_id=?', (comment + '-changed', 'task'))
+        rig.connection.commit()
+    with pytest.raises(ValueError): api.inspect(rig.root, rig.path, **rig.options)
+    with pytest.raises(ValueError): api.save(rig.root, rig.path, approval, **rig.options)
+    assert all((rig.root / plan['formalPath'] / name).read_bytes() == raw for name, raw in formal_before.items())
+
+
+@pytest.mark.parametrize('schema', ['source-bound-public-tf-plan/v1', 'source-bound-public-tf-plan/v2'])
+def test_legacy_privacy_plan_requires_fresh_preparation_without_overwriting_old_unit(rig, schema):
+    plan, approval, _ = saved(rig)
+    formal = rig.root / plan['formalPath']; before = {name: (formal / name).read_bytes() for name in (*api.FILES, 'receipt.json')}
+    legacy = deepcopy(plan); legacy['schemaVersion'] = schema
+    legacy = api._seal({key: value for key, value in legacy.items() if key != 'planHash'})
+    write(rig.path, legacy)
+    with pytest.raises(api.GateRequired, match='legacy_source_tf_privacy'):
+        api.inspect(rig.root, rig.path, **rig.options)
+    with pytest.raises(api.GateRequired, match='legacy_source_tf_privacy'):
+        api.save(rig.root, rig.path, approval, **rig.options)
+    assert all((formal / name).read_bytes() == raw for name, raw in before.items())
+
+
+def test_legacy_saved_receipt_is_held_without_mutating_existing_bytes(rig):
+    plan, approval, receipt = saved(rig)
+    path = rig.root / plan['formalPath'] / 'receipt.json'
+    legacy = {**receipt, 'schemaVersion': 'source-bound-public-tf-save-receipt/v1'}
+    write(path, legacy); before = path.read_bytes()
+    with pytest.raises(api.GateRequired, match='legacy_source_tf_saved_unit'):
+        api.save(rig.root, rig.path, approval, **rig.options)
+    assert path.read_bytes() == before
+
+
 @pytest.mark.parametrize('phase', api.FILES)
 def test_interrupted_partial_unit_never_becomes_saved_or_reapplied(rig, phase):
     plan = prepared(rig); approval = approved(rig)
@@ -903,11 +1058,33 @@ def published_completion(rig, monkeypatch):
     return plan, artifact, path, api._hash(path.read_bytes()), calls
 
 
+@pytest.mark.parametrize('mutation', ['raw_readonly_identity', 'git_projection', 'git_receipt'])
+def test_privacy_publication_and_completion_retain_exact_raw_readset_and_formal_bindings(rig, monkeypatch, mutation):
+    actor, comment = privacy_inputs(rig)
+    plan, artifact, path, digest, calls = published_completion(rig, monkeypatch)
+    result = json.loads((rig.output / 'publication/result.json').read_bytes())
+    assert result['liveReadback']['live-c']['fields']['updatedById'] == actor
+    assert json.loads(rig.path.read_bytes())['public']['baseline']['live-a']['fields']['updatedById'] == actor
+    assert result['planHash'] == plan['planHash']
+    assert artifact['plan']['sha256'] == api._hash(rig.path.read_bytes())
+    assert len(calls) == 1
+    if mutation == 'raw_readonly_identity': rig.snapshots['live-c']['fields']['updatedById'] = actor + '-changed'
+    elif mutation == 'git_projection':
+        formal = rig.root / plan['formalPath'] / 'public.json'; value = json.loads(formal.read_bytes())
+        value['privateValueHash'] = '0' * 64; write(formal, value)
+    else:
+        formal = rig.root / plan['formalPath'] / 'receipt.json'; value = json.loads(formal.read_bytes())
+        value['privacyBinding']['privateReceiptBindingHash'] = '0' * 64; write(formal, value)
+    with pytest.raises(ValueError): api.record_completion(rig.root, rig.path, path, digest, **rig.options)
+    assert rig.connection.execute('SELECT status FROM improvement_tasks').fetchone()[0] == 'in_progress'
+    assert rig.connection.execute('SELECT COUNT(*) FROM improvement_result_history').fetchone()[0] == 0
+
+
 def test_improvement_completion_records_and_exact_replay_recovers_receipt_interruption(rig, monkeypatch):
     from tools.question_bank import feedback_daily as daily
     plan, artifact, path, digest, calls = published_completion(rig, monkeypatch)
-    assert plan['schemaVersion'] == 'source-bound-public-tf-plan/v2'
-    assert api._scope(rig.root, rig.path, plan, 'save')['completionContract'] == artifact['completionContract']
+    assert plan['schemaVersion'] == 'source-bound-public-tf-plan/v3'
+    assert api._scope(rig.root, rig.path, plan, 'save')['completionContract'] == api._private_commitment(artifact['completionContract'])
     def stopped(stage):
         assert stage == 'database_committed'
         raise KeyboardInterrupt('receipt interrupted')
@@ -999,10 +1176,11 @@ def test_report_completion_keeps_intake_decision_proposal_and_records_append_onl
     assert plan['request']['schemaVersion'] == REPORT_REQUEST
     contract = plan['source']['completionContract']
     assert contract is not None and contract['authority'] == rig.request['authority']
-    assert api._scope(rig.root, rig.path, plan, 'save')['completionContract'] == contract
+    assert api._scope(rig.root, rig.path, plan, 'save')['completionContract'] == api._private_commitment(contract)
     intent = api._json((rig.output / 'publication/intent.json').read_bytes())
     assert intent['scope']['action'] == 'publish'
-    assert intent['scope']['completionContract'] == contract == artifact['completionContract']
+    assert intent['scope']['completionContract'] == api._private_commitment(contract)
+    assert artifact['completionContract'] == contract
     result = api.record_completion(rig.root, rig.path, path, digest, **rig.options)
     assert api.record_completion(rig.root, rig.path, path, digest, **rig.options) == result
     assert api.completion(rig.root, rig.path, **rig.options) == artifact
@@ -1194,6 +1372,162 @@ def test_completion_cli_read_path_never_opens_writer_and_owner_is_required_befor
     monkeypatch.setattr(api.sqlite3,'connect',reader)
     with pytest.raises(ValueError,match='read-only reached'): api.main([*base,'completion','--plan',str(rig.path)])
     assert opened==['readonly']
+
+
+@pytest.mark.parametrize('command', ['prepare', 'inspect', 'save', 'check', 'evaluate', 'publish', 'reconcile', 'completion', 'record-completion'])
+def test_cli_prints_only_safe_summary_not_private_readback_authority_or_freeform(rig, monkeypatch, capsys, command):
+    import contextlib
+    actor = 'fixture-private-cli-audit-identity'
+    body = 'fixture-private-cli-user-body'
+    private = {'schemaVersion': body, 'planHash': 'a' * 64, 'unitHash': 'b' * 64,
+        'status': 'published_readback_matched', 'FirestoreWritten': True,
+        'liveReadback': {'live-a': {'fields': {'updatedById': actor, 'detailComment': body}}},
+        'authority': {'kind': 'report', 'taskId': 'task', 'privateMetadata': body},
+        'completionContract': {'reason': body}, 'history': {'reason': body},
+        'commands': [{'stdout': body, 'stderr': actor}], 'writeVersions': {'live-a': 'exact-version'}}
+    monkeypatch.setattr(api.native, 'native_operation', lambda *a, **k: contextlib.nullcontext())
+    monkeypatch.setattr(api.normal, 'coordinator_for', lambda *a: rig.coordinator)
+    monkeypatch.setattr(api, command.replace('-', '_'), lambda *a, **k: deepcopy(private))
+    argv = ['--repo-root', str(rig.root), '--db', str(rig.private / 'ledger.sqlite3'), command]
+    if command == 'prepare': argv += ['--request', str(rig.request_path), '--output', str(rig.output)]
+    else: argv += ['--plan', str(rig.path)]
+    if command in {'save', 'publish'}: argv += ['--approval', str(rig.private / 'approval.json')]
+    if command == 'record-completion': argv += ['--completion', str(rig.output / 'completion.json'), '--completion-sha256', 'c' * 64]
+    assert api.main(argv) == 0
+    output = capsys.readouterr().out
+    assert actor not in output and body not in output
+    summary = json.loads(output)
+    assert summary == api._stdout_summary(command, private)
+    assert summary['privateResultHash'] == api.sha256_json(private)
+    assert summary['readDocumentCount'] == summary['writeDocumentCount'] == 1
+    assert private['liveReadback']['live-a']['fields']['updatedById'] == actor
+
+
+def test_cli_preserves_exact_native_scope_marker(rig, monkeypatch, capsys):
+    import contextlib
+    scope = {'schemaVersion': 'fixture-native-scope', 'planHash': 'a' * 64, 'unitHash': 'b' * 64}
+    monkeypatch.setattr(api.native, 'native_operation', lambda *a, **k: contextlib.nullcontext())
+    monkeypatch.setattr(api.normal, 'coordinator_for', lambda *a: rig.coordinator)
+    monkeypatch.setattr(api, 'scope', lambda *a, **k: deepcopy(scope))
+    assert api.main(['--repo-root', str(rig.root), '--db', str(rig.private / 'ledger.sqlite3'),
+        'scope', '--plan', str(rig.path), '--action', 'save']) == 0
+    assert capsys.readouterr().out == api.scope_marker(scope, creation=True) + '\n'
+
+
+def test_cli_process_failure_does_not_echo_private_exception_text(monkeypatch, capsys):
+    text = 'fixture-private-error-actor-and-user-report-body'
+    def failed(): raise ValueError(text)
+    monkeypatch.setattr(api, 'main', failed)
+    assert api._cli_entrypoint() == 1
+    captured = capsys.readouterr()
+    assert captured.out == '' and text not in captured.err
+    assert json.loads(captured.err) == {'schemaVersion': 'source-bound-public-tf-cli-summary/v1',
+        'status': 'failed', 'errorType': 'ValueError',
+        'privateErrorHash': api.sha256_json({'type': 'ValueError', 'message': text}),
+        'privateDiagnosticSaved': False, 'privateDiagnostic': None}
+
+
+@pytest.mark.parametrize('case', ['invalid_action', 'unknown_argument', 'missing_value', 'invalid_command', 'missing_command', 'newline_value'])
+def test_cli_parser_refusals_never_echo_argv_or_dispatch_before_private_context_is_valid(tmp_path, monkeypatch, capsys, case):
+    secret = 'fixture-private-parser-actor-and-report-body'
+    base = ['--repo-root', str(tmp_path), '--db', str(tmp_path / (secret + '.sqlite3'))]
+    valid = ['scope', '--plan', str(tmp_path / api.PRIVATE / 'unit/plan.json'), '--action', 'save']
+    if case == 'invalid_action': args = [*base, *valid[:-1], secret]
+    elif case == 'unknown_argument': args = [*base, *valid, '--' + secret, secret]
+    elif case == 'missing_value': args = [*base, 'scope', '--plan']
+    elif case == 'invalid_command': args = [*base, secret]
+    elif case == 'missing_command': args = base
+    else: args = [*base, *valid[:-1], secret + '\n非公開本文']
+    def forbidden(*a, **k): raise AssertionError('parser must reject before native or database dispatch')
+    monkeypatch.setattr(api.native, 'native_operation', forbidden)
+    monkeypatch.setattr(api.sqlite3, 'connect', forbidden)
+    monkeypatch.setattr(api.sys, 'argv', [secret, *args])
+    assert api._cli_entrypoint() == 1
+    captured = capsys.readouterr()
+    assert captured.out == '' and secret not in captured.err and '非公開本文' not in captured.err
+    summary = json.loads(captured.err)
+    assert summary['status'] == 'failed' and summary['errorType'] == '_CliArgumentError'
+    assert summary['privateDiagnosticSaved'] is False and summary['privateDiagnostic'] is None
+    assert len(summary['privateErrorHash']) == 64
+    assert not (tmp_path / api.PRIVATE / '.source-tf-cli-diagnostics').exists()
+
+
+@pytest.mark.parametrize('subcommand', [False, True])
+def test_cli_help_remains_static_and_successful_without_untrusted_program_name(tmp_path, monkeypatch, capsys, subcommand):
+    secret = 'fixture-private-help-program-name'
+    args = ['--repo-root', str(tmp_path), 'scope', '--help'] if subcommand else ['--help']
+    monkeypatch.setattr(api.sys, 'argv', [secret, *args])
+    with pytest.raises(SystemExit) as exited: api._cli_entrypoint()
+    assert exited.value.code == 0
+    captured = capsys.readouterr()
+    assert captured.err == '' and secret not in captured.out and api.MODULE in captured.out
+
+
+def test_argument_parser_nonzero_exit_cannot_print_private_message(capsys):
+    parser = api._PrivateArgumentParser(prog=api.MODULE)
+    with pytest.raises(api._CliArgumentError): parser.exit(2, 'fixture-private-direct-exit-message')
+    assert capsys.readouterr() == ('', '')
+
+
+@pytest.mark.parametrize('command', ['prepare', 'scope', 'publish'])
+def test_failed_cli_retains_unique_0600_private_diagnostics_and_never_alters_existing_run(rig, monkeypatch, capsys, command):
+    import contextlib
+    text = 'fixture-private-diagnostic-actor-and-report-body'
+    rig.output.mkdir(); original = rig.output / 'existing-failed-output.json'
+    original.write_bytes(b'old immutable run'); original_before = original.read_bytes()
+    def failed(*a, **k): raise ValueError(text)
+    monkeypatch.setattr(api.native, 'native_operation', lambda *a, **k: contextlib.nullcontext())
+    monkeypatch.setattr(api.normal, 'coordinator_for', lambda *a: rig.coordinator)
+    monkeypatch.setattr(api, command, failed)
+    argv = ['--repo-root', str(rig.root), '--db', str(rig.private / 'ledger.sqlite3'), command]
+    if command == 'prepare': argv += ['--request', str(rig.request_path), '--output', str(rig.output)]
+    else: argv += ['--plan', str(rig.path)]
+    if command == 'scope': argv += ['--action', 'save']
+    if command == 'publish': argv += ['--approval', str(rig.private / 'approval.json')]
+    monkeypatch.setattr(api.sys, 'argv', ['source-tf', *argv])
+    refs = []
+    for _ in range(2):
+        assert api._cli_entrypoint() == 1
+        captured = capsys.readouterr(); assert captured.out == '' and text not in captured.err
+        summary = json.loads(captured.err); assert summary['privateDiagnosticSaved']
+        reference = summary['privateDiagnostic']; path = Path(reference['ref']); refs.append(path)
+        assert path.is_relative_to(rig.root / api.PRIVATE / '.source-tf-cli-diagnostics')
+        assert path.stat().st_mode & 0o777 == 0o600
+        assert path.parent.stat().st_mode & 0o777 == 0o700
+        assert api._hash(path.read_bytes()) == reference['sha256']
+        private = json.loads(path.read_bytes())
+        assert private['argv'] == argv and private['exceptionText'] == text and text in private['traceback']
+        assert private['command'] == command
+    assert refs[0] != refs[1] and all(path.exists() for path in refs)
+    assert original.read_bytes() == original_before and not rig.path.exists()
+    assert sorted(path.name for path in rig.output.iterdir()) == [original.name]
+
+
+@pytest.mark.parametrize('unsafe', ['outside', 'symlink', 'permissions'])
+def test_cli_diagnostic_refuses_unsafe_context_or_storage_without_disclosure(rig, monkeypatch, capsys, unsafe):
+    import contextlib
+    text = 'fixture-private-unsafe-diagnostic-body'
+    def failed(*a, **k): raise ValueError(text)
+    path = rig.path
+    if unsafe == 'outside': path = rig.root / 'outside-private-plan.json'
+    elif unsafe == 'symlink':
+        target = rig.private / 'real-private-plan.json'; target.write_bytes(b'unchanged')
+        path = rig.private / 'symlink-plan.json'; path.symlink_to(target)
+    else:
+        directory = rig.root / api.PRIVATE / '.source-tf-cli-diagnostics'
+        directory.mkdir(mode=0o755); directory.chmod(0o755)
+    monkeypatch.setattr(api.native, 'native_operation', lambda *a, **k: contextlib.nullcontext())
+    monkeypatch.setattr(api.normal, 'coordinator_for', lambda *a: rig.coordinator)
+    monkeypatch.setattr(api, 'scope', failed)
+    monkeypatch.setattr(api.sys, 'argv', ['source-tf', '--repo-root', str(rig.root),
+        '--db', str(rig.private / 'ledger.sqlite3'), 'scope', '--plan', str(path), '--action', 'save'])
+    assert api._cli_entrypoint() == 1
+    captured = capsys.readouterr(); assert captured.out == '' and text not in captured.err
+    summary = json.loads(captured.err)
+    assert summary['privateDiagnosticSaved'] is False and summary['privateDiagnostic'] is None
+    directory = rig.root / api.PRIVATE / '.source-tf-cli-diagnostics'
+    assert not directory.exists() or not list(directory.iterdir())
+    if unsafe == 'symlink': assert target.read_bytes() == b'unchanged'
 
 
 def test_report_cannot_reconstruct_commit_from_history_without_bound_parent_after_state(rig,monkeypatch):

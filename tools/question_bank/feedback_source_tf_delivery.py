@@ -36,19 +36,54 @@ from tools.question_review_console.projection import sha256_json
 
 MODULE = 'tools.question_bank.feedback_source_tf_delivery'
 REQUEST = 'source-bound-public-tf-request/v1'
-SCHEMA = 'source-bound-public-tf-unit/v1'
-PLAN = 'source-bound-public-tf-plan/v2'
-SAVED = 'source-bound-public-tf-save-receipt/v1'
+SCHEMA = 'source-bound-public-tf-unit/v2'
+PLAN = 'source-bound-public-tf-plan/v3'
+SAVED = 'source-bound-public-tf-save-receipt/v2'
+GIT_ARTIFACT = 'source-bound-public-tf-git-artifact/v1'
+GIT_PRIVACY = 'source-bound-public-tf-git-privacy/v1'
 CHECKS = 'source-bound-public-tf-checks/v1'
 RESULT = 'source-bound-public-tf-publication-result/v1'
 FILES = ('source.json', 'public.json', 'manifest.json')
 READ_FIELDS = sorted(set(uploader.DOC_COMPARE_KEYS) | {'createdAt', 'createdById', 'updatedAt', 'updatedById'})
 STRUCTURAL = {'questionBodyText', 'questionText', 'correctChoiceText'}
 CONTENT = {'explanationText', 'suggestedQuestions', 'suggestedQuestionDetails'}
+# Git is a review surface, never the authority for a raw Firestore snapshot.
+# Only these known exam/public fields may retain primitive business content.
+# Dictionaries (including future nested metadata) are committed as whole private
+# values; unknown top-level fields and authority/lifecycle prose never pass
+# through by default. The private plan retains every original value unchanged.
+GIT_BUSINESS_FIELDS = frozenset(READ_FIELDS) - {'createdById', 'updatedById'} | frozenset({
+    'questionId', 'sourceQuestionKey', 'reviewQuestionId', 'sourceRecordRef',
+    'original_question_id', 'public_question_id', 'source_question_id',
+    'question_url', 'questionLabel', 'examLabel', 'list_group_id',
+    'choiceTextList', 'correctChoiceText', 'answer_result_text', 'questionIntent',
+    'isCalculationQuestion', 'original_question_body_text', 'questionImageStorageUrls',
+})
+GIT_PRIVATE_KEYS = frozenset({
+    'createdbyid', 'updatedbyid', 'reporteruid', 'sourcesubmissionpath',
+    'sourcepath', 'userid', 'uid', 'email', 'name', 'username',
+    'detailcomment', 'untrustedusercomment', 'reportcomment', 'answerhistory',
+})
 
 
 class GateRequired(ValueError):
     pass
+
+
+class _CliArgumentError(ValueError):
+    """Private parse diagnostics; never let argparse echo argv to stderr."""
+
+
+class _PrivateArgumentParser(argparse.ArgumentParser):
+    def error(self, message):
+        raise _CliArgumentError(message)
+
+    def exit(self, status=0, message=None):
+        if status:
+            raise _CliArgumentError(message or 'argument parser refused input')
+        # Help has already printed its static text. Do not print a supplied
+        # exit message, which a future argument action could build from argv.
+        raise SystemExit(0)
 
 
 def _seal(value, field='planHash'):
@@ -56,9 +91,104 @@ def _seal(value, field='planHash'):
 
 
 def _verify(value, schema, field='planHash'):
+    if schema == PLAN and value.get('schemaVersion') in {
+            'source-bound-public-tf-plan/v1', 'source-bound-public-tf-plan/v2'}:
+        raise GateRequired('legacy_source_tf_privacy_contract_requires_fresh_plan_and_audit')
     if value.get('schemaVersion') != schema or value.get(field) != sha256_json({k: v for k, v in value.items() if k != field}):
         raise ValueError('schema/hash differs')
     return value
+
+
+def _private_commitment(value, *, present=True):
+    return {'privateValuePresent': present, 'privateValueHash': sha256_json(value)}
+
+
+def _git_business_value(value):
+    if isinstance(value, dict):
+        return _private_commitment(value)
+    if isinstance(value, list):
+        return [_git_business_value(item) for item in value]
+    return deepcopy(value)
+
+
+def _git_business_record(record):
+    if not isinstance(record, dict): raise ValueError('private business record required')
+    known = {}; private = {}
+    for key, value in record.items():
+        normalized = ''.join(char for char in key.lower() if char.isalnum())
+        if key in GIT_BUSINESS_FIELDS and normalized not in GIT_PRIVATE_KEYS:
+            known[key] = _git_business_value(value)
+        else:
+            private[key] = value
+    return {'businessFields': known,
+        'privateMetadata': _private_commitment(private, present=bool(private))}
+
+
+def _git_policy_hash():
+    return sha256_json({'schemaVersion': GIT_PRIVACY,
+        'businessFields': sorted(GIT_BUSINESS_FIELDS), 'privateKeys': sorted(GIT_PRIVATE_KEYS),
+        'structuredValues': 'whole_private_commitment',
+        'authorityAndProofs': 'whole_private_commitment'})
+
+
+def _git_artifact(kind, raw, value):
+    return {'schemaVersion': GIT_ARTIFACT, 'artifactKind': kind,
+        'privacyPolicyHash': _git_policy_hash(), 'privateValueHash': sha256_json(raw), 'value': value}
+
+
+def _git_source(source):
+    # In particular task reasons/title/need and review prose may contain a user
+    # quote. Commit their entire private contexts rather than guessing safe keys.
+    return _git_artifact('source', source, {
+        'sourceBinding': deepcopy(source['sourceBinding']),
+        'source': _git_business_record(source['source']),
+        'normalProjection': _git_business_record(source['normalProjection']),
+        'officialAnswer': deepcopy(source['officialAnswer']),
+        'mapping': deepcopy(source['mapping']),
+        'privateContext': _private_commitment({key: value for key, value in source.items()
+            if key not in {'sourceBinding', 'source', 'normalProjection', 'officialAnswer', 'mapping'}})})
+
+
+def _git_public(public):
+    return _git_artifact('public', public, {
+        'publicationUnit': deepcopy(public['publicationUnit']),
+        'record': _git_business_record(public['record']),
+        'questions': [_git_business_record(value) for value in public['questions']],
+        'baseline': {qid: {'questionId': snap['questionId'], 'exists': snap['exists'],
+            'updateTimeExact': snap['updateTimeExact'], 'fields': _git_business_record(snap['fields'])}
+            for qid, snap in public['baseline'].items()},
+        'writeFieldsByDocument': deepcopy(public['writeFieldsByDocument'])})
+
+
+def _manifest(request, unit_hash, source, public, files, formal_path):
+    return {'schemaVersion': SCHEMA, 'unitHash': unit_hash,
+        'sourceHash': sha256_json(source), 'publicHash': sha256_json(public),
+        'sourceBinding': deepcopy(request['source']['binding']),
+        'publicationUnit': deepcopy(request['publicationUnit']),
+        'publicationIds': sorted(public['baseline']), 'inputFiles': deepcopy(files), 'formalPath': formal_path,
+        'gitPrivacy': {'schemaVersion': GIT_PRIVACY, 'policyHash': _git_policy_hash(),
+            'sourceArtifactHash': sha256_json(_git_source(source)),
+            'publicArtifactHash': sha256_json(_git_public(public)),
+            'privateReadSetHash': sha256_json(public['baseline']),
+            'privateCandidateHash': sha256_json({key: public[key] for key in
+                ('record', 'questions', 'writeFieldsByDocument')})}}
+
+
+def _formal_payloads(plan):
+    return {'source.json': _git_source(plan['source']), 'public.json': _git_public(plan['public']),
+        'manifest.json': plan['manifest']}
+
+
+def _saved_receipt(root, path, plan, refs, approval_ref, binding):
+    private_plan = _read(root, path, {}, private=True)
+    if private_plan != _bytes(plan): raise ValueError('private plan bytes changed before receipt binding')
+    raw = {'schemaVersion': SAVED, 'planHash': plan['planHash'], 'unitHash': plan['unitHash'],
+        'plan': _reference(path, private_plan), 'files': refs, 'approval': approval_ref,
+        'nativeBinding': binding, 'formalUnitSaved': True, 'normalStagesVerified': True,
+        'evaluationPerformed': False, 'FirestoreWritten': False, 'publicationReady': False}
+    return {**raw, 'nativeBinding': _private_commitment(binding),
+        'privacyBinding': {'schemaVersion': GIT_PRIVACY, 'policyHash': _git_policy_hash(),
+            'privateReceiptBindingHash': sha256_json(raw), 'manifestHash': sha256_json(plan['manifest'])}}
 
 
 def _rows(raw):
@@ -569,9 +699,7 @@ def prepare(root, request_path, output, *, coordinator, connection):
     files = {}; request, question, versions, source, public = _derive(root, request_path, coordinator, connection, files)
     unit_hash = sha256_json({'source': source, 'public': public, 'inputs': files})
     formal = root / 'output' / request['qualification'] / 'publication_corrections' / unit_hash
-    manifest = {'schemaVersion': SCHEMA, 'unitHash': unit_hash, 'sourceHash': sha256_json(source), 'publicHash': sha256_json(public),
-        'sourceBinding': request['source']['binding'], 'publicationUnit': request['publicationUnit'],
-        'publicationIds': sorted(public['baseline']), 'inputFiles': files, 'formalPath': str(formal.relative_to(root))}
+    manifest = _manifest(request, unit_hash, source, public, files, str(formal.relative_to(root)))
     plan = _seal({'schemaVersion': PLAN, 'requestPath': str(_inside(root, request_path, private=True)), 'request': request,
         'unitHash': unit_hash, 'formalPath': manifest['formalPath'], 'ledgerPath': normal._ledger_path(connection), 'normalQuestionIdentity': {k: question.get(k) for k in
             ('id', 'reviewKey', 'qualification', 'listGroupId', 'sourceQuestionKey', 'sourceRecordRef', 'originalQuestionId')},
@@ -603,10 +731,7 @@ def _plan(root, path, coordinator, connection, *, live=True):
         raise ValueError('preview cannot claim save or publication')
     unit_hash = sha256_json({'source': source, 'public': public, 'inputs': current_files})
     formal_path = str(Path('output') / request['qualification'] / 'publication_corrections' / unit_hash)
-    expected_manifest = {'schemaVersion': SCHEMA, 'unitHash': unit_hash, 'sourceHash': sha256_json(source),
-        'publicHash': sha256_json(public), 'sourceBinding': request['source']['binding'],
-        'publicationUnit': request['publicationUnit'], 'publicationIds': sorted(public['baseline']),
-        'inputFiles': current_files, 'formalPath': formal_path}
+    expected_manifest = _manifest(request, unit_hash, source, public, current_files, formal_path)
     if plan['unitHash'] != unit_hash or plan['formalPath'] != formal_path or plan['manifest'] != expected_manifest:
         raise ValueError('formal source TF unit identity/path/manifest drift')
     native.assert_native_guard(guards, terminal=True)
@@ -630,14 +755,17 @@ def _formal(root, plan):
 
 def _verify_saved(root, path, plan):
     directory = _formal(root, plan); refs = {}
-    expected = {'source.json': plan['source'], 'public.json': plan['public'], 'manifest.json': plan['manifest']}
+    expected = _formal_payloads(plan)
     for name, payload in expected.items():
         raw = _read(root, directory / name, {})
         if raw != _bytes(payload): raise ValueError('formal unit third value or partial output')
         refs[name] = _reference(directory / name, raw)
-    receipt = _load(root, directory / 'receipt.json', {})
+    receipt_raw = _read(root, directory / 'receipt.json', {})
+    receipt = _json(receipt_raw)
+    if receipt.get('schemaVersion') == 'source-bound-public-tf-save-receipt/v1':
+        raise GateRequired('legacy_source_tf_saved_unit_requires_separate_privacy_migration')
     _object(receipt, {'schemaVersion', 'planHash', 'unitHash', 'plan', 'files', 'approval', 'nativeBinding',
-        'formalUnitSaved', 'normalStagesVerified', 'evaluationPerformed', 'FirestoreWritten', 'publicationReady'})
+        'formalUnitSaved', 'normalStagesVerified', 'evaluationPerformed', 'FirestoreWritten', 'publicationReady', 'privacyBinding'})
     if (receipt['schemaVersion'] != SAVED or receipt['planHash'] != plan['planHash'] or receipt['unitHash'] != plan['unitHash']
             or receipt['files'] != refs or receipt['formalUnitSaved'] is not True or receipt['normalStagesVerified'] is not True
             or any(receipt[k] is not False for k in ('evaluationPerformed', 'FirestoreWritten', 'publicationReady'))
@@ -645,8 +773,10 @@ def _verify_saved(root, path, plan):
         raise ValueError('dedicated formal unit receipt differs')
     approval = _ref(root, receipt['approval'], {}, private=True)
     guard = native.capture_native_guard([approval])
-    if verify_independent_approval(approval, _scope(root, path, plan, 'save'), production=True) != receipt['nativeBinding']:
-        raise ValueError('formal approval changed')
+    binding = verify_independent_approval(approval, _scope(root, path, plan, 'save'), production=True)
+    expected_receipt = _saved_receipt(root, path, plan, refs, receipt['approval'], binding)
+    if receipt_raw != _bytes(expected_receipt):
+        raise ValueError('formal approval/private binding or Git privacy projection changed')
     native.assert_native_guard(guard, terminal=True)
     return receipt
 
@@ -665,10 +795,12 @@ def inspect(root, path, *, coordinator, connection):
 
 def _scope(root, path, plan, action, *, gates=None):
     argv = ['--repo-root', str(root), '--db', plan['ledgerPath'], 'scope', '--plan', str(path), '--action', action]
-    return {'schemaVersion': 'source-bound-public-tf-independent-scope/v2', 'action': action,
+    return {'schemaVersion': 'source-bound-public-tf-independent-scope/v3', 'action': action,
         'planHash': plan['planHash'], 'unitHash': plan['unitHash'], 'sourceBinding': plan['request']['source']['binding'],
-        'taskRequirement': plan['source']['taskRequirement'], 'taskLifecycle': plan['source']['taskLifecycle'],
-        'completionContract': plan['source']['completionContract'], 'publicHash': sha256_json(plan['public']),
+        'taskRequirement': _private_commitment(plan['source']['taskRequirement']),
+        'taskLifecycle': _private_commitment(plan['source']['taskLifecycle']),
+        'completionContract': _private_commitment(plan['source']['completionContract']),
+        'publicHash': sha256_json(plan['public']), 'gitPrivacyPolicyHash': _git_policy_hash(),
         'stageProofsHash': sha256_json(plan['source']['stageProofs']), 'inputFilesHash': sha256_json(plan['inputFiles']),
         'transportSchema': uploader.READ_SET_TF_TRUTH_SCHEMA,
         'requiredReviewGates': plan['source'].get('requiredReviewGates', []), 'gates': gates,
@@ -721,14 +853,11 @@ def save(root, path, approval_path, *, coordinator, connection, failure_hook=Non
         _exclusive(intent_path, _bytes(intent))
         directory.mkdir(mode=0o700)
         refs = {}
-        for name, payload in zip(FILES, (plan['source'], plan['public'], plan['manifest']), strict=True):
+        for name, payload in _formal_payloads(plan).items():
             _plan(root, path, coordinator, connection); native.assert_native_guard(guard)
             data = _bytes(payload); _exclusive(directory / name, data); refs[name] = _reference(directory / name, data)
             if failure_hook: failure_hook(name)
-        receipt = {'schemaVersion': SAVED, 'planHash': plan['planHash'], 'unitHash': plan['unitHash'],
-            'plan': _reference(path, _read(root, path, {}, private=True)), 'files': refs, 'approval': intent['approval'],
-            'nativeBinding': binding, 'formalUnitSaved': True, 'normalStagesVerified': True, 'evaluationPerformed': False,
-            'FirestoreWritten': False, 'publicationReady': False}
+        receipt = _saved_receipt(root, path, plan, refs, intent['approval'], binding)
         _plan(root, path, coordinator, connection)
         if verify_independent_approval(approval, scope_value, production=True) != binding: raise ValueError('save approval drift')
         native.assert_native_guard(guard, terminal=True)
@@ -962,6 +1091,10 @@ def _git(root, plan):
     # actual bytes are still CAS inputs, without requiring newly force-added
     # copies of every ignored original in Git.
     _unchanged(root, plan['inputFiles'])
+    saved = _load(root, _formal(root, plan) / 'receipt.json', {})
+    # A committed redaction is insufficient: reproduce it from the unchanged
+    # private plan and genuine approval before accepting any Git blob.
+    _verify_saved(root, _inside(root, saved['plan']['ref'], private=True), plan)
     def run(args):
         result = subprocess.run(['git', *args], cwd=root, capture_output=True, text=True, check=True)
         return result.stdout.strip()
@@ -1213,9 +1346,50 @@ def record_completion(root, path, completion_path, completion_sha256, *, coordin
     return result
 
 
+def _stdout_summary(command, result):
+    """Ordinary CLI output is not a copy of private result/readback JSON."""
+    if not isinstance(result, dict): raise ValueError('source TF private result must be an object')
+    summary = {'schemaVersion': 'source-bound-public-tf-cli-summary/v1',
+        'command': command, 'privateResultHash': sha256_json(result)}
+    for key in ('formalUnitSaved', 'normalStagesVerified', 'evaluationPerformed',
+                'FirestoreWritten', 'publicationReady', 'completionRecorded', 'reportParentPublished'):
+        if type(result.get(key)) is bool: summary[key] = result[key]
+    for key in ('planHash', 'unitHash', 'checksHash', 'resultHash', 'liveReadbackHash'):
+        value = result.get(key)
+        if isinstance(value, str) and len(value) == 64 and all(c in '0123456789abcdef' for c in value):
+            summary[key] = value
+    status = result.get('status')
+    if isinstance(status, str) and status in {'published_readback_matched', 'completed', 'passed', 'failed', 'dry_run'}:
+        summary['status'] = status
+    for key in ('readDocumentIds', 'writeDocumentIds'):
+        if isinstance(result.get(key), list): summary[key.removesuffix('Ids') + 'Count'] = len(result[key])
+    if isinstance(result.get('liveReadback'), dict): summary['readDocumentCount'] = len(result['liveReadback'])
+    if isinstance(result.get('writeVersions'), dict): summary['writeDocumentCount'] = len(result['writeVersions'])
+    return summary
+
+
+def _private_cli_diagnostic(root, args, argv, error):
+    import traceback
+    import uuid
+    # Validate the selected private context first. A separate sibling namespace
+    # avoids creating/altering the intended run or an interrupted output dir.
+    _inside(root, args.output if args.command == 'prepare' else args.plan, private=True)
+    directory = _inside(root, root / PRIVATE / '.source-tf-cli-diagnostics', private=True)
+    directory.mkdir(parents=True, exist_ok=True, mode=0o700)
+    if directory.stat().st_mode & 0o777 != 0o700:
+        raise ValueError('private diagnostic directory permissions differ')
+    path = _inside(root, directory / (str(uuid.uuid4()) + '.json'), private=True)
+    data = _bytes({'schemaVersion': 'source-bound-public-tf-private-cli-diagnostic/v1',
+        'command': args.command, 'argv': argv, 'exceptionType': type(error).__name__,
+        'exceptionText': str(error),
+        'traceback': ''.join(traceback.format_exception(type(error), error, error.__traceback__))})
+    _exclusive(path, data)
+    return _reference(path, data)
+
+
 def main(argv=None):
     argv = list(sys.argv[1:] if argv is None else argv)
-    parser = argparse.ArgumentParser(description=__doc__)
+    parser = _PrivateArgumentParser(prog=MODULE, description=__doc__)
     parser.add_argument('--repo-root', type=Path, required=True); parser.add_argument('--db', type=Path, default=LEDGER)
     subs = parser.add_subparsers(dest='command', required=True)
     for name in ('prepare', 'inspect', 'scope', 'save', 'check', 'evaluate', 'publish', 'reconcile', 'completion', 'record-completion'):
@@ -1229,26 +1403,50 @@ def main(argv=None):
             sub.add_argument('--completion', type=Path, required=True)
             sub.add_argument('--completion-sha256', required=True)
     args = parser.parse_args(argv); root = _physical(args.repo_root)
-    with native.native_operation(argv, module_name=MODULE) if args.command != 'prepare' else nullcontext():
-        if args.command == 'record-completion':
-            from tools.question_bank.feedback_daily import _private_db
-            selected_connection = _private_db(_physical(args.db))
-        else: selected_connection = sqlite3.connect('file:' + str(_physical(args.db)) + '?mode=ro', uri=True)
-        with closing(selected_connection) as connection:
-            connection.row_factory = sqlite3.Row; coordinator = normal.coordinator_for(root)
-            if args.command == 'prepare':
-                result = prepare(root, args.request, args.output, coordinator=coordinator, connection=connection)
-            else:
-                options = {'coordinator': coordinator, 'connection': connection}
-                if args.command in ('save', 'publish'): options['approval_path'] = args.approval
-                if args.command == 'scope': options['action'] = args.action
-                if args.command == 'record-completion':
-                    result = record_completion(root, args.plan, args.completion, args.completion_sha256, **options)
-                else: result = globals()[args.command](root, args.plan, **options)
-        if args.command == 'scope': print(scope_marker(result, creation=True))
-        else: print(json.dumps(result, ensure_ascii=False, sort_keys=True))
+    try:
+        with native.native_operation(argv, module_name=MODULE) if args.command != 'prepare' else nullcontext():
+            if args.command == 'record-completion':
+                from tools.question_bank.feedback_daily import _private_db
+                selected_connection = _private_db(_physical(args.db))
+            else: selected_connection = sqlite3.connect('file:' + str(_physical(args.db)) + '?mode=ro', uri=True)
+            with closing(selected_connection) as connection:
+                connection.row_factory = sqlite3.Row; coordinator = normal.coordinator_for(root)
+                if args.command == 'prepare':
+                    result = prepare(root, args.request, args.output, coordinator=coordinator, connection=connection)
+                else:
+                    options = {'coordinator': coordinator, 'connection': connection}
+                    if args.command in ('save', 'publish'): options['approval_path'] = args.approval
+                    if args.command == 'scope': options['action'] = args.action
+                    if args.command == 'record-completion':
+                        result = record_completion(root, args.plan, args.completion, args.completion_sha256, **options)
+                    else: result = globals()[args.command](root, args.plan, **options)
+            if args.command == 'scope': print(scope_marker(result, creation=True))
+            else: print(json.dumps(_stdout_summary(args.command, result), ensure_ascii=False, sort_keys=True))
+    except Exception as error:
+        try:
+            error.source_tf_private_diagnostic = _private_cli_diagnostic(root, args, argv, error)
+        except Exception:
+            # Invalid/nonprivate paths or unavailable storage must never cause a
+            # diagnostic write outside PRIVATE or disclosure of either error.
+            pass
+        raise
     return 0
 
 
+def _cli_entrypoint():
+    try:
+        return main()
+    except Exception as error:
+        # Detailed run diagnostics, when available, stay in private artifacts.
+        # Never copy arbitrary exception text or a raw result to tool logs.
+        diagnostic = getattr(error, 'source_tf_private_diagnostic', None)
+        print(json.dumps({'schemaVersion': 'source-bound-public-tf-cli-summary/v1',
+            'status': 'failed', 'errorType': type(error).__name__,
+            'privateErrorHash': sha256_json({'type': type(error).__name__, 'message': str(error)}),
+            'privateDiagnosticSaved': diagnostic is not None, 'privateDiagnostic': diagnostic},
+            ensure_ascii=False, sort_keys=True), file=sys.stderr)
+        return 1
+
+
 if __name__ == '__main__':
-    raise SystemExit(main())
+    raise SystemExit(_cli_entrypoint())
