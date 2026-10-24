@@ -51,6 +51,58 @@ def native_audit(root, scope, *, encrypted=True, spawn=False):
         'reviewerStarted': cr(2), 'reviewerRequest': cr(3), 'reviewerFinal': cr(4), 'reviewerComplete': cr(5)}
 
 
+
+def yielded_native_audit(root, scope, *, mutate=None):
+    """Three real outer exec waits; shell polling stays inside canonical JS."""
+    record = native_audit(root, scope)
+    parent = Path(record['creation']['sessionPath'])
+    base = [json.loads(line) for line in parent.read_bytes().splitlines()]
+    metadata = {'turn_id': 'author-turn'}
+    def response(kind, **fields):
+        return {'type': 'response_item', 'timestamp': '2026-10-12T00:00:00Z',
+            'payload': {'type': kind, 'id': 'runtime', **fields,
+                'internal_chat_message_metadata_passthrough': metadata}}
+    def running(kind, call):
+        event = response(kind, call_id=call,
+            output='Script running with cell ID 215\nWall time 61.0 seconds\nOutput:\n')
+        event['metadata'] = {'client_authored': False, 'fallback_token_limit_override': 12000}
+        return event
+    launch = deepcopy(base[2]); launch['metadata'] = {'client_authored': False, 'user_input_order': 0}
+    events = [*base[:2], {'type': 'turn_context', 'payload': {'turn_id': 'author-turn'}}, launch,
+        running('custom_tool_call_output', 'create')]
+    for n in range(1, 4):
+        event = response('function_call', name='wait', call_id='wait-' + str(n),
+            arguments=json.dumps({'cell_id': '215', 'yield_time_ms': 1000, 'max_tokens': 1500}))
+        event['metadata'] = {'client_authored': False, 'user_input_order': n}
+        events.append(event)
+        if n < 3: events.append(running('function_call_output', 'wait-' + str(n)))
+    terminal = running('function_call_output', 'wait-3')
+    terminal['payload']['output'] = [
+        {'type': 'input_text', 'text': 'Script completed\nWall time 37.9 seconds\nOutput:\n'},
+        {'type': 'input_text', 'text': scope_marker(scope, creation=True) + '\n'}]
+    prefix = 'let r=await tools.exec_command('
+    spec, _ = json.JSONDecoder().raw_decode(scope['nativeCreationCall'].split(prefix, 1)[1])
+    completed = {'type': 'event_msg', 'timestamp': '2026-10-12T00:00:00Z', 'payload': {
+        'type': 'item_completed', 'thread_id': 'author', 'turn_id': 'author-turn',
+        'started_at_ms': 1, 'completed_at_ms': 2, 'item': {
+            'type': 'CommandExecution', 'id': 'command-complete', 'status': 'completed', 'exit_code': 0,
+            'source': 'unified_exec_startup', 'process_id': '12345', 'duration': {'secs': 1, 'nanos': 0},
+            'command': ['/bin/zsh', '-lc', spec['cmd']], 'cwd': Path(spec['workdir']).as_uri(),
+            'parsed_cmd': [{'type': 'unknown', 'cmd': spec['cmd']}],
+            'aggregated_output': terminal['payload']['output'][1]['text']}}}
+    events.extend([completed, terminal, *base[4:]])
+    references = {'authorization': events[1], 'creation': terminal, 'delegation': base[4],
+        'delegationActivity': base[5], 'delegationResult': base[6]}
+    if mutate: mutate(events)
+    lines = [(json.dumps(e, ensure_ascii=False) + '\n').encode() for e in events]
+    parent.write_bytes(b''.join(lines))
+    for name, event in references.items():
+        n = next(n for n, value in enumerate(events) if value is event)
+        record[name] = {'sessionPath': str(parent), 'eventLine': n + 1,
+            'eventSha256IncludingFinalLf': hashlib.sha256(lines[n]).hexdigest()}
+    return record
+
+
 def change(record, key, mutate):
     """Change a fixture event and its hash, to test semantic provenance gates."""
     ref = record[key]; path = Path(ref['sessionPath']); lines = path.read_bytes().splitlines(keepends=True)
@@ -107,6 +159,96 @@ class NativeIndependentApprovalTests(unittest.TestCase):
                 capture_output=True, text=True)
             self.assertNotEqual(failed.returncode, 0)
             self.assertEqual(failed.stdout, '')
+
+    def test_yielded_creation_replays_exact_chain_and_same_record_resends(self):
+        self.record = yielded_native_audit(self.root, self.scope)
+        binding = self.verify(); proof = binding['creationExecution']
+        self.assertEqual(proof['schemaVersion'], 'native-yielded-scope-creation/v1')
+        self.assertEqual(proof['waitCallIds'], ['wait-1', 'wait-2', 'wait-3'])
+        self.assertEqual(proof['cellId'], '215')
+        self.assertEqual(binding, self.verify())
+        _, law = approvals(self.root, self.plan); receipt = self.root / 'yielded-receipt.json'
+        def crash(phase, unit):
+            if phase == 'after_rename': raise RuntimeError('interrupted')
+        with self.assertRaises(RuntimeError):
+            save_formal_units(self.root, self.path, subagent_approval=self.record,
+                law_recheck=law, receipt_path=receipt, failure_hook=crash)
+        result = save_formal_units(self.root, self.path, subagent_approval=self.record,
+            law_recheck=law, receipt_path=receipt)
+        self.assertEqual(result['subagentApprovalBinding'], binding)
+        self.assertEqual(len(load_saved_units(self.root, self.path, receipt)), 3)
+        self.assertEqual(save_formal_units(self.root, self.path, subagent_approval=self.record,
+            law_recheck=law, receipt_path=receipt), result)
+        # Same terminal reference, changed intermediate native bytes: the
+        # persisted proof must differ and cannot be reinterpreted as success.
+        parent = Path(self.record['creation']['sessionPath']); lines = parent.read_bytes().splitlines(keepends=True)
+        event = json.loads(lines[4]); event['payload']['output'] = event['payload']['output'].replace('61.0', '62.0')
+        lines[4] = (json.dumps(event, ensure_ascii=False) + '\n').encode(); parent.write_bytes(b''.join(lines))
+        self.assertNotEqual(self.verify()['creationExecution'], proof)
+        with self.assertRaises(ValueError): load_saved_units(self.root, self.path, receipt)
+
+    def test_yielded_creation_rejects_foreign_calls_turns_metadata_and_incomplete_results(self):
+        def excessive_waits(events):
+            more = []
+            for n in range(4, 66):
+                wait = deepcopy(events[5]); wait['payload']['call_id'] = 'wait-' + str(n)
+                wait['metadata']['user_input_order'] = n
+                result = deepcopy(events[6]); result['payload']['call_id'] = 'wait-' + str(n)
+                more.extend([wait, result])
+            events[9]['metadata']['user_input_order'] = 66
+            events[9:9] = more
+        mutations = [
+            lambda e: e[5]['payload'].update(name='other_tool'),
+            lambda e: e[5]['payload'].update(status='failed'),
+            lambda e: e[5]['payload'].update(status='interrupted'),
+            lambda e: e[5]['payload'].update(arguments=json.dumps({'cell_id': 'different'})),
+            lambda e: e[5]['payload'].update(arguments=json.dumps({'cell_id': '215', 'terminate': True})),
+            lambda e: e[5]['payload'].update(call_id='create'),
+            lambda e: e[7]['payload'].update(call_id='wait-1'),
+            lambda e: e[6]['payload'].update(call_id='foreign-output'),
+            lambda e: e[5]['payload']['internal_chat_message_metadata_passthrough'].update(turn_id='other-turn'),
+            lambda e: e[5]['metadata'].update(unknown='unsupported'),
+            lambda e: e[4]['metadata'].update(client_authored=True),
+            lambda e: e[3]['metadata'].update(unknown='unsupported'),
+            lambda e: e[3]['payload'].update(input='text("later scope");'),
+            lambda e: e.insert(5, deepcopy(e[3])),
+            lambda e: e.insert(3, {'type': 'response_item', 'payload': {'type': 'custom_tool_call',
+                'name': 'exec', 'call_id': 'create', 'input': 'different earlier operation'}}),
+            lambda e: e.insert(3, {'type': 'response_item', 'payload': {'type': 'function_call',
+                'name': 'other_tool', 'call_id': 'wait-1', 'arguments': '{}'}}),
+            lambda e: e.insert(5, {'type': 'response_item', 'payload': {'type': 'message', 'role': 'user',
+                'content': [{'type': 'input_text', 'text': 'new instruction'}]}}),
+            lambda e: e.insert(5, {'type': 'turn_context', 'payload': {'turn_id': 'other-turn'}}),
+            lambda e: e[-4]['payload'].update(output='Script running with cell ID 215\nWall time 1.0 seconds\nOutput:\n'),
+            lambda e: e[-4]['payload']['output'][0].update(text='Script failed\nOutput:\n'),
+            lambda e: e[-4]['payload']['output'][0].update(text='Script interrupted\nOutput:\n'),
+            lambda e: e[-4]['payload']['output'][1].update(text=scope_marker(self.scope, creation=True) + '\n' + scope_marker(self.scope, creation=True) + '\n'),
+            lambda e: e[-4]['payload']['output'][1].update(unknown='unsupported'),
+            lambda e: e[-4]['payload'].update(call_id='wait-2'),
+            lambda e: e[-4]['metadata'].update(fallback_token_limit_override=True),
+            lambda e: e[-4]['payload']['internal_chat_message_metadata_passthrough'].update(turn_id='other-turn'),
+            lambda e: e[-4]['payload']['output'][1].update(text=scope_marker(self.scope, creation=True)),
+            lambda e: e[-5]['payload']['item'].update(command=['/bin/zsh', '-lc', 'different command']),
+            lambda e: e[-5]['payload']['item'].update(cwd='file:///different-repo'),
+            lambda e: e[-5]['payload']['item'].update(exit_code=1),
+            lambda e: e[-5]['payload']['item'].update(aggregated_output='different stdout'),
+            lambda e: e[-5]['payload']['item'].update(source='other_tool'),
+            lambda e: e[-5]['payload']['item']['duration'].update(secs=True),
+            lambda e: e[-5]['payload']['item'].update(unknown='unsupported'),
+            lambda e: e[-5]['payload'].update(turn_id='other-turn'),
+            lambda e: e.pop(-5),
+            lambda e: e.insert(-4, deepcopy(e[-5])),
+            lambda e: e.insert(-4, deepcopy(e[5])),
+            lambda e: e.insert(-3, deepcopy(e[5])),
+            lambda e: e.insert(-3, {'type': 'turn_context', 'payload': {'turn_id': 'other-turn'}}),
+            lambda e: e.insert(-3, {'type': 'response_item', 'payload': {'type': 'message', 'role': 'user',
+                'content': [{'type': 'input_text', 'text': 'new instruction'}]}}),
+            excessive_waits,
+        ]
+        for n, mutation in enumerate(mutations):
+            with self.subTest(n=n):
+                self.record = yielded_native_audit(self.root, self.scope, mutate=mutation)
+                with self.assertRaises(ValueError): self.verify()
 
     def test_delivered_encrypted_native_audit_and_plain_request(self):
         self.assertNotEqual(self.verify()['authorSessionId'], self.verify()['reviewerSessionId'])

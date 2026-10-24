@@ -807,6 +807,23 @@ class VerifiedStageExecutionTests(unittest.TestCase):
                 with self.assertRaises(ValueError): module.assert_native_guard(guard, terminal=True)
         parent.write_bytes(initial)
 
+    def test_owner_guard_does_not_treat_yielded_creation_completion_as_progress(self):
+        self.prepare(); approval = self.approval()
+        parent, argv = self.owner_launch(approval)
+        events = self.owner_progress()
+        with module.native_operation(argv):
+            guard = module.capture_native_guard([approval])
+            for event in events: self.append_event(parent, event)
+            last_wait = deepcopy(events[5]); last_wait['payload']['call_id'] = 'terminal-wait'
+            last_wait['metadata']['user_input_order'] = self.owner_order + 3
+            self.append_event(parent, last_wait)
+            terminal = deepcopy(events[6]); terminal['payload']['call_id'] = 'terminal-wait'
+            terminal['payload']['output'] = [
+                {'type': 'input_text', 'text': 'Script completed\nWall time 37.9 seconds\nOutput:\n'},
+                {'type': 'input_text', 'text': 'NATIVE_CANDIDATE_SCOPE={}\n'}]
+            self.append_event(parent, terminal)
+            with self.assertRaises(ValueError): module.assert_native_guard(guard, terminal=True)
+
     def test_owner_guard_signature_cache_rehashes_on_change_and_always_at_terminal(self):
         self.prepare(); approval = self.approval()
         parent, argv = self.owner_launch(approval)

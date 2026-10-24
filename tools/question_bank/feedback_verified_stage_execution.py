@@ -761,6 +761,162 @@ def _token_count(payload):
                  and re.fullmatch(r"[0-9]+(?:\.[0-9]+)?", credits["balance"]) is not None))
 
 
+def _owner_output_identity(payload, owner):
+    common = {"type", "id", "internal_chat_message_metadata_passthrough"}
+    return (not (set(payload) - common - {"call_id", "output"})
+            and payload.get("type") in {"custom_tool_call_output", "function_call_output"}
+            and payload.get("call_id") == owner["pendingCallId"] and owner["pendingCallId"] is not None
+            and (payload["type"] == "custom_tool_call_output") == (payload["call_id"] == owner["launchCallId"]))
+
+
+def _creation_command_spec(request):
+    prefix = 'let r=await tools.exec_command('
+    pragma = '// @exec: {"yield_time_ms": 60000,"max_output_tokens":16000}\n'
+    body = request.removeprefix(pragma)
+    if not body.startswith(prefix) or body.count('tools.exec_command(') != 1:
+        raise ValueError("canonical creation exec_command required")
+    spec, end = json.JSONDecoder().raw_decode(body[len(prefix):])
+    if (not isinstance(spec, dict) or set(spec) != {"cmd", "workdir", "max_output_tokens", "yield_time_ms"}
+            or not body[len(prefix) + end:].startswith(');let out=r.output;')
+            or any(not isinstance(spec[k], str) or not spec[k] for k in ("cmd", "workdir"))
+            or not Path(spec["workdir"]).is_absolute()
+            or any(type(spec[k]) is not int or spec[k] <= 0 for k in ("max_output_tokens", "yield_time_ms"))):
+        raise ValueError("exact canonical creation command spec required")
+    return spec
+
+
+def _creation_command_completed(event, owner, spec):
+    payload = _event_payload(event, owner)
+    if (payload is None or event["type"] != "event_msg"
+            or set(payload) != {"type", "thread_id", "turn_id", "item", "started_at_ms", "completed_at_ms"}
+            or payload["type"] != "item_completed" or payload["thread_id"] != owner["sessionId"]
+            or payload["turn_id"] != owner["turnId"]
+            or any(type(payload[k]) is not int or payload[k] < 0 for k in ("started_at_ms", "completed_at_ms"))
+            or payload["completed_at_ms"] < payload["started_at_ms"]): return None
+    item = payload["item"]
+    if (not isinstance(item, dict) or set(item) != {"type", "id", "aggregated_output", "command", "cwd", "duration",
+            "exit_code", "parsed_cmd", "process_id", "source", "status"}
+            or item["type"] != "CommandExecution" or item["status"] != "completed"
+            or item["source"] != "unified_exec_startup" or type(item["exit_code"]) is not int or item["exit_code"] != 0
+            or item["command"] != ["/bin/zsh", "-lc", spec["cmd"]]
+            or item["cwd"] not in (spec["workdir"], Path(spec["workdir"]).as_uri())
+            or item["parsed_cmd"] != [{"type": "unknown", "cmd": spec["cmd"]}]
+            or not isinstance(item["id"], str) or not item["id"]
+            or not isinstance(item["process_id"], str) or re.fullmatch(r"[0-9]+", item["process_id"]) is None
+            or not isinstance(item["aggregated_output"], str)):
+        return None
+    duration = item["duration"]
+    if (not isinstance(duration, dict) or set(duration) != {"secs", "nanos"}
+            or any(type(duration[k]) is not int for k in duration)
+            or duration["secs"] < 0 or not 0 <= duration["nanos"] < 1_000_000_000): return None
+    return item
+
+
+def verify_yielded_scope_creation(lines, session_id, request, terminal_line, marker, *, delegation_line=None):
+    """Replay one completed exec/wait chain; never authorize a running output.
+
+    Reuse the owner protocol's exact event and metadata schemas. The terminal
+    completion is deliberately *not* accepted by _owner_event / native guards:
+    it is decision data, valid only for this immutable scope-creation proof.
+    """
+    if (not isinstance(lines, list) or type(terminal_line) is not int or not 1 <= terminal_line <= len(lines)
+            or not isinstance(request, str) or not request or not isinstance(marker, str) or not marker):
+        raise ValueError("bounded native scope creation required")
+    prefix = lines[:terminal_line]
+    events = [json.loads(line) for line in prefix]
+    launches = [n for n, event in enumerate(events) if event.get("type") == "response_item"
+        and event.get("payload", {}).get("type") == "custom_tool_call"
+        and event["payload"].get("name") == "exec" and event["payload"].get("input") == request]
+    if len(launches) != 1:
+        raise ValueError("unique canonical native creation launch required")
+    launch = launches[0]; protocol = prefix[launch:]
+    if (len(protocol) > 4096 or sum(map(len, protocol)) > 8 * 1024 * 1024
+            or any(not isinstance(line, bytes) or not line.endswith(b"\n") for line in protocol)):
+        raise ValueError("bounded complete native creation protocol required")
+    owner = _operation_owner(b"".join(prefix[:launch + 1]), session_id, request)
+    launch_payload = _event_payload(events[launch], owner)
+    if (launch_payload is None or not _metadata(launch_payload, owner)
+            or not isinstance(owner["launchCallId"], str) or not owner["launchCallId"]
+            or launch_payload.get("status", "completed") != "completed"):
+        raise ValueError("exact native creation launch metadata required")
+    prior_call_ids = {event["payload"]["call_id"] for event in events[:launch]
+        if event.get("type") == "response_item" and event.get("payload", {}).get("type") in {"custom_tool_call", "function_call"}
+        and isinstance(event["payload"].get("call_id"), str)}
+    if owner["launchCallId"] in prior_call_ids:
+        raise ValueError("native creation call identity reused")
+    owner["usedCallIds"].update(prior_call_ids)
+    spec = _creation_command_spec(request)
+    waits = []
+    completion = None
+    for number, event in enumerate(events[launch + 1:-1], launch + 2):
+        payload = event.get("payload", {})
+        command = _creation_command_completed(event, owner, spec)
+        if command is not None:
+            if completion is not None or not waits or owner["pendingCallId"] != waits[-1]:
+                raise ValueError("unique pending native creation command completion required")
+            completion = (number, command)
+            continue
+        if (payload.get("turn_id", owner["turnId"]) != owner["turnId"]
+                or native.CREATED in json.dumps(event, ensure_ascii=False)
+                or payload.get("type") == "function_call" and payload.get("status", "completed") != "completed"):
+            raise ValueError("native creation turn/marker differs")
+        if completion is not None and event.get("type") == "response_item" and payload.get("type") in {
+                "custom_tool_call", "function_call", "custom_tool_call_output", "function_call_output"}:
+            raise ValueError("new tool after native creation command completion")
+        if not (_observational_runtime_event(event, session_id) or _owner_event(event, owner)):
+            raise ValueError("native creation has unsupported continuation")
+        if event.get("type") == "response_item" and payload.get("type") == "function_call":
+            waits.append(payload["call_id"])
+            if len(waits) > 64: raise ValueError("native creation wait bound exceeded")
+    terminal = events[-1]; payload = _event_payload(terminal, owner)
+    if (not waits or owner["cellId"] is None or terminal.get("type") != "response_item"
+            or payload is None or not _metadata(payload, owner) or payload.get("type") != "function_call_output"
+            or not _owner_output_identity(payload, owner)):
+        raise ValueError("pending same-cell native creation completion required")
+    output = payload.get("output")
+    if not (isinstance(output, str) or isinstance(output, list) and len(output) == 2 and _text_blocks(output, "input_text")):
+        raise ValueError("exact native creation output transport required")
+    text = native._output_text(output)
+    completed = re.fullmatch(r"Script completed\nWall time [0-9]+(?:\.[0-9]+)? seconds\nOutput:\n(.*)",
+        text, flags=re.DOTALL)
+    markers = [line for line in completed[1].splitlines() if line.startswith(native.CREATED)] if completed else []
+    if not completed or not text.endswith("\n") or text.count(native.CREATED) != 1 or markers != [marker]:
+        raise ValueError("successful exact native scope creation completion required")
+    stdout = output[1]["text"] if isinstance(output, list) else completed[1]
+    if (isinstance(output, list) and re.fullmatch(
+            r"Script completed\nWall time [0-9]+(?:\.[0-9]+)? seconds\nOutput:\n", output[0]["text"]) is None
+            or completion is None or completion[1]["aggregated_output"] != stdout):
+        raise ValueError("canonical command and native terminal stdout differ")
+    trailing = []
+    if delegation_line is not None:
+        if type(delegation_line) is not int or not terminal_line < delegation_line <= len(lines):
+            raise ValueError("native creation delegation boundary differs")
+        trailing = lines[terminal_line:delegation_line - 1]
+        if (len(trailing) + len(protocol) > 4096 or sum(map(len, trailing)) + sum(map(len, protocol)) > 8 * 1024 * 1024
+                or any(not line.endswith(b"\n") for line in trailing)):
+            raise ValueError("bounded pre-delegation native events required")
+        for line in trailing:
+            event = json.loads(line); payload = event.get("payload", {})
+            if (event.get("type") == "response_item" and payload.get("type") in {
+                    "custom_tool_call", "function_call", "custom_tool_call_output", "function_call_output"}
+                    or native.CREATED in json.dumps(event, ensure_ascii=False)
+                    or payload.get("turn_id", owner["turnId"]) != owner["turnId"]
+                    or not (_observational_runtime_event(event, session_id) or _owner_event(event, owner))):
+                raise ValueError("new input/tool after native creation terminal")
+    return {"schemaVersion": "native-yielded-scope-creation/v1", "sessionId": session_id,
+        "turnId": owner["turnId"], "cellId": owner["cellId"], "launchCallId": owner["launchCallId"],
+        "waitCallIds": waits, "launchEventLine": launch + 1, "terminalEventLine": terminal_line,
+        "launchEventSha256IncludingFinalLf": context_api._hash(prefix[launch]),
+        "terminalEventSha256IncludingFinalLf": context_api._hash(prefix[-1]),
+        "protocolSha256IncludingFinalLf": context_api._hash(b"".join(protocol)),
+        "terminalOutputSha256": sha256_json(output), "terminalTextSha256": context_api._hash(text.encode()),
+        "canonicalExecCommandSha256": sha256_json(spec),
+        "commandCompletionEventLine": completion[0],
+        "commandCompletionEventSha256IncludingFinalLf": context_api._hash(prefix[completion[0] - 1]),
+        "commandStdoutSha256": context_api._hash(stdout.encode()),
+        "preDelegationSha256IncludingFinalLf": context_api._hash(b"".join(trailing))}
+
+
 def _owner_event(event, owner):
     """Finite owner-only wait protocol; no other tool/output is observational."""
     payload = _event_payload(event, owner)
@@ -808,9 +964,7 @@ def _owner_event(event, owner):
         owner["pendingCallId"] = payload["call_id"]
         return True
     if tag in {"custom_tool_call_output", "function_call_output"}:
-        if (set(payload) - common - {"call_id", "output"} or payload.get("call_id") != owner["pendingCallId"]
-                or owner["pendingCallId"] is None
-                or (tag == "custom_tool_call_output") != (payload["call_id"] == owner["launchCallId"])):
+        if not _owner_output_identity(payload, owner):
             return False
         if not isinstance(payload.get("output"), str): return False
         match = re.fullmatch(r"Script running with cell ID ([0-9]+)\nWall time [0-9]+(?:\.[0-9]+)? seconds\nOutput:\n", payload.get("output", ""))

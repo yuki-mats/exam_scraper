@@ -85,12 +85,23 @@ def verify_independent_approval(record, scope, *, production=True):
     if not (record['authorization']['eventLine'] < record['creation']['eventLine'] < record['delegation']['eventLine'] < record['delegationResult']['eventLine']):
         raise ValueError('native author/delegation order differs')
     created, _, lines = entries['creation']
-    cp = _response(created, 'custom_tool_call_output')
-    markers = [l for l in _output_text(cp.get('output', '')).splitlines() if l.startswith(CREATED)]
-    if markers != [scope_marker(scope, creation=True)]:
-        raise ValueError('native candidate scope creation binding differs')
-    calls = [json.loads(l).get('payload', {}) for l in lines[:record['creation']['eventLine'] - 1]]
-    creation_calls = [c for c in calls if c.get('type') == 'custom_tool_call' and c.get('call_id') == cp.get('call_id') and c.get('name') == 'exec' and c.get('namespace') in {None, 'functions'}]
+    creation_execution = None
+    if created.get('payload', {}).get('type') == 'function_call_output':
+        from tools.question_bank.feedback_verified_stage_execution import verify_yielded_scope_creation
+        cp = _response(created, 'function_call_output')
+        creation_execution = verify_yielded_scope_creation(lines, author['id'], scope.get('nativeCreationCall'),
+            record['creation']['eventLine'], scope_marker(scope, creation=True),
+            delegation_line=record['delegation']['eventLine'])
+        if record['authorization']['eventLine'] >= creation_execution['launchEventLine']:
+            raise ValueError('native creation launch must follow user authorization')
+        creation_calls = [json.loads(lines[creation_execution['launchEventLine'] - 1])['payload']]
+    else:
+        cp = _response(created, 'custom_tool_call_output')
+        markers = [l for l in _output_text(cp.get('output', '')).splitlines() if l.startswith(CREATED)]
+        if markers != [scope_marker(scope, creation=True)]:
+            raise ValueError('native candidate scope creation binding differs')
+        calls = [json.loads(l).get('payload', {}) for l in lines[:record['creation']['eventLine'] - 1]]
+        creation_calls = [c for c in calls if c.get('type') == 'custom_tool_call' and c.get('call_id') == cp.get('call_id') and c.get('name') == 'exec' and c.get('namespace') in {None, 'functions'}]
     if (not cp.get('call_id') or len(creation_calls) != 1 or not scope.get('nativeCreationCall')
             or creation_calls[0].get('input') != scope['nativeCreationCall']):
         raise ValueError('native candidate creation tool missing')
@@ -168,9 +179,11 @@ def verify_independent_approval(record, scope, *, production=True):
             or not isinstance(verdict['evidence'], list) or not verdict['evidence']
             or any(not isinstance(e, str) or not e.strip() for e in verdict['evidence'])):
         raise ValueError('explicit exact-scope approval with zero findings required')
-    return {'authorSessionId': author['id'], 'reviewerSessionId': reviewer['id'], 'reviewerAgentPath': path,
+    binding = {'authorSessionId': author['id'], 'reviewerSessionId': reviewer['id'], 'reviewerAgentPath': path,
             'reviewerTurnId': turn, 'scopeHash': sha256_json(scope), 'resultHash': sha256_json(verdict),
             'nativeEvidenceHash': sha256_json(record)}
+    if creation_execution is not None: binding['creationExecution'] = creation_execution
+    return binding
 
 
 def main():
