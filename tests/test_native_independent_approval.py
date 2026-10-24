@@ -52,7 +52,7 @@ def native_audit(root, scope, *, encrypted=True, spawn=False):
 
 
 
-def yielded_native_audit(root, scope, *, mutate=None):
+def yielded_native_audit(root, scope, *, mutate=None, completion_before_wait=False):
     """Three real outer exec waits; shell polling stays inside canonical JS."""
     record = native_audit(root, scope)
     parent = Path(record['creation']['sessionPath'])
@@ -90,7 +90,11 @@ def yielded_native_audit(root, scope, *, mutate=None):
             'command': ['/bin/zsh', '-lc', spec['cmd']], 'cwd': Path(spec['workdir']).as_uri(),
             'parsed_cmd': [{'type': 'unknown', 'cmd': spec['cmd']}],
             'aggregated_output': terminal['payload']['output'][1]['text']}}}
-    events.extend([completed, terminal, *base[4:]])
+    if completion_before_wait:
+        events = [*events[:5], completed,
+            response('message', role='assistant', phase='commentary', content=[{'type': 'output_text', 'text': '結果を確認します。'}]),
+            response('reasoning', summary=[]), events[-1], terminal, *base[4:]]
+    else: events.extend([completed, terminal, *base[4:]])
     references = {'authorization': events[1], 'creation': terminal, 'delegation': base[4],
         'delegationActivity': base[5], 'delegationResult': base[6]}
     if mutate: mutate(events)
@@ -186,6 +190,69 @@ class NativeIndependentApprovalTests(unittest.TestCase):
         lines[4] = (json.dumps(event, ensure_ascii=False) + '\n').encode(); parent.write_bytes(b''.join(lines))
         self.assertNotEqual(self.verify()['creationExecution'], proof)
         with self.assertRaises(ValueError): load_saved_units(self.root, self.path, receipt)
+
+    def test_yielded_creation_accepts_completion_before_its_single_final_wait(self):
+        def progress(events):
+            wait = deepcopy(events[8]); wait['payload']['call_id'] = 'progress-before-completion'
+            wait['metadata']['user_input_order'] = 1
+            output = deepcopy(events[4]); output['payload'].update(type='function_call_output', call_id='progress-before-completion')
+            events[5:5] = [wait, output]
+        for prior_progress in (None, progress):
+            with self.subTest(prior_progress=prior_progress is not None):
+                self.record = yielded_native_audit(self.root, self.scope,
+                    completion_before_wait=True, mutate=prior_progress)
+                result = self.verify(); proof = result['creationExecution']
+                self.assertEqual(proof['cellId'], '215')
+                self.assertEqual(proof['waitCallIds'], (['progress-before-completion'] if prior_progress else []) + ['wait-3'])
+                self.assertLess(proof['commandCompletionEventLine'], proof['terminalEventLine'] - 1)
+                self.assertEqual(result, self.verify())
+
+    def test_completion_before_wait_refuses_nearby_invalid_chains(self):
+        def extra_wait(events):
+            wait = deepcopy(events[8]); wait['payload']['call_id'] = 'extra-final-wait'
+            wait['metadata']['user_input_order'] = 4
+            events.insert(9, wait)
+        def yield_again(events):
+            output = deepcopy(events[4]); output['payload'].update(type='function_call_output', call_id='wait-3')
+            events.insert(9, output)
+        def completion_before_yield(events):
+            events.insert(4, events.pop(5))
+        mutations = [
+            completion_before_yield,
+            lambda e: e.insert(6, deepcopy(e[5])),
+            lambda e: e[5]['payload']['item'].update(exit_code=1),
+            lambda e: e[5]['payload']['item'].update(status='failed'),
+            lambda e: e[5]['payload']['item'].update(command=['/bin/zsh', '-lc', 'foreign command']),
+            lambda e: e[5]['payload']['item'].update(aggregated_output='different stdout'),
+            lambda e: e[5]['payload'].update(thread_id='foreign-session'),
+            lambda e: e[5]['payload'].update(turn_id='foreign-turn'),
+            lambda e: e[8]['payload'].update(name='other_tool'),
+            lambda e: e[8]['payload'].update(arguments=json.dumps({'cell_id': 'foreign-cell'})),
+            lambda e: e[8]['payload'].update(status='failed'),
+            lambda e: e[8]['payload']['internal_chat_message_metadata_passthrough'].update(turn_id='foreign-turn'),
+            lambda e: e[8]['payload'].update(call_id='create'),
+            extra_wait, yield_again,
+            lambda e: e.insert(8, deepcopy(e[3])),
+            lambda e: e.insert(8, {'type': 'response_item', 'payload': {'type': 'message', 'role': 'user',
+                'content': [{'type': 'input_text', 'text': 'new instruction'}]}}),
+            lambda e: e[9]['payload']['output'][0].update(text='Script failed\nOutput:\n'),
+            lambda e: e[9]['payload']['output'][1].update(text='!' + scope_marker(self.scope, creation=True)[1:] + '\n'),
+            lambda e: e[9]['payload']['output'][1].update(text=scope_marker(self.scope, creation=True) + '\nchanged-marker\n'),
+        ]
+        # Same marker plus an extra stdout line must not match the command's
+        # exact stdout, even though marker extraction itself would succeed.
+        for number, mutation in enumerate(mutations):
+            with self.subTest(number=number):
+                self.record = yielded_native_audit(self.root, self.scope, completion_before_wait=True, mutate=mutation)
+                with self.assertRaises(ValueError): self.verify()
+
+    def test_pending_wait_completion_cannot_enter_before_wait_race_branch(self):
+        def mutation(events):
+            wait = deepcopy(events[9]); wait['payload']['call_id'] = 'new-after-pending-completion'
+            wait['metadata']['user_input_order'] = 4
+            events.insert(-4, wait)
+        self.record = yielded_native_audit(self.root, self.scope, mutate=mutation)
+        with self.assertRaises(ValueError): self.verify()
 
     def test_yielded_creation_rejects_foreign_calls_turns_metadata_and_incomplete_results(self):
         def excessive_waits(events):

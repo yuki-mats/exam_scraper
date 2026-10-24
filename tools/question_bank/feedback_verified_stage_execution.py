@@ -861,11 +861,19 @@ def verify_yielded_scope_creation(lines, session_id, request, terminal_line, mar
     spec = _creation_command_spec(request)
     waits = []
     completion = None
+    completion_wait_required = False
     for number, event in enumerate(events[launch + 1:-1], launch + 2):
         payload = event.get("payload", {})
         command = _creation_command_completed(event, owner, spec)
         if command is not None:
-            if completion is not None or not waits or owner["pendingCallId"] != waits[-1]:
+            if completion is not None or owner["cellId"] is None:
+                raise ValueError("unique pending native creation command completion required")
+            if owner["pendingCallId"] is None:
+                # The command can finish after a valid running/yield output
+                # but before the caller starts its next wait. Exactly one
+                # final same-cell wait must still deliver the actual terminal.
+                completion_wait_required = True
+            elif not waits or owner["pendingCallId"] != waits[-1]:
                 raise ValueError("unique pending native creation command completion required")
             completion = (number, command)
             continue
@@ -875,11 +883,13 @@ def verify_yielded_scope_creation(lines, session_id, request, terminal_line, mar
             raise ValueError("native creation turn/marker differs")
         if completion is not None and event.get("type") == "response_item" and payload.get("type") in {
                 "custom_tool_call", "function_call", "custom_tool_call_output", "function_call_output"}:
-            raise ValueError("new tool after native creation command completion")
+            if not (completion_wait_required and payload.get("type") == "function_call"):
+                raise ValueError("new tool after native creation command completion")
         if not (_observational_runtime_event(event, session_id) or _owner_event(event, owner)):
             raise ValueError("native creation has unsupported continuation")
         if event.get("type") == "response_item" and payload.get("type") == "function_call":
             waits.append(payload["call_id"])
+            if completion is not None: completion_wait_required = False
             if len(waits) > 64: raise ValueError("native creation wait bound exceeded")
     terminal = events[-1]; payload = _event_payload(terminal, owner)
     if (not waits or owner["cellId"] is None or terminal.get("type") != "response_item"
