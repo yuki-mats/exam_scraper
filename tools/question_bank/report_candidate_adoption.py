@@ -47,6 +47,8 @@ def subject(context):
         'normalStageProofs': [{'stageId': item['stageId'], 'proofHash': sha256_json(item)} for item in context['stageProofs']],
         'mapping': deepcopy(context['mapping']), 'plannedPublic': {key: deepcopy(public[key]) for key in
             ('publicationUnit', 'record', 'questions', 'writeFieldsByDocument')}}
+    if 'technicalRepair' in context:
+        candidate['technicalRepair'] = deepcopy(context['technicalRepair'])
     before = deepcopy(public['baseline']); docs = {d['questionId']: d for d in public['questions']}
     if len(docs) != len(public['questions']) or set(docs) != set(before): raise ValueError('candidate all-sibling coverage required')
     differences = {}

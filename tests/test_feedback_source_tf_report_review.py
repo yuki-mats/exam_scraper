@@ -6,7 +6,7 @@ from types import SimpleNamespace
 
 import pytest
 
-from tests.test_feedback_source_tf_delivery import rig, write, no_live_sdk
+from tests.test_feedback_source_tf_delivery import rig, write, no_live_sdk, missing_tags
 from tests.test_native_independent_approval import native_audit
 from tools.question_bank import feedback_source_tf_delivery as delivery
 from tools.question_bank import feedback_source_tf_report_review as api
@@ -19,16 +19,14 @@ _real_read_claims = api.read_claims
 @pytest.fixture
 def report(rig, monkeypatch):
     r = rig
-    r.connection.executescript("CREATE TABLE report_tasks(task_id,report_id,question_id,categories_json,case_ids_json,case_statuses_json,intake_status,decision,decision_reason,evidence_ref,proposal_hash);"
-        "CREATE TABLE report_case_decisions(task_id,case_id,decision,reason,evidence_ref,decided_at);"
-        "INSERT INTO report_tasks VALUES('report-task','report','live-a','[\"correct_answer\"]','[\"case\"]','{}','complete','fix_required','reason','evidence','proposal');"
+    r.connection.executescript("INSERT INTO report_tasks(task_id,source_path,report_id,question_id,received_at,categories_json,case_ids_json,case_statuses_json,intake_status,decision,decision_reason,evidence_ref,proposal_hash,first_seen_at,last_seen_at) VALUES('report-task','fixture','report','live-a','fixture','[\"correct_answer\"]','[\"case\"]','{}','complete','fix_required','reason','evidence','proposal','fixture','fixture');"
         "INSERT INTO report_case_decisions VALUES('report-task','case','fix_required','reason','evidence','time');")
-    r.connection.execute('ALTER TABLE report_tasks ADD COLUMN source_path')
     source_path = 'users/private-fixture-user/questionIssueReportSubmissions/report'
     r.connection.execute('UPDATE report_tasks SET source_path=?', (source_path,))
     case_id = api._intake_hash({'questionId': 'live-a', 'questionContentHash': 'a' * 64, 'category': 'correct_answer'})
     r.connection.execute('UPDATE report_tasks SET case_ids_json=?', (json.dumps([case_id]),))
     r.connection.execute('UPDATE report_case_decisions SET case_id=?', (case_id,))
+    r.connection.execute('INSERT INTO report_task_cases(task_id,case_id) VALUES(?,?)', ('report-task', case_id))
     r.connection.commit()
     r.request['authority'] = {'kind': 'report', 'taskId': 'report-task', 'caseId': case_id}
     write(r.request_path, r.request)
@@ -104,6 +102,152 @@ def source_public(r):
     return source, public
 
 
+def five_missing_tags(r):
+    """Extend only this isolated fixture's source/normal/live to five siblings."""
+    r.source['choiceTextList'] = [*r.source['choiceTextList'], '命題D。', '命題E。']
+    r.source['correctChoiceText'] = ['正しい'] * 5
+    r.current['choiceTextList'] = deepcopy(r.source['choiceTextList'])
+    r.current['correctChoiceText'] = [*r.current['correctChoiceText'], '正しい', '正しい']
+    r.current['explanationText'] = [*r.current['explanationText'], '正しい。', '正しい。']
+    path = Path(r.request['source']['ref']); records = json.loads(path.read_bytes()); records['question_bodies'][0] = r.source
+    r.request['source']['sha256'] = write(path, records)['sha256']
+    write(r.root / delivery.MANIFEST, (json.dumps({'path': str(path.relative_to(r.root)), 'sha256': r.request['source']['sha256']}) + '\n').encode())
+    ids = ['live-a', 'live-b', 'live-c', 'live-d', 'live-e']
+    generated = delivery.convert_question_to_firestore({**r.current, 'firestoreQuestionIds': ids,
+        'correctChoiceText': ['正しい'] * 5, 'explanationText': ['正しい。'] * 5})
+    for document in generated:
+        identity = document['questionId']
+        if identity in r.baseline: continue
+        fields = delivery.uploader.build_doc_data_base(document); fields.update(qualificationId='sample', examYear=2026)
+        snapshot = {'questionId': identity, 'exists': True, 'updateTimeExact': '2026-10-22T00:00:00.123456789Z', 'fields': fields}
+        r.baseline[identity] = deepcopy(snapshot); r.snapshots[identity] = deepcopy(snapshot)
+        text = document['originalQuestionChoiceText']
+        r.request['mapping'].append({'questionId': identity, 'sourceChoiceText': text,
+            'sourceChoiceSha256': api._hash(text.encode()), 'liveChoiceText': text})
+        r.request['public'].append({'questionId': identity, 'questionBodyText': '次の命題は正しいか。',
+            'questionText': f'次の命題は正しいか。[quote]{text}[/quote]', 'correctChoiceText': '正しい'})
+    missing_tags(r); write(r.request_path, r.request)
+
+
+def test_v4_five_missing_tags_fixed_evidence_is_sent_to_all_reviews_and_replayed(report):
+    r = report; five_missing_tags(r); _, proof = executed(r)
+    source, public = source_public(r)
+    result = api.verify(r.root, proof, r.request, source, public, r.connection, {})
+    assert result['candidateAdopted'] is True
+    for phase, prompt, options in r.turns:
+        value = json.loads(prompt.split('<INPUT_JSON>\n')[-1].split('\n</INPUT_JSON>')[0])['input']
+        repair = value['candidate']['technicalRepair']; payload = delivery._payload({'public': public})
+        assert repair['schemaVersion'] == 'source-tf-required-tags-adoption-context/v1'
+        assert repair['payloadHash'] == api.sha256_json(payload)
+        assert repair['transportSchema'] == delivery.uploader.READ_SET_TF_TRUTH_INITIALIZE_SCHEMA
+        assert repair['initializeMissingFieldsByDocument'] == {identity: ['questionTags'] for identity in sorted(r.baseline)}
+        assert len(repair['fieldDifferencesByDocument']) == 5
+        assert all(delta['questionTags'] == {'beforePresent': False, 'before': None, 'afterPresent': True, 'after': []}
+            for delta in repair['fieldDifferencesByDocument'].values())
+        assert len(repair['repositoryEvidence']) == 6
+        for evidence in repair['repositoryEvidence']:
+            raw = (r.root / evidence['ref']).read_bytes()
+            assert api._hash(raw) == evidence['sha256']
+            assert ''.join(raw.decode().splitlines(keepends=True)[evidence['startLine'] - 1:evidence['endLine']]) == evidence['content']
+            assert api._hash(evidence['content'].encode()) == evidence['contentHash']
+        assert len(options['image_paths']) == 2
+        assert ('利用者の指摘本文' in prompt) == (phase == 'challenge')
+    plan = json.loads(r.review_path.read_bytes())
+    assert 'config/requirements/required_fields.toml' in plan['inputFiles']
+    assert 'document/operations/artifact_contract.md' in plan['inputFiles']
+    blind = json.loads((r.review_dir / 'blind_input.json').read_bytes())
+    for field in ('content', 'sha256', 'contentHash'):
+        forged_context = deepcopy(plan['context']); forged_context['technicalRepair']['repositoryEvidence'][0][field] += 'changed'
+        assert api.adoption.subject(forged_context)['candidateHash'] != blind['candidateHash']
+        assert api.adoption.subject(forged_context)['modelSubjectHash'] != blind['modelSubjectHash']
+        forged_plan = {**plan, 'context': forged_context}
+        with pytest.raises(ValueError, match='technical repair evidence differs'):
+            api._reviews(r.root, r.review_path, forged_plan, {})
+
+
+def test_v4_technical_evidence_never_forwards_observed_private_actor_literal(report):
+    r = report; five_missing_tags(r); source, public = source_public(r)
+    actor = 'private-fixture-evidence-person'
+    for identity, snapshot in public['baseline'].items():
+        snapshot['fields']['createdById'] = actor
+        next(document for document in public['questions'] if document['questionId'] == identity)['createdById'] = actor
+    path = r.root / 'document/operations/artifact_contract.md'; text = path.read_text()
+    text = text.replace('専用profileである。', '専用profileである。 ' + actor)
+    path.write_text(text)
+    with pytest.raises(ValueError, match='private identity value'):
+        api.context(r.request, source, public, root=r.root, files={})
+    assert not r.turns
+
+
+@pytest.mark.parametrize('mutation', ['missing_map', 'foreign_id', 'unknown_profile', 'existing_tags', 'normal_nonempty'])
+def test_v4_technical_repair_rejects_inconsistent_map_presence_or_normal_tags(report, monkeypatch, mutation):
+    r = report; five_missing_tags(r); source, public = source_public(r)
+    if mutation == 'existing_tags': public['baseline']['live-a']['fields']['questionTags'] = []
+    elif mutation == 'normal_nonempty': source['normalProjection']['questionTags'] = ['normal-nonempty']
+    else:
+        payload = delivery._payload({'public': public})
+        if mutation == 'missing_map': payload['initializeMissingFieldsByDocument'] = {}
+        elif mutation == 'unknown_profile': payload['schemaVersion'] = 'unsupported-profile'
+        else: payload['initializeMissingFieldsByDocument']['foreign'] = ['questionTags']
+        monkeypatch.setattr(delivery, '_payload', lambda _: payload)
+    with pytest.raises((ValueError, KeyError)):
+        api.context(r.request, source, public, root=r.root, files={})
+
+
+@pytest.mark.parametrize('mutation', ['missing_root', 'missing_file', 'ambiguous_clause', 'requirements_removed'])
+def test_v4_requires_unique_actual_fixed_repository_evidence(report, mutation):
+    r = report; five_missing_tags(r); source, public = source_public(r)
+    if mutation == 'missing_root':
+        with pytest.raises(ValueError, match='fixed repository'): api.context(r.request, source, public)
+        return
+    path = r.root / ('config/requirements/required_fields.toml' if mutation == 'requirements_removed' else 'document/operations/artifact_contract.md')
+    if mutation == 'missing_file': path.unlink()
+    elif mutation == 'ambiguous_clause':
+        text = path.read_text(); clause = next(line for line in text.splitlines() if line.startswith('`question-maintenance-read-set-upload/v4`とresult/v4は'))
+        path.write_text(text + '\n' + clause + '\n')
+    else: path.write_text(path.read_text().replace('  "questionTags",\n', ''))
+    with pytest.raises((ValueError, FileNotFoundError)):
+        api.context(r.request, source, public, root=r.root, files={})
+
+
+def test_v4_actual_sent_prompt_cannot_omit_technical_repair(report, monkeypatch):
+    r = report; five_missing_tags(r); original = api.adoption.prompt
+    def omitted(root, phase, value, contract_text):
+        incomplete = deepcopy(value); incomplete['candidate'].pop('technicalRepair')
+        return original(root, phase, incomplete, contract_text)
+    monkeypatch.setattr(api.adoption, 'prompt', omitted)
+    with pytest.raises(ValueError, match='actual candidate adoption prompt omitted'):
+        api.execute(r.root, r.request_path, r.review_dir, coordinator=r.coordinator, connection=r.connection, execution_argv=r.argv)
+    assert not r.turns and not (r.review_dir / 'receipt.json').exists()
+
+
+def test_v4_fixed_evidence_changes_invalidate_input_and_old_approval(report):
+    r = report; five_missing_tags(r); _, proof = executed(r); source, public = source_public(r)
+    path = r.root / 'config/requirements/required_fields.toml'; path.write_bytes(path.read_bytes() + b'\n# changed fixed evidence\n')
+    with pytest.raises(ValueError): api.verify(r.root, proof, r.request, source, public, r.connection, {})
+
+
+def test_v4_technical_rejection_preserves_all_received_reviews_without_authority(report):
+    r = report; five_missing_tags(r); original = r.coordinator.app_server.run_turn
+    def reject(prompt, **options):
+        result = original(prompt, **options); phase = options['monitor_context']['phase']
+        if phase == 'blind_b': return result
+        payload = json.loads(result.final_message); payload.update(decision='reject', findings=['同時技術修復の必要性を確認できない。'])
+        if phase != 'challenge':
+            for document in payload['documents'].values():
+                document.update(decision='reject', findings=['同時修復の根拠不足。'])
+                document['criteria']['outOfScopeUnchanged'] = {'satisfied': False, 'reason': '修復の最小性を確認できない。'}
+        return SimpleNamespace(**{**vars(result), 'final_message': json.dumps(payload, ensure_ascii=False)})
+    r.coordinator.app_server.run_turn = reject
+    with pytest.raises(ValueError, match='candidate adoption rejected'):
+        api.execute(r.root, r.request_path, r.review_dir, coordinator=r.coordinator, connection=r.connection, execution_argv=r.argv)
+    assert len(r.turns) == 3
+    assert json.loads((r.review_dir / 'blind_a.json').read_bytes())['decision'] == 'reject'
+    assert json.loads((r.review_dir / 'blind_b.json').read_bytes())['decision'] == 'approve'
+    assert json.loads((r.review_dir / 'challenge.json').read_bytes())['decision'] == 'reject'
+    assert not (r.review_dir / 'receipt.json').exists()
+
+
 def test_fresh_review_keeps_claims_out_of_blind_and_records_two_images(report):
     r = report; scope, proof = executed(r)
     assert len(r.turns) == 3
@@ -127,6 +271,7 @@ def test_fresh_review_keeps_claims_out_of_blind_and_records_two_images(report):
     assert after['correctChoiceText'] == '間違い'
     assert sent['fieldDifferencesByDocument']['live-a']['correctChoiceText']['after'] == '間違い'
     assert 'currentFirestoreSnapshots' not in sent
+    assert 'technicalRepair' not in sent['candidate']
 
 
 @pytest.mark.parametrize('mutation', ['case_time', 'case_content', 'case_category', 'case_id', 'claims', 'decision', 'mapping', 'public', 'source', 'policy', 'evidence'])

@@ -7,6 +7,7 @@ approval verifies the exact execute call/output and a separate auditor's verdict
 from __future__ import annotations
 
 import argparse
+import ast
 from contextlib import closing
 from copy import deepcopy
 from datetime import datetime, timezone
@@ -14,6 +15,7 @@ import json
 from pathlib import Path
 import sqlite3
 import sys
+import tomllib
 
 from scripts.common.scoped_canonical_context import reader_dependencies
 from tools.question_bank import feedback_prepared_stage as normal
@@ -177,13 +179,104 @@ def _claims(request, requirement, connection, case):
     return [{'caseId': case['id'], **claim} for claim in sorted(claims, key=lambda item: item['intakeBinding']['sourcePathSha256'])]
 
 
-def context(request, source, public):
+def _repair_evidence(root, files):
+    """Fixed, bounded actual source excerpts; no caller-supplied rationale."""
+    result = []
+    def add(relative, locator, select):
+        raw = _read(root, root / relative, files); text = raw.decode('utf-8'); lines = text.splitlines(keepends=True)
+        start, end = select(text, lines)
+        if not (1 <= start <= end <= len(lines)) or end - start >= 100:
+            raise ValueError('bounded required-tags evidence selector differs')
+        content = ''.join(lines[start - 1:end])
+        result.append({'ref': relative, 'sha256': _hash(raw), 'locator': locator,
+            'startLine': start, 'endLine': end, 'content': content, 'contentHash': _hash(content.encode())})
+    def section(text, lines):
+        if 'questionTags' not in tomllib.loads(text)['default']['stages']['firestore']['questions_required_keys']:
+            raise ValueError('current required-field policy does not require questionTags')
+        starts = [i for i, line in enumerate(lines) if line.strip() == '[default.stages.firestore]']
+        if len(starts) != 1: raise ValueError('unique Firestore requirements section required')
+        start = starts[0]; end = next((i for i in range(start + 1, len(lines)) if lines[i].lstrip().startswith('[')), len(lines))
+        return start + 1, end
+    def python_node(symbol, selector):
+        def select(text, lines):
+            definitions = [node for node in ast.parse(text).body if isinstance(node, ast.FunctionDef) and node.name == symbol]
+            if len(definitions) != 1: raise ValueError('unique fixed required-tags validator required')
+            nodes = selector(definitions[0])
+            if len(nodes) != 1: raise ValueError('unique required-tags source clause required')
+            return nodes[0].lineno, nodes[0].end_lineno
+        return select
+    add('config/requirements/required_fields.toml', 'default.stages.firestore', section)
+    add('scripts/common/repaso_firestore_schema.py', '_is_list_of_str', python_node('_is_list_of_str', lambda node: [node]))
+    add('scripts/common/repaso_firestore_schema.py', 'validate_question_doc:questionTags', python_node('validate_question_doc',
+        lambda node: [item for item in node.body if isinstance(item, ast.If) and 'questionTags' in ast.unparse(item.test)]))
+    add('tools/question_review_console/patch_validation.py', 'upload_document_required_warnings:questionTags',
+        python_node('upload_document_required_warnings', lambda node: [item for item in node.body
+            if isinstance(item, ast.If) and 'questionTags' in ast.unparse(item.test)]))
+    def default_field(text, lines):
+        definitions = [node for node in ast.parse(text).body if isinstance(node, ast.FunctionDef) and node.name == 'build_doc_data_base']
+        if len(definitions) != 1: raise ValueError('unique normal DTO builder required')
+        entries = [(key, value) for node in ast.walk(definitions[0]) if isinstance(node, ast.Dict)
+            for key, value in zip(node.keys, node.values) if isinstance(key, ast.Constant) and key.value == 'questionTags']
+        if len(entries) != 1 or ast.unparse(entries[0][1]) != "question.get('questionTags', [])":
+            raise ValueError('current normal DTO questionTags default differs')
+        return entries[0][0].lineno, entries[0][1].end_lineno
+    add('scripts/upload/upload_questions_to_firestore.py', 'build_doc_data_base:questionTags schema default', default_field)
+    def policy(text, lines):
+        matches = [i for i, line in enumerate(lines) if line.startswith('`question-maintenance-read-set-upload/v4`とresult/v4は')]
+        if len(matches) != 1: raise ValueError('unique canonical TF v4 policy required')
+        start = matches[0]; end = next((i for i in range(start + 1, len(lines)) if not lines[i].strip()), len(lines))
+        return start + 1, end
+    add('document/operations/artifact_contract.md', 'TF v4 missing questionTags initialization policy', policy)
+    return result
+
+
+def _technical_repair(root, source, public, files):
+    from tools.question_bank import feedback_source_tf_delivery as delivery
+    payload = delivery._payload({'public': public})
+    if payload['schemaVersion'] == delivery.uploader.READ_SET_TF_TRUTH_SCHEMA: return None
+    if payload['schemaVersion'] != delivery.uploader.READ_SET_TF_TRUTH_INITIALIZE_SCHEMA:
+        raise ValueError('unsupported candidate technical repair profile')
+    if root is None or files is None: raise ValueError('fixed repository technical repair evidence required')
+    if source['normalProjection'].get('questionTags', []) != []:
+        raise ValueError('required-tags initialization cannot discard nonempty normal tags')
+    initializations = payload['initializeMissingFieldsByDocument']
+    missing = {identity for identity, snapshot in public['baseline'].items() if 'questionTags' not in snapshot['fields']}
+    if (not isinstance(initializations, dict) or not initializations or set(initializations) != missing
+            or not set(initializations) <= set(payload['writeFieldsByDocument'])):
+        raise ValueError('complete nonempty required-tags initialization set required')
+    documents = {document['questionId']: document for document in public['questions']}
+    deltas = {}
+    for identity, fields in initializations.items():
+        if (fields != ['questionTags'] or 'questionTags' in public['baseline'][identity]['fields']
+                or type(documents[identity].get('questionTags')) is not list or documents[identity]['questionTags'] != []
+                or payload['writeFieldsByDocument'][identity][-1] != 'questionTags'):
+            raise ValueError('exact required-tags initialization before/after/mask required')
+        deltas[identity] = {'questionTags': {'beforePresent': False, 'before': None, 'afterPresent': True, 'after': []}}
+    evidence = _repair_evidence(root, files)
+    protected = {value for snapshot in public['baseline'].values() for key, value in snapshot['fields'].items()
+        if key in adoption.MASKED_IDENTITIES and isinstance(value, str) and len(value) >= 8}
+    protected.add(delivery.uploader.UPDATED_BY_ID)
+    if any(value and value in item['content'] for value in protected for item in evidence):
+        raise ValueError('private identity value in technical repair evidence refused')
+    return {'schemaVersion': 'source-tf-required-tags-adoption-context/v1',
+        'role': 'technical_schema_repair_distinct_from_report_claim', 'payloadHash': sha256_json(payload),
+        'transportSchema': payload['schemaVersion'], 'readDocumentIds': payload['readDocumentIds'],
+        'writeDocumentIds': [document['questionId'] for document in payload['questions']],
+        'writeFieldsByDocument': payload['writeFieldsByDocument'],
+        'initializeMissingFieldsByDocument': initializations, 'fieldDifferencesByDocument': deltas,
+        'repositoryEvidence': evidence}
+
+
+def context(request, source, public, *, root=None, files=None):
     """The complete actual source/public authority, independent of request version."""
-    return {'authority': deepcopy(request['authority']), 'source': deepcopy(request['source']),
+    value = {'authority': deepcopy(request['authority']), 'source': deepcopy(request['source']),
         'sourceBinding': deepcopy(source['sourceBinding']), 'originalSource': deepcopy(source['source']), 'normalProjection': deepcopy(source['normalProjection']),
         'stageProofs': deepcopy(source['stageProofs']), 'taskRequirement': deepcopy(source['taskRequirement']),
         'primaryEvidence': deepcopy(request['primaryEvidence']), 'officialAnswer': deepcopy(request['officialAnswer']),
         'mapping': deepcopy(request['mapping']), 'public': deepcopy(public)}
+    repair = _technical_repair(root, source, public, files)
+    if repair is not None: value['technicalRepair'] = repair
+    return value
 
 
 def _case_state(request):
@@ -253,6 +346,9 @@ def _evidence(plan):
 
 def _reviews(root, path, plan, files):
     config, contracts = _policy(root, plan['caseState']['case']['category'], files)
+    repair = _technical_repair(root, {'normalProjection': plan['context']['normalProjection']}, plan['context']['public'], files)
+    if repair != plan['context'].get('technicalRepair'):
+        raise ValueError('current fixed technical repair evidence differs')
     _, contract_text = protocol.routed_workflow_contracts(config, plan['caseState']['case']['category'])
     directory = path.parent
     expected_blind = adoption.blind_input(plan['context'], contracts)
@@ -397,7 +493,7 @@ def verify(root, proof, request, source, public, connection, files):
     path = _inside(root, proof['plan']['ref'], private=True)
     _ref(root, proof['plan'], files, private=True, decode=False)
     plan = _load(root, path, files)
-    if plan['context'] != context(request, source, public):
+    if plan['context'] != context(request, source, public, root=root, files=files):
         raise ValueError('report review actual projection/mapping/read/write scope changed')
     _fresh(plan, request, connection)
     receipt = _receipt(root, path, plan, files)
@@ -431,7 +527,7 @@ def execute(root, request_path, output, *, coordinator, connection, execution_ar
     claims = _claims(request, source['taskRequirement'], connection, state['case'])
     plan = {'schemaVersion': PLAN, 'createdAt': datetime.now(timezone.utc).isoformat(),
         'executionArgv': list(execution_argv), 'ledgerPath': normal._ledger_path(connection),
-        'requestPath': str(_inside(root, request_path, private=True)), 'context': context(request, source, public),
+        'requestPath': str(_inside(root, request_path, private=True)), 'context': context(request, source, public, root=root, files=files),
         'caseState': state, 'claimsHash': sha256_json(claims), 'images': [], 'inputFiles': files}
     # Check the exact production invocation before creating any private artifacts.
     args = _parser().parse_args(execution_argv)
@@ -466,7 +562,7 @@ def execute(root, request_path, output, *, coordinator, connection, execution_ar
     # Replay all normal/source/public bindings after model execution as well.
     again = {}; _, _, _, new_source, new_public = delivery._derive(root, request_path, coordinator, connection, again)
     _policy(root, state['case']['category'], again)
-    if context(request, new_source, new_public) != plan['context'] or again != files:
+    if context(request, new_source, new_public, root=root, files=again) != plan['context'] or again != files:
         raise ValueError('review inputs changed during actual execution')
     receipt = {'schemaVersion': RECEIPT, 'planHash': sha256_json(plan), **derived}
     _exclusive(output / 'receipt.json', _bytes(receipt))
