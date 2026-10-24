@@ -892,7 +892,8 @@ class VerifiedStageExecutionTests(unittest.TestCase):
         commands = [
             ['scope', '--plan', 'plan', '--action', 'save'],
             ['scope', '--plan', 'plan', '--action', 'publish'],
-            *[[command, '--plan', 'plan'] for command in ('inspect', 'check', 'evaluate', 'reconcile')],
+            *[[command, '--plan', 'plan'] for command in ('inspect', 'check', 'evaluate', 'reconcile', 'completion')],
+            ['record-completion','--plan','plan','--completion','completion','--completion-sha256','a'*64],
             *[[command, '--plan', 'plan', '--approval', 'approval'] for command in ('save', 'publish')],
         ]
         for command in commands:
@@ -907,13 +908,18 @@ class VerifiedStageExecutionTests(unittest.TestCase):
             ['save', '--plan', 'plan'], ['publish', '--plan', 'plan'],
             ['scope', '--plan', 'plan'], ['scope', '--plan', 'plan', '--action', 'unknown'],
             ['check', '--plan', 'plan', '--force', 'true'],
+            ['completion','--plan','plan','--force','true'],
+            ['record-completion','--plan','plan','--completion','completion','--completion-sha256','bad'],
+            ['record-completion','--plan','plan'],
             ['inspect', '--plan', 'plan', '--plan', 'other'],
             ['inspect', '--plan', '--approval'], ['evaluate', '--execution', 'other'],
         ]
         for command in invalid:
             with self.subTest(command=command), self.assertRaises(ValueError):
                 module.native_operation_call([*base, *command], module_name=name)
-        for argv in (['inspect', '--repo-root', str(self.root), '--plan', 'plan'],
+        for argv in (['--repo-root',str(self.root),'completion','--plan','plan'],
+                     ['--repo-root',str(self.root),'record-completion','--plan','plan','--completion','completion','--completion-sha256','a'*64],
+                     ['inspect', '--repo-root', str(self.root), '--plan', 'plan'],
                      ['--db', 'db', 'inspect', '--plan', 'plan'],
                      [*base, '--repo-root', str(self.root), 'inspect', '--plan', 'plan']):
             with self.subTest(argv=argv), self.assertRaises(ValueError):

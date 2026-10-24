@@ -160,6 +160,21 @@ def _private_db(path: Path) -> sqlite3.Connection:
         CREATE TABLE IF NOT EXISTS report_task_cases (
           task_id TEXT NOT NULL REFERENCES report_tasks(task_id),
           case_id TEXT NOT NULL, PRIMARY KEY(task_id, case_id));
+        CREATE TABLE IF NOT EXISTS source_tf_report_publication_history (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          task_id TEXT NOT NULL, case_id TEXT NOT NULL,
+          reason TEXT NOT NULL, artifact_ref TEXT NOT NULL, artifact_sha256 TEXT NOT NULL,
+          plan_hash TEXT NOT NULL, completion_contract_hash TEXT NOT NULL,
+          requirement_hash TEXT NOT NULL, read_document_ids_json TEXT NOT NULL,
+          write_document_ids_json TEXT NOT NULL, recorded_at TEXT NOT NULL, parent_published_at TEXT,
+          FOREIGN KEY(task_id,case_id) REFERENCES report_task_cases(task_id,case_id),
+          UNIQUE(task_id,case_id,artifact_sha256));
+        CREATE TRIGGER IF NOT EXISTS source_tf_report_publication_no_update
+          BEFORE UPDATE ON source_tf_report_publication_history BEGIN
+          SELECT RAISE(ABORT,'source TF publication history is append-only'); END;
+        CREATE TRIGGER IF NOT EXISTS source_tf_report_publication_no_delete
+          BEFORE DELETE ON source_tf_report_publication_history BEGIN
+          SELECT RAISE(ABORT,'source TF publication history is append-only'); END;
         CREATE TABLE IF NOT EXISTS proposal_amendments (
           amendment_id TEXT PRIMARY KEY, task_id TEXT NOT NULL, case_id TEXT NOT NULL,
           revision INTEGER NOT NULL CHECK(revision>0), request_id TEXT NOT NULL,
@@ -465,12 +480,12 @@ def daily_summary(connection: sqlite3.Connection, *, scan_id: str = "",
         "SELECT COUNT(*) FROM report_tasks WHERE decision IS NULL AND intake_status='complete'"
     ).fetchone()[0]
     pending_approval = connection.execute(
-        "SELECT COUNT(*) FROM report_tasks WHERE proposal_hash IS NOT NULL AND patch_ref IS NULL"
+        "SELECT COUNT(*) FROM report_tasks WHERE proposal_hash IS NOT NULL AND patch_ref IS NULL AND published_at IS NULL"
     ).fetchone()[0]
     pending_proposal = connection.execute(
         """SELECT COUNT(*) FROM report_tasks
            WHERE decision IN ('fix_required', 'mixed')
-             AND proposal_hash IS NULL AND patch_ref IS NULL"""
+             AND proposal_hash IS NULL AND patch_ref IS NULL AND published_at IS NULL"""
     ).fetchone()[0]
     pending_publication = connection.execute(
         "SELECT COUNT(*) FROM report_tasks WHERE patch_ref IS NOT NULL AND published_at IS NULL"
@@ -507,6 +522,9 @@ def daily_summary(connection: sqlite3.Connection, *, scan_id: str = "",
         "fixesAwaitingProposal": pending_proposal,
         "patchApprovalsWaiting": pending_approval,
         "patchesAwaitingPublication": pending_publication,
+        "sourceTfReportCasesPublished": connection.execute(
+            'SELECT COUNT(*) FROM (SELECT DISTINCT task_id,case_id FROM source_tf_report_publication_history)').fetchone()[0],
+        "reportsPublished": connection.execute('SELECT COUNT(*) FROM report_tasks WHERE published_at IS NOT NULL').fetchone()[0],
         "aiQuestionsAwaitingReview": ai_unreviewed,
         "improvementTasksOpen": improvement_open,
         "improvementTasksByStatus": improvement_states,
@@ -853,10 +871,10 @@ def list_report_tasks(connection: sqlite3.Connection, *, limit: int) -> list[dic
     rows = connection.execute(
         """SELECT task_id, report_id, question_id, categories_json,
                   case_ids_json, case_statuses_json, intake_status,
-                  decision, proposal_hash, received_at
+                  decision, proposal_hash, received_at, published_at
            FROM report_tasks
            WHERE intake_status='intake_gap' OR decision IS NULL
-              OR (decision IN ('fix_required', 'mixed') AND patch_ref IS NULL)
+              OR (decision IN ('fix_required', 'mixed') AND patch_ref IS NULL AND published_at IS NULL)
               OR EXISTS (SELECT 1 FROM proposal_amendments a WHERE a.task_id=report_tasks.task_id AND a.state!='superseded')
            ORDER BY CASE WHEN intake_status='intake_gap' THEN 0
                          WHEN decision IN ('fix_required', 'mixed') AND proposal_hash IS NULL THEN 1
@@ -874,6 +892,9 @@ def list_report_tasks(connection: sqlite3.Connection, *, limit: int) -> list[dic
             "intakeStatus": row["intake_status"], "decision": row["decision"],
             "proposalHash": row["proposal_hash"],
             "receivedAt": row["received_at"],
+            "publishedAt": row["published_at"],
+            "casePublications": [dict(fact) for fact in connection.execute(
+                'SELECT case_id,artifact_sha256,recorded_at FROM source_tf_report_publication_history WHERE task_id=? ORDER BY id', (row['task_id'],))],
             "amendments": list_amendments(connection, task_id=row['task_id']),
         }
         for row in rows
@@ -962,7 +983,7 @@ def list_improvement_tasks(connection: sqlite3.Connection, *, limit: int) -> lis
 
 def record_improvement_publication(connection: sqlite3.Connection, *, task_id: str,
         expected_status: str, reason: str, artifact_ref: Path, artifact_sha256: str,
-        repo_root: Path, live_reader=None) -> int:
+        repo_root: Path, live_reader=None, source_tf_options=None) -> int:
     """Complete only after native audit/save, publisher receipts and fresh readback."""
     from tools.question_bank.feedback_publication_result import verify_improvement_publication
     from tools.question_bank.feedback_task_requirements import task_requirement_binding
@@ -982,12 +1003,21 @@ def record_improvement_publication(connection: sqlite3.Connection, *, task_id: s
     if not sources:
         raise ValueError('improvement task source binding missing')
     artifact = json.loads(content)
-    verification = verify_improvement_publication(repo_root, artifact, task_id=task_id,
-        source_question_ids=sources, task_requirement=requirement, live_reader=live_reader)
+    from tools.question_bank import feedback_source_tf_completion as source_tf
+    source_tf_artifact = artifact.get('schemaVersion') == source_tf.SCHEMA
+    if source_tf_artifact:
+        verification = source_tf.verify_completion(repo_root, artifact, connection=connection,
+            artifact_ref=path, live_reader=live_reader, **(source_tf_options or {}))
+        if (not isinstance(verification, source_tf._SourceTfCompletionVerification)
+                or artifact.get('authority') != {'kind': 'improvement', 'taskId': task_id}):
+            raise ValueError('source TF completion requires an exact in-process improvement proof')
+    else:
+        verification = verify_improvement_publication(repo_root, artifact, task_id=task_id,
+            source_question_ids=sources, task_requirement=requirement, live_reader=live_reader)
     terminal = None
-    if artifact.get('schemaVersion') == 'feedback-verified-improvement-publication/v1':
+    if source_tf_artifact or artifact.get('schemaVersion') == 'feedback-verified-improvement-publication/v1':
         from tools.question_bank.feedback_verified_delivery import _CompletionVerification
-        if not isinstance(verification, _CompletionVerification):
+        if not source_tf_artifact and not isinstance(verification, _CompletionVerification):
             raise ValueError('verified delivery requires an in-process terminal proof')
         verification.assert_completion_arguments(expected_status, reason.strip())
         def terminal():
@@ -1015,6 +1045,59 @@ def record_improvement_publication(connection: sqlite3.Connection, *, task_id: s
         if updated.rowcount != 1: raise ValueError('improvement task status changed; read it again')
         inserted = connection.execute('INSERT INTO improvement_result_history (task_id,status,reason,artifact_ref,artifact_sha256,recorded_at) VALUES (?,?,?,?,?,?)', (task_id,'completed',reason.strip(),str(path),artifact_sha256,now))
         if terminal is not None: terminal()
+    return inserted.lastrowid
+
+
+def record_source_tf_report_publication(connection: sqlite3.Connection, *, task_id: str,
+        case_id: str, artifact_ref: Path, artifact_sha256: str, repo_root: Path,
+        coordinator=None, evaluation=None, live_reader=None) -> int:
+    """Append one proven case publication; close its parent only under the bound CAS."""
+    from tools.question_bank import feedback_source_tf_completion as source_tf
+    from tools.question_review_console.projection import sha256_json
+    path = artifact_ref.expanduser().resolve(); content = path.read_bytes()
+    if hashlib.sha256(content).hexdigest() != artifact_sha256:
+        raise ValueError('publication artifact hash differs')
+    if connection.in_transaction: raise ValueError('completion requires an independent transaction')
+    artifact = json.loads(content)
+    authority = {'kind': 'report', 'taskId': task_id, 'caseId': case_id}
+    if artifact.get('authority') != authority: raise ValueError('source TF report/case authority differs')
+    proof = source_tf.verify_completion(repo_root, artifact, connection=connection, artifact_ref=path,
+        coordinator=coordinator, evaluation=evaluation, live_reader=live_reader)
+    if not isinstance(proof, source_tf._SourceTfCompletionVerification):
+        raise ValueError('source TF report requires an in-process terminal proof')
+    contract = proof.contract
+    if contract['authority'] != authority: raise ValueError('source TF report contract differs')
+    def terminal():
+        if path.read_bytes() != content: raise ValueError('completion artifact changed inside transaction')
+        proof.assert_current(connection)
+    now = _now()
+    with connection:
+        connection.execute('BEGIN IMMEDIATE')
+        terminal()
+        previous = connection.execute('SELECT * FROM source_tf_report_publication_history WHERE task_id=? AND case_id=? AND artifact_sha256=?',
+            (task_id,case_id,artifact_sha256)).fetchone()
+        if previous is not None:
+            if previous['artifact_ref'] != str(path): raise ValueError('completion artifact reference conflicts')
+            terminal()
+            return previous['id']
+        requirement_hash = proof['requirementHash']
+        if connection.execute('SELECT 1 FROM source_tf_report_publication_history WHERE task_id=? AND case_id=? AND requirement_hash=?',
+                (task_id,case_id,requirement_hash)).fetchone():
+            raise ValueError('another completion already recorded this exact case requirement')
+        inserted = connection.execute("""INSERT INTO source_tf_report_publication_history
+            (task_id,case_id,reason,artifact_ref,artifact_sha256,plan_hash,completion_contract_hash,
+             requirement_hash,read_document_ids_json,write_document_ids_json,recorded_at,parent_published_at)
+            VALUES (?,?,?,?,?,?,?,?,?,?,?,?)""",
+            (task_id,case_id,contract['reason'],str(path),artifact_sha256,proof['planHash'],sha256_json(contract),
+             requirement_hash,json.dumps(artifact['readDocumentIds']),json.dumps(artifact['writeDocumentIds']),now,now if contract['parentMayComplete'] else None))
+        if contract['parentMayComplete']:
+            lifecycle = source_tf._actual_lifecycle(connection, {'authority': authority})
+            if not source_tf.parent_can_complete(connection, {'authority': authority}, lifecycle, include_current_case=False):
+                raise ValueError('not all report cases have matching decisions/publication facts')
+            updated = connection.execute('UPDATE report_tasks SET published_at=? WHERE task_id=? AND published_at IS ?',
+                (now,task_id,contract['before']['publishedAt']))
+            if updated.rowcount != 1: raise ValueError('report parent publication CAS changed')
+        terminal()
     return inserted.lastrowid
 
 

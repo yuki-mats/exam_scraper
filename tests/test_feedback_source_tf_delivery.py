@@ -39,11 +39,10 @@ def rig(tmp_path, monkeypatch):
         shutil.copytree(repo / name, tmp_path / name, ignore=shutil.ignore_patterns('__pycache__', '*.pyc'))
     private = tmp_path / api.PRIVATE / 'fixture'
     private.mkdir(parents=True)
-    db = private / 'ledger.sqlite3'; connection = sqlite3.connect(db); connection.row_factory = sqlite3.Row
-    connection.executescript("CREATE TABLE improvement_tasks(task_id,title,need,target,status,updated_at);CREATE TABLE improvement_result_history(id,task_id,status,reason,artifact_ref,artifact_sha256,recorded_at);"
-        "CREATE TABLE ai_question_candidates(candidate_id,question_id,text_hash,review_status,improvement_task_id);"
-        "INSERT INTO improvement_tasks VALUES('task','TF表示','命題と表示の整合','live-a','in_progress','fixture-time');"
-        "INSERT INTO ai_question_candidates VALUES('candidate','live-a','hash','promoted','task');")
+    from tools.question_bank import feedback_daily as daily
+    db = private / 'ledger.sqlite3'; connection = daily._private_db(db)
+    connection.execute("INSERT INTO improvement_tasks VALUES('task','TF表示','命題と表示の整合','live-a','in_progress','fixture-time','fixture-time')")
+    connection.execute("INSERT INTO ai_question_candidates(candidate_id,source_path,question_id,created_at,text_hash,visibility,review_status,improvement_task_id,first_seen_at,last_seen_at) VALUES('candidate','private-fixture','live-a','fixture','hash','public','promoted','task','fixture','fixture')")
     connection.commit()
     group = tmp_path / 'output/sample/questions_json/2026'
     binding = {'sourceQuestionKey': 'sample:2026:q1', 'reviewQuestionId': 'q1', 'sourceRecordRef': 'question_2026.json#0'}
@@ -117,7 +116,7 @@ def rig(tmp_path, monkeypatch):
     options = {'coordinator': coordinator, 'connection': connection}
     state = SimpleNamespace(root=tmp_path, private=private, source=source, current=current, baseline=baseline,
         snapshots=snapshots, request=request, request_path=request_path, output=output, path=plan_path,
-        coordinator=coordinator, connection=connection, options=options)
+        coordinator=coordinator, connection=connection, options=options, original_upload=api.uploader.upload_read_set_maintenance_questions)
     yield state
     connection.close()
 
@@ -382,6 +381,7 @@ def test_unconnected_report_law_and_completion_gates_cannot_be_self_declared(rig
 
 
 def transport_rig(rig, monkeypatch):
+    monkeypatch.setattr(api.uploader, 'upload_read_set_maintenance_questions', rig.original_upload)
     plan, _, receipt = saved(rig)
     gates = {'fixture': 'orchestration only; actual normal gates tested separately',
         'formalReceipt': write(rig.root / plan['formalPath'] / 'receipt.json', api._bytes(receipt)),
@@ -700,3 +700,347 @@ def test_later_normal_law_owned_patch_history_has_explicit_jsonl_shape(tmp_path)
     write(sidecar, ''.join(json.dumps(r, ensure_ascii=False) + '\n' for r in rows).encode())
     # The normal artifact parser is implemented with the history replay helper.
     assert api._patch_rows(sidecar, sidecar.read_bytes())[0] == row
+
+
+# Completion tests use the same real intent/attempt/native publication flow as
+# the transport tests. Only the expensive normal-stage/evaluation boundary is
+# fixture-injected; no success JSON substitutes for the completion verifier.
+def published_completion(rig, monkeypatch):
+    plan, approval, commit, calls = transport_rig(rig, monkeypatch)
+    api.publish(rig.root, rig.path, approval, **rig.options)
+    artifact = api.completion(rig.root, rig.path, **rig.options)
+    path = rig.output / 'completion.json'
+    return plan, artifact, path, api._hash(path.read_bytes()), calls
+
+
+def test_improvement_completion_records_and_exact_replay_recovers_receipt_interruption(rig, monkeypatch):
+    from tools.question_bank import feedback_daily as daily
+    plan, artifact, path, digest, calls = published_completion(rig, monkeypatch)
+    assert plan['schemaVersion'] == 'source-bound-public-tf-plan/v2'
+    assert api._scope(rig.root, rig.path, plan, 'save')['completionContract'] == artifact['completionContract']
+    def stopped(stage):
+        assert stage == 'database_committed'
+        raise KeyboardInterrupt('receipt interrupted')
+    with pytest.raises(KeyboardInterrupt):
+        api.record_completion(rig.root, rig.path, path, digest, failure_hook=stopped, **rig.options)
+    assert rig.connection.execute('SELECT status FROM improvement_tasks').fetchone()[0] == 'completed'
+    assert not (rig.output / 'completion-ledger-readback.json').exists()
+    result = api.record_completion(rig.root, rig.path, path, digest, **rig.options)
+    assert api.record_completion(rig.root, rig.path, path, digest, **rig.options) == result
+    assert api.completion(rig.root, rig.path, **rig.options) == artifact
+    assert result['resultId'] == 1 and result['history']['artifact_sha256'] == digest
+    assert rig.connection.execute('SELECT COUNT(*) FROM improvement_result_history').fetchone()[0] == 1
+    assert len(calls) == 1 and daily.daily_summary(rig.connection)['improvementTasksOpen'] == 0
+
+
+@pytest.mark.parametrize('mutation', ['readonly', 'outside', 'version', 'partial', 'commit', 'result', 'policy', 'stage', 'withdrawn', 'authority'])
+def test_completion_rejects_publication_native_input_or_readback_drift(rig, monkeypatch, mutation):
+    from tools.question_bank import feedback_source_tf_completion as complete
+    _, artifact, path, _, _ = published_completion(rig, monkeypatch)
+    if mutation == 'readonly': rig.snapshots['live-c']['fields']['questionBodyText'] = 'changed'
+    elif mutation == 'outside': rig.snapshots['live-a']['fields']['questionSetId'] = 'changed'
+    elif mutation == 'version': rig.snapshots['live-a']['updateTimeExact'] = '2026-10-23T00:00:00.000000001Z'
+    elif mutation == 'partial': rig.snapshots.pop('live-c')
+    elif mutation in {'commit', 'result'}:
+        file = rig.output / 'publication' / (mutation + '.json')
+        value = api._json(file.read_bytes()); value['foreign'] = True; write(file, value)
+    elif mutation == 'policy':
+        file = rig.root / 'tools/question_bank/feedback_source_tf_delivery.py'; file.write_bytes(file.read_bytes() + b'\n# changed policy input\n')
+    elif mutation == 'stage':
+        file = Path(rig.request['stageProofs'][0]['plan']['ref']); file.write_bytes(file.read_bytes() + b' ')
+    elif mutation == 'withdrawn':
+        # The public approval file is hash bound into the publication intent;
+        # changing its decision is a real revocation, not a JSON success flag.
+        file = rig.private / 'publish-audit/approval.json'; value = api._json(file.read_bytes()); value['decision'] = 'rejected'; write(file, value)
+    else: artifact['authority']['taskId'] = 'foreign'
+    with pytest.raises((ValueError, api.GateRequired, KeyError)):
+        complete.verify_completion(rig.root, artifact, connection=rig.connection, artifact_ref=path, coordinator=rig.coordinator)
+    assert rig.connection.execute('SELECT status FROM improvement_tasks').fetchone()[0] == 'in_progress'
+
+
+@pytest.mark.parametrize('boundary', ['before_insert', 'after_insert'])
+def test_completion_terminal_invalidations_rollback_improvement(rig, monkeypatch, boundary):
+    from tools.question_bank import feedback_source_tf_completion as complete
+    from tools.question_bank import feedback_daily as daily
+    _, artifact, path, digest, _ = published_completion(rig, monkeypatch)
+    real = complete.verify_completion
+    calls = []
+    def wrapped(*args, **kwargs):
+        proof = real(*args, **kwargs)
+        original = proof.assert_current
+        def terminal(connection):
+            inserted = connection.execute('SELECT COUNT(*) FROM improvement_result_history').fetchone()[0]
+            if (boundary == 'before_insert' and not inserted) or (boundary == 'after_insert' and inserted):
+                calls.append(boundary)
+                connection.execute("UPDATE improvement_tasks SET need='changed' WHERE task_id='task'")
+            original(connection)
+        proof.assert_current = terminal
+        return proof
+    monkeypatch.setattr(complete, 'verify_completion', wrapped)
+    with pytest.raises(ValueError):
+        daily.record_improvement_publication(rig.connection, task_id='task', expected_status='in_progress', reason=artifact['completionContract']['reason'],
+            artifact_ref=path, artifact_sha256=digest, repo_root=rig.root, source_tf_options={'coordinator':rig.coordinator})
+    assert calls
+    assert rig.connection.execute('SELECT need,status FROM improvement_tasks').fetchone()[:] == ('命題と表示の整合','in_progress')
+    assert rig.connection.execute('SELECT COUNT(*) FROM improvement_result_history').fetchone()[0] == 0
+
+
+def report_rig(rig, monkeypatch, *, cases=('case-a',), undecided=()):
+    from tools.question_bank import feedback_source_tf_report_review as review
+    db = rig.connection
+    db.execute("INSERT INTO report_tasks(task_id,source_path,report_id,question_id,received_at,categories_json,case_ids_json,case_statuses_json,intake_status,decision,proposal_hash,first_seen_at,last_seen_at) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)",
+        ('report-task','fixture-report','report','live-a','fixture',json.dumps(['correct_answer']),json.dumps(list(cases)),json.dumps({c:'open' for c in cases}),'complete',None,'proposal','fixture','fixture'))
+    db.executemany('INSERT INTO report_task_cases VALUES(?,?)', [('report-task',c) for c in cases])
+    db.executemany('INSERT INTO report_case_decisions VALUES(?,?,?,?,?,?)',
+        [('report-task',c,'fix_required','checked','private-ref','fixture') for c in cases if c not in undecided]); db.commit()
+    rig.request.update(schemaVersion=review.REPORT_REQUEST, authority={'kind':'report','taskId':'report-task','caseId':cases[0]}, reportReview={'fixture':'real reader verified independently'})
+    write(rig.request_path,rig.request)
+    def verify(root, reference, request, source, public, connection, files):
+        return {'fixtureReader':'current independently verified gate','binding':deepcopy(request['authority'])}
+    monkeypatch.setattr(review, 'verify', verify)
+
+
+def test_report_completion_keeps_intake_decision_proposal_and_records_append_only_fact(rig, monkeypatch):
+    from tools.question_bank import feedback_daily as daily
+    report_rig(rig, monkeypatch)
+    before = dict(rig.connection.execute('SELECT * FROM report_tasks').fetchone())
+    from tools.question_bank.feedback_source_tf_report_review import REPORT_REQUEST
+    plan, artifact, path, digest, calls = published_completion(rig, monkeypatch)
+    assert plan['request']['schemaVersion'] == REPORT_REQUEST
+    contract = plan['source']['completionContract']
+    assert contract is not None and contract['authority'] == rig.request['authority']
+    assert api._scope(rig.root, rig.path, plan, 'save')['completionContract'] == contract
+    intent = api._json((rig.output / 'publication/intent.json').read_bytes())
+    assert intent['scope']['action'] == 'publish'
+    assert intent['scope']['completionContract'] == contract == artifact['completionContract']
+    result = api.record_completion(rig.root, rig.path, path, digest, **rig.options)
+    assert api.record_completion(rig.root, rig.path, path, digest, **rig.options) == result
+    assert api.completion(rig.root, rig.path, **rig.options) == artifact
+    after = dict(rig.connection.execute('SELECT * FROM report_tasks').fetchone())
+    assert after['published_at'] is not None
+    assert {k:v for k,v in after.items() if k != 'published_at'} == {k:v for k,v in before.items() if k != 'published_at'}
+    assert result['reportParentPublished'] is True and len(calls) == 1
+    assert daily.daily_summary(rig.connection)['sourceTfReportCasesPublished'] == 1
+    # Parent decision is intentionally untouched/undecided: intake and the
+    # individual publication fact remain visible separately.
+    listed = daily.list_report_tasks(rig.connection, limit=10)[0]
+    assert listed['casePublications'][0]['case_id'] == 'case-a'
+    assert listed['caseStatuses'] == {'case-a':'open'}
+    for sql in ('DELETE FROM source_tf_report_publication_history','UPDATE source_tf_report_publication_history SET reason=reason'):
+        with pytest.raises(sqlite3.IntegrityError, match='append-only'): rig.connection.execute(sql)
+    rig.connection.rollback()
+
+
+def test_report_partial_completion_remains_open_and_receipt_interruption_is_resumable(rig, monkeypatch):
+    report_rig(rig, monkeypatch, cases=('case-a','case-b'), undecided=('case-b',))
+    _, artifact, path, digest, _ = published_completion(rig, monkeypatch)
+    assert artifact['completionContract']['parentMayComplete'] is False
+    def stop(stage): raise KeyboardInterrupt('after DB commit')
+    with pytest.raises(KeyboardInterrupt): api.record_completion(rig.root, rig.path, path, digest, failure_hook=stop, **rig.options)
+    result = api.record_completion(rig.root, rig.path, path, digest, **rig.options)
+    assert result['reportParentPublished'] is False
+    assert rig.connection.execute('SELECT published_at FROM report_tasks').fetchone()[0] is None
+    assert rig.connection.execute('SELECT COUNT(*) FROM source_tf_report_publication_history').fetchone()[0] == 1
+
+
+@pytest.mark.parametrize('mutation', ['new_case','proposal','decision','fake_proof','foreign_case'])
+def test_report_completion_rejects_changed_or_fabricated_authority(rig, monkeypatch, mutation):
+    from tools.question_bank import feedback_daily as daily
+    from tools.question_bank import feedback_source_tf_completion as complete
+    report_rig(rig, monkeypatch)
+    _, artifact, path, digest, _ = published_completion(rig, monkeypatch)
+    case = 'case-a'
+    if mutation == 'new_case': rig.connection.execute("UPDATE report_tasks SET case_ids_json='[\"case-a\",\"new\"]'")
+    elif mutation == 'proposal': rig.connection.execute("UPDATE report_tasks SET proposal_hash='changed'")
+    elif mutation == 'decision': rig.connection.execute("UPDATE report_case_decisions SET decided_at='changed'")
+    elif mutation == 'fake_proof': monkeypatch.setattr(complete,'verify_completion',lambda *a,**k:{'liveReadbackMatched':True})
+    elif mutation == 'foreign_case': case = 'foreign'
+    rig.connection.commit()
+    with pytest.raises(ValueError): daily.record_source_tf_report_publication(rig.connection, task_id='report-task',case_id=case,
+        artifact_ref=path,artifact_sha256=digest,repo_root=rig.root,coordinator=rig.coordinator)
+    assert rig.connection.execute('SELECT COUNT(*) FROM source_tf_report_publication_history').fetchone()[0] == 0
+
+
+@pytest.mark.parametrize('boundary', ['before_insert','after_insert'])
+def test_report_completion_rechecks_inside_transaction_and_rolls_back(rig, monkeypatch, boundary):
+    from tools.question_bank import feedback_daily as daily
+    from tools.question_bank import feedback_source_tf_completion as complete
+    report_rig(rig, monkeypatch)
+    _, _, path, digest, _ = published_completion(rig, monkeypatch)
+    real = complete.verify_completion
+    def wrapped(*args, **kwargs):
+        proof = real(*args, **kwargs); original = proof.assert_current
+        def terminal(connection):
+            count = connection.execute('SELECT COUNT(*) FROM source_tf_report_publication_history').fetchone()[0]
+            if (boundary == 'before_insert' and not count) or (boundary == 'after_insert' and count):
+                connection.execute("UPDATE report_tasks SET proposal_hash='changed'")
+            original(connection)
+        proof.assert_current = terminal
+        return proof
+    monkeypatch.setattr(complete,'verify_completion',wrapped)
+    with pytest.raises(ValueError): daily.record_source_tf_report_publication(rig.connection,task_id='report-task',case_id='case-a',
+        artifact_ref=path,artifact_sha256=digest,repo_root=rig.root,coordinator=rig.coordinator)
+    assert rig.connection.execute('SELECT proposal_hash,published_at FROM report_tasks').fetchone()[:] == ('proposal',None)
+    assert rig.connection.execute('SELECT COUNT(*) FROM source_tf_report_publication_history').fetchone()[0] == 0
+
+
+def test_report_sequential_other_case_decision_then_publication_closes_parent(rig, monkeypatch):
+    from tools.question_bank import feedback_daily as daily
+    from tools.question_bank import feedback_source_tf_completion as complete
+    report_rig(rig, monkeypatch, cases=('case-a','case-b'), undecided=('case-b',))
+    _, _, first_path, first_digest, _ = published_completion(rig, monkeypatch)
+    first = api.record_completion(rig.root, rig.path, first_path, first_digest, **rig.options)
+    assert not first['reportParentPublished']
+    # A changed aggregate needs a fresh scope; the old stage is never rewritten.
+    rig.connection.execute('INSERT INTO report_case_decisions VALUES(?,?,?,?,?,?)',
+        ('report-task','case-b','fix_required','checked separately','private-ref-b','later'))
+    rig.connection.execute("UPDATE report_tasks SET decision='fix_required',case_statuses_json=?",
+        (json.dumps({'case-a':'under_review','case-b':'under_review'}),))
+    rig.connection.commit()
+    actual = complete._actual_lifecycle(rig.connection,rig.request)
+    assert complete.parent_can_complete(rig.connection,{'authority':{'kind':'report','taskId':'report-task','caseId':'case-b'}},actual)
+    with pytest.raises(ValueError):
+        api.completion(rig.root,rig.path,**rig.options)
+    # Fresh normal-stage boundary fixture with an actual distinct delta: the
+    # second publication must not infer completion from an all-no-op write.
+    rig.private = rig.private / 'second-case'; rig.private.mkdir()
+    rig.output = rig.private / 'unit'; rig.path = rig.output / 'plan.json'
+    rig.request_path = rig.private / 'request.json'
+    rig.request['authority']['caseId'] = 'case-b'
+    rig.current['explanationText'][1] = '正しい。命題Bの根拠を補足する。'
+    rig.request['public'][1]['explanationText'] = rig.current['explanationText'][1]
+    write(rig.request_path,rig.request)
+    _, _, second_path, second_digest, _ = published_completion(rig,monkeypatch)
+    second = api.record_completion(rig.root,rig.path,second_path,second_digest,**rig.options)
+    assert second['reportParentPublished']
+    assert rig.connection.execute('SELECT COUNT(*) FROM source_tf_report_publication_history').fetchone()[0] == 2
+    assert daily.daily_summary(rig.connection)['sourceTfReportCasesPublished'] == 2
+    assert api.record_completion(rig.root,rig.path,second_path,second_digest,**rig.options) == second
+
+
+def test_completion_rejects_revoked_native_at_transaction_terminal(rig, monkeypatch):
+    from tools.question_bank import feedback_source_tf_completion as complete
+    from tools.question_bank import feedback_daily as daily
+    _, artifact, path, digest, _ = published_completion(rig,monkeypatch)
+    journal = Path(api._json((rig.private/'publish-audit/approval.json').read_bytes())['reviewerFinal']['sessionPath'])
+    real = complete.verify_completion
+    def wrapped(*args,**kwargs):
+        proof=real(*args,**kwargs); original=proof.assert_current
+        def terminal(connection):
+            if connection.execute('SELECT COUNT(*) FROM improvement_result_history').fetchone()[0]:
+                event={'type':'event_msg','payload':{'type':'user_message','message':'withdrawn'}}
+                journal.write_bytes(journal.read_bytes()+(json.dumps(event)+'\n').encode())
+            original(connection)
+        proof.assert_current=terminal
+        return proof
+    monkeypatch.setattr(complete,'verify_completion',wrapped)
+    with pytest.raises(ValueError,match='native session changed'):
+        daily.record_improvement_publication(rig.connection,task_id='task',expected_status='in_progress',reason=artifact['completionContract']['reason'],
+            artifact_ref=path,artifact_sha256=digest,repo_root=rig.root,source_tf_options={'coordinator':rig.coordinator})
+    assert rig.connection.execute('SELECT status FROM improvement_tasks').fetchone()[0]=='in_progress'
+    assert rig.connection.execute('SELECT COUNT(*) FROM improvement_result_history').fetchone()[0]==0
+
+
+def test_completion_cannot_import_old_plan_or_success_flags(rig,monkeypatch):
+    from tools.question_bank import feedback_source_tf_completion as complete
+    _,artifact,path,_,_=published_completion(rig,monkeypatch)
+    changed=deepcopy(artifact); changed['liveReadbackMatched']=True
+    with pytest.raises(ValueError): complete.verify_completion(rig.root,changed,connection=rig.connection,artifact_ref=path,coordinator=rig.coordinator)
+    plan=api._json(rig.path.read_bytes()); plan['schemaVersion']='source-bound-public-tf-plan/v1'
+    write(rig.path,api._seal(plan, 'planHash'))
+    with pytest.raises(ValueError): api.completion(rig.root,rig.path,**rig.options)
+
+
+@pytest.mark.parametrize('changed', ['policy','reader'])
+def test_report_completion_rolls_back_late_policy_or_reader_invalidation(rig,monkeypatch,changed):
+    from tools.question_bank import feedback_daily as daily
+    from tools.question_bank import feedback_source_tf_completion as complete
+    from tools.question_bank import feedback_source_tf_report_review as review
+    report_rig(rig,monkeypatch)
+    _,_,path,digest,_=published_completion(rig,monkeypatch)
+    real=complete.verify_completion
+    def wrapped(*args,**kwargs):
+        proof=real(*args,**kwargs); original=proof.assert_current
+        def terminal(connection):
+            if connection.execute('SELECT COUNT(*) FROM source_tf_report_publication_history').fetchone()[0]:
+                if changed=='policy':
+                    source=rig.root/'tools/question_bank/feedback_source_tf_delivery.py'
+                    source.write_bytes(source.read_bytes()+b'\n# changed maintenance policy input\n')
+                else:
+                    def revoked(*a,**k): raise ValueError('report reader no longer current')
+                    monkeypatch.setattr(review,'verify',revoked)
+            original(connection)
+        proof.assert_current=terminal
+        return proof
+    monkeypatch.setattr(complete,'verify_completion',wrapped)
+    with pytest.raises(ValueError): daily.record_source_tf_report_publication(rig.connection,task_id='report-task',case_id='case-a',
+        artifact_ref=path,artifact_sha256=digest,repo_root=rig.root,coordinator=rig.coordinator)
+    assert rig.connection.execute('SELECT published_at FROM report_tasks').fetchone()[0] is None
+    assert rig.connection.execute('SELECT COUNT(*) FROM source_tf_report_publication_history').fetchone()[0]==0
+
+
+def test_completion_cli_read_path_never_opens_writer_and_owner_is_required_before_writer(rig,monkeypatch):
+    from tools.question_bank import feedback_daily as daily
+    import contextlib
+    opened=[]
+    @contextlib.contextmanager
+    def owner(argv,**kwargs):
+        opened.append('owner')
+        raise ValueError('owner refused')
+        yield
+    def writer(*a,**k):
+        opened.append('writer'); raise AssertionError('must verify owner before writer connection')
+    monkeypatch.setattr(api.native,'native_operation',owner)
+    monkeypatch.setattr(daily,'_private_db',writer)
+    base=['--repo-root',str(rig.root),'--db',str(rig.private/'ledger.sqlite3')]
+    with pytest.raises(ValueError,match='owner refused'):
+        api.main([*base,'record-completion','--plan',str(rig.path),'--completion',str(rig.output/'completion.json'),'--completion-sha256','a'*64])
+    assert opened==['owner']
+    opened.clear()
+    monkeypatch.setattr(api.native,'native_operation',lambda *a,**k:contextlib.nullcontext())
+    def reader(database_uri,**kwargs):
+        assert database_uri.endswith('?mode=ro') and kwargs=={'uri':True}
+        opened.append('readonly'); raise ValueError('read-only reached')
+    monkeypatch.setattr(api.sqlite3,'connect',reader)
+    with pytest.raises(ValueError,match='read-only reached'): api.main([*base,'completion','--plan',str(rig.path)])
+    assert opened==['readonly']
+
+
+def test_report_cannot_reconstruct_commit_from_history_without_bound_parent_after_state(rig,monkeypatch):
+    from tools.question_bank import feedback_daily as daily
+    from tools.question_bank import feedback_source_tf_completion as complete
+    report_rig(rig,monkeypatch)
+    plan,artifact,path,digest,_=published_completion(rig,monkeypatch)
+    contract=artifact['completionContract']; stamp='pretend-recorded'
+    # A real publication artifact plus a manually inserted history row cannot
+    # stand in for the parent CAS having committed. This is a temp fixture only.
+    rig.connection.execute('''INSERT INTO source_tf_report_publication_history
+        (task_id,case_id,reason,artifact_ref,artifact_sha256,plan_hash,completion_contract_hash,
+         requirement_hash,read_document_ids_json,write_document_ids_json,recorded_at,parent_published_at)
+        VALUES (?,?,?,?,?,?,?,?,?,?,?,?)''',
+        ('report-task','case-a',contract['reason'],str(path),digest,plan['planHash'],api.sha256_json(contract),
+         plan['source']['taskRequirement']['requirementHash'],json.dumps(artifact['readDocumentIds']),json.dumps(artifact['writeDocumentIds']),stamp,stamp))
+    rig.connection.commit()
+    with pytest.raises(ValueError,match='exact parent publication after-state'):
+        daily.record_source_tf_report_publication(rig.connection,task_id='report-task',case_id='case-a',
+            artifact_ref=path,artifact_sha256=digest,repo_root=rig.root,coordinator=rig.coordinator)
+    assert rig.connection.execute('SELECT published_at FROM report_tasks').fetchone()[0] is None
+
+
+
+def test_legacy_report_request_never_receives_completion_contract(rig,monkeypatch):
+    from tools.question_bank import feedback_source_tf_completion as complete
+    report_rig(rig,monkeypatch)
+    rig.request['schemaVersion']=api.REQUEST
+    rig.request.pop('reportReview')
+    write(rig.request_path,rig.request)
+    plan=prepared(rig)
+    assert plan['source']['completionContract'] is None
+    assert 'genuine_report_blind_a_b_challenge_reader_not_connected' in plan['source']['requiredReviewGates']
+    # No fabricated result reference grants this old report plan completion.
+    artifact={'schemaVersion':complete.SCHEMA,'plan':{'ref':str(rig.path),'sha256':api._hash(rig.path.read_bytes())},
+        'authority':rig.request['authority'],'completionContract':None,'publicationResult':{},
+        'readDocumentIds':[],'writeDocumentIds':[]}
+    with pytest.raises(ValueError,match='authority/result/read-write/contract differs'):
+        complete.verify_completion(rig.root,artifact,connection=rig.connection,
+            artifact_ref=rig.output/'completion.json',coordinator=rig.coordinator)

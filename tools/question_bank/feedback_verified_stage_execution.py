@@ -409,7 +409,8 @@ def native_operation_call(argv, *, module_name="tools.question_bank.feedback_ver
         commands = {
             "scope": {"--plan", "--action"},
             "inspect": {"--plan"}, "check": {"--plan"}, "evaluate": {"--plan"},
-            "reconcile": {"--plan"},
+            "reconcile": {"--plan"}, "completion": {"--plan"},
+            "record-completion": {"--plan", "--completion", "--completion-sha256"},
             "save": {"--plan", "--approval"}, "publish": {"--plan", "--approval"},
         }
         command_name = argv[position]
@@ -421,6 +422,10 @@ def native_operation_call(argv, *, module_name="tools.question_bank.feedback_ver
             if key not in commands[command_name] or key in selected or value.startswith("--"):
                 raise ValueError("unsupported source TF owner option")
             selected[key] = value
+        if command_name in {'completion', 'record-completion'} and set(options) != {'--repo-root', '--db'}:
+            raise ValueError('source TF completion owner requires explicit authority database')
+        if command_name == 'record-completion' and not re.fullmatch(r'[0-9a-f]{64}', selected.get('--completion-sha256', '')):
+            raise ValueError('source TF completion owner requires exact artifact SHA256')
         if set(selected) != commands[command_name] or selected.get("--action", "save") not in {"save", "publish"}:
             raise ValueError("exact source TF owner command scope required")
     if module_name == "tools.question_bank.feedback_verified_save_record":

@@ -2,7 +2,7 @@
 
 状態: 実装中。個別受付台帳と読み取り専用の日次照合を実装済み。日次heartbeatが既存CLIを使って調査・独立監査・公開を進める。専用の常駐GUIとスマホ承認画面は未実装。
 
-最終更新: 2026-10-23
+最終更新: 2026-10-24
 
 この文書は、Repasoから届くユーザーフィードバックの調査、改善、独立監査、patch保存、Firestore公開を扱う運用正本です。公式問題の誤り報告を修正レーンとし、AI解説への利用者質問から学習上のニーズを見つける改善レーンを置きます。将来はアプリ不具合、UI改善、要望も追加します。
 
@@ -72,7 +72,13 @@ native作成callはCLIの正常終了まで、途中でyieldされた出力も�
 
 通常sourceのTFには専用CLI `tools.question_bank.feedback_source_tf_delivery`を追加しています。通常工程の保存receipt・work version・checkpointを使い、公式原文と中立表示を分けた正式unitから通常の独立評価、read-set v3の限定公開・readbackへ接続します。固定案件のmanifestやガス25専用schemaには読み替えません。CLI、正式unitと各証跡の契約は[artifact契約](artifact_contract.md#通常sourceのtf公開unit)を正本とします。
 
-公式報告には、修正候補の採用を目的とするfresh Blind A/B・Challengeと真正な別subagentの採用承認を結ぶreport専用v2を使います。欠陥検出v1とは分けた専用schema/promptで、公式原文・正常local・予定public全sibling・ID/差分/writeFieldsと、修正前の実観測/CASを役割別に実送信します。A/Bの全doc・全基準と、今回case/categoryに限るChallengeの完全claims対応が承認条件です。旧liveの不備が候補で解消されることを審査し、normalLocalと同値の訂正をno-opとして落としません。business fieldは実内容を送り、audit系の人物IDはpresence/digestへmaskして対象外不変を機械確認します。実prompt/hash・masked subject hashと候補/観測beforeの各raw hashを候補採用専用v2 reader plan/receiptへ固定し、旧reader plan v1は新しい採用意味では受理しません。実行・証跡・v1との境界は[artifact契約](artifact_contract.md#通常sourceのtf公開unit)に従います。旧report v1は公開保留を維持し、新しい訂正が必要な審査結果をreaderで自動補正しません。日次台帳の完了dispatchは引き続き未接続です。全active siblingが既存TFである単位を対象とし、組合せflash_cardやTFとの混在単位、原記述が一致しないID対応は別の対応を要します。通常工程の適用漏れ、法令の実取得根拠不足、独立評価不合格、checkerの未実行・失敗も、包括ユーザー許可やコード監査で免除しません。
+公式報告には、修正候補の採用を目的とするfresh Blind A/B・Challengeと真正な別subagentの採用承認を結ぶreport専用v2を使います。欠陥検出v1とは分けた専用schema/promptで、公式原文・正常local・予定public全sibling・ID/差分/writeFieldsと、修正前の実観測/CASを役割別に実送信します。A/Bの全doc・全基準と、今回case/categoryに限るChallengeの完全claims対応が承認条件です。旧liveの不備が候補で解消されることを審査し、normalLocalと同値の訂正をno-opとして落としません。business fieldは実内容を送り、audit系の人物IDはpresence/digestへmaskして対象外不変を機械確認します。実prompt/hash・masked subject hashと候補/観測beforeの各raw hashを候補採用専用v2 reader plan/receiptへ固定し、旧reader plan v1は新しい採用意味では受理しません。実行・証跡・v1との境界は[artifact契約](artifact_contract.md#通常sourceのtf公開unit)に従います。旧report v1は公開保留を維持し、新しい訂正が必要な審査結果をreaderで自動補正しません。全active siblingが既存TFである単位を対象とし、組合せflash_cardやTFとの混在単位、原記述が一致しないID対応は別の対応を要します。通常工程の適用漏れ、法令の実取得根拠不足、独立評価不合格、checkerの未実行・失敗も、包括ユーザー許可やコード監査で免除しません。
+
+2026-10-24、通常sourceのTF公開後に改善task又は個別report/caseの完了を記録する専用経路を追加しました。新しいplan/v2は、対象authority、完了前の台帳状態、固定理由、case集合と判断、親reportを完了できる条件を`completionContract`として保存・公開scopeへ事前に結びます。旧plan/v1へ権限を後付けせず、新入力の計画と独立承認から作り直します。`completion --plan <plan>`は真正な保存・公開承認、intent・attempt・commit、全read setのfresh値・presence・exact更新時刻と対象外不変を再検証し、専用`completion.json`を保存します。`record-completion`だけが台帳をwriter接続し、同じ検証をtransaction内でも実施して記録します。コマンドの厳密な引数とschemaは[artifact契約](artifact_contract.md#通常sourceのtf公開unit)に従います。
+
+改善taskは既存の完了CAS・履歴へ接続し、公式報告は追記専用の`source_tf_report_publication_history`へcase単位の公開事実を残します。受付状態・個別判断・proposalは書き換えません。親reportの`published_at`は、固定case集合の全件が正式に判断され、訂正が必要な各caseに対応する公開事実がある場合だけ更新します。未判断・保留caseを含むreportは、一部caseの公開後も未完了として追跡します。summaryとlist-reportsはcaseの公開事実と親reportの完了を分けて表示します。
+
+同一artifact・hashの再送は、自分の真正な完了履歴と固定前後状態からだけ再検証し、重複記録しません。DB確定後にreceipt保存が中断した場合も、同じ履歴を読み戻して再開します。任意の前状態指定、JSONの成功flag、gas25用schemaへの読替えは認めません。別caseの判断変更は旧scopeを失効させ、新しいscopeでは自分のcase・proposalとの結び付きが変わらない過去の公開事実だけを参照できます。proposal変更、case集合変更、承認撤回、policy変更、live値や更新時刻の不一致は保留し、成功へ補完しません。
 
 2026-10-16、`python -m tools.question_bank.feedback_verified_review_context prepare --repo-root <repo> --plan <保存plan> --output <新規private directory> [--official-order <固定対応表>]`で、真正な保存receiptと現在の25を読み取り専用の評価入力へ結ぶ経路を追加しました。専用identityは25のpath/hash・公式index/PDF・原問と全sibling ID・現在policyを保持し、`00_source`の参照を作りません。各fieldはIDで結合します。公式順は、保存時native最終承認が明示したIDと肢labelに一致する`feedback-verified-official-order/v1`だけを受け付け、配列順・既存choiceIndex・OCRから推定しません。対応表がなければ公式順は未解決として保留します。既存の法令metadata内のindexや監査状態を、現在の工程完了記録へ読み替えません。
 

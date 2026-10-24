@@ -7,7 +7,7 @@ Missing normal evidence is a hold, never an asserted approval or successful gate
 from __future__ import annotations
 
 import argparse
-from contextlib import contextmanager, closing
+from contextlib import contextmanager, closing, nullcontext
 from copy import deepcopy
 import fcntl
 import json
@@ -25,6 +25,7 @@ from scripts.common.scoped_canonical_context import reader_dependencies
 from scripts.convert.convert_merged_to_firestore import convert_question_to_firestore, get_original_question_body_text
 from scripts.upload import upload_questions_to_firestore as uploader
 from tools.question_bank import feedback_prepared_stage as normal
+from tools.question_bank import feedback_source_tf_completion as completion_api
 from tools.question_bank import feedback_verified_stage_execution as native
 from tools.question_bank.feedback_legacy_review_context import (
     PRIVATE, MANIFEST, _bytes, _hash, _inside, _json, _object, _physical, _read, _ref, _text, _unchanged,
@@ -36,7 +37,7 @@ from tools.question_review_console.projection import sha256_json
 MODULE = 'tools.question_bank.feedback_source_tf_delivery'
 REQUEST = 'source-bound-public-tf-request/v1'
 SCHEMA = 'source-bound-public-tf-unit/v1'
-PLAN = 'source-bound-public-tf-plan/v1'
+PLAN = 'source-bound-public-tf-plan/v2'
 SAVED = 'source-bound-public-tf-save-receipt/v1'
 CHECKS = 'source-bound-public-tf-checks/v1'
 RESULT = 'source-bound-public-tf-publication-result/v1'
@@ -481,23 +482,7 @@ def _variant(request, source, current, baseline):
 
 
 def _task_lifecycle(connection, request):
-    if request['authority']['kind'] != 'improvement':
-        # Report lifecycle is fixed by its normal individual-case requirement;
-        # publication remains blocked until its blind/challenge reader connects.
-        if request['schemaVersion'] != REQUEST:
-            return {'kind': 'report', 'reviewAuthority': 'fresh_current_projection_review'}
-        return {'kind': 'report', 'publicationGate': 'genuine_report_blind_a_b_challenge_reader_not_connected'}
-    cursor = connection.cursor(); cursor.row_factory = sqlite3.Row
-    try:
-        row = cursor.execute('SELECT status,updated_at FROM improvement_tasks WHERE task_id=?',
-            (request['authority']['taskId'],)).fetchone()
-        if row is None or row['status'] not in {'open', 'in_progress', 'review_pending'}:
-            raise GateRequired('unfinished_unblocked_task_lifecycle_required')
-        latest = cursor.execute('SELECT * FROM improvement_result_history WHERE task_id=? ORDER BY id DESC LIMIT 1',
-            (request['authority']['taskId'],)).fetchone()
-        return {'kind': 'improvement', 'expectedStatus': row['status'], 'updatedAt': row['updated_at'],
-            'latestResult': dict(latest) if latest is not None else None}
-    finally: cursor.close()
+    return completion_api.task_lifecycle(connection, request)
 
 
 def _derive(root, path, coordinator, connection, files, *, baseline_override=None):
@@ -523,6 +508,7 @@ def _derive(root, path, coordinator, connection, files, *, baseline_override=Non
     source_payload = {'schemaVersion': SCHEMA, 'sourceBinding': binding.as_mapping(), 'source': source,
         'normalProjection': current, 'stageProofs': proofs, 'taskRequirement': requirement, 'taskLifecycle': lifecycle,
         'primaryEvidence': request['primaryEvidence'], 'officialAnswer': request['officialAnswer'], 'mapping': request['mapping']}
+    source_payload['completionContract'] = completion_api.completion_contract(connection, request, lifecycle)
     source_payload['requiredReviewGates'] = []
     if request['authority']['kind'] == 'report' and request['schemaVersion'] == REQUEST:
         source_payload['requiredReviewGates'].append('genuine_report_blind_a_b_challenge_reader_not_connected')
@@ -641,9 +627,10 @@ def inspect(root, path, *, coordinator, connection):
 
 def _scope(root, path, plan, action, *, gates=None):
     argv = ['--repo-root', str(root), '--db', plan['ledgerPath'], 'scope', '--plan', str(path), '--action', action]
-    return {'schemaVersion': 'source-bound-public-tf-independent-scope/v1', 'action': action,
+    return {'schemaVersion': 'source-bound-public-tf-independent-scope/v2', 'action': action,
         'planHash': plan['planHash'], 'unitHash': plan['unitHash'], 'sourceBinding': plan['request']['source']['binding'],
-        'taskRequirement': plan['source']['taskRequirement'], 'taskLifecycle': plan['source']['taskLifecycle'], 'publicHash': sha256_json(plan['public']),
+        'taskRequirement': plan['source']['taskRequirement'], 'taskLifecycle': plan['source']['taskLifecycle'],
+        'completionContract': plan['source']['completionContract'], 'publicHash': sha256_json(plan['public']),
         'stageProofsHash': sha256_json(plan['source']['stageProofs']), 'inputFilesHash': sha256_json(plan['inputFiles']),
         'transportSchema': uploader.READ_SET_TF_TRUTH_SCHEMA,
         'requiredReviewGates': plan['source'].get('requiredReviewGates', []), 'gates': gates,
@@ -1116,8 +1103,76 @@ def reconcile(root, path, *, coordinator, connection, evaluation=None):
     return result
 
 
+@native.operation
+def completion(root, path, *, coordinator, connection, evaluation=None):
+    root = _physical(root); path = _inside(root, path, private=True)
+    plan = _verify(_load(root, path, {}, private=True), PLAN)
+    artifact = completion_api.artifact_for(root, path, plan)
+    destination = path.parent / 'completion.json'
+    proof = completion_api.verify_completion(root, artifact, connection=connection,
+        artifact_ref=destination, coordinator=coordinator, evaluation=evaluation)
+    if destination.exists():
+        if _read(root, destination, {}, private=True) != _bytes(artifact): raise ValueError('completion artifact conflict')
+    else: _exclusive(destination, _bytes(artifact))
+    proof.assert_current(connection)
+    return artifact
+
+
 def complete(*args, **kwargs):
-    raise GateRequired('dedicated_daily_publication_result_dispatch_not_connected; publication is not task completion')
+    if not args: raise GateRequired('completion requires an explicitly bound source TF plan')
+    return completion(*args, **kwargs)
+
+
+@native.operation
+def record_completion(root, path, completion_path, completion_sha256, *, coordinator, connection, evaluation=None, failure_hook=None):
+    from tools.question_bank import feedback_daily as daily
+    root = _physical(root); path = _inside(root, path, private=True)
+    completion_path = _inside(root, completion_path, private=True)
+    raw = _read(root, completion_path, {}, private=True)
+    if _hash(raw) != completion_sha256: raise ValueError('completion artifact hash differs')
+    artifact = _json(raw)
+    if artifact.get('plan', {}).get('ref') != str(path): raise ValueError('completion argv plan differs')
+    authority = artifact.get('authority') or {}
+    if authority.get('kind') == 'improvement':
+        contract = artifact.get('completionContract') or {}
+        result_id = daily.record_improvement_publication(connection, task_id=authority['taskId'],
+            expected_status=contract['before']['expectedStatus'], reason=contract['reason'],
+            artifact_ref=completion_path, artifact_sha256=completion_sha256, repo_root=root,
+            source_tf_options={'coordinator': coordinator, 'evaluation': evaluation})
+        row = connection.execute('SELECT * FROM improvement_result_history WHERE id=?', (result_id,)).fetchone()
+        task = connection.execute('SELECT status FROM improvement_tasks WHERE task_id=?', (authority['taskId'],)).fetchone()
+        if row is None or row['status'] != 'completed' or task is None or task['status'] != 'completed':
+            raise ValueError('source TF improvement completion readback differs')
+        parent_published = False
+    elif authority.get('kind') == 'report':
+        result_id = daily.record_source_tf_report_publication(connection, task_id=authority['taskId'], case_id=authority['caseId'],
+            artifact_ref=completion_path, artifact_sha256=completion_sha256, repo_root=root,
+            coordinator=coordinator, evaluation=evaluation)
+        row = connection.execute('SELECT * FROM source_tf_report_publication_history WHERE id=?', (result_id,)).fetchone()
+        task = connection.execute('SELECT published_at FROM report_tasks WHERE task_id=?', (authority['taskId'],)).fetchone()
+        if row is None or row['artifact_sha256'] != completion_sha256 or task is None:
+            raise ValueError('source TF report completion readback differs')
+        parent_published = task['published_at'] is not None
+    else: raise ValueError('source TF completion requires exact improvement/report authority')
+    if failure_hook: failure_hook('database_committed')
+    proof = completion_api.verify_completion(root, artifact, connection=connection, artifact_ref=completion_path,
+        coordinator=coordinator, evaluation=evaluation)
+    proof.assert_current(connection)
+    daily._backup_db(connection, Path(normal._ledger_path(connection)))
+    result = {'schemaVersion': 'source-bound-public-tf-ledger-completion/v1', 'authority': authority,
+        'resultId': result_id, 'artifact': {'ref': str(completion_path), 'sha256': completion_sha256},
+        'history': dict(row), 'reportParentPublished': parent_published}
+    output = path.parent / 'completion-ledger-readback.json'
+    if output.exists():
+        previous = _json(output.read_bytes())
+        # Parent progress may legitimately advance after this case's completion;
+        # its own durable receipt remains bound to the same immutable history.
+        if any(previous.get(key) != result[key] for key in result if key != 'reportParentPublished'):
+            raise ValueError('completion ledger receipt conflict')
+        result = previous
+    else: _exclusive(output, _bytes(result))
+    proof.assert_current(connection)
+    return result
 
 
 def main(argv=None):
@@ -1125,24 +1180,33 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--repo-root', type=Path, required=True); parser.add_argument('--db', type=Path, default=LEDGER)
     subs = parser.add_subparsers(dest='command', required=True)
-    for name in ('prepare', 'inspect', 'scope', 'save', 'check', 'evaluate', 'publish', 'reconcile'):
+    for name in ('prepare', 'inspect', 'scope', 'save', 'check', 'evaluate', 'publish', 'reconcile', 'completion', 'record-completion'):
         sub = subs.add_parser(name)
         if name == 'prepare':
             sub.add_argument('--request', type=Path, required=True); sub.add_argument('--output', type=Path, required=True)
         else: sub.add_argument('--plan', type=Path, required=True)
         if name in ('save', 'publish'): sub.add_argument('--approval', type=Path, required=True)
         if name == 'scope': sub.add_argument('--action', choices=('save', 'publish'), required=True)
+        if name == 'record-completion':
+            sub.add_argument('--completion', type=Path, required=True)
+            sub.add_argument('--completion-sha256', required=True)
     args = parser.parse_args(argv); root = _physical(args.repo_root)
-    with closing(sqlite3.connect('file:' + str(_physical(args.db)) + '?mode=ro', uri=True)) as connection:
-        connection.row_factory = sqlite3.Row; coordinator = normal.coordinator_for(root)
-        if args.command == 'prepare':
-            result = prepare(root, args.request, args.output, coordinator=coordinator, connection=connection)
-        else:
-            with native.native_operation(argv, module_name=MODULE):
+    with native.native_operation(argv, module_name=MODULE) if args.command != 'prepare' else nullcontext():
+        if args.command == 'record-completion':
+            from tools.question_bank.feedback_daily import _private_db
+            selected_connection = _private_db(_physical(args.db))
+        else: selected_connection = sqlite3.connect('file:' + str(_physical(args.db)) + '?mode=ro', uri=True)
+        with closing(selected_connection) as connection:
+            connection.row_factory = sqlite3.Row; coordinator = normal.coordinator_for(root)
+            if args.command == 'prepare':
+                result = prepare(root, args.request, args.output, coordinator=coordinator, connection=connection)
+            else:
                 options = {'coordinator': coordinator, 'connection': connection}
                 if args.command in ('save', 'publish'): options['approval_path'] = args.approval
                 if args.command == 'scope': options['action'] = args.action
-                result = globals()[args.command](root, args.plan, **options)
+                if args.command == 'record-completion':
+                    result = record_completion(root, args.plan, args.completion, args.completion_sha256, **options)
+                else: result = globals()[args.command](root, args.plan, **options)
         if args.command == 'scope': print(scope_marker(result, creation=True))
         else: print(json.dumps(result, ensure_ascii=False, sort_keys=True))
     return 0
