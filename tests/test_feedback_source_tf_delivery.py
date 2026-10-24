@@ -1035,6 +1035,160 @@ def test_explicit_evaluation_dispatch_replays_saved_unit_and_rejects_projected_d
         validate_scoped_question(rig.root, question)
 
 
+def test_source_tf_evaluation_recomputes_old_inventory_diagnostics_and_is_ready_after_real_checks(rig, monkeypatch):
+    from tools.question_review_console.evaluation import QuestionEvaluationService
+    group = rig.coordinator.workflow.inventory.group
+    def stale_group(*args):
+        result = group(*args)
+        result['questions'][0].update(
+            issueCodes=['identity_mismatch', 'merge_stale'],
+            issues=[{'code': 'identity_mismatch', 'detail': 'old group artifacts'}],
+            requiredFieldWarnings=[{'field': 'old', 'detail': 'old inventory'}],
+            qualityWarnings=[{'code': 'old'}], validationFindings=[{'field': 'old'}],
+            projectionErrors=['old group artifacts'],
+            sourceCorrectChoiceComparison={'different': True, 'current': ['old']},
+            sourceAnswerDifferenceApproval={'approved': False})
+        return result
+    monkeypatch.setattr(rig.coordinator.workflow.inventory, 'group', stale_group)
+    plan, _, _ = saved(rig)
+    checks = api.check(rig.root, rig.path, **rig.options)
+    assert len(checks['commands']) == 5
+    question = api._question(rig.root, rig.path, plan, rig.coordinator, rig.connection, checked=True)
+    question['sourceTfLedger'] = api.normal._ledger_path(rig.connection)
+    monkeypatch.setattr(api.normal, 'coordinator_for', lambda *a: rig.coordinator)
+    prompts = []
+    def runner(prompt):
+        prompts.append(prompt)
+        return {'status': 'passed', 'explanationScore': 94, 'criticalIssues': [],
+            'summary': '全選択肢を独立に照合したfixture評価。', 'reworkItems': [],
+            'choiceEvaluations': [
+                {'choiceIndex': index, 'verdict': verdict, 'reason': '隔離された一次根拠fixtureと一致。',
+                    'evidence': [{'source': '公式fixture', 'locator': '問1', 'summary': '各命題を照合。'}]}
+                for index, verdict in [(0, 'false'), (1, 'true'), (2, 'true')]]}
+    service = QuestionEvaluationService(rig.root, 'isolated readiness', result_runner=runner)
+    # Real evaluation.preview dispatches the saved-unit reader, genuine native
+    # approval replay and all five CLI checkers; no mocked machineReady flag.
+    preview = service.preview(question)
+    assert preview['canEvaluate'] is True and preview['machineReady'] is True
+    assert preview['blockingIssues'] == []
+    assert question['issueCodes'] == question['issues'] == question['validationFindings'] == []
+    assert question['requiredFieldWarnings'] == question['qualityWarnings'] == question['projectionErrors'] == []
+    assert question['sourceCorrectChoiceComparison'] == api.correct_choice_comparison(rig.source, plan['public']['record'])
+    assert question['sourceCorrectChoiceComparison']['different'] is True
+    contract = question['sourceAnswerDifferenceApproval']
+    assert contract['schemaVersion'] == api.ANSWER_APPROVAL and contract['approved'] is True
+    assert contract['comparisonHash'] == api.sha256_json(question['sourceCorrectChoiceComparison'])
+    assert contract['stageProofsHash'] == api.sha256_json(plan['source']['stageProofs'])
+    assert contract['publicHash'] == api.sha256_json(plan['public'])
+    assert contract['reportReviewHash'] == api.sha256_json(plan['source'].get('reportReview'))
+    assert api._question(rig.root, rig.path, plan, rig.coordinator, rig.connection)['sourceAnswerDifferenceApproval']['approved'] is False
+    # Exercise the adapter's actual model-start dispatch and normal persistence;
+    # only the external model answer is an explicit isolated three-choice fixture.
+    result = api.evaluate(rig.root, rig.path, evaluation=service, **rig.options)
+    assert result['evaluation']['status'] == 'passed'
+    assert result['evaluation']['verifiedChoiceCount'] == 3 and len(prompts) == 1
+    assert service.status_for(question)['publishReady'] is True
+
+
+def test_source_tf_ready_contract_preserves_failed_delta_and_current_policy_holds(rig, monkeypatch):
+    from tools.question_review_console import evaluation as evaluation_api
+    plan, _, _ = saved(rig)
+    question = api._question(rig.root, rig.path, plan, rig.coordinator, rig.connection, checked=True)
+    question['sourceTfLedger'] = api.normal._ledger_path(rig.connection)
+    monkeypatch.setattr(api.normal, 'coordinator_for', lambda *a: rig.coordinator)
+    monkeypatch.setattr(api, '_verify_checks', lambda *a, **k: {'fixture': 'dispatch only'})
+    monkeypatch.setattr(evaluation_api, 'unresolved_failed_delta_paths', lambda *a: ['unresolved-fixture'])
+    service = evaluation_api.QuestionEvaluationService(rig.root, 'fixture', result_runner=lambda prompt: None)
+    preview = service.preview(question)
+    assert preview['canEvaluate'] is False and preview['machineReady'] is False
+    assert preview['failedDeltaPaths'] == ['unresolved-fixture']
+    monkeypatch.setattr(evaluation_api, 'unresolved_failed_delta_paths', lambda *a: [])
+    monkeypatch.setattr(rig.coordinator.work_versions, 'status_for', lambda *a: {'allCurrent': False, 'stages': []})
+    stale = api._question(rig.root, rig.path, plan, rig.coordinator, rig.connection, checked=True)
+    stale['sourceTfLedger'] = question['sourceTfLedger']
+    assert stale['sourceAnswerDifferenceApproval']['approved'] is False
+    preview = service.preview(stale)
+    assert preview['canEvaluate'] is False and preview['policyReady'] is False
+    assert 'source_answer_difference_unapproved' in preview['blockingIssues']
+
+
+@pytest.mark.parametrize('field, value', [
+    ('sourceAnswerDifferenceApproval', {'approved': True}),
+    ('sourceCorrectChoiceComparison', {'different': False}),
+    ('issues', [{'code': 'merge_stale'}]),
+    ('issueCodes', ['identity_mismatch']),
+    ('requiredFieldWarnings', [{'field': 'invented'}]),
+    ('qualityWarnings', [{'code': 'invented'}]),
+    ('validationFindings', [{'field': 'invented'}]),
+    ('projectionErrors', ['invented']),
+    ('workVersions', {'allCurrent': True, 'stages': []}),
+    ('convertedDocs', []),
+    ('source', {'correctChoiceText': ['間違い']}),
+    ('questionImageStorageUrls', ['https://example.test/foreign-question.png']),
+    ('originalQuestionChoiceImageUrls', ['https://example.test/foreign-choice.png']),
+    ('questionImageStorageUrls', None),
+    ('originalQuestionChoiceImageUrls', None),
+    ('body', 'foreign body'),
+    ('publicationQualificationId', 'foreign-qualification'),
+])
+def test_evaluation_contract_rejects_forged_approval_and_diagnostic_or_input_replacements(rig, monkeypatch, field, value):
+    plan, _, _ = saved(rig)
+    question = api._question(rig.root, rig.path, plan, rig.coordinator, rig.connection, checked=True)
+    question['sourceTfLedger'] = api.normal._ledger_path(rig.connection)
+    monkeypatch.setattr(api.normal, 'coordinator_for', lambda *a: rig.coordinator)
+    # Only checker process execution is isolated here. Real saved/native/input
+    # replay stays active; the success test above executes the actual checkers.
+    monkeypatch.setattr(api, '_verify_checks', lambda *a, **k: {'fixture': 'dispatch contract only'})
+    if value is None: question.pop(field)
+    else: question[field] = deepcopy(value)
+    with pytest.raises(ValueError, match='evaluation unit scope differs:' + field):
+        api.validate_source_tf_question(rig.root, question)
+
+
+@pytest.mark.parametrize('mutation', ['missing_field', 'identity_mismatch', 'answer_explanation_mismatch', 'law_hold', 'law_basis_missing'])
+def test_evaluation_diagnostics_keep_actual_public_variant_defects(rig, mutation):
+    plan = prepared(rig)
+    if mutation == 'missing_field':
+        plan['public']['record'].pop('questionSetId')
+        expected = 'required_field_missing'
+    elif mutation == 'identity_mismatch':
+        plan['public']['questions'].pop()
+        expected = 'identity_mismatch'
+    elif mutation == 'answer_explanation_mismatch':
+        plan['public']['record']['explanationText'][0] = '正しい。'
+        expected = 'answer_explanation_mismatch'
+    else:
+        plan['public']['record'].update(isLawRelated=True,
+            lawReferences=[{'verificationStatus': 'unverified', 'lawId': 'fixture-law'}],
+            lawRevisionFacts={'auditStatus': 'hold'})
+        expected = mutation
+    question = api._question(rig.root, rig.path, plan, rig.coordinator, rig.connection, checked=True)
+    assert expected in question['issueCodes']
+    assert question['issues'] == api.detect_issues(question['projected'], question['merged'],
+        question['convertedDocs'], question['uploadReadyDocs'], [],
+        question['requiredFieldWarnings'], question['qualityWarnings'])
+
+
+@pytest.mark.parametrize('mutation', ['source', 'stage', 'native_revoke'])
+def test_evaluation_approval_cannot_survive_bound_source_stage_or_native_change(rig, monkeypatch, mutation):
+    plan, approval, _ = saved(rig)
+    question = api._question(rig.root, rig.path, plan, rig.coordinator, rig.connection, checked=True)
+    question['sourceTfLedger'] = api.normal._ledger_path(rig.connection)
+    monkeypatch.setattr(api.normal, 'coordinator_for', lambda *a: rig.coordinator)
+    def forbidden(*a, **k): raise AssertionError('must fail genuine input replay before checks')
+    monkeypatch.setattr(api, '_verify_checks', forbidden)
+    if mutation == 'native_revoke':
+        journal = Path(api._json(approval.read_bytes())['reviewerFinal']['sessionPath'])
+        journal.write_bytes(journal.read_bytes() + api._bytes({'type': 'event_msg',
+            'payload': {'type': 'user_message', 'message': '撤回'}}))
+    else:
+        selected = Path(rig.request['source']['ref']) if mutation == 'source' else (
+            rig.root / api._json(Path(rig.request['stageProofs'][0]['plan']['ref']).read_bytes())['commitView']['patches'][0]['path'])
+        selected.write_bytes(selected.read_bytes() + b'\n')
+    with pytest.raises((ValueError, api.GateRequired)):
+        api.validate_source_tf_question(rig.root, question)
+
+
 def test_later_normal_law_owned_patch_history_has_explicit_jsonl_shape(tmp_path):
     # A normal 03b sidecar is JSONL, unlike source/10/15/23 record arrays.
     # Keep this fixture explicit; arbitrary source JSON must not become JSONL.
@@ -1372,6 +1526,50 @@ def test_completion_cli_read_path_never_opens_writer_and_owner_is_required_befor
     monkeypatch.setattr(api.sqlite3,'connect',reader)
     with pytest.raises(ValueError,match='read-only reached'): api.main([*base,'completion','--plan',str(rig.path)])
     assert opened==['readonly']
+
+
+def test_prepare_cli_binds_actual_owner_before_readonly_database_and_prepare(rig, monkeypatch, capsys):
+    from contextlib import contextmanager
+    calls = []
+    argv = ['--repo-root', str(rig.root), '--db', str(rig.private / 'ledger.sqlite3'),
+        'prepare', '--request', str(rig.request_path), '--output', str(rig.output)]
+    @contextmanager
+    def owner(actual, *, module_name):
+        assert actual == argv and module_name == api.MODULE
+        calls.append('owner')
+        try: yield
+        finally: calls.append('owner_exit')
+    real_connect = api.sqlite3.connect
+    def reader(database_uri, **kwargs):
+        assert calls == ['owner'] and database_uri.endswith('?mode=ro') and kwargs == {'uri': True}
+        calls.append('readonly')
+        return real_connect(database_uri, **kwargs)
+    def prepare(*args, **kwargs):
+        assert calls == ['owner', 'readonly']
+        calls.append('prepare')
+        return {'planHash': 'a' * 64, 'FirestoreWritten': False}
+    monkeypatch.setattr(api.native, 'native_operation', owner)
+    monkeypatch.setattr(api.sqlite3, 'connect', reader)
+    monkeypatch.setattr(api.normal, 'coordinator_for', lambda *a: rig.coordinator)
+    monkeypatch.setattr(api, 'prepare', prepare)
+    assert api.main(argv) == 0
+    assert calls == ['owner', 'readonly', 'prepare', 'owner_exit']
+    assert json.loads(capsys.readouterr().out)['command'] == 'prepare'
+
+
+def test_prepare_cli_refused_owner_never_opens_database_or_prepares(rig, monkeypatch):
+    from contextlib import contextmanager
+    @contextmanager
+    def refused(*a, **k):
+        raise ValueError('prepare owner refused')
+        yield
+    def forbidden(*a, **k): raise AssertionError('prepare owner must be validated first')
+    monkeypatch.setattr(api.native, 'native_operation', refused)
+    monkeypatch.setattr(api.sqlite3, 'connect', forbidden)
+    monkeypatch.setattr(api, 'prepare', forbidden)
+    with pytest.raises(ValueError, match='prepare owner refused'):
+        api.main(['--repo-root', str(rig.root), '--db', str(rig.private / 'ledger.sqlite3'),
+            'prepare', '--request', str(rig.request_path), '--output', str(rig.output)])
 
 
 @pytest.mark.parametrize('command', ['prepare', 'inspect', 'save', 'check', 'evaluate', 'publish', 'reconcile', 'completion', 'record-completion'])

@@ -7,7 +7,7 @@ Missing normal evidence is a hold, never an asserted approval or successful gate
 from __future__ import annotations
 
 import argparse
-from contextlib import contextmanager, closing, nullcontext
+from contextlib import contextmanager, closing
 from copy import deepcopy
 import fcntl
 import json
@@ -32,6 +32,10 @@ from tools.question_bank.feedback_legacy_review_context import (
 )
 from tools.question_bank.feedback_verified_save import _snapshots, _exclusive, LEDGER
 from tools.question_review_console.independent_approval import verify_independent_approval, scope_marker
+from tools.question_review_console.inventory import correct_choice_comparison, detect_issues
+from tools.question_review_console.patch_validation import (
+    projected_required_warnings, upload_document_required_warnings, law_audit_quality_warnings,
+)
 from tools.question_review_console.projection import sha256_json
 
 MODULE = 'tools.question_bank.feedback_source_tf_delivery'
@@ -43,6 +47,7 @@ GIT_ARTIFACT = 'source-bound-public-tf-git-artifact/v1'
 GIT_PRIVACY = 'source-bound-public-tf-git-privacy/v1'
 CHECKS = 'source-bound-public-tf-checks/v1'
 RESULT = 'source-bound-public-tf-publication-result/v1'
+ANSWER_APPROVAL = 'source-bound-public-tf-answer-approval/v1'
 FILES = ('source.json', 'public.json', 'manifest.json')
 READ_FIELDS = sorted(set(uploader.DOC_COMPARE_KEYS) | {'createdAt', 'createdById', 'updatedAt', 'updatedById'})
 STRUCTURAL = {'questionBodyText', 'questionText', 'correctChoiceText'}
@@ -880,8 +885,25 @@ def load_saved_unit(root, path, *, coordinator=None, connection=None):
 
 def _question(root, path, plan, coordinator, connection, *, checked=False):
     question = _normal_question(coordinator, plan['request'])
-    question.update(projected=deepcopy(plan['public']['record']), merged=deepcopy(plan['public']['record']),
-        convertedDocs=deepcopy(plan['public']['questions']), uploadReadyDocs=deepcopy(plan['public']['questions']),
+    source = deepcopy(plan['source']['source'])
+    record = deepcopy(plan['public']['record']); documents = deepcopy(plan['public']['questions'])
+    warnings = [*projected_required_warnings(record),
+        *(warning for document in documents for warning in upload_document_required_warnings(document))]
+    quality = law_audit_quality_warnings(record, stage='projected')
+    issues = detect_issues(record, record, documents, documents, [], warnings, quality)
+    comparison = correct_choice_comparison(source, record)
+    # Inventory diagnostics describe its old group artifacts. Recompute every
+    # diagnostic for this explicit public variant, using the normal detectors.
+    question.update(source=source, projected=record, merged=deepcopy(record),
+        convertedDocs=deepcopy(documents), uploadReadyDocs=documents,
+        sourceCorrectChoiceComparison=comparison, requiredFieldWarnings=warnings,
+        qualityWarnings=quality, validationFindings=[*warnings, *quality], projectionErrors=[],
+        issues=issues, issueCodes=[issue['code'] for issue in issues],
+        body=record.get('questionBodyText'),
+        publicationQualificationId=plan['public']['publicationUnit']['qualificationId'],
+        questionImageStorageUrls=deepcopy(record.get('questionImageStorageUrls') or []),
+        originalQuestionChoiceImageUrls=deepcopy(record.get('originalQuestionChoiceImageUrls') or []),
+        isLawRelated=record.get('isLawRelated') is True,
         stateHash=plan['unitHash'], choiceCount=len(plan['public']['questions']),
         sourceTfUnit={'plan': str(path), 'planHash': plan['planHash']},
         sourceTfOriginalBody=get_original_question_body_text(plan['source']['source']),
@@ -889,6 +911,28 @@ def _question(root, path, plan, coordinator, connection, *, checked=False):
     # Preserve the normal work-version identity, not a new fictitious checkpoint.
     question['workVersions'] = coordinator.work_versions.status_for(question,
         coordinator.workflow.versioned_policies(plan['request']['qualification']).values())
+    # This is a dedicated source-TF evaluation contract, not a 24 approval.
+    # It is only accepted after validate_source_tf_question replays the real
+    # saved unit/native graph, current normal stages and actual checker CLIs.
+    # A caller-supplied approved flag or these hashes alone grant no authority.
+    question['sourceAnswerDifferenceApproval'] = {
+        'schemaVersion': ANSWER_APPROVAL,
+        'approved': bool(checked and not plan['source'].get('requiredReviewGates')
+            and question['workVersions'].get('allCurrent') is True),
+        'validator': MODULE + ':validate_source_tf_question',
+        'planHash': plan['planHash'], 'unitHash': plan['unitHash'],
+        'sourceHash': sha256_json(plan['source']['source']),
+        'normalProjectionHash': sha256_json(plan['source']['normalProjection']),
+        'stageProofsHash': sha256_json(plan['source']['stageProofs']),
+        'primaryEvidenceHash': sha256_json(plan['source']['primaryEvidence']),
+        'officialAnswerHash': sha256_json(plan['source']['officialAnswer']),
+        'mappingHash': sha256_json(plan['source']['mapping']),
+        'publicHash': sha256_json(plan['public']),
+        'reportReviewHash': sha256_json(plan['source'].get('reportReview')),
+        'inputFilesHash': sha256_json(plan['inputFiles']),
+        'comparisonHash': sha256_json(comparison),
+        'requiredReviewGates': deepcopy(plan['source'].get('requiredReviewGates', [])),
+    }
     if checked:
         question['workflow'] = {**question.get('workflow', {}), 'merge': 'match', 'convert': 'match', 'upload': 'match'}
     return question
@@ -905,7 +949,13 @@ def validate_source_tf_question(root, question):
         if plan['planHash'] != spec['planHash']: raise ValueError('evaluation unit token drift')
         _verify_checks(root, Path(spec['plan']), plan, rerun=False)
         expected = _question(root, Path(spec['plan']), plan, coordinator, connection, checked=True)
-        for field in ('id', 'reviewKey', 'projected', 'uploadReadyDocs', 'stateHash', 'sourceTfOriginalBody', 'sourceTfOfficialAnswer'):
+        for field in ('id', 'reviewKey', 'qualification', 'publicationQualificationId', 'listGroupId', 'sourceQuestionKey', 'sourceRecordRef',
+                'originalQuestionId', 'source', 'projected', 'merged', 'convertedDocs', 'uploadReadyDocs',
+                'stateHash', 'choiceCount', 'isLawRelated', 'sourceTfOriginalBody', 'sourceTfOfficialAnswer',
+                'body', 'questionImageStorageUrls', 'originalQuestionChoiceImageUrls',
+                'sourceCorrectChoiceComparison', 'sourceAnswerDifferenceApproval', 'requiredFieldWarnings',
+                'qualityWarnings', 'validationFindings', 'projectionErrors', 'issues', 'issueCodes',
+                'workVersions', 'workflow'):
             if question.get(field) != expected.get(field): raise ValueError('normal evaluation unit scope differs:' + field)
         _native_graph(root, Path(spec['plan']), plan)
     # This is not the legacy scoped-artifact tuple. The dispatch validates then
@@ -1404,7 +1454,7 @@ def main(argv=None):
             sub.add_argument('--completion-sha256', required=True)
     args = parser.parse_args(argv); root = _physical(args.repo_root)
     try:
-        with native.native_operation(argv, module_name=MODULE) if args.command != 'prepare' else nullcontext():
+        with native.native_operation(argv, module_name=MODULE):
             if args.command == 'record-completion':
                 from tools.question_bank.feedback_daily import _private_db
                 selected_connection = _private_db(_physical(args.db))
