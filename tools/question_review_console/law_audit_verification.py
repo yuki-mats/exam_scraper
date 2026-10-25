@@ -202,6 +202,11 @@ def review_prompt(bundle: Mapping[str, Any], phase: str, *, repo_root=None) -> s
         'primaryLawEvidenceの確認済み本文を使い、不足箇所は候補のlawReferencesのe-Gov又は所管官庁の一次情報を直接開く。検索要約だけでは承認しない。実際に本文を確認できた公式URLだけをverifiedSourceUrlsへ入れる。404や取得失敗のURLは確認済みとして記録しない。',
         'proposedPrimaryLawEvidenceは候補が宣言した法令locatorをserverが独立に取得した一次本文である。候補が追加又は変更した条文・基準日は、この本文と取得URLを照合する。候補のverified宣言とは区別し、partial又は取得失敗の箇所は一次情報を確認できるまで承認しない。',
         'proposedOfficialGuidanceEvidenceがある場合は、実取得した行政制度資料の限定頁を全肢と照合し、候補のofficialGuidanceReferencesのrequest/evidenceRef・各肢の適用理由と一致するか確認する。取得hashだけで内容・適用時点を承認しない。historicalCompleteness=unreviewedの歴史資料は適用版を独立確認し、未確認時は既存の公式正答fallback条件と未確認理由を厳密に満たす候補だけを確認する。標準モデル規約と各組合の採用規約、改正版の公開日と法の施行日を区別する。法令locatorがあるmixed候補はproposedPrimaryLawEvidenceも確認し、制度資料で法令本文の不足を代用しない。全確認資料の実URLをverifiedSourceUrlsへ含める。',
+        *(['採用制度資料の確認チェックリスト（確認済みという宣言ではない）: '
+            + json.dumps([document['sourceUrl'] for document in bundle['proposedOfficialGuidanceEvidence']['documents']], ensure_ascii=False),
+            'approveの前にチェックリストの全資料の配送済み限定本文を照合し、実際に確認した各URLをverifiedSourceUrlsへ記録する。'
+            'チェックリストに古い基礎版が含まれる場合も確認対象とする。未確認の資料があればURLを自動補完せずholdとし、issuesに不足資料と理由を書く。']
+            if bundle.get('proposedOfficialGuidanceEvidence') is not None else []),
         'qualificationReferenceGuidanceがある場合は、取得元の現在化と公式試験原文の差、判例・行政資料の確認先も読む。方針の記述を判定結果として信用せず、記載された公式問題PDF・正解番号PDFなどの一次資料を独立に確認する。現在化された文言を当時の法へそのまま当てはめず、公式原文と現在の表示を同じ選択位置で対応付けて、それぞれの時点の判定を行う。',
         '出題時条文を参照できない場合は、取得元の公式元正答と未参照理由を明示した候補だけを確認する。過去の条文・改正日・根拠を推測して作らない。',
         '元の集約回答は、各記述を独立判定した後で集合・個数を照合する。元の回答番号を記述番号へ転記しない。',

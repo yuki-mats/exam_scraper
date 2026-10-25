@@ -955,6 +955,37 @@ class ReadSetTFTruthUploadTests(unittest.TestCase):
                     self.assertEqual({k: v for k, v in db.live[identity].items() if k not in values},
                                      {k: v for k, v in live[identity].items() if k not in values})
 
+    def test_display_profiles_preserve_absent_unowned_legacy_list_group(self):
+        for factory in (ReadSetDisplayUploadTests, ReadSetTFTruthUploadTests, ReadSetTFTruthInitializeUploadTests):
+            with self.subTest(profile=factory.__name__):
+                payload, live = factory().fixture()
+                for values in live.values(): values.pop('listGroupId', None)
+                for row in payload['questions']: row.pop('listGroupId', None)
+                payload['expectedLiveFingerprint'] = module.firestore_live_fingerprint(payload['readDocumentIds'], live)
+                db = self.Database(live)
+                self.assertEqual(self.upload(payload, db)['status'], 'committed')
+                self.assertEqual(db.commits, 1)
+                for identity, update, _ in db.updates:
+                    self.assertNotIn('listGroupId', update)
+                    self.assertNotIn('listGroupId', db.live[identity])
+
+    def test_explicit_nonowned_legacy_presence_changes_are_still_rejected_before_queue(self):
+        for mutation in ('add-empty', 'add-value', 'omit-existing', 'change-null'):
+            with self.subTest(mutation=mutation):
+                payload, live = self.fixture(); row = payload['questions'][0]; qid = row['questionId']
+                if mutation.startswith('add'):
+                    live[qid].pop('listGroupId', None)
+                    row['listGroupId'] = '' if mutation == 'add-empty' else 'new-group'
+                elif mutation == 'omit-existing': row.pop('listGroupId')
+                else:
+                    live[qid]['listGroupId'] = None
+                    row['listGroupId'] = ''
+                payload['expectedLiveFingerprint'] = module.firestore_live_fingerprint(payload['readDocumentIds'], live)
+                db = self.Database(live)
+                with self.assertRaisesRegex(RuntimeError, 'non-owned live field/presence'):
+                    self.upload(payload, db)
+                self.assertEqual((db.updates, db.commits, db.applied), ([], 0, []))
+
     def test_v3_explicit_dry_run_never_initializes_sdk_and_old_profiles_reject_truth(self):
         payload, live = self.fixture()
         with patch.object(module, 'init_firestore') as init:
