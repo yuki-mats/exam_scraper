@@ -36,6 +36,7 @@ Chromeは通常利用中のprofileへ接続せず、`~/.config/exam_scraper/knou
 - 原画像は`output/eco-kentei/question_images/knoun-2026-mock-<組>/raw/`へ置き、同階層の`capture_manifest.json`へ対応URL、相対path、SHA256、サイズを一問ずつ確定する。
 - 再開時は保存済み画像の全hashを検査する。途中の組は「つづきから」で再開し、検証した既存URL集合と今回取得したURL集合を合わせて件数を確定する。「つづきから」がない場合又は`--restart`指定時は先頭から再照合する。末尾まで進んでも集合が不足する場合は完了扱いにせず、`--restart`を案内する。
 - 既存画像と取得内容の差異は自動上書きせず停止する。一時的な通信障害・429・5xxだけを上限3回で再試行し、取得元の待機指定を尊重する。認証redirect、404、問題ID不一致は成功扱いにしない。エラーへURLのqueryや認証値を出さない。
+- 通信障害・5xxが続いた場合は同じbrowser contextを保持し、短い待機後にその組のmanifestから最大2回再開する。認証エラー、404、ID又はhash不一致、長い待機を指定する429では自動再開しない。
 - 同じprofileで二つの取得処理を動かさない。画像の全件数・一意なURL集合・問題と解説の対応がそろった組だけ`images_complete`にする。
 
 「わからない」は選択式・記述式の内部IDへ固定せず、表示中の操作名で選ぶ。回答操作の前にwindow loadを待つ。画像やframeの取得成功だけでは、Knounの回答用の時刻が初期化されたとは判断しない。
@@ -54,6 +55,8 @@ Chromeは通常利用中のprofileへ接続せず、`~/.config/exam_scraper/knou
 ```
 
 OCRは既存のApple Vision日本語認識をローカルで使い、`output/eco-kentei/ocr/<組>/drafts/`へ画像単位のJSONを作ります。問題と解説を同じ安定問題URLへ結び、画像hashを再検証します。全件を`needs_visual_review`とし、正答や問題fieldを推測で生成しません。取得途中でも確定済みの対だけを処理できます。同じ画像の再実行では既存草案を保持します。
+
+目視で問題・解説の原画像を対として照合した場合は、OCR出力の`text`を保持し、修正した文字列を`verifiedText`へ置きます。`visualReview`へ両画像hash、照合方法、担当者、日時を記録し、照合した画像だけ`visually_checked`へ進めます。この状態は文字の転記を確認した意味であり、正答の内容監査、標準工程版又は独立評価を表しません。
 
 文字起こしを検証した後に、標準scraperで新規`00_source`へ登録します。現段階の画像取得CLIは`00_source`、patch、Firestoreを変更しません。
 

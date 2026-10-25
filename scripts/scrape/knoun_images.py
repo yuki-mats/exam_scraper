@@ -28,6 +28,10 @@ EXPECTED_COUNT = 85
 FRAME_RE = re.compile(r"/knounclient/contents/(?P<book>knoun-ISBN\d+)/(?P<role>mondai|comment)(?P<group>\d+)_(?P<id>\d+)\.html$")
 
 
+class CaptureTransportError(RuntimeError):
+    """保存済みデータから再開可能な通信障害。"""
+
+
 def now() -> str:
     return datetime.now(timezone.utc).isoformat()
 
@@ -129,7 +133,7 @@ def request_get(context, url: str):
             response = context.request.get(url, timeout=45000)
         except Exception as exc:
             if attempt == 2:
-                raise RuntimeError(f"通信に失敗: {Path(urlsplit(url).path).name} ({type(exc).__name__})") from None
+                raise CaptureTransportError(f"通信に失敗: {Path(urlsplit(url).path).name} ({type(exc).__name__})") from None
             time.sleep(2 ** (attempt + 1))
             continue
         if response.status not in {429, 500, 502, 503, 504} or attempt == 2:
@@ -147,11 +151,13 @@ def fetch_image(context, frame_url: str, destination: Path) -> dict:
     # requestはこの専用browser contextの認証を使う。cookieをexportしない。
     response = request_get(context, frame_url)
     if not response.ok or response.url != frame_url:
-        raise RuntimeError(f"原画像ページの取得失敗: HTTP {response.status}, finalPath={urlsplit(response.url).path}")
+        error_type = CaptureTransportError if response.status in {500, 502, 503, 504} else RuntimeError
+        raise error_type(f"原画像ページの取得失敗: HTTP {response.status}, finalPath={urlsplit(response.url).path}")
     image_url = image_url_from_html(response.text(), frame_url)
     response = request_get(context, image_url)
     if not response.ok or response.url != image_url:
-        raise RuntimeError(f"原画像の取得失敗: HTTP {response.status}, finalPath={urlsplit(response.url).path}")
+        error_type = CaptureTransportError if response.status in {500, 502, 503, 504} else RuntimeError
+        raise error_type(f"原画像の取得失敗: HTTP {response.status}, finalPath={urlsplit(response.url).path}")
     metadata = store_png(destination, response.body(), response.headers.get("content-type", ""))
     metadata["sourceUrl"] = image_url
     return metadata
@@ -318,6 +324,19 @@ def parse_args(argv=None):
     return args
 
 
+def capture_with_reconnect(context, page, args, group: int) -> None:
+    for attempt in range(3):
+        try:
+            capture_group(context, page, args, group)
+            return
+        except CaptureTransportError:
+            if attempt == 2:
+                raise
+            delay = 5 * (attempt + 1)
+            print(f"[RECONNECT] group={group}: 通信回復を{delay}秒待ち、manifestから再開します", flush=True)
+            time.sleep(delay)
+
+
 def main(argv=None) -> int:
     args = parse_args(argv)
     if args.verify_only:
@@ -350,7 +369,7 @@ def main(argv=None) -> int:
                 page.set_default_timeout(45000)
                 login_if_needed(page, args)
                 for group in args.groups:
-                    capture_group(context, page, args, group)
+                    capture_with_reconnect(context, page, args, group)
             except Exception:
                 print(f"[STATE] path={urlsplit(page.url).path} passwordForms={page.locator('input[type=password]').count()} questionFrames={page.locator('#contentsFrm').count()}", flush=True)
                 error_image = args.output / QUALIFICATION / "reports/knoun_capture_error.png"

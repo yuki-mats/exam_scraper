@@ -10,7 +10,8 @@ from unittest.mock import Mock, patch
 from PIL import Image
 
 from scripts.scrape.knoun_images import (
-    BOOK_ID, atomic_json, fetch_image, frame_identity, image_url_from_html, request_get,
+    BOOK_ID, CaptureTransportError, atomic_json, capture_with_reconnect,
+    fetch_image, frame_identity, image_url_from_html, request_get,
     main, parse_args, read_manifest, store_png,
 )
 
@@ -137,6 +138,24 @@ class KnounImageTests(unittest.TestCase):
                 fetch_image(context, BASE + "mondai1_17.html", path)
             self.assertNotIn("private-sentinel", str(error.exception))
             self.assertFalse(path.exists())
+
+    def test_transport_failure_resumes_but_identity_failure_does_not(self):
+        with patch("scripts.scrape.knoun_images.capture_group") as capture, patch("scripts.scrape.knoun_images.time.sleep"):
+            capture.side_effect = [CaptureTransportError("temporary"), None]
+            capture_with_reconnect(None, None, None, 1)
+            self.assertEqual(capture.call_count, 2)
+            capture.reset_mock(side_effect=True)
+            capture.side_effect = ValueError("different question")
+            with self.assertRaises(ValueError):
+                capture_with_reconnect(None, None, None, 1)
+            self.assertEqual(capture.call_count, 1)
+
+    def test_reconnect_has_a_bounded_retry_count(self):
+        with patch("scripts.scrape.knoun_images.capture_group") as capture, patch("scripts.scrape.knoun_images.time.sleep"):
+            capture.side_effect = CaptureTransportError("offline")
+            with self.assertRaises(CaptureTransportError):
+                capture_with_reconnect(None, None, None, 1)
+            self.assertEqual(capture.call_count, 3)
 
 
 if __name__ == "__main__":
