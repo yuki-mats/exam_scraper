@@ -18,6 +18,31 @@ from tools.question_review_console.question_candidate import CandidateTarget, Ca
 
 
 class OfficialGuidancePipelineTests(unittest.TestCase):
+    def test_save_refresh_binds_original_approved_bytes_after_target_reordering(self):
+        candidate = QuestionCandidate('question', 'candidate', '固定候補。', (
+            CandidateUpdate('explanation', {'explanationText': ['正しい。']}, ()),
+            CandidateUpdate('law', {'lawReferences': [[]], 'isLawRelated': True}, ()),
+        ))
+        approved = runs._question_candidates_payload([candidate])
+        # The real prepared parser can reorder targets without changing fields.
+        parsed = replace(candidate, updates=tuple(reversed(candidate.updates)))
+        self.assertNotEqual(runs.sha256_json(approved), runs.sha256_json(runs._question_candidates_payload([parsed])))
+        self.assertEqual(runs._official_guidance_save_candidate_hash(parsed, {'candidatePayload': approved}),
+            runs.sha256_json(approved))
+        self.assertEqual(runs._official_guidance_save_candidate_hash(parsed),
+            runs.sha256_json(runs._question_candidates_payload([parsed])))
+        for mutation in ('field', 'question', 'summary', 'duplicate', 'multiple'):
+            with self.subTest(mutation=mutation):
+                changed = deepcopy(approved)
+                row = changed['questionResults'][0]
+                if mutation == 'field': row['updates'][0]['setFields'][0]['value'] = ['間違い。']
+                if mutation == 'question': row['questionId'] = 'another-question'
+                if mutation == 'summary': row['summary'] = '別の候補。'
+                if mutation == 'duplicate': row['updates'].append(deepcopy(row['updates'][0]))
+                if mutation == 'multiple': changed['questionResults'].append(deepcopy(row))
+                with self.assertRaises(runs.QualificationRunError):
+                    runs._official_guidance_save_candidate_hash(parsed, {'candidatePayload': changed})
+
     def setUp(self):
         self.fixture = provider_fixture.OfficialGuidanceEvidenceTests()
         self.fixture.setUp(); self.addCleanup(self.fixture.doCleanups)

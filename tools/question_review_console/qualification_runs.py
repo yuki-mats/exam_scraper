@@ -1497,6 +1497,37 @@ def _question_candidates_payload(
     }
 
 
+def _official_guidance_save_candidate_hash(candidate, prepared_content=None):
+    """Bind refresh to approved envelope bytes, despite parser target ordering.
+
+    Prepared parsing can reorder updates by target. The immutable envelope is
+    the approval input; compare complete update semantics before retaining its
+    exact hash, just as the law-audit completion binding does.
+    """
+    parsed = _question_candidates_payload([candidate])
+    if prepared_content is None:
+        return sha256_json(parsed)
+    payload = prepared_content['candidatePayload']
+    if len(payload.get('questionResults', [])) != 1:
+        raise QualificationRunError('公式制度資料の保存には固定された単一候補が必要です。')
+
+    def semantics(value):
+        row = value['questionResults'][0]
+        updates = {}
+        for update in row['updates']:
+            fields = {entry['field']: entry['value'] for entry in update['setFields']}
+            if (update['targetId'] in updates or len(fields) != len(update['setFields'])
+                    or len(set(update['unsetFields'])) != len(update['unsetFields'])):
+                raise QualificationRunError('保存候補のtarget又はfieldが重複しています。')
+            updates[update['targetId']] = {'setFields': fields, 'unsetFields': sorted(update['unsetFields'])}
+        return {**{key: value for key, value in row.items() if key != 'updates'},
+            'schemaVersion': value['schemaVersion'], 'updates': updates}
+
+    if semantics(payload) != semantics(parsed):
+        raise QualificationRunError('公式制度資料の保存候補が承認された固定候補と異なります。')
+    return sha256_json(payload)
+
+
 def _prepared_candidate_envelope(
     *,
     question_id: str,
@@ -17569,7 +17600,7 @@ class QualificationRunCoordinator:
                                     'qualification': qualification, 'runId': run_id, 'stageId': stage_id,
                                     'questionId': candidate.question_id, 'inputFingerprint': input_fingerprint_value,
                                     'projectedInputHash': projected_input_hash,
-                                    'candidateHash': sha256_json(_question_candidates_payload([candidate])),
+                                    'candidateHash': _official_guidance_save_candidate_hash(candidate, prepared_content),
                                     'sourceScope': official_guidance_scope(self.repo_root, qualification, raw_target_by_question[candidate.question_id]),
                                     'reference': copy.deepcopy(proposed_ref), 'saveOperation': copy.deepcopy(operation),
                                     'refresh': fresh_guidance}
