@@ -27,9 +27,9 @@
 
 ## site別の要点
 
-### knoun.jp（画像取得）
+### knoun.jp（画像取得・照合済み転記の登録）
 
-`scripts/scrape/knoun_images.py`が専用Playwrightブラウザで問題・解説の原画像を取得します。OCR前の取得CLIであり、通常のsource scraperへの登録は文字起こし検証後に行います。認証、保存・再開、05独自問題化への接続は[Knoun取得契約](knoun/source_contract.md)を参照してください。
+`scripts/scrape/knoun_images.py`が専用Playwrightブラウザで問題・解説の原画像を取得します。目視照合後は`eco-kentei_knoun` presetと`scripts/scrape/knoun.py`でsourceへ登録します。認証、保存・再開、転記検証、05独自問題化への接続は[Knoun取得契約](knoun/source_contract.md)を参照してください。
 
 ### kakomonn.com
 

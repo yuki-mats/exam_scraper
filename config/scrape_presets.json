@@ -1146,6 +1146,20 @@
       }
     ]
   },
+  "eco-kentei_knoun": {
+    "qualification_code": "eco-kentei",
+    "scraper_type": "knoun",
+    "qualification_name": "eco検定（環境社会検定試験）",
+    "list_first_page_url_template": "https://knoun.jp/knounclient/web/drill/init?contentsId=1266&assignedId=1091208",
+    "expected_question_count": 85,
+    "scrape_targets": [
+      {"source_list_group_id": "1", "output_list_group_id": "knoun-2026-mock-1"},
+      {"source_list_group_id": "2", "output_list_group_id": "knoun-2026-mock-2"},
+      {"source_list_group_id": "3", "output_list_group_id": "knoun-2026-mock-3"},
+      {"source_list_group_id": "4", "output_list_group_id": "knoun-2026-mock-4"},
+      {"source_list_group_id": "5", "output_list_group_id": "knoun-2026-mock-5"}
+    ]
+  },
   "g-kentei_udemy": {
     "qualification_code": "g-kentei",
     "scraper_type": "udemy",

@@ -58,6 +58,20 @@ OCRは既存のApple Vision日本語認識をローカルで使い、`output/eco
 
 目視で問題・解説の原画像を対として照合した場合は、OCR出力の`text`を保持し、修正した文字列を`verifiedText`へ置きます。`visualReview`へ両画像hash、照合方法、担当者、日時を記録し、照合した画像だけ`visually_checked`へ進めます。この状態は文字の転記を確認した意味であり、正答の内容監査、標準工程版又は独立評価を表しません。
 
-文字起こしを検証した後に、標準scraperで新規`00_source`へ登録します。現段階の画像取得CLIは`00_source`、patch、Firestoreを変更しません。
+目視保存の共通処理は`scripts/scrape/knoun_review.py`です。担当者が実際に見た問題URL、両画像hash、転記本文を一問ずつ指定し、元のOCRを保持します。問題画像が文字だけか、図表を含むかも明示します。OCR結果から目視済み状態を自動付与しません。
+
+文字起こしを検証した後は、標準scraper`scripts/scrape/knoun.py`で新規`00_source`へ登録します。画像取得CLIとOCR CLIの責務は変わらず、source、patch、Firestoreを変更しません。
+
+```bash
+# 照合済み範囲の登録例。全85問の照合後は --max-questions を外す。
+.venv/bin/python scripts/scrape/run_qualification_scrape.py \
+  eco-kentei_knoun knoun-2026-mock-1 --max-questions 18 --group-retries 0
+```
+
+登録器はブラウザを使いません。原画像、OCRの対応情報、目視記録の両画像hashを再検証し、指定範囲の全問が通った後で一問一ファイルを作ります。未照合又は対応の異なる問題があれば、その範囲は登録しません。登録範囲と期待総数は`reports/knoun_source_intake_<組>.json`へ区別して記録します。上限指定の成功を全組の完了として扱いません。
+
+問題固有のframe URLを`source_question_id`に使い、共通HMAC処理で公開IDを生成します。語群では当該問題の丸数字、赤字の解答対象欄、当該解説の正答番号と語句を照合します。配列順で別問題の解説を結び付けません。回答形式・設問方向・各選択肢の正誤判定は後続工程に残し、登録器で推測しません。
+
+現時点の登録器は、文字だけの正誤問題と、明示された一つの空欄に語群から答える形式に対応します。図表を含む又は図表有無が未分類の画像、未対応の形式では停止し、原画像を基に保持方法を確認します。文字だけの原スキャンは`sourceTranscription`へ転記と画像情報を保存し、公開問題に必要な図として登録しません。既存sourceの差異は自動上書きせず、取得元更新又はsource conflictとして確認します。
 
 **eco検定の全問は必ず05独自問題化を経由します。** 以後は[独自問題作成ワークフロー](../../operations/original_question_authoring_workflow.md)と[問題整備の入口](../../operations/exam_pipeline_manual_and_automation.md)に従います。文字だけのスキャン画像を、問題成立に必要な図表と取り違えないよう、文字起こし段階で区別します。
