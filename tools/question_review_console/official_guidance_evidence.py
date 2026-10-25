@@ -423,15 +423,27 @@ class OfficialGuidanceEvidenceResolver:
         _exact(receipt, expected_fields, 'official guidance receipt')
         content = {key: value for key, value in receipt.items()
             if key not in {'contentHash', 'retrievalCompletedAt', 'evidenceHash'}}
-        if (receipt['schemaVersion'] != SCHEMA_VERSION or receipt['sourceKind'] != SOURCE_KIND
-                or receipt['provider'] != PROVIDER or receipt['retrievalStatus'] != 'retrieved' or receipt['scope'] != scope
-                or receipt['requestHash'] != _json_hash(request) or receipt['recordHash'] != record_hash
-                or receipt['choiceHashes'] != choices or receipt['currentAsOf'] != request['currentAsOf']
-                or receipt['examAsOf'] != request['examAsOf'] or receipt['choiceBindings'] != request['choiceBindings']
-                or receipt['applicabilityStatus'] != 'unreviewed' or receipt['historicalCompleteness'] != 'unreviewed'
-                or receipt['contentHash'] != _json_hash(content)
-                or receipt['evidenceHash'] != _json_hash({k: v for k, v in receipt.items() if k != 'evidenceHash'})):
-            raise OfficialGuidanceEvidenceError('official guidance receipt binding/hash differs')
+        checks = {
+            'schemaVersion': receipt['schemaVersion'] == SCHEMA_VERSION,
+            'sourceKind': receipt['sourceKind'] == SOURCE_KIND,
+            'provider': receipt['provider'] == PROVIDER,
+            'retrievalStatus': receipt['retrievalStatus'] == 'retrieved',
+            'scope': receipt['scope'] == scope,
+            'requestHash': receipt['requestHash'] == _json_hash(request),
+            'recordHash': receipt['recordHash'] == record_hash,
+            'choiceHashes': receipt['choiceHashes'] == choices,
+            'currentAsOf': receipt['currentAsOf'] == request['currentAsOf'],
+            'examAsOf': receipt['examAsOf'] == request['examAsOf'],
+            'choiceBindings': receipt['choiceBindings'] == request['choiceBindings'],
+            'applicabilityStatus': receipt['applicabilityStatus'] == 'unreviewed',
+            'historicalCompleteness': receipt['historicalCompleteness'] == 'unreviewed',
+            'contentHash': receipt['contentHash'] == _json_hash(content),
+            'evidenceHash': receipt['evidenceHash'] == _json_hash({k: v for k, v in receipt.items() if k != 'evidenceHash'}),
+        }
+        if not all(checks.values()):
+            # Fixed field names only; never print protected values or model text.
+            raise OfficialGuidanceEvidenceError('official guidance receipt binding/hash differs: '
+                + ','.join(key for key, valid in checks.items() if not valid))
         completed = _timestamp(receipt['retrievalCompletedAt'])
         if completed.date().isoformat() != receipt['currentAsOf']:
             raise OfficialGuidanceEvidenceError('retrieval date differs from current-as-of')

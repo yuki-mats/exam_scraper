@@ -6,6 +6,7 @@ from tools.question_review_console.official_guidance_contract import (
 )
 
 import json
+import copy
 import re
 import unicodedata
 from collections.abc import Iterable, Mapping
@@ -1323,7 +1324,7 @@ def _output_schema_rule(rule: Mapping[str, Any]) -> dict[str, Any]:
 def output_schema(
     expected_question_ids: Iterable[str],
     targets_by_question: Mapping[str, Iterable[CandidateTarget]],
-    *, law_reference_discovery: bool = False,
+    *, law_reference_discovery: bool = False, official_guidance_inputs=None,
 ) -> dict[str, Any]:
     question_ids = tuple(dict.fromkeys(str(value) for value in expected_question_ids))
     if len(question_ids) != 1:
@@ -1332,6 +1333,17 @@ def output_schema(
     field_rules = _semantic_field_rules(
         question_id, targets_by_question.get(question_id, ()), law_reference_discovery=law_reference_discovery,
     )
+    if official_guidance_inputs and set(official_guidance_inputs) != {question_id}:
+        raise QuestionCandidateError('制度資料の固定出力に別の問題が含まれています。')
+    fixed_guidance = (official_guidance_inputs or {}).get(question_id)
+    if fixed_guidance is not None:
+        if set(official_guidance_inputs) != {question_id} or 'officialGuidanceReferences' not in field_rules:
+            raise QuestionCandidateError('制度資料の固定出力は同じ一問の根拠所有工程に限ります。')
+        # Acquisition metadata belongs to the server. Applicability remains a
+        # model judgment; it may still reject/unset this evidence or hold.
+        rule = field_rules['officialGuidanceReferences']
+        for key in ('request', 'evidenceRef'):
+            rule['properties'][key]['enum'] = [copy.deepcopy(fixed_guidance[key])]
     target_values = tuple(targets_by_question.get(question_id, ()))
     must_set_fields = semantic_fields_must_be_set(target_values)
     field_names = sorted(set(field_rules) - must_set_fields)

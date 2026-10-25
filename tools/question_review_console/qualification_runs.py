@@ -2412,6 +2412,8 @@ def _structured_candidate_prompt(
                 "これは法令XMLとは異なる行政の制度資料を実取得した証明である。取得成功は適用判断の承認ではない。"
                 "全肢について条項・例外・資料の版と出題時点/現在時点の適合を独立に判断する。採用する場合だけ"
                 "officialGuidanceReferencesへrequest/evidenceRefを正確に保持しapplicabilityByChoiceを書く。"
+                "request内のrevisionLabelを含む取得用情報とevidenceRefは取得時の固定値であり、監査済みという意味に書き換えない。"
+                "版・時点の適用判断と理由はapplicabilityByChoiceにだけ記す。"
                 "lawReferencesは実在して適用する法令だけ。規約を法令IDに偽装しない。"
                 "現行の標準モデル規約、法の施行日、各組合が採用した個別規約を区別する。"
                 "historicalCompleteness=unreviewedは歴史版の適用確認ではなく、03bが別監査する。")
@@ -17136,6 +17138,7 @@ class QualificationRunCoordinator:
                             candidate_question_ids,
                             targets_by_question,
                             law_reference_discovery=stage_id == 'law_context',
+                            official_guidance_inputs=batch_plan.get('officialGuidanceInputs'),
                         ),
                         on_thread_started=on_thread_started,
                         on_turn_started=on_turn_started,
@@ -17270,7 +17273,8 @@ class QualificationRunCoordinator:
                             sandbox='read-only', emit=emit,
                             image_urls=_candidate_image_urls(records_by_question, candidate_question_ids),
                             output_schema=candidate_output_schema(candidate_question_ids, targets_by_question,
-                                law_reference_discovery=True),
+                                law_reference_discovery=True,
+                                official_guidance_inputs=batch_plan.get('officialGuidanceInputs')),
                             on_thread_started=on_thread_started, on_turn_started=on_turn_started,
                             on_model_turn_event=model_turn_callback('maintenance_law_context_candidate', capture_candidate=True),
                             heartbeat=heartbeat, cwd=self.repo_root, model=model, maintenance_attempt=maintenance_attempt,
