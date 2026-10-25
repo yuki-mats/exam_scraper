@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 import json
+from collections import Counter
 from pathlib import Path
 
 from scripts.check.build_gas_shunin_official_pdf_index import ocr_image
@@ -51,6 +52,7 @@ def main(argv=None) -> int:
         parser.error("groupsは1〜5にしてください")
     root = args.output.expanduser().resolve() / QUALIFICATION
     total = created = 0
+    review_states = Counter()
     missing = []
     for group in args.groups:
         group_id = f"knoun-2026-mock-{group}"
@@ -64,9 +66,11 @@ def main(argv=None) -> int:
                 image = record[role]
                 target = root / "ocr" / group_id / "drafts" / f"{Path(image['filename']).stem}.json"
                 created += int(make_draft(record, role, manifest_path, target))
+                value = json.loads(target.read_text(encoding="utf-8"))
+                review_states[value.get("reviewState", "unknown")] += 1
                 total += 1
         print(f"[OCR_DRAFT] {group_id}: {len(manifest['records'])}問 / 原画像{len(manifest['records']) * 2}枚", flush=True)
-    print(f"[SUMMARY] drafts={total} new={created} missingGroups={missing}; 全件目視照合前・00_source未登録", flush=True)
+    print(f"[SUMMARY] drafts={total} new={created} reviewStates={dict(review_states)} missingGroups={missing}; 00_source登録・正答監査・問題整備は別工程", flush=True)
     if total == 0:
         raise RuntimeError("OCR対象の取得済み画像がありません")
     return 0

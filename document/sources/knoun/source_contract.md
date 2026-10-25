@@ -55,6 +55,8 @@ Chromeは通常利用中のprofileへ接続せず、`~/.config/exam_scraper/knou
 
 OCRは既存のApple Vision日本語認識をローカルで使い、`output/eco-kentei/ocr/<組>/drafts/`へ画像単位のJSONを作ります。問題と解説を同じ安定問題URLへ結び、画像hashを再検証します。全件を`needs_visual_review`とし、正答や問題fieldを推測で生成しません。取得途中でも確定済みの対だけを処理できます。同じ画像の再実行では既存草案を保持します。
 
+目視で問題・解説の原画像を対として照合した場合は、OCR出力の`text`を保持し、修正した文字列を`verifiedText`へ置きます。`visualReview`へ両画像hash、照合方法、担当者、日時を記録し、照合した画像だけ`visually_checked`へ進めます。この状態は文字の転記を確認した意味であり、正答の内容監査、標準工程版又は独立評価を表しません。
+
 文字起こしを検証した後に、標準scraperで新規`00_source`へ登録します。現段階の画像取得CLIは`00_source`、patch、Firestoreを変更しません。
 
 **eco検定の全問は必ず05独自問題化を経由します。** 以後は[独自問題作成ワークフロー](../../operations/original_question_authoring_workflow.md)と[問題整備の入口](../../operations/exam_pipeline_manual_and_automation.md)に従います。文字だけのスキャン画像を、問題成立に必要な図表と取り違えないよう、文字起こし段階で区別します。
