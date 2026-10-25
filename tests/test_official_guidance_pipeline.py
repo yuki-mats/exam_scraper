@@ -223,10 +223,17 @@ class OfficialGuidancePipelineTests(unittest.TestCase):
             for prompt in (secondary, tertiary):
                 self.assertIn(self.delivered['receipt']['evidenceHash'], prompt)
                 self.assertIn('%PDF-current page 5', prompt)
+                checklist = next(line.split(': ', 1)[1] for line in prompt.splitlines()
+                    if line.startswith('採用制度資料の確認チェックリスト'))
+                self.assertEqual(json.loads(checklist), [document['sourceUrl']
+                    for document in self.delivered['receipt']['documents']])
+                self.assertIn('URLを自動補完せずhold', prompt)
             reply = {'schemaVersion': audit.SCHEMA_VERSION, 'questionId': 'ui-id', 'evidenceHash': bundle['evidenceHash'],
                 'decision': 'approve', 'examTimeDecision': fields['examTimeDecision'],
                 'currentLawDecision': fields['currentLawDecision'], 'issues': [], 'verifiedSourceUrls': [provider_fixture.CURRENT]}
             with self.assertRaises(ValueError): audit.parse_review(json.dumps(reply), bundle)
+            held = {**reply, 'decision': 'hold', 'issues': ['歴史資料の適用が未確認。']}
+            self.assertEqual(audit.parse_review(json.dumps(held), bundle), held)
             reply['verifiedSourceUrls'].append(provider_fixture.HISTORICAL)
             self.assertEqual(audit.parse_review(json.dumps(reply), bundle), reply)
             changed = deepcopy(bundle); changed['proposedOfficialGuidanceEvidence']['documents'][0]['pages'][0]['text'] = '改変'
@@ -246,6 +253,25 @@ class OfficialGuidancePipelineTests(unittest.TestCase):
             self.assertTrue(check(bad))
             mixed = deepcopy(public); mixed[0]['lawReferences'] = [{'lawId': 'real-id', 'verificationStatus': 'unverified'}]
             self.assertTrue(check(mixed))
+
+    def test_review_checklist_does_not_invent_historical_documents(self):
+        request = deepcopy(self.request); request['historicalDocuments'] = []
+        for binding in request['choiceBindings']:
+            binding['historicalSelections'] = []
+        delivered = contract.prepare_evidence(self.root, request, record=self.record,
+            scope=self.scope, resolver=self.fixture.resolver)
+        reference = {key: delivered[key] for key in ('request', 'evidenceRef')}
+        reference['applicabilityByChoice'] = self.references['applicabilityByChoice']
+        candidate = QuestionCandidate('ui-id', 'candidate', '現行資料のみ。', (
+            CandidateUpdate('audit', {contract.FIELD: reference, 'isLawRelated': True}, ()),))
+        bundle = audit.verification_bundle({'questionId': 'ui-id', 'currentRecord': self.record}, candidate,
+            proposed_official_guidance_evidence=delivered['receipt'])
+        with patch.object(audit, 'validate_guidance', side_effect=lambda _root, ref, **kwargs: self.validate(ref)):
+            prompt = audit.review_prompt(bundle, '二次')
+        checklist = json.loads(next(line.split(': ', 1)[1] for line in prompt.splitlines()
+            if line.startswith('採用制度資料の確認チェックリスト')))
+        self.assertEqual(checklist, [provider_fixture.CURRENT])
+        self.assertIn('チェックリストに古い基礎版が含まれる場合', prompt)
 
     def test_atomic_proof_interruption_replay_and_conflict(self):
         receipt = deepcopy(self.delivered['receipt'])
