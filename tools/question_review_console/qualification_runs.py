@@ -49,6 +49,7 @@ from scripts.common.question_identity import (
     source_question_key,
     source_record_ref,
 )
+from scripts.common.independent_question_images import originalized_candidate_base
 from scripts.common.question_answer_contract import (
     all_correct_choice_sentinel_number,
     asks_for_selected_choice_count,
@@ -17839,7 +17840,9 @@ class QualificationRunCoordinator:
                             }
                         elif target.role == "originalized":
                             # 05 owns source rewriting/images and has its own scope contract.
-                            base_record = records_by_question[question_id]
+                            base_record = originalized_candidate_base(
+                                records_by_question[question_id]
+                            )
                         else:
                             base_record = _stage_patch_base_record(
                                 target.role, records_by_question[question_id], binding, update.set_fields,

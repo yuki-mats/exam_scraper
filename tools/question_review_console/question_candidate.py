@@ -46,6 +46,7 @@ from scripts.common.repaso_firestore_schema import (
     law_revision_facts_shape_errors,
 )
 from scripts.merge.patch_views import validate_originalized_entry
+from scripts.common.independent_question_images import originalized_candidate_base
 from tools.question_review_console.explanation_quality import (
     explanation_style_issues,
     law_evidence_utilization_issues,
@@ -1933,7 +1934,11 @@ def _validate_candidate_content_messages(
         return ()
     target_values = tuple(targets)
     target_by_id = {target.target_id: target for target in target_values}
-    logical = json.loads(json.dumps(dict(projected_record), ensure_ascii=False))
+    logical = (
+        originalized_candidate_base(projected_record)
+        if any(target.role == "originalized" for target in target_values)
+        else json.loads(json.dumps(dict(projected_record), ensure_ascii=False))
+    )
     audit_payloads: list[Mapping[str, Any]] = []
     has_law_audit_target = any(target.role == "law_audit" for target in target_values)
     changed_fields: set[str] = set()

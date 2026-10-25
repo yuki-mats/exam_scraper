@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import copy
 from collections.abc import Iterable, Mapping, Sequence
 from typing import Any
 
@@ -24,6 +25,22 @@ PUBLISHED_QUESTION_IMAGE_FIELDS = (
     "questionImageUrls",
 )
 PUBLISHED_CHOICE_IMAGE_FIELD = "originalQuestionChoiceImageUrls"
+
+
+def originalized_candidate_base(projected: Mapping[str, Any]) -> dict[str, Any]:
+    """Seed 05 from current content without claiming source images as authored.
+
+    Merge adds the image-requirement marker when an actual 05 row is projected.
+    Before that boundary image fields belong to source acquisition. After it,
+    image fields are the current 05 assets and must survive a text-only refresh.
+    Explicit candidate image updates are applied after this seed and still pass
+    the ordinary independent-image validation.
+    """
+    result = copy.deepcopy(dict(projected))
+    if INDEPENDENT_IMAGE_REQUIRED_FIELD not in projected:
+        for field in (*SOURCE_QUESTION_IMAGE_FIELDS, *SOURCE_CHOICE_IMAGE_FIELDS):
+            result.pop(field, None)
+    return result
 
 
 def flatten_non_empty_image_urls(value: Any) -> list[str]:
