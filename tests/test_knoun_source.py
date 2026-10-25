@@ -142,6 +142,25 @@ class KnounSourceTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             import_group(self.output, 1, source_ids=[url, url])
 
+    def test_printed_pool_labels_need_not_start_at_one(self):
+        question = "［キ］の語句を選びなさい。\n［語群］\n⑯水質汚濁防止法\n⑰化審法\n⑱農薬取締法\n⑲水俣病\n⑳イタイイタイ病\n㉑中皮腫\n㉒揮発性有機化合物\n「キ」にあてはまる最も適切な語句の番号を以下に入力してください。"
+        parsed = parse_transcription(question, "解答・解説\n正答･･･㉒揮発性有機化合物")
+        self.assertEqual(parsed["sourceChoiceLabels"], ["⑯", "⑰", "⑱", "⑲", "⑳", "㉑", "㉒"])
+        self.assertEqual(parsed["answer_result_inferred_correct_choice_numbers"], [7])
+        self.assertEqual(parsed["sourceSelectedChoiceLabel"], "㉒")
+        self.assertEqual(parsed["answer_result_text"], "正答･･･㉒揮発性有機化合物")
+
+    def test_editorial_annotation_is_kept_in_raw_answer_but_not_choice_word(self):
+        parsed = parse_transcription(QUESTION, "解答・解説\n正答･･･② ＜テキスト外＞\n説明。")
+        self.assertEqual(parsed["answer_result_text"], "正答･･･② ＜テキスト外＞")
+        self.assertEqual(parsed["explanation_common_prefix"], ["説明。"])
+
+    def test_choice_range_in_instruction_is_not_a_choice(self):
+        question = "次の\n①～④の記述から選びなさい。\n① 太陽光\n② 再エネ証書\n③ 原子力\n④ 地熱"
+        parsed = parse_transcription(question, "解答・解説\n正答…③")
+        self.assertIn("①～④", parsed["questionBodyText"])
+        self.assertEqual(parsed["choiceTextList"], ["太陽光", "再エネ証書", "原子力", "地熱"])
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -10,56 +10,72 @@ from scripts.scrape.common import load_local_secure_env, make_public_question_id
 from scripts.scrape.knoun_images import BOOK_ID, QUALIFICATION, REPO_ROOT, atomic_json, now, read_manifest
 from scripts.scrape.knoun_review import load_pair, reviewed_pair
 
-CIRCLED = "①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳"
+CIRCLED = "".join(chr(point) for point in (*range(0x2460, 0x2474), *range(0x3251, 0x3260), *range(0x32B1, 0x32C0)))
+
+
+def _answer_word(text: str) -> str:
+    # 正答と同じ行に印刷された編集注記は、原文の解答欄へ残したまま語句と分ける。
+    return re.sub(r"\s*[〈＜<]テキスト外[〉＞>]\s*$", "", text).strip()
+
+
+def _numbered_choices(text: str) -> tuple[list[str], list[str]]:
+    pattern = r"^([" + CIRCLED + r"])(?![ \t]*[〜～~])([^\n]*(?:\n(?![" + CIRCLED + r"])[^\n]*)*)"
+    numbered = re.findall(pattern, text, re.M)
+    labels, choices = [], []
+    for label, value in numbered:
+        if not value.strip() or (labels and CIRCLED.index(label) != CIRCLED.index(labels[-1]) + 1):
+            raise ValueError("選択肢の丸数字又は順序が不正です")
+        labels.append(label)
+        choices.append(value.strip())
+    if not choices:
+        raise ValueError("番号付きの選択肢を読み取れません")
+    return labels, choices
 
 
 def parse_transcription(question: str, explanation: str) -> dict:
     """当該一問の転記内の明示記号だけを読む。未対応の形式は推測しない。"""
-    answer = re.search(r"^正答[・.…\s]*([" + CIRCLED + r"])([^\n]*)$", explanation, re.M)
+    answer = re.search(r"^正答[・･.…⋯\s]*([" + CIRCLED + r"])([^\n]*)$", explanation, re.M)
     if not answer:
         raise ValueError("一問の明示正答記号を読み取れません")
     answer_number = CIRCLED.index(answer[1]) + 1
+    answer_word = _answer_word(answer[2])
+    extra = {}
     pool = re.search(r"(?:【語群】|［語群］|\[語群\])\n", question)
     if pool:
         body, tail = question[:pool.start()].rstrip(), question[pool.end():]
-        footer = re.search(r"^［([ア-ン])］にあてはまる最も適切な語句の番号を以下に入力してください。$", tail, re.M)
+        footer = re.search(r"^(?:［[ア-ン]］|「[ア-ン]」|\[[ア-ン]\])にあてはまる最も適切な語句の番号を以下に入力してください。$", tail, re.M)
         if not footer or tail[footer.end():].strip():
             raise ValueError("語群の解答対象欄が一意に確定しません")
-        choice_lines = [line.strip() for line in tail[:footer.start()].splitlines() if line.strip()]
-        choices = []
-        for line in choice_lines:
-            if line[0] not in CIRCLED or CIRCLED.index(line[0]) != len(choices) or not line[1:].strip():
-                raise ValueError("語群の丸数字・順序・本文が不正です")
-            choices.append(line[1:].strip())
-        if not 1 <= answer_number <= len(choices):
+        labels, choices = _numbered_choices(tail[:footer.start()])
+        if answer[1] not in labels:
             raise ValueError("正答番号が語群外です")
-        if re.sub(r"\s+", "", answer[2]) != re.sub(r"\s+", "", choices[answer_number - 1]):
+        # 印字番号⑯などを当該語群内の位置へ対応させる。別問の配列順は使わない。
+        answer_number = labels.index(answer[1]) + 1
+        if re.sub(r"\s+", "", answer_word) != re.sub(r"\s+", "", choices[answer_number - 1]):
             raise ValueError("同じ問題内で正答記号と正答語句が一致しません")
+        if labels[0] != "①":
+            extra = {"sourceChoiceLabels": labels, "sourceSelectedChoiceLabel": answer[1]}
         body += "\n" + footer[0]
     elif "内容が正しいものには①を、誤っているものには②を選びなさい。" in question:
-        if answer[2].strip() or answer_number not in (1, 2):
+        if answer_word or answer_number not in (1, 2):
             raise ValueError("正誤問題の明示解答が不正です")
         body, choices = question, ["正しい", "誤っている"]
     else:
-        first_choice = re.search(r"^①[^\n]+", question, re.M)
+        first_choice = re.search(r"^①(?![ \t]*[〜～~])[^\n]+", question, re.M)
         if not first_choice:
             raise ValueError("未対応の転記形式です。一問の原画像と構造を確認してください")
         body, tail = question[:first_choice.start()].rstrip(), question[first_choice.start():]
-        numbered = re.findall(r"^([" + CIRCLED + r"])([^\n]*(?:\n(?![" + CIRCLED + r"])[^\n]*)*)", tail, re.M)
-        choices = []
-        for label, text in numbered:
-            if CIRCLED.index(label) != len(choices) or not text.strip():
-                raise ValueError("選択肢の丸数字又は順序が不正です")
-            choices.append(text.strip())
-        if not 1 <= answer_number <= len(choices):
+        labels, choices = _numbered_choices(tail)
+        if labels[0] != "①" or answer[1] not in labels:
             raise ValueError("正答番号が選択肢外です")
-        if answer[2].strip() and re.sub(r"\s+", "", answer[2]) != re.sub(r"\s+", "", choices[answer_number - 1]):
+        answer_number = labels.index(answer[1]) + 1
+        if answer_word and re.sub(r"\s+", "", answer_word) != re.sub(r"\s+", "", choices[answer_number - 1]):
             raise ValueError("同じ問題内で正答記号と正答語句が一致しません")
     return {"questionBodyText": body, "choiceTextList": choices,
             "answer_result_text": answer[0],
             "answer_result_inferred_correct_choice_numbers": [answer_number],
             "explanation_common_prefix": [explanation[answer.end():].strip()] if explanation[answer.end():].strip() else [],
-            "explanation_common_summary": [], "explanation_choice_snippets": [[] for _ in choices]}
+            "explanation_common_summary": [], "explanation_choice_snippets": [[] for _ in choices], **extra}
 
 
 def source_record(root: Path, group: int, source_id: str, *, verified_manifest: dict | None = None) -> dict:
