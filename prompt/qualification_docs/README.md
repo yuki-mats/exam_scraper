@@ -63,6 +63,7 @@
 - `gas-shunin-kou`
 - `gas-shunin-otsu`
 - `g-kentei`
+- `eco-kentei`
 - `kaigofukushi`
 - `kyusuikouji-shunin`
 - `mecnet-kokushi`
