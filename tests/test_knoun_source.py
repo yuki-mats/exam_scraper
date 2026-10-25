@@ -122,6 +122,26 @@ class KnounSourceTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             parse_transcription(question.replace("②熱中症", "⑫熱中症"), "解答・解説\n正答…②熱中症")
 
+    def test_numbered_choices_are_read_from_this_questions_printed_labels(self):
+        question = "最も適切な略称を選びなさい。\n\n①地球サミット\n②GHG\n③EANET\n④IPCC"
+        parsed = parse_transcription(question, "解答・解説\n正答…④IPCC\n当該問題の解説。")
+        self.assertEqual(parsed["questionBodyText"], "最も適切な略称を選びなさい。")
+        self.assertEqual(parsed["choiceTextList"], ["地球サミット", "GHG", "EANET", "IPCC"])
+        self.assertEqual(parsed["answer_result_inferred_correct_choice_numbers"], [4])
+        with self.assertRaises(ValueError):
+            parse_transcription(question, "解答・解説\n正答…④GHG")
+
+    def test_explicit_reviewed_scope_can_progress_past_an_unreviewed_question(self):
+        self.fixture(1, reviewed=False)
+        url, _ = self.fixture(2)
+        report = import_group(self.output, 1, source_ids=[url])
+        source = self.root / "questions_json" / self.group / "00_source"
+        self.assertEqual([p.name for p in source.glob("*.json")], ["question_mondai1_2.json"])
+        self.assertEqual(report["scope"], "explicit_selection")
+        self.assertEqual(report["selectedSourceIds"], [url])
+        with self.assertRaises(ValueError):
+            import_group(self.output, 1, source_ids=[url, url])
+
 
 if __name__ == "__main__":
     unittest.main()

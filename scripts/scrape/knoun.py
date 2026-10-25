@@ -41,7 +41,20 @@ def parse_transcription(question: str, explanation: str) -> dict:
             raise ValueError("正誤問題の明示解答が不正です")
         body, choices = question, ["正しい", "誤っている"]
     else:
-        raise ValueError("未対応の転記形式です。一問の原画像と構造を確認してください")
+        first_choice = re.search(r"^①[^\n]+", question, re.M)
+        if not first_choice:
+            raise ValueError("未対応の転記形式です。一問の原画像と構造を確認してください")
+        body, tail = question[:first_choice.start()].rstrip(), question[first_choice.start():]
+        numbered = re.findall(r"^([" + CIRCLED + r"])([^\n]*(?:\n(?![" + CIRCLED + r"])[^\n]*)*)", tail, re.M)
+        choices = []
+        for label, text in numbered:
+            if CIRCLED.index(label) != len(choices) or not text.strip():
+                raise ValueError("選択肢の丸数字又は順序が不正です")
+            choices.append(text.strip())
+        if not 1 <= answer_number <= len(choices):
+            raise ValueError("正答番号が選択肢外です")
+        if answer[2].strip() and re.sub(r"\s+", "", answer[2]) != re.sub(r"\s+", "", choices[answer_number - 1]):
+            raise ValueError("同じ問題内で正答記号と正答語句が一致しません")
     return {"questionBodyText": body, "choiceTextList": choices,
             "answer_result_text": answer[0],
             "answer_result_inferred_correct_choice_numbers": [answer_number],
@@ -49,9 +62,9 @@ def parse_transcription(question: str, explanation: str) -> dict:
             "explanation_common_summary": [], "explanation_choice_snippets": [[] for _ in choices]}
 
 
-def source_record(root: Path, group: int, source_id: str) -> dict:
-    record, question, explanation = reviewed_pair(root, group, source_id)
-    _, drafts = load_pair(root, group, source_id)
+def source_record(root: Path, group: int, source_id: str, *, verified_manifest: dict | None = None) -> dict:
+    record, question, explanation = reviewed_pair(root, group, source_id, verified_manifest=verified_manifest)
+    _, drafts = load_pair(root, group, source_id, verified_manifest=verified_manifest)
     if any(d[1]["visualReview"].get("questionImageContent") != "text_only" for d in drafts.values()):
         raise ValueError("図表を含む又は未分類の画像です。図表の保持方法を個別に確認してください")
     result = parse_transcription(question, explanation)
@@ -79,12 +92,16 @@ def source_record(root: Path, group: int, source_id: str) -> dict:
     return result
 
 
-def import_group(output: Path, group: int, max_questions: int | None = None) -> dict:
+def import_group(output: Path, group: int, max_questions: int | None = None, *, source_ids: list[str] | None = None) -> dict:
     root = output / QUALIFICATION
     group_id = f"knoun-2026-mock-{group}"
     manifest = read_manifest(root / "question_images" / group_id / "capture_manifest.json", group, BOOK_ID)
     ids = sorted(manifest["records"], key=lambda value: int(Path(value).stem.split("_")[-1]))
-    if max_questions is not None:
+    if source_ids is not None:
+        if max_questions is not None or not source_ids or len(source_ids) != len(set(source_ids)) or not set(source_ids) <= set(ids):
+            raise ValueError("明示対象の問題IDが空・重複・対象外、又は上限指定と併用されています")
+        ids = list(source_ids)
+    elif max_questions is not None:
         if max_questions < 1 or max_questions > len(ids):
             raise ValueError("取得上限は1〜取得済み件数で指定してください")
         ids = ids[:max_questions]
@@ -105,7 +122,7 @@ def import_group(output: Path, group: int, max_questions: int | None = None) -> 
             raise ValueError("既存sourceのID、ファイル名又は取得manifestとの対応が不正です")
         existing_ids.add(source_id)
     for source_id in ids:
-        value = {"question_bodies": [source_record(root, group, source_id)]}
+        value = {"question_bodies": [source_record(root, group, source_id, verified_manifest=manifest)]}
         target = source_dir / f"question_{Path(source_id).stem}.json"
         if target.exists():
             if json.loads(target.read_text(encoding="utf-8")) != value:
@@ -119,7 +136,7 @@ def import_group(output: Path, group: int, max_questions: int | None = None) -> 
               "selectedQuestionCount": len(ids), "expectedQuestionCount": manifest["expectedCount"],
               "newQuestionCount": len(pending), "unchangedQuestionCount": len(ids) - len(pending),
               "updatedSourceIds": [], "selectedSourceIds": ids,
-              "scope": "full_group" if len(ids) == manifest["expectedCount"] else "limited",
+              "scope": "full_group" if len(ids) == manifest["expectedCount"] else ("explicit_selection" if source_ids is not None else "limited"),
               "originalizationRequired": True, "status": "selected_scope_complete"}
     atomic_json(root / "reports" / f"knoun_source_intake_{group_id}.json", report)
     return report

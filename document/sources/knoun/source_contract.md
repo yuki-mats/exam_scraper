@@ -81,6 +81,20 @@ OCRは既存のApple Vision日本語認識をローカルで使い、`output/eco
 
 問題固有のframe URLを`source_question_id`に使い、共通HMAC処理で公開IDを生成します。語群では当該問題の丸数字、赤字の解答対象欄、当該解説の正答番号と語句を照合します。配列順で別問題の解説を結び付けません。回答形式・設問方向・各選択肢の正誤判定は後続工程に残し、登録器で推測しません。
 
-現時点の登録器は、文字だけの正誤問題と、明示された一つの空欄に語群から答える形式に対応します。図表を含む又は図表有無が未分類の画像、未対応の形式では停止し、原画像を基に保持方法を確認します。文字だけの原スキャンは`sourceTranscription`へ転記と画像情報を保存し、公開問題に必要な図として登録しません。既存sourceの差異は自動上書きせず、取得元更新又はsource conflictとして確認します。
+現時点の登録器は、文字だけの正誤問題、明示された一つの空欄に語群から答える形式、丸数字で列挙された選択肢に対応します。図表を含む又は図表有無が未分類の画像、未対応の形式では停止し、原画像を基に保持方法を確認します。文字だけの原スキャンは`sourceTranscription`へ転記と画像情報を保存し、公開問題に必要な図として登録しません。既存sourceの差異は自動上書きせず、取得元更新又はsource conflictとして確認します。
+
+## 逐次継続
+
+`scripts/pipeline/continue_knoun_maintenance.py`は、画像照合から既存の整備・独立評価までをつなぐローカルCLIです。起動済みの問題整備システムを使い、先行runの終了を待ってから同時処理1で進めます。
+
+```bash
+# console自体も --no-browser で起動しておく。portは起動結果を指定する。
+.venv/bin/python -m scripts.pipeline.continue_knoun_maintenance \
+  --console-url http://127.0.0.1:<port> --run
+```
+
+照合済み・対応形式・文字だけの問題を安定URLで明示選択し、標準登録器とsource hash検証を通します。図表、未対応形式又は転記保留の問は理由を記録し、ほかの問題の登録を待たせません。整備工程の選択はworkflow設定から読み、05を含むことを検査します。整備後は既存の工程版が全て現行である問題だけをexact source bindingで限定mergeし、必須3検査、convert、upload dry-runへ進めます。独立評価は一問ずつ行い、要再整備は既存の評価feedbackから最大2回再整備します。Firestore反映は行いません。
+
+状態は`reports/continuation_<run>/progress.json`へ保存します。処理が終わっても保留・対象外・評価不合格の有無を最後に照合する必要があるため、CLI終了を全425問の完了として扱いません。取得元画像・転記・中間問題はローカル成果物として保持し、repoで既定除外されるデータを公開Gitへ強制追加しません。
 
 **eco検定の全問は必ず05独自問題化を経由します。** 以後は[独自問題作成ワークフロー](../../operations/original_question_authoring_workflow.md)と[問題整備の入口](../../operations/exam_pipeline_manual_and_automation.md)に従います。文字だけのスキャン画像を、問題成立に必要な図表と取り違えないよう、文字起こし段階で区別します。

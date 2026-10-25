@@ -18,6 +18,12 @@ from tools.question_review_console.codex_app_server import CodexAppServerClient
 from tools.question_review_console.turn_budget import GlobalTurnBudget
 
 CHECKS = ("questionAllText", "choicesAndLabels", "answerAndExplanation", "numbersUnitsNegation", "answerTarget", "figureLabels")
+
+
+class VisualReviewHold(ValueError):
+    """判読不明は当該問だけを保留し、ほかの問題の照合を続ける。"""
+
+
 SCHEMA = {
     "type": "object", "additionalProperties": False,
     "properties": {
@@ -94,7 +100,7 @@ def validate_result(record: dict, candidate: dict, receipt: dict) -> None:
     if not all(receipt.get(k) for k in ("thread_id", "turn_id", "session_id", "final_message")):
         raise ValueError("画像照合の実行証跡が不足しています")
     if candidate.get("reviewOutcome") != "verified":
-        raise ValueError("画像照合で判読不能又は確認事項が残っています")
+        raise VisualReviewHold("画像照合で判読不能又は確認事項が残っています")
     if set(candidate.get("checks", {})) != set(CHECKS) or not all(candidate["checks"][k] is True for k in CHECKS):
         raise ValueError("一問全体の画像照合が完了していません")
     if candidate.get("questionImageContent") not in ("text_only", "contains_figure"):
@@ -187,6 +193,9 @@ def main(argv=None) -> int:
                     wait_for_console_idle(args.wait_console_url)
                 try:
                     entry = review_one(client, root, group, source_id)
+                    failures = 0
+                except VisualReviewHold as exc:
+                    entry = {"sourceQuestionId": source_id, "status": "needs_manual_review", "error": str(exc)}
                     failures = 0
                 except Exception as exc:
                     entry = {"sourceQuestionId": source_id, "status": "needs_manual_review", "error": str(exc)}
