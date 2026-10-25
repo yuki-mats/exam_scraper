@@ -145,3 +145,11 @@ output/<qualification>/review/law_revision_audit/<list_group_id>_law_revision_au
 - serverの03b検証で、`lawRevisionFacts`、正答対応、verified根拠、sidecarの識別・分類・必須metadataがすべて一致する。
 - patch単体のschema検証と、問題整備システムが指定した検証をすべて通す。merge後のquality-gateは後続工程へ任せる。
 - `00_source`、対象外patch、生成物、Firestoreを変更していない。
+
+## 公式制度資料の独立監査
+
+行政のモデル規約等が直接根拠なら、server取得の`officialGuidanceEvidence`と候補の`officialGuidanceReferences`を全肢について照合します。取得証明は真正な資料の限定本文と原問・全肢・基準日の結合を示し、内容の妥当性や歴史版の適用承認は示しません。一次候補と別sessionで、実資料の条項、コメント、例外、出題時点と現在の適合を独立に判断します。採用資料の実URLを`verifiedSourceUrls`へ記録します。
+
+法令を併用するmixed根拠ではe-Govの取得本文も全locatorで確認し、公式制度資料で未取得法令を代用しません。制度資料だけの場合、法令locatorを捏造せず空配列を保持します。現行モデル規約の公表、改正法の施行、各組合が採用した規約を区別します。`same_as_current`は監査対象の完全命題を両時点で確認して同じ判定となる意味であり、資料全体を法律と認定する意味ではありません。
+
+歴史版の適用が未確認なら、既存の公式原正答fallback契約と未確認理由を厳密に満たす場合だけその状態を使います。過去の条文、改訂日や`same_as_current`を推測しません。二次承認、変更時の三次承認、初心者向けの説明、全肢対応と対象外不変の既存gateを維持します。資料・頁・版・適用判断・差分が変われば再生成と再監査を行います。

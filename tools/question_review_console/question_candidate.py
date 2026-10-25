@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from tools.question_review_console.official_guidance_contract import FIELD_RULE as OFFICIAL_GUIDANCE_RULE
+
 import json
 import re
 import unicodedata
@@ -345,6 +347,7 @@ _FIELDS_BY_ROLE: dict[str, frozenset[str]] = {
             "isLawRelated",
             "lawGroundedExplanationNotNeeded",
             "lawReferences",
+            "officialGuidanceReferences",
             "lawContextForExplanation",
         }
     ),
@@ -357,6 +360,7 @@ _FIELDS_BY_ROLE: dict[str, frozenset[str]] = {
             "isLawRelated",
             "lawGroundedExplanationNotNeeded",
             "lawReferences",
+            "officialGuidanceReferences",
             "lawContextForExplanation",
             "lawRevisionFacts",
         }
@@ -376,6 +380,7 @@ _FIELDS_BY_ROLE: dict[str, frozenset[str]] = {
             "evidenceBindingHash",
             "lawRevisionFacts",
             "lawReferences",
+            "officialGuidanceReferences",
             "isLawRelated",
             "lawGroundedExplanationNotNeeded",
             "lawContextForExplanation",
@@ -773,6 +778,7 @@ _SHARED_LAW_FIELD_RULES: dict[str, Any] = {
     "isLawRelated": {"type": "boolean"},
     "lawGroundedExplanationNotNeeded": {"type": "boolean"},
     "lawReferences": _LAW_REFERENCES_RULE,
+    "officialGuidanceReferences": OFFICIAL_GUIDANCE_RULE,
     "lawContextForExplanation": {
         "type": "string",
         "minLength": 1,
@@ -925,6 +931,7 @@ _CANONICAL_ROLES_BY_FIELD: dict[str, tuple[str, ...]] = {
         "law_audit",
     ),
     "lawReferences": ("law_context", "explanation", "law_audit"),
+    "officialGuidanceReferences": ("law_context", "explanation", "law_audit"),
     "lawContextForExplanation": (
         "law_context",
         "explanation",
@@ -2155,6 +2162,17 @@ def _validate_candidate_content_messages(
                     "計算過程を示してください。計算問題では、正しい数式、"
                     "数値代入、等号、途中計算及び結果を保持又は再構成してください。"
                 )
+    if "officialGuidanceReferences" in logical:
+        guidance = logical['officialGuidanceReferences']
+        if logical.get('isLawRelated') is not True or logical.get('lawGroundedExplanationNotNeeded') is not False:
+            errors.append('制度根拠を採用しない候補は古いofficialGuidanceReferencesを明示unsetしてください。')
+        applicability = guidance.get('applicabilityByChoice') if isinstance(guidance, Mapping) else None
+        if (not isinstance(applicability, list) or len(applicability) != len(choices)
+                or any(not isinstance(item, Mapping) or item.get('choiceIndex') != index
+                    for index, item in enumerate(applicability))):
+            errors.append('公式制度資料の適用判断は原問の全肢と同じ件数・順序で必要です。')
+        # Acquisition/authentication is performed by the coordinator and
+        # checker with their explicit repo/source scope, never the process cwd.
     if "explanationReferences" in changed_fields:
         errors.extend(
             explanation_reference_errors(logical.get("explanationReferences"))

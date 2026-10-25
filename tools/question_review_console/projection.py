@@ -69,6 +69,7 @@ LAW_CONTEXT_FIELDS = (
     "isLawRelated",
     "lawGroundedExplanationNotNeeded",
     "lawReferences",
+    "officialGuidanceReferences",
     "lawContextForExplanation",
 )
 QUESTION_SET_FIELDS = (

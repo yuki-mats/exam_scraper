@@ -92,3 +92,13 @@ Codex App Serverの整備sessionが更新するのは、対象問題の`18` / `2
 - `hold`と未完了review stateがない。
 - evidenceから公的一次情報を追跡できる。
 - [delivery workflow](delivery_workflow.md)のquality-gateとupload dry-runが通る。
+
+## 公式制度資料の別取得契約
+
+標準管理規約等の公式行政資料が直接根拠となる制度問題は、e-Gov法令とは別の`official_institutional_guidance` source kindを使う。候補の`isLawRelated`を偽らず、架空のlawIdや無関係なlocatorで法令gateを満たさない。法令を実際に併用する問題では従来の全locatorのe-Gov取得も必須とする。
+
+通常02b/03/03bは固定した取得requestに基づき、serverが公式索引の現行単棟型リンクとPDFを実GETする。限定頁、版、公表日、取得日、原問・全肢・保存sourceのhashをprivate取得証明へ結合し、本文と証明参照を実モデルへ配送する。候補は資料の採否と各肢の適用理由を独立に判断する。取得自体を適用承認としない。証明本文はprivate cache、patchには内部参照のみ保持し、Firestoreや通常ログへ配送しない。field型と上限は[question field契約](../reference/question_field_contract.md)を正本とする。
+
+03bの別sessionは同じ本文・証明hash・候補を確認し、現行モデル規約、法律の施行日、個別組合の採用規約及び歴史版の適用性を区別する。既存の二次/三次監査数と公式原正答fallbackの条件は変えない。根拠不足やgenuine holdは成功へ変換しない。
+
+正常保存ではprivate証明・原bytes・全肢bindingを再検証し、資料をfresh GETして監査対象contentHashと照合する。限定公開直前にも再取得し、新しい取得時刻とpinned/fresh hashを別private receiptへ保存する。索引、PDF、抽出本文、版、時点又は差分が変われば旧承認を失効し、調査・候補生成・独立監査へ戻る。書込み後は既存の全対象live readbackと対象外不変が一致した場合だけ完了にする。中断時は既存のcommit/readback復元経路を使い、fresh証明を後から取得して既存書込み前の証明に偽装しない。

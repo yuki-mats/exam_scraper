@@ -158,3 +158,11 @@ AIが最小JSONを作ったら、次で正式パッチへ補完します。
 - `isLawRelated=false` としながら `lawReferences` を残さない。
 - 法改正で正誤が変わる可能性だけを理由に、02bで `correctChoiceText` を更新しない。
 - 出題当時正答と現行法正誤の差分確定を sidecar なしで済ませない。差分が疑われる場合は03bへ送る。
+
+## 公式制度資料を直接根拠とする場合
+
+`isLawRelated`は法令だけでなく制度論点も表します。標準管理規約は国土交通省が示すモデルであり、e-Gov法令そのものではありません。実際に適用する法令locatorがない場合は、`lawReferences`を全肢対応の空配列とし、serverが実取得した`officialGuidanceEvidence`を独立に読んで採否を判断します。空配列だけでは根拠確認を完了できません。
+
+採用時は内部field `officialGuidanceReferences`へ配送済みの`request`と`evidenceRef`を保持し、`applicabilityByChoice`で全肢の条項、原則と例外、現在と出題時の適用理由を説明します。取得証明は資料の内容や版の適用性を保証しません。所定頁が不足すれば`blocked`にして不足頁を示し、新しい固定入力で再生成します。モデルが未配送の証明を生成したり、資料に架空の法令IDを与えたりしません。
+
+制度資料だけが直接根拠の場合と、法令も併用する場合を内容から区別します。併用時はe-Gov本文と制度資料の両方の実取得が必要です。現行モデル規約の公表日、法改正の施行日、個別組合の採用規約は区別します。歴史版の`historicalCompleteness=unreviewed`を確認済みと読み替えず、時点比較と正誤確定は03bの独立監査へ渡します。内部証明の型と保存責務は[question field契約](../document/reference/question_field_contract.md)を参照します。

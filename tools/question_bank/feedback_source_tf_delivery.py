@@ -6,6 +6,11 @@ Missing normal evidence is a hold, never an asserted approval or successful gate
 """
 from __future__ import annotations
 
+from tools.question_review_console.official_guidance_contract import (
+    FIELD as GUIDANCE_FIELD, PROOF_DIRECTORY, validate_reference as validate_guidance,
+    refresh_reference as refresh_guidance, verify_delivery as verify_guidance_delivery,
+)
+
 import argparse
 from contextlib import contextmanager, closing
 from copy import deepcopy
@@ -387,7 +392,7 @@ def _stage_predecessor_record(root, request, coordinator, stage, applicable, *, 
     return result.record, fields
 
 
-def _normal_law_verification(plan, child):
+def _normal_law_verification(plan, child, *, root=None):
     """Replay the real writer's candidate-bound 03b reviews, no new verdicts."""
     from tools.question_review_console.law_audit_verification import required_review_count, parse_review
     metadata = plan['preparedCandidate']['content']['executionMetadata']
@@ -411,7 +416,13 @@ def _normal_law_verification(plan, child):
                 or execution['executionId'] != execution['threadId'] + ':' + execution['turnId']):
             raise ValueError('normal 03b independent execution identity differs')
         seen.add(execution['threadId'])
-        if parse_review(json.dumps(execution['review']), bundle)['decision'] != 'approve':
+        official = bundle.get('proposedOfficialGuidanceEvidence')
+        if official is not None:
+            from tools.question_review_console.law_audit_verification import review_prompt
+            if (execution.get('officialGuidanceEvidenceHash') != official['evidenceHash']
+                    or execution.get('promptHash') != _hash(review_prompt(bundle, '二次' if number == 0 else '三次', repo_root=root).encode())):
+                raise GateRequired('normal_03b_official_guidance_actual_review_delivery_missing')
+        if parse_review(json.dumps(execution['review']), bundle, repo_root=root)['decision'] != 'approve':
             raise GateRequired('normal_03b_review_not_approved')
     return {'evidenceHash': bundle['evidenceHash'], 'reviewCount': count, 'executionHash': sha256_json(reviews)}
 
@@ -429,6 +440,9 @@ def verify_normal_stage_proofs(root, request, coordinator, connection, files):
         request['source']['binding']['sourceRecordRef'])
     if projection.errors: raise GateRequired('normal_projection_errors')
     current = deepcopy(dict(projection.record))
+    if GUIDANCE_FIELD in current:
+        validate_guidance(root, current[GUIDANCE_FIELD], record=current)
+        _ref(root, current[GUIDANCE_FIELD]['evidenceRef'], files, private=True, decode=False)
     policies = coordinator.workflow.versioned_policies(request['qualification'])
     status = coordinator.work_versions.status_for(question, policies.values())
     applicable = {s['id'] for s in status.get('stages', []) if s['id'] != 'evaluation'}
@@ -484,6 +498,10 @@ def verify_normal_stage_proofs(root, request, coordinator, connection, files):
         if candidate != plan['preparedCandidate']: raise ValueError('normal saved candidate changed')
         evidence = normal._stage_evidence(coordinator, plan)
         old = receipt['stageEvidence']
+        if evidence.get('officialGuidanceInheritedProof') != old.get('officialGuidanceInheritedProof'):
+            raise ValueError('normal non-owning stage institutional inheritance differs')
+        if evidence.get('officialGuidanceSaveRefresh') != old.get('officialGuidanceSaveRefresh'):
+            raise ValueError('normal same-run official guidance save refresh evidence differs')
         if any(evidence[k] != old[k] for k in ('checkpoint', 'questionResults', 'workVersionReceipt')):
             raise ValueError('actual child/checkpoint evidence differs')
         if evidence['workVersion']['stages'][stage] != old['workVersion']['stages'][stage]:
@@ -522,8 +540,21 @@ def verify_normal_stage_proofs(root, request, coordinator, connection, files):
         summary = {'stageId': stage, 'planHash': plan['planHash'], 'receipt': proof['receipt'],
             'nativeBinding': approval_binding, 'ownedFields': sorted(owned),
             'effectiveProjectionFields': sorted(set().union(*effective.values()))}
+        stage_guidance = plan['stagePlan'].get('officialGuidanceInputs') or {}
+        if stage_guidance:
+            metadata = plan['preparedCandidate']['content']['executionMetadata']
+            delivery = metadata.get('officialGuidanceDelivery') or {}
+            actual_prompt = normal._filter_structured_candidate_prompt(
+                normal._prepared_primary_evidence_prompt(coordinator.store, plan['qualification'], plan['childRunId']),
+                {plan['request']['questionId']})
+            from tools.question_review_console.law_audit_verification import question_inputs_from_prompt
+            actual_inputs = {qid: item['officialGuidanceEvidence'] for qid, item in question_inputs_from_prompt(actual_prompt).items()
+                if item.get('officialGuidanceEvidence') is not None}
+            verify_guidance_delivery(stage_guidance, actual_prompt, delivery,
+                input_fingerprint=plan['inputFingerprint'], projected_input_hash=plan['projectedInputHash'])
+            summary['officialGuidanceDeliveryHash'] = sha256_json(delivery)
         if stage == 'law_audit':
-            summary['lawVerification'] = _normal_law_verification(plan, coordinator.store.get(plan['qualification'], plan['childRunId']))
+            summary['lawVerification'] = _normal_law_verification(plan, coordinator.store.get(plan['qualification'], plan['childRunId']), root=root)
         receipts.append(summary)
     if not applicable or set(supplied) != applicable or status.get('allCurrent') is not True:
         raise GateRequired('all_applicable_normal_stages_and_genuine_proofs_required:' + ','.join(sorted(applicable - set(supplied))))
@@ -923,7 +954,7 @@ def _question(root, path, plan, coordinator, connection, *, checked=False):
     warnings = [*projected_required_warnings(record),
         *(warning for document in documents for warning in upload_document_required_warnings(document))]
     quality = law_audit_quality_warnings(record, stage='projected')
-    issues = detect_issues(record, record, documents, documents, [], warnings, quality)
+    issues = detect_issues(record, record, documents, documents, [], warnings, quality, source_tf_public_variant=True)
     comparison = correct_choice_comparison(source, record)
     # Inventory diagnostics describe its old group artifacts. Recompute every
     # diagnostic for this explicit public variant, using the normal detectors.
@@ -1271,6 +1302,26 @@ def _readback(plan, payload, commit, current):
     return versions
 
 
+
+def _validated_guidance_refresh(root, path, plan, publication_files):
+    guidance_value = plan['source']['normalProjection'].get(GUIDANCE_FIELD)
+    if guidance_value is not None:
+        fresh = _load(root, path.parent / 'publication/official-guidance-fresh.json', publication_files, private=True)
+        wrapper = fresh['receipt']
+        pinned = validate_guidance(root, guidance_value, record=plan['source']['normalProjection'])
+        if (wrapper.get('schemaVersion') != 'official-guidance-refresh/v1'
+                or wrapper.get('pinnedEvidenceHash') != pinned['evidenceHash']
+                or wrapper.get('contentHash') != pinned['contentHash']
+                or wrapper.get('validationHash') != sha256_json({k:v for k,v in wrapper.items() if k != 'validationHash'})
+                or wrapper.get('freshEvidenceHash') != wrapper.get('freshReceipt', {}).get('evidenceHash')):
+            raise ValueError('actual pre-write official guidance refresh receipt differs')
+        from tools.question_review_console.official_guidance_evidence import OfficialGuidanceEvidenceResolver
+        OfficialGuidanceEvidenceResolver(root).validate(wrapper['freshReceipt'], request=guidance_value['request'],
+            record=plan['source']['normalProjection'], scope=pinned['scope'])
+        if _ref(root, fresh['receiptRef'], publication_files, private=True) != wrapper:
+            raise ValueError('official guidance refresh saved receipt differs')
+    return fresh if guidance_value is not None else None
+
 def _publication_result(path, plan, payload, commit_raw, versions, current):
     result = {'schemaVersion': RESULT, 'planHash': plan['planHash'], 'unitHash': plan['unitHash'],
         'status': 'published_readback_matched', 'transportSchema': payload['schemaVersion'],
@@ -1279,6 +1330,16 @@ def _publication_result(path, plan, payload, commit_raw, versions, current):
         'FirestoreWritten': True, 'completionRecorded': False, 'remainingGates': ['task_completion_dispatch']}
     if 'initializeMissingFieldsByDocument' in payload:
         result['initializeMissingFieldsByDocument'] = deepcopy(payload['initializeMissingFieldsByDocument'])
+    if GUIDANCE_FIELD in plan['source']['normalProjection']:
+        reference = Path(plan['source']['normalProjection'][GUIDANCE_FIELD]['evidenceRef']['ref'])
+        if not reference.is_absolute():
+            raise ValueError('absolute private institutional proof reference required')
+        root = reference.parents[len(Path(PROOF_DIRECTORY).parts)]
+        if not path.is_relative_to(root):
+            raise ValueError('publication and institutional proof roots differ')
+        fresh = _validated_guidance_refresh(root, path, plan, {})
+        result['officialGuidanceFreshEvidence'] = fresh['receiptRef']
+        result['officialGuidanceFreshEvidenceHash'] = fresh['receipt']['validationHash']
     return result
 
 
@@ -1318,6 +1379,11 @@ def publish(root, path, approval_path, *, coordinator, connection, evaluation=No
         if _read(root, approval_path, publication_files, private=True) != approval_raw:
             raise ValueError('publication approval bytes changed before transport')
         _plan(root, path, coordinator, connection)
+        guidance_value = plan['source']['normalProjection'].get(GUIDANCE_FIELD)
+        if guidance_value is not None:
+            refreshed = refresh_guidance(root, guidance_value, record=plan['source']['normalProjection'])
+            _exclusive(directory / 'official-guidance-fresh.json', _bytes(refreshed))
+            _read(root, directory / 'official-guidance-fresh.json', publication_files, private=True)
         _terminal_publication_guard(root, path, plan, connection, gates, publication_files, guard)
         try:
             commit = uploader.upload_read_set_maintenance_questions(payload, 'native approved normal source TF')
@@ -1344,6 +1410,7 @@ def reconcile(root, path, *, coordinator, connection, evaluation=None):
     commit_raw = _read(root, directory / 'commit.json', publication_files)
     commit = _json(commit_raw)
     root, path, plan = _plan(root, path, coordinator, connection, live=False)
+    fresh = _validated_guidance_refresh(root, path, plan, publication_files)
     if intent.get('planHash') != plan['planHash'] or intent.get('payload') != _payload(plan): raise ValueError('publication intent drift')
     if verify_independent_approval(approval, intent['scope'], production=True) != intent['nativeBinding']: raise ValueError('publication approval drift')
     gates = _publication_gates(root, path, plan, coordinator, connection, evaluation)

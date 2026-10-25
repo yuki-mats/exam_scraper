@@ -25,6 +25,8 @@ from scripts.check.patch_entry_matching import (  # noqa: E402
     bind_source_records,
     match_patch_entries,
 )
+from tools.question_review_console.official_guidance_contract import validate_reference as validate_guidance
+
 from scripts.common.question_identity import review_question_id  # noqa: E402
 from scripts.merge.patch_views import apply_question_type  # noqa: E402
 
@@ -98,6 +100,13 @@ def compare_entries(
                 f"index {idx}: lawGroundedExplanationNotNeeded cannot be true when lawReferences is non-empty"
             )
 
+        if "officialGuidanceReferences" in patch:
+            try:
+                if patch.get("isLawRelated") is not True or patch.get("lawGroundedExplanationNotNeeded") is not False:
+                    raise ValueError('official institutional basis requires accurate institutional classification')
+                validate_guidance(REPO_ROOT, patch['officialGuidanceReferences'], record={**src, **patch})
+            except (ValueError, OSError, KeyError, TypeError) as exc:
+                errors.append(f"index {idx}: official guidance evidence invalid: {exc}")
         context_note = patch.get("lawContextForExplanation")
         if context_note is not None and (
             not isinstance(context_note, str) or not context_note.strip()

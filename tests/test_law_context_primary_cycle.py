@@ -47,7 +47,9 @@ class LawModel(NativeProfileFixture):
         values = {'isLawRelated': True, 'lawGroundedExplanationNotNeeded': False,
             'lawReferences': [[reference]], 'lawContextForExplanation': '試験法の本文と設問の制度を照合した。'}
         payload = {'decision': 'candidate', 'summary': '法令根拠を確認する。',
-            'update': {'setFields': [{'field': key, 'value': value} for key, value in values.items()], 'unsetFields': []}}
+            'update': {'setFields': [{'field': key, 'value': value} for key, value in values.items()],
+                'unsetFields': ['officialGuidanceReferences'] if any('officialGuidanceReferences' in target['allowedFields']
+                    for target in question['candidateTargets']) else []}}
         return replace(result, final_message=json.dumps(payload, ensure_ascii=False))
 
 

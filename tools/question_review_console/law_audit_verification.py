@@ -1,6 +1,8 @@
 """Read-only legal reviews before a candidate is promoted to verified state."""
 from __future__ import annotations
 
+from tools.question_review_console.official_guidance_contract import validate_reference as validate_guidance, FIELD as GUIDANCE_FIELD
+
 import copy
 import hashlib
 import json
@@ -61,9 +63,18 @@ def validate_statement_judgment_guidance(value: Mapping[str, Any], *, current=No
     return copy.deepcopy(dict(value))
 
 
-def validate_verification_bundle(bundle: Mapping[str, Any]):
+def validate_verification_bundle(bundle: Mapping[str, Any], *, repo_root=None):
     if bundle.get('evidenceHash') != _json_hash({key: value for key, value in bundle.items() if key != 'evidenceHash'}):
         raise ValueError('独立監査bundleの内容と根拠hashが一致しません。')
+    official = bundle.get('proposedOfficialGuidanceEvidence')
+    proposed_record = {**bundle['question']['currentRecord'], **bundle.get('proposedFields', {})}
+    for field in bundle.get('proposedUnsetFields', []): proposed_record.pop(field, None)
+    references = proposed_record.get(GUIDANCE_FIELD)
+    if official is not None or references is not None:
+        actual = validate_guidance(repo_root or Path(__file__).resolve().parents[2], references,
+            record=proposed_record)
+        if actual != official:
+            raise ValueError('独立監査bundleの公式制度資料取得証明が一致しません。')
     guidance = bundle['question'].get('statementJudgmentGuidance')
     if guidance is not None:
         validate_statement_judgment_guidance(guidance)
@@ -130,8 +141,12 @@ def verification_bundle(
     question: Mapping[str, Any], candidate: QuestionCandidate, *,
     reference_guidance: str = '',
     proposed_primary_evidence: Mapping[str, Any] | None = None,
+    proposed_official_guidance_evidence: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     bundle = {'question': copy.deepcopy(dict(question)), 'proposedFields': candidate_fields(candidate)}
+    unset = sorted({field for update in candidate.updates for field in update.unset_fields})
+    if GUIDANCE_FIELD in unset:
+        bundle['proposedUnsetFields'] = unset
     if question.get('statementJudgmentGuidance') is not None:
         guidance = validate_statement_judgment_guidance(question['statementJudgmentGuidance'])
         bundle['statementJudgmentGuidanceHash'] = guidance['guidanceHash']
@@ -139,6 +154,8 @@ def verification_bundle(
         bundle['qualificationReferenceGuidance'] = reference_guidance
     if proposed_primary_evidence is not None:
         bundle['proposedPrimaryLawEvidence'] = copy.deepcopy(dict(proposed_primary_evidence))
+    if proposed_official_guidance_evidence is not None:
+        bundle['proposedOfficialGuidanceEvidence'] = copy.deepcopy(dict(proposed_official_guidance_evidence))
     bundle['evidenceHash'] = _json_hash(bundle)
     return bundle
 
@@ -160,8 +177,8 @@ def review_schema(bundle: Mapping[str, Any]) -> dict[str, Any]:
     return {'type': 'object', 'properties': properties, 'required': list(properties), 'additionalProperties': False}
 
 
-def review_prompt(bundle: Mapping[str, Any], phase: str) -> str:
-    validate_verification_bundle(bundle)
+def review_prompt(bundle: Mapping[str, Any], phase: str, *, repo_root=None) -> str:
+    validate_verification_bundle(bundle, repo_root=repo_root)
     return '\n'.join([
         f'# 現行法監査の独立した{phase}確認',
         '新しいsessionで、同じ問題・根拠bundle・候補を一問一肢ずつ照合する。file、patch、外部状態は変更しない。',
@@ -169,6 +186,7 @@ def review_prompt(bundle: Mapping[str, Any], phase: str) -> str:
         '候補のverified宣言や保存済み正誤を信用せず、本文と各選択肢の完全命題から出題時判定と現行法判定を確認する。名前付き解答欄はquestionScopeの対象だけを問う。',
         'primaryLawEvidenceの確認済み本文を使い、不足箇所は候補のlawReferencesのe-Gov又は所管官庁の一次情報を直接開く。検索要約だけでは承認しない。実際に本文を確認できた公式URLだけをverifiedSourceUrlsへ入れる。404や取得失敗のURLは確認済みとして記録しない。',
         'proposedPrimaryLawEvidenceは候補が宣言した法令locatorをserverが独立に取得した一次本文である。候補が追加又は変更した条文・基準日は、この本文と取得URLを照合する。候補のverified宣言とは区別し、partial又は取得失敗の箇所は一次情報を確認できるまで承認しない。',
+        'proposedOfficialGuidanceEvidenceがある場合は、実取得した行政制度資料の限定頁を全肢と照合し、候補のofficialGuidanceReferencesのrequest/evidenceRef・各肢の適用理由と一致するか確認する。取得hashだけで内容・適用時点を承認しない。historicalCompleteness=unreviewedの歴史資料は適用版を独立確認し、未確認時は既存の公式正答fallback条件と未確認理由を厳密に満たす候補だけを確認する。標準モデル規約と各組合の採用規約、改正版の公開日と法の施行日を区別する。法令locatorがあるmixed候補はproposedPrimaryLawEvidenceも確認し、制度資料で法令本文の不足を代用しない。全確認資料の実URLをverifiedSourceUrlsへ含める。',
         'qualificationReferenceGuidanceがある場合は、取得元の現在化と公式試験原文の差、判例・行政資料の確認先も読む。方針の記述を判定結果として信用せず、記載された公式問題PDF・正解番号PDFなどの一次資料を独立に確認する。現在化された文言を当時の法へそのまま当てはめず、公式原文と現在の表示を同じ選択位置で対応付けて、それぞれの時点の判定を行う。',
         '出題時条文を参照できない場合は、取得元の公式元正答と未参照理由を明示した候補だけを確認する。過去の条文・改正日・根拠を推測して作らない。',
         '元の集約回答は、各記述を独立判定した後で集合・個数を照合する。元の回答番号を記述番号へ転記しない。',
@@ -178,8 +196,8 @@ def review_prompt(bundle: Mapping[str, Any], phase: str) -> str:
     ])
 
 
-def parse_review(message: str, bundle: Mapping[str, Any]) -> dict[str, Any]:
-    validate_verification_bundle(bundle)
+def parse_review(message: str, bundle: Mapping[str, Any], *, repo_root=None) -> dict[str, Any]:
+    validate_verification_bundle(bundle, repo_root=repo_root)
     value = json.loads(message)
     fields = bundle['proposedFields']
     for key, expected in [('schemaVersion', SCHEMA_VERSION), ('questionId', bundle['question']['questionId']), ('evidenceHash', bundle['evidenceHash'])]:
@@ -195,6 +213,11 @@ def parse_review(message: str, bundle: Mapping[str, Any]) -> dict[str, Any]:
     if value['decision'] == 'approve':
         if value['issues'] or not urls:
             raise ValueError('一次根拠又はissuesのない承認を確認できません。')
+        official = bundle.get('proposedOfficialGuidanceEvidence')
+        if official is not None:
+            expected_urls = {document['sourceUrl'] for document in official['documents']}
+            if not expected_urls.issubset(set(urls)):
+                raise ValueError('独立監査が全採用制度資料の本文URLを確認していません。')
         for key in ['examTimeDecision', 'currentLawDecision']:
             if value.get(key) != fields.get(key):
                 raise ValueError(f'独立監査と候補の判定が一致しません: {key}')

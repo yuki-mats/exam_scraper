@@ -6,6 +6,11 @@ Interrupted/partial applications hold; they are never automatically reapplied.
 """
 from __future__ import annotations
 
+from tools.question_review_console.official_guidance_contract import (
+    source_scope as official_guidance_scope, prepare_evidence as prepare_official_guidance,
+    validate_reference as validate_guidance, FIELD as GUIDANCE_FIELD,
+)
+
 import argparse
 from contextlib import closing
 from copy import deepcopy
@@ -77,7 +82,7 @@ def _requirements(connection, authority):
 def _request(root, path, files):
     value = _json(_read(root, path, files, private=True))
     _object(value, {'schemaVersion', 'qualification', 'listGroupId', 'questionId', 'stageId', 'source',
-                    'authority', 'live', 'primaryEvidence'}, {'retryFromFailure', 'primaryEvidenceSelections'})
+                    'authority', 'live', 'primaryEvidence'}, {'retryFromFailure', 'primaryEvidenceSelections', 'officialGuidanceRequest'})
     if value['schemaVersion'] != REQUEST or value['stageId'] not in STAGES:
         raise ValueError('dedicated single-stage request required')
     for field in ('qualification', 'listGroupId', 'questionId'):
@@ -138,6 +143,8 @@ def _request(root, path, files):
             if not isinstance(selection, dict) or selection.get('evidence') not in value['primaryEvidence']:
                 raise ValueError('model evidence selection must reference declared primaryEvidence exactly')
         _prepared_primary_evidence_entries(root, selections)
+    if 'officialGuidanceRequest' in value and value['stageId'] not in {'law_context', 'explanation', 'law_audit'}:
+        raise ValueError('official guidance acquisition belongs to 02b/03/03b only')
     if 'retryFromFailure' in value:
         _ref(root, value['retryFromFailure'], files, private=True, decode=False)
     return value
@@ -654,9 +661,14 @@ def prepare(root, request_path, destination, *, coordinator, connection):
                 'entries': _prepared_primary_evidence_entries(root, request['primaryEvidenceSelections'])}
             bundle['bundleHash'] = sha256_json(bundle)
             spec['preparedPrimaryEvidence'] = bundle
+        if 'officialGuidanceRequest' in request:
+            spec['officialGuidanceInput'] = prepare_official_guidance(root, request['officialGuidanceRequest'],
+                record=spec['candidateRecord'], scope=official_guidance_scope(root, qualification, spec['target']))
         _unchanged(root, files)
         prepared = coordinator._prepare_question_candidate_attempt(qualification, parent['runId'], [spec], {'id': stage}, prompt,
             parent, parent=parent, emit=lambda _: None)
+        for delivered in prepared['batchPlan'].get('officialGuidanceInputs', {}).values():
+            _ref(root, delivered['evidenceRef'], files, private=True, decode=False)
         route = prepared.get('attemptMetadata') or {}
         if route.get('fallbackUsed') is not False or route.get('backendKind') != 'codex_app_server':
             raise ValueError('configured native primary attempt required; fallback prohibited')
@@ -852,8 +864,67 @@ def _stage_evidence(coordinator, plan):
     stage = next((s for s in checkpoint['stages'] if s['stageId'] == plan['stageId']), None)
     if not stage or stage.get('status') != 'validated':
         raise ValueError('actual validated parent checkpoint missing')
-    return {'workVersion': work, 'checkpoint': stage, 'questionResults': child['batchQuestionResults'],
+    result = {'workVersion': work, 'checkpoint': stage, 'questionResults': child['batchQuestionResults'],
             'workVersionReceipt': child['workVersionReceipt']}
+    delivered = plan['stagePlan'].get('officialGuidanceInputs') or {}
+    projected = _json(_read(coordinator.repo_root, coordinator.repo_root / plan['stagePlan']['progressTargets'][0]['_projectedInputPath'], {}))
+    candidate_record = projected.get('question_bodies', projected) if isinstance(projected, dict) else projected
+    candidate_record = deepcopy(candidate_record[0] if isinstance(candidate_record, list) else candidate_record)
+    for result_row in plan['preparedCandidate']['content']['candidatePayload']['questionResults']:
+        if result_row['questionId'] != plan['request']['questionId']: continue
+        for update in result_row['updates']:
+            candidate_record.update({item['field']: item['value'] for item in update['setFields']})
+            for field in update['unsetFields']: candidate_record.pop(field, None)
+    guidance_adopted = GUIDANCE_FIELD in candidate_record
+    owns_guidance = plan['stageId'] in {'law_context', 'explanation', 'law_audit'}
+    if guidance_adopted and not owns_guidance:
+        original = projected.get('question_bodies', projected) if isinstance(projected, dict) else projected
+        original = original[0] if isinstance(original, list) else original
+        if candidate_record[GUIDANCE_FIELD] != original.get(GUIDANCE_FIELD):
+            raise ValueError('non-owning stage changed institutional evidence')
+        scope = official_guidance_scope(coordinator.repo_root, plan['qualification'], plan['stagePlan']['progressTargets'][0])
+        pinned = validate_guidance(coordinator.repo_root, candidate_record[GUIDANCE_FIELD], record=candidate_record, scope=scope)
+        result['officialGuidanceInheritedProof'] = {'schemaVersion': 'normal-inherited-official-guidance/v1',
+            'stageId': plan['stageId'], 'inputFingerprint': plan['inputFingerprint'],
+            'projectedInputHash': plan['projectedInputHash'], 'sourceScope': scope,
+            'referenceHash': sha256_json(candidate_record[GUIDANCE_FIELD]), 'evidenceHash': pinned['evidenceHash']}
+    refresh = child.get('officialGuidanceSaveRefresh')
+    if owns_guidance and guidance_adopted and (not delivered or refresh is None):
+        raise ValueError('normal saved institutional candidate lacks actual fresh save proof')
+    if delivered and refresh is not None:
+        root = coordinator.repo_root
+        expected = {'schemaVersion': 'normal-official-guidance-save-refresh/v1',
+            'qualification': plan['qualification'], 'runId': plan['childRunId'], 'stageId': plan['stageId'],
+            'questionId': plan['request']['questionId'], 'inputFingerprint': plan['inputFingerprint'],
+            'projectedInputHash': plan['projectedInputHash'],
+            'candidateHash': sha256_json(plan['preparedCandidate']['content']['candidatePayload'])}
+        if (any(refresh.get(key) != value for key, value in expected.items())
+                or refresh.get('bindingHash') != sha256_json({k:v for k,v in refresh.items() if k != 'bindingHash'})
+                or refresh.get('saveOperation') != child.get('officialGuidanceSaveOperation')
+                or refresh.get('saveOperation', {}).get('planHash') != plan['planHash']):
+            raise ValueError('normal official guidance fresh save operation/candidate binding differs')
+        intent = _json(_read(root, Path(plan['preparationBinding']['destination']) / 'apply-intent.json', {}, private=True))
+        expected_operation = {'planHash': plan['planHash'], 'candidateHash': plan['preparedCandidate']['contentHash'],
+            'approval': intent['approval'], 'applyIntentHash': sha256_json(intent), 'preparationBinding': plan['preparationBinding']}
+        if refresh['saveOperation'] != expected_operation:
+            raise ValueError('normal save refresh is not bound to actual application intent')
+        supplied = delivered[plan['request']['questionId']]
+        if any(refresh['reference'].get(key) != supplied[key] for key in ('request', 'evidenceRef')):
+            raise ValueError('normal save refresh was not the actual delivered institutional evidence')
+        record = candidate_record
+        pinned = validate_guidance(root, refresh['reference'], record=record, scope=refresh['sourceScope'])
+        wrapper = _ref(root, refresh['refresh']['receiptRef'], {}, private=True)
+        if (wrapper != refresh['refresh']['receipt'] or wrapper.get('pinnedEvidenceHash') != pinned['evidenceHash']
+                or wrapper.get('contentHash') != pinned['contentHash']
+                or wrapper.get('validationHash') != sha256_json({k:v for k,v in wrapper.items() if k != 'validationHash'})):
+            raise ValueError('normal save actual fresh retrieval receipt differs')
+        from tools.question_review_console.official_guidance_evidence import OfficialGuidanceEvidenceResolver
+        OfficialGuidanceEvidenceResolver(root).validate(wrapper['freshReceipt'], request=refresh['reference']['request'],
+            record=record, scope=refresh['sourceScope'])
+        result['officialGuidanceSaveRefresh'] = deepcopy(refresh)
+    elif refresh is not None:
+        raise ValueError('normal save has an undelivered institutional fresh proof')
+    return result
 
 
 def _saved_files(root, plan):
@@ -911,6 +982,11 @@ def apply(root, path, approval_path, *, coordinator, connection):
         load_plan(root, path, coordinator=coordinator, connection=connection)
     try:
         guard(plan['commitView'])
+        if plan['stagePlan'].get('officialGuidanceInputs'):
+            coordinator.store.update(plan['qualification'], plan['childRunId'], officialGuidanceSaveOperation={
+                'planHash': plan['planHash'], 'candidateHash': plan['preparedCandidate']['contentHash'],
+                'approval': approval_ref, 'applyIntentHash': sha256_json(intent),
+                'preparationBinding': plan['preparationBinding']})
         outcome = _run(coordinator, plan, guard=guard)
         results = outcome.get('questionResults') or []
         if len(results) != 1 or results[0].get('status') != 'succeeded':

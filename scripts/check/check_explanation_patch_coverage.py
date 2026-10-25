@@ -15,6 +15,8 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
+from tools.question_review_console.official_guidance_contract import validate_reference as validate_guidance
+
 from scripts.common.question_identity import review_question_id
 from scripts.common.question_learning_patterns import (
     question_learning_pattern_id_error,
@@ -361,6 +363,13 @@ def compare_entries(
             else:
                 is_law_related = value
 
+        if "officialGuidanceReferences" in patch:
+            try:
+                if patch.get("isLawRelated") is not True or patch.get("lawGroundedExplanationNotNeeded") is not False:
+                    raise ValueError('official institutional basis requires accurate institutional classification')
+                validate_guidance(REPO_ROOT, patch['officialGuidanceReferences'], record={**src, **patch})
+            except (ValueError, OSError, KeyError, TypeError) as exc:
+                errors.append(f"index {idx}: official guidance evidence invalid: {exc}")
         has_law_references = has_non_empty_law_references(patch.get("lawReferences"))
         if "lawReferences" in patch:
             validate_law_references_shape(

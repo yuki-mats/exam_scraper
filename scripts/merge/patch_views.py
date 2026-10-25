@@ -46,6 +46,7 @@ EXPLANATION_FIELDS = [
     "suggestedQuestions",
     "suggestedQuestionDetails",
     "lawReferences",
+    "officialGuidanceReferences",
     "lawRevisionFacts",
     "isLawRelated",
     "lawGroundedExplanationNotNeeded",
@@ -85,6 +86,7 @@ LAW_CONTEXT_FIELDS = [
     "isLawRelated",
     "lawGroundedExplanationNotNeeded",
     "lawReferences",
+    "officialGuidanceReferences",
     "lawContextForExplanation",
 ]
 LEGACY_QUESTION_TYPE_IDENTITY_FIELDS = (
@@ -110,6 +112,7 @@ AGGREGATE_DERIVATIVE_STALE_FIELDS = (
     "suggestedQuestions",
     "suggestedQuestionDetails",
     "lawReferences",
+    "officialGuidanceReferences",
     "lawRevisionFacts",
     "isLawRelated",
     "lawGroundedExplanationNotNeeded",

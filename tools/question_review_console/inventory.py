@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from tools.question_review_console.official_guidance_contract import has_guidance_basis
+
 import copy
 import difflib
 import hashlib
@@ -653,6 +655,7 @@ def detect_issues(
     projection_errors: Iterable[str],
     external_required_warnings: Iterable[Mapping[str, Any]] = (),
     quality_warnings: Iterable[Mapping[str, Any]] = (),
+    *, source_tf_public_variant: bool = False,
 ) -> list[dict[str, Any]]:
     issues: dict[str, dict[str, Any]] = {}
 
@@ -809,7 +812,7 @@ def detect_issues(
     if projected.get("isLawRelated") is True:
         if _contains_hold(projected.get("lawRevisionFacts")):
             add("law_hold", "法令監査がholdです。", ["lawRevisionFacts"])
-        if not _has_verified_law_basis(projected.get("lawReferences")):
+        if not _has_verified_law_basis(projected.get("lawReferences")) and not has_guidance_basis(projected, allow_public_variant=source_tf_public_variant):
             add("law_basis_missing", "検証済みの法令根拠がありません。", ["lawReferences"])
 
     for error in projection_errors:

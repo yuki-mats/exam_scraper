@@ -1,5 +1,11 @@
 from __future__ import annotations
 
+from tools.question_review_console.official_guidance_contract import (
+    FIELD as GUIDANCE_FIELD, source_scope as official_guidance_scope,
+    prepare_evidence as prepare_official_guidance, validate_reference as validate_official_guidance,
+    has_guidance_basis, refresh_reference as refresh_official_guidance, verify_delivery as verify_guidance_delivery,
+)
+
 import copy
 import hashlib
 import hmac
@@ -925,9 +931,14 @@ def _server_law_audit_fields(
         "lawReferences": references,
         "lawRevisionFacts": facts,
     }
-    reference_hash = sha256_json(references)
+    guidance = candidate_fields.get(GUIDANCE_FIELD, projected.get(GUIDANCE_FIELD))
+    if guidance is not None:
+        audit_input[GUIDANCE_FIELD] = copy.deepcopy(guidance)
+    reference_hash = sha256_json({'lawReferences': references, GUIDANCE_FIELD: guidance}) if guidance is not None else sha256_json(references)
     audit_status = str(candidate_fields.get("auditStatus") or "").strip()
     values = dict(candidate_fields)
+    if guidance is not None:
+        values[GUIDANCE_FIELD] = copy.deepcopy(guidance)
     values.update(
         {
             "qualification": qualification,
@@ -2018,6 +2029,27 @@ def _law_context_current_evidence(record: Mapping[str, Any], evidence: Mapping[s
 
 
 
+
+
+def _law_context_evidence_view(repo_root, record, evidence, *, require_source=True, refresh=False):
+    references = record.get('lawReferences')
+    if (not isinstance(references, list) or len(references) != len(record.get('choiceTextList') or [])
+            or any(not isinstance(bucket, list) for bucket in references)):
+        raise QualificationRunError('02bの法令locator配列と全選択肢が一致しません。')
+    guidance = record.get(GUIDANCE_FIELD)
+    receipt = None
+    if guidance is not None:
+        try:
+            receipt = validate_official_guidance(repo_root, guidance, record=record, refresh=refresh)
+        except (ValueError, OSError, KeyError, TypeError) as exc:
+            raise QualificationRunError('公式制度資料の実取得・全肢bindingを確認できません。' + str(exc)) from exc
+    has_statutes = any(references)
+    statutory = _law_context_current_evidence(record, evidence, require_source=require_source) if has_statutes else []
+    if not statutory and receipt is None:
+        # Empty locators alone never satisfy the positive evidence contract.
+        raise QualificationRunError('現行法令又は公式制度資料の真正な一次取得証明がありません。')
+    return {'statutory': statutory, 'officialGuidance': receipt} if receipt is not None else statutory
+
 PRIMARY_EVIDENCE_BUNDLE = "prepared-primary-evidence-input/v1"
 PRIMARY_EVIDENCE_MAX_BYTES = 48_000
 
@@ -2192,6 +2224,7 @@ def _structured_candidate_prompt(
     ] | None = None,
     current_record_fields: Iterable[str] | None = None,
     prepared_primary_evidence_by_question: Mapping[str, Mapping[str, Any]] | None = None,
+    official_guidance_evidence_by_question: Mapping[str, Mapping[str, Any]] | None = None,
 ) -> str:
     def nested_rule_field_names(
         candidate_targets: Iterable[CandidateTarget],
@@ -2330,6 +2363,16 @@ def _structured_candidate_prompt(
             question["primaryLawEvidence"] = copy.deepcopy(
                 dict(primary_law_evidence)
             )
+        official_guidance = (official_guidance_evidence_by_question or {}).get(question_id)
+        if official_guidance is not None:
+            question["officialGuidanceEvidence"] = copy.deepcopy(dict(official_guidance))
+            question["officialGuidanceInstruction"] = (
+                "これは法令XMLとは異なる行政の制度資料を実取得した証明である。取得成功は適用判断の承認ではない。"
+                "全肢について条項・例外・資料の版と出題時点/現在時点の適合を独立に判断する。採用する場合だけ"
+                "officialGuidanceReferencesへrequest/evidenceRefを正確に保持しapplicabilityByChoiceを書く。"
+                "lawReferencesは実在して適用する法令だけ。規約を法令IDに偽装しない。"
+                "現行の標準モデル規約、法の施行日、各組合が採用した個別規約を区別する。"
+                "historicalCompleteness=unreviewedは歴史版の適用確認ではなく、03bが別監査する。")
         prepared_evidence = (prepared_primary_evidence_by_question or {}).get(question_id)
         if prepared_evidence is not None:
             question["preparedPrimaryEvidence"] = copy.deepcopy(dict(prepared_evidence))
@@ -15352,12 +15395,16 @@ class QualificationRunCoordinator:
             if (candidate.status != 'candidate' or not grounding_selected
                     or fields.get('isLawRelated', original.get('isLawRelated')) is not True):
                 break
-            proposed = copy.deepcopy(original)
+            proposed = {**copy.deepcopy(original), **copy.deepcopy(fields)}
             proposed['lawReferences'] = copy.deepcopy(fields.get('lawReferences', original.get('lawReferences')) or [])
+            if GUIDANCE_FIELD in fields:
+                proposed[GUIDANCE_FIELD] = copy.deepcopy(fields[GUIDANCE_FIELD])
+            if any(GUIDANCE_FIELD in update.unset_fields for update in candidate.updates):
+                proposed.pop(GUIDANCE_FIELD, None)
             evidence = self.primary_law_evidence.resolve(proposed, current_as_of=current_as_of,
                 qualification=qualification, list_group_id=str(raw_target_by_question[question_id].get('listGroupId') or ''))
             try:
-                current_view = _law_context_current_evidence(proposed, evidence, require_source=False)
+                current_view = _law_context_evidence_view(self.repo_root, proposed, evidence, require_source=False)
                 evidence_error = None
             except QualificationRunError as exc:
                 current_view = None
@@ -15375,13 +15422,15 @@ class QualificationRunCoordinator:
                     if 'originalAggregateAnswerEvidence' in question else {},
                 question_issue_evidence_by_question={question_id: question.get('questionIssueCorrectionEvidence') or []},
                 primary_law_evidence_by_question={question_id: evidence},
+                official_guidance_evidence_by_question={question_id: question['officialGuidanceEvidence']}
+                    if 'officialGuidanceEvidence' in question else {},
                 prepared_primary_evidence_by_question={question_id: question['preparedPrimaryEvidence']}
                     if 'preparedPrimaryEvidence' in question else {},
                 current_record_fields=(batch_plan.get('readFieldsByStage') or {}).get('law_context'),
             ) + '\n# server取得後の02b再生成\n' + json.dumps({
                 'round': number, 'maximumRounds': 3, 'proposedLawReferences': proposed['lawReferences'],
                 'currentEvidenceError': evidence_error,
-                'instruction': '取得本文と各肢を照合し、未確認ならlocatorを訂正するかblockedにする。現行本文が確認済みなら最終候補はverifiedだけ。出題時本文だけの不足は03bへ残す。元問題と正答は変更しない。',
+                'instruction': 'これは根拠候補の取得検証turnである。not_applicableは法令取得成功を意味しない。実法令locatorは実取得本文でverifiedとし、行政制度資料だけが直接根拠なら真正なofficialGuidanceEvidenceと全肢適用判断を採用する。両方使う場合両方の証明が必要。未確認ならlocator又は資料選択を訂正するかblockedにする。出題時本文だけの不足は03bへ残す。元問題と正答は変更しない。',
             }, ensure_ascii=False)
             result, generated = regenerate(regenerated_prompt)
             next_candidate = generated[0]
@@ -15397,8 +15446,12 @@ class QualificationRunCoordinator:
             candidate = next_candidate
             if candidate.status != 'candidate' or next_fields.get('isLawRelated', original.get('isLawRelated')) is not True:
                 break
+            next_guidance = next_fields.get(GUIDANCE_FIELD, original.get(GUIDANCE_FIELD))
+            if any(GUIDANCE_FIELD in update.unset_fields for update in candidate.updates): next_guidance = None
             same_locators = (_law_context_reference_key(next_fields.get('lawReferences', original.get('lawReferences')) or [])
-                == _law_context_reference_key(proposed['lawReferences']))
+                == _law_context_reference_key(proposed['lawReferences'])
+                and {key: (next_guidance or {}).get(key) for key in ('request', 'evidenceRef')}
+                == {key: (proposed.get(GUIDANCE_FIELD) or {}).get(key) for key in ('request', 'evidenceRef')})
             if current_view is not None and same_locators:
                 try:
                     parse_prepared_candidate_payload(_question_candidates_payload([candidate]), [question_id], targets_by_question)
@@ -15412,8 +15465,10 @@ class QualificationRunCoordinator:
             'inputRecordHash': sha256_json(original), 'candidateHash': sha256_json(_question_candidates_payload([candidate])),
             'currentAsOf': current_as_of, 'rounds': rounds}
         if candidate.status == 'candidate' and grounding_selected and fields.get('isLawRelated', original.get('isLawRelated')) is True:
-            final_record = {**original, 'lawReferences': fields.get('lawReferences', original.get('lawReferences')) or []}
-            proof['currentEvidence'] = _law_context_current_evidence(final_record, rounds[-1]['primaryLawEvidence'])
+            final_record = {**original, **copy.deepcopy(fields),
+                'lawReferences': fields.get('lawReferences', original.get('lawReferences')) or []}
+            if any(GUIDANCE_FIELD in update.unset_fields for update in candidate.updates): final_record.pop(GUIDANCE_FIELD, None)
+            proof['currentEvidence'] = _law_context_evidence_view(self.repo_root, final_record, rounds[-1]['primaryLawEvidence'])
         else:
             proof['currentEvidence'] = []
         proof['proofHash'] = sha256_json(proof)
@@ -15443,11 +15498,13 @@ class QualificationRunCoordinator:
                 raise QualificationRunError('02bの実一次取得履歴が変更されています。')
         if rounds[-1].get('generatedCandidateHash') != proof['candidateHash']:
             raise QualificationRunError('02bの最終native候補と取得後再生成が一致しません。')
-        proposed = {**copy.deepcopy(record), 'lawReferences': copy.deepcopy(fields.get('lawReferences', record.get('lawReferences')) or [])}
-        pinned = _law_context_current_evidence(proposed, rounds[-1]['primaryLawEvidence'])
+        proposed = {**copy.deepcopy(record), **copy.deepcopy(fields),
+            'lawReferences': copy.deepcopy(fields.get('lawReferences', record.get('lawReferences')) or [])}
+        if any(GUIDANCE_FIELD in update.unset_fields for update in candidate.updates): proposed.pop(GUIDANCE_FIELD, None)
+        pinned = _law_context_evidence_view(self.repo_root, proposed, rounds[-1]['primaryLawEvidence'])
         actual = self.primary_law_evidence.resolve(proposed, current_as_of=proof['currentAsOf'],
             qualification=qualification, list_group_id=list_group_id)
-        if proof.get('currentEvidence') != pinned or _law_context_current_evidence(proposed, actual) != pinned:
+        if proof.get('currentEvidence') != pinned or _law_context_evidence_view(self.repo_root, proposed, actual, refresh=True) != pinned:
             raise QualificationRunError('02bの保存前現行本文・URL・xml/text hashが固定取得結果と異なります。')
 
     def _prepare_question_candidate_attempt(
@@ -15695,6 +15752,25 @@ class QualificationRunCoordinator:
                 policy_fingerprint=str((batch_plan.get('policyFingerprints') or {}).get(stage_id) or ''),
                 record=single_spec['candidateRecord'])
             batch_plan['preparedPrimaryEvidence'] = prepared_primary_evidence
+        guidance_inputs = {}
+        if stage_id in {'law_context', 'explanation', 'law_audit'}:
+            for question_id, record in records_by_question.items():
+                supplied = single_spec.get('officialGuidanceInput')
+                references = record.get(GUIDANCE_FIELD)
+                if supplied is not None:
+                    scope = official_guidance_scope(self.repo_root, qualification, target)
+                    # Acquisition is genuine. Applicability remains a model judgment.
+                    from tools.question_review_console.official_guidance_evidence import OfficialGuidanceEvidenceResolver
+                    OfficialGuidanceEvidenceResolver(self.repo_root).validate(supplied['receipt'],
+                        request=supplied['request'], record=record, scope=scope)
+                    guidance_inputs[question_id] = copy.deepcopy(supplied)
+                elif references is not None:
+                    receipt = validate_official_guidance(self.repo_root, references, record=record,
+                        scope=official_guidance_scope(self.repo_root, qualification, target))
+                    guidance_inputs[question_id] = {'request': references['request'],
+                        'evidenceRef': references['evidenceRef'], 'receipt': receipt}
+        if guidance_inputs:
+            batch_plan['officialGuidanceInputs'] = copy.deepcopy(guidance_inputs)
         batch_prompt = _structured_candidate_prompt(
             batch_stage_prompt,
             targets,
@@ -15723,6 +15799,7 @@ class QualificationRunCoordinator:
             primary_law_evidence_by_question=(
                 primary_law_evidence_by_question
             ),
+            official_guidance_evidence_by_question=guidance_inputs,
             prepared_primary_evidence_by_question={batch_question_ids[0]: prepared_primary_evidence}
                 if prepared_primary_evidence is not None else {},
             current_record_fields=(
@@ -16929,7 +17006,7 @@ class QualificationRunCoordinator:
                         raise QualificationRunError('03bの実primary promptと命題判定guidanceの固定入力が一致しません。')
                     for verification in (prepared_execution_metadata.get('lawAuditVerification') or {}).values():
                         bundle = verification.get('bundle') or {}
-                        validate_law_verification_bundle(bundle)
+                        validate_law_verification_bundle(bundle, repo_root=self.repo_root)
                         validate_statement_judgment_guidance(bundle.get('question', {}).get('statementJudgmentGuidance'), current=guidance)
                 if prepared_primary_evidence is not None:
                     proof = prepared_execution_metadata.get('preparedPrimaryEvidenceDelivery') or {}
@@ -16941,6 +17018,17 @@ class QualificationRunCoordinator:
                         raise QualificationRunError('保存済みcandidateの実一次根拠prompt receiptが一致しません。')
                 elif prepared_execution_metadata.get('preparedPrimaryEvidenceDelivery'):
                     raise QualificationRunError('保存済みcandidateに別の一次根拠receiptがあります。')
+                guidance_inputs = batch_plan.get('officialGuidanceInputs') or {}
+                if guidance_inputs:
+                    actual_guidance_prompt = _filter_structured_candidate_prompt(
+                        _prepared_primary_evidence_prompt(self.store, qualification, run_id), set(question_ids))
+                    delivered = {qid: value['officialGuidanceEvidence'] for qid, value in law_question_inputs(actual_guidance_prompt).items()
+                        if value.get('officialGuidanceEvidence') is not None}
+                    delivery = prepared_execution_metadata.get('officialGuidanceDelivery') or {}
+                    verify_guidance_delivery(guidance_inputs, actual_guidance_prompt, delivery,
+                        input_fingerprint=input_fingerprint_value, projected_input_hash=projected_input_hash)
+                elif prepared_execution_metadata.get('officialGuidanceDelivery'):
+                    raise QualificationRunError('未配送の公式制度資料receiptがあります。')
                 if stage_id == 'law_context':
                     proofs = prepared_execution_metadata.get('lawContextPrimaryEvidence') or {}
                     for candidate in candidates:
@@ -17037,6 +17125,17 @@ class QualificationRunCoordinator:
                             result, "model_turn_queue_wait_seconds", None
                         ),
                     }
+                    delivered_guidance = law_question_inputs(candidate_prompt)
+                    delivered_guidance = {qid: value['officialGuidanceEvidence'] for qid, value in delivered_guidance.items()
+                        if value.get('officialGuidanceEvidence') is not None}
+                    if delivered_guidance:
+                        if not result.thread_id or not result.turn_id:
+                            raise QualificationRunError('公式制度資料配送のnative turn証明がありません。')
+                        prepared_execution_metadata['officialGuidanceDelivery'] = {
+                            'inputsHash': sha256_json(delivered_guidance),
+                            'promptHash': hashlib.sha256(candidate_prompt.encode()).hexdigest(),
+                            'threadId': result.thread_id, 'turnId': result.turn_id,
+                            'inputFingerprint': input_fingerprint_value, 'projectedInputHash': projected_input_hash}
                     if prepared_primary_evidence is not None:
                         if not result.thread_id or not result.turn_id:
                             raise QualificationRunError('根拠付きcandidateのnative turn完了証跡がありません。')
@@ -17139,6 +17238,13 @@ class QualificationRunCoordinator:
                         proposed_law_record = copy.deepcopy(review_question["currentRecord"])
                         if "lawReferences" in fields:
                             proposed_law_record["lawReferences"] = copy.deepcopy(fields["lawReferences"])
+                        if GUIDANCE_FIELD in fields:
+                            proposed_law_record[GUIDANCE_FIELD] = copy.deepcopy(fields[GUIDANCE_FIELD])
+                        if any(GUIDANCE_FIELD in update.unset_fields for update in candidate.updates):
+                            proposed_law_record.pop(GUIDANCE_FIELD, None)
+                        proposed_guidance_evidence = (validate_official_guidance(self.repo_root,
+                            proposed_law_record[GUIDANCE_FIELD], record=proposed_law_record)
+                            if GUIDANCE_FIELD in proposed_law_record else None)
                         proposed_primary_evidence = self.primary_law_evidence.resolve(
                             proposed_law_record,
                             current_as_of=str(
@@ -17159,6 +17265,7 @@ class QualificationRunCoordinator:
                             review_question, candidate,
                             reference_guidance=reference_guidance,
                             proposed_primary_evidence=proposed_primary_evidence,
+                            proposed_official_guidance_evidence=proposed_guidance_evidence,
                         )
                         review_count = law_required_review_count(fields)
                         reviews = []
@@ -17170,7 +17277,7 @@ class QualificationRunCoordinator:
                             work_type = f"maintenance_law_audit_{phase}_audit_candidate"
                             self.store.update(qualification, run_id, executionPhase=work_type)
                             audit = self.app_server.run_turn(
-                                law_review_prompt(bundle, "二次" if number == 0 else "三次"),
+                                law_review_prompt(bundle, "二次" if number == 0 else "三次", repo_root=self.repo_root),
                                 model_profile=model_profile_name, work_type=work_type,
                                 sandbox="read-only", emit=emit,
                                 output_schema=law_review_schema(bundle),
@@ -17190,11 +17297,13 @@ class QualificationRunCoordinator:
                             if audit.changed_files or not audit.thread_id or not audit.turn_id or audit.thread_id in seen_threads:
                                 raise QualificationRunError("独立現行法監査のread-only又は新規sessionを確認できません。")
                             seen_threads.add(audit.thread_id)
-                            review = parse_law_review(audit.final_message, bundle)
+                            review = parse_law_review(audit.final_message, bundle, repo_root=self.repo_root)
                             reviews.append(review)
                             executions.append({"phase": phase, "executionId": f"{audit.thread_id}:{audit.turn_id}",
                                                "threadId": audit.thread_id, "turnId": audit.turn_id,
-                                               "model": audit.model, "review": review})
+                                               "model": audit.model, "review": review,
+                                               "promptHash": hashlib.sha256(law_review_prompt(bundle, "二次" if number == 0 else "三次", repo_root=self.repo_root).encode()).hexdigest(),
+                                               "officialGuidanceEvidenceHash": (proposed_guidance_evidence or {}).get('evidenceHash')})
                             self.store.update(qualification, run_id, lawAuditReviewExecutions=copy.deepcopy(executions))
                             if review["decision"] != "approve":
                                 break
@@ -17385,6 +17494,40 @@ class QualificationRunCoordinator:
                 )
 
             for candidate in candidates:
+                if candidate.status == 'candidate':
+                    proposed_guidance_record = {**records_by_question[candidate.question_id], **law_candidate_fields(candidate)}
+                    for update in candidate.updates:
+                        if GUIDANCE_FIELD in update.unset_fields:
+                            proposed_guidance_record.pop(GUIDANCE_FIELD, None)
+                    if GUIDANCE_FIELD in proposed_guidance_record:
+                        proposed_ref = proposed_guidance_record[GUIDANCE_FIELD]
+                        if stage_id not in {'law_context', 'explanation', 'law_audit'}:
+                            if proposed_ref != records_by_question[candidate.question_id].get(GUIDANCE_FIELD):
+                                raise QualificationRunError('根拠を所有しない工程は公式制度資料を変更できません。')
+                            validate_official_guidance(self.repo_root, proposed_ref, record=proposed_guidance_record,
+                                scope=official_guidance_scope(self.repo_root, qualification, raw_target_by_question[candidate.question_id]))
+                        else:
+                            delivered = (batch_plan.get('officialGuidanceInputs') or {}).get(candidate.question_id)
+                            if (not delivered or delivered['request'] != proposed_ref['request']
+                                    or delivered['evidenceRef'] != proposed_ref['evidenceRef']):
+                                raise QualificationRunError('未配送又は変更された公式制度資料を保存できません。新しい根拠で再生成してください。')
+                            fresh_guidance = refresh_official_guidance(self.repo_root, proposed_guidance_record[GUIDANCE_FIELD],
+                                record=proposed_guidance_record,
+                                scope=official_guidance_scope(self.repo_root, qualification, raw_target_by_question[candidate.question_id]))
+                            if not preview_prepared:
+                                operation = self.store.get(qualification, run_id).get('officialGuidanceSaveOperation')
+                                if child.get('externalApprovalRequired') is True and not operation:
+                                    raise QualificationRunError('公式制度資料の正常保存operation bindingがありません。')
+                                save_refresh = {'schemaVersion': 'normal-official-guidance-save-refresh/v1',
+                                    'qualification': qualification, 'runId': run_id, 'stageId': stage_id,
+                                    'questionId': candidate.question_id, 'inputFingerprint': input_fingerprint_value,
+                                    'projectedInputHash': projected_input_hash,
+                                    'candidateHash': sha256_json(_question_candidates_payload([candidate])),
+                                    'sourceScope': official_guidance_scope(self.repo_root, qualification, raw_target_by_question[candidate.question_id]),
+                                    'reference': copy.deepcopy(proposed_ref), 'saveOperation': copy.deepcopy(operation),
+                                    'refresh': fresh_guidance}
+                                save_refresh['bindingHash'] = sha256_json(save_refresh)
+                                self.store.update(qualification, run_id, officialGuidanceSaveRefresh=save_refresh)
                 patch_lock_wait_seconds = None
                 patch_lock_paths = ()
                 question_id = candidate.question_id
@@ -19854,12 +19997,21 @@ class QualificationRunCoordinator:
                 )
             projected_bases = verified_law_bases(projected.get("lawReferences"))
             sidecar_bases = verified_law_bases(row.get("lawReferences"))
-            if not projected_bases:
+            guidance_ok = False
+            if GUIDANCE_FIELD in projected or GUIDANCE_FIELD in row:
+                try:
+                    if projected.get(GUIDANCE_FIELD) != row.get(GUIDANCE_FIELD):
+                        raise ValueError('projected/sidecar guidance reference differs')
+                    validate_official_guidance(self.repo_root, projected[GUIDANCE_FIELD], record=projected)
+                    guidance_ok = True
+                except (ValueError, OSError, KeyError, TypeError) as exc:
+                    errors.append(f"{label}: 公式制度資料の取得証明が不一致です: {exc}")
+            if not projected_bases and not guidance_ok:
                 errors.append(
                     f"{label}: projected lawReferencesにverifiedの"
                     "lawTitle・lawId・articleがありません。"
                 )
-            if not sidecar_bases:
+            if not sidecar_bases and not guidance_ok:
                 errors.append(
                     f"{label}: 監査sidecarにverifiedの"
                     "lawTitle・lawId・articleがありません。"

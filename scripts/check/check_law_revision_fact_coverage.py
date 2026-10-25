@@ -12,6 +12,8 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
+from tools.question_review_console.official_guidance_contract import has_guidance_basis
+
 from scripts.common.repaso_firestore_schema import is_law_revision_facts_shape
 from tools.question_bank.question_bank import timestamp_sort_key
 from tools.question_review_console.law_audit_quality import (
@@ -140,6 +142,7 @@ def audit_question_level_law_evidence(
     require_law_references: bool = False,
     require_verified_law_references: bool = False,
     require_public_law_evidence: bool = False,
+    institutional_evidence_records: Iterable[dict[str, Any]] = (),
 ) -> list[str]:
     """Apply question-level evidence rules to merged or choice-split records."""
 
@@ -162,11 +165,27 @@ def audit_question_level_law_evidence(
         )
         law_references = _combined_field(law_records, "lawReferences")
         has_law_references = has_non_empty_law_references(law_references)
-        if require_law_references and not has_law_references:
+        # Institutional proof stays private. Public split documents are bound to
+        # all source choices exactly; a URL or self-declared hash is insufficient.
+        guidance_ok = any(has_guidance_basis(record, allow_public_variant=True) for record in law_records if record.get('choiceTextList'))
+        if not guidance_ok:
+            for evidence_record in institutional_evidence_records:
+                if not has_guidance_basis(evidence_record):
+                    continue
+                expected_choices = evidence_record.get('choiceTextList') or []
+                body = evidence_record.get('questionBodyText')
+                observed_choices = [record.get('originalQuestionChoiceText') for record in group]
+                if (len(observed_choices) == len(expected_choices)
+                        and len(set(observed_choices)) == len(observed_choices)
+                        and set(observed_choices) == set(expected_choices)
+                        and all(record.get('originalQuestionBodyText') == body for record in group)):
+                    guidance_ok = True
+                    break
+        if require_law_references and not has_law_references and not guidance_ok:
             errors.append(f"{label}: missing lawReferences for law-related question")
         if require_verified_law_references and not has_verified_law_reference(
             law_references
-        ):
+        ) and (has_law_references or not guidance_ok):
             errors.append(
                 f"{label}: no verified lawReferences for law-related question"
             )
@@ -276,7 +295,7 @@ def audit_records(
             errors.append(f"{label}: lawReferences exists but isLawRelated is not true")
         if is_law_related is True:
             counts["law_related"] += 1
-            if not has_refs:
+            if not has_refs and not has_guidance_basis(record):
                 counts["missing_law_references"] += 1
                 if require_law_references:
                     errors.append(f"{label}: missing lawReferences for law-related record")
@@ -404,6 +423,7 @@ def run(
             require_law_references=require_law_references,
             require_verified_law_references=require_verified_law_references,
             require_public_law_evidence=require_public_law_evidence,
+            institutional_evidence_records=merged_records(latest_merged_files(list_group_dir)) if stage == 'firestore' else (),
         )
     )
     errors.extend(

@@ -212,7 +212,8 @@ kind = "human"
 # 2.3: 許可基準の肢へ更新期限の条項を割り当てず、条文本文と命題の対応を厳密化する。
 # 2.4: 判例・行政資料と条文locatorを分け、補助資料の確認記録と正誤の確定は03bへ渡す。
 # 2.5: 探索候補をserver実一次取得へ接続し、根拠付き再生成と保存時hash照合を有限に実行する。
-policy_version = "2.5"
+# 2.6: 法令と公式制度資料を区別し、全肢に結合した取得証明で候補を再生成する。
+policy_version = "2.6"
 qualification_document_patterns = [
   "README.md",
   "01_exam_profile.md",
@@ -222,7 +223,7 @@ batch_selectable = true
 session_group = "maintenance"
 patch_dir = "18_law_context_prepared"
 patch_suffix = "lawContext_prepared"
-issue_fields = ["isLawRelated", "lawGroundedExplanationNotNeeded", "lawReferences"]
+issue_fields = ["isLawRelated", "lawGroundedExplanationNotNeeded", "lawReferences", "officialGuidanceReferences"]
 documents = ["prompt/02b_prompt_prepare_law_context.md"]
 
 [[stages.update_targets]]
@@ -235,7 +236,7 @@ instruction_aliases = ["法令問題か", "法令関連か"]
 [[stages.update_targets]]
 id = "law_grounding"
 label = "法令根拠候補"
-fields = ["lawReferences", "lawContextForExplanation"]
+fields = ["lawReferences", "officialGuidanceReferences", "lawContextForExplanation"]
 read_fields = ["isLawRelated", "questionBodyText", "choiceTextList", "correctChoiceText"]
 instruction_aliases = ["法令根拠", "条文根拠"]
 
@@ -272,7 +273,8 @@ kind = "human"
 # 10.10: 問題単位の正誤配列を明示し、計算条件の独立導出と図の接続確認を先に行う。
 # 11.0: 命題自体の正誤と設問の選択方向、対象概念と近接概念の成立条件を独立に再確認する。
 # 11.1: 既存対策と追加対策の効果、原本の順不同の範囲を独立に照合する。
-policy_version = "11.2"
+# 11.3: 公式制度資料の実取得本文と適用判断を解説・独立監査へ配送する。
+policy_version = "11.3"
 qualification_document_patterns = [
   "README.md",
   "*law_reference*.md",
@@ -301,7 +303,7 @@ instruction_aliases = ["学び方分類", "問題分類", "分類"]
 id = "basic_explanation"
 label = "基本解説"
 fields = ["explanationText", "explanationReferences"]
-read_fields = ["questionBodyText", "choiceTextList", "correctChoiceText", "questionType", "isCalculationQuestion", "isLawRelated", "lawReferences", "lawContextForExplanation"]
+read_fields = ["questionBodyText", "choiceTextList", "correctChoiceText", "questionType", "isCalculationQuestion", "isLawRelated", "lawReferences", "officialGuidanceReferences", "lawContextForExplanation"]
 instruction_aliases = ["解説", "正誤解説"]
 
 [[stages.update_targets]]
@@ -315,7 +317,7 @@ instruction_aliases = ["補足質問", "補足解説"]
 id = "law_support"
 label = "解説用の法令情報"
 completion_owner_stage_ids = ["law_context", "law_audit"]
-fields = ["isLawRelated", "lawGroundedExplanationNotNeeded", "lawReferences", "lawContextForExplanation", "lawRevisionFacts"]
+fields = ["isLawRelated", "lawGroundedExplanationNotNeeded", "lawReferences", "officialGuidanceReferences", "lawContextForExplanation", "lawRevisionFacts"]
 read_fields = ["questionBodyText", "choiceTextList", "correctChoiceText"]
 instruction_aliases = ["解説の条文情報", "解説の法令根拠"]
 
@@ -342,7 +344,8 @@ kind = "human"
 # 6.3: 資格別の一次資料方針も独立監査bundleへ保持し、現在化された文言と公式原文を照合する。
 # 6.5: 一次候補が追加・変更した条文locatorと基準日も公式本文を取得して独立監査bundleへ束ねる。
 # 6.6: 02aの判定基準sectionを正本のまま一次・二次・三次へ同hashで配送する。
-policy_version = "6.6"
+# 6.7: 公式制度資料の真正取得と全肢適用判断を別source kindで監査する。
+policy_version = "6.7"
 agent_policy = { independent_review = { model = "gpt-5.6-sol", reasoning_effort = "high" } }
 qualification_document_patterns = [
   "README.md",
@@ -352,7 +355,7 @@ qualification_document_patterns = [
 batch_selectable = true
 session_group = "law_audit"
 issue_fields = [
-  "lawReferences",
+  "lawReferences", "officialGuidanceReferences",
   "lawRevisionFacts",
   "explanationText",
   "suggestedQuestionDetailsByChoice",
@@ -378,7 +381,7 @@ fields = [
   "auditInputHash",
   "evidenceBindingHash",
   "lawRevisionFacts",
-  "lawReferences",
+  "lawReferences", "officialGuidanceReferences",
   "isLawRelated",
   "lawGroundedExplanationNotNeeded",
   "lawContextForExplanation",

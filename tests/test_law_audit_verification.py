@@ -317,12 +317,12 @@ class NormalLawJudgmentDeliveryTests(unittest.TestCase):
     def test_new_dependency_and_policy_version_change_only_law_audit_fingerprint(self):
         from tools.question_review_console.qualification_workflow import QualificationWorkflow
         before = self.coordinator.workflow.versioned_policies('new-exam')
-        self.assertEqual(before['law_audit']['policyVersion'], '6.6')
+        self.assertEqual(before['law_audit']['policyVersion'], '6.7')
         self.assertEqual(before['correct_choice']['policyVersion'], '5.11')
         path = self.root / 'config/question_maintenance_workflow.toml'
-        source = path.read_text(); start = source.index('id = "law_audit"', source.index('policy_version = "11.2"'))
+        source = path.read_text(); start = source.index('id = "law_audit"', source.index('policy_version = "11.3"'))
         end = source.index('[[stages.update_targets]]', start)
-        old = source[start:end].replace('policy_version = "6.6"', 'policy_version = "6.5"').replace(
+        old = source[start:end].replace('policy_version = "6.7"', 'policy_version = "6.6"').replace(
             '  "prompt/02a_prompt_review_correctChoiceText.md",\n', '')
         path.write_text(source[:start] + old + source[end:])
         after = QualificationWorkflow(self.root, self.inventory).versioned_policies('new-exam')
