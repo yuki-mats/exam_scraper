@@ -123,15 +123,35 @@ def read_manifest(path: Path, group: int, book: str) -> dict:
     return value
 
 
+def request_get(context, url: str):
+    for attempt in range(3):
+        try:
+            response = context.request.get(url, timeout=45000)
+        except Exception as exc:
+            if attempt == 2:
+                raise RuntimeError(f"通信に失敗: {Path(urlsplit(url).path).name} ({type(exc).__name__})") from None
+            time.sleep(2 ** (attempt + 1))
+            continue
+        if response.status not in {429, 500, 502, 503, 504} or attempt == 2:
+            return response
+        retry_after = response.headers.get("retry-after", "")
+        delay = float(retry_after) if retry_after.isdigit() else 2 ** (attempt + 1)
+        if delay > 60:
+            raise RuntimeError(f"取得元の待機指定により停止: HTTP {response.status}, Retry-After={int(delay)}秒")
+        print(f"[RETRY] {Path(urlsplit(url).path).name}: HTTP {response.status}, {max(1, delay)}秒後", flush=True)
+        time.sleep(max(1, delay))
+    raise AssertionError("unreachable")
+
+
 def fetch_image(context, frame_url: str, destination: Path) -> dict:
     # requestはこの専用browser contextの認証を使う。cookieをexportしない。
-    response = context.request.get(frame_url, timeout=45000)
+    response = request_get(context, frame_url)
     if not response.ok or response.url != frame_url:
-        raise RuntimeError("原画像ページの取得失敗又は認証切れ")
+        raise RuntimeError(f"原画像ページの取得失敗: HTTP {response.status}, finalPath={urlsplit(response.url).path}")
     image_url = image_url_from_html(response.text(), frame_url)
-    response = context.request.get(image_url, timeout=45000)
+    response = request_get(context, image_url)
     if not response.ok or response.url != image_url:
-        raise RuntimeError("原画像の取得失敗又は認証切れ")
+        raise RuntimeError(f"原画像の取得失敗: HTTP {response.status}, finalPath={urlsplit(response.url).path}")
     metadata = store_png(destination, response.body(), response.headers.get("content-type", ""))
     metadata["sourceUrl"] = image_url
     return metadata
@@ -209,7 +229,8 @@ def capture_group(context, page, args, group: int) -> None:
     raw_dir = args.output / QUALIFICATION / "question_images" / group_id / "raw"
     manifest_path = raw_dir.parent / "capture_manifest.json"
     manifest = read_manifest(manifest_path, group, args.book_id)
-    if manifest.get("status") == "images_complete" and len(manifest["records"]) == EXPECTED_COUNT:
+    baseline_ids = set(manifest["records"])
+    if not args.restart and manifest.get("status") == "images_complete" and len(baseline_ids) == EXPECTED_COUNT:
         print(f"[SKIP] {group_id}: 検証済み{EXPECTED_COUNT}組", flush=True)
         return
     print(f"[STEP] {group_id}: メニュー確認", flush=True)
@@ -217,9 +238,12 @@ def capture_group(context, page, args, group: int) -> None:
     card = find_card(page, group)
     if f"{EXPECTED_COUNT}問" not in re.sub(r"\s+", "", card.inner_text()):
         raise RuntimeError("画面の期待件数が設定と異なります")
-    print(f"[STEP] {group_id}: 先頭から取得・再照合します", flush=True)
+    continuation = card.get_by_role("button", name="つづきから", exact=True)
+    resuming = bool(baseline_ids) and not args.restart and continuation.count() == 1
+    start_button = continuation if resuming else card.get_by_role("button", name=re.compile(r"^はじめから\s*$"))
+    print(f"[STEP] {group_id}: {'中断位置から再開' if resuming else '先頭から取得・再照合'}", flush=True)
     with page.expect_navigation(wait_until="commit", timeout=45000):
-        card.get_by_role("button", name=re.compile(r"^はじめから\s*$")).evaluate("button => button.click()")
+        start_button.evaluate("button => button.click()")
     seen: set[str] = set()
     for _ in range(EXPECTED_COUNT):
         page.locator("#contentsFrm").wait_for(state="attached", timeout=45000)
@@ -245,14 +269,15 @@ def capture_group(context, page, args, group: int) -> None:
         manifest["status"] = "capturing"
         atomic_json(manifest_path, manifest)
         print(f"[SAVED] {group_id} {len(manifest['records'])}/{EXPECTED_COUNT}: {question_id}", flush=True)
-        if len(seen) == EXPECTED_COUNT:
+        if (resuming and len(manifest["records"]) == EXPECTED_COUNT) or len(seen) == EXPECTED_COUNT:
             break
         if args.max_questions is not None and len(seen) >= args.max_questions:
             return
         advance_question(page, args.interval)
     # 件数だけでは欠落を見逃すため、取得元の全URL集合と保存済み集合を照合する。
-    if seen != set(manifest["records"]) or len(seen) != EXPECTED_COUNT:
-        raise RuntimeError("全問題の一意なURL集合と保存済み集合が一致しません")
+    expected_ids = baseline_ids | seen if resuming else seen
+    if expected_ids != set(manifest["records"]) or len(expected_ids) != EXPECTED_COUNT:
+        raise RuntimeError("全問題のURL集合が不足又は不一致です。--restartで先頭から照合してください")
     manifest["status"] = "images_complete"
     manifest["updatedAt"] = now()
     atomic_json(manifest_path, manifest)
@@ -275,6 +300,7 @@ def parse_args(argv=None):
     parser.add_argument("--login-stdin", action="store_true", help="非表示の端末入力でID/passwordを一時的に受け付ける")
     parser.add_argument("--interval", type=float, default=1.0)
     parser.add_argument("--max-questions", type=int)
+    parser.add_argument("--restart", action="store_true", help="続きからではなく、先頭から全URLを再照合する")
     parser.add_argument("--allow-learning-history-updates", action="store_true")
     parser.add_argument("--verify-only", action="store_true")
     args = parser.parse_args(argv)

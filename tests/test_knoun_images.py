@@ -4,11 +4,13 @@ import io
 import tempfile
 import unittest
 from pathlib import Path
+from types import SimpleNamespace
+from unittest.mock import Mock, patch
 
 from PIL import Image
 
 from scripts.scrape.knoun_images import (
-    BOOK_ID, atomic_json, frame_identity, image_url_from_html,
+    BOOK_ID, atomic_json, fetch_image, frame_identity, image_url_from_html, request_get,
     main, parse_args, read_manifest, store_png,
 )
 
@@ -105,6 +107,36 @@ class KnounImageTests(unittest.TestCase):
             atomic_json(path, read_manifest(path, 1, BOOK_ID))
             with self.assertRaisesRegex(RuntimeError, "未完了"):
                 main(["--verify-only", "--groups", "1", "--output", directory])
+
+    def test_transient_server_failure_retries_but_missing_file_does_not(self):
+        context = SimpleNamespace(request=Mock())
+        context.request.get.side_effect = [SimpleNamespace(status=503, headers={}), SimpleNamespace(status=200, headers={})]
+        with patch("scripts.scrape.knoun_images.time.sleep"):
+            self.assertEqual(request_get(context, BASE + "mondai1_17.html").status, 200)
+        self.assertEqual(context.request.get.call_count, 2)
+        context.request.get.reset_mock(side_effect=True)
+        context.request.get.return_value = SimpleNamespace(status=404, headers={})
+        self.assertEqual(request_get(context, BASE + "mondai1_17.html").status, 404)
+        self.assertEqual(context.request.get.call_count, 1)
+
+    def test_server_retry_after_is_not_ignored(self):
+        context = SimpleNamespace(request=Mock())
+        context.request.get.return_value = SimpleNamespace(status=429, headers={"retry-after": "120"})
+        with self.assertRaisesRegex(RuntimeError, "待機指定"):
+            request_get(context, BASE + "mondai1_17.html")
+        self.assertEqual(context.request.get.call_count, 1)
+
+    def test_authentication_redirect_is_not_saved_or_logged_with_query(self):
+        context = SimpleNamespace(request=Mock())
+        context.request.get.return_value = SimpleNamespace(
+            status=200, ok=True, headers={}, url="https://knoun.jp/login?token=private-sentinel",
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "image.png"
+            with self.assertRaises(RuntimeError) as error:
+                fetch_image(context, BASE + "mondai1_17.html", path)
+            self.assertNotIn("private-sentinel", str(error.exception))
+            self.assertFalse(path.exists())
 
 
 if __name__ == "__main__":

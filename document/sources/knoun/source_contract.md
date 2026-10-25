@@ -34,7 +34,8 @@ Chromeは通常利用中のprofileへ接続せず、`~/.config/exam_scraper/knou
 - 書籍ID・問題集ID・問題IDを両URLから独立に取り出し、一致した対だけ保存する。問題固有の安定URLを`sourceQuestionId`にする。
 - 同じ専用browser contextのHTTP requestでframe HTMLと原PNGを取得する。ログインページへのredirect、他domain、別問題画像、破損画像を保存しない。
 - 原画像は`output/eco-kentei/question_images/knoun-2026-mock-<組>/raw/`へ置き、同階層の`capture_manifest.json`へ対応URL、相対path、SHA256、サイズを一問ずつ確定する。
-- 再開時は保存済み画像の全hashを検査する。途中の組は先頭から再照合し、同一bytesの画像を保持する。差異は自動上書きせず停止する。
+- 再開時は保存済み画像の全hashを検査する。途中の組は「つづきから」で再開し、検証した既存URL集合と今回取得したURL集合を合わせて件数を確定する。「つづきから」がない場合又は`--restart`指定時は先頭から再照合する。末尾まで進んでも集合が不足する場合は完了扱いにせず、`--restart`を案内する。
+- 既存画像と取得内容の差異は自動上書きせず停止する。一時的な通信障害・429・5xxだけを上限3回で再試行し、取得元の待機指定を尊重する。認証redirect、404、問題ID不一致は成功扱いにしない。エラーへURLのqueryや認証値を出さない。
 - 同じprofileで二つの取得処理を動かさない。画像の全件数・一意なURL集合・問題と解説の対応がそろった組だけ`images_complete`にする。
 
 「わからない」は選択式・記述式の内部IDへ固定せず、表示中の操作名で選ぶ。回答操作の前にwindow loadを待つ。画像やframeの取得成功だけでは、Knounの回答用の時刻が初期化されたとは判断しない。
