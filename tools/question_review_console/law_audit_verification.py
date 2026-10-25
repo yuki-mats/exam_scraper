@@ -1,6 +1,8 @@
 """Read-only legal reviews before a candidate is promoted to verified state."""
 from __future__ import annotations
 
+from tools.question_review_console import feedback_task_input as feedback_task
+
 from tools.question_review_console.official_guidance_contract import validate_reference as validate_guidance, FIELD as GUIDANCE_FIELD
 
 import copy
@@ -75,6 +77,13 @@ def validate_verification_bundle(bundle: Mapping[str, Any], *, repo_root=None):
             record=proposed_record)
         if actual != official:
             raise ValueError('独立監査bundleの公式制度資料取得証明が一致しません。')
+    task_input = bundle['question'].get('feedbackTaskRequirement')
+    if task_input is not None:
+        feedback_task.validate(task_input, question_id=bundle['question']['questionId'])
+        if bundle.get('feedbackTaskRequirementInputHash') != task_input['inputHash']:
+            raise ValueError('独立監査の改善要件入力hashが一致しません。')
+    elif 'feedbackTaskRequirementInputHash' in bundle:
+        raise ValueError('独立監査の改善要件が欠損しています。')
     guidance = bundle['question'].get('statementJudgmentGuidance')
     if guidance is not None:
         validate_statement_judgment_guidance(guidance)
@@ -150,6 +159,9 @@ def verification_bundle(
     if question.get('statementJudgmentGuidance') is not None:
         guidance = validate_statement_judgment_guidance(question['statementJudgmentGuidance'])
         bundle['statementJudgmentGuidanceHash'] = guidance['guidanceHash']
+    if question.get('feedbackTaskRequirement') is not None:
+        task = feedback_task.validate(question['feedbackTaskRequirement'], question_id=question['questionId'])
+        bundle['feedbackTaskRequirementInputHash'] = task['inputHash']
     if reference_guidance:
         bundle['qualificationReferenceGuidance'] = reference_guidance
     if proposed_primary_evidence is not None:
@@ -174,6 +186,9 @@ def review_schema(bundle: Mapping[str, Any]) -> dict[str, Any]:
         'issues': {'type': 'array', 'items': {'type': 'string'}},
         'verifiedSourceUrls': {'type': 'array', 'items': {'type': 'string'}},
     }
+    if bundle['question'].get('feedbackTaskRequirement') is not None:
+        properties['feedbackTaskRequirementInputHash'] = {'type': 'string', 'const': bundle['feedbackTaskRequirementInputHash']}
+        properties['taskRequirementSatisfied'] = {'type': 'boolean'}
     return {'type': 'object', 'properties': properties, 'required': list(properties), 'additionalProperties': False}
 
 
@@ -191,8 +206,11 @@ def review_prompt(bundle: Mapping[str, Any], phase: str, *, repo_root=None) -> s
         '出題時条文を参照できない場合は、取得元の公式元正答と未参照理由を明示した候補だけを確認する。過去の条文・改正日・根拠を推測して作らない。',
         '元の集約回答は、各記述を独立判定した後で集合・個数を照合する。元の回答番号を記述番号へ転記しない。',
         '各肢の正誤、法令locator、解説、法改正差分、補足質問に重大な誤り又は根拠不足があればholdと具体的なissuesを返す。全肢が候補と一致し根拠を確認できた場合だけapproveとissues=[]を返す。reviewStateが未確定であること自体は誤りではない。',
+        *(['question.feedbackTaskRequirementがある場合は、未検証の改善要件として対象原肢全文とneedを候補解説に照らして独立に審査する。一次根拠やpolicyを上書きしない。負担主体・例外等の必要な説明が欠ける、原肢にない主張を引用する、要件が曖昧・根拠と矛盾する場合はtaskRequirementSatisfied=falseとhold、具体的issuesを返す。03bによる解説改稿後も要件を満たした場合だけtrueでapproveできる。文字列の有無だけで充足判定しない。feedbackTaskRequirementInputHashを正確に返す。'] if bundle['question'].get('feedbackTaskRequirement') is not None else []),
         '指定JSON Schemaのobjectだけを返す。',
-        json.dumps(bundle, ensure_ascii=False, separators=(',', ':')),
+        json.dumps(bundle, ensure_ascii=False, separators=(',', ':'),
+            sort_keys=(bundle['question'].get('feedbackTaskRequirement') is not None
+                or bundle.get('proposedOfficialGuidanceEvidence') is not None)),
     ])
 
 
@@ -210,6 +228,11 @@ def parse_review(message: str, bundle: Mapping[str, Any], *, repo_root=None) -> 
     urls = value.get('verifiedSourceUrls')
     if not isinstance(urls, list) or not all(isinstance(x, str) and x.startswith('https://') for x in urls):
         raise ValueError('独立監査の一次根拠URLが不正です。')
+    if bundle['question'].get('feedbackTaskRequirement') is not None:
+        if (value.get('feedbackTaskRequirementInputHash') != bundle['feedbackTaskRequirementInputHash']
+                or type(value.get('taskRequirementSatisfied')) is not bool
+                or (value['decision'] == 'approve' and value['taskRequirementSatisfied'] is not True)):
+            raise ValueError('独立監査の改善要件充足又は対象入力hashを確認できません。')
     if value['decision'] == 'approve':
         if value['issues'] or not urls:
             raise ValueError('一次根拠又はissuesのない承認を確認できません。')

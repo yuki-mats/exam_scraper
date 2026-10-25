@@ -1,6 +1,9 @@
 from __future__ import annotations
 
-from tools.question_review_console.official_guidance_contract import FIELD_RULE as OFFICIAL_GUIDANCE_RULE
+from tools.question_review_console.official_guidance_contract import (
+    FIELD_RULE as OFFICIAL_GUIDANCE_RULE, PROOF_DIRECTORY as OFFICIAL_GUIDANCE_PROOF_DIRECTORY,
+    validate_reference as validate_official_guidance_reference,
+)
 
 import json
 import re
@@ -2162,6 +2165,7 @@ def _validate_candidate_content_messages(
                     "計算過程を示してください。計算問題では、正しい数式、"
                     "数値代入、等号、途中計算及び結果を保持又は再構成してください。"
                 )
+    verified_guidance_choices: set[int] = set()
     if "officialGuidanceReferences" in logical:
         guidance = logical['officialGuidanceReferences']
         if logical.get('isLawRelated') is not True or logical.get('lawGroundedExplanationNotNeeded') is not False:
@@ -2171,8 +2175,27 @@ def _validate_candidate_content_messages(
                 or any(not isinstance(item, Mapping) or item.get('choiceIndex') != index
                     for index, item in enumerate(applicability))):
             errors.append('公式制度資料の適用判断は原問の全肢と同じ件数・順序で必要です。')
-        # Acquisition/authentication is performed by the coordinator and
-        # checker with their explicit repo/source scope, never the process cwd.
+        try:
+            # The immutable private proof has an absolute path. Derive its
+            # checkout explicitly; the validator must never depend on cwd.
+            evidence_path = Path(guidance['evidenceRef']['ref'])
+            if not evidence_path.is_absolute():
+                raise ValueError('absolute private official guidance proof required')
+            root = evidence_path.parents[len(Path(OFFICIAL_GUIDANCE_PROOF_DIRECTORY).parts)]
+            receipt = validate_official_guidance_reference(root, guidance, record=logical)
+            scope = receipt['scope']
+            if scope['questionId'] != candidate.question_id:
+                raise ValueError('official guidance proof belongs to another candidate question')
+            group = root / 'output' / scope['qualification'] / 'questions_json' / scope['listGroupId']
+            for target in target_values:
+                if target.role not in {'law_context', 'explanation', 'correct_choice'}:
+                    continue
+                path = root / target.path
+                if path.resolve() != path or not path.is_relative_to(group):
+                    raise ValueError('official guidance candidate patch scope differs')
+            verified_guidance_choices = {item['choiceIndex'] for item in guidance['applicabilityByChoice']}
+        except (ValueError, OSError, KeyError, TypeError, IndexError) as exc:
+            errors.append('公式制度資料の実取得・原問全肢・候補scopeを確認できません: ' + str(exc))
     if "explanationReferences" in changed_fields:
         errors.extend(
             explanation_reference_errors(logical.get("explanationReferences"))
@@ -2464,6 +2487,12 @@ def _validate_candidate_content_messages(
                     if references == [] and verified_question_reference:
                         # A question-scoped reference applies to the whole question;
                         # duplicating it into every choice changes its attribution.
+                        continue
+                    if references == [] and choice_index in verified_guidance_choices:
+                        # Only a positively revalidated institutional proof can
+                        # supply an otherwise empty statutory bucket. Declared
+                        # statutory references in a mixed basis still pass all
+                        # existing verified-field and choice-attribution checks.
                         continue
                     if not isinstance(references, list) or not references:
                         errors.append(

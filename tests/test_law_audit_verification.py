@@ -221,6 +221,10 @@ class NormalLawJudgmentDeliveryTests(unittest.TestCase):
     def setUp(self):
         from tests.test_feedback_prepared_stage import PreparedStageTests
         PreparedStageTests.setUp(self)
+        self.request['live']['questionIds'] = ['live-a']
+        self.snapshots = {'live-a': self.snapshots['live-a']}
+        source_record = json.loads(__import__('pathlib').Path(self.request['source']['ref']).read_text())['question_bodies'][0]
+        self.snapshots['live-a']['fields']['originalQuestionChoiceText'] = source_record['choiceTextList'][0]
         self.request['stageId'] = 'law_audit'; self.write(self.request_path, self.request)
         original_group = self.inventory.group
         def legal_group(*args):
@@ -261,6 +265,7 @@ class NormalLawJudgmentDeliveryTests(unittest.TestCase):
                     final_message=json.dumps({'schemaVersion': 'law-audit-verification/v1',
                         'questionId': bundle['question']['questionId'], 'evidenceHash': bundle['evidenceHash'],
                         'decision': 'approve', 'issues': [], 'verifiedSourceUrls': ['https://laws.e-gov.go.jp/fixture'],
+                        'feedbackTaskRequirementInputHash': bundle['feedbackTaskRequirementInputHash'], 'taskRequirementSatisfied': True,
                         'examTimeDecision': fields['examTimeDecision'], 'currentLawDecision': fields['currentLawDecision']}))
             result = original(prompt, **kwargs); payload = json.loads(result.final_message)
             fields = {item['field']: item['value'] for item in payload['update']['setFields']}
@@ -284,10 +289,13 @@ class NormalLawJudgmentDeliveryTests(unittest.TestCase):
         guidance = statement_judgment_guidance(self.root)
         primary = question_inputs_from_prompt(observed[0][0])[self.request['questionId']]
         self.assertEqual(primary['statementJudgmentGuidance'], guidance)
+        self.assertEqual(primary['feedbackTaskRequirement']['definition']['need'], '設問の性質')
+        self.assertNotIn('sources', primary['feedbackTaskRequirement'])
         self.assertNotIn('正式patchは同じ', observed[0][0])
         for prompt, _kind in observed[1:]:
             bundle = json.loads(prompt.splitlines()[-1])
             self.assertEqual(bundle['question']['statementJudgmentGuidance'], guidance)
+            self.assertEqual(bundle['question']['feedbackTaskRequirement'], primary['feedbackTaskRequirement'])
             self.assertEqual(bundle['statementJudgmentGuidanceHash'], guidance['guidanceHash'])
             self.assertEqual(bundle['proposedFields']['currentLawDecision'], ['正しい'])
         fixed = preview.call_args.args[1]

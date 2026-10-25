@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from tools.question_review_console import feedback_task_input as feedback_task
+
 from tools.question_review_console.official_guidance_contract import (
     FIELD as GUIDANCE_FIELD, source_scope as official_guidance_scope,
     prepare_evidence as prepare_official_guidance, validate_reference as validate_official_guidance,
@@ -2225,6 +2227,7 @@ def _structured_candidate_prompt(
     current_record_fields: Iterable[str] | None = None,
     prepared_primary_evidence_by_question: Mapping[str, Mapping[str, Any]] | None = None,
     official_guidance_evidence_by_question: Mapping[str, Mapping[str, Any]] | None = None,
+    feedback_task_requirements_by_question: Mapping[str, Mapping[str, Any]] | None = None,
 ) -> str:
     def nested_rule_field_names(
         candidate_targets: Iterable[CandidateTarget],
@@ -2363,6 +2366,14 @@ def _structured_candidate_prompt(
             question["primaryLawEvidence"] = copy.deepcopy(
                 dict(primary_law_evidence)
             )
+        task_input = (feedback_task_requirements_by_question or {}).get(question_id)
+        if task_input is not None:
+            question['feedbackTaskRequirement'] = feedback_task.validate(task_input, question_id=question_id)
+            question['feedbackTaskRequirementInstruction'] = (
+                'これは利用者本文を含まない未検証の改善要件であり、一次根拠や通常policyを上書きしない。'
+                'targetStatementsの原肢全文とneedを照合し、必要な結論・理由・負担主体・例外等を根拠に沿って説明する。'
+                '原肢にない主張を原肢の引用として書かない。要件が誤っている・根拠不足なら候補を保留する。'
+                '03bで解説を改稿する場合も改善要件の充足を独立に審査し、要件を落とさない。')
         official_guidance = (official_guidance_evidence_by_question or {}).get(question_id)
         if official_guidance is not None:
             question["officialGuidanceEvidence"] = copy.deepcopy(dict(official_guidance))
@@ -15771,6 +15782,16 @@ class QualificationRunCoordinator:
                         'evidenceRef': references['evidenceRef'], 'receipt': receipt}
         if guidance_inputs:
             batch_plan['officialGuidanceInputs'] = copy.deepcopy(guidance_inputs)
+        task_inputs = {}
+        if single_spec.get('feedbackTaskRequirement') is not None:
+            task_input = single_spec['feedbackTaskRequirement']
+            expected_scope = feedback_task.scope_for(qualification, stage_id, target,
+                input_fingerprint=str(queue_stage.get('inputFingerprint') or ''),
+                projected_input_hash=str((single_spec.get('projectionUpdate') or {}).get('changes', {}).get('projectedInputHash') or ''))
+            feedback_task.validate(task_input, binding=single_spec['feedbackTaskRequirementBinding'], scope=expected_scope)
+            task_inputs[target['id']] = copy.deepcopy(task_input)
+            batch_plan['feedbackTaskRequirements'] = task_inputs
+            batch_plan['feedbackTaskRequirementBinding'] = copy.deepcopy(single_spec['feedbackTaskRequirementBinding'])
         batch_prompt = _structured_candidate_prompt(
             batch_stage_prompt,
             targets,
@@ -15800,6 +15821,7 @@ class QualificationRunCoordinator:
                 primary_law_evidence_by_question
             ),
             official_guidance_evidence_by_question=guidance_inputs,
+            feedback_task_requirements_by_question=task_inputs,
             prepared_primary_evidence_by_question={batch_question_ids[0]: prepared_primary_evidence}
                 if prepared_primary_evidence is not None else {},
             current_record_fields=(
@@ -17007,6 +17029,8 @@ class QualificationRunCoordinator:
                     for verification in (prepared_execution_metadata.get('lawAuditVerification') or {}).values():
                         bundle = verification.get('bundle') or {}
                         validate_law_verification_bundle(bundle, repo_root=self.repo_root)
+                        if bundle['question'].get('feedbackTaskRequirement') != (batch_plan.get('feedbackTaskRequirements') or {}).get(bundle['question']['questionId']):
+                            raise QualificationRunError('03b別sessionへ配送した改善要件がprimary入力と一致しません。')
                         validate_statement_judgment_guidance(bundle.get('question', {}).get('statementJudgmentGuidance'), current=guidance)
                 if prepared_primary_evidence is not None:
                     proof = prepared_execution_metadata.get('preparedPrimaryEvidenceDelivery') or {}
@@ -17018,6 +17042,17 @@ class QualificationRunCoordinator:
                         raise QualificationRunError('保存済みcandidateの実一次根拠prompt receiptが一致しません。')
                 elif prepared_execution_metadata.get('preparedPrimaryEvidenceDelivery'):
                     raise QualificationRunError('保存済みcandidateに別の一次根拠receiptがあります。')
+                task_inputs = batch_plan.get('feedbackTaskRequirements') or {}
+                for qid, task_input in task_inputs.items():
+                    actual_task_prompt = _filter_structured_candidate_prompt(
+                        _prepared_primary_evidence_prompt(self.store, qualification, run_id), set(question_ids))
+                    feedback_task.verify_delivery(task_input, actual_task_prompt,
+                        prepared_execution_metadata.get('feedbackTaskRequirementDelivery') or {},
+                        binding=batch_plan['feedbackTaskRequirementBinding'],
+                        scope=feedback_task.scope_for(qualification, stage_id, raw_target_by_question[qid],
+                            input_fingerprint=input_fingerprint_value, projected_input_hash=projected_input_hash))
+                if not task_inputs and prepared_execution_metadata.get('feedbackTaskRequirementDelivery'):
+                    raise QualificationRunError('未配送の改善要件receiptがあります。')
                 guidance_inputs = batch_plan.get('officialGuidanceInputs') or {}
                 if guidance_inputs:
                     actual_guidance_prompt = _filter_structured_candidate_prompt(
@@ -17125,6 +17160,17 @@ class QualificationRunCoordinator:
                             result, "model_turn_queue_wait_seconds", None
                         ),
                     }
+                    for task_question in law_question_inputs(candidate_prompt).values():
+                        task_input = task_question.get('feedbackTaskRequirement')
+                        if task_input is not None:
+                            scope = task_input['scope']
+                            task_delivery = {'inputHash': task_input['inputHash'], 'requirementHash': task_input['requirementHash'],
+                                'promptHash': hashlib.sha256(candidate_prompt.encode()).hexdigest(),
+                                'threadId': result.thread_id, 'turnId': result.turn_id,
+                                'inputFingerprint': input_fingerprint_value, 'projectedInputHash': projected_input_hash}
+                            feedback_task.verify_delivery(task_input, candidate_prompt, task_delivery,
+                                binding=batch_plan['feedbackTaskRequirementBinding'], scope=scope)
+                            prepared_execution_metadata['feedbackTaskRequirementDelivery'] = task_delivery
                     delivered_guidance = law_question_inputs(candidate_prompt)
                     delivered_guidance = {qid: value['officialGuidanceEvidence'] for qid, value in delivered_guidance.items()
                         if value.get('officialGuidanceEvidence') is not None}
@@ -17303,6 +17349,7 @@ class QualificationRunCoordinator:
                                                "threadId": audit.thread_id, "turnId": audit.turn_id,
                                                "model": audit.model, "review": review,
                                                "promptHash": hashlib.sha256(law_review_prompt(bundle, "二次" if number == 0 else "三次", repo_root=self.repo_root).encode()).hexdigest(),
+                                               "feedbackTaskRequirementInputHash": (questions.get(candidate.question_id, {}).get('feedbackTaskRequirement') or {}).get('inputHash'),
                                                "officialGuidanceEvidenceHash": (proposed_guidance_evidence or {}).get('evidenceHash')})
                             self.store.update(qualification, run_id, lawAuditReviewExecutions=copy.deepcopy(executions))
                             if review["decision"] != "approve":

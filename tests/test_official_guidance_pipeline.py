@@ -257,6 +257,12 @@ class OfficialGuidancePipelineTests(unittest.TestCase):
             plan = {'request': {'questionId': 'ui-id'}, 'preparedCandidate': {'content': {
                 'executionMetadata': {'lawAuditVerification': {'ui-id': receipt}}}}}
             child = {'threadId': 'primary', 'lawAuditReviewExecutions': [execution]}
+            # The actual writer serializes immutable envelopes with sorted
+            # keys; a GUID-only independent prompt must replay byte-for-byte.
+            self.assertEqual(audit.review_prompt(bundle, '二次', repo_root=self.root),
+                audit.review_prompt(json.loads(json.dumps(bundle, sort_keys=True)), '二次', repo_root=self.root))
+            plan = json.loads(json.dumps(plan, sort_keys=True))
+            child = json.loads(json.dumps(child, sort_keys=True))
             result = publication._normal_law_verification(plan, child, root=self.root)
             self.assertEqual(result['reviewCount'], 1)
             for key in ('promptHash', 'officialGuidanceEvidenceHash', 'threadId', 'turnId'):

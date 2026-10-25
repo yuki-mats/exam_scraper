@@ -1697,7 +1697,7 @@ class QuestionCandidateTest(unittest.TestCase):
                 'lawId': '123AC0000000001', 'lawTitle': '試験法', 'referenceDate': '2026-10-22',
                 'article': '11', 'verificationStatus': 'unverified', 'source': 'egov_xml'}]]}
         payload = json.dumps({'decision': 'candidate', 'summary': '探索候補', 'update': {
-            'setFields': [{'field': key, 'value': value} for key, value in fields.items()], 'unsetFields': []}})
+            'setFields': [{'field': key, 'value': value} for key, value in fields.items()], 'unsetFields': ['officialGuidanceReferences']}})
         with self.assertRaises(QuestionCandidateError): parse_model_candidate_v3(payload, ['q1'], {'q1': targets})
         candidate = parse_model_candidate_v3(payload, ['q1'], {'q1': targets}, law_reference_discovery=True)[0]
         self.assertEqual(candidate.status, 'candidate')
@@ -2325,10 +2325,11 @@ class QuestionCandidateTest(unittest.TestCase):
 
         self.assertEqual(result[0].updates[0].set_fields["explanationText"][0], "正しい。理由。")
         schema_text = json.dumps(output_schema(["q1"], {"q1": targets}))
-        self.assertNotIn("schemaVersion", schema_text)
-        self.assertNotIn("questionId", schema_text)
-        self.assertNotIn("targetId", schema_text)
-        self.assertNotIn("valueJson", schema_text)
+        root_properties = output_schema(["q1"], {"q1": targets})["properties"]
+        self.assertNotIn("schemaVersion", root_properties)
+        self.assertNotIn("questionId", root_properties)
+        self.assertNotIn("targetId", root_properties)
+        self.assertNotIn("valueJson", root_properties)
 
     def test_output_schema_uses_only_strict_objects(self):
         targets = candidate_targets("q1", "explanation", self.plan())

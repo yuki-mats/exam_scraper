@@ -6,6 +6,8 @@ Interrupted/partial applications hold; they are never automatically reapplied.
 """
 from __future__ import annotations
 
+from tools.question_review_console import feedback_task_input as feedback_task
+
 from tools.question_review_console.official_guidance_contract import (
     source_scope as official_guidance_scope, prepare_evidence as prepare_official_guidance,
     validate_reference as validate_guidance, FIELD as GUIDANCE_FIELD,
@@ -661,6 +663,17 @@ def prepare(root, request_path, destination, *, coordinator, connection):
                 'entries': _prepared_primary_evidence_entries(root, request['primaryEvidenceSelections'])}
             bundle['bundleHash'] = sha256_json(bundle)
             spec['preparedPrimaryEvidence'] = bundle
+        if request['authority']['kind'] == 'improvement' and stage in feedback_task.STAGES:
+            task_scope = feedback_task.scope_for(qualification, stage, spec['target'],
+                input_fingerprint=str(spec['queueStage']['inputFingerprint']),
+                projected_input_hash=spec['projectionUpdate']['changes']['projectedInputHash'])
+            source_record = _task_source_record(root, request)
+            if spec['candidateRecord'].get('choiceTextList') != source_record.get('choiceTextList'):
+                raise ValueError('task target mapping requires unchanged preserved source statements')
+            statements = feedback_task.target_statements(requirement, source_record, live,
+                original_question_id=request['live']['originalQuestionId'], normal_question_id=request['questionId'])
+            spec['feedbackTaskRequirementBinding'] = requirement
+            spec['feedbackTaskRequirement'] = feedback_task.build(requirement, task_scope, statements)
         if 'officialGuidanceRequest' in request:
             spec['officialGuidanceInput'] = prepare_official_guidance(root, request['officialGuidanceRequest'],
                 record=spec['candidateRecord'], scope=official_guidance_scope(root, qualification, spec['target']))
@@ -705,6 +718,11 @@ def prepare(root, request_path, destination, *, coordinator, connection):
                 raise ValueError('actual model primary evidence receipt required')
             fixed['preparationBinding']['primaryEvidenceBundleHash'] = proof['bundleHash']
             fixed['preparationBinding']['primaryEvidencePromptHash'] = proof['promptHash']
+        if spec.get('feedbackTaskRequirement') is not None:
+            delivery = candidate['content']['executionMetadata'].get('feedbackTaskRequirementDelivery') or {}
+            fixed['preparationBinding']['feedbackTaskRequirementInputHash'] = spec['feedbackTaskRequirement']['inputHash']
+            fixed['preparationBinding']['feedbackTaskRequirementDeliveryHash'] = sha256_json(delivery)
+            verify_task_input(coordinator, fixed)
         coordinator.store.update(qualification, prepared['childId'], preparedStagePreparation=fixed['preparationBinding'])
         output = _run(coordinator, fixed, preview=True)
         if not output.get('preview') or output['preview'].get('recordWorkVersion') is not True:
@@ -751,6 +769,50 @@ def _canonical_before(root, view):
             raise ValueError('canonical/workVersion before/existence third value')
 
 
+def _task_source_record(root, request):
+    directory = root / 'output' / request['qualification'] / 'questions_json' / request['listGroupId'] / '00_source'
+    binding = SourceIdentityBinding.from_mapping(request['source']['binding'])
+    matches = [entry for entry in load_source_record_inventory(directory, qualification=request['qualification'],
+        list_group_id=request['listGroupId']) if entry.identity.binding == binding]
+    if len(matches) != 1 or _hash(matches[0].path.read_bytes()) != request['source']['sha256']:
+        raise ValueError('preserved source task binding changed')
+    return matches[0].record
+
+
+def verify_task_input(coordinator, plan):
+    request = plan['request']
+    inputs = plan['stagePlan'].get('feedbackTaskRequirements') or {}
+    if request['authority']['kind'] != 'improvement' or plan['stageId'] not in feedback_task.STAGES:
+        if inputs or plan['preparedCandidate']['content']['executionMetadata'].get('feedbackTaskRequirementDelivery'):
+            raise ValueError('task input outside its owner stages')
+        return None
+    qid = request['questionId']
+    if set(inputs) != {qid} or plan['stagePlan'].get('feedbackTaskRequirementBinding') != plan['taskRequirement']:
+        raise ValueError('same canonical task requirement must be delivered to owner stage')
+    target = plan['stagePlan']['progressTargets'][0]
+    scope = feedback_task.scope_for(plan['qualification'], plan['stageId'], target,
+        input_fingerprint=plan['inputFingerprint'], projected_input_hash=plan['projectedInputHash'])
+    raw = _json(_read(coordinator.repo_root, coordinator.repo_root / target['_projectedInputPath'], {}))
+    record = raw.get('question_bodies', raw) if isinstance(raw, dict) else raw
+    record = record[0] if isinstance(record, list) else record
+    source_record = _task_source_record(coordinator.repo_root, request)
+    if record.get('choiceTextList') != source_record.get('choiceTextList'):
+        raise ValueError('task target source/projected statement drift')
+    statements = feedback_task.target_statements(plan['taskRequirement'], source_record, plan['liveSnapshots'],
+        original_question_id=request['live']['originalQuestionId'], normal_question_id=qid)
+    feedback_task.validate(inputs[qid], binding=plan['taskRequirement'], scope=scope, target_statements=statements)
+    prompt = _filter_structured_candidate_prompt(
+        _prepared_primary_evidence_prompt(coordinator.store, plan['qualification'], plan['childRunId']), {qid})
+    delivery = plan['preparedCandidate']['content']['executionMetadata'].get('feedbackTaskRequirementDelivery') or {}
+    feedback_task.verify_delivery(inputs[qid], prompt, delivery, binding=plan['taskRequirement'], scope=scope)
+    bound = plan.get('preparationBinding') or {}
+    if (bound.get('feedbackTaskRequirementInputHash') != inputs[qid]['inputHash']
+            or bound.get('feedbackTaskRequirementDeliveryHash') != sha256_json(delivery)):
+        raise ValueError('task actual delivery differs from native approval preparation binding')
+    return {'inputHash': inputs[qid]['inputHash'], 'requirementHash': inputs[qid]['requirementHash'],
+        'deliveryHash': sha256_json(delivery)}
+
+
 def load_plan(root, path, *, coordinator, connection, saved=False):
     root = _physical(root); path = _inside(root, path, private=True)
     plan = _json(_read(root, path, {}, private=True))
@@ -770,6 +832,7 @@ def load_plan(root, path, *, coordinator, connection, saved=False):
     if checked != plan['request'] or _requirements(connection, checked['authority']) != plan['taskRequirement']:
         raise ValueError('fixed request/task/report-case requirement changed')
     _authority_matches(checked, plan['taskRequirement'])
+    verify_task_input(coordinator, plan)
     group = root / 'output' / checked['qualification'] / 'questions_json' / checked['listGroupId']
     mutable = set(plan['stagePlan'].get('allowedPatchFiles') or []) | set(plan['stagePlan'].get('allowedWriteFiles') or [])
     selection = [str(p.relative_to(root)) for p in sorted(group.rglob('*.json')) if str(p.relative_to(root)) not in mutable]
@@ -866,6 +929,9 @@ def _stage_evidence(coordinator, plan):
         raise ValueError('actual validated parent checkpoint missing')
     result = {'workVersion': work, 'checkpoint': stage, 'questionResults': child['batchQuestionResults'],
             'workVersionReceipt': child['workVersionReceipt']}
+    task_proof = verify_task_input(coordinator, plan)
+    if task_proof is not None:
+        result['feedbackTaskRequirementDelivery'] = task_proof
     delivered = plan['stagePlan'].get('officialGuidanceInputs') or {}
     projected = _json(_read(coordinator.repo_root, coordinator.repo_root / plan['stagePlan']['progressTargets'][0]['_projectedInputPath'], {}))
     candidate_record = projected.get('question_bodies', projected) if isinstance(projected, dict) else projected

@@ -1119,6 +1119,10 @@ class EarlyContentFailureRetryTests(unittest.TestCase):
 
     def bad_explanation_model(self):
         from dataclasses import replace
+        self.request['live']['questionIds'] = ['live-a']
+        self.snapshots = {'live-a': self.snapshots['live-a']}
+        source = json.loads(Path(self.request['source']['ref']).read_text())['question_bodies'][0]
+        self.snapshots['live-a']['fields']['originalQuestionChoiceText'] = source['choiceTextList'][0]
         self.request['stageId'] = 'explanation'; self.write(self.request_path, self.request)
         original = self.model.run_turn
         def run(prompt, **kwargs):
@@ -1271,6 +1275,7 @@ class PreparedLawAuditTimestampTests(unittest.TestCase):
                     final_message=json.dumps({'schemaVersion':'law-audit-verification/v1',
                         'questionId':bundle['question']['questionId'],'evidenceHash':bundle['evidenceHash'],
                         'decision':'approve','issues':[],'verifiedSourceUrls':['https://laws.e-gov.go.jp/fixture'],
+                        'feedbackTaskRequirementInputHash':bundle['feedbackTaskRequirementInputHash'],'taskRequirementSatisfied':True,
                         'examTimeDecision':fields['examTimeDecision'],'currentLawDecision':fields['currentLawDecision']}))
             result=original(prompt,**kwargs)
             if kind=='maintenance_law_audit_candidate':
