@@ -6,7 +6,7 @@ import os
 import re
 from pathlib import Path
 
-from scripts.scrape.common import load_local_secure_env, make_public_question_id
+from scripts.scrape.common import load_local_secure_env, make_public_question_id, make_storage_url
 from scripts.scrape.knoun_images import BOOK_ID, QUALIFICATION, REPO_ROOT, atomic_json, now, read_manifest
 from scripts.scrape.knoun_review import load_pair, reviewed_pair
 
@@ -32,7 +32,37 @@ def _numbered_choices(text: str) -> tuple[list[str], list[str]]:
     return labels, choices
 
 
-def parse_transcription(question: str, explanation: str) -> dict:
+def _confirmed_word_discrepancy(label: str, printed: str, choice: str, review: dict | None) -> dict:
+    expected = {"status": "confirmed_source_discrepancy", "printedLabel": label,
+                "printedAnswerWord": printed, "printedChoiceText": choice}
+    if not isinstance(review, dict) or any(review.get(k) != v for k, v in expected.items()) or not review.get("referenceUrls"):
+        raise ValueError("同じ問題内で正答記号と正答語句が一致しません")
+    # 原画像に実在すると確認した不一致を保存する。正答の文字列を補正しない。
+    return {"sourceAnswerWordMismatch": {k: expected[k] for k in ("printedLabel", "printedAnswerWord", "printedChoiceText")}}
+
+
+def locate_choice_block(question: str, choice_block: str) -> tuple[str, str]:
+    """元転記の一意な文字spanだけを選択肢へ分離する。文字は修正しない。"""
+    positions = [i for i, char in enumerate(question) if not char.isspace()]
+    compact = "".join(question[i] for i in positions)
+    selected = re.sub(r"\s+", "", choice_block)
+    if not selected or compact.count(selected) != 1:
+        raise ValueError("選択肢blockを当該転記の一意なspanへ対応できません")
+    start = compact.index(selected)
+    source_start, source_end = positions[start], positions[start + len(selected) - 1] + 1
+    block = question[source_start:source_end]
+    if not re.match(r"^[" + CIRCLED + r"](?![ \t]*[〜～~])", block):
+        raise ValueError("選択肢blockは印字された候補番号から始めてください")
+    prefix = re.sub(r"(?:【語群】|［語群］|\[語群\])\s*$", "", question[:source_start]).rstrip()
+    suffix = question[source_end:].lstrip()
+    body = "\n".join(part for part in (prefix, suffix) if part)
+    if not body:
+        raise ValueError("問題文を残さずに選択肢blockを指定しています")
+    return body, block
+
+
+def parse_transcription(question: str, explanation: str, *, choice_block: str | None = None,
+                        answer_word_review: dict | None = None) -> dict:
     """当該一問の転記内の明示記号だけを読む。未対応の形式は推測しない。"""
     answer = re.search(r"^正答[・･.…⋯\s]*([" + CIRCLED + r"])([^\n]*)$", explanation, re.M)
     if not answer:
@@ -41,7 +71,20 @@ def parse_transcription(question: str, explanation: str) -> dict:
     answer_word = _answer_word(answer[2])
     extra = {}
     pool = re.search(r"(?:【語群】|［語群］|\[語群\])\n", question)
-    if pool:
+    if choice_block is not None:
+        body, block = locate_choice_block(question, choice_block)
+        labels, choices = _numbered_choices(block)
+        if answer[1] not in labels:
+            raise ValueError("正答番号が当該選択肢block外です")
+        answer_number = labels.index(answer[1]) + 1
+        if answer_word and re.sub(r"\s+", "", answer_word) != re.sub(r"\s+", "", choices[answer_number - 1]):
+            # 画像選択肢には、図中の短いcaptionとは別の説明が解答欄に印字される。
+            # 印字番号・図中文字・解答の説明を独立に残し、内容判断は05/02aへ渡す。
+            extra["sourceAnswerDescription"] = {"printedLabel": answer[1], "printedAnswerWord": answer_word,
+                                                "printedChoiceText": choices[answer_number - 1]}
+        if labels[0] != "①":
+            extra.update({"sourceChoiceLabels": labels, "sourceSelectedChoiceLabel": answer[1]})
+    elif pool:
         body, tail = question[:pool.start()].rstrip(), question[pool.end():]
         footer = re.search(r"^(?:［[ア-ン]］|「[ア-ン]」|\[[ア-ン]\])にあてはまる最も適切な語句の番号を以下に入力してください。$", tail, re.M)
         if not footer or tail[footer.end():].strip():
@@ -52,9 +95,9 @@ def parse_transcription(question: str, explanation: str) -> dict:
         # 印字番号⑯などを当該語群内の位置へ対応させる。別問の配列順は使わない。
         answer_number = labels.index(answer[1]) + 1
         if re.sub(r"\s+", "", answer_word) != re.sub(r"\s+", "", choices[answer_number - 1]):
-            raise ValueError("同じ問題内で正答記号と正答語句が一致しません")
+            extra.update(_confirmed_word_discrepancy(answer[1], answer_word, choices[answer_number - 1], answer_word_review))
         if labels[0] != "①":
-            extra = {"sourceChoiceLabels": labels, "sourceSelectedChoiceLabel": answer[1]}
+            extra.update({"sourceChoiceLabels": labels, "sourceSelectedChoiceLabel": answer[1]})
         body += "\n" + footer[0]
     elif "内容が正しいものには①を、誤っているものには②を選びなさい。" in question:
         if answer_word or answer_number not in (1, 2):
@@ -70,7 +113,7 @@ def parse_transcription(question: str, explanation: str) -> dict:
             raise ValueError("正答番号が選択肢外です")
         answer_number = labels.index(answer[1]) + 1
         if answer_word and re.sub(r"\s+", "", answer_word) != re.sub(r"\s+", "", choices[answer_number - 1]):
-            raise ValueError("同じ問題内で正答記号と正答語句が一致しません")
+            extra.update(_confirmed_word_discrepancy(answer[1], answer_word, choices[answer_number - 1], answer_word_review))
     return {"questionBodyText": body, "choiceTextList": choices,
             "answer_result_text": answer[0],
             "answer_result_inferred_correct_choice_numbers": [answer_number],
@@ -81,9 +124,19 @@ def parse_transcription(question: str, explanation: str) -> dict:
 def source_record(root: Path, group: int, source_id: str, *, verified_manifest: dict | None = None) -> dict:
     record, question, explanation = reviewed_pair(root, group, source_id, verified_manifest=verified_manifest)
     _, drafts = load_pair(root, group, source_id, verified_manifest=verified_manifest)
-    if any(d[1]["visualReview"].get("questionImageContent") != "text_only" for d in drafts.values()):
-        raise ValueError("図表を含む又は未分類の画像です。図表の保持方法を個別に確認してください")
-    result = parse_transcription(question, explanation)
+    content_types = {d[1]["visualReview"].get("questionImageContent") for d in drafts.values()}
+    if content_types not in ({"text_only"}, {"contains_figure"}):
+        raise ValueError("問題画像の図表有無が未分類又は不一致です")
+    has_figure = content_types == {"contains_figure"}
+    answer_reviews = [draft[1]["visualReview"].get("sourceAnswerWordReview") for draft in drafts.values()]
+    if answer_reviews[0] != answer_reviews[1]:
+        raise ValueError("問題と解説の原文不一致の確認記録が対応していません")
+    layout = None
+    if has_figure:
+        from scripts.scrape.knoun_source_layout import load_layout
+        layout = load_layout(root, group, record, question, explanation)
+    result = parse_transcription(question, explanation, choice_block=layout["candidate"]["choiceBlock"] if layout else None,
+                                 answer_word_review=answer_reviews[0])
     public_id = make_public_question_id(source_id)
     result.update({
         "examLabel": f"eco検定 2026年版 模擬問題{group}",
@@ -105,6 +158,11 @@ def source_record(root: Path, group: int, source_id: str, *, verified_manifest: 
             "originalizationRequired": True,
         },
     })
+    if has_figure:
+        result["questionImageSourceUrls"] = [record["questionImage"]["sourceUrl"]]
+        result["questionImageStorageUrls"] = [make_storage_url(record["questionImage"]["filename"], QUALIFICATION)]
+        result["sourceTranscription"]["figurePreserved"] = True
+        result["sourceTranscription"]["layoutBinding"] = layout["binding"]
     return result
 
 

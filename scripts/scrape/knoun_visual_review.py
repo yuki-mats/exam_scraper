@@ -13,7 +13,7 @@ from uuid import uuid4
 import requests
 
 from scripts.scrape.knoun_images import BOOK_ID, QUALIFICATION, REPO_ROOT, atomic_json, now, read_manifest
-from scripts.scrape.knoun_review import load_pair, save_review, reviewed_pair
+from scripts.scrape.knoun_review import load_pair, save_review, reviewed_pair, validate_pair_receipt
 from tools.question_review_console.codex_app_server import CodexAppServerClient
 from tools.question_review_console.turn_budget import GlobalTurnBudget
 
@@ -92,13 +92,7 @@ def validate_result(record: dict, candidate: dict, receipt: dict) -> None:
     actual = tuple(candidate.get(key) for key in ("sourceQuestionId", "questionImageSha256", "explanationImageSha256"))
     if actual != expected:
         raise ValueError("画像照合結果の問題ID又は両画像hashが一致しません")
-    inputs = receipt.get("image_inputs", [])
-    if len(inputs) != 2 or [item.get("sha256") for item in inputs] != list(expected[1:]):
-        raise ValueError("実際に渡した画像のbytes receiptが当該問題対と一致しません")
-    if receipt.get("subagent_thread_ids") or receipt.get("changed_files"):
-        raise ValueError("画像照合以外の実行を検出しました")
-    if not all(receipt.get(k) for k in ("thread_id", "turn_id", "session_id", "final_message")):
-        raise ValueError("画像照合の実行証跡が不足しています")
+    validate_pair_receipt(record, receipt)
     if candidate.get("reviewOutcome") != "verified":
         raise VisualReviewHold("画像照合で判読不能又は確認事項が残っています")
     if set(candidate.get("checks", {})) != set(CHECKS) or not all(candidate["checks"][k] is True for k in CHECKS):
@@ -119,9 +113,12 @@ def review_one(client, root: Path, group: int, source_id: str) -> dict:
                "explanationOcrDraft": drafts["explanationImage"][1]["text"]}
     paths = [root / "question_images" / group_id / record[role]["relativePath"]
              for role in ("questionImage", "explanationImage")]
+    schema = json.loads(json.dumps(SCHEMA))
+    for key in ("sourceQuestionId", "questionImageSha256", "explanationImageSha256"):
+        schema["properties"][key]["enum"] = [payload[key]]
     result = client.run_turn(PROMPT + json.dumps(payload, ensure_ascii=False),
                              work_type="maintenance_knoun_transcription_candidate", sandbox="read-only",
-                             emit=lambda _: None, image_paths=paths, output_schema=SCHEMA,
+                             emit=lambda _: None, image_paths=paths, output_schema=schema,
                              turn_group="eco-kentei-transcription")
     receipt = asdict(result)
     candidate = json.loads(result.final_message)

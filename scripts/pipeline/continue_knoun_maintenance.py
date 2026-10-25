@@ -137,6 +137,16 @@ def main(argv=None):
         report["visualReviewReport"] = str(latest.relative_to(REPO_ROOT))
         if visual_report["status"] not in ("selected_scope_complete", "finished_with_holds"):
             raise RuntimeError("画像照合の全対象処理が未完了です")
+        save("figure_source_layout")
+        layout_run = subprocess.run([sys.executable, "-m", "scripts.scrape.knoun_source_layout", "--run",
+                                     "--wait-console-url", args.console_url], cwd=REPO_ROOT)
+        if layout_run.returncode not in (0, 1):
+            raise RuntimeError("図表を含む問題の領域照合が中断しました")
+        layout_report_path = max((root / "reports").glob("source_layout_*.json"), key=lambda p: p.stat().st_mtime_ns)
+        layout_report = json.loads(layout_report_path.read_text())
+        report["sourceLayoutReport"] = str(layout_report_path.relative_to(REPO_ROOT))
+        if layout_report.get("status") not in ("selected_scope_complete", "finished_with_holds"):
+            raise RuntimeError("図表の領域照合の全対象処理が未完了です")
         load_local_secure_env()
         save("source_intake")
         groups = []

@@ -161,6 +161,21 @@ class KnounSourceTests(unittest.TestCase):
         self.assertIn("①～④", parsed["questionBodyText"])
         self.assertEqual(parsed["choiceTextList"], ["太陽光", "再エネ証書", "原子力", "地熱"])
 
+    def test_confirmed_printed_discrepancy_is_retained_without_correcting_source(self):
+        question = "国連の専門機関を選びなさい。\n①国連教育科学文化機関（UNESCO）\n②別の候補"
+        explanation = "解答・解説\n正答…①国際教育科学文化機関（UNESCO）\n原文の説明。"
+        with self.assertRaises(ValueError):
+            parse_transcription(question, explanation)
+        review = {"status": "confirmed_source_discrepancy", "printedLabel": "①",
+                  "printedAnswerWord": "国際教育科学文化機関（UNESCO）", "printedChoiceText": "国連教育科学文化機関（UNESCO）",
+                  "referenceUrls": ["https://www.mext.go.jp/unesco/003/001.htm"]}
+        result = parse_transcription(question, explanation, answer_word_review=review)
+        self.assertEqual(result["answer_result_text"], "正答…①国際教育科学文化機関（UNESCO）")
+        self.assertEqual(result["choiceTextList"][0], "国連教育科学文化機関（UNESCO）")
+        self.assertEqual(result["sourceAnswerWordMismatch"]["printedLabel"], "①")
+        with self.assertRaises(ValueError):
+            parse_transcription(question, explanation, answer_word_review=review | {"printedLabel": "②"})
+
 
 if __name__ == "__main__":
     unittest.main()

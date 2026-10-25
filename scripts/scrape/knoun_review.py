@@ -7,6 +7,17 @@ from pathlib import Path
 from scripts.scrape.knoun_images import BOOK_ID, atomic_json, now, read_manifest
 
 
+def validate_pair_receipt(record: dict, receipt: dict) -> None:
+    inputs = receipt.get("image_inputs", [])
+    hashes = [record[role]["sha256"] for role in ("questionImage", "explanationImage")]
+    if len(inputs) != 2 or [item.get("sha256") for item in inputs] != hashes:
+        raise ValueError("実際に渡した画像のbytes receiptが当該問題対と一致しません")
+    if receipt.get("subagent_thread_ids") or receipt.get("changed_files"):
+        raise ValueError("画像読取以外の実行を検出しました")
+    if not all(receipt.get(k) for k in ("thread_id", "turn_id", "session_id", "final_message")):
+        raise ValueError("画像読取の実行証跡が不足しています")
+
+
 def load_pair(root: Path, group: int, source_id: str, *, verified_manifest: dict | None = None) -> tuple[dict, dict]:
     group_id = f"knoun-2026-mock-{group}"
     manifest = verified_manifest if verified_manifest is not None else read_manifest(root / "question_images" / group_id / "capture_manifest.json", group, BOOK_ID)
