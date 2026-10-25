@@ -37,6 +37,10 @@ Chromeは通常利用中のprofileへ接続せず、`~/.config/exam_scraper/knou
 - 再開時は保存済み画像の全hashを検査する。途中の組は先頭から再照合し、同一bytesの画像を保持する。差異は自動上書きせず停止する。
 - 同じprofileで二つの取得処理を動かさない。画像の全件数・一意なURL集合・問題と解説の対応がそろった組だけ`images_complete`にする。
 
+「わからない」は選択式・記述式の内部IDへ固定せず、表示中の操作名で選ぶ。回答操作の前にwindow loadを待つ。画像やframeの取得成功だけでは、Knounの回答用の時刻が初期化されたとは判断しない。
+
+対象検証は`.venv/bin/python -m unittest discover -s tests -p 'test_knoun_images*.py'`。読込みが遅いframeと記述式のボタンを持つローカルfixtureで遷移を確認する場合は、`RUN_KNOUN_BROWSER_TEST=1`を付けて同じコマンドを実行する。fixtureはヘッドレスで動き、Knounへ通信しない。
+
 `images_complete`は画像取得だけの完了です。OCR・目視照合・問題整備・公開の完了を意味しません。
 
 ## 文字起こしと後工程

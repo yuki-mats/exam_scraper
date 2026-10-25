@@ -152,6 +152,23 @@ def find_card(page, group: int):
     raise RuntimeError("問題集と開始ボタンの対応が不明です")
 
 
+def advance_question(page, interval: float) -> None:
+    # Knounのdontknow()はwindow loadで初期化される時刻に依存する。
+    # frame URLや画像を読めても、回答操作が可能とは限らない。
+    page.wait_for_load_state("load", timeout=60000)
+    # 選択式・記述式では内部IDが異なるため、現在表示中の操作名で識別する。
+    unknown = page.get_by_role("button", name=re.compile(r"^わから\s*ない$"))
+    if unknown.count() > 1:
+        raise RuntimeError("未習熟回答ボタンを一意に識別できません")
+    if unknown.count() == 1:
+        unknown.evaluate("button => button.click()")
+    next_button = page.get_by_role("button", name="次へ", exact=True)
+    next_button.wait_for(state="visible", timeout=45000)
+    page.wait_for_timeout(interval * 1000)
+    with page.expect_navigation(wait_until="commit", timeout=45000):
+        next_button.evaluate("button => button.click()")
+
+
 def login_if_needed(page, args) -> None:
     print("[STEP] ドリルメニューを開きます", flush=True)
     page.goto(args.url, wait_until="domcontentloaded", timeout=45000)
@@ -232,12 +249,7 @@ def capture_group(context, page, args, group: int) -> None:
             break
         if args.max_questions is not None and len(seen) >= args.max_questions:
             return
-        if page.locator("#dontknowbtn").is_visible():
-            page.locator("#dontknowbtn").evaluate("button => button.click()")
-        page.locator("#nextbtn").wait_for(state="visible", timeout=45000)
-        page.wait_for_timeout(args.interval * 1000)
-        with page.expect_navigation(wait_until="commit", timeout=45000):
-            page.locator("#nextbtn").evaluate("button => button.click()")
+        advance_question(page, args.interval)
     # 件数だけでは欠落を見逃すため、取得元の全URL集合と保存済み集合を照合する。
     if seen != set(manifest["records"]) or len(seen) != EXPECTED_COUNT:
         raise RuntimeError("全問題の一意なURL集合と保存済み集合が一致しません")
