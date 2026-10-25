@@ -116,6 +116,33 @@ class OfficialGuidancePipelineTests(unittest.TestCase):
         self.assertTrue(all(contract.FIELD not in doc and 'officialGuidanceEvidence' not in doc
             and 'evidenceRef' not in json.dumps(doc, ensure_ascii=False) for doc in documents))
 
+    def test_model_schema_pins_acquisition_metadata_but_keeps_applicability_judgment(self):
+        from tools.question_review_console.question_candidate import output_schema, QuestionCandidateError
+        _, _, target = self.prompt()
+        qid = self.scope['questionId']; targets = {qid: (target,)}
+        ordinary = output_schema([qid], targets)
+        fixed = output_schema([qid], targets, official_guidance_inputs={qid: self.delivered})
+        variants = fixed['properties']['update']['properties']['setFields']['items']['anyOf']
+        value = next(v['properties']['value'] for v in variants
+            if v['properties']['field']['const'] == contract.FIELD)
+        for key in ('request', 'evidenceRef'):
+            self.assertEqual(value['properties'][key]['enum'], [self.delivered[key]])
+        self.assertNotIn('enum', value['properties']['applicabilityByChoice'])
+        self.assertIn(contract.FIELD, fixed['properties']['update']['properties']['unsetFields']['items']['enum'])
+        self.assertEqual(output_schema([qid], targets), ordinary)
+        self.assertEqual(output_schema([qid], targets, official_guidance_inputs={}), ordinary)
+        with self.assertRaises(QuestionCandidateError):
+            output_schema([qid], targets, official_guidance_inputs={qid: self.delivered, 'foreign': self.delivered})
+        with self.assertRaises(QuestionCandidateError):
+            output_schema([qid], targets, official_guidance_inputs={'foreign': self.delivered})
+        nonowner = CandidateTarget('type', 'question_type', 'q.json', ('questionType',))
+        with self.assertRaises(QuestionCandidateError):
+            output_schema([qid], {qid: (nonowner,)}, official_guidance_inputs={qid: self.delivered})
+        changed = deepcopy(self.references)
+        changed['request']['historicalDocuments'][0]['revisionLabel'] += '適用確認済み'
+        with self.assertRaisesRegex(ValueError, 'binding/hash differs: requestHash'):
+            self.validate(changed)
+
     def test_guidance_grounding_regenerates_actual_candidate_and_blocked_stays_blocked(self):
         prompt, target, candidate_target = self.prompt()
         fields = {key: self.record[key] for key in ('isLawRelated', 'lawGroundedExplanationNotNeeded', 'lawReferences', contract.FIELD)}
