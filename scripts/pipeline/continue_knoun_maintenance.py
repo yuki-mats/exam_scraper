@@ -83,7 +83,16 @@ def eligible_sources(root: Path, group: int):
     eligible, holds = [], []
     for source_id in manifest["records"]:
         try:
-            source_record(root, group, source_id, verified_manifest=manifest)
+            candidate = {"question_bodies": [
+                source_record(root, group, source_id, verified_manifest=manifest)
+            ]}
+            existing = (root / "questions_json" / f"knoun-2026-mock-{group}"
+                        / "00_source" / f"question_{Path(source_id).stem}.json")
+            if existing.exists() and json.loads(existing.read_text(encoding="utf-8")) != candidate:
+                raise ValueError(
+                    "登録済み00_sourceと現在の転記に差異があります。"
+                    "sourceを保持し、差異を個別に確認してください"
+                )
             eligible.append(source_id)
         except (ValueError, KeyError, FileNotFoundError) as exc:
             holds.append({"sourceQuestionId": source_id, "reason": str(exc)})
