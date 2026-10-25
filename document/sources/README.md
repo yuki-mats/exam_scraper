@@ -27,6 +27,10 @@
 
 ## site別の要点
 
+### knoun.jp（画像取得）
+
+`scripts/scrape/knoun_images.py`が専用Playwrightブラウザで問題・解説の原画像を取得します。OCR前の取得CLIであり、通常のsource scraperへの登録は文字起こし検証後に行います。認証、保存・再開、05独自問題化への接続は[Knoun取得契約](knoun/source_contract.md)を参照してください。
+
 ### kakomonn.com
 
 - 標準URLは`/list1/<group>?page=1`。ページ送りと保存済みgroupの再開処理は既存実装を使う。
