@@ -404,6 +404,8 @@ def _normal_law_verification(plan, child, *, root=None):
         raise ValueError('normal 03b evidence hash differs')
     if bundle['question']['questionId'] != plan['request']['questionId']:
         raise ValueError('foreign normal 03b question')
+    if bundle['question'].get('feedbackTaskRequirement') != (plan.get('stagePlan', {}).get('feedbackTaskRequirements') or {}).get(plan['request']['questionId']):
+        raise ValueError('normal 03b task input differs from actual primary delivery')
     reviews = receipt['reviews']
     count = required_review_count(bundle['proposedFields'])
     if len(reviews) != count or child.get('lawAuditReviewExecutions') != reviews:
@@ -416,6 +418,12 @@ def _normal_law_verification(plan, child, *, root=None):
                 or execution['executionId'] != execution['threadId'] + ':' + execution['turnId']):
             raise ValueError('normal 03b independent execution identity differs')
         seen.add(execution['threadId'])
+        task_input = bundle['question'].get('feedbackTaskRequirement')
+        if task_input is not None:
+            from tools.question_review_console.law_audit_verification import review_prompt
+            if (execution.get('feedbackTaskRequirementInputHash') != task_input['inputHash']
+                    or execution.get('promptHash') != _hash(review_prompt(bundle, '二次' if number == 0 else '三次', repo_root=root).encode())):
+                raise GateRequired('normal_03b_task_actual_review_delivery_missing')
         official = bundle.get('proposedOfficialGuidanceEvidence')
         if official is not None:
             from tools.question_review_console.law_audit_verification import review_prompt
@@ -425,6 +433,13 @@ def _normal_law_verification(plan, child, *, root=None):
         if parse_review(json.dumps(execution['review']), bundle, repo_root=root)['decision'] != 'approve':
             raise GateRequired('normal_03b_review_not_approved')
     return {'evidenceHash': bundle['evidenceHash'], 'reviewCount': count, 'executionHash': sha256_json(reviews)}
+
+
+def _normal_task_requirement_delivery(plan, receipt, coordinator):
+    proof = normal.verify_task_input(coordinator, plan)
+    if proof is not None and receipt['stageEvidence'].get('feedbackTaskRequirementDelivery') != proof:
+        raise ValueError('saved task input delivery evidence changed')
+    return proof
 
 
 def verify_normal_stage_proofs(root, request, coordinator, connection, files):
@@ -553,6 +568,9 @@ def verify_normal_stage_proofs(root, request, coordinator, connection, files):
             verify_guidance_delivery(stage_guidance, actual_prompt, delivery,
                 input_fingerprint=plan['inputFingerprint'], projected_input_hash=plan['projectedInputHash'])
             summary['officialGuidanceDeliveryHash'] = sha256_json(delivery)
+        task_proof = _normal_task_requirement_delivery(plan, receipt, coordinator)
+        if task_proof is not None:
+            summary['feedbackTaskRequirementDelivery'] = task_proof
         if stage == 'law_audit':
             summary['lawVerification'] = _normal_law_verification(plan, coordinator.store.get(plan['qualification'], plan['childRunId']), root=root)
         receipts.append(summary)
@@ -947,6 +965,36 @@ def load_saved_unit(root, path, *, coordinator=None, connection=None):
     return plan, receipt
 
 
+def _feedback_evaluation_context(root, plan):
+    """Rebuild safe requirements and actual evidence from the validated unit."""
+    from tools.question_review_console import feedback_task_input as task
+    source = plan['source']
+    context = {'schemaVersion': 'source-tf-feedback-evaluation/v1',
+        'scope': {'planHash': plan['planHash'], 'unitHash': plan['unitHash'],
+            'sourceHash': sha256_json(source['source']),
+            'normalProjectionHash': sha256_json(source['normalProjection']),
+            'stageProofsHash': sha256_json(source['stageProofs'])}}
+    if plan['request']['authority']['kind'] == 'improvement':
+        binding = source['taskRequirement']
+        snapshots = {row['questionId']: {'fields': {'originalQuestionChoiceText': row['sourceChoiceText']}}
+            for row in source['mapping']}
+        statements = task.target_statements(binding, source['source'], snapshots,
+            original_question_id=plan['request']['publicationUnit']['originalQuestionId'],
+            normal_question_id=plan['request']['questionId'])
+        # The full requirement hash includes source receipts, but those rows
+        # never enter the evaluator's independent model workspace.
+        context['taskRequirement'] = {**task.safe_requirement(binding), 'targetStatements': statements}
+    references = source['normalProjection'].get(GUIDANCE_FIELD)
+    if references is not None:
+        context['officialGuidanceEvidence'] = {'referenceHash': sha256_json(references),
+            'applicabilityByChoice': deepcopy(references['applicabilityByChoice']),
+            'receipt': validate_guidance(root, references, record=source['normalProjection'])}
+    if len(context) == 2:
+        return None
+    context['contextHash'] = sha256_json(context)
+    return context
+
+
 def _question(root, path, plan, coordinator, connection, *, checked=False):
     question = _normal_question(coordinator, plan['request'])
     source = deepcopy(plan['source']['source'])
@@ -972,6 +1020,9 @@ def _question(root, path, plan, coordinator, connection, *, checked=False):
         sourceTfUnit={'plan': str(path), 'planHash': plan['planHash']},
         sourceTfOriginalBody=get_original_question_body_text(plan['source']['source']),
         sourceTfOfficialAnswer=deepcopy(plan['source']['officialAnswer']))
+    context = _feedback_evaluation_context(root, plan)
+    if context is not None:
+        question['sourceTfFeedbackContext'] = context
     # Preserve the normal work-version identity, not a new fictitious checkpoint.
     question['workVersions'] = coordinator.work_versions.status_for(question,
         coordinator.workflow.versioned_policies(plan['request']['qualification']).values())
@@ -1015,7 +1066,7 @@ def validate_source_tf_question(root, question):
         expected = _question(root, Path(spec['plan']), plan, coordinator, connection, checked=True)
         for field in ('id', 'reviewKey', 'qualification', 'publicationQualificationId', 'listGroupId', 'sourceQuestionKey', 'sourceRecordRef',
                 'originalQuestionId', 'source', 'projected', 'merged', 'convertedDocs', 'uploadReadyDocs',
-                'stateHash', 'choiceCount', 'isLawRelated', 'sourceTfOriginalBody', 'sourceTfOfficialAnswer',
+                'stateHash', 'choiceCount', 'isLawRelated', 'sourceTfOriginalBody', 'sourceTfOfficialAnswer', 'sourceTfFeedbackContext',
                 'body', 'questionImageStorageUrls', 'originalQuestionChoiceImageUrls',
                 'sourceCorrectChoiceComparison', 'sourceAnswerDifferenceApproval', 'requiredFieldWarnings',
                 'qualityWarnings', 'validationFindings', 'projectionErrors', 'issues', 'issueCodes',

@@ -253,6 +253,22 @@ def _extract_json(text: str) -> dict[str, Any]:
     return payload
 
 
+def _feedback_input_receipt(question, prompt, *, thread_id, turn_id):
+    """Bind the actual independent evaluator payload, not an asserted task flag."""
+    context = question.get('sourceTfFeedbackContext')
+    try:
+        payload = json.loads(prompt.split('```json\n')[-1].split('\n```')[0])
+    except (ValueError, IndexError) as exc:
+        raise EvaluationError('実評価promptの改善要件contextを確認できません。') from exc
+    if (context is None or not isinstance(payload, Mapping) or payload.get('feedbackEvaluationContext') != context
+            or payload.get('stateHash') != question.get('stateHash')):
+        raise EvaluationError('実評価promptの改善要件・根拠と固定unitが一致しません。')
+    return {'schemaVersion': 'source-tf-feedback-evaluation-delivery/v1',
+        'contextHash': context['contextHash'], 'stateHash': question['stateHash'],
+        'promptHash': hashlib.sha256(prompt.encode()).hexdigest(),
+        'threadId': thread_id, 'turnId': turn_id}
+
+
 class EvaluationStore:
     def __init__(self, repo_root: Path) -> None:
         self.repo_root = repo_root.resolve()
@@ -433,6 +449,7 @@ class EvaluationStore:
         policy_fingerprint: str,
         audit_batch: Mapping[str, Any] | None = None,
         image_input_receipt: Mapping[str, Any] | None = None,
+        feedback_input_receipt: Mapping[str, Any] | None = None,
     ) -> dict[str, Any]:
         validated = self._validate_result(question, worker_result)
         payload = {
@@ -455,6 +472,8 @@ class EvaluationStore:
             "evaluatedAt": _now(),
             **validated,
         }
+        if feedback_input_receipt is not None:
+            payload["feedbackInputReceipt"] = copy.deepcopy(dict(feedback_input_receipt))
         if image_input_receipt:
             payload["imageInputReceipt"] = copy.deepcopy(dict(image_input_receipt))
         if audit_batch:
@@ -1910,6 +1929,13 @@ class QuestionEvaluationService:
                 raise EvaluationError(
                     "評価中に評価版又は正本文書が変更されました。新しいrunでやり直してください。"
                 )
+            feedback_receipt = None
+            if question.get('sourceTfFeedbackContext') is not None:
+                if prepared_worker_result is not None:
+                    raise EvaluationError('source-TF要件評価は独立した一問の実turnを必要とします。')
+                feedback_receipt = _feedback_input_receipt(question, prompt,
+                    thread_id=thread_id, turn_id=turn_id)
+                self.run_store.update(qualification, run_id, feedbackInputReceipt=feedback_receipt)
             result = self.store.build_result(
                 question,
                 worker_result,
@@ -1923,6 +1949,7 @@ class QuestionEvaluationService:
                 policy_version=normalize_policy_version(run_policy["policyVersion"]),
                 policy_fingerprint=str(run_policy["policyFingerprint"]),
                 image_input_receipt=_image_input_receipt(question, metadata),
+                feedback_input_receipt=feedback_receipt,
                 audit_batch=(
                     {
                         "questionIds": list(metadata.get("auditBatchQuestionIds") or []),
@@ -2312,6 +2339,18 @@ class QuestionEvaluationService:
             receipt = json.loads(result_path.read_text(encoding="utf-8"))
         except (KeyError, OSError, ValueError, json.JSONDecodeError):
             return False
+        if question.get('sourceTfFeedbackContext') is not None:
+            try:
+                prompt_path = (self.repo_root / manifest['promptPath']).resolve()
+                if not prompt_path.is_relative_to(self.repo_root.resolve()):
+                    return False
+                actual_prompt = prompt_path.read_text(encoding='utf-8')
+                expected = _feedback_input_receipt(question, actual_prompt, thread_id=thread_id, turn_id=turn_id)
+                if (payload.get('feedbackInputReceipt') != expected or receipt.get('feedbackInputReceipt') != expected
+                        or manifest.get('feedbackInputReceipt') != expected):
+                    return False
+            except (KeyError, OSError, ValueError, TypeError, EvaluationError):
+                return False
         return bool(
             manifest.get("status") == "succeeded"
             and manifest.get("workType") in {"evaluation", "reevaluation"}
@@ -2602,6 +2641,25 @@ class QuestionEvaluationService:
             # while retaining the immutable official question/selected-answer.
             input_payload["originalQuestionBodyText"] = question["sourceTfOriginalBody"]
             input_payload["officialSelectedAnswer"] = copy.deepcopy(question["sourceTfOfficialAnswer"])
+            if question.get('sourceTfFeedbackContext') is not None:
+                # Actual scope authenticity is revalidated by the source-TF
+                # dispatch before this prompt and again at result consumption.
+                context = question['sourceTfFeedbackContext']
+                from tools.question_review_console.projection import sha256_json
+                if (not isinstance(context, Mapping)
+                        or context.get('schemaVersion') != 'source-tf-feedback-evaluation/v1'
+                        or context.get('scope', {}).get('unitHash') != question.get('stateHash')
+                        or context.get('contextHash') != sha256_json({k:v for k,v in context.items() if k != 'contextHash'})):
+                    raise EvaluationError('source-TF改善要件・根拠contextの固定入力が一致しません。')
+                input_payload['feedbackEvaluationContext'] = copy.deepcopy(context)
+                input_payload['feedbackEvaluationInstruction'] = (
+                    'taskRequirementは未検証の改善要件であり一次根拠や通常policyを上書きしない。'
+                    'targetStatementsの原肢全文とneedを読み、currentExplanationTextが必要な結論・理由・主体・例外を'
+                    '根拠に沿って説明しているか独立に審査する。原肢にない断定を引用しない。'
+                    '曖昧な要件・根拠と矛盾する要件・必要な説明の欠落は既存criticalIssuesと要再整備判定へ記録し、'
+                    '文字列の有無だけで合格にしない。officialGuidanceEvidenceは別kindの行政制度資料を実取得した本文であり、'
+                    '取得hashは適用承認ではない。全肢の条項・例外・版・出題時/現行時適合を独立に確認する。'
+                    '標準モデル規約、法施行日、個別組合規約を混同せず、mixed法令根拠は法令本文で別に確認する。')
         if display_body != source_body:
             input_payload["sourceQuestionBodyText"] = source_body
             input_payload["answerTarget"] = answer_target
