@@ -1105,7 +1105,10 @@ def upload_read_set_maintenance_questions(data: dict, source_label: str, *, dry_
             if any(field not in existing for field in mask if field not in initial_fields):
                 raise RuntimeError("existing masked field presence required")
             base = build_doc_data_base(question)
-            if display and any((f in existing) != (f in base) or existing.get(f) != base.get(f)
+            # Compare explicit transport fields, not defaults manufactured by
+            # build_doc_data_base. Only masked fields from base are written;
+            # an absent non-owned legacy field must remain absent.
+            if display and any((f in existing) != (f in question) or existing.get(f) != question.get(f)
                                for f in DOC_COMPARE_KEYS if f not in mask):
                 raise RuntimeError("display candidate changed a non-owned live field/presence")
             # v3 couples display and truth, including components already correct.
