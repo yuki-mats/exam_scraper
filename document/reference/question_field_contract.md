@@ -279,6 +279,40 @@ serverは合意したcandidate IDを元の候補spanへ解決し、順序、非�
 
 `lawReferences` は、法令問題の根拠と監査状態を表します。条文本文そのものは `questions` document に保存しません。
 
+### 公式制度資料の内部根拠（Firestore非投影）
+
+標準管理規約のような公式制度資料は、法令XMLとは別の根拠として扱います。国土交通省のマンション標準管理規約は管理規約のモデルであり、法令そのものでも、各管理組合が採用した規約そのものでもありません。資料の改訂日、改正法の施行日、出題時点、個々の規約への適用を区別します。制度が主要な判断根拠なら`isLawRelated=true`を維持し、実在し適用できる条文だけを`lawReferences`に記録します。根拠を取得できないことを理由に`isLawRelated`又は互換フラグを反転させません。
+
+正常工程の内部field`officialGuidanceReferences`は次の形に限定します。取得receipt本文をモデルに書き写させず、serverが実取得した固定proofへの参照と、モデルが独立に判断した各肢への適用理由を保存します。このfieldもreceiptも新しいFirestore fieldとして投影しません。
+
+```json
+{
+  "request": {
+    "schemaVersion": "official-guidance-request/v1",
+    "provider": "mlit_mansion_standard_single",
+    "currentAsOf": "YYYY-MM-DD",
+    "examAsOf": null,
+    "currentPages": [5, 7],
+    "historicalDocuments": [],
+    "choiceBindings": [
+      {"choiceIndex": 0, "currentPages": [5, 7], "historicalSelections": []}
+    ]
+  },
+  "evidenceRef": {"ref": "private fixed proof reference", "sha256": "fixed proof bytes hash"},
+  "applicabilityByChoice": [
+    {"choiceIndex": 0, "currentBasis": "現行資料がこの完全命題に適用できる理由", "examTimeBasis": "出題当時の適用根拠又は確認できない範囲"}
+  ]
+}
+```
+
+- `request`は`tools/question_review_console/official_guidance_evidence.py`の`validate_request`を正本とします。全選択肢を順序と全文で固定し、各肢に非空の現行資料ページ対応を必要とします。欠落・重複・選択外ページ、他の原問・source bytesへの流用を拒否します。`examAsOf`は日付又は`null`、`historicalDocuments`の各要素は`{sourceUrl, revisionLabel, pages}`、`historicalSelections`の各要素は`{documentIndex, pages}`です。
+- server providerは公式索引の全改訂候補の日付を解析し、最大の改訂日を持つ一意のsectionから現行単棟型リンクを解決して、索引とPDFを実GETします。HTMLの並び順は現行版の根拠にしません。同日の最大改訂sectionが複数、改訂日が曖昧又は不正、最大改訂日が基準日より未来の場合は、旧版へfallbackせず保留します。この改訂日は資料の適用日を自動的に証明しません。許可した公式HTTPS以外へのredirect、XML/HTMLをPDFとして扱うこと、過大又は空の限定頁抽出も拒否します。出題時資料も公式PDFを実GETしますが、作者が指定した歴史版ラベルは`declared_unreviewed`であり、取得だけで適用時点を認証しません。
+- `official-guidance-evidence/v1`は`sourceKind=official_institutional_guidance`、`retrievalStatus=retrieved`、原問・全文肢・source binding/hash・取得完了時刻・索引リンク/版・PDF bytes hash・限定頁本文/hashを固定します。`applicabilityStatus`と`historicalCompleteness`は`unreviewed`のままです。GET/hashの成功は、そのページが全肢の判断に適用できることや、歴史資料が完全であることの証明にはなりません。
+- モデルと独立03b監査へ実際の限定本文・receiptを配送し、そのprompt hashと`evidenceHash`をexecution proofへ結びます。候補は全肢の適用理由と時点差を判断します。実在する法令locatorを併用する場合は、従来のe-Gov実取得と監査も必要です。資料名や空の`lawReferences`だけでは公開条件を満たしません。
+- 選択本文の上限は全資料合計32頁・96,000UTF-8 bytesです。現行の本則・コメントと歴史版の本則・改正差分を必要な範囲で指定し、上限に合わせて重要な条件を黙って切り捨てません。超える場合は根拠の選び直しを必要とし、本文をtruncateして成功扱いにしません。
+- `validate(refresh=False)`は固定cache bytesと限定頁を再読取・再抽出し、proofの自己申告hashだけで通しません。正常保存・公開直前には`validate(refresh=True)`又は`refresh`で索引/PDFを実再取得し、`contentHash`が同じことを確認します。元receiptは変更せず、`refresh`が返す`official-guidance-refresh/v1`の旧根拠hash・fresh receipt/hash・実取得終了時刻を保存・公開のexecution成果に別途固定します。`validate(refresh=True)`の戻り値は元receiptであり、新しい取得記録は`last_refresh_receipt`に保持します。失敗・中断時にはこの属性を空に戻し、前の成功記録を流用しません。取得時刻が変わることは許容しますが、索引・リンク・版・PDF・抽出本文・対象bindingの変化は新しい候補と独立監査を必要とします。中断時は完成receiptを返さず、部分cacheを公開承認として扱いません。
+- provider単体の取得receiptには、工程の成功、内容の正しさ、独立監査承認又は公開許可を与える効力はありません。正常02b/03/03b、保存・検査・評価・公開それぞれの接続と必須gateがそろった場合だけ、その経路で利用できます。未対応の消費点を取得receiptで代替しません。
+
 ### 中間 JSON の形
 
 `21_explanationText_added` などの patch では、選択肢単位の nested array を使います。
