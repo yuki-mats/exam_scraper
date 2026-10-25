@@ -7,9 +7,9 @@ from pathlib import Path
 from scripts.scrape.knoun_images import BOOK_ID, atomic_json, now, read_manifest
 
 
-def load_pair(root: Path, group: int, source_id: str) -> tuple[dict, dict]:
+def load_pair(root: Path, group: int, source_id: str, *, verified_manifest: dict | None = None) -> tuple[dict, dict]:
     group_id = f"knoun-2026-mock-{group}"
-    manifest = read_manifest(root / "question_images" / group_id / "capture_manifest.json", group, BOOK_ID)
+    manifest = verified_manifest if verified_manifest is not None else read_manifest(root / "question_images" / group_id / "capture_manifest.json", group, BOOK_ID)
     record = manifest["records"][source_id]
     drafts = {}
     for role in ("questionImage", "explanationImage"):
@@ -50,8 +50,8 @@ def save_review(root: Path, group: int, source_id: str, *, question_hash: str,
         atomic_json(path, draft)
 
 
-def reviewed_pair(root: Path, group: int, source_id: str) -> tuple[dict, str, str]:
-    record, drafts = load_pair(root, group, source_id)
+def reviewed_pair(root: Path, group: int, source_id: str, *, verified_manifest: dict | None = None) -> tuple[dict, str, str]:
+    record, drafts = load_pair(root, group, source_id, verified_manifest=verified_manifest)
     texts = {}
     for role, (_, draft) in drafts.items():
         review = draft.get("visualReview", {})

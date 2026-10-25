@@ -60,6 +60,15 @@ OCRは既存のApple Vision日本語認識をローカルで使い、`output/eco
 
 目視保存の共通処理は`scripts/scrape/knoun_review.py`です。担当者が実際に見た問題URL、両画像hash、転記本文を一問ずつ指定し、元のOCRを保持します。問題画像が文字だけか、図表を含むかも明示します。OCR結果から目視済み状態を自動付与しません。
 
+画像認識による逐次照合は`scripts/scrape/knoun_visual_review.py`で行えます。原画像2枚のbytesを一問ずつCodex App Serverの画像入力へ渡し、元のOCRとの比較、修正済み全文、確認項目、図表有無を受け取ります。同時処理数は1に固定し、ブラウザ、subagent、file変更をモデルへ許可しません。実際の画像入力receipt、モデル応答の問題IDと両画像hash、全確認項目の完了を照合してから転記を保存します。画像単位の実行証跡は`ocr/<組>/visual_reviews/`、実行全体の結果は`reports/knoun_visual_review_<run>.json`に保持します。判読不明は未照合のまま残し、3問連続失敗で停止します。これは内容監査又は公開評価の代替ではありません。
+
+```bash
+# 計画だけを確認する
+.venv/bin/python -m scripts.scrape.knoun_visual_review
+# 未照合分を一問ずつ実行する。既存の照合済み転記は保持する。
+.venv/bin/python -m scripts.scrape.knoun_visual_review --run
+```
+
 文字起こしを検証した後は、標準scraper`scripts/scrape/knoun.py`で新規`00_source`へ登録します。画像取得CLIとOCR CLIの責務は変わらず、source、patch、Firestoreを変更しません。
 
 ```bash
