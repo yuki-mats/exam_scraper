@@ -1,0 +1,70 @@
+{
+  "schemaVersion": "hei-explicit-intent-validator-verification/v1",
+  "taskId": "T011",
+  "verifiedAt": "2026-10-26T23:54:02.261153+00:00",
+  "inputCommit": "383af58345c3a84bb6cba67a88a4f1deca9e9ae4",
+  "files": [
+    {
+      "path": "scripts/common/question_answer_contract.py",
+      "sha256": "fd5955569e540ede9108d2b410db854739913697cd7c1a56d4579fe13d2d6f7a"
+    },
+    {
+      "path": "tests/test_question_answer_contract.py",
+      "sha256": "940bc75e756c75a16c804ef1dc7a58947bb9ddd21cc9d399219d8df62b61eb3d"
+    },
+    {
+      "path": "tests/test_question_intent_patch_coverage.py",
+      "sha256": "71892ed96e24c4a177299afaf96efd0099e7979cbb35986cb26bf472f627d658"
+    },
+    {
+      "path": "tests/test_question_review_question_candidate.py",
+      "sha256": "16064225fa1bd9ae8a2ac072451a73a08be826f40c8acb2fe484e7a9e75c33af"
+    }
+  ],
+  "implementationChange": "条件所属を表す「該当しないもの」だけから正誤方向を断定しない。明確な独立正誤要求の照合は維持する。条件所属をselect_correctへ自動分類しない。",
+  "commands": [
+    {
+      "command": "python3 -m unittest tests.test_question_answer_contract tests.test_question_intent_patch_coverage tests.test_question_review_question_candidate",
+      "exitCode": 0,
+      "tests": 120
+    },
+    {
+      "command": "python3 tools/question_bank/question_bank.py check-question-intent-patch --source output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_intent/gas-shunin-hei/questions_json/2020/12_merged_questionType/question_2020_2_merged.json --patch output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_intent/gas-shunin-hei/questions_json/2020/15_correctChoiceText_fixed/question_2020_2_merged_correctChoiceText_fixed.json",
+      "exitCode": 0,
+      "inputs": [
+        {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_intent/gas-shunin-hei/questions_json/2020/12_merged_questionType/question_2020_2_merged.json",
+          "sha256": "9b34f6eacd1bac42262fb192511474a3af01c47eaf64d1235e8de1ef7e39e403"
+        },
+        {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_intent/gas-shunin-hei/questions_json/2020/15_correctChoiceText_fixed/question_2020_2_merged_correctChoiceText_fixed.json",
+          "sha256": "8e8b1b727a331fb724bfdad5b319962136e8e2d8168b17e0e6e7235b17f49256"
+        }
+      ]
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0
+    }
+  ],
+  "attemptHistory": [
+    {
+      "command": "python3 -m unittest tests.test_question_answer_contract tests.test_question_intent_patch_coverage tests.test_question_review_question_candidate",
+      "exitCode": 1,
+      "failures": 3,
+      "detail": "追加テストの期待値が実consumerのtuple型・既存エラー文言と不一致だった。実装の条件判断は期待どおりで、テストの型と言い回しの期待だけ修正。"
+    },
+    {
+      "command": "python3 -m unittest tests.test_question_answer_contract tests.test_question_intent_patch_coverage tests.test_question_review_question_candidate",
+      "exitCode": 0,
+      "tests": 120
+    }
+  ],
+  "scope": {
+    "questionDataChanged": false,
+    "candidateDataChanged": false,
+    "formalMetadataSaved": false,
+    "fullRegression": "not_run",
+    "fullPrivatePrepare": "PMが後続T003で再実行。既存2020 private coverageだけ読取専用で再成功を確認。"
+  }
+}

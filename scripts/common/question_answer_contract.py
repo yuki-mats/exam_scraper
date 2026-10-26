@@ -61,7 +61,6 @@ EXPLICIT_INCORRECT_STATEMENT_REQUESTS = (
     "正しくないもの",
     "不適切なもの",
     "適切でないもの",
-    "該当しないもの",
 )
 EXPLICIT_CORRECT_STATEMENT_REQUESTS = (
     "正しいもの",
@@ -93,7 +92,11 @@ def explicit_statement_question_intent(
     value: Any,
     choice_texts: Any = None,
 ) -> str | None:
-    """Read intent only for an unambiguous complete-statement choice structure."""
+    """Read explicit correctness requests for complete-statement choices.
+
+    Condition membership such as 「該当しないもの」 needs the meaning of each
+    choice; sentence endings alone cannot establish its selection direction.
+    """
 
     if not isinstance(value, str) or not choices_are_complete_statements(choice_texts):
         return None

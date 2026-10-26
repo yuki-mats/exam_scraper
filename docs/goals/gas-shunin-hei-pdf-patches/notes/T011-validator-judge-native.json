@@ -1,0 +1,103 @@
+{
+  "nativeMessageId": "amsg_01a17aa0-24e0-71c2-8c90-20d00e10ae33",
+  "nativeAuthor": "/root/hei_patch_judge",
+  "payload": {
+    "goalbuddy_receipt_v1": {
+      "result": "done",
+      "task_id": "T008",
+      "board_path": "docs/goals/gas-shunin-hei-pdf-patches/state.yaml",
+      "decision": "approve_next",
+      "full_outcome_complete": false,
+      "rationale": "本文・全5肢・02正本から、本問のquestionIntentはselect_correctと判断します。各肢は実施する措置を示し、設問はその措置が地震対策に該当しないかという条件適合を問います。『措置Xは地震対策に該当しない』が成立する側を求めるためです。句点だけで記述自体の真偽問題とみなし、『該当しないもの』からselect_incorrectを断定するvalidatorは、02正本の責務を越えています。機械値へ候補を合わせず、条件所属の語だけでは方向を確定しない一般的な最小修正を承認します。",
+      "evidence": [
+        {
+          "sourceQuestionId": "2020:seizo:問8",
+          "sourcePath": "output/gas-shunin-hei/questions_json/2020/00_source/question_2020_2.json",
+          "questionBodyText": "特定製造所の地震対策に関する次の記述のうち、いずれも該当しないものの組合せはどれか。",
+          "completePropositions": [
+            "ボンベハウス内の容器に転倒防止措置を講ずることは、特定製造所の地震対策に該当しない。",
+            "集合管の支持強化やフレキ管の設置等により配管の伸縮性を確保することは、特定製造所の地震対策に該当しない。",
+            "バルク貯槽の液配管に緊急遮断装置を設置することは、特定製造所の地震対策に該当しない。",
+            "指定された根元バルブに逆止弁付バルブを使用しないことは、特定製造所の地震対策に該当しない。",
+            "配管の継手部をネジ接合とすることは、特定製造所の地震対策に該当しない。"
+          ],
+          "intent": "select_correct",
+          "basis": "設問が求める条件と各行為の構造から判断。上記は方向判定用の完全命題であり、各命題の法令上・技術上の真偽を本receiptで新規確定したものではない。",
+          "writesPerformed": false
+        },
+        {
+          "path": "prompt/02_prompt_fix_questionIntent.md:16",
+          "finding": "行為や観察結果を述べ、特定条件に該当するものを選ぶ場合は、各肢と条件の適合を判定し、行為自体の望ましさで方向を反転しない。"
+        },
+        {
+          "path": "scripts/common/question_answer_contract.py:59-112",
+          "finding": "全肢の構造的終止と『該当しないもの』のtokenから、内容上の役割を区別せずselect_incorrectを返す。"
+        },
+        {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/coverage-question_intent-question_2020_2.log",
+          "finding": "正規coverage checkerがexpected select_incorrectとして候補select_correctを拒否している。"
+        },
+        {
+          "paths": [
+            "tools/question_review_console/question_candidate.py:2275",
+            "tools/question_bank/checks/check_question_intent_patch_coverage.py:86"
+          ],
+          "finding": "曖昧な機械判定の直接consumerは候補検証とintent coverageの2箇所。"
+        }
+      ],
+      "next_allowed_task": {
+        "type": "worker",
+        "assignee": "Worker",
+        "objective": "explicit intent照合を明示的な記述真偽の要求に限定し、条件所属の語だけで内容判断を上書きしないよう、共通validatorを最小修正する。",
+        "allowed_files": [
+          "scripts/common/question_answer_contract.py",
+          "tests/test_question_answer_contract.py",
+          "tests/test_question_intent_patch_coverage.py",
+          "tests/test_question_review_question_candidate.py",
+          "docs/goals/gas-shunin-hei-pdf-patches/notes/"
+        ],
+        "required_conditions": [
+          "資格・年度・問番号・IDに基づく例外を追加しない。",
+          "『該当しないもの』という条件所属の語だけからselect_incorrectを返さない。意味上の役割を機械で確定できない場合はNoneを返し、根拠付きの人間・モデル判断へ委ねる。",
+          "『該当しない』を含むだけで常に検査を無効化しない。本文に独立して明確な『誤っているもの』『正しいもの』等の記述真偽要求がある場合の照合は保持する。",
+          "本問を機械的にselect_correctへ自動分類する新ルールは追加しない。",
+          "両consumerの型・identity・許可値・その他既存gateを弱めない。",
+          "問題データ、元正答、本文、選択肢、IDをvalidatorの期待値へ合わせて変更しない。"
+        ],
+        "verify": [
+          "python3 -m unittest tests.test_question_answer_contract tests.test_question_intent_patch_coverage tests.test_question_review_question_candidate",
+          "行為を述べる全肢が句点で終わっても、条件所属の設問ではexplicit helperが方向を断定しないことを確認する。",
+          "本問の根拠付きselect_correctが正規intent coverageに拒否されないことを確認する。",
+          "『誤っているもの』に対するselect_correctなど、明確な記述真偽要求の逆転を従来どおり拒否することを確認する。",
+          "断片肢・混在肢・明確な肯定/否定要求の既存挙動を保持する。",
+          "元の実private prepareを再実行し、正常coverageと通常merge後のユーザー必須3checkerへ進む。",
+          "git diff --check"
+        ],
+        "stop_if": [
+          "この修正のため他の明確な真偽要求まで検査できなくなる場合はscopeを広げず再審査する。",
+          "正答やintentの自動反転が必要になる場合は停止する。",
+          "実際の意味上の矛盾を、None返却で隠す目的へ拡張しない。"
+        ]
+      },
+      "subgoal_contract": null,
+      "parallel_safety": {
+        "write_workers": 1,
+        "parallel_writes": false,
+        "formalMetadataSave": "validator修復と関連検証が成功し、private全準備が通るまで正式10/15保存を止める。"
+      },
+      "blocked_tasks": [],
+      "missing_evidence": [
+        "共通validatorの最小修正",
+        "両consumerを含む関連テスト結果",
+        "実private prepareの再成功",
+        "正式保存・通常merge・必須3checker結果"
+      ],
+      "required_board_updates": [
+        "本問のselect_correctを維持し、拒否された旧ログを原因証跡として保存する。",
+        "validator修復を本文訂正とは別のcode変更taskにし、許可file・関連テストを記録する。",
+        "完全命題の方向判断と各命題の技術的真偽・解説整備を区別する。",
+        "機械検証は明確な不整合の検出に限定し、曖昧な条件所属を内容判断の正本にしない。"
+      ]
+    }
+  }
+}

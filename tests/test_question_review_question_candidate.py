@@ -670,6 +670,44 @@ class QuestionCandidateTest(unittest.TestCase):
             errors,
         )
 
+    def test_question_intent_accepts_condition_membership_for_action_statements(self):
+        candidate, targets = self._question_intent_candidate("select_correct")
+        projected = {
+            "questionBodyText": (
+                "施設の地震対策に関する次の記述のうち、"
+                "いずれも該当しないものの組合せはどれか。"
+            ),
+            "choiceTextList": [
+                "容器に転倒防止措置を講ずる。",
+                "配管の継手をネジ接合とする。",
+            ],
+            "questionIntent": None,
+        }
+
+        errors = validate_candidate_content(candidate, targets, projected)
+
+        self.assertEqual(errors, ())
+
+    def test_condition_topic_keeps_candidate_truth_direction_validation(self):
+        for request, reversed_intent in (
+            ("誤っているもの", "select_correct"),
+            ("正しいもの", "select_incorrect"),
+        ):
+            with self.subTest(request=request):
+                candidate, targets = self._question_intent_candidate(reversed_intent)
+                projected = {
+                    "questionBodyText": (
+                        "この規定に該当しないものの取扱いに関する"
+                        f"次の記述のうち、{request}はどれか。"
+                    ),
+                    "choiceTextList": ["措置Aを講ずる。", "措置Bを講じない。"],
+                    "questionIntent": None,
+                }
+
+                errors = validate_candidate_content(candidate, targets, projected)
+
+                self.assertTrue(any("選択方向を明示" in error for error in errors), errors)
+
     def test_candidate_rejects_non_string_question_set_id(self):
         plan = {
             "allowedPatchFiles": [

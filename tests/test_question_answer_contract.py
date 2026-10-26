@@ -52,6 +52,30 @@ class QuestionAnswerContractTests(unittest.TestCase):
             ),
         )
 
+    def test_condition_membership_is_not_an_explicit_truth_request(self) -> None:
+        self.assertIsNone(
+            explicit_statement_question_intent(
+                "施設の地震対策に関する次の記述のうち、"
+                "いずれも該当しないものの組合せはどれか。",
+                ["容器に転倒防止措置を講ずる。", "配管の継手をネジ接合とする。"],
+            )
+        )
+
+    def test_condition_topic_keeps_independent_explicit_truth_request(self) -> None:
+        for request, expected in (
+            ("誤っているもの", "select_incorrect"),
+            ("正しいもの", "select_correct"),
+        ):
+            with self.subTest(request=request):
+                self.assertEqual(
+                    explicit_statement_question_intent(
+                        "この規定に該当しないものの取扱いに関する"
+                        f"次の記述のうち、{request}はどれか。",
+                        ["措置Aを講ずる。", "措置Bを講じない。"],
+                    ),
+                    expected,
+                )
+
     def test_explicit_intent_does_not_decide_fragment_combination(
         self,
     ) -> None:

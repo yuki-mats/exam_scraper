@@ -71,6 +71,42 @@ class QuestionIntentPatchCoverageTests(unittest.TestCase):
 
         self.assertEqual(compare_entries(source, patch), [])
 
+    def test_accepts_condition_membership_for_action_statement_choices(self):
+        source = [{
+            "original_question_id": "q1",
+            "questionBodyText": (
+                "施設の地震対策に関する次の記述のうち、"
+                "いずれも該当しないものの組合せはどれか。"
+            ),
+            "choiceTextList": [
+                "容器に転倒防止措置を講ずる。",
+                "配管の継手をネジ接合とする。",
+            ],
+        }]
+        patch = [{"original_question_id": "q1", "questionIntent": "select_correct"}]
+
+        self.assertEqual(compare_entries(source, patch), [])
+
+    def test_condition_topic_does_not_disable_explicit_truth_direction_check(self):
+        for request, reversed_intent, expected in (
+            ("誤っているもの", "select_correct", "select_incorrect"),
+            ("正しいもの", "select_incorrect", "select_correct"),
+        ):
+            with self.subTest(request=request):
+                source = [{
+                    "original_question_id": "q1",
+                    "questionBodyText": (
+                        "この規定に該当しないものの取扱いに関する"
+                        f"次の記述のうち、{request}はどれか。"
+                    ),
+                    "choiceTextList": ["措置Aを講ずる。", "措置Bを講じない。"],
+                }]
+                patch = [{"original_question_id": "q1", "questionIntent": reversed_intent}]
+
+                errors = compare_entries(source, patch)
+
+                self.assertTrue(any(f"expected '{expected}'" in error for error in errors), errors)
+
 
 if __name__ == "__main__":
     unittest.main()

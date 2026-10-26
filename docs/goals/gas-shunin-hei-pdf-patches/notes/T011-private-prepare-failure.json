@@ -1,0 +1,1617 @@
+{
+  "resultPath": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/metadata-result.json",
+  "resultSha256": "e7c0023dde5d755fe8d9fb69a94bb6fb410d2b4d0d45d3f62eb82d1b661c1b33",
+  "result": {
+    "schemaVersion": "hei-minimal-metadata-result/v1",
+    "adoption": {
+      "path": "output/gas-shunin-hei/pdf_patch_review/metadata-adoption.json",
+      "sha256": "54bbbf247713e2cdb5dcb90d8e7f1f14c2380e14d5ac1ca56596c47531629e28"
+    },
+    "implementationInputs": [
+      {
+        "path": "docs/goals/gas-shunin-hei-pdf-patches/notes/T008-materialize-metadata.py",
+        "sha256": "451b4c429c9476f6f60e0d579798e7e0ae1436681aeb3c9a5119f7e38fc24f95"
+      },
+      {
+        "path": "tools/question_bank/question_bank.py",
+        "sha256": "766450b918f7e4fd3f2a36ab4127ca9b1672a18011487cd84f7bf23a1f8efd59"
+      },
+      {
+        "path": "scripts/fix/materialize_minimal_patch.py",
+        "sha256": "067011e739874515dd004a9ed3e9f3d699af5fcf5178bc17c35c51d3234df266"
+      },
+      {
+        "path": "scripts/check/check_questiontype_patch_coverage.py",
+        "sha256": "27c6e07babeddd8d6637b37ffd9ecc512ef5e5b11e7726ed4926befa127a09ff"
+      },
+      {
+        "path": "tools/question_bank/checks/check_question_intent_patch_coverage.py",
+        "sha256": "18dbc9f1e5405976e8c50c8a1bdb56b3f8eba75fcf060fb4439aaca83c3934dc"
+      }
+    ],
+    "sourceBaseline": {
+      "output/gas-shunin-hei/questions_json/2017/00_source/question_2017_1.json": "e8053178df5b02f046df7274be71181e60b57de7e76b015c5193612cb2b41c34",
+      "output/gas-shunin-hei/questions_json/2017/00_source/question_2017_2.json": "0a7c3d72f8f1ba7c0b07eb0c7bc4fc78ebee5305d09a583ccde50c236fe4306a",
+      "output/gas-shunin-hei/questions_json/2017/00_source/question_2017_3.json": "6c008f0a8d2e0e23802e2d458615f075fea18a08e4783bf8773bc2e325fc4f02",
+      "output/gas-shunin-hei/questions_json/2018/00_source/question_2018_1.json": "0689ab2e9639bec9c36f66671aacb71129a8c9b9f96ec012f4c5b8400cade22c",
+      "output/gas-shunin-hei/questions_json/2018/00_source/question_2018_2.json": "9c89e86cbd83a84a02ef86aef84ba0fba91eb06784cda21010b099171141cc8d",
+      "output/gas-shunin-hei/questions_json/2018/00_source/question_2018_3.json": "cf4ca7481070f0cd5c80c3b61e0edc6881e31ad03e1f040b1c7ca1f7b5bf4944",
+      "output/gas-shunin-hei/questions_json/2019/00_source/question_2019_1.json": "bbdd62c4e77b4ef547986be385abc71cb4da1cf5dac545d0574ccc234ed4b55e",
+      "output/gas-shunin-hei/questions_json/2019/00_source/question_2019_2.json": "a3743a0ecf57ede394161552670c85d97da8f29f23d3bdf742835d0aa6aab191",
+      "output/gas-shunin-hei/questions_json/2019/00_source/question_2019_3.json": "0f7e2427a135e13f4a36d242d2e0bd47d46c34dec3cf98ff709c73adb9730a7a",
+      "output/gas-shunin-hei/questions_json/2020/00_source/question_2020_1.json": "cc359f1d8ca0e10cc6359288e67351626654b29ddd601b2ed011d2b1d622ffba",
+      "output/gas-shunin-hei/questions_json/2020/00_source/question_2020_2.json": "fca741624bdaccd892232de4f23e6c9b64c289bf0c1ed39525ed204533b61b93",
+      "output/gas-shunin-hei/questions_json/2020/00_source/question_2020_3.json": "c7a94f3e0f9c8c1516d7f9a6089e9385fcbc4a15ca486ec5b133cf5c4e4e15ea",
+      "output/gas-shunin-hei/questions_json/2021/00_source/question_2021_1.json": "db4be8835c9d81d1eeb431cecad9d41326acf2d33889d50907c163e75cf569a9",
+      "output/gas-shunin-hei/questions_json/2021/00_source/question_2021_2.json": "931a9dcfd887d204844387fff4f2a379d8828b9009a7ce8aa090ab294fa665ef",
+      "output/gas-shunin-hei/questions_json/2021/00_source/question_2021_3.json": "6c8bb9e8fe438f221c0c9226d0090ea85d56b17ba71fb378c99e24bc0d53fb02",
+      "output/gas-shunin-hei/questions_json/2022/00_source/question_2022_1.json": "543669c3ac35093b9c241ca3dd43bad1d51c65ffd703e1d7a6a78e58d9f830f4",
+      "output/gas-shunin-hei/questions_json/2022/00_source/question_2022_2.json": "4aa1c6b8a13000e60de5df5644bc115d2e6009a23a378ff575b79ee9a4520e41",
+      "output/gas-shunin-hei/questions_json/2022/00_source/question_2022_3.json": "f4ae3a3430696d98274e44413186d1da986c6dfea6465301fbb0bedceb802e87",
+      "output/gas-shunin-hei/questions_json/2023/00_source/question_2023_1.json": "e02aeaeee0f34036909e25c717a596a60ac619c960a55bf458043e8dac10e538",
+      "output/gas-shunin-hei/questions_json/2023/00_source/question_2023_2.json": "3b322be01eed59a131f72db22d31faa4a5757b3e83d9ba5920e92f5952f8ce99",
+      "output/gas-shunin-hei/questions_json/2023/00_source/question_2023_3.json": "b27b6454c9f5e775f1f82506c15865436992307f7f5ec6fa6e2360c119c0ee97",
+      "output/gas-shunin-hei/questions_json/2024/00_source/question_2024_1.json": "1ec894007b2efc9287e501ed098e5c08a68966bc33da0f1181504e52d6c628b2",
+      "output/gas-shunin-hei/questions_json/2024/00_source/question_2024_2.json": "31a44a225c2bfe6f234b049adb8c63406f228daa3902b401d59e403aec12d5fd",
+      "output/gas-shunin-hei/questions_json/2024/00_source/question_2024_3.json": "1faaf89fc487721a730e37a247fc83fb980e3aaf9f5d65570047d33537fcefad",
+      "output/gas-shunin-hei/questions_json/2025/00_source/question_2025_1.json": "cbd0078bacdfb2a0ba907994318ff944c14e70a4b4d1a60108359473c5f513c9",
+      "output/gas-shunin-hei/questions_json/2025/00_source/question_2025_2.json": "ba7cedebf36c0bbfc0bc33382189a35e24b4b7d4e5fadc6efd3c125a561bd3da",
+      "output/gas-shunin-hei/questions_json/2025/00_source/question_2025_3.json": "92db5e331c2b2e91b973a8f8a1f4ff07c8364a37cf52e81da0e373283d261c27"
+    },
+    "bodyPatchInputs": {
+      "output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-2017-000_2017-law-q1_f72327c3772a4fe4.json": "971d07047476ce8970bfdfa8792a4f43a5898f4c3b5f6c7ff72c2b38c8ba3873",
+      "output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-v3-2017-000_2017-kiso-q6_d3bedb424ebc2ade.json": "d71a120ad857655124370a2104d4e7b7fec269b3d3e72bcbfee45d6278778f54",
+      "output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-v3-2017-000_2017-kyokyu-q17_31d20b76e6e3beba.json": "179996aa7fb4623f5bc1d49ae2e6b55342b9579bfd16e3aee719a6eff673ab8c",
+      "output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-v4-2017-000_2017-kiso-q1_0fee0c5f725aa416.json": "086e84653cfba27ac4981bf30728666488c868d12b2544ca671cc4588a08e06b",
+      "output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-v4-2017-000_2017-law-q9_3d71b3619be4ec83.json": "f62443520278964d3365755a6bb6b268567a7d38d13eb281b8c86c83dbb3010c",
+      "output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-v4-2017-001_2017-kiso-q10_429be43ad5a29b8a.json": "50a6b327e7fe407a3914bc2cccdd7cc16889f692f4e1814d5307d8698b39c5e5",
+      "output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-v4-2017-001_2017-kiso-q11_0d63806a8344daa4.json": "b8edff99022d13817dfa6373c9d5f623bcf84d9b42f73288c7a82a278c868525",
+      "output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-v4-2017-001_2017-kiso-q12_73bdbad4764356a9.json": "41aad8e8b0e1b92974fc8ed4bf9d810ecd4e839f30844e8af6e4aaa40b5555ba",
+      "output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-v4-2017-001_2017-kiso-q13_9da380aa7004e62b.json": "bec5acf903fed4fe80fdd57f70e2dfcfe8bdae4cf632de030bdea0b470cfbffd",
+      "output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-v4-2017-001_2017-kiso-q14_23b139de1e687c30.json": "04bb594d98992ad6c6a2fd09acdcaca18cdcf157b66c774337c29a0397b993ba",
+      "output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-v4-2017-001_2017-kiso-q15_2ca8d0bb1f27c154.json": "cd09fb7870f39a751a23e3dfd47dec9829ed3e6d261606d21bb956ccc195cd74",
+      "output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-v4-2017-001_2017-kiso-q2_2ab2e7cfba3a7e0a.json": "4b74fdd779de330e64771264c38ca9b48f5fd1df0ac0e7c325e7152b2e16f20c",
+      "output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-v4-2017-001_2017-kiso-q3_6b8b15e43117d293.json": "65e894923b73081451ddf2ac21f2c4a0913456356b7efbc719930e5a516f8cc8",
+      "output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-v4-2017-001_2017-kiso-q4_81147bc7c13604a6.json": "7d2798a1fa047ccdd44bd163edf906170d6033b0a0ef4c93440965d3c3d7f678",
+      "output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-v4-2017-001_2017-kiso-q5_5c38507d6c6698ab.json": "70fa5dde7ba1b24b6b9a6ab104ec7873c12e0e76d7f761cb9d6793726cbf9c7d",
+      "output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-v4-2017-001_2017-kiso-q7_b6c7388e2a5ba788.json": "fe080cce334f77d93eff3daf6e3a341ab06540a69c45c446fa2d784f183b28dd",
+      "output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-v4-2017-001_2017-kiso-q8_844c758998dd672e.json": "cb39c3265923a00745ba3fe00b4e8cccfa26c5bdff8cc3012f19f00a8e61f95f",
+      "output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-v4-2017-002_2017-kiso-q9_d240278d89626f22.json": "c353138ad365e689b7a2c61d8cf9644dce9b8f4c445a6797dcb9a33ca681450e",
+      "output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-v4-2017-002_2017-law-q10_a0f54945df9965e2.json": "ee794efff4df7f89881711ad459831066e83880168313cd3c2178e3f09985647",
+      "output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-v4-2017-002_2017-law-q11_f6a11091c219d807.json": "85f72b4dd3750d3a86e4944e96bcd1312a45637751117ffa1a9a0a2f09e29b76",
+      "output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-v4-2017-002_2017-law-q12_e2e491743970560d.json": "10e6cfcd75249d8a41901b02b36bef4e5c795a66aac453329865de144b5c8980",
+      "output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-v4-2017-002_2017-law-q13_6ce96d04ccdfc2b2.json": "7ddf30ab89292019945cf9987bcb2492df8946817e0700ab1f26521b2daeb15d",
+      "output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-v4-2017-002_2017-law-q14_4362929922f0312c.json": "6b677677903406777e377e79db977ac06fcc33cfd6f48a5523db473c8a61b011",
+      "output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-v4-2017-002_2017-law-q15_d2bd0ba305a5587c.json": "ec806f28de8319d286fadd54f066a6fedca428bcee0880a3a04e999beb89864c",
+      "output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-v4-2017-002_2017-law-q16_0a91560f643c75bf.json": "3a75d85a766a41c9d83b31cdf37a4f8fdb13d011554b2c35f5b5b8f344407720",
+      "output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-v4-2017-002_2017-law-q2_851989d3e7adec5e.json": "a62013ac7f15ba80d752b57f506b2efe470d5b0eb0e95e7d36394ec8dc6e0fc0",
+      "output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-v4-2017-002_2017-law-q3_bb8906ad0b31a555.json": "6d2579f437651180aa221471ce5bc2289eb60964f244d4e750cc09316133bc95",
+      "output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-v4-2017-002_2017-law-q4_b3dbf16a78b4f63f.json": "04815fb3355cf2663659db0cd5451cbfa3975eef77fe73dbe455e7a69a9ffe71",
+      "output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-v4-2017-002_2017-law-q5_84b510a5ae65b5a0.json": "d777bcc6fe35a482aa188d69926d3a5861213383d843fb23f7da595d88f61e64",
+      "output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-v4-2017-003_2017-law-q6_3034505d85650633.json": "339a0abc497a6e1c4e61f3575051d209cc7b2b5160c44a937cae075d3bb11663",
+      "output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-v4-2017-003_2017-law-q7_3ee0af0cac36c123.json": "eca04064514013137d301864a6a567a72a73c7e439655720f04e8f63eb5439e2",
+      "output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-v4-2017-003_2017-law-q8_1673aefdd412df40.json": "5c75de243f79e463d3d836fa03581cea1695489f343a9b885fead8784d121cb0",
+      "output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-v4-2017-003_2017-shohi-q21_c0a66185b3d78b7b.json": "39db600764769311d18a09cd001d9fa984d04ef4c29b6e4bd6e519e97ad24212",
+      "output/gas-shunin-hei/questions_json/2018/24_questionIssueCorrections/hei-pdf-v4-2018-004_2018-kiso-q1_d900190074a9c7ce.json": "ee15e86a959a0984652d15a9ca69d0613544da22f05a2b61b076a0c51a87e00b",
+      "output/gas-shunin-hei/questions_json/2018/24_questionIssueCorrections/hei-pdf-v4-2018-004_2018-kiso-q10_18110956eb7132b0.json": "80a2d448f5d47cf810eec73c0860f8fa964577eabcd289eaded28d2191c5ff58",
+      "output/gas-shunin-hei/questions_json/2018/24_questionIssueCorrections/hei-pdf-v4-2018-004_2018-kiso-q11_276fc41c79b7b8b1.json": "614dbe64ac72f8c26c713045bcd7245caa4d3b08ce2567ff6833f56092a00da7",
+      "output/gas-shunin-hei/questions_json/2018/24_questionIssueCorrections/hei-pdf-v4-2018-004_2018-kiso-q12_c8945ff0218c666c.json": "931b13b0aa54366991ed46ae8fe28d6e81170e5d6fada52700996a20104d4212",
+      "output/gas-shunin-hei/questions_json/2018/24_questionIssueCorrections/hei-pdf-v4-2018-004_2018-kiso-q13_22aa648fc36ab235.json": "9708e0fd720f7b7637cb3060eb63a26fdca1ea2427ccbdc7a69f992e6bb81633",
+      "output/gas-shunin-hei/questions_json/2018/24_questionIssueCorrections/hei-pdf-v4-2018-004_2018-kiso-q14_6bb9e096fbaac3f3.json": "a9fb6958111cbf41d00ed706d5fac992f1920fd832806d61ee23f645959e34e2",
+      "output/gas-shunin-hei/questions_json/2018/24_questionIssueCorrections/hei-pdf-v4-2018-004_2018-kiso-q15_d6ae6450ee244c57.json": "0684fbb1ba7b870ab334f0910785dff6eb1bb0147e64f93954ce5dd132dfe8f4",
+      "output/gas-shunin-hei/questions_json/2018/24_questionIssueCorrections/hei-pdf-v4-2018-004_2018-kiso-q2_96fc7e45a10c6818.json": "03ec75cfab76727946016625b5d22d55df9ffa9d94a0477ae4f7f066c6983258",
+      "output/gas-shunin-hei/questions_json/2018/24_questionIssueCorrections/hei-pdf-v4-2018-004_2018-kiso-q3_a833d116ea2493c4.json": "717259b8dc50dcc099556752735f5e2725b0eb3522912abed4a170abee6982aa",
+      "output/gas-shunin-hei/questions_json/2018/24_questionIssueCorrections/hei-pdf-v4-2018-004_2018-kiso-q4_334955e3c38faa59.json": "54ceac953f88dad72824a69a578e07a2f820afe27a990d5da95d43c344f65420",
+      "output/gas-shunin-hei/questions_json/2018/24_questionIssueCorrections/hei-pdf-v4-2018-004_2018-kiso-q5_09496c34992fe771.json": "193d5158b27cf630257d8e121ce5cdd4fdb7d16e1644d91c6e2ebcdf533a49f5",
+      "output/gas-shunin-hei/questions_json/2018/24_questionIssueCorrections/hei-pdf-v4-2018-004_2018-kiso-q6_9632e0089397b78f.json": "52f73fe671014dd2922ac84432ddbdf43eeabf3e5297df97ea1eb1c6431f5bbe",
+      "output/gas-shunin-hei/questions_json/2018/24_questionIssueCorrections/hei-pdf-v4-2018-005_2018-kiso-q7_7d5c06b03b916d9e.json": "ffe05e54d230e8cdac5cf190e63ef9474d3c83ea9316fafb046dec4d367f56d9",
+      "output/gas-shunin-hei/questions_json/2018/24_questionIssueCorrections/hei-pdf-v4-2018-005_2018-kiso-q8_5c56ea107e3d271b.json": "a7595665603f5b703659203f608d4fc01787d1f09603eb0acf2dc74af1e290e7",
+      "output/gas-shunin-hei/questions_json/2018/24_questionIssueCorrections/hei-pdf-v4-2018-005_2018-kiso-q9_a93eb02658a7d18e.json": "4c4411c77e323afad67109ae8722108a6de9e94c34f0723e105de14680654848",
+      "output/gas-shunin-hei/questions_json/2018/24_questionIssueCorrections/hei-pdf-v4-2018-005_2018-law-q1_c04d21ef39442e76.json": "8c3af906f43862cbbec8b3c50f3a75ea33a58d7bd87e039d57efb42da989d927",
+      "output/gas-shunin-hei/questions_json/2018/24_questionIssueCorrections/hei-pdf-v4-2018-005_2018-law-q10_6240231d08469d6f.json": "fd256ec730d05acf1fff0d8915d1bb24378529dd0251ae0c34632775184b0581",
+      "output/gas-shunin-hei/questions_json/2018/24_questionIssueCorrections/hei-pdf-v4-2018-005_2018-law-q11_d59d98ee272dd091.json": "0b3a3f1ec68ea7541ed788bbf5c2a948b82491c58eeaaa0715c2fd813523f2c9",
+      "output/gas-shunin-hei/questions_json/2018/24_questionIssueCorrections/hei-pdf-v4-2018-005_2018-law-q12_cb26db246b3ad114.json": "b7ad16dee9a3027d492f110fdb268d53f003a8895ddf54edcd161bcd11dc43a8",
+      "output/gas-shunin-hei/questions_json/2018/24_questionIssueCorrections/hei-pdf-v4-2018-005_2018-law-q13_720b93d29f5817ae.json": "2966c3cf65a69bd29cbc2c8967dca037ca66d47e20c9b7fefa5dd0e7be82ae78",
+      "output/gas-shunin-hei/questions_json/2018/24_questionIssueCorrections/hei-pdf-v4-2018-005_2018-law-q14_672fc8b74c3c3a39.json": "6ebba7d84ab122bcb3cb86f063673c628320df4361e5e106eb5ba061914e4d8b",
+      "output/gas-shunin-hei/questions_json/2018/24_questionIssueCorrections/hei-pdf-v4-2018-005_2018-law-q15_15456bf380dcc935.json": "b6474db4a33aefe83399317dc9998b1e9d1a00c0c5b48b76da688587f4299a95",
+      "output/gas-shunin-hei/questions_json/2018/24_questionIssueCorrections/hei-pdf-v4-2018-005_2018-law-q16_55869d9f9f172627.json": "b43869e72434a927baf0058043efc068cec1df118357136bc89c25f05b4a65c0",
+      "output/gas-shunin-hei/questions_json/2018/24_questionIssueCorrections/hei-pdf-v4-2018-006_2018-law-q2_fabed91bb4ad3513.json": "76b878b7ad9ed74fe0e8a3b7e527c87f262b074d32a3e05520b7e8e73270cc94",
+      "output/gas-shunin-hei/questions_json/2018/24_questionIssueCorrections/hei-pdf-v4-2018-006_2018-law-q3_c2eb8c9e84b8ced6.json": "ed27f76b1358e96f103c2d41ca9a255c30e4dcc56e3c60fca2ff6eee26599d09",
+      "output/gas-shunin-hei/questions_json/2018/24_questionIssueCorrections/hei-pdf-v4-2018-006_2018-law-q4_f4a69f28956085ae.json": "812fdf4da03273ac90ff896f5ae976613440746970fa33950ac2126b888278cf",
+      "output/gas-shunin-hei/questions_json/2018/24_questionIssueCorrections/hei-pdf-v4-2018-006_2018-law-q5_faf0938f136dc6d6.json": "0a54f1301d26bffad071bd44043b0dbd8290e1a27fa24c5d1b8b49ecb4e9403b",
+      "output/gas-shunin-hei/questions_json/2018/24_questionIssueCorrections/hei-pdf-v4-2018-006_2018-law-q6_e40dc48b083a5c9b.json": "db17f28751d805b593634f8ac5b17a0f0cb0050c9ef6e6706476bae88ea72ab8",
+      "output/gas-shunin-hei/questions_json/2018/24_questionIssueCorrections/hei-pdf-v4-2018-006_2018-law-q7_0bcdb8ef506f00ae.json": "94cafd951d1610e75ca117e2a55adc425050feab149438ea2d893354968bd5a5",
+      "output/gas-shunin-hei/questions_json/2018/24_questionIssueCorrections/hei-pdf-v4-2018-006_2018-law-q8_a4d108df2fb7737d.json": "60525e2ab5ec32e59353a210549f839ccb80ed33953bb9a4a690df7ed840f104",
+      "output/gas-shunin-hei/questions_json/2018/24_questionIssueCorrections/hei-pdf-v4-2018-006_2018-law-q9_bd74795db64273bc.json": "c85bd626985f87bee1689be3604977effad503785d407f31ab6c9c5cdbd84811",
+      "output/gas-shunin-hei/questions_json/2019/24_questionIssueCorrections/hei-pdf-v4-2019-008_2019-kiso-q7_76d241f55f060bcc.json": "fa7ee9682bcbeaeaec211db6965be574aa3bc49eef0ad4266fb74c4970f0782a",
+      "output/gas-shunin-hei/questions_json/2019/24_questionIssueCorrections/hei-pdf-v4-2019-008_2019-kiso-q8_381896c912a2ad30.json": "d46329cfd9d9410bcfa076cfca42db4bf2c77329ee20b88d26637cd6cff34903",
+      "output/gas-shunin-hei/questions_json/2019/24_questionIssueCorrections/hei-pdf-v4-2019-008_2019-kiso-q9_34cebf90f36eb03a.json": "34b7f736818ae68fa2da872278e56b9cadede1f067b59abde530119234195e44",
+      "output/gas-shunin-hei/questions_json/2019/24_questionIssueCorrections/hei-pdf-v4-2019-008_2019-law-q1_71e1d52a263c8baf.json": "3eaf047ca95ef076f8bea8fd39a23b6dca027735381d1ecca35f8ee5b94d7374",
+      "output/gas-shunin-hei/questions_json/2019/24_questionIssueCorrections/hei-pdf-v4-2019-008_2019-law-q10_2efa63768a8b1914.json": "b0a101b0cee47cc1eccf39b86761b920f5fa85f1cb21e6a13f601d8458c5b3b7",
+      "output/gas-shunin-hei/questions_json/2019/24_questionIssueCorrections/hei-pdf-v4-2019-008_2019-law-q11_87307ab7af6dae96.json": "b55d5ef6ac644c1456deebb46c1e8fe0e1db423a97c528077bfee2567a523dc1",
+      "output/gas-shunin-hei/questions_json/2019/24_questionIssueCorrections/hei-pdf-v4-2019-008_2019-law-q12_93674a348adeee89.json": "1df357252d07029d8e0be383d098dc4df77a11fd7122cf395d9cc04a5ce2392d",
+      "output/gas-shunin-hei/questions_json/2019/24_questionIssueCorrections/hei-pdf-v4-2019-008_2019-law-q13_bebb56a22f090de9.json": "f3ee893215c56f9dec73a71f3484492469f3afd19ec7f2c4d1f23bff48b468bf",
+      "output/gas-shunin-hei/questions_json/2019/24_questionIssueCorrections/hei-pdf-v4-2019-008_2019-law-q14_4f61501da75e94b8.json": "30ab26abf7213d8aed275a48848f8fee0dc80505bf040f7752de5a8ad6316126",
+      "output/gas-shunin-hei/questions_json/2019/24_questionIssueCorrections/hei-pdf-v4-2019-008_2019-law-q15_76138c3e4fd38eff.json": "d2bd98fd2f1851345100babb90835bd689fc341a9f3bb77827549bbfa677d093",
+      "output/gas-shunin-hei/questions_json/2019/24_questionIssueCorrections/hei-pdf-v4-2019-008_2019-law-q16_5733b63533f78f95.json": "b2c77a54c2e2da874cfa90aaebd34c3ebbd1cfdcc6d58eb080095263a4967361",
+      "output/gas-shunin-hei/questions_json/2019/24_questionIssueCorrections/hei-pdf-v4-2019-009_2019-law-q2_545cb2514d14a0f5.json": "a2cdaa6cbc103c4f530a54638d8062e45220e0a2f14e59da70f6e5e7da43ab5b",
+      "output/gas-shunin-hei/questions_json/2019/24_questionIssueCorrections/hei-pdf-v4-2019-009_2019-law-q3_437e5a353d647dcb.json": "93b14b99764afd54739c6f7a824691817a24a24760e1263eeaf89d5c2df85494",
+      "output/gas-shunin-hei/questions_json/2019/24_questionIssueCorrections/hei-pdf-v4-2019-009_2019-law-q4_f7a49298c8705c75.json": "acad0ce3cf331d2ea016dd81ee17b7bf436433cf7932c11226903e1db6d9e752",
+      "output/gas-shunin-hei/questions_json/2019/24_questionIssueCorrections/hei-pdf-v4-2019-009_2019-law-q5_2538a39cc72f358b.json": "e1ab86af48a9b24d7ac0889209251df3a8a04f5ce90f9c0e9ddc4776277de875",
+      "output/gas-shunin-hei/questions_json/2019/24_questionIssueCorrections/hei-pdf-v4-2019-009_2019-law-q6_51ca76e4987d6c79.json": "daaed918aa904edcf37ee1cd7a1ec612934bc7b04ee2b26818e124359b9096e7",
+      "output/gas-shunin-hei/questions_json/2019/24_questionIssueCorrections/hei-pdf-v4-2019-009_2019-law-q7_d31e7fdc0e86f23c.json": "308f6be7fdb18abf7ae21575d621cc11b64d4239372d358420aeab968cb35df4",
+      "output/gas-shunin-hei/questions_json/2019/24_questionIssueCorrections/hei-pdf-v4-2019-009_2019-law-q8_3d4162c018e91a2d.json": "a88356549642f25239042ba3c1a98f4739dcdbcef8af0328ccf2cca49c903df6",
+      "output/gas-shunin-hei/questions_json/2019/24_questionIssueCorrections/hei-pdf-v4-2019-009_2019-law-q9_46392ffa96ad9e40.json": "52c750ee58ae60962abad79649c3874ed65d944ad5987ed14b05a4baf2b4fb88",
+      "output/gas-shunin-hei/questions_json/2020/24_questionIssueCorrections/hei-pdf-v4-2020-010_2020-kiso-q1_d82374d5609f4d0d.json": "35ae3aeef0f7eaaa4effb2c3c821951ce432c50cf7ce47ddcce4f06f214adade",
+      "output/gas-shunin-hei/questions_json/2020/24_questionIssueCorrections/hei-pdf-v4-2020-010_2020-kiso-q10_b935eed8e6647017.json": "9c51b716ae40a9a8611907959cfb7b9c4663faeacb96742ba00751d8c4551d84",
+      "output/gas-shunin-hei/questions_json/2020/24_questionIssueCorrections/hei-pdf-v4-2020-010_2020-kiso-q11_77f8450237aa25f0.json": "24d782824e0a10e295cd0ce06b186635b3e7a7591dfeb87347136befc459969f",
+      "output/gas-shunin-hei/questions_json/2020/24_questionIssueCorrections/hei-pdf-v4-2020-010_2020-kiso-q12_18839afafbbec8c7.json": "c24c6f5a839aecf65f287cdf7207597ba5eeb6da3a1437e2547f4d4185577444",
+      "output/gas-shunin-hei/questions_json/2020/24_questionIssueCorrections/hei-pdf-v4-2020-010_2020-kiso-q13_dca860cf16778e98.json": "3cfa9f86c105e6bda44143c5388e6362be7018ac90b58cb0e37349d82eb73b98",
+      "output/gas-shunin-hei/questions_json/2020/24_questionIssueCorrections/hei-pdf-v4-2020-010_2020-kiso-q14_25146ba209744b96.json": "5930a0c4629906e02171534746e36b3a400cdabc99ca450c2a5288b8a01b4392",
+      "output/gas-shunin-hei/questions_json/2020/24_questionIssueCorrections/hei-pdf-v4-2020-010_2020-kiso-q15_eb7029d68a5b714c.json": "e4df9d9723d1c8400cf608e6826a7eeb0f36c116e4ea1148fc7c21b138477efb",
+      "output/gas-shunin-hei/questions_json/2020/24_questionIssueCorrections/hei-pdf-v4-2020-010_2020-kiso-q2_f1126c077623ca4d.json": "990bc4d4647e02760e37aa97046aaad2ac61ded478a58fc0e87471d18a8add68",
+      "output/gas-shunin-hei/questions_json/2020/24_questionIssueCorrections/hei-pdf-v4-2020-010_2020-kiso-q3_a8798a283d46f021.json": "946a03331019eac1880863e29b2309c1bd994dbd2d78ca0c90753848fa203849",
+      "output/gas-shunin-hei/questions_json/2020/24_questionIssueCorrections/hei-pdf-v4-2020-010_2020-kiso-q4_18983699511ce08f.json": "b0d2c00ac1b8fd45ed70cda7abf5d9c8e851a8c041fc0b21a308b595971e2d1e",
+      "output/gas-shunin-hei/questions_json/2020/24_questionIssueCorrections/hei-pdf-v4-2020-010_2020-kiso-q5_d927b63349658c41.json": "57a94c837c1fe42485a8600db9cb466ef534fde2bb35681af195d93f6ad1e443",
+      "output/gas-shunin-hei/questions_json/2020/24_questionIssueCorrections/hei-pdf-v4-2020-010_2020-kiso-q6_9136696ddbc2cd44.json": "9617ab407fc8c55f732b00495f5057eb293d3743f1059b386ec86c71fc0688f5",
+      "output/gas-shunin-hei/questions_json/2020/24_questionIssueCorrections/hei-pdf-v4-2020-011_2020-kiso-q7_9bac6fb3f3819741.json": "1e2a5d631e3d9d126d69bb31a34072b53de3cba3a7e85b0e31e4ed1a6e029e37",
+      "output/gas-shunin-hei/questions_json/2020/24_questionIssueCorrections/hei-pdf-v4-2020-011_2020-kiso-q8_a122c1e22bbe561e.json": "9c5801e9e67a250a6f0994d21a425a9bcd1286a01a178c7c16c4d640a8d54ead",
+      "output/gas-shunin-hei/questions_json/2020/24_questionIssueCorrections/hei-pdf-v4-2020-011_2020-kiso-q9_8ae40f621ad4573c.json": "e70721974e1dfddd1f743f2e9cf6b1091bf3105c101a6951f71fbff2f249d968",
+      "output/gas-shunin-hei/questions_json/2020/24_questionIssueCorrections/hei-pdf-v4-2020-011_2020-law-q1_9b1f6d1d25cf0cd1.json": "daf7e6a245bb62883fd73f09166184ee40311efbe1d2b843720642f39e141f0a",
+      "output/gas-shunin-hei/questions_json/2020/24_questionIssueCorrections/hei-pdf-v4-2020-011_2020-law-q10_737479ace8a02c9f.json": "3c9f46dac193a3dab0af4b39bed497e47cb8967f38f30c38fe238d0365fc8bec",
+      "output/gas-shunin-hei/questions_json/2020/24_questionIssueCorrections/hei-pdf-v4-2020-011_2020-law-q11_21bc707a93468b2f.json": "574b4839d446e0a99d7ad35523e5f6efff8558f7502e680de84dd84ac5ec917c",
+      "output/gas-shunin-hei/questions_json/2020/24_questionIssueCorrections/hei-pdf-v4-2020-011_2020-law-q12_f5b5cd43456045da.json": "1f048bd4cf5c3ab5e4f135929692b5e1ea744065c1158a1d20b6e21873268e8e",
+      "output/gas-shunin-hei/questions_json/2020/24_questionIssueCorrections/hei-pdf-v4-2020-011_2020-law-q13_6e7c17c20ec49d71.json": "8232cc6632705e73df6f28550654494ea458b46183f11294d28eae00e5223e27",
+      "output/gas-shunin-hei/questions_json/2020/24_questionIssueCorrections/hei-pdf-v4-2020-011_2020-law-q14_9d617427a1e0ba61.json": "a0b2f60fa17757a82647ce01ace1a9609f0726db7d63d57a9726ca9bb3cf8267",
+      "output/gas-shunin-hei/questions_json/2020/24_questionIssueCorrections/hei-pdf-v4-2020-011_2020-law-q15_8506450553814d4c.json": "81f45bf9909d804bbd2047be9e8a08a7af2117d0b4acd47a82ce297e049b7aae",
+      "output/gas-shunin-hei/questions_json/2020/24_questionIssueCorrections/hei-pdf-v4-2020-011_2020-law-q16_f6f35ec16047f81c.json": "25702befad406a71f184e5beb38bbe7a713152f81a7c9c7aa6a0f1d2e21cd957",
+      "output/gas-shunin-hei/questions_json/2020/24_questionIssueCorrections/hei-pdf-v4-2020-012_2020-law-q2_02fb70a69085885e.json": "88ebf3d4d0360fe8b1e12fe6422548d15ce3445804c5c8371b4e374238a98f13",
+      "output/gas-shunin-hei/questions_json/2020/24_questionIssueCorrections/hei-pdf-v4-2020-012_2020-law-q3_fa7a8f58ad47b6bb.json": "d3f59ca309ec1c06e1842181520757ec689012d592c94bc80bc74cf1a5fc3bb5",
+      "output/gas-shunin-hei/questions_json/2020/24_questionIssueCorrections/hei-pdf-v4-2020-012_2020-law-q4_f297c491d7af6a91.json": "912ec4b96d0e959f3b64dadc9dbce7af4a9282dedf247dc9667a26cdd362c3e0",
+      "output/gas-shunin-hei/questions_json/2020/24_questionIssueCorrections/hei-pdf-v4-2020-012_2020-law-q5_52af935ed26578b7.json": "c6416705c8e9bb11ceeb856322bf49fb4ace80e021b9719948c3d3e8c0a3ff4a",
+      "output/gas-shunin-hei/questions_json/2020/24_questionIssueCorrections/hei-pdf-v4-2020-012_2020-law-q6_a72fc6e5e3f20a93.json": "151e45c5ff361b3bc2cdf8e16dd8b66dd82dd54eff25b4789eaf507311e88036",
+      "output/gas-shunin-hei/questions_json/2020/24_questionIssueCorrections/hei-pdf-v4-2020-012_2020-law-q7_deaf2edc8057c068.json": "c9c7ddb196e657541ae35ca922c1db0c93332f05cbdf464b2237f4ace1f74d47",
+      "output/gas-shunin-hei/questions_json/2020/24_questionIssueCorrections/hei-pdf-v4-2020-012_2020-law-q8_d91003d3803ea067.json": "ac4aa0ae9a7267e9848cf2997ce781a6ea9a0d2291c266196f74992ea7b2d5d2",
+      "output/gas-shunin-hei/questions_json/2020/24_questionIssueCorrections/hei-pdf-v4-2020-012_2020-law-q9_8e7496ea550f3805.json": "3e869fc67e99adb1377fc43af17d77fc292038b966bec4dfd0ecf1d82b7f31c8",
+      "output/gas-shunin-hei/questions_json/2021/24_questionIssueCorrections/hei-pdf-v4-2021-013_2021-kiso-q1_af5380b9f6d19f94.json": "1849a5ff686e73acad67323b90513953bf1882d482133f1bd6a2f2a0a995ade8",
+      "output/gas-shunin-hei/questions_json/2021/24_questionIssueCorrections/hei-pdf-v4-2021-013_2021-kiso-q10_0397aa55066a5872.json": "3da151ed8e769c91a4264f81c07449ae4a930c3fa8300a31101a805060cad930",
+      "output/gas-shunin-hei/questions_json/2021/24_questionIssueCorrections/hei-pdf-v4-2021-013_2021-kiso-q11_61419199d67a12cb.json": "5379efbfabfcf747b8c67d110c8946b430a0abbe7386d2e979c77e7e9fad81f9",
+      "output/gas-shunin-hei/questions_json/2021/24_questionIssueCorrections/hei-pdf-v4-2021-013_2021-kiso-q12_cb9dcc6d79c6dd28.json": "80674c18b0951f0d80d4fd22db323853067c8c07aa82128656e814af91aaa56d",
+      "output/gas-shunin-hei/questions_json/2021/24_questionIssueCorrections/hei-pdf-v4-2021-013_2021-kiso-q13_c8bc036fbb724e30.json": "113aa128077f7b29b8df29ba00ee6ac2a69d3f1fe6f18ac71378f5b55db43a31",
+      "output/gas-shunin-hei/questions_json/2021/24_questionIssueCorrections/hei-pdf-v4-2021-013_2021-kiso-q14_b51b29f0762f33a8.json": "2cb59a1055b7dacfab69bb9cb155875e201e9953282daea8d2b8493915744219",
+      "output/gas-shunin-hei/questions_json/2021/24_questionIssueCorrections/hei-pdf-v4-2021-013_2021-kiso-q15_201ad243b9e0d0f1.json": "cdb907e29f409f28ba7994fe89d56296af7277e524f0624f4fdac1b58c698040",
+      "output/gas-shunin-hei/questions_json/2021/24_questionIssueCorrections/hei-pdf-v4-2021-013_2021-kiso-q2_abcbcf16dd22efe9.json": "c83bf487a25b7ecfc0f33754325a008fe4d38ddb7a6fa8dfa0ab4cb7913e662e",
+      "output/gas-shunin-hei/questions_json/2021/24_questionIssueCorrections/hei-pdf-v4-2021-013_2021-kiso-q3_51c05b1679b0b5f2.json": "566681654220c75e642b901821cba17e697fa5d45569f8e5abc64c6d70f21de2",
+      "output/gas-shunin-hei/questions_json/2021/24_questionIssueCorrections/hei-pdf-v4-2021-013_2021-kiso-q4_06db4a1fe7dd8985.json": "8d492aa48fc02c5e5191eaccaaf1a9fce27a9abb9c635b9a24f639bfce5a5e14",
+      "output/gas-shunin-hei/questions_json/2021/24_questionIssueCorrections/hei-pdf-v4-2021-013_2021-kiso-q5_6b48461bf9554603.json": "9bcccd13db7ba00eeefd7e68bf47aba99ea257d63ec70f2640a928fdc952b597",
+      "output/gas-shunin-hei/questions_json/2021/24_questionIssueCorrections/hei-pdf-v4-2021-013_2021-kiso-q6_e7477b2f3e7f7d6f.json": "cbbed62aefa7356620761700a8f2324e660851eb23d41d948358b1b7e3c50125",
+      "output/gas-shunin-hei/questions_json/2021/24_questionIssueCorrections/hei-pdf-v4-2021-014_2021-kiso-q7_cfbd6088c71af382.json": "1a9714324cd6e03d93bed5062293539f0787525f8284ab2481e30a5a05459b27",
+      "output/gas-shunin-hei/questions_json/2021/24_questionIssueCorrections/hei-pdf-v4-2021-014_2021-kiso-q8_2528feb7fc528c3a.json": "80a4c4664398a872ed08a9d2782f54f944e3c740801aef4f5ab8ef8c48f0c1a5",
+      "output/gas-shunin-hei/questions_json/2021/24_questionIssueCorrections/hei-pdf-v4-2021-014_2021-kiso-q9_31c6abf77637c7ff.json": "18386843868de9f31a0d8926a1c06282b77488372129118daa4fd7440998abcb",
+      "output/gas-shunin-hei/questions_json/2021/24_questionIssueCorrections/hei-pdf-v4-2021-014_2021-law-q1_7737ac75b1ae369b.json": "cf8925063ea07b8921945011e440f1853946ca8924a58503126ae85566d58705",
+      "output/gas-shunin-hei/questions_json/2021/24_questionIssueCorrections/hei-pdf-v4-2021-014_2021-law-q10_cfa32094bbabe5f2.json": "d82276e93fd3513c091219c5007bdb1a58332486431cf26089d632d09f641723",
+      "output/gas-shunin-hei/questions_json/2021/24_questionIssueCorrections/hei-pdf-v4-2021-014_2021-law-q11_3c5335e5e4a1aef2.json": "b217c4afba6bb8e2a31e4aa1a065aee493e7428ddaa1fee62251dfdff4a9a6dc",
+      "output/gas-shunin-hei/questions_json/2021/24_questionIssueCorrections/hei-pdf-v4-2021-014_2021-law-q12_fa63e40252291040.json": "ce08231fb4836517d5be80272d9c12ffec41c5010aea90c77fc613af8f7dc003",
+      "output/gas-shunin-hei/questions_json/2021/24_questionIssueCorrections/hei-pdf-v4-2021-014_2021-law-q13_3cc67a5f8aeae797.json": "20a886897c438c6edc768456c0057ed20382ff6365e9f17821d3db07e790e025",
+      "output/gas-shunin-hei/questions_json/2021/24_questionIssueCorrections/hei-pdf-v4-2021-014_2021-law-q15_13f14884265cd122.json": "0977107a41361aa9902bf2b4771be4394eb4defcafadbaa7f8059e9d4c862077",
+      "output/gas-shunin-hei/questions_json/2021/24_questionIssueCorrections/hei-pdf-v4-2021-014_2021-law-q16_3dfb91343b8c50fd.json": "c2387aa9fd1246aa3b0cb0f36f039f4517fd776095b2ae3615486af6d82f2a01",
+      "output/gas-shunin-hei/questions_json/2021/24_questionIssueCorrections/hei-pdf-v4-2021-015_2021-law-q2_937fac66d90acd05.json": "73cb2952548cd1534c9ff0094d610c05249082312d844a5edb98af75c7a510e4",
+      "output/gas-shunin-hei/questions_json/2021/24_questionIssueCorrections/hei-pdf-v4-2021-015_2021-law-q3_fae8e67c6f3adf52.json": "b88dfd6287b93ecfc640861f3a8e30eded734056403d6e2d84e630f53e64adff",
+      "output/gas-shunin-hei/questions_json/2021/24_questionIssueCorrections/hei-pdf-v4-2021-015_2021-law-q4_eb8d41d0d8da8614.json": "d6f1ba3d0973f959dc200fd585d4d563a8114e1cde2391ee0d6bcfeaad7a7c15",
+      "output/gas-shunin-hei/questions_json/2021/24_questionIssueCorrections/hei-pdf-v4-2021-015_2021-law-q5_f7570fae034f49ce.json": "31c33422b54205879b080a6355d548921faeb5789c65829fa8a242b29c828a55",
+      "output/gas-shunin-hei/questions_json/2021/24_questionIssueCorrections/hei-pdf-v4-2021-015_2021-law-q6_6df14715aeb590c4.json": "40f73dae3d86ca439890a6233ccc3c073c44b66c14abf85de6df9d2daac67ff2",
+      "output/gas-shunin-hei/questions_json/2021/24_questionIssueCorrections/hei-pdf-v4-2021-015_2021-law-q7_0b2ea21a74aaa748.json": "36289585508314873089d3a47c3a0ccef96a2c67dc096ba3effde94d2d8dd36f",
+      "output/gas-shunin-hei/questions_json/2021/24_questionIssueCorrections/hei-pdf-v4-2021-015_2021-law-q8_cced371585299df6.json": "032bbdd35c4bd59269830e399b1fc58318740051b4b43234f15374924ff23ac8",
+      "output/gas-shunin-hei/questions_json/2021/24_questionIssueCorrections/hei-pdf-v4-2021-015_2021-law-q9_36c72311675a8d5f.json": "cb4529d7516f184dc7a9a8cb16589aafdf58bb5760a46dd482eaca5fe153d1e9",
+      "output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/hei-pdf-v4-2022-016_2022-kiso-q1_382227291812f4e1.json": "342a520c60cdf3be98daa5a1db7caeab9ac958e605de06ee4e11c647db1b68a9",
+      "output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/hei-pdf-v4-2022-016_2022-kiso-q10_78453b769f8ce78f.json": "20b6198f67563ce76deacd115a6eb76344df437d8c855c21316b4cefc352d2e6",
+      "output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/hei-pdf-v4-2022-016_2022-kiso-q11_213dd9f77193ee88.json": "74f1d300b2f10b6a381be6ace587900a6dcaa924961956f641c03ae0ea3bb1de",
+      "output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/hei-pdf-v4-2022-016_2022-kiso-q12_3e72836890ddba05.json": "e3edcc1f968dbb6aba7fb68629fdd8c78e49ec05f30b9369f9ef6310b9ab5834",
+      "output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/hei-pdf-v4-2022-016_2022-kiso-q13_10e2016b808b006c.json": "f667e791c6f97cd66ed4d982c2e43d26852440d446ca06ae1bdb0e150c07da92",
+      "output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/hei-pdf-v4-2022-016_2022-kiso-q14_b6197d4fa929e14d.json": "5ea6ebbf0c02b07552d595d6210b7e4a320151b17a4f9755f946bf420fa01cbc",
+      "output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/hei-pdf-v4-2022-016_2022-kiso-q15_ae4d6de67964ad62.json": "fb9c86397b36fd7807ae39ab07b1d4797e96c2e63513187f6564af74183d5136",
+      "output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/hei-pdf-v4-2022-016_2022-kiso-q2_43d0d97051d5e6f5.json": "7e9032690f964091b48ea11227b1c5a007d18699ae61492b5af22564686f1a19",
+      "output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/hei-pdf-v4-2022-016_2022-kiso-q3_1be65db208fbee12.json": "38245ae63638da2fa16e5c351fcf9cff3d535a5f5be0a6125f64ca1b5b4100d4",
+      "output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/hei-pdf-v4-2022-016_2022-kiso-q4_acfbc17300024f2d.json": "dc78004b2639fe00d3df3a4cf29dc7bfe5fa6dc5cfa0b4533991ddbb427633ad",
+      "output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/hei-pdf-v4-2022-016_2022-kiso-q5_760db9d5779f3259.json": "fa167483eaefd1370ebda56fdf5eefefa234c60caafe81c3891f381227eb4ede",
+      "output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/hei-pdf-v4-2022-016_2022-kiso-q6_fd29c5d6f0b29310.json": "db7d4daa1e6edd3bade421097025eb885d40f00302a20475e3f1b3c55b3d9246",
+      "output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/hei-pdf-v4-2022-017_2022-kiso-q7_8cb6b33850c8ffdc.json": "aa8ed0f5a8e8c3c85084d8ea4fdcccb2b58c1abbb21bee2c15209d7df7551896",
+      "output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/hei-pdf-v4-2022-017_2022-kiso-q8_6455f9d87bd1e5e3.json": "589e6c6a9d73a08dff70006d1b974f6e3755f9586ff739cc084fcc0da4f63d58",
+      "output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/hei-pdf-v4-2022-017_2022-kiso-q9_087e54dc4ea20632.json": "f696f2e82ea4c4ae02ffe413a07b7a0435e3a9a1e658d6d9b1f8683a15c78447",
+      "output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/hei-pdf-v4-2022-017_2022-law-q1_965755bcf40d2bd7.json": "9c4c13a41104f8ba1fd0999ff7114b714cb30bc53241607fde9fce984c7ab2b1",
+      "output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/hei-pdf-v4-2022-017_2022-law-q10_b2b32a3cc69844fd.json": "184a79ab08ef38d86fad2b7513a94ed6fd1ce30af61c2930a8ff35e3052b8c06",
+      "output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/hei-pdf-v4-2022-017_2022-law-q11_001954358fdeef15.json": "dd20c87bcda7d9e83c163b9c38c29e1aa096de1674df93d956545d98cebbe589",
+      "output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/hei-pdf-v4-2022-017_2022-law-q12_5e1a26ea43ac85e4.json": "e913738312fd8b0d8aceb6a9026b56aff2e545a00de2e205175b7b452dd8ea97",
+      "output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/hei-pdf-v4-2022-017_2022-law-q13_7341e3233933c97b.json": "5068b364200cff1e92c5c526ebdeb4670a264134c4a2b3eb41d658727133626a",
+      "output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/hei-pdf-v4-2022-017_2022-law-q14_6e6536219e48028a.json": "844b7e259af3ec6e2261e7e48b3095b0105e66277d7f8fb099367be724f7f4fa",
+      "output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/hei-pdf-v4-2022-017_2022-law-q15_4e668cde9b154cce.json": "22ef8212205521896d0a412cdb0944ec1a0fd5f71a368fc636a875ff5a11dd04",
+      "output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/hei-pdf-v4-2022-017_2022-law-q16_bfde978418296dd1.json": "8e4c7be72b486ecb6d619d8e295d3261dc9139a2ef18b9f5ed585e1928457aae",
+      "output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/hei-pdf-v4-2022-018_2022-law-q2_426b1ff0724817f0.json": "f2b2a912bc668971c4c1e3527373d74d86970bd0257d4c4b4ad9e1ac9e4d5e82",
+      "output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/hei-pdf-v4-2022-018_2022-law-q3_31ac29f81f49add0.json": "fc419222f6f237a74faedc799a9fc389d29d5080426f2cf7eb753ce67d47072d",
+      "output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/hei-pdf-v4-2022-018_2022-law-q4_2df1bcb7c9b06946.json": "ba9499bab3522ec55ee23382bbba69335d95526c5f942c6aaf54830abc73a0bd",
+      "output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/hei-pdf-v4-2022-018_2022-law-q5_b65f290b2ad948cf.json": "f2662d99fdc9b103b63ecbbdfac87b1e416ab85ed8cac8a7e40d1d478d8de4ad",
+      "output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/hei-pdf-v4-2022-018_2022-law-q6_6c89f7275eceda15.json": "428423f8cf5e9d3e1205f4e19c865833283a8b5d0ab5c2f1167b55fb77845e75",
+      "output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/hei-pdf-v4-2022-018_2022-law-q7_d1c04204098a521c.json": "70010fcaf883546d288f052b45b92244dfe5f5e4d8791caf2728549a6f1b65a3",
+      "output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/hei-pdf-v4-2022-018_2022-law-q8_ae1c4a35d6c9fdfe.json": "3590b17f5a3bbe2a9ceaaa708ba6f5f50044b259517f99c31719a0d470fa18c9",
+      "output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/hei-pdf-v4-2022-018_2022-law-q9_590aba44cedb1534.json": "01defa441f8aacb11db3272b50b41edceca2c10111d75ed89b3bd8a4cfe67367",
+      "output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/hei-pdf-v4-2022-018_2022-shohi-q21_4f8f2325c68a3916.json": "e9e7b2997b217d100d88c3ca22189712523440e10437b7ba777edefb0918e7ac",
+      "output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-v4-2023-019_2023-kiso-q1_98e2207274a77327.json": "7ed73ea5a21a430d387779c2057119e142be909371439101a99248eba70aa8ce",
+      "output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-v4-2023-019_2023-kiso-q10_181bca3eb27efe57.json": "fe40ca21922cb6c7b4e21b5ea793a25cfcb607cb997096f4f4d4f41fd2642847",
+      "output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-v4-2023-019_2023-kiso-q11_0f45de7592ebc3c6.json": "799fcd9138f82b789d23e0d6529e64bf6966d89e58c9b34290f6d685c0182050",
+      "output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-v4-2023-019_2023-kiso-q12_8ff57cbb9cbcbb46.json": "73c6eb1629e378627b6a2e30d6be12043d2bc38166a723435052320ffd2290bd",
+      "output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-v4-2023-019_2023-kiso-q13_fda8dbe8f975d2d9.json": "025a729bfbb7467bfaa430e91d9955761c97e54d74c90b91c47dc05e78cf188a",
+      "output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-v4-2023-019_2023-kiso-q14_4c01ad7a9aeadafd.json": "3220bd41016fb1fd7e54a8eaf76bed20e164a6b2b0c4dc563cbbe38a75e7043a",
+      "output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-v4-2023-019_2023-kiso-q15_3f502485b3d67662.json": "82949746eaddf5528925b234cf6aa4be2c6b6aaeb4de085800c1b8d3121e4644",
+      "output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-v4-2023-019_2023-kiso-q2_e2ba654b4f491178.json": "64dec5ea93bf2da6fd373892ad91a1a131193d9414121d80506f7e77d6bc189e",
+      "output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-v4-2023-019_2023-kiso-q3_063347de414764de.json": "9e244f9899f047053e0f6f7e41f2579b84e71d35dbfbe0921f22f2de6920ad76",
+      "output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-v4-2023-019_2023-kiso-q4_ceb0d7ef33b2afa7.json": "8134719fa32ed6fe2c46360bccf051fbb74f77ce63aad40c294eab87671f119a",
+      "output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-v4-2023-019_2023-kiso-q5_b0f103b0026a4757.json": "3913ec45b4da6b9ee1de2d513ef95d1cab08056ce0ba8c0c7bc61c557564c307",
+      "output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-v4-2023-019_2023-kiso-q6_1164fcc3c8ceebaf.json": "57e10c2b4657731c3c826df021ad0ad6682412d74f1215154e4fcf9d3595fcd7",
+      "output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-v4-2023-021_2023-law-q2_23c9d74621934ca2.json": "031341dce02851778ca6fdc68ffd502946efe852ba20210f86c22e616e03839b",
+      "output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-v4-2023-021_2023-law-q3_37d5eeddb1613ea2.json": "f7a51d12962e2166fe9cc787278a2aa04ca0357207f921464abdab83b64c05c3",
+      "output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-v4-2023-021_2023-law-q4_783733ed3c656bf9.json": "e3e6246bf3c7f862f913e7ff0a80250e1d46eb965d81ef01e103adffb5d872ec",
+      "output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-v4-2023-021_2023-law-q5_978118c9ecba91d8.json": "fe549c9601bb04abcd5740250e258f2d42fd5b831cc4bf924b6a10186fab0ff1",
+      "output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-v4-2023-021_2023-law-q6_b7b856c5b8d407da.json": "c21eca096088e84bc289efc1fef01005096120d3df7a63371a8942ccd6079f27",
+      "output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-v4-2023-021_2023-law-q7_be2798c7067394e8.json": "d4ae62d65da5619b1f06415d53f630b615626ac0bb20912e72e457c89d549795",
+      "output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-v4-2023-021_2023-law-q8_b96db73fa28fc964.json": "31758b621509560e8d66c8868afe41279aebf7e5aaab215356916cef8cb0721d",
+      "output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-v4-2023-021_2023-law-q9_8bfe31023b46cf41.json": "a1550066073aa8c13391af2b50a3e39ba2216a245b4e54d1fccbaca8c33ec28a",
+      "output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-v4-2023-021_2023-seizo-q9_eff2f988032a80f5.json": "00856d63567945ad98ea43f2a4499b849ea5d889e5ef2c81b50266a09d9e5f97",
+      "output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-v4-2023-021_2023-shohi-q20_f9988c57aeb49201.json": "563114dc4f03a59b32d6b3bfd74dacacf64908e4cf81e14ebd8a18498f192ea2",
+      "output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-v4-2023-021_2023-shohi-q21_14d7b4da2141109d.json": "927e280053b4a64c120a2cd11d16ebbd1af0e27016658e0e7ec4393ef547c7d5",
+      "output/gas-shunin-hei/questions_json/2024/24_questionIssueCorrections/hei-pdf-v4-2024-022_2024-kiso-q1_7f92762408c66750.json": "76c388bbad1f92046a9e26b64d402d252c78f48300e96dc36b00638a4ee6449a",
+      "output/gas-shunin-hei/questions_json/2024/24_questionIssueCorrections/hei-pdf-v4-2024-022_2024-kiso-q10_2c499feb49d9d33f.json": "cc24c51f7b9ea8125a8e2be6b96cc3fa927bcd712e261be6061dc36b58bce38e",
+      "output/gas-shunin-hei/questions_json/2024/24_questionIssueCorrections/hei-pdf-v4-2024-022_2024-kiso-q11_cc8797e922500f9b.json": "7a09629d9be82ccdf4af8cc6b8b2daacb69556f3cd44048d869f5925ff2dd3b9",
+      "output/gas-shunin-hei/questions_json/2024/24_questionIssueCorrections/hei-pdf-v4-2024-022_2024-kiso-q12_945e37a5e783138a.json": "f108ca425d6a2eeadad8f1c1eabaf2f73ab43be42784a39f54e52e8560c39891",
+      "output/gas-shunin-hei/questions_json/2024/24_questionIssueCorrections/hei-pdf-v4-2024-022_2024-kiso-q13_a57bd0b2743aa1d0.json": "0bf30c6a4b3aedbbf54074c4727c266a8f6aaa3f90896883ae798375bb08618a",
+      "output/gas-shunin-hei/questions_json/2024/24_questionIssueCorrections/hei-pdf-v4-2024-022_2024-kiso-q14_2c5127a01d41d65e.json": "fd374de2f6a166040049f4019489b4c086aeaa1b426aca323d5c443fcb8cba3a",
+      "output/gas-shunin-hei/questions_json/2024/24_questionIssueCorrections/hei-pdf-v4-2024-022_2024-kiso-q15_b1c2d69184ef0b8f.json": "672009e251153881fc8e4e56dbde1c04d02fa323bbc4445620c5d67e8db6603a",
+      "output/gas-shunin-hei/questions_json/2024/24_questionIssueCorrections/hei-pdf-v4-2024-022_2024-kiso-q2_e4d11bfd1a883584.json": "a941bf5583585869f75743aa3fff6cb17e28eda2c91e6acf9882e0ce0c21e823",
+      "output/gas-shunin-hei/questions_json/2024/24_questionIssueCorrections/hei-pdf-v4-2024-022_2024-kiso-q3_27fd834e929e03b2.json": "d36c5a3c3e73167a518e789dca75d39d1c36ccf50fcaf1acdd28fe1d296b121c",
+      "output/gas-shunin-hei/questions_json/2024/24_questionIssueCorrections/hei-pdf-v4-2024-022_2024-kiso-q4_483cd35aaa7511af.json": "d5fd2a018e0a95ce3d6f0e606ff6dd206115872e69830959852c2ba3eb5d7ad8",
+      "output/gas-shunin-hei/questions_json/2024/24_questionIssueCorrections/hei-pdf-v4-2024-022_2024-kiso-q5_41bbf1252ed47ff5.json": "a46bed6a19efe9a08c2872044b3f25ba001625c1302f971bac73690a8fbee279",
+      "output/gas-shunin-hei/questions_json/2024/24_questionIssueCorrections/hei-pdf-v4-2024-022_2024-kiso-q6_0f5add4d64ba6379.json": "fbb173b4e3631567609a98c7ee923260e893343b5b0f51544f35534c0bb652b0",
+      "output/gas-shunin-hei/questions_json/2024/24_questionIssueCorrections/hei-pdf-v4-2024-023_2024-kiso-q7_d9a4a21ce5909e61.json": "d1d974409e4f938c11ba89bb7acfac982ebe1cf23b0bf945297e3b3edbc75123",
+      "output/gas-shunin-hei/questions_json/2024/24_questionIssueCorrections/hei-pdf-v4-2024-023_2024-kiso-q8_ed57b509d89b2304.json": "9ab567ddcab2182476585f0baf051108a0f1c7a1a0d01aa69123f32364721e58",
+      "output/gas-shunin-hei/questions_json/2024/24_questionIssueCorrections/hei-pdf-v4-2024-023_2024-kiso-q9_b945ef94dc07499d.json": "1de624ebef4edaec7a93ef1e77eab82192cf90bc441250faedc6fe5140599c74",
+      "output/gas-shunin-hei/questions_json/2024/24_questionIssueCorrections/hei-pdf-v4-2024-023_2024-law-q1_5f70ef73b597578a.json": "f7564ddf1ba03e4059db5f4c9e6ff901022a4046a285be2eb3748606c5954951",
+      "output/gas-shunin-hei/questions_json/2024/24_questionIssueCorrections/hei-pdf-v4-2024-023_2024-law-q10_e989ea2f1241ed11.json": "5896abb5465a3012d7326efa379d04a4efdde7c01bf1fc7d5495c37cc4ea9e0a",
+      "output/gas-shunin-hei/questions_json/2024/24_questionIssueCorrections/hei-pdf-v4-2024-023_2024-law-q11_2bb358d0c6617e34.json": "bcef33ab35e67e3b87d8277d7d8c4bdc355b3cf9f8bf69eb968a82a6e2b3ecdf",
+      "output/gas-shunin-hei/questions_json/2024/24_questionIssueCorrections/hei-pdf-v4-2024-023_2024-law-q12_308add78db8d25cd.json": "0a84da6eaf847bbe260c41f88cf1c71094df4a59018c421bd01596bf9b60cdf1",
+      "output/gas-shunin-hei/questions_json/2024/24_questionIssueCorrections/hei-pdf-v4-2024-023_2024-law-q13_02aff69b37cb0066.json": "f3227b41e40f27d977cda8c4a703b348334258dc980a09464e1b48c443022e76",
+      "output/gas-shunin-hei/questions_json/2024/24_questionIssueCorrections/hei-pdf-v4-2024-023_2024-law-q14_1490605a6eefa598.json": "b33c7f7486a8f7930665645d789448ad5c90c8fa710bda051c3f7a26812ac4ff",
+      "output/gas-shunin-hei/questions_json/2024/24_questionIssueCorrections/hei-pdf-v4-2024-023_2024-law-q15_ad6a03ced9096203.json": "cfc3165e63b8befa62f00c06aff4fc0ed936c2ad40aa5af261d09e3c99dfb79a",
+      "output/gas-shunin-hei/questions_json/2024/24_questionIssueCorrections/hei-pdf-v4-2024-023_2024-law-q16_4cc8e676fb6c9c14.json": "b96aa9a1f97bdf8205d98947671e6bb4236db057ac99f18ceb5c71044cba703b",
+      "output/gas-shunin-hei/questions_json/2025/24_questionIssueCorrections/hei-pdf-v4-2025-025_2025-kiso-q1_20c1b026769f9733.json": "e8c22bba685509e41daf39d27ace69fb89e653ed1a8f94d0ae1c45f45fdee145",
+      "output/gas-shunin-hei/questions_json/2025/24_questionIssueCorrections/hei-pdf-v4-2025-025_2025-kiso-q10_d23d6e7fc290dc85.json": "d7a8f43e4bcd5a22586b8385959e0652e12b4217069f7d5595f6a754cea7c6e6",
+      "output/gas-shunin-hei/questions_json/2025/24_questionIssueCorrections/hei-pdf-v4-2025-025_2025-kiso-q11_79bcdeadc011a927.json": "320ac9551d09de22a5985b16d9b6dea8359a42c4b511a5d2369497605bb511ef",
+      "output/gas-shunin-hei/questions_json/2025/24_questionIssueCorrections/hei-pdf-v4-2025-025_2025-kiso-q12_cf5c02046e638f28.json": "208b5dba6644b91fd82cbd802d55233914476f92dacb32940019f4b12620c56d",
+      "output/gas-shunin-hei/questions_json/2025/24_questionIssueCorrections/hei-pdf-v4-2025-025_2025-kiso-q13_a7ca5e3923d37147.json": "b44312dfd9f36bb976721dec0ae03873f85b4dd94030179872e824bd3929ba1d",
+      "output/gas-shunin-hei/questions_json/2025/24_questionIssueCorrections/hei-pdf-v4-2025-025_2025-kiso-q14_42d57eba96413824.json": "09cb0aa14e77ccb98da996efe837d81a83127d2aac6dce7297921c90f11ee732",
+      "output/gas-shunin-hei/questions_json/2025/24_questionIssueCorrections/hei-pdf-v4-2025-025_2025-kiso-q15_77e10ed2cda93a2a.json": "a44b8ce06427e333ab7012e4bee89e009f39c2d593c63bacd9d95a656e23d909",
+      "output/gas-shunin-hei/questions_json/2025/24_questionIssueCorrections/hei-pdf-v4-2025-025_2025-kiso-q2_99fabaee8b24f9a9.json": "0c97118ca07053717b87be6f410ded7189ca51ad7a039089de64d4542f387866",
+      "output/gas-shunin-hei/questions_json/2025/24_questionIssueCorrections/hei-pdf-v4-2025-025_2025-kiso-q3_605644b224681dfb.json": "cf1915f17b66e3e5c0c9e4f9070c9bd510a540fa54136fe069a07330c3671da8",
+      "output/gas-shunin-hei/questions_json/2025/24_questionIssueCorrections/hei-pdf-v4-2025-025_2025-kiso-q4_1b7fed13197ea115.json": "e0193e1f16c9b9c8aa237f75ac8b81279e346adb062740506690ac452383eea7",
+      "output/gas-shunin-hei/questions_json/2025/24_questionIssueCorrections/hei-pdf-v4-2025-025_2025-kiso-q5_237a232f4d794e0e.json": "dbbe399000c1807386fd64376eb914dc61b1d8fc97d4eafad62f985d8b66abea",
+      "output/gas-shunin-hei/questions_json/2025/24_questionIssueCorrections/hei-pdf-v4-2025-025_2025-kiso-q6_fa6243e32f1fe1ae.json": "760b3a198e5a517d65bb7c61288b0907566425db48b557973b3af113eb160463",
+      "output/gas-shunin-hei/questions_json/2025/24_questionIssueCorrections/hei-pdf-v4-2025-026_2025-kiso-q7_d31ab0dc1e430276.json": "ea18942a89af85449649154b0f247c7acf9f5e86f288a97b93383ec6cddf0bd1",
+      "output/gas-shunin-hei/questions_json/2025/24_questionIssueCorrections/hei-pdf-v4-2025-026_2025-kiso-q8_84cf0ea3b2496649.json": "7fdafdcd8a5d61f706b8b73100c814e642a3bc5aaa11e60854ab9e9a97d0857a",
+      "output/gas-shunin-hei/questions_json/2025/24_questionIssueCorrections/hei-pdf-v4-2025-026_2025-kiso-q9_bb9d9035c1bb61a5.json": "520bf87ff51c362a69ee3cf2d4644a312eb70e2ff544b6795439bedd30524a66",
+      "output/gas-shunin-hei/questions_json/2025/24_questionIssueCorrections/hei-pdf-v4-2025-026_2025-law-q1_988b1ac2d3d560db.json": "8328a56369f599964317b3cd2aafc44fc1f53c64d88406814e4a030c8bc76425",
+      "output/gas-shunin-hei/questions_json/2025/24_questionIssueCorrections/hei-pdf-v4-2025-026_2025-law-q10_1afa15e7bb2aa845.json": "5e1a9030869242e102acaec90aab6f0afe82e6bef04233758e08f294c33acf86",
+      "output/gas-shunin-hei/questions_json/2025/24_questionIssueCorrections/hei-pdf-v4-2025-026_2025-law-q11_171731c9b62283ec.json": "4bc2d6a18abcd80d56d5daea534fcd8355359d462eb3f3f5d53b52b0089f9a5c",
+      "output/gas-shunin-hei/questions_json/2025/24_questionIssueCorrections/hei-pdf-v4-2025-026_2025-law-q12_388372d0d57aa411.json": "5964e62d0cfde21cf5dfa973390ed20a3f4fa32e941d068dd9dd405dfe4603e8",
+      "output/gas-shunin-hei/questions_json/2025/24_questionIssueCorrections/hei-pdf-v4-2025-026_2025-law-q13_bd01fcd64e01bb77.json": "457208828a67486be2d3afe474e7a54e347aa590e7b49b89b92264115fc298ba",
+      "output/gas-shunin-hei/questions_json/2025/24_questionIssueCorrections/hei-pdf-v4-2025-026_2025-law-q14_965c9fd200917f08.json": "4dc139172cf051cfe1b0173958d11022ec85eead0bc05ca91065dd794cea06e3",
+      "output/gas-shunin-hei/questions_json/2025/24_questionIssueCorrections/hei-pdf-v4-2025-026_2025-law-q15_65f5f42d2a03a7d7.json": "2fa7c3b24889842e83ede1934d3dbebcb27edb1d3b5ccf35d471c3b79215083d",
+      "output/gas-shunin-hei/questions_json/2025/24_questionIssueCorrections/hei-pdf-v4-2025-026_2025-law-q16_3e69785a4d90cbf4.json": "07b4f286748c9b69cca81d71c96c3d8ccaceefdd1688f6f39072f47ed2aa1d49",
+      "output/gas-shunin-hei/questions_json/2025/24_questionIssueCorrections/hei-pdf-v4-2025-027_2025-law-q2_bfe4dc0ca2a6c845.json": "b6de3fb628ac25612733cb7549dc877df80cb4d4af9863ab6405bf1abe2c7c84",
+      "output/gas-shunin-hei/questions_json/2025/24_questionIssueCorrections/hei-pdf-v4-2025-027_2025-law-q3_e564a2cfb788322f.json": "87f3093428f88b7604cacec6c90b872c03a3fb294f14d339077850fcbf85e3e6",
+      "output/gas-shunin-hei/questions_json/2025/24_questionIssueCorrections/hei-pdf-v4-2025-027_2025-law-q4_e4b9a5f578d47539.json": "1ceee3590b570d86410200622cb55f87af5b4fb85b94e44199641488445e0ad5",
+      "output/gas-shunin-hei/questions_json/2025/24_questionIssueCorrections/hei-pdf-v4-2025-027_2025-law-q5_051055d964fa56ea.json": "6fd18b200feb0d28cf0cb7aeee341997962820b254f282a2656f9b5247da500e",
+      "output/gas-shunin-hei/questions_json/2025/24_questionIssueCorrections/hei-pdf-v4-2025-027_2025-law-q6_f82c430b363fc034.json": "4014d2050159e68d0d922dfe38eae04b18356c0a262e2e5cd68bae0cfe2693fb",
+      "output/gas-shunin-hei/questions_json/2025/24_questionIssueCorrections/hei-pdf-v4-2025-027_2025-law-q7_42d17fee0981b227.json": "f16b8a8fcc353152854ea18d0afd34c964036de8a79021b22be5854155dc03a4",
+      "output/gas-shunin-hei/questions_json/2025/24_questionIssueCorrections/hei-pdf-v4-2025-027_2025-law-q8_db6ad70839b42c20.json": "b04934299667b80a911061223b9d7b7e6a976c7bede4ad390650b0b58f8e7eca",
+      "output/gas-shunin-hei/questions_json/2025/24_questionIssueCorrections/hei-pdf-v4-2025-027_2025-law-q9_cdb5f388f7c70f1b.json": "d1d373953e1fd81720a8e3eed223ea79d3b5202a5eba66ec58faca6900fd30a1",
+      "output/gas-shunin-hei/questions_json/2025/24_questionIssueCorrections/hei-pdf-v4-2025-027_2025-shohi-q22_0da03994ecf105cd.json": "bb5d90336fbcb14d923b298b1573bbdaffd8b10a3ab11a8237c7bba2a8610db1",
+      "output/gas-shunin-hei/questions_json/2019/24_questionIssueCorrections/hei-pdf-recovery-2019-kiso-q10_2019-kiso-q10_b608c9e9ce7d88fb.json": "5f6b2cb473a5f52893f37bd7d2c23399da924631cb1a4a72bd1e4ea15371952e",
+      "output/gas-shunin-hei/questions_json/2019/24_questionIssueCorrections/hei-pdf-recovery-2019-kiso-q11_2019-kiso-q11_2482ac967395dd3f.json": "e4d9d3b1ac4b2646e4efdd02992c86b7f1178f0772b644191bb66789b15a65ef",
+      "output/gas-shunin-hei/questions_json/2019/24_questionIssueCorrections/hei-pdf-recovery-2019-kiso-q13_2019-kiso-q13_04900f3d34576e0d.json": "5f3438ab7c5b15ca4c95f4c1b86eaa68a71764f3dcf2d93ccd00477a7af2145f",
+      "output/gas-shunin-hei/questions_json/2019/24_questionIssueCorrections/hei-pdf-recovery-2019-kiso-q14_2019-kiso-q14_e3d44883c0246bf7.json": "24620d8be2bb01c515e92740f52a6732b1eae9a28aac134457a0d1cbc1cbda3a",
+      "output/gas-shunin-hei/questions_json/2019/24_questionIssueCorrections/hei-pdf-recovery-2019-kiso-q15_2019-kiso-q15_b600903f0e7d65df.json": "e3e942336b88210a1a5ed0ca961dd7fe6af40a9683b2989db09f719d1f1ca65b",
+      "output/gas-shunin-hei/questions_json/2019/24_questionIssueCorrections/hei-pdf-recovery-2019-kiso-q2_2019-kiso-q2_22bf91e1aeb4c3cf.json": "dcddfdfe9efb8ac4e2f7274cb326a62bb7a0d737a5ef291c0715235e4df5988d",
+      "output/gas-shunin-hei/questions_json/2019/24_questionIssueCorrections/hei-pdf-recovery-2019-kiso-q3_2019-kiso-q3_4ba85ebe357df496.json": "00b55c6002dec74e3d166cd9a7dd6b690d23ba4308cee09bee6cbc838fe0029e",
+      "output/gas-shunin-hei/questions_json/2019/24_questionIssueCorrections/hei-pdf-recovery-2019-kiso-q4_2019-kiso-q4_4530101f56dd7ea8.json": "4164ff2572d0a88f4b917e052f67687feee7475e830d15a0e67a2c26c57af337",
+      "output/gas-shunin-hei/questions_json/2019/24_questionIssueCorrections/hei-pdf-recovery-2019-kiso-q6_2019-kiso-q6_fe79a1af1b757592.json": "f5f15224afbb1e166c0aaf8cdefa06951e13fa3c86550e506c9e040f71cd7157",
+      "output/gas-shunin-hei/questions_json/2019/24_questionIssueCorrections/hei-pdf-recovery2-2019-kiso-q1_2019-kiso-q1_d799070664725f0f.json": "a5514397331e52626dd9d1cd2c06f8bd78b582b2d46e5e108031a0fcd87cf332",
+      "output/gas-shunin-hei/questions_json/2019/24_questionIssueCorrections/hei-pdf-recovery2-2019-kiso-q12_2019-kiso-q12_4969dfb9bece90b6.json": "d47bd180d2774354cd05681ec1db9acb9265e557cf0096b561dc3b3f8feb410b",
+      "output/gas-shunin-hei/questions_json/2019/24_questionIssueCorrections/hei-pdf-recovery2-2019-kiso-q5_2019-kiso-q5_4dd401c1752e8b3f.json": "17eda4670ad91b1740a766c7482913df84498311ffd54c5257ff8093ce725250",
+      "output/gas-shunin-hei/questions_json/2021/24_questionIssueCorrections/hei-pdf-recovery2-2021-law-q14_2021-law-q14_7ad24a07f33d7fec.json": "485a2bbcaa50335120b04bee931279a9103c0c6bf05cb387b0c4e0d3c6a954a5",
+      "output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-recovery2-2023-kiso-q7_2023-kiso-q7_13351e712166a24f.json": "5c208c7da26d5f46a4744927e14824e3b4100b5a0961b8f5aba97ed7c0928d4a",
+      "output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-recovery2-2023-kiso-q8_2023-kiso-q8_ced49aa760bc607c.json": "2fd2f493ad99ff325413d0bf7fdcb795a66388faad68227ba8ed9b0b01ba7f53",
+      "output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-recovery2-2023-kiso-q9_2023-kiso-q9_32513511329827e2.json": "1582886d89660a718382ee0f35d53a8c48d72f1cdeb46ae73aee3313633b5375",
+      "output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-recovery2-2023-law-q13_2023-law-q13_4116ef6a5d1afaa8.json": "39ddef7a7ceb5b548204affdb5fbaa74abb685ddf650a065dfa319173d3e48ab",
+      "output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-recovery2-2023-law-q14_2023-law-q14_d8734b9dc613abce.json": "9516839a74731fa3902bfb7f46814ffdad7e96029ef659bbef534961ede3624c",
+      "output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-recovery2-2023-law-q15_2023-law-q15_92b57e1baf7c9040.json": "01c9376f2e60bba0a8883dbe45c2e13abcb71a74ec15a7dcb92a8bf6eb0785e5",
+      "output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-recovery2-2023-law-q16_2023-law-q16_8057a16efc5d7dcd.json": "7bcd82b987b839228f0afc1c1f4e41164820e06c944f9824545e827757bb64ee",
+      "output/gas-shunin-hei/questions_json/2024/24_questionIssueCorrections/hei-pdf-recovery2-2024-law-q2_2024-law-q2_f57f36b5f9146670.json": "95d9344974f24d957adcc15f4c1197829c1d0fc8cbe1c6f51f6006273249e107",
+      "output/gas-shunin-hei/questions_json/2024/24_questionIssueCorrections/hei-pdf-recovery2-2024-law-q4_2024-law-q4_6b71c83fb497c8da.json": "3d797e642c13837c5d21d2bd5f42bfaca8635ed31a8b2c69585fc1fad96f20cb",
+      "output/gas-shunin-hei/questions_json/2024/24_questionIssueCorrections/hei-pdf-recovery2-2024-law-q5_2024-law-q5_100c5519fbfa23a8.json": "c62808b5cfd822ff6bc208c23c146af24c6ca5509258cb947c345112403df07e",
+      "output/gas-shunin-hei/questions_json/2024/24_questionIssueCorrections/hei-pdf-recovery2-2024-law-q6_2024-law-q6_a5bf0e54158491eb.json": "43282c8743287e7460620760cd7c46b4a19f5a281e713af933894be0d7b6012e",
+      "output/gas-shunin-hei/questions_json/2024/24_questionIssueCorrections/hei-pdf-recovery2-2024-law-q7_2024-law-q7_eccbc136816652b4.json": "886f51778c73ae8e9811c5f6c39dd7e52511ebcef42c8a57aa612a7a80b26961",
+      "output/gas-shunin-hei/questions_json/2024/24_questionIssueCorrections/hei-pdf-recovery2-2024-law-q8_2024-law-q8_3e57b2b210ab71c6.json": "453f8d0b7888d8dc921c8d46d16484f7ec2fbd84271dfc7c2a4521e0cd9031a1",
+      "output/gas-shunin-hei/questions_json/2024/24_questionIssueCorrections/hei-pdf-recovery2-2024-law-q9_2024-law-q9_1bfe377b16814244.json": "4791e03ee9780b792559ab01f247ad9d1ad07a480710967fc59651c3bf33c940",
+      "output/gas-shunin-hei/questions_json/2024/24_questionIssueCorrections/hei-pdf-recovery2-2024-seizo-q3_2024-seizo-q3_7596e63115fa26db.json": "4029dd5728ef13de9197725d84fef7b64f88c63448efdde80d55a054259f59b0",
+      "output/gas-shunin-hei/questions_json/2024/24_questionIssueCorrections/hei-pdf-recovery2-2024-shohi-q22_2024-shohi-q22_3dd9d71e7fc47bb5.json": "9eb8fb9f6ff813e7179d8b0a5f26d7c55af134bf602988bde9aa4a45afca8a24",
+      "output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/hei-pdf-footnote-format-2022-seizo-q3_2022-seizo-q3_fd580565d70d63fe.json": "7fdf9db9bc55a92d2c3236db6eb4ad6ac45592282a40bc9a25a9a73d9512c3bc",
+      "output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-highres-2023-law-q1_2023-law-q1_680524c379020b42.json": "b755cfe13691e3ad6966e430260d8790627da080dc02d01fcfbc3df29a207850",
+      "output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-highres-2023-law-q10_2023-law-q10_01a008f1a5d5bfa4.json": "b82be870ee637310372b21417413f65852000a08281fa4233972bae67c04f401",
+      "output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-highres-2023-law-q11_2023-law-q11_507709e20da5234a.json": "60de2509a975fd62d7dc58fed45615aeca6cadd62dd6d5eac892d83768789d48",
+      "output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-highres-2023-law-q12_2023-law-q12_c0acf7d6195611d5.json": "3b3311c7ebf1f16cd4ea3ebb99620ddc2580fb6d423d7292a6d8c694c550bdb0",
+      "output/gas-shunin-hei/questions_json/2024/24_questionIssueCorrections/hei-pdf-audit-2024-law-q3_2024-law-q3_cd588d42943fa763.json": "61bf7195d14c8b79fce0e455e3a348e5983218806e5086d1f25ae29f3b161db2"
+    },
+    "currentInputs": {
+      "output/gas-shunin-hei/questions_json/2023/30_merged_2/question_2023_2_merged_20261027_0843.json": "045327a365fac77056f795fba8dfdd3a24b30836e099384751368e7b787df806",
+      "output/gas-shunin-hei/questions_json/2023/30_merged_2/question_2023_3_merged_20261027_0843.json": "d8ba7354216ae27bec01d31bfc886edf735e248d7fb09f80fb0cf760f2896849",
+      "output/gas-shunin-hei/questions_json/2017/30_merged_2/question_2017_3_merged_20261027_0843.json": "0934b7e4812bfbe3fa14ec2ecd46e7a8d40480db048a50a90e09919e5648dc93",
+      "output/gas-shunin-hei/questions_json/2019/30_merged_2/question_2019_3_merged_20261027_0843.json": "2329792849b1f241977cdd6c18a57aedf4583c1648215021a808f948faa1146f",
+      "output/gas-shunin-hei/questions_json/2025/30_merged_2/question_2025_2_merged_20261027_0843.json": "9be937270242598a8257b15078b1b5cf183fcd39f84a52e4f3a7cb794bbbcd8d",
+      "output/gas-shunin-hei/questions_json/2018/30_merged_2/question_2018_3_merged_20261027_0843.json": "de62075bfa30d9c748078dfbcc35d3c21fcb51e072d042895b867ed7acc8bbf6",
+      "output/gas-shunin-hei/questions_json/2018/30_merged_2/question_2018_1_merged_20261027_0843.json": "c7ad1f6391b9a8f0c908a9c3908d256f2837b1ca24782f74a4e580b408a93b61",
+      "output/gas-shunin-hei/questions_json/2025/30_merged_2/question_2025_3_merged_20261027_0843.json": "1ad0cf19bbcdf9799419f2d441d227f7184f0b97edcce630dd7d59f1b51f5d34",
+      "output/gas-shunin-hei/questions_json/2020/30_merged_2/question_2020_2_merged_20261027_0843.json": "50df6251aea82545423aac98c2ebfe93fdc305555e253160b7da5fe24cfbd419",
+      "output/gas-shunin-hei/questions_json/2021/30_merged_2/question_2021_2_merged_20261027_0843.json": "9c36b10b944c27a9b295799106bdeb4d3e3850bb03bad973535605d94e368c30",
+      "output/gas-shunin-hei/questions_json/2021/30_merged_2/question_2021_1_merged_20261027_0843.json": "b215e904cfbc9f6b48797c1d1bd2bdfc584ad5a1c47201c2e299990449b081dc",
+      "output/gas-shunin-hei/questions_json/2024/30_merged_2/question_2024_2_merged_20261027_0843.json": "8f306f1889ca6fc2f7083c819dc823a5ec2740c712a0b7f53c23b6a0c08375c3",
+      "output/gas-shunin-hei/questions_json/2022/30_merged_2/question_2022_1_merged_20261027_0843.json": "4e721382f3e67d72d639c51611f41220e9fcf71f51fc8a63df2ee84a02167c3c",
+      "output/gas-shunin-hei/questions_json/2025/30_merged_2/question_2025_1_merged_20261027_0843.json": "38c8bdfbe14ca38b8fa48d8d46748f0a62e5014b0e48caa3ed6baa4b3a822bdc",
+      "output/gas-shunin-hei/questions_json/2022/30_merged_2/question_2022_3_merged_20261027_0843.json": "510a2905a094ee6cf05c40502757f77589da93a604c6f94caabd44956f0e8d26",
+      "output/gas-shunin-hei/questions_json/2022/30_merged_2/question_2022_2_merged_20261027_0843.json": "efc1e115417292b77265cb772fe431c6da36ed0e243f6b901134d5d1cb8f4ee8",
+      "output/gas-shunin-hei/questions_json/2017/30_merged_2/question_2017_1_merged_20261027_0843.json": "44d49fd3018b3b12387ea958c9fb5bdd2f5fd7d54b3256e595623ac9eff20ea5",
+      "output/gas-shunin-hei/questions_json/2019/30_merged_2/question_2019_1_merged_20261027_0843.json": "dcff9c9076cdd4cb2803619daed3cda2b59e57f64ffd69f76c3932c756795b9b",
+      "output/gas-shunin-hei/questions_json/2024/30_merged_2/question_2024_1_merged_20261027_0843.json": "e7abf3ced02095be49b324a05d99a15e3ec663050dffb486170f9f244adf29b4",
+      "output/gas-shunin-hei/questions_json/2017/30_merged_2/question_2017_2_merged_20261027_0843.json": "96b6d86b946c405604277ad68ffd8e94360f7278de0c522df49b090ddae1c932",
+      "output/gas-shunin-hei/questions_json/2019/30_merged_2/question_2019_2_merged_20261027_0843.json": "b15e56a5ef6ec67a30886dd696074875f23c0b03f90ea08e60429cf839121a0e",
+      "output/gas-shunin-hei/questions_json/2023/30_merged_2/question_2023_1_merged_20261027_0843.json": "6330ae19e918ad30da0e4d449c4c152d083efcbca2091c91113979d809e8c48d",
+      "output/gas-shunin-hei/questions_json/2020/30_merged_2/question_2020_1_merged_20261027_0843.json": "fd25c32349d793e9578f2fe99ca4f56ce765001b915609e364da708831b22caf",
+      "output/gas-shunin-hei/questions_json/2024/30_merged_2/question_2024_3_merged_20261027_0843.json": "a478d3818ebb6856b483d181aef91132144a072007a35b3cbb279691a7dec2dc",
+      "output/gas-shunin-hei/questions_json/2020/30_merged_2/question_2020_3_merged_20261027_0843.json": "495077035b1cb599c6841564d7703c6359acb22c12a9b0ddff95a9a0f4f4d3aa",
+      "output/gas-shunin-hei/questions_json/2018/30_merged_2/question_2018_2_merged_20261027_0843.json": "03bafae5b682b37ca67fbbf00d4e9db9ff7f1e331d1478bb5aae3dcac6809b62",
+      "output/gas-shunin-hei/questions_json/2021/30_merged_2/question_2021_3_merged_20261027_0843.json": "c9d897bf730311d8b9893038c30be3effd04352cb2616b6e58a23fc368b730f8"
+    },
+    "commands": [
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "materialize-patch",
+          "--task",
+          "question_type",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2017/12_merged_questionType/question_2017_1_merged.json",
+          "--raw",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2017/raw/question_2017_1.json",
+          "--output",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2017/10_questionType_fixed/question_2017_1_questionType_fixed.json"
+        ],
+        "exitCode": 0,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/question_type-question_2017_1.log",
+          "sha256": "f4aef49645100a46539823ad3a9b2ce264659af65750783c2cd5b3175cc6df70"
+        }
+      },
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "check-question-type-patch",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2017/12_merged_questionType/question_2017_1_merged.json",
+          "--patch",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2017/10_questionType_fixed/question_2017_1_questionType_fixed.json"
+        ],
+        "exitCode": 0,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/coverage-question_type-question_2017_1.log",
+          "sha256": "ad2b28f325cb9c36e4143cb2359246512824bac465e2e3d652bb4820cfe20cce"
+        }
+      },
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "materialize-patch",
+          "--task",
+          "question_type",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2017/12_merged_questionType/question_2017_2_merged.json",
+          "--raw",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2017/raw/question_2017_2.json",
+          "--output",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2017/10_questionType_fixed/question_2017_2_questionType_fixed.json"
+        ],
+        "exitCode": 0,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/question_type-question_2017_2.log",
+          "sha256": "df35e68221f4ae5b045ebd5805b3c18aa1a380b49095101203fbc03795128e8f"
+        }
+      },
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "check-question-type-patch",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2017/12_merged_questionType/question_2017_2_merged.json",
+          "--patch",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2017/10_questionType_fixed/question_2017_2_questionType_fixed.json"
+        ],
+        "exitCode": 0,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/coverage-question_type-question_2017_2.log",
+          "sha256": "214f6686870d356897de7c5a69b31cdd0c685affe766aa5678cd1745249b212d"
+        }
+      },
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "materialize-patch",
+          "--task",
+          "question_type",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2017/12_merged_questionType/question_2017_3_merged.json",
+          "--raw",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2017/raw/question_2017_3.json",
+          "--output",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2017/10_questionType_fixed/question_2017_3_questionType_fixed.json"
+        ],
+        "exitCode": 0,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/question_type-question_2017_3.log",
+          "sha256": "dcb8dacf5f47a9567742e68cb6f02dfbb4a6c7b47a06d1bc794401c851f5f7d7"
+        }
+      },
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "check-question-type-patch",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2017/12_merged_questionType/question_2017_3_merged.json",
+          "--patch",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2017/10_questionType_fixed/question_2017_3_questionType_fixed.json"
+        ],
+        "exitCode": 0,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/coverage-question_type-question_2017_3.log",
+          "sha256": "bf2bdee012f7738f5b86c7d69816e6ab573fe2c31c2d1b76f12cb705d287fcb5"
+        }
+      },
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "materialize-patch",
+          "--task",
+          "question_type",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2018/12_merged_questionType/question_2018_1_merged.json",
+          "--raw",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2018/raw/question_2018_1.json",
+          "--output",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2018/10_questionType_fixed/question_2018_1_questionType_fixed.json"
+        ],
+        "exitCode": 0,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/question_type-question_2018_1.log",
+          "sha256": "eafee2f12a0e56709153ab1e11f9605b207600851318c10bc228051bd422e4ca"
+        }
+      },
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "check-question-type-patch",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2018/12_merged_questionType/question_2018_1_merged.json",
+          "--patch",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2018/10_questionType_fixed/question_2018_1_questionType_fixed.json"
+        ],
+        "exitCode": 0,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/coverage-question_type-question_2018_1.log",
+          "sha256": "56a605fe759504a70784990bd8737b30d5753893389d0a5ce40f7bd6130218e8"
+        }
+      },
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "materialize-patch",
+          "--task",
+          "question_type",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2018/12_merged_questionType/question_2018_2_merged.json",
+          "--raw",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2018/raw/question_2018_2.json",
+          "--output",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2018/10_questionType_fixed/question_2018_2_questionType_fixed.json"
+        ],
+        "exitCode": 0,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/question_type-question_2018_2.log",
+          "sha256": "54f86973064ff26827e6174e42cb40d4f58cb0b59fdcdfe6e87d26c7138b50b4"
+        }
+      },
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "check-question-type-patch",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2018/12_merged_questionType/question_2018_2_merged.json",
+          "--patch",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2018/10_questionType_fixed/question_2018_2_questionType_fixed.json"
+        ],
+        "exitCode": 0,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/coverage-question_type-question_2018_2.log",
+          "sha256": "808913b0bf3e324f64bea9687710a619c2fd17f4405a3e5c4eac22141b36b298"
+        }
+      },
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "materialize-patch",
+          "--task",
+          "question_type",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2018/12_merged_questionType/question_2018_3_merged.json",
+          "--raw",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2018/raw/question_2018_3.json",
+          "--output",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2018/10_questionType_fixed/question_2018_3_questionType_fixed.json"
+        ],
+        "exitCode": 0,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/question_type-question_2018_3.log",
+          "sha256": "ec10def50379990878bc49c5cdb6a7cd1c4b113a6a579266b61577855441b138"
+        }
+      },
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "check-question-type-patch",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2018/12_merged_questionType/question_2018_3_merged.json",
+          "--patch",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2018/10_questionType_fixed/question_2018_3_questionType_fixed.json"
+        ],
+        "exitCode": 0,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/coverage-question_type-question_2018_3.log",
+          "sha256": "59241524fac9e516e01d2ababb7904a4028165e3adc37ed72b6932635da42bad"
+        }
+      },
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "materialize-patch",
+          "--task",
+          "question_type",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2019/12_merged_questionType/question_2019_1_merged.json",
+          "--raw",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2019/raw/question_2019_1.json",
+          "--output",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2019/10_questionType_fixed/question_2019_1_questionType_fixed.json"
+        ],
+        "exitCode": 0,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/question_type-question_2019_1.log",
+          "sha256": "e74bcdb03918c9d9952281051256e68b1792af773f9799b2f31bcc1ddc50d26e"
+        }
+      },
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "check-question-type-patch",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2019/12_merged_questionType/question_2019_1_merged.json",
+          "--patch",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2019/10_questionType_fixed/question_2019_1_questionType_fixed.json"
+        ],
+        "exitCode": 0,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/coverage-question_type-question_2019_1.log",
+          "sha256": "91df16a1992d073f9d511a621e786127d12ec644ed601d2e96fb967b423e74c8"
+        }
+      },
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "materialize-patch",
+          "--task",
+          "question_type",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2019/12_merged_questionType/question_2019_2_merged.json",
+          "--raw",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2019/raw/question_2019_2.json",
+          "--output",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2019/10_questionType_fixed/question_2019_2_questionType_fixed.json"
+        ],
+        "exitCode": 0,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/question_type-question_2019_2.log",
+          "sha256": "2aa1367acbaa441212b4cf9370ee5bb2b8acfcca13a4c3464824d1e7e09a7fac"
+        }
+      },
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "check-question-type-patch",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2019/12_merged_questionType/question_2019_2_merged.json",
+          "--patch",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2019/10_questionType_fixed/question_2019_2_questionType_fixed.json"
+        ],
+        "exitCode": 0,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/coverage-question_type-question_2019_2.log",
+          "sha256": "f593cea21ba9534869a32c6b4fa45100b4cdf5ba4a8ae03916fc0e09040bf938"
+        }
+      },
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "materialize-patch",
+          "--task",
+          "question_type",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2019/12_merged_questionType/question_2019_3_merged.json",
+          "--raw",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2019/raw/question_2019_3.json",
+          "--output",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2019/10_questionType_fixed/question_2019_3_questionType_fixed.json"
+        ],
+        "exitCode": 0,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/question_type-question_2019_3.log",
+          "sha256": "1def5a7b151d375ab335b8927bb1237abcc6b3fd441cd0f2e5f52391ba93a3ec"
+        }
+      },
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "check-question-type-patch",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2019/12_merged_questionType/question_2019_3_merged.json",
+          "--patch",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2019/10_questionType_fixed/question_2019_3_questionType_fixed.json"
+        ],
+        "exitCode": 0,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/coverage-question_type-question_2019_3.log",
+          "sha256": "0be496b38122609de6d32194b525eed17e08acdae43bab39f03246623431301f"
+        }
+      },
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "materialize-patch",
+          "--task",
+          "question_type",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2020/12_merged_questionType/question_2020_1_merged.json",
+          "--raw",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2020/raw/question_2020_1.json",
+          "--output",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2020/10_questionType_fixed/question_2020_1_questionType_fixed.json"
+        ],
+        "exitCode": 0,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/question_type-question_2020_1.log",
+          "sha256": "295bc0d8bd2d50f91dca69ae6f0792bd18e5839682f21e8f39a18bd38affe046"
+        }
+      },
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "check-question-type-patch",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2020/12_merged_questionType/question_2020_1_merged.json",
+          "--patch",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2020/10_questionType_fixed/question_2020_1_questionType_fixed.json"
+        ],
+        "exitCode": 0,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/coverage-question_type-question_2020_1.log",
+          "sha256": "5ae75b9c034cfac3b6cde5d32fda97873823f2e7549c7f54d43eff34616a0e3d"
+        }
+      },
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "materialize-patch",
+          "--task",
+          "question_type",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2020/12_merged_questionType/question_2020_2_merged.json",
+          "--raw",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2020/raw/question_2020_2.json",
+          "--output",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2020/10_questionType_fixed/question_2020_2_questionType_fixed.json"
+        ],
+        "exitCode": 0,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/question_type-question_2020_2.log",
+          "sha256": "895674bdb1c625f2d6c484db6807d9ba286b62c3df95589b06104eb7b2b17aa0"
+        }
+      },
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "check-question-type-patch",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2020/12_merged_questionType/question_2020_2_merged.json",
+          "--patch",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2020/10_questionType_fixed/question_2020_2_questionType_fixed.json"
+        ],
+        "exitCode": 0,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/coverage-question_type-question_2020_2.log",
+          "sha256": "8f49eb26e50d5fd5f1e22baec432ecd5244653aa8c623f140f23990ff4216b04"
+        }
+      },
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "materialize-patch",
+          "--task",
+          "question_type",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2020/12_merged_questionType/question_2020_3_merged.json",
+          "--raw",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2020/raw/question_2020_3.json",
+          "--output",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2020/10_questionType_fixed/question_2020_3_questionType_fixed.json"
+        ],
+        "exitCode": 0,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/question_type-question_2020_3.log",
+          "sha256": "d50bf3b4281a358f2fc62a7bbd98673671a97116498435c69fc6509bdb5d09bf"
+        }
+      },
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "check-question-type-patch",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2020/12_merged_questionType/question_2020_3_merged.json",
+          "--patch",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2020/10_questionType_fixed/question_2020_3_questionType_fixed.json"
+        ],
+        "exitCode": 0,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/coverage-question_type-question_2020_3.log",
+          "sha256": "acde66a93d8f981884e66785a750638b5da4265259c4751b019c472ef4901217"
+        }
+      },
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "materialize-patch",
+          "--task",
+          "question_type",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2021/12_merged_questionType/question_2021_1_merged.json",
+          "--raw",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2021/raw/question_2021_1.json",
+          "--output",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2021/10_questionType_fixed/question_2021_1_questionType_fixed.json"
+        ],
+        "exitCode": 0,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/question_type-question_2021_1.log",
+          "sha256": "fd87e06f1a8f374119abe77d336c20528ca8ba282b9163f8d4828836111c10ca"
+        }
+      },
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "check-question-type-patch",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2021/12_merged_questionType/question_2021_1_merged.json",
+          "--patch",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2021/10_questionType_fixed/question_2021_1_questionType_fixed.json"
+        ],
+        "exitCode": 0,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/coverage-question_type-question_2021_1.log",
+          "sha256": "e829e73140b123b4b42fe2104c06a61216cb463ea5324b7f16263a27c056340b"
+        }
+      },
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "materialize-patch",
+          "--task",
+          "question_type",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2021/12_merged_questionType/question_2021_2_merged.json",
+          "--raw",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2021/raw/question_2021_2.json",
+          "--output",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2021/10_questionType_fixed/question_2021_2_questionType_fixed.json"
+        ],
+        "exitCode": 0,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/question_type-question_2021_2.log",
+          "sha256": "285303d5843564696fe401abe6e7818cf357bd8fd3cc42aaf090071dacba3a45"
+        }
+      },
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "check-question-type-patch",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2021/12_merged_questionType/question_2021_2_merged.json",
+          "--patch",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2021/10_questionType_fixed/question_2021_2_questionType_fixed.json"
+        ],
+        "exitCode": 0,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/coverage-question_type-question_2021_2.log",
+          "sha256": "43032ee2a3a92de82d1740feebe8ce80db4a1bcf853bf2f32f79161bed852371"
+        }
+      },
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "materialize-patch",
+          "--task",
+          "question_type",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2021/12_merged_questionType/question_2021_3_merged.json",
+          "--raw",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2021/raw/question_2021_3.json",
+          "--output",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2021/10_questionType_fixed/question_2021_3_questionType_fixed.json"
+        ],
+        "exitCode": 0,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/question_type-question_2021_3.log",
+          "sha256": "2bc522d0cb437ef043e515afd5f5aab5ad0e83edd4dcf401b5ac842c29b04700"
+        }
+      },
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "check-question-type-patch",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2021/12_merged_questionType/question_2021_3_merged.json",
+          "--patch",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2021/10_questionType_fixed/question_2021_3_questionType_fixed.json"
+        ],
+        "exitCode": 0,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/coverage-question_type-question_2021_3.log",
+          "sha256": "cd89d7318cce602ec4798cdede1c7ac558e0da6aada11ef328f42b1f0598927e"
+        }
+      },
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "materialize-patch",
+          "--task",
+          "question_type",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2022/12_merged_questionType/question_2022_1_merged.json",
+          "--raw",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2022/raw/question_2022_1.json",
+          "--output",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2022/10_questionType_fixed/question_2022_1_questionType_fixed.json"
+        ],
+        "exitCode": 0,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/question_type-question_2022_1.log",
+          "sha256": "50fe982099ef25698d955a52cffe9e5dc67ba6e037e55227b35f5e705b3da2d3"
+        }
+      },
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "check-question-type-patch",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2022/12_merged_questionType/question_2022_1_merged.json",
+          "--patch",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2022/10_questionType_fixed/question_2022_1_questionType_fixed.json"
+        ],
+        "exitCode": 0,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/coverage-question_type-question_2022_1.log",
+          "sha256": "dde131394b161393750ebc29d41e14f44b1929b8309ff64a2f11abd08bff5b4b"
+        }
+      },
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "materialize-patch",
+          "--task",
+          "question_type",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2022/12_merged_questionType/question_2022_2_merged.json",
+          "--raw",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2022/raw/question_2022_2.json",
+          "--output",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2022/10_questionType_fixed/question_2022_2_questionType_fixed.json"
+        ],
+        "exitCode": 0,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/question_type-question_2022_2.log",
+          "sha256": "c38b4c16c0bf252a391a78445ae7069477ed1c8f4945ff44b488e1a318ed8562"
+        }
+      },
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "check-question-type-patch",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2022/12_merged_questionType/question_2022_2_merged.json",
+          "--patch",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2022/10_questionType_fixed/question_2022_2_questionType_fixed.json"
+        ],
+        "exitCode": 0,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/coverage-question_type-question_2022_2.log",
+          "sha256": "77bcc32525c4ffafae45137d9416d15a0f7d03dde47464448837cdbbd1e409bb"
+        }
+      },
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "materialize-patch",
+          "--task",
+          "question_type",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2022/12_merged_questionType/question_2022_3_merged.json",
+          "--raw",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2022/raw/question_2022_3.json",
+          "--output",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2022/10_questionType_fixed/question_2022_3_questionType_fixed.json"
+        ],
+        "exitCode": 0,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/question_type-question_2022_3.log",
+          "sha256": "ad6950fe8b1f50cfaebc17ee136853b7c82598a4e92b8f5ed2114188ae6d70a1"
+        }
+      },
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "check-question-type-patch",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2022/12_merged_questionType/question_2022_3_merged.json",
+          "--patch",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2022/10_questionType_fixed/question_2022_3_questionType_fixed.json"
+        ],
+        "exitCode": 0,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/coverage-question_type-question_2022_3.log",
+          "sha256": "4ab20ed0b8be9e05603851968eed0f2fd7815ac755f11191d4cfd39f19773b88"
+        }
+      },
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "materialize-patch",
+          "--task",
+          "question_type",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2023/12_merged_questionType/question_2023_1_merged.json",
+          "--raw",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2023/raw/question_2023_1.json",
+          "--output",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2023/10_questionType_fixed/question_2023_1_questionType_fixed.json"
+        ],
+        "exitCode": 0,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/question_type-question_2023_1.log",
+          "sha256": "d4a2a486a3b7f678235a7fe340364b8fc09ff1bfa22a5919efc01f266ea1de47"
+        }
+      },
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "check-question-type-patch",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2023/12_merged_questionType/question_2023_1_merged.json",
+          "--patch",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2023/10_questionType_fixed/question_2023_1_questionType_fixed.json"
+        ],
+        "exitCode": 0,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/coverage-question_type-question_2023_1.log",
+          "sha256": "5f2a3f2bbd8838b9587b09fe6c7e7457758f6966859554be12f98aa78fcdcaa9"
+        }
+      },
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "materialize-patch",
+          "--task",
+          "question_type",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2023/12_merged_questionType/question_2023_2_merged.json",
+          "--raw",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2023/raw/question_2023_2.json",
+          "--output",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2023/10_questionType_fixed/question_2023_2_questionType_fixed.json"
+        ],
+        "exitCode": 0,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/question_type-question_2023_2.log",
+          "sha256": "6a7c5f83b87248f221fae1a5c2457c347994625d9fbff79730a96ed4d3aca614"
+        }
+      },
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "check-question-type-patch",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2023/12_merged_questionType/question_2023_2_merged.json",
+          "--patch",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2023/10_questionType_fixed/question_2023_2_questionType_fixed.json"
+        ],
+        "exitCode": 0,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/coverage-question_type-question_2023_2.log",
+          "sha256": "944d172354b1c55bd2e8f867f80e96866e71d884a98cf04c0519db7651da6f66"
+        }
+      },
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "materialize-patch",
+          "--task",
+          "question_type",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2023/12_merged_questionType/question_2023_3_merged.json",
+          "--raw",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2023/raw/question_2023_3.json",
+          "--output",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2023/10_questionType_fixed/question_2023_3_questionType_fixed.json"
+        ],
+        "exitCode": 0,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/question_type-question_2023_3.log",
+          "sha256": "9ef4772605b0427bc31ef94fddd78f67c2268620a0dcf083e9f387f9dfb71c8c"
+        }
+      },
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "check-question-type-patch",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2023/12_merged_questionType/question_2023_3_merged.json",
+          "--patch",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2023/10_questionType_fixed/question_2023_3_questionType_fixed.json"
+        ],
+        "exitCode": 0,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/coverage-question_type-question_2023_3.log",
+          "sha256": "8b0b9f5d3625e62483d8702d2c602cd4412e3674251cbeedc87bb71ea694bbc5"
+        }
+      },
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "materialize-patch",
+          "--task",
+          "question_type",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2024/12_merged_questionType/question_2024_1_merged.json",
+          "--raw",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2024/raw/question_2024_1.json",
+          "--output",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2024/10_questionType_fixed/question_2024_1_questionType_fixed.json"
+        ],
+        "exitCode": 0,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/question_type-question_2024_1.log",
+          "sha256": "fe1495f3a5ba4bed80012292509ab92c5a41930c50017ba2c582f35e99512249"
+        }
+      },
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "check-question-type-patch",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2024/12_merged_questionType/question_2024_1_merged.json",
+          "--patch",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2024/10_questionType_fixed/question_2024_1_questionType_fixed.json"
+        ],
+        "exitCode": 0,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/coverage-question_type-question_2024_1.log",
+          "sha256": "9bd35299829d2b772a9c3157bec7ee9885ef0854fc0fb2f6e3890f5d62c52848"
+        }
+      },
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "materialize-patch",
+          "--task",
+          "question_type",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2024/12_merged_questionType/question_2024_2_merged.json",
+          "--raw",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2024/raw/question_2024_2.json",
+          "--output",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2024/10_questionType_fixed/question_2024_2_questionType_fixed.json"
+        ],
+        "exitCode": 0,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/question_type-question_2024_2.log",
+          "sha256": "b2b13dbef0e7aa86279325956a996ec9aacaa86a730aa84e5f16af7eb342c56a"
+        }
+      },
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "check-question-type-patch",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2024/12_merged_questionType/question_2024_2_merged.json",
+          "--patch",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2024/10_questionType_fixed/question_2024_2_questionType_fixed.json"
+        ],
+        "exitCode": 0,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/coverage-question_type-question_2024_2.log",
+          "sha256": "e96b556200b929118e95033bf34bda2e9b639094743563f53ec915fb760b68be"
+        }
+      },
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "materialize-patch",
+          "--task",
+          "question_type",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2024/12_merged_questionType/question_2024_3_merged.json",
+          "--raw",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2024/raw/question_2024_3.json",
+          "--output",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2024/10_questionType_fixed/question_2024_3_questionType_fixed.json"
+        ],
+        "exitCode": 0,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/question_type-question_2024_3.log",
+          "sha256": "98b10ce5bbbf28553b4e927f7a63cf87ccffae455f5643cd98ecef0519e748d8"
+        }
+      },
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "check-question-type-patch",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2024/12_merged_questionType/question_2024_3_merged.json",
+          "--patch",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2024/10_questionType_fixed/question_2024_3_questionType_fixed.json"
+        ],
+        "exitCode": 0,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/coverage-question_type-question_2024_3.log",
+          "sha256": "40f02c2154e7cb8741734409f86d51f20492576f284637796c9b9cfb193d3d4b"
+        }
+      },
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "materialize-patch",
+          "--task",
+          "question_type",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2025/12_merged_questionType/question_2025_1_merged.json",
+          "--raw",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2025/raw/question_2025_1.json",
+          "--output",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2025/10_questionType_fixed/question_2025_1_questionType_fixed.json"
+        ],
+        "exitCode": 0,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/question_type-question_2025_1.log",
+          "sha256": "42c31c3a33d0c6d985d844ba26cab0abbb0b29e28ad63c296a7397275cea8c6c"
+        }
+      },
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "check-question-type-patch",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2025/12_merged_questionType/question_2025_1_merged.json",
+          "--patch",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2025/10_questionType_fixed/question_2025_1_questionType_fixed.json"
+        ],
+        "exitCode": 0,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/coverage-question_type-question_2025_1.log",
+          "sha256": "9e533b6de54a83a397394c14747364c3bc668beac7ca475347c73430a0e0a2c5"
+        }
+      },
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "materialize-patch",
+          "--task",
+          "question_type",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2025/12_merged_questionType/question_2025_2_merged.json",
+          "--raw",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2025/raw/question_2025_2.json",
+          "--output",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2025/10_questionType_fixed/question_2025_2_questionType_fixed.json"
+        ],
+        "exitCode": 0,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/question_type-question_2025_2.log",
+          "sha256": "9cc6bf6b00090657fc409111dc1e40cdaeff42ecb664b10118480dc3e8cce311"
+        }
+      },
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "check-question-type-patch",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2025/12_merged_questionType/question_2025_2_merged.json",
+          "--patch",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2025/10_questionType_fixed/question_2025_2_questionType_fixed.json"
+        ],
+        "exitCode": 0,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/coverage-question_type-question_2025_2.log",
+          "sha256": "c2d92be5329202f072eca445dbf348d68e32170397261512405515a822d43c80"
+        }
+      },
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "materialize-patch",
+          "--task",
+          "question_type",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2025/12_merged_questionType/question_2025_3_merged.json",
+          "--raw",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2025/raw/question_2025_3.json",
+          "--output",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2025/10_questionType_fixed/question_2025_3_questionType_fixed.json"
+        ],
+        "exitCode": 0,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/question_type-question_2025_3.log",
+          "sha256": "01a8b2cebda054ddbf3d40edfe92f21a8531527b845e8e07e0ac9ca35ef8ac6a"
+        }
+      },
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "check-question-type-patch",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2025/12_merged_questionType/question_2025_3_merged.json",
+          "--patch",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_type/gas-shunin-hei/questions_json/2025/10_questionType_fixed/question_2025_3_questionType_fixed.json"
+        ],
+        "exitCode": 0,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/coverage-question_type-question_2025_3.log",
+          "sha256": "89aaad3390eccd12447a9920d7a1a0edfe72cb9d93e4d063e095750c39a60435"
+        }
+      },
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "materialize-patch",
+          "--task",
+          "question_intent",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_intent/gas-shunin-hei/questions_json/2017/12_merged_questionType/question_2017_1_merged.json",
+          "--raw",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_intent/gas-shunin-hei/questions_json/2017/raw/question_2017_1.json",
+          "--output",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_intent/gas-shunin-hei/questions_json/2017/15_correctChoiceText_fixed/question_2017_1_merged_correctChoiceText_fixed.json"
+        ],
+        "exitCode": 0,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/question_intent-question_2017_1.log",
+          "sha256": "65610726be7d4f6e0e868f5b71087dcbe730a41e688dd6e850ca095109200509"
+        }
+      },
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "check-question-intent-patch",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_intent/gas-shunin-hei/questions_json/2017/12_merged_questionType/question_2017_1_merged.json",
+          "--patch",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_intent/gas-shunin-hei/questions_json/2017/15_correctChoiceText_fixed/question_2017_1_merged_correctChoiceText_fixed.json"
+        ],
+        "exitCode": 0,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/coverage-question_intent-question_2017_1.log",
+          "sha256": "beef836ba935805e67bd86490360cb9767f46e01e8228e682a4bf78055d52cff"
+        }
+      },
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "materialize-patch",
+          "--task",
+          "question_intent",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_intent/gas-shunin-hei/questions_json/2018/12_merged_questionType/question_2018_1_merged.json",
+          "--raw",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_intent/gas-shunin-hei/questions_json/2018/raw/question_2018_1.json",
+          "--output",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_intent/gas-shunin-hei/questions_json/2018/15_correctChoiceText_fixed/question_2018_1_merged_correctChoiceText_fixed.json"
+        ],
+        "exitCode": 0,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/question_intent-question_2018_1.log",
+          "sha256": "e3f15a97a995408e42a147d5cbaad1aceb606592854cae55b4c4df743567470b"
+        }
+      },
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "check-question-intent-patch",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_intent/gas-shunin-hei/questions_json/2018/12_merged_questionType/question_2018_1_merged.json",
+          "--patch",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_intent/gas-shunin-hei/questions_json/2018/15_correctChoiceText_fixed/question_2018_1_merged_correctChoiceText_fixed.json"
+        ],
+        "exitCode": 0,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/coverage-question_intent-question_2018_1.log",
+          "sha256": "9e309cc5844e87e0c69379d9115334469de29c41cff5a322d14852a43f7bf79e"
+        }
+      },
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "materialize-patch",
+          "--task",
+          "question_intent",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_intent/gas-shunin-hei/questions_json/2018/12_merged_questionType/question_2018_2_merged.json",
+          "--raw",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_intent/gas-shunin-hei/questions_json/2018/raw/question_2018_2.json",
+          "--output",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_intent/gas-shunin-hei/questions_json/2018/15_correctChoiceText_fixed/question_2018_2_merged_correctChoiceText_fixed.json"
+        ],
+        "exitCode": 0,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/question_intent-question_2018_2.log",
+          "sha256": "8e7818549f463a5760d5f0e3f2743ae2981d49c412ddbf32604a97855f42030b"
+        }
+      },
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "check-question-intent-patch",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_intent/gas-shunin-hei/questions_json/2018/12_merged_questionType/question_2018_2_merged.json",
+          "--patch",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_intent/gas-shunin-hei/questions_json/2018/15_correctChoiceText_fixed/question_2018_2_merged_correctChoiceText_fixed.json"
+        ],
+        "exitCode": 0,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/coverage-question_intent-question_2018_2.log",
+          "sha256": "dc390d3654177f3cadd7515745e6afc8c71d6d303c53a3d212513e18d058915a"
+        }
+      },
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "materialize-patch",
+          "--task",
+          "question_intent",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_intent/gas-shunin-hei/questions_json/2019/12_merged_questionType/question_2019_1_merged.json",
+          "--raw",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_intent/gas-shunin-hei/questions_json/2019/raw/question_2019_1.json",
+          "--output",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_intent/gas-shunin-hei/questions_json/2019/15_correctChoiceText_fixed/question_2019_1_merged_correctChoiceText_fixed.json"
+        ],
+        "exitCode": 0,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/question_intent-question_2019_1.log",
+          "sha256": "b7c99754b2ffa85d4cc483d0f9e38f07f33dcf24377fc8ae306650c3b69d256a"
+        }
+      },
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "check-question-intent-patch",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_intent/gas-shunin-hei/questions_json/2019/12_merged_questionType/question_2019_1_merged.json",
+          "--patch",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_intent/gas-shunin-hei/questions_json/2019/15_correctChoiceText_fixed/question_2019_1_merged_correctChoiceText_fixed.json"
+        ],
+        "exitCode": 0,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/coverage-question_intent-question_2019_1.log",
+          "sha256": "d5e2f386bd7565e0108ad47f988e733330b503ce3e60d811b375ebce6fdeb2e9"
+        }
+      },
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "materialize-patch",
+          "--task",
+          "question_intent",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_intent/gas-shunin-hei/questions_json/2019/12_merged_questionType/question_2019_2_merged.json",
+          "--raw",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_intent/gas-shunin-hei/questions_json/2019/raw/question_2019_2.json",
+          "--output",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_intent/gas-shunin-hei/questions_json/2019/15_correctChoiceText_fixed/question_2019_2_merged_correctChoiceText_fixed.json"
+        ],
+        "exitCode": 0,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/question_intent-question_2019_2.log",
+          "sha256": "ad07c886e7c7d76de809399b66d50e466df74707cb0c90c9a472c81b8ffb4e6f"
+        }
+      },
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "check-question-intent-patch",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_intent/gas-shunin-hei/questions_json/2019/12_merged_questionType/question_2019_2_merged.json",
+          "--patch",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_intent/gas-shunin-hei/questions_json/2019/15_correctChoiceText_fixed/question_2019_2_merged_correctChoiceText_fixed.json"
+        ],
+        "exitCode": 0,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/coverage-question_intent-question_2019_2.log",
+          "sha256": "eebed586fbbf4460f74eefd15157bf7f30b693092513803aa17faece158b0068"
+        }
+      },
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "materialize-patch",
+          "--task",
+          "question_intent",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_intent/gas-shunin-hei/questions_json/2020/12_merged_questionType/question_2020_1_merged.json",
+          "--raw",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_intent/gas-shunin-hei/questions_json/2020/raw/question_2020_1.json",
+          "--output",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_intent/gas-shunin-hei/questions_json/2020/15_correctChoiceText_fixed/question_2020_1_merged_correctChoiceText_fixed.json"
+        ],
+        "exitCode": 0,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/question_intent-question_2020_1.log",
+          "sha256": "29464a98afa5f36d2546f852000ae1a417b7353fdbb6fc0223bb5f1753a47f24"
+        }
+      },
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "check-question-intent-patch",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_intent/gas-shunin-hei/questions_json/2020/12_merged_questionType/question_2020_1_merged.json",
+          "--patch",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_intent/gas-shunin-hei/questions_json/2020/15_correctChoiceText_fixed/question_2020_1_merged_correctChoiceText_fixed.json"
+        ],
+        "exitCode": 0,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/coverage-question_intent-question_2020_1.log",
+          "sha256": "246759f02ad1c566c1438fefff4e4b0f25cefc30cf0e3e9de6d812aafd07c36f"
+        }
+      },
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "materialize-patch",
+          "--task",
+          "question_intent",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_intent/gas-shunin-hei/questions_json/2020/12_merged_questionType/question_2020_2_merged.json",
+          "--raw",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_intent/gas-shunin-hei/questions_json/2020/raw/question_2020_2.json",
+          "--output",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_intent/gas-shunin-hei/questions_json/2020/15_correctChoiceText_fixed/question_2020_2_merged_correctChoiceText_fixed.json"
+        ],
+        "exitCode": 0,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/question_intent-question_2020_2.log",
+          "sha256": "9ee000e06502bfbb56d3aa921fe03aee454c1d240a0590be5005a4f72cc20cf0"
+        }
+      },
+      {
+        "command": [
+          "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+          "tools/question_bank/question_bank.py",
+          "check-question-intent-patch",
+          "--source",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_intent/gas-shunin-hei/questions_json/2020/12_merged_questionType/question_2020_2_merged.json",
+          "--patch",
+          "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_intent/gas-shunin-hei/questions_json/2020/15_correctChoiceText_fixed/question_2020_2_merged_correctChoiceText_fixed.json"
+        ],
+        "exitCode": 1,
+        "log": {
+          "path": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/coverage-question_intent-question_2020_2.log",
+          "sha256": "3fa7f81f29c76622a68dd6bd978e4a0f42dafb3802a8f7c523d69e70cd6c28b0"
+        }
+      }
+    ],
+    "status": "failed",
+    "formalApplied": false,
+    "error": "normal CLI failed: coverage-question_intent-question_2020_2; see /Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/coverage-question_intent-question_2020_2.log",
+    "finishedAt": "2026-10-26T23:47:35.282751+00:00"
+  },
+  "rejectedLogPath": "output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/logs/coverage-question_intent-question_2020_2.log",
+  "rejectedLogSha256": "3fa7f81f29c76622a68dd6bd978e4a0f42dafb3802a8f7c523d69e70cd6c28b0",
+  "rejectedLogUtf8": "$ /Users/yuki/.pyenv/versions/3.14.0/bin/python3 tools/question_bank/checks/check_question_intent_patch_coverage.py --source /Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_intent/gas-shunin-hei/questions_json/2020/12_merged_questionType/question_2020_2_merged.json --patch /Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/pdf_patch_review/metadata/0652a82a3c889205/inputs/question_intent/gas-shunin-hei/questions_json/2020/15_correctChoiceText_fixed/question_2020_2_merged_correctChoiceText_fixed.json\n[ERROR] index 1: questionIntent conflicts with the explicit statement request: expected 'select_incorrect', got 'select_correct'\n",
+  "formalTypeFiles": 0,
+  "formalIntentFiles": 0
+}
