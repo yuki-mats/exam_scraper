@@ -1895,11 +1895,13 @@ class QuestionInventory:
                 upload_quality_warnings = [
                     warning
                     for document in matched_upload
-                    for warning in law_audit_quality_warnings(document)
+                    for warning in law_audit_quality_warnings(document, repo_root=self.repo_root,
+                        institutional_record=projection.record, institutional_documents=matched_upload)
                 ]
                 projected_quality_warnings = law_audit_quality_warnings(
                     projection.record,
                     stage="projected",
+                    repo_root=self.repo_root,
                 )
                 issues = detect_issues(
                     projection.record,

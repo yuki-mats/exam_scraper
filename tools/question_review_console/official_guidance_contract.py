@@ -189,3 +189,24 @@ def has_guidance_basis(record, *, root=None, allow_public_variant=False):
     except (ValueError, OSError, KeyError, TypeError, StopIteration):
         return False
     return True
+
+def has_public_guidance_basis(documents, record, *, root=None):
+    """Authenticate private acquisition and the complete public choice family."""
+    root = root or Path(__file__).resolve().parents[2]
+    try:
+        documents = list(documents)
+        if not all(isinstance(document, dict) for document in documents):
+            return False
+        receipt = validate_reference(root, record[FIELD], record=record)
+        original_id = receipt['scope']['sourceBinding']['reviewQuestionId']
+        choices = record['choiceTextList']
+        observed = [document.get('originalQuestionChoiceText') for document in documents]
+        return bool(choices and record.get('questionBodyText') and documents
+            and len(observed) == len(choices)
+            and len(set(observed)) == len(observed)
+            and set(observed) == set(choices)
+            and all(document.get('originalQuestionId') == original_id
+                and document.get('originalQuestionBodyText') == record['questionBodyText']
+                for document in documents))
+    except (ValueError, OSError, KeyError, TypeError, StopIteration):
+        return False

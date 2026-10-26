@@ -18,6 +18,31 @@ from tools.question_review_console.question_candidate import CandidateTarget, Ca
 
 
 class OfficialGuidancePipelineTests(unittest.TestCase):
+    def test_private_guidance_covers_public_quality_only_for_exact_complete_family(self):
+        from tools.question_review_console.patch_validation import law_audit_quality_warnings
+        original_id=self.scope['sourceBinding']['reviewQuestionId']
+        documents=[{'originalQuestionId':original_id,'originalQuestionBodyText':self.record['questionBodyText'],
+            'originalQuestionChoiceText':choice,'isLawRelated':True,'lawReferences':[]}
+            for choice in self.record['choiceTextList']]
+        def warnings(group,record):
+            return law_audit_quality_warnings(group[0],repo_root=self.root,
+                institutional_record=record,institutional_documents=group)
+        self.assertTrue(any(w['field']=='lawReferences' for w in law_audit_quality_warnings(documents[0])))
+        positive=warnings(documents,self.record)
+        self.assertFalse(any(w['field']=='lawReferences' for w in positive))
+        self.assertTrue(any(w['field']=='lawRevisionFacts' for w in positive))
+        self.assertTrue(all(contract.FIELD not in d for d in documents))
+        for mutation in ('missing','duplicate','body','choice','foreign','proof'):
+            with self.subTest(mutation=mutation):
+                group=deepcopy(documents);record=deepcopy(self.record)
+                if mutation=='missing':group.pop()
+                if mutation=='duplicate':group[1]=deepcopy(group[0])
+                if mutation=='body':group[0]['originalQuestionBodyText']+='別命題'
+                if mutation=='choice':group[0]['originalQuestionChoiceText']+='別命題'
+                if mutation=='foreign':group[0]['originalQuestionId']='another-question'
+                if mutation=='proof':record[contract.FIELD]['evidenceRef']['sha256']='b'*64
+                self.assertTrue(any(w['field']=='lawReferences' for w in warnings(group,record)))
+
     def test_save_refresh_binds_original_approved_bytes_after_target_reordering(self):
         candidate = QuestionCandidate('question', 'candidate', '固定候補。', (
             CandidateUpdate('explanation', {'explanationText': ['正しい。']}, ()),
@@ -288,7 +313,7 @@ class OfficialGuidancePipelineTests(unittest.TestCase):
             'originalQuestionChoiceText': choice, 'isLawRelated': True} for choice in self.record['choiceTextList']]
         def check(rows):
             return audit_question_level_law_evidence(rows, require_law_references=True,
-                require_verified_law_references=True, institutional_evidence_records=[self.record])
+                require_verified_law_references=True, institutional_evidence_records=[self.record], repo_root=self.root)
         with patch('scripts.check.check_law_revision_fact_coverage.has_guidance_basis',
                 side_effect=lambda record, **kwargs: contract.has_guidance_basis(record, root=self.root, **kwargs)):
             self.assertEqual(check(public), [])

@@ -292,6 +292,9 @@ def law_audit_quality_warnings(
     document: Mapping[str, Any],
     *,
     stage: str = "upload-ready",
+    repo_root=None,
+    institutional_record=None,
+    institutional_documents=(),
 ) -> list[dict[str, Any]]:
     """Validate law-audit metadata without conflating it with upload schema."""
     if document.get("isLawRelated") is not True:
@@ -317,11 +320,16 @@ def law_audit_quality_warnings(
 
     references = document.get("lawReferences")
     if not isinstance(references, list) or not references:
-        add(
-            "law_audit_metadata_incomplete",
-            "lawReferences",
-            "法令問題のlawReferencesがありません。",
-        )
+        from tools.question_review_console.official_guidance_contract import has_guidance_basis, has_public_guidance_basis
+        guidance_ok = stage == "projected" and has_guidance_basis(document, root=repo_root)
+        if not guidance_ok and institutional_record is not None and document in institutional_documents:
+            guidance_ok = has_public_guidance_basis(institutional_documents, institutional_record, root=repo_root)
+        if not guidance_ok:
+            add(
+                "law_audit_metadata_incomplete",
+                "lawReferences",
+                "法令問題のlawReferencesがありません。",
+            )
 
     facts = document.get("lawRevisionFacts")
     if isinstance(facts, Mapping) and facts:
