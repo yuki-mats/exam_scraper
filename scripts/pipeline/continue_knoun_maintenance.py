@@ -203,7 +203,9 @@ def main(argv=None):
                 command(["scripts/check/check_correct_choice_patch_coverage.py", "--source", str(entry.path),
                          "--patch", str(base / "23_correctChoiceText_fixed" / (entry.path.stem + "_correctChoiceText_fixed.json")),
                          "--question-type-patch", str(base / "10_questionType_fixed" / (entry.path.stem + "_questionType_fixed.json"))])
-            command(["scripts/pipeline/prepare_firestore_upload.py", group, "-b", str(root / "questions_json"), "--skip-merge", "--upload-dry-run"])
+            # A partial delivery must retain the full taxonomy for later04 and
+            # evaluation rework; count-derived hiding belongs to final delivery.
+            command(["scripts/pipeline/prepare_firestore_upload.py", group, "-b", str(root / "questions_json"), "--skip-merge", "--skip-update-category-counts", "--upload-dry-run"])
             console.questions(group)
             return [q for q in questions if q["sourceRecordRef"] in selected_refs]
         for group in groups:
