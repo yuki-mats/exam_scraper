@@ -7879,40 +7879,80 @@
     ]
   },
   {
-    "original_question_id": "42017c163345e810",
-    "question_url": "https://birukan.kakomonn.com/questions/64469",
-    "sourceQuestionKey": "birukan:95001:42017c163345e810",
-    "reviewQuestionId": "42017c163345e810",
-    "sourceRecordRef": "question_95001_1.json#24",
-    "explanationText": [
-      "正しい。頭部と足元の温度差が大きいと不快感が生じるため、上下温度差を小さく保つ。",
-      "間違い。正しくは、暖房時の気流は冷感やドラフトを生じないよう緩やかに保つ。1.5m/s程度の強い気流を一律に維持するのは適当でない。",
-      "正しい。衣服などを工夫して過度な暖房に頼らず過ごすと、暖房のエネルギー消費と二酸化炭素排出を抑えられる。",
-      "正しい。空気が乾燥すると気道粘膜の防御機能が低下し、呼吸器感染症にかかりやすくなる。"
+    "questionBodyText": "冬季における暖房時の留意事項の組合せとして、最も適当なものは次のうちどれか。\nア　　床上0.1mと1.1mの温度差を、3°C以下とする。\nイ　　気流は、1.5m／s 程度に保つ。\nウ　　ウォームビズの導入によりCO₂排出量を削減できる。\n工　　低湿度では、呼吸器疾患に罹患しやすい。",
+    "examLabel": "第48回（平成30年度（2018年）） 建築物の環境衛生",
+    "questionLabel": "問25",
+    "choiceTextList": [
+      "アとイとウとエ",
+      "アとウとエ",
+      "アとエ",
+      "イとウとエ",
+      "ウとエ"
     ],
-    "questionLearningPatternId": "mechanisms_reasons",
-    "isLawRelated": false,
-    "lawGroundedExplanationNotNeeded": true,
-    "lawReferences": [
+    "originalQuestionChoiceImageUrls": [
+      [],
       [],
       [],
       [],
       []
     ],
-    "suggestedQuestionDetailsByChoice": [],
-    "explanationReferences": [
-      {
-        "title": "ウォームビズとは（環境省）",
-        "sourceUrl": "https://ondankataisaku.env.go.jp/decokatsu/warmbiz/about/",
-        "referenceDate": "2026-10-03",
-        "choiceIndex": 2
-      },
-      {
-        "title": "急性呼吸器感染症Q&A（厚生労働省）",
-        "sourceUrl": "https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/kenkou_iryou/kenkou/kekkaku-kansenshou/infulenza/QA2025.html",
-        "referenceDate": "2026-10-03",
-        "choiceIndex": 3
-      }
-    ]
+    "category": null,
+    "examYear": 2018,
+    "examOccurrenceId": "2018-r48",
+    "list_group_id": "95001",
+    "question_url": "https://birukan.kakomonn.com/questions/64469",
+    "public_question_id": "42017c163345e810",
+    "original_question_id": "42017c163345e810",
+    "source_question_id": "birukan:kakomonn:questions:64469",
+    "source_public_question_id": "28d083a05e24d452",
+    "questionSourceSite": "kakomonn",
+    "canonical_question_key": "birukan:2018-r48:kankyo-eisei:q025",
+    "question_id_policy_key": "canonical-question-key:hmac:v1",
+    "question_id_policy_version": 1,
+    "question_id_source_key_description": "{qualification_code}:{exam_occurrence_id_or_year}:q{question_number}",
+    "sourceUniqueKeys": [
+      "birukan:2018-r48:kankyo-eisei:q025:s01",
+      "birukan:2018-r48:kankyo-eisei:q025:s02",
+      "birukan:2018-r48:kankyo-eisei:q025:s03",
+      "birukan:2018-r48:kankyo-eisei:q025:s04",
+      "birukan:2018-r48:kankyo-eisei:q025:s05"
+    ],
+    "questionImageStorageUrls": [],
+    "questionIntent": "select_correct",
+    "correctChoiceText": [
+      "間違い",
+      "正しい",
+      "間違い",
+      "間違い",
+      "間違い"
+    ],
+    "explanation_common_prefix": [],
+    "explanation_common_prefix_inferred_correct_choice": 2,
+    "explanation_common_summary": [],
+    "explanation_choice_snippets": [],
+    "explanation_choice_correctness": [],
+    "answer_result_text": "正解は 2 です。",
+    "answer_result_inferred_correct_choice_numbers": [
+      2
+    ],
+    "questionType": "true_false",
+    "isCalculationQuestion": false,
+    "isLawRelated": false,
+    "lawGroundedExplanationNotNeeded": true,
+    "lawReferences": [],
+    "lawContextForExplanation": null,
+    "sourceQuestionKey": "birukan:95001:42017c163345e810",
+    "reviewQuestionId": "42017c163345e810",
+    "sourceRecordRef": "question_95001_1.json#24",
+    "explanationReferences": [],
+    "explanationText": [
+      "正しい。床上0.1m（足元）と1.1m（着座時の頭部）の垂直温度差は、足元の冷えや不快感を防ぐため3℃以下に抑えることが推奨されます。",
+      "間違い。正しくは、暖房時の室内気流は冷感やドラフト感を防ぐため0.15m/s〜0.2m/s以下に保つことが望ましく、1.5m/sは過大で不適切です。",
+      "正しい。ウォームビズの推進等により過度な暖房に頼らず適切な室温設定を行うことは、暖房用エネルギー消費と二酸化炭素排出量の削減に寄与します。",
+      "正しい。空気が乾燥した低湿度環境では、鼻やのどの気道粘膜の防御機能が低下するとともにウイルスの浮遊生存性が高まり、呼吸器疾患に罹患しやすくなります。"
+    ],
+    "lawRevisionFacts": [],
+    "questionLearningPatternId": null,
+    "suggestedQuestionDetailsByChoice": []
   }
 ]
