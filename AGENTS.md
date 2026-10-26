@@ -25,6 +25,12 @@
     2. `python3 scripts/check/check_required_fields.py --base-dir <questions_json> --stage merged`（必須項目・スキーマ検証）
     3. `python3 scripts/check/check_correct_choice_patch_coverage.py`（パッチ層のカバレッジ・テキスト一致検証）
   - 検証エラーが1件でも出た場合は、推測や決め打ちで修正せず、`00_source` の正本問題文・選択肢に立ち返って1問ずつ目視で原因を特定・是正する。
+- **本番公開・外部反映の完全性確認と自発的リマインド**:
+  - Firestoreへの問題データ公開を行う際は、JSONドキュメントのアップロードだけで完了とせず、以下の周辺アセット・設定がすべて揃っているかを必ず確認・実行する：
+    1. **画像アセット（Storage）**: `output/<qualification>/question_images` 配下に画像が存在する場合、Firebase Storage へのアップロード（`python3 scripts/upload/upload_question_images_to_storage.py <qualification>`）および配信疎通（HTTP 200）を確認する。
+    2. **分類体系（Firestore）**: `category.json` の件数集計・同期（`python3 scripts/upload/upload_category_to_firestore.py output/<qualification>/category/category.json`）を完了させる。
+    3. **公式年度マニフェスト（Firestore）**: `config/08zYvCuKUcvGTNYqehrm` の `official_exam_years_by_qualification` に対象資格の年度が正しく網羅されているか確認する。
+  - 作業完了宣言や区切りの前に、エージェント側から自発的に「これしなくて良いの？」に該当する周辺タスク・確認事項（画像アップロード、category同期、マニフェスト反映、Gitコミット等）を洗い出し、すでに実施済みか、またはユーザーへの確認が必要かを提示する。ユーザーに指摘されるまで放置しない。
 
 ## 日本語の品質
 
