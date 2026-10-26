@@ -206,6 +206,10 @@ def main(argv=None):
             # A partial delivery must retain the full taxonomy for later04 and
             # evaluation rework; count-derived hiding belongs to final delivery.
             command(["scripts/pipeline/prepare_firestore_upload.py", group, "-b", str(root / "questions_json"), "--skip-merge", "--skip-update-category-counts", "--upload-dry-run"])
+            command(["tools/question_bank/question_bank.py", "quality-gate", "--qualification", "eco-kentei",
+                     "--list-group-id", group, "--mode", "firestore", "--skip-upload-dry-run",
+                     "--require-law-revision-facts", "--require-law-revision-evidence-summary",
+                     "--require-law-references-for-law-related", "--fail-on-law-revision-hold"])
             console.questions(group)
             return [q for q in questions if q["sourceRecordRef"] in selected_refs]
         for group in groups:
