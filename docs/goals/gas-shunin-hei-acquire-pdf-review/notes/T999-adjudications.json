@@ -1,0 +1,335 @@
+{
+  "schemaVersion": "gas-shunin-hei-pm-comparison-resolution/v1",
+  "scope": "個別判定差の根拠を公式画像と保存内容から確認。元の一次・二次記録は保持する。",
+  "pmViewedImages": [
+    {
+      "path": "output/gas-shunin-hei/pdf_review/2017/mark_sheet_question/page-12.png",
+      "sha256": "6fee49cc6183af63d3ca13bf62e5b755095c3993302bd2744e843bebe4f2e3fe"
+    },
+    {
+      "path": "output/gas-shunin-hei/pdf_review/2017/mark_sheet_question/page-14.png",
+      "sha256": "34641ca2eeb70e2ed37da2c2ece82abc30c9a1bd7b158d77e58923e24da475ea"
+    },
+    {
+      "path": "output/gas-shunin-hei/pdf_review/2017/mark_sheet_question/page-23.png",
+      "sha256": "861a6bbeb2b9c5623b4d0868af7b676ed3e430a7f17677322a2aaf12448fd006"
+    },
+    {
+      "path": "output/gas-shunin-hei/pdf_review/2017/mark_sheet_question/page-25.png",
+      "sha256": "ae63fbc31718e4d1d458fe7475685bfd1dcce2132f17f8b49127b4422426e388"
+    },
+    {
+      "path": "output/gas-shunin-hei/pdf_review/2018/mark_sheet_question/page-15.png",
+      "sha256": "4cb88cca76ff74862703bea0d65bff07588bb96e9a531cef2bcc5a2be91e3b24"
+    },
+    {
+      "path": "output/gas-shunin-hei/pdf_review/2019/mark_sheet_question/page-17.png",
+      "sha256": "e9bde0bb29035fa2ce8de6fca1df51c30e5c81f5cd5dd084c46e4d2c74dd2cce"
+    },
+    {
+      "path": "output/gas-shunin-hei/pdf_review/2024/mark_sheet_question/page-03.png",
+      "sha256": "2901fc0f29414c7654f510bd32fb5dc0e9841b03e736a4ac94530642b3e6f729"
+    },
+    {
+      "path": "output/gas-shunin-hei/pdf_review/2024/mark_sheet_question/page-24.png",
+      "sha256": "c85428690737b34494c00543126ea513b882b30c64924a178eeb9a09b76f815d"
+    },
+    {
+      "path": "output/gas-shunin-hei/pdf_review/2024/mark_sheet_question/page-32.png",
+      "sha256": "825a720082b7d5b97c13442bac65876403a8bd89411e63205f140072bfd5e3ec"
+    },
+    {
+      "path": "output/gas-shunin-hei/pdf_review/2025/mark_sheet_question/page-18.png",
+      "sha256": "c3334f881773dc6d4617d64bd159b5be8afc37f4362a63b103a6ed6cacd232c7"
+    },
+    {
+      "path": "output/gas-shunin-hei/pdf_review/2025/mark_sheet_question/page-22.png",
+      "sha256": "a0332b35c3ace36e19c2a39a05a4d78cdb250d27dfd2b32fccbeb34b35c59f3c"
+    }
+  ],
+  "additionalEarlierViewedImage": {
+    "path": "tmp/gas-shunin-hei-preview/2025-page3.png",
+    "sha256": "fba074a4687ee69fc868db55193d5ac02083d758a7c0f526b2eea91dd4e0a4a4",
+    "pdf": "output/pdf/gas-shunin-official/2025/q_hei_R7.pdf",
+    "pdfPage": 3
+  },
+  "resolutions": [
+    {
+      "sourceQuestionId": "2017:kiso:問5",
+      "packetSha256": "6669467717e6961b99aa52377c9873caf763a4e77ca9b1098eac3cc2cae15e20",
+      "sourceSha256": "e8053178df5b02f046df7274be71181e60b57de7e76b015c5193612cb2b41c34",
+      "questionPdfSha256": "af69256f997fad62b338276812bf5c5aa81a3c5ce1d749f5d60424f49988a26a",
+      "officialCorrectChoiceNumber": 4,
+      "adjudicator": "PM /root",
+      "needsReview": true,
+      "archiveStatus": "context_gap",
+      "sourceRecordStatus": "context_gap",
+      "category": "missing_common_absolute_pressure_note",
+      "pdfPages": [
+        12,
+        13
+      ],
+      "reason": "公式の科目共通注は圧力を絶対圧力と明示する。原問本文の標準状態・温度・圧力値は取得内容と一致しているが、この共通指定は収録されていない。共通文脈の補完対象として採用し、数値や公式番号答の誤りとは区別する。",
+      "impact": "標準状態の本文自体は一致。公式答の不一致ではない。"
+    },
+    {
+      "sourceQuestionId": "2017:kiso:問8",
+      "packetSha256": "6669467717e6961b99aa52377c9873caf763a4e77ca9b1098eac3cc2cae15e20",
+      "sourceSha256": "e8053178df5b02f046df7274be71181e60b57de7e76b015c5193612cb2b41c34",
+      "questionPdfSha256": "af69256f997fad62b338276812bf5c5aa81a3c5ce1d749f5d60424f49988a26a",
+      "officialCorrectChoiceNumber": 3,
+      "adjudicator": "PM /root",
+      "needsReview": false,
+      "archiveStatus": "match",
+      "sourceRecordStatus": "match",
+      "category": "format_only",
+      "pdfPages": [
+        14
+      ],
+      "reason": "公式図を直視し、A管10cm・2m/sからB管5cmへの直列接続を確認。JSON本文自身に内径・流速・直列接続があり、raw文章図にもAからBへの関係がある。図の画像化はされていないが問題の必要条件は失われていない。"
+    },
+    {
+      "sourceQuestionId": "2017:kiso:問13",
+      "packetSha256": "6669467717e6961b99aa52377c9873caf763a4e77ca9b1098eac3cc2cae15e20",
+      "sourceSha256": "0a7c3d72f8f1ba7c0b07eb0c7bc4fc78ebee5305d09a583ccde50c236fe4306a",
+      "questionPdfSha256": "af69256f997fad62b338276812bf5c5aa81a3c5ce1d749f5d60424f49988a26a",
+      "officialCorrectChoiceNumber": 5,
+      "adjudicator": "PM /root",
+      "needsReview": true,
+      "archiveStatus": "context_gap",
+      "sourceRecordStatus": "context_gap",
+      "category": "missing_common_absolute_pressure_note",
+      "pdfPages": [
+        12,
+        15
+      ],
+      "reason": "公式の科目共通注は圧力を絶対圧力と明示する。原問本文の標準状態・温度・圧力値は取得内容と一致しているが、この共通指定は収録されていない。共通文脈の補完対象として採用し、数値や公式番号答の誤りとは区別する。",
+      "impact": "標準状態の本文自体は一致。公式答の不一致ではない。"
+    },
+    {
+      "sourceQuestionId": "2017:kyokyu:問17",
+      "packetSha256": "6669467717e6961b99aa52377c9873caf763a4e77ca9b1098eac3cc2cae15e20",
+      "sourceSha256": "0a7c3d72f8f1ba7c0b07eb0c7bc4fc78ebee5305d09a583ccde50c236fe4306a",
+      "questionPdfSha256": "af69256f997fad62b338276812bf5c5aa81a3c5ce1d749f5d60424f49988a26a",
+      "officialCorrectChoiceNumber": 5,
+      "adjudicator": "PM /root",
+      "needsReview": true,
+      "archiveStatus": "match",
+      "sourceRecordStatus": "missing_diagram_relation",
+      "category": "parser_loss",
+      "pdfPages": [
+        23
+      ],
+      "reason": "公式の樹形図は防食法からイ/ロ/その他、ロからハ/ニ/選択排流法/強制排流法へ分岐する。保存HTMLの文章図はこの関係を保持するためアーカイブ照合は一致。JSON本文は図を参照する一文だけで画像参照もなく、樹形関係を持たないためJSON単体の整備対象として残す。"
+    },
+    {
+      "sourceQuestionId": "2017:shohi:問20",
+      "packetSha256": "6669467717e6961b99aa52377c9873caf763a4e77ca9b1098eac3cc2cae15e20",
+      "sourceSha256": "6c008f0a8d2e0e23802e2d458615f075fea18a08e4783bf8773bc2e325fc4f02",
+      "questionPdfSha256": "af69256f997fad62b338276812bf5c5aa81a3c5ce1d749f5d60424f49988a26a",
+      "officialCorrectChoiceNumber": 5,
+      "adjudicator": "PM /root",
+      "needsReview": true,
+      "archiveStatus": "difference",
+      "sourceRecordStatus": "match",
+      "category": "extraneous_diagram",
+      "pdfPages": [
+        25
+      ],
+      "reason": "公式PDFの当該問は文章5肢で図がないことを直視。rawHTMLにはMCP/WI軸と互換域・①〜⑤のSVGがあり、原問外図の混入を確認。JSON本文にはこの余分な図は入っていない。"
+    },
+    {
+      "sourceQuestionId": "2018:kiso:問4",
+      "packetSha256": "996cde08006eee12058ee09ecb803a571477c3ad7cd127a30c365d5134982fe7",
+      "sourceSha256": "0689ab2e9639bec9c36f66671aacb71129a8c9b9f96ec012f4c5b8400cade22c",
+      "questionPdfSha256": "eeed220e1a516e96ca55feefedfb040113a173b9a10c5cb1a20f1b338eba17a1",
+      "officialCorrectChoiceNumber": 2,
+      "adjudicator": "PM /root",
+      "needsReview": true,
+      "archiveStatus": "context_gap",
+      "sourceRecordStatus": "context_gap",
+      "category": "missing_common_absolute_pressure_note",
+      "pdfPages": [
+        15,
+        16
+      ],
+      "reason": "公式の科目共通注は圧力を絶対圧力と明示する。原問本文の標準状態・温度・圧力値は取得内容と一致しているが、この共通指定は収録されていない。共通文脈の補完対象として採用し、数値や公式番号答の誤りとは区別する。",
+      "impact": "標準状態の本文自体は一致。公式答の不一致ではない。"
+    },
+    {
+      "sourceQuestionId": "2018:kiso:問5",
+      "packetSha256": "996cde08006eee12058ee09ecb803a571477c3ad7cd127a30c365d5134982fe7",
+      "sourceSha256": "0689ab2e9639bec9c36f66671aacb71129a8c9b9f96ec012f4c5b8400cade22c",
+      "questionPdfSha256": "eeed220e1a516e96ca55feefedfb040113a173b9a10c5cb1a20f1b338eba17a1",
+      "officialCorrectChoiceNumber": 5,
+      "adjudicator": "PM /root",
+      "needsReview": true,
+      "archiveStatus": "context_gap",
+      "sourceRecordStatus": "context_gap",
+      "category": "missing_common_absolute_pressure_note",
+      "pdfPages": [
+        15,
+        16
+      ],
+      "reason": "公式の科目共通注は圧力を絶対圧力と明示する。原問本文の標準状態・温度・圧力値は取得内容と一致しているが、この共通指定は収録されていない。共通文脈の補完対象として採用し、数値や公式番号答の誤りとは区別する。",
+      "impact": "標準状態の本文自体は一致。公式答の不一致ではない。"
+    },
+    {
+      "sourceQuestionId": "2019:kiso:問3",
+      "packetSha256": "6fd41721fc1717e02847c8a7b0a27b3263ba777e1650e81eed0b5dbbe421651d",
+      "sourceSha256": "bbdd62c4e77b4ef547986be385abc71cb4da1cf5dac545d0574ccc234ed4b55e",
+      "questionPdfSha256": "6682a65b475d9795c7cb87ce94333f114aaeb4b7a5dc1667830fc07bcc894bd1",
+      "officialCorrectChoiceNumber": 2,
+      "adjudicator": "PM /root",
+      "needsReview": true,
+      "archiveStatus": "context_gap",
+      "sourceRecordStatus": "context_gap",
+      "category": "missing_common_absolute_pressure_note",
+      "pdfPages": [
+        17,
+        17
+      ],
+      "reason": "公式の科目共通注は圧力を絶対圧力と明示する。原問本文の標準状態・温度・圧力値は取得内容と一致しているが、この共通指定は収録されていない。共通文脈の補完対象として採用し、数値や公式番号答の誤りとは区別する。",
+      "impact": "標準状態の本文自体は一致。公式答の不一致ではない。"
+    },
+    {
+      "sourceQuestionId": "2019:kiso:問4",
+      "packetSha256": "6fd41721fc1717e02847c8a7b0a27b3263ba777e1650e81eed0b5dbbe421651d",
+      "sourceSha256": "bbdd62c4e77b4ef547986be385abc71cb4da1cf5dac545d0574ccc234ed4b55e",
+      "questionPdfSha256": "6682a65b475d9795c7cb87ce94333f114aaeb4b7a5dc1667830fc07bcc894bd1",
+      "officialCorrectChoiceNumber": 2,
+      "adjudicator": "PM /root",
+      "needsReview": true,
+      "archiveStatus": "context_gap",
+      "sourceRecordStatus": "context_gap",
+      "category": "missing_common_absolute_pressure_note",
+      "pdfPages": [
+        17,
+        17
+      ],
+      "reason": "公式の科目共通注は圧力を絶対圧力と明示する。原問本文の標準状態・温度・圧力値は取得内容と一致しているが、この共通指定は収録されていない。共通文脈の補完対象として採用し、数値や公式番号答の誤りとは区別する。",
+      "impact": "標準状態の本文自体は一致。公式答の不一致ではない。"
+    },
+    {
+      "sourceQuestionId": "2024:law:問3",
+      "packetSha256": "d942634f29e26bdba17cfcb8ae19d19135c1fc09a48d2a3eddffac9346c92157",
+      "sourceSha256": "1ec894007b2efc9287e501ed098e5c08a68966bc33da0f1181504e52d6c628b2",
+      "questionPdfSha256": "dd012517c16a819fea9407c725b281d7d6523f9c67bfea1d12d94f4d24da1ed0",
+      "officialCorrectChoiceNumber": 5,
+      "adjudicator": "PM /root",
+      "needsReview": true,
+      "archiveStatus": "context_gap",
+      "sourceRecordStatus": "context_gap",
+      "category": "missing_common_exception_scope_note",
+      "pdfPages": [
+        3,
+        4
+      ],
+      "reason": "公式の法令共通注で認定高度保安制度の特例を除いて回答することが明示されている。取得HTMLにはこの回答対象を限定する注がなく、当該問の取得原文が一致することと共通前提の保持を分けた。個別の現行法解釈を新たに断定するものではない。",
+      "impact": "公式の回答範囲に関する共通文脈の未収録。"
+    },
+    {
+      "sourceQuestionId": "2024:law:問5",
+      "packetSha256": "d942634f29e26bdba17cfcb8ae19d19135c1fc09a48d2a3eddffac9346c92157",
+      "sourceSha256": "1ec894007b2efc9287e501ed098e5c08a68966bc33da0f1181504e52d6c628b2",
+      "questionPdfSha256": "dd012517c16a819fea9407c725b281d7d6523f9c67bfea1d12d94f4d24da1ed0",
+      "officialCorrectChoiceNumber": 5,
+      "adjudicator": "PM /root",
+      "needsReview": true,
+      "archiveStatus": "context_gap",
+      "sourceRecordStatus": "context_gap",
+      "category": "missing_common_exception_scope_note",
+      "pdfPages": [
+        3,
+        5
+      ],
+      "reason": "公式の法令共通注で認定高度保安制度の特例を除いて回答することが明示されている。取得HTMLにはこの回答対象を限定する注がなく、当該問の取得原文が一致することと共通前提の保持を分けた。個別の現行法解釈を新たに断定するものではない。",
+      "impact": "公式の回答範囲に関する共通文脈の未収録。"
+    },
+    {
+      "sourceQuestionId": "2024:law:問6",
+      "packetSha256": "d942634f29e26bdba17cfcb8ae19d19135c1fc09a48d2a3eddffac9346c92157",
+      "sourceSha256": "1ec894007b2efc9287e501ed098e5c08a68966bc33da0f1181504e52d6c628b2",
+      "questionPdfSha256": "dd012517c16a819fea9407c725b281d7d6523f9c67bfea1d12d94f4d24da1ed0",
+      "officialCorrectChoiceNumber": 3,
+      "adjudicator": "PM /root",
+      "needsReview": true,
+      "archiveStatus": "context_gap",
+      "sourceRecordStatus": "context_gap",
+      "category": "missing_common_exception_scope_note",
+      "pdfPages": [
+        3,
+        6
+      ],
+      "reason": "公式の法令共通注で認定高度保安制度の特例を除いて回答することが明示されている。取得HTMLにはこの回答対象を限定する注がなく、当該問の取得原文が一致することと共通前提の保持を分けた。個別の現行法解釈を新たに断定するものではない。",
+      "impact": "公式の回答範囲に関する共通文脈の未収録。"
+    },
+    {
+      "sourceQuestionId": "2024:seizo:問3",
+      "packetSha256": "d942634f29e26bdba17cfcb8ae19d19135c1fc09a48d2a3eddffac9346c92157",
+      "sourceSha256": "31a44a225c2bfe6f234b049adb8c63406f228daa3902b401d59e403aec12d5fd",
+      "questionPdfSha256": "dd012517c16a819fea9407c725b281d7d6523f9c67bfea1d12d94f4d24da1ed0",
+      "officialCorrectChoiceNumber": 3,
+      "adjudicator": "PM /root",
+      "needsReview": true,
+      "archiveStatus": "footnote_gap",
+      "sourceRecordStatus": "footnote_gap",
+      "category": "missing_definition_footnote",
+      "pdfPages": [
+        24
+      ],
+      "reason": "公式画像の脚注本文と取得肢の※参照を照合し、定義の本文が取得内容にないことを確認。本文側/選択肢側のどちらへ分類するかという読者間の差を、同一の脚注情報欠落として記録する。本文・選択肢の値を片方へ自動修正しない。"
+    },
+    {
+      "sourceQuestionId": "2024:shohi:問22",
+      "packetSha256": "d942634f29e26bdba17cfcb8ae19d19135c1fc09a48d2a3eddffac9346c92157",
+      "sourceSha256": "1faaf89fc487721a730e37a247fc83fb980e3aaf9f5d65570047d33537fcefad",
+      "questionPdfSha256": "dd012517c16a819fea9407c725b281d7d6523f9c67bfea1d12d94f4d24da1ed0",
+      "officialCorrectChoiceNumber": 5,
+      "adjudicator": "PM /root",
+      "needsReview": true,
+      "archiveStatus": "footnote_gap",
+      "sourceRecordStatus": "footnote_gap",
+      "category": "missing_definition_footnote",
+      "pdfPages": [
+        32
+      ],
+      "reason": "公式画像の脚注本文と取得肢の※参照を照合し、定義の本文が取得内容にないことを確認。本文側/選択肢側のどちらへ分類するかという読者間の差を、同一の脚注情報欠落として記録する。本文・選択肢の値を片方へ自動修正しない。"
+    },
+    {
+      "sourceQuestionId": "2025:law:問3",
+      "packetSha256": "46893aaeabd018045de5f42a7c3c486273c628ba0e01a50b8587519d2ebb1933",
+      "sourceSha256": "cbd0078bacdfb2a0ba907994318ff944c14e70a4b4d1a60108359473c5f513c9",
+      "questionPdfSha256": "1852c657091633e53af239f439d2445f282a91e79138e8692a31f713cbb8c422",
+      "officialCorrectChoiceNumber": 4,
+      "adjudicator": "PM /root",
+      "needsReview": true,
+      "archiveStatus": "context_gap",
+      "sourceRecordStatus": "context_gap",
+      "category": "missing_common_exception_scope_note",
+      "pdfPages": [
+        3,
+        5
+      ],
+      "reason": "公式の法令共通注で認定高度保安制度の特例を除いて回答することが明示されている。取得HTMLにはこの回答対象を限定する注がなく、当該問の取得原文が一致することと共通前提の保持を分けた。個別の現行法解釈を新たに断定するものではない。",
+      "impact": "公式の回答範囲に関する共通文脈の未収録。"
+    },
+    {
+      "sourceQuestionId": "2025:kiso:問11",
+      "packetSha256": "46893aaeabd018045de5f42a7c3c486273c628ba0e01a50b8587519d2ebb1933",
+      "sourceSha256": "ba7cedebf36c0bbfc0bc33382189a35e24b4b7d4e5fadc6efd3c125a561bd3da",
+      "questionPdfSha256": "1852c657091633e53af239f439d2445f282a91e79138e8692a31f713cbb8c422",
+      "officialCorrectChoiceNumber": 3,
+      "adjudicator": "PM /root",
+      "needsReview": true,
+      "archiveStatus": "context_gap",
+      "sourceRecordStatus": "context_gap",
+      "category": "missing_common_absolute_pressure_note",
+      "pdfPages": [
+        18,
+        22
+      ],
+      "reason": "公式画像の20℃、液中モル比70:30、蒸気圧0.8/0.2MPaと全候補は取得本文と一致。PDF18頁の絶対圧力という共通指定は取得文脈にないため補完対象として採用。加重平均の数値及び公式番号答3が誤っているという判定ではない。"
+    }
+  ]
+}

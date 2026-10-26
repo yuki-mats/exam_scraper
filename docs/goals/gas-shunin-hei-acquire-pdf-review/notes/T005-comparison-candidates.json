@@ -1,0 +1,755 @@
+[
+  {
+    "sourceQuestionId": "2017:kiso:問5",
+    "differentFields": [
+      "bodyStatus"
+    ],
+    "primary": {
+      "sourceQuestionId": "2017:kiso:問5",
+      "sourceSha256": "e8053178df5b02f046df7274be71181e60b57de7e76b015c5193612cb2b41c34",
+      "questionPdfSha256": "af69256f997fad62b338276812bf5c5aa81a3c5ce1d749f5d60424f49988a26a",
+      "answerPdfSha256": "a822bc99772aa4f53c53f753760629c7117d30d017a21413eb7c57c9c439e53d",
+      "questionPdfPages": [
+        13
+      ],
+      "bodyStatus": "match",
+      "choicesStatus": "match",
+      "answerStatus": "match",
+      "siteCorrectChoiceNumber": 4,
+      "officialCorrectChoiceNumber": 4,
+      "issues": [],
+      "note": "0℃・0.1MPaのブタン112m³と110/145/220/290/330kgを確認し、公式4と一致。",
+      "sourceRecordExamChoicesStatus": "full_choices",
+      "representationNote": "本文と5選択肢を原問題と照合。表の列見出し及び数式の意味を保持。",
+      "sourceVerdictReviewStatus": "no_obvious_conflict_with_official_selection",
+      "explanationSnippetReviewStatus": "stored_prefix_and_choice_snippets_are_empty; technical_accuracy_of_raw_site_explanations_not_certified"
+    },
+    "secondary": {
+      "sourceQuestionId": "2017:kiso:問5",
+      "sourceSha256": "e8053178df5b02f046df7274be71181e60b57de7e76b015c5193612cb2b41c34",
+      "questionPdfSha256": "af69256f997fad62b338276812bf5c5aa81a3c5ce1d749f5d60424f49988a26a",
+      "answerPdfSha256": "a822bc99772aa4f53c53f753760629c7117d30d017a21413eb7c57c9c439e53d",
+      "questionPdfPages": [
+        13
+      ],
+      "bodyStatus": "difference",
+      "choicesStatus": "match",
+      "answerStatus": "match",
+      "siteCorrectChoiceNumber": 4,
+      "officialCorrectChoiceNumber": 4,
+      "issues": [
+        {
+          "field": "questionBodyText/common_note",
+          "kind": "source_error",
+          "detail": "公式p12共通注は圧力を絶対圧力とする。本問の0.1MPaに対する指定がsource本文・questionHtml・保存解説に保持されていない。公式正答(4)は独立に一致。"
+        }
+      ],
+      "note": "0℃・0.1MPa・ブタン112m³・kg及び110/145/220/290/330を照合。絶対圧力の共通条件が欠落。"
+    }
+  },
+  {
+    "sourceQuestionId": "2017:kiso:問8",
+    "differentFields": [
+      "bodyStatus"
+    ],
+    "primary": {
+      "sourceQuestionId": "2017:kiso:問8",
+      "sourceSha256": "e8053178df5b02f046df7274be71181e60b57de7e76b015c5193612cb2b41c34",
+      "questionPdfSha256": "af69256f997fad62b338276812bf5c5aa81a3c5ce1d749f5d60424f49988a26a",
+      "answerPdfSha256": "a822bc99772aa4f53c53f753760629c7117d30d017a21413eb7c57c9c439e53d",
+      "questionPdfPages": [
+        14
+      ],
+      "bodyStatus": "difference",
+      "choicesStatus": "match",
+      "answerStatus": "match",
+      "siteCorrectChoiceNumber": 3,
+      "officialCorrectChoiceNumber": 3,
+      "issues": [
+        {
+          "field": "questionFigure",
+          "kind": "source_error",
+          "detail": "公式PDF14頁のA管/B管の接続図はsiteに画像として存在せず、rawHTMLの.sashie-box内の文章「太いA管（流速2m/s）が細いB管に直列につながっている。」へ置換されている。本文の径・流速条件は一致。"
+        },
+        {
+          "field": "questionBodyText",
+          "kind": "parser_loss",
+          "detail": "rawHTMLにある上記図説明はsource.questionBodyTextに入っていない。"
+        }
+      ],
+      "note": "A管10cm・B管5cm・A流速2m/sと4/6/8/10/12の5肢は一致し、公式3。原図とsiteの図説明置換・recordからの説明欠落を区別した。",
+      "sourceRecordExamChoicesStatus": "full_choices",
+      "representationNote": "本文と5選択肢を原問題と照合。表の列見出し及び数式の意味を保持。",
+      "sourceVerdictReviewStatus": "no_obvious_conflict_with_official_selection",
+      "explanationSnippetReviewStatus": "stored_prefix_and_choice_snippets_are_empty; technical_accuracy_of_raw_site_explanations_not_certified"
+    },
+    "secondary": {
+      "sourceQuestionId": "2017:kiso:問8",
+      "sourceSha256": "e8053178df5b02f046df7274be71181e60b57de7e76b015c5193612cb2b41c34",
+      "questionPdfSha256": "af69256f997fad62b338276812bf5c5aa81a3c5ce1d749f5d60424f49988a26a",
+      "answerPdfSha256": "a822bc99772aa4f53c53f753760629c7117d30d017a21413eb7c57c9c439e53d",
+      "questionPdfPages": [
+        14
+      ],
+      "bodyStatus": "match",
+      "choicesStatus": "match",
+      "answerStatus": "match",
+      "siteCorrectChoiceNumber": 3,
+      "officialCorrectChoiceNumber": 3,
+      "issues": [],
+      "note": "A管10cm・2m/s、B管5cmの直列接続を図で確認。HTML文章化も太管Aと細管Bの関係を保持。公式(3)。"
+    }
+  },
+  {
+    "sourceQuestionId": "2017:kiso:問13",
+    "differentFields": [
+      "bodyStatus"
+    ],
+    "primary": {
+      "sourceQuestionId": "2017:kiso:問13",
+      "sourceSha256": "0a7c3d72f8f1ba7c0b07eb0c7bc4fc78ebee5305d09a583ccde50c236fe4306a",
+      "questionPdfSha256": "af69256f997fad62b338276812bf5c5aa81a3c5ce1d749f5d60424f49988a26a",
+      "answerPdfSha256": "a822bc99772aa4f53c53f753760629c7117d30d017a21413eb7c57c9c439e53d",
+      "questionPdfPages": [
+        15
+      ],
+      "bodyStatus": "match",
+      "choicesStatus": "match",
+      "answerStatus": "match",
+      "siteCorrectChoiceNumber": 5,
+      "officialCorrectChoiceNumber": 5,
+      "issues": [],
+      "note": "プロパン2m³、窒素酸素4:1及び標準状態の条件と10〜50m³の5肢を確認し、公式5と一致。",
+      "sourceRecordExamChoicesStatus": "full_choices",
+      "representationNote": "本文と5選択肢を原問題と照合。表の列見出し及び数式の意味を保持。",
+      "sourceVerdictReviewStatus": "no_obvious_conflict_with_official_selection",
+      "explanationSnippetReviewStatus": "stored_prefix_and_choice_snippets_are_empty; technical_accuracy_of_raw_site_explanations_not_certified"
+    },
+    "secondary": {
+      "sourceQuestionId": "2017:kiso:問13",
+      "sourceSha256": "0a7c3d72f8f1ba7c0b07eb0c7bc4fc78ebee5305d09a583ccde50c236fe4306a",
+      "questionPdfSha256": "af69256f997fad62b338276812bf5c5aa81a3c5ce1d749f5d60424f49988a26a",
+      "answerPdfSha256": "a822bc99772aa4f53c53f753760629c7117d30d017a21413eb7c57c9c439e53d",
+      "questionPdfPages": [
+        15
+      ],
+      "bodyStatus": "difference",
+      "choicesStatus": "match",
+      "answerStatus": "match",
+      "siteCorrectChoiceNumber": 5,
+      "officialCorrectChoiceNumber": 5,
+      "issues": [
+        {
+          "field": "questionBodyText/common_note",
+          "kind": "source_error",
+          "detail": "公式p12共通注の絶対圧力指定がsource本文・questionHtml・保存解説にない。本問の標準状態0.1MPaの数値条件に関係する。公式正答(5)は独立に一致。"
+        }
+      ],
+      "note": "プロパン2m³、窒素と酸素4:1、0℃・0.1MPa、理論空気量の5肢を照合。絶対圧力の条件が欠落。"
+    }
+  },
+  {
+    "sourceQuestionId": "2017:kyokyu:問17",
+    "differentFields": [
+      "bodyStatus"
+    ],
+    "primary": {
+      "sourceQuestionId": "2017:kyokyu:問17",
+      "sourceSha256": "0a7c3d72f8f1ba7c0b07eb0c7bc4fc78ebee5305d09a583ccde50c236fe4306a",
+      "questionPdfSha256": "af69256f997fad62b338276812bf5c5aa81a3c5ce1d749f5d60424f49988a26a",
+      "answerPdfSha256": "a822bc99772aa4f53c53f753760629c7117d30d017a21413eb7c57c9c439e53d",
+      "questionPdfPages": [
+        23
+      ],
+      "bodyStatus": "difference",
+      "choicesStatus": "match",
+      "answerStatus": "match",
+      "siteCorrectChoiceNumber": 5,
+      "officialCorrectChoiceNumber": 5,
+      "issues": [
+        {
+          "field": "questionFigure",
+          "kind": "source_error",
+          "detail": "公式PDF23頁の防食分類図はsiteで.sashie-boxの説明文へ置換されている。rawHTMLは(イ)/(ロ)/その他の3分岐と、(ロ)から(ハ)/(ニ)/選択排流法/強制排流法の4分岐を保持。"
+        },
+        {
+          "field": "questionBodyText",
+          "kind": "parser_loss",
+          "detail": "rawHTMLの分類図説明がsource.questionBodyTextにないため、source record単独では空欄の枝関係を読み取れない。"
+        }
+      ],
+      "note": "原分類図の三分岐とロからの四分岐を確認。rawHTMLの説明は枝関係を保持するがrecord本文では消失。5表肢と公式5は一致。",
+      "sourceRecordExamChoicesStatus": "full_choices",
+      "representationNote": "本文と5選択肢を原問題と照合。表の列見出し及び数式の意味を保持。",
+      "sourceVerdictReviewStatus": "no_obvious_conflict_with_official_selection",
+      "explanationSnippetReviewStatus": "stored_prefix_and_choice_snippets_are_empty; technical_accuracy_of_raw_site_explanations_not_certified"
+    },
+    "secondary": {
+      "sourceQuestionId": "2017:kyokyu:問17",
+      "sourceSha256": "0a7c3d72f8f1ba7c0b07eb0c7bc4fc78ebee5305d09a583ccde50c236fe4306a",
+      "questionPdfSha256": "af69256f997fad62b338276812bf5c5aa81a3c5ce1d749f5d60424f49988a26a",
+      "answerPdfSha256": "a822bc99772aa4f53c53f753760629c7117d30d017a21413eb7c57c9c439e53d",
+      "questionPdfPages": [
+        23
+      ],
+      "bodyStatus": "match",
+      "choicesStatus": "match",
+      "answerStatus": "match",
+      "siteCorrectChoiceNumber": 5,
+      "officialCorrectChoiceNumber": 5,
+      "issues": [],
+      "note": "原図のイ/ロ/その他への分岐とロ配下4方式を直視。HTML文章化も階層を保持。全5行と公式(5)が一致。"
+    }
+  },
+  {
+    "sourceQuestionId": "2017:shohi:問20",
+    "differentFields": [
+      "bodyStatus"
+    ],
+    "primary": {
+      "sourceQuestionId": "2017:shohi:問20",
+      "sourceSha256": "6c008f0a8d2e0e23802e2d458615f075fea18a08e4783bf8773bc2e325fc4f02",
+      "questionPdfSha256": "af69256f997fad62b338276812bf5c5aa81a3c5ce1d749f5d60424f49988a26a",
+      "answerPdfSha256": "a822bc99772aa4f53c53f753760629c7117d30d017a21413eb7c57c9c439e53d",
+      "questionPdfPages": [
+        25
+      ],
+      "bodyStatus": "match",
+      "choicesStatus": "match",
+      "answerStatus": "match",
+      "siteCorrectChoiceNumber": 5,
+      "officialCorrectChoiceNumber": 5,
+      "issues": [],
+      "note": "火移り・リフティング・互換性・一次空気率低下と上昇の全5肢を確認し、公式5と一致。",
+      "sourceRecordExamChoicesStatus": "full_choices",
+      "representationNote": "本文と5選択肢を原問題と照合。表の列見出し及び数式の意味を保持。",
+      "sourceVerdictReviewStatus": "no_obvious_conflict_with_official_selection",
+      "explanationSnippetReviewStatus": "stored_prefix_and_choice_snippets_are_empty; technical_accuracy_of_raw_site_explanations_not_certified"
+    },
+    "secondary": {
+      "sourceQuestionId": "2017:shohi:問20",
+      "sourceSha256": "6c008f0a8d2e0e23802e2d458615f075fea18a08e4783bf8773bc2e325fc4f02",
+      "questionPdfSha256": "af69256f997fad62b338276812bf5c5aa81a3c5ce1d749f5d60424f49988a26a",
+      "answerPdfSha256": "a822bc99772aa4f53c53f753760629c7117d30d017a21413eb7c57c9c439e53d",
+      "questionPdfPages": [
+        25
+      ],
+      "bodyStatus": "difference",
+      "choicesStatus": "match",
+      "answerStatus": "match",
+      "siteCorrectChoiceNumber": 5,
+      "officialCorrectChoiceNumber": 5,
+      "issues": [
+        {
+          "field": "questionHtml",
+          "kind": "source_error",
+          "detail": "公式p25のガス技術問20には図がない。保存済みHTMLとquestionHtmlには「WIとMCPによる互換性図」のSVGがあり、WI/MCP軸、①〜⑤、互換域・良好燃焼範囲が加わる。source.record.questionBodyTextにはこの図はない。"
+        }
+      ],
+      "note": "燃焼の5記述は一致。source本文にないWI/MCP互換性図がHTMLに追加されている。"
+    }
+  },
+  {
+    "sourceQuestionId": "2018:kiso:問4",
+    "differentFields": [
+      "bodyStatus"
+    ],
+    "primary": {
+      "sourceQuestionId": "2018:kiso:問4",
+      "sourceSha256": "0689ab2e9639bec9c36f66671aacb71129a8c9b9f96ec012f4c5b8400cade22c",
+      "questionPdfSha256": "eeed220e1a516e96ca55feefedfb040113a173b9a10c5cb1a20f1b338eba17a1",
+      "answerPdfSha256": "6dca60fdbee1441a082af3d66af4f1f31d77beec97bc8a9863153ab5efac55f3",
+      "questionPdfPages": [
+        16
+      ],
+      "bodyStatus": "match",
+      "choicesStatus": "match",
+      "answerStatus": "match",
+      "siteCorrectChoiceNumber": 2,
+      "officialCorrectChoiceNumber": 2,
+      "issues": [],
+      "note": "標準状態0℃・0.1MPa、メタン22.4L・窒素44.8L・酸素22.4Lと5つの順序を照合。公式答2一致。"
+    },
+    "secondary": {
+      "sourceQuestionId": "2018:kiso:問4",
+      "sourceSha256": "0689ab2e9639bec9c36f66671aacb71129a8c9b9f96ec012f4c5b8400cade22c",
+      "questionPdfSha256": "eeed220e1a516e96ca55feefedfb040113a173b9a10c5cb1a20f1b338eba17a1",
+      "answerPdfSha256": "6dca60fdbee1441a082af3d66af4f1f31d77beec97bc8a9863153ab5efac55f3",
+      "questionPdfPages": [
+        16
+      ],
+      "bodyStatus": "difference",
+      "choicesStatus": "match",
+      "answerStatus": "match",
+      "siteCorrectChoiceNumber": 2,
+      "officialCorrectChoiceNumber": 2,
+      "issues": [
+        {
+          "field": "questionBodyText/common_note",
+          "kind": "source_error",
+          "detail": "公式p15共通注は圧力を絶対圧力とする。本問の標準状態0.1MPaに対する指定がsource本文・questionHtml・保存解説にない。公式正答(2)は独立に一致。"
+        }
+      ],
+      "note": "0℃・0.1MPa、Aメタン22.4L/B窒素44.8L/C酸素22.4Lと不等号全肢は一致。絶対圧力指定が欠落。"
+    }
+  },
+  {
+    "sourceQuestionId": "2018:kiso:問5",
+    "differentFields": [
+      "bodyStatus"
+    ],
+    "primary": {
+      "sourceQuestionId": "2018:kiso:問5",
+      "sourceSha256": "0689ab2e9639bec9c36f66671aacb71129a8c9b9f96ec012f4c5b8400cade22c",
+      "questionPdfSha256": "eeed220e1a516e96ca55feefedfb040113a173b9a10c5cb1a20f1b338eba17a1",
+      "answerPdfSha256": "6dca60fdbee1441a082af3d66af4f1f31d77beec97bc8a9863153ab5efac55f3",
+      "questionPdfPages": [
+        16
+      ],
+      "bodyStatus": "match",
+      "choicesStatus": "match",
+      "answerStatus": "match",
+      "siteCorrectChoiceNumber": 5,
+      "officialCorrectChoiceNumber": 5,
+      "issues": [],
+      "note": "1kg当たりの標準体積を比較する5気体と標準状態条件を照合。水素の肢5と公式答一致。"
+    },
+    "secondary": {
+      "sourceQuestionId": "2018:kiso:問5",
+      "sourceSha256": "0689ab2e9639bec9c36f66671aacb71129a8c9b9f96ec012f4c5b8400cade22c",
+      "questionPdfSha256": "eeed220e1a516e96ca55feefedfb040113a173b9a10c5cb1a20f1b338eba17a1",
+      "answerPdfSha256": "6dca60fdbee1441a082af3d66af4f1f31d77beec97bc8a9863153ab5efac55f3",
+      "questionPdfPages": [
+        16
+      ],
+      "bodyStatus": "difference",
+      "choicesStatus": "match",
+      "answerStatus": "match",
+      "siteCorrectChoiceNumber": 5,
+      "officialCorrectChoiceNumber": 5,
+      "issues": [
+        {
+          "field": "questionBodyText/common_note",
+          "kind": "source_error",
+          "detail": "公式p15共通注の絶対圧力指定がsource本文・questionHtml・保存解説にない。本問の標準状態0.1MPaという具体的条件に関係する。公式正答(5)は独立に一致。"
+        }
+      ],
+      "note": "1kg当たり、標準状態0℃・0.1MPa、体積最大という条件と5気体を照合。絶対圧力指定が欠落。"
+    }
+  },
+  {
+    "sourceQuestionId": "2019:kiso:問3",
+    "differentFields": [
+      "bodyStatus"
+    ],
+    "primary": {
+      "sourceQuestionId": "2019:kiso:問3",
+      "sourceSha256": "bbdd62c4e77b4ef547986be385abc71cb4da1cf5dac545d0574ccc234ed4b55e",
+      "questionPdfSha256": "6682a65b475d9795c7cb87ce94333f114aaeb4b7a5dc1667830fc07bcc894bd1",
+      "answerPdfSha256": "5842bdfc2daf299ea40952d46942c21a1859247b4200ad7a5c6fa32c716be08b",
+      "questionPdfPages": [
+        17
+      ],
+      "bodyStatus": "match",
+      "choicesStatus": "match",
+      "answerStatus": "match",
+      "siteCorrectChoiceNumber": 2,
+      "officialCorrectChoiceNumber": 2,
+      "issues": [],
+      "note": "標準状態22.4m³メタンの条件、12/16/22/44/66の候補と正答2が一致。"
+    },
+    "secondary": {
+      "sourceQuestionId": "2019:kiso:問3",
+      "sourceSha256": "bbdd62c4e77b4ef547986be385abc71cb4da1cf5dac545d0574ccc234ed4b55e",
+      "questionPdfSha256": "6682a65b475d9795c7cb87ce94333f114aaeb4b7a5dc1667830fc07bcc894bd1",
+      "answerPdfSha256": "5842bdfc2daf299ea40952d46942c21a1859247b4200ad7a5c6fa32c716be08b",
+      "questionPdfPages": [
+        17
+      ],
+      "bodyStatus": "difference",
+      "choicesStatus": "match",
+      "answerStatus": "match",
+      "siteCorrectChoiceNumber": 2,
+      "officialCorrectChoiceNumber": 2,
+      "issues": [
+        {
+          "field": "questionBodyText",
+          "kind": "source_error",
+          "detail": "公式p17の圧力を絶対圧力とする共通注が取得本文・保存HTMLにない。標準状態の0.1MPaを用いる質量計算の条件に当たる。"
+        }
+      ],
+      "note": "0℃・0.1MPa、メタン22.4m³及び全数値肢は一致。絶対圧力の共通条件が欠落。"
+    }
+  },
+  {
+    "sourceQuestionId": "2019:kiso:問4",
+    "differentFields": [
+      "bodyStatus"
+    ],
+    "primary": {
+      "sourceQuestionId": "2019:kiso:問4",
+      "sourceSha256": "bbdd62c4e77b4ef547986be385abc71cb4da1cf5dac545d0574ccc234ed4b55e",
+      "questionPdfSha256": "6682a65b475d9795c7cb87ce94333f114aaeb4b7a5dc1667830fc07bcc894bd1",
+      "answerPdfSha256": "5842bdfc2daf299ea40952d46942c21a1859247b4200ad7a5c6fa32c716be08b",
+      "questionPdfPages": [
+        17
+      ],
+      "bodyStatus": "match",
+      "choicesStatus": "match",
+      "answerStatus": "match",
+      "siteCorrectChoiceNumber": 2,
+      "officialCorrectChoiceNumber": 2,
+      "issues": [],
+      "note": "プロパン88kgの体積問題、五数値候補と正答2が一致。"
+    },
+    "secondary": {
+      "sourceQuestionId": "2019:kiso:問4",
+      "sourceSha256": "bbdd62c4e77b4ef547986be385abc71cb4da1cf5dac545d0574ccc234ed4b55e",
+      "questionPdfSha256": "6682a65b475d9795c7cb87ce94333f114aaeb4b7a5dc1667830fc07bcc894bd1",
+      "answerPdfSha256": "5842bdfc2daf299ea40952d46942c21a1859247b4200ad7a5c6fa32c716be08b",
+      "questionPdfPages": [
+        17
+      ],
+      "bodyStatus": "difference",
+      "choicesStatus": "match",
+      "answerStatus": "match",
+      "siteCorrectChoiceNumber": 2,
+      "officialCorrectChoiceNumber": 2,
+      "issues": [
+        {
+          "field": "questionBodyText",
+          "kind": "source_error",
+          "detail": "公式p17の圧力を絶対圧力とする共通注が取得本文・保存HTMLにない。0℃・0.1MPaでの体積計算の条件に当たる。"
+        }
+      ],
+      "note": "プロパン88kg、標準状態及び体積の5数値肢は一致。絶対圧力の共通条件が欠落。"
+    }
+  },
+  {
+    "sourceQuestionId": "2024:law:問3",
+    "differentFields": [
+      "bodyStatus"
+    ],
+    "primary": {
+      "sourceQuestionId": "2024:law:問3",
+      "sourceSha256": "1ec894007b2efc9287e501ed098e5c08a68966bc33da0f1181504e52d6c628b2",
+      "questionPdfSha256": "dd012517c16a819fea9407c725b281d7d6523f9c67bfea1d12d94f4d24da1ed0",
+      "answerPdfSha256": "d4c934c16cf4dc6cb448aa5c3004bccff8357177d9feed0a959a314261697887",
+      "questionPdfPages": [
+        4
+      ],
+      "bodyStatus": "match",
+      "choicesStatus": "match",
+      "answerStatus": "match",
+      "siteCorrectChoiceNumber": 5,
+      "officialCorrectChoiceNumber": 5,
+      "issues": [],
+      "note": "工作物の適合命令、保安規程、所有者協力の5肢を照合。協力努力義務の肢5と保存判定が対応する。"
+    },
+    "secondary": {
+      "sourceQuestionId": "2024:law:問3",
+      "sourceSha256": "1ec894007b2efc9287e501ed098e5c08a68966bc33da0f1181504e52d6c628b2",
+      "questionPdfSha256": "dd012517c16a819fea9407c725b281d7d6523f9c67bfea1d12d94f4d24da1ed0",
+      "answerPdfSha256": "d4c934c16cf4dc6cb448aa5c3004bccff8357177d9feed0a959a314261697887",
+      "questionPdfPages": [
+        3,
+        4
+      ],
+      "bodyStatus": "difference",
+      "choicesStatus": "match",
+      "answerStatus": "match",
+      "siteCorrectChoiceNumber": 5,
+      "officialCorrectChoiceNumber": 5,
+      "issues": [
+        {
+          "field": "questionBodyText",
+          "kind": "source_error",
+          "detail": "PDF3頁の注5は認定高度保安実施事業者制度の特例を除外して回答するよう指定する。問3は保安規程の設定・届出を含むが、保存本文・当該rawHTMLにこの範囲条件がない。raw解説も一般則の届出時期だけを説明し、特例除外条件を保持していない。"
+        }
+      ],
+      "note": "全5肢はPDFと一致。保安規程の届出等を判断する共通の特例除外条件が欠落。"
+    }
+  },
+  {
+    "sourceQuestionId": "2024:law:問5",
+    "differentFields": [
+      "bodyStatus"
+    ],
+    "primary": {
+      "sourceQuestionId": "2024:law:問5",
+      "sourceSha256": "1ec894007b2efc9287e501ed098e5c08a68966bc33da0f1181504e52d6c628b2",
+      "questionPdfSha256": "dd012517c16a819fea9407c725b281d7d6523f9c67bfea1d12d94f4d24da1ed0",
+      "answerPdfSha256": "d4c934c16cf4dc6cb448aa5c3004bccff8357177d9feed0a959a314261697887",
+      "questionPdfPages": [
+        5
+      ],
+      "bodyStatus": "match",
+      "choicesStatus": "match",
+      "answerStatus": "match",
+      "siteCorrectChoiceNumber": 5,
+      "officialCorrectChoiceNumber": 5,
+      "issues": [],
+      "note": "主任技術者の選任・届出・免状交付・罰金・返納の5肢を照合。公式番号5と保存判定が一致する。"
+    },
+    "secondary": {
+      "sourceQuestionId": "2024:law:問5",
+      "sourceSha256": "1ec894007b2efc9287e501ed098e5c08a68966bc33da0f1181504e52d6c628b2",
+      "questionPdfSha256": "dd012517c16a819fea9407c725b281d7d6523f9c67bfea1d12d94f4d24da1ed0",
+      "answerPdfSha256": "d4c934c16cf4dc6cb448aa5c3004bccff8357177d9feed0a959a314261697887",
+      "questionPdfPages": [
+        3,
+        5
+      ],
+      "bodyStatus": "difference",
+      "choicesStatus": "match",
+      "answerStatus": "match",
+      "siteCorrectChoiceNumber": 5,
+      "officialCorrectChoiceNumber": 5,
+      "issues": [
+        {
+          "field": "questionBodyText",
+          "kind": "source_error",
+          "detail": "PDF3頁の認定高度保安実施事業者制度による特例を除いて回答する注5が欠落。問5第2肢の主任技術者選任・解任の届出義務を判断する範囲条件だが、保存本文・rawHTMLにはなく、解説の「選任後遅滞なく届出」にも特例除外の指定がない。"
+        }
+      ],
+      "note": "選任資格、事前届出、認定主体、1年、免状返納の全5肢を確認。共通の特例除外前提が保存されていない。"
+    }
+  },
+  {
+    "sourceQuestionId": "2024:law:問6",
+    "differentFields": [
+      "bodyStatus"
+    ],
+    "primary": {
+      "sourceQuestionId": "2024:law:問6",
+      "sourceSha256": "1ec894007b2efc9287e501ed098e5c08a68966bc33da0f1181504e52d6c628b2",
+      "questionPdfSha256": "dd012517c16a819fea9407c725b281d7d6523f9c67bfea1d12d94f4d24da1ed0",
+      "answerPdfSha256": "d4c934c16cf4dc6cb448aa5c3004bccff8357177d9feed0a959a314261697887",
+      "questionPdfPages": [
+        6
+      ],
+      "bodyStatus": "match",
+      "choicesStatus": "match",
+      "answerStatus": "match",
+      "siteCorrectChoiceNumber": 3,
+      "officialCorrectChoiceNumber": 3,
+      "issues": [],
+      "note": "工事計画と使用前検査の5空欄、組合せ表を照合。設置又は変更・受理・30日・自主検査・試験の番号3を保持する。"
+    },
+    "secondary": {
+      "sourceQuestionId": "2024:law:問6",
+      "sourceSha256": "1ec894007b2efc9287e501ed098e5c08a68966bc33da0f1181504e52d6c628b2",
+      "questionPdfSha256": "dd012517c16a819fea9407c725b281d7d6523f9c67bfea1d12d94f4d24da1ed0",
+      "answerPdfSha256": "d4c934c16cf4dc6cb448aa5c3004bccff8357177d9feed0a959a314261697887",
+      "questionPdfPages": [
+        3,
+        6
+      ],
+      "bodyStatus": "difference",
+      "choicesStatus": "match",
+      "answerStatus": "match",
+      "siteCorrectChoiceNumber": 3,
+      "officialCorrectChoiceNumber": 3,
+      "issues": [
+        {
+          "field": "questionBodyText",
+          "kind": "source_error",
+          "detail": "PDF3頁の注5にある認定高度保安実施事業者制度の特例除外条件が、保存本文・当該rawHTMLにない。問6は工事計画の事前届出、受理後の着工期間、使用前検査の扱いを問うため、この制度上の範囲を限定する前提が必要。"
+        }
+      ],
+      "note": "5空欄と全行、30日、期間短縮、試験使用を確認。設置又は変更・受理・30・自主検査・試験の第3行。"
+    }
+  },
+  {
+    "sourceQuestionId": "2024:seizo:問3",
+    "differentFields": [
+      "bodyStatus",
+      "choicesStatus"
+    ],
+    "primary": {
+      "sourceQuestionId": "2024:seizo:問3",
+      "sourceSha256": "31a44a225c2bfe6f234b049adb8c63406f228daa3902b401d59e403aec12d5fd",
+      "questionPdfSha256": "dd012517c16a819fea9407c725b281d7d6523f9c67bfea1d12d94f4d24da1ed0",
+      "answerPdfSha256": "d4c934c16cf4dc6cb448aa5c3004bccff8357177d9feed0a959a314261697887",
+      "questionPdfPages": [
+        24
+      ],
+      "bodyStatus": "match",
+      "choicesStatus": "difference",
+      "answerStatus": "match",
+      "siteCorrectChoiceNumber": 3,
+      "officialCorrectChoiceNumber": 3,
+      "issues": [
+        {
+          "field": "choiceTextList[4]/questionHtml/footnote",
+          "kind": "source_error",
+          "detail": "公式は肢5の従来型バルクローリーを、高圧ガス保安法・液化石油ガス保安規則第9条の移動式製造設備に係る技術上の基準に適合したものと脚注で定義する。サイトと保存肢は※だけを残し、対象車両を限定する定義を欠く。"
+        }
+      ],
+      "note": "50kg29本×2、990kg3基、防火壁1.8m、障壁の配筋、15m離隔の5肢を照合。従来型バルクローリーの定義脚注がない。"
+    },
+    "secondary": {
+      "sourceQuestionId": "2024:seizo:問3",
+      "sourceSha256": "31a44a225c2bfe6f234b049adb8c63406f228daa3902b401d59e403aec12d5fd",
+      "questionPdfSha256": "dd012517c16a819fea9407c725b281d7d6523f9c67bfea1d12d94f4d24da1ed0",
+      "answerPdfSha256": "d4c934c16cf4dc6cb448aa5c3004bccff8357177d9feed0a959a314261697887",
+      "questionPdfPages": [
+        24
+      ],
+      "bodyStatus": "difference",
+      "choicesStatus": "match",
+      "answerStatus": "match",
+      "siteCorrectChoiceNumber": 3,
+      "officialCorrectChoiceNumber": 3,
+      "issues": [
+        {
+          "field": "questionBodyText",
+          "kind": "source_error",
+          "detail": "PDF24頁は従来型バルクローリーを「高圧ガス保安法 液化石油ガス保安規則」第9条の移動式製造設備に係る技術上の基準に適合したものと脚注で定義する。保存第5肢には「従来型バルクローリー※」があるが、本文・当該rawHTMLに定義脚注がなく、対象車両を限定する条件が欠落。"
+        }
+      ],
+      "note": "50kg29本×2、990kg3基、防火壁1.8m、障壁15cm/1.8m/9mm/40cm、ローリー15mを全肢確認。従来型の脚注なし。"
+    }
+  },
+  {
+    "sourceQuestionId": "2024:shohi:問22",
+    "differentFields": [
+      "bodyStatus",
+      "choicesStatus"
+    ],
+    "primary": {
+      "sourceQuestionId": "2024:shohi:問22",
+      "sourceSha256": "1faaf89fc487721a730e37a247fc83fb980e3aaf9f5d65570047d33537fcefad",
+      "questionPdfSha256": "dd012517c16a819fea9407c725b281d7d6523f9c67bfea1d12d94f4d24da1ed0",
+      "answerPdfSha256": "d4c934c16cf4dc6cb448aa5c3004bccff8357177d9feed0a959a314261697887",
+      "questionPdfPages": [
+        32
+      ],
+      "bodyStatus": "match",
+      "choicesStatus": "difference",
+      "answerStatus": "match",
+      "siteCorrectChoiceNumber": 5,
+      "officialCorrectChoiceNumber": 5,
+      "issues": [
+        {
+          "field": "choiceTextList[4]/questionHtml/footnote",
+          "kind": "source_error",
+          "detail": "公式は「液石法」を「液化石油ガスの保安の確保及び取引の適正化に関する法律」と脚注で定義する。サイトと保存肢は「液石法※」だけを残し、正式名称の定義を欠く。年HTML全体にも当該正式名称がない。"
+        }
+      ],
+      "note": "湯沸器構成、25℃・1L/分、適用法令、70kW以下の5肢を照合。液石法の正式名称を示す原問脚注がない。"
+    },
+    "secondary": {
+      "sourceQuestionId": "2024:shohi:問22",
+      "sourceSha256": "1faaf89fc487721a730e37a247fc83fb980e3aaf9f5d65570047d33537fcefad",
+      "questionPdfSha256": "dd012517c16a819fea9407c725b281d7d6523f9c67bfea1d12d94f4d24da1ed0",
+      "answerPdfSha256": "d4c934c16cf4dc6cb448aa5c3004bccff8357177d9feed0a959a314261697887",
+      "questionPdfPages": [
+        32
+      ],
+      "bodyStatus": "difference",
+      "choicesStatus": "match",
+      "answerStatus": "match",
+      "siteCorrectChoiceNumber": 5,
+      "officialCorrectChoiceNumber": 5,
+      "issues": [
+        {
+          "field": "questionBodyText",
+          "kind": "source_error",
+          "detail": "PDF32頁には「液石法とは、『液化石油ガスの保安の確保及び取引の適正化に関する法律』のことである。」との脚注がある。保存第5肢には「液石法※」が残るが、保存本文・当該rawHTMLに正式名称の定義がない。"
+        }
+      ],
+      "note": "構成装置、1号=25℃/1分1L、水道法、電安法、70kW以下密閉式の全5肢は一致。液石法の定義脚注欠落。"
+    }
+  },
+  {
+    "sourceQuestionId": "2025:law:問3",
+    "differentFields": [
+      "bodyStatus"
+    ],
+    "primary": {
+      "sourceQuestionId": "2025:law:問3",
+      "sourceSha256": "cbd0078bacdfb2a0ba907994318ff944c14e70a4b4d1a60108359473c5f513c9",
+      "questionPdfSha256": "1852c657091633e53af239f439d2445f282a91e79138e8692a31f713cbb8c422",
+      "answerPdfSha256": "d60ca62c77903325de60257bef656904e86234a4d1c4757f2d399495091de9d0",
+      "questionPdfPages": [
+        5
+      ],
+      "bodyStatus": "match",
+      "choicesStatus": "match",
+      "answerStatus": "match",
+      "siteCorrectChoiceNumber": 4,
+      "officialCorrectChoiceNumber": 4,
+      "issues": [],
+      "note": "冊子4頁。維持義務から作業員資格までイ〜ホを確認。誤りハ・ホ、原番号肢4と一致。"
+    },
+    "secondary": {
+      "sourceQuestionId": "2025:law:問3",
+      "sourceSha256": "cbd0078bacdfb2a0ba907994318ff944c14e70a4b4d1a60108359473c5f513c9",
+      "questionPdfSha256": "1852c657091633e53af239f439d2445f282a91e79138e8692a31f713cbb8c422",
+      "answerPdfSha256": "d60ca62c77903325de60257bef656904e86234a4d1c4757f2d399495091de9d0",
+      "questionPdfPages": [
+        3,
+        5
+      ],
+      "bodyStatus": "difference",
+      "choicesStatus": "match",
+      "answerStatus": "match",
+      "siteCorrectChoiceNumber": 4,
+      "officialCorrectChoiceNumber": 4,
+      "issues": [
+        {
+          "field": "questionBodyText",
+          "kind": "source_error",
+          "detail": "保安規程を定める際の手続を含む問題に対し、公式共通注5の認定高度保安制度の特例を除くという前提が本文及びrawHTMLにない。raw解説には許可を届出に直す説明があるが、この除外条件は残っていない。"
+        }
+      ],
+      "note": "維持義務、緊急命令、保安規程、代行者及び作業員の全記述と原番号肢を照合。ハ・ホ＝4。"
+    }
+  },
+  {
+    "sourceQuestionId": "2025:kiso:問11",
+    "differentFields": [
+      "bodyStatus"
+    ],
+    "primary": {
+      "sourceQuestionId": "2025:kiso:問11",
+      "sourceSha256": "ba7cedebf36c0bbfc0bc33382189a35e24b4b7d4e5fadc6efd3c125a561bd3da",
+      "questionPdfSha256": "1852c657091633e53af239f439d2445f282a91e79138e8692a31f713cbb8c422",
+      "answerPdfSha256": "d60ca62c77903325de60257bef656904e86234a4d1c4757f2d399495091de9d0",
+      "questionPdfPages": [
+        22
+      ],
+      "bodyStatus": "match",
+      "choicesStatus": "match",
+      "answerStatus": "match",
+      "siteCorrectChoiceNumber": 3,
+      "officialCorrectChoiceNumber": 3,
+      "issues": [],
+      "note": "冊子21頁。20℃・液中モル比70:30、蒸気圧0.8/0.2MPaと全数値肢を確認。答3一致。"
+    },
+    "secondary": {
+      "sourceQuestionId": "2025:kiso:問11",
+      "sourceSha256": "ba7cedebf36c0bbfc0bc33382189a35e24b4b7d4e5fadc6efd3c125a561bd3da",
+      "questionPdfSha256": "1852c657091633e53af239f439d2445f282a91e79138e8692a31f713cbb8c422",
+      "answerPdfSha256": "d60ca62c77903325de60257bef656904e86234a4d1c4757f2d399495091de9d0",
+      "questionPdfPages": [
+        18,
+        22
+      ],
+      "bodyStatus": "difference",
+      "choicesStatus": "match",
+      "answerStatus": "match",
+      "siteCorrectChoiceNumber": 3,
+      "officialCorrectChoiceNumber": 3,
+      "issues": [
+        {
+          "field": "questionBodyText",
+          "kind": "source_error",
+          "detail": "入力及び求める蒸気圧の物理的基準を定める、公式基礎共通注の絶対圧力条件が本文及びrawHTMLにない。加重平均による番号答の一致とは別の前提欠落であり、番号答の誤りとは判定していない。"
+        }
+      ],
+      "note": "20℃、液中モル比70:30、蒸気圧0.8・0.2MPa及び全5候補を照合。0.6MPa＝3。"
+    }
+  }
+]

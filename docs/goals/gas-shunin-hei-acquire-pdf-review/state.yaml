@@ -56,7 +56,7 @@ visual_board:
     status: live
     url: http://goalbuddy.localhost:41737/gas-shunin-hei-acquire-pdf-review/
     command: node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/development/exam_scraper_work/docs/goals/gas-shunin-hei-acquire-pdf-review
-active_task: T005
+active_task: T999
 tasks:
   - id: T001
     type: scout
@@ -208,19 +208,26 @@ tasks:
   - id: T005
     type: worker
     assignee: Worker
-    status: active
+    status: done
     objective: 一次作者とは別sessionで全問の公式問題画像・正答画像を再確認し二次照合記録を保存
     inputs:
       - 固定source全件
       - 公式問題PDF/正答PDFの実画像
       - 一次との照合は独立判断後のみ
     constraints:
-      - read-only
-      - 一次の結論を根拠にしない
+      - 一次の内容/判断を継承しないfresh sessionのread-only読者が全問の公式実画像を独立再照合。
+      - 同一T005内の年度別read-only分担のみ。ファイル保存はPMの明示source ID receipt記録に限定。
     expected_output:
       - 全問の二次判定
       - 差異と未確認
-    receipt: null
+    receipt:
+      result: done
+      changed_files:
+        - output/gas-shunin-hei/pdf_review/secondary/
+      commands:
+        - cmd: 'T005-save-secondary.py: all9years/522ID/sourcehash/packet/page/answer alignment'
+          status: pass
+      summary: fresh sessionsのread-only読者が全522問を公式問題/正答画像から独立二次照合。正答番号全一致。2022消費23の二次record転記誤りを機械拒否し、公式表・実問再読による同作者明示訂正を自然keyで結合。元不整合receipt・訂正receipt双方保持。一次とのfield差はPM最終監査で確認する。
     allowed_files:
       - output/gas-shunin-hei/pdf_review/secondary/
     verify:
@@ -229,33 +236,74 @@ tasks:
     stop_if:
       - 未確認はhold
       - 一次判断だけで追認しない
+    progress:
+      secondaryYears:
+        - 2017
+        - 2018
+        - 2019
+        - 2020
+        - 2021
+        - 2022
+        - 2023
+        - 2024
+        - 2025
+      readers:
+        hei_secondary_a:
+          - 2017
+          - 2018
+          - 2019
+        hei_secondary_b:
+          - 2020
+          - 2021
+          - 2022
+        hei_secondary_c:
+          - 2023
+          - 2024
+          - 2025
+      secondaryQuestionCount: 522
+      officialAnswerMatches: 522
+      readersCurrent: {}
+      pendingComparisonIds: []
+      comparisonIdsResolvedBy: notes/T999-adjudications.json
   - id: T999
-    type: judge
-    assignee: Judge
-    status: queued
+    type: pm
+    assignee: PM
+    status: active
     reasoning_hint: default
-    objective: Audit whether the implemented slice satisfies the original user outcome for this tranche.
+    objective: 一次/二次の不一致を公式PDFへ立ち返って個別解決し、全522問の記録を集約、GitHubへ保存して元依頼の完了を監査
     inputs:
       - All done task receipts
       - Last verification
       - Current dirty diff
     constraints:
-      - Do not implement.
-      - Reject completion if required Worker work is still queued or active.
-      - Reject completion if the broader original outcome still has safe local follow-up slices.
-      - Reject stopping only because a slice needs owner input, credentials, production access, destructive operations, or policy decisions.
+      - 00_source不変・原問ID維持
+      - 原データ/レポートを無断公開/Firestore反映しない
+      - 判定が割れたfieldを片方への自動合わせで処理せず公式実画像と取得内容から独立に確認
     expected_output:
       - complete | not_complete
       - 'full_outcome_complete: true | false'
       - missing evidence
       - next task if not complete
     receipt: null
+    allowed_files:
+      - docs/goals/gas-shunin-hei-acquire-pdf-review/
+      - document/temporary/20261027_gas_shunin_hei_pdf_review.md
+      - document/temporary/20261027_gas_shunin_hei_pdf_review.json
+      - output/gas-shunin-hei/pdf_review/
+    progress:
+      reconciledFieldDisagreements: 16
+      archiveDifferenceQuestions: 69
+      flaggedQuestionsIncludingJsonOnly: 70
+      sourceFilesUnchanged: 27
+      resultJson: document/temporary/20261027_gas_shunin_hei_pdf_review.json
+      resultMarkdown: document/temporary/20261027_gas_shunin_hei_pdf_review.md
+      remaining: 最終監査・GitHub保存確認
 checks:
   dirty_fingerprint: unknown
   last_verification:
     result: pass
-    task: T004
+    task: T005
     commands:
-      - all18PDF preparation
-      - primary522coverage/hash
-      - receipt refusal checks
+      - secondary522coverage/hash
+      - independent session binding
+      - explicit correction and replay checks
