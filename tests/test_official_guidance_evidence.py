@@ -247,7 +247,7 @@ class OfficialGuidanceEvidenceTests(unittest.TestCase):
         self.assertEqual(list(outside.iterdir()), [])
 
     def test_date_change_during_fetch_and_naive_timestamp_never_return_a_receipt(self):
-        self.resolver.now = iter(['2026-10-25T23:59:59+00:00', '2026-10-26T00:00:01+00:00']).__next__
+        self.resolver.now = iter(['2026-10-25T14:59:59+00:00', '2026-10-25T15:00:01+00:00']).__next__
         with self.assertRaisesRegex(guidance.OfficialGuidanceEvidenceError, 'date changed'): self.resolve()
         self.resolver.now = lambda: '2026-10-25T09:00:00'
         with self.assertRaisesRegex(guidance.OfficialGuidanceEvidenceError, 'timezone'): self.resolve()

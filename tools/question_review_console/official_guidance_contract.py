@@ -12,7 +12,7 @@ import os
 from pathlib import Path
 
 from scripts.common.question_identity import SourceIdentityBinding, load_source_record_inventory
-from tools.question_review_console.official_guidance_evidence import OfficialGuidanceEvidenceResolver
+from tools.question_review_console.official_guidance_evidence import OfficialGuidanceEvidenceResolver, PROVIDERS
 
 FIELD = 'officialGuidanceReferences'
 PROOF_DIRECTORY = 'output/user_feedback_response_system/execution/official-guidance-proofs'
@@ -29,7 +29,7 @@ _pages = {'type': 'array', 'minItems': 1, 'maxItems': 32,
     'items': {'type': 'integer', 'minimum': 1}}
 REQUEST_RULE = _object({
     'schemaVersion': {'type': 'string', 'enum': ['official-guidance-request/v1']},
-    'provider': {'type': 'string', 'enum': ['mlit_mansion_standard_single']},
+    'provider': {'type': 'string', 'enum': list(PROVIDERS)},
     'currentAsOf': _text, 'examAsOf': {'type': ['string', 'null']},
     'currentPages': _pages,
     'historicalDocuments': {'type': 'array', 'maxItems': 6, 'items': _object({

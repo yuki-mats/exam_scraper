@@ -1,4 +1,4 @@
-"""Actual official institutional guidance retrieval, separate from e-Gov statutes.
+"""Official institutional documents and treaty texts, separate from e-Gov XML.
 
 This provider proves acquisition and source/choice binding, not applicability or
 correctness. Callers must deliver the receipt to their real model turns, bind the
@@ -6,9 +6,9 @@ receipt hash in execution/audit scopes, and refresh it before publication.
 """
 from __future__ import annotations
 
-from collections.abc import Mapping
+from collections.abc import Callable, Mapping
 from dataclasses import dataclass
-from datetime import date, datetime, timezone
+from datetime import date, datetime, timedelta, timezone
 from html.parser import HTMLParser
 import hashlib
 import json
@@ -27,12 +27,15 @@ REQUEST_SCHEMA = 'official-guidance-request/v1'
 SOURCE_KIND = 'official_institutional_guidance'
 PROVIDER = 'mlit_mansion_standard_single'
 INDEX_URL = 'https://www.mlit.go.jp/jutakukentiku/house/mansionkiyaku.html'
+ENV_PARIS_PROVIDER = 'env_paris_agreement'
+ENV_PARIS_INDEX_URL = 'https://www.env.go.jp/earth/ondanka/cop/shiryo.html'
 MAX_PDF_BYTES = 20_000_000
 MAX_INDEX_BYTES = 2_000_000
 # Bounded text must accommodate current rules/comments plus the historical
 # base and amendments, rather than silently omit an exception or comment.
 MAX_TEXT_BYTES = 96_000
 MAX_SELECTED_PAGES = 32
+REFERENCE_TIMEZONE = timezone(timedelta(hours=9))
 
 
 class OfficialGuidanceEvidenceError(ValueError):
@@ -85,6 +88,13 @@ def _timestamp(value):
     return stamp.astimezone(timezone.utc)
 
 
+def _reference_date(value):
+    # Native maintenance uses Japanese calendar dates for law/reference days.
+    # Keep acquisition timestamps timezone-aware; do not confuse UTC midnight
+    # with the date boundary of the source's applicable jurisdiction.
+    return _timestamp(value).astimezone(REFERENCE_TIMEZONE).date().isoformat()
+
+
 def _pages(value):
     if (not isinstance(value, list) or not value or len(value) > MAX_SELECTED_PAGES
             or any(type(page) is not int or page < 1 for page in value)
@@ -93,27 +103,34 @@ def _pages(value):
     return value
 
 
-def _official_url(url, *, pdf=False):
+def _official_url(url, *, pdf=False, provider=PROVIDER):
+    source = _source(provider)
     parts = urlsplit(_text(url))
-    if (parts.scheme != 'https' or parts.netloc != 'www.mlit.go.jp'
+    if (parts.scheme != 'https' or parts.netloc != source.hostname
             or parts.username or parts.password or parts.query or parts.fragment
-            or (pdf and not re.fullmatch(r'/(?:[A-Za-z0-9_-]+/)*[0-9]+\.pdf', parts.path))):
+            or (pdf and not re.fullmatch(source.pdf_path_pattern, parts.path))):
         raise OfficialGuidanceEvidenceError('allowlisted official HTTPS URL required')
     return url
 
 
 class _OfficialRedirects(urllib.request.HTTPRedirectHandler):
+    def __init__(self, provider=PROVIDER):
+        super().__init__()
+        self.provider = provider
+
     def redirect_request(self, req, fp, code, msg, headers, newurl):
-        _official_url(urljoin(req.full_url, newurl), pdf=req.full_url != INDEX_URL)
+        _official_url(urljoin(req.full_url, newurl),
+            pdf=req.full_url != _source(self.provider).index_url, provider=self.provider)
         return super().redirect_request(req, fp, code, msg, headers, newurl)
 
 
-def _fetch(url, maximum):
-    _official_url(url, pdf=url != INDEX_URL)
-    opener = urllib.request.build_opener(IPv4HTTPSHandler(), _OfficialRedirects())
+def _fetch(url, maximum, *, provider=PROVIDER):
+    index_url = _source(provider).index_url
+    _official_url(url, pdf=url != index_url, provider=provider)
+    opener = urllib.request.build_opener(IPv4HTTPSHandler(), _OfficialRedirects(provider))
     with opener.open(urllib.request.Request(url,
             headers={'User-Agent': 'Repaso-OfficialGuidanceEvidence/1.0'}), timeout=30) as response:
-        _official_url(response.url, pdf=url != INDEX_URL)
+        _official_url(response.url, pdf=url != index_url, provider=provider)
         data = response.read(maximum + 1)
         return OfficialGuidanceFetch(data, response.url,
             response.headers.get_content_type())
@@ -197,6 +214,86 @@ def _current_link(data, current_as_of):
     return links[0], current['title'], latest.isoformat()
 
 
+class _ParisIndex(HTMLParser):
+    """Read only the named treaty section, never the neighbouring overview."""
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.heading = None
+        self.heading_text = []
+        self.section = None
+        self.sections = []
+        self.anchor = None
+
+    def handle_starttag(self, tag, attrs):
+        if tag in {'h1', 'h2', 'h3', 'h4'}:
+            self.heading = tag
+            self.heading_text = []
+            self.section = None
+        if tag == 'a':
+            self.anchor = [dict(attrs).get('href'), []]
+
+    def handle_data(self, data):
+        if self.heading:
+            self.heading_text.append(data)
+        if self.anchor:
+            self.anchor[1].append(data)
+
+    def handle_endtag(self, tag):
+        if tag == self.heading:
+            self.section = {'title': ''.join(self.heading_text).strip(), 'anchors': []}
+            self.sections.append(self.section)
+            self.heading = None
+        if tag == 'a' and self.anchor:
+            if self.section is not None:
+                self.section['anchors'].append((self.anchor[0], ''.join(self.anchor[1]).strip()))
+            self.anchor = None
+
+
+def _paris_link(data, current_as_of):
+    _date(current_as_of)
+    parser = _ParisIndex()
+    try:
+        parser.feed(data.decode('utf-8'))
+    except (UnicodeDecodeError, ValueError) as exc:
+        raise OfficialGuidanceEvidenceError('official treaty index is not UTF-8 HTML') from exc
+    sections = [s for s in parser.sections if s['title'] == 'パリ協定に関する基礎資料']
+    if len(sections) != 1:
+        raise OfficialGuidanceEvidenceError('unique official Paris Agreement section required')
+    links = [(urljoin(ENV_PARIS_INDEX_URL, href), title)
+        for href, title in sections[0]['anchors'] if href and re.sub(r'\s+', '', title) == 'パリ協定（和訳）']
+    if len(links) != 1:
+        raise OfficialGuidanceEvidenceError('unique official treaty text link required')
+    _official_url(links[0][0], pdf=True, provider=ENV_PARIS_PROVIDER)
+    # The index supplies no revision date. Acquisition today does not prove
+    # historical completeness, applicability or the absence of amendments.
+    return links[0][0], links[0][1], None
+
+
+@dataclass(frozen=True)
+class _Source:
+    index_url: str
+    hostname: str
+    pdf_path_pattern: str
+    label_origin: str
+    source_kind: str
+    select: Callable
+
+
+_SOURCES = {
+    PROVIDER: _Source(INDEX_URL, 'www.mlit.go.jp', r'/(?:[A-Za-z0-9_-]+/)*[0-9]+\.pdf',
+        'actual_current_index_heading', SOURCE_KIND, _current_link),
+    ENV_PARIS_PROVIDER: _Source(ENV_PARIS_INDEX_URL, 'www.env.go.jp', r'/content/[0-9]+\.pdf',
+        'actual_official_index_link', 'official_treaty_text', _paris_link),
+}
+PROVIDERS = tuple(_SOURCES)
+
+
+def _source(provider):
+    if not isinstance(provider, str) or provider not in _SOURCES:
+        raise OfficialGuidanceEvidenceError('registered official primary-document provider required')
+    return _SOURCES[provider]
+
+
 def _extract(data, pages):
     # PDFium correctly decodes Adobe-Japan1 PDFs which some other readers render
     # as blank pages. No network, scripts or links in PDFs are executed here.
@@ -250,8 +347,9 @@ def _binding(record, scope):
 def validate_request(request, *, record, scope):
     _exact(request, {'schemaVersion', 'provider', 'currentAsOf', 'examAsOf', 'currentPages',
         'historicalDocuments', 'choiceBindings'}, 'official guidance request')
-    if request['schemaVersion'] != REQUEST_SCHEMA or request['provider'] != PROVIDER:
+    if request['schemaVersion'] != REQUEST_SCHEMA:
         raise OfficialGuidanceEvidenceError('dedicated official guidance request required')
+    _source(request['provider'])
     current = _date(request['currentAsOf'])
     if request['examAsOf'] is not None and _date(request['examAsOf']) > current:
         raise OfficialGuidanceEvidenceError('exam date after current date')
@@ -263,7 +361,7 @@ def validate_request(request, *, record, scope):
     total_pages = len(request['currentPages'])
     for document in historical:
         _exact(document, {'sourceUrl', 'revisionLabel', 'pages'}, 'historical document')
-        urls.append(_official_url(document['sourceUrl'], pdf=True))
+        urls.append(_official_url(document['sourceUrl'], pdf=True, provider=request['provider']))
         _text(document['revisionLabel'])
         total_pages += len(_pages(document['pages']))
     if len(set(urls)) != len(urls) or total_pages > MAX_SELECTED_PAGES:
@@ -304,7 +402,7 @@ class OfficialGuidanceEvidenceResolver:
     def __init__(self, repo_root, *, fetcher=None, extractor=None, now=None):
         self.root = Path(repo_root).resolve()
         self.cache = self.root / 'output/question_review_console/cache/official_guidance_evidence'
-        self.fetcher = fetcher or _fetch
+        self.fetcher = fetcher
         self.extractor = extractor or _extract
         self.now = now or (lambda: datetime.now(timezone.utc).isoformat())
         self.last_refresh_receipt = None
@@ -348,13 +446,14 @@ class OfficialGuidanceEvidenceResolver:
             raise OfficialGuidanceEvidenceError('official source cache bytes changed')
         return data
 
-    def _get(self, url, *, pdf):
-        _official_url(url, pdf=pdf)
+    def _get(self, url, *, pdf, provider=PROVIDER):
+        _official_url(url, pdf=pdf, provider=provider)
         maximum = MAX_PDF_BYTES if pdf else MAX_INDEX_BYTES
-        fetched = self.fetcher(url, maximum)
+        fetched = (self.fetcher(url, maximum) if self.fetcher is not None
+            else _fetch(url, maximum, provider=provider))
         if not isinstance(fetched, OfficialGuidanceFetch) or not isinstance(fetched.data, bytes):
             raise OfficialGuidanceEvidenceError('actual retrieval response required')
-        _official_url(fetched.resolved_url, pdf=pdf)
+        _official_url(fetched.resolved_url, pdf=pdf, provider=provider)
         expected = 'application/pdf' if pdf else 'text/html'
         if (not fetched.data or len(fetched.data) > maximum or fetched.content_type != expected
                 or (pdf and not fetched.data.startswith(b'%PDF-'))):
@@ -378,34 +477,35 @@ class OfficialGuidanceEvidenceResolver:
 
     def resolve(self, request, *, record, scope):
         record_hash, choices = validate_request(request, record=record, scope=scope)
-        if request['currentAsOf'] != _timestamp(self.now()).date().isoformat():
+        source = _source(request['provider'])
+        if request['currentAsOf'] != _reference_date(self.now()):
             raise OfficialGuidanceEvidenceError('current official guidance requires actual current date')
-        index = self._get(INDEX_URL, pdf=False)
-        url, revision, published = _current_link(index.data, request['currentAsOf'])
+        index = self._get(source.index_url, pdf=False, provider=request['provider'])
+        url, revision, published = source.select(index.data, request['currentAsOf'])
         specifications = [{'kind': 'current', 'sourceUrl': url, 'revisionLabel': revision,
-            'revisionLabelOrigin': 'actual_current_index_heading', 'pages': request['currentPages']}]
+            'revisionLabelOrigin': source.label_origin, 'pages': request['currentPages']}]
         specifications += [{'kind': 'historical', **document,
             'revisionLabelOrigin': 'declared_unreviewed'} for document in request['historicalDocuments']]
         if len({item['sourceUrl'] for item in specifications}) != len(specifications):
             raise OfficialGuidanceEvidenceError('current and historical source URLs must differ')
         documents = []
         for spec in specifications:
-            fetched = self._get(spec['sourceUrl'], pdf=True)
+            fetched = self._get(spec['sourceUrl'], pdf=True, provider=request['provider'])
             selected = self._selection(fetched.data, spec['pages'])
             documents.append({**spec, 'pages': selected, 'resolvedUrl': fetched.resolved_url,
                 'byteHash': _hash(fetched.data), 'pageSelectionHash': _json_hash(selected)})
         if sum(len(page['text'].encode('utf-8')) for doc in documents for page in doc['pages']) > MAX_TEXT_BYTES:
             raise OfficialGuidanceEvidenceError('selected official guidance text exceeds total bound')
-        content = {'schemaVersion': SCHEMA_VERSION, 'sourceKind': SOURCE_KIND, 'provider': PROVIDER,
+        content = {'schemaVersion': SCHEMA_VERSION, 'sourceKind': source.source_kind, 'provider': request['provider'],
             'retrievalStatus': 'retrieved',
             'scope': dict(scope), 'requestHash': _json_hash(request), 'recordHash': record_hash,
             'choiceHashes': choices, 'currentAsOf': request['currentAsOf'], 'examAsOf': request['examAsOf'],
-            'currentIndex': {'sourceUrl': INDEX_URL, 'resolvedUrl': index.resolved_url,
+            'currentIndex': {'sourceUrl': source.index_url, 'resolvedUrl': index.resolved_url,
                 'byteHash': _hash(index.data), 'currentPdfUrl': url, 'publishedRevisionDate': published},
             'documents': documents, 'choiceBindings': request['choiceBindings'],
             'applicabilityStatus': 'unreviewed', 'historicalCompleteness': 'unreviewed'}
         completed = self.now()
-        if _timestamp(completed).date().isoformat() != request['currentAsOf']:
+        if _reference_date(completed) != request['currentAsOf']:
             raise OfficialGuidanceEvidenceError('date changed during retrieval; new current request required')
         value = {**content, 'contentHash': _json_hash(content), 'retrievalCompletedAt': completed}
         value['evidenceHash'] = _json_hash(value)
@@ -417,6 +517,7 @@ class OfficialGuidanceEvidenceResolver:
             # visible as the evidence for the latest attempt.
             self.last_refresh_receipt = None
         record_hash, choices = validate_request(request, record=record, scope=scope)
+        source = _source(request['provider'])
         expected_fields = {'schemaVersion', 'sourceKind', 'provider', 'scope', 'requestHash', 'recordHash',
             'choiceHashes', 'currentAsOf', 'examAsOf', 'currentIndex', 'documents', 'choiceBindings',
             'retrievalStatus', 'applicabilityStatus', 'historicalCompleteness', 'contentHash', 'retrievalCompletedAt', 'evidenceHash'}
@@ -425,8 +526,8 @@ class OfficialGuidanceEvidenceResolver:
             if key not in {'contentHash', 'retrievalCompletedAt', 'evidenceHash'}}
         checks = {
             'schemaVersion': receipt['schemaVersion'] == SCHEMA_VERSION,
-            'sourceKind': receipt['sourceKind'] == SOURCE_KIND,
-            'provider': receipt['provider'] == PROVIDER,
+            'sourceKind': receipt['sourceKind'] == source.source_kind,
+            'provider': receipt['provider'] == request['provider'],
             'retrievalStatus': receipt['retrievalStatus'] == 'retrieved',
             'scope': receipt['scope'] == scope,
             'requestHash': receipt['requestHash'] == _json_hash(request),
@@ -444,15 +545,14 @@ class OfficialGuidanceEvidenceResolver:
             # Fixed field names only; never print protected values or model text.
             raise OfficialGuidanceEvidenceError('official guidance receipt binding/hash differs: '
                 + ','.join(key for key, valid in checks.items() if not valid))
-        completed = _timestamp(receipt['retrievalCompletedAt'])
-        if completed.date().isoformat() != receipt['currentAsOf']:
+        if _reference_date(receipt['retrievalCompletedAt']) != receipt['currentAsOf']:
             raise OfficialGuidanceEvidenceError('retrieval date differs from current-as-of')
         index = receipt['currentIndex']
         _exact(index, {'sourceUrl', 'resolvedUrl', 'byteHash', 'currentPdfUrl', 'publishedRevisionDate'}, 'index receipt')
-        if index['sourceUrl'] != INDEX_URL:
+        if index['sourceUrl'] != source.index_url:
             raise OfficialGuidanceEvidenceError('fixed official index required')
-        _official_url(index['resolvedUrl'])
-        url, revision, published = _current_link(self._bytes(index['byteHash']), receipt['currentAsOf'])
+        _official_url(index['resolvedUrl'], provider=request['provider'])
+        url, revision, published = source.select(self._bytes(index['byteHash']), receipt['currentAsOf'])
         if index['currentPdfUrl'] != url or index['publishedRevisionDate'] != published:
             raise OfficialGuidanceEvidenceError('official index link/revision changed')
         documents = receipt['documents']
@@ -466,10 +566,10 @@ class OfficialGuidanceEvidenceResolver:
             pages = request['currentPages'] if number == 0 else request['historicalDocuments'][number - 1]['pages']
             if (document['sourceUrl'] != expected_url or document['revisionLabel'] != expected_revision
                     or document['kind'] != ('current' if number == 0 else 'historical')
-                    or document['revisionLabelOrigin'] != ('actual_current_index_heading' if number == 0 else 'declared_unreviewed')):
+                    or document['revisionLabelOrigin'] != (source.label_origin if number == 0 else 'declared_unreviewed')):
                 raise OfficialGuidanceEvidenceError('official document source/revision binding differs')
-            _official_url(document['sourceUrl'], pdf=True)
-            _official_url(document['resolvedUrl'], pdf=True)
+            _official_url(document['sourceUrl'], pdf=True, provider=request['provider'])
+            _official_url(document['resolvedUrl'], pdf=True, provider=request['provider'])
             raw = self._bytes(document['byteHash'])
             if not raw.startswith(b'%PDF-') or len(raw) > MAX_PDF_BYTES:
                 raise OfficialGuidanceEvidenceError('official PDF bytes/type differ')

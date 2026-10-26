@@ -214,7 +214,8 @@ kind = "human"
 # 2.4: 判例・行政資料と条文locatorを分け、補助資料の確認記録と正誤の確定は03bへ渡す。
 # 2.5: 探索候補をserver実一次取得へ接続し、根拠付き再生成と保存時hash照合を有限に実行する。
 # 2.6: 法令と公式制度資料を区別し、全肢に結合した取得証明で候補を再生成する。
-policy_version = "2.6"
+# 2.7: 環境省の公式索引から条約本文を取得し、改訂日や適用性を推測せず同じ取得・配送検証へ渡す。
+policy_version = "2.7"
 qualification_document_patterns = [
   "README.md",
   "01_exam_profile.md",
