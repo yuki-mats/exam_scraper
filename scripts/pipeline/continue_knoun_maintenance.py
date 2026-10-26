@@ -214,6 +214,12 @@ def main(argv=None):
             return [q for q in questions if q["sourceRecordRef"] in selected_refs]
         for group in groups:
             for question in prepare(group):
+                if any(stage.get("id") == "evaluation" and stage.get("status") == "current"
+                       for stage in question.get("workVersions", {}).get("stages", [])):
+                    report["evaluations"].append({"questionId": question["id"], "listGroupId": group,
+                        "status": "current_evaluation_retained"})
+                    save("delivery_and_evaluation")
+                    continue
                 for attempt in range(3):
                     result = console.evaluate(question["id"])
                     evaluation = result.get("result", {}).get("evaluation", {})
