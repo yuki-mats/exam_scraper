@@ -29,6 +29,8 @@ PROVIDER = 'mlit_mansion_standard_single'
 INDEX_URL = 'https://www.mlit.go.jp/jutakukentiku/house/mansionkiyaku.html'
 ENV_PARIS_PROVIDER = 'env_paris_agreement'
 ENV_PARIS_INDEX_URL = 'https://www.env.go.jp/earth/ondanka/cop/shiryo.html'
+ENV_RAMSAR_PROVIDER = 'env_ramsar_convention'
+ENV_RAMSAR_INDEX_URL = 'https://www.env.go.jp/nature/ramsar/conv/About_RamarConvention.html'
 MAX_PDF_BYTES = 20_000_000
 MAX_INDEX_BYTES = 2_000_000
 # Bounded text must accommodate current rules/comments plus the historical
@@ -214,7 +216,7 @@ def _current_link(data, current_as_of):
     return links[0], current['title'], latest.isoformat()
 
 
-class _ParisIndex(HTMLParser):
+class _TreatyIndex(HTMLParser):
     """Read only the named treaty section, never the neighbouring overview."""
     def __init__(self):
         super().__init__(convert_charrefs=True)
@@ -249,24 +251,37 @@ class _ParisIndex(HTMLParser):
             self.anchor = None
 
 
-def _paris_link(data, current_as_of):
+def _treaty_text_link(data, current_as_of, *, index_url, provider, section_title, link_pattern):
     _date(current_as_of)
-    parser = _ParisIndex()
+    parser = _TreatyIndex()
     try:
         parser.feed(data.decode('utf-8'))
     except (UnicodeDecodeError, ValueError) as exc:
         raise OfficialGuidanceEvidenceError('official treaty index is not UTF-8 HTML') from exc
-    sections = [s for s in parser.sections if s['title'] == 'パリ協定に関する基礎資料']
+    sections = [s for s in parser.sections if s['title'] == section_title]
     if len(sections) != 1:
-        raise OfficialGuidanceEvidenceError('unique official Paris Agreement section required')
-    links = [(urljoin(ENV_PARIS_INDEX_URL, href), title)
-        for href, title in sections[0]['anchors'] if href and re.sub(r'\s+', '', title) == 'パリ協定（和訳）']
+        raise OfficialGuidanceEvidenceError('unique official treaty section required')
+    links = [(urljoin(index_url, href), title)
+        for href, title in sections[0]['anchors']
+        if href and re.fullmatch(link_pattern, re.sub(r'\s+', '', title))]
     if len(links) != 1:
         raise OfficialGuidanceEvidenceError('unique official treaty text link required')
-    _official_url(links[0][0], pdf=True, provider=ENV_PARIS_PROVIDER)
+    _official_url(links[0][0], pdf=True, provider=provider)
     # The index supplies no revision date. Acquisition today does not prove
     # historical completeness, applicability or the absence of amendments.
     return links[0][0], links[0][1], None
+
+
+def _paris_link(data, current_as_of):
+    return _treaty_text_link(data, current_as_of,
+        index_url=ENV_PARIS_INDEX_URL, provider=ENV_PARIS_PROVIDER,
+        section_title='パリ協定に関する基礎資料', link_pattern='パリ協定（和訳）')
+
+
+def _ramsar_link(data, current_as_of):
+    return _treaty_text_link(data, current_as_of,
+        index_url=ENV_RAMSAR_INDEX_URL, provider=ENV_RAMSAR_PROVIDER,
+        section_title='条約の内容', link_pattern=r'ラムサール条約全文の日本語版\[PDF[0-9]+KB\]')
 
 
 @dataclass(frozen=True)
@@ -284,6 +299,9 @@ _SOURCES = {
         'actual_current_index_heading', SOURCE_KIND, _current_link),
     ENV_PARIS_PROVIDER: _Source(ENV_PARIS_INDEX_URL, 'www.env.go.jp', r'/content/[0-9]+\.pdf',
         'actual_official_index_link', 'official_treaty_text', _paris_link),
+    ENV_RAMSAR_PROVIDER: _Source(ENV_RAMSAR_INDEX_URL, 'www.env.go.jp',
+        r'/nature/ramsar/conv/treaty/[A-Za-z0-9_-]+\.pdf',
+        'actual_official_index_link', 'official_treaty_text', _ramsar_link),
 }
 PROVIDERS = tuple(_SOURCES)
 
