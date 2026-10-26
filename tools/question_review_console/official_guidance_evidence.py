@@ -31,6 +31,8 @@ ENV_PARIS_PROVIDER = 'env_paris_agreement'
 ENV_PARIS_INDEX_URL = 'https://www.env.go.jp/earth/ondanka/cop/shiryo.html'
 ENV_RAMSAR_PROVIDER = 'env_ramsar_convention'
 ENV_RAMSAR_INDEX_URL = 'https://www.env.go.jp/nature/ramsar/conv/About_RamarConvention.html'
+BIODIC_CARTAGENA_PROVIDER = 'biodic_cartagena_protocol'
+BIODIC_CARTAGENA_INDEX_URL = 'https://www.biodic.go.jp/bch/bch_1.html'
 MAX_PDF_BYTES = 20_000_000
 MAX_INDEX_BYTES = 2_000_000
 # Bounded text must accommodate current rules/comments plus the historical
@@ -284,6 +286,50 @@ def _ramsar_link(data, current_as_of):
         section_title='条約の内容', link_pattern=r'ラムサール条約全文の日本語版\[PDF[0-9]+KB\]')
 
 
+class _CartagenaIndex(HTMLParser):
+    """Keep the named table row and its PDF icon link together."""
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.rows = []
+        self.stack = []
+
+    def handle_starttag(self, tag, attrs):
+        if tag == 'tr':
+            self.stack.append({'text': [], 'anchors': []})
+        if tag == 'a' and self.stack:
+            self.stack[-1]['anchors'].append(dict(attrs).get('href'))
+
+    def handle_data(self, data):
+        for row in self.stack:
+            row['text'].append(data)
+
+    def handle_endtag(self, tag):
+        if tag == 'tr' and self.stack:
+            self.rows.append(self.stack.pop())
+
+
+def _cartagena_link(data, current_as_of):
+    _date(current_as_of)
+    parser = _CartagenaIndex()
+    try:
+        # The official page declares Shift_JIS and uses Windows-31J extension
+        # characters. Decode strictly; never erase bytes to recover a label.
+        parser.feed(data.decode('cp932'))
+    except (UnicodeDecodeError, ValueError) as exc:
+        raise OfficialGuidanceEvidenceError('official Cartagena index is not Windows-31J HTML') from exc
+    rows = [row for row in parser.rows
+        if re.sub(r'\s+', '', ''.join(row['text'])).removeprefix('○') == '議定書全文（和文）']
+    if len(rows) != 1:
+        raise OfficialGuidanceEvidenceError('unique official Japanese protocol row required')
+    links = [urljoin(BIODIC_CARTAGENA_INDEX_URL, href) for href in rows[0]['anchors']
+        if href and urlsplit(urljoin(BIODIC_CARTAGENA_INDEX_URL, href)).path.lower().endswith('.pdf')]
+    if len(links) != 1:
+        raise OfficialGuidanceEvidenceError('unique Japanese protocol PDF icon link required')
+    _official_url(links[0], pdf=True, provider=BIODIC_CARTAGENA_PROVIDER)
+    label = re.sub(r'\s+', '', ''.join(rows[0]['text'])).removeprefix('○')
+    return links[0], label, None
+
+
 @dataclass(frozen=True)
 class _Source:
     index_url: str
@@ -302,6 +348,9 @@ _SOURCES = {
     ENV_RAMSAR_PROVIDER: _Source(ENV_RAMSAR_INDEX_URL, 'www.env.go.jp',
         r'/nature/ramsar/conv/treaty/[A-Za-z0-9_-]+\.pdf',
         'actual_official_index_link', 'official_treaty_text', _ramsar_link),
+    BIODIC_CARTAGENA_PROVIDER: _Source(BIODIC_CARTAGENA_INDEX_URL, 'www.biodic.go.jp',
+        r'/bch/download/protocol/protocol_j(?:_[A-Za-z0-9]+)*\.pdf',
+        'actual_official_index_link', 'official_treaty_text', _cartagena_link),
 }
 PROVIDERS = tuple(_SOURCES)
 
