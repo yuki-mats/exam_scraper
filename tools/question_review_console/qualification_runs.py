@@ -2418,6 +2418,17 @@ def _structured_candidate_prompt(
                 "lawReferencesは実在して適用する法令だけ。規約を法令IDに偽装しない。"
                 "現行の標準モデル規約、法の施行日、各組合が採用した個別規約を区別する。"
                 "historicalCompleteness=unreviewedは歴史版の適用確認ではなく、03bが別監査する。")
+            if 'officialGuidanceReferences' not in allowed_fields:
+                question['officialGuidanceInstruction'] += (
+                    'この工程では資料は読取り専用であり、officialGuidanceReferencesは更新対象ではない。'
+                    '配送本文を自分の担当fieldの判断に使い、根拠fieldの保存権限を追加しない。')
+        elif 'officialGuidanceReferences' in allowed_fields:
+            question['officialGuidanceInstruction'] = (
+                '今回、公式制度資料の実取得証明は配送されていない。officialGuidanceReferencesの新規setはできないが、'
+                'unsetFieldsにはこのfield名を指定できる。公式制度資料を採用せず法令XML等を根拠にする場合は、'
+                'officialGuidanceReferencesをunsetFieldsへ一度入れて未採用を明示する。'
+                'requiredSemanticFieldsの完全性はset又はunsetで満たせる。未取得の取得参照を作らない。'
+                '公式制度資料が実際に必要で取得証明が不足する場合は、その根拠不足を理由に保留する。')
         prepared_evidence = (prepared_primary_evidence_by_question or {}).get(question_id)
         if prepared_evidence is not None:
             question["preparedPrimaryEvidence"] = copy.deepcopy(dict(prepared_evidence))

@@ -162,12 +162,30 @@ class OfficialGuidancePipelineTests(unittest.TestCase):
             feedback_by_question={}, official_guidance_evidence_by_question={qid:self.delivered})
         actual = audit.question_inputs_from_prompt(prompt)[qid]['officialGuidanceEvidence']
         self.assertEqual(actual, self.delivered)
+        self.assertIn('読取り専用', audit.question_inputs_from_prompt(prompt)[qid]['officialGuidanceInstruction'])
         schema = output_schema([qid], targets, official_guidance_inputs={qid:actual})
         self.assertEqual(schema, output_schema([qid], targets))
         updates = schema['properties']['update']['properties']
         self.assertEqual([v['properties']['field']['const'] for v in updates['setFields']['items']['anyOf']],
             ['explanationText'])
         self.assertNotIn(contract.FIELD, updates['unsetFields']['items']['enum'])
+
+    def test_no_delivered_guidance_explains_available_unset_for_statutory_candidate(self):
+        from tools.question_review_console.question_candidate import output_schema
+        qid=self.scope['questionId']
+        target={'id':qid,'listGroupId':self.scope['listGroupId'],**self.scope['sourceBinding']}
+        owned=CandidateTarget('law','law_context','18_law_context_prepared/q.json',
+            ('isLawRelated','lawReferences',contract.FIELD))
+        targets={qid:(owned,)}
+        prompt=runs._structured_candidate_prompt('条文根拠を確認する。',[target],stage_id='law_context',
+            records_by_question={qid:self.record},candidate_targets_by_question=targets,feedback_by_question={})
+        inputs=audit.question_inputs_from_prompt(prompt)[qid]
+        self.assertNotIn('officialGuidanceEvidence',inputs)
+        self.assertIn(contract.FIELD,inputs['requiredSemanticFields'])
+        self.assertIn('unsetFieldsにはこのfield名を指定できる',inputs['officialGuidanceInstruction'])
+        updates=output_schema([qid],targets)['properties']['update']['properties']
+        self.assertIn(contract.FIELD,updates['unsetFields']['items']['enum'])
+        self.assertNotIn(contract.FIELD,[v['properties']['field']['const'] for v in updates['setFields']['items']['anyOf']])
 
     def test_guidance_grounding_regenerates_actual_candidate_and_blocked_stays_blocked(self):
         prompt, target, candidate_target = self.prompt()
