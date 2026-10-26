@@ -12,6 +12,21 @@ from scripts.pipeline.continue_knoun_maintenance import Console, current_binding
 
 
 class KnounContinuationTests(unittest.TestCase):
+    def test_native_handle_is_saved_before_wait_failure(self):
+        console = Console("http://127.0.0.1:12345")
+        console.post = Mock(side_effect=[
+            {"canStart":True,"questionConcurrency":1,"isProductionWrite":False,"previewToken":"preview"},
+            {"run":{"runId":"durable-run"}}])
+        saved=[]
+        def wait(run_id):
+            self.assertEqual(saved,[run_id])
+            raise TimeoutError("observation failed; native run remains addressable")
+        console.wait_run=wait
+        with self.assertRaises(TimeoutError):
+            console.start_run({},on_started=saved.append)
+        self.assertEqual(saved,["durable-run"])
+        self.assertEqual(console.post.call_count,2)
+
     def test_bindings_use_exact_source_identity_and_native_current_state(self):
         binding = SourceIdentityBinding.from_values("source-A", "public-A", "question_A.json#0")
         entry = SimpleNamespace(identity=SimpleNamespace(binding=binding))

@@ -55,14 +55,17 @@ class Console:
                 return progress
             time.sleep(10)
 
-    def start_run(self, request):
+    def start_run(self, request, *, on_started=None):
         preview = self.post("/api/qualification-runs/preview", request)
         if not preview.get("canStart"):
             return {"status": "not_started", "preview": preview}
         if preview.get("isProductionWrite") or preview.get("questionConcurrency") != 1:
             raise ValueError("逐次・ローカル整備の実行境界が一致しません")
         started = self.post("/api/qualification-runs/start", request | {"previewToken": preview["previewToken"]})
-        return self.wait_run(started["run"]["runId"])
+        run_id = started["run"]["runId"]
+        if on_started is not None:
+            on_started(run_id)
+        return self.wait_run(run_id)
 
     def evaluate(self, question_id):
         preview = self.post(f"/api/questions/{question_id}/evaluation-preview", {})
@@ -131,6 +134,9 @@ def main(argv=None):
         print(f"[PHASE] {phase}", flush=True)
     def command(arguments):
         subprocess.run([sys.executable, *arguments], cwd=REPO_ROOT, check=True)
+    def note_native_run(run_id):
+        report["activeNativeRunId"] = run_id
+        save(report["phase"])
     console = Console(args.console_url)
     try:
         save("waiting_for_existing_work")
@@ -182,7 +188,9 @@ def main(argv=None):
             raise ValueError("独自問題化工程が含まれていません")
         save("native_maintenance")
         report["maintenance"] = console.start_run({"qualification": "eco-kentei", "stageIds": stages,
-                                                  "listGroupIds": groups, "questionConcurrency": 1, "mode": "needed"})
+                                                  "listGroupIds": groups, "questionConcurrency": 1, "mode": "needed"},
+                                                  on_started=note_native_run)
+        report["activeNativeRunId"] = None
         save("delivery_and_evaluation")
         def prepare(group):
             questions = console.questions(group)
@@ -229,7 +237,9 @@ def main(argv=None):
                         break
                     console.questions(group)
                     report.setdefault("rework", []).append(console.start_run({"qualification": "eco-kentei", "stageIds": stages,
-                        "questionIds": [question["id"]], "evaluationRework": True, "questionConcurrency": 1}))
+                        "questionIds": [question["id"]], "evaluationRework": True, "questionConcurrency": 1},
+                        on_started=note_native_run))
+                    report["activeNativeRunId"] = None
                     prepare(group)
         report.update(status="finished_requires_final_audit", finishedAt=now())
         save("finished_requires_final_audit")
