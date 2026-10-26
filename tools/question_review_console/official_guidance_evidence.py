@@ -360,7 +360,7 @@ _SOURCES = {
         r'/bch/download/protocol/protocol_j(?:_[A-Za-z0-9]+)*\.pdf',
         'actual_official_index_link', 'official_treaty_text', _cartagena_link),
     ENV_BASEL_PROVIDER: _Source(ENV_BASEL_INDEX_URL, 'www.env.go.jp',
-        r'/recycle/yugai/law/conv_j(?:_[A-Za-z0-9]+)*\.pdf',
+        r'/recycle/yugai/law/(?:h[0-9]+)?conv_j(?:_[A-Za-z0-9]+)*\.pdf',
         'actual_official_index_link', 'official_treaty_text', _basel_link),
 }
 PROVIDERS = tuple(_SOURCES)
