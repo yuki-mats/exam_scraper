@@ -121,6 +121,10 @@ class OfficialGuidancePipelineTests(unittest.TestCase):
         _, _, target = self.prompt()
         qid = self.scope['questionId']; targets = {qid: (target,)}
         ordinary = output_schema([qid], targets)
+        ordinary_updates = ordinary['properties']['update']['properties']
+        self.assertNotIn(contract.FIELD, [v['properties']['field']['const']
+            for v in ordinary_updates['setFields']['items']['anyOf']])
+        self.assertIn(contract.FIELD, ordinary_updates['unsetFields']['items']['enum'])
         fixed = output_schema([qid], targets, official_guidance_inputs={qid: self.delivered})
         variants = fixed['properties']['update']['properties']['setFields']['items']['anyOf']
         value = next(v['properties']['value'] for v in variants
@@ -138,6 +142,10 @@ class OfficialGuidancePipelineTests(unittest.TestCase):
         nonowner = CandidateTarget('type', 'question_type', 'q.json', ('questionType',))
         with self.assertRaises(QuestionCandidateError):
             output_schema([qid], {qid: (nonowner,)}, official_guidance_inputs={qid: self.delivered})
+        pointer_only = CandidateTarget('law', 'law_context', 'q.json', (contract.FIELD,))
+        unset_only = output_schema([qid], {qid: (pointer_only,)})['properties']['update']['properties']
+        self.assertEqual(unset_only['setFields']['maxItems'], 0)
+        self.assertIn(contract.FIELD, unset_only['unsetFields']['items']['enum'])
         changed = deepcopy(self.references)
         changed['request']['historicalDocuments'][0]['revisionLabel'] += '適用確認済み'
         with self.assertRaisesRegex(ValueError, 'binding/hash differs: requestHash'):

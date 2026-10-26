@@ -1368,7 +1368,19 @@ def output_schema(
             },
         }
         for field, rule in sorted(field_rules.items())
+        # A model may judge delivered evidence, but cannot create its own
+        # acquisition pointer. Unset remains available for stale references.
+        if field != 'officialGuidanceReferences' or fixed_guidance is not None
     ]
+    set_fields_schema = {
+        "type": "array",
+        "description": "decision=blockedでは空配列にする。",
+        "items": {"anyOf": set_variants},
+    } if set_variants else {
+        "type": "array", "maxItems": 0,
+        "items": {"type": "object", "additionalProperties": False,
+            "properties": {}, "required": []},
+    }
     return {
         "type": "object",
         "additionalProperties": False,
@@ -1391,11 +1403,7 @@ def output_schema(
                 "additionalProperties": False,
                 "required": ["setFields", "unsetFields"],
                 "properties": {
-                    "setFields": {
-                        "type": "array",
-                        "description": "decision=blockedでは空配列にする。",
-                        "items": {"anyOf": set_variants},
-                    },
+                    "setFields": set_fields_schema,
                     "unsetFields": {
                         "type": "array",
                         "description": "decision=blockedでは空配列にする。",
