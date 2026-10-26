@@ -112,6 +112,8 @@ flowchart LR
 - 解説だけにある画像は、公開問題の成立に必要な画像とは判定しない。03の独自解説で図が必要な場合は、別途新しい解説画像を作る。
 - 独自生成画像は`output/<qualification>/question_images/<listGroupId>/05_originalized/`へ保存する。ファイル名は`originalized_<public_question_id>_<用途>_<連番>.<拡張子>`とし、05 patchの`questionImageStorageUrls`又は`originalQuestionChoiceImageUrls`に公開用Storage URLを設定する。
 
+この保存先はローカルの作業用pathであり、Storageのobject pathとは別である。公開用URLは`scripts/common/image_storage_urls.py`の`build_public_storage_url(qualification, filename)`で決まり、資格ごとの共通画像領域へ保存する。URL形式の確認ではこの共通関数の結果とファイル名を照合し、ローカルの`<listGroupId>/05_originalized/`をURLの条件にしない。画像の内容と、その問題の本文・選択肢・正答との整合は別に確認する。
+
 画像が必要な独自問題は、次の順序で整備する。
 
 1. 05 patchへ問題文・設問・選択肢・正答を保存し、その内容を先に確定する。この時点では画像URLを省略できる。

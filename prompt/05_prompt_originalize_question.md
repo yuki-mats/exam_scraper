@@ -33,7 +33,7 @@
 - 後続03では、取得元の解説を材料として参照し、既存の解説promptに沿って、正誤理由を維持したより良い独自解説を作れる。
 - `correctChoiceText`は`choiceTextList`と同じ件数で、値は`正しい`または`間違い`である。
 - 取得元の問題画像、選択肢画像、解説は引き継がない。取得元に問題画像又は選択肢画像がある場合、文章確定時は画像URLを省略できるが、05の完成と公開には対応する独自生成画像と公開用Storage URLが必須である。
-- 独自生成画像は`question_images/<listGroupId>/05_originalized/`へ保存し、ファイル名を`originalized_<public_question_id>_<用途>_<連番>.<拡張子>`とする。
+- 独自生成画像のローカル保存先と公開用Storage URLは、[画像の扱い](../document/operations/original_question_authoring_workflow.md#画像の扱い)の対応関係で確認する。ローカルのフォルダ構成を公開URLの構成と混同しない。
 - 判断できないときはpatchを完了せず、既存のreview sidecarへ送る。
 
 ## patch形式

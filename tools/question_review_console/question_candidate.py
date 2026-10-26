@@ -804,6 +804,11 @@ _FIELD_RULES_BY_ROLE: dict[str, dict[str, Any]] = {
         "questionImageStorageUrls": {
             "type": "array",
             "items": {"type": "string"},
+            "description": (
+                "公開URLはscripts/common/image_storage_urls.pyのbuild_public_storage_urlで決まる。"
+                "ローカルのlistGroupId/05_originalizedはStorage URLの要件ではない。"
+                "形式検証を満たす現在の独自画像URLは、当該問題との画像内容の整合を確認して保持できる。"
+            ),
         },
         "originalQuestionChoiceImageUrls": {
             "type": "array",
@@ -811,6 +816,10 @@ _FIELD_RULES_BY_ROLE: dict[str, dict[str, Any]] = {
                 "type": "array",
                 "items": {"type": "string"},
             },
+            "description": (
+                "各選択肢の独自画像の公開URL。URL形式はbuild_public_storage_urlに従い、"
+                "ローカル保存先のフォルダ構成と画像内容の照合を分けて確認する。"
+            ),
         },
     },
     "question_type": {
