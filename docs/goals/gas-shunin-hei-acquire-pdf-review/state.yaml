@@ -4,7 +4,7 @@ goal:
   slug: gas-shunin-hei-acquire-pdf-review
   kind: specific
   tranche: 全掲載年度取得と全問PDF二次照合
-  status: active
+  status: done
   oracle:
     signal: 年度別全掲載問の取得と各問の問題PDF・正答PDFに結び付いた一次・独立二次照合記録
     cadence: 取得後・照合後・最終監査
@@ -56,7 +56,7 @@ visual_board:
     status: live
     url: http://goalbuddy.localhost:41737/gas-shunin-hei-acquire-pdf-review/
     command: node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/development/exam_scraper_work/docs/goals/gas-shunin-hei-acquire-pdf-review
-active_task: T999
+active_task: null
 tasks:
   - id: T001
     type: scout
@@ -202,9 +202,20 @@ tasks:
         - 2021
         - 2022
         - 2023
-      primaryQuestionCount: 406
-      secondaryYears: []
-      officialAnswerNumberMatches: 406
+        - 2024
+        - 2025
+      primaryQuestionCount: 522
+      secondaryYears:
+        - 2017
+        - 2018
+        - 2019
+        - 2020
+        - 2021
+        - 2022
+        - 2023
+        - 2024
+        - 2025
+      officialAnswerNumberMatches: 522
   - id: T005
     type: worker
     assignee: Worker
@@ -268,7 +279,7 @@ tasks:
   - id: T999
     type: pm
     assignee: PM
-    status: active
+    status: done
     reasoning_hint: default
     objective: 一次/二次の不一致を公式PDFへ立ち返って個別解決し、全522問の記録を集約、GitHubへ保存して元依頼の完了を監査
     inputs:
@@ -284,7 +295,34 @@ tasks:
       - 'full_outcome_complete: true | false'
       - missing evidence
       - next task if not complete
-    receipt: null
+    receipt:
+      result: done
+      task_id: T999
+      board_path: docs/goals/gas-shunin-hei-acquire-pdf-review/state.yaml
+      decision: complete
+      full_outcome_complete: true
+      rationale: 元依頼の取得・PDF一次照合・独立二次チェックは完了している。全522自然keyと保存sourceの集合、各年度の異なる一次二次作者、両段階のsource/PDF hash・確認ページ・正答番号を独立に検証した。差異69問とJSON単体の追加指摘1問は是正済みと誤表示せず保存されている。番号訂正も元応答を保持した同作者の明示訂正で、公式画像とも一致する。修正patch・解説全面監査・公開を追加する必要はない。
+      evidence:
+        - path: document/temporary/20261027_gas_shunin_hei_pdf_review.json
+          sha256: fd61ddca844c8ddd1a0fb1ce4e7fb179120e741054cf6d1f7f851defb83dd177
+          detail: 参照hash2113件を再照合し成功。2017〜2025年の科目別期待522自然key、実source522件、一次522件、二次522件が一致。各段階の正答番号は取得番号と一致。年度別件数、差異69問、要確認計70問も再集計一致。
+        - path: output/gas-shunin-hei/pdf_review/
+          detail: 全年度で一次と二次のreviewerSessionが異なる。各問題の確認PDFページは各作者の閲覧ページ集合内で、正答画像の閲覧は全年度両段階とも1頁。packet内の公式PDF及び描画321枚のhashを再照合し成功。
+        - path: docs/goals/gas-shunin-hei-acquire-pdf-review/notes/T999-adjudications.json
+          detail: 16件の個別解決があり、原本差異・共通条件欠落・脚注欠落・表現差・JSON単体の図欠落を分離している。一次又は二次への一律自動補正ではない。
+        - path: output/gas-shunin-hei/pdf_review/secondary/amendments/2022.json
+          detail: 2022消費問23を公式表と実問へ戻って番号5と確認した同作者の明示訂正。拒否された元receiptと訂正receiptを別保存して自然keyで結合している。
+        - path: output/gas-shunin-hei/pdf_review/2022/answer/page-01.png
+          detail: Judgeも公式正答表の実画像を直視した。問23=5を含む2022年度全58番号を最終一次二次記録と個別照合し一致。OCR配置の乱れを正答根拠にしていない。
+        - path: output/gas-shunin-hei/acquisition/20261027/source_inventory.json
+          detail: 固定inventoryのhash一致。標準GET9回は全HTTP200で、ページは逐次取得。記録された完了から次開始までの最短6.964059秒は報告と整合。
+        - path: document/temporary/20261027_gas_shunin_hei_pdf_review.md
+          detail: 原文訂正・解説全面監査・個数組合せ全記述の真偽・現行法適合・公開可能性を認定していない。科目共通注の欠落も年度単位で明示し、69問を全影響問の確定総数と誤表示していない。
+        - detail: read-only Git確認でmain、HEAD=83711fa67b3124cbb7218c15b32c40918ce38487、作業ツリーclean、HEADとorigin/mainの差分0。関連テスト50成功・実サイト依存5skip、対象source gate成功、全体回帰未実行及び対象外の既存保全エラーも明記されている。
+      required_board_updates:
+        - T004.progressに残る途中経過primaryQuestionCount=406・officialAnswerNumberMatches=406等を、最終522件・全9年度の値へ更新するか途中経過であると明示する。
+        - 本receiptをT999へ保存し、T999及びgoalをdone、active_taskをnullへ更新して完了状態を整合させる。
+        - 完了状態のboard checkerとcheck-can-stopを通し、最終board変更もorigin/mainへ保存する。
     allowed_files:
       - docs/goals/gas-shunin-hei-acquire-pdf-review/
       - document/temporary/20261027_gas_shunin_hei_pdf_review.md
@@ -297,13 +335,16 @@ tasks:
       sourceFilesUnchanged: 27
       resultJson: document/temporary/20261027_gas_shunin_hei_pdf_review.json
       resultMarkdown: document/temporary/20261027_gas_shunin_hei_pdf_review.md
-      remaining: 最終監査・GitHub保存確認
+      remaining: null
+      reportCommit: 83711fa67b3124cbb7218c15b32c40918ce38487
 checks:
   dirty_fingerprint: unknown
   last_verification:
     result: pass
-    task: T005
+    task: T999
     commands:
-      - secondary522coverage/hash
-      - independent session binding
-      - explicit correction and replay checks
+      - 'independent final audit: 2113 reference hashes and 522 natural keys'
+      - all321 rendered image hashes and18 PDFs
+      - 522 primary and secondary answers
+      - 16 PM field resolutions
+      - main pushed and clean at report commit 83711fa67
