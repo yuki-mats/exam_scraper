@@ -493,7 +493,15 @@ _EXPLANATION_FIELD_RULES: dict[str, Any] = {
             "properties": {
                 "title": {"type": "string", "minLength": 1},
                 "sourceUrl": {"type": "string", "minLength": 1},
-                "referenceDate": {"type": "string", "minLength": 1},
+                "referenceDate": {
+                    "type": "string",
+                    "minLength": 1,
+                    "description": (
+                        "この資料の内容を実際に確認した日をYYYY-MM-DDで指定する。"
+                        "資料の公表日・採択日・更新日と内容確認日を区別し、"
+                        "確認日の記録がなければ内容を確認してから日付を確定する。"
+                    ),
+                },
                 "choiceIndex": {"type": "integer", "minimum": 0},
             },
         },
