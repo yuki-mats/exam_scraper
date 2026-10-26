@@ -152,4 +152,3 @@ class OfficialTreatyEvidenceTests(unittest.TestCase):
             mixed = {**record, 'lawReferences': [[{'lawId': 'not-acquired', 'article': '1'}], []]}
             with self.assertRaises(runs.QualificationRunError):
                 runs._law_context_evidence_view(self.root, mixed, empty)
-
