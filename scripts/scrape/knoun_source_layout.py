@@ -33,7 +33,17 @@ def validate_layout(value, record, question, explanation):
     candidate = value["candidate"]
     if any(candidate.get(k) != v for k, v in value["binding"].items()):
         raise ValueError("図表の領域候補が別問題の識別情報を返しました")
-    validate_pair_receipt(record, value["receipt"])
+    method = value.get("reviewMethod", "model_image_pair")
+    if method == "manual_visual_pair":
+        review = value.get("manualReview", {})
+        if (not isinstance(review.get("reviewer"), str) or not review["reviewer"].strip()
+                or not review.get("reviewedAt")
+                or any(review.get(key) != expected for key, expected in value["binding"].items())):
+            raise ValueError("手動の領域照合記録と当該画像対・転記が一致しません")
+    elif method == "model_image_pair":
+        validate_pair_receipt(record, value["receipt"])
+    else:
+        raise ValueError("領域照合の方法が未確認です")
     if candidate.get("reviewOutcome") != "verified" or not all(candidate.get("checks", {}).get(k) is True for k in ("allChoices", "onlyChoiceRegion", "answerTarget")):
         raise ValueError("図表を含む問題の選択肢領域が未確認です")
     from scripts.scrape.knoun import parse_transcription
@@ -48,6 +58,30 @@ def load_layout(root, group, record, question, explanation):
     if value.get("status") != "validated_source_layout":
         raise ValueError("図表を含む問題の選択肢領域は未確定です")
     validate_layout(value, record, question, explanation)
+    return value
+
+
+def save_manual_layout(root, group, source_id, *, question_hash, explanation_hash,
+                       choice_block, reviewer, checks):
+    """Save one explicitly witnessed pair, without inventing a model receipt."""
+    record, question, explanation = reviewed_pair(root, group, source_id)
+    if (record["questionImage"]["sha256"], record["explanationImage"]["sha256"]) != (question_hash, explanation_hash):
+        raise ValueError("目視した画像対のhashと一致しません")
+    bound = binding(record, question, explanation)
+    value = {"schemaVersion": "knoun-source-layout/v1", "createdAt": now(),
+             "reviewMethod": "manual_visual_pair", "binding": bound,
+             "candidate": bound | {"reviewOutcome": "verified", "choiceBlock": choice_block,
+                                   "checks": dict(checks), "notes": []},
+             "manualReview": bound | {"reviewer": reviewer, "reviewedAt": now()}}
+    validate_layout(value, record, question, explanation)
+    value["status"] = "validated_source_layout"
+    path = layout_path(root, group, source_id)
+    attempts = path.parent / "attempts"
+    attempts.mkdir(parents=True, exist_ok=True)
+    if path.exists():
+        atomic_json(attempts / f"{path.stem}_prior_{uuid4().hex}.json", json.loads(path.read_text()))
+    atomic_json(attempts / f"{path.stem}_manual_{uuid4().hex}.json", value)
+    atomic_json(path, value)
     return value
 
 
