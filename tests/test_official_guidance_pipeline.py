@@ -140,8 +140,8 @@ class OfficialGuidancePipelineTests(unittest.TestCase):
         with self.assertRaises(QuestionCandidateError):
             output_schema([qid], targets, official_guidance_inputs={'foreign': self.delivered})
         nonowner = CandidateTarget('type', 'question_type', 'q.json', ('questionType',))
-        with self.assertRaises(QuestionCandidateError):
-            output_schema([qid], {qid: (nonowner,)}, official_guidance_inputs={qid: self.delivered})
+        self.assertEqual(output_schema([qid], {qid: (nonowner,)}, official_guidance_inputs={qid: self.delivered}),
+            output_schema([qid], {qid: (nonowner,)}))
         pointer_only = CandidateTarget('law', 'law_context', 'q.json', (contract.FIELD,))
         unset_only = output_schema([qid], {qid: (pointer_only,)})['properties']['update']['properties']
         self.assertEqual(unset_only['setFields']['maxItems'], 0)
@@ -150,6 +150,24 @@ class OfficialGuidancePipelineTests(unittest.TestCase):
         changed['request']['historicalDocuments'][0]['revisionLabel'] += '適用確認済み'
         with self.assertRaisesRegex(ValueError, 'binding/hash differs: requestHash'):
             self.validate(changed)
+
+    def test_03_reads_delivered_pages_without_reference_write_ownership(self):
+        from tools.question_review_console.question_candidate import output_schema
+        qid = self.scope['questionId']
+        target = {'id':qid, 'listGroupId':self.scope['listGroupId'], **self.scope['sourceBinding']}
+        owned = CandidateTarget('explanation', 'explanation', '21_explanationText_added/q.json', ('explanationText',))
+        targets = {qid:(owned,)}
+        prompt = runs._structured_candidate_prompt('解説を整える。', [target], stage_id='explanation',
+            records_by_question={qid:self.record}, candidate_targets_by_question=targets,
+            feedback_by_question={}, official_guidance_evidence_by_question={qid:self.delivered})
+        actual = audit.question_inputs_from_prompt(prompt)[qid]['officialGuidanceEvidence']
+        self.assertEqual(actual, self.delivered)
+        schema = output_schema([qid], targets, official_guidance_inputs={qid:actual})
+        self.assertEqual(schema, output_schema([qid], targets))
+        updates = schema['properties']['update']['properties']
+        self.assertEqual([v['properties']['field']['const'] for v in updates['setFields']['items']['anyOf']],
+            ['explanationText'])
+        self.assertNotIn(contract.FIELD, updates['unsetFields']['items']['enum'])
 
     def test_guidance_grounding_regenerates_actual_candidate_and_blocked_stays_blocked(self):
         prompt, target, candidate_target = self.prompt()

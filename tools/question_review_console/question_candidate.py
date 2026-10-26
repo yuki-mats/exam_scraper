@@ -1346,11 +1346,11 @@ def output_schema(
     if official_guidance_inputs and set(official_guidance_inputs) != {question_id}:
         raise QuestionCandidateError('制度資料の固定出力に別の問題が含まれています。')
     fixed_guidance = (official_guidance_inputs or {}).get(question_id)
-    if fixed_guidance is not None:
-        if set(official_guidance_inputs) != {question_id} or 'officialGuidanceReferences' not in field_rules:
-            raise QuestionCandidateError('制度資料の固定出力は同じ一問の根拠所有工程に限ります。')
+    if fixed_guidance is not None and 'officialGuidanceReferences' in field_rules:
         # Acquisition metadata belongs to the server. Applicability remains a
         # model judgment; it may still reject/unset this evidence or hold.
+        # Read-only consumers receive the same evidence in their prompt without
+        # gaining an output field owned by another stage.
         rule = field_rules['officialGuidanceReferences']
         for key in ('request', 'evidenceRef'):
             rule['properties'][key]['enum'] = [copy.deepcopy(fixed_guidance[key])]
