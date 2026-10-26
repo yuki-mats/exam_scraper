@@ -11812,6 +11812,10 @@ class QualificationRunCoordinator:
         if phase_update_target_ids:
             scope["update_target_ids"] = phase_update_target_ids
         phase_mode = mode
+        if stage_ids == ["category_setup"] and phase_mode == "group_refresh":
+            # The shared taxonomy has qualification scope. Keep the parent's
+            # selected years for question phases, not as an empty year scope.
+            phase_mode = "refresh"
         if (
             stage_ids == ["question_set"]
             and "category_setup" in set(parent.get("stageIds") or [])

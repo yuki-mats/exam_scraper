@@ -5,6 +5,25 @@ from tests.qualification_run_test_support import *  # noqa: F403
 
 class QualificationFlowRecoveryTests(QualificationRunTestSupport):
 
+    def test_category_phase_of_group_refresh_keeps_qualification_scope(self):
+        from tests.test_question_review_qualification_workflow import FakeInventory, question, write_category
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            write_category(root)
+            workflow = QualificationWorkflow(root, FakeInventory(
+                'sample', [{'listGroupId':'2026', 'questions':[question()]}]))
+            workflow.prompt_from_plan = lambda _plan: {'prompt':'分類正本を確認する。'}
+            coordinator = QualificationRunCoordinator(root, workflow,
+                FakeSynchronizer(), DeferredJobs(), 'secret', app_server=ConfiguredAppServer())
+            parent = {'qualification':'sample', 'mode':'group_refresh',
+                'scopeListGroupIds':['2026'], 'stageIds':['category_setup','question_set'], 'runId':'parent'}
+            plan, prompt = coordinator._flow_phase_plan_prompt(parent,
+                {'id':'category_setup', 'index':0, 'stageIds':['category_setup']})
+            self.assertEqual(plan['mode'], 'refresh')
+            self.assertFalse(plan.get('scopeListGroupIds'))
+            self.assertEqual(parent['scopeListGroupIds'], ['2026'])
+            self.assertEqual(prompt, '分類正本を確認する。')
+
     @staticmethod
     def _restart_and_recover(root):
         store = QualificationRunStore(root)
