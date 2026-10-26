@@ -33,6 +33,8 @@ ENV_RAMSAR_PROVIDER = 'env_ramsar_convention'
 ENV_RAMSAR_INDEX_URL = 'https://www.env.go.jp/nature/ramsar/conv/About_RamarConvention.html'
 BIODIC_CARTAGENA_PROVIDER = 'biodic_cartagena_protocol'
 BIODIC_CARTAGENA_INDEX_URL = 'https://www.biodic.go.jp/bch/bch_1.html'
+ENV_BASEL_PROVIDER = 'env_basel_convention'
+ENV_BASEL_INDEX_URL = 'https://www.env.go.jp/recycle/yugai/index2.html'
 MAX_PDF_BYTES = 20_000_000
 MAX_INDEX_BYTES = 2_000_000
 # Bounded text must accommodate current rules/comments plus the historical
@@ -286,6 +288,12 @@ def _ramsar_link(data, current_as_of):
         section_title='条約の内容', link_pattern=r'ラムサール条約全文の日本語版\[PDF[0-9]+KB\]')
 
 
+def _basel_link(data, current_as_of):
+    return _treaty_text_link(data, current_as_of,
+        index_url=ENV_BASEL_INDEX_URL, provider=ENV_BASEL_PROVIDER,
+        section_title='ア　条約等', link_pattern=r'和文\[PDF[0-9]+(?:\.[0-9]+)?(?:KB|MB)\]')
+
+
 class _CartagenaIndex(HTMLParser):
     """Keep the named table row and its PDF icon link together."""
     def __init__(self):
@@ -351,6 +359,9 @@ _SOURCES = {
     BIODIC_CARTAGENA_PROVIDER: _Source(BIODIC_CARTAGENA_INDEX_URL, 'www.biodic.go.jp',
         r'/bch/download/protocol/protocol_j(?:_[A-Za-z0-9]+)*\.pdf',
         'actual_official_index_link', 'official_treaty_text', _cartagena_link),
+    ENV_BASEL_PROVIDER: _Source(ENV_BASEL_INDEX_URL, 'www.env.go.jp',
+        r'/recycle/yugai/law/conv_j(?:_[A-Za-z0-9]+)*\.pdf',
+        'actual_official_index_link', 'official_treaty_text', _basel_link),
 }
 PROVIDERS = tuple(_SOURCES)
 

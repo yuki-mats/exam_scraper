@@ -70,6 +70,48 @@ class OfficialTreatyEvidenceTests(unittest.TestCase):
         with self.assertRaises(evidence.OfficialGuidanceEvidenceError):
             self.resolver.validate(receipt, request=self.request, record=changed, scope=self.scope)
 
+    def basel_index(self):
+        return ('<h3>（２）バーゼル法関係</h3><h4>ア　条約等</h4>'
+            '<li>有害廃棄物の国境を越える移動及びその処分の規制に関するバーゼル条約'
+            '（<a href="law/conv_j.pdf">和文 [PDF 1.23MB]</a>）</li>'
+            '<a href="law/oecd.pdf">仮訳 [PDF 598KB]</a>'
+            '<h4>イ　国内法令等</h4><a href="law/domestic.pdf">和文 [PDF 1.23MB]</a>').encode()
+
+    def test_basel_selects_japanese_treaty_in_named_section_and_keeps_source_binding(self):
+        url = 'https://www.env.go.jp/recycle/yugai/law/conv_j.pdf'
+        self.request.update(provider=evidence.ENV_BASEL_PROVIDER, currentPages=[6, 7])
+        for binding in self.request['choiceBindings']: binding['currentPages'] = [6, 7]
+        self.payloads.update({evidence.ENV_BASEL_INDEX_URL: evidence.OfficialGuidanceFetch(
+            self.basel_index(), evidence.ENV_BASEL_INDEX_URL, 'text/html'),
+            url: evidence.OfficialGuidanceFetch(b'%PDF-basel', url, 'application/pdf')})
+        receipt = self.resolve()
+        self.assertEqual(self.calls, [evidence.ENV_BASEL_INDEX_URL, url])
+        self.assertEqual(receipt['documents'][0]['sourceUrl'], url)
+        self.assertEqual(receipt['sourceKind'], 'official_treaty_text')
+        self.assertIsNone(receipt['currentIndex']['publishedRevisionDate'])
+        self.assertEqual(self.validate(receipt), receipt)
+        changed = deepcopy(self.scope)
+        changed['sourceBinding']['sourceRecordRef'] = 'question_mondai1_71.json#0'
+        with self.assertRaises(evidence.OfficialGuidanceEvidenceError):
+            self.resolver.validate(receipt, request=self.request, record=self.record, scope=changed)
+
+    def test_basel_rejects_missing_duplicate_foreign_or_non_treaty_links_before_pdf_fetch(self):
+        self.request['provider'] = evidence.ENV_BASEL_PROVIDER
+        index = self.basel_index()
+        for html in [index.replace('ア　条約等'.encode(), '別の資料'.encode()),
+                index.replace('和文 [PDF 1.23MB]'.encode(), '英文 [PDF 1.23MB]'.encode()),
+                index.replace(b'law/conv_j.pdf', b'law/oecd.pdf'),
+                index.replace(b'law/conv_j.pdf', b'https://www.env.go.jp.evil.example/law/conv_j.pdf'),
+                index.replace(b'</li>', b'</li><a href="law/conv_j.pdf">'
+                    + '和文 [PDF 1MB]'.encode() + b'</a>'),
+                index + '<h4>ア　条約等</h4>'.encode()]:
+            with self.subTest(index_hash=evidence._hash(html)):
+                self.payloads[evidence.ENV_BASEL_INDEX_URL] = evidence.OfficialGuidanceFetch(
+                    html, evidence.ENV_BASEL_INDEX_URL, 'text/html')
+                before = len(self.calls)
+                with self.assertRaises(evidence.OfficialGuidanceEvidenceError): self.resolve()
+                self.assertEqual(self.calls[before:], [evidence.ENV_BASEL_INDEX_URL])
+
     def test_exact_unique_section_and_text_link_are_required(self):
         variants = [
             INDEX.replace('パリ協定（和訳）'.encode(), 'パリ協定の概要'.encode()),
