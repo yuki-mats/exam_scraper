@@ -115,4 +115,6 @@ OCRは既存のApple Vision日本語認識をローカルで使い、`output/eco
 
 状態は`reports/continuation_<run>/progress.json`へ保存します。処理が終わっても保留・対象外・評価不合格の有無を最後に照合する必要があるため、CLI終了を全425問の完了として扱いません。取得元画像・転記・中間問題はローカル成果物として保持し、repoで既定除外されるデータを公開Gitへ強制追加しません。
 
+整備の再開には`needed`（整備が必要な問題だけ）を使い、patchが存在しても現行工程版で未完了の問題を対象に残します。`remaining`はpatchがない未作業の問題だけを選ぶため、手動下書き又は中断済みpatchがある継続処理には使いません。
+
 **eco検定の全問は必ず05独自問題化を経由します。** 以後は[独自問題作成ワークフロー](../../operations/original_question_authoring_workflow.md)と[問題整備の入口](../../operations/exam_pipeline_manual_and_automation.md)に従います。文字だけのスキャン画像を、問題成立に必要な図表と取り違えないよう、文字起こし段階で区別します。

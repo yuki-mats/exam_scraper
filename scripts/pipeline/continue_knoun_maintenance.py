@@ -182,7 +182,7 @@ def main(argv=None):
             raise ValueError("独自問題化工程が含まれていません")
         save("native_maintenance")
         report["maintenance"] = console.start_run({"qualification": "eco-kentei", "stageIds": stages,
-                                                  "listGroupIds": groups, "questionConcurrency": 1, "mode": "remaining"})
+                                                  "listGroupIds": groups, "questionConcurrency": 1, "mode": "needed"})
         save("delivery_and_evaluation")
         def prepare(group):
             questions = console.questions(group)
