@@ -56,7 +56,7 @@ visual_board:
     status: live
     url: http://goalbuddy.localhost:41737/gas-shunin-hei-acquire-pdf-review/
     command: node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/development/exam_scraper_work/docs/goals/gas-shunin-hei-acquire-pdf-review
-active_task: T004
+active_task: T005
 tasks:
   - id: T001
     type: scout
@@ -118,7 +118,7 @@ tasks:
       - scrape_gassyunin.py
       - tests/test_scrape_gassyunin.py
       - tests/test_scrape_presets.py
-      - tests/fixtures/gassyunin/
+      - tests/fixtures/gassyunin/hei_2025.html
       - document/sources/gas-shunin/gassyunin_source_contract.md
       - output/gas-shunin-hei/
       - docs/contracts/00_source_sha256_manifest.jsonl
@@ -156,13 +156,15 @@ tasks:
   - id: T004
     type: worker
     assignee: Worker
-    status: active
+    status: done
     objective: 全年度PDF画像・OCR草案・自然key別比較packetを準備し、一問ずつ本文/全選択肢/公式選択答を一次照合
     allowed_files:
       - scripts/check/prepare_gas_shunin_pdf_review.py
       - tests/test_prepare_gas_shunin_pdf_review.py
       - output/gas-shunin-hei/pdf_review/
       - document/temporary/20261027_gas_shunin_hei_pdf_review.md
+      - docs/goals/gas-shunin-hei-acquire-pdf-review/notes/
+      - scripts/check/record_gas_shunin_pdf_review_receipts.py
     verify:
       - PDF全18file hash固定
       - 全522問の資格/年度/科目/番号対応
@@ -171,11 +173,42 @@ tasks:
     stop_if:
       - PDF又は対応を確定できない問はhold
       - 00_sourceへ訂正を書かない
-    receipt: null
+    receipt:
+      result: done
+      changed_files:
+        - scripts/check/prepare_gas_shunin_pdf_review.py
+        - scripts/check/record_gas_shunin_pdf_review_receipts.py
+        - output/gas-shunin-hei/pdf_review/
+      commands:
+        - cmd: prepare_gas_shunin_pdf_review.py (9 years / all 18 official PDFs SHA256)
+          status: pass
+        - cmd: 522 explicit source-ID primary records, source/PDF hashes, viewed images and answer numbers
+          status: pass
+        - cmd: real-input receipt projection and stale-hash/missing-case/answer-conflict rejection, honest hold retention
+          status: pass
+        - cmd: git diff --check
+          status: pass
+      summary: 全9年度522問を公式問題/正答画像と一問ずつ一次照合。番号答522一致。本文/図/条件/脚注の差異59問、2018追記をnative receiptに結合。二次未実施。
+    constraints:
+      - 単一writerのみ。年度別のread-only画像照合helperは同じT004内で分担可能。
+      - helperは原問・正答PDFと固定packetだけを読み、相互の判断は参照せず一問別判定を返す。
+      - PMは明示source IDでreceiptを保存し、配列順で別問へ判断を割り当てない。
+    progress:
+      primaryYears:
+        - 2017
+        - 2018
+        - 2019
+        - 2020
+        - 2021
+        - 2022
+        - 2023
+      primaryQuestionCount: 406
+      secondaryYears: []
+      officialAnswerNumberMatches: 406
   - id: T005
     type: worker
     assignee: Worker
-    status: queued
+    status: active
     objective: 一次作者とは別sessionで全問の公式問題画像・正答画像を再確認し二次照合記録を保存
     inputs:
       - 固定source全件
@@ -221,9 +254,8 @@ checks:
   dirty_fingerprint: unknown
   last_verification:
     result: pass
-    task: T003
+    task: T004
     commands:
-      - 55 tests / 5 live skip
-      - source gate 9 years
-      - 522 unique IDs
-      - live acquisition 9 HTTP 200
+      - all18PDF preparation
+      - primary522coverage/hash
+      - receipt refusal checks
