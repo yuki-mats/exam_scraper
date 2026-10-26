@@ -1,0 +1,342 @@
+version: 2
+goal:
+  title: 丙種70問と共通注を公式PDFに基づいてパッチ修正
+  slug: gas-shunin-hei-pdf-patches
+  kind: specific
+  tranche: 70問の個別指摘解消・全9年度共通注補完・source不変・ローカル検証・commit/push
+  status: active
+  oracle:
+    signal: 通常mergeで70問の修正と全共通注が反映され全source/IDが不変
+    cadence: 年度別と最終監査
+    final_proof: 一問別公式画像確認receipt、patch適用差分、3必須checker成功、main push
+  intake:
+    original_request: 要確認70問を公式PDFに基づいて1問ずつ修正し共通注を補完、00_source保持、パッチ層対応
+    interpreted_outcome: 70問の個別指摘解消・全9年度共通注補完・source不変・ローカル検証・commit/push
+    input_shape: specific
+    audience: 丙種学習者
+    authority: approved
+    proof_type: artifact
+    completion_proof: 一問別公式画像確認receipt、patch適用差分、3必須checker成功、main push
+    likely_misfire: 元の70件だけに注を追加して共通条件が他問から欠落する、rawHTML図だけ修正しJSONを変えない
+    blind_spots_considered:
+      - 全科目の注適用範囲
+      - 図の本文への正しい結合
+      - サイト独自解説の認証へ広げない
+    existing_plan_facts:
+      - 00_source不変
+      - 公式PDF根拠
+      - 一問ずつ目視
+rules:
+  pm_owns_state: true
+  one_active_task: true
+  max_write_workers: 1
+  no_implementation_without_worker_or_pm_task: true
+  no_completion_without_judge_or_pm_audit: true
+  planning_is_not_completion: true
+  queued_required_worker_blocks_completion: true
+  continuous_until_full_outcome: true
+  missing_input_or_credentials_do_not_stop_goal: true
+  exact_human_approval_can_terminal_wait: true
+  preserve_and_validate_existing_plan: true
+  intake_misfire_must_be_audited: true
+  goal_pressure_requires_oracle: true
+  no_completion_on_weak_proof: true
+  slice_policy:
+    max_consecutive_tiny_tasks: 2
+    prefer_vertical_slices: true
+    judge_picks_largest_safe_slice: true
+    worker_completes_whole_slice: true
+agents:
+  scout: installed
+  worker: installed
+  judge: installed
+visual_board:
+  selected: local
+  local:
+    status: live
+    url: http://goalbuddy.localhost:41737/gas-shunin-hei-pdf-patches/
+    command: node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs
+      --goal /Users/yuki/development/exam_scraper_work/docs/goals/gas-shunin-hei-pdf-patches
+active_task: T003
+tasks:
+  - id: T001
+    type: scout
+    assignee: Scout
+    status: done
+    reasoning_hint: default
+    objective: 既存の本文/図/注の正式patch保存・merge経路を確定
+    inputs:
+      - document/operations/artifact_contract.md
+      - document/temporary/20261027_gas_shunin_hei_pdf_review.json
+    constraints:
+      - Read-only.
+      - Do not edit implementation files.
+      - Prefer concrete file-path evidence over generic advice.
+    expected_output:
+      - Repo map
+      - Verification commands
+      - Ranked improvement candidates
+      - Candidate next tasks
+    receipt:
+      result: done
+      task_id: T001
+      board_path: PM未指定
+      summary: 本文・選択肢・画像の正式な訂正層は24です。公式PDF訂正の既存serviceがあり、sourceの三要素identity、現在投影stateHash、公式資料hash、Blind
+        A/B/Challengeを固定して保存します。丙種は甲乙専用25移行経路の対象外です。70問だけでなく科目共通注を各問へ保持する場合は適用範囲全件が訂正対象になります。画像serviceはStorageへ実公開するため、ローカルpatchのみの今回には境界判断が必要です。
+      evidence:
+        - document/operations/artifact_contract.md:55-73
+        - document/operations/question_issue_report_workflow.md:119-158
+        - config/question_issue_reports.json:15-26,104-124
+        - scripts/merge/question_issue_corrections.py:20-55,179-210
+        - scripts/merge/record_projection.py:365-405
+        - tools/question_review_console/official_source_correction.py:481-560,679-810
+        - tools/question_review_console/server.py:1137-1155,2648-2675
+        - scripts/pipeline/rebuild_gas_shunin_all_year_artifacts.py:27-31
+        - scripts/merge/00_merge_all.py:567-601
+        - tests/test_official_source_correction.py
+        - tests/test_question_issue_correction_patch.py
+      facts:
+        - 新規01はquestionType/isCalculationQuestion、02はquestionIntent、02aは厳密正答だけを所有する。10へ本文を入れるのはlegacy読取互換であり今回の新規訂正の正式責務ではない。05は公式過去問に使用しない。
+        - 24はschemaVersion=question-issue-correction/v1、origin=user_problem_report。UI公式資料訂正も同じ既存形式を使い、ui-official由来のcaseを生成する。前回照合結果をそのままblindReviewHashesと偽装できない。
+        - 24のquestion_contentカテゴリはquestionBodyTextとchoiceTextListだけ、imageカテゴリはquestionImageStorageUrls/originalQuestionChoiceImageUrls/explanationImageUrlsだけを許可する。
+        - sourceQuestionKey・reviewQuestionId・sourceRecordRefの三要素を00_source inventoryのexact-oneへ解決し、expectedBeforeHashで内容driftを拒否する。自然source
+          IDだけの曖昧な束縛を避けられる。
+        - OfficialSourceCorrectionService.run(question, state_hash, category, evidence_path,
+          evidence_title, evidence_locator, verified_transcription, emit, resume_work_directory='')
+          が既存保存API。server入口はPOST /api/official-source-corrections/start。server-owned
+          projected recordがあればmergedディレクトリ不在でも動くテストがある。
+        - 同serviceは実AppServerの独立Blind A/B/Challengeと実画像送信bytes/hashを検証し、全変更一致・選択根拠一致・patch検証後だけ24へ移す。修正対象は1問ごと。
+        - 通常物理mergeとlogical projectionは同じ24 readerを使用する。24は30_merged_2側で適用され、20_merged_1には適用されない。
+        - CLIはpython3 scripts/merge/00_merge_all.py <年度> --base-dir output/gas-shunin-hei/questions_json。--source-bindings
+          <identity三要素JSON>で原問を限定可能。ただし限定生成で既存全体出力を置き換えないよう保存先・既存生成物の確認が必要。
+        - 25_verified_publicationの専用再生成QUALIFICATIONSはgas-shunin-kou/gas-shunin-otsuだけ。丙種に25を新規手書きするのは契約外。丙種現状2017は00_source3ファイルのみ。
+        - 対象検証候補はtests.test_official_source_correction、tests.test_question_issue_correction_patch、patch
+          checker、通常merge、その後AGENTS必須のchoice alignment/required fields/correct-choice
+          coverageの3checker。未整備sourceしかないためschema不足を訂正成功と混同しない。
+      contradictions:
+        - delivery_workflow.mdの「ガス主任技術者2017〜2025年は25」という一般表現に対し、実装は甲乙限定。今回の丙種は通常source/patch/merge経路で扱う必要がある。
+        - 画像訂正serviceはpatch保存前にimage_publisherを呼びStorageへ新規画像を実公開する。ローカル成果物だけを作る今回の境界とは一致しない。
+      ambiguity_requiring_judge:
+        - 共通注は科目内全問へ本文として補完するか、別の正式共通注artifactを導入するか。現在の24/公開field契約には共通注専用fieldがなく、各問本文への補完なら70問を超える。
+        - 画像を文章で正確に再現できる問はquestion_contentで解決できるが、2023消費20等の図が必要な問はローカル画像関係を正式に保持し、Storage公開せず検証可能にする経路を確定する必要がある。
+        - 前回一次・二次は差異検出のレビューであり、今回の修正完全値のBlind A/B/Challengeではない。正式24保存へ必要な新規レビューを既存serviceで行うか、同契約を満たすnative実行経路を用意するか。
+      commands:
+        - rg targeted contract and correction references
+        - sed targeted artifact/field/workflow/merge/service/checker sections
+        - find output/gas-shunin-hei/questions_json/2017 -maxdepth 2 -type f
+      note_needed: false
+  - id: T002
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: default
+    objective: 70問と共通注の修正パッケージを確定
+    inputs:
+      - T001 receipt
+    constraints:
+      - Do not implement.
+      - Pick the largest safe useful slice with clear allowed_files, verify commands,
+        and stop conditions.
+    expected_output:
+      - Decision
+      - Exact Worker objective
+      - allowed_files
+      - verify
+      - stop_if
+      - Blocked or deferred tasks
+    receipt:
+      result: done
+      task_id: T002
+      board_path: docs/goals/gas-shunin-hei-pdf-patches/state.yaml
+      decision: approve_next
+      full_outcome_complete: false
+      rationale: 本文・選択肢の訂正は24の責務です。公式PDFの同年度条件を復元し、法令・基礎共通注は該当全問へ補完します。rawHTMLだけの不要SVGは保存JSONを一問ずつ再確認し、差分がなければno_changeで解消できます。正式24は新規Blind
+        A/B・Challengeと真正な画像確認証跡に結び付け、既存保存経路を使います。単なるsubagent応答hashを実AppServerの画像送信証跡へ置き換えることは認めません。未整備による既存schema不足を埋めるため、未確認の解説・正誤を作りません。
+      evidence:
+        - document/operations/artifact_contract.md:55-73
+        - document/operations/question_issue_report_workflow.md:76-158
+        - tools/question_review_console/official_source_correction.py:110-174
+        - tools/question_review_console/official_source_correction.py:679-810
+        - scripts/merge/question_issue_corrections.py:20-55
+        - scripts/check/check_question_issue_correction_patch.py:255-420
+      next_allowed_task:
+        type: worker
+        assignee: Worker
+        objective: 2017〜2025年度の要確認70問を公式問題・正答PDFと一問ずつ再確認し、必要な本文・選択肢訂正と法令・基礎全279問の共通注補完を正式24へ保存する。試験受験・採点注意は年度単位の補助資料として保持する。rawHTMLだけの差異は保存JSONのno_change証拠を残し、通常mergeで実反映と対象外不変を検証する。
+        allowed_files:
+          - output/gas-shunin-hei/questions_json/*/24_questionIssueCorrections/*.json
+          - output/gas-shunin-hei/questions_json/*/30_merged_2/
+          - output/gas-shunin-hei/questions_json/*/12_merged_questionType/
+          - output/gas-shunin-hei/questions_json/*/20_merged_1/
+          - output/gas-shunin-hei/pdf_patch_review/
+          - output/gas-shunin-hei/question_images/*/official_corrections/
+          - output/question_issue_reports/ui-official-*/
+          - document/temporary/20261027_gas_shunin_hei_pdf_patches.md
+          - document/temporary/20261027_gas_shunin_hei_pdf_patches.json
+          - docs/goals/gas-shunin-hei-pdf-patches/notes/
+        execution_constraints:
+          - 他の作業者がいるため、他者の変更を破棄・巻き戻ししない。
+          - 00_source全27file、公式原PDF、既存ID、元正答・解説は変更しない。
+          - 各問で問題文・全選択肢・正答・保存済み解説の有無を直視し、公式ページと現在値を結ぶ。
+          - OfficialSourceCorrectionServiceまたは同じ実AppServer ReviewExecutor・run_objective_review・build_correction_patch・validatorによる正常経路を利用する。
+          - native subagentの独立レビューは候補準備・追加監査に利用できる。既存保存経路の画像bytes/hash・session/thread/turn証拠を捏造又は省略しない。
+          - A/B完全変更値の不一致は推測で一方を採用せずholdにし、根拠又は転記の再確認後に新規レビューする。
+          - 共通注は年度ごとの公式ページで定義・例外条件を確認し、sourceQuestionKey等の完全identityで各問へ結ぶ。配列順で別問題の内容を割り当てない。
+          - 図を忠実に文章化できる場合はquestion_contentで対応する。図形・領域関係を失う代替文章を作らない。
+          - 2023消費問20等で実図が必要な場合は公式図とlocal assetを先に用意する。既存image serviceはStorageへの実公開を伴うため、未公開URLを公開済みと偽装した正式patchを作らない。
+          - 毎年供給問10・消費問20のうち保存JSONに既に誤図がない17問はno_changeの一問別証跡で解消する。原HTMLは取得証跡として保持し、同値24を捏造しない。
+          - 試験全体の解答数・採点規則を各学習問題本文へ無差別に追加しない。
+          - Firestore、既存本番問題、分類・現行法監査・公開flagへ作業範囲を広げない。
+        verify:
+          - 開始前source全27fileと522問identityのhash inventoryを保存し、終了後に完全一致を確認する。
+          - 各24にscripts/check/check_question_issue_correction_patch.pyを実行し、現在投影・公式根拠・完全identity・expectedBeforeHashを検証する。
+          - python3 scripts/merge/00_merge_all.py <年度> --base-dir output/gas-shunin-hei/questions_json
+            を全9年度へ実行する。
+          - python3 scripts/check/check_choice_text_alignment.py --base-dir output/gas-shunin-hei/questions_json
+            --stage merged
+          - python3 scripts/check/check_required_fields.py --base-dir output/gas-shunin-hei/questions_json
+            --stage merged
+          - python3 scripts/check/check_correct_choice_patch_coverage.py
+          - 70問全件のfix/no_change/hold対応、法令144問・基礎135問の共通注適用、年度単位共通注意9件、通常mergeでの修正反映を照合する。
+          - 正答・解説・ID・無関係fieldのpresenceと値の不変を一問identityで検証する。
+          - 保存経路を変更しない場合は既存validatorと実データ確認に限定する。経路の実装変更が必要になった場合は別Workerへ分け、tests.test_official_source_correctionとtests.test_question_issue_correction_patchを実行する。
+          - git diff --check
+        stop_if:
+          - 公式ページ・図・脚注を一意に確認できない問はholdとして他問を継続する。
+          - 元の正答・解説の意味変更又は現行法更新が必要なら今回の本文訂正とは分離する。
+          - 未整備source由来のrequired_fields不足又は対象外資格のcoverage不備は正確な失敗証跡を保持し、未確認のfieldで埋めない。検査成功とは報告しない。
+          - 図の正式保存がStorage公開に依存する場合は、具体的なlocal assetと差分を準備した後、その問の未完了境界を記録する。
+          - 許可外fileの変更が必要ならWorker scopeを拡張せずPMへ返す。
+      subgoal_contract: null
+      parallel_safety:
+        write_workers: 1
+        read_only_reviews: 独立Blind A/Bは既存レビュー契約の範囲で可能。
+        parallel_writes: false
+      blocked_tasks: []
+      missing_evidence:
+        - 70問の再確認後fix/no_change/hold対応表
+        - 今回修正完全値に対する新規A/B・Challengeと画像証跡
+        - 全279問への年度別共通注適用証明
+        - 2023消費問20の必要図を正式に保持する具体的方法
+        - 通常merge後の差分・source/ID不変・3必須checkerの実結果
+      required_board_updates:
+        - T001に実Scout receiptをそのまま記録する。
+        - T002に本receiptを記録してから、上記Worker packageをT003へ反映する。
+        - 原HTMLだけの差異はno_change解消を認め、70問すべてに変更patchを作ることを成功条件にしない。
+        - 未整備による機械gate失敗と今回訂正の反映確認を別状態にし、未実行・不通過を成功へ変換しない。
+        - 正式patchとレビュー証跡がgitignoredの場合、commit対象の機械可読監査記録にpatch実bytes又は復元可能な完全変更値とhashを保存する。
+  - id: T003
+    type: worker
+    assignee: Worker
+    status: active
+    reasoning_hint: default
+    objective: 2017〜2025年度の要確認70問を公式問題・正答PDFと一問ずつ再確認し、必要な本文・選択肢訂正と法令・基礎全279問の共通注補完を正式24へ保存する。試験受験・採点注意は年度単位の補助資料として保持する。rawHTMLだけの差異は保存JSONのno_change証拠を残し、通常mergeで実反映と対象外不変を検証する。
+    allowed_files:
+      - output/gas-shunin-hei/questions_json/*/24_questionIssueCorrections/*.json
+      - output/gas-shunin-hei/questions_json/*/30_merged_2/
+      - output/gas-shunin-hei/questions_json/*/12_merged_questionType/
+      - output/gas-shunin-hei/questions_json/*/20_merged_1/
+      - output/gas-shunin-hei/pdf_patch_review/
+      - output/gas-shunin-hei/question_images/*/official_corrections/
+      - output/question_issue_reports/ui-official-*/
+      - document/temporary/20261027_gas_shunin_hei_pdf_patches.md
+      - document/temporary/20261027_gas_shunin_hei_pdf_patches.json
+      - docs/goals/gas-shunin-hei-pdf-patches/notes/
+      - docs/goals/gas-shunin-hei-pdf-patches/notes/T003-review-driver.py
+      - docs/goals/gas-shunin-hei-pdf-patches/notes/T003-review-driver-selftest.py
+      - docs/goals/gas-shunin-hei-pdf-patches/notes/T003-driver-verification.json
+    verify:
+      - 開始前source全27fileと522問identityのhash inventoryを保存し、終了後に完全一致を確認する。
+      - 各24にscripts/check/check_question_issue_correction_patch.pyを実行し、現在投影・公式根拠・完全identity・expectedBeforeHashを検証する。
+      - python3 scripts/merge/00_merge_all.py <年度> --base-dir output/gas-shunin-hei/questions_json
+        を全9年度へ実行する。
+      - python3 scripts/check/check_choice_text_alignment.py --base-dir output/gas-shunin-hei/questions_json
+        --stage merged
+      - python3 scripts/check/check_required_fields.py --base-dir output/gas-shunin-hei/questions_json
+        --stage merged
+      - python3 scripts/check/check_correct_choice_patch_coverage.py
+      - 70問全件のfix/no_change/hold対応、法令144問・基礎135問の共通注適用、年度単位共通注意9件、通常mergeでの修正反映を照合する。
+      - 正答・解説・ID・無関係fieldのpresenceと値の不変を一問identityで検証する。
+      - 保存経路を変更しない場合は既存validatorと実データ確認に限定する。経路の実装変更が必要になった場合は別Workerへ分け、tests.test_official_source_correctionとtests.test_question_issue_correction_patchを実行する。
+      - git diff --check
+    stop_if:
+      - 公式ページ・図・脚注を一意に確認できない問はholdとして他問を継続する。
+      - 元の正答・解説の意味変更又は現行法更新が必要なら今回の本文訂正とは分離する。
+      - 未整備source由来のrequired_fields不足又は対象外資格のcoverage不備は正確な失敗証跡を保持し、未確認のfieldで埋めない。検査成功とは報告しない。
+      - 図の正式保存がStorage公開に依存する場合は、具体的なlocal assetと差分を準備した後、その問の未完了境界を記録する。
+      - 許可外fileの変更が必要ならWorker scopeを拡張せずPMへ返す。
+    receipt: null
+    constraints:
+      - 他の作業者がいるため、他者の変更を破棄・巻き戻ししない。
+      - 00_source全27file、公式原PDF、既存ID、元正答・解説は変更しない。
+      - 各問で問題文・全選択肢・正答・保存済み解説の有無を直視し、公式ページと現在値を結ぶ。
+      - OfficialSourceCorrectionServiceまたは同じ実AppServer ReviewExecutor・run_objective_review・build_correction_patch・validatorによる正常経路を利用する。
+      - native subagentの独立レビューは候補準備・追加監査に利用できる。既存保存経路の画像bytes/hash・session/thread/turn証拠を捏造又は省略しない。
+      - A/B完全変更値の不一致は推測で一方を採用せずholdにし、根拠又は転記の再確認後に新規レビューする。
+      - 共通注は年度ごとの公式ページで定義・例外条件を確認し、sourceQuestionKey等の完全identityで各問へ結ぶ。配列順で別問題の内容を割り当てない。
+      - 図を忠実に文章化できる場合はquestion_contentで対応する。図形・領域関係を失う代替文章を作らない。
+      - 2023消費問20等で実図が必要な場合は公式図とlocal assetを先に用意する。既存image serviceはStorageへの実公開を伴うため、未公開URLを公開済みと偽装した正式patchを作らない。
+      - 毎年供給問10・消費問20のうち保存JSONに既に誤図がない17問はno_changeの一問別証跡で解消する。原HTMLは取得証跡として保持し、同値24を捏造しない。
+      - 試験全体の解答数・採点規則を各学習問題本文へ無差別に追加しない。
+      - Firestore、既存本番問題、分類・現行法監査・公開flagへ作業範囲を広げない。
+      - 輸送batchと問題単位を分離する。各問のworkId、sourceQuestionKey、reviewQuestionId、sourceRecordRef、category、current
+        state/input/evidence/contract hash、正規promptとslot bindingを送信前に固定する。
+      - 各phaseの実送信prompt原本・全画像のpath/hash/byteCount・実AppServer session/thread/turn・未加工応答をwrite-onceで保存する。batch全体のhashと各問の送信prompt
+        hashを対応付ける。
+      - A、B、Challengeは別の新規sessionで実施する。A/Bには相互結果、Challenge結論、前回差異判定、今回の採用済み候補を渡さない。公式PDFから忠実に転記したverifiedTranscriptionと書式規約は渡せるが、未確認候補を公式転記と偽装しない。
+      - 各問の正規promptを省略・要約しない。共通contractの重複排除は全問への適用が機械的に証明できる場合だけ許可する。
+      - 各問が参照する公式問題ページ・共通注ページの実画像bytesを当該batchへ送る。同じ画像はbatch内で一回の添付でよい。ページ名・hashと対象問の対応をpromptに明示する。画像転送上限がある場合はbatchを小分けする。
+      - 各問の対象内容を一問ずつ直接確認する指示を維持する。番号順から他問の内容を流し込まず、解答・解説を配列indexで割り当てない。
+      - 返却はworkIdをkeyとする完全review JSONとし、要求key集合との完全一致、重複key拒否、各問inputHash・slot・contract
+        hashの一致を確認する。JSON parserによる重複keyの黙認を避ける。
+      - モデル応答のreview JSONを分離して保存するだけとし、inputHash、proposedChanges、evidence、結論を後補正しない。欠落・不正・出力打切りはそのbatchを未確定にして修復runへ送る。
+      - A/Bの全結果を固定した後だけ各問の正規Challenge入力を生成する。Challengeへ同じ公式画像を送り、完全A/B結果とhashを対象問に結ぶ。
+      - Replay前に実送信prompt中の各問payloadと現在の正規再生成payloadを完全照合する。録画fileが存在するという理由だけで採用しない。
+      - ReviewExecutorはcommand=None、recorded_results_dir=<今回の真正結果directory>、allow_fixture_placeholders=Falseとし、run_objective_review、require_resume_consensus=True、標準validators、build_correction_patch、patch
+        verifierを省略しない。
+      - 実AppServer応答のimageInputsについて、全対象画像のhashと非零byteCountを検証する。同一画像を共有する各問は同じ真正batch証跡への参照で結び、問ごとに別送信したとは主張しない。
+      - 保存直前にsource・現在投影・PDF・画像・契約・prompt・reviewのhashを再検証する。batch後の入力driftは問単位で拒否する。
+      - 同値fieldはモデル応答を変更せず、標準経路と同じ明示的no-op正規化が必要な場合だけ原応答・正規化後・除去fieldを両方保持する。A/B不一致を正規化で消さない。
+      - 図assetのStorage公開、正答・現行法・解説修正、通常moduleへの変更はこのdriver追加scopeに含めない。
+    progress:
+      preparation: 70 questions visually reviewed, explicit ID applicability279
+      candidatePatchQuestions: 289
+      noChangeQuestions: 17
+      reviewItems: 306
+      transportPlans: 28
+      pilot: passed independent Judge audit; remaining27 batches running
+      sourceFilesUnchanged: 27
+      formalPatchQuestions: 1
+      reviewMethod: 未採用公式転記候補をphase別新規sessionで実画像照合し問別完全値を確定
+      driverSha256: 3f9456cf1af04be58ff3c6190e469da84c49a65b528acdcdfe0f18761c6e5014
+  - id: T999
+    type: judge
+    assignee: Judge
+    status: queued
+    reasoning_hint: default
+    objective: 70問解消と共通注補完・ID/source不変・main pushを監査
+    inputs:
+      - All done task receipts
+      - Last verification
+      - Current dirty diff
+    constraints:
+      - Do not implement.
+      - Reject completion if required Worker work is still queued or active.
+      - Reject completion if the broader original outcome still has safe local follow-up
+        slices.
+      - Reject stopping only because a slice needs owner input, credentials, production
+        access, destructive operations, or policy decisions.
+    expected_output:
+      - complete | not_complete
+      - 'full_outcome_complete: true | false'
+      - missing evidence
+      - next task if not complete
+    receipt: null
+checks:
+  dirty_fingerprint: unknown
+  last_verification:
+    result: pass
+    task: T003 driver preflight
+    commands:
+      - 14 driver selftests passed
+      - 28 existing correction tests passed

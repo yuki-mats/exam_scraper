@@ -1,0 +1,27 @@
+{
+  "commands": [
+    {
+      "cmd": "python3 docs/goals/gas-shunin-hei-pdf-patches/notes/T003-review-driver-selftest.py",
+      "exitCode": 0,
+      "passed": 14
+    },
+    {
+      "cmd": "python3 -m unittest tests.test_official_source_correction tests.test_question_issue_correction_patch",
+      "exitCode": 0,
+      "passed": 28
+    }
+  ],
+  "driverSha256": "3f9456cf1af04be58ff3c6190e469da84c49a65b528acdcdfe0f18761c6e5014",
+  "pilotSaveResult": {
+    "planSha256": "275eaea48a08bcb6d4521b24ec76d25bfe3443ba9454845749a2c7cc9db46213",
+    "results": [
+      {
+        "sourceQuestionId": "2017:law:問1",
+        "decision": "fix",
+        "stagedPath": "output/gas-shunin-hei/pdf_patch_review/runs-v2/000-2017/individual/2017-law-q1/hei-pdf-2017-000_2017-law-q1_f72327c3772a4fe4.json",
+        "patchSha256": "971d07047476ce8970bfdfa8792a4f43a5898f4c3b5f6c7ff72c2b38c8ba3873",
+        "patchPath": "output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-2017-000_2017-law-q1_f72327c3772a4fe4.json"
+      }
+    ]
+  }
+}

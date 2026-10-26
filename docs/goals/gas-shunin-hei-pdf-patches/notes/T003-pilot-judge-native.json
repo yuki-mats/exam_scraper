@@ -1,0 +1,72 @@
+{
+  "nativeMessageId": "amsg_01a17a51-49b3-7af2-8429-86e0529b89e2",
+  "nativeAuthor": "/root/hei_patch_judge",
+  "payload": {
+    "goalbuddy_receipt_v1": {
+      "result": "done",
+      "task_id": "T002",
+      "board_path": "docs/goals/gas-shunin-hei-pdf-patches/state.yaml",
+      "decision": "approve_next",
+      "full_outcome_complete": false,
+      "rationale": "pilotは実AppServerの3別session、画像実送信、正規prompt完全再構成、応答から問別reviewへの無改変対応、標準validators・完全changes一致、正式24のexpectedBeforeHashと完全identity、全27source不変まで確認できました。残batchへの拡大を許可します。stateHash/evidenceHash空は標準の非resume replayに対応し、内容は非空inputHash・公式PDF hash・frozen plan・現在投影照合で固定されるため再run不要です。ただしA/Bは未採用候補を示された独立画像照合であり、候補を見ない独立導出とは報告できません。",
+      "evidence": [
+        "docs/goals/gas-shunin-hei-pdf-patches/notes/T003-review-driver.py",
+        "docs/goals/gas-shunin-hei-pdf-patches/notes/T003-review-driver-selftest.py",
+        "output/gas-shunin-hei/pdf_patch_review/plans-v2/000-2017.json",
+        "output/gas-shunin-hei/pdf_patch_review/runs-v2/000-2017/frozen-plan.json",
+        "output/gas-shunin-hei/pdf_patch_review/runs-v2/000-2017/blind_a-received.json",
+        "output/gas-shunin-hei/pdf_patch_review/runs-v2/000-2017/blind_b-received.json",
+        "output/gas-shunin-hei/pdf_patch_review/runs-v2/000-2017/challenge-received.json",
+        "output/gas-shunin-hei/pdf_patch_review/runs-v2/000-2017/individual/2017-law-q1/standard-replay/driver-replay-receipt.json",
+        "output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-2017-000_2017-law-q1_f72327c3772a4fe4.json"
+      ],
+      "next_allowed_task": {
+        "type": "worker",
+        "assignee": "Worker",
+        "objective": "監査済みdriverを同一revisionのまま残27batchへ適用し、各最大12問の実画像照合・真正レビュー・標準gateを経て、fixだけを正式24へ保存する。no_changeとholdを問別に保持する。",
+        "allowed_files": [
+          "output/gas-shunin-hei/pdf_patch_review/",
+          "output/gas-shunin-hei/questions_json/*/24_questionIssueCorrections/*.json",
+          "docs/goals/gas-shunin-hei-pdf-patches/notes/T003-driver-verification.json",
+          "docs/goals/gas-shunin-hei-pdf-patches/notes/T003-native-review-results.json"
+        ],
+        "verify": [
+          "driver SHA256は3f9456cf1af04be58ff3c6190e469da84c49a65b528acdcdfe0f18761c6e5014を維持し、各frozen-planと一致させる。",
+          "各batchの全phaseで正規prompt再構成hash、実native image_inputsのpath/hash/byteCount、異なるsession/thread/turn、無改変per-workId review対応を確認する。",
+          "各問でrun_objective_review require_resume_consensus=True、allow_fixture_placeholders=False、標準validators、patch verifierを通す。",
+          "各正式24のbytes hash、完全source identity、expectedBeforeHash、A/B/Challenge changes一致を確認する。",
+          "全27source hashと522問identity不変を再確認する。",
+          "14selftestと既存28testの実行済み結果・日時・対象driver hash・ログをT003-driver-verification.jsonへ保存する。既成功の同一入力testを理由なく再実行しない。",
+          "全batch後に70問のfix/no_change/hold対応と共通注279問への適用を集計し、通常mergeと必須3checkerへ進む。"
+        ],
+        "stop_if": [
+          "driver又は契約・入力が変わった場合は既存成功証跡を上書きせず、別revision・fresh work directoryへ分離する。",
+          "A/B不一致、画像欠落、input drift、応答欠落を検出した問はholdにし、残問を継続する。",
+          "候補本文に誤りが判明した場合は、元の真正応答を保存したまま候補とplanを改訂し、その問だけfresh reviewする。",
+          "Storage/Firestore公開又は元の正答・解説変更が必要なら今回のdriver scopeで実行しない。"
+        ]
+      },
+      "subgoal_contract": null,
+      "parallel_safety": {
+        "write_workers": 1,
+        "parallel_writes": false,
+        "read_only_reviews": "各phaseの実AppServer read-only turnを使用。各問を独立sessionと称さず、batch内の問別完全判定とする。"
+      },
+      "blocked_tasks": [],
+      "missing_evidence": [
+        "残27batchの実レビュー結果",
+        "T003-driver-verification.jsonは監査時点で未作成。テスト成功は親の報告とselftest実装を確認したが、当該保存済み実行receiptは未確認。",
+        "70問全件の最終解消表",
+        "279問の共通注適用と通常merge反映",
+        "必須3checkerの実結果とmain commit/push"
+      ],
+      "required_board_updates": [
+        "pilot正式24保存完了と本監査receiptを記録する。",
+        "pilot patch SHA256を971d07047476ce8970bfdfa8792a4f43a5898f4c3b5f6c7ff72c2b38c8ba3873として保存する。",
+        "pilot A/B/Challengeのsession IDsは01a17a4e-bb71-7372-9de4-e1890f4e6fe3、01a17a4e-ed12-7120-b6a8-7881c7669a29、01a17a4f-24a3-7db2-a19a-60812b7e6250で全て異なり、各phase画像2枚の実bytes/hash一致を確認済みと記録する。",
+        "レビュー方式は『未採用の公式転記候補を実画像で検証する独立A/B・Challenge』と正確に記す。候補非提示の独立導出や問題ごとの別sessionを実施したとは記さない。",
+        "本receiptは輸送driverとpilot保存の拡大gateであり、289変更・17no_change又は全体完成の認定には流用しない。"
+      ]
+    }
+  }
+}

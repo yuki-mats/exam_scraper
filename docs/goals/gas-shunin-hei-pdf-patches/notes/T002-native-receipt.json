@@ -1,0 +1,93 @@
+{
+  "nativeMessageId": "amsg_01a17a43-4461-7271-9593-f062e339d10c",
+  "nativeAuthor": "/root/hei_patch_judge",
+  "payload": {
+    "goalbuddy_receipt_v1": {
+      "result": "done",
+      "task_id": "T002",
+      "board_path": "docs/goals/gas-shunin-hei-pdf-patches/state.yaml",
+      "decision": "approve_next",
+      "full_outcome_complete": false,
+      "rationale": "本文・選択肢の訂正は24の責務です。公式PDFの同年度条件を復元し、法令・基礎共通注は該当全問へ補完します。rawHTMLだけの不要SVGは保存JSONを一問ずつ再確認し、差分がなければno_changeで解消できます。正式24は新規Blind A/B・Challengeと真正な画像確認証跡に結び付け、既存保存経路を使います。単なるsubagent応答hashを実AppServerの画像送信証跡へ置き換えることは認めません。未整備による既存schema不足を埋めるため、未確認の解説・正誤を作りません。",
+      "evidence": [
+        "document/operations/artifact_contract.md:55-73",
+        "document/operations/question_issue_report_workflow.md:76-158",
+        "tools/question_review_console/official_source_correction.py:110-174",
+        "tools/question_review_console/official_source_correction.py:679-810",
+        "scripts/merge/question_issue_corrections.py:20-55",
+        "scripts/check/check_question_issue_correction_patch.py:255-420"
+      ],
+      "next_allowed_task": {
+        "type": "worker",
+        "assignee": "Worker",
+        "objective": "2017〜2025年度の要確認70問を公式問題・正答PDFと一問ずつ再確認し、必要な本文・選択肢訂正と法令・基礎全279問の共通注補完を正式24へ保存する。試験受験・採点注意は年度単位の補助資料として保持する。rawHTMLだけの差異は保存JSONのno_change証拠を残し、通常mergeで実反映と対象外不変を検証する。",
+        "allowed_files": [
+          "output/gas-shunin-hei/questions_json/*/24_questionIssueCorrections/*.json",
+          "output/gas-shunin-hei/questions_json/*/30_merged_2/",
+          "output/gas-shunin-hei/questions_json/*/12_merged_questionType/",
+          "output/gas-shunin-hei/questions_json/*/20_merged_1/",
+          "output/gas-shunin-hei/pdf_patch_review/",
+          "output/gas-shunin-hei/question_images/*/official_corrections/",
+          "output/question_issue_reports/ui-official-*/",
+          "document/temporary/20261027_gas_shunin_hei_pdf_patches.md",
+          "document/temporary/20261027_gas_shunin_hei_pdf_patches.json",
+          "docs/goals/gas-shunin-hei-pdf-patches/notes/"
+        ],
+        "execution_constraints": [
+          "他の作業者がいるため、他者の変更を破棄・巻き戻ししない。",
+          "00_source全27file、公式原PDF、既存ID、元正答・解説は変更しない。",
+          "各問で問題文・全選択肢・正答・保存済み解説の有無を直視し、公式ページと現在値を結ぶ。",
+          "OfficialSourceCorrectionServiceまたは同じ実AppServer ReviewExecutor・run_objective_review・build_correction_patch・validatorによる正常経路を利用する。",
+          "native subagentの独立レビューは候補準備・追加監査に利用できる。既存保存経路の画像bytes/hash・session/thread/turn証拠を捏造又は省略しない。",
+          "A/B完全変更値の不一致は推測で一方を採用せずholdにし、根拠又は転記の再確認後に新規レビューする。",
+          "共通注は年度ごとの公式ページで定義・例外条件を確認し、sourceQuestionKey等の完全identityで各問へ結ぶ。配列順で別問題の内容を割り当てない。",
+          "図を忠実に文章化できる場合はquestion_contentで対応する。図形・領域関係を失う代替文章を作らない。",
+          "2023消費問20等で実図が必要な場合は公式図とlocal assetを先に用意する。既存image serviceはStorageへの実公開を伴うため、未公開URLを公開済みと偽装した正式patchを作らない。",
+          "毎年供給問10・消費問20のうち保存JSONに既に誤図がない17問はno_changeの一問別証跡で解消する。原HTMLは取得証跡として保持し、同値24を捏造しない。",
+          "試験全体の解答数・採点規則を各学習問題本文へ無差別に追加しない。",
+          "Firestore、既存本番問題、分類・現行法監査・公開flagへ作業範囲を広げない。"
+        ],
+        "verify": [
+          "開始前source全27fileと522問identityのhash inventoryを保存し、終了後に完全一致を確認する。",
+          "各24にscripts/check/check_question_issue_correction_patch.pyを実行し、現在投影・公式根拠・完全identity・expectedBeforeHashを検証する。",
+          "python3 scripts/merge/00_merge_all.py <年度> --base-dir output/gas-shunin-hei/questions_json を全9年度へ実行する。",
+          "python3 scripts/check/check_choice_text_alignment.py --base-dir output/gas-shunin-hei/questions_json --stage merged",
+          "python3 scripts/check/check_required_fields.py --base-dir output/gas-shunin-hei/questions_json --stage merged",
+          "python3 scripts/check/check_correct_choice_patch_coverage.py",
+          "70問全件のfix/no_change/hold対応、法令144問・基礎135問の共通注適用、年度単位共通注意9件、通常mergeでの修正反映を照合する。",
+          "正答・解説・ID・無関係fieldのpresenceと値の不変を一問identityで検証する。",
+          "保存経路を変更しない場合は既存validatorと実データ確認に限定する。経路の実装変更が必要になった場合は別Workerへ分け、tests.test_official_source_correctionとtests.test_question_issue_correction_patchを実行する。",
+          "git diff --check"
+        ],
+        "stop_if": [
+          "公式ページ・図・脚注を一意に確認できない問はholdとして他問を継続する。",
+          "元の正答・解説の意味変更又は現行法更新が必要なら今回の本文訂正とは分離する。",
+          "未整備source由来のrequired_fields不足又は対象外資格のcoverage不備は正確な失敗証跡を保持し、未確認のfieldで埋めない。検査成功とは報告しない。",
+          "図の正式保存がStorage公開に依存する場合は、具体的なlocal assetと差分を準備した後、その問の未完了境界を記録する。",
+          "許可外fileの変更が必要ならWorker scopeを拡張せずPMへ返す。"
+        ]
+      },
+      "subgoal_contract": null,
+      "parallel_safety": {
+        "write_workers": 1,
+        "read_only_reviews": "独立Blind A/Bは既存レビュー契約の範囲で可能。",
+        "parallel_writes": false
+      },
+      "blocked_tasks": [],
+      "missing_evidence": [
+        "70問の再確認後fix/no_change/hold対応表",
+        "今回修正完全値に対する新規A/B・Challengeと画像証跡",
+        "全279問への年度別共通注適用証明",
+        "2023消費問20の必要図を正式に保持する具体的方法",
+        "通常merge後の差分・source/ID不変・3必須checkerの実結果"
+      ],
+      "required_board_updates": [
+        "T001に実Scout receiptをそのまま記録する。",
+        "T002に本receiptを記録してから、上記Worker packageをT003へ反映する。",
+        "原HTMLだけの差異はno_change解消を認め、70問すべてに変更patchを作ることを成功条件にしない。",
+        "未整備による機械gate失敗と今回訂正の反映確認を別状態にし、未実行・不通過を成功へ変換しない。",
+        "正式patchとレビュー証跡がgitignoredの場合、commit対象の機械可読監査記録にpatch実bytes又は復元可能な完全変更値とhashを保存する。"
+      ]
+    }
+  }
+}

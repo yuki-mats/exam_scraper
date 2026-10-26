@@ -1,0 +1,52 @@
+{
+  "nativeMessageId": "amsg_01a17a41-ad2a-7a01-aa53-0a595033a4d6",
+  "nativeAuthor": "/root/hei_patch_scout",
+  "payload": {
+    "goalbuddy_receipt_v1": {
+      "result": "done",
+      "task_id": "T001",
+      "board_path": "PM未指定",
+      "summary": "本文・選択肢・画像の正式な訂正層は24です。公式PDF訂正の既存serviceがあり、sourceの三要素identity、現在投影stateHash、公式資料hash、Blind A/B/Challengeを固定して保存します。丙種は甲乙専用25移行経路の対象外です。70問だけでなく科目共通注を各問へ保持する場合は適用範囲全件が訂正対象になります。画像serviceはStorageへ実公開するため、ローカルpatchのみの今回には境界判断が必要です。",
+      "evidence": [
+        "document/operations/artifact_contract.md:55-73",
+        "document/operations/question_issue_report_workflow.md:119-158",
+        "config/question_issue_reports.json:15-26,104-124",
+        "scripts/merge/question_issue_corrections.py:20-55,179-210",
+        "scripts/merge/record_projection.py:365-405",
+        "tools/question_review_console/official_source_correction.py:481-560,679-810",
+        "tools/question_review_console/server.py:1137-1155,2648-2675",
+        "scripts/pipeline/rebuild_gas_shunin_all_year_artifacts.py:27-31",
+        "scripts/merge/00_merge_all.py:567-601",
+        "tests/test_official_source_correction.py",
+        "tests/test_question_issue_correction_patch.py"
+      ],
+      "facts": [
+        "新規01はquestionType/isCalculationQuestion、02はquestionIntent、02aは厳密正答だけを所有する。10へ本文を入れるのはlegacy読取互換であり今回の新規訂正の正式責務ではない。05は公式過去問に使用しない。",
+        "24はschemaVersion=question-issue-correction/v1、origin=user_problem_report。UI公式資料訂正も同じ既存形式を使い、ui-official由来のcaseを生成する。前回照合結果をそのままblindReviewHashesと偽装できない。",
+        "24のquestion_contentカテゴリはquestionBodyTextとchoiceTextListだけ、imageカテゴリはquestionImageStorageUrls/originalQuestionChoiceImageUrls/explanationImageUrlsだけを許可する。",
+        "sourceQuestionKey・reviewQuestionId・sourceRecordRefの三要素を00_source inventoryのexact-oneへ解決し、expectedBeforeHashで内容driftを拒否する。自然source IDだけの曖昧な束縛を避けられる。",
+        "OfficialSourceCorrectionService.run(question, state_hash, category, evidence_path, evidence_title, evidence_locator, verified_transcription, emit, resume_work_directory='') が既存保存API。server入口はPOST /api/official-source-corrections/start。server-owned projected recordがあればmergedディレクトリ不在でも動くテストがある。",
+        "同serviceは実AppServerの独立Blind A/B/Challengeと実画像送信bytes/hashを検証し、全変更一致・選択根拠一致・patch検証後だけ24へ移す。修正対象は1問ごと。",
+        "通常物理mergeとlogical projectionは同じ24 readerを使用する。24は30_merged_2側で適用され、20_merged_1には適用されない。",
+        "CLIはpython3 scripts/merge/00_merge_all.py <年度> --base-dir output/gas-shunin-hei/questions_json。--source-bindings <identity三要素JSON>で原問を限定可能。ただし限定生成で既存全体出力を置き換えないよう保存先・既存生成物の確認が必要。",
+        "25_verified_publicationの専用再生成QUALIFICATIONSはgas-shunin-kou/gas-shunin-otsuだけ。丙種に25を新規手書きするのは契約外。丙種現状2017は00_source3ファイルのみ。",
+        "対象検証候補はtests.test_official_source_correction、tests.test_question_issue_correction_patch、patch checker、通常merge、その後AGENTS必須のchoice alignment/required fields/correct-choice coverageの3checker。未整備sourceしかないためschema不足を訂正成功と混同しない。"
+      ],
+      "contradictions": [
+        "delivery_workflow.mdの「ガス主任技術者2017〜2025年は25」という一般表現に対し、実装は甲乙限定。今回の丙種は通常source/patch/merge経路で扱う必要がある。",
+        "画像訂正serviceはpatch保存前にimage_publisherを呼びStorageへ新規画像を実公開する。ローカル成果物だけを作る今回の境界とは一致しない。"
+      ],
+      "ambiguity_requiring_judge": [
+        "共通注は科目内全問へ本文として補完するか、別の正式共通注artifactを導入するか。現在の24/公開field契約には共通注専用fieldがなく、各問本文への補完なら70問を超える。",
+        "画像を文章で正確に再現できる問はquestion_contentで解決できるが、2023消費20等の図が必要な問はローカル画像関係を正式に保持し、Storage公開せず検証可能にする経路を確定する必要がある。",
+        "前回一次・二次は差異検出のレビューであり、今回の修正完全値のBlind A/B/Challengeではない。正式24保存へ必要な新規レビューを既存serviceで行うか、同契約を満たすnative実行経路を用意するか。"
+      ],
+      "commands": [
+        "rg targeted contract and correction references",
+        "sed targeted artifact/field/workflow/merge/service/checker sections",
+        "find output/gas-shunin-hei/questions_json/2017 -maxdepth 2 -type f"
+      ],
+      "note_needed": false
+    }
+  }
+}

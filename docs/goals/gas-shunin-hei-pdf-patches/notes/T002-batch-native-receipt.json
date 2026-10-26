@@ -1,0 +1,82 @@
+{
+  "nativeMessageId": "amsg_01a17a49-3841-7fb1-9382-41e7e1f75270",
+  "nativeAuthor": "/root/hei_patch_judge",
+  "payload": {
+    "goalbuddy_receipt_v1": {
+      "result": "done",
+      "task_id": "T002",
+      "board_path": "docs/goals/gas-shunin-hei-pdf-patches/state.yaml",
+      "decision": "approve_next",
+      "full_outcome_complete": false,
+      "rationale": "年度単位の実AppServer batchは、輸送単位だけをまとめ、一問ごとの正規入力・完全review・検証・保存を維持する条件で許容できます。ReviewExecutorの記録済み結果入力は実装済みで、fixture置換を無効化した真正結果のreplayは正常gateを通せます。ただし標準validatorはbatch実送信との対応や画像証跡まで検証しないため、補助driver側の照合が必須です。現時点でdriver実装fileは存在せず、設計承認であり実装監査成功ではありません。",
+      "evidence": [
+        "tools/question_bank/question_issue_reports.py:788-827",
+        "tools/question_bank/question_issue_reports.py:898-1132",
+        "tools/question_bank/question_issue_reports.py:525-649",
+        "tools/question_review_console/official_source_correction.py:110-174",
+        "docs/goals/gas-shunin-hei-pdf-patches/state.yaml:T002 receipt"
+      ],
+      "next_allowed_task": {
+        "type": "worker",
+        "assignee": "Worker",
+        "objective": "既存の一問レビュー生成・gateを保った年度batch輸送driverを限定実装し、実AppServerの独立A/B・Challenge結果を一問identityごとに無改変replayして正式24訂正を保存する。",
+        "allowed_files": [
+          "docs/goals/gas-shunin-hei-pdf-patches/notes/T003-review-driver.py",
+          "docs/goals/gas-shunin-hei-pdf-patches/notes/T003-driver-verification.json",
+          "output/gas-shunin-hei/pdf_patch_review/",
+          "output/gas-shunin-hei/questions_json/*/24_questionIssueCorrections/*.json"
+        ],
+        "required_conditions": [
+          "輸送batchと問題単位を分離する。各問のworkId、sourceQuestionKey、reviewQuestionId、sourceRecordRef、category、current state/input/evidence/contract hash、正規promptとslot bindingを送信前に固定する。",
+          "各phaseの実送信prompt原本・全画像のpath/hash/byteCount・実AppServer session/thread/turn・未加工応答をwrite-onceで保存する。batch全体のhashと各問の送信prompt hashを対応付ける。",
+          "A、B、Challengeは別の新規sessionで実施する。A/Bには相互結果、Challenge結論、前回差異判定、今回の採用済み候補を渡さない。公式PDFから忠実に転記したverifiedTranscriptionと書式規約は渡せるが、未確認候補を公式転記と偽装しない。",
+          "各問の正規promptを省略・要約しない。共通contractの重複排除は全問への適用が機械的に証明できる場合だけ許可する。",
+          "各問が参照する公式問題ページ・共通注ページの実画像bytesを当該batchへ送る。同じ画像はbatch内で一回の添付でよい。ページ名・hashと対象問の対応をpromptに明示する。画像転送上限がある場合はbatchを小分けする。",
+          "各問の対象内容を一問ずつ直接確認する指示を維持する。番号順から他問の内容を流し込まず、解答・解説を配列indexで割り当てない。",
+          "返却はworkIdをkeyとする完全review JSONとし、要求key集合との完全一致、重複key拒否、各問inputHash・slot・contract hashの一致を確認する。JSON parserによる重複keyの黙認を避ける。",
+          "モデル応答のreview JSONを分離して保存するだけとし、inputHash、proposedChanges、evidence、結論を後補正しない。欠落・不正・出力打切りはそのbatchを未確定にして修復runへ送る。",
+          "A/Bの全結果を固定した後だけ各問の正規Challenge入力を生成する。Challengeへ同じ公式画像を送り、完全A/B結果とhashを対象問に結ぶ。",
+          "Replay前に実送信prompt中の各問payloadと現在の正規再生成payloadを完全照合する。録画fileが存在するという理由だけで採用しない。",
+          "ReviewExecutorはcommand=None、recorded_results_dir=<今回の真正結果directory>、allow_fixture_placeholders=Falseとし、run_objective_review、require_resume_consensus=True、標準validators、build_correction_patch、patch verifierを省略しない。",
+          "実AppServer応答のimageInputsについて、全対象画像のhashと非零byteCountを検証する。同一画像を共有する各問は同じ真正batch証跡への参照で結び、問ごとに別送信したとは主張しない。",
+          "保存直前にsource・現在投影・PDF・画像・契約・prompt・reviewのhashを再検証する。batch後の入力driftは問単位で拒否する。",
+          "同値fieldはモデル応答を変更せず、標準経路と同じ明示的no-op正規化が必要な場合だけ原応答・正規化後・除去fieldを両方保持する。A/B不一致を正規化で消さない。",
+          "図assetのStorage公開、正答・現行法・解説修正、通常moduleへの変更はこのdriver追加scopeに含めない。"
+        ],
+        "verify": [
+          "python3 -m py_compile docs/goals/gas-shunin-hei-pdf-patches/notes/T003-review-driver.py",
+          "隔離した検証入力で、未知workId・欠落workId・重複key・異なるinputHash・異なるevidenceHash・欠落画像証跡・A/B完全値不一致・入力drift・応答改変を個別に拒否することを確認し、実コマンドと結果をT003-driver-verification.jsonへ保存する。",
+          "最初の実batchは1年度の限定問で実行し、元prompt/応答と問別replay結果・正式24のhash対応を読取監査する。確認後に残年度へ広げる。",
+          "各正式24を既存patch checkerと現在recordに対して検証する。",
+          "通常mergeと既存T003のsource/ID不変確認・3必須checkerを実行し、未整備由来の失敗を隠さず記録する。",
+          "git diff --check"
+        ],
+        "stop_if": [
+          "標準prompt又はvalidatorを改変しなければbatch化できない場合は、通常一問serviceへ戻すか別実装taskとしてPMへ返す。",
+          "実AppServerが画像の実送信証跡を返せない場合は、reviewの自己申告を証跡へ代用しない。",
+          "batch応答に一問ごとの完全値がなく、driverが内容を推測生成する必要がある場合は保存しない。",
+          "出力長上限・画像上限・時間制限が生じた場合はbatchを小分けし、問別gateを弱めない。",
+          "A/B/Challengeが共有sessionだった、又はA/Bが他者結果へ接触した場合はその結果を正式Blindとして採用しない。"
+        ]
+      },
+      "subgoal_contract": null,
+      "parallel_safety": {
+        "write_workers": 1,
+        "parallel_writes": false,
+        "review_transport": "独立A/Bの実AppServer read-only turnは許容。正式24保存と入力再検証は直列化する。"
+      },
+      "blocked_tasks": [],
+      "missing_evidence": [
+        "T003-review-driver.pyの実装内容",
+        "不正入力を拒否するdriver検証結果",
+        "最初の実batchのprompt・応答・imageInputs・問別replay対応",
+        "最終の正式24と通常mergeの実反映証跡"
+      ],
+      "required_board_updates": [
+        "T003に輸送batch方式と上記限定code path、真正証跡・問別gate条件を記録する。",
+        "年度batchを一問ごと独立sessionと表現せず、phase別独立session・一問別完全判定であることを報告する。",
+        "driverが未監査である現状を保持し、最初の限定実batch後に入力から保存までの対応を監査する。"
+      ]
+    }
+  }
+}

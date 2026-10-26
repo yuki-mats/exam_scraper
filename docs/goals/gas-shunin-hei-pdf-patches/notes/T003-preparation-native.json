@@ -1,0 +1,1495 @@
+{
+  "nativeMessageId": "amsg_01a17a4a-2d7f-7cf1-9ae0-37aa9e079937",
+  "nativeAuthor": "/root/hei_patch_blind_a",
+  "payload": {
+    "goalbuddy_receipt_v1": {
+      "result": "done",
+      "task_id": "T003",
+      "board_path": "docs/goals/gas-shunin-hei-pdf-patches/state.yaml",
+      "decision": "not_complete",
+      "full_outcome_complete": false,
+      "rationale": "独立Blind Aとして対象70問のsource本文、全選択肢、correctChoiceText、解説prefix/snippets、公式問題画像及び公式正答表を照合した。個別補完11問、共通注のみ42問、変更不要17問。共通注の対象279 IDを確認した。ファイル編集、patch保存、検証及び外部反映は実施していないため、全体完了とは判定しない。",
+      "evidence": [
+        {
+          "reviewType": "independent_blind_A",
+          "readOnly": true,
+          "previousReviewsRead": false,
+          "sourceRoot": "output/gas-shunin-hei/questions_json",
+          "officialImageRoot": "output/gas-shunin-hei/pdf_review",
+          "officialAnswerImagesViewed": [
+            "2017/answer/page-01.png",
+            "2018/answer/page-01.png",
+            "2019/answer/page-01.png",
+            "2020/answer/page-01.png",
+            "2021/answer/page-01.png",
+            "2022/answer/page-01.png",
+            "2023/answer/page-01.png",
+            "2024/answer/page-01.png",
+            "2025/answer/page-01.png"
+          ],
+          "sourceFieldsReviewed": [
+            "questionBodyText",
+            "choiceTextList",
+            "correctChoiceText",
+            "explanation_common_prefix",
+            "explanation_choice_snippets",
+            "answer_result_text"
+          ],
+          "sourceExplanationObservation": "対象70問のexplanation_common_prefixはすべて空配列、explanation_choice_snippetsはすべて各肢の空配列だった。",
+          "answerObservation": "対象70問のanswer_result_textに示された正答番号は、公式正答表と一致した。correctChoiceText及び各肢の正誤は変更候補に含めない。",
+          "counts": {
+            "individual": 70,
+            "fix": 11,
+            "common_note_only": 42,
+            "no_change": 17,
+            "hold": 0,
+            "commonNoteApplyIds": 279
+          },
+          "assembly": "科目共通注が適用される場合は、'【科目共通注】\\n' + notes.join('\\n') + '\\n\\n' + (bodyReplacement又はsource.questionBodyText) + (bodyAppendがあれば'\\n\\n' + bodyAppend)。科目共通注が適用されない場合は先頭の共通注部分を付けない。",
+          "normalization": "共通注の表は注番号、左欄、右欄の順で空白を挟んで連結した。折返しと字間を正規化し、文言は保持した。脚注の※はsource内の参照記号と対応させる。",
+          "commonNotes": [
+            {
+              "year": 2017,
+              "lawPdfPage": 3,
+              "kisoPdfPage": 12,
+              "lawNotes": [
+                "注1 問題文中の「法令」 「ガス事業関係法令（ガス事業法及びこれに基づく政令、省令等）」のことである。",
+                "注2 問題文中の「技術基準」 「ガス工作物の技術上の基準を定める省令」及び「ガス工作物の技術上の基準の細目を定める告示」のことである。",
+                "注3 問題文中の「消費機器の技術上の基準」 「ガス事業法施行規則第202条の消費機器の技術上の基準」のことである。",
+                "注4 問題文中の「圧力」 「ゲージ圧力」のことである。"
+              ],
+              "kisoNotes": [
+                "注 問題文中の「圧力」 「絶対圧力」（指定がない限り）のことである。"
+              ],
+              "examNotes": [
+                "法令は、16問出題されます。全問解答して下さい。",
+                "基礎は、15問出題されます。10問を選択して解答して下さい。（10問を超えて解答した場合は、解答した問題番号の若い順から10問を採点します。それ以上は採点しません。）",
+                "ガス技術は、27問出題されます。20問を選択して解答して下さい。（20問を超えて解答した場合は、解答した問題番号の若い順から20問を採点します。それ以上は採点しません。）",
+                "1つの問に解答を2つ以上マークした場合、その問題は0点になります。",
+                "配点は、すべて1問5点です。"
+              ],
+              "lawApplySourceIds": [
+                "2017:law:問1",
+                "2017:law:問2",
+                "2017:law:問3",
+                "2017:law:問4",
+                "2017:law:問5",
+                "2017:law:問6",
+                "2017:law:問7",
+                "2017:law:問8",
+                "2017:law:問9",
+                "2017:law:問10",
+                "2017:law:問11",
+                "2017:law:問12",
+                "2017:law:問13",
+                "2017:law:問14",
+                "2017:law:問15",
+                "2017:law:問16"
+              ],
+              "kisoApplySourceIds": [
+                "2017:kiso:問1",
+                "2017:kiso:問2",
+                "2017:kiso:問3",
+                "2017:kiso:問4",
+                "2017:kiso:問5",
+                "2017:kiso:問6",
+                "2017:kiso:問7",
+                "2017:kiso:問8",
+                "2017:kiso:問9",
+                "2017:kiso:問10",
+                "2017:kiso:問11",
+                "2017:kiso:問12",
+                "2017:kiso:問13",
+                "2017:kiso:問14",
+                "2017:kiso:問15"
+              ]
+            },
+            {
+              "year": 2018,
+              "lawPdfPage": 3,
+              "kisoPdfPage": 15,
+              "lawNotes": [
+                "注1 問題文中の「法令」 「ガス事業関係法令（ガス事業法及びこれに基づく政令、省令等）」のことである。",
+                "注2 問題文中の「技術基準」 「ガス工作物の技術上の基準を定める省令」及び「ガス工作物の技術上の基準の細目を定める告示」のことである。",
+                "注3 問題文中の「消費機器の技術上の基準」 「ガス事業法施行規則第202条の消費機器の技術上の基準」のことである。",
+                "注4 問題文中の「圧力」 「ゲージ圧力」のことである。"
+              ],
+              "kisoNotes": [
+                "注 問題文中の「圧力」 「絶対圧力」（指定がない限り）のことである。"
+              ],
+              "examNotes": [
+                "法令は、16問出題されます。全問解答して下さい。",
+                "基礎は、15問出題されます。10問を選択して解答して下さい。（10問を超えて解答した場合は、解答した問題番号の若い順から10問を採点します。それ以上は採点しません。）",
+                "ガス技術は、27問出題されます。20問を選択して解答して下さい。（20問を超えて解答した場合は、解答した問題番号の若い順から20問を採点します。それ以上は採点しません。）",
+                "1つの問に解答を2つ以上マークした場合、その問題は0点になります。",
+                "配点は、すべて1問5点です。"
+              ],
+              "lawApplySourceIds": [
+                "2018:law:問1",
+                "2018:law:問2",
+                "2018:law:問3",
+                "2018:law:問4",
+                "2018:law:問5",
+                "2018:law:問6",
+                "2018:law:問7",
+                "2018:law:問8",
+                "2018:law:問9",
+                "2018:law:問10",
+                "2018:law:問11",
+                "2018:law:問12",
+                "2018:law:問13",
+                "2018:law:問14",
+                "2018:law:問15",
+                "2018:law:問16"
+              ],
+              "kisoApplySourceIds": [
+                "2018:kiso:問1",
+                "2018:kiso:問2",
+                "2018:kiso:問3",
+                "2018:kiso:問4",
+                "2018:kiso:問5",
+                "2018:kiso:問6",
+                "2018:kiso:問7",
+                "2018:kiso:問8",
+                "2018:kiso:問9",
+                "2018:kiso:問10",
+                "2018:kiso:問11",
+                "2018:kiso:問12",
+                "2018:kiso:問13",
+                "2018:kiso:問14",
+                "2018:kiso:問15"
+              ]
+            },
+            {
+              "year": 2019,
+              "lawPdfPage": 3,
+              "kisoPdfPage": 17,
+              "lawNotes": [
+                "注1 問題文中の「法令」 「ガス事業関係法令（ガス事業法及びこれに基づく政令、省令等）」のことである。",
+                "注2 問題文中の「技術基準」 「ガス工作物の技術上の基準を定める省令」及び「ガス工作物の技術上の基準の細目を定める告示」のことである。",
+                "注3 問題文中の「消費機器の技術上の基準」 「ガス事業法施行規則第202条の消費機器の技術上の基準」のことである。",
+                "注4 問題文中の「圧力」 「ゲージ圧力」のことである。"
+              ],
+              "kisoNotes": [
+                "注 問題文中の「圧力」 「絶対圧力」（指定がない限り）のことである。"
+              ],
+              "examNotes": [
+                "法令は、16問出題されます。全問解答して下さい。",
+                "基礎は、15問出題されます。10問を選択して解答して下さい。（10問を超えて解答した場合は、解答した問題番号の若い順から10問を採点します。それ以上は採点しません。）",
+                "ガス技術は、27問出題されます。20問を選択して解答して下さい。（20問を超えて解答した場合は、解答した問題番号の若い順から20問を採点します。それ以上は採点しません。）",
+                "1つの問に解答を2つ以上マークした場合、その問題は0点になります。",
+                "配点は、すべて1問5点です。"
+              ],
+              "lawApplySourceIds": [
+                "2019:law:問1",
+                "2019:law:問2",
+                "2019:law:問3",
+                "2019:law:問4",
+                "2019:law:問5",
+                "2019:law:問6",
+                "2019:law:問7",
+                "2019:law:問8",
+                "2019:law:問9",
+                "2019:law:問10",
+                "2019:law:問11",
+                "2019:law:問12",
+                "2019:law:問13",
+                "2019:law:問14",
+                "2019:law:問15",
+                "2019:law:問16"
+              ],
+              "kisoApplySourceIds": [
+                "2019:kiso:問1",
+                "2019:kiso:問2",
+                "2019:kiso:問3",
+                "2019:kiso:問4",
+                "2019:kiso:問5",
+                "2019:kiso:問6",
+                "2019:kiso:問7",
+                "2019:kiso:問8",
+                "2019:kiso:問9",
+                "2019:kiso:問10",
+                "2019:kiso:問11",
+                "2019:kiso:問12",
+                "2019:kiso:問13",
+                "2019:kiso:問14",
+                "2019:kiso:問15"
+              ]
+            },
+            {
+              "year": 2020,
+              "lawPdfPage": 3,
+              "kisoPdfPage": 16,
+              "lawNotes": [
+                "注1 問題文中の「法令」 「ガス事業関係法令（ガス事業法及びこれに基づく政令、省令等）」のことである。",
+                "注2 問題文中の「技術基準」 「ガス工作物の技術上の基準を定める省令」及び「ガス工作物の技術上の基準の細目を定める告示」のことである。",
+                "注3 問題文中の「消費機器の技術上の基準」 「ガス事業法施行規則第202条の消費機器の技術上の基準」のことである。",
+                "注4 問題文中の「圧力」 「ゲージ圧力」のことである。"
+              ],
+              "kisoNotes": [
+                "注 問題文中の「圧力」 「絶対圧力」（指定がない限り）のことである。"
+              ],
+              "examNotes": [
+                "法令は、16問出題されます。全問解答して下さい。",
+                "基礎は、15問出題されます。10問を選択して解答して下さい。（10問を超えて解答した場合は、解答した問題番号の若い順から10問を採点します。それ以上は採点しません。）",
+                "ガス技術は、27問出題されます。20問を選択して解答して下さい。（20問を超えて解答した場合は、解答した問題番号の若い順から20問を採点します。それ以上は採点しません。）",
+                "1つの問に解答を2つ以上マークした場合、その問題は0点になります。",
+                "配点は、すべて1問5点です。"
+              ],
+              "lawApplySourceIds": [
+                "2020:law:問1",
+                "2020:law:問2",
+                "2020:law:問3",
+                "2020:law:問4",
+                "2020:law:問5",
+                "2020:law:問6",
+                "2020:law:問7",
+                "2020:law:問8",
+                "2020:law:問9",
+                "2020:law:問10",
+                "2020:law:問11",
+                "2020:law:問12",
+                "2020:law:問13",
+                "2020:law:問14",
+                "2020:law:問15",
+                "2020:law:問16"
+              ],
+              "kisoApplySourceIds": [
+                "2020:kiso:問1",
+                "2020:kiso:問2",
+                "2020:kiso:問3",
+                "2020:kiso:問4",
+                "2020:kiso:問5",
+                "2020:kiso:問6",
+                "2020:kiso:問7",
+                "2020:kiso:問8",
+                "2020:kiso:問9",
+                "2020:kiso:問10",
+                "2020:kiso:問11",
+                "2020:kiso:問12",
+                "2020:kiso:問13",
+                "2020:kiso:問14",
+                "2020:kiso:問15"
+              ]
+            },
+            {
+              "year": 2021,
+              "lawPdfPage": 3,
+              "kisoPdfPage": 15,
+              "lawNotes": [
+                "注1 問題文中の「法令」 「ガス事業関係法令（ガス事業法及びこれに基づく政令、省令等）」のことである。",
+                "注2 問題文中の「技術基準」 「ガス工作物の技術上の基準を定める省令」及び「ガス工作物の技術上の基準の細目を定める告示」のことである。",
+                "注3 問題文中の「消費機器の技術上の基準」 「ガス事業法施行規則第202条の消費機器の技術上の基準」のことである。",
+                "注4 問題文中の「圧力」 「ゲージ圧力」のことである。"
+              ],
+              "kisoNotes": [
+                "注 問題文中の「圧力」 指定がない限り「絶対圧力」のことである。"
+              ],
+              "examNotes": [
+                "法令は、16問出題されます。全問解答して下さい。",
+                "基礎は、15問出題されます。10問を選択して解答して下さい。（10問を超えて解答した場合は、解答した問題番号の若い順から10問を採点します。それ以上は採点しません。）",
+                "ガス技術は、27問出題されます。20問を選択して解答して下さい。（20問を超えて解答した場合は、解答した問題番号の若い順から20問を採点します。それ以上は採点しません。）",
+                "1つの問に解答を2つ以上マークした場合、その問題は0点になります。",
+                "配点は、すべて1問5点です。"
+              ],
+              "lawApplySourceIds": [
+                "2021:law:問1",
+                "2021:law:問2",
+                "2021:law:問3",
+                "2021:law:問4",
+                "2021:law:問5",
+                "2021:law:問6",
+                "2021:law:問7",
+                "2021:law:問8",
+                "2021:law:問9",
+                "2021:law:問10",
+                "2021:law:問11",
+                "2021:law:問12",
+                "2021:law:問13",
+                "2021:law:問14",
+                "2021:law:問15",
+                "2021:law:問16"
+              ],
+              "kisoApplySourceIds": [
+                "2021:kiso:問1",
+                "2021:kiso:問2",
+                "2021:kiso:問3",
+                "2021:kiso:問4",
+                "2021:kiso:問5",
+                "2021:kiso:問6",
+                "2021:kiso:問7",
+                "2021:kiso:問8",
+                "2021:kiso:問9",
+                "2021:kiso:問10",
+                "2021:kiso:問11",
+                "2021:kiso:問12",
+                "2021:kiso:問13",
+                "2021:kiso:問14",
+                "2021:kiso:問15"
+              ]
+            },
+            {
+              "year": 2022,
+              "lawPdfPage": 3,
+              "kisoPdfPage": 17,
+              "lawNotes": [
+                "注1 問題文中の「法令」 「ガス事業関係法令（ガス事業法及びこれに基づく政令、省令等）」のことである。",
+                "注2 問題文中の「技術基準」 「ガス工作物の技術上の基準を定める省令」及び「ガス工作物の技術上の基準の細目を定める告示」のことである。",
+                "注3 問題文中の「消費機器の技術上の基準」 「ガス事業法施行規則第202条の消費機器の技術上の基準」のことである。",
+                "注4 問題文中の「圧力」 「ゲージ圧力」のことである。"
+              ],
+              "kisoNotes": [
+                "注 問題文中の「圧力」 指定がない限り「絶対圧力」のことである。"
+              ],
+              "examNotes": [
+                "法令は、16問出題されます。全問解答して下さい。",
+                "基礎は、15問出題されます。10問を選択して解答して下さい。（10問を超えて解答した場合は、解答した問題番号の若い順から10問を採点します。それ以上は採点しません。）",
+                "ガス技術は、27問出題されます。20問を選択して解答して下さい。（20問を超えて解答した場合は、解答した問題番号の若い順から20問を採点します。それ以上は採点しません。）",
+                "1つの問に解答を2つ以上マークした場合、その問題は0点になります。",
+                "配点は、すべて1問5点です。"
+              ],
+              "lawApplySourceIds": [
+                "2022:law:問1",
+                "2022:law:問2",
+                "2022:law:問3",
+                "2022:law:問4",
+                "2022:law:問5",
+                "2022:law:問6",
+                "2022:law:問7",
+                "2022:law:問8",
+                "2022:law:問9",
+                "2022:law:問10",
+                "2022:law:問11",
+                "2022:law:問12",
+                "2022:law:問13",
+                "2022:law:問14",
+                "2022:law:問15",
+                "2022:law:問16"
+              ],
+              "kisoApplySourceIds": [
+                "2022:kiso:問1",
+                "2022:kiso:問2",
+                "2022:kiso:問3",
+                "2022:kiso:問4",
+                "2022:kiso:問5",
+                "2022:kiso:問6",
+                "2022:kiso:問7",
+                "2022:kiso:問8",
+                "2022:kiso:問9",
+                "2022:kiso:問10",
+                "2022:kiso:問11",
+                "2022:kiso:問12",
+                "2022:kiso:問13",
+                "2022:kiso:問14",
+                "2022:kiso:問15"
+              ]
+            },
+            {
+              "year": 2023,
+              "lawPdfPage": 3,
+              "kisoPdfPage": 19,
+              "lawNotes": [
+                "注1 問題文中の「法令」 「ガス事業関係法令（ガス事業法及びこれに基づく政令、省令等）」のことである。",
+                "注2 問題文中の「技術基準」 「ガス工作物の技術上の基準を定める省令」及び「ガス工作物の技術上の基準の細目を定める告示」のことである。",
+                "注3 問題文中の「消費機器の技術上の基準」 「ガス事業法施行規則第202条の消費機器の技術上の基準」のことである。",
+                "注4 問題文中の「圧力」 「ゲージ圧力」のことである。"
+              ],
+              "kisoNotes": [
+                "注 問題文中の「圧力」 指定がない限り「絶対圧力」のことである。"
+              ],
+              "examNotes": [
+                "法令は、16問出題されます。全問解答して下さい。",
+                "基礎は、15問出題されます。10問を選択して解答して下さい。（10問を超えて解答した場合は、解答した問題番号の若い順から10問を採点します。それ以上は採点しません。）",
+                "ガス技術は、27問出題されます。20問を選択して解答して下さい。（20問を超えて解答した場合は、解答した問題番号の若い順から20問を採点します。それ以上は採点しません。）",
+                "1つの問に解答を2つ以上マークした場合、その問題は0点になります。",
+                "配点は、すべて1問5点です。"
+              ],
+              "lawApplySourceIds": [
+                "2023:law:問1",
+                "2023:law:問2",
+                "2023:law:問3",
+                "2023:law:問4",
+                "2023:law:問5",
+                "2023:law:問6",
+                "2023:law:問7",
+                "2023:law:問8",
+                "2023:law:問9",
+                "2023:law:問10",
+                "2023:law:問11",
+                "2023:law:問12",
+                "2023:law:問13",
+                "2023:law:問14",
+                "2023:law:問15",
+                "2023:law:問16"
+              ],
+              "kisoApplySourceIds": [
+                "2023:kiso:問1",
+                "2023:kiso:問2",
+                "2023:kiso:問3",
+                "2023:kiso:問4",
+                "2023:kiso:問5",
+                "2023:kiso:問6",
+                "2023:kiso:問7",
+                "2023:kiso:問8",
+                "2023:kiso:問9",
+                "2023:kiso:問10",
+                "2023:kiso:問11",
+                "2023:kiso:問12",
+                "2023:kiso:問13",
+                "2023:kiso:問14",
+                "2023:kiso:問15"
+              ]
+            },
+            {
+              "year": 2024,
+              "lawPdfPage": 3,
+              "kisoPdfPage": 16,
+              "lawNotes": [
+                "注1 問題文中の「法令」 「ガス事業関係法令（ガス事業法及びこれに基づく政令、省令等）」のことである。",
+                "注2 問題文中の「技術基準」 「ガス工作物の技術上の基準を定める省令」及び「ガス工作物の技術上の基準の細目を定める告示」のことである。",
+                "注3 問題文中の「消費機器の技術上の基準」 「ガス事業法施行規則第202条の消費機器の技術上の基準」のことである。",
+                "注4 問題文中の「圧力」 「ゲージ圧力」のことである。",
+                "注5 ガス事業法における認定高度保安実施事業者制度にもとづき規定された特例を除いて回答すること。"
+              ],
+              "kisoNotes": [
+                "注 問題文中の「圧力」 指定がない限り「絶対圧力」のことである。"
+              ],
+              "examNotes": [
+                "法令は、16問出題されます。全問解答して下さい。",
+                "基礎は、15問出題されます。10問を選択して解答して下さい。（10問を超えて解答した場合は、解答した問題番号の若い順から10問を採点します。それ以上は採点しません。）",
+                "ガス技術は、27問出題されます。20問を選択して解答して下さい。（20問を超えて解答した場合は、解答した問題番号の若い順から20問を採点します。それ以上は採点しません。）",
+                "1つの問に解答を2つ以上マークした場合、その問題は0点になります。",
+                "配点は、すべて1問5点です。"
+              ],
+              "lawApplySourceIds": [
+                "2024:law:問1",
+                "2024:law:問2",
+                "2024:law:問3",
+                "2024:law:問4",
+                "2024:law:問5",
+                "2024:law:問6",
+                "2024:law:問7",
+                "2024:law:問8",
+                "2024:law:問9",
+                "2024:law:問10",
+                "2024:law:問11",
+                "2024:law:問12",
+                "2024:law:問13",
+                "2024:law:問14",
+                "2024:law:問15",
+                "2024:law:問16"
+              ],
+              "kisoApplySourceIds": [
+                "2024:kiso:問1",
+                "2024:kiso:問2",
+                "2024:kiso:問3",
+                "2024:kiso:問4",
+                "2024:kiso:問5",
+                "2024:kiso:問6",
+                "2024:kiso:問7",
+                "2024:kiso:問8",
+                "2024:kiso:問9",
+                "2024:kiso:問10",
+                "2024:kiso:問11",
+                "2024:kiso:問12",
+                "2024:kiso:問13",
+                "2024:kiso:問14",
+                "2024:kiso:問15"
+              ]
+            },
+            {
+              "year": 2025,
+              "lawPdfPage": 3,
+              "kisoPdfPage": 18,
+              "lawNotes": [
+                "注1 問題文中の「法令」 「ガス事業関係法令（ガス事業法及びこれに基づく政令、省令等）」のことである。",
+                "注2 問題文中の「技術基準」 「ガス工作物の技術上の基準を定める省令」及び「ガス工作物の技術上の基準の細目を定める告示」のことである。",
+                "注3 問題文中の「消費機器の技術上の基準」 「ガス事業法施行規則第202条の消費機器の技術上の基準」のことである。",
+                "注4 問題文中の「圧力」 「ゲージ圧力」のことである。",
+                "注5 問題文中に記載がある場合を除き、ガス事業法における認定高度保安実施事業者制度にもとづき規定された特例を除いて回答すること。",
+                "注6 問題文中に記載がある場合を除き、経済産業大臣又は産業保安監督部長の承認により適用除外される内容を除いて回答すること。"
+              ],
+              "kisoNotes": [
+                "注 問題文中の「圧力」 指定がない限り「絶対圧力」のことである。"
+              ],
+              "examNotes": [
+                "法令は、16問出題されます。全問解答して下さい。",
+                "基礎は、15問出題されます。10問を選択して解答して下さい。（10問を超えて解答した場合は、解答した問題番号の若い順から10問を採点します。それ以上は採点しません。）",
+                "ガス技術は、27問出題されます。20問を選択して解答して下さい。（20問を超えて解答した場合は、解答した問題番号の若い順から20問を採点します。それ以上は採点しません。）",
+                "1つの問に解答を2つ以上マークした場合、その問題は0点になります。",
+                "配点は、すべて1問5点です。"
+              ],
+              "lawApplySourceIds": [
+                "2025:law:問1",
+                "2025:law:問2",
+                "2025:law:問3",
+                "2025:law:問4",
+                "2025:law:問5",
+                "2025:law:問6",
+                "2025:law:問7",
+                "2025:law:問8",
+                "2025:law:問9",
+                "2025:law:問10",
+                "2025:law:問11",
+                "2025:law:問12",
+                "2025:law:問13",
+                "2025:law:問14",
+                "2025:law:問15",
+                "2025:law:問16"
+              ],
+              "kisoApplySourceIds": [
+                "2025:kiso:問1",
+                "2025:kiso:問2",
+                "2025:kiso:問3",
+                "2025:kiso:問4",
+                "2025:kiso:問5",
+                "2025:kiso:問6",
+                "2025:kiso:問7",
+                "2025:kiso:問8",
+                "2025:kiso:問9",
+                "2025:kiso:問10",
+                "2025:kiso:問11",
+                "2025:kiso:問12",
+                "2025:kiso:問13",
+                "2025:kiso:問14",
+                "2025:kiso:問15"
+              ]
+            }
+          ],
+          "individual": [
+            {
+              "sourceQuestionId": "2017:law:問1",
+              "pdfPagesViewed": [
+                3
+              ],
+              "decision": "common_note_only",
+              "bodyReplacement": null,
+              "bodyAppend": null,
+              "choicesReplacement": null,
+              "rationale": "本文とイ〜ホの全肢は公式と一致。法令共通注を補完する。",
+              "officialAnswerNumber": 2
+            },
+            {
+              "sourceQuestionId": "2017:law:問6",
+              "pdfPagesViewed": [
+                3,
+                6
+              ],
+              "decision": "common_note_only",
+              "bodyReplacement": null,
+              "bodyAppend": null,
+              "choicesReplacement": null,
+              "rationale": "空欄本文と5通りの組合せは公式表の全列を保持している。法令共通注のみ補完する。",
+              "officialAnswerNumber": 1
+            },
+            {
+              "sourceQuestionId": "2017:law:問9",
+              "pdfPagesViewed": [
+                3,
+                7
+              ],
+              "decision": "common_note_only",
+              "bodyReplacement": null,
+              "bodyAppend": null,
+              "choicesReplacement": null,
+              "rationale": "構造の引用文とイ〜ホの全肢は公式と一致。法令共通注のみ補完する。",
+              "officialAnswerNumber": 4
+            },
+            {
+              "sourceQuestionId": "2017:law:問11",
+              "pdfPagesViewed": [
+                3,
+                8
+              ],
+              "decision": "common_note_only",
+              "bodyReplacement": null,
+              "bodyAppend": null,
+              "choicesReplacement": null,
+              "rationale": "内径、圧力及び除外条件を含む全肢が公式と一致。法令共通注のみ補完する。",
+              "officialAnswerNumber": 4
+            },
+            {
+              "sourceQuestionId": "2017:kiso:問5",
+              "pdfPagesViewed": [
+                12,
+                13
+              ],
+              "decision": "common_note_only",
+              "bodyReplacement": null,
+              "bodyAppend": null,
+              "choicesReplacement": null,
+              "rationale": "標準状態、112m³、質量の単位及び5数値は公式と一致。基礎共通注のみ補完する。",
+              "officialAnswerNumber": 4
+            },
+            {
+              "sourceQuestionId": "2017:kiso:問13",
+              "pdfPagesViewed": [
+                12,
+                15
+              ],
+              "decision": "common_note_only",
+              "bodyReplacement": null,
+              "bodyAppend": null,
+              "choicesReplacement": null,
+              "rationale": "体積比4:1、標準状態及び全数値は公式と一致。基礎共通注のみ補完する。",
+              "officialAnswerNumber": 5
+            },
+            {
+              "sourceQuestionId": "2017:kyokyu:問10",
+              "pdfPagesViewed": [
+                20
+              ],
+              "decision": "no_change",
+              "bodyReplacement": null,
+              "bodyAppend": null,
+              "choicesReplacement": null,
+              "rationale": "①②の空欄本文、500戸条件、5通りの表をJSONが保持している。追加すべき公式図はない。",
+              "officialAnswerNumber": 2
+            },
+            {
+              "sourceQuestionId": "2017:kyokyu:問17",
+              "pdfPagesViewed": [
+                23
+              ],
+              "decision": "fix",
+              "bodyReplacement": null,
+              "bodyAppend": "【図の内容】\n「ガス管の防食法」は、上から［(イ)］、［(ロ)］、「その他」の3つに分かれる。このうち［(ロ)］は、上から［(ハ)］、［(ニ)］、「選択排流法」、「強制排流法」の4つに分かれる。",
+              "choicesReplacement": null,
+              "rationale": "source本文に分類図がない。親子関係、枝の本数及び各枝の表示を公式図どおり補完する。",
+              "officialAnswerNumber": 5
+            },
+            {
+              "sourceQuestionId": "2017:shohi:問20",
+              "pdfPagesViewed": [
+                25
+              ],
+              "decision": "no_change",
+              "bodyReplacement": null,
+              "bodyAppend": null,
+              "choicesReplacement": null,
+              "rationale": "公式は本文と文章5肢で構成され、JSONが全内容を保持している。公式由来の追加図はない。",
+              "officialAnswerNumber": 5
+            },
+            {
+              "sourceQuestionId": "2017:shohi:問21",
+              "pdfPagesViewed": [
+                25
+              ],
+              "decision": "fix",
+              "bodyReplacement": null,
+              "bodyAppend": "※「液石法」とは、「液化石油ガスの保安の確保及び取引の適正化に関する法律」のことである。",
+              "choicesReplacement": null,
+              "rationale": "全肢は公式と一致するが、(1)の液石法に対応する公式脚注が欠けている。",
+              "officialAnswerNumber": 4
+            },
+            {
+              "sourceQuestionId": "2018:law:問1",
+              "pdfPagesViewed": [
+                3
+              ],
+              "decision": "common_note_only",
+              "bodyReplacement": null,
+              "bodyAppend": null,
+              "choicesReplacement": null,
+              "rationale": "定義の全肢は公式と一致。法令共通注のみ補完する。",
+              "officialAnswerNumber": 4
+            },
+            {
+              "sourceQuestionId": "2018:law:問6",
+              "pdfPagesViewed": [
+                3,
+                6
+              ],
+              "decision": "common_note_only",
+              "bodyReplacement": null,
+              "bodyAppend": null,
+              "choicesReplacement": null,
+              "rationale": "溶接、安全弁、移動式除外及び特定製造所除外を含む全肢は公式と一致。共通注のみ補完する。",
+              "officialAnswerNumber": 5
+            },
+            {
+              "sourceQuestionId": "2018:kiso:問4",
+              "pdfPagesViewed": [
+                15,
+                16
+              ],
+              "decision": "common_note_only",
+              "bodyReplacement": null,
+              "bodyAppend": null,
+              "choicesReplacement": null,
+              "rationale": "気体A〜C、体積、大小関係5肢をJSONが保持している。基礎共通注のみ補完する。",
+              "officialAnswerNumber": 2
+            },
+            {
+              "sourceQuestionId": "2018:kiso:問5",
+              "pdfPagesViewed": [
+                15,
+                16
+              ],
+              "decision": "common_note_only",
+              "bodyReplacement": null,
+              "bodyAppend": null,
+              "choicesReplacement": null,
+              "rationale": "1kgあたりの標準状態体積を問う本文と5気体は公式と一致。基礎共通注のみ補完する。",
+              "officialAnswerNumber": 5
+            },
+            {
+              "sourceQuestionId": "2018:kiso:問6",
+              "pdfPagesViewed": [
+                15,
+                16
+              ],
+              "decision": "common_note_only",
+              "bodyReplacement": null,
+              "bodyAppend": null,
+              "choicesReplacement": null,
+              "rationale": "A〜Cの数値と単位及び大小関係5肢は公式と一致。基礎共通注のみ補完する。",
+              "officialAnswerNumber": 3
+            },
+            {
+              "sourceQuestionId": "2018:kyokyu:問10",
+              "pdfPagesViewed": [
+                24
+              ],
+              "decision": "no_change",
+              "bodyReplacement": null,
+              "bodyAppend": null,
+              "choicesReplacement": null,
+              "rationale": "建物区分3行の概要と空欄及び5通りの組合せが既に全文で文章化されている。",
+              "officialAnswerNumber": 3
+            },
+            {
+              "sourceQuestionId": "2018:shohi:問20",
+              "pdfPagesViewed": [
+                28
+              ],
+              "decision": "no_change",
+              "bodyReplacement": null,
+              "bodyAppend": null,
+              "choicesReplacement": null,
+              "rationale": "公式は文章5肢であり、JSONに欠落はない。追加すべき公式図はない。",
+              "officialAnswerNumber": 3
+            },
+            {
+              "sourceQuestionId": "2019:law:問6",
+              "pdfPagesViewed": [
+                3,
+                8
+              ],
+              "decision": "common_note_only",
+              "bodyReplacement": null,
+              "bodyAppend": null,
+              "choicesReplacement": null,
+              "rationale": "2段落の空欄本文と5通りの全列は公式と一致。法令共通注のみ補完する。",
+              "officialAnswerNumber": 4
+            },
+            {
+              "sourceQuestionId": "2019:law:問10",
+              "pdfPagesViewed": [
+                3,
+                11
+              ],
+              "decision": "common_note_only",
+              "bodyReplacement": null,
+              "bodyAppend": null,
+              "choicesReplacement": null,
+              "rationale": "JIS、埋設条件及びガスメーターの数値を含む全肢は公式と一致。法令共通注のみ補完する。",
+              "officialAnswerNumber": 5
+            },
+            {
+              "sourceQuestionId": "2019:kiso:問3",
+              "pdfPagesViewed": [
+                17
+              ],
+              "decision": "common_note_only",
+              "bodyReplacement": null,
+              "bodyAppend": null,
+              "choicesReplacement": null,
+              "rationale": "標準状態、22.4m³及び全数値は公式と一致。基礎共通注のみ補完する。",
+              "officialAnswerNumber": 2
+            },
+            {
+              "sourceQuestionId": "2019:kiso:問4",
+              "pdfPagesViewed": [
+                17
+              ],
+              "decision": "common_note_only",
+              "bodyReplacement": null,
+              "bodyAppend": null,
+              "choicesReplacement": null,
+              "rationale": "標準状態、88kg及び全数値は公式と一致。基礎共通注のみ補完する。",
+              "officialAnswerNumber": 2
+            },
+            {
+              "sourceQuestionId": "2019:kiso:問10",
+              "pdfPagesViewed": [
+                17,
+                19
+              ],
+              "decision": "common_note_only",
+              "bodyReplacement": null,
+              "bodyAppend": null,
+              "choicesReplacement": null,
+              "rationale": "容積一定、初期温度、両圧力及び全数値は公式と一致。基礎共通注のみ補完する。",
+              "officialAnswerNumber": 4
+            },
+            {
+              "sourceQuestionId": "2019:kyokyu:問10",
+              "pdfPagesViewed": [
+                26
+              ],
+              "decision": "no_change",
+              "bodyReplacement": null,
+              "bodyAppend": null,
+              "choicesReplacement": null,
+              "rationale": "平方根の範囲、Dの5乗、9.80665、係数式、記号の単位及び5通りの組合せをJSONが保持している。",
+              "officialAnswerNumber": 1
+            },
+            {
+              "sourceQuestionId": "2019:shohi:問20",
+              "pdfPagesViewed": [
+                31
+              ],
+              "decision": "no_change",
+              "bodyReplacement": null,
+              "bodyAppend": null,
+              "choicesReplacement": null,
+              "rationale": "文章5肢は公式と一致し、公式由来の図はない。出題文そのものの正誤には介入しない。",
+              "officialAnswerNumber": 4
+            },
+            {
+              "sourceQuestionId": "2020:law:問7",
+              "pdfPagesViewed": [
+                3,
+                8
+              ],
+              "decision": "common_note_only",
+              "bodyReplacement": null,
+              "bodyAppend": null,
+              "choicesReplacement": null,
+              "rationale": "材料、構造、耐圧及び溶接の全肢は公式と一致。法令共通注のみ補完する。",
+              "officialAnswerNumber": 2
+            },
+            {
+              "sourceQuestionId": "2020:law:問10",
+              "pdfPagesViewed": [
+                3,
+                10
+              ],
+              "decision": "common_note_only",
+              "bodyReplacement": null,
+              "bodyAppend": null,
+              "choicesReplacement": null,
+              "rationale": "全肢の圧力条件、内径条件及びガスメーター条件は公式と一致。法令共通注のみ補完する。",
+              "officialAnswerNumber": 3
+            },
+            {
+              "sourceQuestionId": "2020:kyokyu:問10",
+              "pdfPagesViewed": [
+                25
+              ],
+              "decision": "no_change",
+              "bodyReplacement": null,
+              "bodyAppend": null,
+              "choicesReplacement": null,
+              "rationale": "供給方式と供給計画の文章5肢をJSONが保持している。公式図はない。",
+              "officialAnswerNumber": 1
+            },
+            {
+              "sourceQuestionId": "2020:shohi:問20",
+              "pdfPagesViewed": [
+                30,
+                31
+              ],
+              "decision": "no_change",
+              "bodyReplacement": null,
+              "bodyAppend": null,
+              "choicesReplacement": null,
+              "rationale": "熱伝導率の大小関係『銅＞水＞空気』を含め全肢をJSONが保持している。次頁の液石法脚注は問21に属する。",
+              "officialAnswerNumber": 2
+            },
+            {
+              "sourceQuestionId": "2021:law:問1",
+              "pdfPagesViewed": [
+                3
+              ],
+              "decision": "common_note_only",
+              "bodyReplacement": null,
+              "bodyAppend": null,
+              "choicesReplacement": null,
+              "rationale": "液化ガスの数値、特定導管の寸法・圧力・距離を含む全肢は公式と一致。法令共通注のみ補完する。",
+              "officialAnswerNumber": 2
+            },
+            {
+              "sourceQuestionId": "2021:law:問8",
+              "pdfPagesViewed": [
+                3,
+                8
+              ],
+              "decision": "common_note_only",
+              "bodyReplacement": null,
+              "bodyAppend": null,
+              "choicesReplacement": null,
+              "rationale": "溶接条件等の全肢は公式と一致。法令共通注のみ補完する。",
+              "officialAnswerNumber": 3
+            },
+            {
+              "sourceQuestionId": "2021:law:問11",
+              "pdfPagesViewed": [
+                3,
+                10
+              ],
+              "decision": "common_note_only",
+              "bodyReplacement": null,
+              "bodyAppend": null,
+              "choicesReplacement": null,
+              "rationale": "3段落の空欄本文、ガスメーター条件及び5通りの組合せは公式と一致。共通注のみ補完する。",
+              "officialAnswerNumber": 1
+            },
+            {
+              "sourceQuestionId": "2021:kiso:問8",
+              "pdfPagesViewed": [
+                15,
+                16
+              ],
+              "decision": "common_note_only",
+              "bodyReplacement": null,
+              "bodyAppend": null,
+              "choicesReplacement": null,
+              "rationale": "初期圧力、両温度、漏えいなし条件及び全数値は公式と一致。基礎共通注のみ補完する。",
+              "officialAnswerNumber": 5
+            },
+            {
+              "sourceQuestionId": "2021:kyokyu:問10",
+              "pdfPagesViewed": [
+                24
+              ],
+              "decision": "no_change",
+              "bodyReplacement": null,
+              "bodyAppend": null,
+              "choicesReplacement": null,
+              "rationale": "文章5肢と0.7の係数をJSONが保持している。追加すべき公式図はない。",
+              "officialAnswerNumber": 3
+            },
+            {
+              "sourceQuestionId": "2021:shohi:問20",
+              "pdfPagesViewed": [
+                29
+              ],
+              "decision": "no_change",
+              "bodyReplacement": null,
+              "bodyAppend": null,
+              "choicesReplacement": null,
+              "rationale": "熱効率70%・90%、有効熱量一定及び全数値は公式と一致。公式図はない。",
+              "officialAnswerNumber": 2
+            },
+            {
+              "sourceQuestionId": "2022:law:問1",
+              "pdfPagesViewed": [
+                3
+              ],
+              "decision": "common_note_only",
+              "bodyReplacement": null,
+              "bodyAppend": null,
+              "choicesReplacement": null,
+              "rationale": "目的、定義及び適用除外を含む全肢は公式と一致。法令共通注のみ補完する。",
+              "officialAnswerNumber": 2
+            },
+            {
+              "sourceQuestionId": "2022:law:問8",
+              "pdfPagesViewed": [
+                3,
+                9
+              ],
+              "decision": "common_note_only",
+              "bodyReplacement": null,
+              "bodyAppend": null,
+              "choicesReplacement": null,
+              "rationale": "0.004の積による除外条件、空欄本文及び5通りの組合せは公式と一致。法令共通注のみ補完する。",
+              "officialAnswerNumber": 5
+            },
+            {
+              "sourceQuestionId": "2022:law:問11",
+              "pdfPagesViewed": [
+                3,
+                12
+              ],
+              "decision": "common_note_only",
+              "bodyReplacement": null,
+              "bodyAppend": null,
+              "choicesReplacement": null,
+              "rationale": "5段落の空欄本文、地下室等の定義、ガスメーター条件及び表の全列は公式と一致。共通注のみ補完する。",
+              "officialAnswerNumber": 3
+            },
+            {
+              "sourceQuestionId": "2022:kiso:問7",
+              "pdfPagesViewed": [
+                17,
+                19
+              ],
+              "decision": "common_note_only",
+              "bodyReplacement": null,
+              "bodyAppend": null,
+              "choicesReplacement": null,
+              "rationale": "容積一定、温度、両圧力及び全数値は公式と一致。基礎共通注のみ補完する。",
+              "officialAnswerNumber": 4
+            },
+            {
+              "sourceQuestionId": "2022:seizo:問3",
+              "pdfPagesViewed": [
+                23
+              ],
+              "decision": "fix",
+              "bodyReplacement": null,
+              "bodyAppend": "※1 新型バルクローリー：「液化石油ガスの保安の確保及び取引の適正化に関する法律第37条の4に規定する「充てん設備の許可」を受けたもの。\n※2 従来型バルクローリー：「高圧ガス保安法 液化石油ガス保安規則第9条の移動式製造設備の基準に適合したもの。",
+              "choicesReplacement": null,
+              "rationale": "全肢は公式と一致するが、※1・※2の定義脚注がJSONにない。公式の表記を転記する。原図の脚注には対応する閉じ括弧がないため補わない。",
+              "officialAnswerNumber": 2
+            },
+            {
+              "sourceQuestionId": "2022:kyokyu:問10",
+              "pdfPagesViewed": [
+                26
+              ],
+              "decision": "no_change",
+              "bodyReplacement": null,
+              "bodyAppend": null,
+              "choicesReplacement": null,
+              "rationale": "LPガス供給方式等の文章5肢が公式と一致。公式図はない。",
+              "officialAnswerNumber": 1
+            },
+            {
+              "sourceQuestionId": "2022:shohi:問20",
+              "pdfPagesViewed": [
+                31
+              ],
+              "decision": "no_change",
+              "bodyReplacement": null,
+              "bodyAppend": null,
+              "choicesReplacement": null,
+              "rationale": "文章5肢をJSONが保持している。直後のPS LPG表示は問21に属し、問20への追加は不要。",
+              "officialAnswerNumber": 4
+            },
+            {
+              "sourceQuestionId": "2022:shohi:問21",
+              "pdfPagesViewed": [
+                31
+              ],
+              "decision": "fix",
+              "bodyReplacement": null,
+              "bodyAppend": "【(5)の表示】\nひし形の枠内に、上段に「PS」、下段に「LPG」と記した表示。\n\n※液石法とは、「液化石油ガスの保安の確保及び取引の適正化に関する法律」をいう。",
+              "choicesReplacement": null,
+              "rationale": "(5)の『以下の表示』に対応するひし形表示と、液石法の公式脚注がJSONにない。形状と文字を補完する。",
+              "officialAnswerNumber": 3
+            },
+            {
+              "sourceQuestionId": "2023:law:問8",
+              "pdfPagesViewed": [
+                3,
+                10
+              ],
+              "decision": "common_note_only",
+              "bodyReplacement": null,
+              "bodyAppend": null,
+              "choicesReplacement": null,
+              "rationale": "囲み付きイ〜ホの内容と選択肢の対応をJSONが保持している。法令共通注のみ補完する。",
+              "officialAnswerNumber": 1
+            },
+            {
+              "sourceQuestionId": "2023:law:問11",
+              "pdfPagesViewed": [
+                3,
+                13
+              ],
+              "decision": "common_note_only",
+              "bodyReplacement": null,
+              "bodyAppend": null,
+              "choicesReplacement": null,
+              "rationale": "全肢及びガスメーター条件は公式と一致。法令共通注のみ補完する。",
+              "officialAnswerNumber": 2
+            },
+            {
+              "sourceQuestionId": "2023:kiso:問8",
+              "pdfPagesViewed": [
+                19,
+                22
+              ],
+              "decision": "common_note_only",
+              "bodyReplacement": null,
+              "bodyAppend": null,
+              "choicesReplacement": null,
+              "rationale": "内容積一定、温度低下、漏えい、両圧力及び全数値は公式と一致。基礎共通注のみ補完する。",
+              "officialAnswerNumber": 3
+            },
+            {
+              "sourceQuestionId": "2023:kiso:問9",
+              "pdfPagesViewed": [
+                19,
+                22
+              ],
+              "decision": "common_note_only",
+              "bodyReplacement": null,
+              "bodyAppend": null,
+              "choicesReplacement": null,
+              "rationale": "両温度、体積一定及び倍率の5数値は公式と一致。基礎共通注のみ補完する。",
+              "officialAnswerNumber": 4
+            },
+            {
+              "sourceQuestionId": "2023:seizo:問9",
+              "pdfPagesViewed": [
+                30
+              ],
+              "decision": "fix",
+              "bodyReplacement": null,
+              "bodyAppend": "＊液石法とは、「液化石油ガスの保安の確保及び取引の適正化に関する法律」をいう。",
+              "choicesReplacement": null,
+              "rationale": "イ〜ホの全肢は公式と一致するが、ニの液石法に対応する公式脚注がJSONにない。",
+              "officialAnswerNumber": 5
+            },
+            {
+              "sourceQuestionId": "2023:kyokyu:問10",
+              "pdfPagesViewed": [
+                31
+              ],
+              "decision": "no_change",
+              "bodyReplacement": null,
+              "bodyAppend": null,
+              "choicesReplacement": null,
+              "rationale": "空欄を含む本文と5通りの表をJSONが保持している。追加すべき公式図はない。",
+              "officialAnswerNumber": 2
+            },
+            {
+              "sourceQuestionId": "2023:shohi:問20",
+              "pdfPagesViewed": [
+                35
+              ],
+              "decision": "fix",
+              "bodyReplacement": null,
+              "bodyAppend": "【図の内容】\n横軸はインプット（kW）で、右向きに増加する。縦軸は一次空気率（%）で、上向きに増加する。数値目盛りはない。\n図の中央に「良好燃焼域」がある。上側と下側には、それぞれ右へ向かって緩やかに上がる実線が引かれている。上側の実線より上の位置には、左から①、②、③がある。\n左側には、図の左辺の中ほどから右上へ伸びて上辺に達する実線がある。①はこの斜線の左側、②は右側にある。右上には、上辺から右下へ曲がって右辺の中ほどに至る実線がある。②はこの曲線の左下側、③は右上側にある。中央の「良好燃焼域」は、上側の緩やかな実線より下、下側の緩やかな実線より上に記されている。\n中央より下には、横方向の2本の点線があり、その間に「良好燃焼する一次空気率の範囲」と記され、左側に上下の点線を結ぶ両向き矢印がある。\n右下には、下辺の中央付近から右上へ曲がって右辺に至る実線がある。この曲線は、下側の緩やかな実線と交差し、右辺では下側の点線に達している。④は右下の、この曲線より下の領域にある。⑤は下側の緩やかな実線より下で、この曲線より左の領域にある。",
+              "choicesReplacement": null,
+              "rationale": "全肢は公式と一致するが、(4)(5)が参照する図がJSONにない。軸、領域番号、中央の表示、点線帯、実線の方向と交差関係を文章化する。領域に対応する現象名の解答は追加しない。",
+              "officialAnswerNumber": 1
+            },
+            {
+              "sourceQuestionId": "2023:shohi:問21",
+              "pdfPagesViewed": [
+                36
+              ],
+              "decision": "fix",
+              "bodyReplacement": null,
+              "bodyAppend": "【(5)の表示】\n円形の枠内に、上段に「PS」、下段に「LPG」と記した表示。\n\n＊液石法とは、「液化石油ガスの保安の確保及び取引の適正化に関する法律」をいう。",
+              "choicesReplacement": null,
+              "rationale": "(5)の『下図の表示』に対応する円形表示と、液石法の公式脚注がJSONにない。2022年のひし形とは区別する。",
+              "officialAnswerNumber": 4
+            },
+            {
+              "sourceQuestionId": "2024:law:問3",
+              "pdfPagesViewed": [
+                3,
+                4
+              ],
+              "decision": "common_note_only",
+              "bodyReplacement": null,
+              "bodyAppend": null,
+              "choicesReplacement": null,
+              "rationale": "全肢は公式と一致。認定高度保安実施事業者制度の特例を除く注5を含め、法令共通注を補完する。",
+              "officialAnswerNumber": 5
+            },
+            {
+              "sourceQuestionId": "2024:law:問5",
+              "pdfPagesViewed": [
+                3,
+                5
+              ],
+              "decision": "common_note_only",
+              "bodyReplacement": null,
+              "bodyAppend": null,
+              "choicesReplacement": null,
+              "rationale": "全肢は公式と一致。法令共通注1〜5のみ補完する。",
+              "officialAnswerNumber": 5
+            },
+            {
+              "sourceQuestionId": "2024:law:問6",
+              "pdfPagesViewed": [
+                3,
+                6
+              ],
+              "decision": "common_note_only",
+              "bodyReplacement": null,
+              "bodyAppend": null,
+              "choicesReplacement": null,
+              "rationale": "空欄本文、期間短縮条件及び5通りの組合せは公式と一致。法令共通注1〜5のみ補完する。",
+              "officialAnswerNumber": 3
+            },
+            {
+              "sourceQuestionId": "2024:law:問8",
+              "pdfPagesViewed": [
+                3,
+                8
+              ],
+              "decision": "common_note_only",
+              "bodyReplacement": null,
+              "bodyAppend": null,
+              "choicesReplacement": null,
+              "rationale": "2段落の空欄本文、圧力の不等号及び表の全列は公式と一致。法令共通注1〜5のみ補完する。",
+              "officialAnswerNumber": 4
+            },
+            {
+              "sourceQuestionId": "2024:law:問11",
+              "pdfPagesViewed": [
+                3,
+                10
+              ],
+              "decision": "common_note_only",
+              "bodyReplacement": null,
+              "bodyAppend": null,
+              "choicesReplacement": null,
+              "rationale": "(4)(5)へのガスメーター条件と、(5)の300未満・250ガル超の例外をsourceが保持している。法令共通注1〜5のみ補完する。",
+              "officialAnswerNumber": 5
+            },
+            {
+              "sourceQuestionId": "2024:kiso:問6",
+              "pdfPagesViewed": [
+                16,
+                18
+              ],
+              "decision": "fix",
+              "bodyReplacement": null,
+              "bodyAppend": "【図の内容】\n水を入れたU字管の左側は気体容器に接続され、右側の上端は大気開放されている。気体容器に接続した左側の水面は、大気開放した右側の水面よりHだけ低い。Hは両水面の鉛直方向の高さの差であり、200mmである。",
+              "choicesReplacement": null,
+              "rationale": "本文と全数値は公式と一致するが、水面の上下関係がJSONにない。ゲージ圧力の符号を確定するために図の接続と水面位置を補完し、基礎共通注も適用する。",
+              "officialAnswerNumber": 3
+            },
+            {
+              "sourceQuestionId": "2024:kiso:問9",
+              "pdfPagesViewed": [
+                16,
+                19
+              ],
+              "decision": "common_note_only",
+              "bodyReplacement": null,
+              "bodyAppend": null,
+              "choicesReplacement": null,
+              "rationale": "両温度、初期圧力、体積一定及び全数値は公式と一致。基礎共通注のみ補完する。",
+              "officialAnswerNumber": 4
+            },
+            {
+              "sourceQuestionId": "2024:seizo:問3",
+              "pdfPagesViewed": [
+                24
+              ],
+              "decision": "fix",
+              "bodyReplacement": null,
+              "bodyAppend": "※従来型バルクローリー：「高圧ガス保安法 液化石油ガス保安規則第9条の移動式製造設備に係る技術上の基準に適合したもの。",
+              "choicesReplacement": null,
+              "rationale": "全肢は公式と一致するが、(5)の従来型バルクローリーの公式脚注がJSONにない。公式の閉じ括弧のない表記を保持する。",
+              "officialAnswerNumber": 3
+            },
+            {
+              "sourceQuestionId": "2024:kyokyu:問10",
+              "pdfPagesViewed": [
+                26,
+                27
+              ],
+              "decision": "no_change",
+              "bodyReplacement": null,
+              "bodyAppend": null,
+              "choicesReplacement": null,
+              "rationale": "問10はp27の文章5肢であり、JSONが全内容を保持している。問11の計算式は問10に属さない。",
+              "officialAnswerNumber": 5
+            },
+            {
+              "sourceQuestionId": "2024:shohi:問20",
+              "pdfPagesViewed": [
+                31
+              ],
+              "decision": "no_change",
+              "bodyReplacement": null,
+              "bodyAppend": null,
+              "choicesReplacement": null,
+              "rationale": "文章5肢は公式と一致し、公式図はない。",
+              "officialAnswerNumber": 4
+            },
+            {
+              "sourceQuestionId": "2024:shohi:問22",
+              "pdfPagesViewed": [
+                32
+              ],
+              "decision": "fix",
+              "bodyReplacement": null,
+              "bodyAppend": "※液石法とは、「液化石油ガスの保安の確保及び取引の適正化に関する法律」のことである。",
+              "choicesReplacement": null,
+              "rationale": "全肢は公式と一致するが、(5)の液石法に対応する公式脚注がJSONにない。",
+              "officialAnswerNumber": 5
+            },
+            {
+              "sourceQuestionId": "2025:law:問1",
+              "pdfPagesViewed": [
+                3
+              ],
+              "decision": "common_note_only",
+              "bodyReplacement": null,
+              "bodyAppend": null,
+              "choicesReplacement": null,
+              "rationale": "70未満、22.4L、40℃を含む全肢は公式と一致。法令共通注1〜6を省略せず補完する。",
+              "officialAnswerNumber": 2
+            },
+            {
+              "sourceQuestionId": "2025:law:問3",
+              "pdfPagesViewed": [
+                3,
+                5
+              ],
+              "decision": "common_note_only",
+              "bodyReplacement": null,
+              "bodyAppend": null,
+              "choicesReplacement": null,
+              "rationale": "全肢は公式と一致。問題文中の明示を優先する条件を含め、法令共通注1〜6のみ補完する。",
+              "officialAnswerNumber": 4
+            },
+            {
+              "sourceQuestionId": "2025:law:問8",
+              "pdfPagesViewed": [
+                3,
+                10
+              ],
+              "decision": "common_note_only",
+              "bodyReplacement": null,
+              "bodyAppend": null,
+              "choicesReplacement": null,
+              "rationale": "全肢の圧力条件、除外条件及び溶接条件は公式と一致。法令共通注1〜6のみ補完する。",
+              "officialAnswerNumber": 1
+            },
+            {
+              "sourceQuestionId": "2025:law:問11",
+              "pdfPagesViewed": [
+                3,
+                13
+              ],
+              "decision": "common_note_only",
+              "bodyReplacement": null,
+              "bodyAppend": null,
+              "choicesReplacement": null,
+              "rationale": "地下室等の定義、導管条件及びガスメーター条件を含む全肢は公式と一致。法令共通注1〜6のみ補完する。",
+              "officialAnswerNumber": 1
+            },
+            {
+              "sourceQuestionId": "2025:kiso:問7",
+              "pdfPagesViewed": [
+                18,
+                20
+              ],
+              "decision": "common_note_only",
+              "bodyReplacement": null,
+              "bodyAppend": null,
+              "choicesReplacement": null,
+              "rationale": "温度、両圧力、容積一定及び全数値は公式と一致。基礎共通注のみ補完する。",
+              "officialAnswerNumber": 5
+            },
+            {
+              "sourceQuestionId": "2025:kiso:問11",
+              "pdfPagesViewed": [
+                18,
+                22
+              ],
+              "decision": "common_note_only",
+              "bodyReplacement": null,
+              "bodyAppend": null,
+              "choicesReplacement": null,
+              "rationale": "20℃、混合比70:30、両蒸気圧及び全数値は公式と一致。基礎共通注のみ補完する。",
+              "officialAnswerNumber": 3
+            },
+            {
+              "sourceQuestionId": "2025:kyokyu:問10",
+              "pdfPagesViewed": [
+                29
+              ],
+              "decision": "no_change",
+              "bodyReplacement": null,
+              "bodyAppend": null,
+              "choicesReplacement": null,
+              "rationale": "4項目の空欄本文及び5通りの表をJSONが保持している。追加すべき公式図はない。",
+              "officialAnswerNumber": 2
+            },
+            {
+              "sourceQuestionId": "2025:shohi:問20",
+              "pdfPagesViewed": [
+                35
+              ],
+              "decision": "no_change",
+              "bodyReplacement": null,
+              "bodyAppend": null,
+              "choicesReplacement": null,
+              "rationale": "分数1/550を含め文章5肢は公式と一致し、公式図はない。",
+              "officialAnswerNumber": 1
+            },
+            {
+              "sourceQuestionId": "2025:shohi:問22",
+              "pdfPagesViewed": [
+                36
+              ],
+              "decision": "fix",
+              "bodyReplacement": null,
+              "bodyAppend": "※液化石油ガスの保安の確保及び取引の適正化に関する法律",
+              "choicesReplacement": null,
+              "rationale": "全肢は公式と一致するが、(2)の液石法に対応する公式脚注がJSONにない。2025年の脚注は法令名だけの表記なので、その形を保持する。",
+              "officialAnswerNumber": 2
+            }
+          ],
+          "additionalScopeObservation": {
+            "2024LawPagesViewed": [
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15
+            ],
+            "2025LawPagesViewed": [
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17
+            ],
+            "2025LawQuestion6": "認定高度保安実施ガス小売事業者を明示して出題している。注5の『問題文中に記載がある場合を除き』を残すことで、この明示出題を誤って除外しない。",
+            "rawHtmlBoundary": "rawHTMLは入力として指定されたパスがないため未参照。no_changeは公式画像とsource JSONの一致を根拠とし、rawHTML内のSVG自体を確認済みとは主張しない。"
+          }
+        }
+      ],
+      "next_allowed_task": null,
+      "subgoal_contract": null,
+      "parallel_safety": null,
+      "blocked_tasks": [],
+      "missing_evidence": [
+        "この照合部品から作成したpatch完全値の独立照合",
+        "patch適用後の必須機械検証",
+        "対象source ID、00_source及び既存正誤値の維持確認"
+      ],
+      "required_board_updates": [
+        "本独立照合結果をT003の候補準備receiptとして記録する。",
+        "2024年基礎共通注の参照ページをPDF p16、2025年をPDF p18として記録する。",
+        "個別補完11問、科目共通注のみ42問、変更不要17問を区別する。",
+        "2024法令共通注5、2025法令共通注5・6の全文と条件節を保持する。",
+        "実装、patch保存、機械検証及び外部反映の完了を本receiptだけで認定しない。"
+      ]
+    }
+  }
+}

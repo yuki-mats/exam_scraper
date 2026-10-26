@@ -1,0 +1,43 @@
+{
+  "nativeMessageId": "amsg_01a17a4f-2094-71b0-8e37-9ff990cea80a",
+  "nativeAuthor": "/root/hei_patch_driver",
+  "payload": {
+    "goalbuddy_receipt_v1": {
+      "result": "done",
+      "task_id": "T003",
+      "board_path": "docs/goals/gas-shunin-hei-pdf-patches/state.yaml",
+      "changed_files": [
+        "docs/goals/gas-shunin-hei-pdf-patches/notes/T003-review-driver.py",
+        "docs/goals/gas-shunin-hei-pdf-patches/notes/T003-review-driver-selftest.py"
+      ],
+      "commands": [
+        {
+          "cmd": "python3 -m py_compile docs/goals/gas-shunin-hei-pdf-patches/notes/T003-review-driver.py docs/goals/gas-shunin-hei-pdf-patches/notes/T003-review-driver-selftest.py",
+          "status": "pass"
+        },
+        {
+          "cmd": "python3 docs/goals/gas-shunin-hei-pdf-patches/notes/T003-review-driver-selftest.py",
+          "status": "pass",
+          "tests": 14
+        },
+        {
+          "cmd": "git diff --check",
+          "status": "pass"
+        },
+        {
+          "cmd": "plans-v2/000-2017.jsonのDriver初期化・正規prompt transport round-trip smoke",
+          "status": "pass",
+          "questions": 1,
+          "images": 2,
+          "nativeCalls": 0,
+          "formalWrites": 0
+        }
+      ],
+      "summary": "年度内batchの実AppServer A/B/Challenge輸送driverを実装。正規promptの完全復元dedup、slot binding、canonical snapshot/hash、画像bytesとnative identity、完全reviewと標準replayを検証し、明示--save時だけ正式24をatomic no-replace保存します。未改変の原応答を保持し、重複JSON key・未知欠落ID・根拠不一致・入力driftを拒否します。実AppServer実行と正式patch保存は起動していません。",
+      "remaining_blockers": [],
+      "needs_judge": true,
+      "verification_attempts": 1,
+      "stopped_because": null
+    }
+  }
+}
