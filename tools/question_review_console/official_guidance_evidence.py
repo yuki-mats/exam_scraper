@@ -35,6 +35,12 @@ BIODIC_CARTAGENA_PROVIDER = 'biodic_cartagena_protocol'
 BIODIC_CARTAGENA_INDEX_URL = 'https://www.biodic.go.jp/bch/bch_1.html'
 ENV_BASEL_PROVIDER = 'env_basel_convention'
 ENV_BASEL_INDEX_URL = 'https://www.env.go.jp/recycle/yugai/index2.html'
+ENV_BASEL_REFERENCE_PROVIDER = 'env_basel_reference_excerpt'
+ENV_BASEL_REFERENCE_INDEX_URL = 'https://www.env.go.jp/press/103133.html'
+ENV_BASEL_REFERENCE_SECTION = (
+    '中央環境審議会循環型社会部会特定有害廃棄物等の輸出入等の規制の在り方に関する専門委員会、'
+    '産業構造審議会産業技術環境分科会廃棄物・リサイクル小委員会'
+    '有害廃棄物等越境移動ワーキンググループ合同会議（第１回）の開催について')
 MAX_PDF_BYTES = 20_000_000
 MAX_INDEX_BYTES = 2_000_000
 # Bounded text must accommodate current rules/comments plus the historical
@@ -294,6 +300,17 @@ def _basel_link(data, current_as_of):
         section_title='ア　条約等', link_pattern=r'和文\[PDF[0-9]+(?:\.[0-9]+)?(?:KB|MB)\]')
 
 
+def _basel_reference_link(data, current_as_of):
+    # This is a separately named 2016 reference collection containing excerpts,
+    # never a silent replacement for the current treaty index's PDF. The common
+    # receipt retains unreviewed applicability and historical completeness.
+    return _treaty_text_link(data, current_as_of,
+        index_url=ENV_BASEL_REFERENCE_INDEX_URL, provider=ENV_BASEL_REFERENCE_PROVIDER,
+        section_title=ENV_BASEL_REFERENCE_SECTION,
+        link_pattern=r'廃棄物等の越境移動等の適正化に関する検討会報告書関係資料集'
+            r'\[PDF[0-9,]+(?:\.[0-9]+)?(?:KB|MB)\]')
+
+
 class _CartagenaIndex(HTMLParser):
     """Keep the named table row and its PDF icon link together."""
     def __init__(self):
@@ -362,6 +379,9 @@ _SOURCES = {
     ENV_BASEL_PROVIDER: _Source(ENV_BASEL_INDEX_URL, 'www.env.go.jp',
         r'/recycle/yugai/law/(?:h[0-9]+)?conv_j(?:_[A-Za-z0-9]+)*\.pdf',
         'actual_official_index_link', 'official_treaty_text', _basel_link),
+    ENV_BASEL_REFERENCE_PROVIDER: _Source(ENV_BASEL_REFERENCE_INDEX_URL, 'www.env.go.jp',
+        r'/content/[0-9]+\.pdf', 'actual_official_index_link',
+        'official_treaty_excerpt', _basel_reference_link),
 }
 PROVIDERS = tuple(_SOURCES)
 

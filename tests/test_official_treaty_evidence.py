@@ -112,6 +112,64 @@ class OfficialTreatyEvidenceTests(unittest.TestCase):
                 with self.assertRaises(evidence.OfficialGuidanceEvidenceError): self.resolve()
                 self.assertEqual(self.calls[before:], [evidence.ENV_BASEL_INDEX_URL])
 
+    def reference_collection(self):
+        url = 'https://www.env.go.jp/content/900529513.pdf'
+        html = ('<h1>' + evidence.ENV_BASEL_REFERENCE_SECTION + '</h1>'
+            '<a href="/content/10.pdf">廃棄物等の越境移動等の適正化に関する検討会報告書 [PDF 3,473KB]</a>'
+            '<a href="/content/900529513.pdf">'
+            '廃棄物等の越境移動等の適正化に関する検討会報告書関係資料集 [PDF 7,529KB]</a>'
+            '<a href="/content/11.pdf">分割２ [PDF 2,524KB]</a>').encode()
+        self.request.update(provider=evidence.ENV_BASEL_REFERENCE_PROVIDER, currentPages=[99, 100, 101, 102])
+        for binding in self.request['choiceBindings']:
+            binding['currentPages'] = [99, 100, 101, 102]
+        self.payloads.update({
+            evidence.ENV_BASEL_REFERENCE_INDEX_URL: evidence.OfficialGuidanceFetch(
+                html, evidence.ENV_BASEL_REFERENCE_INDEX_URL, 'text/html'),
+            url: evidence.OfficialGuidanceFetch(b'%PDF-reference-excerpts', url, 'application/pdf')})
+        return url, html
+
+    def test_basel_reference_is_a_separate_excerpt_without_current_treaty_claim(self):
+        url, _ = self.reference_collection()
+        receipt = self.resolve()
+        self.assertEqual(self.calls, [evidence.ENV_BASEL_REFERENCE_INDEX_URL, url])
+        self.assertEqual(receipt['sourceKind'], 'official_treaty_excerpt')
+        self.assertEqual(receipt['documents'][0]['sourceUrl'], url)
+        self.assertIsNone(receipt['currentIndex']['publishedRevisionDate'])
+        self.assertEqual(receipt['applicabilityStatus'], 'unreviewed')
+        self.assertEqual(receipt['historicalCompleteness'], 'unreviewed')
+        self.assertEqual(self.validate(receipt), receipt)
+        changed = deepcopy(self.request)
+        changed['provider'] = evidence.ENV_BASEL_PROVIDER
+        with self.assertRaises(evidence.OfficialGuidanceEvidenceError):
+            self.resolver.validate(receipt, request=changed, record=self.record, scope=self.scope)
+
+    def test_basel_reference_rejects_wrong_report_split_copy_ambiguity_or_foreign_host(self):
+        _, index = self.reference_collection()
+        label = '廃棄物等の越境移動等の適正化に関する検討会報告書関係資料集 [PDF 7,529KB]'.encode()
+        variants = [
+            index.replace(label, '別の資料'.encode()),
+            index.replace(evidence.ENV_BASEL_REFERENCE_SECTION.encode(), '別の会議'.encode()),
+            index.replace(b'/content/900529513.pdf', b'/recycle/yugai/law/h30conv_j.pdf'),
+            index.replace(b'/content/900529513.pdf', b'https://www.env.go.jp.evil.example/content/900529513.pdf'),
+            index + b'<a href="/content/12.pdf">' + label + b'</a>',
+            index + ('<h1>' + evidence.ENV_BASEL_REFERENCE_SECTION + '</h1>').encode(),
+        ]
+        for html in variants:
+            with self.subTest(index_hash=evidence._hash(html)):
+                self.payloads[evidence.ENV_BASEL_REFERENCE_INDEX_URL] = evidence.OfficialGuidanceFetch(
+                    html, evidence.ENV_BASEL_REFERENCE_INDEX_URL, 'text/html')
+                before = len(self.calls)
+                with self.assertRaises(evidence.OfficialGuidanceEvidenceError): self.resolve()
+                self.assertEqual(self.calls[before:], [evidence.ENV_BASEL_REFERENCE_INDEX_URL])
+
+    def test_basel_reference_refresh_detects_replaced_collection(self):
+        url, _ = self.reference_collection()
+        receipt = self.resolve()
+        self.payloads[url] = replace(self.payloads[url], data=b'%PDF-replaced-collection')
+        with self.assertRaisesRegex(evidence.OfficialGuidanceEvidenceError, 'new audit required'):
+            self.resolver.refresh(receipt, request=self.request, record=self.record, scope=self.scope)
+        self.assertIsNone(self.resolver.last_refresh_receipt)
+
     def test_exact_unique_section_and_text_link_are_required(self):
         variants = [
             INDEX.replace('パリ協定（和訳）'.encode(), 'パリ協定の概要'.encode()),
