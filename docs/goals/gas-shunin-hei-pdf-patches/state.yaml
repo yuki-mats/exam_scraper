@@ -245,6 +245,8 @@ tasks:
       - docs/goals/gas-shunin-hei-pdf-patches/notes/T003-review-driver.py
       - docs/goals/gas-shunin-hei-pdf-patches/notes/T003-review-driver-selftest.py
       - docs/goals/gas-shunin-hei-pdf-patches/notes/T003-driver-verification.json
+      - output/gas-shunin-hei/pdf_patch_review/plans-v3/
+      - output/gas-shunin-hei/pdf_patch_review/runs-v3/
     verify:
       - 開始前source全27fileと522問identityのhash inventoryを保存し、終了後に完全一致を確認する。
       - 各24にscripts/check/check_question_issue_correction_patch.pyを実行し、現在投影・公式根拠・完全identity・expectedBeforeHashを検証する。
@@ -306,9 +308,96 @@ tasks:
       transportPlans: 28
       pilot: passed independent Judge audit; remaining27 batches running
       sourceFilesUnchanged: 27
-      formalPatchQuestions: 1
+      formalPatchQuestions: 33
       reviewMethod: 未採用公式転記候補をphase別新規sessionで実画像照合し問別完全値を確定
       driverSha256: 3f9456cf1af04be58ff3c6190e469da84c49a65b528acdcdfe0f18761c6e5014
+      recoveryDriverSha256: a66c09fa01ae2905dbc1baa7025365950b1b7d42ec0bd826e7c740db399df164
+      strictSchemaPilot: 2017 kiso6,kyokyu17,shohi20 running
+      currentDriverSha256: 4c794d71fc299116caba366badcaab30e2c1998cedd5c5f89b4f614e1eabcf2e
+      completedYears:
+        - 2017
+      confirmedNoChangeQuestions: 2
+      strictPromptPilot: 実AppServer3問とJudge監査成功
+      parallelReviewTransport: A/B独立read-only、Challengeと正式保存は直列
+  - id: T004
+    type: worker
+    assignee: Worker
+    status: done
+    objective: 実AppServer応答のworkId別厳格schemaで固定metadataの転記誤りを防ぐ補助driver別revisionを作る
+    allowed_files:
+      - docs/goals/gas-shunin-hei-pdf-patches/notes/T004-review-driver.py
+      - docs/goals/gas-shunin-hei-pdf-patches/notes/T004-review-driver-selftest.py
+      - docs/goals/gas-shunin-hei-pdf-patches/notes/T004-driver-verification.json
+      - output/gas-shunin-hei/pdf_patch_review/plans-v3/
+      - docs/goals/gas-shunin-hei-pdf-patches/notes/T004-run-batches.py
+    verify:
+      - v2 compile
+      - strict-output schema selftests
+      - git diff --check
+    stop_if:
+      - 元review書換え必要なら拒否
+      - 意味上のapproveを強制するschemaは禁止
+    receipt:
+      result: done
+      task_id: T004
+      board_path: docs/goals/gas-shunin-hei-pdf-patches/state.yaml
+      changed_files:
+        - docs/goals/gas-shunin-hei-pdf-patches/notes/T004-review-driver.py
+        - docs/goals/gas-shunin-hei-pdf-patches/notes/T004-review-driver-selftest.py
+        - docs/goals/gas-shunin-hei-pdf-patches/notes/T004-driver-verification.json
+      commands:
+        - cmd: python3 -m py_compile docs/goals/gas-shunin-hei-pdf-patches/notes/T004-review-driver.py
+            docs/goals/gas-shunin-hei-pdf-patches/notes/T004-review-driver-selftest.py
+          status: pass
+        - cmd: python3 docs/goals/gas-shunin-hei-pdf-patches/notes/T004-review-driver-selftest.py
+          status: pass
+          tests: 21
+        - cmd: git diff --check
+          status: pass
+      summary: 別revisionのdriverへworkId別厳格output_schemaを実装しました。固定metadataだけをschemaで拘束し、標準の全結論・app判定・本文と選択肢の完全変更値はモデル判断として保持します。schema原本とhashをphase入力へ結合し、受信JSONも同schemaと既存gateで検証します。v1と既存runsは保持し、実AppServer実行・正式patch保存は行っていません。
+      remaining_blockers: []
+      needs_judge: true
+      verification_attempts: 1
+      stopped_because: null
+    constraints:
+      - v1成功pilotと拒否応答を保持
+      - T004 code完成後にsource不変のfreshworkdirで限定pilotを実行
+      - 意味上の判定と候補完全値をconst化しない
+  - id: T005
+    type: worker
+    assignee: Worker
+    status: done
+    objective: 輸送promptの正常な判断順を明確化し、候補追加の必要性と候補自体の誤りを区別する
+    allowed_files:
+      - docs/goals/gas-shunin-hei-pdf-patches/notes/T005-review-driver.py
+      - docs/goals/gas-shunin-hei-pdf-patches/notes/T005-prompt-verification.json
+    verify:
+      - python compile
+      - prompt-only diff
+      - fresh native pilot under T003
+    stop_if:
+      - 固定結果の強制禁止
+      - v1/v2と真正応答は保持
+    receipt:
+      result: done
+      task_id: T005
+      board_path: docs/goals/gas-shunin-hei-pdf-patches/state.yaml
+      changed_files:
+        - docs/goals/gas-shunin-hei-pdf-patches/notes/T005-review-driver.py
+        - docs/goals/gas-shunin-hei-pdf-patches/notes/T005-prompt-verification.json
+      commands:
+        - cmd: python3 -m py_compile docs/goals/gas-shunin-hei-pdf-patches/notes/T005-review-driver.py
+          status: pass
+        - cmd: T004/T005 prompt-only diff and AST equivalence verification
+          status: pass
+        - cmd: git diff --check
+          status: pass
+      summary: 輸送wrapperだけを修正し、現在値の不足を忠実な候補で補完する場合と、候補自体が誤る場合を区別しました。唯一のprompt代入を除く全module
+        AST一致を確認し、schema・gate・replayは保持しています。v1/v2と既存応答を変更せず、実native実行・正式保存は行っていません。
+      remaining_blockers: []
+      needs_judge: true
+      verification_attempts: 1
+      stopped_because: null
   - id: T999
     type: judge
     assignee: Judge

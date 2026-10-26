@@ -1,0 +1,103 @@
+{
+  "nativeMessageId": "amsg_01a17a63-291d-7822-9eb4-03db5510a31d",
+  "nativeAuthor": "/root/hei_patch_judge",
+  "payload": {
+    "goalbuddy_receipt_v1": {
+      "result": "done",
+      "task_id": "T005",
+      "board_path": "docs/goals/gas-shunin-hei-pdf-patches/state.yaml",
+      "decision": "approve_next",
+      "full_outcome_complete": false,
+      "rationale": "T005 fresh pilotの3問を監査し、残batchへの拡大を承認します。両Blindは実画像に基づく不足補完理由を返し、2問fix・既存一致1問no_changeとなっています。3別session、各5画像の実bytes/hash、schema/input/prompt hash、無改変review、標準gate/replay、正式24の完全identity・expectedBeforeHash・実bytes、全27source不変を確認しました。A/Bを独立processで並行する方式も、正式保存を直列に保ち、両phaseの成功後だけChallengeへ進む条件で許容できます。",
+      "evidence": [
+        {
+          "path": "docs/goals/gas-shunin-hei-pdf-patches/notes/T005-review-driver.py",
+          "sha256": "4c794d71fc299116caba366badcaab30e2c1998cedd5c5f89b4f614e1eabcf2e"
+        },
+        {
+          "path": "output/gas-shunin-hei/pdf_patch_review/runs-v4/000-2017",
+          "nativeSessions": {
+            "blind_a": "01a17a61-188e-73b1-a271-19be98291ed4",
+            "blind_b": "01a17a61-5a04-7e90-9281-637a645afb29",
+            "challenge": "01a17a61-a435-7892-950b-5a17ea910517"
+          },
+          "imagesPerPhase": 5,
+          "checks": [
+            "schema原本/hashと実応答適合",
+            "送信prompt bytes/hash・正規prompt完全再構成",
+            "native receipt/input hash",
+            "画像sourcePath/hash/byteCount",
+            "phase別独立session/thread/turn",
+            "raw応答と問別recorded JSONの完全一致",
+            "標準Blind/Challenge validatorsとA/B完全changes一致",
+            "standard-replay receiptとreview hash対応"
+          ]
+        },
+        {
+          "sourceQuestionId": "2017:kiso:問1",
+          "decision": "fix",
+          "patchSha256": "086e84653cfba27ac4981bf30728666488c868d12b2544ca671cc4588a08e06b",
+          "checks": "正式24実bytes・完全identity・expectedBeforeHash・Challenge changes一致"
+        },
+        {
+          "sourceQuestionId": "2017:law:問9",
+          "decision": "fix",
+          "patchSha256": "f62443520278964d3365755a6bb6b268567a7d38d13eb281b8c86c83dbb3010c",
+          "checks": "正式24実bytes・完全identity・expectedBeforeHash・Challenge changes一致"
+        },
+        {
+          "sourceQuestionId": "2017:kyokyu:問10",
+          "decision": "no_change",
+          "checks": "両Blind no_problem・Challenge no_change。補正patchなし"
+        },
+        {
+          "sourceCheck": "前回監査が固定した全27source file hashと現実bytesが完全一致"
+        }
+      ],
+      "next_allowed_task": {
+        "type": "worker",
+        "assignee": "Worker",
+        "objective": "T005同一revisionで残りの必要batchを実行し、問別の真正レビュー・標準gateを経てfixだけを正式24へ保存する。",
+        "allowed_files": [
+          "output/gas-shunin-hei/pdf_patch_review/plans-v4/",
+          "output/gas-shunin-hei/pdf_patch_review/runs-v4/",
+          "output/gas-shunin-hei/questions_json/*/24_questionIssueCorrections/*.json",
+          "docs/goals/gas-shunin-hei-pdf-patches/notes/"
+        ],
+        "verify": [
+          "A/B各processが同じ固定plan・driver・config・contracts・source/PDF/imagesを使用することを確認する。",
+          "両processの終了statusが成功し、各phaseのvalidated receiptが存在して内容検証に成功した後だけChallengeを開始する。",
+          "Challengeとfresh process saveは1batchずつ直列化し、phase結果や旧成功証跡を上書きしない。",
+          "各正式24の完全identity・expectedBeforeHash・内容hash・標準gate成功を確認する。",
+          "全27source・522問identity不変、70問最終対応、共通注適用、通常merge、必須checkerを確認する。"
+        ],
+        "stop_if": [
+          "A/Bいずれかが失敗・未受信・入力driftとなった場合、Challenge又は正式保存へ進まない。",
+          "同一sessionの再利用や相互結果のprompt混入を検出した場合、そのphaseをBlindとして採用しない。",
+          "A/B不一致を自動補正せず問単位holdとして保持する。",
+          "正式24保存又は同じ年度の内容変更をA/Bと並行させない。"
+        ]
+      },
+      "subgoal_contract": null,
+      "parallel_safety": {
+        "write_workers": 1,
+        "parallel_writes": false,
+        "parallel_native_blind_processes": "許可。A/Bはphase別fileだけを保存し、共有frozen-planは同一bytesのatomic no-replace確定のみ。各native sessionは独立し、正式24保存は並行しない。",
+        "phase_gate": "両Blindの実検証成功後にChallenge、さらにfresh process保存を直列実行"
+      },
+      "blocked_tasks": [],
+      "missing_evidence": [
+        "残batchの実レビュー結果",
+        "70問・共通注の最終反映",
+        "通常mergeと必須3checker結果",
+        "main commit/push"
+      ],
+      "required_board_updates": [
+        "T005 pilot成功と本拡大gateを記録する。",
+        "並行実行は独立read-only A/Bレビュー輸送に限定し、正式patch writerが複数であるとは扱わない。",
+        "旧Bの保留を変更せず、fresh T005判定と別の証跡として保持する。",
+        "全体完成は最終監査まで未完了を維持する。"
+      ]
+    }
+  }
+}

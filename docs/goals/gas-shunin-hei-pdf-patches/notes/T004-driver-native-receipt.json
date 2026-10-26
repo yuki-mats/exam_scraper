@@ -1,0 +1,36 @@
+{
+  "nativeMessageId": "amsg_01a17a59-2c62-7d32-b9b6-489ca0213d8d",
+  "nativeAuthor": "/root/hei_patch_driver",
+  "payload": {
+    "goalbuddy_receipt_v1": {
+      "result": "done",
+      "task_id": "T004",
+      "board_path": "docs/goals/gas-shunin-hei-pdf-patches/state.yaml",
+      "changed_files": [
+        "docs/goals/gas-shunin-hei-pdf-patches/notes/T004-review-driver.py",
+        "docs/goals/gas-shunin-hei-pdf-patches/notes/T004-review-driver-selftest.py",
+        "docs/goals/gas-shunin-hei-pdf-patches/notes/T004-driver-verification.json"
+      ],
+      "commands": [
+        {
+          "cmd": "python3 -m py_compile docs/goals/gas-shunin-hei-pdf-patches/notes/T004-review-driver.py docs/goals/gas-shunin-hei-pdf-patches/notes/T004-review-driver-selftest.py",
+          "status": "pass"
+        },
+        {
+          "cmd": "python3 docs/goals/gas-shunin-hei-pdf-patches/notes/T004-review-driver-selftest.py",
+          "status": "pass",
+          "tests": 21
+        },
+        {
+          "cmd": "git diff --check",
+          "status": "pass"
+        }
+      ],
+      "summary": "別revisionのdriverへworkId別厳格output_schemaを実装しました。固定metadataだけをschemaで拘束し、標準の全結論・app判定・本文と選択肢の完全変更値はモデル判断として保持します。schema原本とhashをphase入力へ結合し、受信JSONも同schemaと既存gateで検証します。v1と既存runsは保持し、実AppServer実行・正式patch保存は行っていません。",
+      "remaining_blockers": [],
+      "needs_judge": true,
+      "verification_attempts": 1,
+      "stopped_because": null
+    }
+  }
+}

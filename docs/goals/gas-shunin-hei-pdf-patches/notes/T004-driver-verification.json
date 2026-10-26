@@ -1,0 +1,43 @@
+{
+  "schemaVersion": "hei-strict-review-driver-verification/v1",
+  "taskId": "T004",
+  "verifiedAt": "2026-10-26T22:33:30.031563+00:00",
+  "nativeAppServerExecuted": false,
+  "formalPatchWrites": 0,
+  "files": [
+    {
+      "path": "docs/goals/gas-shunin-hei-pdf-patches/notes/T004-review-driver.py",
+      "sha256": "a66c09fa01ae2905dbc1baa7025365950b1b7d42ec0bd826e7c740db399df164"
+    },
+    {
+      "path": "docs/goals/gas-shunin-hei-pdf-patches/notes/T004-review-driver-selftest.py",
+      "sha256": "75d5a47ff335aa73de13b9702dbe0c739457d4c1b3abe327976c14bd50da326d"
+    }
+  ],
+  "preservedV1": [
+    {
+      "path": "docs/goals/gas-shunin-hei-pdf-patches/notes/T003-review-driver.py",
+      "sha256": "3f9456cf1af04be58ff3c6190e469da84c49a65b528acdcdfe0f18761c6e5014"
+    },
+    {
+      "path": "docs/goals/gas-shunin-hei-pdf-patches/notes/T003-review-driver-selftest.py",
+      "sha256": "0f728689cd6945a1b5a5be0061710fad150539fd1d2f2603a88c8c73af007519"
+    }
+  ],
+  "commands": [
+    {
+      "cmd": "python3 -m py_compile docs/goals/gas-shunin-hei-pdf-patches/notes/T004-review-driver.py docs/goals/gas-shunin-hei-pdf-patches/notes/T004-review-driver-selftest.py",
+      "status": "pass"
+    },
+    {
+      "cmd": "python3 docs/goals/gas-shunin-hei-pdf-patches/notes/T004-review-driver-selftest.py",
+      "status": "pass",
+      "tests": 21
+    },
+    {
+      "cmd": "git diff --check",
+      "status": "pass"
+    }
+  ],
+  "scope": "Strict metadata schema; model-owned conclusions, changes, app outcomes retained. Raw schema/hash bound in each native input. No normalization or fixed-result substitution."
+}

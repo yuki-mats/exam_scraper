@@ -1,0 +1,34 @@
+{
+  "nativeMessageId": "amsg_01a17a60-e233-74e1-b14b-564e52be4276",
+  "nativeAuthor": "/root/hei_patch_driver",
+  "payload": {
+    "goalbuddy_receipt_v1": {
+      "result": "done",
+      "task_id": "T005",
+      "board_path": "docs/goals/gas-shunin-hei-pdf-patches/state.yaml",
+      "changed_files": [
+        "docs/goals/gas-shunin-hei-pdf-patches/notes/T005-review-driver.py",
+        "docs/goals/gas-shunin-hei-pdf-patches/notes/T005-prompt-verification.json"
+      ],
+      "commands": [
+        {
+          "cmd": "python3 -m py_compile docs/goals/gas-shunin-hei-pdf-patches/notes/T005-review-driver.py",
+          "status": "pass"
+        },
+        {
+          "cmd": "T004/T005 prompt-only diff and AST equivalence verification",
+          "status": "pass"
+        },
+        {
+          "cmd": "git diff --check",
+          "status": "pass"
+        }
+      ],
+      "summary": "輸送wrapperだけを修正し、現在値の不足を忠実な候補で補完する場合と、候補自体が誤る場合を区別しました。唯一のprompt代入を除く全module AST一致を確認し、schema・gate・replayは保持しています。v1/v2と既存応答を変更せず、実native実行・正式保存は行っていません。",
+      "remaining_blockers": [],
+      "needs_judge": true,
+      "verification_attempts": 1,
+      "stopped_because": null
+    }
+  }
+}

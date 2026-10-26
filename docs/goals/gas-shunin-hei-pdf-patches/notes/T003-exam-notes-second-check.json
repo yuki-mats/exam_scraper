@@ -1,0 +1,157 @@
+{
+  "nativeMessageId": "amsg_01a17a54-95cc-7562-869c-276f28c834e1",
+  "nativeAuthor": "/root/hei_patch_judge",
+  "payload": {
+    "goalbuddy_receipt_v1": {
+      "result": "done",
+      "task_id": "T003",
+      "board_path": "docs/goals/gas-shunin-hei-pdf-patches/state.yaml",
+      "decision": "approve_next",
+      "full_outcome_complete": false,
+      "rationale": "2017〜2025年度の公式冊子PDF第1ページの実画像を9枚すべて直接表示し、exam-common-notes.jsonの年度別5項目を照合しました。全年度で法令16問全解答、基礎15問中10問、技術27問中20問、超過時は若い番号から所定問数のみ採点、複数マーク0点、一問5点が一致します。空白・改行・括弧・助詞の正規化だけで意味差異はありません。今回の45項目の二次確認に限定した判定です。",
+      "evidence": [
+        {
+          "artifact": "output/gas-shunin-hei/pdf_patch_review/exam-common-notes.json",
+          "sha256": "0ea33ce10d097e24397edaaaed46fa98a52ddbb7c9acb426da54a92c24f0b866",
+          "method": "9枚の実画像をview_imageで直接表示。OCRによる代替判定なし。",
+          "checkDefinitions": {
+            "law": "法令16問を全問解答",
+            "basic": "基礎15問から10問選択。超過時は解答した問題番号の若い順から10問のみ採点",
+            "technology": "ガス技術27問から20問選択。超過時は解答した問題番号の若い順から20問のみ採点",
+            "multipleMarks": "1問に2つ以上マークした場合は当該問0点",
+            "points": "全問一問5点"
+          }
+        },
+        {
+          "year": 2017,
+          "pdfPage": 1,
+          "imagePath": "output/gas-shunin-hei/pdf_review/2017/mark_sheet_question/page-01.png",
+          "imageSha256": "765d6708b5c8b0c246a5db091303c55f168b5fce23828f17632cab94ed901048",
+          "checks": {
+            "law": "match",
+            "basic": "match",
+            "technology": "match",
+            "multipleMarks": "match",
+            "points": "match"
+          }
+        },
+        {
+          "year": 2018,
+          "pdfPage": 1,
+          "imagePath": "output/gas-shunin-hei/pdf_review/2018/mark_sheet_question/page-01.png",
+          "imageSha256": "00dec48b921261af89a9f411a5e2fe8b1fff84d966ccd29c423e5b190fa342dc",
+          "checks": {
+            "law": "match",
+            "basic": "match",
+            "technology": "match",
+            "multipleMarks": "match",
+            "points": "match"
+          }
+        },
+        {
+          "year": 2019,
+          "pdfPage": 1,
+          "imagePath": "output/gas-shunin-hei/pdf_review/2019/mark_sheet_question/page-01.png",
+          "imageSha256": "0e231b3ad9570f0d86f36733d058b1e41541cf5c04b7a09f88882f5f7c2264f9",
+          "checks": {
+            "law": "match",
+            "basic": "match",
+            "technology": "match",
+            "multipleMarks": "match",
+            "points": "match"
+          }
+        },
+        {
+          "year": 2020,
+          "pdfPage": 1,
+          "imagePath": "output/gas-shunin-hei/pdf_review/2020/mark_sheet_question/page-01.png",
+          "imageSha256": "d5638300c3bda503e5ab6da3072bfdb760fc2a7ae9fc4e5c9b8983e6ef034bd5",
+          "checks": {
+            "law": "match",
+            "basic": "match",
+            "technology": "match",
+            "multipleMarks": "match",
+            "points": "match"
+          }
+        },
+        {
+          "year": 2021,
+          "pdfPage": 1,
+          "imagePath": "output/gas-shunin-hei/pdf_review/2021/mark_sheet_question/page-01.png",
+          "imageSha256": "1c670a1501b6ffb5a1254558cb28d6217881c53249ba8150f0816b902ca7b6bf",
+          "checks": {
+            "law": "match",
+            "basic": "match",
+            "technology": "match",
+            "multipleMarks": "match",
+            "points": "match"
+          }
+        },
+        {
+          "year": 2022,
+          "pdfPage": 1,
+          "imagePath": "output/gas-shunin-hei/pdf_review/2022/mark_sheet_question/page-01.png",
+          "imageSha256": "245370c16a555a452abd04bde4f021847db44bca345664c01c6ed2b71b9c15f7",
+          "checks": {
+            "law": "match",
+            "basic": "match",
+            "technology": "match",
+            "multipleMarks": "match",
+            "points": "match"
+          }
+        },
+        {
+          "year": 2023,
+          "pdfPage": 1,
+          "imagePath": "output/gas-shunin-hei/pdf_review/2023/mark_sheet_question/page-01.png",
+          "imageSha256": "d7d4f693aa27cf28a41dd64cb7214f89b2621f661dd2c4d88451cdedc82cadc3",
+          "checks": {
+            "law": "match",
+            "basic": "match",
+            "technology": "match",
+            "multipleMarks": "match",
+            "points": "match"
+          }
+        },
+        {
+          "year": 2024,
+          "pdfPage": 1,
+          "imagePath": "output/gas-shunin-hei/pdf_review/2024/mark_sheet_question/page-01.png",
+          "imageSha256": "ad67eae4fb04fa6851399c9b2df319f974f9d14856b07a8df912fa1a28b9add9",
+          "checks": {
+            "law": "match",
+            "basic": "match",
+            "technology": "match",
+            "multipleMarks": "match",
+            "points": "match"
+          }
+        },
+        {
+          "year": 2025,
+          "pdfPage": 1,
+          "imagePath": "output/gas-shunin-hei/pdf_review/2025/mark_sheet_question/page-01.png",
+          "imageSha256": "9176d0f2a73376887759122db6532a63625b9e3c5891460d00e36f6124bf5caa",
+          "checks": {
+            "law": "match",
+            "basic": "match",
+            "technology": "match",
+            "multipleMarks": "match",
+            "points": "match"
+          }
+        }
+      ],
+      "next_allowed_task": null,
+      "subgoal_contract": null,
+      "parallel_safety": {
+        "writesPerformed": false,
+        "scope": "指定9年度の受験・採点共通注意5項目だけの読取照合"
+      },
+      "blocked_tasks": [],
+      "missing_evidence": [],
+      "required_board_updates": [
+        "この真正receiptを年度別共通注意の二次確認証跡として保存する。",
+        "45項目の一致を70問の本文訂正、科目共通注279問又は全体完了の認定へ拡張しない。"
+      ]
+    }
+  }
+}

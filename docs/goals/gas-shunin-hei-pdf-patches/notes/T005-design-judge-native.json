@@ -1,0 +1,68 @@
+{
+  "nativeMessageId": "amsg_01a17a61-6bfc-7a21-ac03-ab2c1a0392bf",
+  "nativeAuthor": "/root/hei_patch_judge",
+  "payload": {
+    "goalbuddy_receipt_v1": {
+      "result": "done",
+      "task_id": "T005",
+      "board_path": "docs/goals/gas-shunin-hei-pdf-patches/state.yaml",
+      "decision": "approve_next",
+      "full_outcome_complete": false,
+      "rationale": "T005実装の差分は輸送promptの判断順だけです。現在値の不足を修正する必要性と候補自体の誤りを区別し、公式画像と候補が一致して現在値に不足がある場合のproblem_found、補完不要のno_problem、候補の誤り・根拠不足のinsufficient_evidenceを定義しています。正しい候補という結論は強制せず、図の必要関係が不明なら保留できます。schema・標準gate・replayは不変で、旧応答の後補正もありません。fresh pilotへ進めます。",
+      "evidence": [
+        {
+          "path": "docs/goals/gas-shunin-hei-pdf-patches/notes/T005-review-driver.py",
+          "sha256": "4c794d71fc299116caba366badcaab30e2c1998cedd5c5f89b4f614e1eabcf2e"
+        },
+        {
+          "comparison": "T004-review-driver.pyとの実unified diffを確認",
+          "finding": "Driver.phaseの輸送promptだけが変更され、曖昧な『今回差分の変更が必要ならhold』が除去された。現在値・公式画像・候補の比較順と各正常結論が明示された。"
+        },
+        {
+          "path": "docs/goals/gas-shunin-hei-pdf-patches/notes/T005-prompt-verification.json",
+          "finding": "compile・prompt-only diff/AST同値確認・diff check成功を記録。native実行と正式保存は未実施として区別されている。"
+        }
+      ],
+      "next_allowed_task": {
+        "type": "worker",
+        "assignee": "Worker",
+        "objective": "T005の同一revisionとfresh workdirで、旧Bが曖昧なhold指示を誤読した問題を含む限定実AppServer pilotを実行し、元画像判断・無改変review・標準gate・正式保存を確認する。",
+        "allowed_files": [
+          "output/gas-shunin-hei/pdf_patch_review/plans-v4/",
+          "output/gas-shunin-hei/pdf_patch_review/runs-v4/",
+          "output/gas-shunin-hei/questions_json/*/24_questionIssueCorrections/*.json",
+          "docs/goals/gas-shunin-hei-pdf-patches/notes/"
+        ],
+        "verify": [
+          "T005 driver hash、現source/current/PDF/image/config/contractsを固定し、fresh process saveで再検証する。",
+          "A/B/Cの実画像bytes/hash・独立session・strict schema/input/prompt hash・完全reviewを保持する。",
+          "正常な不足補完をproblem_foundとする理由が実画像に基づいていることを確認する。旧Bと違う結論になったこと自体を成功基準にしない。",
+          "候補の誤りや図の不確実性が指摘された場合はholdを有効な結果として保持する。",
+          "標準validators、A/B完全changes一致、run_objective_review replay、patch verifierを通す。",
+          "全27source不変を確認する。"
+        ],
+        "stop_if": [
+          "結論又はmetadataを後補正しなければ通過できない場合は保存しない。",
+          "旧Bをproblem_foundへ誘導するため個別の期待結論や過去判定をfresh A/Bへ渡さない。",
+          "A/B不一致又は公式根拠への異議が残った問は保留し、候補を再確認する。"
+        ]
+      },
+      "subgoal_contract": null,
+      "parallel_safety": {
+        "write_workers": 1,
+        "parallel_writes": false
+      },
+      "blocked_tasks": [],
+      "missing_evidence": [
+        "T005 promptによるfresh実AppServer pilot",
+        "残batchの真正レビューと正式保存",
+        "70問・共通注補完の最終検証"
+      ],
+      "required_board_updates": [
+        "旧v3の保留は曖昧promptへの反応として原応答を保持し、後から判定を書き換えない。",
+        "T005は正常判断順の明確化であると記録する。",
+        "本receiptは実装差分とfresh pilot着手の承認であり、訂正全体の完了認定には使わない。"
+      ]
+    }
+  }
+}

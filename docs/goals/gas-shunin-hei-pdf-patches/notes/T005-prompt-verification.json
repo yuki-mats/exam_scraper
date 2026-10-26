@@ -1,0 +1,62 @@
+{
+  "schemaVersion": "hei-prompt-only-driver-verification/v1",
+  "taskId": "T005",
+  "verifiedAt": "2026-10-26T22:41:47.215180+00:00",
+  "source": {
+    "path": "docs/goals/gas-shunin-hei-pdf-patches/notes/T004-review-driver.py",
+    "sha256": "a66c09fa01ae2905dbc1baa7025365950b1b7d42ec0bd826e7c740db399df164"
+  },
+  "output": {
+    "path": "docs/goals/gas-shunin-hei-pdf-patches/notes/T005-review-driver.py",
+    "sha256": "4c794d71fc299116caba366badcaab30e2c1998cedd5c5f89b4f614e1eabcf2e"
+  },
+  "change": "現在値の不足を候補で修正する場合と、候補自体が誤る場合を分け、Blind A/BとChallengeの正常な判断順を明示した。",
+  "proof": {
+    "onlyChangedDefinition": [
+      "Driver.phase"
+    ],
+    "moduleAstIdenticalAfterMaskingSinglePromptAssignment": true,
+    "schemaAndGateAndReplayDefinitionsUnchanged": true,
+    "ambiguousHoldPhraseRemoved": true
+  },
+  "commands": [
+    {
+      "cmd": "python3 -m py_compile docs/goals/gas-shunin-hei-pdf-patches/notes/T005-review-driver.py",
+      "status": "pass"
+    },
+    {
+      "cmd": "T004/T005 prompt-only diff and AST equivalence verification",
+      "status": "pass"
+    },
+    {
+      "cmd": "git diff --check",
+      "status": "pass"
+    }
+  ],
+  "unifiedDiff": [
+    "--- docs/goals/gas-shunin-hei-pdf-patches/notes/T004-review-driver.py",
+    "+++ docs/goals/gas-shunin-hei-pdf-patches/notes/T005-review-driver.py",
+    "@@ -524,9 +524,16 @@",
+    "                   '元の各肢の正誤、独自解説、分類、形式は変更も新規認定もしない。取得元TF判定と公式番号答の関係も変えない。'",
+    "                   'candidateChangesは未採用候補であり、verifiedTranscriptionと実画像を照合し妥当な場合だけその完全値を採用できる。'",
+    "                   '候補への反証は歓迎する。未指定の別欠陥はfindingsへ記録し、新たな本文変更を勝手に同梱しない。'",
+    "-                  '今回差分の変更が必要ならinsufficient_evidence/hold。語句表記や空白正規化だけで候補を別の全文へ書き換えない。'",
+    "+                  'Blind A/Bでは、まずcurrent record・同年度公式画像・未採用候補を一問ずつ比較する。'",
+    "+                  '候補が公式画像に忠実で、現在値に不足又は相違がある場合はproblem_foundとして候補の完全値をproposedChangesへ返す。'",
+    "+                  '現在値に科目共通注がないことは、その注を忠実に補完する候補が確認できればproblem_foundの修正理由である。'",
+    "+                  '現在値が公式画像どおりで補完不要ならno_problemとしてproposedChangesを空objectにする。'",
+    "+                  '候補自体に誤りがある場合又は公式画像から候補の妥当性を確定できない場合はinsufficient_evidenceとして保留する。'",
+    "+                  '候補が正しいという判断を強制しない。図の文章表示も、原図の必要な関係が保持されるか独立に確認し、根拠が曖昧なら保留できる。'",
+    "+                  'Challengeでは固定済みA/Bと正規契約に従いfix・no_change・hold等を判定し、A/Bの変更値を改変しない。'",
+    "+                  '語句表記や空白正規化だけで候補を別の全文へ書き換えない。'",
+    "                   'candidateChangesが空の問は既存JSONが公式どおりならno_problem/no_changeとし、同値の変更を作らない。'",
+    "-                  '不適切ならinsufficient_evidence/hold。ファイル操作・subagent・外部通信は禁止。\\n\\n'",
+    "+                  '候補自体が不適切又は根拠不足ならinsufficient_evidence/holdを選べる。ファイル操作・subagent・外部通信は禁止。\\n\\n'",
+    "                   + '\\n\\n<INPUT_JSON_BATCH>\\n'",
+    "                   + json.dumps({'sharedContracts': shared, 'items': transported}, ensure_ascii=False, sort_keys=True) + '\\n</INPUT_JSON_BATCH>')",
+    "         # Exact normal payload/prompt reproduction is a pre-send gate."
+  ],
+  "nativeAppServerExecuted": false,
+  "formalPatchWrites": 0,
+  "freshNativePilot": "PMがT003で実施。Workerでは未実行。"
+}

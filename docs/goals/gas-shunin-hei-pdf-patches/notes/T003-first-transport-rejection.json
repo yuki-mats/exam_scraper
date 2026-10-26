@@ -1,0 +1,18 @@
+{
+  "result": "blocked",
+  "blocked_reason": "batch001のlocator短縮、batch002のworkflowContractHashes転記誤りを検査が拒否。元応答保持・追加正式保存0。厳格output schemaによる輸送修復をT004で行う。",
+  "commands": [
+    {
+      "cmd": "v1 batch001 blind_a fixed evidence equality",
+      "status": "fail"
+    },
+    {
+      "cmd": "v1 batch002 blind_b workflowContractHashes",
+      "status": "fail"
+    }
+  ],
+  "summary": "pilot1問の正式24は監査成功。残りは未完了であり、未確認fieldを補って通さない。",
+  "spawned_tasks": [
+    "T004"
+  ]
+}

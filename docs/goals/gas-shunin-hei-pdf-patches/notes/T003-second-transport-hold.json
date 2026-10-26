@@ -1,0 +1,8 @@
+{
+  "result": "blocked",
+  "blocked_reason": "strict schemaでmetadata転記は解消したが、候補変更の必要性をhold条件と誤読する曖昧な輸送promptによりbatch001のBが全12問を保留。元応答保持。T005で正常判断手順を明文化する。",
+  "summary": "正式保存はv1pilot1問+strictpilot2問の3問。raw応答は後補正しない。",
+  "spawned_tasks": [
+    "T005"
+  ]
+}

@@ -1,0 +1,111 @@
+{
+  "nativeMessageId": "amsg_01a17a5c-3e7a-71c2-8ca6-2dfda6eeef07",
+  "nativeAuthor": "/root/hei_patch_judge",
+  "payload": {
+    "goalbuddy_receipt_v1": {
+      "result": "done",
+      "task_id": "T004",
+      "board_path": "docs/goals/gas-shunin-hei-pdf-patches/state.yaml",
+      "decision": "approve_next",
+      "full_outcome_complete": false,
+      "rationale": "T004実装と3問pilotを監査し、残27batchへの拡大を承認します。schemaは固定metadataだけを拘束し、全標準結論・任意の本文/選択肢変更・holdを許容しています。3別session、各5画像の実bytes/hash、schema/input/prompt hash、元応答から問別reviewへの無改変対応、標準validators・replay、正式2patchの完全identityとexpectedBeforeHashを確認しました。no_change問にpatchはなく、全27source hashは不変です。",
+      "evidence": [
+        {
+          "path": "docs/goals/gas-shunin-hei-pdf-patches/notes/T004-review-driver.py",
+          "sha256": "a66c09fa01ae2905dbc1baa7025365950b1b7d42ec0bd826e7c740db399df164",
+          "finding": "固定値はmetadataのみ。conclusion/decisionの標準全選択肢と自由なchanges/findingsを維持。実run_turnへoutput_schemaを渡し、受信時にも同schemaと通常gateを検証する。"
+        },
+        {
+          "path": "docs/goals/gas-shunin-hei-pdf-patches/notes/T004-driver-verification.json",
+          "finding": "compile・21selftest・diff checkの成功receiptと対象hashを確認。これは実AppServer未実行の実装検証receiptとして正確に区別されている。"
+        },
+        {
+          "path": "output/gas-shunin-hei/pdf_patch_review/runs-v3/000-2017",
+          "nativeSessions": {
+            "blind_a": "01a17a59-3339-7d11-b666-5da654be543f",
+            "blind_b": "01a17a59-93b0-7eb2-98d3-7f6214413140",
+            "challenge": "01a17a5a-27ab-7f03-bb25-2c847149a829"
+          },
+          "schemaHashes": {
+            "blind_a": "7b7c4a3e5af116e833e43f49fca226a168fdabc7709eb2b40dce70ae68fb9ca2",
+            "blind_b": "978e66c765a676ee6c54ce9cf72f753ff53e2d5dfa71acbbe442070a1b925b50",
+            "challenge": "f8398f0b287f2d10df849866c94ba83992fc978ca6c358e628611a26b4f4fd58"
+          },
+          "imagesPerPhase": 5,
+          "checks": [
+            "native receipt hash/input hash",
+            "送信prompt bytes/hashと正規prompt完全再構成",
+            "output_schema原本/hashと受信値検査",
+            "全画像sourcePath/hash/byteCount",
+            "3異session/thread/turn",
+            "raw応答からper-workId JSONへの無改変対応",
+            "標準Blind/Challenge validatorsとA/B完全値一致",
+            "standard-replay receiptと3review hash対応"
+          ]
+        },
+        {
+          "sourceQuestionId": "2017:kiso:問6",
+          "decision": "fix",
+          "patchSha256": "d71a120ad857655124370a2104d4e7b7fec269b3d3e72bcbfee45d6278778f54",
+          "checks": "A/B/Challenge changes一致、正式24実bytes、完全identity、expectedBeforeHash一致"
+        },
+        {
+          "sourceQuestionId": "2017:kyokyu:問17",
+          "decision": "fix",
+          "patchSha256": "179996aa7fb4623f5bc1d49ae2e6b55342b9579bfd16e3aee719a6eff673ab8c",
+          "checks": "A/B/Challenge changes一致、正式24実bytes、完全identity、expectedBeforeHash一致"
+        },
+        {
+          "sourceQuestionId": "2017:shohi:問20",
+          "decision": "no_change",
+          "checks": "A/Bともno_problem、Challenge no_change、同値patchなし"
+        },
+        {
+          "sourceCheck": "前回全522件監査が固定した全27source file hashと現実bytesを照合し完全一致"
+        }
+      ],
+      "next_allowed_task": {
+        "type": "worker",
+        "assignee": "Worker",
+        "objective": "同一T004 revisionを残27batchへ適用し、真正な問別reviewと既存保存gateを経てfixだけを正式24へ保存する。",
+        "allowed_files": [
+          "output/gas-shunin-hei/pdf_patch_review/plans-v3/",
+          "output/gas-shunin-hei/pdf_patch_review/runs-v3/",
+          "output/gas-shunin-hei/questions_json/*/24_questionIssueCorrections/*.json",
+          "docs/goals/gas-shunin-hei-pdf-patches/notes/"
+        ],
+        "verify": [
+          "各batchでdriver/config/contracts/plan/source/PDF/image hashを固定し、phase完了後のfresh process saveで再検証する。",
+          "各phaseのstrict schema原本・hash、正規prompt復元、実画像bytes/hash、native identity、無改変問別review対応を維持する。",
+          "各問の標準run_objective_review・consensus・validators・patch verifierを省略しない。",
+          "70問と共通注適用範囲の最終対応を集計し、全27source/全522identity不変、通常merge反映、必須3checkerを確認する。"
+        ],
+        "stop_if": [
+          "metadata又は結論を後補正する必要が生じた場合は保存しない。",
+          "A/B不一致、根拠不足、入力driftは問単位holdとし、自動一致させない。",
+          "driver変更が必要なら旧成功・拒否証跡を保持し、別revision/fresh workdirで修復する。",
+          "Storage/Firestore又は元正答・解説変更へscopeを広げない。"
+        ]
+      },
+      "subgoal_contract": null,
+      "parallel_safety": {
+        "write_workers": 1,
+        "parallel_writes": false
+      },
+      "blocked_tasks": [],
+      "missing_evidence": [
+        "残27batchの実結果",
+        "70問の最終fix/no_change/hold対応",
+        "共通注279問と通常merge反映",
+        "必須checker結果",
+        "main commit/pushと最終全体監査"
+      ],
+      "required_board_updates": [
+        "T004実装検証receiptと実pilot監査receiptを分けて記録する。",
+        "fixed metadataはschemaによる構造保証、結論と完全changesはモデル判断と明記する。",
+        "レビュー方式は候補補助あり・phase間独立の実画像確認と記す。",
+        "本receiptを全体完了へ拡張しない。"
+      ]
+    }
+  }
+}
