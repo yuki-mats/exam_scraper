@@ -1,6 +1,15 @@
 from __future__ import annotations
 
 import os
+import hashlib
+import json
+import random
+import threading
+import time
+from datetime import datetime, timezone
+from pathlib import Path
+
+import requests
 import re
 import sys
 from collections import Counter
@@ -13,6 +22,7 @@ from scripts.scrape.common import (
     create_http_session,
     download_and_save_images,
     extract_image_urls_from_element,
+    extract_text_with_subsup,
     fetch_html_text,
     load_local_secure_env,
     make_public_question_id,
@@ -45,6 +55,107 @@ CHOICE_LINE_PATTERN = re.compile(
 )
 NUMBERED_CHOICE_MARKER_PATTERN = re.compile(r"^[（(]?([0-9０-９]+)[）)]?$")
 FULLWIDTH_DIGITS = str.maketrans("０１２３４５６７８９", "0123456789")
+
+
+class PacedArchiveSession(requests.Session):
+    """Serialize this site's page/image requests and retain public retrieval evidence."""
+
+    def __init__(self, archive_dir: Path) -> None:
+        super().__init__()
+        template = create_http_session()
+        self.headers.update(template.headers)
+        template.close()
+        self.archive_dir = archive_dir
+        self.archive_dir.mkdir(parents=True, exist_ok=True)
+        self.request_lock = threading.Lock()
+
+    def request(self, method: str, url: str, **kwargs):
+        with self.request_lock:
+            # The first request and retries wait too, including in a new year process.
+            time.sleep(random.uniform(5.0, 9.0))
+            started = datetime.now(timezone.utc)
+            record = {"url": url, "startedAt": started.isoformat(), "method": method}
+            try:
+                response = super().request(method, url, **kwargs)
+                record["status"] = response.status_code
+                record["sha256"] = hashlib.sha256(response.content).hexdigest()
+                if "text/html" in response.headers.get("Content-Type", "").lower():
+                    filename = started.strftime("%Y%m%dT%H%M%S%fZ") + ".html"
+                    (self.archive_dir / filename).write_bytes(response.content)
+                    record["htmlPath"] = filename
+                return response
+            except requests.RequestException as error:
+                record["errorType"] = type(error).__name__
+                raise
+            finally:
+                record["finishedAt"] = datetime.now(timezone.utc).isoformat()
+                with (self.archive_dir / "requests.jsonl").open("a", encoding="utf-8") as log:
+                    log.write(json.dumps(record, ensure_ascii=False) + "\n")
+
+
+def validate_complete_exam(questions: list[dict], html_text: str) -> None:
+    expected = {"法令": 16, "基礎理論": 15, "製造": 9, "供給": 9, "消費機器": 9}
+    counts = Counter(question["category"] for question in questions)
+    if counts != expected or count_questions_by_subject(html_text) != expected:
+        raise ValueError(f"科目別取得件数が不完全です: {dict(counts)}")
+    for field in ("source_question_id", "public_question_id"):
+        values = [question[field] for question in questions]
+        if len(set(values)) != len(values):
+            raise ValueError(f"IDが重複しています: {field}")
+    for question in questions:
+        identity = question["source_question_id"]
+        choices = question["choiceTextList"]
+        if not question["questionBodyText"].strip() or not choices or any(not value.strip() for value in choices):
+            raise ValueError(f"本文又は選択肢が欠落しています: {identity}")
+        for field in ("choiceTextMarkedList", "correctChoiceText", "explanation_choice_snippets",
+                      "explanation_choice_correctness", "originalQuestionChoiceImageUrls"):
+            if len(question[field]) != len(choices):
+                raise ValueError(f"選択肢補助配列の長さが不一致です: {identity}: {field}")
+        answers = question["answer_result_inferred_correct_choice_numbers"]
+        if len(answers) != 1 or not 1 <= answers[0] <= 5:
+            raise ValueError(f"明示正答番号が不正です: {identity}: {answers}")
+    expected_numbers = {"法令": set(range(1, 17)), "基礎理論": set(range(1, 16)),
+                        "製造": set(range(1, 10)), "供給": set(range(10, 19)), "消費機器": set(range(19, 28))}
+    for subject, numbers in expected_numbers.items():
+        actual = {int(question["questionLabel"].removeprefix("問")) for question in questions if question["category"] == subject}
+        if actual != numbers:
+            raise ValueError(f"科目の問番号集合が不一致です: {subject}: {sorted(actual)}")
+
+
+def extract_table_choice_texts(nodes: Iterable[Tag]) -> list[str]:
+    for node in nodes:
+        if node.name == "details":
+            break
+        tables = [node] if node.name == "table" else node.find_all("table")
+        for table in tables:
+            rows = table.find_all("tr")
+            if not rows:
+                continue
+            headers = [normalize_inline_text(extract_text_with_subsup(cell))
+                       for cell in rows[0].find_all(["th", "td"], recursive=False)]
+            choices: dict[int, str] = {}
+            for row in rows[1:]:
+                cells = row.find_all(["th", "td"], recursive=False)
+                if not cells:
+                    continue
+                marker = normalize_inline_text(cells[0].get_text()).translate(FULLWIDTH_DIGITS)
+                match = NUMBERED_CHOICE_MARKER_PATTERN.fullmatch(marker)
+                if match is None:
+                    continue
+                if len(cells) != len(headers) or not all(headers[1:]):
+                    raise ValueError("組合せ選択肢表の見出し又は列数が不正です")
+                number = int(match.group(1))
+                if number in choices:
+                    raise ValueError(f"組合せ選択肢表の番号が重複しています: {number}")
+                values = [normalize_inline_text(extract_text_with_subsup(cell)) for cell in cells[1:]]
+                if not all(values):
+                    raise ValueError("組合せ選択肢表に空欄があります")
+                choices[number] = "、".join(f"{header}: {value}" for header, value in zip(headers[1:], values))
+            if choices:
+                if sorted(choices) != [1, 2, 3, 4, 5]:
+                    raise ValueError(f"組合せ選択肢表の番号が不完全です: {sorted(choices)}")
+                return [choices[number] for number in range(1, 6)]
+    return []
 
 
 def apply_runtime_overrides_from_env() -> None:
@@ -151,7 +262,9 @@ def parse_choice_line(line: str) -> tuple[str, str] | None:
     return marker, remainder
 
 
-def extract_question_body_and_markers_from_nodes(nodes: Iterable[Tag]) -> tuple[str, list[str]]:
+def extract_question_body_and_markers_from_nodes(
+    nodes: Iterable[Tag], *, preserve_math: bool = False
+) -> tuple[str, list[str]]:
     body_lines: list[str] = []
     discovered_markers: list[str] = []
     choices_started = False
@@ -161,7 +274,9 @@ def extract_question_body_and_markers_from_nodes(nodes: Iterable[Tag]) -> tuple[
             break
         if node.name != "p":
             continue
-        text = normalize_question_body_text(node.get_text("\n", strip=True))
+        text = normalize_question_body_text(
+            extract_text_with_subsup(node) if preserve_math else node.get_text("\n", strip=True)
+        )
         if not text or text == "選択肢":
             continue
         for line in text.splitlines():
@@ -207,9 +322,12 @@ def extract_numbered_choice_texts_from_nodes(nodes: Iterable[Tag]) -> list[str]:
                 cloned_marker = cloned_candidate.find("strong")
                 if cloned_marker is not None:
                     cloned_marker.decompose()
-                choice_text = normalize_inline_text(cloned_candidate.get_text(" ", strip=True))
+                choice_text = normalize_inline_text(extract_text_with_subsup(cloned_candidate))
                 if choice_text:
-                    choices_by_number[int(match.group(1))] = choice_text
+                    number = int(match.group(1))
+                    if number in choices_by_number:
+                        raise ValueError(f"数値選択肢の番号が重複しています: {number}")
+                    choices_by_number[number] = choice_text
 
             if not choices_by_number:
                 continue
@@ -223,7 +341,7 @@ def extract_numbered_choice_texts_from_nodes(nodes: Iterable[Tag]) -> list[str]:
 
 def build_group_choice_correctness(choice_count: int, correct_numbers: list[int]) -> list[str]:
     unique_numbers = sorted(set(correct_numbers))
-    if len(unique_numbers) != 1:
+    if len(correct_numbers) != 1 or len(unique_numbers) != 1:
         raise ValueError(f"数値選択肢の正答番号を1つに確定できません: {correct_numbers}")
     correct_number = unique_numbers[0]
     if correct_number < 1 or correct_number > choice_count:
@@ -274,6 +392,8 @@ def render_choice_text_with_wrong_markers(node: Tag | NavigableString | None) ->
         return str(node)
     if node.name == "br":
         return "\n"
+    if node.name in {"sup", "sub"}:
+        return extract_text_with_subsup(node)
 
     rendered = "".join(render_choice_text_with_wrong_markers(child) for child in node.children)
     if "kw-wrong-inline" in (node.get("class") or []):
@@ -376,7 +496,7 @@ def verdict_text_to_correct_choice_text(
     return "間違い"
 
 
-def extract_choice_rows(details: Tag) -> list[dict]:
+def extract_choice_rows(details: Tag, *, preserve_math: bool = False) -> list[dict]:
     row_records: list[dict] = []
     choices_heading = details.find("h3", string=lambda s: s and "各選択肢の判定" in s)
     if choices_heading is None:
@@ -402,7 +522,8 @@ def extract_choice_rows(details: Tag) -> list[dict]:
         verdict_text = verdict_span.get_text(" ", strip=True) if verdict_span is not None else ""
         blockquote = block.find("blockquote")
         blockquote_text = normalize_question_body_text(
-            blockquote.get_text("\n", strip=True) if blockquote is not None else ""
+            (extract_text_with_subsup(blockquote) if preserve_math else blockquote.get_text("\n", strip=True))
+            if blockquote is not None else ""
         )
         marked_text = normalize_question_body_text(render_choice_text_with_wrong_markers(blockquote))
 
@@ -459,12 +580,19 @@ def parse_subject_section(
         question_number = question_number_match.group(1) if question_number_match else question_label
         question_url = f"{page_url}#{subject_code}-q{question_number}"
         source_question_id = f"{exam_occurrence_id}:{subject_code}:{question_label}"
-        public_question_id = make_public_question_id(source_question_id)
+        public_identity = (f"gas-shunin-hei:{source_question_id}"
+                           if "/exam/hei/" in page_url else source_question_id)
+        public_question_id = make_public_question_id(public_identity)
         block_nodes = collect_nodes_until_next_h2(question_heading)
         details = next((node for node in block_nodes if node.name == "details"), None)
         numbered_choice_texts = extract_numbered_choice_texts_from_nodes(block_nodes)
+        if not numbered_choice_texts:
+            numbered_choice_texts = extract_table_choice_texts(block_nodes)
 
-        question_body_text, discovered_question_markers = extract_question_body_and_markers_from_nodes(block_nodes)
+        preserve_math = "/exam/hei/" in page_url
+        question_body_text, discovered_question_markers = extract_question_body_and_markers_from_nodes(
+            block_nodes, preserve_math=preserve_math
+        )
         question_image_urls = extract_question_image_urls(block_nodes, page_url)
         question_image_filenames = (
             download_and_save_images(
@@ -476,6 +604,8 @@ def parse_subject_section(
             if download_images and question_image_urls
             else []
         )
+        if download_images and len(question_image_filenames) != len(question_image_urls):
+            raise ValueError(f"問題画像の取得が不完全です: {source_question_id}")
         question_image_storage_urls = [
             make_storage_url(filename, QUALIFICATION_CODE)
             for filename in question_image_filenames
@@ -501,7 +631,7 @@ def parse_subject_section(
             answer_heading_text = normalize_inline_text(answer_heading.get_text(" ", strip=True)) if answer_heading else ""
             answer_result_numbers = parse_correct_choice_numbers(answer_heading_text)
             explanation_common_prefix = build_explanation_common_prefix(details)
-            row_records = extract_choice_rows(details)
+            row_records = extract_choice_rows(details, preserve_math=preserve_math)
             judge_choice_markers = collect_row_markers(row_records)
             question_choice_markers = select_question_markers_for_audit(
                 discovered_question_markers,
@@ -665,7 +795,9 @@ def main() -> None:
         JSON_SUBDIR_NAME,
     )
 
-    http_session = create_http_session()
+    http_session = PacedArchiveSession(
+        Path(OUTPUT_DIR) / QUALIFICATION_CODE / "acquisition" / str(output_list_group_id)
+    )
     html_text = fetch_html_text(http_session, target_url)
     question_dicts = parse_exam_page_html(
         html_text,
@@ -673,6 +805,8 @@ def main() -> None:
         http_session=http_session,
         download_images=True,
     )
+
+    validate_complete_exam(question_dicts, html_text)
 
     if MAX_QUESTIONS is not None:
         question_dicts = question_dicts[:MAX_QUESTIONS]

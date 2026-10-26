@@ -1,0 +1,229 @@
+version: 2
+goal:
+  title: 丙種取得・公式PDF一次二次照合
+  slug: gas-shunin-hei-acquire-pdf-review
+  kind: specific
+  tranche: 全掲載年度取得と全問PDF二次照合
+  status: active
+  oracle:
+    signal: 年度別全掲載問の取得と各問の問題PDF・正答PDFに結び付いた一次・独立二次照合記録
+    cadence: 取得後・照合後・最終監査
+    final_proof: 全問の照合結果、差異、未確認の記録と保存hash、関連テスト、main push
+  intake:
+    original_request: 既存ツールで丙種を人間程度のアクセス間隔で取得し、PDF照合と二次チェックまで実施
+    interpreted_outcome: 取得元の全掲載年度の丙種データと独立PDF照合結果をローカル正本へ保存
+    input_shape: specific
+    audience: 問題運用者
+    authority: requested
+    proof_type: artifact
+    completion_proof: 全問の照合結果、差異、未確認の記録と保存hash、関連テスト、main push
+    likely_misfire: OCR類似度や抽出件数を全問目視・二次照合完了と誤認する
+    blind_spots_considered:
+      - 掲載年度とPDF年度の不一致
+      - 丙種の科目構成差
+      - 取得元判定と公式選択答を混同しない
+    existing_plan_facts:
+      - 既存スクレイピングツールを利用
+      - 低頻度逐次アクセス
+      - PDFとの二次チェック
+rules:
+  pm_owns_state: true
+  one_active_task: true
+  max_write_workers: 1
+  no_implementation_without_worker_or_pm_task: true
+  no_completion_without_judge_or_pm_audit: true
+  planning_is_not_completion: true
+  queued_required_worker_blocks_completion: true
+  continuous_until_full_outcome: true
+  missing_input_or_credentials_do_not_stop_goal: true
+  exact_human_approval_can_terminal_wait: true
+  preserve_and_validate_existing_plan: true
+  intake_misfire_must_be_audited: true
+  goal_pressure_requires_oracle: true
+  no_completion_on_weak_proof: true
+  slice_policy:
+    max_consecutive_tiny_tasks: 2
+    prefer_vertical_slices: true
+    judge_picks_largest_safe_slice: true
+    worker_completes_whole_slice: true
+agents:
+  scout: installed
+  worker: installed
+  judge: installed
+visual_board:
+  selected: local
+  local:
+    status: live
+    url: http://goalbuddy.localhost:41737/gas-shunin-hei-acquire-pdf-review/
+    command: node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs --goal /Users/yuki/development/exam_scraper_work/docs/goals/gas-shunin-hei-acquire-pdf-review
+active_task: T004
+tasks:
+  - id: T001
+    type: scout
+    assignee: Scout
+    status: done
+    reasoning_hint: default
+    objective: 丙種の科目構成・既存parser差分・全掲載年度・公式PDF対応を調査
+    inputs:
+      - scrape_gassyunin.py
+      - config/scrape_presets.json
+      - document/sources/gas-shunin/official_exam_pdf_catalog.json
+    constraints:
+      - Read-only.
+      - Do not edit implementation files.
+      - Prefer concrete file-path evidence over generic advice.
+    expected_output:
+      - Repo map
+      - Verification commands
+      - Ranked improvement candidates
+      - Candidate next tasks
+    receipt:
+      result: done
+      summary: 丙種公式27PDF hash一致、法16基15製9供9消9。問題PDF全て画像。既存parserと実HTML構成一致。
+      evidence:
+        - document/sources/gas-shunin/official_exam_pdf_catalog.json
+        - scrape_gassyunin.py
+        - output/gas-shunin-hei/acquisition/20261027/hei_2025.html
+  - id: T002
+    type: judge
+    assignee: Judge
+    status: done
+    reasoning_hint: default
+    objective: 取得と照合の安全な実行範囲を確定
+    inputs:
+      - T001 receipt
+    constraints:
+      - Do not implement.
+      - Pick the largest safe useful slice with clear allowed_files, verify commands, and stop conditions.
+    expected_output:
+      - Decision
+      - Exact Worker objective
+      - allowed_files
+      - verify
+      - stop_if
+      - Blocked or deferred tasks
+    receipt:
+      result: done
+      decision: approved
+      full_outcome_complete: false
+      rationale: 表形式9問欠落のため明示表抽出・全件完全性検証・5〜9秒逐次sessionを先行。PDF全問一次二次は別工程。
+  - id: T003
+    type: worker
+    assignee: Worker
+    status: done
+    reasoning_hint: default
+    objective: 丙種preset・明示表抽出・逐次低頻度HTTP・raw取得証跡・保存前完全性検証を実装し標準runnerで全年度取得
+    allowed_files:
+      - config/scrape_presets.json
+      - scrape_gassyunin.py
+      - tests/test_scrape_gassyunin.py
+      - tests/test_scrape_presets.py
+      - tests/fixtures/gassyunin/
+      - document/sources/gas-shunin/gassyunin_source_contract.md
+      - output/gas-shunin-hei/
+      - docs/contracts/00_source_sha256_manifest.jsonl
+    verify:
+      - python3 -m unittest tests.test_scrape_gassyunin tests.test_scrape_presets
+      - python3 scripts/scrape/run_qualification_scrape.py gas-shunin-hei --dry-run
+      - git diff --check
+    stop_if:
+      - 許可外変更が必要
+      - 選択肢又は正答が一意に抽出できない
+      - 既存00_source/公式PDF変更が必要
+    receipt:
+      result: done
+      changed_files:
+        - config/scrape_presets.json
+        - scrape_gassyunin.py
+        - tests/test_scrape_gassyunin.py
+        - tests/test_scrape_presets.py
+        - tests/fixtures/gassyunin/hei_2025.html
+        - document/sources/gas-shunin/gassyunin_source_contract.md
+      commands:
+        - cmd: python3 -m unittest tests.test_scrape_gassyunin tests.test_scrape_presets
+          status: pass
+        - cmd: python3 scripts/scrape/run_qualification_scrape.py gas-shunin-hei --dry-run
+          status: pass
+        - cmd: python3 scripts/scrape/run_qualification_scrape.py gas-shunin-hei --group-retries 0
+          status: pass
+        - cmd: python3 tools/question_bank/question_bank.py quality-gate --qualification gas-shunin-hei --mode source
+          status: pass
+        - cmd: git diff --check
+          status: pass
+        - cmd: scoped check_00_source_immutability.py --record-scrape-refresh (hei 9 scopes)
+          status: pass
+      summary: 9年度522問/27file取得、全年度source gate成功、522ID一意かつ甲乙現sourceとの衝突なし。9HTTP全200、最小完了→次開始6.964059秒。rawHTML/HTTPログ/hash保存。PDF照合は未実施。 丙種scopeのみ27新規hash登録。全体record-newは対象外の既存2946欠損/33未登録により停止し対象外は変更せず。
+  - id: T004
+    type: worker
+    assignee: Worker
+    status: active
+    objective: 全年度PDF画像・OCR草案・自然key別比較packetを準備し、一問ずつ本文/全選択肢/公式選択答を一次照合
+    allowed_files:
+      - scripts/check/prepare_gas_shunin_pdf_review.py
+      - tests/test_prepare_gas_shunin_pdf_review.py
+      - output/gas-shunin-hei/pdf_review/
+      - document/temporary/20261027_gas_shunin_hei_pdf_review.md
+    verify:
+      - PDF全18file hash固定
+      - 全522問の資格/年度/科目/番号対応
+      - 全問source hashとPDF hash/pageを持つ一次照合記録
+      - git diff --check
+    stop_if:
+      - PDF又は対応を確定できない問はhold
+      - 00_sourceへ訂正を書かない
+    receipt: null
+  - id: T005
+    type: worker
+    assignee: Worker
+    status: queued
+    objective: 一次作者とは別sessionで全問の公式問題画像・正答画像を再確認し二次照合記録を保存
+    inputs:
+      - 固定source全件
+      - 公式問題PDF/正答PDFの実画像
+      - 一次との照合は独立判断後のみ
+    constraints:
+      - read-only
+      - 一次の結論を根拠にしない
+    expected_output:
+      - 全問の二次判定
+      - 差異と未確認
+    receipt: null
+    allowed_files:
+      - output/gas-shunin-hei/pdf_review/secondary/
+    verify:
+      - 全522問の二次coverageと問題/正答PDF画像の読取証跡
+      - 取得データと公式PDFを独立に照合
+    stop_if:
+      - 未確認はhold
+      - 一次判断だけで追認しない
+  - id: T999
+    type: judge
+    assignee: Judge
+    status: queued
+    reasoning_hint: default
+    objective: Audit whether the implemented slice satisfies the original user outcome for this tranche.
+    inputs:
+      - All done task receipts
+      - Last verification
+      - Current dirty diff
+    constraints:
+      - Do not implement.
+      - Reject completion if required Worker work is still queued or active.
+      - Reject completion if the broader original outcome still has safe local follow-up slices.
+      - Reject stopping only because a slice needs owner input, credentials, production access, destructive operations, or policy decisions.
+    expected_output:
+      - complete | not_complete
+      - 'full_outcome_complete: true | false'
+      - missing evidence
+      - next task if not complete
+    receipt: null
+checks:
+  dirty_fingerprint: unknown
+  last_verification:
+    result: pass
+    task: T003
+    commands:
+      - 55 tests / 5 live skip
+      - source gate 9 years
+      - 522 unique IDs
+      - live acquisition 9 HTTP 200

@@ -3,6 +3,12 @@ from __future__ import annotations
 import functools
 import os
 import unittest
+import json
+import tempfile
+from pathlib import Path
+from unittest.mock import patch
+
+import scrape_gassyunin as scraper
 
 import requests
 
@@ -207,6 +213,108 @@ class ScrapeGassyuninTests(unittest.TestCase):
             },
         )
         self.assertEqual(sum(counts.values()), 58)
+
+
+class HeiAcquisitionTests(unittest.TestCase):
+    def setUp(self) -> None:
+        self.secret = patch.dict(os.environ, {"QUESTION_ID_SECRET_KEY": "test-secret"})
+        self.secret.start()
+        self.addCleanup(self.secret.stop)
+        self.html = (Path(__file__).parent / "fixtures/gassyunin/hei_2025.html").read_text()
+        self.url = "https://gassyunin.com/exam/hei/hei_2025/"
+
+    def parse(self, html=None):
+        return parse_exam_page_html(html or self.html, self.url)
+
+    def test_full_hei_year_preserves_nine_table_questions(self):
+        questions = self.parse()
+        scraper.validate_complete_exam(questions, self.html)
+        expected = {"法令": [2, 6, 7, 9, 13], "製造": [3], "供給": [10, 12, 16]}
+        for category, numbers in expected.items():
+            for number in numbers:
+                question = find_question(questions, category=category, question_label=f"問{number}")
+                self.assertEqual(len(question["choiceTextList"]), 5)
+                self.assertIn("(イ):", question["choiceTextList"][0])
+        q = find_question(questions, category="法令", question_label="問2")
+        self.assertEqual(q["choiceTextList"][2], "(イ): 供給計画、(ロ): 開始前、(ハ): に届け出、(ニ): 確保、(ホ): 命ずる")
+        self.assertEqual(q["answer_result_inferred_correct_choice_numbers"], [3])
+        self.assertEqual(q["correctChoiceText"], ["不正解", "不正解", "正解", "不正解", "不正解"])
+
+    def test_hei_public_ids_are_namespaced_without_changing_legacy_ids(self):
+        hei = self.parse()[0]
+        otsu = parse_exam_page_html(self.html, self.url.replace("hei", "otsu"))[0]
+        self.assertEqual(hei["source_question_id"], otsu["source_question_id"])
+        self.assertNotEqual(hei["public_question_id"], otsu["public_question_id"])
+        self.assertEqual(otsu["public_question_id"], scraper.make_public_question_id(otsu["source_question_id"]))
+        self.assertEqual(hei["public_question_id"], scraper.make_public_question_id("gas-shunin-hei:" + hei["source_question_id"]))
+
+    def test_table_rejects_duplicate_missing_or_empty_rows(self):
+        soup = BeautifulSoup(self.html, "html.parser")
+        table = soup.find("table")
+        for modification in ("duplicate", "missing", "empty"):
+            copy = BeautifulSoup(str(table), "html.parser").table
+            rows = copy.find_all("tr")
+            if modification == "duplicate":
+                rows[2].find("th").string = "(1)"
+            elif modification == "missing":
+                rows[-1].decompose()
+            else:
+                rows[1].find("td").clear()
+            with self.subTest(modification=modification), self.assertRaises(ValueError):
+                scraper.extract_table_choice_texts([copy])
+
+    def test_table_preserves_superscript_and_subscript(self):
+        table = '<table><tr><th></th><th>(イ)</th></tr>' + ''.join(
+            f'<tr><th>({n})</th><td>CO<sub>2</sub> {n}m<sup>3</sup></td></tr>' for n in range(1, 6)
+        ) + '</table>'
+        choices = scraper.extract_table_choice_texts([BeautifulSoup(table, "html.parser").table])
+        self.assertEqual(choices[0], "(イ): CO₂ 1m³")
+
+    def test_complete_exam_rejects_missing_duplicate_and_invalid_answer(self):
+        for problem in ("missing", "duplicate", "empty", "array", "answer"):
+            questions = self.parse()
+            if problem == "missing":
+                questions.pop()
+            elif problem == "duplicate":
+                questions[1]["source_question_id"] = questions[0]["source_question_id"]
+            elif problem == "empty":
+                questions[0]["choiceTextList"] = []
+            elif problem == "array":
+                questions[0]["correctChoiceText"] = []
+            else:
+                questions[0]["answer_result_inferred_correct_choice_numbers"] = [6]
+            with self.subTest(problem=problem), self.assertRaises(ValueError):
+                scraper.validate_complete_exam(questions, self.html)
+        with self.assertRaises(ValueError):
+            scraper.build_group_choice_correctness(5, [1, 1])
+
+    def test_paced_session_waits_for_every_request_and_archives(self):
+        response = requests.Response()
+        response.status_code = 200
+        response._content = b"<html>fixture</html>"
+        response.headers["Content-Type"] = "text/html; charset=utf-8"
+        with tempfile.TemporaryDirectory() as directory, patch.object(requests.Session, "request", return_value=response), \
+             patch.object(scraper.time, "sleep") as sleep, patch.object(scraper.random, "uniform", return_value=7):
+            session = scraper.PacedArchiveSession(Path(directory))
+            session.get(self.url)
+            session.get(self.url + "image.png")
+            self.assertEqual(sleep.call_args_list, [unittest.mock.call(7), unittest.mock.call(7)])
+            logs = [json.loads(line) for line in (Path(directory) / "requests.jsonl").read_text().splitlines()]
+            self.assertEqual(len(logs), 2)
+            self.assertTrue(all(log["status"] == 200 and len(log["sha256"]) == 64 for log in logs))
+            self.assertTrue(all((Path(directory) / log["htmlPath"]).read_bytes() == response.content for log in logs))
+            self.assertNotIn("headers", logs[0])
+
+    def test_paced_session_failure_is_logged_and_waited(self):
+        with tempfile.TemporaryDirectory() as directory, patch.object(requests.Session, "request", side_effect=requests.Timeout), \
+             patch.object(scraper.time, "sleep") as sleep:
+            session = scraper.PacedArchiveSession(Path(directory))
+            with self.assertRaises(requests.Timeout):
+                session.get(self.url)
+            sleep.assert_called_once()
+            record = json.loads((Path(directory) / "requests.jsonl").read_text())
+            self.assertEqual(record["errorType"], "Timeout")
+            self.assertNotIn("headers", record)
 
 
 if __name__ == "__main__":

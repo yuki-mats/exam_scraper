@@ -111,6 +111,14 @@ class ScrapePresetTests(unittest.TestCase):
             "https://gassyunin.com/exam/otsu/otsu_2025/",
         )
 
+    def test_load_scrape_preset_for_gas_shunin_hei(self) -> None:
+        preset = load_scrape_preset("gas-shunin-hei")
+        self.assertEqual(preset.qualification_name, "ガス主任技術者丙種")
+        self.assertEqual(preset.scraper_type, "gassyunin")
+        self.assertEqual(preset.list_group_ids, [str(year) for year in range(2025, 2016, -1)])
+        self.assertEqual(preset.expected_question_count, 58)
+        self.assertEqual(build_list_first_page_url(preset, "2025"), "https://gassyunin.com/exam/hei/hei_2025/")
+
     def test_load_scrape_preset_for_gas_shunin_kou(self) -> None:
         preset = load_scrape_preset("gas-shunin-kou")
 
