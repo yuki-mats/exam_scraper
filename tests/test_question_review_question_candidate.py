@@ -2459,6 +2459,101 @@ class QuestionCandidateTest(unittest.TestCase):
                 ]
                 self.assertEqual(len(fields), len(set(fields)))
 
+    def test_output_schema_rejects_extra_or_missing_choice_audit_rows(self):
+        from tools.question_review_console.question_candidate import _matches_rule
+
+        targets = candidate_targets("q1", "law_audit", {
+            "allowedPatchFiles": [
+                "output/sample/questions_json/2026/18_law_context_prepared/q1.json",
+                "output/sample/questions_json/2026/21_explanationText_added/q1.json",
+                "output/sample/questions_json/2026/23_correctChoiceText_fixed/q1.json",
+            ],
+            "allowedWriteFiles": ["output/sample/review/law_revision_audit/2026.jsonl"],
+        })
+        schema = output_schema(["q1"], {"q1": targets}, current_record={
+            "choiceTextList": [f"語句{i}" for i in range(15)], "questionType": "flash_card",
+        })
+        fact = {
+            "auditStatus": "not_law_related", "reviewState": "secondary_verified",
+            "reconciliationStatus": "matched",
+            "examTime": {"correctChoiceText": "間違い"},
+            "current": {"correctChoiceText": "間違い"},
+            "differenceFacts": [], "answerImpactFacts": [], "notes": [],
+            "evidenceSummary": {"verdict": "間違い", "explanationText": "当該語句は定義に当たらない。",
+                "differenceSummary": "差分なし", "promptContext": "一問の定義を確認した。",
+                "displayRefIds": [], "refs": []},
+        }
+        values = {
+            "lawRevisionFacts": [fact] * 15, "lawReferences": [[]] * 15,
+            "correctChoiceText": ["間違い"] * 15,
+            "examTimeDecision": ["間違い"] * 15,
+            "currentLawDecision": ["間違い"] * 15,
+            "explanationText": ["正しい。定義と一致する。"],
+        }
+        fields = {x["properties"]["field"]["const"]: x["properties"]["value"]
+                  for x in schema["properties"]["update"]["properties"]["setFields"]["items"]["anyOf"]}
+        for field in set(values) - {"explanationText"}:
+            rule = fields[field]
+            if field == "lawRevisionFacts":
+                rule = next(v for v in rule["anyOf"] if v.get("type") == "array")
+            self.assertEqual((rule["minItems"], rule["maxItems"]), (15, 15))
+            self.assertTrue(_matches_rule(values[field], rule))
+            for count in (14, 16, 17):
+                with self.subTest(field=field, count=count):
+                    self.assertFalse(_matches_rule([values[field][0]] * count, rule))
+        # A flash card keeps one common explanation even though all 15 choices
+        # still require their own judgments and audit results.
+        self.assertTrue(_matches_rule(values["explanationText"], fields["explanationText"]))
+        self.assertFalse(_matches_rule(values["explanationText"] * 15, fields["explanationText"]))
+
+    def test_output_schema_explanation_cardinality_follows_current_question_type(self):
+        from tools.question_review_console.question_candidate import _matches_rule
+
+        targets = candidate_targets("q1", "explanation", self.plan())
+        for question_type, expected in (("true_false", 3), ("flash_card", 1), ("group_choice", 1)):
+            with self.subTest(question_type=question_type):
+                schema = output_schema(["q1"], {"q1": targets}, current_record={
+                    "choiceTextList": ["甲", "乙", "丙"], "questionType": question_type,
+                })
+                fields = {x["properties"]["field"]["const"]: x["properties"]["value"]
+                          for x in schema["properties"]["update"]["properties"]["setFields"]["items"]["anyOf"]}
+                self.assertTrue(_matches_rule(["正しい。"] * expected, fields["explanationText"]))
+                self.assertFalse(_matches_rule(["正しい。"] * (expected + 1), fields["explanationText"]))
+                # Supplementary questions and citations are sparse, not one per choice.
+                self.assertNotIn("minItems", fields["suggestedQuestionDetailsByChoice"])
+                self.assertNotIn("minItems", fields["explanationReferences"])
+
+    def test_output_schema_does_not_reuse_another_questions_choice_count(self):
+        from tools.question_review_console.question_candidate import _matches_rule
+
+        targets = candidate_targets("q1", "correct_choice", {
+            "allowedPatchFiles": ["output/sample/questions_json/2026/23_correctChoiceText_fixed/q1.json"],
+        })
+        first = output_schema(["q1"], {"q1": targets}, current_record={"choiceTextList": ["甲", "乙"]})
+        output_schema(["q1"], {"q1": targets}, current_record={"choiceTextList": ["丙"] * 15})
+        fallback = output_schema(["q1"], {"q1": targets})
+        def answer_rule(schema):
+            return next(x["properties"]["value"] for x in
+                schema["properties"]["update"]["properties"]["setFields"]["items"]["anyOf"]
+                if x["properties"]["field"]["const"] == "correctChoiceText")
+        self.assertTrue(_matches_rule(["正しい", "間違い"], answer_rule(first)))
+        self.assertFalse(_matches_rule(["正しい", "間違い"] * 2, answer_rule(first)))
+        self.assertTrue(_matches_rule(["正しい", "間違い"] * 2, answer_rule(fallback)))
+
+    def test_output_schema_originalization_may_change_choice_count(self):
+        from tools.question_review_console.question_candidate import _matches_rule
+
+        targets = candidate_targets("q1", "originalize", {
+            "allowedPatchFiles": ["output/sample/questions_json/2026/05_originalized/q1.json"],
+        })
+        schema = output_schema(["q1"], {"q1": targets}, current_record={
+            "choiceTextList": ["甲", "乙"], "questionType": "flash_card",
+        })
+        fields = {x["properties"]["field"]["const"]: x["properties"]["value"]
+                  for x in schema["properties"]["update"]["properties"]["setFields"]["items"]["anyOf"]}
+        self.assertTrue(_matches_rule(["甲", "乙", "丙"], fields["choiceTextList"]))
+        self.assertTrue(_matches_rule(["正しい", "間違い", "間違い"], fields["correctChoiceText"]))
+
     def test_output_schema_optional_choice_index_variants_are_disjoint(self):
         targets = candidate_targets("q1", "explanation", self.plan())
         schema = output_schema(["q1"], {"q1": targets})

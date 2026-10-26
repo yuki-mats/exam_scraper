@@ -1335,14 +1335,34 @@ def output_schema(
     expected_question_ids: Iterable[str],
     targets_by_question: Mapping[str, Iterable[CandidateTarget]],
     *, law_reference_discovery: bool = False, official_guidance_inputs=None,
+    current_record: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     question_ids = tuple(dict.fromkeys(str(value) for value in expected_question_ids))
     if len(question_ids) != 1:
         raise QuestionCandidateError("model候補は厳密に一問でなければなりません。")
     question_id = question_ids[0]
+    target_values = tuple(targets_by_question.get(question_id, ()))
     field_rules = _semantic_field_rules(
-        question_id, targets_by_question.get(question_id, ()), law_reference_discovery=law_reference_discovery,
+        question_id, target_values, law_reference_discovery=law_reference_discovery,
     )
+    # Post-05 stages consume this question's fixed choices. Constrain cardinality
+    # without choosing any verdict, copying another question, or resizing output.
+    # 05 itself may change the choices, so its output must remain unconstrained.
+    if current_record is not None and not any(target.role == "originalized" for target in target_values):
+        choices = current_record.get("choiceTextList")
+        if isinstance(choices, list) and choices:
+            choice_count = len(choices)
+            for field in ("correctChoiceText", "lawReferences", "examTimeDecision", "currentLawDecision"):
+                if field in field_rules:
+                    field_rules[field].update(minItems=choice_count, maxItems=choice_count)
+            for variant in field_rules.get("lawRevisionFacts", {}).get("oneOf", []):
+                if variant.get("type") == "array":
+                    variant.update(minItems=choice_count, maxItems=choice_count)
+            question_type = current_record.get("questionType")
+            explanation_count = (choice_count if question_type == "true_false" else
+                                 1 if question_type in {"flash_card", "group_choice"} else None)
+            if "explanationText" in field_rules and explanation_count is not None:
+                field_rules["explanationText"].update(minItems=explanation_count, maxItems=explanation_count)
     if official_guidance_inputs and set(official_guidance_inputs) != {question_id}:
         raise QuestionCandidateError('制度資料の固定出力に別の問題が含まれています。')
     fixed_guidance = (official_guidance_inputs or {}).get(question_id)
@@ -1354,7 +1374,6 @@ def output_schema(
         rule = field_rules['officialGuidanceReferences']
         for key in ('request', 'evidenceRef'):
             rule['properties'][key]['enum'] = [copy.deepcopy(fixed_guidance[key])]
-    target_values = tuple(targets_by_question.get(question_id, ()))
     must_set_fields = semantic_fields_must_be_set(target_values)
     field_names = sorted(set(field_rules) - must_set_fields)
     set_variants = [
