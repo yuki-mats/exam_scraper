@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 from tools.question_review_console import feedback_task_input as feedback_task
+from tools.question_review_console import supplemental_primary_evidence as supplemental_primary
 
 from tools.question_review_console.official_guidance_contract import validate_reference as validate_guidance, FIELD as GUIDANCE_FIELD
 
@@ -20,6 +21,7 @@ SCHEMA_VERSION = 'law-audit-verification/v1'
 JUDGMENT_GUIDANCE_SCHEMA = 'statement-judgment-guidance/v1'
 JUDGMENT_GUIDANCE_SOURCE = 'prompt/02a_prompt_review_correctChoiceText.md'
 JUDGMENT_GUIDANCE_HEADING = '## 判定基準'
+_UNSPECIFIED_SUPPLEMENTAL = object()
 
 
 def _json_hash(value):
@@ -65,11 +67,19 @@ def validate_statement_judgment_guidance(value: Mapping[str, Any], *, current=No
     return copy.deepcopy(dict(value))
 
 
-def validate_verification_bundle(bundle: Mapping[str, Any], *, repo_root=None):
+def validate_verification_bundle(bundle: Mapping[str, Any], *, repo_root=None,
+        expected_supplemental=_UNSPECIFIED_SUPPLEMENTAL):
     if bundle.get('evidenceHash') != _json_hash({key: value for key, value in bundle.items() if key != 'evidenceHash'}):
         raise ValueError('独立監査bundleの内容と根拠hashが一致しません。')
     official = bundle.get('proposedOfficialGuidanceEvidence')
     proposed_record = {**bundle['question']['currentRecord'], **bundle.get('proposedFields', {})}
+    supplemental = bundle['question'].get(supplemental_primary.FIELD)
+    if expected_supplemental is not _UNSPECIFIED_SUPPLEMENTAL and supplemental != expected_supplemental:
+        raise ValueError('独立監査の補助一次根拠がprimary入力と一致しません。')
+    if supplemental is not None:
+        supplemental_primary.validate(repo_root or Path(__file__).resolve().parents[2], supplemental,
+            record=bundle['question']['currentRecord'], question_id=bundle['question']['questionId'],
+            require_selected=True)
     for field in bundle.get('proposedUnsetFields', []): proposed_record.pop(field, None)
     references = proposed_record.get(GUIDANCE_FIELD)
     if official is not None or references is not None:

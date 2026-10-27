@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from tools.question_review_console import feedback_task_input as feedback_task
+from tools.question_review_console import supplemental_primary_evidence as supplemental_primary
 
 from tools.question_review_console.official_guidance_contract import (
     FIELD as GUIDANCE_FIELD, source_scope as official_guidance_scope,
@@ -2260,6 +2261,7 @@ def _structured_candidate_prompt(
     prepared_primary_evidence_by_question: Mapping[str, Mapping[str, Any]] | None = None,
     official_guidance_evidence_by_question: Mapping[str, Mapping[str, Any]] | None = None,
     feedback_task_requirements_by_question: Mapping[str, Mapping[str, Any]] | None = None,
+    supplemental_primary_evidence_by_question: Mapping[str, Mapping[str, Any]] | None = None,
 ) -> str:
     def nested_rule_field_names(
         candidate_targets: Iterable[CandidateTarget],
@@ -2399,6 +2401,14 @@ def _structured_candidate_prompt(
                 dict(primary_law_evidence)
             )
         task_input = (feedback_task_requirements_by_question or {}).get(question_id)
+        supplemental = (supplemental_primary_evidence_by_question or {}).get(question_id)
+        if supplemental is not None:
+            question[supplemental_primary.FIELD] = copy.deepcopy(supplemental)
+            question['supplementalPrimaryInstruction'] = (
+                'serverが公的資料の実bytesから抽出した限定本文であり、取得URL・原byteshash・本文hashを持つ。'
+                '取得成功は正誤・適用時点・法令関連性の承認ではない。全肢の完全命題と本文を照合し、'
+                '歴史統計と現在値、制度資料と法令本文を分ける。関連する実URLを根拠として記録し、'
+                '補助入力そのものはpatchに転載しない。e-Gov本文取得や別session監査を省略しない。')
         if task_input is not None:
             question['feedbackTaskRequirement'] = feedback_task.validate(task_input, question_id=question_id)
             question['feedbackTaskRequirementInstruction'] = (
@@ -15486,6 +15496,8 @@ class QualificationRunCoordinator:
                     if 'officialGuidanceEvidence' in question else {},
                 prepared_primary_evidence_by_question={question_id: question['preparedPrimaryEvidence']}
                     if 'preparedPrimaryEvidence' in question else {},
+                supplemental_primary_evidence_by_question={question_id: question[supplemental_primary.FIELD]}
+                    if supplemental_primary.FIELD in question else {},
                 current_record_fields=(batch_plan.get('readFieldsByStage') or {}).get('law_context'),
             ) + '\n# server取得後の02b再生成\n' + json.dumps({
                 'round': number, 'maximumRounds': 3, 'proposedLawReferences': proposed['lawReferences'],
@@ -15499,6 +15511,9 @@ class QualificationRunCoordinator:
                 'evidenceHash': sha256_json(evidence), 'generatedCandidateHash': sha256_json(_question_candidates_payload(generated)),
                 'execution': {'threadId': result.thread_id, 'sessionId': result.session_id, 'turnId': result.turn_id,
                     'model': result.model,
+                    **({'promptHash': hashlib.sha256(regenerated_prompt.encode('utf-8')).hexdigest(),
+                        'supplementalPrimaryInputHash': question[supplemental_primary.FIELD]['inputHash']}
+                        if supplemental_primary.FIELD in question else {}),
                     **({'promptHash': hashlib.sha256(regenerated_prompt.encode('utf-8')).hexdigest(),
                         'primaryEvidenceBundleHash': question['preparedPrimaryEvidence']['bundleHash']}
                         if 'preparedPrimaryEvidence' in question else {}), 'responseHash': hashlib.sha256(result.final_message.encode('utf-8')).hexdigest()}})
@@ -15836,6 +15851,17 @@ class QualificationRunCoordinator:
                         scope=official_guidance_scope(self.repo_root, qualification, target))
         if guidance_inputs:
             batch_plan['officialGuidanceInputs'] = copy.deepcopy(guidance_inputs)
+        supplemental_inputs = {}
+        if stage_id in {'law_context', 'explanation', 'law_audit'}:
+            for qid, record in records_by_question.items():
+                source_target = next(value for value in targets
+                    if str(value.get('id') or value.get('uiQuestionId')) == qid)
+                supplied = supplemental_primary.load(self.repo_root, qualification, source_target, record,
+                    current_as_of=str(parent_snapshot.get('startedAt') or _now())[:10])
+                if supplied is not None:
+                    supplemental_inputs[qid] = supplied
+        if supplemental_inputs:
+            batch_plan['supplementalPrimaryInputs'] = copy.deepcopy(supplemental_inputs)
         task_inputs = {}
         if single_spec.get('feedbackTaskRequirement') is not None:
             task_input = single_spec['feedbackTaskRequirement']
@@ -15876,6 +15902,7 @@ class QualificationRunCoordinator:
             ),
             official_guidance_evidence_by_question=guidance_inputs,
             feedback_task_requirements_by_question=task_inputs,
+            supplemental_primary_evidence_by_question=supplemental_inputs,
             prepared_primary_evidence_by_question={batch_question_ids[0]: prepared_primary_evidence}
                 if prepared_primary_evidence is not None else {},
             current_record_fields=(
@@ -15941,6 +15968,7 @@ class QualificationRunCoordinator:
                 prior_attempt_id
                 and prepared_primary_evidence is None
                 and not initial_guidance_loaded
+                and not supplemental_inputs
                 and "canonical_contention" in latest_issue_codes
             )
             else None
@@ -15948,7 +15976,7 @@ class QualificationRunCoordinator:
         if reusable_candidate is not None:
             reused_from_attempt_id = prior_attempt_id
             reused_reason = "canonical_prewrite_contention"
-        elif parent.get("resumedFrom") and prepared_primary_evidence is None and not initial_guidance_loaded:
+        elif parent.get("resumedFrom") and prepared_primary_evidence is None and not initial_guidance_loaded and not supplemental_inputs:
             reusable = self.store.reusable_prepared_candidate(
                 qualification,
                 str(parent["resumedFrom"]),
@@ -17083,7 +17111,8 @@ class QualificationRunCoordinator:
                         raise QualificationRunError('03bの実primary promptと命題判定guidanceの固定入力が一致しません。')
                     for verification in (prepared_execution_metadata.get('lawAuditVerification') or {}).values():
                         bundle = verification.get('bundle') or {}
-                        validate_law_verification_bundle(bundle, repo_root=self.repo_root)
+                        validate_law_verification_bundle(bundle, repo_root=self.repo_root,
+                            expected_supplemental=(batch_plan.get('supplementalPrimaryInputs') or {}).get(bundle['question']['questionId']))
                         if bundle['question'].get('feedbackTaskRequirement') != (batch_plan.get('feedbackTaskRequirements') or {}).get(bundle['question']['questionId']):
                             raise QualificationRunError('03b別sessionへ配送した改善要件がprimary入力と一致しません。')
                         validate_statement_judgment_guidance(bundle.get('question', {}).get('statementJudgmentGuidance'), current=guidance)
@@ -17119,6 +17148,15 @@ class QualificationRunCoordinator:
                         input_fingerprint=input_fingerprint_value, projected_input_hash=projected_input_hash)
                 elif prepared_execution_metadata.get('officialGuidanceDelivery'):
                     raise QualificationRunError('未配送の公式制度資料receiptがあります。')
+                supplemental_inputs = batch_plan.get('supplementalPrimaryInputs') or {}
+                if supplemental_inputs:
+                    actual_supplemental_prompt = _filter_structured_candidate_prompt(
+                        _prepared_primary_evidence_prompt(self.store, qualification, run_id), set(question_ids))
+                    supplemental_primary.delivery(self.repo_root, supplemental_inputs, actual_supplemental_prompt,
+                        law_question_inputs(actual_supplemental_prompt),
+                        prepared_execution_metadata.get('supplementalPrimaryDelivery') or {})
+                elif prepared_execution_metadata.get('supplementalPrimaryDelivery'):
+                    raise QualificationRunError('未配送の補助一次根拠receiptがあります。')
                 if stage_id == 'law_context':
                     proofs = prepared_execution_metadata.get('lawContextPrimaryEvidence') or {}
                     for candidate in candidates:
@@ -17228,6 +17266,11 @@ class QualificationRunCoordinator:
                             feedback_task.verify_delivery(task_input, candidate_prompt, task_delivery,
                                 binding=batch_plan['feedbackTaskRequirementBinding'], scope=scope)
                             prepared_execution_metadata['feedbackTaskRequirementDelivery'] = task_delivery
+                    supplemental_inputs = batch_plan.get('supplementalPrimaryInputs') or {}
+                    if supplemental_inputs:
+                        prepared_execution_metadata['supplementalPrimaryDelivery'] = supplemental_primary.delivery(
+                            self.repo_root, supplemental_inputs, candidate_prompt, law_question_inputs(candidate_prompt),
+                            thread_id=result.thread_id, turn_id=result.turn_id)
                     delivered_guidance = law_question_inputs(candidate_prompt)
                     delivered_guidance = {qid: value['officialGuidanceEvidence'] for qid, value in delivered_guidance.items()
                         if value.get('officialGuidanceEvidence') is not None}
@@ -17372,6 +17415,8 @@ class QualificationRunCoordinator:
                             proposed_primary_evidence=proposed_primary_evidence,
                             proposed_official_guidance_evidence=proposed_guidance_evidence,
                         )
+                        validate_law_verification_bundle(bundle, repo_root=self.repo_root,
+                            expected_supplemental=(batch_plan.get('supplementalPrimaryInputs') or {}).get(candidate.question_id))
                         review_count = law_required_review_count(fields)
                         reviews = []
                         executions = []
@@ -17601,6 +17646,11 @@ class QualificationRunCoordinator:
 
             for candidate in candidates:
                 if candidate.status == 'candidate':
+                    supplied_supplement = (batch_plan.get('supplementalPrimaryInputs') or {}).get(candidate.question_id)
+                    if supplied_supplement is not None:
+                        supplemental_primary.validate(self.repo_root, supplied_supplement,
+                            record=records_by_question[candidate.question_id], question_id=candidate.question_id,
+                            require_selected=True)
                     proposed_guidance_record = {**records_by_question[candidate.question_id], **law_candidate_fields(candidate)}
                     for update in candidate.updates:
                         if GUIDANCE_FIELD in update.unset_fields:

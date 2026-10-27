@@ -49,6 +49,10 @@
 - **第01工程の二段階確認**: 第01工程は、全問題に対して同じsource snapshotを使う独立したread-onlyレビューを2回実行し、serverが結果を照合してから通常の問題形式候補を生成する（不一致時は一度だけread-only裁定を実行し、判定不能・境界不明・hash不一致は問題単位の`hold`とする）。レビューの詳細schemaはproductionコードを正本とし、この文書には複製しない。合意済みspanからの本文切り出しはserverが決定的に行う。
 - **進行と状態分離**: 不変の対象・工程契約は`plan.json`、一問の可変状態は`questions/<questionIdのsha256>.json`（`question-maintenance-question/v3`、大きな不変payloadは`attempt_payloads/`へ分離）、表示用集計は60秒周期で更新する派生`question_summary.json`へ分離する。先行工程の確定patchは物理Mergeを挟まず共通projectionで次工程へ渡す。品質検査不合格はfeedback付きで最大3回（初回＋再試行2回）まで試行し、失敗問は`blocked`として依存後続だけを保留して他問を進めさせる。source本文更新で分解hashが変わった場合は旧分解patchを引き継がず01から再判定する。
 
+## 補助一次資料の入力
+
+通常整備で、条文だけでは確認できない施策目標・歴史統計・制度の沿革を扱う場合は、`python -m tools.question_review_console.supplemental_primary_evidence --qualification <code> --list-group-id <group> --source-record-ref <file#index> --source <登録資料ID>`で公的一次資料を取得できる。URL・抽出範囲は同moduleの資料catalogを正本とし、元bytes、限定本文、保全source、問題文と全肢、取得日をprivate入力へ固定する。既存入力の置換には読戻したSHAを`--replace-if-sha`で指定し、旧入力も保持する。登録自体は問題・作業版・評価を変更しないため、必要な02b・03・03bを明示して再整備する。serverは同じ本文を通常候補、02bの取得後再生成、03bの別sessionへ渡し、実promptとnative thread/turnの配送証跡、raw bytesと抽出本文、現在の資料選択を保存前に再検証する。取得成功だけで適用性・正誤を承認せず、e-Gov本文、通常監査、別session評価及び公開条件を維持する。この補助入力はFirestore field又は改善報告の台帳要件へ流用しない。
+
 ## 作業バージョン
 
 工程版は[`config/question_maintenance_workflow.toml`](../../config/question_maintenance_workflow.toml)の`policy_version`だけを`MAJOR.MINOR`形式で管理します（洗い替え不要はMINOR、必要はMAJOR更新、未証明の公開済み初期値は`v0.0`）。成功receiptを検証した対象だけを`output/question_review_console/<qualification>/<listGroupId>/work_versions/<reviewKeyのsha256先頭24桁>.json`へ一問ずつ記録します。`stateHash`変更又は現行MAJOR未満は再整備、評価MAJOR変更は再評価の対象です。
