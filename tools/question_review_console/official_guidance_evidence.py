@@ -18,6 +18,7 @@ import re
 import tempfile
 from urllib.parse import urljoin, urlsplit
 import urllib.request
+import xml.etree.ElementTree as ET
 
 from tools.question_review_console.http_transport import IPv4HTTPSHandler
 
@@ -39,6 +40,22 @@ ENV_BASEL_REFERENCE_PROVIDER = 'env_basel_reference_excerpt'
 ENV_BASEL_REFERENCE_INDEX_URL = 'https://www.env.go.jp/press/103133.html'
 ENV_FOREST_REFERENCE_PROVIDER = 'env_forest_principles_reference'
 ENV_FOREST_REFERENCE_INDEX_URL = 'https://www.env.go.jp/policy/hakusyo/h24/pdf.html'
+EU_SUP_PROVIDER = 'eu_sup_consolidated_20260812'
+EU_SUP_CELLAR_ID = 'a7d357bb-6f48-11f1-ae88-01aa75ed71a1'
+# Use the publication's observed RDF export instead of its dynamic portal HTML.
+# Raw metadata bytes remain part of the same strict refresh hash as every PDF.
+EU_SUP_INDEX_URL = ('https://op.europa.eu:443/en/publication-detail?'
+    'p_p_id=publicationDetailsActions_PublicationDetailsActionsPortlet_INSTANCE_P7Lc96wTRLvv'
+    '&p_p_lifecycle=2&p_p_state=normal&p_p_mode=view&p_p_cacheability=cacheLevelPage'
+    '&_publicationDetailsActions_PublicationDetailsActionsPortlet_INSTANCE_P7Lc96wTRLvv_requestAction=rdf'
+    '&cellarId=' + EU_SUP_CELLAR_ID + '&nonInferred=true')
+EU_SUP_PDF_URL = ('https://publications.europa.eu/resource/cellar/'
+    + EU_SUP_CELLAR_ID + '.0001.03/DOC_1')
+EU_SUP_ORIGINAL_PDF_URL = ('https://publications.europa.eu/resource/cellar/'
+    'ab83570c-8cc8-11e9-9369-01aa75ed71a1.0006.01/DOC_1')
+EU_SUP_TITLE = ('Directive (EU) 2019/904 of the European Parliament and of the Council of '
+    '5 June 2019 on the reduction of the impact of certain plastic products on the environment '
+    '(Text with EEA relevance)')
 ENV_BASEL_REFERENCE_SECTION = (
     '中央環境審議会循環型社会部会特定有害廃棄物等の輸出入等の規制の在り方に関する専門委員会、'
     '産業構造審議会産業技術環境分科会廃棄物・リサイクル小委員会'
@@ -119,6 +136,15 @@ def _pages(value):
 
 def _official_url(url, *, pdf=False, provider=PROVIDER):
     source = _source(provider)
+    if provider == EU_SUP_PROVIDER:
+        # The publication office's normal download link uses a query. Allow
+        # only the two observed documents, never arbitrary portal parameters,
+        # languages, publication IDs or redirects. Existing providers keep
+        # their query-free HTTPS contract.
+        allowed = {EU_SUP_PDF_URL, EU_SUP_ORIGINAL_PDF_URL} if pdf else {EU_SUP_INDEX_URL}
+        if _text(url) not in allowed:
+            raise OfficialGuidanceEvidenceError('named English EU publication URL required')
+        return url
     parts = urlsplit(_text(url))
     if (parts.scheme != 'https' or parts.netloc != source.hostname
             or parts.username or parts.password or parts.query or parts.fragment
@@ -408,6 +434,71 @@ def _forest_reference_link(data, current_as_of):
     return links[0][0], heading + ' / ' + links[0][1], None
 
 
+def _eu_sup_link(data, current_as_of):
+    if _date(current_as_of) < date(2026, 8, 12):
+        raise OfficialGuidanceEvidenceError('named EU consolidation is after requested date')
+    if b'<!DOCTYPE' in data.upper() or b'<!ENTITY' in data.upper():
+        raise OfficialGuidanceEvidenceError('plain official RDF metadata required')
+    try:
+        root = ET.fromstring(data)
+    except ET.ParseError as exc:
+        raise OfficialGuidanceEvidenceError('official publication RDF required') from exc
+    rdf = '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}'
+    cdm = '{http://publications.europa.eu/ontology/cdm#}'
+    owl = '{http://www.w3.org/2002/07/owl#}'
+    if root.tag != rdf + 'RDF':
+        raise OfficialGuidanceEvidenceError('official publication RDF root required')
+    nodes = {}
+    for node in root:
+        subject = node.get(rdf + 'about')
+        if node.tag != rdf + 'Description' or not subject or subject in nodes:
+            raise OfficialGuidanceEvidenceError('unique RDF publication subjects required')
+        nodes[subject] = node
+
+    def values(node, property):
+        return [child.get(rdf + 'resource', child.text or '')
+            for child in node.findall(property)]
+
+    work = 'http://publications.europa.eu/resource/consolidation/2019L0904%2F20260812_0010010'
+    work_node = nodes.get(work)
+    if (work_node is None or values(work_node, cdm + 'act_consolidated_date') != ['2026-08-12']
+            or values(work_node, cdm + 'act_consolidated_based_on_resource_legal')
+            != ['http://publications.europa.eu/resource/celex/32019L0904']):
+        raise OfficialGuidanceEvidenceError('named directive consolidation identity differs')
+    expressions = [(subject, node) for subject, node in nodes.items()
+        if values(node, cdm + 'expression_belongs_to_work') == [work]
+        and values(node, cdm + 'expression_uses_language')
+        == ['http://publications.europa.eu/resource/authority/language/ENG']]
+    if len(expressions) != 1:
+        raise OfficialGuidanceEvidenceError('unique English EU expression required')
+    expression, node = expressions[0]
+    titles = values(node, cdm + 'expression_title')
+    if len(titles) != 1 or ' '.join(titles[0].split()) != EU_SUP_TITLE:
+        raise OfficialGuidanceEvidenceError('actual English directive title differs')
+    manifestations = [subject for subject, node in nodes.items()
+        if values(node, cdm + 'manifestation_manifests_expression') == [expression]
+        and values(node, cdm + 'manifestation_type') == ['pdfa2a']]
+    if len(manifestations) != 1:
+        raise OfficialGuidanceEvidenceError('unique English PDF manifestation required')
+    aliases = [subject for subject, node in nodes.items()
+        if values(node, owl + 'sameAs') == manifestations]
+    if aliases != [EU_SUP_PDF_URL.rsplit('/', 1)[0].replace('https:', 'http:')]:
+        raise OfficialGuidanceEvidenceError('unique English PDF Cellar identity required')
+    items = [subject for subject, node in nodes.items()
+        if values(node, cdm + 'item_belongs_to_manifestation') == aliases
+        and values(node, cdm + 'item_identifier') == ['DOC_1']]
+    if len(items) != 1:
+        raise OfficialGuidanceEvidenceError('unique English PDF item required')
+    url = items[0].replace('http://publications.europa.eu/',
+        'https://publications.europa.eu/', 1)
+    _official_url(url, pdf=True, provider=EU_SUP_PROVIDER)
+    if url != EU_SUP_PDF_URL:
+        raise OfficialGuidanceEvidenceError('current EU item must be the named consolidation')
+    # Fixed consolidation, not latest-edition discovery. The PDF independently
+    # confirms the date; retrieval/date-of-consolidation is not publication day.
+    return url, 'Directive (EU) 2019/904 — consolidation as at 12 August 2026', None
+
+
 @dataclass(frozen=True)
 class _Source:
     index_url: str
@@ -438,6 +529,9 @@ _SOURCES = {
     ENV_FOREST_REFERENCE_PROVIDER: _Source(ENV_FOREST_REFERENCE_INDEX_URL, 'www.env.go.jp',
         r'/policy/hakusyo/h24/pdf/4_term\.pdf', 'actual_official_index_link',
         SOURCE_KIND, _forest_reference_link),
+    EU_SUP_PROVIDER: _Source(EU_SUP_INDEX_URL, 'op.europa.eu',
+        r'/resource/cellar/[^/]+/DOC_1', 'actual_official_rdf_and_pdf_identity',
+        'official_consolidated_eu_act', _eu_sup_link),
 }
 PROVIDERS = tuple(_SOURCES)
 
@@ -608,12 +702,27 @@ class OfficialGuidanceEvidenceResolver:
         if not isinstance(fetched, OfficialGuidanceFetch) or not isinstance(fetched.data, bytes):
             raise OfficialGuidanceEvidenceError('actual retrieval response required')
         _official_url(fetched.resolved_url, pdf=pdf, provider=provider)
-        expected = 'application/pdf' if pdf else 'text/html'
+        expected = ('application/pdf' if pdf else
+            'application/rdf+xml' if provider == EU_SUP_PROVIDER else 'text/html')
         if (not fetched.data or len(fetched.data) > maximum or fetched.content_type != expected
                 or (pdf and not fetched.data.startswith(b'%PDF-'))):
             raise OfficialGuidanceEvidenceError('official response type/size/content differs')
+        self._document_identity(provider, url, fetched.data, pdf=pdf)
         self._store(fetched.data)
         return fetched
+
+    def _document_identity(self, provider, url, data, *, pdf):
+        if provider != EU_SUP_PROVIDER or not pdf:
+            return
+        first = ' '.join(self._selection(data, [1])[0]['text'].split())
+        if 'DIRECTIVE (EU) 2019/904' not in first.upper():
+            raise OfficialGuidanceEvidenceError('actual EU directive title missing from PDF')
+        if url == EU_SUP_PDF_URL:
+            if not re.search(r'02019L0904\s*[—-]\s*EN\s*[—-]\s*12\.08\.2026', first):
+                raise OfficialGuidanceEvidenceError('actual English EU consolidation date differs')
+        elif ('02019L0904' in first or '5 June 2019' not in first
+                or 'Official Journal of the European Union' not in first):
+            raise OfficialGuidanceEvidenceError('actual original Official Journal text required')
 
     def _selection(self, data, pages):
         extracted = self.extractor(data, pages)
@@ -727,6 +836,7 @@ class OfficialGuidanceEvidenceResolver:
             raw = self._bytes(document['byteHash'])
             if not raw.startswith(b'%PDF-') or len(raw) > MAX_PDF_BYTES:
                 raise OfficialGuidanceEvidenceError('official PDF bytes/type differ')
+            self._document_identity(request['provider'], document['sourceUrl'], raw, pdf=True)
             selected = self._selection(raw, pages)
             if document['pages'] != selected or document['pageSelectionHash'] != _json_hash(selected):
                 raise OfficialGuidanceEvidenceError('official PDF selected page bytes/text changed')
