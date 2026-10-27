@@ -148,5 +148,43 @@
     "trackedCodeOrPromptChanged": false,
     "otherWorktreeChanges": "他作業の変更は保持し、この記録だけをstageする。"
   },
-  "nextAction": "新規mondai4_51を原画像・自問の本文・全候補・正答・解説で確認し、必要な工程から逐次整備する。"
+  "nextAction": "新規mondai4_52を原画像2枚と全データで照合し、05以降の必要工程・検査・別session評価を逐次進める。9件のsource差異は未承認のまま保持。",
+  "lastUpdatedAt": "2026-10-27T22:28:53.257069+00:00",
+  "subsequentQuestion51": {
+    "sourceRecordRef": "question_mondai4_51.json#0",
+    "sourceQuestionKey": "eco-kentei:knoun-2026-mock-4:bb67422eb5e52e9c",
+    "questionId": "c8a59506e3333c17b619c2ef",
+    "stateHash": "11dceb6d5e2e33df987d225c33be3a7432d0bf822ec08bfc4e096ce3ecde5e29",
+    "evaluationSessionId": "01a17f77-1d14-74d1-97b5-ab35d9661379",
+    "verifiedChoiceCount": 4,
+    "explanationScore": 100,
+    "evaluationReceipt": "output/eco-kentei/reports/mondai4_51_evaluation_result_20261028.json",
+    "evaluationReceiptSha256": "2c0938926d21c5a56cfb17b3bf420b0e3c73e3fb565006326d5a4fbcabf248a7",
+    "receipt": "output/eco-kentei/reports/turn_receipts/mondai4_51_3r_accepted_20261028.json",
+    "receiptSha256": "db595f7af25975a3a7fb8a698f2e38b676150c226d70ae5510edac337b114348",
+    "sourceImagesActuallyRead": true,
+    "changes": "独自候補の曖昧な通称をICNND正式名へ明確化。全4候補の意味と見分け方を共通解説へ保存。03の確認日を記事公表日と区別し、04循環型社会カテゴリを確定。sourceと原画像は保持。",
+    "targetedChecksPassed": 6,
+    "validationReceipt": "output/eco-kentei/reports/mondai4_51_validation_20261028/twenty_one_current_validation.json",
+    "validationReceiptSha256": "f1e7e142d7bc40d0e8f5ff27a8e1df24bdea0d483f9f759dcdb0bb2ec47f827e",
+    "currentAcceptedScope": {
+      "sourceQuestionCount": 21,
+      "actualLearningQuestionCount": 36,
+      "convertedDocumentCount": 164,
+      "choiceOnlyDocumentCount": 128,
+      "acceptanceReceipt": "output/eco-kentei/reports/mondai4_51_validation_20261028/twenty_one_current_acceptance.json",
+      "acceptanceReceiptSha256": "37d3798d735308dcec4e08922e77967405bca0b077f6c08accd9ff59de184d3a",
+      "uploadReadyArchive": "output/eco-kentei/reports/mondai4_51_validation_20261028/verified_upload_ready.json",
+      "uploadReadyArchiveSha256": "8132d15a76e19d217c2cafc8d72f87e3da342a0431162857f7c131cd341d9443",
+      "currentReadbackSnapshots": "output/eco-kentei/reports/mondai4_51_validation_20261028/accepted_current_readbacks",
+      "previousTwentyStateHashesAndEvaluationsUnchanged": true,
+      "frozenConvertedReadbacksComparedAndUnchanged": [
+        "question_mondai4_32.json#0",
+        "question_mondai4_33.json#0",
+        "question_mondai4_34.json#0",
+        "question_mondai4_35.json#0"
+      ],
+      "scopeLimit": "21件の受入であり、395問全体の完了ではない。"
+    }
+  }
 }
