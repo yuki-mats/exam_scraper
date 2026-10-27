@@ -1,0 +1,45 @@
+{
+  "schemaVersion": "hei-user-stop-receipt/v1",
+  "stoppedAt": "2026-10-27T22:35:06.921153+09:00",
+  "request": "問題整備システムでの整備は停止します。",
+  "maintenanceServerListening": false,
+  "activeMaintenanceRuns": 0,
+  "productionWritesPerformed": false,
+  "sourceFilesUnchanged": 27,
+  "category": {
+    "folders": 6,
+    "questionSets": 37,
+    "published": false
+  },
+  "pilot": {
+    "year": 2025,
+    "processed": 58,
+    "validated": 44,
+    "blocked": 14,
+    "remainingYearsStarted": false
+  },
+  "verification": {
+    "focusedTests": {
+      "passed": 143
+    },
+    "additionalTests": {
+      "total": 253,
+      "failures": 3,
+      "completed": true,
+      "log": "output/gas-shunin-hei/production/20261027/T006-related-tests-attempt1.log"
+    }
+  },
+  "unfinishedImplementation": "ローカル変更を保持。未完了・未コミット。修正・追加検証・本番公開を再開しない。",
+  "unfinishedFilesSha256": {
+    "scripts/common/question_answer_contract.py": "64bcb21c15703e7ce274d8fa5d8c319134c5e2d7ef8a0b6a32ee7d0dfb74689a",
+    "scripts/merge/question_issue_corrections.py": "9905b28374326d0ec1c96118b65b1e20faea8efd688eb7946f0ae0abfc99f1d4",
+    "scripts/merge/record_projection.py": "e8b3b2140789057853c37f1ea0dd59cbd4caeee05c430cdf2b7a586012d41a43",
+    "tests/test_question_answer_contract.py": "10f0daf4127438f5d1a3a8567d52ced41077de3ecab280c7b08d747f66b58cb2",
+    "tests/test_question_review_projection.py": "2e27f5caf7f751da3942c536cd29e90d9d717cea0d3d46bb5205cb5dfdfacaa3",
+    "tests/test_question_review_question_candidate.py": "6ae07c80ee01190009ade5fce4cdcb6a1897736059c978b439227bdd9c5508f9",
+    "tools/question_review_console/inventory.py": "3963485339c73d7a9de6bbe0970713c9110e0f3d99f29089b503fb2d3a582e8c",
+    "tools/question_review_console/projection.py": "7891d42f3cd7aa0c4315207fdc65f8b5de45f19e89dae09b5391789349440efa",
+    "tools/question_review_console/qualification_runs.py": "3ee992270813ebc357f55a01ff73177d70e1ec3c2aecf67d920c8ef93a0b49c6",
+    "tools/question_review_console/question_candidate.py": "c9d947740e5f417efafa3fd421ae590d58127cd5b74da2f25e1c948591cbf4ca"
+  }
+}

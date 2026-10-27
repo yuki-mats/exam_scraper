@@ -4,7 +4,7 @@ goal:
   slug: gas-shunin-hei-production
   kind: specific
   tranche: 必要整備・検証・本番反映・読み戻しまで完了する
-  status: active
+  status: blocked
   oracle:
     signal: 522原問の整備済み公開artifactとFirestore全件一致、分類参照と件数・画像・公式年度一致
     cadence: 工程境界と公開直後
@@ -26,6 +26,12 @@ goal:
       - 公式PDF修正パッチ済み
       - 00_source保持
       - 本番公開は明示承認済み
+  suspension:
+    status: paused_by_user
+    at: '2026-10-27T22:35:06.921153+09:00'
+    request: 問題整備システムでの整備は停止します。
+    resumeRequiresExplicitUserRequest: true
+    previousContinuousUntilFullOutcome: true
 rules:
   pm_owns_state: true
   one_active_task: true
@@ -34,7 +40,7 @@ rules:
   no_completion_without_judge_or_pm_audit: true
   planning_is_not_completion: true
   queued_required_worker_blocks_completion: true
-  continuous_until_full_outcome: true
+  continuous_until_full_outcome: false
   missing_input_or_credentials_do_not_stop_goal: true
   exact_human_approval_can_terminal_wait: true
   preserve_and_validate_existing_plan: true
@@ -57,7 +63,7 @@ visual_board:
     url: http://goalbuddy.localhost:41737/gas-shunin-hei-production/
     command: node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs
       --goal docs/goals/gas-shunin-hei-production
-active_task: T006
+active_task: null
 tasks:
   - id: T001
     type: scout
@@ -264,7 +270,7 @@ tasks:
   - id: T006
     type: pm
     assignee: PM
-    status: active
+    status: blocked
     objective: 公式question_content訂正を共通pre01 baseへ適用する責務を実装し、2025法令問3の公式構造復元を通常24レビュー・01独立集約レビュー・02a正答精査まで通す。新しいmapping専用fieldを追加せず、00_sourceと公式番号を保持する。
     allowed_files: *id001
     verify: *id002
@@ -274,13 +280,21 @@ tasks:
     constraints: *id004
     expected_output:
       - 共有baseの回復と実在法3のnative再整備・機械整合
-    receipt: null
+    receipt:
+      result: blocked
+      reason: ユーザーの明示指示による停止。自動再開しない。
+      stopped_by_user: true
+      full_outcome_complete: false
   - id: T002
     type: pm
     assignee: PM
-    status: queued
+    status: blocked
     objective: 分類を設計し、各問の必要整備と評価・公開artifactを完成させる
-    receipt: null
+    receipt:
+      result: blocked
+      reason: ユーザーの明示指示による停止。自動再開しない。
+      stopped_by_user: true
+      full_outcome_complete: false
     inputs:
       - T001 receipt
       - T002-category-adoption.json
@@ -289,21 +303,33 @@ tasks:
   - id: T003
     type: judge
     assignee: Judge
-    status: queued
+    status: blocked
     objective: 本番書込み前の対象・検証・復旧証跡を監査する
-    receipt: null
+    receipt:
+      result: blocked
+      reason: ユーザーの明示指示による停止。自動再開しない。
+      stopped_by_user: true
+      full_outcome_complete: false
   - id: T004
     type: pm
     assignee: PM
-    status: queued
+    status: blocked
     objective: 丙種の問題と関連設定を本番反映し全件読み戻す
-    receipt: null
+    receipt:
+      result: blocked
+      reason: ユーザーの明示指示による停止。自動再開しない。
+      stopped_by_user: true
+      full_outcome_complete: false
   - id: T999
     type: judge
     assignee: Judge
-    status: queued
+    status: blocked
     objective: ユーザー依頼の全項目と本番一致を最終監査する
-    receipt: null
+    receipt:
+      result: blocked
+      reason: ユーザーの明示指示による停止。自動再開しない。
+      stopped_by_user: true
+      full_outcome_complete: false
 checks:
   dirty_fingerprint: unknown
   last_verification:
