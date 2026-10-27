@@ -24,6 +24,7 @@
 | `pingt` | `mondai.ping-t.com` | `scrape_pingt.py` | subjectの検索一覧と問題詳細をGET。ログイン必須、1問1ファイルで再開する。 | [抽出契約](ping-t/ping-t_source_contract.md), `tests/test_scrape_pingt.py`, `tests/test_scrape_presets.py` |
 | `keepitup` | `aws.keepitup.jp` | `scrape_keepitup.py` | course topから問題系列と一覧ページを発見し、問題IDごとの解答・解説ページをGET。公開ページ、1問1ファイルで再開・内容更新する。 | [抽出契約](keepitup/keepitup_source_contract.md), `tests/test_scrape_keepitup.py`, `tests/test_scrape_presets.py` |
 | `udemy` | `*.udemy.com` | `scrape_udemy.py` | ログイン済みブラウザの演習テストreviewを一時exportし、quiz IDと問題番号ごとに保存・再照合する。 | [抽出契約](udemy/udemy_source_contract.md), `tests/test_scrape_udemy.py`, `tests/test_scrape_presets.py` |
+| `knoun` | `knoun.jp` | `scripts/scrape/knoun_images.py`, `scripts/scrape/knoun.py` | 専用ブラウザで問題・解説画像を取得し、目視照合後に登録。ログイン必須。 | [抽出契約](knoun/source_contract.md), `tests/test_scrape_presets.py` |
 
 ## site別の要点
 

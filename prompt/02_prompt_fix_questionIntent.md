@@ -1,77 +1,33 @@
 # 02 `questionIntent`判定
 
-このpromptは、一問ごとの`logicalProjection`から、設問が正しい側と誤っている側のどちらを選ばせるかを確定する工程の正本です。`correctChoiceText`を決める工程ではありません。
-
-fieldの型と工程間の不変条件は[問題field契約](../document/reference/question_field_contract.md)、保存先と固定名は[artifact契約](../document/operations/artifact_contract.md)を優先します。
+このpromptは、一問ごとの`logicalProjection`から、設問が成立する側（`select_correct`）と成立しない側（`select_incorrect`）のどちらを選ばせるかを確定する工程の正本です。fieldの型は[問題field契約](../document/reference/question_field_contract.md)、保存先は[artifact契約](../document/operations/artifact_contract.md)を参照します。
 
 ## 入力と責務
 
-- 入力は`00_source`と確定済みpatchを重ねた`logicalProjection`です。物理的なmerged artifactを02の前提にしません。
-- 選択肢がそれだけで真偽を判定できる完結記述か、本文の述語が必要な断片肢かを、各肢の構造から先に区別します。
-- 完結記述肢では、`questionBodyText`の「正しい」「誤っている」などの指示を、成立する記述側と成立しない記述側のどちらを選ぶかにだけ使います。
-- 設備名、サービス名、名詞句、数値などの断片肢では、本文の述語を各肢へ一度だけ補って完全命題を作ります。その完全命題が成立する側を選ぶなら`select_correct`、成立しない側を選ぶなら`select_incorrect`です。本文中の否定語だけを見て自動反転しません。
+- 入力は、`00_source`と先行patchを重ねた`logicalProjection`です。
 - 02が所有するfieldは`questionIntent`だけです。`correctChoiceText`、`answer_result_text`、`questionType`、問題文、選択肢、解説、IDを変更しません。
-- 現在の`questionIntent`、正答番号又は`correctChoiceText`から方向を逆算しません。設問の要求だけから独立に確定します。
-- 合意済みの`aggregateAnswerDecomposition`で記述を抽出した問題では、元の個数・組合せ候補は`originalAggregateAnswerEvidence`に分離されています。候補が現在の`choiceTextList`にないこと自体を欠落とせず、完全な抽出記述と元の設問指示から選択方向を判定します。例えば「適切なものはいくつあるか」は適切な記述側を要求します。元の正答個数から方向を逆算しません。分解の原文hash・範囲が不整合なら保留します。
-- 選択肢が行為や観察結果を述べ、設問がその中から特定の条件に該当するものを選ばせる場合は、各肢とその条件の適合を判定します。例えば「監査の指摘事項に該当する行為」を選ぶ設問では、指摘事項に該当する側が`select_correct`です。行為自体が望ましくないことを理由に`select_incorrect`へ反転しません。一方、記述そのものの正誤を問う設問では、記述の真偽に従います。
-- 解答指示が欠けている、OCR崩れや二重否定で方向を一意に読めない、又は画像なしでは判断できない問題は`hold`（構造化候補では`status=blocked`）にします。現在値や多数派を既定値にしません。
+- 現在の`questionIntent`、公式解答番号、`correctChoiceText`から逆算せず、問題文と選択肢の構造だけから独立に確定します。
+- `aggregateAnswerDecomposition`で記述を分解済みの問題は、元の個数・組合せ候補が`originalAggregateAnswerEvidence`へ分離されています。抽出記述と元の設問指示（例：「適切なものはいくつあるか」→`select_correct`）から判定し、分解hash・範囲が不整合なら保留します。
+- 解答指示の欠落、OCR崩れ、画像不足、補う述語の曖昧さにより方向を一意に読めない問題は`hold`（構造化候補では`status=blocked`）にします。
 
 ## 判定基準
 
 | 値 | 設問が求めるもの |
 | --- | --- |
-| `select_correct` | 条件に合う、正しい、適切又は成立する選択肢を選ぶ。 |
-| `select_incorrect` | 条件に合わない、誤り、不適切又は成立しない選択肢を選ぶ。 |
+| `select_correct` | 完全命題として読んだとき、条件に合う・正しい・適切・成立する選択肢を選ぶ。 |
+| `select_incorrect` | 完全命題として読んだとき、条件に合わない・誤り・不適切・成立しない選択肢を選ぶ。 |
 
-`questionIntent`は、各肢を完全命題として読んだとき、成立する側と成立しない側のどちらを答えとして選ばせるかを表します。
+最初に選択肢の構造を確認し、次の基準で判定します。どちらの値にも既定値や優先順位はありません。
 
-- 「次の記述のうち、正しいものはどれか」は`select_correct`です。
-- 「次の記述のうち、誤っているものはどれか」は`select_incorrect`です。
-- 「気体と材料の組合せとして、最も不適切なものはどれか」は、選択肢が名詞句の組合せでも`select_incorrect`です。
-- 「次の設備のうち、この規定に該当しないものはどれか」で選択肢が設備名だけなら、「設備Xはこの規定に該当しない」という完全命題が成立する肢を選ぶため`select_correct`です。
-- 「機能試験を行う時期として、必要性の低い時期はどれか」のように、本文の述語を選択肢へ補う問題は、「時期Xは必要性が低い」という完全命題が成立する肢を選ぶため`select_correct`です。「低い」「不要」「該当しない」などの否定的な語だけで`select_incorrect`へ反転しません。
-- 選択肢が本文中の下線部を指す番号だけなら、番号は本文中の語句又は記述を選ぶためのポインタです。例えば「誤っている語句はどれか」では、参照先の語句を正しいか誤りか判定し、誤っている参照先を選ばせるため`select_incorrect`です。番号肢へ「下線部Nは誤っている」という設問の選択条件を付け足して`select_correct`へ反転しません。
-- 「誤っている記述はいくつあるか」で各肢が真偽判定できる完結記述なら`select_incorrect`です。各肢が「〜の場合」のような断片で、補う述語を一意に定められない場合は`hold`にします。
+1. **完結記述肢**（選択肢だけで真偽判定できる文）:
+   - 本文の選択指示に従う。「正しいものはどれか」は`select_correct`、「誤っているものはどれか」「誤っている記述はいくつあるか」は`select_incorrect`。
+   - 行為や観察結果を並べて「監査の指摘事項に該当する行為はどれか」のように条件適合を問う設問は、該当する側を選ぶため`select_correct`とする（行為自体の善悪で反転しない）。
+2. **断片肢**（設備名・用語・数値・時期などの名詞句）:
+   - 本文の述語を否定語も含めて一度だけ補い、完全命題を作る。例えば「規定に該当しない設備はどれか」「必要性の低い時期はどれか」は、「設備Xは規定に該当しない」「時期Xは必要性が低い」が成立する肢を選ぶため`select_correct`とする。本文の否定語だけで`select_incorrect`へ反転しない。
+   - 例外として、「気体と材料の組合せとして最も不適切なものはどれか」のように対応の適否自体を問う組合せ肢で不適切側を選ぶ設問は`select_incorrect`とする。
+3. **本文下線部への番号ポインタ肢**:
+   - 選択肢が下線部番号だけの場合は本文中の語句・記述へのポインタとして扱う。「誤っている語句はどれか」は誤った参照先を選ぶため`select_incorrect`とし、「下線部Nは誤っている」を補って反転しない。
 
-断片肢で補った完全命題の正誤方向を確定することと、02aで各肢の`correctChoiceText`を独立判定することは別工程です。02は`correctChoiceText`を変更せず、02aは完全命題を改めて判定し公式解答と照合します。
+## 出力と検証
 
-どちらの値にも意味上の優先順位や既定値はありません。
-
-## 出力
-
-問題整備システムでは、指定されたJSON Schemaに従い、各問題の候補に`questionIntent`だけを設定します。`hold`では更新候補を返しません。
-
-手動又はbatch運用で全問を確定できた場合のAI生出力JSONは、元の順序と件数を保ち、各要素を次の2fieldだけにします。`original_question_id`がなければ`public_question_id`を使います。一問でも`hold`なら現在値で行を埋めず、そのbatchを正式patchへmaterializeしません。
-
-```json
-[
-  {
-    "original_question_id": "92e46de21bcb2232",
-    "questionIntent": "select_incorrect"
-  }
-]
-```
-
-正式patchは同じ`list_group_id`の`15_correctChoiceText_fixed/<source_stem>_merged_correctChoiceText_fixed.json`へ固定名で保存します。ディレクトリ名は互換上維持しますが、この工程の所有fieldは`questionIntent`だけです。serverは`sourceQuestionKey`、`reviewQuestionId`、`sourceRecordRef`と互換用の識別fieldを機械的に付けます。旧patchにある`questionIntent_changed`、`questionIntent_change_detail`、`questionIntent_change_reason`は現行工程の必須fieldではありません。
-
-```bash
-python3 tools/question_bank/question_bank.py materialize-patch \
-  --task question_intent \
-  --source <logical_projection.json> \
-  --raw <minimal.json> \
-  --output <list_group_id>/15_correctChoiceText_fixed/<source_stem>_merged_correctChoiceText_fixed.json
-```
-
-## 安全境界と検証
-
-- `00_source`は変更、削除、改名しません。既存IDを変更しません。
-- merged、convert、upload-readyを直接編集しません。
-- 不確実性は`99_model_review_flags/`又はreview sidecarへ`hold`理由と不足根拠を残します。
-- server又は`check-question-intent-patch`はsource identity、件数、型、許可値及び問題文に明示された記述の正誤方向との整合を検証します。
-- 02aの独立判定後に`questionIntent`、`correctChoiceText`、公式解答が矛盾した場合、機械検証は停止して再確認へ送ります。`questionIntent`又は`correctChoiceText`のどちらかを自動補正しません。
-
-```bash
-python3 tools/question_bank/question_bank.py check-question-intent-patch \
-  --source <logical_projection.json> \
-  --patch <list_group_id>/15_correctChoiceText_fixed/<source_stem>_merged_correctChoiceText_fixed.json
-```
+システム実行ではJSON Schemaに従い`questionIntent`だけを返します（`hold`時は更新候補を返さない）。手動・batch最小JSONは`original_question_id`（なければ`public_question_id`）と`questionIntent`の2fieldとし、`question_bank.py materialize-patch --task question_intent`で`15_correctChoiceText_fixed/<source_stem>_merged_correctChoiceText_fixed.json`へ保存し、`check-question-intent-patch`で検証します。02a判定後に`questionIntent`・`correctChoiceText`・公式解答が矛盾した場合は自動補正せず停止します。

@@ -1,115 +1,45 @@
 # 01 `questionType` / `isCalculationQuestion` 判定
 
-このpromptは、問題整備システムが渡す一問ごとの`logicalProjection`を読み、回答操作を表す`questionType`と、解答に計算が必要かを表す`isCalculationQuestion`を確定する工程の正本です。対象資格の専門家・問題作成者・参考書著者が、受験者の学習体験を設計する水準で判断します。
-
-fieldの型と工程間の不変条件は[問題field契約](../document/reference/question_field_contract.md)、保存先と固定名は[artifact契約](../document/operations/artifact_contract.md)を優先します。
+このpromptは、一問ごとの`logicalProjection`を読み、受験者の回答操作を表す`questionType`と、計算操作の要否を表す`isCalculationQuestion`を独立に確定する工程の正本です。fieldの型は[問題field契約](../document/reference/question_field_contract.md)、保存先は[artifact契約](../document/operations/artifact_contract.md)を参照します。
 
 ## 入力と責務
 
-- 通常入力は`logicalProjection`です。これは`00_source`へ確定済みpatchを工程順に重ねた現在の問題内容であり、物理的なmerged artifactをこの工程の前提にしません。
-- `questionBodyText`、`choiceTextList`、図、ローカルに保存済みの解説資料を読み、受験者が実際に行う回答操作を確認します。外部Webや`question_url`は参照しません。
-- 通常の01が所有するfieldは`questionType`と`isCalculationQuestion`だけです。問題文、選択肢、正答、設問方向、解説、IDを編集しません。
-- 現在の`questionType`、`isCalculationQuestion`、`questionIntent`、`correctChoiceText`又は正答数を判定の正本にしません。2fieldも互いを根拠にせず、それぞれ内容から独立に確定します。
-- 根拠不足、画像欠落、OCR崩れ又は回答操作を一意に定められない問題は`hold`（構造化候補では`status=blocked`）にします。現在値を候補として出して完了扱いにしません。
+- 入力は、`00_source`に先行patchを工程順で重ねた`logicalProjection`です。`questionBodyText`、`choiceTextList`、図表、ローカル保存済みの解説資料から回答操作を確認し、外部Webや`question_url`は参照しません。
+- 通常の01が所有するfieldは`questionType`と`isCalculationQuestion`だけです。本文、選択肢、正答、設問意図、解説、IDを変更しません。
+- 現在値、正答数、解説の単位を判定根拠にせず、2fieldも互いから派生させずに内容から独立判定します。
+- 画像欠落、OCR崩れ、根拠不足などで回答操作を一意に定められない問題は、問題単位の`hold`（構造化候補では`status=blocked`）にします。
 
 ## `questionType`の判定
 
-`isOfficial=true`の公式過去問と暗記プラス独自問題では、次の3値だけを使います。`single_choice`と`fill_in_blank`はユーザー作成問題用であり、公式問題の新規整備又は洗い替えの候補にはしません。
+`isOfficial=true`の公式過去問と独自問題では、次の3値だけを使います。`single_choice`と`fill_in_blank`はユーザー作成問題用であり、公式問題の新規整備・洗い替え候補にはしません。
 
 | 値 | 回答操作 |
 | --- | --- |
-| `true_false` | 選択肢ごとの記述を単独で読み、その記述自体の正誤・適否を判定する。複数の独立した肢を選ぶ問題も、各肢の判定が学習単位ならこれに含む。 |
-| `flash_card` | 問題文の条件、知識、図又は計算から答えを一意に導き、選択肢は導いた答えとの照合に使う。 |
-| `group_choice` | 各肢の記述を独立に判定するのではなく、組合せ・対応・順序など、候補間の関係を一体として比較して正答を1つ選ぶ。 |
+| `true_false` | 選択肢ごとの記述を単独で読み、その記述自体の正誤・適否を独立に判定する。複数の独立した肢を選ぶ問題も、各肢の判定が学習単位ならこれに含む。 |
+| `flash_card` | 問題文の条件、知識、図又は計算から単一の答えを選択肢を見る前に導き、選択肢は導いた答えとの照合に使う。 |
+| `group_choice` | 候補間の組合せ・対応・順序など、関係を一体として比較して正答を1つ選ぶ。 |
 
-文字数、記号、数値、選択肢数ではなく回答操作で決めます。例えば、計算結果を問題文の条件から導ける問題は`flash_card`であり、数値候補であることだけを理由に`group_choice`にはしません。計算で一つの数値を求め、その値に最も近い数値候補を選ぶ問題も、受験者が導く答えは一つなので`flash_card`です。各肢にしかない条件を読む必要があっても、肢ごとに正誤・適否を独立に判定する問題なら`true_false`です。`group_choice`との境界は、選択肢を読むかどうかではなく、候補間の関係を一体として判断する必要があるかです。
+判定は文字数、選択肢数、記号、正答数ではなく**受験者が行う回答操作**で決めます。
 
-複数の候補を選ぶ問題では、問題文の共通述語を各候補に補って判定します。各候補に対して「この候補は共通述語を満たすか」を別々に問い、他の候補の判定と切り離して該当・非該当を確定する回答操作は`true_false`です。この境界は、サービス、用語、機能、手順など候補の種類によらず、複数選択の指示があることや該当候補の数だけでは決めません。一方、問題文の条件や知識から単一の答えを選択肢を見る前に導き、選択肢をその答えと照合する場合だけ`flash_card`です。
-
-一問の中で複数の下線部・事例それぞれに対応する用語を同じ解答群から選ぶ場合も、回答操作全体を確認します。各用語について「指定された下線部・事例のいずれかに該当するか」を独立に判定する形なら`true_false`です。各下線部では用語を一つ導けることだけで、複数の回答対象を持つ一問全体を`flash_card`にしません。対応関係の組合せが各選択肢にまとめて示されている場合は、その組合せ候補を比較する`group_choice`です。
-
-名前付き空欄の`unorderedAnswerEvidence`に原本の順不同の範囲が示される場合は、その範囲内で各候補が空欄の共通条件を満たすかを独立に判断します。表示された一例の位置だけを固有の条件とみなさず、本文・図表の役割から回答操作を決めます。
-
-計算を含むことだけで`flash_card`にはしません。問題文の条件だけでは具体的な答えを確定できず、`choiceTextList`の各肢が互いに異なる条件、物質、反応式などの計算対象を持ち、その肢ごとに計算又は比較しなければ該当性を判定できない問題は、各肢の判定が学習単位なら`true_false`です。単一の計算結果に数値候補を順番に当てはめるだけの問題は、ここでいう「各候補を計算又は比較する問題」ではありません。例えば、複数の反応式から必要量が最大又は最小となる式を判定する問題で、`choiceTextList`が組合せ番号ではなく比較対象の反応式そのものを持つ場合は、各反応式の該当・非該当を判定する`true_false`とします。最終回答となる組合せ表そのものが`choiceTextList`に並ぶ場合だけ、その組合せ候補を比較する`group_choice`です。
-
-「正しいものはどれか」「誤っているものを1つ選べ」という出題指示でも、各肢の記述自体を独立に判定する学習単位なら`true_false`です。例えば、5つの法令上の記述のうち正しい記述が1つだけの問題も、各記述の真偽を学ぶ問題として判定します。正答が1つであることは`group_choice`の十分条件ではありません。解説が問題共通の1本か各肢別かは、01で確定した形式を後工程が受けて整える結果であり、01の分類根拠にはしません。
+- **独立判定と一体比較の境界**: 正答が1つであることは`group_choice`の十分条件ではありません。「正しいものはどれか」「誤っているものを1つ選べ」でも、各肢の記述自体を独立に真偽判定する学習単位なら`true_false`です。最終回答となる組合せ表や順序表そのものが`choiceTextList`に並び、候補間の関係を一体比較する場合だけ`group_choice`とします。
+- **複数選択・複数対象**: 複数の候補を選ぶ問題では、問題文の共通述語を各候補に補って判定します。各候補に対して他の候補の判定と切り離して該当・非該当を確定する操作は`true_false`であり、複数選択の指示や該当候補の数だけでは決めません。一方、問題文の条件や知識から単一の答えを選択肢を見る前に導き、選択肢と照合する場合だけ`flash_card`です。複数の下線部・事例に対応する用語を同一解答群から選ぶ問題も、各用語の該当性を独立判定するなら`true_false`、対応の組合せ表を選ぶなら`group_choice`です。名前付き空欄の`unorderedAnswerEvidence`に原本の順不同範囲がある場合は、表示位置の一例に固定せず共通条件への該当性で判断します。
+- **単一導出計算と肢別計算の境界**: 計算で一つの数値を求め、その値に最も近い数値候補を選ぶ問題も、導く答えは一つなので`flash_card`です。単一の計算結果に数値候補を順番に当てはめるだけの問題は肢別計算ではありません。一方、問題文だけでは答えが定まらず、`choiceTextList`の各肢が互いに異なる条件、物質、反応式などの計算対象を持ち、肢ごとに計算・比較して該当性を判定する問題は`true_false`です。例えば複数の反応式から必要量が最大・最小となる式を選ぶ問題で、比較対象の反応式そのものを持つ場合は、各反応式の該当・非該当を判定する`true_false`とします。
 
 ## `isCalculationQuestion`の判定
 
-正答へ至るために、与条件を式へ代入し、四則演算、比、割合、単位換算などを実行する問題は`true`です。数値の暗記、式・基準値の選択、数値選択肢の存在だけでは`false`です。法令や規格の基準値と、選択肢に既に書かれた距離・期間・数量を大小又は一致で照合するだけなら、受験者は新しい値を計算していないため`false`です。`0.8mは1.2m未満`のような単純比較を、数式による導出や計算過程とみなしません。
-
-この判定は`questionType`から派生させません。`true_false`、`flash_card`、`group_choice`のいずれにも`true`又は`false`があり得ます。
+正答へ至るために、与条件を式へ代入して四則演算、比、割合、単位換算などを実行する問題は`true`です。数値の暗記、式・基準値の選択、数値選択肢の存在だけでは`false`です。法令や規格の基準値と、選択肢に既に記載された数値を大小・一致で照合する単純比較（例：`0.8mは1.2m未満`）は計算過程ではないため`false`とします。この判定は`questionType`と独立であり、3形式のいずれにも`true`と`false`があり得ます。
 
 ## 集約回答型だけの原文span投影
 
-通常の01は本文と選択肢を所有しません。例外は、複数の独立した記述の正誤を個数・組合せなど一つの回答へ集約しており、どの記述を誤ったか分からない問題を記述単位へ投影する場合だけです。
+本文中に複数の独立命題があり、個数や組合せ1つへ回答を集約しているため誤答箇所を特定できない問題に限り、原文spanから記述単位へ分解します。設例条件、並べ替え、穴埋め語句、又は`choiceTextList`に個別命題が既に並ぶ通常問題は対象外です。
 
-対象にできるのは、各候補が受験者に個別の正誤判断を求める命題そのものであり、全命題が`questionBodyText`にある問題です。設例条件、共通前提、並べ替え項目、穴埋め語句・数値、計算入力、又は元の`choiceTextList`に個別命題が既に並ぶ通常問題は対象にしません。
+1. serverがsource snapshotのhashを固定し、原文の連続範囲から候補span・boundary ID・candidate IDを決定的に生成する。
+2. 別々のread-only threadで専用レビューを2回実行し、分類と候補採否だけを返す。
+3. serverが二者の結果を照合し、完全一致した`target/approve`だけを採用して原文spanから`choiceTextList`と派生`sourceUniqueKeys`を切り出す（AIが抽出文を生成する経路は設けない）。
+4. 投影後の`logicalProjection`を入力として、別turnで通常の問題形式候補（対象確定時は`questionType=true_false`）を生成する。
 
-1. serverが同一source snapshotのhashを固定し、原文の連続範囲から候補span、boundary ID、candidate IDを決定的に生成します。
-2. 同じsource snapshotと候補を使い、別々のread-only threadで専用レビューを2回実行します。各レビューは`questionId`、`schemaVersion`、`sourceHash`、`classification`、`candidateId`、`decision`、`issueCodes`だけを返します。本文、要約、理由、`start`、`end`は返しません。
-3. serverが二者の結果を照合し、完全一致、source hash、candidate ID、boundary ID、順序、重複、範囲を検証します。一致した`target/approve`だけを採用します。
-4. serverだけが合意済みcandidate IDを`questionBodyText[start:end]`へ解決し、原文spanから`choiceTextList`と新しい`sourceUniqueKeys`を生成します。エージェントが抽出後の文章を書く経路は設けません。
-5. serverの照合と投影後に、通常の問題形式候補を別のturnで生成します。対象確定した問題は、原文spanを投影した`logicalProjection`を入力にします。
+二者の不一致、hash・範囲不整合、命題と前提の境界不明は問題単位の`hold`とします。分解後の正答・解説は後続工程で全記述分を独立に確定し、元の回答候補は`originalAggregateAnswerEvidence`へ分離保持します。
 
-不一致、hash不一致、候補不足、命題と前提の区別不能又は境界不明は問題単位の`hold`です。第三レビュー、offset fallback又は一部記述だけの採用は行いません。
+## 出力と検証
 
-対象確定時は`questionType=true_false`とします。旧集約回答のFirestore ID、正答、解説、選択肢別メタデータは派生記述へ流用せず、後続工程で全記述分を独立に確定します。同じ元問題の全記述が公開条件を満たすまで、親問題全体を公開しません。`aggregateAnswerDecomposition`はpatchとmergedだけに保持し、Firestoreへ公開しません。
-
-再整備時も、serverが検証した`aggregateAnswerDecomposition`の`target/approve`と原文span由来の全記述が入力にある場合は、分解後の記述を個別に判定する回答操作を確認します。元問題文に個数又は組合せの指示が残り、元の回答候補が`originalAggregateAnswerEvidence`へ分離されていることは、選択肢欠落ではありません。分解のhash又は範囲が現在本文と不一致の場合だけ、その不整合を保留します。
-
-## 出力
-
-問題整備システムでは、指定されたJSON Schemaに従い、AI判断fieldとして`questionType`と`isCalculationQuestion`だけを返します。`hold`では更新候補を返しません。
-
-手動又はbatch運用で全問を確定できた場合のAI生出力JSONは、元の順序と件数を保ち、各要素を次の3fieldだけにします。`original_question_id`がなければ`public_question_id`を使います。一問でも`hold`なら現在値で行を埋めず、そのbatchを正式patchへmaterializeしません。
-
-```json
-[
-  {
-    "original_question_id": "e0b892ab33c1e80e",
-    "questionType": "flash_card",
-    "isCalculationQuestion": true
-  }
-]
-```
-
-正式patchは同じ`list_group_id`の`10_questionType_fixed/<source_stem>_questionType_fixed.json`へ固定名で保存します。通常問題の正式artifactは次の6fieldだけを持ちます。source binding用の4fieldがartifactに存在しても、01のAI判断対象又は編集責務にはなりません。
-
-| field | 正式artifactへの設定方法 |
-| --- | --- |
-| `questionBodyText` | server又はmaterialize処理が`logicalProjection`から機械複写する。 |
-| `choiceTextList` | server又はmaterialize処理が`logicalProjection`から機械複写する。 |
-| `questionType` | 01のAI判断field。 |
-| `isCalculationQuestion` | 01のAI判断field。 |
-| `original_question_id` | serverがsource identityから機械付加する。 |
-| `question_url` | server又はmaterialize処理がsource bindingから機械付加する。 |
-
-通常の公式問題では、複写した本文と選択肢は形式判断時の参照snapshotです。合成時の本文・選択肢は現在の`00_source`を基礎とし、古い10 snapshotで取得元の更新を上書きしません。独自問題は05を正本とし、05への移行前だけ旧10内容を読み取り互換として保持します。
-
-集約回答型の合意済み問題だけは、serverが`aggregateAnswerDecomposition`、原文span由来の`choiceTextList`、派生`sourceUniqueKeys`を追加します。
-
-CLIで正式patchを作る場合:
-
-```bash
-python3 tools/question_bank/question_bank.py materialize-patch \
-  --task question_type \
-  --source <current_projection_or_source.json> \
-  --raw <minimal.json> \
-  --output <list_group_id>/10_questionType_fixed/<source_stem>_questionType_fixed.json
-```
-
-## 安全境界と検証
-
-- `00_source`は変更、削除、改名しません。既存の`questionId`、`originalQuestionId`、`original_question_id`、`public_question_id`、`sourceUniqueKeys`を理由なく変更しません。
-- `12_merged_questionType`、merged、convert、upload-readyは生成物であり、直接編集しません。
-- 既存patchを別名で複製せず、対象sourceごとの固定名を更新します。
-- 不確実性は`99_model_review_flags/`又はreview sidecarへ`hold`理由と不足根拠を残します。
-- serverは一問ごとにID、件数、型、許可値、boolean、source binding、集約回答型のhash/spanを検証します。手動運用では`check-question-type-patch`を実行します。
-- 後続の`questionIntent`と`correctChoiceText`が確定した後の機械検証は、不整合を検出したら停止するだけです。どのfieldが正しいかを決めたり、一方へ自動補正したりしません。
-
-```bash
-python3 tools/question_bank/question_bank.py check-question-type-patch \
-  --source <current_projection_or_source.json> \
-  --patch <list_group_id>/10_questionType_fixed/<source_stem>_questionType_fixed.json
-```
+システム実行ではJSON Schemaに従い`questionType`と`isCalculationQuestion`だけを返します（`hold`時は更新候補を返さない）。手動・batch最小JSONは`original_question_id`（なければ`public_question_id`）を含む3fieldとし、`question_bank.py materialize-patch --task question_type`で`10_questionType_fixed/<source_stem>_questionType_fixed.json`へ保存し、`check-question-type-patch`で検証します。`00_source`や既存ID、生成物（`12_merged_questionType`等）は直接編集しません。後続工程との不整合を機械検証が検出した場合は自動補正せず停止します。

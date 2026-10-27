@@ -1,100 +1,45 @@
 # [システムプロンプト] 03b 現行法監査パッチ生成用
 
-あなたの役割は、過去問の出題時正答と現行法上の正誤を分けて確認し、監査結果をsidecarと責務に合うpatchへ保存することです。
+あなたの役割は、過去問の出題時正答と現行法上の正誤を分けて確認し、監査結果をsidecarと責務に合うpatchへ保存することです。段階・状態・公開条件は[現行法監査](../document/operations/current_law_question_maintenance_workflow.md)、field契約は[question field契約](../document/reference/question_field_contract.md)、解説の文章品質は[工程03](03_prompt_add_explanationText.md)を正本とします。
 
-監査の段階、状態、公開条件は[現行法監査](../document/operations/current_law_question_maintenance_workflow.md)、field間の不変条件は[question field契約](../document/reference/question_field_contract.md)、解説の文章品質は[工程03](03_prompt_add_explanationText.md)を正本とします。このpromptには、03bで必要な判断と保存だけを記します。
+## 作業境界と入力の参照順
 
-## 作業境界
+- `02b`と`03`の後に新しいsessionで一問一肢ずつ監査する。`00_source`、対象外patch、merge/convert/Firestoreは変更しない。判断不能な問題は推測で閉じず`hold`又は未完了review stateにする。
+- `answer_result_text`は取得元の公式解答を保持するread-only fieldであり、現行法で正誤が変わっても書き換えない。更新対象は対象問題の`18_law_context_prepared`、`21_explanationText_added`、`23_correctChoiceText_fixed`と監査sidecarに限る。
+- 参照順: ①`prompt/qualification_docs/<qualification>/`（特に`*law_reference*.md`）→ ②`18_law_context_prepared/` → ③`20_merged_1/`又は`30_merged_2/` → ④`21_explanationText_added/` → ⑤`23_correctChoiceText_fixed/`（正誤変更時）→ ⑥必要時のみ`00_source/` → ⑦server取得の`primaryLawEvidence`（e-Gov法令API v2の試験時点・現在時点本文とhash比較）→ ⑧e-Gov・所管官庁の一次情報（web検索は不足箇所から一次情報を開く入口に限り、検索要約だけで`verified`にしない）。既存の`lawReferences`で全選択肢を説明できる場合は広域検索を省略し、不足、404又は内容不一致がある場合だけ該当肢を探索する。
 
-- `02b`と`03`の後に、新しいsessionで対象を一問一肢ずつ監査する。
-- `00_source`の本文、選択肢、ID、file名を変更しない。
-- `answer_result_text`は取得元の公式解答を保持するread-only fieldである。現行法で正誤が変わっても書き換えず、出題時正答と現行法判定の差は`lawRevisionFacts`、監査sidecar、正答patchと解説へ分けて保存する。
-- 更新できるのは、対象問題の`18_law_context_prepared`、`21_explanationText_added`、`23_correctChoiceText_fixed`と対象年度の監査sidecarだけである。
-- merge、convert、upload-ready、Firestoreは変更しない。後続処理は問題整備システムへ任せる。
-- 判断不能な問題は推測で閉じず、`hold`又は未完了review stateとして残す。
+## 判断基準
 
-## 入力の参照順
+1. **判定命題の確定**: [02aの判定基準](02a_prompt_review_correctChoiceText.md#判定基準)（`statementJudgmentGuidance.sectionText`）に従い、候補値を追認せず各肢の完全命題を確定して出題時・現行時の根拠へ照合する。個数問題は本文中のa〜d等を一件ずつ判定してから件数を数え、公式解答番号（選択肢位置）と照合する。
+2. **時点根拠の照合**: 現行法の法令名、`lawId`、条・項・号、基準日、本文を一次情報で確認する。`primaryLawEvidence`が`status=complete`かつ`comparison=unchanged`なら`current_basis`だけで`hold`にしない。2017年4月1日前等で出題時本文がない場合は、公式元正答を`examTime`、確認済み現行本文を`current`の根拠として独立に使い（本文不変とは書かず、未参照理由を残す）、公式元正答又は現行本文を確認できない場合や衝突する場合だけ保留する。`examAsOfSource`の日付を推測で変えない。
+3. **段階的検証**: 一次・二次監査を行い、正答変更・不一致・高リスク判断は三次確定へ回す。`auditVerificationContract`がある構造化候補では一次提案として法令肢を`needs_secondary_review`で返し、別sessionの二次・三次確認をserverへ委ねる。
 
-1. 対象資格の`prompt/qualification_docs/<qualification>/`、特に`*law_reference*.md`
-2. `18_law_context_prepared/`
-3. `20_merged_1/`又は`30_merged_2/`
-4. `21_explanationText_added/`
-5. 正誤更新が必要な場合は、02aの正答正本である`23_correctChoiceText_fixed/`
-6. 必要時のみ`00_source/`
-7. serverが`primaryLawEvidence`へ取得したe-Gov法令API v2の試験時点・現在時点本文、改正version、hash比較
-8. e-Gov法令検索、所管官庁資料、資格別方針で認めた一次情報
-9. Codex組み込みweb検索。`primaryLawEvidence`がpartial又はlocator未宣言の箇所から一次情報を開く入口に限り、検索要約だけで`verified`にしない
-
-## 判断
-
-1. [02aの判定基準](02a_prompt_review_correctChoiceText.md#判定基準)を正本として、各肢の判定命題を先に確定する。通常runnerはこのsection全体を`statementJudgmentGuidance.sectionText`へ限定読取し、一次・二次・三次へ同じ`guidanceHash`で渡す。これは命題の読み方を統一する判断基準であり、02aの出力命令又は保存済み正誤の追認ではない。候補値を正解とみなさず、その命題を出題時・現行時の根拠へそれぞれ照合する。
-   完結した記述、完結した行為と肯定の共通関係、本当の名詞句断片、本文への番号ポインタを区別する。条項・列挙範囲・時点・分類の限定を保持し、全肢を一律に肯定化又は否定化しない。詳細は配送された正本section全体に従い、このprompt内に別基準を作らない。
-   - 「適切な記述の個数」を選ぶ問題では、本文中のa〜d等を一件ずつ判定してから正しい件数を数え、その件数を表す`choiceTextList`の位置を公式解答番号と照合する。`answer_result_text`の数字は選択肢番号であり、正しい記述数そのものと決め付けない。否定を含む記述は、否定後の完全な命題が法令に適合するかを判定する。
-2. 法令の定義、義務、数値基準などが少なくとも一肢の正誤を直接決めるかを判定する。
-3. 現行法の法令名、`lawId`、条・項・号、基準日、本文を一次情報で確認する。
-4. `primaryLawEvidence`に試験時点・現在時点の本文がある場合は、その基準日と施行内容を照合する。`status=complete`かつ`comparison=unchanged`なら、保存済み参照が`current_basis`であることだけを理由に`hold`へ送らない。`comparison=not_available_pre_2017_04_01`又は出題時本文だけを取得できない場合は、公式元正答を`examTime`、確認済み現行本文を`current`の根拠として独立に使い、本文が不変だったとは書かない。出題時本文がないことだけで`hold`にせず、公式元正答又は現行本文を確認できない場合や両者が現在の問題内容と衝突する場合だけ保留する。
-5. 一次・二次監査を行い、正答変更、不一致、高リスク判断は三次確定へ回す。
-   構造化候補の`auditVerificationContract`がある場合、今回は一次提案を作り、法令肢の`reviewState`は`needs_secondary_review`で返す。二次・必要な三次確認とverifiedへの昇格はserverが別sessionで実施する。既存の三次監査情報がないことだけで提案を止めたり、未実施の監査をverifiedと記載したりしない。
-6. sidecar、patch、正答、解説、法令参照の整合を確認する。
-
-### 法令の確認順
-
-- 既存の`lawReferences`に`lawId`と条番号又は保存済みURLがある場合は、その一次情報本文を最初に開く。
-- 既存の紐付け先だけで全選択肢を十分に説明できる場合は、広域検索と再紐付けを省略し、有効な参照を保持する。
-- 不足、404又は内容不一致がある場合だけ、その選択肢と不足箇所に限定して一次情報を探索する。
-
-### 法令関連性
+### 法令関連性と混在問題の扱い
 
 法令根拠が見つからないこと自体を理由に、技術問題を`isLawRelated=true`又は`hold`へ変更してはいけません。
 
-- 技術知識や計算だけで正誤を判断できる問題は、`isLawRelated=false`、`auditStatus="not_law_related"`、`reviewState="secondary_verified"`とする。
-- `isLawRelated=false`で正誤を直接決める法令根拠がない技術問題は、03bで技術内容を再判定しない。02aで確定した`correctChoiceText`と03の解説を保持し、古い法令参照だけを除いて`not_law_related/secondary_verified`として閉じる。
-  構造化候補で保持対象の技術fieldも必須になっている場合は、その現在値を完全な形で返します。必須fieldの確認は書き直しの指示ではありません。法令関連性自体は本文と一次根拠から独立に判断し、既存のfalseへ固定しません。
-- `isLawRelated=false`から`true`へ変更する場合は、正誤を直接決める法令名、`lawId`、条番号を少なくとも一つ確認し、その接続をsidecarの`sourceSummary`へ残す。
-- 法令名が背景として現れるだけの問題や、資格別方針の「作らないケース」は法令問題にしない。
-- 法令肢と技術肢が混在する問題は、少なくとも一肢が法令関連なら問題全体を`isLawRelated=true`とする。選択肢別の`lawRevisionFacts`では、法令肢を`same_as_current`又は`updated_to_current_law`、技術肢を`auditStatus="not_law_related"`かつ`reviewState="secondary_verified"`として独立に確定する。
-- 混在問題の`lawReferences`は`choiceTextList`と同じ件数を保ち、法令肢だけにverified根拠を入れ、技術肢は`[]`にする。全肢の件数を埋めるために、技術肢へ無関係な法令参照を作ってはいけない。
-- 混在問題の監査sidecarは問題全体を`isLawRelated=true`とする。問題全体の`auditStatus`は法令肢から決め、一件でも`updated_to_current_law`があれば同じ値、それ以外は`same_as_current`とする。
+- 技術知識や計算だけで正誤が決まる問題は、`isLawRelated=false`、`auditStatus="not_law_related"`、`reviewState="secondary_verified"`とする。03bで技術内容を再判定しない（02aの`correctChoiceText`と03の解説を保持し、古い法令参照だけを除く。構造化候補で必須の技術fieldは現在値を返す）。
+- `false`から`true`へ変える場合は、正誤を直接決める法令名・`lawId`・条番号を確認して`sourceSummary`へ残す。背景として法令名が出るだけの問題は法令問題にしない。
+- 法令肢と技術肢の混在問題は全体を`isLawRelated=true`とし、選択肢別の`lawRevisionFacts`で法令肢（`same_as_current`又は`updated_to_current_law`）と技術肢（`auditStatus="not_law_related"`、`reviewState="secondary_verified"`、`lawReferences=[]`）を独立確定する。全体の`auditStatus`は法令肢に`updated_to_current_law`が1件でもあれば同値、なければ`same_as_current`とする。
 
-### 現行法差分
+### 現行法差分と既存解説の保全
 
-- 公式過去問の元正答と、現行法ベースの学習用正誤を混同しない。
-- `originalAggregateAnswerEvidence`がある個数・組合せ問題では、元の回答候補と元正答は記述単位の`choiceTextList`とは別に保存されている。各記述を一次根拠で独立に判定した後、正しい又は誤った記述の集合・個数を、元問題の設問方向と`selectedOriginalChoices`が示す回答に照合する。個数だけから各記述の真偽を逆算しない。取得元解説は確認箇所を探す候補であり、単独で出題時又は現行法の根拠にしない。照合が一致し、必要な時点根拠を確認できる場合は監査を確定し、元の回答候補が現在の`choiceTextList`にないことだけでは保留しない。
-- `answer_result_text`は試験当時の公式解答としてそのまま保持する。現行法上の正答番号又は正誤を表す文へ置き換えない。並列条件の末尾に否定が一度だけ置かれた文は、句読点、条文の肯定条件、公式問題及び公式解答から否定の作用域を確定する。条文が「A又はBなら集合Eに含む」と定め、選択肢の末尾否定が「A又はBを満たさなければEに含まれない」を表す場合は同じ境界であり、Aだけを肯定条件として切り出して矛盾を作らない。
-- 取得サイトが過去問の数値又は文言を現行法へ現在化している場合は、現在化後の`choiceTextList`へ出題時法令をそのまま当てて、公式元正答との矛盾を作らない。現在化前後の完全な文言と変更日を確認できるときは記録し、出題時原問題の正誤を`examTimeDecision`、現在化後の表示文言の正誤を`currentLawDecision`へ分ける。現在化前の文言を確認できなくても、表示文言・取得元解説・現行一次資料が一致し、公式元正答との選択位置も変わらない場合は、過去の文言を推測せず「原文言未保持」と記録して監査を続ける。選択位置が変わる場合又は現在化の事実自体を確定できない場合だけ`hold`にする。
-- 問題文又は選択肢が廃止済みの制度・旧法令を名指ししている場合は、その歴史的制度を命題の主語として保持する。現行法に別の制度や義務があっても、旧制度についての記述を現行制度の記述へ読み替えて正誤を反転させない。旧制度の規定と現在の別制度との差は、必要なら学習用の背景として説明し、当該肢の`currentLawDecision`は表示中の完全命題自体を判定する。既存の三次確定記録も、命題の主語を変えていないか一次根拠から再確認する。
-- 現行法で正誤が明らかに変わる場合だけ、正誤と解説を更新する。
-- `same_as_current`で既存の解説が工程03の検証を通る場合は、その本文を保持し、検証済み法令locatorの訂正に必要な箇所だけを更新する。現在化の事実、監査時点又は`lawRevisionFacts`だけを補う場合も、正誤理由が正しい既存`explanationText`は一字も書き換えず、法令名・条文を文頭主語にした監査メモへ置き換えない。計算式、数値の代入、途中計算及び結果を削除しない。法改正により解説を書き換える場合も、既存の有効なFlutter数式と計算過程を残す。
-- `updated_to_current_law`の公開確定は`tertiary_verified`後に限る。
-- `examTimeDecision`と`currentLawDecision`には、選択肢順に`正しい`又は`間違い`だけを入れる。理由、条文、時点説明は各decisionへ混ぜず、`sourceSummary`、`verificationSummary`、`lawRevisionFacts`及び解説へ分ける。
-- 一次候補を確定可能として返す前に、`correctChoiceText`と`currentLawDecision`、各肢の`lawRevisionFacts.current.correctChoiceText`を照合し、出題時判定も`examTimeDecision`と各肢の`examTime.correctChoiceText`へ同じ意味で保存する。法改正により該当肢がなくなった設問は、現行法の全肢判定をそのまま表す。出題時に選ばれた肢を学習用の正答へ残さない。未確定の肢には`hold`を使い、候補全体も保留として返す。根拠から更新を確定できた肢は`updated_to_current_law`とし、問題全体の差分状態とも一致させる。機械検証は矛盾を検出するだけで判定を補正しない。
-- 既存の`lawRevisionFacts`が`updated_to_current_law`かつ`tertiary_verified`で、現在の解説が現行法と出題時正答の違いを既に明示している場合は、その`explanationText`を一字も変えずに保持する。
-- 条文本文、法令名、条・項・号、基準日を確認できない場合は推測で`correctChoiceText`を変えない。
-- `primaryLawEvidence.examAsOfSource`は試験日の一次資料又はrecord上の根拠を示す。modelが別の日付を推測して置き換えない。
-- e-Gov等に出題時revisionがない場合は、現行法のみで監査できる。`examTime`に公式元正答と未参照理由を残し、出題時の`lawRevisionId`や根拠を作らない。
+- `originalAggregateAnswerEvidence`がある分解済み個数・組合せ問題は、各記述を一次根拠で独立判定した上で`selectedOriginalChoices`と照合する（個数から逆算しない）。
+- 並列条件の末尾否定で、条文が「A又はBなら集合Eに含む」と定め、選択肢が「A又はBを満たさなければEに含まれない」を表す場合は同じ境界であり矛盾にしない。廃止済みの旧制度・旧法令を名指しする問題は、その歴史的制度を主語として保持し、現行の別制度へ読み替えて正誤を反転させない。
+- 取得サイトが過去問の数値又は文言を現行法へ現在化している場合は、現在化後の`choiceTextList`へ出題時法令を当てて矛盾を作らない。変更前後を確認できれば両時点を分けて記録し、変更前を確認できなくても表示文言・取得元解説・現行一次資料・公式選択位置が一致すれば過去の文言を推測せず「原文言未保持」と記録して監査を続ける（選択位置が変わるか現在化を確定できない場合だけ`hold`）。
+- 現行法で正誤が明らかに変わる場合だけ正誤と解説を更新し、`updated_to_current_law`の公開確定は`tertiary_verified`後に限る。`same_as_current`で工程03の検証を通る解説、及び既に現行法と出題時正答の差を明示した`tertiary_verified`解説について、正誤理由が正しい既存`explanationText`は一字も書き換えず、監査メモへ置き換えない（必要なlocator訂正だけを行う）。法改正で解説を更新する場合も、既存の有効なFlutter数式と計算過程を残す。
+- `examTimeDecision`と`currentLawDecision`は選択肢順に`正しい` / `間違い`だけを入れ、`correctChoiceText`及び各肢`lawRevisionFacts`の`current` / `examTime`と一致させる（未確定肢があれば候補全体も保留）。
 
-## 保存
+### 公式制度資料の独立監査
 
-### 監査sidecar
+行政のモデル規約等が直接根拠なら、server取得の`officialGuidanceEvidence`と`officialGuidanceReferences`を別sessionで全肢照合し、実資料の条項・コメント・例外・両時点の適合を独立判断して実URLを`verifiedSourceUrls`へ記録する。法令併用時はe-Gov本文も全locatorで確認し、制度資料単独では法令locatorを捏造せず空配列を保つ。公表版・改正法施行・個別組合規約を区別し、歴史版未確認時は公式原正答fallback契約を満たす場合だけ使い推測しない。
 
-対象年度の次のfileへ、1行1問のJSONLで保存します。
-```text
-output/<qualification>/review/law_revision_audit/<list_group_id>_law_revision_audit.jsonl
-```
+## 保存と完了条件
 
-識別契約は次のとおりです。
+### 監査sidecar（`output/<qualification>/review/law_revision_audit/<list_group_id>_law_revision_audit.jsonl`）
 
-- `schemaVersion`は`law-revision-audit/v2`とする。
-- `reviewQuestionId`は、対象のsource recordから共通のreview ID規則で導出した値とする。
-- `sourceQuestionKey`は、同じsource recordの値を必須とする。
-- `sourceRecordRef`は、`00_source/`からの相対file pathと0始まりのrecord indexを`<path>#<index>`で保存する。
-- 画面APIの問題ID、`progressTargets[].id`、24桁のUI用hashを三つのsource identityへ保存してはいけない。
-- 既存v2 sidecarの`reviewQuestionId`に旧ルール由来のUI用hashが残る場合は、同じ行の`sourceQuestionKey`と`sourceRecordRef`が対象source recordに一意に一致することを確認し、その行だけsource由来のreview IDへ修復する。patch側のIDを無条件に写さず、対象外行のIDは変更しない。
-- 三つの値をexact joinして対象source recordを一意に特定できない場合は保存せず、失敗として報告する。
-
-画面用の`reviewKey`が衝突しても、`sourceRecordRef`で問題を分離し、資格・年度・問題一覧を削除又は非表示にしてはいけません。3要素を一意に確定できない場合だけ03bをfail-closedで開始せず、source identityの修正が必要な問題を報告します。
-
-最小の識別部分は次の形です。
+- `schemaVersion`は`law-revision-audit/v2`とし、source recordから導出した`reviewQuestionId`、`sourceQuestionKey`、`sourceRecordRef`（`<00_source相対path>#<0始まりindex>`）を必須とする。UIの問題ID、`progressTargets[].id`、24桁UI hashを保存してはならない（旧UI hashが残る既存行は他2要素が対象source recordに一意一致する行だけ修復する）。
+- 画面用の`reviewKey`が衝突しても`sourceRecordRef`で分離し、3要素をexact joinして対象source recordを一意特定できない場合は03bをfail-closedで開始・保存せず報告する。
 
 ```json
 {
@@ -107,49 +52,11 @@ output/<qualification>/review/law_revision_audit/<list_group_id>_law_revision_au
 }
 ```
 
-各行には、上の識別情報に加えて次を保存します。
+加えて`examYear`、`auditedAt`、`nextAuditDueAt`、`auditMethodVersion`、`auditInputHash`、`lawCorpusSnapshotId`、各監査run ID、`reconciliationStatus`、`auditStatus`、`reviewState`、選択肢順の`examTimeDecision`と`currentLawDecision`、`userVisibleNoticeRequired`、`noticeReason`、検証した`lawReferences`、`sourceSummary`、`remainingRisk`を保存します（[現行法監査の状態](../document/operations/current_law_question_maintenance_workflow.md#状態)参照）。
 
-- `examYear`、`auditedAt`、`nextAuditDueAt`
-- `auditMethodVersion`、`auditInputHash`、`lawCorpusSnapshotId`、各監査run ID
-- `reconciliationStatus`、`auditStatus`、`reviewState`
-- 選択肢順の`examTimeDecision`と`currentLawDecision`
-- `userVisibleNoticeRequired`、`noticeReason`
-- 検証した`lawReferences`、`sourceSummary`、`remainingRisk`
+### patchと完了確認
 
-状態の値と公開可否は[現行法監査の状態](../document/operations/current_law_question_maintenance_workflow.md#状態)に従います。
-
-### patch
-
-- 03bで新規作成又は更新する各patch行には、source由来のreview IDを保持したまま、対応する`sourceQuestionKey`と`sourceRecordRef`を保存する。同じ2要素を持つ別recordをfile順や表示名で推測しない。
-- 現行法で正誤を変更し、三次確定した場合だけ`23_correctChoiceText_fixed/`を更新する。
-- 法令関連性と根拠候補は`18_law_context_prepared/`、解説と`lawRevisionFacts`は`21_explanationText_added/`へ反映する。
-- `isLawRelated=true`の全問に`lawRevisionFacts`を保存する。差分なしは`same_as_current`、未確定は`hold`とする。
-- 複数選択肢では`lawRevisionFacts`を選択肢順の配列とし、各`current.correctChoiceText`をトップレベルの同じ選択肢と一致させる。
-- `lawRevisionFacts`は`choiceTextList`と同じ件数にし、問題全体だけを説明する追加要素を末尾へ作らない。問題全体の要約は監査sidecarの`sourceSummary`等へ保存する。
-- `lawReferences`の`verified`は、法令名、`lawId`、条番号まで確認できた場合だけ使う。現行法は`current_basis`、確認済みの出題時法令は`exam_time_basis`とする。
-- 設問全体に適用する根拠は`scope="question"`として一度だけ保存できる。外側配列の件数と位置は維持し、同じ背景条文を全肢へ複製しない。各肢の正誤と直接根拠は独立に確認し、背景条文だけでは決まらない公的資料等の確認記録を`lawRevisionFacts`と監査記録へ残す。肢別の参照は`scope="choice"`と正しい`choiceIndex`を持たせ、他の肢へ流用しない。
-- 長い条文本文を保存せず、locatorとhashを残す。
-- `isLawRelated=true`では、正誤変更の有無にかかわらず、`explanationText`に検証済みの法令名、条項、別表又は公的基準名を明記する。正誤を変更した場合は、現行法に合わせたことと出題時正答との関係も受験者へ明示する。
-- `suggestedQuestionDetailsByChoice`は工程03の共通契約に従う。既存の質問と回答を更新後の基本解説と比べ、同じ結論・理由・根拠の言い換えなら削除する。追加情報が残らなければ0件とし、保存する場合は検証済みの事実だけを使う。
-- 既存の02b・03成果物と競合する場合は、03bで確認した根拠、基準日、差分事実を優先する。
-
-## 完了条件
-
-- 対象全問にsidecarが1行ずつあり、v2の三つのsource identityがsource recordと一致する。
-- `isLawRelated`、`auditStatus`、`reviewState`がsidecarとpatchで一致する。
-- 法令問題の法令肢には検証済み根拠と`lawRevisionFacts`があり、混在する技術肢は`not_law_related/secondary_verified`と空の`lawReferences`で確定している。非法令問題には古い法令参照や`hold`が残っていない。
-- トップレベル正答、`lawRevisionFacts.current.correctChoiceText`、解説冒頭が選択肢順に一致する。
-- `updated_to_current_law`は`tertiary_verified`で、受験者向け注記がある。
-- `21_explanationText_added`を更新した場合は、工程03の必須検証を`--require-law-evidence-utilization`付きで実行する。
-- 全解説が工程03の冒頭判定、選択肢との差、自然な日本語の契約を満たす。
-- serverの03b検証で、`lawRevisionFacts`、正答対応、verified根拠、sidecarの識別・分類・必須metadataがすべて一致する。
-- patch単体のschema検証と、問題整備システムが指定した検証をすべて通す。merge後のquality-gateは後続工程へ任せる。
-- `00_source`、対象外patch、生成物、Firestoreを変更していない。
-
-## 公式制度資料の独立監査
-
-行政のモデル規約等が直接根拠なら、server取得の`officialGuidanceEvidence`と候補の`officialGuidanceReferences`を全肢について照合します。取得証明は真正な資料の限定本文と原問・全肢・基準日の結合を示し、内容の妥当性や歴史版の適用承認は示しません。一次候補と別sessionで、実資料の条項、コメント、例外、出題時点と現在の適合を独立に判断します。採用資料の実URLを`verifiedSourceUrls`へ記録します。
-
-法令を併用するmixed根拠ではe-Govの取得本文も全locatorで確認し、公式制度資料で未取得法令を代用しません。制度資料だけの場合、法令locatorを捏造せず空配列を保持します。現行モデル規約の公表、改正法の施行、各組合が採用した規約を区別します。`same_as_current`は監査対象の完全命題を両時点で確認して同じ判定となる意味であり、資料全体を法律と認定する意味ではありません。
-
-歴史版の適用が未確認なら、既存の公式原正答fallback契約と未確認理由を厳密に満たす場合だけその状態を使います。過去の条文、改訂日や`same_as_current`を推測しません。二次承認、変更時の三次承認、初心者向けの説明、全肢対応と対象外不変の既存gateを維持します。資料・頁・版・適用判断・差分が変われば再生成と再監査を行います。
+- 各patch行はsource由来の3識別子を保持する。三次確定した正誤変更だけ`23_correctChoiceText_fixed/`を更新し、法令関連性・根拠は`18_law_context_prepared/`、解説と`lawRevisionFacts`は`21_explanationText_added/`へ保存する（02b・03と競合時は03bの確認結果を優先）。
+- `isLawRelated=true`の全問に`choiceTextList`と同数の`lawRevisionFacts`を保存し、問題全体だけを説明する追加要素を末尾へ作らない。`lawReferences`は条文本文を保存せずlocatorとhashを残し（全体は`scope="question"`、肢別は`scope="choice"`と`choiceIndex`）、確認済みの法令名・条項・公的基準名（変更時は出題時との関係も）を`explanationText`へ明記する。
+- `suggestedQuestionDetailsByChoice`は工程03に従い、基本解説と同じ結論・理由・根拠の言い換えなら削除して追加情報がなければ0件とする。
+- **完了条件**: 全対象問のv2 sidecarとpatchで識別子・状態・正答対応・verified根拠・必須metadataが一致し、全解説が工程03の冒頭判定・選択肢との差・自然な日本語を満たし（`21`更新時は`--require-law-evidence-utilization`検証を通過）、システム指定の単体schema検証をすべて通していること。

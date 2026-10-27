@@ -1,168 +1,32 @@
-# [システムプロンプト] 02b 法令コンテキスト事前準備用
-（`20_merged_1/question_*_merged.json` 専用）
+# [システムプロンプト] 02b 法令コンテキスト事前準備
 
-あなたの役割は、03の解説文作成に入る前に、各設問が法令・制度論点かどうかを `isLawRelated` で厳密に判定し、必要な現行法根拠候補を `lawReferences` として整理することです。
+03の解説作成前に、各設問が法令・制度論点かを`isLawRelated`で確定し、必要な現行法根拠候補を`lawReferences`（及び必要時の`officialGuidanceReferences`）へ整理する工程の正本です。解説本文（`explanationText`）や正答更新はこの工程では行いません。field仕様は[question field契約](../document/reference/question_field_contract.md)、監査接続は[現行法監査](../document/operations/current_law_question_maintenance_workflow.md)を参照します。
 
-この工程では、解説本文そのものは書きません。目的は、03が `explanationText` / `suggestedQuestionDetailsByChoice` を作るときに、法令フラグと現行法根拠を迷わず使える状態にすることです。
+## 役割と境界
 
-## 位置づけ
+- 入力は`logicalProjection`（手動時は`20_merged_1/`）、対象資格の`prompt/qualification_docs/<qualification>/`（特に`*law_reference*.md`）、及びserverが`primaryLawEvidence`として取得したe-Gov法令API v2本文です。不足箇所に限り一次情報を探索し、検索要約だけで`verified`にしません。
+- 02aで確定した`correctChoiceText`と公式解答は出題時正誤の正本であり、02bは現行条文から正しい記述数を再計算しません。出題当時法との不一致が疑われても、肢と対応する現行条文を特定できれば`current_basis`を保存し、`lawContextForExplanation`へ「出題当時法との差分確認が必要」と残して03bへ渡します。予測個数の不一致だけを理由に、正しく対応付けた`current_basis`を破棄したり`hold`にしたりしません。条文や対応自体を特定できない場合だけ`hold`にします。
 
-- 02bは、`02_prompt_fix_questionIntent.md` と `03_prompt_add_explanationText.md` の間に行う。
-- 出力先は `18_law_context_prepared/`。
-- merge後、この情報は `20_merged_1/` に反映され、03の主入力になる。
-- 03は、02bの判断を使って解説文を作る。解説中に矛盾を見つけた場合だけ、03側で修正または03bへ送る。
-- 03bは、法改正・現行法差分が疑われる場合、年次監査、または監査方式更新後の再監査で使う。03bでは一次監査で evidence bundle を固定し、二次監査で妥当性を確認し、`updated_to_current_law` は三次確定後に正答更新を公開確定する。
-- 02aで確定した`correctChoiceText`と公式解答は出題時正誤の正本であり、02bは現行条文から正しい記述数を再計算しません。現行法との不一致が疑われても、肢本文と対応する`current_basis`を特定できたなら02bを成功させ、`lawContextForExplanation`へ差分確認が必要と残して03bへ渡します。正しい条文又は肢との対応自体を特定できない場合だけ`hold`にします。
+## `isLawRelated`の判定
 
-## 入力の参照順
+法令・政令・省令・告示・通達・条例・公式制度資料上の義務、定義、手続、数値基準が正誤判断又は主要理解に直結するかを判定します。
 
-1. `20_merged_1/question_*_merged.json`
-2. 対象資格の `prompt/qualification_docs/<qualification>/`、特に `*law_reference*.md`
-3. 必要時のみ `00_source/`
-4. serverが`primaryLawEvidence`へ取得したe-Gov法令API v2の試験時点・現在時点本文
-5. e-Gov法令検索、官公庁資料、資格別に認めた一次情報相当の法令本文
-6. Codex組み込みweb検索。`primaryLawEvidence`がpartial又はlocator未宣言の箇所からe-Gov又は所管官庁の一次情報を開く入口に限り、検索要約だけで`verified`にしない
+- `isLawRelated=true`: 法令・制度論点（原則`lawGroundedExplanationNotNeeded=false`）。
+- `isLawRelated=false`: 工学・技術・一般知識のみで決まる論点（原則`lawGroundedExplanationNotNeeded=true`、`lawReferences`は入れない）。JISや技術基準が法令へ直接取り込まれていることを確認できない限り、用語の類似だけで法令問題にしない。
 
-## 判定方針
+## `lawReferences`と公式制度資料の扱い
 
-`isLawRelated` は、法令・政令・省令・告示・通達・条例・制度上の義務/定義/手続/数値基準が、正誤判断または学習上の主要理解に関係するかを表す正本フラグです。
+- **配列構造と再利用**: 選択肢別の`lawReferences`は外側配列を`choiceTextList`と同じ件数・順序にし、根拠がない肢も`[]`で位置を保持する（全体根拠は`scope="question"`、肢別は`scope="choice"`かつ0始まりの`choiceIndex`）。既存の`lawReferences`で全選択肢を十分説明できる場合は広域検索と再構築を省略し、不足、404又は内容不一致がある場合だけ該当肢を探索する。
+- **条文対応の厳密性**: 語句の類似だけで選ばず、条文の見出し、規律対象、申請・登録の種類、義務主体が設問と一致するか確認する。許可の施設基準の肢に更新期限だけを定める項を根拠にしない。例外・代替・「代えて」の規定は、置き換わる義務となお残る交付・記載・手続の義務を分けて`lawContextForExplanation`へ短く残す。判例・ガイドラインには架空の`lawId`を振らず、実在条文locatorと分けてメモを残し03bへ渡す。
+- **実取得と検証**: 探索turnでは`candidate` / `unverified`を返せるが、最終保存はserverが実取得した現行本文（`egov_xml`又は一致する`sourceUrl`）と照合済みの`verified`（`role="current_basis"`）だけを認める。条文本文自体はpatchへ保存しない。
+- **公式制度資料（標準管理規約等）**: 直接適用するe-Gov法令がない制度問題は`lawReferences`を全肢空配列とし、server実取得の`officialGuidanceEvidence`を読んで`officialGuidanceReferences`（配送済み`request`・`evidenceRef`と全肢の`applicabilityByChoice`）を保持する。所定頁不足は`blocked`とし、歴史版比較と正誤確定は03bへ渡す。
 
-- `isLawRelated=true`: 法令・制度論点である。原則 `lawGroundedExplanationNotNeeded=false`。
-- `isLawRelated=false`: 法令・制度論点ではない。原則 `lawGroundedExplanationNotNeeded=true`。
-- `lawReferences` が非空なら、必ず `isLawRelated=true` かつ `lawGroundedExplanationNotNeeded=false`。
-- `isLawRelated=false` の問題に `lawReferences` を入れてはいけない。
-- JIS、技術基準又は工学上の一般則だけで正誤が決まる問題は、それが法令へ直接取り込まれ、又は法令が当該基準を直接参照して正誤を決めることを確認できない限り`isLawRelated=false`とする。技術用語や数値が法令にも現れ得るというだけで法令問題にしない。
+## 出力と検証
 
-`lawGroundedExplanationNotNeeded` は旧「条文に基づき解説」導線との互換フラグです。AI解説・条文確認の正本は03bで作る `lawRevisionFacts` へ寄せます。02bでは、03/03bが迷わないように法令関連性と現行法根拠候補を準備します。
-
-迷う場合は、解説本文に「法令名・条項・制度上の義務/定義/手続/基準」を書く必要があるかで判断します。必要がある、またはユーザーが現行法で確認したくなる可能性が高いなら `isLawRelated=true` に倒します。
-
-## `lawReferences` の扱い
-
-資格別方針で `lawReferences` を出す資格では、現行法の根拠候補をできるだけ02bで作ります。
-
-- 現行法根拠は `role="current_basis"` にする。
-- 選択肢別の`lawReferences`は外側配列を`choiceTextList`と同じ件数・順序にし、根拠がない肢も`[]`で位置を保持する。肢を省略又は前詰めしない。
-- 選択肢単位で紐づく場合は `scope="choice"` とし、`choiceIndex` を 0-based で入れる。
-- 全体設問に紐づく場合は `scope="question"` にする。
-- `verified` にするのは、法令名、`lawId`、条番号まで一次情報相当で確認できた場合だけ。
-- 類似する条文を語句だけで選ばず、条文の見出し、規律対象、申請・登録の種類、義務を負う者が設問と一致するかを確認する。例えば貸金業者の登録拒否と貸金業務取扱主任者の登録拒否は別の規律として照合する。
-- `lawReferences`を肢へ割り当てる前に、条文本文がその肢の主語、対象設備・制度、義務・禁止・例外を実際に規定しているかを確認する。法令名や条番号が存在するだけでは足りない。許可の施設・能力基準を述べる肢には、その基準を定める項を割り当て、更新期限だけを定める項を根拠にしない。外側配列の位置、`choiceIndex=表示番号-1`、`lawContextForExplanation`内の選択肢番号、肢本文の四つを照合し、別の肢又は別制度の条文を流用しない。
-- 例外、代替、みなし又は「代えて」の規定は、元の義務のどこを置き換えるかと、なお残る交付・記載・手続の義務を分けて`lawContextForExplanation`へ残す。「代えられる」を「書面等が一切不要」と読み替えない。
-- serverの探索turnでは、条文探索中のlocatorを`candidate`又は`unverified`として返せる。この中間候補は正式パッチへ保存しない。
-- serverは候補の`lawReferences`だけを元問題のコピーへ載せ、既存e-Gov取得器で現行本文・正式法令名・URL・XML hash・本文hashを取得する。取得結果を`primaryLawEvidence`として受け取った次のturnで、各肢と本文を照合して最終候補を再生成する。
-- 最終候補へ追加又は変更したlocatorはserverが再取得する。取得と再生成は最大3周とし、未確認の現行本文が残る場合は`blocked`にする。最終保存では`verified`だけを認め、候補hashと取得receiptを照合する。自己申告した`source`や`verified`だけで実取得を代替しない。
-- 最終`source`は実取得providerの`egov_xml`又は`currentSnapshot.sourceUrl`と完全一致する取得URLを使う。未取得の機関名、別の公的ページ、似たURLを確認済み出典として記録しない。根拠メモだけを部分更新する場合も、既存locatorの現行本文を取得してからメモを再生成する。
-- 現行本文を確認できていて出題時本文だけが不足する場合は、02bを止めず03bへ引き継ぐ。出題時正誤や公式解答をこの再生成で変更しない。
-- 条文本文は保存しない。
-- 判例や行政ガイドラインが条文の解釈を補う場合、`lawReferences`には実在する法令のlocatorを保存し、判例・資料へ架空の`lawId`や条番号を割り当てない。資料名、確認箇所と条文だけでは決まらない論点は`lawContextForExplanation`へ簡潔に残し、一次資料のURL・本文の確認記録と最終的な正誤の確定は03bへ渡す。判例に法令IDがないことだけで、確認済みの関連条文候補まで破棄しない。
-- 既存の`lawReferences`に`lawId`と条番号又は保存済みURLがある場合は、その紐付け先の一次情報本文を最初に確認する。
-- 既存の紐付け先だけで全選択肢を十分に説明できる場合は、広域検索と`lawReferences`の再構築を省略し、有効な紐付けを保持する。
-- 不足、404又は内容不一致がある場合だけ、その選択肢と不足箇所に限定して一次情報を探索する。
-
-出題当時法令との比較が必要そうだが未確定の場合は、02bでは現行法の `current_basis` だけを整理し、`lawContextForExplanation` に「出題当時法との差分確認が必要」と短く残します。正誤更新や差分確定は03bで行います。公式解答の個数と02bが現行条文から推測した個数が一致しないことだけを理由に、正しく対応付けた`current_basis`を破棄したり02bを`hold`にしたりしません。
-
-## 出力方針
-
-出力先:
-
-```text
-output/<qualification>/questions_json/<list_group_id>/18_law_context_prepared/
-```
-
-ファイル名:
-
-```text
-question_xxx_merged_lawContext_prepared.json
-```
-
-各要素は、元の `question_bodies` と同じ順序で並べます。
-
-必須:
-
-- `original_question_id`
-- `question_url`
-- `isLawRelated`
-- `lawGroundedExplanationNotNeeded`
-
-任意:
-
-- `lawReferences`
-- `lawContextForExplanation`
-
-`lawContextForExplanation` は03の解説作成者向けの短い作業メモです。Firestoreには入れず、長文引用やURLを入れません。
-
-## 最小パッチ例
-
-```json
-[
-  {
-    "original_question_id": "xxxx",
-    "isLawRelated": true,
-    "lawGroundedExplanationNotNeeded": false,
-    "lawContextForExplanation": "現行法では○○法第3条の定義が判断軸。出題当時との差分は未確認のため、正誤更新は03bで確認する。",
-    "lawReferences": [
-      [
-        {
-          "role": "current_basis",
-          "scope": "choice",
-          "choiceIndex": 0,
-          "lawId": "329AC0000000051",
-          "lawTitle": "ガス事業法",
-          "referenceDate": "2026-07-04",
-          "article": "2",
-          "verificationStatus": "verified",
-          "source": "egov_xml",
-          "comparisonStatus": "not_checked"
-        }
-      ],
-      []
-    ]
-  },
-  {
-    "original_question_id": "yyyy",
-    "isLawRelated": false,
-    "lawGroundedExplanationNotNeeded": true,
-    "lawContextForExplanation": "工学的な施工手順の問題で、法令条文を根拠にしない。"
-  }
-]
-```
-
-## 正式パッチ化
-
-AIが最小JSONを作ったら、次で正式パッチへ補完します。
-
-```bash
-.venv/bin/python tools/question_bank/question_bank.py materialize-patch \
-  --task law_context \
-  --source /path/to/question_*_merged.json \
-  --raw /path/to/raw.json \
-  --output /path/to/18_law_context_prepared/question_*_merged_lawContext_prepared.json
-```
-
-## 検証
+出力先は`18_law_context_prepared/<source_stem>_merged_lawContext_prepared.json`です。最小JSON（`original_question_id`、`isLawRelated`、`lawGroundedExplanationNotNeeded`、任意の`lawReferences`・`lawContextForExplanation`）を作成した場合は`question_bank.py materialize-patch --task law_context`で補完し、単体検証を実行します（全体検査は公開準備で行う）。
 
 ```bash
 .venv/bin/python tools/question_bank/question_bank.py check-law-context-patch \
-  --source /path/to/question_*_merged.json \
-  --patch /path/to/18_law_context_prepared/question_*_merged_lawContext_prepared.json
+  --source <logical_projection_or_20_merged_1.json> \
+  --patch <list_group_id>/18_law_context_prepared/<source_stem>_merged_lawContext_prepared.json
 ```
-
-02bの正式保存では、対象ファイルごとの`check-law-context-patch`に加え、正常runnerが固定した最終候補hashと実一次取得receiptを照合する。保存前に取得結果の現行本文・URL・XML/本文hashが変われば停止する。
-全工程を検査する`quality-gate`は公開準備の最終検証で実行し、02bでは実行しない。
-
-## 禁止事項
-
-- 02bで `explanationText` を書かない。
-- 推測で `lawId` や条番号を `verified` にしない。
-- `isLawRelated=false` としながら `lawReferences` を残さない。
-- 法改正で正誤が変わる可能性だけを理由に、02bで `correctChoiceText` を更新しない。
-- 出題当時正答と現行法正誤の差分確定を sidecar なしで済ませない。差分が疑われる場合は03bへ送る。
-
-## 公式制度資料を直接根拠とする場合
-
-`isLawRelated`は法令だけでなく制度論点も表します。標準管理規約は国土交通省が示すモデルであり、e-Gov法令そのものではありません。実際に適用する法令locatorがない場合は、`lawReferences`を全肢対応の空配列とし、serverが実取得した`officialGuidanceEvidence`を独立に読んで採否を判断します。空配列だけでは根拠確認を完了できません。
-
-採用時は内部field `officialGuidanceReferences`へ配送済みの`request`と`evidenceRef`を保持し、`applicabilityByChoice`で全肢の条項、原則と例外、現在と出題時の適用理由を説明します。取得証明は資料の内容や版の適用性を保証しません。所定頁が不足すれば`blocked`にして不足頁を示し、新しい固定入力で再生成します。モデルが未配送の証明を生成したり、資料に架空の法令IDを与えたりしません。
-
-制度資料だけが直接根拠の場合と、法令も併用する場合を内容から区別します。併用時はe-Gov本文と制度資料の両方の実取得が必要です。現行モデル規約の公表日、法改正の施行日、個別組合の採用規約は区別します。歴史版の`historicalCompleteness=unreviewed`を確認済みと読み替えず、時点比較と正誤確定は03bの独立監査へ渡します。内部証明の型と保存責務は[question field契約](../document/reference/question_field_contract.md)を参照します。

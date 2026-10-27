@@ -182,7 +182,7 @@ report審査は実task/case、caseが保持するcanonical snapshotとその内�
 `--private-candidate` は未承認の4field候補を18/21の責務で投影する検証専用です。正式patchには保存せず、評価・公開を停止します。候補を使わず正式入力から生成した成果物も、自動的に公開可能にはなりません。Inventoryの `scoped_question(manifest_path)`、評価、Publisherは同じmanifestを再検証し、現行工程版・真正評価・failed delta・live fingerprintなど既存条件を適用します。manifestの手編集による昇格は認めません。
 
 限定contextは、canonical rootの `output/<qualification>/category/category.json` とカテゴリ依存集合を固定し、変換documentの `questionSetId` が正本に存在することを確認します。readerのPython依存、資格ID解決config、field要件及び評価schemaも入力fingerprintへ含めます。private JSONは保存前にdirectoryを700、temporary fileを600に設定してatomicに確定し、失敗時も広いpermissionで残しません。再実行は新しい `runs/<run-id>/` へ保存し、既存manifest・証跡の内容を保持します。
-# Snapshot correction preview
+### Snapshot correction preview
 
 `snapshot-corrections/v1` は既存 canonical reader と固定 native chain に結合する private manifest です。
 年度公式 source の原問・選択肢・原選択答と、既存公開IDの TF 表示 variant を別々に保持します。

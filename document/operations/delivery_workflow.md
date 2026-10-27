@@ -128,33 +128,8 @@ python3 scripts/upload/upload_questions_to_firestore.py \
 - upload commandの成功だけで完了にせず、live readback一致を完了条件にする。
 
 限定artifactの検証では、正式入力からの生成と未承認4field候補からの生成を各2回実行し、同入力のprojection・全document・内容hash・公開ID集合を照合します。既存strict law coverageはmerged、converted、upload-readyの各明示入力へ適用し、正式現状の失敗をprivate候補の成功で置き換えません。正式入力のPublisher loaderと候補の拒否、両経路の評価・公開preview、subscription判定を個別に保存します。正しい拒否は接続検証の結果であり、評価合格や公開準備完了の代替にはなりません。
-# 限定 field 修正の承認境界
+## 限定field修正の承認境界
 
-`prepare_scoped_question_artifacts.py --snapshot-corrections ... --preview-only` は private preview を作成します。
-正式patch保存承認と production 適用承認は別gateです。native内容審査は機械checkpointやmodel evaluationではありません。
-2025追加4fieldの承認pendingはこの経路で昇格しません。固定法令基準日は2026-10-03で、正式保存前に現行版再照合が必要です。
+`prepare_scoped_question_artifacts.py --snapshot-corrections ... --preview-only` は private preview を作成します。正式patch保存承認と production 適用承認は別gateであり、native内容審査は機械checkpointやmodel evaluationではありません。source/candidate/policy/work version/manifest/live snapshot の hash を token に結合し、真正工程と評価を確認します（未承認・未実行なら blocker を返す）。更新gatewayは全対象docのbeforeとupdateTimeを確認した後、全precondition付き atomic batch/transaction で field update を実行し（set/merge/full upload/deleteは使わない）、適用後に同じmaskでafter/presenceを確認します。
 
-source/candidate/policy/work version/manifest/live snapshot の hash を token に結合し、真正工程と評価を確認します。
-未承認・未実行なら blocker を返します。更新gatewayは全対象docのbeforeとupdateTimeを確認した後、
-全precondition付き atomic batch/transaction で field update を実行します。set/merge/full upload/deleteは使いません。
-監査フィールドの既存責務は内容deltaと別に承認します。適用後は同じmaskでafter/presenceを確認します。
-再送には同じ操作receiptとafter versionが必要です。rollbackは別承認の補償契約で、競合時や削除を要する場合は拒否します。
-T040実行はpreview/read-onlyとfixture検証のみで、本番write・正式保存・evaluationを実行しません。
-
-
-## 限定正式保存のdry-run
-
-`prepare_scoped_question_artifacts.py --formal-save-plan <固定manifest> --output <private run> --dry-run` は、正式予定9fileと同一bytesをprivate `planned-files/`へ生成する。実正式保存は行わない。2018/2024は原問本文・肢順・原選択答4/2を保持するsource no-op envelopeと公開TF variantを分離する。2020はproduction snapshot専用型でsource group/ref=null、questionText一文字deltaだけを保持する。local評価namespaceを正式sourceに代用しない。
-
-`formal-save-plan.json`は全path/file SHA256・固定候補・native証跡・現入力hashを結合する。object hashはcompact sorted UTF-8 JSON（LFなし）、file hashは実pretty JSON bytes（末尾LFあり）。歴史的コード依存との差は新planに記録し、旧検証を現行コード成功へ流用しない。
-
-正式保存APIは、固定質問のexact plan/path/hash bindingに関連する真正native人間回答と、別の日時・URL・revision・XML/body hash付き現行法取得証跡を要求する。bool/tokenや人間の法令真偽宣言だけでは許可しない。UI回答はquestionItemIdのtool/call/index・固定質問を照合する。法令差異は自動補正しない。保存はunitごとのOS atomic no-replace確定で、同一bytesの再送だけを受理する。receipt未確定のdirectoryは有効なunitとして読まない。
-
-`load_formal_correction_unit`、Inventory、ArtifactSynchronizerの明示入口だけでplan/承認receiptを読む。通常24/05 selector・group resolverは不変。保存receiptからcheckpoint/evaluation/machineReady/publicationReadyを作らない。正式保存・現在法再照合・対象checkpoint/model評価・本番承認・SDK更新・公開後readbackは別工程である。
-
-
-### 結合済みreviewの凍結と限定保存の回復
-
-planに結合したcase_review本文は、行政的な承認待ち表示・進捗同期では変更しない。PMはplan hash・review hash・状態・receipt参照を別のappend-only linkageへ記録し、そのlinkageを同planのinputsに加えない。判断・根拠・候補の実質変更では旧planを失効させfresh planを生成する。2025の既存回答待ちは再送しない。
-
-承認Markdownと詳細refs/facts付録の実bytes hashを、循環参照なしでplanと固定質問に結合する。法令gateはdated law_data実metadata応答内revisionと、XML実bytes/MainProvision/body hashを照合する。保存中のapproved bytes・staged bytes・現inputsをexclusive finalize直前に再照合する。成功receiptの同一再送は元法令証跡を確認するread-only操作であり、日付変更後も元receiptを返す。receiptなし中断resumeは新write/receipt確定を伴うためfresh法令再照合が必要。
+限定正式保存のdry-run（`--formal-save-plan`）と結合済みreviewの凍結・回復契約の詳細は、[artifact契約](artifact_contract.md#publication-correction-unit)を正本とします。

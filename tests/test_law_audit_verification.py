@@ -328,7 +328,7 @@ class NormalLawJudgmentDeliveryTests(unittest.TestCase):
         self.assertEqual(before['law_audit']['policyVersion'], '6.7')
         self.assertEqual(before['correct_choice']['policyVersion'], '5.11')
         path = self.root / 'config/question_maintenance_workflow.toml'
-        source = path.read_text(); start = source.index('id = "law_audit"', source.index('policy_version = "11.3"'))
+        source = path.read_text(); start = source.index('id = "law_audit"', source.index('policy_version = "11.4"'))
         end = source.index('[[stages.update_targets]]', start)
         old = source[start:end].replace('policy_version = "6.7"', 'policy_version = "6.6"').replace(
             '  "prompt/02a_prompt_review_correctChoiceText.md",\n', '')
