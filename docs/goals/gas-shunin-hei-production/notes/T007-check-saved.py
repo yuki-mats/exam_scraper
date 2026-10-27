@@ -66,12 +66,18 @@ paused_code_changed = [name for name, expected in code.items() if name != "scrip
                        and hashlib.sha256((ROOT / name).read_bytes()).hexdigest() != expected]
 observation_path = RUN / "workspace-code-observation.json"
 observation = json.loads(observation_path.read_text()) if observation_path.exists() else {}
+observations = observation.get("observations", [observation])
 observed_changes = []
 for name in paused_code_changed:
-    if name == observation.get("path") and hashlib.sha256((ROOT / name).read_bytes()).hexdigest() == observation.get("observedSha256"):
-        diff = ROOT / observation["diffPath"]
-        if hashlib.sha256(diff.read_bytes()).hexdigest() == observation.get("diffSha256"):
+    for item in observations:
+        if name != item.get("path") or item.get("executedForHei") is not False:
+            continue
+        if hashlib.sha256((ROOT / name).read_bytes()).hexdigest() != item.get("observedSha256"):
+            continue
+        diff = ROOT / item["diffPath"]
+        if hashlib.sha256(diff.read_bytes()).hexdigest() == item.get("diffSha256"):
             observed_changes.append(name)
+            break
 unreviewed_changes = sorted(set(paused_code_changed) - set(observed_changes))
 # 実行するsnapshot自体をGit objectと照合する。並行checkoutの状態とは分ける。
 commit = json.loads((RUN / "execution-baseline.json").read_text())["toolCommit"]

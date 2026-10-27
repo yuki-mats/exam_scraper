@@ -1,14 +1,14 @@
 {
   "schemaVersion": "hei-direct-maintenance-checkpoint/v1",
-  "generatedAt": "2026-10-27T20:31:06.282021+00:00",
+  "generatedAt": "2026-10-27T20:39:47.893548+00:00",
   "status": "in_progress",
   "fullOutcomeComplete": false,
   "productionWritten": false,
   "systemCodeModified": false,
   "maintenanceServerStarted": false,
   "sourceQuestionCount": 522,
-  "newDirectSavedQuestionCount": 404,
-  "remainingDirectReviewQuestionCount": 118,
+  "newDirectSavedQuestionCount": 408,
+  "remainingDirectReviewQuestionCount": 114,
   "savedQuestions": {
     "2017:kiso:問1": {
       "sourceQuestionId": "2017:kiso:問1",
@@ -5007,24 +5007,72 @@
       "nativeSha256": "3e03d97578f695700f116ae4d3bd170dcb1222764eb5e4387da250d1d85f2ad9",
       "lawAuditPath": "output/gas-shunin-hei/direct_publication/20261027/law_audits/2025_law_問16_r1/result.json",
       "saveReceipt": "output/gas-shunin-hei/direct_publication/20261027/saved/2025-law-16.json"
+    },
+    "2020:seizo:問6": {
+      "sourceQuestionId": "2020:seizo:問6",
+      "sourceIdentity": {
+        "sourceQuestionKey": "gas-shunin:hei:2020:seizo:q06",
+        "reviewQuestionId": "2e8be7f3c0acb611",
+        "sourceRecordRef": "question_2020_2.json#11"
+      },
+      "candidateHash": "53eac5060b1187f259b0cc7041c80c8ae2691f1630b11dc5360a96ddc6e8415a",
+      "auditPath": "output/gas-shunin-hei/direct_publication/20261027/content_audits/2020_seizo_問6/result.json",
+      "nativeSha256": "cbbc80e5f15f112b016f828cec21dd2bd78e7fbab04ab74f4f24c7286c667ce3",
+      "saveReceipt": "output/gas-shunin-hei/direct_publication/20261027/saved/2020-seizo-06.json"
+    },
+    "2020:kyokyu:問15": {
+      "sourceQuestionId": "2020:kyokyu:問15",
+      "sourceIdentity": {
+        "sourceQuestionKey": "gas-shunin:hei:2020:kyokyu:q15",
+        "reviewQuestionId": "75bfba6de8b0c100",
+        "sourceRecordRef": "question_2020_2.json#20"
+      },
+      "candidateHash": "cfbf55828b3ee2f5e1997a9e6aac4380ea4f157c124512a46e87a692ade1e0b6",
+      "auditPath": "output/gas-shunin-hei/direct_publication/20261027/content_audits/2020_kyokyu_問15/result.json",
+      "nativeSha256": "3a2ae6edbecf13faad852042de8b6f0436bcbe6924172390df87f56d433234c9",
+      "saveReceipt": "output/gas-shunin-hei/direct_publication/20261027/saved/2020-kyokyu-15-18.json"
+    },
+    "2020:kyokyu:問18": {
+      "sourceQuestionId": "2020:kyokyu:問18",
+      "sourceIdentity": {
+        "sourceQuestionKey": "gas-shunin:hei:2020:kyokyu:q18",
+        "reviewQuestionId": "b34ad8f472518bb5",
+        "sourceRecordRef": "question_2020_2.json#23"
+      },
+      "candidateHash": "552e8391ffa0c41208fc6b5be2b4ac7347b5ba8500cff379435fc46d91f3e4f0",
+      "auditPath": "output/gas-shunin-hei/direct_publication/20261027/content_audits/2020_kyokyu_問18/result.json",
+      "nativeSha256": "9b3ef631ba55954ca15bbc55237876b96a0c97b9964c5f2157fc1518bae6b8e2",
+      "saveReceipt": "output/gas-shunin-hei/direct_publication/20261027/saved/2020-kyokyu-15-18.json"
+    },
+    "2021:kyokyu:問11": {
+      "sourceQuestionId": "2021:kyokyu:問11",
+      "sourceIdentity": {
+        "sourceQuestionKey": "gas-shunin:hei:2021:kyokyu:q11",
+        "reviewQuestionId": "832a81d2a1d973f1",
+        "sourceRecordRef": "question_2021_2.json#16"
+      },
+      "candidateHash": "593aca3ea9a57be52e772030b886d37f56e753dc3f8e3d5b4db83acda4b927bd",
+      "auditPath": "output/gas-shunin-hei/direct_publication/20261027/content_audits/2021_kyokyu_問11/result.json",
+      "nativeSha256": "29af7392a42797b6e44a9508cd5464f57e9c342c2ad300d42142e94ed1d0608d",
+      "saveReceipt": "output/gas-shunin-hei/direct_publication/20261027/saved/2021-kyokyu-11.json"
     }
   },
   "latestChecks": {
-    "path": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T203053Z/result.json",
-    "sha256": "db51ba4bd6a1b70cdd1d7bde3cc44118c726fcce0769efe551d767f1e78fa890",
+    "path": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T203734Z/result.json",
+    "sha256": "912e5b92263d8310294779051cb7c4b86527b69c136448edf0bb4ec052288495",
     "summary": {
-      "generatedAt": "20261027T203053Z",
-      "selectedCount": 404,
+      "generatedAt": "20261027T203734Z",
+      "selectedCount": 408,
       "byYear": {
         "2017": 51,
         "2019": 47,
         "2023": 42,
         "2024": 44,
-        "2020": 42,
+        "2020": 45,
         "2018": 48,
         "2025": 42,
         "2022": 47,
-        "2021": 41
+        "2021": 42
       },
       "commands": [
         {
@@ -5032,12 +5080,12 @@
             "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_choice_text_alignment.py",
             "--base-dir",
-            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/checks/20261027T203053Z/gas-shunin-hei/questions_json",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/checks/20261027T203734Z/gas-shunin-hei/questions_json",
             "--stage",
             "merged"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T203053Z/check-00.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T203734Z/check-00.log",
           "logSha256": "a0a43fc049c21d611775721216fc1fe1f18569576a2440e0f682647409dbe70f"
         },
         {
@@ -5045,12 +5093,12 @@
             "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_required_fields.py",
             "--base-dir",
-            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/checks/20261027T203053Z/gas-shunin-hei/questions_json",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/checks/20261027T203734Z/gas-shunin-hei/questions_json",
             "--stage",
             "merged"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T203053Z/check-01.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T203734Z/check-01.log",
           "logSha256": "aba5ddbabc195b6b3065026bd5dd0bbc689b62d9454c334b5b90e21ac5933b8c"
         },
         {
@@ -5065,7 +5113,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2017/10_questionType_fixed/question_2017_1_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T203053Z/check-02.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T203734Z/check-02.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5080,7 +5128,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2017/10_questionType_fixed/question_2017_2_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T203053Z/check-03.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T203734Z/check-03.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5095,7 +5143,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2017/10_questionType_fixed/question_2017_3_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T203053Z/check-04.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T203734Z/check-04.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5110,7 +5158,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2019/10_questionType_fixed/question_2019_1_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T203053Z/check-05.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T203734Z/check-05.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5125,7 +5173,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2019/10_questionType_fixed/question_2019_2_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T203053Z/check-06.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T203734Z/check-06.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5140,7 +5188,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2019/10_questionType_fixed/question_2019_3_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T203053Z/check-07.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T203734Z/check-07.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5155,7 +5203,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2023/10_questionType_fixed/question_2023_1_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T203053Z/check-08.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T203734Z/check-08.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5170,7 +5218,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2023/10_questionType_fixed/question_2023_2_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T203053Z/check-09.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T203734Z/check-09.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5185,7 +5233,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2023/10_questionType_fixed/question_2023_3_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T203053Z/check-10.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T203734Z/check-10.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5200,7 +5248,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2024/10_questionType_fixed/question_2024_1_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T203053Z/check-11.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T203734Z/check-11.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5215,7 +5263,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2024/10_questionType_fixed/question_2024_2_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T203053Z/check-12.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T203734Z/check-12.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5230,7 +5278,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2024/10_questionType_fixed/question_2024_3_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T203053Z/check-13.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T203734Z/check-13.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5245,7 +5293,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2020/10_questionType_fixed/question_2020_1_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T203053Z/check-14.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T203734Z/check-14.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5260,7 +5308,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2020/10_questionType_fixed/question_2020_2_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T203053Z/check-15.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T203734Z/check-15.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5275,7 +5323,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2020/10_questionType_fixed/question_2020_3_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T203053Z/check-16.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T203734Z/check-16.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5290,7 +5338,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2018/10_questionType_fixed/question_2018_1_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T203053Z/check-17.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T203734Z/check-17.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5305,7 +5353,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2018/10_questionType_fixed/question_2018_2_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T203053Z/check-18.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T203734Z/check-18.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5320,7 +5368,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2018/10_questionType_fixed/question_2018_3_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T203053Z/check-19.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T203734Z/check-19.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5335,7 +5383,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2025/10_questionType_fixed/question_2025_1_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T203053Z/check-20.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T203734Z/check-20.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5350,7 +5398,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2025/10_questionType_fixed/question_2025_2_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T203053Z/check-21.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T203734Z/check-21.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5365,7 +5413,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2025/10_questionType_fixed/question_2025_3_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T203053Z/check-22.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T203734Z/check-22.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5380,7 +5428,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2022/10_questionType_fixed/question_2022_1_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T203053Z/check-23.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T203734Z/check-23.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5395,7 +5443,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2022/10_questionType_fixed/question_2022_2_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T203053Z/check-24.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T203734Z/check-24.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5410,7 +5458,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2022/10_questionType_fixed/question_2022_3_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T203053Z/check-25.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T203734Z/check-25.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5425,7 +5473,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2021/10_questionType_fixed/question_2021_1_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T203053Z/check-26.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T203734Z/check-26.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5440,7 +5488,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2021/10_questionType_fixed/question_2021_2_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T203053Z/check-27.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T203734Z/check-27.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5455,17 +5503,19 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2021/10_questionType_fixed/question_2021_3_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T203053Z/check-28.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T203734Z/check-28.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         }
       ],
       "sourceFilesChecked": 27,
       "sourceChanged": [],
       "pausedCodeChanged": [
-        "tools/question_review_console/qualification_runs.py"
+        "tools/question_review_console/qualification_runs.py",
+        "tools/question_review_console/question_candidate.py"
       ],
       "reviewedConcurrentCodeChanges": [
-        "tools/question_review_console/qualification_runs.py"
+        "tools/question_review_console/qualification_runs.py",
+        "tools/question_review_console/question_candidate.py"
       ],
       "unreviewedCodeChanges": [],
       "snapshotFilesChecked": 569,
@@ -5476,42 +5526,69 @@
   },
   "concurrentWorkspaceObservation": {
     "path": "output/gas-shunin-hei/direct_publication/20261027/workspace-code-observation.json",
-    "sha256": "93b214c8654629858061a7a9f4bafda20408bc175705d1e8292188e27b9a9c26",
+    "sha256": "54a14c5f7733fec7fae47a06720d3bdb9b145ac6647029b58304d4d9032d95d0",
     "payload": {
-      "observedAt": "2026-10-27T18:45:05.601225+00:00",
-      "path": "tools/question_review_console/qualification_runs.py",
-      "baselineSha256": "3ee992270813ebc357f55a01ff73177d70e1ec3c2aecf67d920c8ef93a0b49c6",
-      "observedSha256": "fe3dd3f035897a4f67e9f39590f315b2211c77c88ae53e33e54cad2ca8d21277",
-      "reason": "並行作業のpublication baseと取得時正答の分離、集約正答証跡の整合確認の差分を読取確認。共有実装は編集・採用せず、丙種はGit固定snapshotの既存projection・materializer・checkerを使う。今回の検知をデータ検証の成功と混同しない。",
-      "diffPath": "output/gas-shunin-hei/direct_publication/20261027/workspace-code-observation.diff",
-      "diffSha256": "6457522ee4c181fabb10882f783e46b22ee97eb008e215e291822f80491299f5",
-      "introducedByCommit": "並行mainコミット及び他作業の未コミット差分（git diffは固定toolCommitとの全差分）",
-      "observedHead": "e6dbafab0c991df0cf37dabf6e3efad9b7c5b604",
-      "executedForHei": false,
-      "history": [
+      "schemaVersion": "hei-concurrent-code-observation/v2",
+      "observedAt": "2026-10-27T20:37:33.417902+00:00",
+      "observedHead": "77dac90364f06a3ec269756de1bd284354a5920f",
+      "observations": [
         {
-          "observedAt": "2026-10-27T16:34:07.014010+00:00",
           "path": "tools/question_review_console/qualification_runs.py",
           "baselineSha256": "3ee992270813ebc357f55a01ff73177d70e1ec3c2aecf67d920c8ef93a0b49c6",
-          "observedSha256": "d3ed009d980a71f09cc744de922dbaaa90150278abb9f2dd46cffbfe8ab51b5f",
-          "reason": "並行作業のcommit c5166cdd0による公式ガイダンス初回取得処理の追加。元の未コミット改修は保持されている。丙種は固定snapshotからimportし、この変更を実行しない。",
-          "diffPath": "output/gas-shunin-hei/direct_publication/20261027/workspace-code-observation.diff",
-          "diffSha256": "5af77de1df0f712143c2b37b3556ebbeb298a6a46d1e8d9f54c1b4a01e9a54f8",
-          "introducedByCommit": "c5166cdd0",
+          "observedSha256": "0f42e98c33b4b1173d4161fd9e4315d93af231dbdedbaaccab3fd1044ad5d7b2",
+          "diffPath": "output/gas-shunin-hei/direct_publication/20261027/workspace-code-observation-qualification_runs-0f42e98c33b4.diff",
+          "diffSha256": "c5bdc3b9053db7393c3011aa84a9ffa05bbd4dfeec9fe9c2be265b14e632a73a",
+          "reason": "共有checkoutのpublication base固定・取得時正答の分離、公式ガイダンスの工程入力と保存時の根拠対応処理の差分を読取確認した。丙種ではこの共有実装を編集・採用・実行せず、569ファイルをGit objectと照合する固定snapshotを使用する。",
           "executedForHei": false
         },
         {
-          "observedAt": "2026-10-27T16:52:48.776542+00:00",
-          "path": "tools/question_review_console/qualification_runs.py",
-          "baselineSha256": "3ee992270813ebc357f55a01ff73177d70e1ec3c2aecf67d920c8ef93a0b49c6",
-          "observedSha256": "0df59ac91a6e7896dafc225a55e656bebc52d91c4805db3f2604ab973c497b22",
-          "reason": "並行作業の公式ガイダンス初回取得・reference_input統合。元の未コミット改修は保持されている。丙種は固定snapshotを使用し、この変更を実行しない。",
-          "diffPath": "output/gas-shunin-hei/direct_publication/20261027/workspace-code-observation-0df59ac91a6e.diff",
-          "diffSha256": "1778ea9d3d0b7d189086aeccc7be48ce2c35b80a941457afc50ac33bac64aca8",
-          "introducedByCommit": "c5166cdd0, d6a94e8fe",
+          "path": "tools/question_review_console/question_candidate.py",
+          "baselineSha256": "c9d947740e5f417efafa3fd421ae590d58127cd5b74da2f25e1c948591cbf4ca",
+          "observedSha256": "32623ab171e05c9679e47b4172222067ab9a56ac0de81a6c4d78cabc6aa9c6fa",
+          "diffPath": "output/gas-shunin-hei/direct_publication/20261027/workspace-code-observation-question_candidate-32623ab171e0.diff",
+          "diffSha256": "9320fe09deb3f5ccaf6e91291ae4ccb5aa274cb57c725d6705aaca696d8d476b",
+          "reason": "共有checkoutの集約組合せ整合検査の共通化と、公式ガイダンスを原問の全肢へ結び付ける保存時検査の差分を読取確認した。丙種ではこの共有実装を編集・採用・実行せず、569ファイルをGit objectと照合する固定snapshotを使用する。",
           "executedForHei": false
         }
-      ]
+      ],
+      "previousObservation": {
+        "observedAt": "2026-10-27T18:45:05.601225+00:00",
+        "path": "tools/question_review_console/qualification_runs.py",
+        "baselineSha256": "3ee992270813ebc357f55a01ff73177d70e1ec3c2aecf67d920c8ef93a0b49c6",
+        "observedSha256": "fe3dd3f035897a4f67e9f39590f315b2211c77c88ae53e33e54cad2ca8d21277",
+        "reason": "並行作業のpublication baseと取得時正答の分離、集約正答証跡の整合確認の差分を読取確認。共有実装は編集・採用せず、丙種はGit固定snapshotの既存projection・materializer・checkerを使う。今回の検知をデータ検証の成功と混同しない。",
+        "diffPath": "output/gas-shunin-hei/direct_publication/20261027/workspace-code-observation-fe3dd3f03589.diff",
+        "diffSha256": "6457522ee4c181fabb10882f783e46b22ee97eb008e215e291822f80491299f5",
+        "introducedByCommit": "並行mainコミット及び他作業の未コミット差分（git diffは固定toolCommitとの全差分）",
+        "observedHead": "e6dbafab0c991df0cf37dabf6e3efad9b7c5b604",
+        "executedForHei": false,
+        "history": [
+          {
+            "observedAt": "2026-10-27T16:34:07.014010+00:00",
+            "path": "tools/question_review_console/qualification_runs.py",
+            "baselineSha256": "3ee992270813ebc357f55a01ff73177d70e1ec3c2aecf67d920c8ef93a0b49c6",
+            "observedSha256": "d3ed009d980a71f09cc744de922dbaaa90150278abb9f2dd46cffbfe8ab51b5f",
+            "reason": "並行作業のcommit c5166cdd0による公式ガイダンス初回取得処理の追加。元の未コミット改修は保持されている。丙種は固定snapshotからimportし、この変更を実行しない。",
+            "diffPath": "output/gas-shunin-hei/direct_publication/20261027/workspace-code-observation.diff",
+            "diffSha256": "5af77de1df0f712143c2b37b3556ebbeb298a6a46d1e8d9f54c1b4a01e9a54f8",
+            "introducedByCommit": "c5166cdd0",
+            "executedForHei": false
+          },
+          {
+            "observedAt": "2026-10-27T16:52:48.776542+00:00",
+            "path": "tools/question_review_console/qualification_runs.py",
+            "baselineSha256": "3ee992270813ebc357f55a01ff73177d70e1ec3c2aecf67d920c8ef93a0b49c6",
+            "observedSha256": "0df59ac91a6e7896dafc225a55e656bebc52d91c4805db3f2604ab973c497b22",
+            "reason": "並行作業の公式ガイダンス初回取得・reference_input統合。元の未コミット改修は保持されている。丙種は固定snapshotを使用し、この変更を実行しない。",
+            "diffPath": "output/gas-shunin-hei/direct_publication/20261027/workspace-code-observation-0df59ac91a6e.diff",
+            "diffSha256": "1778ea9d3d0b7d189086aeccc7be48ce2c35b80a941457afc50ac33bac64aca8",
+            "introducedByCommit": "c5166cdd0, d6a94e8fe",
+            "executedForHei": false
+          }
+        ]
+      },
+      "failedCheckRetained": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T203553Z/result.json",
+      "scope": "共有コードの未採用差分の観測記録。データ検査・システム改修・本番反映の成功証跡ではない。"
     }
   },
   "restorableFormalPatches": [
@@ -74809,7 +74886,7 @@
     },
     {
       "path": "output/gas-shunin-hei/questions_json/2020/15_correctChoiceText_fixed/question_2020_2_merged_correctChoiceText_fixed.json",
-      "sha256": "69c02b560477321e5ece575929157f4dbdf7c47c3f5d25f2d9f27a0447daad14",
+      "sha256": "56f176b71543bd496c06df57197619e11c76c921dfc9afb05d51e964704c1413",
       "payload": [
         {
           "questionIntent_changed": true,
@@ -74842,6 +74919,16 @@
           "sourceRecordRef": "question_2020_2.json#7"
         },
         {
+          "questionIntent_changed": false,
+          "questionIntent_change_detail": "",
+          "original_question_id": "2e8be7f3c0acb611",
+          "questionIntent": "select_incorrect",
+          "questionIntent_change_reason": "",
+          "sourceQuestionKey": "gas-shunin:hei:2020:seizo:q06",
+          "reviewQuestionId": "2e8be7f3c0acb611",
+          "sourceRecordRef": "question_2020_2.json#11"
+        },
+        {
           "questionIntent_changed": true,
           "questionIntent_change_detail": "None -> select_correct",
           "original_question_id": "f1e6ef5681571a9b",
@@ -74870,6 +74957,26 @@
           "sourceQuestionKey": "gas-shunin:hei:2020:kyokyu:q12",
           "reviewQuestionId": "9f5e2d332fc7a738",
           "sourceRecordRef": "question_2020_2.json#17"
+        },
+        {
+          "questionIntent_changed": false,
+          "questionIntent_change_detail": "",
+          "original_question_id": "75bfba6de8b0c100",
+          "questionIntent": "select_incorrect",
+          "questionIntent_change_reason": "",
+          "sourceQuestionKey": "gas-shunin:hei:2020:kyokyu:q15",
+          "reviewQuestionId": "75bfba6de8b0c100",
+          "sourceRecordRef": "question_2020_2.json#20"
+        },
+        {
+          "questionIntent_changed": false,
+          "questionIntent_change_detail": "",
+          "original_question_id": "b34ad8f472518bb5",
+          "questionIntent": "select_incorrect",
+          "questionIntent_change_reason": "",
+          "sourceQuestionKey": "gas-shunin:hei:2020:kyokyu:q18",
+          "reviewQuestionId": "b34ad8f472518bb5",
+          "sourceRecordRef": "question_2020_2.json#23"
         }
       ]
     },
@@ -81168,7 +81275,7 @@
     },
     {
       "path": "output/gas-shunin-hei/questions_json/2020/18_law_context_prepared/question_2020_2_merged_lawContext_prepared.json",
-      "sha256": "61a21206f6ea7cce0b7d395a7f27f7c3d7cbf8f0df6df75e3fdca6f03e6fc741",
+      "sha256": "5ac77a0f200d2fa2cc6e7cf476f22a7d5f30a1971df02dfa1b109eb325d2d7ee",
       "payload": [
         {
           "isLawRelated": false,
@@ -82325,6 +82432,150 @@
         {
           "isLawRelated": false,
           "lawGroundedExplanationNotNeeded": true,
+          "original_question_id": "2e8be7f3c0acb611",
+          "question_url": "https://gassyunin.com/exam/hei/hei_2020/#seizo-q6",
+          "lawReferences": [
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "lawRevisionFacts": [
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "正しい"
+              },
+              "current": {
+                "correctChoiceText": "正しい"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "調整器の一体型・分離型の構成、二次用の役割、自動補給による残ガス低減と表示機構、中間圧供給の仕組みを問う。法令上の義務や対象範囲を判定する問題ではない。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "二段式二次用調整器は、自動切替式分離型調整器の二次用としても用いられる。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2020_seizo_問6/result.json"
+              ]
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "正しい"
+              },
+              "current": {
+                "correctChoiceText": "正しい"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "調整器の一体型・分離型の構成、二次用の役割、自動補給による残ガス低減と表示機構、中間圧供給の仕組みを問う。法令上の義務や対象範囲を判定する問題ではない。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "自動切替式一体型調整器は、二次用調整器が一次用調整器の出口側に直接連結されているか、又は一体に構成されている。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2020_seizo_問6/result.json"
+              ]
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "正しい"
+              },
+              "current": {
+                "correctChoiceText": "正しい"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "調整器の一体型・分離型の構成、二次用の役割、自動補給による残ガス低減と表示機構、中間圧供給の仕組みを問う。法令上の義務や対象範囲を判定する問題ではない。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "自動切替式調整器を使用すると、残ガスが極めて少ないことから容器設置本数も少なくてすむ利点がある。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2020_seizo_問6/result.json"
+              ]
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "正しい"
+              },
+              "current": {
+                "correctChoiceText": "正しい"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "調整器の一体型・分離型の構成、二次用の役割、自動補給による残ガス低減と表示機構、中間圧供給の仕組みを問う。法令上の義務や対象範囲を判定する問題ではない。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "一般に、自動切替式調整器の表示機構は、自動切替式調整器中圧部の出口圧力によって作動する。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2020_seizo_問6/result.json"
+              ]
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "間違い"
+              },
+              "current": {
+                "correctChoiceText": "間違い"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "調整器の一体型・分離型の構成、二次用の役割、自動補給による残ガス低減と表示機構、中間圧供給の仕組みを問う。法令上の義務や対象範囲を判定する問題ではない。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "自動切替式分離型調整器は、一次用調整器と二次用調整器が分離しているため、中間圧による供給方式には使用できない。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2020_seizo_問6/result.json"
+              ]
+            }
+          ],
+          "lawContextForExplanation": "調整器の一体型・分離型の構成、二次用の役割、自動補給による残ガス低減と表示機構、中間圧供給の仕組みを問う。法令上の義務や対象範囲を判定する問題ではない。",
+          "sourceQuestionKey": "gas-shunin:hei:2020:seizo:q06",
+          "reviewQuestionId": "2e8be7f3c0acb611",
+          "sourceRecordRef": "question_2020_2.json#11"
+        },
+        {
+          "isLawRelated": false,
+          "lawGroundedExplanationNotNeeded": true,
           "original_question_id": "2c4094bbe5d01373",
           "question_url": "https://gassyunin.com/exam/hei/hei_2020/#kyokyu-q10",
           "lawReferences": [
@@ -82948,6 +83199,294 @@
           "sourceQuestionKey": "gas-shunin:hei:2020:kyokyu:q12",
           "reviewQuestionId": "9f5e2d332fc7a738",
           "sourceRecordRef": "question_2020_2.json#17"
+        },
+        {
+          "isLawRelated": false,
+          "lawGroundedExplanationNotNeeded": true,
+          "original_question_id": "75bfba6de8b0c100",
+          "question_url": "https://gassyunin.com/exam/hei/hei_2020/#kyokyu-q15",
+          "lawReferences": [
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "lawRevisionFacts": [
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "正しい"
+              },
+              "current": {
+                "correctChoiceText": "正しい"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "腐食電流の経路、塗覆装・樹脂管・絶縁継手の作用、流電陽極と外部電源による電気防食の原理を問う。法定の施工条件や対象範囲は判定しない。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "ミクロセル腐食対策の一つとしてガス管の表面に塗覆装を施すことにより、腐食電流の流出入ができないようにする。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2020_kyokyu_問15/result.json"
+              ]
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "間違い"
+              },
+              "current": {
+                "correctChoiceText": "間違い"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "腐食電流の経路、塗覆装・樹脂管・絶縁継手の作用、流電陽極と外部電源による電気防食の原理を問う。法定の施工条件や対象範囲は判定しない。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "流電陽極法による電気防食の陽極として使用するのは、アルミニウム陽極が一般的である。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2020_kyokyu_問15/result.json"
+              ]
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "正しい"
+              },
+              "current": {
+                "correctChoiceText": "正しい"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "腐食電流の経路、塗覆装・樹脂管・絶縁継手の作用、流電陽極と外部電源による電気防食の原理を問う。法定の施工条件や対象範囲は判定しない。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "電気伝導率の低いポリエチレン管を使用するのは、電食を防止する措置の一つである。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2020_kyokyu_問15/result.json"
+              ]
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "正しい"
+              },
+              "current": {
+                "correctChoiceText": "正しい"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "腐食電流の経路、塗覆装・樹脂管・絶縁継手の作用、流電陽極と外部電源による電気防食の原理を問う。法定の施工条件や対象範囲は判定しない。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "外部電源法は大規模な導管の防食が可能であるが、電圧が大きいため他の金属構造物への干渉や過防食を考慮する必要がある。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2020_kyokyu_問15/result.json"
+              ]
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "正しい"
+              },
+              "current": {
+                "correctChoiceText": "正しい"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "腐食電流の経路、塗覆装・樹脂管・絶縁継手の作用、流電陽極と外部電源による電気防食の原理を問う。法定の施工条件や対象範囲は判定しない。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "絶縁継手の設置は、電食やマクロセル腐食を防止する措置の一つである。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2020_kyokyu_問15/result.json"
+              ]
+            }
+          ],
+          "lawContextForExplanation": "腐食電流の経路、塗覆装・樹脂管・絶縁継手の作用、流電陽極と外部電源による電気防食の原理を問う。法定の施工条件や対象範囲は判定しない。",
+          "sourceQuestionKey": "gas-shunin:hei:2020:kyokyu:q15",
+          "reviewQuestionId": "75bfba6de8b0c100",
+          "sourceRecordRef": "question_2020_2.json#20"
+        },
+        {
+          "isLawRelated": false,
+          "lawGroundedExplanationNotNeeded": true,
+          "original_question_id": "b34ad8f472518bb5",
+          "question_url": "https://gassyunin.com/exam/hei/hei_2020/#kyokyu-q18",
+          "lawReferences": [
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "lawRevisionFacts": [
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "正しい"
+              },
+              "current": {
+                "correctChoiceText": "正しい"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "低圧導管の耐震化、事前訓練・動員体制、管理図面、需要家単位の遮断による災害対策を問う。法令の要件判断ではない。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "低圧の埋設導管としてポリエチレン管を使用した。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2020_kyokyu_問18/result.json"
+              ]
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "正しい"
+              },
+              "current": {
+                "correctChoiceText": "正しい"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "低圧導管の耐震化、事前訓練・動員体制、管理図面、需要家単位の遮断による災害対策を問う。法令の要件判断ではない。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "地震発生時に適切に対応するため、計画的に教育・訓練を行った。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2020_kyokyu_問18/result.json"
+              ]
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "間違い"
+              },
+              "current": {
+                "correctChoiceText": "間違い"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "低圧導管の耐震化、事前訓練・動員体制、管理図面、需要家単位の遮断による災害対策を問う。法令の要件判断ではない。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "動員の基準、出動方法・場所等の体制は、地震発生後に規模に応じて設定することとした。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2020_kyokyu_問18/result.json"
+              ]
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "正しい"
+              },
+              "current": {
+                "correctChoiceText": "正しい"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "低圧導管の耐震化、事前訓練・動員体制、管理図面、需要家単位の遮断による災害対策を問う。法令の要件判断ではない。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "導管の入替え工事が発生したので、管理用図面を更新した。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2020_kyokyu_問18/result.json"
+              ]
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "正しい"
+              },
+              "current": {
+                "correctChoiceText": "正しい"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "低圧導管の耐震化、事前訓練・動員体制、管理図面、需要家単位の遮断による災害対策を問う。法令の要件判断ではない。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "需要家ごとにガスが遮断できる装置として、マイコンメーターを設置した。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2020_kyokyu_問18/result.json"
+              ]
+            }
+          ],
+          "lawContextForExplanation": "低圧導管の耐震化、事前訓練・動員体制、管理図面、需要家単位の遮断による災害対策を問う。法令の要件判断ではない。",
+          "sourceQuestionKey": "gas-shunin:hei:2020:kyokyu:q18",
+          "reviewQuestionId": "b34ad8f472518bb5",
+          "sourceRecordRef": "question_2020_2.json#23"
         },
         {
           "isLawRelated": false,
@@ -90522,7 +91061,7 @@
     },
     {
       "path": "output/gas-shunin-hei/questions_json/2020/21_explanationText_added/question_2020_2_merged_explanationText_added.json",
-      "sha256": "54548d91a38c38b494356828cd8fb94612e6852a46bd655dfd4ad7f8b3153ff2",
+      "sha256": "578be59aecd7bfe56221deda90a796dcc459e42e824bbcfe9a38dc1eecd8049f",
       "payload": [
         {
           "explanationText": [
@@ -91722,6 +92261,158 @@
         },
         {
           "explanationText": [
+            "正しい。分離型では、一次側の自動切替調整器で中間圧まで下げたガスを、二段式二次用調整器で使用圧力まで下げる。二次用調整器は、この後段として用いられる。",
+            "正しい。一体型は、自動切替を行う一次側の出口に二次用調整器を直接連結するか、両者を一つの機器内に構成したものである。容器側の高い圧力を二段階で下げる。",
+            "正しい。自動切替式は、使用側の供給能力が低下しても予備側から補給して供給を続けるため、使用側の残ガスを少なくできる。早めの一斉交換に比べてガスを有効利用でき、必要な容器本数を抑えやすい。ただし、実際の本数は需要量や気温などにも左右される。",
+            "正しい。一般的な表示機構は、中圧部の出口圧力の変化を利用する。使用側だけで圧力を保てなくなり予備側から補給が始まると、表示によってその状態を知らせる。",
+            "間違い。分離型は、一次側と二次側の間を中間圧で供給する方式に使用できる。一次側で中間圧まで下げて送り、使用箇所の近くで二次用調整器により低圧にする。両者が分離していることは、中間圧供給を妨げる理由にはならない。"
+          ],
+          "suggestedQuestionDetailsByChoice": [],
+          "original_question_id": "2e8be7f3c0acb611",
+          "question_url": "https://gassyunin.com/exam/hei/hei_2020/#seizo-q6",
+          "questionLearningPatternId": "mechanisms_reasons",
+          "lawReferences": [
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "isLawRelated": false,
+          "lawGroundedExplanationNotNeeded": true,
+          "lawRevisionFacts": [
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "正しい"
+              },
+              "current": {
+                "correctChoiceText": "正しい"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "調整器の一体型・分離型の構成、二次用の役割、自動補給による残ガス低減と表示機構、中間圧供給の仕組みを問う。法令上の義務や対象範囲を判定する問題ではない。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "二段式二次用調整器は、自動切替式分離型調整器の二次用としても用いられる。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2020_seizo_問6/result.json"
+              ]
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "正しい"
+              },
+              "current": {
+                "correctChoiceText": "正しい"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "調整器の一体型・分離型の構成、二次用の役割、自動補給による残ガス低減と表示機構、中間圧供給の仕組みを問う。法令上の義務や対象範囲を判定する問題ではない。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "自動切替式一体型調整器は、二次用調整器が一次用調整器の出口側に直接連結されているか、又は一体に構成されている。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2020_seizo_問6/result.json"
+              ]
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "正しい"
+              },
+              "current": {
+                "correctChoiceText": "正しい"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "調整器の一体型・分離型の構成、二次用の役割、自動補給による残ガス低減と表示機構、中間圧供給の仕組みを問う。法令上の義務や対象範囲を判定する問題ではない。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "自動切替式調整器を使用すると、残ガスが極めて少ないことから容器設置本数も少なくてすむ利点がある。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2020_seizo_問6/result.json"
+              ]
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "正しい"
+              },
+              "current": {
+                "correctChoiceText": "正しい"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "調整器の一体型・分離型の構成、二次用の役割、自動補給による残ガス低減と表示機構、中間圧供給の仕組みを問う。法令上の義務や対象範囲を判定する問題ではない。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "一般に、自動切替式調整器の表示機構は、自動切替式調整器中圧部の出口圧力によって作動する。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2020_seizo_問6/result.json"
+              ]
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "間違い"
+              },
+              "current": {
+                "correctChoiceText": "間違い"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "調整器の一体型・分離型の構成、二次用の役割、自動補給による残ガス低減と表示機構、中間圧供給の仕組みを問う。法令上の義務や対象範囲を判定する問題ではない。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "自動切替式分離型調整器は、一次用調整器と二次用調整器が分離しているため、中間圧による供給方式には使用できない。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2020_seizo_問6/result.json"
+              ]
+            }
+          ],
+          "sourceQuestionKey": "gas-shunin:hei:2020:seizo:q06",
+          "reviewQuestionId": "2e8be7f3c0acb611",
+          "sourceRecordRef": "question_2020_2.json#11"
+        },
+        {
+          "explanationText": [
             "間違い。低圧供給方式は、中間圧の配管と各所の減圧設備を用いる方式に比べ、導管の工事や維持管理が比較的容易である。一方、利用できる圧力差が小さいため、必要な流量を送るには口径や圧力損失への配慮が必要となる。",
             "正しい。中間圧で建物内などへ送り、使用場所の近くで低圧に減圧する方式は、高層建物等で用いられる。低圧のまま長い距離や高低差のある経路へ送る場合より、圧力損失等へ対応しやすい。",
             "正しい。供給地点数や供給開始の時期等からガス需要量を見積もり、必要な流量を確保できる経路・口径を検討する。工事費だけでなく、維持管理も含めて経済的な計画を立てる。",
@@ -92374,6 +93065,310 @@
               "referenceDate": "2026-10-28"
             }
           ]
+        },
+        {
+          "explanationText": [
+            "正しい。塗覆装は鋼管と周囲の土壌・水分との接触を遮り、腐食電流の経路を断つ働きを持つ。塗膜に傷があると、その部分が腐食しやすいため、施工時の損傷防止や補修も必要である。",
+            "間違い。埋設ガス管の流電陽極法には、一般にマグネシウム合金陽極を用いる。鋼より電位の低い陽極を先に溶かし、鋼管を陰極として保護する。アルミニウム陽極は海水中などで用いられるが、埋設ガス管の一般的な陽極とは区別する。",
+            "正しい。ポリエチレンは電気を通しにくく、金属管のような電流の流出による電食を生じない。この性質を利用して、電食を受けるおそれのある区間の対策に用いる。",
+            "正しい。外部電源法は直流電源により大きな防食電流を供給でき、広い範囲の導管に適用できる。その一方、他の金属構造物への電流の流出入や、必要以上に電位を下げる過防食を避けるため、電流・電位を適切に管理する。",
+            "正しい。絶縁継手は管路の電気的なつながりを断ち、迷走電流や離れた部分間の腐食電流の経路を遮る対策となる。防食対象外への防食電流の流出を抑える役割もある。"
+          ],
+          "suggestedQuestionDetailsByChoice": [],
+          "original_question_id": "75bfba6de8b0c100",
+          "question_url": "https://gassyunin.com/exam/hei/hei_2020/#kyokyu-q15",
+          "questionLearningPatternId": "mechanisms_reasons",
+          "lawReferences": [
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "isLawRelated": false,
+          "lawGroundedExplanationNotNeeded": true,
+          "lawRevisionFacts": [
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "正しい"
+              },
+              "current": {
+                "correctChoiceText": "正しい"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "腐食電流の経路、塗覆装・樹脂管・絶縁継手の作用、流電陽極と外部電源による電気防食の原理を問う。法定の施工条件や対象範囲は判定しない。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "ミクロセル腐食対策の一つとしてガス管の表面に塗覆装を施すことにより、腐食電流の流出入ができないようにする。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2020_kyokyu_問15/result.json"
+              ]
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "間違い"
+              },
+              "current": {
+                "correctChoiceText": "間違い"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "腐食電流の経路、塗覆装・樹脂管・絶縁継手の作用、流電陽極と外部電源による電気防食の原理を問う。法定の施工条件や対象範囲は判定しない。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "流電陽極法による電気防食の陽極として使用するのは、アルミニウム陽極が一般的である。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2020_kyokyu_問15/result.json"
+              ]
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "正しい"
+              },
+              "current": {
+                "correctChoiceText": "正しい"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "腐食電流の経路、塗覆装・樹脂管・絶縁継手の作用、流電陽極と外部電源による電気防食の原理を問う。法定の施工条件や対象範囲は判定しない。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "電気伝導率の低いポリエチレン管を使用するのは、電食を防止する措置の一つである。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2020_kyokyu_問15/result.json"
+              ]
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "正しい"
+              },
+              "current": {
+                "correctChoiceText": "正しい"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "腐食電流の経路、塗覆装・樹脂管・絶縁継手の作用、流電陽極と外部電源による電気防食の原理を問う。法定の施工条件や対象範囲は判定しない。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "外部電源法は大規模な導管の防食が可能であるが、電圧が大きいため他の金属構造物への干渉や過防食を考慮する必要がある。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2020_kyokyu_問15/result.json"
+              ]
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "正しい"
+              },
+              "current": {
+                "correctChoiceText": "正しい"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "腐食電流の経路、塗覆装・樹脂管・絶縁継手の作用、流電陽極と外部電源による電気防食の原理を問う。法定の施工条件や対象範囲は判定しない。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "絶縁継手の設置は、電食やマクロセル腐食を防止する措置の一つである。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2020_kyokyu_問15/result.json"
+              ]
+            }
+          ],
+          "sourceQuestionKey": "gas-shunin:hei:2020:kyokyu:q15",
+          "reviewQuestionId": "75bfba6de8b0c100",
+          "sourceRecordRef": "question_2020_2.json#20"
+        },
+        {
+          "explanationText": [
+            "正しい。ポリエチレン管は柔軟性と伸びに優れ、地震による地盤変動に追従しやすい。腐食にも強く、低圧の埋設導管の耐震対策に適している。",
+            "正しい。地震時の初動、連絡、遮断、復旧を円滑に行うには、平常時から計画的に教育・訓練を行う。手順を共有し、訓練で見つかった課題を改善することが対応力を高める。",
+            "間違い。動員基準、出動方法、集合場所、役割分担は、地震の発生前に定めて周知する。発生後は、あらかじめ決めた体制を基に、実際の被害や交通・通信の状況へ対応する。",
+            "正しい。入替工事の後は、導管の位置・材質・口径などが実際の設備と一致するよう管理図面を更新する。正確な図面は地震後の点検、遮断や復旧の判断にも必要である。",
+            "正しい。マイコンメーターは、地震動や異常な流量などを検知すると、自動的にガスを遮断する。供給区域全体の遮断とは別に、需要家ごとの安全を確保する装置となる。"
+          ],
+          "suggestedQuestionDetailsByChoice": [],
+          "original_question_id": "b34ad8f472518bb5",
+          "question_url": "https://gassyunin.com/exam/hei/hei_2020/#kyokyu-q18",
+          "questionLearningPatternId": "mechanisms_reasons",
+          "lawReferences": [
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "isLawRelated": false,
+          "lawGroundedExplanationNotNeeded": true,
+          "lawRevisionFacts": [
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "正しい"
+              },
+              "current": {
+                "correctChoiceText": "正しい"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "低圧導管の耐震化、事前訓練・動員体制、管理図面、需要家単位の遮断による災害対策を問う。法令の要件判断ではない。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "低圧の埋設導管としてポリエチレン管を使用した。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2020_kyokyu_問18/result.json"
+              ]
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "正しい"
+              },
+              "current": {
+                "correctChoiceText": "正しい"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "低圧導管の耐震化、事前訓練・動員体制、管理図面、需要家単位の遮断による災害対策を問う。法令の要件判断ではない。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "地震発生時に適切に対応するため、計画的に教育・訓練を行った。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2020_kyokyu_問18/result.json"
+              ]
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "間違い"
+              },
+              "current": {
+                "correctChoiceText": "間違い"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "低圧導管の耐震化、事前訓練・動員体制、管理図面、需要家単位の遮断による災害対策を問う。法令の要件判断ではない。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "動員の基準、出動方法・場所等の体制は、地震発生後に規模に応じて設定することとした。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2020_kyokyu_問18/result.json"
+              ]
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "正しい"
+              },
+              "current": {
+                "correctChoiceText": "正しい"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "低圧導管の耐震化、事前訓練・動員体制、管理図面、需要家単位の遮断による災害対策を問う。法令の要件判断ではない。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "導管の入替え工事が発生したので、管理用図面を更新した。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2020_kyokyu_問18/result.json"
+              ]
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "正しい"
+              },
+              "current": {
+                "correctChoiceText": "正しい"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "低圧導管の耐震化、事前訓練・動員体制、管理図面、需要家単位の遮断による災害対策を問う。法令の要件判断ではない。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "需要家ごとにガスが遮断できる装置として、マイコンメーターを設置した。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2020_kyokyu_問18/result.json"
+              ]
+            }
+          ],
+          "sourceQuestionKey": "gas-shunin:hei:2020:kyokyu:q18",
+          "reviewQuestionId": "b34ad8f472518bb5",
+          "sourceRecordRef": "question_2020_2.json#23"
         },
         {
           "explanationText": [
@@ -93643,7 +94638,7 @@
     },
     {
       "path": "output/gas-shunin-hei/questions_json/2020/22_questionSetId_linked/question_2020_2_merged_questionSetId_linked.json",
-      "sha256": "29fd8d7870429bcf2a3309f2f5ba687821c8be28e8138ce22c16308921c4f205",
+      "sha256": "fcee0cda4239f514d8c12ef392a0c8538410760972b43ec6a2a5802743d0d9a7",
       "payload": [
         {
           "questionSetId": "gas-shunin-hei_qs03_03_netsu_energy",
@@ -93710,6 +94705,14 @@
           "sourceRecordRef": "question_2020_2.json#7"
         },
         {
+          "questionSetId": "gas-shunin-hei_qs04_03_kika_chosei",
+          "original_question_id": "2e8be7f3c0acb611",
+          "question_url": "https://gassyunin.com/exam/hei/hei_2020/#seizo-q6",
+          "sourceQuestionKey": "gas-shunin:hei:2020:seizo:q06",
+          "reviewQuestionId": "2e8be7f3c0acb611",
+          "sourceRecordRef": "question_2020_2.json#11"
+        },
+        {
           "questionSetId": "gas-shunin-hei_qs05_01_kyokyu_hoshiki",
           "original_question_id": "2c4094bbe5d01373",
           "question_url": "https://gassyunin.com/exam/hei/hei_2020/#kyokyu-q10",
@@ -93732,6 +94735,22 @@
           "sourceQuestionKey": "gas-shunin:hei:2020:kyokyu:q12",
           "reviewQuestionId": "9f5e2d332fc7a738",
           "sourceRecordRef": "question_2020_2.json#17"
+        },
+        {
+          "questionSetId": "gas-shunin-hei_qs05_04_fushoku_boshoku",
+          "original_question_id": "75bfba6de8b0c100",
+          "question_url": "https://gassyunin.com/exam/hei/hei_2020/#kyokyu-q15",
+          "sourceQuestionKey": "gas-shunin:hei:2020:kyokyu:q15",
+          "reviewQuestionId": "75bfba6de8b0c100",
+          "sourceRecordRef": "question_2020_2.json#20"
+        },
+        {
+          "questionSetId": "gas-shunin-hei_qs05_06_jishin",
+          "original_question_id": "b34ad8f472518bb5",
+          "question_url": "https://gassyunin.com/exam/hei/hei_2020/#kyokyu-q18",
+          "sourceQuestionKey": "gas-shunin:hei:2020:kyokyu:q18",
+          "reviewQuestionId": "b34ad8f472518bb5",
+          "sourceRecordRef": "question_2020_2.json#23"
         },
         {
           "questionSetId": "gas-shunin-hei_qs06_01_seishitsu_nensho",
@@ -94381,7 +95400,7 @@
     },
     {
       "path": "output/gas-shunin-hei/questions_json/2020/23_correctChoiceText_fixed/question_2020_2_merged_correctChoiceText_fixed.json",
-      "sha256": "55d8d8ee54ba5c2a06e3e10b7784b2b2d62d92e85a31e907d19e8ea0e2137c51",
+      "sha256": "d3de9c4b6c71b4afb53223433f196e3ba770cc7b682944519ea8546e2fb8280e",
       "payload": [
         {
           "correctChoiceText_changed": false,
@@ -94580,6 +95599,30 @@
           "correctChoiceText_change_detail": "",
           "correctChoiceText_change_reason": "",
           "correctChoiceText": [
+            "正しい",
+            "正しい",
+            "正しい",
+            "正しい",
+            "間違い"
+          ],
+          "explanation_choice_snippets": [
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "original_question_id": "2e8be7f3c0acb611",
+          "question_url": "https://gassyunin.com/exam/hei/hei_2020/#seizo-q6",
+          "sourceQuestionKey": "gas-shunin:hei:2020:seizo:q06",
+          "reviewQuestionId": "2e8be7f3c0acb611",
+          "sourceRecordRef": "question_2020_2.json#11"
+        },
+        {
+          "correctChoiceText_changed": false,
+          "correctChoiceText_change_detail": "",
+          "correctChoiceText_change_reason": "",
+          "correctChoiceText": [
             "間違い",
             "正しい",
             "正しい",
@@ -94646,6 +95689,54 @@
           "sourceQuestionKey": "gas-shunin:hei:2020:kyokyu:q12",
           "reviewQuestionId": "9f5e2d332fc7a738",
           "sourceRecordRef": "question_2020_2.json#17"
+        },
+        {
+          "correctChoiceText_changed": false,
+          "correctChoiceText_change_detail": "",
+          "correctChoiceText_change_reason": "",
+          "correctChoiceText": [
+            "正しい",
+            "間違い",
+            "正しい",
+            "正しい",
+            "正しい"
+          ],
+          "explanation_choice_snippets": [
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "original_question_id": "75bfba6de8b0c100",
+          "question_url": "https://gassyunin.com/exam/hei/hei_2020/#kyokyu-q15",
+          "sourceQuestionKey": "gas-shunin:hei:2020:kyokyu:q15",
+          "reviewQuestionId": "75bfba6de8b0c100",
+          "sourceRecordRef": "question_2020_2.json#20"
+        },
+        {
+          "correctChoiceText_changed": false,
+          "correctChoiceText_change_detail": "",
+          "correctChoiceText_change_reason": "",
+          "correctChoiceText": [
+            "正しい",
+            "正しい",
+            "間違い",
+            "正しい",
+            "正しい"
+          ],
+          "explanation_choice_snippets": [
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "original_question_id": "b34ad8f472518bb5",
+          "question_url": "https://gassyunin.com/exam/hei/hei_2020/#kyokyu-q18",
+          "sourceQuestionKey": "gas-shunin:hei:2020:kyokyu:q18",
+          "reviewQuestionId": "b34ad8f472518bb5",
+          "sourceRecordRef": "question_2020_2.json#23"
         },
         {
           "correctChoiceText_changed": false,
@@ -96791,7 +97882,7 @@
     },
     {
       "path": "output/gas-shunin-hei/questions_json/2021/15_correctChoiceText_fixed/question_2021_2_merged_correctChoiceText_fixed.json",
-      "sha256": "ba84fb029548c5cf92096fced027568460d9469cef303d1d75051a88cdc8854d",
+      "sha256": "df508debb184eda320120f8579d299cec8dd382c53e9dca206b373a7bb0de7c1",
       "payload": [
         {
           "questionIntent_changed": true,
@@ -96832,6 +97923,16 @@
           "sourceQuestionKey": "gas-shunin:hei:2021:seizo:q02",
           "reviewQuestionId": "566cd2672ed51114",
           "sourceRecordRef": "question_2021_2.json#7"
+        },
+        {
+          "questionIntent_changed": true,
+          "questionIntent_change_detail": "None -> select_correct",
+          "original_question_id": "832a81d2a1d973f1",
+          "questionIntent": "select_correct",
+          "questionIntent_change_reason": "設問文の要求と整合させるため",
+          "sourceQuestionKey": "gas-shunin:hei:2021:kyokyu:q11",
+          "reviewQuestionId": "832a81d2a1d973f1",
+          "sourceRecordRef": "question_2021_2.json#16"
         }
       ]
     },
@@ -102953,7 +104054,7 @@
     },
     {
       "path": "output/gas-shunin-hei/questions_json/2021/18_law_context_prepared/question_2021_2_merged_lawContext_prepared.json",
-      "sha256": "e9f415ec4e676ce031d3f87f98d4b13d4578d6574e5c9f525412119914314c1e",
+      "sha256": "f6c4060116fd3b30b44590396dbb38124d24491ab19ad2ab22f263f86c33130e",
       "payload": [
         {
           "isLawRelated": false,
@@ -104250,6 +105351,150 @@
           "sourceQuestionKey": "gas-shunin:hei:2021:seizo:q08",
           "reviewQuestionId": "ade3a76648ed968b",
           "sourceRecordRef": "question_2021_2.json#13"
+        },
+        {
+          "isLawRelated": false,
+          "lawGroundedExplanationNotNeeded": true,
+          "original_question_id": "832a81d2a1d973f1",
+          "question_url": "https://gassyunin.com/exam/hei/hei_2021/#kyokyu-q11",
+          "lawReferences": [
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "lawRevisionFacts": [
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "間違い"
+              },
+              "current": {
+                "correctChoiceText": "間違い"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "問題が与えた低圧導管の流量式から、同一輸送能力を持つ導管長を内径比の5乗で求める。法令上の対象条件や頻度の判断ではない。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "120",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2021_kyokyu_問11/result.json"
+              ]
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "間違い"
+              },
+              "current": {
+                "correctChoiceText": "間違い"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "問題が与えた低圧導管の流量式から、同一輸送能力を持つ導管長を内径比の5乗で求める。法令上の対象条件や頻度の判断ではない。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "240",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2021_kyokyu_問11/result.json"
+              ]
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "間違い"
+              },
+              "current": {
+                "correctChoiceText": "間違い"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "問題が与えた低圧導管の流量式から、同一輸送能力を持つ導管長を内径比の5乗で求める。法令上の対象条件や頻度の判断ではない。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "480",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2021_kyokyu_問11/result.json"
+              ]
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "間違い"
+              },
+              "current": {
+                "correctChoiceText": "間違い"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "問題が与えた低圧導管の流量式から、同一輸送能力を持つ導管長を内径比の5乗で求める。法令上の対象条件や頻度の判断ではない。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "960",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2021_kyokyu_問11/result.json"
+              ]
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "正しい"
+              },
+              "current": {
+                "correctChoiceText": "正しい"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "問題が与えた低圧導管の流量式から、同一輸送能力を持つ導管長を内径比の5乗で求める。法令上の対象条件や頻度の判断ではない。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "1920",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2021_kyokyu_問11/result.json"
+              ]
+            }
+          ],
+          "lawContextForExplanation": "問題が与えた低圧導管の流量式から、同一輸送能力を持つ導管長を内径比の5乗で求める。法令上の対象条件や頻度の判断ではない。",
+          "sourceQuestionKey": "gas-shunin:hei:2021:kyokyu:q11",
+          "reviewQuestionId": "832a81d2a1d973f1",
+          "sourceRecordRef": "question_2021_2.json#16"
         },
         {
           "isLawRelated": false,
@@ -111782,7 +113027,7 @@
     },
     {
       "path": "output/gas-shunin-hei/questions_json/2021/21_explanationText_added/question_2021_2_merged_explanationText_added.json",
-      "sha256": "58410fa441adf99bec7435219bb3f910d354020da95349e569724f592e8f14bf",
+      "sha256": "07d369a15fb62e509fc2156c958f43c6736677b36297239d9b3b055df307ab36",
       "payload": [
         {
           "explanationText": [
@@ -113139,6 +114384,154 @@
           "sourceQuestionKey": "gas-shunin:hei:2021:seizo:q08",
           "reviewQuestionId": "ade3a76648ed968b",
           "sourceRecordRef": "question_2021_2.json#13"
+        },
+        {
+          "explanationText": [
+            "正しい。導管Bの長さは約1920mとなる。指定式では、流量の2乗は内径の5乗に比例し、長さに反比例する。比重と圧力損失が等しく、流量も同じなので、\\(D_A^5/L_A=D_B^5/L_B\\) が成り立つ。内径の比は \\(200/100=2\\) であるから、\\(L_B=60\\times2^5=1920\\,\\mathrm{m}\\) となる。ここで \\(D\\) は内径、\\(L\\) は導管長である。内径を2倍にしたときの長さは、2倍ではなく32倍になる点に注意する。"
+          ],
+          "suggestedQuestionDetailsByChoice": [],
+          "original_question_id": "832a81d2a1d973f1",
+          "question_url": "https://gassyunin.com/exam/hei/hei_2021/#kyokyu-q11",
+          "questionLearningPatternId": "calculation",
+          "lawReferences": [
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "isLawRelated": false,
+          "lawGroundedExplanationNotNeeded": true,
+          "lawRevisionFacts": [
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "間違い"
+              },
+              "current": {
+                "correctChoiceText": "間違い"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "問題が与えた低圧導管の流量式から、同一輸送能力を持つ導管長を内径比の5乗で求める。法令上の対象条件や頻度の判断ではない。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "120",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2021_kyokyu_問11/result.json"
+              ]
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "間違い"
+              },
+              "current": {
+                "correctChoiceText": "間違い"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "問題が与えた低圧導管の流量式から、同一輸送能力を持つ導管長を内径比の5乗で求める。法令上の対象条件や頻度の判断ではない。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "240",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2021_kyokyu_問11/result.json"
+              ]
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "間違い"
+              },
+              "current": {
+                "correctChoiceText": "間違い"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "問題が与えた低圧導管の流量式から、同一輸送能力を持つ導管長を内径比の5乗で求める。法令上の対象条件や頻度の判断ではない。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "480",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2021_kyokyu_問11/result.json"
+              ]
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "間違い"
+              },
+              "current": {
+                "correctChoiceText": "間違い"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "問題が与えた低圧導管の流量式から、同一輸送能力を持つ導管長を内径比の5乗で求める。法令上の対象条件や頻度の判断ではない。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "960",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2021_kyokyu_問11/result.json"
+              ]
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "正しい"
+              },
+              "current": {
+                "correctChoiceText": "正しい"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "問題が与えた低圧導管の流量式から、同一輸送能力を持つ導管長を内径比の5乗で求める。法令上の対象条件や頻度の判断ではない。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "1920",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2021_kyokyu_問11/result.json"
+              ]
+            }
+          ],
+          "sourceQuestionKey": "gas-shunin:hei:2021:kyokyu:q11",
+          "reviewQuestionId": "832a81d2a1d973f1",
+          "sourceRecordRef": "question_2021_2.json#16"
         },
         {
           "explanationText": [
@@ -114556,7 +115949,7 @@
     },
     {
       "path": "output/gas-shunin-hei/questions_json/2021/22_questionSetId_linked/question_2021_2_merged_questionSetId_linked.json",
-      "sha256": "454a89f99c0c75acf9f52fdcea1453089441b79ee9b8d1e130c3ec29de028458",
+      "sha256": "067473d60e51b487c4dde64c82930198ed99208eeb1665e74568320ba9823b4e",
       "payload": [
         {
           "questionSetId": "gas-shunin-hei_qs03_02_kitaijoho",
@@ -114629,6 +116022,14 @@
           "sourceQuestionKey": "gas-shunin:hei:2021:seizo:q08",
           "reviewQuestionId": "ade3a76648ed968b",
           "sourceRecordRef": "question_2021_2.json#13"
+        },
+        {
+          "questionSetId": "gas-shunin-hei_qs05_01_kyokyu_hoshiki",
+          "original_question_id": "832a81d2a1d973f1",
+          "question_url": "https://gassyunin.com/exam/hei/hei_2021/#kyokyu-q11",
+          "sourceQuestionKey": "gas-shunin:hei:2021:kyokyu:q11",
+          "reviewQuestionId": "832a81d2a1d973f1",
+          "sourceRecordRef": "question_2021_2.json#16"
         },
         {
           "questionSetId": "gas-shunin-hei_qs06_01_seishitsu_nensho",
@@ -115286,7 +116687,7 @@
     },
     {
       "path": "output/gas-shunin-hei/questions_json/2021/23_correctChoiceText_fixed/question_2021_2_merged_correctChoiceText_fixed.json",
-      "sha256": "927aff80cae46c55737c24c984b3a7199a0ba1c59e7a1f3be5dbd9c45ab0e287",
+      "sha256": "9f7f6c99cbb0767814e14f59214d283fe563be390297b3e5d8e5e9bf3fa3d272",
       "payload": [
         {
           "correctChoiceText_changed": false,
@@ -115503,6 +116904,30 @@
           "sourceQuestionKey": "gas-shunin:hei:2021:seizo:q08",
           "reviewQuestionId": "ade3a76648ed968b",
           "sourceRecordRef": "question_2021_2.json#13"
+        },
+        {
+          "correctChoiceText_changed": true,
+          "correctChoiceText_change_detail": "選択肢1を「不正解」→「間違い」に修正 / 選択肢2を「不正解」→「間違い」に修正 / 選択肢3を「不正解」→「間違い」に修正 / 選択肢4を「不正解」→「間違い」に修正 / 選択肢5を「正解」→「正しい」に修正",
+          "correctChoiceText_change_reason": "ローカル一次情報との整合を取るため",
+          "correctChoiceText": [
+            "間違い",
+            "間違い",
+            "間違い",
+            "間違い",
+            "正しい"
+          ],
+          "explanation_choice_snippets": [
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "original_question_id": "832a81d2a1d973f1",
+          "question_url": "https://gassyunin.com/exam/hei/hei_2021/#kyokyu-q11",
+          "sourceQuestionKey": "gas-shunin:hei:2021:kyokyu:q11",
+          "reviewQuestionId": "832a81d2a1d973f1",
+          "sourceRecordRef": "question_2021_2.json#16"
         },
         {
           "correctChoiceText_changed": false,
@@ -384786,6 +386211,96 @@
       ]
     },
     {
+      "path": "output/gas-shunin-hei/direct_publication/20261027/primary/2020-kyokyu-15-18.json",
+      "sha256": "4147d0b654c0c7c0ebe6843d88ebaa669c6d46f91cd380732c3ab253453d9ac1",
+      "payload": [
+        {
+          "sourceQuestionId": "2020:kyokyu:問15",
+          "questionType": "true_false",
+          "isCalculationQuestion": false,
+          "questionIntent": "select_incorrect",
+          "correctChoiceText": [
+            "正しい",
+            "間違い",
+            "正しい",
+            "正しい",
+            "正しい"
+          ],
+          "explanationText": [
+            "正しい。塗覆装は鋼管と周囲の土壌・水分との接触を遮り、腐食電流の経路を断つ働きを持つ。塗膜に傷があると、その部分が腐食しやすいため、施工時の損傷防止や補修も必要である。",
+            "間違い。埋設ガス管の流電陽極法には、一般にマグネシウム合金陽極を用いる。鋼より電位の低い陽極を先に溶かし、鋼管を陰極として保護する。アルミニウム陽極は海水中などで用いられるが、埋設ガス管の一般的な陽極とは区別する。",
+            "正しい。ポリエチレンは電気を通しにくく、金属管のような電流の流出による電食を生じない。この性質を利用して、電食を受けるおそれのある区間の対策に用いる。",
+            "正しい。外部電源法は直流電源により大きな防食電流を供給でき、広い範囲の導管に適用できる。その一方、他の金属構造物への電流の流出入や、必要以上に電位を下げる過防食を避けるため、電流・電位を適切に管理する。",
+            "正しい。絶縁継手は管路の電気的なつながりを断ち、迷走電流や離れた部分間の腐食電流の経路を遮る対策となる。防食対象外への防食電流の流出を抑える役割もある。"
+          ],
+          "questionSetId": "gas-shunin-hei_qs05_04_fushoku_boshoku",
+          "questionLearningPatternId": "mechanisms_reasons",
+          "isLawRelated": false,
+          "classificationReason": "腐食電流の経路、塗覆装・樹脂管・絶縁継手の作用、流電陽極と外部電源による電気防食の原理を問う。法定の施工条件や対象範囲は判定しない。",
+          "officialPagesVisuallyReviewed": [
+            28
+          ],
+          "officialAnswerNumber": 2,
+          "primaryTechnicalSources": [
+            {
+              "url": "https://www.jeea.or.jp/course/contents/09101/",
+              "finding": "主担当が電食の原因と防止対策の本文を実読。塗装による局部電池作用防止、土壌中のMg陽極、外部電源で防食電流を大きくできることを確認。"
+            },
+            {
+              "url": "https://www.nitibo.co.jp/products/p01/p013/",
+              "finding": "メーカーのMg合金陽極は高抵抗環境と土中、ガス・油・水道の埋設配管を適用対象とすることを実読。"
+            },
+            {
+              "url": "https://www.nitibo.co.jp/products/p06/",
+              "finding": "メーカーの絶縁継手の説明で、防食対象と対象外の電気的接触を断ち、防食電流の無駄な流入を防ぐことを実読。"
+            }
+          ]
+        },
+        {
+          "sourceQuestionId": "2020:kyokyu:問18",
+          "questionType": "true_false",
+          "isCalculationQuestion": false,
+          "questionIntent": "select_incorrect",
+          "correctChoiceText": [
+            "正しい",
+            "正しい",
+            "間違い",
+            "正しい",
+            "正しい"
+          ],
+          "explanationText": [
+            "正しい。ポリエチレン管は柔軟性と伸びに優れ、地震による地盤変動に追従しやすい。腐食にも強く、低圧の埋設導管の耐震対策に適している。",
+            "正しい。地震時の初動、連絡、遮断、復旧を円滑に行うには、平常時から計画的に教育・訓練を行う。手順を共有し、訓練で見つかった課題を改善することが対応力を高める。",
+            "間違い。動員基準、出動方法、集合場所、役割分担は、地震の発生前に定めて周知する。発生後は、あらかじめ決めた体制を基に、実際の被害や交通・通信の状況へ対応する。",
+            "正しい。入替工事の後は、導管の位置・材質・口径などが実際の設備と一致するよう管理図面を更新する。正確な図面は地震後の点検、遮断や復旧の判断にも必要である。",
+            "正しい。マイコンメーターは、地震動や異常な流量などを検知すると、自動的にガスを遮断する。供給区域全体の遮断とは別に、需要家ごとの安全を確保する装置となる。"
+          ],
+          "questionSetId": "gas-shunin-hei_qs05_06_jishin",
+          "questionLearningPatternId": "mechanisms_reasons",
+          "isLawRelated": false,
+          "classificationReason": "低圧導管の耐震化、事前訓練・動員体制、管理図面、需要家単位の遮断による災害対策を問う。法令の要件判断ではない。",
+          "officialPagesVisuallyReviewed": [
+            29
+          ],
+          "officialAnswerNumber": 3,
+          "primaryTechnicalSources": [
+            {
+              "url": "https://www.tokyo-gas.co.jp/network/anzen/precaution/index.html",
+              "finding": "主担当が低圧導管へのPE管採用、伸びと柔軟性による耐震性、非腐食性を実読。"
+            },
+            {
+              "url": "https://www.tokyo-gas.co.jp/network/anzen/approach/index.html",
+              "finding": "主担当が平常時の体制整備、初動措置訓練・全社員の防災訓練、現場図面検索システムを実読。"
+            },
+            {
+              "url": "https://network.osakagas.co.jp/citygas/disaster-measures/prevention.html",
+              "finding": "主担当がPE管の耐震性と、需要家のマイコンメーターが地震等で自動遮断することを実読。"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "path": "output/gas-shunin-hei/direct_publication/20261027/primary/2020-law-01-04.json",
       "sha256": "bf881412c58397ab6e88f1a0cd957d39d28240a63d2d46862e44ee6a285e3a3c",
       "payload": [
@@ -423199,6 +424714,60 @@
       ]
     },
     {
+      "path": "output/gas-shunin-hei/direct_publication/20261027/primary/2020-seizo-06.json",
+      "sha256": "68ce55906715ace6ee1b76b01e93a6a8cc502584430c6cb658c9aaae33cf3f52",
+      "payload": [
+        {
+          "sourceQuestionId": "2020:seizo:問6",
+          "questionType": "true_false",
+          "isCalculationQuestion": false,
+          "questionIntent": "select_incorrect",
+          "correctChoiceText": [
+            "正しい",
+            "正しい",
+            "正しい",
+            "正しい",
+            "間違い"
+          ],
+          "explanationText": [
+            "正しい。分離型では、一次側の自動切替調整器で中間圧まで下げたガスを、二段式二次用調整器で使用圧力まで下げる。二次用調整器は、この後段として用いられる。",
+            "正しい。一体型は、自動切替を行う一次側の出口に二次用調整器を直接連結するか、両者を一つの機器内に構成したものである。容器側の高い圧力を二段階で下げる。",
+            "正しい。自動切替式は、使用側の供給能力が低下しても予備側から補給して供給を続けるため、使用側の残ガスを少なくできる。早めの一斉交換に比べてガスを有効利用でき、必要な容器本数を抑えやすい。ただし、実際の本数は需要量や気温などにも左右される。",
+            "正しい。一般的な表示機構は、中圧部の出口圧力の変化を利用する。使用側だけで圧力を保てなくなり予備側から補給が始まると、表示によってその状態を知らせる。",
+            "間違い。分離型は、一次側と二次側の間を中間圧で供給する方式に使用できる。一次側で中間圧まで下げて送り、使用箇所の近くで二次用調整器により低圧にする。両者が分離していることは、中間圧供給を妨げる理由にはならない。"
+          ],
+          "questionSetId": "gas-shunin-hei_qs04_03_kika_chosei",
+          "questionLearningPatternId": "mechanisms_reasons",
+          "isLawRelated": false,
+          "classificationReason": "調整器の一体型・分離型の構成、二次用の役割、自動補給による残ガス低減と表示機構、中間圧供給の仕組みを問う。法令上の義務や対象範囲を判定する問題ではない。",
+          "officialPagesVisuallyReviewed": [
+            23
+          ],
+          "officialAnswerNumber": 5,
+          "primaryTechnicalSources": [
+            {
+              "url": "https://katsuraseiki.s3-ap-northeast-1.amazonaws.com/products/manual/103370200-10%20KA-70A%EF%BD%A5100A%EF%BD%A5200%EF%BC%A6T.pdf",
+              "finding": "桂精機KA-70/100/200の取扱説明書PDF2・3・6頁を主担当が目視。分離型一次用の自動補給、出口中圧、低圧器具には二次用が必要、出口圧力による補給確認を実読した。",
+              "localReceipt": "output/gas-shunin-hei/direct_publication/20261027/legal/katsura-KA-70-100-200-manual.receipt.json",
+              "visuallyReviewedPages": [
+                2,
+                3,
+                6
+              ]
+            },
+            {
+              "url": "https://www.itokoki.co.jp/products/p0040/",
+              "finding": "メーカー自身の製品説明で、分離型自動切替と二段式二次用を一体化する構成及び供給継続を確認した。"
+            },
+            {
+              "url": "https://patents.google.com/patent/JP2020159536A/ja",
+              "finding": "矢崎の特許公開本文の実施形態で、中圧減圧室・ダイヤフラム・表示機構の連動と、使用側圧力低下から予備側補給への動作を実読した。"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "path": "output/gas-shunin-hei/direct_publication/20261027/primary/2020-shohi-19-20-22.json",
       "sha256": "ae386ebf940bc74b54c703b12f96ebbf8f006b487a84b7f12d2481ec92657b95",
       "payload": [
@@ -424259,6 +425828,48 @@
             15
           ],
           "judgmentPredicate": "各選択肢の物質は、1g中に含まれる分子の個数が、提示された5物質の中で最も少ないかを判定する。"
+        }
+      ]
+    },
+    {
+      "path": "output/gas-shunin-hei/direct_publication/20261027/primary/2021-kyokyu-11.json",
+      "sha256": "9a865c52c2a915840f99c9889006dce82a5149389d262e2430dffa9deee3a8eb",
+      "payload": [
+        {
+          "sourceQuestionId": "2021:kyokyu:問11",
+          "questionType": "flash_card",
+          "isCalculationQuestion": true,
+          "questionIntent": "select_correct",
+          "correctChoiceText": [
+            "間違い",
+            "間違い",
+            "間違い",
+            "間違い",
+            "正しい"
+          ],
+          "explanationText": [
+            "正しい。導管Bの長さは約1920mとなる。指定式では、流量の2乗は内径の5乗に比例し、長さに反比例する。比重と圧力損失が等しく、流量も同じなので、\\(D_A^5/L_A=D_B^5/L_B\\) が成り立つ。内径の比は \\(200/100=2\\) であるから、\\(L_B=60\\times2^5=1920\\,\\mathrm{m}\\) となる。ここで \\(D\\) は内径、\\(L\\) は導管長である。内径を2倍にしたときの長さは、2倍ではなく32倍になる点に注意する。"
+          ],
+          "questionSetId": "gas-shunin-hei_qs05_01_kyokyu_hoshiki",
+          "questionLearningPatternId": "calculation",
+          "isLawRelated": false,
+          "classificationReason": "問題が与えた低圧導管の流量式から、同一輸送能力を持つ導管長を内径比の5乗で求める。法令上の対象条件や頻度の判断ではない。",
+          "officialPagesVisuallyReviewed": [
+            25
+          ],
+          "officialAnswerNumber": 5,
+          "primaryCalculation": {
+            "given": "DA=100mm, DB=200mm, LA=60m, H/S/Q同一",
+            "equation": "DA^5/LA=DB^5/LB",
+            "substitution": "LB=60*(200/100)^5",
+            "result": 1920,
+            "unit": "m",
+            "independentChecks": [
+              "内径比は同一単位で2。",
+              "Dをcmに直しても(20/10)^5=32。",
+              "1920/60=32なのでD^5/Lが両導管で一致。"
+            ]
+          }
         }
       ]
     },
