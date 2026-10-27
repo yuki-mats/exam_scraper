@@ -14,12 +14,19 @@ from tests import test_official_guidance_evidence as provider_fixture
 from tests.qualification_run_test_support import PerQuestionQueueAppServer
 from tools.question_bank import feedback_prepared_stage as stage
 from tools.question_review_console import official_guidance_contract as contract
+from tools.question_review_console import official_guidance_initial_input as initial
 from tools.question_review_console import official_guidance_evidence as provider
 from tools.question_review_console import qualification_runs as runs
 
 
 class OfficialGuidanceNormalSaveTests(unittest.TestCase):
     def test_real_save_binds_actual_refresh_to_plan_candidate_native_intent_and_replay(self):
+        self._run_real_save(initial_input=False)
+
+    def test_private_initial_input_reaches_real_normal_model_and_save(self):
+        self._run_real_save(initial_input=True)
+
+    def _run_real_save(self, *, initial_input):
         f = normal_fixture.PreparedStageTests(); f.setUp(); self.addCleanup(f.doCleanups)
         # The generic fixture intentionally uses a short source key distinct
         # from its review ID. This provider fixture uses its explicit complete
@@ -85,6 +92,12 @@ class OfficialGuidanceNormalSaveTests(unittest.TestCase):
                 patch.object(provider, 'OfficialGuidanceEvidenceResolver', return_value=resolver), \
                 patch.object(runs, '_now', return_value='2026-10-25T09:00:00+00:00'), \
                 patch.object(stage, 'verify_independent_approval', return_value={'reviewerSessionId': 'independent'}):
+            if initial_input:
+                f.request.pop('officialGuidanceRequest')
+                f.write(f.request_path, f.request)
+                target = f.inventory.group('new-exam', '2026')['questions'][0]
+                initial.register_initial_input(f.root, 'new-exam', target,
+                    target['projected'], request, resolver=resolver)
             f.prepare(); plan = f.plan()
             receipt = f.apply()
             proof = receipt['stageEvidence']['officialGuidanceSaveRefresh']
@@ -109,7 +122,7 @@ class OfficialGuidanceNormalSaveTests(unittest.TestCase):
             # positive proof without delivering 68KB or declaring a fresh save.
             f.write(f.root / 'output/new-exam/category/category.json', {'folders': [{'folderId': 'folder', 'name': '分類'}],
                 'questionSets': [{'questionSetId': 'test-question-set', 'folderId': 'folder', 'name': '制度'}]})
-            f.request['stageId'] = 'question_set'; f.request.pop('officialGuidanceRequest')
+            f.request['stageId'] = 'question_set'; f.request.pop('officialGuidanceRequest', None)
             f.request_path = f.private / 'question-set-request.json'; f.output = f.private / 'question-set'
             f.write(f.request_path, f.request)
             f.prepare(); classification_plan = f.plan(); classification_receipt = f.apply()

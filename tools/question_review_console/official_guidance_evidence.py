@@ -37,6 +37,8 @@ ENV_BASEL_PROVIDER = 'env_basel_convention'
 ENV_BASEL_INDEX_URL = 'https://www.env.go.jp/recycle/yugai/index2.html'
 ENV_BASEL_REFERENCE_PROVIDER = 'env_basel_reference_excerpt'
 ENV_BASEL_REFERENCE_INDEX_URL = 'https://www.env.go.jp/press/103133.html'
+ENV_FOREST_REFERENCE_PROVIDER = 'env_forest_principles_reference'
+ENV_FOREST_REFERENCE_INDEX_URL = 'https://www.env.go.jp/policy/hakusyo/h24/pdf.html'
 ENV_BASEL_REFERENCE_SECTION = (
     '中央環境審議会循環型社会部会特定有害廃棄物等の輸出入等の規制の在り方に関する専門委員会、'
     '産業構造審議会産業技術環境分科会廃棄物・リサイクル小委員会'
@@ -355,6 +357,57 @@ def _cartagena_link(data, current_as_of):
     return links[0], label, None
 
 
+class _PublicationIndex(HTMLParser):
+    """Read the publication heading and complete labels of its PDF links."""
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.headings = []
+        self.heading = None
+        self.anchors = []
+        self.anchor = None
+
+    def handle_starttag(self, tag, attrs):
+        if tag == 'h1':
+            self.heading = []
+        if tag == 'a':
+            self.anchor = [dict(attrs).get('href'), []]
+
+    def handle_data(self, data):
+        if self.heading is not None:
+            self.heading.append(data)
+        if self.anchor is not None:
+            self.anchor[1].append(data)
+
+    def handle_endtag(self, tag):
+        if tag == 'h1' and self.heading is not None:
+            self.headings.append(''.join(self.heading))
+            self.heading = None
+        if tag == 'a' and self.anchor is not None:
+            self.anchors.append((self.anchor[0], ''.join(self.anchor[1])))
+            self.anchor = None
+
+
+def _forest_reference_link(data, current_as_of):
+    _date(current_as_of)
+    parser = _PublicationIndex()
+    try:
+        parser.feed(data.decode('utf-8'))
+    except (UnicodeDecodeError, ValueError) as exc:
+        raise OfficialGuidanceEvidenceError('official reference index is not UTF-8 HTML') from exc
+    heading = '平成24年版環境・循環型社会・生物多様性白書(PDF版)'
+    if [re.sub(r'\s+', '', text) for text in parser.headings] != [heading]:
+        raise OfficialGuidanceEvidenceError('named official publication required')
+    links = [(urljoin(ENV_FOREST_REFERENCE_INDEX_URL, href), label.strip())
+        for href, label in parser.anchors if href and re.fullmatch(
+            r'語句説明\[PDF[0-9,]+(?:\.[0-9]+)?(?:KB|MB)\]', re.sub(r'\s+', '', label))]
+    if len(links) != 1:
+        raise OfficialGuidanceEvidenceError('unique official glossary PDF link required')
+    _official_url(links[0][0], pdf=True, provider=ENV_FOREST_REFERENCE_PROVIDER)
+    # A historical government explanation, not the declaration's full text or
+    # a current statutory edition. The index gives no precise publication day.
+    return links[0][0], heading + ' / ' + links[0][1], None
+
+
 @dataclass(frozen=True)
 class _Source:
     index_url: str
@@ -382,6 +435,9 @@ _SOURCES = {
     ENV_BASEL_REFERENCE_PROVIDER: _Source(ENV_BASEL_REFERENCE_INDEX_URL, 'www.env.go.jp',
         r'/content/[0-9]+\.pdf', 'actual_official_index_link',
         'official_treaty_excerpt', _basel_reference_link),
+    ENV_FOREST_REFERENCE_PROVIDER: _Source(ENV_FOREST_REFERENCE_INDEX_URL, 'www.env.go.jp',
+        r'/policy/hakusyo/h24/pdf/4_term\.pdf', 'actual_official_index_link',
+        SOURCE_KIND, _forest_reference_link),
 }
 PROVIDERS = tuple(_SOURCES)
 

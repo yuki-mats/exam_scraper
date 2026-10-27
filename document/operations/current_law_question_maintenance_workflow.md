@@ -99,6 +99,10 @@ Codex App Serverの整備sessionが更新するのは、対象問題の`18` / `2
 
 通常02b/03/03bは固定した取得requestに基づき、serverが公式索引の現行単棟型リンクとPDFを実GETする。限定頁、版、公表日、取得日、原問・全肢・保存sourceのhashをprivate取得証明へ結合し、本文と証明参照を実モデルへ配送する。候補は資料の採否と各肢の適用理由を独立に判断する。取得自体を適用承認としない。証明本文はprivate cache、patchには内部参照のみ保持し、Firestoreや通常ログへ配送しない。field型と上限は[question field契約](../reference/question_field_contract.md)を正本とする。
 
+未登録の制度資料は、`python -m tools.question_review_console.official_guidance_initial_input --qualification <資格> --list-group-id <区分> --source-record-ref <source内の問題参照> --request <取得requestのJSON>`で先に取得する。利用可能なproviderとrequest型は[取得実装](../../tools/question_review_console/official_guidance_evidence.py)、引数は同CLIの`--help`を参照する。取得証明は`output/question_review_console/<資格>/<区分>/official_guidance_inputs/`に保存し、原問・全肢・source hash及び基準日が一致する最初の通常02bへ渡す。既存の採用済み参照があればそちらを使い、後続03/03bは02bで採用した参照を引き継ぐ。入力登録だけではpatchや工程完了を保存しない。再取得には旧入力のSHA-256を`--replace-if-sha`で指定し、旧入力は同ディレクトリの`history/`に保持する。
+
+森林原則声明には、環境省の平成24年版白書索引から選んだ語句説明PDFを登録できる。この資料は歴史的な行政解説であり、声明の全文や現行法令として扱わない。正確な公表日が索引にない場合は未確認のまま保持し、採用可否・適用時点・根拠の十分性は通常の候補生成と独立監査で判断する。
+
 03bの別sessionは同じ本文・証明hash・候補を確認し、現行モデル規約、法律の施行日、個別組合の採用規約及び歴史版の適用性を区別する。既存の二次/三次監査数と公式原正答fallbackの条件は変えない。根拠不足やgenuine holdは成功へ変換しない。
 
 正常保存ではprivate証明・原bytes・全肢bindingを再検証し、資料をfresh GETして監査対象contentHashと照合する。限定公開直前にも再取得し、新しい取得時刻とpinned/fresh hashを別private receiptへ保存する。索引、PDF、抽出本文、版、時点又は差分が変われば旧承認を失効し、調査・候補生成・独立監査へ戻る。書込み後は既存の全対象live readbackと対象外不変が一致した場合だけ完了にする。中断時は既存のcommit/readback復元経路を使い、fresh証明を後から取得して既存書込み前の証明に偽装しない。

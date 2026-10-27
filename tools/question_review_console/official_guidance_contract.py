@@ -101,12 +101,8 @@ def verify_delivery(inputs, prompt, delivery, *, input_fingerprint, projected_in
         raise ValueError('actual official guidance prompt/input/native delivery differs')
     return copy.deepcopy(delivery)
 
-def validate_reference(root, value, *, record=None, scope=None, refresh=False, resolver=None):
-    """Read actual private proof and validate raw cached sources, never hash alone."""
+def _read_private_evidence(root, ref):
     root = Path(root).resolve()
-    if not isinstance(value, dict) or set(value) != {'request', 'evidenceRef', 'applicabilityByChoice'}:
-        raise ValueError('dedicated official guidance reference required')
-    ref = value['evidenceRef']
     if not isinstance(ref, dict) or set(ref) != {'ref', 'sha256'}:
         raise ValueError('official guidance proof reference required')
     path = root / str(ref['ref'])
@@ -119,6 +115,24 @@ def validate_reference(root, value, *, record=None, scope=None, refresh=False, r
     receipt = json.loads(raw)
     if path.name != str(receipt.get('evidenceHash')) + '.json':
         raise ValueError('official guidance proof name/hash differs')
+    return receipt
+
+
+def load_prepared_evidence(root, request, evidence_ref, *, record, scope, resolver=None):
+    """Load acquisition evidence before the model has judged applicability."""
+    receipt = _read_private_evidence(root, evidence_ref)
+    resolver = resolver or OfficialGuidanceEvidenceResolver(root)
+    resolver.validate(receipt, request=request, record=record, scope=scope)
+    return {'request': copy.deepcopy(request), 'evidenceRef': copy.deepcopy(evidence_ref),
+        'receipt': receipt}
+
+
+def validate_reference(root, value, *, record=None, scope=None, refresh=False, resolver=None):
+    """Read actual private proof and validate raw cached sources, never hash alone."""
+    root = Path(root).resolve()
+    if not isinstance(value, dict) or set(value) != {'request', 'evidenceRef', 'applicabilityByChoice'}:
+        raise ValueError('dedicated official guidance reference required')
+    receipt = _read_private_evidence(root, value['evidenceRef'])
     actual_scope = receipt['scope']
     target = {**actual_scope['sourceBinding'], 'id': actual_scope['questionId'],
         'listGroupId': actual_scope['listGroupId']}

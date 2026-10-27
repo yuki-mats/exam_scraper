@@ -15813,10 +15813,16 @@ class QualificationRunCoordinator:
                 record=single_spec['candidateRecord'])
             batch_plan['preparedPrimaryEvidence'] = prepared_primary_evidence
         guidance_inputs = {}
+        initial_guidance_loaded = False
         if stage_id in {'law_context', 'explanation', 'law_audit'}:
             for question_id, record in records_by_question.items():
                 supplied = single_spec.get('officialGuidanceInput')
                 references = record.get(GUIDANCE_FIELD)
+                if supplied is None and references is None and stage_id == 'law_context':
+                    from tools.question_review_console.official_guidance_initial_input import load_initial_input
+                    supplied = load_initial_input(self.repo_root, qualification, target, record,
+                        current_as_of=str(parent_snapshot.get('startedAt') or _now())[:10])
+                    initial_guidance_loaded = supplied is not None
                 if supplied is not None:
                     scope = official_guidance_scope(self.repo_root, qualification, target)
                     # Acquisition is genuine. Applicability remains a model judgment.
@@ -15935,6 +15941,7 @@ class QualificationRunCoordinator:
             if (
                 prior_attempt_id
                 and prepared_primary_evidence is None
+                and not initial_guidance_loaded
                 and "canonical_contention" in latest_issue_codes
             )
             else None
@@ -15942,7 +15949,7 @@ class QualificationRunCoordinator:
         if reusable_candidate is not None:
             reused_from_attempt_id = prior_attempt_id
             reused_reason = "canonical_prewrite_contention"
-        elif parent.get("resumedFrom") and prepared_primary_evidence is None:
+        elif parent.get("resumedFrom") and prepared_primary_evidence is None and not initial_guidance_loaded:
             reusable = self.store.reusable_prepared_candidate(
                 qualification,
                 str(parent["resumedFrom"]),
