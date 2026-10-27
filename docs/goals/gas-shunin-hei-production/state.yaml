@@ -1,0 +1,106 @@
+version: 2
+goal:
+  title: 丙種の分類整備と本番公開
+  slug: gas-shunin-hei-production
+  kind: specific
+  tranche: 必要整備・検証・本番反映・読み戻しまで完了する
+  status: active
+  oracle:
+    signal: 522原問の整備済み公開artifactとFirestore全件一致、分類参照と件数・画像・公式年度一致
+    cadence: 工程境界と公開直後
+    final_proof: 本番readback receiptと00_source不変とGit push
+  intake:
+    original_request: 乙種を参考に丙種folder/questionSetと紐付けを整え、必要整備検証後に本番公開、画像/category/年度/readbackまで実施
+    interpreted_outcome: 丙種2017〜2025が正しく分類され本番で学習できる
+    input_shape: specific
+    audience: Repaso受験者
+    authority: requested
+    proof_type: artifact
+    completion_proof: 全公開対象docと参照先・年度の本番一致
+    likely_misfire: 未整備解説のまま公開又はローカル成功だけで完了する
+    blind_spots_considered:
+      - 乙種の古い区分入りtaxonomyをそのまま複製しない
+      - 既存本番丙種データとID競合を事前確認
+      - 必要な評価・法令工程を省略しない
+    existing_plan_facts:
+      - 公式PDF修正パッチ済み
+      - 00_source保持
+      - 本番公開は明示承認済み
+rules:
+  pm_owns_state: true
+  one_active_task: true
+  max_write_workers: 1
+  no_implementation_without_worker_or_pm_task: true
+  no_completion_without_judge_or_pm_audit: true
+  planning_is_not_completion: true
+  queued_required_worker_blocks_completion: true
+  continuous_until_full_outcome: true
+  missing_input_or_credentials_do_not_stop_goal: true
+  exact_human_approval_can_terminal_wait: true
+  preserve_and_validate_existing_plan: true
+  intake_misfire_must_be_audited: true
+  goal_pressure_requires_oracle: true
+  no_completion_on_weak_proof: true
+  slice_policy:
+    max_consecutive_tiny_tasks: 2
+    prefer_vertical_slices: true
+    judge_picks_largest_safe_slice: true
+    worker_completes_whole_slice: true
+agents:
+  scout: unknown
+  worker: unknown
+  judge: unknown
+visual_board:
+  selected: local
+  local:
+    status: starting
+    url: null
+    command: node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs
+      --goal docs/goals/gas-shunin-hei-production
+active_task: T001
+tasks:
+  - id: T001
+    type: scout
+    assignee: Scout
+    status: active
+    objective: 乙種参照と丙種の公開前不足・既存本番・標準整備実行経路をread-only調査する
+    inputs:
+      - document/operations/exam_pipeline_manual_and_automation.md
+      - output/gas-shunin-hei
+      - output/gas-shunin-otsu/category/category.json
+    constraints:
+      - read-only
+      - 秘密情報を出力しない
+    expected_output:
+      - 根拠付き公開差分と必要工程・CLI/API
+    receipt: null
+  - id: T002
+    type: pm
+    assignee: PM
+    status: queued
+    objective: 分類を設計し、各問の必要整備と評価・公開artifactを完成させる
+    receipt: null
+  - id: T003
+    type: judge
+    assignee: Judge
+    status: queued
+    objective: 本番書込み前の対象・検証・復旧証跡を監査する
+    receipt: null
+  - id: T004
+    type: pm
+    assignee: PM
+    status: queued
+    objective: 丙種の問題と関連設定を本番反映し全件読み戻す
+    receipt: null
+  - id: T999
+    type: judge
+    assignee: Judge
+    status: queued
+    objective: ユーザー依頼の全項目と本番一致を最終監査する
+    receipt: null
+checks:
+  dirty_fingerprint: unknown
+  last_verification:
+    result: unknown
+    task: null
+    commands: []
