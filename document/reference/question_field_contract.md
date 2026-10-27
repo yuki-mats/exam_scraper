@@ -375,6 +375,8 @@ serverは合意したcandidate IDを元の候補spanへ解決し、順序、非�
 
 `isLawRelated=true` の問題は、差分がある問題だけでなく全件が作成対象です。差分がない問題は `auditStatus="same_as_current"`、出題当時との差分が未確定なら `auditStatus="hold"` として残します。
 
+現行法を基準に作成した独自問題は、実際に記録された作成時の法令基準日と、その時点の問題文・全肢・確定正答を初期状態とします。この場合の互換欄`examTime`は独自問題の作成時判定を表し、公式試験の出題時判定とは呼びません。`examTime`と`notes`に作成時基準日と判定の出自を記録し、その日の一次本文を`exam_time_basis`として実取得して、別に取得する`current_basis`と比較します。同日の作成・監査なら両方に同じ基準日の本文を使えます。取得元の過去問・民間模擬問題の正答や法令適用時点とは分け、作成時基準日が確認できない既存問題へ監査日を遡って割り当てません。
+
 e-Gov API v2 / 整備済み corpus に出題当時 revision が保持されておらず、資格別方針で認めた一次資料でも出題当時条文を固定できない場合は、出題当時条文を参照していないことを明示したうえで現行法ベースのみの監査としてよい。この場合は `examTime.correctChoiceText` に公式元正答を残し、`examTime.verificationStatus="not_referenced_current_law_only_policy"` または `"from_original_answer"`、`notes` / review sidecar の `remainingRisk` に未参照理由を保存する。sidecar の `remainingRisk` は、この構造化された未参照状態があるときに限り `reviewNotes` の理由を引き継ぐ。独立監査で承認済みの通常の `reviewNotes` は作業記録として保持し、未解消リスクに転記しない。出題当時の `lawRevisionId`、`articleTextHash`、`exam_time_basis` は推測で作らない。出題当時 revision が e-Gov API v2 にないこと自体は `hold` 理由にせず、現行法根拠・委任規定・別表等が不足する場合だけ `hold` に戻す。
 
 法令根拠監査は次の三段階で扱います。
