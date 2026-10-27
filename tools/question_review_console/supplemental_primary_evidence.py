@@ -51,6 +51,19 @@ SOURCES = {
         'https://www.env.go.jp/recycle/car/gaiyo.html',
         '自動車リサイクルの概要', 'main#main',
         '法律制定の背景・制定年・完全施行時期の説明。現在の廃棄割合とは区別する。'),
+    'mlit_vehicle_tax_2026_result': Source(
+        'https://www.mlit.go.jp/jidosha/content/001993968.pdf',
+        '令和8年度税制改正結果概要（車体課税関係）', (1, 5, 6, 11),
+        '2026年度の改正結果。大綱・結果概要と施行済み法令本文は別に照合し、要望段階の資料と混同しない。'),
+    'mlit_road_traffic_terms': Source(
+        'https://www.ktr.mlit.go.jp/syuto/syuto_yougo001.html',
+        '首都国道事務所 みちに関する用語辞典 道づくり',
+        '#main_content table:-soup-contains("ロードプライシング")',
+        'ITS・TDM・ロードプライシング等の用語定義。掲載された過去の事業進捗を現在の実績としない。'),
+    'ntsel_modal_shift_definition': Source(
+        'https://www.ntsel.go.jp/Portals/0/resources/report/files16/ronbungaiyo16.pdf',
+        '交通安全環境研究所 論文等概要 モーダルシフト（大野寛之、2011年5月）', (102,),
+        'PDF第102頁（紙面110頁）の旅客・貨物の輸送手段転換の定義。2011年の普及状況・排出割合を現在の統計としない。'),
 }
 
 
