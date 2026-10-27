@@ -31,7 +31,7 @@ formal = []
 for p in sorted((ROOT / "output/gas-shunin-hei/questions_json").glob("*/*/*.json")):
     if p.parent.name in {"10_questionType_fixed", "15_correctChoiceText_added", "15_correctChoiceText_fixed",
         "18_law_context_prepared", "21_explanationText_added", "22_questionSetId_linked", "23_correctChoiceText_fixed"} or (
-        p.parent.name == "24_questionIssueCorrections" and ("direct-note-text" in p.name or "direct-answer" in p.name)):
+        p.parent.name == "24_questionIssueCorrections" and ("direct-note-text" in p.name or "direct-answer" in p.name or "direct-scope" in p.name)):
         formal.append(snapshot(p))
 sys.path.insert(0, str(RUN / "tool_snapshot"))
 from tools.question_review_console.inventory import QuestionInventory
@@ -72,6 +72,8 @@ report = {"schemaVersion": "hei-direct-maintenance-checkpoint/v1",
     "restorableFormalPatches": formal,
     "lawAuditSidecars": [snapshot(p) for p in sorted((ROOT / "output/gas-shunin-hei/review/law_revision_audit").glob("*.jsonl"))],
     "primaryDrafts": [snapshot(p) for p in sorted((RUN / "primary").glob("*.json"))],
+    "scopeCorrectionReceipts": [snapshot(p) for p in sorted((RUN / "scope_corrections").glob("*/reviews/save-result.json"))],
+    "scopeCorrectionPlans": [snapshot(p) for p in sorted((RUN / "scope_corrections").glob("*/plan.json"))],
     "openContentHolds": [snapshot(p) for p in sorted((RUN / "holds").glob("*.json"))],
     "intentCompletion": {"savedReceipts": intent_receipts, "remainingMissing": intent_missing},
     "commonNoteTextCorrection": {"savedYears": note_saved_years, "questions": note_saved_count, "heldQuestions": note_holds, "meaningUnchanged": True,
