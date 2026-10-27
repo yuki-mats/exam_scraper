@@ -1,0 +1,38 @@
+{
+  "schemaVersion": "hei-recovery-support-verification/v1",
+  "taskId": "T003",
+  "supportStep": "T007",
+  "verifiedAt": "2026-10-26T23:21:18.975491+00:00",
+  "driverSha256": "a0829c9b184d2e02aa28895a77315dce74b150205bc4bf052670c51123c81329",
+  "helperSha256": "7ac1b30ccd6827973eb557645ec1cd5729687ad84f7f2eee9e31edc1ff2cce67",
+  "proof": {
+    "promptOnlyDriverChange": true,
+    "schemaGateReplayUnchanged": true,
+    "driverHashPinned": true,
+    "formalSaveFlagAbsent": true,
+    "original306UniverseVerified": true,
+    "missingV4PilotsRequireAcceptedProof": true,
+    "successfulStagedRecoveryReused": true,
+    "failedTerminalBatchIncluded": true,
+    "unfinishedMainBatchesDeferred": true,
+    "freshSnapshotRehashed": true,
+    "oldSourcePlanUnchanged": true
+  },
+  "commands": [
+    {
+      "cmd": "python3 -m py_compile notes/T007-review-driver.py notes/T007-prepare-recoveries.py",
+      "status": "pass"
+    },
+    {
+      "cmd": "prompt-only AST, synthetic 306-ID selection, no-save command and fresh-hash verification",
+      "status": "pass"
+    },
+    {
+      "cmd": "git diff --check",
+      "status": "pass"
+    }
+  ],
+  "nativeExecution": false,
+  "formalPatchWrites": 0,
+  "helperMainExecuted": false
+}

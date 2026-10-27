@@ -1,0 +1,38 @@
+{
+  "nativeMessageId": "amsg_01a17aa2-f0ff-7053-9427-0214b41bc2d8",
+  "nativeAuthor": "/root/hei_patch_driver",
+  "payload": {
+    "goalbuddy_receipt_v1": {
+      "result": "done",
+      "task_id": "T011",
+      "board_path": "docs/goals/gas-shunin-hei-pdf-patches/state.yaml",
+      "changed_files": [
+        "scripts/common/question_answer_contract.py",
+        "tests/test_question_answer_contract.py",
+        "tests/test_question_intent_patch_coverage.py",
+        "tests/test_question_review_question_candidate.py",
+        "docs/goals/gas-shunin-hei-pdf-patches/notes/T011-validator-verification.json"
+      ],
+      "commands": [
+        {
+          "cmd": "python3 -m unittest tests.test_question_answer_contract tests.test_question_intent_patch_coverage tests.test_question_review_question_candidate",
+          "status": "pass",
+          "tests": 120
+        },
+        {
+          "cmd": "既存2020 private入力とpatchに対するcheck-question-intent-patchの読取専用再実行",
+          "status": "pass"
+        },
+        {
+          "cmd": "git diff --check",
+          "status": "pass"
+        }
+      ],
+      "summary": "条件所属を表す「該当しないもの」を明示的な正誤要求tokenから除外しました。句点終止だけでは方向を断定せず、独立した明確な正誤要求の照合は保持します。関連3module全120テストと既存private coverageが成功しました。データ・候補・正式metadata・helperは変更していません。",
+      "remaining_blockers": [],
+      "needs_judge": true,
+      "verification_attempts": 2,
+      "stopped_because": null
+    }
+  }
+}

@@ -1,0 +1,130 @@
+{
+  "nativeMessageId": "amsg_01a17a8c-d65b-76e0-be6f-32c29deb9ca9",
+  "nativeAuthor": "/root/hei_patch_judge",
+  "payload": {
+    "goalbuddy_receipt_v1": {
+      "result": "done",
+      "task_id": "T008",
+      "board_path": "docs/goals/gas-shunin-hei-pdf-patches/state.yaml",
+      "decision": "approve_next",
+      "full_outcome_complete": false,
+      "rationale": "高解像度cropでは法律と保安規則の直後に閉じかぎ括弧が明瞭に存在し、私の前回の低解像度判断を撤回します。Challengeの当該指摘は正しく、候補の2箇所を訂正してfresh reviewする方針を承認します。別件の10/15追加は、実CLIで既存不足が確認され、ユーザーが要求した必須検査を満たすための最小補助整備として条件付きで認めます。各問の内容判断と現在投影の再確認を必要とし、検査を通すための固定値補完や正答の逆算は認めません。",
+      "evidence": [
+        {
+          "kind": "corrected_visual_judgment",
+          "sourceQuestionId": "2022:seizo:問3",
+          "imagePath": "output/gas-shunin-hei/pdf_patch_review/visual-adjudication/2022-seizo-q3-footnotes.png",
+          "imageSha256": "ffb9c9761aff12493803a6d8cc72e70dfba51afeaa39c93eb40f12802f9b7f6a",
+          "method": "高解像度cropをview_image detail=originalで直接表示して確認",
+          "observations": [
+            {
+              "location": "※1の法律直後",
+              "visibleSequence": "法律」第37",
+              "closingCornerBracket": "present"
+            },
+            {
+              "location": "※2の保安規則直後",
+              "visibleSequence": "保安規則」第9条",
+              "closingCornerBracket": "present"
+            }
+          ],
+          "retraction": "前回receiptの『当該位置に閉じかぎ括弧が確認できずChallenge指摘は支持されない』という判断は誤り。高解像度の本判断へ訂正する。"
+        },
+        {
+          "kind": "actual_cli_failure",
+          "path": "docs/goals/gas-shunin-hei-pdf-patches/notes/T008-schema-preflight.json",
+          "logPath": "output/gas-shunin-hei/pdf_patch_review/preexisting-schema-proof/required-fields.log",
+          "logSha256": "a1a38d857dada235c9718562ed8b7335a5aacae8c5dbff22855b193c593950dd",
+          "exitCode": 1,
+          "mergedFiles": 54,
+          "recordsAcrossTwoStages": 1044,
+          "actualCliIssueCount": 2088,
+          "distinctSourceQuestionsMissingQuestionType": 522,
+          "finding": "source-only通常mergeの実CLIが失敗。1044recordそれぞれにmissing/emptyの2issueがある。早期診断1044issueと実CLI2088issueを混同しない。"
+        },
+        {
+          "path": "docs/goals/gas-shunin-hei-pdf-patches/notes/T006-type-candidate-inventory.json",
+          "finding": "522件の自然IDが一意で、各候補に回答操作・計算要否の理由がある。候補集計はtrue_false361、group_choice80、flash_card81、計算103。全件holdなし。ただし正式採用は現在投影との再確認が条件。"
+        },
+        {
+          "path": "docs/goals/gas-shunin-hei-pdf-patches/notes/T006-intent-candidate-native.json",
+          "finding": "27問を本文・全選択肢から完全命題として個別判断した真正候補。正答・正答数・既存intentから逆算しない方法が明記されている。"
+        },
+        {
+          "path": "docs/goals/gas-shunin-hei-pdf-patches/notes/T006-route-scout-native.json",
+          "finding": "既存materialize-patchとcoverage validatorによる正常保存経路がある。新規の汎用実装は不要。"
+        },
+        {
+          "path": "prompt/01_prompt_fix_questionType.md",
+          "finding": "01はquestionTypeとisCalculationQuestionだけを内容から独立確定する。参照本文・選択肢snapshotはmaterializerが複写する。"
+        },
+        {
+          "path": "prompt/02_prompt_fix_questionIntent.md",
+          "finding": "02は完全命題と設問の選択方向からquestionIntentだけを独立確定する。"
+        }
+      ],
+      "next_allowed_task": {
+        "type": "worker",
+        "assignee": "Worker",
+        "objective": "全24訂正・recovery確定後、現在投影へ各問候補を再結合し、必須検査を満たす最小の01全522問と必要02の27問だけを正常materialize経路で正式保存する。",
+        "allowed_files": [
+          "output/gas-shunin-hei/questions_json/*/10_questionType_fixed/*_questionType_fixed.json",
+          "output/gas-shunin-hei/questions_json/*/15_correctChoiceText_fixed/*_merged_correctChoiceText_fixed.json",
+          "output/gas-shunin-hei/questions_json/*/12_merged_questionType/",
+          "output/gas-shunin-hei/questions_json/*/20_merged_1/",
+          "output/gas-shunin-hei/questions_json/*/30_merged_2/",
+          "output/gas-shunin-hei/pdf_patch_review/",
+          "docs/goals/gas-shunin-hei-pdf-patches/notes/"
+        ],
+        "required_conditions": [
+          "01/02の正式保存は全24/recoveryの確定後に行い、レビュー中のcurrent driftを起こさない。",
+          "候補522件と必要intent27件を完全source identityで現在logicalProjectionへ一意に結合する。配列順で判断を割り当てない。",
+          "各問の本文・全選択肢・必要図・保存済み解説資料を現在投影で再確認し、既存候補の理由がなお成立することを確認する。特に今回補完した図・条件が回答操作又は計算要否へ影響する問は再判断する。",
+          "questionTypeとisCalculationQuestionは互いから派生させず、正答数・正答ラベル・既存形式から逆算しない。",
+          "questionIntentは27問の完全命題と設問方向から独立採用し、全件select_correctという集計を判定理由にしない。",
+          "materialize-patch --task question_type/question_intentを使い、通常の完全source bindingを保持する。",
+          "10の本文・choice snapshotは現在判断入力からの機械複写であり、本文訂正の新しい正本として扱わない。",
+          "元本文・choiceTextList・正答・解説・公式解答番号・既存IDは追加10/15によって変更しない。",
+          "集約回答分解、選択肢変更、正答変更又は新しい意味上の矛盾が必要なら、その問を保留して別審査へ返す。",
+          "03解説、現行法監査、分類体系、公開flag、Storage/Firestore公開はこの補助整備に含めない。"
+        ],
+        "verify": [
+          "522候補・27intent候補の自然ID/public ID/完全source bindingと現在投影の完全対応を検証する。",
+          "各正式10をcheck-question-type-patch、各正式15をcheck-question-intent-patchで同一入力に対して検証する。",
+          "通常merge後、追加前後の変更field集合がquestionType/isCalculationQuestionと必要27問のquestionIntentだけであることをidentity単位で検証する。",
+          "全24の本文補正とexpectedBeforeHashが追加10/15後も正常適用されることを確認する。",
+          "全27source、全522問identity、元正答・解説・本文・選択肢の不変を確認する。",
+          "ユーザー指定の3checkerを実入力へ実行し、コマンド・対象hash・日時・終了code・ログを保存する。0file検査を成功証拠にしない。",
+          "対象外資格の既存失敗を検出した場合は隠さず記録し、今回の権限を他資格の変更へ広げない。"
+        ],
+        "stop_if": [
+          "内容判断が未確定の問を、検査成功のため現在値又は既定値で埋める必要が生じた場合は保存しない。",
+          "必要な選択肢分解や正答再判定が見つかった場合は、01/02だけで整合するよう値を操作しない。",
+          "既存正答と新たな完全命題又は形式が矛盾した場合、機械的に片方へ補正せず当該問へ戻る。",
+          "追加工程によって既存の正式24が失効する場合は、hash条件を弱めず原因を調査する。"
+        ]
+      },
+      "subgoal_contract": null,
+      "parallel_safety": {
+        "write_workers": 1,
+        "parallel_writes": false,
+        "dependency": "全24/recovery確定後に10/15を直列保存する。正式保存中に別workerが同じ現在投影を変更しない。"
+      },
+      "blocked_tasks": [],
+      "missing_evidence": [
+        "2022製造問3の訂正候補と高解像度画像を含むfresh review",
+        "全24/recoveryの確定",
+        "現在投影に対する522形式候補・27intent候補の採用確認",
+        "正常materialize・coverage検証・3必須checker成功",
+        "main commit/pushと最終監査"
+      ],
+      "required_board_updates": [
+        "前回の低解像度receiptは削除せず、本訂正receiptで結論を撤回・訂正する。",
+        "2022製造問3は原候補の2箇所の閉じ括弧不足として記録し、Challengeの誤指摘とは扱わない。",
+        "10/15追加はユーザー明示の必須検査を満たす最小補助工程としてscopeへ明記し、全問題整備又は公開完了とは区別する。",
+        "source-only実CLIは2088issueで失敗と正確に記録する。",
+        "本承認は候補値の一括無条件採用ではなく、現在投影の各問再確認と正常保存・検証を条件とする。"
+      ]
+    }
+  }
+}

@@ -1,0 +1,349 @@
+{
+  "nativeMessageId": "amsg_01a17a9c-03b4-7a71-8dec-753b00307bc0",
+  "nativeAuthor": "/root/hei_type_candidate_c",
+  "payload": {
+    "goalbuddy_receipt_v1": {
+      "result": "done",
+      "task_id": "T008",
+      "board_path": "docs/goals/gas-shunin-hei-pdf-patches/state.yaml",
+      "decision": "approve_next",
+      "full_outcome_complete": false,
+      "rationale": "現在内容で型174件と設問方向27件を個別再確認しました。型は維持し、計算要否2件をfalseへ修正します。承認ID一覧はこの修正適用後の候補を指し、元候補の無修正採用を承認しません。候補補助ありの再確認でありblind認証ではありません。",
+      "evidence": [
+        {
+          "kind": "current_content_revalidation",
+          "packetSHA256": {
+            "type-c.json": "394c4913eb605cd5b77f4b9c104f231bd8605c1ecf8eb8b2a5ca885edf0a155e",
+            "intent.json": "08d0bd68077586c5b2e2eef117eeb027cc489bc6cfe7f25606791fe113a3927c"
+          },
+          "packetPaths": {
+            "type": "output/gas-shunin-hei/pdf_patch_review/metadata-review-packets/type-c.json",
+            "intent": "output/gas-shunin-hei/pdf_patch_review/metadata-review-packets/intent.json"
+          },
+          "packetHashesUnchangedAtEnd": true,
+          "observed": {
+            "type": 174,
+            "intent": 27
+          },
+          "uniqueIDs": {
+            "type": 174,
+            "intent": 27
+          },
+          "candidateIdentityMatchesPacketIdentity": true,
+          "storedExplanationObservation": {
+            "type": {
+              "present": 0,
+              "absent": 174
+            },
+            "intent": {
+              "present": 0,
+              "absent": 27
+            }
+          },
+          "reviewMethod": "各問の現在本文、全選択肢、保存解説の存在を直接確認。完全一致する共通注の表示だけを重複排除し、各問との対応を保持した。型・計算要否は互いから導かず、設問方向も型から導いていない。",
+          "approvalSemantics": "approvedSourceQuestionIdsはchangedCandidatesの修正適用後の最終候補を承認する174問の集合。元候補のうち無修正で承認するのは172問。intent候補は27問とも無修正承認。",
+          "unchangedTypeCandidateCount": 172,
+          "changedTypeCandidateCount": 2,
+          "approvedFinalTypeCandidateCount": 174,
+          "approvedIntentCandidateCount": 27,
+          "writesPerformed": false,
+          "blindAuthenticationClaimed": false,
+          "formalPatchSavedByThisReview": false,
+          "approvedSourceQuestionIds": [
+            "2023:kiso:問1",
+            "2023:kiso:問10",
+            "2023:kiso:問11",
+            "2023:kiso:問12",
+            "2023:kiso:問13",
+            "2023:kiso:問14",
+            "2023:kiso:問15",
+            "2023:kiso:問2",
+            "2023:kiso:問3",
+            "2023:kiso:問4",
+            "2023:kiso:問5",
+            "2023:kiso:問6",
+            "2023:kiso:問7",
+            "2023:kiso:問8",
+            "2023:kiso:問9",
+            "2023:kyokyu:問10",
+            "2023:kyokyu:問11",
+            "2023:kyokyu:問12",
+            "2023:kyokyu:問13",
+            "2023:kyokyu:問14",
+            "2023:kyokyu:問15",
+            "2023:kyokyu:問16",
+            "2023:kyokyu:問17",
+            "2023:kyokyu:問18",
+            "2023:law:問1",
+            "2023:law:問10",
+            "2023:law:問11",
+            "2023:law:問12",
+            "2023:law:問13",
+            "2023:law:問14",
+            "2023:law:問15",
+            "2023:law:問16",
+            "2023:law:問2",
+            "2023:law:問3",
+            "2023:law:問4",
+            "2023:law:問5",
+            "2023:law:問6",
+            "2023:law:問7",
+            "2023:law:問8",
+            "2023:law:問9",
+            "2023:seizo:問1",
+            "2023:seizo:問2",
+            "2023:seizo:問3",
+            "2023:seizo:問4",
+            "2023:seizo:問5",
+            "2023:seizo:問6",
+            "2023:seizo:問7",
+            "2023:seizo:問8",
+            "2023:seizo:問9",
+            "2023:shohi:問19",
+            "2023:shohi:問20",
+            "2023:shohi:問21",
+            "2023:shohi:問22",
+            "2023:shohi:問23",
+            "2023:shohi:問24",
+            "2023:shohi:問25",
+            "2023:shohi:問26",
+            "2023:shohi:問27",
+            "2024:kiso:問1",
+            "2024:kiso:問10",
+            "2024:kiso:問11",
+            "2024:kiso:問12",
+            "2024:kiso:問13",
+            "2024:kiso:問14",
+            "2024:kiso:問15",
+            "2024:kiso:問2",
+            "2024:kiso:問3",
+            "2024:kiso:問4",
+            "2024:kiso:問5",
+            "2024:kiso:問6",
+            "2024:kiso:問7",
+            "2024:kiso:問8",
+            "2024:kiso:問9",
+            "2024:kyokyu:問10",
+            "2024:kyokyu:問11",
+            "2024:kyokyu:問12",
+            "2024:kyokyu:問13",
+            "2024:kyokyu:問14",
+            "2024:kyokyu:問15",
+            "2024:kyokyu:問16",
+            "2024:kyokyu:問17",
+            "2024:kyokyu:問18",
+            "2024:law:問1",
+            "2024:law:問10",
+            "2024:law:問11",
+            "2024:law:問12",
+            "2024:law:問13",
+            "2024:law:問14",
+            "2024:law:問15",
+            "2024:law:問16",
+            "2024:law:問2",
+            "2024:law:問3",
+            "2024:law:問4",
+            "2024:law:問5",
+            "2024:law:問6",
+            "2024:law:問7",
+            "2024:law:問8",
+            "2024:law:問9",
+            "2024:seizo:問1",
+            "2024:seizo:問2",
+            "2024:seizo:問3",
+            "2024:seizo:問4",
+            "2024:seizo:問5",
+            "2024:seizo:問6",
+            "2024:seizo:問7",
+            "2024:seizo:問8",
+            "2024:seizo:問9",
+            "2024:shohi:問19",
+            "2024:shohi:問20",
+            "2024:shohi:問21",
+            "2024:shohi:問22",
+            "2024:shohi:問23",
+            "2024:shohi:問24",
+            "2024:shohi:問25",
+            "2024:shohi:問26",
+            "2024:shohi:問27",
+            "2025:kiso:問1",
+            "2025:kiso:問10",
+            "2025:kiso:問11",
+            "2025:kiso:問12",
+            "2025:kiso:問13",
+            "2025:kiso:問14",
+            "2025:kiso:問15",
+            "2025:kiso:問2",
+            "2025:kiso:問3",
+            "2025:kiso:問4",
+            "2025:kiso:問5",
+            "2025:kiso:問6",
+            "2025:kiso:問7",
+            "2025:kiso:問8",
+            "2025:kiso:問9",
+            "2025:kyokyu:問10",
+            "2025:kyokyu:問11",
+            "2025:kyokyu:問12",
+            "2025:kyokyu:問13",
+            "2025:kyokyu:問14",
+            "2025:kyokyu:問15",
+            "2025:kyokyu:問16",
+            "2025:kyokyu:問17",
+            "2025:kyokyu:問18",
+            "2025:law:問1",
+            "2025:law:問10",
+            "2025:law:問11",
+            "2025:law:問12",
+            "2025:law:問13",
+            "2025:law:問14",
+            "2025:law:問15",
+            "2025:law:問16",
+            "2025:law:問2",
+            "2025:law:問3",
+            "2025:law:問4",
+            "2025:law:問5",
+            "2025:law:問6",
+            "2025:law:問7",
+            "2025:law:問8",
+            "2025:law:問9",
+            "2025:seizo:問1",
+            "2025:seizo:問2",
+            "2025:seizo:問3",
+            "2025:seizo:問4",
+            "2025:seizo:問5",
+            "2025:seizo:問6",
+            "2025:seizo:問7",
+            "2025:seizo:問8",
+            "2025:seizo:問9",
+            "2025:shohi:問19",
+            "2025:shohi:問20",
+            "2025:shohi:問21",
+            "2025:shohi:問22",
+            "2025:shohi:問23",
+            "2025:shohi:問24",
+            "2025:shohi:問25",
+            "2025:shohi:問26",
+            "2025:shohi:問27"
+          ],
+          "approvedIntentSourceQuestionIds": [
+            "2017:law:問2",
+            "2017:law:問9",
+            "2017:law:問12",
+            "2017:kiso:問3",
+            "2017:kiso:問9",
+            "2018:law:問2",
+            "2018:law:問11",
+            "2018:kiso:問5",
+            "2018:kyokyu:問14",
+            "2019:law:問2",
+            "2019:kiso:問8",
+            "2019:kiso:問12",
+            "2020:law:問3",
+            "2020:law:問6",
+            "2020:law:問11",
+            "2020:seizo:問8",
+            "2021:law:問4",
+            "2021:kiso:問3",
+            "2021:kiso:問14",
+            "2022:law:問4",
+            "2022:kiso:問4",
+            "2023:law:問4",
+            "2023:kiso:問3",
+            "2024:law:問4",
+            "2024:kiso:問2",
+            "2025:kiso:問5",
+            "2025:kiso:問14"
+          ],
+          "changedCandidates": [
+            {
+              "sourceQuestionId": "2023:seizo:問3",
+              "original_question_id": "604459fefe6d3659",
+              "currentRecordHash": "fd6a6dc5a9059dec63e75c05b08c25c3536b20ca26e85f3425831ffdcf4539d8",
+              "before": {
+                "questionType": "true_false",
+                "isCalculationQuestion": true
+              },
+              "after": {
+                "questionType": "true_false",
+                "isCalculationQuestion": false
+              },
+              "rationale": "各肢の設備措置を独立判定する型は維持する。肢4の消火器2個の適否は床面積50m²と設置基準から判断でき、50kg×20本×2系列の総貯蔵量を算出する必要がない。他肢も記載された容量・距離と基準の照合であり、最初の候補は不要な演算を必須扱いしていた。"
+            },
+            {
+              "sourceQuestionId": "2025:shohi:問24",
+              "original_question_id": "b2bbafd27026282f",
+              "before": {
+                "questionType": "true_false",
+                "isCalculationQuestion": true
+              },
+              "after": {
+                "questionType": "true_false",
+                "isCalculationQuestion": false
+              },
+              "rationale": "各肢の独立判定という型は維持する。肢5は換気回数と平衡濃度の逆比例関係から増減方向を確認でき、具体的な濃度又は倍率を算出する必要がない。1/0.5の演算は可能な説明方法だが判定に必須ではないため、計算要否をfalseとする。"
+            }
+          ],
+          "changedIntentCandidates": [],
+          "holds": [],
+          "reasonSummary": [
+            {
+              "topic": "回答操作",
+              "rationale": "独立した記述又は本文の共通述語を補った候補の該当性を肢別に判定する問題はtrue_falseを維持。空欄対応・順位をまとめた候補を比較する問題はgroup_choice、本文条件から単一の数値を導いて候補と照合する問題はflash_cardを維持した。個数・組合せというstemだけを理由に、既に独立命題が選択肢にある問題を再分解していない。"
+            },
+            {
+              "topic": "2023消費20の図説明",
+              "rationale": "現在本文の軸、領域、境界線、点線の説明と公式35頁画像を確認。各肢は燃焼方式又は指定領域の現象に関する独立記述で、数値目盛りを使った演算はない。true_false／falseを維持。"
+            },
+            {
+              "topic": "2024基礎6のU字管",
+              "rationale": "現在本文と公式18頁画像で、容器側水面が大気開放側よりHだけ低いことを確認。明示されたゲージ圧力をρgHで求め、mm・Pa・kPaの換算を行う。単一の圧力値を導くflash_card／trueを維持。"
+            },
+            {
+              "topic": "共通圧力条件",
+              "rationale": "法令はゲージ圧力、基礎は指定がない限り絶対圧力という年度別共通注を各問に対応させて確認。2023基礎8・9、2024基礎9、2025基礎7は共通条件に従う温度・圧力比の実演算が必要。2024基礎6・8のように肢又は設問がゲージ圧力を明示する部分は、その明示を維持して読んだ。これらによる型変更はない。"
+            },
+            {
+              "topic": "実演算を伴うtrue_false",
+              "rationale": "2024製造3は容器・貯槽の総貯蔵量から離隔区分を判定するため掛算が必要。2024消費24は30分に1回を毎時回数へ換算する必要がある。2025製造2は需要量から必要基数と能力を算出する必要がある。これらのtrue_false／trueは維持した。"
+            },
+            {
+              "topic": "知識・定性比較",
+              "rationale": "同質量での分子数・物質量の大小、同体積気体の質量順位、既知の反応係数による生成量順位は、具体的な実量を求めず既知の大小関係で判定できる候補をfalseのまま確認。物質量・質量・熱量・流量・圧力等を与条件から実際に算出する問題はtrueを維持した。"
+            },
+            {
+              "topic": "設問方向27件",
+              "rationale": "名詞句・条件断片は本文の述語を一度だけ補い、その完全命題の成立側を求める操作として27件ともselect_correctを維持。非報告対象、規定非該当、漏えい検査除外、遮断しない場合も、否定語だけで方向を反転していない。"
+            },
+            {
+              "topic": "行為を条件に照合する設問",
+              "rationale": "2018法令11は『行為が技術基準に適合していない』、2020製造8は『措置が地震対策に該当しない』という条件を満たす行為を選ぶ。行為の望ましさと命題の成立方向を混同せずselect_correctを維持。2020法令6は完結した規定内容が成立する側を求めるためselect_correctを維持した。"
+            }
+          ],
+          "imagesViewedThisReview": [
+            {
+              "sourceQuestionId": "2023:shohi:問20",
+              "path": "output/gas-shunin-hei/pdf_review/2023/mark_sheet_question/page-35.png",
+              "pdfPageNo": 35
+            },
+            {
+              "sourceQuestionId": "2024:kiso:問6",
+              "path": "output/gas-shunin-hei/pdf_review/2024/mark_sheet_question/page-18.png",
+              "pdfPageNo": 18
+            }
+          ]
+        }
+      ],
+      "next_allowed_task": null,
+      "subgoal_contract": null,
+      "parallel_safety": null,
+      "blocked_tasks": [],
+      "missing_evidence": [
+        "changedCandidatesの2件を採用候補へ反映した後の標準01・02保存検証と通常merge結果は、この読取専用レビューでは実行していない。",
+        "保存解説は全対象で存在せず、本レビューから解説整備済み又は公開可能とは判定できない。"
+      ],
+      "required_board_updates": [
+        "PMは計算要否2件の修正、型候補174件とintent候補27件の再確認範囲、packetSHA256、候補補助ありのレビューであることを記録する。"
+      ]
+    }
+  }
+}

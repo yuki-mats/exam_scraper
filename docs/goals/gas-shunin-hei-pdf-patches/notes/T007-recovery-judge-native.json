@@ -1,0 +1,68 @@
+{
+  "nativeMessageId": "amsg_01a17a81-63c2-7ef0-bd6a-c3f0c2fb35a7",
+  "nativeAuthor": "/root/hei_patch_judge",
+  "payload": {
+    "goalbuddy_receipt_v1": {
+      "result": "done",
+      "task_id": "T003",
+      "board_path": "docs/goals/gas-shunin-hei-pdf-patches/state.yaml",
+      "decision": "approve_next",
+      "full_outcome_complete": false,
+      "rationale": "proposedChangesを現在値との差分fieldだけに限定する指示は、正式patch契約の正常な意味を明確にするもので妥当です。既存validatorも同値fieldを変更として拒否し、通常serviceにも同値field除去処理があります。今回、元応答を変えず新規独立phaseで再確認する方針は、後補正による一致作成を避けています。choicesの実質訂正が必要な場合は自由に提案できる余地を残してください。01/15の正式化は予測だけで判断せず、実検査後の別審査とします。",
+      "evidence": [
+        "scripts/check/check_question_issue_correction_patch.py:410-421",
+        "tools/question_review_console/official_source_correction.py:218-236",
+        "docs/goals/gas-shunin-hei-pdf-patches/state.yaml:T003"
+      ],
+      "next_allowed_task": {
+        "type": "worker",
+        "assignee": "Worker",
+        "objective": "同値fieldの再掲と実変更を区別するwrapper指示だけを別driver revisionへ追加し、指定の保留・拒否問をfresh単問A/B・Challengeで再確認する。",
+        "allowed_files": [
+          "docs/goals/gas-shunin-hei-pdf-patches/notes/",
+          "output/gas-shunin-hei/pdf_patch_review/",
+          "output/gas-shunin-hei/questions_json/*/24_questionIssueCorrections/*.json"
+        ],
+        "required_conditions": [
+          "proposedChangesとchangesは、当該問の現在値と実際に異なるfieldだけを含める。現値と同一の確認済みfieldはfindingsへ記録する。",
+          "この規則をchoiceTextList禁止へ変えない。公式画像に照らして実質変更が必要なら、従来の許可field範囲内で独立に提案し、不明ならholdできるようにする。",
+          "旧A/BとChallengeの応答・reject理由を無改変で保持し、新revision・fresh workdir・新規sessionを用いる。",
+          "過去A/Bのどちらが期待値かをfresh reviewerへ示さない。current・公式画像・未採用候補を正常順序で比較する。",
+          "2019基礎1・12・5、2021法令14と2023拒否問の同定は完全source identityで行う。",
+          "schema、evidence binding、標準validators、完全一致gate、replay、正式保存の条件を弱めない。"
+        ],
+        "verify": [
+          "旧driverとのprompt-only diffを確認し、schema・gate・replayの不変を示す。",
+          "同値fieldは元応答から機械削除せず、新しい真正reviewが適切な差分集合を返したことを確認する。",
+          "新A/B/Cのprompt/schema/input/image/native identity・元応答・問別replay対応を検証する。",
+          "正式patchのchangesが現在値から全field実際に異なることを既存validatorで確認する。",
+          "A/Bに実質差異が残る問はholdを維持する。",
+          "全27source不変を確認する。"
+        ],
+        "stop_if": [
+          "旧応答を書き換えないと保存できない場合は保存しない。",
+          "choiceTextListに実質的な差異があるのに、指示でbodyだけへ強制して不一致を消す必要がある場合は停止する。",
+          "fresh判定でも意味上の不一致が続く場合は、公式画像と当該候補の内容を再確認し、結論を誘導しない。"
+        ]
+      },
+      "subgoal_contract": null,
+      "parallel_safety": {
+        "write_workers": 1,
+        "parallel_writes": false,
+        "native_blind_reviews": "既承認の独立A/B read-only並行方式を維持できる。Challengeと正式保存は直列。"
+      },
+      "blocked_tasks": [],
+      "missing_evidence": [
+        "別revisionのprompt-only差分",
+        "指定保留・拒否問のfresh真正review結果",
+        "2023 batch020の不一致内容と単問での最終判断",
+        "全訂正後の通常merge・実CLI必須3checker結果"
+      ],
+      "required_board_updates": [
+        "回復対象ごとに旧run・拒否理由・fresh runを結び、旧判定を書き換えない。",
+        "01/15の候補準備と正式保存を分けて記録する。",
+        "実検査後の01/15追加範囲は、既存不足を是正する最小の責務範囲として別途審査し、現時点で正式化済みとはしない。"
+      ]
+    }
+  }
+}

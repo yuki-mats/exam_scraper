@@ -1,0 +1,72 @@
+{
+  "nativeMessageId": "amsg_01a17a86-29a0-7d80-9519-85980798286c",
+  "nativeAuthor": "/root/hei_patch_judge",
+  "payload": {
+    "goalbuddy_receipt_v1": {
+      "result": "done",
+      "task_id": "T007",
+      "board_path": "docs/goals/gas-shunin-hei-pdf-patches/state.yaml",
+      "decision": "approve_next",
+      "full_outcome_complete": false,
+      "rationale": "編集上の見出しを公式引用と区別するdisplayFormatRulesの追加は妥当です。【科目共通注】は補完注と設問本文の境界を明確にする表示仕様であり、PDFに同じ見出し文字がないことだけを内容誤りとする必要はありません。注の内容・適用範囲・例外・図の関係は引き続き公式画像で独立に判定します。T007の実差分も同値fieldの再掲を避ける一文だけで、実質的な選択肢修正の提案は妨げていません。",
+      "evidence": [
+        {
+          "path": "docs/goals/gas-shunin-hei-pdf-patches/notes/T007-review-driver.py",
+          "sha256": "a0829c9b184d2e02aa28895a77315dce74b150205bc4bf052670c51123c81329",
+          "finding": "T005との実diffはproposedChangesの同値field再掲を避ける一文のみ。候補本文・結論・schema・gate・replayは固定又は弱体化されていない。"
+        },
+        {
+          "path": "docs/goals/gas-shunin-hei-pdf-patches/notes/T007-prompt-verification.json",
+          "finding": "prompt-only変更、compile、306-ID scopeとaccepted/staged除外の検証を記録。native実行・正式保存なしとして区別されている。"
+        },
+        {
+          "path": "tools/question_bank/question_issue_reports.py:452-488",
+          "finding": "canonicalSnapshotは正規Blind入力へ結合され、caseInputHashesとblind inputHashの対象になる。"
+        }
+      ],
+      "next_allowed_task": {
+        "type": "worker",
+        "assignee": "Worker",
+        "objective": "表示仕様を公式内容と区別して新規planへ固定し、旧hold問をfresh独立レビューで再確認する。",
+        "allowed_files": [
+          "docs/goals/gas-shunin-hei-pdf-patches/notes/",
+          "output/gas-shunin-hei/pdf_patch_review/"
+        ],
+        "display_rule": {
+          "heading": "【科目共通注】は元PDFの引用文字列ではなく、適用する共通注を設問本文から区別する編集上の表示見出しである。",
+          "layout": "元表の左右欄を文章として接続し、欄の区切りに半角空白、注ごとの区切りに改行を用いる。これらの表示上の区切りを原PDFの逐語的な文字列と主張しない。",
+          "content": "注の用語・数値・否定・適用範囲・例外、図の必要関係は公式画像に照らして独立に判定する。表示規則は候補の内容を正しいと認定するものではない。"
+        },
+        "verify": [
+          "displayFormatRulesを新規canonicalSnapshotへ保存し、caseInputHashes・正規Blind inputHashを再計算する。",
+          "変更済みplan・新規workdir・新規sessionを使い、旧入力・元応答・hold理由を無改変で保持する。",
+          "各正規promptに表示仕様が実際に含まれ、送信prompt/schema/input hashへ結合されたことを確認する。",
+          "見出しの存在だけで内容一致とせず、注の実内容・適用範囲・例外を実画像で確認した理由を保持する。",
+          "A/B/Challengeと標準gate・replayは従来どおり維持する。"
+        ],
+        "stop_if": [
+          "表示規則を使って注の意味差異や不正確な図の文章化を許容する必要がある場合は保留する。",
+          "既存成功・staged結果のinputHash又は元応答を後付けで変更する必要がある場合は停止する。",
+          "原PDF画像上の空白を半角文字と証明したように表現しない。表示上の接続規則として扱う。"
+        ]
+      },
+      "subgoal_contract": null,
+      "parallel_safety": {
+        "write_workers": 1,
+        "formalSave": "現T007 helperの正式save禁止を維持する。",
+        "acceptedAndStaged": "既存accepted/stagedは改変せず除外又は真正receiptで再利用する。"
+      },
+      "blocked_tasks": [],
+      "missing_evidence": [
+        "displayFormatRulesを含む新規planと実送信prompt",
+        "対象hold問のfresh実レビュー",
+        "残問の最終採否と正式保存"
+      ],
+      "required_board_updates": [
+        "表示見出しと表の文章化は編集上の書式であり、公式逐語引用ではないと監査記録へ明記する。",
+        "旧Challengeのhold理由を保存し、新仕様を読んだfresh判断と区別する。",
+        "本receiptは表示仕様の妥当性判断であり、28未確定・34未処理等の完了認定へ流用しない。"
+      ]
+    }
+  }
+}

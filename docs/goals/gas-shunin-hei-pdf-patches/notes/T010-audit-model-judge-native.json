@@ -1,0 +1,86 @@
+{
+  "nativeMessageId": "amsg_01a17a96-37f6-7570-9120-91d9c301f6cf",
+  "nativeAuthor": "/root/hei_patch_judge",
+  "payload": {
+    "goalbuddy_receipt_v1": {
+      "result": "done",
+      "task_id": "T003",
+      "board_path": "docs/goals/gas-shunin-hei-pdf-patches/state.yaml",
+      "decision": "approve_next",
+      "full_outcome_complete": false,
+      "rationale": "残り2問だけをrepo既定の監査モデルgpt-5.6-solでfresh再確認する案を承認します。同モデルはCodexAppServerClientの明示許可集合にあり、通常evaluation経路でも使用されています。指定の高解像度実画像を直接確認し、2024注2の『及び「ガス…』と2025選択肢4・5の『コックス氏』を確認しました。モデル変更を採用結果の強制に使わず、独立A/B・Challengeと既存gateを維持することが条件です。",
+      "evidence": [
+        {
+          "path": "tools/question_review_console/codex_app_server.py:172-184",
+          "finding": "QUESTION_MAINTENANCE_AUDIT_MODEL=gpt-5.6-solが許可モデル集合に含まれ、標準speed/highが定義されている。"
+        },
+        {
+          "path": "tools/question_review_console/evaluation.py:2404",
+          "finding": "通常evaluationのrun_turnで監査モデルを明示指定している。"
+        },
+        {
+          "sourceQuestionId": "2024:law:問3",
+          "imagePath": "output/gas-shunin-hei/pdf_patch_review/visual-adjudication/2024-note2.png",
+          "imageSha256": "64cc230ef4f5e2f8a9a180811e5cd5654c99aca526423b335f8f4811fe1a7679",
+          "method": "view_image detail=originalで直接確認",
+          "finding": "注2は『及び「ガス工作物の技術上の基準の細目を定める告示」』と表示され、及びの後に開始かぎ括弧がある。"
+        },
+        {
+          "sourceQuestionId": "2025:kyokyu:問10",
+          "imagePath": "output/gas-shunin-hei/pdf_patch_review/visual-adjudication/2025-kyokyu-q10-choices.png",
+          "imageSha256": "dfbd49c88d4c7ecf37065498fd7f7b3a794a8e287b263a8ed7c6e92f3a1dc17e",
+          "method": "view_image detail=originalで直接確認",
+          "finding": "選択肢4・5のハ欄はいずれも『コックス氏』。"
+        }
+      ],
+      "next_allowed_task": {
+        "type": "worker",
+        "assignee": "Worker",
+        "objective": "指定2問だけを明示許可された監査モデルでfresh A/B・Challengeへ送り、従来と同じ通常gateを通して最終採否を確認する。",
+        "allowed_files": [
+          "docs/goals/gas-shunin-hei-pdf-patches/notes/",
+          "output/gas-shunin-hei/pdf_patch_review/",
+          "output/gas-shunin-hei/questions_json/2024/24_questionIssueCorrections/",
+          "output/gas-shunin-hei/questions_json/2025/24_questionIssueCorrections/"
+        ],
+        "required_conditions": [
+          "T007の別copyへrun_turnのmodel指定1引数だけを追加する。schema・prompt・validator・consensus・replay・保存条件を変更しない。",
+          "実行対象を2024:law:問3と2025:kyokyu:問10に限定し、他問又はrepo既定設定へ監査モデル選択を広げない。",
+          "各問のA/B/Cは新規session・fresh workdirで実行し、旧hold・元応答・画像を保持する。",
+          "元候補を期待解として強制しない。新モデルも候補の内容誤りや根拠不足を指摘してholdできるようにする。",
+          "実AppServerの返却modelが監査モデルであることをreceiptへ記録する。reasoning high・speed standardを維持する。",
+          "最後のfresh process保存でdriver/config/contracts/current/source/PDF/imagesを再検証する。"
+        ],
+        "verify": [
+          "新旧driverのdiffがmodel引数だけであることと、新driver hashを確認する。",
+          "高解像度画像の実送信path/hash/byteCount、prompt/schema/input hash、native model/session/thread/turnを確認する。",
+          "A/B完全changes一致、標準Challenge検証、run_objective_review replay、patch verifierを省略しない。",
+          "正式保存時に完全identity・expectedBeforeHash・実patch bytesを確認する。",
+          "元正答・解説・ID・全27sourceの不変を確認する。"
+        ],
+        "stop_if": [
+          "新モデルの結論が期待と違うことだけを理由に、値を後補正したり採用基準を変更したりしない。",
+          "意味上の不一致又は画像根拠への異議が残った場合は、当該問を保留して内容へ戻る。",
+          "許可モデル集合や標準設定を変更しなければ実行できない場合は停止する。"
+        ]
+      },
+      "subgoal_contract": null,
+      "parallel_safety": {
+        "write_workers": 1,
+        "parallel_writes": false,
+        "nativeReviews": "既承認の独立read-only A/B輸送は可能。Challengeと正式24保存は直列。"
+      },
+      "blocked_tasks": [],
+      "missing_evidence": [
+        "model引数だけを追加した別driver revision",
+        "監査モデルによる指定2問のfresh実結果",
+        "正式保存・通常merge・必須checkerの最終結果"
+      ],
+      "required_board_updates": [
+        "監査モデル選択の理由、対象2問、実返却model、追加driver hashを記録する。",
+        "旧lunaのholdを変更せず、新しい判定と区別する。",
+        "本目視は指定字形の確認であり、候補全文又は全体完了の認定へ拡張しない。"
+      ]
+    }
+  }
+}

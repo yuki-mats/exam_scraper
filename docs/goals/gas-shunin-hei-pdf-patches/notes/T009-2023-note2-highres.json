@@ -1,0 +1,25 @@
+{
+  "cropPath": "output/gas-shunin-hei/pdf_patch_review/visual-adjudication/2023-note2.png",
+  "cropSha256": "6a21ed7cad0d84fc88f5e2acecb076c4f5d2adec3e72fa3487aac7d845406171",
+  "sourcePdf": "output/pdf/gas-shunin-official/2023/q_hei_r5.pdf",
+  "renderCommand": "pdftoppm -f 3 -l 3 -r 300 -x 1250 -y 550 -W 1100 -H 350 -png -singlefile",
+  "observed": "及び「ガス工作物... の開始かぎ括弧を拡大公式画像で確認。候補本文は変更せず、補助実画像を固定したfresh確認へ進む。",
+  "jobs": [
+    {
+      "plan": "output/gas-shunin-hei/pdf_patch_review/recovery-plans-v8/2023-law-q1.json",
+      "work": "output/gas-shunin-hei/pdf_patch_review/runs-v8/recovery-2023-law-q1"
+    },
+    {
+      "plan": "output/gas-shunin-hei/pdf_patch_review/recovery-plans-v8/2023-law-q10.json",
+      "work": "output/gas-shunin-hei/pdf_patch_review/runs-v8/recovery-2023-law-q10"
+    },
+    {
+      "plan": "output/gas-shunin-hei/pdf_patch_review/recovery-plans-v8/2023-law-q11.json",
+      "work": "output/gas-shunin-hei/pdf_patch_review/runs-v8/recovery-2023-law-q11"
+    },
+    {
+      "plan": "output/gas-shunin-hei/pdf_patch_review/recovery-plans-v8/2023-law-q12.json",
+      "work": "output/gas-shunin-hei/pdf_patch_review/runs-v8/recovery-2023-law-q12"
+    }
+  ]
+}

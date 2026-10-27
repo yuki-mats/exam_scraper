@@ -1,0 +1,5307 @@
+{
+  "status": "current_content_adopted_before_formal_materialize",
+  "questions": 522,
+  "typeCounts": {
+    "true_false": 361,
+    "group_choice": 80,
+    "flash_card": 81
+  },
+  "calculationCount": 101,
+  "trueFalseMissingIntent": [
+    "2017:law:問2",
+    "2017:law:問9",
+    "2017:law:問12",
+    "2017:kiso:問3",
+    "2017:kiso:問9",
+    "2018:law:問2",
+    "2018:law:問11",
+    "2018:kiso:問5",
+    "2018:kyokyu:問14",
+    "2019:law:問2",
+    "2019:kiso:問8",
+    "2019:kiso:問12",
+    "2020:law:問3",
+    "2020:law:問6",
+    "2020:law:問11",
+    "2020:seizo:問8",
+    "2021:law:問4",
+    "2021:kiso:問3",
+    "2021:kiso:問14",
+    "2022:law:問4",
+    "2022:kiso:問4",
+    "2023:law:問4",
+    "2023:kiso:問3",
+    "2024:law:問4",
+    "2024:kiso:問2",
+    "2025:kiso:問5",
+    "2025:kiso:問14"
+  ],
+  "sourceHashTranscriptionErrors": [],
+  "candidates": [
+    {
+      "sourceQuestionId": "2017:law:問1",
+      "original_question_id": "f72327c3772a4fe4",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "用語の定義を各肢で独立判定する。数値は定義との照合で、算出不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2017:law:問2",
+      "original_question_id": "851989d3e7adec5e",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "各事故が詳報対象かを独立判定する。戸数・時間は基準値との照合のみ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2017:law:問3",
+      "original_question_id": "bb8906ad0b31a555",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "保安規程・主任技術者の各記述を判定する。期間の計算は求めない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2017:law:問4",
+      "original_question_id": "b3dbf16a78b4f63f",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "工事計画・検査の各記述を独立判定する。日数は規定との照合のみ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2017:law:問5",
+      "original_question_id": "84b510a5ae65b5a0",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "五つの空欄に対応する語句の組を選ぶ。設備要件の知識で判断し演算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2017:law:問6",
+      "original_question_id": "3034505d85650633",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "溶接基準の五空欄に対応する組を比較する。圧力値は規定の照合のみ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2017:law:問7",
+      "original_question_id": "3ee0af0cac36c123",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "付臭・安全装置・気化装置の各要件を独立判定する。値の算出はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2017:law:問8",
+      "original_question_id": "1673aefdd412df40",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "容器・集合装置の各構造要件を判定する。系統数は規定の知識で照合する。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2017:law:問9",
+      "original_question_id": "3d71b3619be4ec83",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "各設備が共通の構造基準の対象かを独立判定する。圧力値の演算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2017:law:問10",
+      "original_question_id": "a0f54945df9965e2",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "ガス栓基準の四空欄に当てはまる語句の対応組を選ぶ。計算条件はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2017:law:問11",
+      "original_question_id": "f6a11091c219d807",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "導管の保護措置を肢ごとの条件で判定する。口径・圧力は基準との比較のみ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2017:law:問12",
+      "original_question_id": "e2e491743970560d",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "各導管部分・機器の検査要否を独立判定する。既に個別肢があり個数算出を学習単位としない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2017:law:問13",
+      "original_question_id": "6ce96d04ccdfc2b2",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "各機器のガス用品区分を独立判定する。消費量は規定の境界値との照合のみ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2017:law:問14",
+      "original_question_id": "4362929922f0312c",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "周知・調査・保安業務規程の各記述を判定する。期限の算出は求めない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2017:law:問15",
+      "original_question_id": "d2bd0ba305a5587c",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "消費機器の設置・排気要件を各肢で判定する。消費量は基準の照合のみ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2017:law:問16",
+      "original_question_id": "0a91560f643c75bf",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "法律の目的と表示事項の四空欄に対応する組を選ぶ。数値計算はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2017:kiso:問1",
+      "original_question_id": "0fee0c5f725aa416",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "各元素の名称・記号・原子量の記述を独立照合する。丸めた原子量の知識を問う。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2017:kiso:問2",
+      "original_question_id": "2ab2e7cfba3a7e0a",
+      "questionType": "group_choice",
+      "isCalculationQuestion": true,
+      "rationale": "各気体の分子量を構成原子の和から求め、全体の大小順序を選ぶ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2017:kiso:問3",
+      "original_question_id": "6b8b15e43117d293",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "同質量では分子量が最小の水素が最多と一意に導く。具体的な分子数の算出は不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2017:kiso:問4",
+      "original_question_id": "81147bc7c13604a6",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "二物質の質量を各モル質量で割って合計物質量を導き、数値候補と照合する。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2017:kiso:問5",
+      "original_question_id": "5c38507d6c6698ab",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "標準体積を物質量へ換算し、ブタンのモル質量を掛けて質量を導く。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2017:kiso:問6",
+      "original_question_id": "d3bedb424ebc2ade",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "圧力・力・仕事率・比熱などの定義を各肢で判定する。単位定義の照合で演算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2017:kiso:問7",
+      "original_question_id": "b6c7388e2a5ba788",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "燃焼熱を比熱と温度差で割り、水の質量を一つ導く。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2017:kiso:問8",
+      "original_question_id": "844c758998dd672e",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "連続の式と管径の二乗比からB管の流速を算出する。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2017:kiso:問9",
+      "original_question_id": "d240278d89626f22",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "各候補が管摩擦損失の要因かを独立判定する。具体的な損失量は求めない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2017:kiso:問10",
+      "original_question_id": "429be43ad5a29b8a",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "温度を絶対温度へ換算し、定圧の体積比から加熱後体積を算出する。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2017:kiso:問11",
+      "original_question_id": "0d63806a8344daa4",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "密度・比容積・比重の定義と温度変化の傾向を各肢で判定する。値の導出はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2017:kiso:問12",
+      "original_question_id": "73bdbad4764356a9",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "組成比で平均分子量を求め、空気の分子量相当数で割って比重を導く。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2017:kiso:問13",
+      "original_question_id": "9da380aa7004e62b",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "プロパンの燃焼反応量と空気の酸素割合から必要空気体積を算出する。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2017:kiso:問14",
+      "original_question_id": "23b139de1e687c30",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "燃焼範囲・発火点・爆ごうの各記述を判定する。反応量や温度の算出はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2017:kiso:問15",
+      "original_question_id": "2ca8d0bb1f27c154",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "各性質が付臭剤の要求条件を満たすかを独立判定する。計算条件はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2017:seizo:問1",
+      "original_question_id": "977ebaf30d54b767",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "LPガスの性質と発生方式の各記述を判定する。膨張倍率は知識の照合のみ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2017:seizo:問2",
+      "original_question_id": "2d8900d265a4f1fa",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "製造能力算定の係数・式・条件を各肢で判定する。実際の需要量を代入しない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2017:seizo:問3",
+      "original_question_id": "272b8076ee7c358b",
+      "questionType": "true_false",
+      "isCalculationQuestion": true,
+      "rationale": "各設備条件の適否を判定する。容器50kg×29本×2系列から貯蔵量を求める必要がある。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": [
+        17
+      ]
+    },
+    {
+      "sourceQuestionId": "2017:seizo:問4",
+      "original_question_id": "46c943273c3c3f88",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "バルク貯槽の安全弁・液面計・弁構成の各適否を判定する。値の算出はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2017:seizo:問5",
+      "original_question_id": "a4038bbf32be5925",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "防爆構造と危険箇所分類の各説明を判定する。数値計算はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2017:seizo:問6",
+      "original_question_id": "e87e62d28bc1df50",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "調整器の用途・表示・切替操作を各肢で判定する。圧力は既知の作動値との照合のみ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2017:seizo:問7",
+      "original_question_id": "e3d1bb1a62b5f7f8",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "運転前の各作業内容の適否を独立判定する。順序候補の選択や計算ではない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2017:seizo:問8",
+      "original_question_id": "e1ac3062f87abaec",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "災害時対応と予防措置の各記述を判定する。数値の導出はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2017:seizo:問9",
+      "original_question_id": "c3a3339b5936de7c",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "検査周期と記録保存期間の五空欄を一体の対応組として選ぶ。期間の算出はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2017:kyokyu:問10",
+      "original_question_id": "1ae580ae39a852c9",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "需要量推定の係数・名称の三空欄に対応する組を選ぶ。式の知識であり実計算しない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2017:kyokyu:問11",
+      "original_question_id": "a4e37be8c4ab9f98",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "供給方式と圧力・口径の傾向の四空欄を組として選ぶ。具体値は求めない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2017:kyokyu:問12",
+      "original_question_id": "29380baf2d6c0be7",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "整圧器の選定・配置・附属設備の各適否を判定する。能力倍率は基準の照合のみ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2017:kyokyu:問13",
+      "original_question_id": "9ae333aa4c10e5df",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "ルーツメーターの構造・用途・管理の各記述を判定する。計量値の換算は行わない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2017:kyokyu:問14",
+      "original_question_id": "6e1514e69721f44a",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "各接合方法の適用と施工方法を判定する。口径値は適用条件との照合のみ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2017:kyokyu:問15",
+      "original_question_id": "62fde7501e9ef6d8",
+      "questionType": "true_false",
+      "isCalculationQuestion": true,
+      "rationale": "設計・施工の各行為を判定する。容積5m³に対する必要気密保持時間の算定を含む。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": [
+        22
+      ]
+    },
+    {
+      "sourceQuestionId": "2017:kyokyu:問16",
+      "original_question_id": "68205d56bf54204a",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "反応・電極名・防食電位の三空欄を組として選ぶ。電位は既知の基準値との照合。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": [
+        23
+      ]
+    },
+    {
+      "sourceQuestionId": "2017:kyokyu:問17",
+      "original_question_id": "31d20b76e6e3beba",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "分類樹の四位置に対応する防食法の組を選ぶ。公式図は分類関係のみで演算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": [
+        23
+      ]
+    },
+    {
+      "sourceQuestionId": "2017:kyokyu:問18",
+      "original_question_id": "c4c671d4163d21ed",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "検査・記録・検知器などの説明を各肢で判定する。濃度範囲は知識の照合のみ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2017:shohi:問19",
+      "original_question_id": "9ab2e55b342b89f3",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "燃焼速度・熱量・流量関係の各記述を判定する。比例関係の知識で具体値は求めない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2017:shohi:問20",
+      "original_question_id": "c18581509e768c95",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "火移り・リフティング・不完全燃焼などの各説明を判定する。数値計算はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2017:shohi:問21",
+      "original_question_id": "c0a66185b3d78b7b",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "機器の法的区分・構成・給湯配管などを各肢で判定する。消費量は基準との照合のみ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2017:shohi:問22",
+      "original_question_id": "d19dd1ba67bf568a",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "家庭用機器の燃焼方式と安全機能を各肢で判定する。演算条件はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2017:shohi:問23",
+      "original_question_id": "3b0c23cb7528add1",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "業務用機器の構成・加熱方式・安全機能を各肢で判定する。数値の導出はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2017:shohi:問24",
+      "original_question_id": "cf0a65f9b8f2b021",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "換気方式と給排気方式の各記述を判定する。換気量等の算出はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2017:shohi:問25",
+      "original_question_id": "d74a80646cc04177",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "各安全装置の検知対象と作動原理を独立判定する。数値計算はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2017:shohi:問26",
+      "original_question_id": "97fa6ff28b6e079e",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "酸素濃度・警報器・接続具・COの各説明を判定する。基準値の照合で演算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2017:shohi:問27",
+      "original_question_id": "072e1d50f274d881",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "機器表示・設置・バーナー・発熱量の各記述を判定する。大小の知識で具体値を求めない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2018:law:問1",
+      "original_question_id": "c04d21ef39442e76",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "用語の各定義を独立判定する。圧力・地点数は定義の照合のみ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2018:law:問2",
+      "original_question_id": "fabed91bb4ad3513",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "各事故が大臣への詳報対象かを独立判定する。分解済みの肢であり件数計算を要しない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2018:law:問3",
+      "original_question_id": "c2eb8c9e84b8ced6",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "保安規程と主任技術者の各義務を判定する。数値導出の条件はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2018:law:問4",
+      "original_question_id": "f4a69f28956085ae",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "自主検査・使用前検査の各要件を独立判定する。保存年数は規定の照合のみ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2018:law:問5",
+      "original_question_id": "faf0938f136dc6d6",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "特定製造所の立入防止・通信・防爆などを各肢で判定する。計算条件はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2018:law:問6",
+      "original_question_id": "e40dc48b083a5c9b",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "溶接・安全弁・計測・遮断装置の各基準を判定する。数値は境界値の照合のみ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2018:law:問7",
+      "original_question_id": "0bcdb8ef506f00ae",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "付臭と気化装置の四空欄に対応する組を選ぶ。濃度比は規定値の選択で演算しない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2018:law:問8",
+      "original_question_id": "a4d108df2fb7737d",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "容器・集合装置の各構造要件を独立判定する。温度・圧力の値は求めない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2018:law:問9",
+      "original_question_id": "bd74795db64273bc",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "材料・荷重・溶接口径・試験名の四空欄を組として選ぶ。口径は規定値の照合。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2018:law:問10",
+      "original_question_id": "6240231d08469d6f",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "各語句を指定位置へ戻し、その箇所の基準適合性を独立判定する。値の導出はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2018:law:問11",
+      "original_question_id": "d59d98ee272dd091",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "露出導管の各防護行為を独立判定する。10mは基準長さとの比較だけでよい。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2018:law:問12",
+      "original_question_id": "cb26db246b3ad114",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "導管部分ごとの検査要否・周期を判定する。期間の起算日計算は求めない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2018:law:問13",
+      "original_question_id": "720b93d29f5817ae",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "ガス用品区分・表示・検査義務の各記述を判定する。消費量は基準の照合のみ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2018:law:問14",
+      "original_question_id": "672fc8b74c3c3a39",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "周知周期・届出時期・連携目的の四空欄を対応組として選ぶ。演算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2018:law:問15",
+      "original_question_id": "15456bf380dcc935",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "燃焼器の排気設備基準の五空欄を一体で選ぶ。消費量の基準値を知識で照合する。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2018:law:問16",
+      "original_question_id": "55869d9f9f172627",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "特定工事の目的・監督・資格・講習を各肢で判定する。計算条件はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2018:kiso:問1",
+      "original_question_id": "d900190074a9c7ce",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "各大小関係を独立判定する。同質量の個数・モル数は分子量との逆比例で比較でき、具体値算出は不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2018:kiso:問2",
+      "original_question_id": "96fc7e45a10c6818",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "分子数をアボガドロ定数で割り、物質量を一つ導く。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2018:kiso:問3",
+      "original_question_id": "a833d116ea2493c4",
+      "questionType": "true_false",
+      "isCalculationQuestion": true,
+      "rationale": "分子名・式・分子量の各記述を判定する。構成原子量の和で分子量を検証する。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2018:kiso:問4",
+      "original_question_id": "334955e3c38faa59",
+      "questionType": "group_choice",
+      "isCalculationQuestion": true,
+      "rationale": "各標準体積から物質量と質量を求め、三気体の全体の順序を選ぶ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2018:kiso:問5",
+      "original_question_id": "09496c34992fe771",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "同質量で最大体積となる最小分子量の水素を導く。実際の体積を計算する必要はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2018:kiso:問6",
+      "original_question_id": "9632e0089397b78f",
+      "questionType": "group_choice",
+      "isCalculationQuestion": true,
+      "rationale": "MPa・atm・mmHgを共通の圧力単位へ換算し、三者の大小順序を選ぶ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2018:kiso:問7",
+      "original_question_id": "7d5c06b03b916d9e",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "重力・単位・比熱・伝熱の各定義を照合する。SI接頭語の係数の知識で、新しい測定値を算出しない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2018:kiso:問8",
+      "original_question_id": "5c56ea107e3d271b",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "単位の用途と代表的な水柱圧の対応を各肢で照合する。未知の物理量を求めない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2018:kiso:問9",
+      "original_question_id": "a93eb02658a7d18e",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "水の必要熱量を求め、熱効率を含む有効出力で割って加熱時間を算出する。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2018:kiso:問10",
+      "original_question_id": "18110956eb7132b0",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "管径をmへ換算し、断面積に平均流速を掛けて流量を算出する。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2018:kiso:問11",
+      "original_question_id": "276fc41c79b7b8b1",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "気化・密度・比重・沸点の各性状を判定する。温度変化の傾向と大小の知識で足りる。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2018:kiso:問12",
+      "original_question_id": "c8945ff0218c666c",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "水素とプロパンの平均分子量を組成比で計算し、29で割って比重を求める。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2018:kiso:問13",
+      "original_question_id": "22aa648fc36ab235",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "気液組成・蒸気圧・空気量・発熱量の傾向を各肢で判定する。具体値は計算しない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2018:kiso:問14",
+      "original_question_id": "6bb9e096fbaac3f3",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "燃焼反応の量的関係からプロパン44kgに対応する生成水の質量を算出する。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2018:kiso:問15",
+      "original_question_id": "d6ae6450ee244c57",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "各成分の割合と燃焼下限界を混合則へ代入し、混合ガスの下限界を求める。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2018:seizo:問1",
+      "original_question_id": "0e9da00d6557428e",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "自然気化・強制気化の各特徴を独立判定する。必要本数や能力の数値は算出しない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2018:seizo:問2",
+      "original_question_id": "140f78affe86bce1",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "地点数・月需要量・ピーク率から時間需要を求め、発生能力で割って容器本数を導く。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2018:seizo:問3",
+      "original_question_id": "dc11bdcf0c8034e9",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "貯蔵能力・障壁条件ごとの離隔距離の対応組を選ぶ。法定距離の照合で算出不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2018:seizo:問4",
+      "original_question_id": "1d7349c9c0d80078",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "ボンベハウスの構造基準を各肢で判定する。割合・距離・温度は基準値そのものの照合。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2018:seizo:問5",
+      "original_question_id": "f92269da6b70b3dd",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "各弁・安全装置の設置条件と作動構造を判定する。容量や角度は規定・構造の知識照合。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2018:seizo:問6",
+      "original_question_id": "dd0381d4e824f996",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "調整装置の供給方式・閉止機能・能力定義などを各肢で判定する。実流量の算出はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2018:seizo:問7",
+      "original_question_id": "ef7919f722eb9c90",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "気化装置の日常点検方法と弁操作を各肢で判定する。演算条件はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2018:seizo:問8",
+      "original_question_id": "a6627f09b576cff2",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "各設備の地震対策の適否を独立判定する。容器質量から何かを算出する設問ではない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2018:seizo:問9",
+      "original_question_id": "1e99eef18c4852c8",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "各設備の点検・検査周期を判定する。示された年数は規定区分との照合で足りる。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2018:kyokyu:問10",
+      "original_question_id": "5ead82ea77ef9850",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "建物区分の高さ・使用者数の三空欄に対応する組を選ぶ。定義の基準値照合のみ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2018:kyokyu:問11",
+      "original_question_id": "c4690872381eb11e",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "導管・本支管・供給管・内管の各区分を独立判定する。計算条件はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2018:kyokyu:問12",
+      "original_question_id": "1271cbbeadfdddbe",
+      "questionType": "flash_card",
+      "isCalculationQuestion": false,
+      "rationale": "公式早見表で長さ・許容損失・流量を照合し最小口径を導く。安全側の表値比較で演算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": [
+        25
+      ]
+    },
+    {
+      "sourceQuestionId": "2018:kyokyu:問13",
+      "original_question_id": "0ccd06bb0be45252",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "整圧器の圧力・附属装置・配置の四空欄に対応する組を選ぶ。計算しない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2018:kyokyu:問14",
+      "original_question_id": "751ab427455fa893",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "各状況でマイコンメーターが遮断するかを独立判定する。値は作動基準との照合のみ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2018:kyokyu:問15",
+      "original_question_id": "07e3239f3c7ceee1",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "フレキ管の特性・施工・防護の各記述を判定する。数値計算はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2018:kyokyu:問16",
+      "original_question_id": "ebff6ec129e75766",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "管材料・スクイズオフ・埋戻し・試験条件を各肢で判定する。口径・試験圧力は照合のみ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2018:kyokyu:問17",
+      "original_question_id": "7cda00a8fe5e79fc",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "腐食原理と防食方法を各肢で判定する。土壌比抵抗は基準との比較で計算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2018:kyokyu:問18",
+      "original_question_id": "f82c63f5496244e0",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "漏えい検査・検知器・他工事・遮断方法を各肢で判定する。具体量の導出はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2018:shohi:問19",
+      "original_question_id": "7c7eb054f00b9fcf",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "燃焼条件・速度・温度・範囲の各説明を判定する。定性的な知識で足りる。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2018:shohi:問20",
+      "original_question_id": "ecafc07dfaca6a23",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "フラッシュバック等の燃焼現象を各肢で判定する。速度や空気量の計算はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2018:shohi:問21",
+      "original_question_id": "3938b74b7eb3aece",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "温水機器の機能と号数の定義を各肢で判定する。号数から実際の出湯量を求めない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2018:shohi:問22",
+      "original_question_id": "4a1b99d3514bb337",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "暖房機の燃焼方式と安全装置を各肢で判定する。計算条件はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2018:shohi:問23",
+      "original_question_id": "a2cdaba600d22d32",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "業務用機器の用途・構造・加熱方式を各肢で判定する。演算はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2018:shohi:問24",
+      "original_question_id": "5d57e7a52db16748",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "ガス栓・警報器の機能と設置位置を各肢で判定する。距離は基準との照合のみ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2018:shohi:問25",
+      "original_question_id": "8fd7aff4a5d413fe",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "各安全装置の検知方法・原理を独立判定する。数値導出はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2018:shohi:問26",
+      "original_question_id": "c9a9152692dd8154",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "制御素子と安全装置の構成・取付位置を各肢で判定する。計算しない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2018:shohi:問27",
+      "original_question_id": "988c2cc9f82b2022",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "各給排気方式の空気取入れと排気方法を独立判定する。演算条件はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2019:law:問1",
+      "original_question_id": "71e1d52a263c8baf",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "供給条件説明の五空欄に対応する語句の組を選ぶ。熱量・圧力の実測値は算出しない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2019:law:問2",
+      "original_question_id": "545cb2514d14a0f5",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "各事故の速報先が監督部長のみかを独立判定する。分解済みで個数計算は不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2019:law:問3",
+      "original_question_id": "437e5a353d647dcb",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "保安規程・主任技術者の各義務と権限を独立判定する。数値の導出はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2019:law:問4",
+      "original_question_id": "f7a49298c8705c75",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "供給能力・設置許可・工事届出・検査記録を各肢で判定する。日数は規定の照合のみ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2019:law:問5",
+      "original_question_id": "2538a39cc72f358b",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "防消火・漏えい検知・防爆設備の五空欄に対応する組を選ぶ。計算条件はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2019:law:問6",
+      "original_question_id": "51ca76e4987d6c79",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "構造・圧力境界・温度・耐圧試験対象の五空欄を組として選ぶ。規定値の照合のみ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2019:law:問7",
+      "original_question_id": "d31e7fdc0e86f23c",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "安全弁・計測・停電対策・付臭の各要件を判定する。濃度比は基準値の照合のみ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2019:law:問8",
+      "original_question_id": "3d4162c018e91a2d",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "貯槽と気化装置の各構造要件を独立判定する。温度や流量を計算しない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2019:law:問9",
+      "original_question_id": "46392ffa96ad9e40",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "容器・集合装置・遮断装置の各要件を判定する。計算条件はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2019:law:問10",
+      "original_question_id": "2efa63768a8b1914",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "ガス栓・導管保護・遮断・メーターの各記述を独立判定する。数値は適用境界の照合のみ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2019:law:問11",
+      "original_question_id": "87307ab7af6dae96",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "検査要否・時期・地下室への配管・標識の各基準を判定する。期間計算はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2019:law:問12",
+      "original_question_id": "93674a348adeee89",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "整圧器附属設備と露出導管防護を各肢で判定する。長さ・内径は基準との比較のみ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2019:law:問13",
+      "original_question_id": "bebb56a22f090de9",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "各語句を指定位置の文脈と結び、義務主体・表示・例外手続を独立判定する。演算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2019:law:問14",
+      "original_question_id": "4f61501da75e94b8",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "周知周期・建物区分・命令対象等の五空欄に対応する組を選ぶ。期間は規定値の照合。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2019:law:問15",
+      "original_question_id": "76138c3e4fd38eff",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "燃焼器の排気・給排気・警報設備の各基準を判定する。断面積は大小比較で値の算出不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2019:law:問16",
+      "original_question_id": "5733b63533f78f95",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "特定工事の監督義務と報告権限の五空欄に対応する組を選ぶ。計算条件はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2019:kiso:問1",
+      "original_question_id": "d799070664725f0f",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "単体・物質量・アボガドロ法則の各説明を判定する。定数と定義の照合で演算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2019:kiso:問2",
+      "original_question_id": "22bf91e1aeb4c3cf",
+      "questionType": "true_false",
+      "isCalculationQuestion": true,
+      "rationale": "各物質の名称・分子式・分子量を判定する。原子量の和で分子量との一致を確認する。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2019:kiso:問3",
+      "original_question_id": "4ba85ebe357df496",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "標準体積22.4m³を物質量へ換算し、メタンのモル質量からkgを導く。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2019:kiso:問4",
+      "original_question_id": "4530101f56dd7ea8",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "プロパン88kgを物質量へ換算し、標準モル体積から体積を導く。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2019:kiso:問5",
+      "original_question_id": "4dd401c1752e8b3f",
+      "questionType": "group_choice",
+      "isCalculationQuestion": true,
+      "rationale": "各物質量にモル質量を掛けて質量を求め、四気体の順序を一体で選ぶ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2019:kiso:問6",
+      "original_question_id": "fe79a1af1b757592",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "圧力の定義・代表値・SI接頭語・充てん特性を各肢で照合する。未知量の算出はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2019:kiso:問7",
+      "original_question_id": "76d241f55f060bcc",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "水の昇温熱量を有効熱出力で割り、必要時間を分へ換算する。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2019:kiso:問8",
+      "original_question_id": "381896c912a2ad30",
+      "questionType": "true_false",
+      "isCalculationQuestion": true,
+      "rationale": "各肢固有の変更条件で熱流量比を求め、0.5Qになるかを独立判定する。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2019:kiso:問9",
+      "original_question_id": "34cebf90f36eb03a",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "連続の式に管径の二乗比と下流流速を代入し、上流流速を算出する。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2019:kiso:問10",
+      "original_question_id": "b608c9e9ce7d88fb",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "絶対温度と圧力比の定容関係から温度を算出し、℃へ戻す。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2019:kiso:問11",
+      "original_question_id": "2482ac967395dd3f",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "臨界温度・比重・蒸気圧・燃焼の各説明を判定する。具体値の算出はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2019:kiso:問12",
+      "original_question_id": "4969dfb9bece90b6",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "各ガスが空気より軽いかを独立判定する。既知の比重・軽重を照合し、新しい比重値は求めない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2019:kiso:問13",
+      "original_question_id": "04900f3d34576e0d",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "各成分の燃焼酸素量を組成比で合計し、空気の酸素割合から理論空気量を導く。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2019:kiso:問14",
+      "original_question_id": "e3d44883c0246bf7",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "プロパン量を保った希釈式を燃焼下限界に合わせ、追加空気体積を算出する。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2019:kiso:問15",
+      "original_question_id": "b600903f0e7d65df",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "各性質が付臭剤の要求を満たすかを独立判定する。濃度や量の算出はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2019:seizo:問1",
+      "original_question_id": "9fa16e6dbd0a3cb3",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "LPガスの膨張・気化・腐食性・凍結の各記述を判定する。倍率は性状知識の照合のみ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2019:seizo:問2",
+      "original_question_id": "17e5fd1c0c8840f4",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "製造能力算定の係数・式・条件を各肢で判定する。実際の本数や需要量を計算しない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2019:seizo:問3",
+      "original_question_id": "1f4b7d4fd714c08e",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "特定製造所の防護・離隔・消火器要件を各肢で判定する。既示の容量・距離・個数の照合のみ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2019:seizo:問4",
+      "original_question_id": "2cf47d14d6471496",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "貯槽の放出管・固定・防食・液面計・遮断装置の各行為を判定する。演算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2019:seizo:問5",
+      "original_question_id": "d333f99ccfc51145",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "強制気化方式の特性と安全装置を各肢で判定する。必要熱量等を計算しない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2019:seizo:問6",
+      "original_question_id": "e0a17588dbe8925b",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "自動切替式調整器の機能・圧力・用途を各肢で判定する。出口圧力は設定値の照合。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2019:seizo:問7",
+      "original_question_id": "11f92d82386b50bd",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "容器交換・充てん・弁操作の各手順を独立判定する。90%は限度の記述で充てん量を求めない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2019:seizo:問8",
+      "original_question_id": "e2463f2952ecb21f",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "二次災害防止の体制・周知・訓練の各記述を判定する。数値計算はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2019:seizo:問9",
+      "original_question_id": "8731de806c74c5e1",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "検査・点検周期と記録保存期間を各肢で判定する。既示の年数・日数を規定と照合する。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2019:kyokyu:問10",
+      "original_question_id": "cca112415ab67917",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "導管計算式の記号と係数の適用名の五空欄を組として選ぶ。数値を式へ代入しない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2019:kyokyu:問11",
+      "original_question_id": "b6ea535f987b9a24",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "口径設計・圧力傾向・需要量推定の各説明を判定する。式の適用方針であり実計算はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2019:kyokyu:問12",
+      "original_question_id": "0893cc0c2b39006d",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "整圧器の選定・配置・圧力計の各要件を判定する。能力倍率の基準照合で算出不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2019:kyokyu:問13",
+      "original_question_id": "e074a9dc84263090",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "超音波式メーターの構造・計測原理・特性を各肢で判定する。実測時間から流量を求めない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2019:kyokyu:問14",
+      "original_question_id": "f285557f8c9fbfd2",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "各導管材料の強度・耐食性・接合特性を独立判定する。計算条件はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2019:kyokyu:問15",
+      "original_question_id": "803fdf5e8a0efb89",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "気密試験の圧力・検知器・時間・施工手順を各肢で判定する。1m³未満の固定基準との照合で算出不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2019:kyokyu:問16",
+      "original_question_id": "9006fc7e571aa9ae",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "腐食の電池区分・電極・流れの五空欄に対応する組を選ぶ。電位差などの計算はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2019:kyokyu:問17",
+      "original_question_id": "12008cb3dc5aaba3",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "維持管理の各行為を独立判定する。既に記述別の肢があり、誤り個数の算出を要しない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2019:kyokyu:問18",
+      "original_question_id": "a036985fceb4abab",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "耐震性と設置設備の三空欄に対応する組を選ぶ。数値計算はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2019:shohi:問19",
+      "original_question_id": "289f4c4eb22ea157",
+      "questionType": "true_false",
+      "isCalculationQuestion": true,
+      "rationale": "各性状記述を独立判定する。プロパン1m³の必要酸素量は燃焼反応の量比から検証する。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2019:shohi:問20",
+      "original_question_id": "31800a91f30bb271",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "空気過剰率・発熱量・噴出量関係・燃焼現象の各説明を判定する。定義式の照合で実代入しない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2019:shohi:問21",
+      "original_question_id": "aee7b99818030588",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "家庭用機器の配管・排水・安全機能・発電原理を各肢で判定する。計算条件はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2019:shohi:問22",
+      "original_question_id": "2a5f1ad5f93d69b4",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "実温度差30℃と号数の基準温度差25℃の比から24号の最大出湯量を算出する。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2019:shohi:問23",
+      "original_question_id": "d769b42e597c5872",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "業務用機器の区分・構造・用途・効率特性を各肢で判定する。具体的な効率値は求めない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2019:shohi:問24",
+      "original_question_id": "fd38c347f99b03d8",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "換気の定義・方式と機器設置の適否を各肢で判定する。実際の換気回数を計算しない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2019:shohi:問25",
+      "original_question_id": "b970de5c4e7983b8",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "安全設計の考え方と各検知・遮断原理を独立判定する。演算条件はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2019:shohi:問26",
+      "original_question_id": "14140fba87cdfb4e",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "警報器の設置位置・検知特性・作動時対応を各肢で判定する。距離・濃度は基準照合のみ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2019:shohi:問27",
+      "original_question_id": "0333c6eb0b7623ad",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "ガス栓と各接続具の機能・用途を独立判定する。寸法や流量の計算はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2020:law:問1",
+      "original_question_id": "9b1f6d1d25cf0cd1",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "目的規定の五空欄を埋める語句の組合せを比較する。演算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2020:law:問2",
+      "original_question_id": "02fb70a69085885e",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "供給条件説明・測定・成分検査の各記述を独立判定する。計算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2020:law:問3",
+      "original_question_id": "fa7a8f58ad47b6bb",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "各事故の速報対象該当性を別々に判定する。時間・戸数は基準との照合のみ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2020:law:問4",
+      "original_question_id": "f297c491d7af6a91",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "主任技術者の資格・届出・職務に関する各命題を判定する。計算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2020:law:問5",
+      "original_question_id": "52af935ed26578b7",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "工事計画・使用前検査の五空欄の組合せを比較する。保存年数は知識照合。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2020:law:問6",
+      "original_question_id": "a72fc6e5e3f20a93",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "各設備・保安物件の規定該当性を独立判定する。定員等の値は基準照合のみ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2020:law:問7",
+      "original_question_id": "deaf2edc8057c068",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "材料・構造・試験・溶接の各要件を独立判定する。数値の導出不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2020:law:問8",
+      "original_question_id": "d91003d3803ea067",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "特定製造所の装置と付臭措置を各肢で判定する。混合比は規定値の照合。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2020:law:問9",
+      "original_question_id": "8e7496ea550f3805",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "液量確認・電源停止対策等の五空欄の組合せを比較する。計算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2020:law:問10",
+      "original_question_id": "737479ace8a02c9f",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "導管防護とメーター遮断機能の各記述を判定する。口径等は基準照合のみ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2020:law:問11",
+      "original_question_id": "21bc707a93468b2f",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "選択肢に既に分かれた各条件が漏えい検査除外に該当するか判定する。算術不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2020:law:問12",
+      "original_question_id": "f5b5cd43456045da",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "露出導管防護と整圧器の各要件を独立判定する。寸法・長さは規定値の照合。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2020:law:問13",
+      "original_question_id": "6e7c17c20ec49d71",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "ガス用品の定義・届出・表示に関する各命題を判定する。期間の計算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2020:law:問14",
+      "original_question_id": "9d617427a1e0ba61",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "周知・調査・保安業務規程の五空欄の組合せを比較する。計算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2020:law:問15",
+      "original_question_id": "8506450553814d4c",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "各燃焼器の排気・給気・遮断装置の要件を独立判定する。消費量は基準照合のみ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2020:law:問16",
+      "original_question_id": "f6f35ec16047f81c",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "特定工事等の五空欄に対応する語句の組合せを比較する。計算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2020:kiso:問1",
+      "original_question_id": "d82374d5609f4d0d",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "分子・原子・モル・単体の定義を各肢で判定する。数値は標準モル体積の知識照合。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2020:kiso:問2",
+      "original_question_id": "f1126c077623ca4d",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "標準体積と質量から物質量を介して分子量を一つ導く。体積・質量の比計算が必要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2020:kiso:問3",
+      "original_question_id": "a8798a283d46f021",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "プロパンの体積から物質量と質量を一つ求める。モル体積との比と乗算が必要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2020:kiso:問4",
+      "original_question_id": "18983699511ce08f",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "四気体の体積順位の候補を比較する。同質量では分子量と体積が逆順という知識で順位を定め、値を算出しない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2020:kiso:問5",
+      "original_question_id": "d927b63349658c41",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "各物理量と単位の対応を別々に判定する。単位換算の実行不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2020:kiso:問6",
+      "original_question_id": "9136696ddbc2cd44",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "蒸気圧・温度・比熱・伝熱・流れの各記述を判定する。定義と基準値の照合のみ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2020:kiso:問7",
+      "original_question_id": "9bac6fb3f3819741",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "定圧下の体積比から加熱後温度を一つ導く。絶対温度への換算と比例計算が必要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2020:kiso:問8",
+      "original_question_id": "a122c1e22bbe561e",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "密閉タンクの温度変化からゲージ圧を一つ求める。絶対圧・絶対温度への換算と比例計算が必要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2020:kiso:問9",
+      "original_question_id": "8ae40f621ad4573c",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "管径と平均流速から流量を一つ導く。長さ換算・断面積計算・乗算が必要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2020:kiso:問10",
+      "original_question_id": "b935eed8e6647017",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "平板の熱伝導量と温度差・厚さ・面積等の関係を各肢で判定する。具体値を算出しない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2020:kiso:問11",
+      "original_question_id": "77f8450237aa25f0",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "混合比から混合ガスの比重を一つ求める。分子量の加重平均と空気との比計算が必要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2020:kiso:問12",
+      "original_question_id": "18839afafbbec8c7",
+      "questionType": "group_choice",
+      "isCalculationQuestion": true,
+      "rationale": "三つの反応係数の組合せを比較する。原子数保存から係数と酸素量の比を求める。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2020:kiso:問13",
+      "original_question_id": "dca860cf16778e98",
+      "questionType": "group_choice",
+      "isCalculationQuestion": true,
+      "rationale": "三種類の必要空気量の順位候補を比較する。各体積に燃焼の量論比を適用して比較量を求める。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2020:kiso:問14",
+      "original_question_id": "25146ba209744b96",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "プロパン2kgの発熱量を一つ導く。質量からモル数を求め、発熱量の乗算とMJ換算を行う。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2020:kiso:問15",
+      "original_question_id": "eb7029d68a5b714c",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "燃焼範囲の定義・温度依存・混合則等を各肢で判定する。下限値は知識照合。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2020:seizo:問1",
+      "original_question_id": "05dfc34b09b02eb1",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "LPガスの組成・比重・蒸気圧・容器系統の各記述を判定する。物性値は知識照合。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": [
+        21
+      ]
+    },
+    {
+      "sourceQuestionId": "2020:seizo:問2",
+      "original_question_id": "1bee2c00af75d751",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "需要量算定手順から調整装置の最低能力を一つ求める。ピーク率・安全率の乗算が必要。公式p21で回答操作を確認。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": [
+        21
+      ]
+    },
+    {
+      "sourceQuestionId": "2020:seizo:問3",
+      "original_question_id": "e57b4a752791b50a",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "防消火設備の五つの規定値の組合せを比較する。実設備の水量・時間を算出しない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2020:seizo:問4",
+      "original_question_id": "98413964966813a6",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "集合装置・容器・計器・接地の各要件を独立判定する。倍率や抵抗値は規定の照合。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2020:seizo:問5",
+      "original_question_id": "a3e4a9df17cbbbec",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "貯槽附属品の機能・構造・設定基準を各肢で判定する。割合は既記載基準の照合。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2020:seizo:問6",
+      "original_question_id": "2e8be7f3c0acb611",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "調整器の構成・切替・適用方式を各肢で独立判定する。計算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2020:seizo:問7",
+      "original_question_id": "dc6a05f98b57a313",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "容器交換時の各操作の適否を独立判定する。順序全体の候補比較や計算ではない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2020:seizo:問8",
+      "original_question_id": "f1e6ef5681571a9b",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "各措置が特定製造所の地震対策に該当するか判定する。計算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2020:seizo:問9",
+      "original_question_id": "09f0b9aa24af7ad1",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "再検査・記録保存・設備点検の各要件を判定する。記載期間を基準と照合するだけ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2020:kyokyu:問10",
+      "original_question_id": "2c4094bbe5d01373",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "供給方式・需要推定・導管設計の各説明を独立判定する。実際の設計量は求めない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2020:kyokyu:問11",
+      "original_question_id": "ff919d6e9dc0601d",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "長さ・内径の変更に対する流量倍率を一つ導く。提示式の五乗・平方根を用いる比計算が必要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2020:kyokyu:問12",
+      "original_question_id": "9f5e2d332fc7a738",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "整圧器附属装置の種類・設置側・測定圧力の組合せを比較する。計算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2020:kyokyu:問13",
+      "original_question_id": "ac78b096a417de5e",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "メーターの検定・原理・寸法・地震遮断・設置の各説明を判定する。基準値の照合のみ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2020:kyokyu:問14",
+      "original_question_id": "78fdca0088b25be7",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "管材・バルブ・離隔・標識・使用温度の各施工要件を判定する。演算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2020:kyokyu:問15",
+      "original_question_id": "75bfba6de8b0c100",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "塗覆装・陽極・絶縁等の防食方法を各肢で判定する。計算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2020:kyokyu:問16",
+      "original_question_id": "c734054e67db3175",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "各漏えい検査方法と漏えい時措置の適否を独立判定する。計算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2020:kyokyu:問17",
+      "original_question_id": "9b75013f271e00fe",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "滞留防止・換気・工法・置換ガスの語句の組合せを比較する。濃度値の計算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2020:kyokyu:問18",
+      "original_question_id": "b34ad8f472518bb5",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "管材・訓練・動員体制・図面・遮断装置の各地震対策を判定する。計算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2020:shohi:問19",
+      "original_question_id": "9c730767edfc5f33",
+      "questionType": "true_false",
+      "isCalculationQuestion": true,
+      "rationale": "燃焼の各記述を独立判定する。プロパン1m³の生成物体積を検証する肢では原子数保存から生成量比を求める。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2020:shohi:問20",
+      "original_question_id": "3d325d6f1d4c3c12",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "インプット・効率・伝熱の性質を各肢で判定する。比例関係と物性の知識比較で値を算出しない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2020:shohi:問21",
+      "original_question_id": "af2c8c0160c80ab9",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "各機器の法令対象・販売表示・指針の位置付けを判定する。消費量は指定基準の照合。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2020:shohi:問22",
+      "original_question_id": "374ca53c67c0843c",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "炊飯器・レンジ・給湯器・暖房機の機構説明を各肢で判定する。計算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2020:shohi:問23",
+      "original_question_id": "a4a7b42d2e18df2e",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "業務用機器と冷暖房機の構造・用途を独立判定する。定格値の算出不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2020:shohi:問24",
+      "original_question_id": "6b0ed107281384ae",
+      "questionType": "true_false",
+      "isCalculationQuestion": true,
+      "rationale": "換気・給排気の各記述を判定する。30分に1回の換気を1時間あたりの回数に直す肢で60÷30の換算が必要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2020:shohi:問25",
+      "original_question_id": "958bbecabf3c776e",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "各安全装置の搭載機器・検知方式・動作を独立判定する。計算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2020:shohi:問26",
+      "original_question_id": "d4da1db5b1455a38",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "接続安全機構と警報器の機能・設置条件を判定する。距離は基準照合のみ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2020:shohi:問27",
+      "original_question_id": "835da9627b036706",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "四種類の機器・ガス栓に対応する接続具の組合せを比較する。計算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2021:law:問1",
+      "original_question_id": "7737ac75b1ae369b",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "用語定義と事業届出の各記述を判定する。温度・圧力・延長等は定義値との照合のみ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2021:law:問2",
+      "original_question_id": "937fac66d90acd05",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "供給条件説明と成分検査の五空欄の組合せを比較する。期間・頻度は知識照合。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2021:law:問3",
+      "original_question_id": "fae8e67c6f3adf52",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "本文中の各位置に戻して、選択肢の語句をそれぞれ適否判定する。計算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2021:law:問4",
+      "original_question_id": "eb8d41d0d8da8614",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "各事故が速報対象に該当するか独立判定する。戸数は規定値との照合のみ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2021:law:問5",
+      "original_question_id": "f7570fae034f49ce",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "免状種別・経験・認定主体・解任権限の組合せを比較する。経験期間の算出はしない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2021:law:問6",
+      "original_question_id": "6df14715aeb590c4",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "各語句を本文の対応箇所に補って工事・検査要件の適否を判定する。日数計算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2021:law:問7",
+      "original_question_id": "0b2ea21a74aaa748",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "立入防止・防消火・防爆・静電気・置換構造の各要件を判定する。計算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2021:law:問8",
+      "original_question_id": "cced371585299df6",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "材料・耐圧・基礎・溶接施工の各規定を独立判定する。寸法・圧力は基準照合のみ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2021:law:問9",
+      "original_question_id": "36c72311675a8d5f",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "警報・過圧防止・遮断・貯槽表示・耐熱措置を各肢で判定する。計算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2021:law:問10",
+      "original_question_id": "cfa32094bbabe5f2",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "発生設備の構成と自動切替の五空欄を埋める組合せを比較する。演算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2021:law:問11",
+      "original_question_id": "3c5335e5e4a1aef2",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "ガス栓・導管・メーター遮断条件の語句と流量基準の組合せを比較する。基準値の暗記照合。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2021:law:問12",
+      "original_question_id": "fa63e40252291040",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "各導管の漏えい検査義務と設置条件を判定する。周期・猶予期間は基準との照合。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2021:law:問13",
+      "original_question_id": "3cc67a5f8aeae797",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "選択肢の各導管防護・整圧器要件を独立判定する。個数指示を理由に再分解せず、演算も不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2021:law:問14",
+      "original_question_id": "7ad24a07f33d7fec",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "ガス用品と特定工事監督に関する五空欄の組合せを比較する。計算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2021:law:問15",
+      "original_question_id": "13f14884265cd122",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "周知・調査・使用停止・保安業務規程の各命題を判定する。計算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2021:law:問16",
+      "original_question_id": "3dfb91343b8c50fd",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "各燃焼器の排気筒・給気口・遮断装置の技術要件を判定する。温度・消費量は基準照合のみ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2021:kiso:問1",
+      "original_question_id": "af5380b9f6d19f94",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "メタン4gの分子数を一つ導く。モル質量で除しアボガドロ数を乗じる。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2021:kiso:問2",
+      "original_question_id": "abcbcf16dd22efe9",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "二成分のモル数から合計質量を一つ求める。各モル質量との乗算・加算・kg換算が必要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2021:kiso:問3",
+      "original_question_id": "51c05b1679b0b5f2",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "選択肢自体が比較対象の物質で、各物質の該当性を判定する。同じ1gなので分子量最大なら分子数最少という定性関係で比較し、値や比を算出しない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2021:kiso:問4",
+      "original_question_id": "06db4a1fe7dd8985",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "メタン8kgの標準体積を一つ導く。物質量への換算とモル体積の乗算が必要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2021:kiso:問5",
+      "original_question_id": "6b48461bf9554603",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "各物理量と単位の対応を独立判定する。数値換算は行わない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2021:kiso:問6",
+      "original_question_id": "e7477b2f3e7f7d6f",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "水深と重力加速度を提示式に代入して噴出流速を一つ求める。乗算と平方根計算が必要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2021:kiso:問7",
+      "original_question_id": "cfbd6088c71af382",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "温度差・面積・熱伝達係数から伝熱量を一つ求める。減算と乗算が必要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2021:kiso:問8",
+      "original_question_id": "2528feb7fc528c3a",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "密閉容器の温度低下後の圧力を一つ求める。絶対温度・絶対圧を用いた比例計算が必要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2021:kiso:問9",
+      "original_question_id": "31c6abf77637c7ff",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "水の昇温熱量から必要LPガス質量を一つ導く。温度差・比熱・質量の積と発熱量による除算が必要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2021:kiso:問10",
+      "original_question_id": "0397aa55066a5872",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "気体法則・絶対温度・伝熱・力の定義を各肢で判定する。提示数値は定義例で、新しい量を算出しない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2021:kiso:問11",
+      "original_question_id": "61419199d67a12cb",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "各性質が付臭剤の要求条件を満たすか独立判定する。計算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2021:kiso:問12",
+      "original_question_id": "cb9dcc6d79c6dd28",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "プロパン22kgから生成する二酸化炭素質量を一つ導く。物質量・反応比・生成物モル質量の計算が必要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2021:kiso:問13",
+      "original_question_id": "c8bc036fbb724e30",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "混合ガス1m³の理論空気量を一つ求める。成分体積・量論酸素量・酸素割合を用いた演算が必要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2021:kiso:問14",
+      "original_question_id": "b51b29f0762f33a8",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "各ガスが空気より軽いか別々に判定する。気体の性質の知識比較で、新しい数値や比を算出しない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2021:kiso:問15",
+      "original_question_id": "201ad243b9e0d0f1",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "燃焼範囲と不活性ガス・容器寸法・温度の関係を各肢で判定する。近似式の実計算はしない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2021:seizo:問1",
+      "original_question_id": "9df74deb3d16b296",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "LPガスの膨張・比体積・組成変化・再液化・気化能力の各性質を判定する。物性値の知識照合のみ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2021:seizo:問2",
+      "original_question_id": "566cd2672ed51114",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "ピーク需要の定義・時間帯・能力算定対象の組合せを比較する。具体的な需要量や能力は計算しない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2021:seizo:問3",
+      "original_question_id": "eb5ba6b1cb2c8f24",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "各設置措置・標識・表示の適否を独立判定する。計算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2021:seizo:問4",
+      "original_question_id": "9b80d8278e74b806",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "ボンベハウス構造の五つの規定値の組合せを比較する。実面積・風量等は算出しない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2021:seizo:問5",
+      "original_question_id": "5affb583da6622f7",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "気化方式・能力低下・熱交換・耐圧・液流出検出の各説明を判定する。試験圧力倍率は知識照合。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2021:seizo:問6",
+      "original_question_id": "f84088debe6f3d6f",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "調整装置の定義・機能・能力表示・適用・圧力設定を各肢で判定する。値の導出不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2021:seizo:問7",
+      "original_question_id": "6aea80e2c567c72f",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "充てん作業の各標識・弁操作・接続・監視手順の適否を判定する。計算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2021:seizo:問8",
+      "original_question_id": "ade3a76648ed968b",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "災害時の体制・教育・漏えい対応・地盤対策・資機材確保を各肢で判定する。計算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2021:seizo:問9",
+      "original_question_id": "889e1be50afd5c4e",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "再検査・設備検査・保存期間の五空欄の組合せを比較する。期間は規定値の照合。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2021:kyokyu:問10",
+      "original_question_id": "e163506b98a2273e",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "供給方式・内管区分・需要推定・設計式の各説明を判定する。係数や式の選択だけで演算しない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2021:kyokyu:問11",
+      "original_question_id": "832a81d2a1d973f1",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "二導管の流量が等しくなる延長Xを一つ導く。提示式から径比の五乗と延長の比例計算が必要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2021:kyokyu:問12",
+      "original_question_id": "d8c6fc9e270a5f87",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "整圧器の耐圧・除去装置・安全装置・防護・保持機能を各肢で判定する。設定基準の照合のみ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2021:kyokyu:問13",
+      "original_question_id": "2507d6c4e6f7750b",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "メーターの検定・用途・選定・保守・遮断機能を各肢で判定する。実流量の算定はしない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2021:kyokyu:問14",
+      "original_question_id": "edbdee17956a4e98",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "管の遮断・接合・防食・口径決定基準・気密試験の適否を各肢で判定する。数値は基準照合のみ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2021:kyokyu:問15",
+      "original_question_id": "8bcaf11996adda2a",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "腐食形態・土壌条件・被覆・防食電位・陽極法の各説明を判定する。基準値の照合のみ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2021:kyokyu:問16",
+      "original_question_id": "44d295d615d6d8ba",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "漏えい原因・更生工法・他工事管理・差し水・探査原理を各肢で判定する。計算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2021:kyokyu:問17",
+      "original_question_id": "13df613412496e9e",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "各検知器・識別器・検査工具の適用と機能を独立判定する。濃度範囲は知識照合。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2021:kyokyu:問18",
+      "original_question_id": "b292e8ddcc0e41c4",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "ブロック化・遮断・危険地区把握・復旧・広報の各対策を判定する。計算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2021:shohi:問19",
+      "original_question_id": "f84cf06c9bed5d35",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "理論空気量・インプット・燃焼方式・異種ガス使用の各性質を判定する。定義や比例関係を確認するだけ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2021:shohi:問20",
+      "original_question_id": "d6e2b300577c6d73",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "有効熱量一定で効率変更後の消費量倍率を一つ求める。70と90の比計算が必要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2021:shohi:問21",
+      "original_question_id": "f19606b0659c9537",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "給水温・湯温・号数・湯量から所要時間を一つ導く。温度差と給湯能力を用いた除算が必要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2021:shohi:問22",
+      "original_question_id": "cb2963b441962080",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "家庭用機器のバーナー・安全装置・暖房循環・中和器を各肢で判定する。計算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2021:shohi:問23",
+      "original_question_id": "31b0a86f4baabda9",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "コージェネ・燃料電池・GHP・吸収式冷凍機の各説明を判定する。COPは定義式の照合で演算しない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2021:shohi:問24",
+      "original_question_id": "d9cbfc86339f0d5b",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "換気方式・CO遮断・浴室設置・屋外排気の各要件を判定する。濃度は設定値との照合。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2021:shohi:問25",
+      "original_question_id": "069039f64ba138db",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "各安全装置の検知・遮断・応答原理を独立判定する。発火温度は知識照合。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2021:shohi:問26",
+      "original_question_id": "4f511d676e5d3db6",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "ガス栓の取付けと接続具の用途・構造を各肢で判定する。計算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2021:shohi:問27",
+      "original_question_id": "73574665dafcc4ef",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "警報時対応・検知原理・遮断構造・設置場所を各肢で判定する。距離は規定値の照合のみ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2022:law:問1",
+      "original_question_id": "965755bcf40d2bd7",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "法目的・事業定義・登録・液化ガス・他法適用の各命題を判定する。圧力・温度は基準照合のみ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2022:law:問2",
+      "original_question_id": "426b1ff0724817f0",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "供給能力・説明・測定・供給計画・成分検査の各義務を独立判定する。計算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2022:law:問3",
+      "original_question_id": "31ac29f81f49add0",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "緊急命令と保安規程の五空欄を埋める語句の組合せを比較する。計算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2022:law:問4",
+      "original_question_id": "2df1bcb7c9b06946",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "各事故の速報・詳報義務を別々に判定する。既記載の時間・戸数を基準と照合するだけ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2022:law:問5",
+      "original_question_id": "b65f290b2ad948cf",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "主任技術者の選任・監督・解任・免状交付の各命題を独立判定する。計算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2022:law:問6",
+      "original_question_id": "6c89f7275eceda15",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "工事計画の届出・変更命令・自主検査等の各要件を判定する。30日は規定値の照合。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2022:law:問7",
+      "original_question_id": "d1c04204098a521c",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "離隔・防消火・ガス検知・防爆・静電気の各技術要件を判定する。計算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2022:law:問8",
+      "original_question_id": "ae1c4a35d6c9fdfe",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "溶接要件の五空欄の組合せを比較する。圧力と容積の積の基準は記載済みで、実際に積を求めない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2022:law:問9",
+      "original_question_id": "590aba44cedb1534",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "遮断・停電対策・貯槽表示・耐熱・異常停止の各命題を判定する。計算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2022:law:問10",
+      "original_question_id": "b2b32a3cc69844fd",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "気化装置・切替装置・停電対応・容器防護の各要件を独立判定する。計算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2022:law:問11",
+      "original_question_id": "001954358fdeef15",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "ガス栓・水取り・防食・遮断の五空欄の組合せを比較する。メーター数値は前提の基準値。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2022:law:問12",
+      "original_question_id": "5e1a26ea43ac85e4",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "漏えい検査・警報区域・標識の各要件を独立判定する。年数・月数は規定との照合。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2022:law:問13",
+      "original_question_id": "7341e3233933c97b",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "防護・接合部・整圧器の五空欄を埋める組合せを比較する。露出長は基準適用条件で演算しない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2022:law:問14",
+      "original_question_id": "6e6536219e48028a",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "用品定義・指定・特監法・工事・資格の各記述を独立判定する。計算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2022:law:問15",
+      "original_question_id": "4e668cde9b154cce",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "消費機器調査・規程変更・遵守・事業者連携の各命題を判定する。計算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2022:law:問16",
+      "original_question_id": "bfde978418296dd1",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "排気筒義務の機器区分・代替設備・消費量基準の組合せを比較する。基準値を選ぶだけ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2022:kiso:問1",
+      "original_question_id": "382227291812f4e1",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "水素分子1g中の原子数を一つ導く。モル数・分子数・一分子の原子数の演算が必要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2022:kiso:問2",
+      "original_question_id": "43d0d97051d5e6f5",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "ブタン2.9kgの標準体積を一つ求める。質量の換算とモル質量・モル体積を用いた演算が必要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2022:kiso:問3",
+      "original_question_id": "1be65db208fbee12",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "与えられた体積と質量から分子量を一つ求め、気体名に照合する。物質量と質量の比計算が必要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2022:kiso:問4",
+      "original_question_id": "acfbc17300024f2d",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "選択肢自体が比較する物質で、モル質量最大に該当するか判定する。既知のモル質量の大小比較で、新しい量や比を算出しない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2022:kiso:問5",
+      "original_question_id": "760db9d5779f3259",
+      "questionType": "true_false",
+      "isCalculationQuestion": true,
+      "rationale": "各分子式・質量・体積の組を独立判定する。肢ごとに質量を物質量に換算し標準体積との対応を求める。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2022:kiso:問6",
+      "original_question_id": "fd29c5d6f0b29310",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "伝熱形態・係数の単位・熱伝達特性を各肢で判定する。係数値や伝熱量は算出しない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2022:kiso:問7",
+      "original_question_id": "8cb6b33850c8ffdc",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "定容加熱後の温度を一つ求める。絶対圧・絶対温度を用いた比例計算と℃への換算が必要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2022:kiso:問8",
+      "original_question_id": "6455f9d87bd1e5e3",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "流量と平均流速から円管内径を一つ導く。断面積の除算と円面積式の平方根計算が必要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2022:kiso:問9",
+      "original_question_id": "087e54dc4ea20632",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "一定流量・密度下で下流流速を一つ求める。管径から断面積比を計算して上流流速に適用する。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2022:kiso:問10",
+      "original_question_id": "78453b769f8ce78f",
+      "questionType": "true_false",
+      "isCalculationQuestion": true,
+      "rationale": "物理量・圧力・大気圧・流体定理を各肢で判定する。1cm²に1Nの圧力を検証する肢で面積換算と除算が必要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2022:kiso:問11",
+      "original_question_id": "213dd9f77193ee88",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "混合ガスの比重を一つ求める。成分分子量の加重平均と空気の29による除算が必要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2022:kiso:問12",
+      "original_question_id": "3e72836890ddba05",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "プロパン・ブタン混合ガスの理論空気量を一つ導く。成分割合と反応比から酸素量を求め空気量へ換算する。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2022:kiso:問13",
+      "original_question_id": "10e2016b808b006c",
+      "questionType": "group_choice",
+      "isCalculationQuestion": true,
+      "rationale": "三気体の必要空気量の順位候補を比較する。異なるガス体積に各量論比を乗じて比較量を求める。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2022:kiso:問14",
+      "original_question_id": "b6197d4fa929e14d",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "引火点・発火点・爆ごう・燃焼速度・着火エネルギーの各性質を判定する。定性比較のみ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2022:kiso:問15",
+      "original_question_id": "ae4d6de67964ad62",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "臨界条件・液化・液膨張・蒸気圧の各説明を独立判定する。数値の導出不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2022:seizo:問1",
+      "original_question_id": "654aaafe5981466a",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "LPガスの密度・蒸気圧・気化熱・着臭・閉そくの各性質を判定する。密度等は物性値の知識照合。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2022:seizo:問2",
+      "original_question_id": "382568117a5314a6",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "能力算定対象・残液・安全率・ピーク率の各基準を独立判定する。具体的な設備能力を計算しない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2022:seizo:問3",
+      "original_question_id": "fd580565d70d63fe",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "ローリー・保安物件・火気設備の各離隔要件を判定する。既記載距離の規定照合で演算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2022:seizo:問4",
+      "original_question_id": "dc1ff94c44d1f0bc",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "集合装置の管材・ドレン・予備口・絶縁・耐圧試験を各肢で判定する。試験倍率の知識照合のみ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2022:seizo:問5",
+      "original_question_id": "b12a89b791c71f4f",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "危険箇所・発火度・防爆構造の定義と選定要件を各肢で判定する。計算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2022:seizo:問6",
+      "original_question_id": "3f1bb7defeab565e",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "自動切替式調整器の機能・圧力設定・選定倍率・利点を判定する。数値は基準照合のみ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2022:seizo:問7",
+      "original_question_id": "3cb4c3a7be8d2308",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "容器交換・充てん上限・均圧接続・接続確認の各操作を判定する。百分率・差圧は既記載基準との照合。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2022:seizo:問8",
+      "original_question_id": "8751e781f02ed2c1",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "放出防止・遮断・教育・地盤・津波の各対策を独立判定する。計算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2022:seizo:問9",
+      "original_question_id": "f477b183ea20d1a0",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "各設備の点検・検査周期と記録保存期間を独立判定する。期間は規定値の照合のみ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2022:kyokyu:問10",
+      "original_question_id": "62d679486227ff96",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "供給方式・立上り圧力・導管定義・需要算定方法・建物区分を判定する。実際の需要量は求めない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2022:kyokyu:問11",
+      "original_question_id": "a7694fbded9ef92e",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "圧力損失4倍に対する流量倍率を一つ導く。提示式の平方根比例を用いて倍率を計算する。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2022:kyokyu:問12",
+      "original_question_id": "b21a53906461088b",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "整圧器の保持・記録・選定・並列設置・圧力保護を各肢で判定する。能力倍率は基準照合。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2022:kyokyu:問13",
+      "original_question_id": "9183fe568abddda2",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "メーターの損失・使用圧力・流量・期限遮断・低圧遮断を各肢で判定する。既記載基準の照合のみ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2022:kyokyu:問14",
+      "original_question_id": "9e537be6a7cddc8b",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "管材・防護・気密保持時間・遮断装置・埋設深さを判定する。保持時間等は条件に対応する規定値の照合。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2022:kyokyu:問15",
+      "original_question_id": "e27a61fd687e6405",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "ポリエチレン管の使用圧力・保管・防食・接合・探査対策を各肢で判定する。計算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2022:kyokyu:問16",
+      "original_question_id": "bb1a820681512b78",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "腐食電流の方向・腐食側・電池形態の四空欄の組合せを比較する。電流値の計算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2022:kyokyu:問17",
+      "original_question_id": "2be3c248df637826",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "換気・埋設管確認・緊急遮断・差し水・啓発の各維持管理措置を判定する。濃度は基準照合のみ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2022:kyokyu:問18",
+      "original_question_id": "1815209fc8ad365d",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "選択肢に分かれた広報・遮断・出動・巡回・復旧操作を各々判定する。個数指示による再分解や演算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2022:shohi:問19",
+      "original_question_id": "69df4ca69d78eaa7",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "燃焼ガス量・CO₂濃度・過剰空気・ウォッベ指数・火炎温度の定義を判定する。式の実計算はしない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2022:shohi:問20",
+      "original_question_id": "6ddec478af25ebe9",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "リフティング・逆火・イエローチップ・NOx・炎の各現象を独立判定する。計算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2022:shohi:問21",
+      "original_question_id": "4f8f2325c68a3916",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "器具の法令対象と販売表示義務を各肢で独立判定する。本文に復元されたひし形のPS・LPG表示を肢5へ補っても回答操作は変わらない。各消費量は指定基準との照合であり、新しい量の算出は不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": [
+        31
+      ],
+      "currentContentReviewReceipt": "docs/goals/gas-shunin-hei-pdf-patches/notes/T008-current-adoption-b-native.json"
+    },
+    {
+      "sourceQuestionId": "2022:shohi:問22",
+      "original_question_id": "f8c5fe11e648b61b",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "暖房方式・燃料電池・号数定義・湯温制御・膨張吸収を各肢で判定する。号数は定義の照合で演算しない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2022:shohi:問23",
+      "original_question_id": "44208f2af6608a83",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "業務用調理・炊飯・給湯・乾燥機の構造と用途を各肢で判定する。温度は知識照合のみ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2022:shohi:問24",
+      "original_question_id": "6b9a16ae927e2eaf",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "自然換気・CO症状・給排気方式・屋外設置条件を各肢で判定する。濃度と時間は既記載の知識照合。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2022:shohi:問25",
+      "original_question_id": "9b1447ef6d7dc046",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "各安全装置の搭載・導通検知・排水・燃焼検知原理を独立判定する。計算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2022:shohi:問26",
+      "original_question_id": "298e95639a1571af",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "警報器の温度制限・設置位置・防滴・遮断・警報原理を各肢で判定する。装置内の推定演算の説明であり受験者は計算しない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2022:shohi:問27",
+      "original_question_id": "91f2d861999355ca",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "ガス栓と接続具の開閉・安全機構・用途・継手構成を各肢で判定する。計算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2023:law:問1",
+      "original_question_id": "680524c379020b42",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "事業・供給の定義と届出の各記述を独立判定する。数値の演算は不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2023:law:問2",
+      "original_question_id": "23c9d74621934ca2",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "測定・保存・計画に関する5空欄の対応を組合せ候補として選ぶ。期間等の計算はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2023:law:問3",
+      "original_question_id": "37d5eeddb1613ea2",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "工作物維持と保安規程の独立記述が既に選択肢に並ぶ。各義務の照合で足りる。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2023:law:問4",
+      "original_question_id": "783733ed3c656bf9",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "各事故が速報・詳報の対象かを個別判定する。戸数と時間は既存の報告基準との照合。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2023:law:問5",
+      "original_question_id": "978118c9ecba91d8",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "主任技術者の資格・届出・監督権限を記述ごとに判定する。演算は不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2023:law:問6",
+      "original_question_id": "b7b856c5b8d407da",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "工事計画・検査主体・保存年数の5空欄を一組として照合する。保存年数は知識の選択。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2023:law:問7",
+      "original_question_id": "be2798c7067394e8",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "認可・規模・滞留・警報・防爆の空欄対応を組合せ候補から選ぶ。数値導出はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2023:law:問8",
+      "original_question_id": "b96db73fa28fc964",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "各記号が指す挿入語句の適否を、その文脈内で独立判定する。単語の組合せ選択でも計算でもない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2023:law:問9",
+      "original_question_id": "8bfe31023b46cf41",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "安全装置・圧力区分・付臭比率等の対応を組合せで選ぶ。1/1000等は基準値の知識。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2023:law:問10",
+      "original_question_id": "01a008f1a5d5bfa4",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "貯槽・気化装置等に必要な保安装置を各記述で判定する。独立命題が既に選択肢にあり演算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2023:law:問11",
+      "original_question_id": "507709e20da5234a",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "導管・ガス栓・メーターの各要件を独立判定する。流量・圧力等は適用基準の照合だけ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2023:law:問12",
+      "original_question_id": "c0acf7d6195611d5",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "漏えい検査周期と設置条件を肢別に判定する。6年・4月等を基準と照合し新値を求めない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2023:law:問13",
+      "original_question_id": "4116ef6a5d1afaa8",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "露出導管と整圧器の5空欄を組合せとして選ぶ。長さ・内径は基準値の選択。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2023:law:問14",
+      "original_question_id": "d8734b9dc613abce",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "ガス用品と特定工事の定義・監督・表示義務を肢別に判定する。計算条件はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2023:law:問15",
+      "original_question_id": "92b57e1baf7c9040",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "周知・調査・保安業務規程の独立命題が選択肢に並ぶ。個数を問うstemでも各命題の判定が学習操作。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2023:law:問16",
+      "original_question_id": "8057a16efc5d7dcd",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "給排気・遮断装置等の要件を肢ごとに判定する。12kW等は既定の適用基準との比較だけ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2023:kiso:問1",
+      "original_question_id": "98e2207274a77327",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "プロパン22kgを物質量へ換算し、標準モル体積から体積を一つ導く。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2023:kiso:問2",
+      "original_question_id": "e2ba654b4f491178",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "4気体の質量順位をまとめた候補を比較する。同体積では既知の分子量順となり、実質量の演算は不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2023:kiso:問3",
+      "original_question_id": "063347de414764de",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "各物質が同質量で分子数最少かを比較する。既知の分子量の大小と逆関係で判断でき、個数を算出しない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2023:kiso:問4",
+      "original_question_id": "ceb0d7ef33b2afa7",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "44gのプロパンの物質量に炭素数とアボガドロ定数を乗じ、原子数を一つ求める。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2023:kiso:問5",
+      "original_question_id": "b0f103b0026a4757",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "温度・比熱・圧力の定義と法則を記述ごとに判定する。具体的な温度換算や代入はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2023:kiso:問6",
+      "original_question_id": "1164fcc3c8ceebaf",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "流動・伝熱の各性質を独立判定する。流速や伝熱量の数値計算は求めない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2023:kiso:問7",
+      "original_question_id": "13351e712166a24f",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "水の質量・比熱・温度差から必要熱量を計算し、発熱量で割ってLPガス質量を導く。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2023:kiso:問8",
+      "original_question_id": "ced49aa760bc607c",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "初期・終期の絶対温度と圧力から残存量比を計算し、漏えい割合を一つ求める。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2023:kiso:問9",
+      "original_question_id": "32513511329827e2",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "摂氏温度を絶対温度へ換算し、定容条件の温度比から圧力倍率を導く。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2023:kiso:問10",
+      "original_question_id": "181bca3eb27efe57",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "混合比で分子量を加重平均し、空気の29で割って混合ガスの比重を一つ求める。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2023:kiso:問11",
+      "original_question_id": "0f45de7592ebc3c6",
+      "questionType": "group_choice",
+      "isCalculationQuestion": true,
+      "rationale": "異なるガス体積に反応係数を掛けて必要酸素量を比較し、その空気量順位に合う候補を選ぶ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2023:kiso:問12",
+      "original_question_id": "8ff57cbb9cbcbb46",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "密度・比重・拡散方向の記述を独立判定する。定義や既知の大小関係を使い新値を算出しない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2023:kiso:問13",
+      "original_question_id": "fda8dbe8f975d2d9",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "気化熱・潜熱・温度上昇の3空欄の対応を一組で選ぶ。熱量の計算はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2023:kiso:問14",
+      "original_question_id": "4c01ad7a9aeadafd",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "初期プロパン体積と燃焼下限界から必要混合体積を求め、加える空気量を算出する。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2023:kiso:問15",
+      "original_question_id": "3f502485b3d67662",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "1000kJをモル当たり発熱量で割り、モル質量を掛けてプロパン質量を一つ導く。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2023:seizo:問1",
+      "original_question_id": "88bcddd45b000be4",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "LPガスの性質と気化方式の各記述を判定する。温度差や発生能力の演算はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2023:seizo:問2",
+      "original_question_id": "976b8736abc4f671",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "需要地点数・需要量・ピーク率・容器能力から、予備側を含めた必要容器本数を計算する。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2023:seizo:問3",
+      "original_question_id": "604459fefe6d3659",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "各肢の設備措置を独立判定する型は維持する。肢4の消火器2個の適否は床面積50m²と設置基準から判断でき、50kg×20本×2系列の総貯蔵量を算出する必要がない。他肢も記載された容量・距離と基準の照合であり、最初の候補は不要な演算を必須扱いしていた。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": [],
+      "currentContentReviewReceipt": "docs/goals/gas-shunin-hei-pdf-patches/notes/T008-current-adoption-c-native.json"
+    },
+    {
+      "sourceQuestionId": "2023:seizo:問4",
+      "original_question_id": "68759150cd7a9f5d",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "接地・障壁・埋設等の各措置を判定する。抵抗値・寸法は記載値と基準の照合だけ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2023:seizo:問5",
+      "original_question_id": "2710c72f36a1a2f4",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "貯槽附属品の仕様・操作を肢別に判定する。高さや倍率は仕様の記述で具体的な代入を求めない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2023:seizo:問6",
+      "original_question_id": "79849b09412b409f",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "調整器の定義・表示・性能曲線・容器選択を独立判定する。圧力や流量は計算しない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2023:seizo:問7",
+      "original_question_id": "b9055e522ae75e70",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "気化装置の始動前確認と運転操作を肢別に判定する。数値導出はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2023:seizo:問8",
+      "original_question_id": "ef01649ca8bfc50b",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "地震・津波・火災への各対策を独立判定する。高さ等を算定する条件はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2023:seizo:問9",
+      "original_question_id": "eff2f988032a80f5",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "点検・検査・記録保存の各周期を判定する。独立記述が選択肢にあり、年数は基準照合。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2023:kyokyu:問10",
+      "original_question_id": "1b03aafa1a1caac8",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "供給方式・口径の大小・圧力の4空欄対応を組合せで選ぶ。口径や圧力の実数計算はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2023:kyokyu:問11",
+      "original_question_id": "48b9ea5817099dff",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "与えられた流量式に内径比と延長比を適用し、輸送能力倍率を一つ計算する。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2023:kyokyu:問12",
+      "original_question_id": "387445c4b6691eeb",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "一次・二次側、能力倍率、出口圧力の組合せを選ぶ。倍率と圧力は選定基準の知識。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2023:kyokyu:問13",
+      "original_question_id": "2836df07e2c5655e",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "ガスメーターの検定・遮断・警告機能を記述ごとに判定する。数値は仕様との照合。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2023:kyokyu:問14",
+      "original_question_id": "a89a0cda3badec0c",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "管材料・継手・弁の性質を独立判定する。強度や圧力損失の演算はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2023:kyokyu:問15",
+      "original_question_id": "43cadd04d15afc19",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "配管表示・さや管・道路許可・埋戻し・漏えい確認を肢別に判定する。計算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2023:kyokyu:問16",
+      "original_question_id": "76beec152557066e",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "防食方法と防食電流の向きを個別に判定する。電流量や抵抗値の導出はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2023:kyokyu:問17",
+      "original_question_id": "b5dbd5987e6fbb18",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "漏えい検査・導管図・他工事対策を肢別に判定する。間隔と深さは方法の基準値照合。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2023:kyokyu:問18",
+      "original_question_id": "f3de31322f8752b5",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "各作業場面の災害防止措置を独立判定する。酸素18%等は安全基準との比較のみ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2023:shohi:問19",
+      "original_question_id": "a39f1665b237d5af",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "燃焼条件・反応式・発熱量関係を各肢で判定する。反応式の適否を照合し、具体的な燃料量等は算出しない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": [
+        35
+      ]
+    },
+    {
+      "sourceQuestionId": "2023:shohi:問20",
+      "original_question_id": "f9988c57aeb49201",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "燃焼方式と図中各領域の現象を肢別に判定する。公式図を確認し、領域判定に数値演算はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": [
+        35
+      ]
+    },
+    {
+      "sourceQuestionId": "2023:shohi:問21",
+      "original_question_id": "14d7b4da2141109d",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "適用法令・機器区分・PSLPG表示の各記述を判定する。公式表示図を確認し、消費量は基準照合のみ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": [
+        36
+      ]
+    },
+    {
+      "sourceQuestionId": "2023:shohi:問22",
+      "original_question_id": "f3780eceb8c25b06",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "給湯制御・潜熱回収・こんろ・ストーブの各性質を判定する。熱効率の値を計算しない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": [
+        36
+      ]
+    },
+    {
+      "sourceQuestionId": "2023:shohi:問23",
+      "original_question_id": "126ebefc9580f166",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "業務用機器・ボイラー区分・GHPの各説明を独立判定する。能力等の計算条件はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2023:shohi:問24",
+      "original_question_id": "20fba6ffa259e844",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "CO・換気回数の定義・機器設置可否を記述ごとに判定する。具体的な換気量換算はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2023:shohi:問25",
+      "original_question_id": "e1ab036bea2f0fd8",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "各安全装置の構造・原理・搭載義務を独立判定する。温度差から起電力等は計算しない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2023:shohi:問26",
+      "original_question_id": "33c48d1f5699353d",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "ガス栓と接続具の仕様・接続適否を肢別に判定する。流量や寸法の計算はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2023:shohi:問27",
+      "original_question_id": "0f132be28c2eb2fc",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "警報器の方式・設置距離・作動基準を肢別に判定する。距離や下限界の比率は既定値との照合。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2024:law:問1",
+      "original_question_id": "5f70ef73b597578a",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "事業定義と登録・許可等の各記述を独立判定する。70地点等は定義の基準値照合。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2024:law:問2",
+      "original_question_id": "f57f36b5f9146670",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "供給条件の説明事項に関する5空欄の対応を組合せで選ぶ。最高・最低は説明項目の知識。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2024:law:問3",
+      "original_question_id": "cd588d42943fa763",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "工作物維持・命令・保安規程の各義務を独立判定する。数値演算はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2024:law:問4",
+      "original_question_id": "6b71c83fb497c8da",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "選択肢に並ぶ各事故について速報対象かを判定する。戸数・時間は既存基準との比較のみ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2024:law:問5",
+      "original_question_id": "100c5519fbfa23a8",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "主任技術者の選任・免状交付・返納の記述を個別判定する。年数は制度上の基準照合。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2024:law:問6",
+      "original_question_id": "a5bf0e54158491eb",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "工事計画と使用前検査の5空欄を組合せとして選ぶ。30日等は法定期間の知識。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2024:law:問7",
+      "original_question_id": "eccbc136816652b4",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "電気設備・貯槽間隔・離隔・室構造の空欄対応を一体で選ぶ。距離の算定は求めない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2024:law:問8",
+      "original_question_id": "3e57b2b210ab71c6",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "材料・規模・圧力・荷重の対応を組合せ候補から選ぶ。圧力値は適用条件の知識。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2024:law:問9",
+      "original_question_id": "1bfe377b16814244",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "保安装置・停電対策・表示・耐熱措置を記述ごとに判定する。独立命題が既に選択肢にあり計算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2024:law:問10",
+      "original_question_id": "e989ea2f1241ed11",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "特定ガス発生設備の各保安要件を独立判定する。温度・圧力の数値導出はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2024:law:問11",
+      "original_question_id": "2bb358d0c6617e34",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "導管とメーターの各機能要件を判定する。流量・口径・戸数等は適用範囲との照合。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2024:law:問12",
+      "original_question_id": "308add78db8d25cd",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "漏えい検査周期と導管設置条件を肢別に判定する。周期や月数は基準値で新値を求めない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2024:law:問13",
+      "original_question_id": "02aff69b37cb0066",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "露出導管と整圧器の措置を5空欄の組合せとして選ぶ。演算条件はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2024:law:問14",
+      "original_question_id": "1490605a6eefa598",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "ガス用品の定義・表示と特定工事資格を肢別に判定する。選択肢は独立命題で計算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2024:law:問15",
+      "original_question_id": "ad6a03ced9096203",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "周知・調査・措置・保安業務規程の独立記述を判定する。stemの個数指示による再分解は不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2024:law:問16",
+      "original_question_id": "4cc8e676fb6c9c14",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "排気筒・給排気・遮断装置の設置基準を肢別に判定する。12kW・100℃等は基準照合のみ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2024:kiso:問1",
+      "original_question_id": "7f92762408c66750",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "エタン30gの物質量に炭素原子数とアボガドロ定数を掛け、原子数を一つ求める。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2024:kiso:問2",
+      "original_question_id": "e4d11bfd1a883584",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "各物質が同質量で分子数最多かを比較する。水素の既知の分子量と逆関係で判断でき、個数の算出は不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2024:kiso:問3",
+      "original_question_id": "27fd834e929e03b2",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "モル・分子・結合・既知の分子量関係を各肢で判定する。具体的な質量や個数を新たに計算しない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2024:kiso:問4",
+      "original_question_id": "483cd35aaa7511af",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "ブタン8.7kgを物質量へ換算し、標準モル体積から体積を一つ求める。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2024:kiso:問5",
+      "original_question_id": "41bbf1252ed47ff5",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "深さから噴出速度、直径から断面積を求め、その積で流量を導く。単位換算も必要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2024:kiso:問6",
+      "original_question_id": "0f5add4d64ba6379",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "水位差200mmを換算し、密度×重力加速度×高さからゲージ圧力を一つ算出する。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2024:kiso:問7",
+      "original_question_id": "d9a4a21ce5909e61",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "仕事率・圧力・単位接頭辞・蒸気圧・伝熱の各知識を判定する。単位等価関係の照合であり与条件の換算計算はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2024:kiso:問8",
+      "original_question_id": "ed57b509d89b2304",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "伝熱と気体法則を記述ごとに判定する。絶対圧力とゲージ圧力の比例関係の区別で足り、具体値を求めない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2024:kiso:問9",
+      "original_question_id": "b945ef94dc07499d",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "初期・終期温度を絶対温度へ換算し、定容気体の圧力を温度比から計算する。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2024:kiso:問10",
+      "original_question_id": "2c499feb49d9d33f",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "付臭剤に要求される各性質の適否を独立判定する。濃度や使用量の計算はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2024:kiso:問11",
+      "original_question_id": "cc8797e922500f9b",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "燃焼範囲と燃焼速度の各性質を判定する。ルシャトリエの式の適用可否を問うだけで代入はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2024:kiso:問12",
+      "original_question_id": "945e37a5e783138a",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "メタン160kgの物質量と反応関係から二酸化炭素の物質量を求め、質量へ換算する。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2024:kiso:問13",
+      "original_question_id": "a57bd0b2743aa1d0",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "蒸発・沸騰・顕熱・潜熱・気化方式の各定義を判定する。熱量計算はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2024:kiso:問14",
+      "original_question_id": "2c5127a01d41d65e",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "密度・比容積・比重・蒸気圧・ラウール則の各記述を判定する。公式の知識であり数値代入はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2024:kiso:問15",
+      "original_question_id": "b1c2d69184ef0b8f",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "プロパンとブタンの必要酸素量から理論空気量の比を計算し、倍率を一つ導く。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2024:seizo:問1",
+      "original_question_id": "5d633b3305ce7269",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "自然・強制気化方式の性能や適用を肢ごとに判定する。発生量の計算は求めない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2024:seizo:問2",
+      "original_question_id": "2ebb28047a7351ee",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "日平均需要量にピーク日率・最高ピーク時率・安全率を順に掛け、調整装置の必要能力を一つ求める。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2024:seizo:問3",
+      "original_question_id": "7596e63115fa26db",
+      "questionType": "true_false",
+      "isCalculationQuestion": true,
+      "rationale": "離隔・障壁の措置を肢別に判定する。容器50kg×29本×2系列と貯槽990kg×3基の総量計算が必要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2024:seizo:問4",
+      "original_question_id": "3c02709441838cb7",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "貯槽の計器・接地・緊急遮断装置・放出管を独立判定する。具体的な容量・圧力計算はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2024:seizo:問5",
+      "original_question_id": "3a7d4387ee495c94",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "加温・減圧方式と大気温利用方式の挙動を肢別に判定する。蒸発量や圧力値の算出はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2024:seizo:問6",
+      "original_question_id": "fc3c583411f6b6f5",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "各調整器の仕様・用途・表示機構を判定する。3.30kPaは仕様値との照合で計算しない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2024:seizo:問7",
+      "original_question_id": "edc7cda36d1f9ab7",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "各充填作業の操作・確認の適否を独立判定する。圧力差の数値導出はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2024:seizo:問8",
+      "original_question_id": "79caa8adf87e0085",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "通報・教育・連携・漏えい・火災への各対策を判定する。数値条件の演算はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2024:seizo:問9",
+      "original_question_id": "0610256f570d99c9",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "設備検査と記録保存の周期を肢別に判定する。期間は知識との一致比較だけ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2024:kyokyu:問10",
+      "original_question_id": "71ac6a427bde34bc",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "導管・本支管・供給管・内管の区分を各記述で判定する。長さ等を算出しない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2024:kyokyu:問11",
+      "original_question_id": "d19cb265f57db269",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "導管延長0.5倍を流量式へ適用し、流量倍率を平方根から一つ計算する。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2024:kyokyu:問12",
+      "original_question_id": "027e4e9c36769f46",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "整圧器の附属装置・設置・圧力保持等を肢別に判定する。記載圧力は仕様照合のみ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2024:kyokyu:問13",
+      "original_question_id": "4c1cabf3bfd1fa28",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "各方式のガスメーターの構造・用途・維持管理を判定する。計量値等の演算はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2024:kyokyu:問14",
+      "original_question_id": "4244dd26412c2e03",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "管材料と各接合方法の性質を肢別に判定する。口径100A等は適用範囲との照合。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2024:kyokyu:問15",
+      "original_question_id": "b16454b036593786",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "気密試験の方法・圧力・保持時間を独立判定する。容積1m³未満等は基準照合で換算しない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2024:kyokyu:問16",
+      "original_question_id": "e0859a5d9693249c",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "腐食機構・電流方向・ミクロセルとマクロセルの説明を判定する。電流量等は求めない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2024:kyokyu:問17",
+      "original_question_id": "5b6a3c7420c425b7",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "維持管理と作業安全の各措置を肢別に判定する。酸素濃度18%は基準との比較だけ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2024:kyokyu:問18",
+      "original_question_id": "3fa0ac9510c4643c",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "地震への準備・緊急措置・復旧計画の独立命題が既に選択肢に並ぶ。個数指示による計算問題ではない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2024:shohi:問19",
+      "original_question_id": "7049f5229af59726",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "燃焼・ノズル・ウォッベ指数等の記述を独立判定する。生成物量は既知の反応係数との照合で、実量計算は不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2024:shohi:問20",
+      "original_question_id": "e3752669836a3376",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "NOx・燃焼範囲・燃焼音・熱効率・熱伝導率を肢別に判定する。具体的な熱効率計算はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2024:shohi:問21",
+      "original_question_id": "fccbb5ae97afe95f",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "こんろ・給湯器・燃料電池・乾燥機・暖房機の構造説明を独立判定する。演算条件はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2024:shohi:問22",
+      "original_question_id": "3dd9d71e7fc47bb5",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "機器構成・給湯能力の定義・適用法令を肢別に判定する。1号の定義を照合し給湯量は計算しない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2024:shohi:問23",
+      "original_question_id": "76962dff2ea6f425",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "業務用機器・GHP・燃料電池の各説明を独立判定する。効率や能力の数値導出はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2024:shohi:問24",
+      "original_question_id": "6ee0919f35dd11da",
+      "questionType": "true_false",
+      "isCalculationQuestion": true,
+      "rationale": "換気とCOの各記述を判定する。30分に1回の肢は1時間当たりの回数へ換算して確認する必要がある。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2024:shohi:問25",
+      "original_question_id": "bcbbe27ddf480846",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "各給排気方式の設置基準を肢別に判定する。6kW等は適用基準であり合算する機器条件はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2024:shohi:問26",
+      "original_question_id": "3cbf662a29201490",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "各安全装置の検知対象・構造・目的を独立判定する。センサー出力等の計算はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2024:shohi:問27",
+      "original_question_id": "101137acb8b02edc",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "ガス栓・接続具・警報器設置の各記述を判定する。10cmの段差等は条件の照合で新たな距離を算出しない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2025:law:問1",
+      "original_question_id": "988b1ac2d3d560db",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "供給・工作物・熱量・液化ガスの定義と適用法令を肢別に判定する。数値は定義との一致比較。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2025:law:問2",
+      "original_question_id": "bfe4dc0ca2a6c845",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "供給計画と業務改善に関する5空欄の語句対応を組合せで選ぶ。演算はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2025:law:問3",
+      "original_question_id": "e564a2cfb788322f",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "維持義務・緊急命令・保安規程の各独立記述を判定する。数値導出は不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2025:law:問4",
+      "original_question_id": "e4b9a5f578d47539",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "事故報告の各独立記述が選択肢に並ぶ。提出期限・戸数・時間は報告基準との照合で個数の集約計算を学習操作としない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2025:law:問5",
+      "original_question_id": "051055d964fa56ea",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "免状・試験・解任・立入検査の各制度を判定する。2年・毎年1回は基準値の知識。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2025:law:問6",
+      "original_question_id": "f82c430b363fc034",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "高度保安認定の組織・能力・技術・更新・変更届を組合せとして選ぶ。更新期間は知識で計算しない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2025:law:問7",
+      "original_question_id": "42d17fee0981b227",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "立入防止・防消火・漏えい警報・防爆・静電気の5空欄対応を一組で選ぶ。計算条件はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2025:law:問8",
+      "original_question_id": "db6ad70839b42c20",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "ガス栓・耐圧・気密・溶接の各要件を独立判定する。0Pa・150mm等は適用条件照合のみ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2025:law:問9",
+      "original_question_id": "cdb5f388f7c70f1b",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "計測・遮断・安全弁・冷却・防食に関する語句対応を組合せで選ぶ。圧力値等の算定はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2025:law:問10",
+      "original_question_id": "1afa15e7bb2aa845",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "気化装置と特定ガス発生設備の各措置を独立判定する。命題は既に選択肢にあり計算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2025:law:問11",
+      "original_question_id": "171731c9b62283ec",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "過流出機構・遮断装置・メーター機能の各要件を判定する。内径・流量等は適用基準との比較だけ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2025:law:問12",
+      "original_question_id": "388372d0d57aa411",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "検査周期と導管設置条件を肢別に判定する。4年・6月等は規定値との照合で日付計算をしない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2025:law:問13",
+      "original_question_id": "bd01fcd64e01bb77",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "露出導管と整圧器の5空欄を組合せとして選ぶ。数値を算出する条件はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2025:law:問14",
+      "original_question_id": "965c9fd200917f08",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "用品・特定工事の定義と監督・表示義務を各肢で判定する。演算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2025:law:問15",
+      "original_question_id": "65f5f42d2a03a7d7",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "周知・調査・通知・保安業務規程の各義務を独立判定する。数量や期間の算定はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2025:law:問16",
+      "original_question_id": "3e69785a4d90cbf4",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "排気筒・給排気部・遮断装置の独立記述を判定する。消費量や断面積は基準比較で具体値を導かない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2025:kiso:問1",
+      "original_question_id": "20c1b026769f9733",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "分子数をアボガドロ定数で割り、ブタンの物質量を一つ算出する。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2025:kiso:問2",
+      "original_question_id": "99fabaee8b24f9a9",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "炭素6gを物質量へ換算し、アボガドロ定数を乗じて原子数を求める。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2025:kiso:問3",
+      "original_question_id": "605644b224681dfb",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "水素10kgを物質量へ換算し、標準モル体積から体積を一つ導く。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2025:kiso:問4",
+      "original_question_id": "1b7fed13197ea115",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "分子・単体・分子式と既知のプロパンのモル質量を各肢で判定する。与えた試料量から新値を求める操作はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2025:kiso:問5",
+      "original_question_id": "237a232f4d794e0e",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "各物質が同質量で物質量最少かを比較する。既知の分子量と逆関係で足り、具体的なモル数を計算しない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2025:kiso:問6",
+      "original_question_id": "fa6243e32f1fe1ae",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "流速分布・レイノルズ数・ベルヌーイ則の各知識を判定する。レイノルズ数の算出や式への代入はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2025:kiso:問7",
+      "original_question_id": "d31ab0dc1e430276",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "初期温度を絶対温度に換算し、圧力比から終期温度を求めて摂氏へ戻す。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2025:kiso:問8",
+      "original_question_id": "84cf0ea3b2496649",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "内径400mmを換算して管断面積を求め、流量を割って平均流速を一つ導く。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2025:kiso:問9",
+      "original_question_id": "bb9d9035c1bb61a5",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "燃料質量と発熱量から熱量を計算し、比熱と温度差で割って水の質量を求める。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2025:kiso:問10",
+      "original_question_id": "d23d6e7fc290dc85",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "仕事率・気体法則・伝熱の各記述を判定する。比例関係を問う知識問題で具体的な比や値は計算しない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2025:kiso:問11",
+      "original_question_id": "79bcdeadc011a927",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "各成分の蒸気圧にモル分率を掛けて加算し、混合液化ガスの蒸気圧を一つ求める。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2025:kiso:問12",
+      "original_question_id": "cf5c02046e638f28",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "密度・臨界温度・蒸気圧の各性質を肢別に判定する。温度変化から具体的な量を計算しない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2025:kiso:問13",
+      "original_question_id": "a7ca5e3923d37147",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "3気体の生成水の順位を組にした候補を比較する。同体積のため既知の反応係数順で足り、実質量の算出は不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2025:kiso:問14",
+      "original_question_id": "42d57eba96413824",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "各ガスが燃焼範囲最大の性質を持つか比較する。既知の燃焼特性を問うもので具体的な上下限値の演算条件はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2025:kiso:問15",
+      "original_question_id": "77e10ed2cda93a2a",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "空気中の酸素体積を比から求め、燃焼反応とモル体積を使って二酸化炭素質量へ換算する。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2025:seizo:問1",
+      "original_question_id": "8b2d7ac09be49f0c",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "LPガスの熱膨張・燃焼範囲・密度・再液化・方式選択を判定する。各数値は物性知識の照合で演算しない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2025:seizo:問2",
+      "original_question_id": "7a026b3dd8cde8bd",
+      "questionType": "true_false",
+      "isCalculationQuestion": true,
+      "rationale": "各設計記述を独立判定する。46kg/時を20kg/時で割る必要基数と、60kg/時に安全率を掛ける能力確認が必要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2025:seizo:問3",
+      "original_question_id": "0ddb4817b7f74ac3",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "容器・バルク貯槽の離隔距離表の空欄対応を組合せとして選ぶ。貯蔵量区分が既に与えられ距離を計算しない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2025:seizo:問4",
+      "original_question_id": "453a216bfa7edfa7",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "各装置・刻印・貯蔵能力式等の適否を肢別に判定する。能力式の確認で具体的な容量代入はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2025:seizo:問5",
+      "original_question_id": "a462fb86542d55ba",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "危険箇所・発火度・爆発等級・防爆構造を肢別に判定する。温度は等級基準との照合だけ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2025:seizo:問6",
+      "original_question_id": "51485ed0a72e70c4",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "調整器の切替・交換時期・作動範囲・閉塞圧力を判定する。記載圧力範囲は仕様照合で算定条件がない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2025:seizo:問7",
+      "original_question_id": "e5ecc75933d3ee3f",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "受入作業の責任者・立会い・弁操作・停車条件を独立判定する。距離や圧力差の演算は不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2025:seizo:問8",
+      "original_question_id": "760f43475f5a3c46",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "教育・逆止弁・継手・液状化・津波対策を肢別に判定する。数値計算の条件はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2025:seizo:問9",
+      "original_question_id": "e4125d4a632eb0d1",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "点検・検査・保存期間の各独立記述を判定する。月数・年数は基準値との照合。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2025:kyokyu:問10",
+      "original_question_id": "8b9866de0a63f640",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "供給圧力・方式・使用公式・高低差の影響を空欄の組合せで選ぶ。公式名と定性的変化の選択で代入はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2025:kyokyu:問11",
+      "original_question_id": "83ae376307a86598",
+      "questionType": "flash_card",
+      "isCalculationQuestion": true,
+      "rationale": "流量式から圧力損失比を導き、流量1.5倍と延長2倍を適用して倍率を計算する。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2025:kyokyu:問12",
+      "original_question_id": "a5a9d2abe1d1d5c3",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "整圧器の装置・耐圧側・能力倍率・除去対象を組合せで選ぶ。倍率は選定基準の知識で実能力を計算しない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2025:kyokyu:問13",
+      "original_question_id": "3c36a67d4ed7b9f0",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "ガスメーターの検定範囲・警告遮断・計量性能を肢別に判定する。口径や日数は仕様照合のみ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2025:kyokyu:問14",
+      "original_question_id": "91d7f889bad1aa8f",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "管材料・さや管・継手・融着・フランジの各仕様を独立判定する。寸法等の計算はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2025:kyokyu:問15",
+      "original_question_id": "e5a72b5f28087380",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "配管設計・埋設・探査・気密試験の各基準を判定する。算出した値を示す作業記述で、受験者が口径等を計算する条件はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2025:kyokyu:問16",
+      "original_question_id": "81a14894a9bd87ec",
+      "questionType": "group_choice",
+      "isCalculationQuestion": false,
+      "rationale": "腐食区分・電極・比例関係の5空欄対応を組合せで選ぶ。面積比の実値や腐食速度は計算しない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2025:kyokyu:問17",
+      "original_question_id": "3c286541c223e59d",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "他工事対策・ガス検知・差し水・撤去作業の各記述を独立判定する。演算不要。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2025:kyokyu:問18",
+      "original_question_id": "9b13fdedd547b3ff",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "地震対策と復旧の独立命題が既に選択肢に並ぶ。個数を問うstemでも命題単位で判定し計算問題としない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2025:shohi:問19",
+      "original_question_id": "279fd154d89cda3c",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "沸点・燃焼生成比・フラッシュバック・濃淡燃焼等を肢別に判定する。生成比は既知の反応係数との照合で実量を算出しない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2025:shohi:問20",
+      "original_question_id": "aea35b6785dfd217",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "体積変化・インプット関係・燃焼・伝熱の各説明を判定する。倍率や比例関係の知識で新値の計算はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2025:shohi:問21",
+      "original_question_id": "49c0fece1682b94d",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "各家庭用機器の安全・燃焼・制御・排水・温度分布を肢別に判定する。具体的な熱量や温度を計算しない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2025:shohi:問22",
+      "original_question_id": "0da03994ecf105cd",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "関連法規・機器構造・燃料電池・排湿の各説明を独立判定する。70kW等は適用基準の比較だけ。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2025:shohi:問23",
+      "original_question_id": "05e7fbda16a118d9",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "機器区分・構成・COPの定義式を肢別に判定する。COP式の適否を照合し、能力値の代入は求めない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2025:shohi:問24",
+      "original_question_id": "b2bbafd27026282f",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "各肢の独立判定という型は維持する。肢5は換気回数と平衡濃度の逆比例関係から増減方向を確認でき、具体的な濃度又は倍率を算出する必要がない。1/0.5の演算は可能な説明方法だが判定に必須ではないため、計算要否をfalseとする。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": [],
+      "currentContentReviewReceipt": "docs/goals/gas-shunin-hei-pdf-patches/notes/T008-current-adoption-c-native.json"
+    },
+    {
+      "sourceQuestionId": "2025:shohi:問25",
+      "original_question_id": "78445916662a6d42",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "各給排気方式と機器の設置可否を独立判定する。通気量や離隔距離の算定はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2025:shohi:問26",
+      "original_question_id": "d8d11346aa3d3713",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "立ち消え・空だき・転倒・温度検出・自己診断の各構造や動作を判定する。応答時間や抵抗値の演算はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    },
+    {
+      "sourceQuestionId": "2025:shohi:問27",
+      "original_question_id": "ebc1fdb6d1b4359d",
+      "questionType": "true_false",
+      "isCalculationQuestion": false,
+      "rationale": "ガス栓・ホース・警報器の各特性と使用方法を肢別に判定する。流量やCOHb濃度を算出する条件はない。",
+      "requiresAggregateDecomposition": false,
+      "holdReason": null,
+      "officialImagesViewed": []
+    }
+  ],
+  "parentCandidate": {
+    "path": "docs/goals/gas-shunin-hei-pdf-patches/notes/T006-type-candidate-inventory.json",
+    "sha256": "1bab1b04b3762904cc09ff4fa0adf6516a3e7c823456971d096920e2b220942e"
+  },
+  "currentReviewReceipts": [
+    {
+      "path": "docs/goals/gas-shunin-hei-pdf-patches/notes/T008-current-adoption-a-native.json",
+      "sha256": "52f516247f0432ef644770c5aaebfdc872b3650cd500027060575795ac03a801"
+    },
+    {
+      "path": "docs/goals/gas-shunin-hei-pdf-patches/notes/T008-current-adoption-b-native.json",
+      "sha256": "b36561a7e5ab476d7da0804386da82246ef885e7a02b71f41560aeda4a511c27"
+    },
+    {
+      "path": "docs/goals/gas-shunin-hei-pdf-patches/notes/T008-current-adoption-c-native.json",
+      "sha256": "441f7da3ebb19366bbeb2310e7ffbd4e9271cf48160a8232b9bc28c4d117abfd"
+    }
+  ]
+}

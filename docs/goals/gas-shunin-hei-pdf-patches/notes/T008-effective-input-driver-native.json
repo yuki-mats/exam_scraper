@@ -1,0 +1,33 @@
+{
+  "nativeMessageId": "amsg_01a17a9b-b709-7650-afa2-d4fc5ebfe0de",
+  "nativeAuthor": "/root/hei_patch_driver",
+  "payload": {
+    "goalbuddy_receipt_v1": {
+      "result": "done",
+      "task_id": "T003",
+      "board_path": "docs/goals/gas-shunin-hei-pdf-patches/state.yaml",
+      "changed_files": [
+        "docs/goals/gas-shunin-hei-pdf-patches/notes/T008-materialize-metadata.py"
+      ],
+      "commands": [
+        {
+          "cmd": "TYPE_INPUT一行だけの差分と27件固定guard維持の検証",
+          "status": "pass"
+        },
+        {
+          "cmd": "python3 -m py_compile docs/goals/gas-shunin-hei-pdf-patches/notes/T008-materialize-metadata.py",
+          "status": "pass"
+        },
+        {
+          "cmd": "git diff --check",
+          "status": "pass"
+        }
+      ],
+      "summary": "TYPE_INPUT定数だけをT008-current-type-candidates.jsonへ変更しました。schema・guard・CLI処理とintent27件の固定条件は保持しています。旧候補ファイルは変更せず、applyも実行していません。",
+      "remaining_blockers": [],
+      "needs_judge": false,
+      "verification_attempts": 1,
+      "stopped_because": null
+    }
+  }
+}

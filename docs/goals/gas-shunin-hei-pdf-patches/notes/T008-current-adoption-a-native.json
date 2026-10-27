@@ -1,0 +1,359 @@
+{
+  "nativeMessageId": "amsg_01a17a9b-14be-7d71-ae2b-dbe75a15361c",
+  "nativeAuthor": "/root/hei_type_candidate_a",
+  "payload": {
+    "goalbuddy_receipt_v1": {
+      "result": "done",
+      "task_id": "T008",
+      "board_path": "docs/goals/gas-shunin-hei-pdf-patches/state.yaml",
+      "decision": "approve_next",
+      "full_outcome_complete": false,
+      "rationale": "指定packetの174問を一問ずつ読み、現在の本文・全選択肢から回答操作と計算要否を独立に再確認しました。補完された共通注・図説明・脚注によって2fieldの判断が崩れる問はなく、174候補を現在内容に対して採用できます。これは候補補助あり再確認であり、blind認証、正式保存、公開可能性の認証ではありません。",
+      "evidence": [
+        {
+          "packetPath": "output/gas-shunin-hei/pdf_patch_review/metadata-review-packets/type-a.json",
+          "packetSHA256": "2a1ebb17f1316ac47ea92f0616686bb5f3896a2a632fb60ad8bded0c766e2d7e",
+          "packetSHA256UnchangedAfterReview": true,
+          "reviewMode": "candidate_assisted_current_content_review",
+          "blindReview": false,
+          "observedCount": 174,
+          "uniqueSourceQuestionIdCount": 174,
+          "uniqueOriginalQuestionIdCount": 174,
+          "observedByYear": {
+            "2017": 58,
+            "2018": 58,
+            "2019": 58
+          },
+          "storedExplanationReview": {
+            "observedCount": 174,
+            "presentCount": 0,
+            "absentCount": 174,
+            "finding": "各問のstoredExplanationを直視し、全174問でpresent=false、value=nullであることを確認した。解説は生成・補完していない。"
+          },
+          "approvedCount": 174,
+          "changedCandidateCount": 0,
+          "holdCount": 0,
+          "approvedSourceQuestionIds": [
+            "2017:kiso:問1",
+            "2017:kiso:問10",
+            "2017:kiso:問11",
+            "2017:kiso:問12",
+            "2017:kiso:問13",
+            "2017:kiso:問14",
+            "2017:kiso:問15",
+            "2017:kiso:問2",
+            "2017:kiso:問3",
+            "2017:kiso:問4",
+            "2017:kiso:問5",
+            "2017:kiso:問6",
+            "2017:kiso:問7",
+            "2017:kiso:問8",
+            "2017:kiso:問9",
+            "2017:kyokyu:問10",
+            "2017:kyokyu:問11",
+            "2017:kyokyu:問12",
+            "2017:kyokyu:問13",
+            "2017:kyokyu:問14",
+            "2017:kyokyu:問15",
+            "2017:kyokyu:問16",
+            "2017:kyokyu:問17",
+            "2017:kyokyu:問18",
+            "2017:law:問1",
+            "2017:law:問10",
+            "2017:law:問11",
+            "2017:law:問12",
+            "2017:law:問13",
+            "2017:law:問14",
+            "2017:law:問15",
+            "2017:law:問16",
+            "2017:law:問2",
+            "2017:law:問3",
+            "2017:law:問4",
+            "2017:law:問5",
+            "2017:law:問6",
+            "2017:law:問7",
+            "2017:law:問8",
+            "2017:law:問9",
+            "2017:seizo:問1",
+            "2017:seizo:問2",
+            "2017:seizo:問3",
+            "2017:seizo:問4",
+            "2017:seizo:問5",
+            "2017:seizo:問6",
+            "2017:seizo:問7",
+            "2017:seizo:問8",
+            "2017:seizo:問9",
+            "2017:shohi:問19",
+            "2017:shohi:問20",
+            "2017:shohi:問21",
+            "2017:shohi:問22",
+            "2017:shohi:問23",
+            "2017:shohi:問24",
+            "2017:shohi:問25",
+            "2017:shohi:問26",
+            "2017:shohi:問27",
+            "2018:kiso:問1",
+            "2018:kiso:問10",
+            "2018:kiso:問11",
+            "2018:kiso:問12",
+            "2018:kiso:問13",
+            "2018:kiso:問14",
+            "2018:kiso:問15",
+            "2018:kiso:問2",
+            "2018:kiso:問3",
+            "2018:kiso:問4",
+            "2018:kiso:問5",
+            "2018:kiso:問6",
+            "2018:kiso:問7",
+            "2018:kiso:問8",
+            "2018:kiso:問9",
+            "2018:kyokyu:問10",
+            "2018:kyokyu:問11",
+            "2018:kyokyu:問12",
+            "2018:kyokyu:問13",
+            "2018:kyokyu:問14",
+            "2018:kyokyu:問15",
+            "2018:kyokyu:問16",
+            "2018:kyokyu:問17",
+            "2018:kyokyu:問18",
+            "2018:law:問1",
+            "2018:law:問10",
+            "2018:law:問11",
+            "2018:law:問12",
+            "2018:law:問13",
+            "2018:law:問14",
+            "2018:law:問15",
+            "2018:law:問16",
+            "2018:law:問2",
+            "2018:law:問3",
+            "2018:law:問4",
+            "2018:law:問5",
+            "2018:law:問6",
+            "2018:law:問7",
+            "2018:law:問8",
+            "2018:law:問9",
+            "2018:seizo:問1",
+            "2018:seizo:問2",
+            "2018:seizo:問3",
+            "2018:seizo:問4",
+            "2018:seizo:問5",
+            "2018:seizo:問6",
+            "2018:seizo:問7",
+            "2018:seizo:問8",
+            "2018:seizo:問9",
+            "2018:shohi:問19",
+            "2018:shohi:問20",
+            "2018:shohi:問21",
+            "2018:shohi:問22",
+            "2018:shohi:問23",
+            "2018:shohi:問24",
+            "2018:shohi:問25",
+            "2018:shohi:問26",
+            "2018:shohi:問27",
+            "2019:kiso:問1",
+            "2019:kiso:問10",
+            "2019:kiso:問11",
+            "2019:kiso:問12",
+            "2019:kiso:問13",
+            "2019:kiso:問14",
+            "2019:kiso:問15",
+            "2019:kiso:問2",
+            "2019:kiso:問3",
+            "2019:kiso:問4",
+            "2019:kiso:問5",
+            "2019:kiso:問6",
+            "2019:kiso:問7",
+            "2019:kiso:問8",
+            "2019:kiso:問9",
+            "2019:kyokyu:問10",
+            "2019:kyokyu:問11",
+            "2019:kyokyu:問12",
+            "2019:kyokyu:問13",
+            "2019:kyokyu:問14",
+            "2019:kyokyu:問15",
+            "2019:kyokyu:問16",
+            "2019:kyokyu:問17",
+            "2019:kyokyu:問18",
+            "2019:law:問1",
+            "2019:law:問10",
+            "2019:law:問11",
+            "2019:law:問12",
+            "2019:law:問13",
+            "2019:law:問14",
+            "2019:law:問15",
+            "2019:law:問16",
+            "2019:law:問2",
+            "2019:law:問3",
+            "2019:law:問4",
+            "2019:law:問5",
+            "2019:law:問6",
+            "2019:law:問7",
+            "2019:law:問8",
+            "2019:law:問9",
+            "2019:seizo:問1",
+            "2019:seizo:問2",
+            "2019:seizo:問3",
+            "2019:seizo:問4",
+            "2019:seizo:問5",
+            "2019:seizo:問6",
+            "2019:seizo:問7",
+            "2019:seizo:問8",
+            "2019:seizo:問9",
+            "2019:shohi:問19",
+            "2019:shohi:問20",
+            "2019:shohi:問21",
+            "2019:shohi:問22",
+            "2019:shohi:問23",
+            "2019:shohi:問24",
+            "2019:shohi:問25",
+            "2019:shohi:問26",
+            "2019:shohi:問27"
+          ],
+          "changedCandidates": [],
+          "holds": [],
+          "acceptedValueDistribution": {
+            "questionType": {
+              "true_false": 123,
+              "flash_card": 23,
+              "group_choice": 28
+            },
+            "isCalculationQuestion": {
+              "true": 32,
+              "false": 142
+            }
+          },
+          "currentContentRationaleSummary": [
+            {
+              "topic": "独立命題と集約指示の区別",
+              "finding": "法令・機器・施工・管理の記述は各肢を本文の共通条件と結んで適否を判断する。本文に「組合せ」「いくつ」が残る問題でも、現在choiceTextListが個別命題や個別対象を保持しているためtrue_falseとした。追加の集約分解が必要な問は認めなかった。",
+              "examples": [
+                "2017:law:問12",
+                "2018:law:問2",
+                "2019:law:問2",
+                "2019:kyokyu:問17"
+              ]
+            },
+            {
+              "topic": "指定箇所の語句判定",
+              "finding": "選択肢が本文中の指定語句そのものである2問は、各語句を元の位置へ戻して、その箇所が適切かを独立判定する。複数空欄の完全な対応表候補を選ぶgroup_choiceとは区別した。",
+              "examples": [
+                "2018:law:問10",
+                "2019:law:問13"
+              ]
+            },
+            {
+              "topic": "物質名が比較対象となる問題",
+              "finding": "2017基礎3と2018基礎5は、各物質に「同質量で分子数又は体積が最大」という共通述語を補って該当性を判定するtrue_falseを採用した。既存rationale中の「一意に導く」という表現を型の根拠にはしていない。同質量での逆比例関係と分子量の大小から判断でき、具体的な個数・体積の算出を要しないため計算フラグはfalseのままとした。",
+              "examples": [
+                "2017:kiso:問3",
+                "2018:kiso:問5",
+                "2019:kiso:問12"
+              ]
+            },
+            {
+              "topic": "対応組と全体の順序",
+              "finding": "複数空欄の語句対応・基準値対応を一組として選ぶ問題、及び全体の大小順序を選ぶ問題はgroup_choiceとした。分子量や質量、異なる圧力単位の値を求める順序問題は計算trueとし、規定値・係数名を照合するだけの対応問題はfalseとした。",
+              "examples": [
+                "2017:kiso:問2",
+                "2018:kiso:問4",
+                "2018:kiso:問6",
+                "2019:kiso:問5",
+                "2019:kyokyu:問10"
+              ]
+            },
+            {
+              "topic": "本文条件から導く一つの量",
+              "finding": "物質量・質量・体積・比重・熱量・時間・流速・空気量・希釈量・容器本数・出湯量を本文条件から一つ求め、数値候補へ照合する問題はflash_cardとした。各問題で必要な代入・四則演算・比・単位換算を確認した。",
+              "examples": [
+                "2017:kiso:問4",
+                "2017:kiso:問7",
+                "2018:seizo:問2",
+                "2019:kiso:問14",
+                "2019:shohi:問22"
+              ]
+            },
+            {
+              "topic": "各肢固有の計算",
+              "finding": "各肢の適否を判定する形式でも、容器容量から貯蔵量を算出する場合、容積から必要保持時間を算定する場合、分子式から分子量を算出する場合、各変更条件で熱流量比を求める場合、燃焼量比を検証する場合は計算trueを維持した。",
+              "examples": [
+                "2017:seizo:問3",
+                "2017:kyokyu:問15",
+                "2018:kiso:問3",
+                "2019:kiso:問2",
+                "2019:kiso:問8",
+                "2019:shohi:問19"
+              ]
+            },
+            {
+              "topic": "定義・規定値と演算の区別",
+              "finding": "法定の距離・期間・口径・消費量境界、装置の設定値、SI単位の定義や接頭語の係数、既知の代表的対応値を照合するだけの問題は計算falseとした。式の説明や倍率が文章に存在することだけではtrueにしなかった。",
+              "examples": [
+                "2017:seizo:問2",
+                "2018:kiso:問7",
+                "2018:kiso:問8",
+                "2019:kiso:問6",
+                "2019:seizo:問2",
+                "2019:kyokyu:問10"
+              ]
+            },
+            {
+              "topic": "共通注と圧力条件",
+              "finding": "法令の圧力はゲージ圧力、基礎の圧力は指定がない限り絶対圧力という現在の共通注を各問で確認した。基礎の気体計算では絶対温度・絶対圧力を使う演算が必要であり、共通注は回答操作を変更しない。",
+              "examples": [
+                "2017:kiso:問10",
+                "2018:kiso:問6",
+                "2019:kiso:問10",
+                "2019:law:問6"
+              ]
+            },
+            {
+              "topic": "補完された図・脚注",
+              "finding": "2017供給17は現在本文に分類樹の枝分かれが保持され、公式画像でも四位置の語句対応を確認したためgroup_choice・計算false。2017消費21の液石法脚注は用語を補完し、各記述を判定する操作と計算不要の判断を変えない。",
+              "examples": [
+                "2017:kyokyu:問17",
+                "2017:shohi:問21"
+              ]
+            },
+            {
+              "topic": "早見表からの導出",
+              "finding": "2018供給12は現在の全表値と公式画像を確認した。220mに対して250m行を使い、許容130Pa内の100Pa列で、150Aの174kg/hが需要150kg/hを満たす。100A以下は200m行の160Pa列まで緩めても最大流量が87.9kg/h以下で不足する。表値の大小照合で最小口径を確定でき、補間や新しい数値の演算を必要としないためflash_card・計算falseを維持した。",
+              "examples": [
+                "2018:kyokyu:問12"
+              ]
+            }
+          ],
+          "questionImagesViewed": [
+            {
+              "sourceQuestionId": "2017:kyokyu:問17",
+              "path": "output/gas-shunin-hei/pdf_review/2017/mark_sheet_question/page-23.png",
+              "purpose": "分類樹の枝分かれと空欄の対応関係を確認"
+            },
+            {
+              "sourceQuestionId": "2018:kyokyu:問12",
+              "path": "output/gas-shunin-hei/pdf_review/2018/mark_sheet_question/page-25.png",
+              "purpose": "早見表の行列対応と、演算なしで口径を確定できることを確認"
+            }
+          ],
+          "inputBoundary": {
+            "filesRead": [
+              "output/gas-shunin-hei/pdf_patch_review/metadata-review-packets/type-a.json",
+              "output/gas-shunin-hei/pdf_review/2017/mark_sheet_question/page-23.png",
+              "output/gas-shunin-hei/pdf_review/2018/mark_sheet_question/page-25.png"
+            ],
+            "currentRecordBinding": "packetSHA256が各レコードのcurrentRecordHashを含む全入力を固定する。別の投影ファイルや正式パッチはこの再確認では読んでいない。",
+            "maskedAnswerFieldsUsed": false,
+            "writesPerformed": false,
+            "formalPatchSaved": false,
+            "publicationReadinessClaimed": false
+          }
+        }
+      ],
+      "next_allowed_task": null,
+      "subgoal_contract": null,
+      "parallel_safety": null,
+      "blocked_tasks": [],
+      "missing_evidence": [],
+      "required_board_updates": []
+    }
+  }
+}

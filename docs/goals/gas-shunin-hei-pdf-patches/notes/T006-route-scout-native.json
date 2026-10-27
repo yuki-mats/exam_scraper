@@ -1,0 +1,55 @@
+{
+  "nativeMessageId": "amsg_01a17a6f-10ca-7001-8f0f-44dd5f5ab6f3",
+  "nativeAuthor": "/root/hei_patch_scout",
+  "payload": {
+    "goalbuddy_receipt_v1": {
+      "result": "done",
+      "task_id": "T006",
+      "board_path": "PMの現行board",
+      "summary": "01は修正済みlogicalProjectionを一問ずつ読み、回答操作と計算要否の2fieldだけを独立確定する追加sliceです。現source全522問で両fieldが欠損しており、merged全件検査を通すには70問だけの追加では足りません。ただし01候補準備と正式保存は分離できます。集約回答分解や不足questionIntentが見つかれば、本文・正答・解説不変のslice内で推測確定せず保留すべきです。既存materialize CLI・validatorがあり、新実装は不要です。",
+      "evidence": [
+        "prompt/01_prompt_fix_questionType.md:7-15",
+        "prompt/01_prompt_fix_questionType.md:17-49",
+        "prompt/01_prompt_fix_questionType.md:51-70",
+        "prompt/01_prompt_fix_questionType.md:72-127",
+        "config/question_maintenance_workflow.toml:94-136",
+        "config/requirements/required_fields.toml:18-34",
+        "scripts/fix/materialize_minimal_patch.py:234-254,371-398",
+        "scripts/check/check_questiontype_patch_coverage.py:105-202",
+        "scripts/common/question_answer_contract.py:503-550",
+        "output/gas-shunin-hei/questions_json/2025/00_source/question_2025_1.json",
+        "output/gas-shunin-hei/questions_json/2025/00_source/question_2025_2.json",
+        "tests/test_materialize_minimal_patch_identity.py; tests/test_questiontype_patch_coverage.py"
+      ],
+      "facts": [
+        "入力は修正済みのlogicalProjection。一問の本文・全選択肢・必要図・保存済み解説資料を読み、現在のquestionType、正答数、sourceメタデータから分類を固定しない。外部Webを見ず、根拠不足はholdにする。",
+        "実source全27ファイル522問を読取集計し、questionType欠損522、isCalculationQuestion欠損522を確認した。",
+        "merged必須検査は20_merged_1と30_merged_2の全recordへquestionTypeを要求する。したがって資格全体の現状生成物を検査するなら全522原問が必要。対象部分だけの別検証copyなら部分成功は表現できるが、全522件の成功とは言えない。",
+        "最小候補はoriginal_question_id/questionType/isCalculationQuestionの3field。全件内容判断後にCLIでmaterializeし、保持済みidentityへexact matchする。配列indexで別問題の判断を貼り付けない。",
+        "既存CLI: python3 tools/question_bank/question_bank.py materialize-patch --task question_type --source <修正後投影JSON> --raw <3field候補JSON> --output <年度>/10_questionType_fixed/<source_stem>_questionType_fixed.json。",
+        "正式10の本文/choice snapshotはmaterializerが判断入力から複写する参照情報であり、01による本文訂正ではない。通常公式問題の合成はsourceと24が本文責務を担う。materialize_entriesはsourceQuestionKey/reviewQuestionId/sourceRecordRefも付加する。",
+        "既存validator: python3 tools/question_bank/question_bank.py check-question-type-patch --source <同一入力> --patch <正式10>。ID完全coverage、許可3形式、boolean、URL、集約回答hash/span/keysを確認する。",
+        "実例2025法令1は各法令記述を独立判定する操作でtrue_false候補。2025法令2は空欄イ〜ホの語句組合せ候補を比較するgroup_choice候補。2025基礎11は混合蒸気圧を一意導出するflash_card・計算true候補。これは例示の内容判断であり全522問の分類完了ではない。",
+        "sourceの組合せ指示だけで分解対象にはならない。2025法令3は元choiceTextListに独立命題が既に並ぶため分解対象外。2017供給10は数値/語句の空欄補完表であり分解対象外。抽出命題が本文にのみ存在する本来の集約回答型が見つかれば、二つの独立read-onlyレビューのcandidate ID完全合意が必要。",
+        "集約回答分解はchoiceTextList/sourceUniqueKeysを変え、後続全記述の正答・解説を独立再確定するため、今回の本文・正答・解説不変の追加sliceを超える。今回の少数実例調査では分解必須の実問を確定していない。候補の機械走査結果だけで全522問を分解不要とは認定していない。",
+        "sourceのquestionIntentはselect_incorrect297、select_correct58、None167。true_falseへ分類されたNone行はmerged必須条件に反するため、02を独立判断する追加scope又はholdが必要。01からquestionIntentを自動補完してはいけない。",
+        "全522問のcorrectChoiceTextは既存ラベル配列を保持可能。alignment checkerは正誤ラベルのみの配列ならchoiceTextListとの同数を許容する。explanationTextは全522欠損だがmergedの最低必須条件にはないため、03全件整備を今回のchecker成功のためだけに追加する必然性はない。"
+      ],
+      "contradictions": [
+        "promptの正式artifact表は6fieldと記載する一方、現materialize_entriesはさらにidentity三要素を付加する。これは共通identity契約を満たす正常保存動作であり、6fieldだけの手書きpatchへ逆戻りさせない。",
+        "全522問01を追加すれば3checker成功が確実という判断はできない。TFに判定されるquestionIntent=Noneや集約回答型holdの有無は一問判断後に確定する。"
+      ],
+      "ambiguity_requiring_judge": [
+        "ユーザーの70問修正と共通注補完へ、全522問の回答形式・計算判定という追加判断scopeを含めるか。安全な候補準備は可能だが、現段階で全01を正式保存する判断はPM/Judgeが行う。",
+        "分類後TFのquestionIntent欠損があった場合、02を必要問題だけ追加するか。いずれも既存正答からの逆算は禁止。",
+        "分解必須の集約回答型を発見した場合、今回の本文・正答・解説不変sliceを守ってholdするか、後続整備まで別scopeで承認するか。"
+      ],
+      "commands": [
+        "prompt/01、workflow01定義、required_fields、materializer、validator、answer alignment契約の読取",
+        "全27 source JSONの522recordを欠損field・questionIntent値別に読取集計",
+        "2025法令1〜3・基礎11、2017供給10等の少数実問を本文と全choiceで読取確認"
+      ],
+      "note_needed": false
+    }
+  }
+}

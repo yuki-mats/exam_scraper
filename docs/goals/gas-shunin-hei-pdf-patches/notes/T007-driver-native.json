@@ -1,0 +1,35 @@
+{
+  "nativeMessageId": "amsg_01a17a85-3513-75a1-bb57-53d789112f61",
+  "nativeAuthor": "/root/hei_patch_driver",
+  "payload": {
+    "goalbuddy_receipt_v1": {
+      "result": "done",
+      "task_id": "T003",
+      "board_path": "docs/goals/gas-shunin-hei-pdf-patches/state.yaml",
+      "changed_files": [
+        "docs/goals/gas-shunin-hei-pdf-patches/notes/T007-review-driver.py",
+        "docs/goals/gas-shunin-hei-pdf-patches/notes/T007-prepare-recoveries.py",
+        "docs/goals/gas-shunin-hei-pdf-patches/notes/T007-prompt-verification.json"
+      ],
+      "commands": [
+        {
+          "cmd": "python3 -m py_compile docs/goals/gas-shunin-hei-pdf-patches/notes/T007-review-driver.py docs/goals/gas-shunin-hei-pdf-patches/notes/T007-prepare-recoveries.py",
+          "status": "pass"
+        },
+        {
+          "cmd": "prompt-only AST, synthetic 306-ID selection, no-save command and fresh-hash verification",
+          "status": "pass"
+        },
+        {
+          "cmd": "git diff --check",
+          "status": "pass"
+        }
+      ],
+      "summary": "T007補助実装を完了しました。driverはwrapper一文だけ変更し、schema・gate・replayを保持。helperは306IDの被覆、正式acceptedと成功stagedの除外、失敗済batchの未保存問回収、未終了mainの保留を検証します。A/B並行後にChallengeとローカルstage検証を直列実行し、正式saveは禁止します。helper・実nativeは未起動です。",
+      "remaining_blockers": [],
+      "needs_judge": true,
+      "verification_attempts": 1,
+      "stopped_because": null
+    }
+  }
+}

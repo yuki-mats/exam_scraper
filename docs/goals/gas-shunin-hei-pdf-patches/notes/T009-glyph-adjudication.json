@@ -1,0 +1,17 @@
+{
+  "sourceQuestionId": "2022:seizo:問3",
+  "earlierDecision": "Low-resolution reading failed to discern two closing corner brackets; that observation is withdrawn. Challenge hold correctly detected the omissions. Earlier raw evidence is retained.",
+  "pdfPath": "output/pdf/gas-shunin-official/2022/q_hei_r4.pdf",
+  "pdfSha256": "1a8a6899bad715d83965f6eccc87588ffb018a3a12c05c3e88f3b9d9a8d7bcfe",
+  "renderCommand": "pdftoppm -f 23 -l 23 -r 300 -x 300 -y 1300 -W 2080 -H 550 -png -singlefile output/pdf/gas-shunin-official/2022/q_hei_r4.pdf output/gas-shunin-hei/pdf_patch_review/visual-adjudication/2022-seizo-q3-footnotes",
+  "imagePath": "output/gas-shunin-hei/pdf_patch_review/visual-adjudication/2022-seizo-q3-footnotes.png",
+  "imageSha256": "ffb9c9761aff12493803a6d8cc72e70dfba51afeaa39c93eb40f12802f9b7f6a",
+  "beforeCandidate": {
+    "questionBodyText": "保安物件に対する離隔距離と火気設備との距離に関する次の記述のうち、誤っているものはどれか。\n\n※1 新型バルクローリー：「液化石油ガスの保安の確保及び取引の適正化に関する法律第37条の4に規定する「充てん設備の許可」を受けたもの。\n※2 従来型バルクローリー：「高圧ガス保安法 液化石油ガス保安規則第9条の移動式製造設備の基準に適合したもの。"
+  },
+  "newCandidate": {
+    "questionBodyText": "保安物件に対する離隔距離と火気設備との距離に関する次の記述のうち、誤っているものはどれか。\n\n※1 新型バルクローリー：「液化石油ガスの保安の確保及び取引の適正化に関する法律」第37条の4に規定する「充てん設備の許可」を受けたもの。\n※2 従来型バルクローリー：「高圧ガス保安法 液化石油ガス保安規則」第9条の移動式製造設備の基準に適合したもの。"
+  },
+  "formalSaved": false,
+  "freshPlan": "output/gas-shunin-hei/pdf_patch_review/recovery-plans-v6/2022-seizo-q3.json"
+}

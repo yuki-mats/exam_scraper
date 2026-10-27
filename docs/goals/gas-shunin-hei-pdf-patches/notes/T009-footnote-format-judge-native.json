@@ -1,0 +1,69 @@
+{
+  "nativeMessageId": "amsg_01a17a8e-c6c9-73d1-9474-7709ed7f903c",
+  "nativeAuthor": "/root/hei_patch_judge",
+  "payload": {
+    "goalbuddy_receipt_v1": {
+      "result": "done",
+      "task_id": "T003",
+      "board_path": "docs/goals/gas-shunin-hei-pdf-patches/state.yaml",
+      "decision": "approve_next",
+      "full_outcome_complete": false,
+      "rationale": "脚注識別子の表示統一は妥当です。公式画像の*1/*2と既存選択肢の※1/※2は、同じ番号と参照先を一対一に保持すれば表示上の符号差として扱えます。既存選択肢を変更せず補完脚注を※nへそろえる方が責務と差分が単純です。法律名・閉じ括弧・定義本文の忠実性とは区別し、候補内容を無条件に承認する規則にはしません。矛盾する逐字同一指示を残さず、内容転記と脚注表示の役割を明確にしたfresh planで再確認してください。",
+      "evidence": [
+        {
+          "sourceQuestionId": "2022:seizo:問3",
+          "sourcePath": "output/gas-shunin-hei/questions_json/2022/00_source/question_2022_2.json",
+          "finding": "既存choiceTextListは新型バルクローリー※1、従来型バルクローリー※2を参照している。"
+        },
+        {
+          "imagePath": "output/gas-shunin-hei/pdf_patch_review/visual-adjudication/2022-seizo-q3-footnotes.png",
+          "imageSha256": "ffb9c9761aff12493803a6d8cc72e70dfba51afeaa39c93eb40f12802f9b7f6a",
+          "method": "original表示で再度直接目視",
+          "finding": "公式脚注は*1が新型、*2が従来型の定義。法律」第37、保安規則」第9条の閉じかぎ括弧を確認できる。"
+        }
+      ],
+      "next_allowed_task": {
+        "type": "worker",
+        "assignee": "Worker",
+        "objective": "内容転記と脚注識別子の表示を区別した新規canonical表示仕様を固定し、同問をfresh A/B・Challengeで再確認する。",
+        "allowed_files": [
+          "output/gas-shunin-hei/pdf_patch_review/",
+          "docs/goals/gas-shunin-hei-pdf-patches/notes/"
+        ],
+        "display_rule": {
+          "content": "法律・規則の名称、括弧、条番号、定義本文は公式実画像に忠実に転記する。",
+          "footnoteIdentifier": "公式の脚注参照*nを既存選択肢と同じinlineの※nで表示する。番号n、参照元と定義本文の対応を一対一に保持する。",
+          "representation": "脚注識別子の符号統一と配置変更は表示仕様であり、元PDFの逐語的な記号・組版と同一とは主張しない。",
+          "judgment": "定義内容又は参照対応に差異があればholdできる。表示仕様は内容上の差異を許容する根拠ではない。"
+        },
+        "verify": [
+          "従来の『脚注記号を含む原本文字を一律に変えない』という指示との矛盾を、新plan内で解消する。",
+          "新型の※1が公式*1の定義、従来型の※2が公式*2の定義だけへ結び付くことを確認する。",
+          "法律」/保安規則」の2箇所を含む候補全文と高解像度画像を送信し、fresh case/input/prompt hashを固定する。",
+          "旧v6 raw応答とholdを変更せず、新規sessionのA/B/Cと既存gateを維持する。",
+          "既存choiceTextList・正答・IDを変更しないことを確認する。"
+        ],
+        "stop_if": [
+          "脚注番号の衝突、参照先の曖昧さ又は定義の取り違えがある場合は保留する。",
+          "法律名・括弧・内容の誤りまで表示差として処理する必要がある場合は保存しない。",
+          "旧応答を後補正しない。"
+        ]
+      },
+      "subgoal_contract": null,
+      "parallel_safety": {
+        "writesPerformed": false,
+        "formalSave": "fresh reviewと既存保存gate通過後に限定する。"
+      },
+      "blocked_tasks": [],
+      "missing_evidence": [
+        "役割を分けた表示仕様入り新plan",
+        "同問のfresh A/B・Challenge最終判断"
+      ],
+      "required_board_updates": [
+        "旧v6のhold理由は削除せず、表示仕様を明示したfresh判断と区別する。",
+        "脚注の番号・参照対応は内容、符号・配置は表示仕様として記録する。",
+        "本receiptを同問又は全体の完了認定へ拡張しない。"
+      ]
+    }
+  }
+}

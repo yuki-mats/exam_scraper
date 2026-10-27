@@ -8,7 +8,8 @@ goal:
   oracle:
     signal: 通常mergeで70問の修正と全共通注が反映され全source/IDが不変
     cadence: 年度別と最終監査
-    final_proof: 一問別公式画像確認receipt、patch適用差分、3必須checker成功、main push
+    final_proof: 公式画像native proof・全289patch適用・source/ID/正答不変、alignment/required成功、raw正答不変＋同義ラベルprivate投影27組coverage成功、main
+      push
   intake:
     original_request: 要確認70問を公式PDFに基づいて1問ずつ修正し共通注を補完、00_source保持、パッチ層対応
     interpreted_outcome: 70問の個別指摘解消・全9年度共通注補完・source不変・ローカル検証・commit/push
@@ -57,7 +58,7 @@ visual_board:
     url: http://goalbuddy.localhost:41737/gas-shunin-hei-pdf-patches/
     command: node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs
       --goal /Users/yuki/development/exam_scraper_work/docs/goals/gas-shunin-hei-pdf-patches
-active_task: T003
+active_task: T999
 tasks:
   - id: T001
     type: scout
@@ -228,7 +229,7 @@ tasks:
   - id: T003
     type: worker
     assignee: Worker
-    status: active
+    status: done
     reasoning_hint: default
     objective: 2017〜2025年度の要確認70問を公式問題・正答PDFと一問ずつ再確認し、必要な本文・選択肢訂正と法令・基礎全279問の共通注補完を正式24へ保存する。試験受験・採点注意は年度単位の補助資料として保持する。rawHTMLだけの差異は保存JSONのno_change証拠を残し、通常mergeで実反映と対象外不変を検証する。
     allowed_files:
@@ -247,19 +248,18 @@ tasks:
       - docs/goals/gas-shunin-hei-pdf-patches/notes/T003-driver-verification.json
       - output/gas-shunin-hei/pdf_patch_review/plans-v3/
       - output/gas-shunin-hei/pdf_patch_review/runs-v3/
+      - output/gas-shunin-hei/questions_json/*/10_questionType_fixed/*_questionType_fixed.json
+      - output/gas-shunin-hei/questions_json/*/15_correctChoiceText_fixed/*_merged_correctChoiceText_fixed.json
     verify:
-      - 開始前source全27fileと522問identityのhash inventoryを保存し、終了後に完全一致を確認する。
-      - 各24にscripts/check/check_question_issue_correction_patch.pyを実行し、現在投影・公式根拠・完全identity・expectedBeforeHashを検証する。
-      - python3 scripts/merge/00_merge_all.py <年度> --base-dir output/gas-shunin-hei/questions_json
-        を全9年度へ実行する。
+      - 全27 source hash/name・522 ID/元正答/解説不変を機械検証
+      - 全289 formal24標準validator・全522通常mergeの期待完全値一致
       - python3 scripts/check/check_choice_text_alignment.py --base-dir output/gas-shunin-hei/questions_json
         --stage merged
       - python3 scripts/check/check_required_fields.py --base-dir output/gas-shunin-hei/questions_json
         --stage merged
-      - python3 scripts/check/check_correct_choice_patch_coverage.py
-      - 70問全件のfix/no_change/hold対応、法令144問・基礎135問の共通注適用、年度単位共通注意9件、通常mergeでの修正反映を照合する。
-      - 正答・解説・ID・無関係fieldのpresenceと値の不変を一問identityで検証する。
-      - 保存経路を変更しない場合は既存validatorと実データ確認に限定する。経路の実装変更が必要になった場合は別Workerへ分け、tests.test_official_source_correctionとtests.test_question_issue_correction_patchを実行する。
+      - 実source27組と同義ラベルprivate投影をcheck_correct_choice_patch_coverage.py --source
+        <source> --patch <private-view> --require-fullで検証（正規表記の読取互換検証。新規23は0）
+      - python3 docs/goals/gas-shunin-hei-pdf-patches/notes/T003-finalize.py
       - git diff --check
     stop_if:
       - 公式ページ・図・脚注を一意に確認できない問はholdとして他問を継続する。
@@ -267,7 +267,361 @@ tasks:
       - 未整備source由来のrequired_fields不足又は対象外資格のcoverage不備は正確な失敗証跡を保持し、未確認のfieldで埋めない。検査成功とは報告しない。
       - 図の正式保存がStorage公開に依存する場合は、具体的なlocal assetと差分を準備した後、その問の未完了境界を記録する。
       - 許可外fileの変更が必要ならWorker scopeを拡張せずPMへ返す。
-    receipt: null
+    receipt:
+      result: done
+      task_id: T003
+      board_path: docs/goals/gas-shunin-hei-pdf-patches/state.yaml
+      author: PM audited genuine native results and final artifacts
+      changed_files:
+        - document/temporary/20261027_gas_shunin_hei_pdf_patches.json
+        - document/temporary/20261027_gas_shunin_hei_pdf_patches.md
+        - output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-2017-000_2017-law-q1_f72327c3772a4fe4.json
+        - output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-v3-2017-000_2017-kiso-q6_d3bedb424ebc2ade.json
+        - output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-v3-2017-000_2017-kyokyu-q17_31d20b76e6e3beba.json
+        - output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-v4-2017-000_2017-kiso-q1_0fee0c5f725aa416.json
+        - output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-v4-2017-000_2017-law-q9_3d71b3619be4ec83.json
+        - output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-v4-2017-001_2017-kiso-q10_429be43ad5a29b8a.json
+        - output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-v4-2017-001_2017-kiso-q11_0d63806a8344daa4.json
+        - output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-v4-2017-001_2017-kiso-q12_73bdbad4764356a9.json
+        - output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-v4-2017-001_2017-kiso-q13_9da380aa7004e62b.json
+        - output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-v4-2017-001_2017-kiso-q14_23b139de1e687c30.json
+        - output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-v4-2017-001_2017-kiso-q15_2ca8d0bb1f27c154.json
+        - output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-v4-2017-001_2017-kiso-q2_2ab2e7cfba3a7e0a.json
+        - output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-v4-2017-001_2017-kiso-q3_6b8b15e43117d293.json
+        - output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-v4-2017-001_2017-kiso-q4_81147bc7c13604a6.json
+        - output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-v4-2017-001_2017-kiso-q5_5c38507d6c6698ab.json
+        - output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-v4-2017-001_2017-kiso-q7_b6c7388e2a5ba788.json
+        - output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-v4-2017-001_2017-kiso-q8_844c758998dd672e.json
+        - output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-v4-2017-002_2017-kiso-q9_d240278d89626f22.json
+        - output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-v4-2017-002_2017-law-q10_a0f54945df9965e2.json
+        - output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-v4-2017-002_2017-law-q11_f6a11091c219d807.json
+        - output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-v4-2017-002_2017-law-q12_e2e491743970560d.json
+        - output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-v4-2017-002_2017-law-q13_6ce96d04ccdfc2b2.json
+        - output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-v4-2017-002_2017-law-q14_4362929922f0312c.json
+        - output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-v4-2017-002_2017-law-q15_d2bd0ba305a5587c.json
+        - output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-v4-2017-002_2017-law-q16_0a91560f643c75bf.json
+        - output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-v4-2017-002_2017-law-q2_851989d3e7adec5e.json
+        - output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-v4-2017-002_2017-law-q3_bb8906ad0b31a555.json
+        - output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-v4-2017-002_2017-law-q4_b3dbf16a78b4f63f.json
+        - output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-v4-2017-002_2017-law-q5_84b510a5ae65b5a0.json
+        - output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-v4-2017-003_2017-law-q6_3034505d85650633.json
+        - output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-v4-2017-003_2017-law-q7_3ee0af0cac36c123.json
+        - output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-v4-2017-003_2017-law-q8_1673aefdd412df40.json
+        - output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/hei-pdf-v4-2017-003_2017-shohi-q21_c0a66185b3d78b7b.json
+        - output/gas-shunin-hei/questions_json/2018/24_questionIssueCorrections/hei-pdf-v4-2018-004_2018-kiso-q10_18110956eb7132b0.json
+        - output/gas-shunin-hei/questions_json/2018/24_questionIssueCorrections/hei-pdf-v4-2018-004_2018-kiso-q11_276fc41c79b7b8b1.json
+        - output/gas-shunin-hei/questions_json/2018/24_questionIssueCorrections/hei-pdf-v4-2018-004_2018-kiso-q12_c8945ff0218c666c.json
+        - output/gas-shunin-hei/questions_json/2018/24_questionIssueCorrections/hei-pdf-v4-2018-004_2018-kiso-q13_22aa648fc36ab235.json
+        - output/gas-shunin-hei/questions_json/2018/24_questionIssueCorrections/hei-pdf-v4-2018-004_2018-kiso-q14_6bb9e096fbaac3f3.json
+        - output/gas-shunin-hei/questions_json/2018/24_questionIssueCorrections/hei-pdf-v4-2018-004_2018-kiso-q15_d6ae6450ee244c57.json
+        - output/gas-shunin-hei/questions_json/2018/24_questionIssueCorrections/hei-pdf-v4-2018-004_2018-kiso-q1_d900190074a9c7ce.json
+        - output/gas-shunin-hei/questions_json/2018/24_questionIssueCorrections/hei-pdf-v4-2018-004_2018-kiso-q2_96fc7e45a10c6818.json
+        - output/gas-shunin-hei/questions_json/2018/24_questionIssueCorrections/hei-pdf-v4-2018-004_2018-kiso-q3_a833d116ea2493c4.json
+        - output/gas-shunin-hei/questions_json/2018/24_questionIssueCorrections/hei-pdf-v4-2018-004_2018-kiso-q4_334955e3c38faa59.json
+        - output/gas-shunin-hei/questions_json/2018/24_questionIssueCorrections/hei-pdf-v4-2018-004_2018-kiso-q5_09496c34992fe771.json
+        - output/gas-shunin-hei/questions_json/2018/24_questionIssueCorrections/hei-pdf-v4-2018-004_2018-kiso-q6_9632e0089397b78f.json
+        - output/gas-shunin-hei/questions_json/2018/24_questionIssueCorrections/hei-pdf-v4-2018-005_2018-kiso-q7_7d5c06b03b916d9e.json
+        - output/gas-shunin-hei/questions_json/2018/24_questionIssueCorrections/hei-pdf-v4-2018-005_2018-kiso-q8_5c56ea107e3d271b.json
+        - output/gas-shunin-hei/questions_json/2018/24_questionIssueCorrections/hei-pdf-v4-2018-005_2018-kiso-q9_a93eb02658a7d18e.json
+        - output/gas-shunin-hei/questions_json/2018/24_questionIssueCorrections/hei-pdf-v4-2018-005_2018-law-q10_6240231d08469d6f.json
+        - output/gas-shunin-hei/questions_json/2018/24_questionIssueCorrections/hei-pdf-v4-2018-005_2018-law-q11_d59d98ee272dd091.json
+        - output/gas-shunin-hei/questions_json/2018/24_questionIssueCorrections/hei-pdf-v4-2018-005_2018-law-q12_cb26db246b3ad114.json
+        - output/gas-shunin-hei/questions_json/2018/24_questionIssueCorrections/hei-pdf-v4-2018-005_2018-law-q13_720b93d29f5817ae.json
+        - output/gas-shunin-hei/questions_json/2018/24_questionIssueCorrections/hei-pdf-v4-2018-005_2018-law-q14_672fc8b74c3c3a39.json
+        - output/gas-shunin-hei/questions_json/2018/24_questionIssueCorrections/hei-pdf-v4-2018-005_2018-law-q15_15456bf380dcc935.json
+        - output/gas-shunin-hei/questions_json/2018/24_questionIssueCorrections/hei-pdf-v4-2018-005_2018-law-q16_55869d9f9f172627.json
+        - output/gas-shunin-hei/questions_json/2018/24_questionIssueCorrections/hei-pdf-v4-2018-005_2018-law-q1_c04d21ef39442e76.json
+        - output/gas-shunin-hei/questions_json/2018/24_questionIssueCorrections/hei-pdf-v4-2018-006_2018-law-q2_fabed91bb4ad3513.json
+        - output/gas-shunin-hei/questions_json/2018/24_questionIssueCorrections/hei-pdf-v4-2018-006_2018-law-q3_c2eb8c9e84b8ced6.json
+        - output/gas-shunin-hei/questions_json/2018/24_questionIssueCorrections/hei-pdf-v4-2018-006_2018-law-q4_f4a69f28956085ae.json
+        - output/gas-shunin-hei/questions_json/2018/24_questionIssueCorrections/hei-pdf-v4-2018-006_2018-law-q5_faf0938f136dc6d6.json
+        - output/gas-shunin-hei/questions_json/2018/24_questionIssueCorrections/hei-pdf-v4-2018-006_2018-law-q6_e40dc48b083a5c9b.json
+        - output/gas-shunin-hei/questions_json/2018/24_questionIssueCorrections/hei-pdf-v4-2018-006_2018-law-q7_0bcdb8ef506f00ae.json
+        - output/gas-shunin-hei/questions_json/2018/24_questionIssueCorrections/hei-pdf-v4-2018-006_2018-law-q8_a4d108df2fb7737d.json
+        - output/gas-shunin-hei/questions_json/2018/24_questionIssueCorrections/hei-pdf-v4-2018-006_2018-law-q9_bd74795db64273bc.json
+        - output/gas-shunin-hei/questions_json/2019/24_questionIssueCorrections/hei-pdf-recovery-2019-kiso-q10_2019-kiso-q10_b608c9e9ce7d88fb.json
+        - output/gas-shunin-hei/questions_json/2019/24_questionIssueCorrections/hei-pdf-recovery-2019-kiso-q11_2019-kiso-q11_2482ac967395dd3f.json
+        - output/gas-shunin-hei/questions_json/2019/24_questionIssueCorrections/hei-pdf-recovery-2019-kiso-q13_2019-kiso-q13_04900f3d34576e0d.json
+        - output/gas-shunin-hei/questions_json/2019/24_questionIssueCorrections/hei-pdf-recovery-2019-kiso-q14_2019-kiso-q14_e3d44883c0246bf7.json
+        - output/gas-shunin-hei/questions_json/2019/24_questionIssueCorrections/hei-pdf-recovery-2019-kiso-q15_2019-kiso-q15_b600903f0e7d65df.json
+        - output/gas-shunin-hei/questions_json/2019/24_questionIssueCorrections/hei-pdf-recovery-2019-kiso-q2_2019-kiso-q2_22bf91e1aeb4c3cf.json
+        - output/gas-shunin-hei/questions_json/2019/24_questionIssueCorrections/hei-pdf-recovery-2019-kiso-q3_2019-kiso-q3_4ba85ebe357df496.json
+        - output/gas-shunin-hei/questions_json/2019/24_questionIssueCorrections/hei-pdf-recovery-2019-kiso-q4_2019-kiso-q4_4530101f56dd7ea8.json
+        - output/gas-shunin-hei/questions_json/2019/24_questionIssueCorrections/hei-pdf-recovery-2019-kiso-q6_2019-kiso-q6_fe79a1af1b757592.json
+        - output/gas-shunin-hei/questions_json/2019/24_questionIssueCorrections/hei-pdf-recovery2-2019-kiso-q12_2019-kiso-q12_4969dfb9bece90b6.json
+        - output/gas-shunin-hei/questions_json/2019/24_questionIssueCorrections/hei-pdf-recovery2-2019-kiso-q1_2019-kiso-q1_d799070664725f0f.json
+        - output/gas-shunin-hei/questions_json/2019/24_questionIssueCorrections/hei-pdf-recovery2-2019-kiso-q5_2019-kiso-q5_4dd401c1752e8b3f.json
+        - output/gas-shunin-hei/questions_json/2019/24_questionIssueCorrections/hei-pdf-v4-2019-008_2019-kiso-q7_76d241f55f060bcc.json
+        - output/gas-shunin-hei/questions_json/2019/24_questionIssueCorrections/hei-pdf-v4-2019-008_2019-kiso-q8_381896c912a2ad30.json
+        - output/gas-shunin-hei/questions_json/2019/24_questionIssueCorrections/hei-pdf-v4-2019-008_2019-kiso-q9_34cebf90f36eb03a.json
+        - output/gas-shunin-hei/questions_json/2019/24_questionIssueCorrections/hei-pdf-v4-2019-008_2019-law-q10_2efa63768a8b1914.json
+        - output/gas-shunin-hei/questions_json/2019/24_questionIssueCorrections/hei-pdf-v4-2019-008_2019-law-q11_87307ab7af6dae96.json
+        - output/gas-shunin-hei/questions_json/2019/24_questionIssueCorrections/hei-pdf-v4-2019-008_2019-law-q12_93674a348adeee89.json
+        - output/gas-shunin-hei/questions_json/2019/24_questionIssueCorrections/hei-pdf-v4-2019-008_2019-law-q13_bebb56a22f090de9.json
+        - output/gas-shunin-hei/questions_json/2019/24_questionIssueCorrections/hei-pdf-v4-2019-008_2019-law-q14_4f61501da75e94b8.json
+        - output/gas-shunin-hei/questions_json/2019/24_questionIssueCorrections/hei-pdf-v4-2019-008_2019-law-q15_76138c3e4fd38eff.json
+        - output/gas-shunin-hei/questions_json/2019/24_questionIssueCorrections/hei-pdf-v4-2019-008_2019-law-q16_5733b63533f78f95.json
+        - output/gas-shunin-hei/questions_json/2019/24_questionIssueCorrections/hei-pdf-v4-2019-008_2019-law-q1_71e1d52a263c8baf.json
+        - output/gas-shunin-hei/questions_json/2019/24_questionIssueCorrections/hei-pdf-v4-2019-009_2019-law-q2_545cb2514d14a0f5.json
+        - output/gas-shunin-hei/questions_json/2019/24_questionIssueCorrections/hei-pdf-v4-2019-009_2019-law-q3_437e5a353d647dcb.json
+        - output/gas-shunin-hei/questions_json/2019/24_questionIssueCorrections/hei-pdf-v4-2019-009_2019-law-q4_f7a49298c8705c75.json
+        - output/gas-shunin-hei/questions_json/2019/24_questionIssueCorrections/hei-pdf-v4-2019-009_2019-law-q5_2538a39cc72f358b.json
+        - output/gas-shunin-hei/questions_json/2019/24_questionIssueCorrections/hei-pdf-v4-2019-009_2019-law-q6_51ca76e4987d6c79.json
+        - output/gas-shunin-hei/questions_json/2019/24_questionIssueCorrections/hei-pdf-v4-2019-009_2019-law-q7_d31e7fdc0e86f23c.json
+        - output/gas-shunin-hei/questions_json/2019/24_questionIssueCorrections/hei-pdf-v4-2019-009_2019-law-q8_3d4162c018e91a2d.json
+        - output/gas-shunin-hei/questions_json/2019/24_questionIssueCorrections/hei-pdf-v4-2019-009_2019-law-q9_46392ffa96ad9e40.json
+        - output/gas-shunin-hei/questions_json/2020/24_questionIssueCorrections/hei-pdf-v4-2020-010_2020-kiso-q10_b935eed8e6647017.json
+        - output/gas-shunin-hei/questions_json/2020/24_questionIssueCorrections/hei-pdf-v4-2020-010_2020-kiso-q11_77f8450237aa25f0.json
+        - output/gas-shunin-hei/questions_json/2020/24_questionIssueCorrections/hei-pdf-v4-2020-010_2020-kiso-q12_18839afafbbec8c7.json
+        - output/gas-shunin-hei/questions_json/2020/24_questionIssueCorrections/hei-pdf-v4-2020-010_2020-kiso-q13_dca860cf16778e98.json
+        - output/gas-shunin-hei/questions_json/2020/24_questionIssueCorrections/hei-pdf-v4-2020-010_2020-kiso-q14_25146ba209744b96.json
+        - output/gas-shunin-hei/questions_json/2020/24_questionIssueCorrections/hei-pdf-v4-2020-010_2020-kiso-q15_eb7029d68a5b714c.json
+        - output/gas-shunin-hei/questions_json/2020/24_questionIssueCorrections/hei-pdf-v4-2020-010_2020-kiso-q1_d82374d5609f4d0d.json
+        - output/gas-shunin-hei/questions_json/2020/24_questionIssueCorrections/hei-pdf-v4-2020-010_2020-kiso-q2_f1126c077623ca4d.json
+        - output/gas-shunin-hei/questions_json/2020/24_questionIssueCorrections/hei-pdf-v4-2020-010_2020-kiso-q3_a8798a283d46f021.json
+        - output/gas-shunin-hei/questions_json/2020/24_questionIssueCorrections/hei-pdf-v4-2020-010_2020-kiso-q4_18983699511ce08f.json
+        - output/gas-shunin-hei/questions_json/2020/24_questionIssueCorrections/hei-pdf-v4-2020-010_2020-kiso-q5_d927b63349658c41.json
+        - output/gas-shunin-hei/questions_json/2020/24_questionIssueCorrections/hei-pdf-v4-2020-010_2020-kiso-q6_9136696ddbc2cd44.json
+        - output/gas-shunin-hei/questions_json/2020/24_questionIssueCorrections/hei-pdf-v4-2020-011_2020-kiso-q7_9bac6fb3f3819741.json
+        - output/gas-shunin-hei/questions_json/2020/24_questionIssueCorrections/hei-pdf-v4-2020-011_2020-kiso-q8_a122c1e22bbe561e.json
+        - output/gas-shunin-hei/questions_json/2020/24_questionIssueCorrections/hei-pdf-v4-2020-011_2020-kiso-q9_8ae40f621ad4573c.json
+        - output/gas-shunin-hei/questions_json/2020/24_questionIssueCorrections/hei-pdf-v4-2020-011_2020-law-q10_737479ace8a02c9f.json
+        - output/gas-shunin-hei/questions_json/2020/24_questionIssueCorrections/hei-pdf-v4-2020-011_2020-law-q11_21bc707a93468b2f.json
+        - output/gas-shunin-hei/questions_json/2020/24_questionIssueCorrections/hei-pdf-v4-2020-011_2020-law-q12_f5b5cd43456045da.json
+        - output/gas-shunin-hei/questions_json/2020/24_questionIssueCorrections/hei-pdf-v4-2020-011_2020-law-q13_6e7c17c20ec49d71.json
+        - output/gas-shunin-hei/questions_json/2020/24_questionIssueCorrections/hei-pdf-v4-2020-011_2020-law-q14_9d617427a1e0ba61.json
+        - output/gas-shunin-hei/questions_json/2020/24_questionIssueCorrections/hei-pdf-v4-2020-011_2020-law-q15_8506450553814d4c.json
+        - output/gas-shunin-hei/questions_json/2020/24_questionIssueCorrections/hei-pdf-v4-2020-011_2020-law-q16_f6f35ec16047f81c.json
+        - output/gas-shunin-hei/questions_json/2020/24_questionIssueCorrections/hei-pdf-v4-2020-011_2020-law-q1_9b1f6d1d25cf0cd1.json
+        - output/gas-shunin-hei/questions_json/2020/24_questionIssueCorrections/hei-pdf-v4-2020-012_2020-law-q2_02fb70a69085885e.json
+        - output/gas-shunin-hei/questions_json/2020/24_questionIssueCorrections/hei-pdf-v4-2020-012_2020-law-q3_fa7a8f58ad47b6bb.json
+        - output/gas-shunin-hei/questions_json/2020/24_questionIssueCorrections/hei-pdf-v4-2020-012_2020-law-q4_f297c491d7af6a91.json
+        - output/gas-shunin-hei/questions_json/2020/24_questionIssueCorrections/hei-pdf-v4-2020-012_2020-law-q5_52af935ed26578b7.json
+        - output/gas-shunin-hei/questions_json/2020/24_questionIssueCorrections/hei-pdf-v4-2020-012_2020-law-q6_a72fc6e5e3f20a93.json
+        - output/gas-shunin-hei/questions_json/2020/24_questionIssueCorrections/hei-pdf-v4-2020-012_2020-law-q7_deaf2edc8057c068.json
+        - output/gas-shunin-hei/questions_json/2020/24_questionIssueCorrections/hei-pdf-v4-2020-012_2020-law-q8_d91003d3803ea067.json
+        - output/gas-shunin-hei/questions_json/2020/24_questionIssueCorrections/hei-pdf-v4-2020-012_2020-law-q9_8e7496ea550f3805.json
+        - output/gas-shunin-hei/questions_json/2021/24_questionIssueCorrections/hei-pdf-recovery2-2021-law-q14_2021-law-q14_7ad24a07f33d7fec.json
+        - output/gas-shunin-hei/questions_json/2021/24_questionIssueCorrections/hei-pdf-v4-2021-013_2021-kiso-q10_0397aa55066a5872.json
+        - output/gas-shunin-hei/questions_json/2021/24_questionIssueCorrections/hei-pdf-v4-2021-013_2021-kiso-q11_61419199d67a12cb.json
+        - output/gas-shunin-hei/questions_json/2021/24_questionIssueCorrections/hei-pdf-v4-2021-013_2021-kiso-q12_cb9dcc6d79c6dd28.json
+        - output/gas-shunin-hei/questions_json/2021/24_questionIssueCorrections/hei-pdf-v4-2021-013_2021-kiso-q13_c8bc036fbb724e30.json
+        - output/gas-shunin-hei/questions_json/2021/24_questionIssueCorrections/hei-pdf-v4-2021-013_2021-kiso-q14_b51b29f0762f33a8.json
+        - output/gas-shunin-hei/questions_json/2021/24_questionIssueCorrections/hei-pdf-v4-2021-013_2021-kiso-q15_201ad243b9e0d0f1.json
+        - output/gas-shunin-hei/questions_json/2021/24_questionIssueCorrections/hei-pdf-v4-2021-013_2021-kiso-q1_af5380b9f6d19f94.json
+        - output/gas-shunin-hei/questions_json/2021/24_questionIssueCorrections/hei-pdf-v4-2021-013_2021-kiso-q2_abcbcf16dd22efe9.json
+        - output/gas-shunin-hei/questions_json/2021/24_questionIssueCorrections/hei-pdf-v4-2021-013_2021-kiso-q3_51c05b1679b0b5f2.json
+        - output/gas-shunin-hei/questions_json/2021/24_questionIssueCorrections/hei-pdf-v4-2021-013_2021-kiso-q4_06db4a1fe7dd8985.json
+        - output/gas-shunin-hei/questions_json/2021/24_questionIssueCorrections/hei-pdf-v4-2021-013_2021-kiso-q5_6b48461bf9554603.json
+        - output/gas-shunin-hei/questions_json/2021/24_questionIssueCorrections/hei-pdf-v4-2021-013_2021-kiso-q6_e7477b2f3e7f7d6f.json
+        - output/gas-shunin-hei/questions_json/2021/24_questionIssueCorrections/hei-pdf-v4-2021-014_2021-kiso-q7_cfbd6088c71af382.json
+        - output/gas-shunin-hei/questions_json/2021/24_questionIssueCorrections/hei-pdf-v4-2021-014_2021-kiso-q8_2528feb7fc528c3a.json
+        - output/gas-shunin-hei/questions_json/2021/24_questionIssueCorrections/hei-pdf-v4-2021-014_2021-kiso-q9_31c6abf77637c7ff.json
+        - output/gas-shunin-hei/questions_json/2021/24_questionIssueCorrections/hei-pdf-v4-2021-014_2021-law-q10_cfa32094bbabe5f2.json
+        - output/gas-shunin-hei/questions_json/2021/24_questionIssueCorrections/hei-pdf-v4-2021-014_2021-law-q11_3c5335e5e4a1aef2.json
+        - output/gas-shunin-hei/questions_json/2021/24_questionIssueCorrections/hei-pdf-v4-2021-014_2021-law-q12_fa63e40252291040.json
+        - output/gas-shunin-hei/questions_json/2021/24_questionIssueCorrections/hei-pdf-v4-2021-014_2021-law-q13_3cc67a5f8aeae797.json
+        - output/gas-shunin-hei/questions_json/2021/24_questionIssueCorrections/hei-pdf-v4-2021-014_2021-law-q15_13f14884265cd122.json
+        - output/gas-shunin-hei/questions_json/2021/24_questionIssueCorrections/hei-pdf-v4-2021-014_2021-law-q16_3dfb91343b8c50fd.json
+        - output/gas-shunin-hei/questions_json/2021/24_questionIssueCorrections/hei-pdf-v4-2021-014_2021-law-q1_7737ac75b1ae369b.json
+        - output/gas-shunin-hei/questions_json/2021/24_questionIssueCorrections/hei-pdf-v4-2021-015_2021-law-q2_937fac66d90acd05.json
+        - output/gas-shunin-hei/questions_json/2021/24_questionIssueCorrections/hei-pdf-v4-2021-015_2021-law-q3_fae8e67c6f3adf52.json
+        - output/gas-shunin-hei/questions_json/2021/24_questionIssueCorrections/hei-pdf-v4-2021-015_2021-law-q4_eb8d41d0d8da8614.json
+        - output/gas-shunin-hei/questions_json/2021/24_questionIssueCorrections/hei-pdf-v4-2021-015_2021-law-q5_f7570fae034f49ce.json
+        - output/gas-shunin-hei/questions_json/2021/24_questionIssueCorrections/hei-pdf-v4-2021-015_2021-law-q6_6df14715aeb590c4.json
+        - output/gas-shunin-hei/questions_json/2021/24_questionIssueCorrections/hei-pdf-v4-2021-015_2021-law-q7_0b2ea21a74aaa748.json
+        - output/gas-shunin-hei/questions_json/2021/24_questionIssueCorrections/hei-pdf-v4-2021-015_2021-law-q8_cced371585299df6.json
+        - output/gas-shunin-hei/questions_json/2021/24_questionIssueCorrections/hei-pdf-v4-2021-015_2021-law-q9_36c72311675a8d5f.json
+        - output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/hei-pdf-footnote-format-2022-seizo-q3_2022-seizo-q3_fd580565d70d63fe.json
+        - output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/hei-pdf-v4-2022-016_2022-kiso-q10_78453b769f8ce78f.json
+        - output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/hei-pdf-v4-2022-016_2022-kiso-q11_213dd9f77193ee88.json
+        - output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/hei-pdf-v4-2022-016_2022-kiso-q12_3e72836890ddba05.json
+        - output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/hei-pdf-v4-2022-016_2022-kiso-q13_10e2016b808b006c.json
+        - output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/hei-pdf-v4-2022-016_2022-kiso-q14_b6197d4fa929e14d.json
+        - output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/hei-pdf-v4-2022-016_2022-kiso-q15_ae4d6de67964ad62.json
+        - output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/hei-pdf-v4-2022-016_2022-kiso-q1_382227291812f4e1.json
+        - output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/hei-pdf-v4-2022-016_2022-kiso-q2_43d0d97051d5e6f5.json
+        - output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/hei-pdf-v4-2022-016_2022-kiso-q3_1be65db208fbee12.json
+        - output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/hei-pdf-v4-2022-016_2022-kiso-q4_acfbc17300024f2d.json
+        - output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/hei-pdf-v4-2022-016_2022-kiso-q5_760db9d5779f3259.json
+        - output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/hei-pdf-v4-2022-016_2022-kiso-q6_fd29c5d6f0b29310.json
+        - output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/hei-pdf-v4-2022-017_2022-kiso-q7_8cb6b33850c8ffdc.json
+        - output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/hei-pdf-v4-2022-017_2022-kiso-q8_6455f9d87bd1e5e3.json
+        - output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/hei-pdf-v4-2022-017_2022-kiso-q9_087e54dc4ea20632.json
+        - output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/hei-pdf-v4-2022-017_2022-law-q10_b2b32a3cc69844fd.json
+        - output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/hei-pdf-v4-2022-017_2022-law-q11_001954358fdeef15.json
+        - output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/hei-pdf-v4-2022-017_2022-law-q12_5e1a26ea43ac85e4.json
+        - output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/hei-pdf-v4-2022-017_2022-law-q13_7341e3233933c97b.json
+        - output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/hei-pdf-v4-2022-017_2022-law-q14_6e6536219e48028a.json
+        - output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/hei-pdf-v4-2022-017_2022-law-q15_4e668cde9b154cce.json
+        - output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/hei-pdf-v4-2022-017_2022-law-q16_bfde978418296dd1.json
+        - output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/hei-pdf-v4-2022-017_2022-law-q1_965755bcf40d2bd7.json
+        - output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/hei-pdf-v4-2022-018_2022-law-q2_426b1ff0724817f0.json
+        - output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/hei-pdf-v4-2022-018_2022-law-q3_31ac29f81f49add0.json
+        - output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/hei-pdf-v4-2022-018_2022-law-q4_2df1bcb7c9b06946.json
+        - output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/hei-pdf-v4-2022-018_2022-law-q5_b65f290b2ad948cf.json
+        - output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/hei-pdf-v4-2022-018_2022-law-q6_6c89f7275eceda15.json
+        - output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/hei-pdf-v4-2022-018_2022-law-q7_d1c04204098a521c.json
+        - output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/hei-pdf-v4-2022-018_2022-law-q8_ae1c4a35d6c9fdfe.json
+        - output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/hei-pdf-v4-2022-018_2022-law-q9_590aba44cedb1534.json
+        - output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/hei-pdf-v4-2022-018_2022-shohi-q21_4f8f2325c68a3916.json
+        - output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-highres-2023-law-q10_2023-law-q10_01a008f1a5d5bfa4.json
+        - output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-highres-2023-law-q11_2023-law-q11_507709e20da5234a.json
+        - output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-highres-2023-law-q12_2023-law-q12_c0acf7d6195611d5.json
+        - output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-highres-2023-law-q1_2023-law-q1_680524c379020b42.json
+        - output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-recovery2-2023-kiso-q7_2023-kiso-q7_13351e712166a24f.json
+        - output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-recovery2-2023-kiso-q8_2023-kiso-q8_ced49aa760bc607c.json
+        - output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-recovery2-2023-kiso-q9_2023-kiso-q9_32513511329827e2.json
+        - output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-recovery2-2023-law-q13_2023-law-q13_4116ef6a5d1afaa8.json
+        - output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-recovery2-2023-law-q14_2023-law-q14_d8734b9dc613abce.json
+        - output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-recovery2-2023-law-q15_2023-law-q15_92b57e1baf7c9040.json
+        - output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-recovery2-2023-law-q16_2023-law-q16_8057a16efc5d7dcd.json
+        - output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-v4-2023-019_2023-kiso-q10_181bca3eb27efe57.json
+        - output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-v4-2023-019_2023-kiso-q11_0f45de7592ebc3c6.json
+        - output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-v4-2023-019_2023-kiso-q12_8ff57cbb9cbcbb46.json
+        - output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-v4-2023-019_2023-kiso-q13_fda8dbe8f975d2d9.json
+        - output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-v4-2023-019_2023-kiso-q14_4c01ad7a9aeadafd.json
+        - output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-v4-2023-019_2023-kiso-q15_3f502485b3d67662.json
+        - output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-v4-2023-019_2023-kiso-q1_98e2207274a77327.json
+        - output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-v4-2023-019_2023-kiso-q2_e2ba654b4f491178.json
+        - output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-v4-2023-019_2023-kiso-q3_063347de414764de.json
+        - output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-v4-2023-019_2023-kiso-q4_ceb0d7ef33b2afa7.json
+        - output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-v4-2023-019_2023-kiso-q5_b0f103b0026a4757.json
+        - output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-v4-2023-019_2023-kiso-q6_1164fcc3c8ceebaf.json
+        - output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-v4-2023-021_2023-law-q2_23c9d74621934ca2.json
+        - output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-v4-2023-021_2023-law-q3_37d5eeddb1613ea2.json
+        - output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-v4-2023-021_2023-law-q4_783733ed3c656bf9.json
+        - output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-v4-2023-021_2023-law-q5_978118c9ecba91d8.json
+        - output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-v4-2023-021_2023-law-q6_b7b856c5b8d407da.json
+        - output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-v4-2023-021_2023-law-q7_be2798c7067394e8.json
+        - output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-v4-2023-021_2023-law-q8_b96db73fa28fc964.json
+        - output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-v4-2023-021_2023-law-q9_8bfe31023b46cf41.json
+        - output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-v4-2023-021_2023-seizo-q9_eff2f988032a80f5.json
+        - output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-v4-2023-021_2023-shohi-q20_f9988c57aeb49201.json
+        - output/gas-shunin-hei/questions_json/2023/24_questionIssueCorrections/hei-pdf-v4-2023-021_2023-shohi-q21_14d7b4da2141109d.json
+        - output/gas-shunin-hei/questions_json/2024/24_questionIssueCorrections/hei-pdf-audit-2024-law-q3_2024-law-q3_cd588d42943fa763.json
+        - output/gas-shunin-hei/questions_json/2024/24_questionIssueCorrections/hei-pdf-recovery2-2024-law-q2_2024-law-q2_f57f36b5f9146670.json
+        - output/gas-shunin-hei/questions_json/2024/24_questionIssueCorrections/hei-pdf-recovery2-2024-law-q4_2024-law-q4_6b71c83fb497c8da.json
+        - output/gas-shunin-hei/questions_json/2024/24_questionIssueCorrections/hei-pdf-recovery2-2024-law-q5_2024-law-q5_100c5519fbfa23a8.json
+        - output/gas-shunin-hei/questions_json/2024/24_questionIssueCorrections/hei-pdf-recovery2-2024-law-q6_2024-law-q6_a5bf0e54158491eb.json
+        - output/gas-shunin-hei/questions_json/2024/24_questionIssueCorrections/hei-pdf-recovery2-2024-law-q7_2024-law-q7_eccbc136816652b4.json
+        - output/gas-shunin-hei/questions_json/2024/24_questionIssueCorrections/hei-pdf-recovery2-2024-law-q8_2024-law-q8_3e57b2b210ab71c6.json
+        - output/gas-shunin-hei/questions_json/2024/24_questionIssueCorrections/hei-pdf-recovery2-2024-law-q9_2024-law-q9_1bfe377b16814244.json
+        - output/gas-shunin-hei/questions_json/2024/24_questionIssueCorrections/hei-pdf-recovery2-2024-seizo-q3_2024-seizo-q3_7596e63115fa26db.json
+        - output/gas-shunin-hei/questions_json/2024/24_questionIssueCorrections/hei-pdf-recovery2-2024-shohi-q22_2024-shohi-q22_3dd9d71e7fc47bb5.json
+        - output/gas-shunin-hei/questions_json/2024/24_questionIssueCorrections/hei-pdf-v4-2024-022_2024-kiso-q10_2c499feb49d9d33f.json
+        - output/gas-shunin-hei/questions_json/2024/24_questionIssueCorrections/hei-pdf-v4-2024-022_2024-kiso-q11_cc8797e922500f9b.json
+        - output/gas-shunin-hei/questions_json/2024/24_questionIssueCorrections/hei-pdf-v4-2024-022_2024-kiso-q12_945e37a5e783138a.json
+        - output/gas-shunin-hei/questions_json/2024/24_questionIssueCorrections/hei-pdf-v4-2024-022_2024-kiso-q13_a57bd0b2743aa1d0.json
+        - output/gas-shunin-hei/questions_json/2024/24_questionIssueCorrections/hei-pdf-v4-2024-022_2024-kiso-q14_2c5127a01d41d65e.json
+        - output/gas-shunin-hei/questions_json/2024/24_questionIssueCorrections/hei-pdf-v4-2024-022_2024-kiso-q15_b1c2d69184ef0b8f.json
+        - output/gas-shunin-hei/questions_json/2024/24_questionIssueCorrections/hei-pdf-v4-2024-022_2024-kiso-q1_7f92762408c66750.json
+        - output/gas-shunin-hei/questions_json/2024/24_questionIssueCorrections/hei-pdf-v4-2024-022_2024-kiso-q2_e4d11bfd1a883584.json
+        - output/gas-shunin-hei/questions_json/2024/24_questionIssueCorrections/hei-pdf-v4-2024-022_2024-kiso-q3_27fd834e929e03b2.json
+        - output/gas-shunin-hei/questions_json/2024/24_questionIssueCorrections/hei-pdf-v4-2024-022_2024-kiso-q4_483cd35aaa7511af.json
+        - output/gas-shunin-hei/questions_json/2024/24_questionIssueCorrections/hei-pdf-v4-2024-022_2024-kiso-q5_41bbf1252ed47ff5.json
+        - output/gas-shunin-hei/questions_json/2024/24_questionIssueCorrections/hei-pdf-v4-2024-022_2024-kiso-q6_0f5add4d64ba6379.json
+        - output/gas-shunin-hei/questions_json/2024/24_questionIssueCorrections/hei-pdf-v4-2024-023_2024-kiso-q7_d9a4a21ce5909e61.json
+        - output/gas-shunin-hei/questions_json/2024/24_questionIssueCorrections/hei-pdf-v4-2024-023_2024-kiso-q8_ed57b509d89b2304.json
+        - output/gas-shunin-hei/questions_json/2024/24_questionIssueCorrections/hei-pdf-v4-2024-023_2024-kiso-q9_b945ef94dc07499d.json
+        - output/gas-shunin-hei/questions_json/2024/24_questionIssueCorrections/hei-pdf-v4-2024-023_2024-law-q10_e989ea2f1241ed11.json
+        - output/gas-shunin-hei/questions_json/2024/24_questionIssueCorrections/hei-pdf-v4-2024-023_2024-law-q11_2bb358d0c6617e34.json
+        - output/gas-shunin-hei/questions_json/2024/24_questionIssueCorrections/hei-pdf-v4-2024-023_2024-law-q12_308add78db8d25cd.json
+        - output/gas-shunin-hei/questions_json/2024/24_questionIssueCorrections/hei-pdf-v4-2024-023_2024-law-q13_02aff69b37cb0066.json
+        - output/gas-shunin-hei/questions_json/2024/24_questionIssueCorrections/hei-pdf-v4-2024-023_2024-law-q14_1490605a6eefa598.json
+        - output/gas-shunin-hei/questions_json/2024/24_questionIssueCorrections/hei-pdf-v4-2024-023_2024-law-q15_ad6a03ced9096203.json
+        - output/gas-shunin-hei/questions_json/2024/24_questionIssueCorrections/hei-pdf-v4-2024-023_2024-law-q16_4cc8e676fb6c9c14.json
+        - output/gas-shunin-hei/questions_json/2024/24_questionIssueCorrections/hei-pdf-v4-2024-023_2024-law-q1_5f70ef73b597578a.json
+        - output/gas-shunin-hei/questions_json/2025/24_questionIssueCorrections/hei-pdf-v4-2025-025_2025-kiso-q10_d23d6e7fc290dc85.json
+        - output/gas-shunin-hei/questions_json/2025/24_questionIssueCorrections/hei-pdf-v4-2025-025_2025-kiso-q11_79bcdeadc011a927.json
+        - output/gas-shunin-hei/questions_json/2025/24_questionIssueCorrections/hei-pdf-v4-2025-025_2025-kiso-q12_cf5c02046e638f28.json
+        - output/gas-shunin-hei/questions_json/2025/24_questionIssueCorrections/hei-pdf-v4-2025-025_2025-kiso-q13_a7ca5e3923d37147.json
+        - output/gas-shunin-hei/questions_json/2025/24_questionIssueCorrections/hei-pdf-v4-2025-025_2025-kiso-q14_42d57eba96413824.json
+        - output/gas-shunin-hei/questions_json/2025/24_questionIssueCorrections/hei-pdf-v4-2025-025_2025-kiso-q15_77e10ed2cda93a2a.json
+        - output/gas-shunin-hei/questions_json/2025/24_questionIssueCorrections/hei-pdf-v4-2025-025_2025-kiso-q1_20c1b026769f9733.json
+        - output/gas-shunin-hei/questions_json/2025/24_questionIssueCorrections/hei-pdf-v4-2025-025_2025-kiso-q2_99fabaee8b24f9a9.json
+        - output/gas-shunin-hei/questions_json/2025/24_questionIssueCorrections/hei-pdf-v4-2025-025_2025-kiso-q3_605644b224681dfb.json
+        - output/gas-shunin-hei/questions_json/2025/24_questionIssueCorrections/hei-pdf-v4-2025-025_2025-kiso-q4_1b7fed13197ea115.json
+        - output/gas-shunin-hei/questions_json/2025/24_questionIssueCorrections/hei-pdf-v4-2025-025_2025-kiso-q5_237a232f4d794e0e.json
+        - output/gas-shunin-hei/questions_json/2025/24_questionIssueCorrections/hei-pdf-v4-2025-025_2025-kiso-q6_fa6243e32f1fe1ae.json
+        - output/gas-shunin-hei/questions_json/2025/24_questionIssueCorrections/hei-pdf-v4-2025-026_2025-kiso-q7_d31ab0dc1e430276.json
+        - output/gas-shunin-hei/questions_json/2025/24_questionIssueCorrections/hei-pdf-v4-2025-026_2025-kiso-q8_84cf0ea3b2496649.json
+        - output/gas-shunin-hei/questions_json/2025/24_questionIssueCorrections/hei-pdf-v4-2025-026_2025-kiso-q9_bb9d9035c1bb61a5.json
+        - output/gas-shunin-hei/questions_json/2025/24_questionIssueCorrections/hei-pdf-v4-2025-026_2025-law-q10_1afa15e7bb2aa845.json
+        - output/gas-shunin-hei/questions_json/2025/24_questionIssueCorrections/hei-pdf-v4-2025-026_2025-law-q11_171731c9b62283ec.json
+        - output/gas-shunin-hei/questions_json/2025/24_questionIssueCorrections/hei-pdf-v4-2025-026_2025-law-q12_388372d0d57aa411.json
+        - output/gas-shunin-hei/questions_json/2025/24_questionIssueCorrections/hei-pdf-v4-2025-026_2025-law-q13_bd01fcd64e01bb77.json
+        - output/gas-shunin-hei/questions_json/2025/24_questionIssueCorrections/hei-pdf-v4-2025-026_2025-law-q14_965c9fd200917f08.json
+        - output/gas-shunin-hei/questions_json/2025/24_questionIssueCorrections/hei-pdf-v4-2025-026_2025-law-q15_65f5f42d2a03a7d7.json
+        - output/gas-shunin-hei/questions_json/2025/24_questionIssueCorrections/hei-pdf-v4-2025-026_2025-law-q16_3e69785a4d90cbf4.json
+        - output/gas-shunin-hei/questions_json/2025/24_questionIssueCorrections/hei-pdf-v4-2025-026_2025-law-q1_988b1ac2d3d560db.json
+        - output/gas-shunin-hei/questions_json/2025/24_questionIssueCorrections/hei-pdf-v4-2025-027_2025-law-q2_bfe4dc0ca2a6c845.json
+        - output/gas-shunin-hei/questions_json/2025/24_questionIssueCorrections/hei-pdf-v4-2025-027_2025-law-q3_e564a2cfb788322f.json
+        - output/gas-shunin-hei/questions_json/2025/24_questionIssueCorrections/hei-pdf-v4-2025-027_2025-law-q4_e4b9a5f578d47539.json
+        - output/gas-shunin-hei/questions_json/2025/24_questionIssueCorrections/hei-pdf-v4-2025-027_2025-law-q5_051055d964fa56ea.json
+        - output/gas-shunin-hei/questions_json/2025/24_questionIssueCorrections/hei-pdf-v4-2025-027_2025-law-q6_f82c430b363fc034.json
+        - output/gas-shunin-hei/questions_json/2025/24_questionIssueCorrections/hei-pdf-v4-2025-027_2025-law-q7_42d17fee0981b227.json
+        - output/gas-shunin-hei/questions_json/2025/24_questionIssueCorrections/hei-pdf-v4-2025-027_2025-law-q8_db6ad70839b42c20.json
+        - output/gas-shunin-hei/questions_json/2025/24_questionIssueCorrections/hei-pdf-v4-2025-027_2025-law-q9_cdb5f388f7c70f1b.json
+        - output/gas-shunin-hei/questions_json/2025/24_questionIssueCorrections/hei-pdf-v4-2025-027_2025-shohi-q22_0da03994ecf105cd.json
+        - output/gas-shunin-hei/questions_json/2017/10_questionType_fixed/question_2017_1_questionType_fixed.json
+        - output/gas-shunin-hei/questions_json/2017/10_questionType_fixed/question_2017_2_questionType_fixed.json
+        - output/gas-shunin-hei/questions_json/2017/10_questionType_fixed/question_2017_3_questionType_fixed.json
+        - output/gas-shunin-hei/questions_json/2018/10_questionType_fixed/question_2018_1_questionType_fixed.json
+        - output/gas-shunin-hei/questions_json/2018/10_questionType_fixed/question_2018_2_questionType_fixed.json
+        - output/gas-shunin-hei/questions_json/2018/10_questionType_fixed/question_2018_3_questionType_fixed.json
+        - output/gas-shunin-hei/questions_json/2019/10_questionType_fixed/question_2019_1_questionType_fixed.json
+        - output/gas-shunin-hei/questions_json/2019/10_questionType_fixed/question_2019_2_questionType_fixed.json
+        - output/gas-shunin-hei/questions_json/2019/10_questionType_fixed/question_2019_3_questionType_fixed.json
+        - output/gas-shunin-hei/questions_json/2020/10_questionType_fixed/question_2020_1_questionType_fixed.json
+        - output/gas-shunin-hei/questions_json/2020/10_questionType_fixed/question_2020_2_questionType_fixed.json
+        - output/gas-shunin-hei/questions_json/2020/10_questionType_fixed/question_2020_3_questionType_fixed.json
+        - output/gas-shunin-hei/questions_json/2021/10_questionType_fixed/question_2021_1_questionType_fixed.json
+        - output/gas-shunin-hei/questions_json/2021/10_questionType_fixed/question_2021_2_questionType_fixed.json
+        - output/gas-shunin-hei/questions_json/2021/10_questionType_fixed/question_2021_3_questionType_fixed.json
+        - output/gas-shunin-hei/questions_json/2022/10_questionType_fixed/question_2022_1_questionType_fixed.json
+        - output/gas-shunin-hei/questions_json/2022/10_questionType_fixed/question_2022_2_questionType_fixed.json
+        - output/gas-shunin-hei/questions_json/2022/10_questionType_fixed/question_2022_3_questionType_fixed.json
+        - output/gas-shunin-hei/questions_json/2023/10_questionType_fixed/question_2023_1_questionType_fixed.json
+        - output/gas-shunin-hei/questions_json/2023/10_questionType_fixed/question_2023_2_questionType_fixed.json
+        - output/gas-shunin-hei/questions_json/2023/10_questionType_fixed/question_2023_3_questionType_fixed.json
+        - output/gas-shunin-hei/questions_json/2024/10_questionType_fixed/question_2024_1_questionType_fixed.json
+        - output/gas-shunin-hei/questions_json/2024/10_questionType_fixed/question_2024_2_questionType_fixed.json
+        - output/gas-shunin-hei/questions_json/2024/10_questionType_fixed/question_2024_3_questionType_fixed.json
+        - output/gas-shunin-hei/questions_json/2025/10_questionType_fixed/question_2025_1_questionType_fixed.json
+        - output/gas-shunin-hei/questions_json/2025/10_questionType_fixed/question_2025_2_questionType_fixed.json
+        - output/gas-shunin-hei/questions_json/2025/10_questionType_fixed/question_2025_3_questionType_fixed.json
+        - output/gas-shunin-hei/questions_json/2017/15_correctChoiceText_fixed/question_2017_1_merged_correctChoiceText_fixed.json
+        - output/gas-shunin-hei/questions_json/2018/15_correctChoiceText_fixed/question_2018_1_merged_correctChoiceText_fixed.json
+        - output/gas-shunin-hei/questions_json/2018/15_correctChoiceText_fixed/question_2018_2_merged_correctChoiceText_fixed.json
+        - output/gas-shunin-hei/questions_json/2019/15_correctChoiceText_fixed/question_2019_1_merged_correctChoiceText_fixed.json
+        - output/gas-shunin-hei/questions_json/2019/15_correctChoiceText_fixed/question_2019_2_merged_correctChoiceText_fixed.json
+        - output/gas-shunin-hei/questions_json/2020/15_correctChoiceText_fixed/question_2020_1_merged_correctChoiceText_fixed.json
+        - output/gas-shunin-hei/questions_json/2020/15_correctChoiceText_fixed/question_2020_2_merged_correctChoiceText_fixed.json
+        - output/gas-shunin-hei/questions_json/2021/15_correctChoiceText_fixed/question_2021_1_merged_correctChoiceText_fixed.json
+        - output/gas-shunin-hei/questions_json/2021/15_correctChoiceText_fixed/question_2021_2_merged_correctChoiceText_fixed.json
+        - output/gas-shunin-hei/questions_json/2022/15_correctChoiceText_fixed/question_2022_1_merged_correctChoiceText_fixed.json
+        - output/gas-shunin-hei/questions_json/2023/15_correctChoiceText_fixed/question_2023_1_merged_correctChoiceText_fixed.json
+        - output/gas-shunin-hei/questions_json/2024/15_correctChoiceText_fixed/question_2024_1_merged_correctChoiceText_fixed.json
+        - output/gas-shunin-hei/questions_json/2025/15_correctChoiceText_fixed/question_2025_1_merged_correctChoiceText_fixed.json
+        - output/gas-shunin-hei/questions_json/2025/15_correctChoiceText_fixed/question_2025_2_merged_correctChoiceText_fixed.json
+      commands:
+        - cmd: normal materialize-patch and type/intent coverage; normal merge all9
+          status: pass
+        - cmd: choice text alignment; required fields
+          status: pass
+        - cmd: T012 unchanged raw522 and canonical private label-view coverage27
+          status: pass
+        - cmd: T003 final native proof, patch bytes and all522 projected fields verification
+          status: pass
+      summary: 70問を53fix/17no_changeで解消。共通注279を含む289正式24を保存、保留0。source27/ID/元正答/解説不変。最小01の522問/02の27問を内容再確認後に正常保存し、必須項目2088→0。正答coverageはraw表記失敗を保持し、元値不変と同義ラベルprivate投影27組の成功に限定。
+      evidence:
+        - path: document/temporary/20261027_gas_shunin_hei_pdf_patches.json
+          sha256: 0c9bfca0e17dd6cea9c7965f274a8f97ba6048e770dec95b57311110bfa16a37
+      remaining_blockers: []
+      needs_judge: true
+      verification_attempts: 2
+      stopped_because: null
     constraints:
       - 他の作業者がいるため、他者の変更を破棄・巻き戻ししない。
       - 00_source全27file、公式原PDF、既存ID、元正答・解説は変更しない。
@@ -319,6 +673,57 @@ tasks:
       confirmedNoChangeQuestions: 2
       strictPromptPilot: 実AppServer3問とJudge監査成功
       parallelReviewTransport: A/B独立read-only、Challengeと正式保存は直列
+    bounded_support:
+      id: T007
+      status: done
+      owner: hei_patch_driver
+      objective: 同値fieldの再掲を避けるprompt一文の別revisionとfresh単問回復helper
+      allowed_files:
+        - docs/goals/gas-shunin-hei-pdf-patches/notes/T007-review-driver.py
+        - docs/goals/gas-shunin-hei-pdf-patches/notes/T007-prepare-recoveries.py
+        - docs/goals/gas-shunin-hei-pdf-patches/notes/T007-prompt-verification.json
+      verify:
+        - AST prompt-only変更
+        - compile
+        - 306 ID被覆と既存accepted/staged除外
+      stop_if:
+        - 正式save禁止
+        - 旧応答改変禁止
+        - schema/gate/replay変更禁止
+      judge_receipt: notes/T007-recovery-judge-native.json
+      receipt: notes/T007-driver-native.json
+    minimal_schema_support:
+      id: T008
+      status: applied_and_verified
+      owner: hei_patch_driver
+      allowed_files:
+        - docs/goals/gas-shunin-hei-pdf-patches/notes/T008-materialize-metadata.py
+      scope: 全24/recovery確定後に現在投影を一問ずつ再確認して01の522問と必要02の27問だけを正常materializeし必須検査を満たす
+      judge_receipt: notes/T008-scope-and-glyph-correction-judge-native.json
+      stop_if:
+        - 00source/本文/choices/正答/解説/既存IDの変更
+        - 現行法・03・公開への拡張
+        - 現在投影への採用再確認なしの固定補完
+    original_verify:
+      - 開始前source全27fileと522問identityのhash inventoryを保存し、終了後に完全一致を確認する。
+      - 各24にscripts/check/check_question_issue_correction_patch.pyを実行し、現在投影・公式根拠・完全identity・expectedBeforeHashを検証する。
+      - python3 scripts/merge/00_merge_all.py <年度> --base-dir output/gas-shunin-hei/questions_json
+        を全9年度へ実行する。
+      - python3 scripts/check/check_choice_text_alignment.py --base-dir output/gas-shunin-hei/questions_json
+        --stage merged
+      - python3 scripts/check/check_required_fields.py --base-dir output/gas-shunin-hei/questions_json
+        --stage merged
+      - python3 scripts/check/check_correct_choice_patch_coverage.py
+      - 70問全件のfix/no_change/hold対応、法令144問・基礎135問の共通注適用、年度単位共通注意9件、通常mergeでの修正反映を照合する。
+      - 正答・解説・ID・無関係fieldのpresenceと値の不変を一問identityで検証する。
+      - 保存経路を変更しない場合は既存validatorと実データ確認に限定する。経路の実装変更が必要になった場合は別Workerへ分け、tests.test_official_source_correctionとtests.test_question_issue_correction_patchを実行する。
+      - git diff --check
+    verification_scope_judgment: notes/T012-label-view-judge-native.json
+    prior_failed_verification_evidence:
+      - notes/T003-empty-precheck.json
+      - notes/T008-schema-preflight.json
+      - notes/T011-private-prepare-failure.json
+      - output/gas-shunin-hei/pdf_patch_review/verification/commands-raw-label-attempt1.json
   - id: T004
     type: worker
     assignee: Worker
@@ -401,7 +806,7 @@ tasks:
   - id: T999
     type: judge
     assignee: Judge
-    status: queued
+    status: active
     reasoning_hint: default
     objective: 70問解消と共通注補完・ID/source不変・main pushを監査
     inputs:
@@ -421,6 +826,52 @@ tasks:
       - missing evidence
       - next task if not complete
     receipt: null
+  - id: T011
+    type: worker
+    assignee: Worker
+    status: done
+    objective: 条件所属の語だけで設問方向を決め打ちしない共通validator最小修正
+    allowed_files:
+      - scripts/common/question_answer_contract.py
+      - tests/test_question_answer_contract.py
+      - tests/test_question_intent_patch_coverage.py
+      - tests/test_question_review_question_candidate.py
+      - docs/goals/gas-shunin-hei-pdf-patches/notes/T011-validator-verification.json
+    verify:
+      - python3 -m unittest tests.test_question_answer_contract tests.test_question_intent_patch_coverage
+        tests.test_question_review_question_candidate
+      - git diff --check
+    constraints:
+      - ID/資格個別例外なし
+      - 明確な記述真偽要求の逆転拒否を保持
+      - 機械でselect_correctへ自動補正しない
+      - 問題データ/00source不変
+    judge_receipt: notes/T011-validator-judge-native.json
+    receipt:
+      result: done
+      task_id: T011
+      board_path: docs/goals/gas-shunin-hei-pdf-patches/state.yaml
+      changed_files:
+        - scripts/common/question_answer_contract.py
+        - tests/test_question_answer_contract.py
+        - tests/test_question_intent_patch_coverage.py
+        - tests/test_question_review_question_candidate.py
+        - docs/goals/gas-shunin-hei-pdf-patches/notes/T011-validator-verification.json
+      commands:
+        - cmd: python3 -m unittest tests.test_question_answer_contract tests.test_question_intent_patch_coverage
+            tests.test_question_review_question_candidate
+          status: pass
+          tests: 120
+        - cmd: 既存2020 private入力とpatchに対するcheck-question-intent-patchの読取専用再実行
+          status: pass
+        - cmd: git diff --check
+          status: pass
+      summary: 条件所属を表す「該当しないもの」を明示的な正誤要求tokenから除外しました。句点終止だけでは方向を断定せず、独立した明確な正誤要求の照合は保持します。関連3module全120テストと既存private
+        coverageが成功しました。データ・候補・正式metadata・helperは変更していません。
+      remaining_blockers: []
+      needs_judge: true
+      verification_attempts: 2
+      stopped_because: null
 checks:
   dirty_fingerprint: unknown
   last_verification:

@@ -1,0 +1,331 @@
+{
+  "nativeMessageId": "amsg_01a17a9b-b705-7ea3-8204-b8816cd289ed",
+  "nativeAuthor": "/root/hei_type_candidate_b",
+  "payload": {
+    "goalbuddy_receipt_v1": {
+      "result": "done",
+      "task_id": "T008",
+      "board_path": "docs/goals/gas-shunin-hei-pdf-patches/state.yaml",
+      "decision": "approve_next",
+      "full_outcome_complete": false,
+      "rationale": "現在投影の174問について本文・全選択肢・保存解説の有無を一問ずつ再確認しました。型と計算要否の変更・holdはありません。2022消費問21は表示復元により旧理由の画像欠落という記載が古くなっているため、理由文だけ修正します。候補補助ありの再確認であり、blind認証ではありません。",
+      "evidence": [
+        {
+          "reviewMode": "candidate_assisted_current_content_revalidation",
+          "packetPath": "output/gas-shunin-hei/pdf_patch_review/metadata-review-packets/type-b.json",
+          "packetSHA256": "acc0f728f5f20db8c3cc7af0829f4d5b57df16f25eff1b055c82b1b24f30e65c",
+          "packetHashUnchangedAtEnd": true,
+          "observed": 174,
+          "uniqueID": 174,
+          "uniqueOriginalID": 174,
+          "observedByYear": {
+            "2020": 58,
+            "2021": 58,
+            "2022": 58
+          },
+          "storedExplanationObserved": 174,
+          "storedExplanationPresent": 0,
+          "candidateIdentityMatches": true,
+          "approvedUnchangedCount": 173,
+          "changedCandidateCount": 1,
+          "classificationFieldChangeCount": 0,
+          "rationaleOnlyChangeCount": 1,
+          "holdCount": 0,
+          "filesWritten": [],
+          "blindCertification": false,
+          "approvedSourceQuestionIds": [
+            "2020:kiso:問1",
+            "2020:kiso:問10",
+            "2020:kiso:問11",
+            "2020:kiso:問12",
+            "2020:kiso:問13",
+            "2020:kiso:問14",
+            "2020:kiso:問15",
+            "2020:kiso:問2",
+            "2020:kiso:問3",
+            "2020:kiso:問4",
+            "2020:kiso:問5",
+            "2020:kiso:問6",
+            "2020:kiso:問7",
+            "2020:kiso:問8",
+            "2020:kiso:問9",
+            "2020:kyokyu:問10",
+            "2020:kyokyu:問11",
+            "2020:kyokyu:問12",
+            "2020:kyokyu:問13",
+            "2020:kyokyu:問14",
+            "2020:kyokyu:問15",
+            "2020:kyokyu:問16",
+            "2020:kyokyu:問17",
+            "2020:kyokyu:問18",
+            "2020:law:問1",
+            "2020:law:問10",
+            "2020:law:問11",
+            "2020:law:問12",
+            "2020:law:問13",
+            "2020:law:問14",
+            "2020:law:問15",
+            "2020:law:問16",
+            "2020:law:問2",
+            "2020:law:問3",
+            "2020:law:問4",
+            "2020:law:問5",
+            "2020:law:問6",
+            "2020:law:問7",
+            "2020:law:問8",
+            "2020:law:問9",
+            "2020:seizo:問1",
+            "2020:seizo:問2",
+            "2020:seizo:問3",
+            "2020:seizo:問4",
+            "2020:seizo:問5",
+            "2020:seizo:問6",
+            "2020:seizo:問7",
+            "2020:seizo:問8",
+            "2020:seizo:問9",
+            "2020:shohi:問19",
+            "2020:shohi:問20",
+            "2020:shohi:問21",
+            "2020:shohi:問22",
+            "2020:shohi:問23",
+            "2020:shohi:問24",
+            "2020:shohi:問25",
+            "2020:shohi:問26",
+            "2020:shohi:問27",
+            "2021:kiso:問1",
+            "2021:kiso:問10",
+            "2021:kiso:問11",
+            "2021:kiso:問12",
+            "2021:kiso:問13",
+            "2021:kiso:問14",
+            "2021:kiso:問15",
+            "2021:kiso:問2",
+            "2021:kiso:問3",
+            "2021:kiso:問4",
+            "2021:kiso:問5",
+            "2021:kiso:問6",
+            "2021:kiso:問7",
+            "2021:kiso:問8",
+            "2021:kiso:問9",
+            "2021:kyokyu:問10",
+            "2021:kyokyu:問11",
+            "2021:kyokyu:問12",
+            "2021:kyokyu:問13",
+            "2021:kyokyu:問14",
+            "2021:kyokyu:問15",
+            "2021:kyokyu:問16",
+            "2021:kyokyu:問17",
+            "2021:kyokyu:問18",
+            "2021:law:問1",
+            "2021:law:問10",
+            "2021:law:問11",
+            "2021:law:問12",
+            "2021:law:問13",
+            "2021:law:問14",
+            "2021:law:問15",
+            "2021:law:問16",
+            "2021:law:問2",
+            "2021:law:問3",
+            "2021:law:問4",
+            "2021:law:問5",
+            "2021:law:問6",
+            "2021:law:問7",
+            "2021:law:問8",
+            "2021:law:問9",
+            "2021:seizo:問1",
+            "2021:seizo:問2",
+            "2021:seizo:問3",
+            "2021:seizo:問4",
+            "2021:seizo:問5",
+            "2021:seizo:問6",
+            "2021:seizo:問7",
+            "2021:seizo:問8",
+            "2021:seizo:問9",
+            "2021:shohi:問19",
+            "2021:shohi:問20",
+            "2021:shohi:問21",
+            "2021:shohi:問22",
+            "2021:shohi:問23",
+            "2021:shohi:問24",
+            "2021:shohi:問25",
+            "2021:shohi:問26",
+            "2021:shohi:問27",
+            "2022:kiso:問1",
+            "2022:kiso:問10",
+            "2022:kiso:問11",
+            "2022:kiso:問12",
+            "2022:kiso:問13",
+            "2022:kiso:問14",
+            "2022:kiso:問15",
+            "2022:kiso:問2",
+            "2022:kiso:問3",
+            "2022:kiso:問4",
+            "2022:kiso:問5",
+            "2022:kiso:問6",
+            "2022:kiso:問7",
+            "2022:kiso:問8",
+            "2022:kiso:問9",
+            "2022:kyokyu:問10",
+            "2022:kyokyu:問11",
+            "2022:kyokyu:問12",
+            "2022:kyokyu:問13",
+            "2022:kyokyu:問14",
+            "2022:kyokyu:問15",
+            "2022:kyokyu:問16",
+            "2022:kyokyu:問17",
+            "2022:kyokyu:問18",
+            "2022:law:問1",
+            "2022:law:問10",
+            "2022:law:問11",
+            "2022:law:問12",
+            "2022:law:問13",
+            "2022:law:問14",
+            "2022:law:問15",
+            "2022:law:問16",
+            "2022:law:問2",
+            "2022:law:問3",
+            "2022:law:問4",
+            "2022:law:問5",
+            "2022:law:問6",
+            "2022:law:問7",
+            "2022:law:問8",
+            "2022:law:問9",
+            "2022:seizo:問1",
+            "2022:seizo:問2",
+            "2022:seizo:問3",
+            "2022:seizo:問4",
+            "2022:seizo:問5",
+            "2022:seizo:問6",
+            "2022:seizo:問7",
+            "2022:seizo:問8",
+            "2022:seizo:問9",
+            "2022:shohi:問19",
+            "2022:shohi:問20",
+            "2022:shohi:問22",
+            "2022:shohi:問23",
+            "2022:shohi:問24",
+            "2022:shohi:問25",
+            "2022:shohi:問26",
+            "2022:shohi:問27"
+          ],
+          "changedCandidates": [
+            {
+              "sourceQuestionId": "2022:shohi:問21",
+              "original_question_id": "4f8f2325c68a3916",
+              "currentRecordHash": "82ea3c1177e2091d8b1a67a7ae8d77a362de11879b30a49cf4192f3c23445a2a",
+              "changeKind": "rationale_only",
+              "classificationFieldsChanged": false,
+              "previousQuestionType": "true_false",
+              "previousIsCalculationQuestion": false,
+              "questionType": "true_false",
+              "isCalculationQuestion": false,
+              "rationale": "器具の法令対象と販売表示義務を各肢で独立判定する。本文に復元されたひし形のPS・LPG表示を肢5へ補っても回答操作は変わらない。各消費量は指定基準との照合であり、新しい量の算出は不要。",
+              "reasonForChange": "旧候補理由の『肢5の表示画像欠落』は現在投影に当てはまらないため除去する。型と計算要否は維持する。",
+              "requiresAggregateDecomposition": false,
+              "holdReason": null,
+              "officialImagesViewed": [
+                31
+              ],
+              "revalidatedAfterRationaleReplacement": true
+            }
+          ],
+          "holds": []
+        },
+        {
+          "currentContentFindings": [
+            {
+              "sourceQuestionIds": [
+                "2022:seizo:問3"
+              ],
+              "finding": "補完された※1は充てん設備の許可を受けた新型、※2は液化石油ガス保安規則第9条の移動式製造設備の基準に適合する従来型を特定している。各距離・措置の命題はその定義を補って独立判定でき、距離の算出も不要。true_false・計算falseを維持。",
+              "officialImagesViewed": [
+                23
+              ]
+            },
+            {
+              "sourceQuestionIds": [
+                "2022:shohi:問21"
+              ],
+              "finding": "本文にひし形の枠とPS・LPGの表示内容、液石法の正式名称が復元されている。公式p31実画像も確認。各肢の独立判定で、表示の復元による型・計算要否の変更はない。",
+              "officialImagesViewed": [
+                31
+              ]
+            },
+            {
+              "sourceQuestionIds": [
+                "2020:kiso:問8"
+              ],
+              "finding": "共通注は指定のない圧力を絶対圧力とし、当問の初期・最終圧力は本文が明示的にゲージ圧力と指定している。絶対圧への換算を含む単一値の導出が必要で、flash_card・計算trueを維持。"
+            },
+            {
+              "sourceQuestionIds": [
+                "2021:kiso:問8",
+                "2022:kiso:問7"
+              ],
+              "finding": "圧力にゲージ指定がなく、現在の共通注により絶対圧力として読む。温度との比例計算と温度換算が必要で、flash_card・計算trueを維持。2021問8の150kPaへ大気圧を重ねて加える根拠はない。"
+            },
+            {
+              "sourceQuestionIds": [
+                "2020:kiso:問4"
+              ],
+              "finding": "同質量・同温同圧の四気体の体積順位という回答操作を確認。順位候補の比較なのでgroup_choice。分子量との定性関係から順序を定め、新しい体積や比を求める必要はないため計算falseを維持。"
+            },
+            {
+              "sourceQuestionIds": [
+                "2021:kiso:問3",
+                "2022:kiso:問4"
+              ],
+              "finding": "選択肢は比較対象の物質そのもの。同質量での分子数と分子量の関係、又は既知のモル質量の大小を用いて該当性を判定する。数値・比の導出を必須操作とせず、true_false・計算falseを維持。"
+            },
+            {
+              "sourceQuestionIds": [
+                "2020:shohi:問19",
+                "2020:shohi:問24",
+                "2022:kiso:問5",
+                "2022:kiso:問10"
+              ],
+              "finding": "各肢の独立判定という型と計算要否を分けて確認。燃焼生成物の量論比、30分から毎時回数への換算、肢別の質量・標準体積の対応、cm²からm²を介した圧力算出を要するためtrue_false・計算trueを維持。"
+            },
+            {
+              "sourceQuestionIds": [
+                "2020:kiso:問12",
+                "2020:kiso:問13",
+                "2022:kiso:問13"
+              ],
+              "finding": "選択肢は係数の組合せ又は量の順位を一体として示している。係数算定又は異なるガス体積に反応比を適用する演算を要し、group_choice・計算trueを維持。"
+            },
+            {
+              "sourceQuestionIds": [
+                "2020:law:問11",
+                "2021:law:問13",
+                "2021:kiso:問14",
+                "2022:law:問4",
+                "2022:kyokyu:問18"
+              ],
+              "finding": "本文に個数を問う指示が残るが、現在の選択肢は既に各条件・各命題・各ガスへ分かれている。各肢の独立判定が学習単位であり、追加の集約回答分解は不要。"
+            },
+            {
+              "sourceQuestionIds": [
+                "2022:kyokyu:問14"
+              ],
+              "finding": "管内容積1m³と水柱ゲージによる保持時間の肢は、条件に対応する規定時間との照合として読む。管内容積自体や保持時間の新たな算出は要求されず、true_false・計算falseを維持。"
+            }
+          ],
+          "reviewSummary": "法令の共通注は参照規定とゲージ圧力を、基礎の共通注は指定のない圧力を絶対圧力として読む条件を補っている。各問の独立命題・語句組合せ・順位比較・単一値導出を現在の本文と全選択肢から再判定した。数値基準、公式、装置内の演算の説明があるだけでは計算trueにしていない。保存解説は全174問でpresent=false・value=nullであり、解説による補足根拠はない。"
+        }
+      ],
+      "next_allowed_task": null,
+      "subgoal_contract": null,
+      "parallel_safety": null,
+      "blocked_tasks": [],
+      "missing_evidence": [
+        "本receiptは指定packetの型・計算要否候補の採用判断に限定する。正式metadata patch保存後の検査、全522問の採用、元の全成果の完了は評価していない。"
+      ],
+      "required_board_updates": [
+        "2020〜2022年174問の現在内容再確認として本packetSHA256を記録する。",
+        "2022:shohi:問21の理由文だけを現在の表示復元後の内容に合わせて置き換える。型・計算要否は変更しない。",
+        "確認方式を候補補助ありの再確認と記録し、blind認証と表現しない。"
+      ]
+    }
+  }
+}

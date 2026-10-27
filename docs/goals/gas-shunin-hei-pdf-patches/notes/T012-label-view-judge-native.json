@@ -1,0 +1,86 @@
+{
+  "nativeMessageId": "amsg_01a17aa8-0c72-7f82-8459-7ed28b411ad0",
+  "nativeAuthor": "/root/hei_patch_judge",
+  "payload": {
+    "goalbuddy_receipt_v1": {
+      "result": "done",
+      "task_id": "T003",
+      "board_path": "docs/goals/gas-shunin-hei-pdf-patches/state.yaml",
+      "decision": "approve_next",
+      "full_outcome_complete": false,
+      "rationale": "正答を変更しない今回のscopeでは、raw値の完全不変を確認した上で、既存正規関数による同義ラベルのprivate検証投影へcoverage checkerを適用する方法を認めます。field契約は取得元aliasの読取互換と、新規23patchのcanonical書式を区別しています。実23patchがないのに検証投影を正式patchと扱ってはいけません。元の失敗は保持し、成功範囲を『元値不変と同義ラベル投影のcoverage』として報告してください。",
+      "evidence": [
+        {
+          "path": "document/reference/question_field_contract.md:146",
+          "finding": "正解/不正解/誤りは取得元の表記ゆれとして同じ判定で読み取り、新規patchと最終uploadでは正しい/間違いへ正規化する契約。"
+        },
+        {
+          "path": "scripts/merge/patch_views.py:566-573",
+          "finding": "normalize_correct_choice_labelは正解→正しい、不正解/誤り→間違いという既存の正規変換を所有する。"
+        },
+        {
+          "path": "scripts/check/check_correct_choice_patch_coverage.py:192-211",
+          "finding": "入力patchのラベル配列にはcanonical表記を要求する。source aliasの読取可否とは異なる層の書式検査である。"
+        },
+        {
+          "path": "output/gas-shunin-hei/pdf_patch_review/verification/commands.json",
+          "finding": "alignmentとrequired_fieldsは成功、raw値を複写した検証投影のcoverageは不通過として保存されている。引数なし呼出しのexit2も、実データ検査成功とは区別されている。"
+        }
+      ],
+      "next_allowed_task": {
+        "type": "worker",
+        "assignee": "Worker",
+        "objective": "元正答の完全不変と同義ラベルの意味不変を証明し、private canonical検証投影に対して正規coverage checkerを全27組へ実行する。",
+        "allowed_files": [
+          "output/gas-shunin-hei/pdf_patch_review/verification/",
+          "docs/goals/gas-shunin-hei-pdf-patches/notes/",
+          "document/temporary/20261027_gas_shunin_hei_pdf_patches.md",
+          "document/temporary/20261027_gas_shunin_hei_pdf_patches.json"
+        ],
+        "required_conditions": [
+          "00_source、正式24/10/15、通常mergedのcorrectChoiceTextと関連正答fieldは一切変更しない。正式23patchは作らない。",
+          "先に全522問のraw正答についてsourceと最終mergedの値・順序・field presenceの完全一致を確認する。",
+          "既存normalizerを使い、各ラベルを当該source identityの同じ選択肢へ対応させる。他問又は配列順によるbindingを作らない。",
+          "変換前に値が許可された既存ラベル集合に属することを検証する。None、未知値、型不正をstr変換等で隠さない。",
+          "source側とmerged側を同じ関数で正規化した結果の完全一致、選択肢数とラベル数の一致、変換件数と対象IDを保存する。",
+          "checkerには可能なら実sourceを--sourceとして渡し、--patchだけをprivate canonical検証投影にする。sourceの複写が必要な場合は実sourceとのhash対応を固定する。",
+          "private投影を23_correctChoiceText_fixedへ置かず、通常mergeへ取り込ませない。",
+          "checker本体やcanonical書式条件を緩めない。"
+        ],
+        "verify": [
+          "全522問のraw correctChoiceText、公式番号答、関連正答fieldがsourceと最終mergedで不変であることを確認する。",
+          "既存normalizerの実file/function参照とhash、変換対象171問・855ラベルの実集計を記録する。件数は予測値と一致させるため補正せず、実結果を採用する。",
+          "各IDでsource正規化結果とmerged正規化結果が完全一致し、未知ラベル・欠落・重複・数の不一致が0であることを確認する。",
+          "全27組にcheck_correct_choice_patch_coverage.py --source <対応source> --patch <private canonical投影> --require-fullを実行し、実コマンド・入力hash・終了code・日時・ログを保存する。",
+          "raw投影の失敗ログ、引数なし呼出しのexit2、canonical投影の検証結果を別の証跡として保持する。",
+          "検証後にも正式source/patch/mergedのhashが検証開始前から変わっていないことを確認する。"
+        ],
+        "stop_if": [
+          "raw値がsourceとmergedで異なる問がある場合、正規化後の一致だけで解消扱いにしない。",
+          "ラベル以外の正答内容・選択肢・identityの変換が必要なら保存又は成功認定しない。",
+          "新規23patchの正答審査完了又はraw表記のstrict23書式成功と称する必要がある場合は停止する。"
+        ]
+      },
+      "subgoal_contract": null,
+      "parallel_safety": {
+        "write_workers": 1,
+        "parallel_writes": false,
+        "formalDataMutation": false
+      },
+      "blocked_tasks": [],
+      "missing_evidence": [
+        "raw正答不変の全522問証明",
+        "private canonical投影のID別意味不変・変換件数",
+        "全27組のcoverage成功",
+        "最終監査・main commit/push"
+      ],
+      "required_board_updates": [
+        "coverageの成功範囲を『元値不変と同義ラベル検証投影の全件coverage』と明記する。",
+        "実23patchは0件、新しい正答変更は0件と区別する。",
+        "raw投影のstrict書式不通過を削除又は成功へ書き換えない。",
+        "引数なし呼出しのCLI errorをデータの検査結果へ混同せず、正規引数付き実行を採用する。",
+        "本receiptはprivate検証層の適用判断であり、Firestore公開可能性の認定には使わない。"
+      ]
+    }
+  }
+}

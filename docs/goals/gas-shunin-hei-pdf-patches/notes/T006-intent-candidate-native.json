@@ -1,0 +1,227 @@
+{
+  "nativeMessageId": "amsg_01a17a7c-da4a-73f3-a4fd-f3507a7ff4de",
+  "nativeAuthor": "/root/hei_type_candidate_c",
+  "payload": {
+    "goalbuddy_receipt_v1": {
+      "result": "done",
+      "task_id": "T003",
+      "board_path": "docs/goals/gas-shunin-hei-pdf-patches/state.yaml",
+      "decision": "not_complete",
+      "full_outcome_complete": false,
+      "rationale": "02正本を読み、指定27問の本文と全選択肢から完全命題と選択方向を個別に確認しました。27件すべての自然IDが重複なく存在します。正式patchの保存、02整備済み又は公開可能という判定は行っていません。",
+      "evidence": [
+        {
+          "kind": "question_intent_candidate_review",
+          "contract": "prompt/02_prompt_fix_questionIntent.md",
+          "expectedCount": 27,
+          "observedCount": 27,
+          "uniqueSourceQuestionIdCount": 27,
+          "missingSourceQuestionIds": [],
+          "identityRule": "各原問のoriginal_question_idがないため、同じ原問のpublic_question_idを候補のoriginal_question_idに使用。",
+          "reviewMethod": "sourceの識別子・本文・全choiceだけをPythonで抽出し、各肢の構造と設問の選択方向を直接確認。正答、正答数、既存のquestionIntent・questionType・分類は参照していない。",
+          "writesPerformed": false,
+          "intentCandidates": [
+            {
+              "sourceQuestionId": "2017:law:問2",
+              "original_question_id": "851989d3e7adec5e",
+              "questionIntent": "select_correct",
+              "rationale": "各肢は事故の種類を表す名詞句であり、『この事故はガス事故詳報の報告が法令で規定されていない』を完全命題とする。その命題が成立する事故を選ぶ方向。",
+              "holdReason": null
+            },
+            {
+              "sourceQuestionId": "2017:law:問9",
+              "original_question_id": "3d71b3619be4ec83",
+              "questionIntent": "select_correct",
+              "rationale": "各肢は工作物又はその部分の名称であり、『この工作物・部分は本文に引用された構造規定に該当しない』を完全命題とする。この非該当条件を満たす肢を選ぶ方向。",
+              "holdReason": null
+            },
+            {
+              "sourceQuestionId": "2017:law:問12",
+              "original_question_id": "e2e491743970560d",
+              "questionIntent": "select_correct",
+              "rationale": "各肢は導管部分や器具の名称であり、『この部分・器具は、本文の前提の下で技術基準に漏えい検査が規定されていない』を完全命題とする。個数を問う指示でも、この命題が成立する側を求める。",
+              "holdReason": null
+            },
+            {
+              "sourceQuestionId": "2017:kiso:問3",
+              "original_question_id": "6b8b15e43117d293",
+              "questionIntent": "select_correct",
+              "rationale": "物質名の各肢に『この物質は、列挙された物質のうち1g中の分子数が最も多い』を補う。その条件が成立する物質を選ぶ方向。",
+              "holdReason": null
+            },
+            {
+              "sourceQuestionId": "2017:kiso:問9",
+              "original_question_id": "d240278d89626f22",
+              "questionIntent": "select_correct",
+              "rationale": "各肢は物理量や管の属性の名称であり、『この属性は内径一定の水平管内流れの摩擦損失の要因にならない』を完全命題とする。要因にならない条件を満たす側を選ぶ。",
+              "holdReason": null
+            },
+            {
+              "sourceQuestionId": "2018:law:問2",
+              "original_question_id": "fabed91bb4ad3513",
+              "questionIntent": "select_correct",
+              "rationale": "事故を表す各名詞句に『この事故はガス事故詳報を経済産業大臣へ報告することが法令で規定されている』を補う。個数指示は、その命題が成立する事故を数える方向。",
+              "holdReason": null
+            },
+            {
+              "sourceQuestionId": "2018:law:問11",
+              "original_question_id": "d59d98ee272dd091",
+              "questionIntent": "select_correct",
+              "rationale": "各肢は実施した行為を述べ、設問は行為の事実性ではなく基準適合を問う。『この行為は本文の条件下で技術基準に適合していない』という選択条件が成立する行為を選ぶ。",
+              "holdReason": null
+            },
+            {
+              "sourceQuestionId": "2018:kiso:問5",
+              "original_question_id": "09496c34992fe771",
+              "questionIntent": "select_correct",
+              "rationale": "各気体名に『この気体は列挙された気体のうち、標準状態における1kg当たりの体積が最も大きい』を補う。その命題が成立する側を選ぶ。",
+              "holdReason": null
+            },
+            {
+              "sourceQuestionId": "2018:kyokyu:問14",
+              "original_question_id": "751ab427455fa893",
+              "questionIntent": "select_correct",
+              "rationale": "各肢は『〜の場合』という条件断片であり、『この場合、簡易ガス用マイコンメーターは遮断しない』を完全命題とする。遮断しないという条件が成立する場合を選ぶ。",
+              "holdReason": null
+            },
+            {
+              "sourceQuestionId": "2019:law:問2",
+              "original_question_id": "545cb2514d14a0f5",
+              "questionIntent": "select_correct",
+              "rationale": "事故名の各肢に『この事故の速報は、設置場所を管轄する産業保安監督部長のみが報告先として規定されている』を補う。『のみ』を含む条件が成立する事故を求める。",
+              "holdReason": null
+            },
+            {
+              "sourceQuestionId": "2019:kiso:問8",
+              "original_question_id": "381896c912a2ad30",
+              "questionIntent": "select_correct",
+              "rationale": "各肢は条件変更の内容であり、『他の条件を同じにしてこの変更を行うと、単位時間当たりの熱量が0.5Qとなる』を完全命題とする。その結果を満たす変更を選ぶ。",
+              "holdReason": null
+            },
+            {
+              "sourceQuestionId": "2019:kiso:問12",
+              "original_question_id": "4969dfb9bece90b6",
+              "questionIntent": "select_correct",
+              "rationale": "各気体名に『この気体は標準状態の同容積で比較すると空気より軽い』を補う。個数指示でも、この比較条件が成立する気体側を求める。",
+              "holdReason": null
+            },
+            {
+              "sourceQuestionId": "2020:law:問3",
+              "original_question_id": "fa7a8f58ad47b6bb",
+              "questionIntent": "select_correct",
+              "rationale": "各肢は事故の種類を表す名詞句であり、『この事故はガス事故速報の報告が法令で規定された事故に該当しない』を完全命題とする。非該当の命題が成立する側を求める。",
+              "holdReason": null
+            },
+            {
+              "sourceQuestionId": "2020:law:問6",
+              "original_question_id": "a72fc6e5e3f20a93",
+              "questionIntent": "select_correct",
+              "rationale": "各肢は『距離を有しなければならない』『第1種保安物件に該当する』等の完結した規定内容の記述。技術基準に実際に規定され、各記述が成立する側を選ぶ方向。",
+              "holdReason": null
+            },
+            {
+              "sourceQuestionId": "2020:law:問11",
+              "original_question_id": "21bc707a93468b2f",
+              "questionIntent": "select_correct",
+              "rationale": "各肢は設置状況や導管部分を示す断片であり、『この場合の当該部分は、本文の導管条件の下で漏えい検査の対象から除外されている』を完全命題とする。その除外条件が成立する側を求める。",
+              "holdReason": null
+            },
+            {
+              "sourceQuestionId": "2020:seizo:問8",
+              "original_question_id": "f1e6ef5681571a9b",
+              "questionIntent": "select_correct",
+              "rationale": "各肢は設備措置という行為を述べ、設問はその行為が地震対策に該当するかを問う。『この措置は特定製造所の地震対策に該当しない』という条件が成立する側を選ぶ。",
+              "holdReason": null
+            },
+            {
+              "sourceQuestionId": "2021:law:問4",
+              "original_question_id": "eb8d41d0d8da8614",
+              "questionIntent": "select_correct",
+              "rationale": "各肢は事故を特定する名詞句であり、『この事故はガス事故速報の報告が法令で規定されていない』を完全命題とする。否定述語を含むこの条件が成立する事故を選ぶ。",
+              "holdReason": null
+            },
+            {
+              "sourceQuestionId": "2021:kiso:問3",
+              "original_question_id": "51c05b1679b0b5f2",
+              "questionIntent": "select_correct",
+              "rationale": "物質名の各肢に『この物質は列挙された物質のうち、1g中に含まれる分子数が最も少ない』を補う。最少という比較条件が成立する側を選ぶ。",
+              "holdReason": null
+            },
+            {
+              "sourceQuestionId": "2021:kiso:問14",
+              "original_question_id": "b51b29f0762f33a8",
+              "questionIntent": "select_correct",
+              "rationale": "各気体名に『この気体は標準状態の同容積で比較すると空気より軽い』を補う。その命題が成立する気体側を求め、元の個数指示で方向を反転しない。",
+              "holdReason": null
+            },
+            {
+              "sourceQuestionId": "2022:law:問4",
+              "original_question_id": "2df1bcb7c9b06946",
+              "questionIntent": "select_correct",
+              "rationale": "各肢は事故の種類を表し、『この事故はガス事故速報及びガス事故詳報の報告が法令で規定されている』を完全命題とする。両方の報告条件が成立する事故側を求める。",
+              "holdReason": null
+            },
+            {
+              "sourceQuestionId": "2022:kiso:問4",
+              "original_question_id": "acfbc17300024f2d",
+              "questionIntent": "select_correct",
+              "rationale": "各物質名に『この物質は列挙された物質のうち、1モルの質量が最も大きい』を補う。その最大条件が成立する側を選ぶ。",
+              "holdReason": null
+            },
+            {
+              "sourceQuestionId": "2023:law:問4",
+              "original_question_id": "783733ed3c656bf9",
+              "questionIntent": "select_correct",
+              "rationale": "事故名の各肢に『この事故はガス事故速報及びガス事故詳報の報告が法令で規定されていない』を補う。その報告非対象条件が成立する事故を選ぶ方向。",
+              "holdReason": null
+            },
+            {
+              "sourceQuestionId": "2023:kiso:問3",
+              "original_question_id": "063347de414764de",
+              "questionIntent": "select_correct",
+              "rationale": "各物質名に『この物質は列挙された物質のうち、1g中に含まれる分子数が最も少ない』を補う。その条件が成立する物質を選ぶ。",
+              "holdReason": null
+            },
+            {
+              "sourceQuestionId": "2024:law:問4",
+              "original_question_id": "6b71c83fb497c8da",
+              "questionIntent": "select_correct",
+              "rationale": "各肢は事故を表す名詞句であり、『この事故はガス事故速報の報告が法令で規定されていない』を完全命題とする。選択肢には事故が既に個別に並び、非対象条件が成立する側を求める。",
+              "holdReason": null
+            },
+            {
+              "sourceQuestionId": "2024:kiso:問2",
+              "original_question_id": "e4d11bfd1a883584",
+              "questionIntent": "select_correct",
+              "rationale": "各物質名に『この物質は列挙された物質のうち、1g中に含まれる分子数が最も多い』を補う。その最多条件が成立する側を選ぶ。",
+              "holdReason": null
+            },
+            {
+              "sourceQuestionId": "2025:kiso:問5",
+              "original_question_id": "237a232f4d794e0e",
+              "questionIntent": "select_correct",
+              "rationale": "各物質名に『この物質は列挙された物質のうち、1g中に含まれる物質量が最も少ない』を補う。その最少条件が成立する物質を選ぶ。",
+              "holdReason": null
+            },
+            {
+              "sourceQuestionId": "2025:kiso:問14",
+              "original_question_id": "42d57eba96413824",
+              "questionIntent": "select_correct",
+              "rationale": "各可燃性ガス名に『このガスは列挙されたガスのうち、常温・大気圧で燃焼範囲が最も広い』を補う。その最大条件が成立するガスを選ぶ。",
+              "holdReason": null
+            }
+          ]
+        }
+      ],
+      "next_allowed_task": null,
+      "subgoal_contract": null,
+      "parallel_safety": null,
+      "blocked_tasks": [],
+      "missing_evidence": [
+        "追加02候補を正式保存する場合のPM判断、現在のlogicalProjectionとの一致確認、source binding及び標準patch検証。",
+        "原目標全体の本文訂正・共通注補完・必須検査・main pushの完了証跡は本補助作業の対象外。"
+      ],
+      "required_board_updates": []
+    }
+  }
+}

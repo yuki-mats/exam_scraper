@@ -1,0 +1,37 @@
+{
+  "nativeMessageId": "amsg_01a17a95-4fa3-7080-8f79-14c20348628a",
+  "nativeAuthor": "/root/hei_patch_driver",
+  "payload": {
+    "goalbuddy_receipt_v1": {
+      "result": "done",
+      "task_id": "T003",
+      "board_path": "docs/goals/gas-shunin-hei-pdf-patches/state.yaml",
+      "changed_files": [
+        "docs/goals/gas-shunin-hei-pdf-patches/notes/T008-materialize-metadata.py"
+      ],
+      "commands": [
+        {
+          "cmd": "python3 -m py_compile docs/goals/gas-shunin-hei-pdf-patches/notes/T008-materialize-metadata.py",
+          "status": "pass"
+        },
+        {
+          "cmd": "materialize-patch / check-question-type-patch / check-question-intent-patch --help",
+          "status": "pass"
+        },
+        {
+          "cmd": "metadata-only differential, protected fields, duplicate identities and exclusive-write guard verification",
+          "status": "pass"
+        },
+        {
+          "cmd": "git diff --check",
+          "status": "pass"
+        }
+      ],
+      "summary": "T008補助helperを作成しました。522/27件の採用hash、306件の本文審査完了、289正式24、source baselineを確認後、正常CLIでprivate生成・coverage検証します。--apply時は同値以外の上書きを拒否し、通常merge後の変更を採用metadataだけに限定して検査します。元候補・source・既存応答は保持し、helper及び--applyは未起動です。",
+      "remaining_blockers": [],
+      "needs_judge": true,
+      "verification_attempts": 1,
+      "stopped_because": null
+    }
+  }
+}

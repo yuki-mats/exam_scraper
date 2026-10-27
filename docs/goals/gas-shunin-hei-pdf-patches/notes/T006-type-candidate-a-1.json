@@ -1,0 +1,54 @@
+{
+  "nativeMessageId": "amsg_01a17a78-7896-7f72-b0bc-d5b6126c9a50",
+  "nativeAuthor": "/root/hei_type_candidate_a",
+  "payload": {
+    "goalbuddy_receipt_v1": {
+      "result": "done",
+      "task_id": "T003",
+      "board_path": "docs/goals/gas-shunin-hei-pdf-patches/state.yaml",
+      "decision": "not_complete",
+      "full_outcome_complete": false,
+      "rationale": "2問とも選択肢が比較対象の物質名そのものであり、本文から算出した単一数値を照合する形式ではありません。最軽量物質の知識から即答できることだけでは回答操作の分類根拠として不十分でした。元receiptを保持し、questionTypeのみ変更するamendmentを返します。",
+      "evidence": [
+        {
+          "amendments": [
+            {
+              "sourceQuestionId": "2017:kiso:問3",
+              "original_question_id": "6b8b15e43117d293",
+              "field": "questionType",
+              "before": "flash_card",
+              "after": "true_false",
+              "rationale": "本文は比較対象を指定せず、酸素・水素・プロパン・水・一酸化炭素を選択肢で提示する。各物質に共通述語「同じ1gで分子数が最大となる」を補い、分子量との逆比例関係から各候補の該当性を判定する操作である。水素を知識で即答できることを、本文だけから導いた答えとの照合と同一視しない。"
+            },
+            {
+              "sourceQuestionId": "2018:kiso:問5",
+              "original_question_id": "09496c34992fe771",
+              "field": "questionType",
+              "before": "flash_card",
+              "after": "true_false",
+              "rationale": "本文は比較対象を指定せず、二酸化炭素・酸素・メタン・ブタン・水素を選択肢で提示する。各気体に共通述語「同じ1kg・標準状態で体積が最大となる」を補い、モル質量との逆比例関係から各候補の該当性を判定する操作である。数値結果を導いた後に数値候補と照合する形式ではない。"
+            }
+          ],
+          "isCalculationQuestionReevaluated": false,
+          "isCalculationQuestionAmended": false,
+          "originalReceiptPreserved": true,
+          "inputs": [
+            "prompt/01_prompt_fix_questionType.md",
+            "output/gas-shunin-hei/questions_json/2017/00_source/question_2017_1.json",
+            "output/gas-shunin-hei/questions_json/2017/00_source/question_2017_2.json",
+            "output/gas-shunin-hei/questions_json/2018/00_source/question_2018_1.json",
+            "output/gas-shunin-hei/questions_json/2018/00_source/question_2018_2.json"
+          ],
+          "verification": "指定2問のsourceQuestionIdで対象を特定し、本文・全選択肢・画像fieldのみ再抽出して直接確認した。正答・正答数・既存分類は参照していない。",
+          "writesPerformed": false
+        }
+      ],
+      "next_allowed_task": null,
+      "subgoal_contract": null,
+      "parallel_safety": null,
+      "blocked_tasks": [],
+      "missing_evidence": [],
+      "required_board_updates": []
+    }
+  }
+}
