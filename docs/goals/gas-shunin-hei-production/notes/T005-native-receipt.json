@@ -1,0 +1,148 @@
+{
+  "result": "done",
+  "task_id": "T005",
+  "board_path": "docs/goals/gas-shunin-hei-production/state.yaml",
+  "decision": "approve_next",
+  "full_outcome_complete": false,
+  "rationale": "既存24で公式の本文・組合せ選択肢を復元する案を優先する。ただし現実装では24の後置適用、集約レビューでの00_sourceへの差し戻し、組合せ正答から全記述真偽を逆算する処理が衝突する。公式訂正済みpre01 baseを共通化し、通常の独立レビューと後工程を再実行する回復packageを承認する。新mapping fieldやsource信頼宣言による回避は不要。公開は未承認状態ではなく、必要な品質証拠が未達の状態である。",
+  "evidence": [
+    {
+      "path": "docs/goals/gas-shunin-hei-production/state.yaml",
+      "finding": "T002は途中checkpoint付きqueued、T005がactive。2025年pilotは44 validated・14 blocked・58 processedであり、queue終了を全問整備完了とはしていない。"
+    },
+    {
+      "path": "output/gas-shunin-hei/production/20261027/pilot-blocks-interim.json",
+      "finding": "組合せ元表不足、法令本文不足、数式delimiter不備、分類境界の不足という別責務の保留が記録されている。"
+    },
+    {
+      "path": "config/question_issue_reports.json",
+      "finding": "question_contentの既存allowedChangeFieldsはquestionBodyTextとchoiceTextList。公式の問題構造をこの2fieldで復元でき、00_sourceや既存親IDを変更する必要はない。expectedBeforeHashFieldsも本文・選択肢を独立に固定する。"
+    },
+    {
+      "path": "scripts/merge/record_projection.py:204",
+      "finding": "現状は05、01以降を適用した後に24を適用する。このまま公式組合せ表を復元すると、01で作った記述単位の選択肢が後置24によって再上書きされる。物理mergeとlogical projectionは同じproject_merge_recordを共有しているため、ここで工程責務を一貫させるのが適切。"
+    },
+    {
+      "path": "tools/question_review_console/qualification_runs.py:3014",
+      "finding": "_aggregate_review_source_recordsはcurrentRecordの本文・選択肢を00_sourceへ戻す。復元済み24を01の集約レビューへ渡すには、00_sourceと区別した公式訂正済みpre01 baseへ入力を束縛する必要がある。"
+    },
+    {
+      "path": "tools/question_review_console/qualification_runs.py:3123",
+      "finding": "_aggregate_downstream_source_evidenceは元選択肢・公式番号を別証拠として配送できる。pre01 baseの公式組合せ順を使えば新mapping専用fieldを設けずに既存のoriginalAggregateAnswerEvidenceへ正しい元問題構造を渡せる。ただし旧sourceの記述真偽配列を新しい組合せ選択肢の正誤配列として配送してはならない。"
+    },
+    {
+      "path": "tools/question_review_console/question_candidate.py:83",
+      "finding": "_aggregate_combination_expected_verdictsは公式選択肢に含まれない記述を反対真偽に決め打ちする。一般の「いずれも正しい／誤っているものの組合せ」では論理的に保証されず、全記述の独立判断を置換してしまう。"
+    },
+    {
+      "path": "tools/question_review_console/qualification_runs.py:3182",
+      "finding": "_trusted_source_answer_evidenceのofficial_correction_appliesは同じ選択肢件数を含む条件でsource真偽の適用を許す。記述5件から組合せ5件への変更は件数が同じでも意味が異なるため、公式本文訂正を正答承認とみなすことはできない。"
+    },
+    {
+      "path": "tools/question_review_console/qualification_runs.py:15443",
+      "finding": "02bにはcandidate/unverified locatorを受け、serverがXMLを実取得し再生成する既存経路がある。初回からblockedでlocatorを返さない問題は、取得証拠の偽装やvalidator緩和ではなく、この通常探索経路へ戻す。告示本文は実際の一次資料取得が別途必要。"
+    },
+    {
+      "path": "output/question_review_console/workflow_runs/gas-shunin-hei/20261027T215402470883-e835ac02/attempt_payloads/f8/f85dd48da489a179d5c976f68b63239de9a059f0885265a79320eb677b998275.json",
+      "finding": "基礎問15の失敗候補には、delimiter外の50\\,\\mathrm{m^3}が実在する。他の式は囲まれており、LaTeX検査の誤検出ではない。通常03の再生成で修正できる。"
+    },
+    {
+      "path": "tools/question_review_console/qualification_runs.py:2091",
+      "finding": "preparedPrimaryEvidenceは限定XML・UTF8行・JSON pointer用でPDF未対応、かつfeedback用private領域に限定されている。これだけを組合せmappingの承認済み証拠として流用しても、正答整合checkerへの接続は解決しない。"
+    }
+  ],
+  "next_allowed_task": {
+    "objective": "公式question_content訂正を共通pre01 baseへ適用する責務を実装し、2025法令問3の公式構造復元を通常24レビュー・01独立集約レビュー・02a正答精査まで通す。新しいmapping専用fieldを追加せず、00_sourceと公式番号を保持する。",
+    "assignee": "PM",
+    "allowed_files": [
+      "scripts/merge/question_issue_corrections.py",
+      "scripts/merge/record_projection.py",
+      "scripts/common/question_answer_contract.py",
+      "tools/question_review_console/projection.py",
+      "tools/question_review_console/inventory.py",
+      "tools/question_review_console/qualification_runs.py",
+      "tools/question_review_console/question_candidate.py",
+      "tools/question_review_console/official_source_correction.py",
+      "prompt/01_prompt_fix_questionType.md",
+      "prompt/02a_prompt_review_correctChoiceText.md",
+      "document/operations/question_issue_report_workflow.md",
+      "tests/test_question_review_projection.py",
+      "tests/test_question_issue_correction_patch.py",
+      "tests/test_question_answer_contract.py",
+      "tests/test_question_review_question_candidate.py",
+      "tests/test_question_review_qualification_runs.py",
+      "tests/test_question_review_official_source_correction.py",
+      "output/gas-shunin-hei/questions_json/2025/24_questionIssueCorrections/hei-restore-structure-*.json",
+      "output/gas-shunin-hei/questions_json/2025/10_questionType_fixed/*.json",
+      "output/gas-shunin-hei/questions_json/2025/15_correctChoiceText_fixed/*.json",
+      "output/gas-shunin-hei/questions_json/2025/23_correctChoiceText_fixed/*.json",
+      "output/question_review_console/workflow_runs/gas-shunin-hei/**",
+      "output/question_review_console/gas-shunin-hei/2025/**",
+      "docs/goals/gas-shunin-hei-production/notes/T006-*"
+    ],
+    "implementation_contract": [
+      "00_sourceの本文・選択肢・正答・ファイル名・ID・hashを不変とし、immutable acquisition sourceと公式訂正済みpublication baseを別の値として保持する。",
+      "question_contentカテゴリの24だけを、source→05があれば05→24.content→01以降の順で適用する。他カテゴリ24の正答・解説・分類等の責務は現在の位置に残す。カテゴリ所有を明示して判定し、変更fieldの偶然の一致だけで前置しない。",
+      "同一24.contentを後段でもう一度適用しない。既存10のlegacy本文・選択肢で前置content訂正を戻さない。承認済み集約spanだけが、その固定baseから派生する表示を所有する。",
+      "pre01 baseは現在の01分解後projectionから逆算せず、元source、05、適用対象24.contentを共通resolverで再構築する。本文・全選択肢、適用patch、source identity、元bytes hashを保存し、通常実行・再開・候補再検証・物理mergeで同一値へ束縛する。",
+      "既存24のexpectedBeforeHash、順序、exact source binding、全体rollbackを保持する。新規復元patchは既存の共通注補完後の値をbeforeとして固定し、共通注を欠落させない。既存24ファイルは書き換えない。",
+      "法3は公式のstemと全イロハニホ記述をquestionBodyTextへ、公式選択肢1〜5の組合せ表をchoiceTextListへ復元する。公式正答4は保持する。原本にない説明を本文へ混ぜない。",
+      "01はこのbaseを通常の二者独立レビューへ渡す。target/approveなら原文spanからtrue_falseへ分解し、non_targetなら通常の形式判断へ進む。group_choice又はnon_targetを固定して検査を回避しない。",
+      "記述5件から組合せ5件へ変わった場合、旧source.correctChoiceTextを新しい組合せ選択肢の正誤として扱わない。originalAggregateAnswerEvidenceの元optionは公式PDFで確認した順序と公式番号へ結合し、旧真偽配列は旧sourceの来歴に留める。selectedOriginalChoicesを旧配列から補完しない。",
+      "question_contentレビューは正答真偽の承認ではない。source choiceTextListが変更された場合は必ずsourceAnswerEvidence.appliesToCurrentText=falseとする。本文も変わった場合、明示された命題同一性の別証拠がなければ真偽転記を認めない。",
+      "02aは全記述を独立に判断する。「いずれも」の組合せ整合は各optionの全memberが指定真偽を満たすか評価し、成立するoption番号集合と公式番号を比較する。公式に選ばれなかった記述を反対真偽に補完しない。「すべてを選ぶ」等の異なる意味は別に扱い、意味が曖昧なら保留する。",
+      "元の組合せ表、公式番号、全記述の独立真偽、設問意図のいずれかが不整合なら機械検査は停止する。どのfieldを正しいと決めるかは機械検査へ持たせない。",
+      "24内容変更により古くなった01以降のcheckpoint、候補、評価を通常のfingerprintで無効化する。正常な訂正による入力変更を、過去の成功receiptで昇格させない。"
+    ],
+    "verify": [
+      "git diff --check",
+      ".venv/bin/python -m unittest tests.test_question_review_projection tests.test_question_issue_correction_patch tests.test_question_answer_contract tests.test_question_review_question_candidate tests.test_question_review_qualification_runs",
+      "実在するofficial-source-correction関連テストモジュールをrg --filesで確認し、変更したAPI保存境界の既存テストを実行する。指定された候補名が存在しなければ架空の成功にせず、実在名を記録する。",
+      "追加fixtureで、source statement5→公式combo5→01 span projection、05がある場合の順序、他カテゴリ24の後置維持、複数content patchのhash順序、後続hash不一致時のrollbackを確認する。",
+      "追加fixtureで、sourceの同数旧真偽配列が復元comboへ適用されないこと、別年度・別sourceRef・変更PDF hash・古いbase hashを拒否することを確認する。",
+      "追加fixtureで、公式法3のpairが成立する独立真偽を受理し、選択外の記述を反対に決め打ちしないこと、別optionも成立する場合や公式optionが不成立の場合を拒否することを確認する。",
+      "2025法3だけを新規24 A/B/Challengeで正式保存し、通常01の実二者レビューと通常02aを実行する。source不変、親ID不変、実session/thread/turn、固定baseとprompt hash、正式10/23の整合を記録する。",
+      "同じ正式入力をlogical projectionと通常mergeへ2回通し、本文、選択肢、正答、元問題ID、派生ID集合、内容hashが一致し、24が後段で再上書きしないことを確認する。",
+      "共有projection変更であるため、本番反映の引渡し前にはrepoの共通基盤に必要な回帰gateを現行手順で実施し、対象外の既存失敗と今回変更の失敗を分けて記録する。小さい開発テストだけで全体成功とはしない。"
+    ],
+    "stop_if": [
+      "00_source又は既存親IDの変更が必要になる。",
+      "source judgeを信頼済みと宣言する、公式番号を隠す、型を固定する、validatorを緩める方法が必要になる。",
+      "公式PDFで元の全記述・全組合せ・公式正答の対応を確定できない。",
+      "既存question_contentのhashチェーンを保持できず、過去patchの書換え又は無条件適用が必要になる。",
+      "旧真偽配列が新optionの真偽へ流用される、又は選択外記述の真偽を公式番号から補完する挙動が残る。",
+      "logical projectionと物理mergeの結果が一致しない。",
+      "対象外資格の出力を変更する、又は現在の所有範囲を超える修正が必要になる。",
+      "実native独立レビューなしで機械fixtureだけを本番候補の承認に置き換える必要が生じる。"
+    ]
+  },
+  "subgoal_contract": null,
+  "parallel_safety": {
+    "read_only_review": "このJudgeはstate、保留一覧、関連契約と指定失敗候補だけを読み、ファイル変更・外部writeをしていない。",
+    "implementation": "標準pilot writerがterminalになった後、一つのwriterで実装と正式データ回復を進める。共有projection・candidate契約の変更を別Workerへ並列分割しない。",
+    "production": "本packageは本番writeを含めない。ユーザーの公開承認は存続するが、T003の公開前証拠確認と通常publisherのpreflightを満たすまで公開しない。"
+  },
+  "blocked_tasks": [
+    {
+      "task_id": "T002",
+      "reason": "公式組合せ構造の復元と共通base契約の回復後に再開する。全問整備・評価は未完。"
+    },
+    {
+      "task_id": "T004",
+      "reason": "全公開対象の現行工程、別session評価、artifact gate、関連設定の整合証拠がまだない。"
+    }
+  ],
+  "missing_evidence": [
+    "公式構造を復元した24パッチの通常A/B/Challenge証跡と、復元baseを使う実01・02a成功。",
+    "全522原問の未完了工程、保留、独立評価、公開artifactの最終整合。",
+    "告示等の不足一次本文の取得と各肢への適用確認。",
+    "分類が一意に決まらない問題について03c境界を確定した後の04再判定。",
+    "本番問題・category・公式年度マニフェストの反映後readback。"
+  ],
+  "required_board_updates": [
+    "このreceiptをT005へ保存し、上記回復packageを独立したPM又はWorkerカードとして追加する。",
+    "T002は途中checkpointを保ったまま再開待ちにし、pilot queue status=succeededを58問完了又は公開可能と表現しない。",
+    "法令根拠不足は既存02b locator探索→server取得→再生成と03bへ、LaTeXは通常03再生成へ、分類境界は03c→04へ戻す回復項目として記録する。現証拠ではこれらのvalidator修正を承認しない。",
+    "新mapping専用field案は保留の代替案として残し、既存24による公式構造復元を先に実証する。"
+  ]
+}
