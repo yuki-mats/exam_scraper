@@ -1,14 +1,14 @@
 {
   "schemaVersion": "hei-direct-maintenance-checkpoint/v1",
-  "generatedAt": "2026-10-27T22:35:36.502031+00:00",
+  "generatedAt": "2026-10-27T22:41:44.549574+00:00",
   "status": "in_progress",
   "fullOutcomeComplete": false,
   "productionWritten": false,
   "systemCodeModified": false,
   "maintenanceServerStarted": false,
   "sourceQuestionCount": 522,
-  "newDirectSavedQuestionCount": 454,
-  "remainingDirectReviewQuestionCount": 68,
+  "newDirectSavedQuestionCount": 456,
+  "remainingDirectReviewQuestionCount": 66,
   "savedQuestions": {
     "2017:kiso:問1": {
       "sourceQuestionId": "2017:kiso:問1",
@@ -5622,18 +5622,43 @@
       "auditPath": "output/gas-shunin-hei/direct_publication/20261027/content_audits/2018_shohi_問24/result.json",
       "nativeSha256": "00869dd609b54461069a28e636e591aec59dd9dbb56dd0387d4de1bd869aabc9",
       "saveReceipt": "output/gas-shunin-hei/direct_publication/20261027/saved/2018-shohi-24.json"
+    },
+    "2017:shohi:問27": {
+      "sourceQuestionId": "2017:shohi:問27",
+      "sourceIdentity": {
+        "sourceQuestionKey": "gas-shunin:hei:2017:shohi:q27",
+        "reviewQuestionId": "072e1d50f274d881",
+        "sourceRecordRef": "question_2017_3.json#7"
+      },
+      "candidateHash": "160de8348e644b9cfa994f5f966096803933a5a8c426c891756833e83428c30d",
+      "auditPath": "output/gas-shunin-hei/direct_publication/20261027/content_audits/2017_shohi_問27_r2/result.json",
+      "nativeSha256": "691053361940ad9cb15397ea27b4c502cc83ac5bbc13b47ecc93107188c260c1",
+      "saveReceipt": "output/gas-shunin-hei/direct_publication/20261027/saved/2017-shohi-27-r2.json"
+    },
+    "2023:shohi:問25": {
+      "sourceQuestionId": "2023:shohi:問25",
+      "sourceIdentity": {
+        "sourceQuestionKey": "gas-shunin:hei:2023:shohi:q25",
+        "reviewQuestionId": "e1ab036bea2f0fd8",
+        "sourceRecordRef": "question_2023_3.json#5"
+      },
+      "candidateHash": "2ea765a5bb7f89b906f609084b3264bc7310178b1bb9e77d22feb5fffd86be4c",
+      "auditPath": "output/gas-shunin-hei/direct_publication/20261027/content_audits/2023_shohi_問25_r2/result.json",
+      "nativeSha256": "dea5ea11f3b9becb4e9287eb7adcd24b24f31dab52b1d3c064851ee26e863a1c",
+      "lawAuditPath": "output/gas-shunin-hei/direct_publication/20261027/law_audits/2023_shohi_問25_r2/result.json",
+      "saveReceipt": "output/gas-shunin-hei/direct_publication/20261027/saved/2023-shohi-25-r2.json"
     }
   },
   "latestChecks": {
-    "path": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T222921Z/result.json",
-    "sha256": "1943ed81f7b7bf4058b32b19219d8f2276f27a50bd8a321e4418675cf8f9896d",
+    "path": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T223739Z/result.json",
+    "sha256": "6b51d1e2b0c9505765eb0da58c3cc4d5721b08d4d81a91f3bb0ea9a5598b1fe0",
     "summary": {
-      "generatedAt": "20261027T222921Z",
-      "selectedCount": 454,
+      "generatedAt": "20261027T223739Z",
+      "selectedCount": 456,
       "byYear": {
-        "2017": 52,
+        "2017": 53,
         "2019": 50,
-        "2023": 50,
+        "2023": 51,
         "2024": 51,
         "2020": 51,
         "2018": 52,
@@ -5647,12 +5672,12 @@
             "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_choice_text_alignment.py",
             "--base-dir",
-            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/checks/20261027T222921Z/gas-shunin-hei/questions_json",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/checks/20261027T223739Z/gas-shunin-hei/questions_json",
             "--stage",
             "merged"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T222921Z/check-00.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T223739Z/check-00.log",
           "logSha256": "a0a43fc049c21d611775721216fc1fe1f18569576a2440e0f682647409dbe70f"
         },
         {
@@ -5660,12 +5685,12 @@
             "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_required_fields.py",
             "--base-dir",
-            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/checks/20261027T222921Z/gas-shunin-hei/questions_json",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/checks/20261027T223739Z/gas-shunin-hei/questions_json",
             "--stage",
             "merged"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T222921Z/check-01.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T223739Z/check-01.log",
           "logSha256": "aba5ddbabc195b6b3065026bd5dd0bbc689b62d9454c334b5b90e21ac5933b8c"
         },
         {
@@ -5680,7 +5705,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2017/10_questionType_fixed/question_2017_1_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T222921Z/check-02.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T223739Z/check-02.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5695,7 +5720,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2017/10_questionType_fixed/question_2017_2_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T222921Z/check-03.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T223739Z/check-03.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5710,7 +5735,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2017/10_questionType_fixed/question_2017_3_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T222921Z/check-04.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T223739Z/check-04.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5725,7 +5750,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2019/10_questionType_fixed/question_2019_1_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T222921Z/check-05.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T223739Z/check-05.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5740,7 +5765,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2019/10_questionType_fixed/question_2019_2_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T222921Z/check-06.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T223739Z/check-06.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5755,7 +5780,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2019/10_questionType_fixed/question_2019_3_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T222921Z/check-07.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T223739Z/check-07.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5770,7 +5795,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2023/10_questionType_fixed/question_2023_1_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T222921Z/check-08.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T223739Z/check-08.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5785,7 +5810,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2023/10_questionType_fixed/question_2023_2_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T222921Z/check-09.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T223739Z/check-09.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5800,7 +5825,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2023/10_questionType_fixed/question_2023_3_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T222921Z/check-10.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T223739Z/check-10.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5815,7 +5840,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2024/10_questionType_fixed/question_2024_1_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T222921Z/check-11.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T223739Z/check-11.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5830,7 +5855,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2024/10_questionType_fixed/question_2024_2_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T222921Z/check-12.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T223739Z/check-12.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5845,7 +5870,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2024/10_questionType_fixed/question_2024_3_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T222921Z/check-13.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T223739Z/check-13.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5860,7 +5885,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2020/10_questionType_fixed/question_2020_1_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T222921Z/check-14.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T223739Z/check-14.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5875,7 +5900,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2020/10_questionType_fixed/question_2020_2_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T222921Z/check-15.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T223739Z/check-15.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5890,7 +5915,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2020/10_questionType_fixed/question_2020_3_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T222921Z/check-16.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T223739Z/check-16.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5905,7 +5930,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2018/10_questionType_fixed/question_2018_1_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T222921Z/check-17.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T223739Z/check-17.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5920,7 +5945,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2018/10_questionType_fixed/question_2018_2_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T222921Z/check-18.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T223739Z/check-18.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5935,7 +5960,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2018/10_questionType_fixed/question_2018_3_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T222921Z/check-19.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T223739Z/check-19.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5950,7 +5975,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2025/10_questionType_fixed/question_2025_1_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T222921Z/check-20.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T223739Z/check-20.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5965,7 +5990,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2025/10_questionType_fixed/question_2025_2_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T222921Z/check-21.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T223739Z/check-21.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5980,7 +6005,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2025/10_questionType_fixed/question_2025_3_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T222921Z/check-22.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T223739Z/check-22.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5995,7 +6020,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2022/10_questionType_fixed/question_2022_1_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T222921Z/check-23.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T223739Z/check-23.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -6010,7 +6035,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2022/10_questionType_fixed/question_2022_2_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T222921Z/check-24.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T223739Z/check-24.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -6025,7 +6050,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2022/10_questionType_fixed/question_2022_3_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T222921Z/check-25.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T223739Z/check-25.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -6040,7 +6065,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2021/10_questionType_fixed/question_2021_1_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T222921Z/check-26.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T223739Z/check-26.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -6055,7 +6080,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2021/10_questionType_fixed/question_2021_2_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T222921Z/check-27.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T223739Z/check-27.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -6070,7 +6095,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2021/10_questionType_fixed/question_2021_3_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T222921Z/check-28.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T223739Z/check-28.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         }
       ],
@@ -7382,6 +7407,22 @@
           "sourceQuestionKey": "gas-shunin:hei:2017:kyokyu:q17",
           "reviewQuestionId": "31d20b76e6e3beba",
           "sourceRecordRef": "question_2017_2.json#22"
+        }
+      ]
+    },
+    {
+      "path": "output/gas-shunin-hei/questions_json/2017/15_correctChoiceText_fixed/question_2017_3_merged_correctChoiceText_fixed.json",
+      "sha256": "d1486db81b466f0f8b8721467617f46aba552ea902900ce9aadbfe967e24d747",
+      "payload": [
+        {
+          "questionIntent_changed": false,
+          "questionIntent_change_detail": "",
+          "original_question_id": "072e1d50f274d881",
+          "questionIntent": "select_incorrect",
+          "questionIntent_change_reason": "",
+          "sourceQuestionKey": "gas-shunin:hei:2017:shohi:q27",
+          "reviewQuestionId": "072e1d50f274d881",
+          "sourceRecordRef": "question_2017_3.json#7"
         }
       ]
     },
@@ -16421,7 +16462,7 @@
     },
     {
       "path": "output/gas-shunin-hei/questions_json/2017/18_law_context_prepared/question_2017_3_merged_lawContext_prepared.json",
-      "sha256": "e6f1b09c273b20b8f2d5875a4dd498f1488334db3d2d731ad5f5371e15e9d279",
+      "sha256": "5d08bd47f452521d5668d8a1c8b9cc73b44ad1f523320079ce7fca6b28520c2a",
       "payload": [
         {
           "isLawRelated": false,
@@ -17298,6 +17339,150 @@
           "sourceQuestionKey": "gas-shunin:hei:2017:shohi:q25",
           "reviewQuestionId": "d74a80646cc04177",
           "sourceRecordRef": "question_2017_3.json#5"
+        },
+        {
+          "isLawRelated": false,
+          "lawGroundedExplanationNotNeeded": true,
+          "original_question_id": "072e1d50f274d881",
+          "question_url": "https://gassyunin.com/exam/hei/hei_2017/#shohi-q27",
+          "lawReferences": [
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "lawRevisionFacts": [
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "正しい"
+              },
+              "current": {
+                "correctChoiceText": "正しい"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "銘板、安全機能、設置方式と燃焼・発熱量の比較を問う技術問題。CF浴室新規設置は施工上の適用条件をGSSの教育資料で確認し、特定法令の義務主体や法定手続を問う設問とは扱わない。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "密閉式ガス機器の表示銘板には、給排気方式等が記載されている。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2017_shohi_問27_r2/result.json"
+              ]
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "正しい"
+              },
+              "current": {
+                "correctChoiceText": "正しい"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "銘板、安全機能、設置方式と燃焼・発熱量の比較を問う技術問題。CF浴室新規設置は施工上の適用条件をGSSの教育資料で確認し、特定法令の義務主体や法定手続を問う設問とは扱わない。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "現在製造されているBF式ふろがまには、冠水検知装置が搭載されている。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2017_shohi_問27_r2/result.json"
+              ]
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "正しい"
+              },
+              "current": {
+                "correctChoiceText": "正しい"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "銘板、安全機能、設置方式と燃焼・発熱量の比較を問う技術問題。CF浴室新規設置は施工上の適用条件をGSSの教育資料で確認し、特定法令の義務主体や法定手続を問う設問とは扱わない。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "CF式ふろがまは、新規に浴室内に設置することができない。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2017_shohi_問27_r2/result.json"
+              ]
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "正しい"
+              },
+              "current": {
+                "correctChoiceText": "正しい"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "銘板、安全機能、設置方式と燃焼・発熱量の比較を問う技術問題。CF浴室新規設置は施工上の適用条件をGSSの教育資料で確認し、特定法令の義務主体や法定手続を問う設問とは扱わない。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "全一次空気式バーナーは、斜めや下向きに取り付けても正常に燃焼する。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2017_shohi_問27_r2/result.json"
+              ]
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "間違い"
+              },
+              "current": {
+                "correctChoiceText": "間違い"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "銘板、安全機能、設置方式と燃焼・発熱量の比較を問う技術問題。CF浴室新規設置は施工上の適用条件をGSSの教育資料で確認し、特定法令の義務主体や法定手続を問う設問とは扱わない。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "ブタンの総発熱量は、プロパンの総発熱量より小さい。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2017_shohi_問27_r2/result.json"
+              ]
+            }
+          ],
+          "lawContextForExplanation": "銘板、安全機能、設置方式と燃焼・発熱量の比較を問う技術問題。CF浴室新規設置は施工上の適用条件をGSSの教育資料で確認し、特定法令の義務主体や法定手続を問う設問とは扱わない。",
+          "sourceQuestionKey": "gas-shunin:hei:2017:shohi:q27",
+          "reviewQuestionId": "072e1d50f274d881",
+          "sourceRecordRef": "question_2017_3.json#7"
         }
       ]
     },
@@ -26777,7 +26962,7 @@
     },
     {
       "path": "output/gas-shunin-hei/questions_json/2017/21_explanationText_added/question_2017_3_merged_explanationText_added.json",
-      "sha256": "a8c71bafccf60cadf884908abbe8147286b0687838c01db84b059182860565a8",
+      "sha256": "f346ea1ea95bb122a515052c7b7adfc6165a9dd65d46c3676c3d43823dd54bc3",
       "payload": [
         {
           "explanationText": [
@@ -27709,6 +27894,158 @@
           "sourceQuestionKey": "gas-shunin:hei:2017:shohi:q25",
           "reviewQuestionId": "d74a80646cc04177",
           "sourceRecordRef": "question_2017_3.json#5"
+        },
+        {
+          "explanationText": [
+            "正しい。表示銘板には、機器を適切に設置・使用するための情報として、対応ガス種や給排気方式などが示される。密閉式には自然給排気のBF式と強制給排気のFF式があり、方式に合う給排気設備を用いる。銘板と施工説明書の双方を確認する。",
+            "正しい。現在製造されるBF式ふろがまには、冠水による異常燃焼などを防ぐ安全機能が備わっている。冠水検知装置はそのための装置である。ただし、装置があっても冠水させてよいわけではなく、浴室の排水を確保して、浸水した機器を使い続けない。",
+            "正しい。CF式ふろがまを新規に浴室内へ設置することはできない。CF式は浴室内の空気を燃焼に使うため、換気条件や排気の逆流によるCO中毒の危険がある。既存設備の取替えを扱う条件や、屋外から空気を取るBF式とは区別する。",
+            "正しい。全一次空気式は、燃焼に必要な空気を全て燃料とあらかじめ混合してから燃やす方式である。炎の周囲から二次空気を取り込む必要がないため、斜めや下向きの燃焼に対応できる。実際の機器は、指定された取付方向と使用条件を守る。",
+            "間違い。同じ温度・圧力で気体の単位体積当たりの総発熱量を比べると、ブタンの方が大きい。代表値はプロパン約99MJ/m³、ブタン約128MJ/m³である。単位質量当たりの値と大小関係を混同せず、比較する量と単位を確認する。"
+          ],
+          "suggestedQuestionDetailsByChoice": [],
+          "original_question_id": "072e1d50f274d881",
+          "question_url": "https://gassyunin.com/exam/hei/hei_2017/#shohi-q27",
+          "questionLearningPatternId": "differences_relationships",
+          "lawReferences": [
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "isLawRelated": false,
+          "lawGroundedExplanationNotNeeded": true,
+          "lawRevisionFacts": [
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "正しい"
+              },
+              "current": {
+                "correctChoiceText": "正しい"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "銘板、安全機能、設置方式と燃焼・発熱量の比較を問う技術問題。CF浴室新規設置は施工上の適用条件をGSSの教育資料で確認し、特定法令の義務主体や法定手続を問う設問とは扱わない。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "密閉式ガス機器の表示銘板には、給排気方式等が記載されている。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2017_shohi_問27_r2/result.json"
+              ]
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "正しい"
+              },
+              "current": {
+                "correctChoiceText": "正しい"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "銘板、安全機能、設置方式と燃焼・発熱量の比較を問う技術問題。CF浴室新規設置は施工上の適用条件をGSSの教育資料で確認し、特定法令の義務主体や法定手続を問う設問とは扱わない。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "現在製造されているBF式ふろがまには、冠水検知装置が搭載されている。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2017_shohi_問27_r2/result.json"
+              ]
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "正しい"
+              },
+              "current": {
+                "correctChoiceText": "正しい"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "銘板、安全機能、設置方式と燃焼・発熱量の比較を問う技術問題。CF浴室新規設置は施工上の適用条件をGSSの教育資料で確認し、特定法令の義務主体や法定手続を問う設問とは扱わない。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "CF式ふろがまは、新規に浴室内に設置することができない。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2017_shohi_問27_r2/result.json"
+              ]
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "正しい"
+              },
+              "current": {
+                "correctChoiceText": "正しい"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "銘板、安全機能、設置方式と燃焼・発熱量の比較を問う技術問題。CF浴室新規設置は施工上の適用条件をGSSの教育資料で確認し、特定法令の義務主体や法定手続を問う設問とは扱わない。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "全一次空気式バーナーは、斜めや下向きに取り付けても正常に燃焼する。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2017_shohi_問27_r2/result.json"
+              ]
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "間違い"
+              },
+              "current": {
+                "correctChoiceText": "間違い"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "銘板、安全機能、設置方式と燃焼・発熱量の比較を問う技術問題。CF浴室新規設置は施工上の適用条件をGSSの教育資料で確認し、特定法令の義務主体や法定手続を問う設問とは扱わない。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "ブタンの総発熱量は、プロパンの総発熱量より小さい。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2017_shohi_問27_r2/result.json"
+              ]
+            }
+          ],
+          "sourceQuestionKey": "gas-shunin:hei:2017:shohi:q27",
+          "reviewQuestionId": "072e1d50f274d881",
+          "sourceRecordRef": "question_2017_3.json#7"
         }
       ]
     },
@@ -28094,7 +28431,7 @@
     },
     {
       "path": "output/gas-shunin-hei/questions_json/2017/22_questionSetId_linked/question_2017_3_merged_questionSetId_linked.json",
-      "sha256": "116469e086a2de6bc135c58d3099734c9a8e416381bd289131a8f95f55663ebe",
+      "sha256": "6d5ae2d3cc51af6e4bdfa544f8f3c07adaf56c31b818a7c694f3871ab89c5073",
       "payload": [
         {
           "questionSetId": "gas-shunin-hei_qs06_01_seishitsu_nensho",
@@ -28143,6 +28480,14 @@
           "sourceQuestionKey": "gas-shunin:hei:2017:shohi:q25",
           "reviewQuestionId": "d74a80646cc04177",
           "sourceRecordRef": "question_2017_3.json#5"
+        },
+        {
+          "questionSetId": "gas-shunin-hei_qs06_02_katei_kiki",
+          "original_question_id": "072e1d50f274d881",
+          "question_url": "https://gassyunin.com/exam/hei/hei_2017/#shohi-q27",
+          "sourceQuestionKey": "gas-shunin:hei:2017:shohi:q27",
+          "reviewQuestionId": "072e1d50f274d881",
+          "sourceRecordRef": "question_2017_3.json#7"
         }
       ]
     },
@@ -29264,7 +29609,7 @@
     },
     {
       "path": "output/gas-shunin-hei/questions_json/2017/23_correctChoiceText_fixed/question_2017_3_merged_correctChoiceText_fixed.json",
-      "sha256": "86f9354b79c515de5c9a985384989ca83ddcd883b330d719d9bfefa20c9e8d9c",
+      "sha256": "f7a52ace60b69d0abbd498b7be871bd72325b9904c518a9a03e9cb589821b425",
       "payload": [
         {
           "correctChoiceText_changed": false,
@@ -29409,6 +29754,30 @@
           "sourceQuestionKey": "gas-shunin:hei:2017:shohi:q25",
           "reviewQuestionId": "d74a80646cc04177",
           "sourceRecordRef": "question_2017_3.json#5"
+        },
+        {
+          "correctChoiceText_changed": false,
+          "correctChoiceText_change_detail": "",
+          "correctChoiceText_change_reason": "",
+          "correctChoiceText": [
+            "正しい",
+            "正しい",
+            "正しい",
+            "正しい",
+            "間違い"
+          ],
+          "explanation_choice_snippets": [
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "original_question_id": "072e1d50f274d881",
+          "question_url": "https://gassyunin.com/exam/hei/hei_2017/#shohi-q27",
+          "sourceQuestionKey": "gas-shunin:hei:2017:shohi:q27",
+          "reviewQuestionId": "072e1d50f274d881",
+          "sourceRecordRef": "question_2017_3.json#7"
         }
       ]
     },
@@ -152241,7 +152610,7 @@
     },
     {
       "path": "output/gas-shunin-hei/questions_json/2023/15_correctChoiceText_fixed/question_2023_3_merged_correctChoiceText_fixed.json",
-      "sha256": "12e66896e83d6a4b4644d70a9b8c98a7bc35776225cb2fc415a0badd7db181ba",
+      "sha256": "9c78bffdbdb54e7539af06f0130bb19f2243fcb1786910121caa345e9b907d3e",
       "payload": [
         {
           "questionIntent_changed": false,
@@ -152262,6 +152631,16 @@
           "sourceQuestionKey": "gas-shunin:hei:2023:shohi:q24",
           "reviewQuestionId": "20fba6ffa259e844",
           "sourceRecordRef": "question_2023_3.json#4"
+        },
+        {
+          "questionIntent_changed": false,
+          "questionIntent_change_detail": "",
+          "original_question_id": "e1ab036bea2f0fd8",
+          "questionIntent": "select_incorrect",
+          "questionIntent_change_reason": "",
+          "sourceQuestionKey": "gas-shunin:hei:2023:shohi:q25",
+          "reviewQuestionId": "e1ab036bea2f0fd8",
+          "sourceRecordRef": "question_2023_3.json#5"
         }
       ]
     },
@@ -161844,7 +162223,7 @@
     },
     {
       "path": "output/gas-shunin-hei/questions_json/2023/18_law_context_prepared/question_2023_3_merged_lawContext_prepared.json",
-      "sha256": "7fb0cd7a4434958f2b73287d2803b8485ded047472b5809acbea93f7bce68ffc",
+      "sha256": "cd383962fd6f5b35608e8c3d1a827c655e1d9f84f576c51d6b000c2e0fe7cdb6",
       "payload": [
         {
           "isLawRelated": false,
@@ -162792,6 +163171,195 @@
           "sourceQuestionKey": "gas-shunin:hei:2023:shohi:q24",
           "reviewQuestionId": "20fba6ffa259e844",
           "sourceRecordRef": "question_2023_3.json#4"
+        },
+        {
+          "isLawRelated": true,
+          "lawGroundedExplanationNotNeeded": false,
+          "original_question_id": "e1ab036bea2f0fd8",
+          "question_url": "https://gassyunin.com/exam/hei/hei_2023/#shohi-q25",
+          "lawReferences": [
+            [],
+            [],
+            [],
+            [],
+            [
+              {
+                "lawId": "346M50000400027",
+                "lawTitle": "ガス用品の技術上の基準等に関する省令",
+                "article": "第11条",
+                "role": "current_basis",
+                "scope": "choice",
+                "choiceIndex": 4,
+                "referenceDate": "2026-10-28",
+                "verificationStatus": "verified",
+                "source": "https://laws.e-gov.go.jp/law/346M50000400027"
+              },
+              {
+                "lawId": "346M50000400027",
+                "lawTitle": "ガス用品の技術上の基準等に関する省令",
+                "article": "別表第三",
+                "role": "current_basis",
+                "scope": "choice",
+                "choiceIndex": 4,
+                "referenceDate": "2026-10-28",
+                "verificationStatus": "verified",
+                "source": "https://laws.e-gov.go.jp/law/346M50000400027"
+              },
+              {
+                "lawId": "343M50000400023",
+                "lawTitle": "液化石油ガス器具等の技術上の基準等に関する省令",
+                "article": "第11条",
+                "role": "current_basis",
+                "scope": "choice",
+                "choiceIndex": 4,
+                "referenceDate": "2026-10-28",
+                "verificationStatus": "verified",
+                "source": "https://laws.e-gov.go.jp/law/343M50000400023"
+              },
+              {
+                "lawId": "343M50000400023",
+                "lawTitle": "液化石油ガス器具等の技術上の基準等に関する省令",
+                "article": "別表第三",
+                "role": "current_basis",
+                "scope": "choice",
+                "choiceIndex": 4,
+                "referenceDate": "2026-10-28",
+                "verificationStatus": "verified",
+                "source": "https://laws.e-gov.go.jp/law/343M50000400023"
+              }
+            ]
+          ],
+          "lawRevisionFacts": [
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "needs_secondary_review",
+              "reconciliationStatus": "pending",
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "evidenceSummary": {
+                "verdict": "正しい",
+                "explanationText": "点火前に必要な通風を確認する風量・風圧・回転検知の方式。",
+                "differenceSummary": "安全装置の検知原理。",
+                "promptContext": "点火時安全装置には、風量スイッチ、風圧スイッチ又はファン回転検知によるものがある。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "examTime": {
+                "correctChoiceText": "正しい"
+              },
+              "current": {
+                "correctChoiceText": "正しい"
+              }
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "needs_secondary_review",
+              "reconciliationStatus": "pending",
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "evidenceSummary": {
+                "verdict": "間違い",
+                "explanationText": "バイメタルは熱膨張差の変形を利用し、溶融する温度ヒューズとは異なる。",
+                "differenceSummary": "動作原理の区別。",
+                "promptContext": "バイメタル式の過熱防止装置は、雰囲気温度が異常に高くなるとバイメタルが溶融してガスを遮断する。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "examTime": {
+                "correctChoiceText": "間違い"
+              },
+              "current": {
+                "correctChoiceText": "間違い"
+              }
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "needs_secondary_review",
+              "reconciliationStatus": "pending",
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "evidenceSummary": {
+                "verdict": "正しい",
+                "explanationText": "転倒・衝撃時にガスを止める機器の安全動作。",
+                "differenceSummary": "安全装置の動作説明。",
+                "promptContext": "ファンヒーターには、運転中に転倒したり強い衝撃が加わったとき、ガスを遮断する転倒時安全装置が搭載されている。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "examTime": {
+                "correctChoiceText": "正しい"
+              },
+              "current": {
+                "correctChoiceText": "正しい"
+              }
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "needs_secondary_review",
+              "reconciliationStatus": "pending",
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "evidenceSummary": {
+                "verdict": "正しい",
+                "explanationText": "異種金属の温度差による熱起電力で弁を保持する熱電対の原理。",
+                "differenceSummary": "電気的検知と機械的変形を区別。",
+                "promptContext": "熱電対式立ち消え安全装置は、異なった2種の金属の両端をつなぎ合わせ、両接点を異なった温度に保つと温度差に応じて熱起電力が発生する原理を利用している。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "examTime": {
+                "correctChoiceText": "正しい"
+              },
+              "current": {
+                "correctChoiceText": "正しい"
+              }
+            },
+            {
+              "auditStatus": "same_as_current",
+              "reviewState": "secondary_verified",
+              "reconciliationStatus": "reconciled",
+              "differenceFacts": [
+                "両省令別表第三の安全機能、再始動危害防止、有害燃焼ガス防止の性能規定は両時点同じ。機器安全機能の具体化はGSSの公式教育本文で別途確認した。"
+              ],
+              "answerImpactFacts": [
+                "第5肢は両時点とも正しい。"
+              ],
+              "evidenceSummary": {
+                "verdict": "正しい",
+                "explanationText": "第11条と別表第三の実本文の性能要求及び資格運営委員会の小型湯沸器への安全機能・インターロック義務の明示を合わせて照合。現行省令が旧規定と同じ逐語列挙だという誤った説明はしていない。",
+                "differenceSummary": "両時点とも小型湯沸器の必要な安全機能の判断は同じ。",
+                "promptContext": "現在販売されている小型湯沸器には、立ち消え安全装置、不完全燃焼防止装置及び再点火防止装置の搭載が、法令により定められている。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "examTime": {
+                "correctChoiceText": "正しい",
+                "lawId": "346M50000400027",
+                "lawTitle": "ガス用品の技術上の基準等に関する省令",
+                "lawRevisionId": "346M50000400027_20230116_505M60000400002",
+                "referenceDate": "2023-09-24",
+                "article": "第11条",
+                "verificationStatus": "verified",
+                "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/346M50000400027?asof=2023-09-24",
+                "articleTextHash": "6f22a5ba72c71e348808deedb73b7c95dafff57725f01296982e19a433914b6f"
+              },
+              "current": {
+                "correctChoiceText": "正しい",
+                "lawId": "346M50000400027",
+                "lawTitle": "ガス用品の技術上の基準等に関する省令",
+                "lawRevisionId": "346M50000400027_20251225_507M60000400006",
+                "referenceDate": "2026-10-28",
+                "article": "第11条",
+                "verificationStatus": "verified",
+                "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/346M50000400027?asof=2026-10-28",
+                "articleTextHash": "6f22a5ba72c71e348808deedb73b7c95dafff57725f01296982e19a433914b6f"
+              }
+            }
+          ],
+          "lawContextForExplanation": "主担当が2023年度公式問25画像37頁の全5肢を直視し、公式解答2を照合。両省令の2023-09-24及び2026-10-28の実XMLから11条と別表第三1(2)、2(5)、2(6)を直接読み、性能規定が同じことを確認した。現行別表に旧来の装置名3点が逐語列挙されているとは説明しない。具体的な開放式小型湯沸器の不完全燃焼防止・インターロックの義務は、資格運営委員会GSS公式事前学習資料 https://gss-system.org/before_study_document.pdf の実PDF17頁（印刷12頁）本文を主担当が読んで照合した。原PDF・取得receipt・抽出本文・PNGは本RUN legal/gss-before-study.pdf、gss-before-study-p17.txt及び同pngに保存。LPガス安全委員会 https://www.lpg.or.jp/safety/safety01.html の安全機能本文、実リンナイ2026カタログ184頁（legal/rinnai-equipment-catalog-2026.pdf）でも立消え・不完全燃焼防止・再点火防止を確認。GSSを法令本文そのものに置き換えず、性能規定と機能の具体化を分けている。第2肢は旭計器の技術FAQ https://www.asahikeiki.co.jp/whats-thermostat/faq/ のバイメタルの反り、接点反転及び温度ヒューズとの違いと照合した。METIの別のPDFにはアクセス拒否があり、その本文を読めたとは扱わない。",
+          "sourceQuestionKey": "gas-shunin:hei:2023:shohi:q25",
+          "reviewQuestionId": "e1ab036bea2f0fd8",
+          "sourceRecordRef": "question_2023_3.json#5"
         },
         {
           "isLawRelated": false,
@@ -172965,7 +173533,7 @@
     },
     {
       "path": "output/gas-shunin-hei/questions_json/2023/21_explanationText_added/question_2023_3_merged_explanationText_added.json",
-      "sha256": "bebebf60ee04fa2f58ca01b51512b089dcf553bd38f59afafa3337aa17a3e17e",
+      "sha256": "78a9d2888ebf8e02ba76ce16d9acaeb756404abf545530d47846b065c4e280f8",
       "payload": [
         {
           "explanationText": [
@@ -173993,6 +174561,230 @@
         },
         {
           "explanationText": [
+            "正しい。風量スイッチ、風圧スイッチ、ファン回転検知は、点火前に必要な通風が得られることを確かめる方式である。排気できない状態で点火するのを防ぎ、不完全燃焼や排ガスの流出を防ぐ。炎を検出して立ち消えを判断する装置とは、確認する対象が異なる。",
+            "間違い。バイメタル式は、熱膨張率が異なる2種類の金属を貼り合わせた板が温度変化で曲がる性質を利用する。異常な温度上昇で接点を開くなどしてガスを止める。溶融・溶断する性質を利用する温度ヒューズと混同している。",
+            "正しい。転倒時安全装置は、運転中の機器が倒れたり強い衝撃を受けたりしたときに、ガスを止める装置である。転倒したまま燃焼を続け、周囲の可燃物を加熱する危険を抑える。装置の確認や復帰操作は取扱説明書に従う。",
+            "正しい。熱電対は、異なる2種類の金属を接続し、2つの接点に温度差を与えると熱起電力を生じる。熱電対式立ち消え安全装置は、炎で加熱したときの起電力を利用して弁を保持し、失火して起電力が低下するとガスを止める。バイメタルの変形とは別の原理である。",
+            "正しい。小型湯沸器には、失火時のガス漏出を止める立ち消え安全機能、不完全燃焼時にガスを止める機能、異常を繰り返した後の再点火を防ぐ機能が求められる。ガス用品の技術上の基準等に関する省令（昭和46年通商産業省令第27号）第11条・別表第三と、液化石油ガス器具等の技術上の基準等に関する省令（昭和43年通商産業省令第23号）第11条・別表第三が定める安全機能、再始動の危害防止、有害な燃焼ガスの危害防止を具体化したものである。再点火防止が働いた機器は、電池交換などで使い続けようとせず、点検を依頼する。"
+          ],
+          "suggestedQuestionDetailsByChoice": [],
+          "original_question_id": "e1ab036bea2f0fd8",
+          "question_url": "https://gassyunin.com/exam/hei/hei_2023/#shohi-q25",
+          "questionLearningPatternId": "mechanisms_reasons",
+          "lawReferences": [
+            [],
+            [],
+            [],
+            [],
+            [
+              {
+                "lawId": "346M50000400027",
+                "lawTitle": "ガス用品の技術上の基準等に関する省令",
+                "article": "第11条",
+                "role": "current_basis",
+                "scope": "choice",
+                "choiceIndex": 4,
+                "referenceDate": "2026-10-28",
+                "verificationStatus": "verified",
+                "source": "https://laws.e-gov.go.jp/law/346M50000400027"
+              },
+              {
+                "lawId": "346M50000400027",
+                "lawTitle": "ガス用品の技術上の基準等に関する省令",
+                "article": "別表第三",
+                "role": "current_basis",
+                "scope": "choice",
+                "choiceIndex": 4,
+                "referenceDate": "2026-10-28",
+                "verificationStatus": "verified",
+                "source": "https://laws.e-gov.go.jp/law/346M50000400027"
+              },
+              {
+                "lawId": "343M50000400023",
+                "lawTitle": "液化石油ガス器具等の技術上の基準等に関する省令",
+                "article": "第11条",
+                "role": "current_basis",
+                "scope": "choice",
+                "choiceIndex": 4,
+                "referenceDate": "2026-10-28",
+                "verificationStatus": "verified",
+                "source": "https://laws.e-gov.go.jp/law/343M50000400023"
+              },
+              {
+                "lawId": "343M50000400023",
+                "lawTitle": "液化石油ガス器具等の技術上の基準等に関する省令",
+                "article": "別表第三",
+                "role": "current_basis",
+                "scope": "choice",
+                "choiceIndex": 4,
+                "referenceDate": "2026-10-28",
+                "verificationStatus": "verified",
+                "source": "https://laws.e-gov.go.jp/law/343M50000400023"
+              }
+            ]
+          ],
+          "isLawRelated": true,
+          "lawGroundedExplanationNotNeeded": false,
+          "lawRevisionFacts": [
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "needs_secondary_review",
+              "reconciliationStatus": "pending",
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "evidenceSummary": {
+                "verdict": "正しい",
+                "explanationText": "点火前に必要な通風を確認する風量・風圧・回転検知の方式。",
+                "differenceSummary": "安全装置の検知原理。",
+                "promptContext": "点火時安全装置には、風量スイッチ、風圧スイッチ又はファン回転検知によるものがある。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "examTime": {
+                "correctChoiceText": "正しい"
+              },
+              "current": {
+                "correctChoiceText": "正しい"
+              }
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "needs_secondary_review",
+              "reconciliationStatus": "pending",
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "evidenceSummary": {
+                "verdict": "間違い",
+                "explanationText": "バイメタルは熱膨張差の変形を利用し、溶融する温度ヒューズとは異なる。",
+                "differenceSummary": "動作原理の区別。",
+                "promptContext": "バイメタル式の過熱防止装置は、雰囲気温度が異常に高くなるとバイメタルが溶融してガスを遮断する。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "examTime": {
+                "correctChoiceText": "間違い"
+              },
+              "current": {
+                "correctChoiceText": "間違い"
+              }
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "needs_secondary_review",
+              "reconciliationStatus": "pending",
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "evidenceSummary": {
+                "verdict": "正しい",
+                "explanationText": "転倒・衝撃時にガスを止める機器の安全動作。",
+                "differenceSummary": "安全装置の動作説明。",
+                "promptContext": "ファンヒーターには、運転中に転倒したり強い衝撃が加わったとき、ガスを遮断する転倒時安全装置が搭載されている。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "examTime": {
+                "correctChoiceText": "正しい"
+              },
+              "current": {
+                "correctChoiceText": "正しい"
+              }
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "needs_secondary_review",
+              "reconciliationStatus": "pending",
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "evidenceSummary": {
+                "verdict": "正しい",
+                "explanationText": "異種金属の温度差による熱起電力で弁を保持する熱電対の原理。",
+                "differenceSummary": "電気的検知と機械的変形を区別。",
+                "promptContext": "熱電対式立ち消え安全装置は、異なった2種の金属の両端をつなぎ合わせ、両接点を異なった温度に保つと温度差に応じて熱起電力が発生する原理を利用している。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "examTime": {
+                "correctChoiceText": "正しい"
+              },
+              "current": {
+                "correctChoiceText": "正しい"
+              }
+            },
+            {
+              "auditStatus": "same_as_current",
+              "reviewState": "secondary_verified",
+              "reconciliationStatus": "reconciled",
+              "differenceFacts": [
+                "両省令別表第三の安全機能、再始動危害防止、有害燃焼ガス防止の性能規定は両時点同じ。機器安全機能の具体化はGSSの公式教育本文で別途確認した。"
+              ],
+              "answerImpactFacts": [
+                "第5肢は両時点とも正しい。"
+              ],
+              "evidenceSummary": {
+                "verdict": "正しい",
+                "explanationText": "第11条と別表第三の実本文の性能要求及び資格運営委員会の小型湯沸器への安全機能・インターロック義務の明示を合わせて照合。現行省令が旧規定と同じ逐語列挙だという誤った説明はしていない。",
+                "differenceSummary": "両時点とも小型湯沸器の必要な安全機能の判断は同じ。",
+                "promptContext": "現在販売されている小型湯沸器には、立ち消え安全装置、不完全燃焼防止装置及び再点火防止装置の搭載が、法令により定められている。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "examTime": {
+                "correctChoiceText": "正しい",
+                "lawId": "346M50000400027",
+                "lawTitle": "ガス用品の技術上の基準等に関する省令",
+                "lawRevisionId": "346M50000400027_20230116_505M60000400002",
+                "referenceDate": "2023-09-24",
+                "article": "第11条",
+                "verificationStatus": "verified",
+                "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/346M50000400027?asof=2023-09-24",
+                "articleTextHash": "6f22a5ba72c71e348808deedb73b7c95dafff57725f01296982e19a433914b6f"
+              },
+              "current": {
+                "correctChoiceText": "正しい",
+                "lawId": "346M50000400027",
+                "lawTitle": "ガス用品の技術上の基準等に関する省令",
+                "lawRevisionId": "346M50000400027_20251225_507M60000400006",
+                "referenceDate": "2026-10-28",
+                "article": "第11条",
+                "verificationStatus": "verified",
+                "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/346M50000400027?asof=2026-10-28",
+                "articleTextHash": "6f22a5ba72c71e348808deedb73b7c95dafff57725f01296982e19a433914b6f"
+              }
+            }
+          ],
+          "sourceQuestionKey": "gas-shunin:hei:2023:shohi:q25",
+          "reviewQuestionId": "e1ab036bea2f0fd8",
+          "sourceRecordRef": "question_2023_3.json#5",
+          "explanationReferences": [
+            {
+              "title": "ガス用品の技術上の基準等に関する省令",
+              "sourceUrl": "https://laws.e-gov.go.jp/law/346M50000400027",
+              "referenceDate": "2026-10-28"
+            },
+            {
+              "title": "液化石油ガス器具等の技術上の基準等に関する省令",
+              "sourceUrl": "https://laws.e-gov.go.jp/law/343M50000400023",
+              "referenceDate": "2026-10-28"
+            },
+            {
+              "title": "GSS公式 事前学習資料",
+              "sourceUrl": "https://gss-system.org/before_study_document.pdf",
+              "referenceDate": "2026-10-28"
+            },
+            {
+              "title": "LPガス安全委員会 燃焼器の種類と安全装置",
+              "sourceUrl": "https://www.lpg.or.jp/safety/safety01.html",
+              "referenceDate": "2026-10-28"
+            },
+            {
+              "title": "旭計器 バイメタルサーモスタットFAQ",
+              "sourceUrl": "https://www.asahikeiki.co.jp/whats-thermostat/faq/",
+              "referenceDate": "2026-10-28"
+            }
+          ]
+        },
+        {
+          "explanationText": [
             "正しい。LPガスと都市ガスでは、ガスの比重や供給条件などが異なる。ヒューズガス栓も対象ガスと適用流量に合わせた仕様を使い、接続する機器に適合するものを選ぶ。",
             "間違い。ヒューズが作動しても、原因を取り除き、安全を確認したうえで所定の操作により復帰できる。一度作動すると使用状態へ戻せない装置ではない。ただし、原因を調べずに繰り返し復帰させてはならない。",
             "正しい。金属フレキシブルホースは、所定の長さで製作された両端ねじ接続の接続具で、ガス機器と同程度の耐久性を想定して用いる。現場で切断して長さを決める配管用フレキ管とは区別する。実際の交換時期は損傷や使用状態も確認する。",
@@ -174511,7 +175303,7 @@
     },
     {
       "path": "output/gas-shunin-hei/questions_json/2023/22_questionSetId_linked/question_2023_3_merged_questionSetId_linked.json",
-      "sha256": "de4c8eea0c675e581136a6e2704ddb88622d46af712c46b834707cb1434c82bc",
+      "sha256": "3a8af5b2bf89d5699e8983c2269562b26ea231deb4c24c7f0c1b3724ddf9c9e3",
       "payload": [
         {
           "questionSetId": "gas-shunin-hei_qs06_01_seishitsu_nensho",
@@ -174552,6 +175344,14 @@
           "sourceQuestionKey": "gas-shunin:hei:2023:shohi:q24",
           "reviewQuestionId": "20fba6ffa259e844",
           "sourceRecordRef": "question_2023_3.json#4"
+        },
+        {
+          "questionSetId": "gas-shunin-hei_qs06_05_anzen_seigyo",
+          "original_question_id": "e1ab036bea2f0fd8",
+          "question_url": "https://gassyunin.com/exam/hei/hei_2023/#shohi-q25",
+          "sourceQuestionKey": "gas-shunin:hei:2023:shohi:q25",
+          "reviewQuestionId": "e1ab036bea2f0fd8",
+          "sourceRecordRef": "question_2023_3.json#5"
         },
         {
           "questionSetId": "gas-shunin-hei_qs06_06_gassen_setsuzoku_keihouki",
@@ -175633,7 +176433,7 @@
     },
     {
       "path": "output/gas-shunin-hei/questions_json/2023/23_correctChoiceText_fixed/question_2023_3_merged_correctChoiceText_fixed.json",
-      "sha256": "7de3c0b6ed6b43494c38e4c515001a0bd092ce63a95afb4ef2d51942d32fb29b",
+      "sha256": "2a6d83a2f78f6d5f8027c3cd44149106b9e9e7e12bef21c80bdbde950e28c9bb",
       "payload": [
         {
           "correctChoiceText_changed": false,
@@ -175754,6 +176554,30 @@
           "sourceQuestionKey": "gas-shunin:hei:2023:shohi:q24",
           "reviewQuestionId": "20fba6ffa259e844",
           "sourceRecordRef": "question_2023_3.json#4"
+        },
+        {
+          "correctChoiceText_changed": false,
+          "correctChoiceText_change_detail": "",
+          "correctChoiceText_change_reason": "",
+          "correctChoiceText": [
+            "正しい",
+            "間違い",
+            "正しい",
+            "正しい",
+            "正しい"
+          ],
+          "explanation_choice_snippets": [
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "original_question_id": "e1ab036bea2f0fd8",
+          "question_url": "https://gassyunin.com/exam/hei/hei_2023/#shohi-q25",
+          "sourceQuestionKey": "gas-shunin:hei:2023:shohi:q25",
+          "reviewQuestionId": "e1ab036bea2f0fd8",
+          "sourceRecordRef": "question_2023_3.json#5"
         },
         {
           "correctChoiceText_changed": false,
@@ -265031,7 +265855,7 @@
     },
     {
       "path": "output/gas-shunin-hei/review/law_revision_audit/2023_law_revision_audit.jsonl",
-      "sha256": "4a85d9a58251ae2b9e452d92f7860dad654452e124d43c07f324f5661f867649",
+      "sha256": "be9a470b118c4bf23188905bdce1020e02a2420f6fb0fc77dc68877d9f8d4dc9",
       "payload": [
         {
           "correctChoiceText": [
@@ -272576,6 +273400,273 @@
           "sourceQuestionKey": "gas-shunin:hei:2023:shohi:q23",
           "reviewQuestionId": "126ebefc9580f166",
           "sourceRecordRef": "question_2023_3.json#3"
+        },
+        {
+          "correctChoiceText": [
+            "正しい",
+            "間違い",
+            "正しい",
+            "正しい",
+            "正しい"
+          ],
+          "explanationText": [
+            "正しい。風量スイッチ、風圧スイッチ、ファン回転検知は、点火前に必要な通風が得られることを確かめる方式である。排気できない状態で点火するのを防ぎ、不完全燃焼や排ガスの流出を防ぐ。炎を検出して立ち消えを判断する装置とは、確認する対象が異なる。",
+            "間違い。バイメタル式は、熱膨張率が異なる2種類の金属を貼り合わせた板が温度変化で曲がる性質を利用する。異常な温度上昇で接点を開くなどしてガスを止める。溶融・溶断する性質を利用する温度ヒューズと混同している。",
+            "正しい。転倒時安全装置は、運転中の機器が倒れたり強い衝撃を受けたりしたときに、ガスを止める装置である。転倒したまま燃焼を続け、周囲の可燃物を加熱する危険を抑える。装置の確認や復帰操作は取扱説明書に従う。",
+            "正しい。熱電対は、異なる2種類の金属を接続し、2つの接点に温度差を与えると熱起電力を生じる。熱電対式立ち消え安全装置は、炎で加熱したときの起電力を利用して弁を保持し、失火して起電力が低下するとガスを止める。バイメタルの変形とは別の原理である。",
+            "正しい。小型湯沸器には、失火時のガス漏出を止める立ち消え安全機能、不完全燃焼時にガスを止める機能、異常を繰り返した後の再点火を防ぐ機能が求められる。ガス用品の技術上の基準等に関する省令（昭和46年通商産業省令第27号）第11条・別表第三と、液化石油ガス器具等の技術上の基準等に関する省令（昭和43年通商産業省令第23号）第11条・別表第三が定める安全機能、再始動の危害防止、有害な燃焼ガスの危害防止を具体化したものである。再点火防止が働いた機器は、電池交換などで使い続けようとせず、点検を依頼する。"
+          ],
+          "lawReferences": [
+            [],
+            [],
+            [],
+            [],
+            [
+              {
+                "lawId": "346M50000400027",
+                "lawTitle": "ガス用品の技術上の基準等に関する省令",
+                "article": "第11条",
+                "role": "current_basis",
+                "scope": "choice",
+                "choiceIndex": 4,
+                "referenceDate": "2026-10-28",
+                "verificationStatus": "verified",
+                "source": "https://laws.e-gov.go.jp/law/346M50000400027"
+              },
+              {
+                "lawId": "346M50000400027",
+                "lawTitle": "ガス用品の技術上の基準等に関する省令",
+                "article": "別表第三",
+                "role": "current_basis",
+                "scope": "choice",
+                "choiceIndex": 4,
+                "referenceDate": "2026-10-28",
+                "verificationStatus": "verified",
+                "source": "https://laws.e-gov.go.jp/law/346M50000400027"
+              },
+              {
+                "lawId": "343M50000400023",
+                "lawTitle": "液化石油ガス器具等の技術上の基準等に関する省令",
+                "article": "第11条",
+                "role": "current_basis",
+                "scope": "choice",
+                "choiceIndex": 4,
+                "referenceDate": "2026-10-28",
+                "verificationStatus": "verified",
+                "source": "https://laws.e-gov.go.jp/law/343M50000400023"
+              },
+              {
+                "lawId": "343M50000400023",
+                "lawTitle": "液化石油ガス器具等の技術上の基準等に関する省令",
+                "article": "別表第三",
+                "role": "current_basis",
+                "scope": "choice",
+                "choiceIndex": 4,
+                "referenceDate": "2026-10-28",
+                "verificationStatus": "verified",
+                "source": "https://laws.e-gov.go.jp/law/343M50000400023"
+              }
+            ]
+          ],
+          "lawRevisionFacts": [
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "needs_secondary_review",
+              "reconciliationStatus": "pending",
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "evidenceSummary": {
+                "verdict": "正しい",
+                "explanationText": "点火前に必要な通風を確認する風量・風圧・回転検知の方式。",
+                "differenceSummary": "安全装置の検知原理。",
+                "promptContext": "点火時安全装置には、風量スイッチ、風圧スイッチ又はファン回転検知によるものがある。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "examTime": {
+                "correctChoiceText": "正しい"
+              },
+              "current": {
+                "correctChoiceText": "正しい"
+              }
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "needs_secondary_review",
+              "reconciliationStatus": "pending",
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "evidenceSummary": {
+                "verdict": "間違い",
+                "explanationText": "バイメタルは熱膨張差の変形を利用し、溶融する温度ヒューズとは異なる。",
+                "differenceSummary": "動作原理の区別。",
+                "promptContext": "バイメタル式の過熱防止装置は、雰囲気温度が異常に高くなるとバイメタルが溶融してガスを遮断する。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "examTime": {
+                "correctChoiceText": "間違い"
+              },
+              "current": {
+                "correctChoiceText": "間違い"
+              }
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "needs_secondary_review",
+              "reconciliationStatus": "pending",
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "evidenceSummary": {
+                "verdict": "正しい",
+                "explanationText": "転倒・衝撃時にガスを止める機器の安全動作。",
+                "differenceSummary": "安全装置の動作説明。",
+                "promptContext": "ファンヒーターには、運転中に転倒したり強い衝撃が加わったとき、ガスを遮断する転倒時安全装置が搭載されている。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "examTime": {
+                "correctChoiceText": "正しい"
+              },
+              "current": {
+                "correctChoiceText": "正しい"
+              }
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "needs_secondary_review",
+              "reconciliationStatus": "pending",
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "evidenceSummary": {
+                "verdict": "正しい",
+                "explanationText": "異種金属の温度差による熱起電力で弁を保持する熱電対の原理。",
+                "differenceSummary": "電気的検知と機械的変形を区別。",
+                "promptContext": "熱電対式立ち消え安全装置は、異なった2種の金属の両端をつなぎ合わせ、両接点を異なった温度に保つと温度差に応じて熱起電力が発生する原理を利用している。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "examTime": {
+                "correctChoiceText": "正しい"
+              },
+              "current": {
+                "correctChoiceText": "正しい"
+              }
+            },
+            {
+              "auditStatus": "same_as_current",
+              "reviewState": "secondary_verified",
+              "reconciliationStatus": "reconciled",
+              "differenceFacts": [
+                "両省令別表第三の安全機能、再始動危害防止、有害燃焼ガス防止の性能規定は両時点同じ。機器安全機能の具体化はGSSの公式教育本文で別途確認した。"
+              ],
+              "answerImpactFacts": [
+                "第5肢は両時点とも正しい。"
+              ],
+              "evidenceSummary": {
+                "verdict": "正しい",
+                "explanationText": "第11条と別表第三の実本文の性能要求及び資格運営委員会の小型湯沸器への安全機能・インターロック義務の明示を合わせて照合。現行省令が旧規定と同じ逐語列挙だという誤った説明はしていない。",
+                "differenceSummary": "両時点とも小型湯沸器の必要な安全機能の判断は同じ。",
+                "promptContext": "現在販売されている小型湯沸器には、立ち消え安全装置、不完全燃焼防止装置及び再点火防止装置の搭載が、法令により定められている。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "examTime": {
+                "correctChoiceText": "正しい",
+                "lawId": "346M50000400027",
+                "lawTitle": "ガス用品の技術上の基準等に関する省令",
+                "lawRevisionId": "346M50000400027_20230116_505M60000400002",
+                "referenceDate": "2023-09-24",
+                "article": "第11条",
+                "verificationStatus": "verified",
+                "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/346M50000400027?asof=2023-09-24",
+                "articleTextHash": "6f22a5ba72c71e348808deedb73b7c95dafff57725f01296982e19a433914b6f"
+              },
+              "current": {
+                "correctChoiceText": "正しい",
+                "lawId": "346M50000400027",
+                "lawTitle": "ガス用品の技術上の基準等に関する省令",
+                "lawRevisionId": "346M50000400027_20251225_507M60000400006",
+                "referenceDate": "2026-10-28",
+                "article": "第11条",
+                "verificationStatus": "verified",
+                "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/346M50000400027?asof=2026-10-28",
+                "articleTextHash": "6f22a5ba72c71e348808deedb73b7c95dafff57725f01296982e19a433914b6f"
+              }
+            }
+          ],
+          "auditStatus": "same_as_current",
+          "reviewState": "secondary_verified",
+          "sourceSummary": "主担当が2023年度公式問25画像37頁の全5肢を直視し、公式解答2を照合。両省令の2023-09-24及び2026-10-28の実XMLから11条と別表第三1(2)、2(5)、2(6)を直接読み、性能規定が同じことを確認した。現行別表に旧来の装置名3点が逐語列挙されているとは説明しない。具体的な開放式小型湯沸器の不完全燃焼防止・インターロックの義務は、資格運営委員会GSS公式事前学習資料 https://gss-system.org/before_study_document.pdf の実PDF17頁（印刷12頁）本文を主担当が読んで照合した。原PDF・取得receipt・抽出本文・PNGは本RUN legal/gss-before-study.pdf、gss-before-study-p17.txt及び同pngに保存。LPガス安全委員会 https://www.lpg.or.jp/safety/safety01.html の安全機能本文、実リンナイ2026カタログ184頁（legal/rinnai-equipment-catalog-2026.pdf）でも立消え・不完全燃焼防止・再点火防止を確認。GSSを法令本文そのものに置き換えず、性能規定と機能の具体化を分けている。第2肢は旭計器の技術FAQ https://www.asahikeiki.co.jp/whats-thermostat/faq/ のバイメタルの反り、接点反転及び温度ヒューズとの違いと照合した。METIの別のPDFにはアクセス拒否があり、その本文を読めたとは扱わない。",
+          "verificationSummary": "独立二次監査で出題時と現行法の正誤、法令根拠、解説を照合し承認した。",
+          "reconciliationStatus": "reconciled",
+          "holdReason": "",
+          "reviewNotes": "",
+          "isLawRelated": true,
+          "lawGroundedExplanationNotNeeded": false,
+          "lawContextForExplanation": "主担当が2023年度公式問25画像37頁の全5肢を直視し、公式解答2を照合。両省令の2023-09-24及び2026-10-28の実XMLから11条と別表第三1(2)、2(5)、2(6)を直接読み、性能規定が同じことを確認した。現行別表に旧来の装置名3点が逐語列挙されているとは説明しない。具体的な開放式小型湯沸器の不完全燃焼防止・インターロックの義務は、資格運営委員会GSS公式事前学習資料 https://gss-system.org/before_study_document.pdf の実PDF17頁（印刷12頁）本文を主担当が読んで照合した。原PDF・取得receipt・抽出本文・PNGは本RUN legal/gss-before-study.pdf、gss-before-study-p17.txt及び同pngに保存。LPガス安全委員会 https://www.lpg.or.jp/safety/safety01.html の安全機能本文、実リンナイ2026カタログ184頁（legal/rinnai-equipment-catalog-2026.pdf）でも立消え・不完全燃焼防止・再点火防止を確認。GSSを法令本文そのものに置き換えず、性能規定と機能の具体化を分けている。第2肢は旭計器の技術FAQ https://www.asahikeiki.co.jp/whats-thermostat/faq/ のバイメタルの反り、接点反転及び温度ヒューズとの違いと照合した。METIの別のPDFにはアクセス拒否があり、その本文を読めたとは扱わない。",
+          "suggestedQuestionDetailsByChoice": [],
+          "examTimeDecision": [
+            "正しい",
+            "間違い",
+            "正しい",
+            "正しい",
+            "正しい"
+          ],
+          "currentLawDecision": [
+            "正しい",
+            "間違い",
+            "正しい",
+            "正しい",
+            "正しい"
+          ],
+          "explanationReferences": [
+            {
+              "title": "ガス用品の技術上の基準等に関する省令",
+              "sourceUrl": "https://laws.e-gov.go.jp/law/346M50000400027",
+              "referenceDate": "2026-10-28"
+            },
+            {
+              "title": "液化石油ガス器具等の技術上の基準等に関する省令",
+              "sourceUrl": "https://laws.e-gov.go.jp/law/343M50000400023",
+              "referenceDate": "2026-10-28"
+            },
+            {
+              "title": "GSS公式 事前学習資料",
+              "sourceUrl": "https://gss-system.org/before_study_document.pdf",
+              "referenceDate": "2026-10-28"
+            },
+            {
+              "title": "LPガス安全委員会 燃焼器の種類と安全装置",
+              "sourceUrl": "https://www.lpg.or.jp/safety/safety01.html",
+              "referenceDate": "2026-10-28"
+            },
+            {
+              "title": "旭計器 バイメタルサーモスタットFAQ",
+              "sourceUrl": "https://www.asahikeiki.co.jp/whats-thermostat/faq/",
+              "referenceDate": "2026-10-28"
+            }
+          ],
+          "qualification": "gas-shunin-hei",
+          "listGroupId": "2023",
+          "auditedAt": "2026-10-28T07:37:38+09:00",
+          "nextAuditDueAt": "2027-10-28",
+          "auditMethodVersion": "law-audit/6.7",
+          "auditInputHash": "sha256:d8d80025e96dc1efb8abda30b5760fe720f3ba83acc9739ca9127297ea9e7d50",
+          "evidenceBindingHash": "sha256:79623b51fb9d937be64c5e6481e07819519861908f79155178de815d22f6c940",
+          "auditRunId": "direct-primary-2ea765a5bb7f89b906f609084b3264bc7310178b1bb9e77d22feb5fffd86be4c",
+          "lawCorpusSnapshotId": "codex-web-primary:2026-10-28:79623b51fb9d937b",
+          "primaryAuditRunId": "direct-primary-2ea765a5bb7f89b906f609084b3264bc7310178b1bb9e77d22feb5fffd86be4c",
+          "secondaryAuditRunId": "01a17f81-312e-7d62-9388-12cf92d765ad:01a17f81-3701-73e2-b917-31b11e08d0b1",
+          "userVisibleNoticeRequired": false,
+          "noticeReason": "",
+          "remainingRisk": "",
+          "tertiaryAuditRunId": null,
+          "schemaVersion": "law-revision-audit/v2",
+          "examYear": 2023,
+          "sourceQuestionKey": "gas-shunin:hei:2023:shohi:q25",
+          "reviewQuestionId": "e1ab036bea2f0fd8",
+          "sourceRecordRef": "question_2023_3.json#5"
         }
       ]
     },
@@ -573656,6 +574747,60 @@
             38
           ],
           "officialAnswerNumber": 2
+        }
+      ]
+    },
+    {
+      "path": "output/gas-shunin-hei/direct_publication/20261027/primary/2023-shohi-27.json",
+      "sha256": "541eb3d39ed7e034791ba0a0ef1bd9f6c0c130e1f9b095005138c7b43186c8a5",
+      "payload": [
+        {
+          "sourceQuestionId": "2023:shohi:問27",
+          "questionType": "true_false",
+          "isCalculationQuestion": false,
+          "questionIntent": "select_incorrect",
+          "correctChoiceText": [
+            "正しい",
+            "正しい",
+            "間違い",
+            "正しい",
+            "正しい"
+          ],
+          "explanationText": [
+            "正しい。業務用換気警報器は、COを選択的に検知する電気化学式センサーを用い、電池で動作する。電極での化学反応に伴う微小な電流を利用するため、低消費電力で検知できる。可燃性ガスを検知する半導体式とは、検知対象と原理が異なる。",
+            "正しい。業務用換気警報器は、燃焼器やレンジフードから50cm以上離し、最も遠いバーナーの中心から水平距離8m以内に設置する。排気や湯気、油煙などが直接かかる場所を避けながら、使用する機器から生じたCOを検知できる位置を選ぶ。",
+            "間違い。LPガス用警報器は、検知部から対象とするガス機器等の最も遠い箇所まで、水平距離4m以内となるように設置する。8mではない。空気より重いLPガス用の設置条件を、軽い都市ガス用やCOを検知する業務用換気警報器と混同している。",
+            "正しい。換気口の吹出し口から1.5m以内は、流れる空気の影響を受けるため、LPガス用警報器の設置に適さない。漏れたガスが検知部へ届き、適切に検知できる場所を選ぶ。距離だけでなく、棚板や間仕切りでガスの流れが遮られないことも確認する。",
+            "正しい。爆発下限界の4分の1に達した濃度では、確実に警報できる性能が必要である。実機には、それより低い濃度で作動するものがあり、4分の1を超えるまで警報しないという意味ではない。爆発する濃度になる前にガス漏れを知らせ、事故を防ぐための機能である。"
+          ],
+          "questionSetId": "gas-shunin-hei_qs06_06_gassen_setsuzoku_keihouki",
+          "questionLearningPatternId": "differences_relationships",
+          "isLawRelated": false,
+          "classificationReason": "警報器の検知原理、電源、設置位置と警報性能を、対象ガスと機器の用途に即して比較する技術問題。法定の設置義務対象・義務主体や届出を判定する設問ではなく、機器性能と施工条件の一次技術資料で判定する。",
+          "officialPagesVisuallyReviewed": [
+            38,
+            39
+          ],
+          "officialAnswerNumber": 3,
+          "primaryTechnicalSources": [
+            {
+              "url": "https://www.gkk.gr.jp/wp-content/themes/gkk/common/images/pdf/business/manual20220608.pdf",
+              "finding": "主担当が実PDF10頁（印刷8頁）の電気化学式センサー原理、14頁（印刷12頁）の業務用換気警報器、22頁（印刷20頁）のLP用4m・吹出口1.5m以内禁止、27頁（印刷25頁）の業務用換気警報器設置を直接読んで照合。原PDFは本RUN legal/gkk-alarm-manual-2022.pdfに保存。"
+            },
+            {
+              "url": "https://www.gkk.gr.jp/wp-content/uploads/2023/03/23_gkk_gyomukankikeihouki.pdf",
+              "finding": "工業会のチラシは業務用換気警報器について、最も遠いバーナーから8m以内、機器及びレンジフードから50cmを避ける位置を図示。"
+            },
+            {
+              "url": "https://www.new-cosmos.co.jp/home/product/678/",
+              "finding": "主担当がXH-628FPbの実製品本文でLPガス用、警報ガス濃度が爆発下限界の1/100以上1/4以下であることを確認。1/4超まで発報を待つものではない。"
+            },
+            {
+              "url": "https://www.new-cosmos.co.jp/home/product/944/",
+              "finding": "主担当がXC-601公式本文で、LP用半導体式とCO用電気化学式の違い及び警報濃度を照合。この機種をそのまま業務用換気警報器とみなしていない。"
+            }
+          ],
+          "sourceSummary": "主担当が2023年度公式問27画像38頁の全5肢を直視し、39頁への続きがないこと及び公式解答3を照合。個別肢の判定はTTFTTであり、警報濃度の以上と作動設定の以下は違う意味として区別した。法令告示の本文を取得できたとする根拠を捏造せず、判定は実取得できた一次の機器仕様と工業会の技術資料に基づく。"
         }
       ]
     },
