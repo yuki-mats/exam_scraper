@@ -1,14 +1,14 @@
 {
   "schemaVersion": "hei-direct-maintenance-checkpoint/v1",
-  "generatedAt": "2026-10-27T21:33:33.448376+00:00",
+  "generatedAt": "2026-10-27T21:36:11.148237+00:00",
   "status": "in_progress",
   "fullOutcomeComplete": false,
   "productionWritten": false,
   "systemCodeModified": false,
   "maintenanceServerStarted": false,
   "sourceQuestionCount": 522,
-  "newDirectSavedQuestionCount": 428,
-  "remainingDirectReviewQuestionCount": 94,
+  "newDirectSavedQuestionCount": 430,
+  "remainingDirectReviewQuestionCount": 92,
   "savedQuestions": {
     "2017:kiso:問1": {
       "sourceQuestionId": "2017:kiso:問1",
@@ -5304,14 +5304,38 @@
       "auditPath": "output/gas-shunin-hei/direct_publication/20261027/content_audits/2021_kyokyu_問15/result.json",
       "nativeSha256": "378400ad7b8796f88c14955e19d8c94536a4f9d1a886f682eab75f311ce33106",
       "saveReceipt": "output/gas-shunin-hei/direct_publication/20261027/saved/2021-kyokyu-15.json"
+    },
+    "2021:kyokyu:問16": {
+      "sourceQuestionId": "2021:kyokyu:問16",
+      "sourceIdentity": {
+        "sourceQuestionKey": "gas-shunin:hei:2021:kyokyu:q16",
+        "reviewQuestionId": "44d295d615d6d8ba",
+        "sourceRecordRef": "question_2021_2.json#21"
+      },
+      "candidateHash": "8154168bbd66b8781a3f5cba560fdd7bcea8bbdfb4a5981dac7c03a684a18f8f",
+      "auditPath": "output/gas-shunin-hei/direct_publication/20261027/content_audits/2021_kyokyu_問16/result.json",
+      "nativeSha256": "7693941632cb5b76bc6a6af6f9e15a447b4553168990d2e843138b554fb43e3a",
+      "saveReceipt": "output/gas-shunin-hei/direct_publication/20261027/saved/2021-kyokyu-16.json"
+    },
+    "2025:kyokyu:問17": {
+      "sourceQuestionId": "2025:kyokyu:問17",
+      "sourceIdentity": {
+        "sourceQuestionKey": "gas-shunin:hei:2025:kyokyu:q17",
+        "reviewQuestionId": "3c286541c223e59d",
+        "sourceRecordRef": "question_2025_2.json#22"
+      },
+      "candidateHash": "c91f443540127991754a82e6f4341754cf29fb8e5270f7c6636acf2aa13d69de",
+      "auditPath": "output/gas-shunin-hei/direct_publication/20261027/content_audits/2025_kyokyu_問17/result.json",
+      "nativeSha256": "5b16fc8dbbeb209f0f999ca7023a87a4192ba216f243fed7d739d48161d2750d",
+      "saveReceipt": "output/gas-shunin-hei/direct_publication/20261027/saved/2025-kyokyu-17.json"
     }
   },
   "latestChecks": {
-    "path": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T213203Z/result.json",
-    "sha256": "84f63c1f5213d92f22db97dacf42137d3480ca084244f134f9951d1797f2a059",
+    "path": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T213410Z/result.json",
+    "sha256": "31aad4a143546815df69ae3192b08d7f015362e8fc1da4ceafa4ac776f2c5680",
     "summary": {
-      "generatedAt": "20261027T213203Z",
-      "selectedCount": 428,
+      "generatedAt": "20261027T213410Z",
+      "selectedCount": 430,
       "byYear": {
         "2017": 51,
         "2019": 48,
@@ -5319,9 +5343,9 @@
         "2024": 48,
         "2020": 46,
         "2018": 50,
-        "2025": 45,
+        "2025": 46,
         "2022": 47,
-        "2021": 46
+        "2021": 47
       },
       "commands": [
         {
@@ -5329,12 +5353,12 @@
             "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_choice_text_alignment.py",
             "--base-dir",
-            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/checks/20261027T213203Z/gas-shunin-hei/questions_json",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/checks/20261027T213410Z/gas-shunin-hei/questions_json",
             "--stage",
             "merged"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T213203Z/check-00.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T213410Z/check-00.log",
           "logSha256": "a0a43fc049c21d611775721216fc1fe1f18569576a2440e0f682647409dbe70f"
         },
         {
@@ -5342,12 +5366,12 @@
             "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_required_fields.py",
             "--base-dir",
-            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/checks/20261027T213203Z/gas-shunin-hei/questions_json",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/checks/20261027T213410Z/gas-shunin-hei/questions_json",
             "--stage",
             "merged"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T213203Z/check-01.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T213410Z/check-01.log",
           "logSha256": "aba5ddbabc195b6b3065026bd5dd0bbc689b62d9454c334b5b90e21ac5933b8c"
         },
         {
@@ -5362,7 +5386,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2017/10_questionType_fixed/question_2017_1_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T213203Z/check-02.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T213410Z/check-02.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5377,7 +5401,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2017/10_questionType_fixed/question_2017_2_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T213203Z/check-03.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T213410Z/check-03.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5392,7 +5416,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2017/10_questionType_fixed/question_2017_3_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T213203Z/check-04.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T213410Z/check-04.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5407,7 +5431,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2019/10_questionType_fixed/question_2019_1_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T213203Z/check-05.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T213410Z/check-05.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5422,7 +5446,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2019/10_questionType_fixed/question_2019_2_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T213203Z/check-06.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T213410Z/check-06.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5437,7 +5461,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2019/10_questionType_fixed/question_2019_3_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T213203Z/check-07.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T213410Z/check-07.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5452,7 +5476,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2023/10_questionType_fixed/question_2023_1_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T213203Z/check-08.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T213410Z/check-08.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5467,7 +5491,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2023/10_questionType_fixed/question_2023_2_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T213203Z/check-09.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T213410Z/check-09.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5482,7 +5506,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2023/10_questionType_fixed/question_2023_3_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T213203Z/check-10.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T213410Z/check-10.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5497,7 +5521,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2024/10_questionType_fixed/question_2024_1_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T213203Z/check-11.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T213410Z/check-11.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5512,7 +5536,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2024/10_questionType_fixed/question_2024_2_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T213203Z/check-12.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T213410Z/check-12.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5527,7 +5551,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2024/10_questionType_fixed/question_2024_3_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T213203Z/check-13.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T213410Z/check-13.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5542,7 +5566,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2020/10_questionType_fixed/question_2020_1_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T213203Z/check-14.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T213410Z/check-14.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5557,7 +5581,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2020/10_questionType_fixed/question_2020_2_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T213203Z/check-15.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T213410Z/check-15.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5572,7 +5596,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2020/10_questionType_fixed/question_2020_3_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T213203Z/check-16.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T213410Z/check-16.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5587,7 +5611,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2018/10_questionType_fixed/question_2018_1_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T213203Z/check-17.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T213410Z/check-17.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5602,7 +5626,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2018/10_questionType_fixed/question_2018_2_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T213203Z/check-18.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T213410Z/check-18.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5617,7 +5641,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2018/10_questionType_fixed/question_2018_3_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T213203Z/check-19.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T213410Z/check-19.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5632,7 +5656,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2025/10_questionType_fixed/question_2025_1_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T213203Z/check-20.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T213410Z/check-20.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5647,7 +5671,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2025/10_questionType_fixed/question_2025_2_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T213203Z/check-21.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T213410Z/check-21.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5662,7 +5686,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2025/10_questionType_fixed/question_2025_3_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T213203Z/check-22.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T213410Z/check-22.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5677,7 +5701,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2022/10_questionType_fixed/question_2022_1_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T213203Z/check-23.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T213410Z/check-23.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5692,7 +5716,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2022/10_questionType_fixed/question_2022_2_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T213203Z/check-24.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T213410Z/check-24.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5707,7 +5731,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2022/10_questionType_fixed/question_2022_3_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T213203Z/check-25.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T213410Z/check-25.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5722,7 +5746,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2021/10_questionType_fixed/question_2021_1_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T213203Z/check-26.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T213410Z/check-26.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5737,7 +5761,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2021/10_questionType_fixed/question_2021_2_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T213203Z/check-27.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T213410Z/check-27.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -5752,7 +5776,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2021/10_questionType_fixed/question_2021_3_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T213203Z/check-28.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261027T213410Z/check-28.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         }
       ],
@@ -100169,7 +100193,7 @@
     },
     {
       "path": "output/gas-shunin-hei/questions_json/2021/15_correctChoiceText_fixed/question_2021_2_merged_correctChoiceText_fixed.json",
-      "sha256": "db705fb7852fef153fcfa679ea88b42e9eb098cf16eb11b9175ccff79bce6054",
+      "sha256": "1a34caddbf8a7753b000ff2c18a919b19bc7bfe82fd7bc6658227d5e916b5d31",
       "payload": [
         {
           "questionIntent_changed": true,
@@ -100250,6 +100274,16 @@
           "sourceQuestionKey": "gas-shunin:hei:2021:kyokyu:q15",
           "reviewQuestionId": "8bcaf11996adda2a",
           "sourceRecordRef": "question_2021_2.json#20"
+        },
+        {
+          "questionIntent_changed": false,
+          "questionIntent_change_detail": "",
+          "original_question_id": "44d295d615d6d8ba",
+          "questionIntent": "select_incorrect",
+          "questionIntent_change_reason": "",
+          "sourceQuestionKey": "gas-shunin:hei:2021:kyokyu:q16",
+          "reviewQuestionId": "44d295d615d6d8ba",
+          "sourceRecordRef": "question_2021_2.json#21"
         },
         {
           "questionIntent_changed": false,
@@ -106381,7 +106415,7 @@
     },
     {
       "path": "output/gas-shunin-hei/questions_json/2021/18_law_context_prepared/question_2021_2_merged_lawContext_prepared.json",
-      "sha256": "0f88fab4a1b17ac25fc63eb57527e2d19400e790bbab566f581d5be9b08a9f81",
+      "sha256": "56ed745d2d1ec0b531c57541357fa594198bc77c6b5bd5afcd3079174ccdd428",
       "payload": [
         {
           "isLawRelated": false,
@@ -108266,6 +108300,150 @@
           "sourceQuestionKey": "gas-shunin:hei:2021:kyokyu:q15",
           "reviewQuestionId": "8bcaf11996adda2a",
           "sourceRecordRef": "question_2021_2.json#20"
+        },
+        {
+          "isLawRelated": false,
+          "lawGroundedExplanationNotNeeded": true,
+          "original_question_id": "44d295d615d6d8ba",
+          "question_url": "https://gassyunin.com/exam/hei/hei_2021/#kyokyu-q16",
+          "lawReferences": [
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "lawRevisionFacts": [
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "正しい"
+              },
+              "current": {
+                "correctChoiceText": "正しい"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "導管漏えいの原因、更生修理、他工事対策、水の浸入と管路探査という維持管理実務。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "導管からの漏えいは、管体又は接合部の腐食、亀裂、折損や接合部のゆるみ等により発生し、このうち発生件数が多いのは接合部のゆるみである。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2021_kyokyu_問16/result.json"
+              ]
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "間違い"
+              },
+              "current": {
+                "correctChoiceText": "間違い"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "導管漏えいの原因、更生修理、他工事対策、水の浸入と管路探査という維持管理実務。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "更生修理工法は、導管の継手、管体部の機械的強度を向上させ、損傷を修理することを目的とした工法である。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2021_kyokyu_問16/result.json"
+              ]
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "正しい"
+              },
+              "current": {
+                "correctChoiceText": "正しい"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "導管漏えいの原因、更生修理、他工事対策、水の浸入と管路探査という維持管理実務。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "需要家敷地内の他工事管理において、建築、設備業者に対し、万一損傷した場合の二次災害防止のための措置を記載した注意チラシ等を配付する。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2021_kyokyu_問16/result.json"
+              ]
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "正しい"
+              },
+              "current": {
+                "correctChoiceText": "正しい"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "導管漏えいの原因、更生修理、他工事対策、水の浸入と管路探査という維持管理実務。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "サンドブラスト現象が発生すると、土砂まじりの噴流がガス導管の管壁を貫通して管内へ多量の水が浸入し、ガスの流れを阻害する。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2021_kyokyu_問16/result.json"
+              ]
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "正しい"
+              },
+              "current": {
+                "correctChoiceText": "正しい"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "導管漏えいの原因、更生修理、他工事対策、水の浸入と管路探査という維持管理実務。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "パイプロケーターは、埋設管の位置及び深さを地上から検知するもので、一般に用いられているのは電磁誘導法の原理によるものである。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2021_kyokyu_問16/result.json"
+              ]
+            }
+          ],
+          "lawContextForExplanation": "導管漏えいの原因、更生修理、他工事対策、水の浸入と管路探査という維持管理実務。",
+          "sourceQuestionKey": "gas-shunin:hei:2021:kyokyu:q16",
+          "reviewQuestionId": "44d295d615d6d8ba",
+          "sourceRecordRef": "question_2021_2.json#21"
         },
         {
           "isLawRelated": false,
@@ -115942,7 +116120,7 @@
     },
     {
       "path": "output/gas-shunin-hei/questions_json/2021/21_explanationText_added/question_2021_2_merged_explanationText_added.json",
-      "sha256": "94bb230751e47867bd35d109c172321e86b929645f4ba28bfdb91bddaa5d74fe",
+      "sha256": "61e2ecb4499dc20282f44ae0fbf3180c23c7ff0bd997833a4af83b2e07e4d884",
       "payload": [
         {
           "explanationText": [
@@ -117925,6 +118103,158 @@
         },
         {
           "explanationText": [
+            "正しい。導管からの漏えいは、腐食や亀裂・折損のほか、接合部のゆるみによっても起こる。設問の維持管理で想定する漏えいでは、発生件数が多い接合部のゆるみに注意する。漏えい量の大小と、発生件数の多さは別に考える。",
+            "間違い。更生修理工法は、既設管の内面に樹脂などを装着・塗布し、気密性を維持・向上させる工法である。継手や管体の機械的強度そのものを高めることを目的とした工法ではない。強度の不足や大きな損傷がある管に、内面処理だけで対応できると判断してはならない。",
+            "正しい。敷地内で他の工事を行う建築・設備業者にも、ガス管を損傷した場合の対応を事前に知らせる。注意チラシ等で連絡先や初動の措置を共有しておけば、工事中の損傷を早く把握し、二次災害を防ぎやすくなる。",
+            "正しい。サンドブラスト現象は、水道管等からの漏水による土砂まじりの噴流が、近接するガス管の表面を削る現象である。管壁に穴があくと、圧力の高い水がガス管内へ入り、ガスの通路を塞いで供給を妨げることがある。",
+            "正しい。パイプロケーターは、導電性のある埋設管等に流れる電流が作る磁界を地上で検知し、位置や深さを調べる機器である。一般に電磁誘導の原理を利用する。地中へ電波を送って反射波を調べる地中探査レーダーと区別する。"
+          ],
+          "suggestedQuestionDetailsByChoice": [],
+          "original_question_id": "44d295d615d6d8ba",
+          "question_url": "https://gassyunin.com/exam/hei/hei_2021/#kyokyu-q16",
+          "questionLearningPatternId": "mechanisms_reasons",
+          "lawReferences": [
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "isLawRelated": false,
+          "lawGroundedExplanationNotNeeded": true,
+          "lawRevisionFacts": [
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "正しい"
+              },
+              "current": {
+                "correctChoiceText": "正しい"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "導管漏えいの原因、更生修理、他工事対策、水の浸入と管路探査という維持管理実務。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "導管からの漏えいは、管体又は接合部の腐食、亀裂、折損や接合部のゆるみ等により発生し、このうち発生件数が多いのは接合部のゆるみである。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2021_kyokyu_問16/result.json"
+              ]
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "間違い"
+              },
+              "current": {
+                "correctChoiceText": "間違い"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "導管漏えいの原因、更生修理、他工事対策、水の浸入と管路探査という維持管理実務。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "更生修理工法は、導管の継手、管体部の機械的強度を向上させ、損傷を修理することを目的とした工法である。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2021_kyokyu_問16/result.json"
+              ]
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "正しい"
+              },
+              "current": {
+                "correctChoiceText": "正しい"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "導管漏えいの原因、更生修理、他工事対策、水の浸入と管路探査という維持管理実務。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "需要家敷地内の他工事管理において、建築、設備業者に対し、万一損傷した場合の二次災害防止のための措置を記載した注意チラシ等を配付する。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2021_kyokyu_問16/result.json"
+              ]
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "正しい"
+              },
+              "current": {
+                "correctChoiceText": "正しい"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "導管漏えいの原因、更生修理、他工事対策、水の浸入と管路探査という維持管理実務。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "サンドブラスト現象が発生すると、土砂まじりの噴流がガス導管の管壁を貫通して管内へ多量の水が浸入し、ガスの流れを阻害する。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2021_kyokyu_問16/result.json"
+              ]
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "正しい"
+              },
+              "current": {
+                "correctChoiceText": "正しい"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "導管漏えいの原因、更生修理、他工事対策、水の浸入と管路探査という維持管理実務。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "パイプロケーターは、埋設管の位置及び深さを地上から検知するもので、一般に用いられているのは電磁誘導法の原理によるものである。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2021_kyokyu_問16/result.json"
+              ]
+            }
+          ],
+          "sourceQuestionKey": "gas-shunin:hei:2021:kyokyu:q16",
+          "reviewQuestionId": "44d295d615d6d8ba",
+          "sourceRecordRef": "question_2021_2.json#21"
+        },
+        {
+          "explanationText": [
             "正しい。大きな団地の導管網をブロックに分けると、被害や修理の状況を区画ごとに確認できる。安全が確かめられた区画から供給を再開できるため、復旧を効率化できる。",
             "正しい。マイコンメーターによる自動遮断や、メーターガス栓による閉栓は、需要家ごとにガスを止める手段となる。区域全体の遮断と組み合わせ、各戸の点検・復旧を安全に進める。",
             "正しい。液状化や盛土崩壊のおそれがある団地を事前に把握しておくと、地震後に優先して点検する場所を判断しやすい。地盤条件と設備の位置を平常時から整理する。",
@@ -119491,7 +119821,7 @@
     },
     {
       "path": "output/gas-shunin-hei/questions_json/2021/22_questionSetId_linked/question_2021_2_merged_questionSetId_linked.json",
-      "sha256": "e9273181f375937df2ce45011c554a2107830c9402bdc4795b64d223b0312ba7",
+      "sha256": "d9ee5350f761499cafd6335477a25ced1fff8985c0ff308de43fda1d2f1eda09",
       "payload": [
         {
           "questionSetId": "gas-shunin-hei_qs03_02_kitaijoho",
@@ -119596,6 +119926,14 @@
           "sourceQuestionKey": "gas-shunin:hei:2021:kyokyu:q15",
           "reviewQuestionId": "8bcaf11996adda2a",
           "sourceRecordRef": "question_2021_2.json#20"
+        },
+        {
+          "questionSetId": "gas-shunin-hei_qs05_05_roei_iji",
+          "original_question_id": "44d295d615d6d8ba",
+          "question_url": "https://gassyunin.com/exam/hei/hei_2021/#kyokyu-q16",
+          "sourceQuestionKey": "gas-shunin:hei:2021:kyokyu:q16",
+          "reviewQuestionId": "44d295d615d6d8ba",
+          "sourceRecordRef": "question_2021_2.json#21"
         },
         {
           "questionSetId": "gas-shunin-hei_qs05_06_jishin",
@@ -120261,7 +120599,7 @@
     },
     {
       "path": "output/gas-shunin-hei/questions_json/2021/23_correctChoiceText_fixed/question_2021_2_merged_correctChoiceText_fixed.json",
-      "sha256": "25f9d999e1f936c3e39ecec5ef2ea03571309ddfbece78fa9e3eacdefcbc0235",
+      "sha256": "197d9fb519a1e5bef93de856f2e54ee6678459d349eaa69d2f282dc8efefb30f",
       "payload": [
         {
           "correctChoiceText_changed": false,
@@ -120574,6 +120912,30 @@
           "sourceQuestionKey": "gas-shunin:hei:2021:kyokyu:q15",
           "reviewQuestionId": "8bcaf11996adda2a",
           "sourceRecordRef": "question_2021_2.json#20"
+        },
+        {
+          "correctChoiceText_changed": false,
+          "correctChoiceText_change_detail": "",
+          "correctChoiceText_change_reason": "",
+          "correctChoiceText": [
+            "正しい",
+            "間違い",
+            "正しい",
+            "正しい",
+            "正しい"
+          ],
+          "explanation_choice_snippets": [
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "original_question_id": "44d295d615d6d8ba",
+          "question_url": "https://gassyunin.com/exam/hei/hei_2021/#kyokyu-q16",
+          "sourceQuestionKey": "gas-shunin:hei:2021:kyokyu:q16",
+          "reviewQuestionId": "44d295d615d6d8ba",
+          "sourceRecordRef": "question_2021_2.json#21"
         },
         {
           "correctChoiceText_changed": false,
@@ -194237,7 +194599,7 @@
     },
     {
       "path": "output/gas-shunin-hei/questions_json/2025/15_correctChoiceText_fixed/question_2025_2_merged_correctChoiceText_fixed.json",
-      "sha256": "f0828cf7b047b20555d22264d480472216d45c03ee9dab68fe8a969f27e7c2cf",
+      "sha256": "2ceea18388660845a8e0a2faeefcc9edd4f73c3c95362998266ed8f54f7f43fe",
       "payload": [
         {
           "original_question_id": "d23d6e7fc290dc85",
@@ -194409,8 +194771,11 @@
           "sourceRecordRef": "question_2025_2.json#21"
         },
         {
+          "questionIntent_changed": false,
+          "questionIntent_change_detail": "",
           "original_question_id": "3c286541c223e59d",
           "questionIntent": "select_incorrect",
+          "questionIntent_change_reason": "",
           "sourceQuestionKey": "gas-shunin:hei:2025:kyokyu:q17",
           "reviewQuestionId": "3c286541c223e59d",
           "sourceRecordRef": "question_2025_2.json#22"
@@ -201092,7 +201457,7 @@
     },
     {
       "path": "output/gas-shunin-hei/questions_json/2025/18_law_context_prepared/question_2025_2_merged_lawContext_prepared.json",
-      "sha256": "d11e8044332d26388ccce2a576f8258dc63587ed4980291bd5998e7b4d95c2c3",
+      "sha256": "8362a16ea09fbd51003e9577f267b14eb9884c4e4840a5b9111281d47aeaa958",
       "payload": [
         {
           "isLawRelated": false,
@@ -203065,7 +203430,134 @@
             [],
             []
           ],
-          "lawContextForExplanation": "導管の維持管理、他工事事故防止、ガス検知器、差し水、活管撤去方法に関する技術・保安実務の問題で、法令条文を直接の根拠としない。",
+          "lawRevisionFacts": [
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "間違い"
+              },
+              "current": {
+                "correctChoiceText": "間違い"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "他工事管理、漏えい検知、差し水、鋼管の撤去という導管の維持管理の実務を問う。個別法令の許可、法定検査周期を問うものではない。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "他工事による施工協議において、ガス管周辺の矢板打ち、くい打ちの計画が判明したので、導管図調査で導管位置を確認して打設させた。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2025_kyokyu_問17/result.json"
+              ]
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "正しい"
+              },
+              "current": {
+                "correctChoiceText": "正しい"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "他工事管理、漏えい検知、差し水、鋼管の撤去という導管の維持管理の実務を問う。個別法令の許可、法定検査周期を問うものではない。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "他工事による事故を防ぐために、道路管理者、警察等関係官庁の協力を得て、地域ごとの連絡協議会、打合せ会等を通じて、情報交換した。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2025_kyokyu_問17/result.json"
+              ]
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "正しい"
+              },
+              "current": {
+                "correctChoiceText": "正しい"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "他工事管理、漏えい検知、差し水、鋼管の撤去という導管の維持管理の実務を問う。個別法令の許可、法定検査周期を問うものではない。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "半導体式ガス検知器は、接触燃焼式の可燃性ガス検知器に比べて低い濃度のLPガスを検知することができる。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2025_kyokyu_問17/result.json"
+              ]
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "正しい"
+              },
+              "current": {
+                "correctChoiceText": "正しい"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "他工事管理、漏えい検知、差し水、鋼管の撤去という導管の維持管理の実務を問う。個別法令の許可、法定検査周期を問うものではない。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "継手接続不良箇所、腐食孔等から導管内に水が浸入することを差し水といい、供給支障の原因となる。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2025_kyokyu_問17/result.json"
+              ]
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "正しい"
+              },
+              "current": {
+                "correctChoiceText": "正しい"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "他工事管理、漏えい検知、差し水、鋼管の撤去という導管の維持管理の実務を問う。個別法令の許可、法定検査周期を問うものではない。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "活管状態の供給管（鋼管）を撤去する方法として、スクイズカッターを用いて圧搾切断し、切断された供給側端末にスクイズクランプを取り付けた。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2025_kyokyu_問17/result.json"
+              ]
+            }
+          ],
+          "lawContextForExplanation": "他工事管理、漏えい検知、差し水、鋼管の撤去という導管の維持管理の実務を問う。個別法令の許可、法定検査周期を問うものではない。",
           "sourceQuestionKey": "gas-shunin:hei:2025:kyokyu:q17",
           "reviewQuestionId": "3c286541c223e59d",
           "sourceRecordRef": "question_2025_2.json#22"
@@ -211242,7 +211734,7 @@
     },
     {
       "path": "output/gas-shunin-hei/questions_json/2025/21_explanationText_added/question_2025_2_merged_explanationText_added.json",
-      "sha256": "170c35e4f7981e9f6037fcb2287cd6760a4390a9e22ae0d271597d804d692a97",
+      "sha256": "6fe59cdd3ed9caa493cfeb4ad52d4355116ac8eed8028f70121adc390c6b7778",
       "payload": [
         {
           "explanationText": [
@@ -214167,30 +214659,16 @@
         },
         {
           "explanationText": [
-            "間違い。正しくは、矢板やくいを打設する前に、導管図で位置を確認するだけでなく、試掘などで現場の導管位置を確認してから施工する。選択肢は導管図調査だけで確認して打設させているため誤りである。",
-            "正しい。他工事による導管損傷を防ぐには、道路管理者や警察などの関係官庁とも情報を共有し、地域ごとの連絡協議会や打合せ会を通じて工事計画を把握する。",
-            "正しい。半導体式ガス検知器は、接触燃焼式より低い濃度のLPガスを検知できるため、微量な漏えいの検知に用いられる。",
-            "正しい。差し水とは、継手接続不良箇所や腐食孔などから導管内へ水が入り込むことである。導管内の水はガスの流れを妨げ、供給支障の原因になる。",
-            "正しい。活管状態の鋼製供給管を撤去する場合は、スクイズカッターで管を圧搾切断し、供給側の切断端末をスクイズクランプで閉止する。これにより、切断後に供給側からガスが流出するのを防ぐ。"
+            "間違い。矢板やくいを打つ工事では、導管図だけでガス管の位置を確定してはならない。試掘等で実際の埋設位置と深さを確認し、必要な防護措置や立会いについて協議してから施工する。図面と現地が一致するとは限らず、打設時にはガス管を直接見ながら避けることができないためである。",
+            "正しい。道路管理者や警察などとの連絡協議会・打合せ会は、他工事の情報を早く把握し、事故を防ぐために役立つ。工事場所、工程、施工方法、ガス管への影響を関係者で共有し、個別の施工協議や防護措置につなげる。",
+            "正しい。半導体式ガス検知器は、ガスによる半導体の電気抵抗の変化を利用し、微量のガスを高感度で検知できる。接触燃焼式が主に爆発下限界に対する濃度の測定に用いられるのに対し、半導体式はppm単位の低濃度の漏えい検知に適している。対象ガスに対応した機種を選ぶ。",
+            "正しい。差し水は、継手の接続不良や腐食孔などを通じて外部の水がガス管内に入る現象である。管内の低い場所に水がたまるとガスの通り道を狭めたり塞いだりし、供給圧力の低下や供給停止の原因になる。",
+            "正しい。スクイズカッターは、再使用しない鋼管を押し潰してガスの噴出を抑えた状態で切断する工具である。切断後の供給側端末は、扁平になった形状に適合するスクイズクランプで閉塞する。ポリエチレン管の一時的な遮断に用いるスクイズオフと区別する。"
           ],
           "suggestedQuestionDetailsByChoice": [],
           "original_question_id": "3c286541c223e59d",
           "question_url": "https://gassyunin.com/exam/hei/hei_2025/#kyokyu-q17",
-          "questionLearningPatternId": "terms_basics",
-          "explanationReferences": [
-            {
-              "choiceIndex": 0,
-              "referenceDate": "2026-10-27",
-              "sourceUrl": "https://www.gas.or.jp/pdf/books/notice20201030.pdf",
-              "title": "改訂新旧表（2020年10月）「供給管・内管指針（維持管理編）」"
-            }
-          ],
-          "sourceQuestionKey": "gas-shunin:hei:2025:kyokyu:q17",
-          "reviewQuestionId": "3c286541c223e59d",
-          "sourceRecordRef": "question_2025_2.json#22",
-          "isLawRelated": false,
-          "lawContextForExplanation": "導管の維持管理、他工事事故防止、ガス検知器、差し水、活管撤去方法に関する技術・保安実務の問題で、法令条文を直接の根拠としない。",
-          "lawGroundedExplanationNotNeeded": true,
+          "questionLearningPatternId": "mechanisms_reasons",
           "lawReferences": [
             [],
             [],
@@ -214198,128 +214676,138 @@
             [],
             []
           ],
+          "isLawRelated": false,
+          "lawGroundedExplanationNotNeeded": true,
           "lawRevisionFacts": [
             {
-              "answerImpactFacts": [],
               "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "間違い"
+              },
               "current": {
                 "correctChoiceText": "間違い"
               },
               "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
               "evidenceSummary": {
-                "differenceSummary": "法令改正差分なし。",
-                "displayRefIds": [],
-                "explanationText": "他工事前の導管位置確認方法に関する技術・保安実務の記述を判定する。",
-                "promptContext": "選択肢1の技術判定を既存内容どおり保持する。",
+                "verdict": "not_law_related",
+                "explanationText": "他工事管理、漏えい検知、差し水、鋼管の撤去という導管の維持管理の実務を問う。個別法令の許可、法定検査周期を問うものではない。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "他工事による施工協議において、ガス管周辺の矢板打ち、くい打ちの計画が判明したので、導管図調査で導管位置を確認して打設させた。",
                 "refs": [],
-                "verdict": "not_law_related"
-              },
-              "examTime": {
-                "correctChoiceText": "間違い"
+                "displayRefIds": []
               },
               "notes": [
-                "技術・保安実務の判定であり、法令改正差分の監査対象外。"
-              ],
-              "reconciliationStatus": "reconciled_not_law_related",
-              "reviewState": "secondary_verified"
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2025_kyokyu_問17/result.json"
+              ]
             },
             {
-              "answerImpactFacts": [],
               "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "正しい"
+              },
               "current": {
                 "correctChoiceText": "正しい"
               },
               "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
               "evidenceSummary": {
-                "differenceSummary": "法令改正差分なし。",
-                "displayRefIds": [],
-                "explanationText": "関係官庁との情報交換による他工事事故防止に関する技術・保安実務の記述を判定する。",
-                "promptContext": "選択肢2の技術判定を既存内容どおり保持する。",
+                "verdict": "not_law_related",
+                "explanationText": "他工事管理、漏えい検知、差し水、鋼管の撤去という導管の維持管理の実務を問う。個別法令の許可、法定検査周期を問うものではない。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "他工事による事故を防ぐために、道路管理者、警察等関係官庁の協力を得て、地域ごとの連絡協議会、打合せ会等を通じて、情報交換した。",
                 "refs": [],
-                "verdict": "not_law_related"
+                "displayRefIds": []
               },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2025_kyokyu_問17/result.json"
+              ]
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
               "examTime": {
                 "correctChoiceText": "正しい"
               },
-              "notes": [
-                "技術・保安実務の判定であり、法令改正差分の監査対象外。"
-              ],
-              "reconciliationStatus": "reconciled_not_law_related",
-              "reviewState": "secondary_verified"
-            },
-            {
-              "answerImpactFacts": [],
-              "auditStatus": "not_law_related",
               "current": {
                 "correctChoiceText": "正しい"
               },
               "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
               "evidenceSummary": {
-                "differenceSummary": "法令改正差分なし。",
-                "displayRefIds": [],
-                "explanationText": "半導体式ガス検知器の検知性能に関する技術・保安実務の記述を判定する。",
-                "promptContext": "選択肢3の技術判定を既存内容どおり保持する。",
+                "verdict": "not_law_related",
+                "explanationText": "他工事管理、漏えい検知、差し水、鋼管の撤去という導管の維持管理の実務を問う。個別法令の許可、法定検査周期を問うものではない。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "半導体式ガス検知器は、接触燃焼式の可燃性ガス検知器に比べて低い濃度のLPガスを検知することができる。",
                 "refs": [],
-                "verdict": "not_law_related"
+                "displayRefIds": []
               },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2025_kyokyu_問17/result.json"
+              ]
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
               "examTime": {
                 "correctChoiceText": "正しい"
               },
-              "notes": [
-                "技術・保安実務の判定であり、法令改正差分の監査対象外。"
-              ],
-              "reconciliationStatus": "reconciled_not_law_related",
-              "reviewState": "secondary_verified"
-            },
-            {
-              "answerImpactFacts": [],
-              "auditStatus": "not_law_related",
               "current": {
                 "correctChoiceText": "正しい"
               },
               "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
               "evidenceSummary": {
-                "differenceSummary": "法令改正差分なし。",
-                "displayRefIds": [],
-                "explanationText": "差し水の定義と供給支障に関する技術・保安実務の記述を判定する。",
-                "promptContext": "選択肢4の技術判定を既存内容どおり保持する。",
+                "verdict": "not_law_related",
+                "explanationText": "他工事管理、漏えい検知、差し水、鋼管の撤去という導管の維持管理の実務を問う。個別法令の許可、法定検査周期を問うものではない。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "継手接続不良箇所、腐食孔等から導管内に水が浸入することを差し水といい、供給支障の原因となる。",
                 "refs": [],
-                "verdict": "not_law_related"
+                "displayRefIds": []
               },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2025_kyokyu_問17/result.json"
+              ]
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
               "examTime": {
                 "correctChoiceText": "正しい"
               },
-              "notes": [
-                "技術・保安実務の判定であり、法令改正差分の監査対象外。"
-              ],
-              "reconciliationStatus": "reconciled_not_law_related",
-              "reviewState": "secondary_verified"
-            },
-            {
-              "answerImpactFacts": [],
-              "auditStatus": "not_law_related",
               "current": {
                 "correctChoiceText": "正しい"
               },
               "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
               "evidenceSummary": {
-                "differenceSummary": "法令改正差分なし。",
-                "displayRefIds": [],
-                "explanationText": "スクイズカッター及びスクイズクランプによる活管撤去方法に関する技術・保安実務の記述を判定する。",
-                "promptContext": "選択肢5の技術判定を既存内容どおり保持する。",
+                "verdict": "not_law_related",
+                "explanationText": "他工事管理、漏えい検知、差し水、鋼管の撤去という導管の維持管理の実務を問う。個別法令の許可、法定検査周期を問うものではない。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "活管状態の供給管（鋼管）を撤去する方法として、スクイズカッターを用いて圧搾切断し、切断された供給側端末にスクイズクランプを取り付けた。",
                 "refs": [],
-                "verdict": "not_law_related"
-              },
-              "examTime": {
-                "correctChoiceText": "正しい"
+                "displayRefIds": []
               },
               "notes": [
-                "技術・保安実務の判定であり、法令改正差分の監査対象外。"
-              ],
-              "reconciliationStatus": "reconciled_not_law_related",
-              "reviewState": "secondary_verified"
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2025_kyokyu_問17/result.json"
+              ]
             }
-          ]
+          ],
+          "sourceQuestionKey": "gas-shunin:hei:2025:kyokyu:q17",
+          "reviewQuestionId": "3c286541c223e59d",
+          "sourceRecordRef": "question_2025_2.json#22"
         },
         {
           "explanationText": [
@@ -216997,7 +217485,7 @@
     },
     {
       "path": "output/gas-shunin-hei/questions_json/2025/23_correctChoiceText_fixed/question_2025_2_correctChoiceText_fixed.json",
-      "sha256": "56957a97ce2e66d8a2c198d6f0d71c54e558e87ed276c5f59e7bb30ec794af1a",
+      "sha256": "daa69c17caa625965f208635a57d9943e9e036da6a6f7e1c4f9e9067293fc9c7",
       "payload": [
         {
           "correctChoiceText_changed": false,
@@ -217450,6 +217938,13 @@
             "正しい",
             "正しい",
             "正しい"
+          ],
+          "explanation_choice_snippets": [
+            [],
+            [],
+            [],
+            [],
+            []
           ],
           "original_question_id": "3c286541c223e59d",
           "question_url": "https://gassyunin.com/exam/hei/hei_2025/#kyokyu-q17",
@@ -477412,6 +477907,56 @@
             30
           ],
           "officialAnswerNumber": 1
+        }
+      ]
+    },
+    {
+      "path": "output/gas-shunin-hei/direct_publication/20261027/primary/2022-kyokyu-15.json",
+      "sha256": "0a35caf0f73901bd05552e40b803e43538306697ff211506eb3343e70cfd4332",
+      "payload": [
+        {
+          "sourceQuestionId": "2022:kyokyu:問15",
+          "questionType": "true_false",
+          "isCalculationQuestion": false,
+          "questionIntent": "select_incorrect",
+          "correctChoiceText": [
+            "正しい",
+            "正しい",
+            "正しい",
+            "間違い",
+            "正しい"
+          ],
+          "explanationText": [
+            "正しい。ガス用ポリエチレン管は、低圧や0.3MPa未満の中圧Bの導管に使用される。使用できる圧力は管の種類、寸法、温度等で異なるため、対象製品の使用条件を確認して選定する。0.3MPa未満ならどの製品でも一律に使えるという意味ではない。",
+            "正しい。ポリエチレン管は紫外線により劣化するため、通常は埋設配管に用いる。使用前の保管時にも覆いなどで直射日光を避ける。耐食性が高いことと、日光にさらしてよいことは別である。",
+            "正しい。ポリエチレン製のバルブ本体は金属のようにさびないため、本体への塗覆装や電気防食は不要である。ただし、接続する金属部品などの防食や、外力に対する保護は別に確認する。",
+            "間違い。ポリエチレン管には、EF接合やHF接合のほか、適合するメカニカル継手を用いる接合方法もある。EFは継手内の電熱線で融着し、HFは加熱工具で融着する方法である。管種や用途に合う継手を選ぶ。",
+            "正しい。ポリエチレンは電気を通しにくいため、金属管のように管自体へ電流を流して位置を探すことはできない。管に沿ってロケーティングワイヤーを設置し、そのワイヤーを電磁誘導式の探査機で検知して管路位置を調べる。"
+          ],
+          "questionSetId": "gas-shunin-hei_qs05_03_dokan_seko",
+          "questionLearningPatternId": "conditions_scope",
+          "isLawRelated": false,
+          "classificationReason": "PE管の使用圧力、紫外線、耐食性、接合と位置探査という材料・施工の実務。法令の定義や義務の適用を直接問う問題ではない。",
+          "officialPagesVisuallyReviewed": [
+            28,
+            29
+          ],
+          "officialAnswerNumber": 4,
+          "primaryTechnicalSources": [
+            {
+              "url": "https://www.eslontimes.com/document/detail/3/1382/",
+              "finding": "主担当が積水化学の2026年10月改訂38版カタログの既に取得済みの公開本文を実読。電気絶縁性、耐食性、EF/HFの構成及び使用温度・寸法別の圧力表を照合した。2号管の30/40℃等では0.3MPa未満でも全範囲を使えないため、製品条件を公開解説に明記。通常のHTTP取得は403だったのでローカルPDF保存なし。再取得や回避は行わず、既に実読した本文の範囲を根拠とする。"
+            },
+            {
+              "url": "https://www.nichu.co.jp/product/dac/gas/joint/",
+              "finding": "主担当が日本鋳鉄管の製品本文を実読。PE本管とPE管を結ぶPPM、鋼管と結ぶKPM-S等の常設用メカニカル継手を確認し、EF/HFのみという限定を否定した。"
+            },
+            {
+              "url": "https://network.osakagas.co.jp/business/related/gpr.html",
+              "finding": "主担当が大阪ガスネットワーク公式本文で、通電物の電磁誘導式探査と非通電物のレーダー探査を区別した。PEに導電用ワイヤーを併設する目的を材料の絶縁性から確認した。"
+            }
+          ],
+          "sourceSummary": "主担当が2022年度公式問15画像28頁の全肢と正答4を目視。0.3MPa未満の使用可能性と全製品の一律上限を混同しない。公式問題は法の条文を直接示さず、材料・施工として判定する。"
         }
       ]
     },
