@@ -4,7 +4,7 @@ goal:
   slug: gas-shunin-hei-production
   kind: specific
   tranche: 必要整備・検証・本番反映・読み戻しまで完了する
-  status: blocked
+  status: active
   oracle:
     signal: 522原問の整備済み公開artifactとFirestore全件一致、分類参照と件数・画像・公式年度一致
     cadence: 工程境界と公開直後
@@ -26,12 +26,14 @@ goal:
       - 公式PDF修正パッチ済み
       - 00_source保持
       - 本番公開は明示承認済み
+      - ユーザー明示:システム改修停止を維持し、主担当が直接データ整備して本番readbackまで進める
   suspension:
     status: paused_by_user
     at: '2026-10-27T22:35:06.921153+09:00'
     request: 問題整備システムでの整備は停止します。
     resumeRequiresExplicitUserRequest: true
     previousContinuousUntilFullOutcome: true
+    resumedScope: 直接データ整備・検証・本番反映のみ。システム改修は停止継続。
 rules:
   pm_owns_state: true
   one_active_task: true
@@ -40,7 +42,7 @@ rules:
   no_completion_without_judge_or_pm_audit: true
   planning_is_not_completion: true
   queued_required_worker_blocks_completion: true
-  continuous_until_full_outcome: false
+  continuous_until_full_outcome: true
   missing_input_or_credentials_do_not_stop_goal: true
   exact_human_approval_can_terminal_wait: true
   preserve_and_validate_existing_plan: true
@@ -63,7 +65,7 @@ visual_board:
     url: http://goalbuddy.localhost:41737/gas-shunin-hei-production/
     command: node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs
       --goal docs/goals/gas-shunin-hei-production
-active_task: null
+active_task: T007
 tasks:
   - id: T001
     type: scout
@@ -301,38 +303,53 @@ tasks:
       - 'pilot 20261027T215402470883-e835ac02: 44 validated /14 blocked /58 processed;
         not production ready'
   - id: T003
-    type: judge
-    assignee: Judge
-    status: blocked
+    type: pm
+    assignee: PM
+    status: queued
     objective: 本番書込み前の対象・検証・復旧証跡を監査する
-    receipt:
-      result: blocked
-      reason: ユーザーの明示指示による停止。自動再開しない。
-      stopped_by_user: true
-      full_outcome_complete: false
+    receipt: null
   - id: T004
     type: pm
     assignee: PM
-    status: blocked
+    status: queued
     objective: 丙種の問題と関連設定を本番反映し全件読み戻す
-    receipt:
-      result: blocked
-      reason: ユーザーの明示指示による停止。自動再開しない。
-      stopped_by_user: true
-      full_outcome_complete: false
+    receipt: null
   - id: T999
-    type: judge
-    assignee: Judge
-    status: blocked
+    type: pm
+    assignee: PM
+    status: queued
     objective: ユーザー依頼の全項目と本番一致を最終監査する
-    receipt:
-      result: blocked
-      reason: ユーザーの明示指示による停止。自動再開しない。
-      stopped_by_user: true
-      full_outcome_complete: false
+    receipt: null
+  - id: T007
+    type: pm
+    assignee: PM
+    status: active
+    objective: 確定済ツールを固定し、主担当が全残問を直接精査・patch整備・紐付け・検証する
+    allowed_files:
+      - output/gas-shunin-hei/**
+      - docs/goals/gas-shunin-hei-production/notes/T007-*
+      - document/temporary/20261027_gas_shunin_hei_direct*
+    constraints:
+      - 00_source不変
+      - システムcode11fileを変更しない
+      - 別資格の未コミット変更を保全する
+      - 整備システムの自動runを再開しない
+      - 派生物は既存CLIで生成し直接編集しない
+    receipt: null
+    checkpoint:
+      newDirectSavedQuestions: 60
+      primaryAuthoredQuestions: 75
+      targetChecksPassed: true
+      sourceFilesUnchanged: 27
+      pausedImplementationFilesUnchanged: 10
+      productionWritten: false
+      fullOutcomeComplete: false
+      report: document/temporary/20261027_gas_shunin_hei_direct_checkpoint.json
 checks:
   dirty_fingerprint: unknown
   last_verification:
-    result: unknown
-    task: null
-    commands: []
+    result: pass_scoped_only
+    task: T007
+    questions: 60
+    receipt: output/gas-shunin-hei/direct_publication/20261027/checks/20261027T144157Z/result.json
+    wholeSystemTests: not_run_data_only
