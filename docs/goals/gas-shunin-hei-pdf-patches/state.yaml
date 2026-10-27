@@ -4,7 +4,7 @@ goal:
   slug: gas-shunin-hei-pdf-patches
   kind: specific
   tranche: 70問の個別指摘解消・全9年度共通注補完・source不変・ローカル検証・commit/push
-  status: active
+  status: done
   oracle:
     signal: 通常mergeで70問の修正と全共通注が反映され全source/IDが不変
     cadence: 年度別と最終監査
@@ -58,7 +58,7 @@ visual_board:
     url: http://goalbuddy.localhost:41737/gas-shunin-hei-pdf-patches/
     command: node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs
       --goal /Users/yuki/development/exam_scraper_work/docs/goals/gas-shunin-hei-pdf-patches
-active_task: T999
+active_task: null
 tasks:
   - id: T001
     type: scout
@@ -806,7 +806,7 @@ tasks:
   - id: T999
     type: judge
     assignee: Judge
-    status: active
+    status: done
     reasoning_hint: default
     objective: 70問解消と共通注補完・ID/source不変・main pushを監査
     inputs:
@@ -825,7 +825,110 @@ tasks:
       - 'full_outcome_complete: true | false'
       - missing evidence
       - next task if not complete
-    receipt: null
+    receipt:
+      result: done
+      task_id: T999
+      board_path: docs/goals/gas-shunin-hei-pdf-patches/state.yaml
+      decision: complete
+      full_outcome_complete: true
+      rationale: 元の要確認70問は53問修正・17問修正不要として全件解消し、共通注279問を含む289正式24パッチの通常merge反映を確認しました。全68採用run、204別session、画像実送信、正規prompt、元応答、標準replay、正式bytesを独立照合し、最終522recordを期待値と完全比較しました。source・ID・raw正答・解説は不変です。必須項目・整合性検査と承認済みの同義ラベルprivate
+        coverageは成功し、失敗履歴も保持されています。報告と実remote mainが一致しています。今回の局所訂正目標は達成しており、追加の実装・整備工程は不要です。
+      evidence:
+        - path: document/temporary/20261027_gas_shunin_hei_pdf_patches.json
+          sha256: 0c9bfca0e17dd6cea9c7965f274a8f97ba6048e770dec95b57311110bfa16a37
+          finding: 実fileとHEAD内のGit保存bytesのSHA256が一致。全24/10/15の復元可能な実bytesを保持。
+        - path: document/temporary/20261027_gas_shunin_hei_pdf_patches.md
+          finding: 53修正・17no_change、共通注279、正式24計289、保留0、保存先、検証層、失敗履歴、非公開範囲が実証と整合する。
+        - scope: native review provenance
+          independentlyVerified:
+            acceptedRuns: 68
+            distinctNativeSessions: 204
+            nativePhases: 204
+            nativeImageTransmissions: 1062
+            uniqueImageFiles: 205
+            canonicalPromptsReconstructed: 959
+            acceptedQuestionRecords: 306
+            formalCorrectionPatches: 289
+            noChangeRecords: 17
+            driverRevisions: 5
+          checks:
+            - 公式PDF/source/画像hash
+            - 全phaseのnative receipt/input/prompt/schema hash
+            - 各問が参照する全画像が実送信batchに含まれること
+            - phase別session/thread/turn独立性
+            - raw応答と問別reviewの無改変対応
+            - 標準Blind/Challenge validatorsと完全changes一致
+            - standard-replayと元review hash対応
+            - 正式24の完全identity・expectedBeforeHash・実bytes
+          modelDistribution:
+            gpt-5.6-luna: 198
+            gpt-5.6-sol: 6
+        - scope: source and final projection
+          independentlyVerified:
+            sourceFileHashesUnchanged: 27
+            officialPdfHashesUnchanged: 18
+            finalRecordsComparedExactly: 522
+            commonNoteQuestions: 279
+            originalFlaggedFixed: 53
+            originalFlaggedNoChange: 17
+          finding: 最終recordはsource由来の正常投影、採用済み本文補正、独立採用された形式・計算要否・必要intentから再構成した期待値と全field一致。変更fieldは許可された本文・questionType・isCalculationQuestion・必要questionIntentだけ。
+        - scope: minimal metadata supplement
+          independentlyVerified:
+            formalPatchFiles: 41
+            questionTypeQuestions: 522
+            intentAdded: 27
+            currentReviewPacketHashes: 4
+            metadataInputOutputHashes: 164
+            testedImplementationHashes: 4
+            materializerImplementationHashes: 6
+          finding: 27正式10と14正式15の実bytesが報告書の保存bytes/hashと一致。現在投影に対する候補再確認receiptと、2計算判定・1理由文の訂正を保持。通常materializeと正常mergeを使用。
+        - scope: checks and answer preservation
+          independentlyVerified:
+            rawAndCanonicalAnswerRecords: 522
+            canonicalCoverageCommands: 27
+            convertedQuestions: 171
+            convertedLabels: 855
+            formal23Files: 0
+            unchangedOfficialArtifactHashes: 438
+            mainVerificationLogHashes: 76
+            alignmentExitCode: 0
+            requiredFieldsExitCode: 0
+            requiredIssuesBefore: 2088
+            requiredIssuesAfter: 0
+            newRequiredIssues: 0
+          finding: 元正答の値・順序・presenceを保持。実sourceに対するprivate canonical投影のcoverage全27組は成功。raw投影のstrict23書式不通過と裸コマンド引数不足は保持され、成功へ書き換えられていない。
+        - scope: targeted code fix
+          commit: 94e5b38034997baf5f39774e6a83e6a22777a16e
+          finding: 条件所属の語だけでintentを決め打ちしない最小修正。明確な記述真偽の照合は保持。関連120tests成功receiptと現実装hashが一致。
+        - scope: direct visual spot checks
+          questions:
+            - 2017:kyokyu:問17
+            - 2023:shohi:問20
+            - 2024:kiso:問6
+            - 2022:seizo:問3
+            - 2024:law:問3
+            - 2025:kyokyu:問10
+          finding: 分類図の親子関係、燃焼図の軸・領域・境界、U字管の接続と水位高低、閉じ括弧、法令注の字形、コックス氏を実画像で確認。2025法令共通注の明示出題優先・特例除外・承認による適用除外条件もPDF3ページ実画像と一致。受験採点注意45項目の先行二次確認も保持。
+        - scope: Git and publication boundary
+          localBranch: main
+          head: 89bbf07d17f7ec1e91e11dff3f2c77366c1aba05
+          liveRemoteMain: 89bbf07d17f7ec1e91e11dff3f2c77366c1aba05
+          workingTree: clean
+          aheadBehind: 0/0
+          finding: git ls-remoteによる実remote照会でも一致。公開用question_imagesの実fileは0件。Firestore/Storage公開、現行法監査、03解説生成、全体回帰成功は主張していない。
+      next_allowed_task: null
+      subgoal_contract: null
+      parallel_safety:
+        writesPerformedByJudge: false
+        scope: 最終成果物と既存証跡の読取監査だけ
+      blocked_tasks: []
+      missing_evidence: []
+      required_board_updates:
+        - 本真正receiptをT999へ保存し、T999をdone、goalをdone、active_taskをnullにする。
+        - terminal stateのboard checkerと停止条件を確認し、最終control file変更だけをmainへcommit/pushする。
+        - 最終返信では今回の訂正完了と、本番未反映・全体回帰未実行を区別する。coverageは承認されたprivate同義ラベル投影であることを省略しない。
+        - 周辺確認として、今回Git保存は完了、公開用画像fileは0件、category同期・公式年度manifestの本番確認は今回未実施で本番公開時の別工程、と明示する。未確認の本番状態を未同期又は不備と断定しない。
+        - 今回の完了を全工程整備済み、現行法適合済み又は公開可能性の認定へ拡張しない。
   - id: T011
     type: worker
     assignee: Worker
