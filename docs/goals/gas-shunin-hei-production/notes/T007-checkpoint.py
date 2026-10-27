@@ -45,6 +45,23 @@ for n in range(1, 9):
         ("昭和" in text or "平成" in text or "令和" in text) and "号" in text
         for text in record.get("explanationText") or []))
 format_complete = all(law_display_checks)
+note_saved_years, note_holds, note_saved_count = [], [], 0
+for year in range(2017, 2026):
+    result_path = RUN / f"note_text/{year}-r2/reviews/save-result.json"
+    result = json.loads(result_path.read_text())
+    fixed = [q for q in result["results"] if q["decision"] == "fix"]
+    note_saved_count += len(fixed)
+    if len(fixed) == 15:
+        note_saved_years.append(year)
+    note_holds.extend(q["sourceQuestionId"] for q in result["results"] if q["decision"] == "hold")
+intent_receipts = [snapshot(p) for p in sorted((RUN / "intent_reviews").glob("*/saved.json"))]
+intent_missing = []
+for key, item in selected.items():
+    current = inv.projected_input("gas-shunin-hei", key.split(":")[0], item["sourceIdentity"]["sourceRecordRef"])
+    if current.errors:
+        raise ValueError(current.errors)
+    if current.record.get("questionType") in {"flash_card", "group_choice"} and not current.record.get("questionIntent"):
+        intent_missing.append(key)
 report = {"schemaVersion": "hei-direct-maintenance-checkpoint/v1",
     "generatedAt": datetime.datetime.now(datetime.timezone.utc).isoformat(), "status": "in_progress",
     "fullOutcomeComplete": False, "productionWritten": False, "systemCodeModified": False,
@@ -56,7 +73,9 @@ report = {"schemaVersion": "hei-direct-maintenance-checkpoint/v1",
     "lawAuditSidecars": [snapshot(p) for p in sorted((ROOT / "output/gas-shunin-hei/review/law_revision_audit").glob("*.jsonl"))],
     "primaryDrafts": [snapshot(p) for p in sorted((RUN / "primary").glob("*.json"))],
     "openContentHolds": [snapshot(p) for p in sorted((RUN / "holds").glob("*.json"))],
-    "commonNoteTextCorrection": {"savedYears": list(range(2017, 2026)), "questions": 135, "meaningUnchanged": True,
+    "intentCompletion": {"savedReceipts": intent_receipts, "remainingMissing": intent_missing},
+    "commonNoteTextCorrection": {"savedYears": note_saved_years, "questions": note_saved_count, "heldQuestions": note_holds, "meaningUnchanged": True,
+        "reportCorrection": "以前の135問保存済みという集計は誤り。実save-resultは105 fix / 30 hold。共通注自体は先行24層にあるが、2021・2023年度の文章化は未保存。",
         "orderingReceipt": str((RUN / "note_text/2018-r2/formal-ordering-moves.json").relative_to(ROOT))},
     "sourceAnswerCertification": snapshot(RUN / "answer_corrections/2022-kiso-05-r2/current-answer-certification.json"),
     "temporary23Transition": snapshot(transition_path),
@@ -75,7 +94,9 @@ REPORT.with_suffix(".md").write_text(f"""# 丙種の直接整備・途中記録
 
 {len(selected)}問を実画像付きの別read-only sessionの全肢確認後に18・21・22・23層へ保存した。内訳は{json.dumps(by_section, ensure_ascii=False)}。法令問題はe-Gov公式APIから出題時と現行の本文・改正ID・hashを取得し、既存の独立法令監査・昇格・metadata付与APIを経て保存した。実primary候補、native session、sidecarをJSONへ結合している。
 
-基礎の共通注135問は意味を保って文章化し、既存のBlind A/BとChallengeを経て24層へ保存した。2022年度基礎問5の正答は同じ三相確認で変更不要と確認し、既存の現在値確認証明APIから24へ保存した。一時的な23移管は取りやめ、退避時のbytesへ完全復元した。三相の実応答は保持し、判定・採点・出力fieldは書き換えていない。
+基礎の共通注の文章化は{note_saved_count}問を、既存のBlind A/BとChallengeを経て24層へ保存した。2021・2023年度の計{len(note_holds)}問はChallengeが保留とし、文章化patchは未保存である。先行24層の共通注の内容は保持している。以前の「135問保存済み」は実save-resultのfix/holdを区別しなかった誤集計であり、ここで訂正する。2022年度基礎問5の正答は同じ三相確認で変更不要と確認し、既存の現在値確認証明APIから24へ保存した。一時的な23移管は取りやめ、退避時のbytesへ完全復元した。三相の実応答は保持し、判定・採点・出力fieldは書き換えていない。
+
+設問意図の未設定61問は、主担当が問題と全選択肢から一問ずつ直接判定し、公式画像付きの実read-only確認後に15層だけへ保存した。これは設問意図の限定確認であり、正答・解説の再評価や全工程評価の代用ではない。保存時のprojection読み戻しで他のfieldが変わらないことを確認した。現時点の選択式・組合せ式の未設定は{len(intent_missing)}問。各問の直接判断・実監査・保存receiptはJSONに収録する。
 
 2017年度の法令1〜8の法令番号・公式参照・別表内位置の表記補完: {"実独立再確認・保存済み" if format_complete else "実独立再確認中"}。保存済み法令問題にも同じ基準を適用する。
 
