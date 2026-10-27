@@ -116,6 +116,25 @@ class OfficialGuidancePipelineTests(unittest.TestCase):
         with self.assertRaises(runs.QualificationRunError):
             runs._law_context_evidence_view(self.root, mixed, empty)
 
+    def test_reclassification_can_read_proof_but_cannot_save_stale_adoption(self):
+        self.record.update(isLawRelated=False, lawGroundedExplanationNotNeeded=True)
+        value = contract.reference_input(self.root, self.references,
+            record=self.record, scope=self.scope, resolver=self.fixture.resolver)
+        self.assertEqual(value, self.delivered)
+        self.assertEqual(value['receipt']['applicabilityStatus'], 'unreviewed')
+        with self.assertRaisesRegex(ValueError, 'explicitly remove'):
+            self.validate()
+        for mutation in ('body', 'choices', 'proof', 'request'):
+            with self.subTest(mutation=mutation):
+                record, refs = deepcopy(self.record), deepcopy(self.references)
+                if mutation == 'body': record['questionBodyText'] += '別命題'
+                if mutation == 'choices': record['choiceTextList'].reverse()
+                if mutation == 'proof': refs['evidenceRef']['sha256'] = 'b' * 64
+                if mutation == 'request': refs['request']['currentPages'] = [8]
+                with self.assertRaises(ValueError):
+                    contract.reference_input(self.root, refs,
+                        record=record, scope=self.scope, resolver=self.fixture.resolver)
+
     def prompt(self, stage='law_context'):
         target = {'id': self.scope['questionId'], 'listGroupId': self.scope['listGroupId'], **self.scope['sourceBinding']}
         allowed = tuple(['isLawRelated', 'lawGroundedExplanationNotNeeded', 'lawReferences',

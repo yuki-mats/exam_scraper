@@ -15831,10 +15831,9 @@ class QualificationRunCoordinator:
                         request=supplied['request'], record=record, scope=scope)
                     guidance_inputs[question_id] = copy.deepcopy(supplied)
                 elif references is not None:
-                    receipt = validate_official_guidance(self.repo_root, references, record=record,
+                    from tools.question_review_console.official_guidance_contract import reference_input
+                    guidance_inputs[question_id] = reference_input(self.repo_root, references, record=record,
                         scope=official_guidance_scope(self.repo_root, qualification, target))
-                    guidance_inputs[question_id] = {'request': references['request'],
-                        'evidenceRef': references['evidenceRef'], 'receipt': receipt}
         if guidance_inputs:
             batch_plan['officialGuidanceInputs'] = copy.deepcopy(guidance_inputs)
         task_inputs = {}

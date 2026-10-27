@@ -26,7 +26,10 @@ class OfficialGuidanceNormalSaveTests(unittest.TestCase):
     def test_private_initial_input_reaches_real_normal_model_and_save(self):
         self._run_real_save(initial_input=True)
 
-    def _run_real_save(self, *, initial_input):
+    def test_normal_model_explicitly_revokes_stale_downstream_adoption(self):
+        self._run_real_save(initial_input=False, reclassify=True)
+
+    def _run_real_save(self, *, initial_input, reclassify=False):
         f = normal_fixture.PreparedStageTests(); f.setUp(); self.addCleanup(f.doCleanups)
         # The generic fixture intentionally uses a short source key distinct
         # from its review ID. This provider fixture uses its explicit complete
@@ -131,3 +134,30 @@ class OfficialGuidanceNormalSaveTests(unittest.TestCase):
             self.assertNotIn('officialGuidanceSaveRefresh', classification_receipt['stageEvidence'])
             self.assertNotIn('officialGuidanceInputs', classification_plan['stagePlan'])
             self.assertEqual(classification_receipt, f.apply())
+            if reclassify:
+                # Represent an independently saved upstream classification with
+                # an older reference still present in the next stage's input.
+                path = next((f.root / 'output/new-exam/questions_json/2026/18_law_context_prepared').glob('*.json'))
+                payload = json.loads(path.read_bytes())
+                payload[0].update(isLawRelated=False, lawGroundedExplanationNotNeeded=True)
+                f.write(path, payload)
+                class Revoke(Model):
+                    def run_turn(self, prompt, **kwargs):
+                        result = super().run_turn(prompt, **kwargs)
+                        question = PerQuestionQueueAppServer._candidate_questions(prompt)[0]
+                        self_test.assertEqual(question['officialGuidanceEvidence']['evidenceRef'], request_ref)
+                        fields = {'isLawRelated': False, 'lawGroundedExplanationNotNeeded': True,
+                            'lawReferences': [[]], 'lawContextForExplanation': '本問は一般知識を問う。'}
+                        return replace(result, final_message=json.dumps({'decision': 'candidate', 'summary': '分類を再判定した。',
+                            'update': {'setFields': [{'field': k, 'value': v} for k, v in fields.items()],
+                                'unsetFields': [contract.FIELD]}}, ensure_ascii=False))
+                self_test, request_ref = self, proof['reference']['evidenceRef']
+                f.coordinator.app_server = Revoke()
+                f.request['stageId'] = 'law_context'
+                f.request_path = f.private / 'reclassify-request.json'; f.output = f.private / 'reclassify'
+                f.write(f.request_path, f.request)
+                f.prepare(); reclassified = f.apply()
+                self.assertNotIn('officialGuidanceSaveRefresh', reclassified['stageEvidence'])
+                current = reader.projected_input('new-exam', '2026', binding['sourceRecordRef']).record
+                self.assertFalse(current['isLawRelated'])
+                self.assertNotIn(contract.FIELD, current)

@@ -127,6 +127,21 @@ def load_prepared_evidence(root, request, evidence_ref, *, record, scope, resolv
         'receipt': receipt}
 
 
+def reference_input(root, value, *, record, scope, resolver=None):
+    """Read proof for a new judgment, without adopting a superseded judgment.
+
+    An upstream classification change can leave an older downstream reference.
+    The owning model must explicitly revoke it; final-save validation remains
+    strict. Source, whole-question, request and raw-cache binding never relax.
+    """
+    if record.get('isLawRelated') is False or record.get('lawGroundedExplanationNotNeeded') is True:
+        return load_prepared_evidence(root, value['request'], value['evidenceRef'],
+            record=record, scope=scope, resolver=resolver)
+    receipt = validate_reference(root, value, record=record, scope=scope, resolver=resolver)
+    return {'request': copy.deepcopy(value['request']),
+        'evidenceRef': copy.deepcopy(value['evidenceRef']), 'receipt': receipt}
+
+
 def validate_reference(root, value, *, record=None, scope=None, refresh=False, resolver=None):
     """Read actual private proof and validate raw cached sources, never hash alone."""
     root = Path(root).resolve()
