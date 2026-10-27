@@ -47,22 +47,22 @@ rules:
     judge_picks_largest_safe_slice: true
     worker_completes_whole_slice: true
 agents:
-  scout: unknown
+  scout: installed
   worker: unknown
   judge: unknown
 visual_board:
   selected: local
   local:
-    status: starting
-    url: null
+    status: live
+    url: http://goalbuddy.localhost:41737/gas-shunin-hei-production/
     command: node /Users/yuki/.codex/plugins/cache/goalbuddy/goalbuddy/0.4.3/skills/goal-prep/surfaces/local-goal-board/scripts/local-goal-board.mjs
       --goal docs/goals/gas-shunin-hei-production
-active_task: T001
+active_task: T002
 tasks:
   - id: T001
     type: scout
     assignee: Scout
-    status: active
+    status: done
     objective: 乙種参照と丙種の公開前不足・既存本番・標準整備実行経路をread-only調査する
     inputs:
       - document/operations/exam_pipeline_manual_and_automation.md
@@ -73,11 +73,60 @@ tasks:
       - 秘密情報を出力しない
     expected_output:
       - 根拠付き公開差分と必要工程・CLI/API
-    receipt: null
+    receipt:
+      result: done
+      task_id: T001
+      board_path: docs/goals/gas-shunin-hei-production/state.yaml
+      summary: 丙種522原問はPDF本文修正と最低限metadataまでで、分類・解説・法令工程・正式評価が未完です。本番の丙種専用scopeは空です。標準consoleの整備、評価、公開queueと読み戻しを利用でき、公開は現行工程版・機械検査・別session評価の全条件を満たす必要があります。
+      evidence:
+        - path: output/gas-shunin-hei/questions_json/*/30_merged_2/*.json
+          finding: 27ファイル・522原問。questionSetId、explanationText、explanationTextList、isLawRelated、lawRevisionFactsの非空件数はすべて0。存在するpatch層は10が27、15が14、24が289。18・21・22・23は未作成。
+        - path: config/qualification_rules.json
+          finding: 丙種個別設定なし。default.law_workflow_enabled=trueが適用される。乙種もtrue。
+        - path: config/question_maintenance_workflow.toml
+          finding: 標準stage IDsはquestion_type、question_intent、correct_choice、law_context、explanation、law_audit、category_setup、question_set。04のquestion_set.question_setがquestionSetIdを所有し、22_questionSetId_linkedへ保存する。
+        - path: tools/question_review_console/server.py:961
+          finding: 整備POST /api/qualification-runs/preview と /start。qualification、stageIds、listGroupIds、updateTargetIds、questionIds、mode、questionConcurrency、speedMode、previewToken、modelProfile等を受理。preview/startを同一scopeとtokenへ固定する。
+        - path: scripts/pipeline/continue_knoun_maintenance.py:29
+          finding: 既存Console実装はGET /api/sessionのsessionTokenをメモリだけで受け、POSTにX-Review-SessionとOriginを付与する。tokenを成果物へ保存しない。進捗GET
+            /api/qualification-runs/<runId>/progress?qualification=...。
+        - path: tools/question_review_console/server.py:1206
+          finding: 評価POST /api/evaluations/preview と /start。questionIds指定又はcontinuousQueue=true＋qualification/listGroupIdで標準評価対象を選定。previewTokenで現在内容へ束縛。
+        - path: tools/question_review_console/server.py:1158
+          finding: 公開POST /api/publications/preview と /start。1〜100原問questionIds、同じpreviewToken、confirmedProduction=trueが必要。repository排他queueが一問ずつ処理し直後readbackを保存する。
+        - path: document/operations/delivery_workflow.md
+          finding: 公開条件は適用工程の現行MAJOR、現在内容に対する現行MAJOR別session評価、merge/convert/upload
+            dry-run成功、source不変。未解決の全肢根拠・正答・解説・法令監査があれば公開不可。
+        - path: tools/question_review_console/server.py:1112
+          finding: 資格全体の標準readback入口は/api/firestore-readback/preview。tools/question_review_console/bulk_readback.pyが全対象IDを400件ずつ読み、公開予定fieldと本番値を比較する。
+        - path: output/gas-shunin-otsu/category/category.json
+          finding: 乙種ローカルは6 folders・119 questionSets。metadata.source=firestore。ローカルfolder.qualificationIdは旧chiefgasengineerlicenseで、本番のgas-shunin-otsuと相違するため、そのまま複製しない。
+        - path: prompt/qualification_docs/shared_taxonomy_mapping_policy.md
+          finding: 科目をcanonical taxonomy、甲乙丙をqualificationとして分離し、Firestore IDは資格区分ごとにmaterializeする。既存IDがあれば維持。乙種B系IDを丙種へ共有せず、canonical参照を補助情報として保持できる。
+        - source: Firestore live read-only queries / project repaso-rbaqy4
+          finding: gas-shunin-hei qualificationIdのfolders/questionSets/questionsは各0。licenseName=ガス主任技術者のfoldersは14件で甲8・乙6、C系なし。現本番乙種folderのqualificationIdはgas-shunin-otsu。主担当も独立取得したraw
+            snapshotを保持済み。
+      facts:
+        - config/scrape_presets.jsonの丙種正式表示名はガス主任技術者丙種、取得年度2017〜2025、各58原問。
+        - 確認時のPython listener8780/8781はRepaso previewで、整備consoleではなかった。主担当が8790で標準console起動中。
+        - 正式work versionはoutput/question_review_console/<qualification>/<group>/work_versions/<identityHash>.json、正式評価projectionは同scopeのevaluations/<identityHash>.json。旧PDF独立監査だけでこれらを代替しない。
+        - サブスク既存credits消費は別承認境界。標準requestでexistingCreditsApprovedを勝手にtrueにしない。
+      contradictions:
+        - local_question_review_console.md冒頭には初期1並列という古い要約があるが、同文書のモデル設定節は現在のconfigを正本として最大500を説明している。実previewとconfig/question_maintenance_llm.tomlで現上限を確認する。
+        - 乙種categoryローカルの旧qualificationIdと本番qualificationIdが不一致。分類名と論点は参考にできるがscope値・IDの単純コピーは不適切。
+      ambiguity_requiring_judge:
+        - PDF修正済みを理由に01〜03b現行作業版と正式評価を省略することは不可。現在の標準previewが要求する工程と既存metadataの再利用可能性を確認する必要がある。
+      commands:
+        - goal.md/state.yamlおよびlocal_question_review_console.mdの限定読取
+        - 丙種stageファイル数と522 merged recordの対象field非空数集計
+        - 標準server API routeと既存Console clientの読取
+        - 共有taxonomy policyと乙種categoryのscope読取
+        - 既存export moduleのfetch_equalによるFirestore read-onlyクエリ
+      note_needed: false
   - id: T002
     type: pm
     assignee: PM
-    status: queued
+    status: active
     objective: 分類を設計し、各問の必要整備と評価・公開artifactを完成させる
     receipt: null
   - id: T003
