@@ -9,6 +9,7 @@
 3. **資格別の後工程**：`03b 現行法監査`（`law_workflow_enabled=false`の資格は02b・03bを省略）→ `03c category.json（未準備時）` → `04 問題集`
 4. **公開前検査**：`merge / convert` → `quality-gate / upload dry-run` → **評価待ち**
 5. **評価・反映**：問題ごとの別sessionで評価 → **合格：明示操作でFirestore反映＋直後readback** ／ **不合格：再整備session後に新sessionで再評価**
+6. **継続改善（モデル進化時の再監査）**：整備・公開済みデータを[既存パッチの再監査・差分更新](patch_reaudit_workflow.md)で盲検点検し、前回見逃した誤りや解説改善点がある問題だけパッチを差分更新する
 
 ## 一問整備の基本仕様
 
@@ -52,6 +53,7 @@ flowchart TD
 | 問題整備システム | [local_question_review_console.md](local_question_review_console.md) | 複数問題の整備、後日の複数選択評価、問題ごとのFirestore反映と安全境界を定義する。 |
 | バッチ成果物モニター | [batch_artifact_monitor.md](batch_artifact_monitor.md) | 並列稼働、保存済み成果物、公開Agent活動をread-onlyで観測する境界を定義する。 |
 | 作業バージョン | [local_question_review_console.md#作業バージョン](local_question_review_console.md#作業バージョン) | MAJORで洗い替え、MINORで洗い替え不要の改訂を管理する。 |
+| 既存パッチの再監査・差分更新 | [patch_reaudit_workflow.md](patch_reaudit_workflow.md) | 次世代モデルによる盲検再判定、対象問題のピンポイント差分更新、知見還元ルールを定義する。 |
 | ユーザーフィードバック対応システム | [user_feedback_response_system.md](user_feedback_response_system.md) | 日次タスク消化、独立サブエージェント承認と限定公開の運用を定義する。 |
 | 公式問題の問題報告 | [question_issue_report_workflow.md](question_issue_report_workflow.md) | blind review、correction overlay、限定公開の手順を定義する。 |
 | Lawzilla利用評価 | [lawzilla_mcp_practical_review_workflow.md](lawzilla_mcp_practical_review_workflow.md) | Lawzillaの検索品質と改善点を記録するschemaを定義する。 |

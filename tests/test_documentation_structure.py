@@ -30,6 +30,7 @@ class DocumentationStructureTests(unittest.TestCase):
             "../reference/question_field_contract.md",
             "current_law_question_maintenance_workflow.md",
             "local_question_review_console.md",
+            "patch_reaudit_workflow.md",
             "question_issue_report_workflow.md",
             "../temporary/README.md",
         ):
@@ -399,6 +400,27 @@ class DocumentationStructureTests(unittest.TestCase):
         self.assertIn("選択肢を見る前に導き", prompt)
         self.assertIn("該当候補の数だけでは決めません", prompt)
         self.assertEqual(stages["question_type"]["policy_version"], "6.6")
+
+    def test_patch_reaudit_workflow_defines_blind_audit_and_diff_update(self):
+        reaudit = (
+            ROOT / "document" / "operations" / "patch_reaudit_workflow.md"
+        ).read_text(encoding="utf-8")
+        prompt_readme = (ROOT / "prompt" / "README.md").read_text(encoding="utf-8")
+
+        self.assertLessEqual(len(reaudit.splitlines()), 100)
+        self.assertIn("../document/operations/patch_reaudit_workflow.md", prompt_readme)
+        for concept in (
+            "盲検再判定",
+            "ピンポイント差分更新",
+            "`00_source`",
+            "`logicalProjection`",
+            "check_choice_text_alignment.py",
+            "check_required_fields.py",
+            "check_correct_choice_patch_coverage.py",
+            "quality-gate",
+            "policy_version",
+        ):
+            self.assertIn(concept, reaudit)
 
 
 if __name__ == "__main__":

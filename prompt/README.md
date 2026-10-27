@@ -18,6 +18,6 @@
 - 問題整備システムが各問題へ渡す`logicalProjection`は、`00_source`と確定patchを物理Mergeと同じ順で重ねた現在入力である。serverがtoken量に応じて複数問をまとめても、model候補とserver検査・確定は一問ごとに分離する。各promptの`20_merged_1`又は`30_merged_2`より優先し、物理成果物はqueue終了時だけ再生成する。
 - 判断本文は一問ずつ読み、scriptで量産しない。
 - scriptはarchive、materialize、merge、convert、validation、upload dry-runに使う。
-- 既存patchを洗い替える場合も、各promptに指定された一次情報から再判定する。
+- 既存patchを洗い替える場合も、各promptに指定された一次情報から再判定する。整備済みデータの再点検とピンポイント更新は[既存パッチの再監査・差分更新](../document/operations/patch_reaudit_workflow.md)に従う。
 - 判断不能は`99_model_review_flags`又はreview sidecarへ残し、推測で完了させない。
 - 機械検証は[question_bank CLI](../tools/question_bank/README.md)を使う。
