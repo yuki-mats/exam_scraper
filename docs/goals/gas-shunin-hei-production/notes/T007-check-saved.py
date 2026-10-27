@@ -41,9 +41,15 @@ for year in groups:
     directory = ROOT / f"output/gas-shunin-hei/questions_json/{year}"
     stems = {Path(value["sourceRecordRef"].split("#")[0]).stem for key, value in selected.items() if key.startswith(year + ":")}
     for stem in sorted(stems):
+        patch = directory / "23_correctChoiceText_fixed" / (stem + "_merged_correctChoiceText_fixed.json")
+        legacy = directory / "23_correctChoiceText_fixed" / (stem + "_correctChoiceText_fixed.json")
+        if legacy.exists():
+            if patch.exists():
+                raise ValueError("正答patchの現行名と既存名が重複している")
+            patch = legacy
         commands.append([sys.executable, str(TOOLS / "scripts/check/check_correct_choice_patch_coverage.py"),
             "--source", str(directory / "00_source" / (stem + ".json")),
-            "--patch", str(directory / "23_correctChoiceText_fixed" / (stem + "_merged_correctChoiceText_fixed.json")),
+            "--patch", str(patch),
             "--question-type-patch", str(directory / "10_questionType_fixed" / (stem + "_questionType_fixed.json"))])
 results = []
 for index, command in enumerate(commands):

@@ -84,7 +84,7 @@ def prepare(year):
             "candidateChanges": candidate, "sourcePath": str(source.path.relative_to(ROOT)), "sourceSha256": driver.digest(source.path),
             "questionPdfPath": pdf_path, "questionPdfSha256": evidence["contentHash"]})
     driver.freeze(plan_path, {"schemaVersion": "gas-shunin-hei-official-correction-review-plan/v1", "year": int(year),
-        "createdAt": created, "batchId": "hei-direct-note-text-" + year + "-" + revision, "category": "question_content", "items": items})
+        "createdAt": created, "batchId": "zz-hei-direct-note-text-" + year + "-" + revision, "category": "question_content", "items": items})
     driver.freeze(work / "execution.json", {"driverPath": str(driver_path.relative_to(ROOT)), "driverSha256": driver.digest(driver_path),
         "frozenToolCommit": "57026e8da5ae6725535ad188d7f6953cda180cf5", "systemCodeModified": False})
     return plan_path
@@ -96,6 +96,9 @@ if __name__ == "__main__":
     plan = prepare(year)
     task = driver.Driver(plan, plan.parent / "reviews", root=ROOT)
     if phase == "save":
-        print(json.dumps(task.save(allow_save=True), ensure_ascii=False))
+        if (plan.parent / "formal-ordering-moves.json").exists():
+            raise ValueError("このrunは保存後のファイル順序調整済み。元のsaveは再実行しない。")
+        result = task.save(allow_save=True)
+        print("formal save", {decision: sum(q["decision"] == decision for q in result) for decision in {q["decision"] for q in result}})
     else:
         task.phase(phase)

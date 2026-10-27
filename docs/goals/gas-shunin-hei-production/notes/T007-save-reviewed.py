@@ -9,6 +9,7 @@ RUN = ROOT / "output/gas-shunin-hei/direct_publication/20261027"
 sys.path.insert(0, str(RUN / "tool_snapshot"))
 from scripts.common.question_identity import load_source_record_inventory
 from scripts.fix.materialize_minimal_patch import SourcePatchInput, materialize_entries
+from tools.question_review_console.inventory import QuestionInventory
 
 
 def sha(value):
@@ -55,14 +56,17 @@ def save(candidates_path):
             for image in fixed["bundle"]["images"]:
                 if hashlib.sha256((ROOT / image["path"]).read_bytes()).hexdigest() != image["sha256"]:
                     raise ValueError("公式画像が変更された")
-            accepted.append((result, result_path))
+            accepted.append((result, result_path, fixed["bundle"]["fixedQuestion"]))
         if not accepted:
             raise ValueError(f"同一候補の独立確認が未合格: {key}")
-        audit, audit_path = accepted[-1]
+        audit, audit_path, packet = accepted[-1]
         source = identities[key]
         if hashlib.sha256(source.path.read_bytes()).hexdigest() != packet["sourceSha256"]:
             raise ValueError("00_source hash changed")
         record = packet["record"]
+        current = QuestionInventory(ROOT).projected_input("gas-shunin-hei", key.split(":")[0], source.identity.binding.source_record_ref)
+        if current.errors or sha(current.record) != sha(record):
+            raise ValueError(f"監査時点から対象問題が変わった: {key}")
         choices = record["choiceTextList"]
         if len(choices) != len(candidate["correctChoiceText"]):
             raise ValueError("同一問の選択肢・正答件数不一致")
@@ -103,6 +107,11 @@ def save(candidates_path):
             target = source.path.parent.parent / directory / f"{source.path.stem}_merged_{suffix}.json"
             if task == "question_type":
                 target = source.path.parent.parent / directory / f"{source.path.stem}_{suffix}.json"
+            legacy = source.path.parent.parent / directory / f"{source.path.stem}_{suffix}.json"
+            if task != "question_type" and legacy != target and legacy.exists():
+                if target.exists():
+                    raise ValueError(f"同一sourceに既存形式と現行形式が重複している: {target}")
+                target = legacy
             entry = materialize_entries(task, [source_input], [raw])[0]
             planned.setdefault(target, []).append(entry)
         receipts.append({"sourceQuestionId": key, "sourceIdentity": source.identity.binding.as_mapping(),
