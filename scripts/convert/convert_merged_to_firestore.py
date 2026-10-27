@@ -417,7 +417,7 @@ def sanitize_law_revision_facts(value: Any) -> dict | None:
         elif key in {"examTime", "current"}:
             cleaned = sanitize_optional_string_map(
                 item,
-                allowed_keys=LAW_REVISION_SNAPSHOT_KEYS,
+                allowed_keys=LAW_REVISION_SNAPSHOT_KEYS - {"articleText"},
             )
             if cleaned:
                 sanitized[key] = cleaned

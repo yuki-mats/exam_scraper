@@ -149,8 +149,8 @@
     "trackedCodeOrPromptChanged": true,
     "otherWorktreeChanges": "他作業の変更は保持し、この記録だけをstageする。"
   },
-  "nextAction": "新規55は原画像一致と05の起算点明示を確認済み。開始済み通常02a〜04を逐次進め、対象検査と別session評価を行う。source差異10件は保留を維持、35のア〜オは解決済み。",
-  "lastUpdatedAt": "2026-10-27T23:16:47.635830+00:00",
+  "nextAction": "55の構造化された作成時・現行の基準日/法令locator/hashを実読照合済み。公開用変換の本文省略を反映し、6件検査・別session評価・再読込みを行う。",
+  "lastUpdatedAt": "2026-10-27T23:22:46.397169+00:00",
   "subsequentQuestion51": {
     "sourceRecordRef": "question_mondai4_51.json#0",
     "sourceQuestionKey": "eco-kentei:knoun-2026-mock-4:bb67422eb5e52e9c",
@@ -293,10 +293,11 @@
     }
   },
   "schemaFixForAuthoredLawSnapshots": {
-    "status": "targeted_tests_passed_live_check_pending",
+    "status": "live_snapshot_saved_delivery_tests_passed",
     "scope": [
       "tools/question_review_console/question_candidate.py",
-      "tests/test_law_revision_snapshot_candidate_schema.py"
+      "tests/test_law_revision_snapshot_candidate_schema.py",
+      "scripts/convert/convert_merged_to_firestore.py"
     ],
     "finding": "候補schemaがexamTime/currentに正誤だけを許可し、field契約にある基準日・法令locatorの保存を妨げていた。",
     "change": "SSOTのsnapshot fieldを候補schemaへ通し、strict wireの未確認任意値nullを保存時の省略へ戻す。最小形式とunknown field拒否を維持し、2^Nのschema展開を避ける。",
@@ -306,6 +307,12 @@
       "path": "output/eco-kentei/reports/law_snapshot_schema_fix_20261028/targeted_validation.json",
       "sha256": "4750b7dd92cc35af307caee9a5bfb326e5ec2a96993097f006af2c6f1e41c485"
     },
-    "unrelatedDirtyChangesPreserved": true
+    "unrelatedDirtyChangesPreserved": true,
+    "liveValidationReceipt": {
+      "path": "output/eco-kentei/reports/law_snapshot_schema_fix_20261028/live_validation.json",
+      "sha256": "74999d099efaea04dab5bb4d869bc38284bf3f7fde59ac6719ef22b8694b05cf"
+    },
+    "outboundChange": "中間監査のarticleTextはpatchに保持し、convertは基準日・法令locator・hashを残して本文を省く。",
+    "outboundTargetedTestsPassed": 30
   }
 }

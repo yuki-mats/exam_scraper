@@ -6,6 +6,7 @@ from scripts.common.repaso_firestore_schema import (
     LAW_REVISION_SNAPSHOT_KEYS,
     is_law_revision_facts_shape,
 )
+from scripts.convert.convert_merged_to_firestore import sanitize_law_revision_facts
 from tools.question_review_console.question_candidate import (
     CandidateTarget,
     QuestionCandidateError,
@@ -87,6 +88,19 @@ class LawRevisionSnapshotCandidateSchemaTest(unittest.TestCase):
         del fact["examTime"]["correctChoiceText"]
         with self.assertRaises(QuestionCandidateError):
             self.parse([fact])
+
+    def test_delivery_keeps_provenance_without_intermediate_article_body(self):
+        fact = self.fact()
+        for name in ("examTime", "current"):
+            fact[name].update(referenceDate="2026-10-28", lawId="415AC0000000044",
+                              article="第3条", articleText="中間監査用の本文。",
+                              articleTextHash="a" * 64)
+        original = copy.deepcopy(fact)
+        delivered = sanitize_law_revision_facts(fact)
+        for name in ("examTime", "current"):
+            expected = {k: v for k, v in fact[name].items() if k != "articleText"}
+            self.assertEqual(delivered[name], expected)
+        self.assertEqual(fact, original)
 
     def test_output_is_strict_and_bounded_for_all_contract_snapshot_fields(self):
         schema = output_schema(["q1"], self.targets)
