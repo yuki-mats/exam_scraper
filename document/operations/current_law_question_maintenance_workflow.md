@@ -97,7 +97,7 @@ Codex App Serverの整備sessionが更新するのは、対象問題の`18` / `2
 
 標準管理規約等の公式行政資料が直接根拠となる制度問題は、e-Gov法令とは別の`official_institutional_guidance` source kindを使う。候補の`isLawRelated`を偽らず、架空のlawIdや無関係なlocatorで法令gateを満たさない。法令を実際に併用する問題では従来の全locatorのe-Gov取得も必須とする。
 
-通常02b/03/03bは固定した取得requestに基づき、serverが公式索引の現行単棟型リンクとPDFを実GETする。限定頁、版、公表日、取得日、原問・全肢・保存sourceのhashをprivate取得証明へ結合し、本文と証明参照を実モデルへ配送する。候補は資料の採否と各肢の適用理由を独立に判断する。取得自体を適用承認としない。証明本文はprivate cache、patchには内部参照のみ保持し、Firestoreや通常ログへ配送しない。field型と上限は[question field契約](../reference/question_field_contract.md)を正本とする。
+通常02b/03/03bは固定した取得requestに基づき、serverが登録providerの公式索引から対象PDFへのリンクを確認し、索引とPDFを実GETする。現行資料と歴史資料の区別は、刊行物名や版情報を保持して判断する。限定頁、版、公表日、取得日、原問・全肢・保存sourceのhashをprivate取得証明へ結合し、本文と証明参照を実モデルへ配送する。候補は資料の採否と各肢の適用理由を独立に判断する。取得自体を適用承認としない。証明本文はprivate cache、patchには内部参照のみ保持し、Firestoreや通常ログへ配送しない。field型と上限は[question field契約](../reference/question_field_contract.md)を正本とする。
 
 未登録の制度資料は、`python -m tools.question_review_console.official_guidance_initial_input --qualification <資格> --list-group-id <区分> --source-record-ref <source内の問題参照> --request <取得requestのJSON>`で先に取得する。利用可能なproviderとrequest型は[取得実装](../../tools/question_review_console/official_guidance_evidence.py)、引数は同CLIの`--help`を参照する。取得証明は`output/question_review_console/<資格>/<区分>/official_guidance_inputs/`に保存し、原問・全肢・source hash及び基準日が一致する最初の通常02bへ渡す。既存の採用済み参照があればそちらを使い、後続03/03bは02bで採用した参照を引き継ぐ。入力登録だけではpatchや工程完了を保存しない。再取得には旧入力のSHA-256を`--replace-if-sha`で指定し、旧入力は同ディレクトリの`history/`に保持する。
 
