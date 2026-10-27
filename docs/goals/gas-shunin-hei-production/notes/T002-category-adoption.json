@@ -1,0 +1,878 @@
+{
+  "schemaVersion": "hei-category-adoption/v1",
+  "runId": "20261027T214111027224-37c69e2b",
+  "receiptValidated": true,
+  "status": "succeeded",
+  "categoryPath": "output/gas-shunin-hei/category/category.json",
+  "categorySha256": "4f11dcdbd66ef0551ac9476d28d606a0fc483c82d7ede6f8a855bfb53d791e1e",
+  "category": {
+    "metadata": {
+      "qualificationId": "gas-shunin-hei",
+      "qualificationGroupId": "gas-shunin",
+      "licenseName": "ガス主任技術者",
+      "taxonomySource": "JIA公式の試験科目、2017〜2025年度の丙種00_source、日本コミュニティーガス協会の丙種受験用教材構成",
+      "sourceDocuments": [
+        "https://www.jia-page.or.jp/exam/examination/answer/",
+        "https://www.jia-page.or.jp/exam/examination/outline/",
+        "https://www.jcga-page.or.jp/seminar/distribution/",
+        "output/gas-shunin-hei/questions_json/*/00_source/"
+      ],
+      "canonicalTaxonomyGroupId": "gas-shunin",
+      "folderIdPrefix": "gas-shunin-hei_f",
+      "questionSetIdPrefix": "gas-shunin-hei_qs",
+      "questionCountBasis": "04で問題ごとに確定するため、03cでは0",
+      "officialCategoryMappings": [
+        {
+          "officialCategoryId": "gas_exam_law",
+          "officialCategoryName": "法令",
+          "folderIds": [
+            "gas-shunin-hei_f01_jigyo_horei",
+            "gas-shunin-hei_f02_setsubi_gijutsu_kijun"
+          ]
+        },
+        {
+          "officialCategoryId": "gas_exam_basic",
+          "officialCategoryName": "基礎",
+          "folderIds": [
+            "gas-shunin-hei_f03_kiso_riron"
+          ]
+        },
+        {
+          "officialCategoryId": "gas_exam_technology",
+          "officialCategoryName": "ガス技術",
+          "folderIds": [
+            "gas-shunin-hei_f04_seizo",
+            "gas-shunin-hei_f05_kyokyu",
+            "gas-shunin-hei_f06_shohi_kiki"
+          ]
+        }
+      ]
+    },
+    "folders": [
+      {
+        "folderId": "gas-shunin-hei_f01_jigyo_horei",
+        "canonicalFolderId": "gas-shunin_f01_jigyo_horei",
+        "sourceSharedFolderId": "gas-shunin_f01_jigyo_horei",
+        "name": "01_法令 事業法規",
+        "qualificationId": "gas-shunin-hei",
+        "description": "事業者の制度、届出・計画、事故報告、保安体制、資格、周知・調査及び関係法令を扱う。設備の性能・構造・設置基準は02へ分ける。",
+        "questionCount": 0,
+        "isDeleted": false,
+        "isOfficial": true,
+        "isPublic": true
+      },
+      {
+        "folderId": "gas-shunin-hei_f02_setsubi_gijutsu_kijun",
+        "canonicalFolderId": "gas-shunin_f02_setsubi_gijutsu_kijun",
+        "sourceSharedFolderId": "gas-shunin_f02_setsubi_gijutsu_kijun",
+        "name": "02_法令 設備の技術基準",
+        "qualificationId": "gas-shunin-hei",
+        "description": "ガス工作物、特定ガス発生設備、導管、ガス栓、消費機器等の性能・構造・設置・検査に関する技術基準を扱う。技術知識だけを問う問題は04〜06へ分ける。",
+        "questionCount": 0,
+        "isDeleted": false,
+        "isOfficial": true,
+        "isPublic": true
+      },
+      {
+        "folderId": "gas-shunin-hei_f03_kiso_riron",
+        "canonicalFolderId": "gas-shunin_f03_kiso_riron",
+        "sourceSharedFolderId": "gas-shunin_f03_kiso_riron",
+        "name": "03_基礎理論",
+        "qualificationId": "gas-shunin-hei",
+        "description": "物質量・物性、気体の状態、熱、燃焼、流体など、各技術分野に共通する基礎理論を扱う。特定設備の運転・保全は各技術folderへ分ける。",
+        "questionCount": 0,
+        "isDeleted": false,
+        "isOfficial": true,
+        "isPublic": true
+      },
+      {
+        "folderId": "gas-shunin-hei_f04_seizo",
+        "canonicalFolderId": "gas-shunin_f04_seizo",
+        "sourceSharedFolderId": "gas-shunin_f04_seizo",
+        "name": "04_製造",
+        "qualificationId": "gas-shunin-hei",
+        "description": "LPガスの性質・発生方式、容器・貯槽、気化・調整、製造設備の運転、維持管理、防災を扱う。需要家までの導管は05、燃焼機器は06へ分ける。",
+        "questionCount": 0,
+        "isDeleted": false,
+        "isOfficial": true,
+        "isPublic": true
+      },
+      {
+        "folderId": "gas-shunin-hei_f05_kyokyu",
+        "canonicalFolderId": "gas-shunin_f05_kyokyu",
+        "sourceSharedFolderId": "gas-shunin_f05_kyokyu",
+        "name": "05_供給",
+        "qualificationId": "gas-shunin-hei",
+        "description": "供給方式・供給計画、整圧器・メーター、導管の設計・施工・接合、腐食・防食、検査、維持管理及び地震対策を扱う。製造所内の発生設備は04へ分ける。",
+        "questionCount": 0,
+        "isDeleted": false,
+        "isOfficial": true,
+        "isPublic": true
+      },
+      {
+        "folderId": "gas-shunin-hei_f06_shohi_kiki",
+        "canonicalFolderId": "gas-shunin_f06_shohi_kiki",
+        "sourceSharedFolderId": "gas-shunin_f06_shohi_kiki",
+        "name": "06_消費機器",
+        "qualificationId": "gas-shunin-hei",
+        "description": "燃焼、家庭用・業務用機器、冷暖房・コージェネレーション、換気・給排気、一酸化炭素、安全装置、ガス栓・接続具・警報器を扱う。法令上の技術基準は02へ分ける。",
+        "questionCount": 0,
+        "isDeleted": false,
+        "isOfficial": true,
+        "isPublic": true
+      }
+    ],
+    "questionSets": [
+      {
+        "questionSetId": "gas-shunin-hei_qs01_01_teigi",
+        "canonicalQuestionSetId": "gas-shunin_qs01_01_teigi",
+        "sourceSharedQuestionSetId": "gas-shunin_qs01_01_teigi",
+        "folderId": "gas-shunin-hei_f01_jigyo_horei",
+        "canonicalFolderId": "gas-shunin_f01_jigyo_horei",
+        "name": "1-1 目的・用語の定義",
+        "qualificationId": "gas-shunin-hei",
+        "description": "ガス事業、ガス小売事業、供給、圧力、熱量等の法令上の定義を扱う。設備の構造・性能の基準は02へ分ける。",
+        "matchingHints": [
+          "ガス事業",
+          "ガス小売事業",
+          "小売供給",
+          "低圧",
+          "熱量",
+          "定義"
+        ],
+        "questionCount": 0,
+        "isDeleted": false
+      },
+      {
+        "questionSetId": "gas-shunin-hei_qs01_02_jigyo_gyomu",
+        "canonicalQuestionSetId": "gas-shunin_qs01_02_jigyo_gyomu",
+        "sourceSharedQuestionSetId": "gas-shunin_qs01_02_jigyo_gyomu",
+        "folderId": "gas-shunin-hei_f01_jigyo_horei",
+        "canonicalFolderId": "gas-shunin_f01_jigyo_horei",
+        "name": "1-2 事業の届出・計画・業務",
+        "qualificationId": "gas-shunin-hei",
+        "description": "事業の届出、供給計画、ガス事業者の業務及び認定制度を扱う。事故報告は1-3、保安規程は1-4へ分ける。",
+        "matchingHints": [
+          "届出",
+          "供給計画",
+          "認定",
+          "業務",
+          "改善命令"
+        ],
+        "questionCount": 0,
+        "isDeleted": false
+      },
+      {
+        "questionSetId": "gas-shunin-hei_qs01_03_jiko_hokoku",
+        "canonicalQuestionSetId": "gas-shunin_qs01_03_jiko_hokoku",
+        "sourceSharedQuestionSetId": "gas-shunin_qs01_03_jiko_hokoku",
+        "folderId": "gas-shunin-hei_f01_jigyo_horei",
+        "canonicalFolderId": "gas-shunin_f01_jigyo_horei",
+        "name": "1-3 ガス事故の報告",
+        "qualificationId": "gas-shunin-hei",
+        "description": "製造支障事故、供給支障事故、消費機器・ガス栓に関する事故など、ガス事故詳報の報告要件を扱う。設備の災害対策は各技術folderへ分ける。",
+        "matchingHints": [
+          "ガス事故",
+          "事故詳報",
+          "製造支障事故",
+          "供給支障事故",
+          "報告"
+        ],
+        "questionCount": 0,
+        "isDeleted": false
+      },
+      {
+        "questionSetId": "gas-shunin-hei_qs01_04_hoan_kitei",
+        "canonicalQuestionSetId": "gas-shunin_qs01_04_hoan_kitei",
+        "sourceSharedQuestionSetId": "gas-shunin_qs01_04_hoan_kitei",
+        "folderId": "gas-shunin-hei_f01_jigyo_horei",
+        "canonicalFolderId": "gas-shunin_f01_jigyo_horei",
+        "name": "1-4 保安規程・保安業務規程",
+        "qualificationId": "gas-shunin-hei",
+        "description": "保安規程、保安業務規程に定める事項、作成・届出・運用を扱う。ガス主任技術者の免状・監督範囲は1-5へ分ける。",
+        "matchingHints": [
+          "保安規程",
+          "保安業務規程",
+          "保安教育",
+          "届出"
+        ],
+        "questionCount": 0,
+        "isDeleted": false
+      },
+      {
+        "questionSetId": "gas-shunin-hei_qs01_05_gas_shunin",
+        "canonicalQuestionSetId": "gas-shunin_qs01_05_gas_shunin",
+        "sourceSharedQuestionSetId": "gas-shunin_qs01_05_gas_shunin",
+        "folderId": "gas-shunin-hei_f01_jigyo_horei",
+        "canonicalFolderId": "gas-shunin_f01_jigyo_horei",
+        "name": "1-5 ガス主任技術者・保安体制",
+        "qualificationId": "gas-shunin-hei",
+        "description": "ガス主任技術者の免状、監督範囲、指示義務及び事業者間の保安上の連携を扱う。保安規程の記載事項は1-4へ分ける。",
+        "matchingHints": [
+          "ガス主任技術者",
+          "免状",
+          "監督",
+          "指示",
+          "連携"
+        ],
+        "questionCount": 0,
+        "isDeleted": false
+      },
+      {
+        "questionSetId": "gas-shunin-hei_qs01_06_kensa_keikaku",
+        "canonicalQuestionSetId": "gas-shunin_qs01_06_kensa_keikaku",
+        "sourceSharedQuestionSetId": "gas-shunin_qs01_06_kensa_keikaku",
+        "folderId": "gas-shunin-hei_f01_jigyo_horei",
+        "canonicalFolderId": "gas-shunin_f01_jigyo_horei",
+        "name": "1-6 工事計画・検査・立入検査",
+        "qualificationId": "gas-shunin-hei",
+        "description": "ガス工作物の工事計画、使用前検査、定期自主検査及び立入検査の制度を扱う。設備の具体的な構造要件は02へ分ける。",
+        "matchingHints": [
+          "工事計画",
+          "使用前検査",
+          "定期自主検査",
+          "立入検査"
+        ],
+        "questionCount": 0,
+        "isDeleted": false
+      },
+      {
+        "questionSetId": "gas-shunin-hei_qs01_07_shuchi_chosa",
+        "canonicalQuestionSetId": "gas-shunin_qs01_07_shuchi_chosa",
+        "sourceSharedQuestionSetId": "gas-shunin_qs01_07_shuchi_chosa",
+        "folderId": "gas-shunin-hei_f01_jigyo_horei",
+        "canonicalFolderId": "gas-shunin_f01_jigyo_horei",
+        "name": "1-7 消費機器の周知・調査",
+        "qualificationId": "gas-shunin-hei",
+        "description": "消費機器のガス適応性に関する周知、調査及び保安業務を扱う。機器の燃焼・設置・安全装置は06へ分ける。",
+        "matchingHints": [
+          "周知",
+          "調査",
+          "消費機器",
+          "ガス適応性",
+          "使用者"
+        ],
+        "questionCount": 0,
+        "isDeleted": false
+      },
+      {
+        "questionSetId": "gas-shunin-hei_qs01_08_gas_yohin_tokukanho",
+        "canonicalQuestionSetId": "gas-shunin_qs01_08_gas_yohin_tokukanho",
+        "sourceSharedQuestionSetId": "gas-shunin_qs01_08_gas_yohin_tokukanho",
+        "folderId": "gas-shunin-hei_f01_jigyo_horei",
+        "canonicalFolderId": "gas-shunin_f01_jigyo_horei",
+        "name": "1-8 ガス用品・特監法",
+        "qualificationId": "gas-shunin-hei",
+        "description": "ガス用品等の法令上の区分と、特定ガス消費機器の設置工事の監督に関する法律を扱う。消費機器の技術基準は02へ分ける。",
+        "matchingHints": [
+          "ガス用品",
+          "特定ガス消費機器",
+          "特監法",
+          "特定工事",
+          "表示"
+        ],
+        "questionCount": 0,
+        "isDeleted": false
+      },
+      {
+        "questionSetId": "gas-shunin-hei_qs02_01_seizo_kijun",
+        "canonicalQuestionSetId": "gas-shunin_qs02_01_seizo_kijun",
+        "sourceSharedQuestionSetId": "gas-shunin_qs02_01_seizo_kijun",
+        "folderId": "gas-shunin-hei_f02_setsubi_gijutsu_kijun",
+        "canonicalFolderId": "gas-shunin_f02_setsubi_gijutsu_kijun",
+        "name": "2-1 製造所・ガス発生設備の技術基準",
+        "qualificationId": "gas-shunin-hei",
+        "description": "特定製造所、特定ガス発生設備、滞留防止、漏えい検知、防消火、電気設備及び静電気除去等の法定技術基準を扱う。運転・保全は04へ分ける。",
+        "matchingHints": [
+          "特定製造所",
+          "特定ガス発生設備",
+          "漏えい検知",
+          "防消火",
+          "静電気"
+        ],
+        "questionCount": 0,
+        "isDeleted": false
+      },
+      {
+        "questionSetId": "gas-shunin-hei_qs02_02_zairyo_kozo_yosetsu",
+        "canonicalQuestionSetId": "gas-shunin_qs02_02_zairyo_kozo_yosetsu",
+        "sourceSharedQuestionSetId": "gas-shunin_qs02_02_zairyo_kozo_yosetsu",
+        "folderId": "gas-shunin-hei_f02_setsubi_gijutsu_kijun",
+        "canonicalFolderId": "gas-shunin_f02_setsubi_gijutsu_kijun",
+        "name": "2-2 材料・構造・溶接",
+        "qualificationId": "gas-shunin-hei",
+        "description": "ガス工作物の材料、構造、耐圧、溶接部分及び関連する検査の法定要件を扱う。一般の導管接合技術は05へ分ける。",
+        "matchingHints": [
+          "材料",
+          "構造",
+          "最高使用圧力",
+          "溶接",
+          "耐圧"
+        ],
+        "questionCount": 0,
+        "isDeleted": false
+      },
+      {
+        "questionSetId": "gas-shunin-hei_qs02_03_odor_kika_anzen",
+        "canonicalQuestionSetId": "gas-shunin_qs02_03_odor_kika_anzen",
+        "sourceSharedQuestionSetId": "gas-shunin_qs02_03_odor_kika_anzen",
+        "folderId": "gas-shunin-hei_f02_setsubi_gijutsu_kijun",
+        "canonicalFolderId": "gas-shunin_f02_setsubi_gijutsu_kijun",
+        "name": "2-3 付臭・気化・安全装置",
+        "qualificationId": "gas-shunin-hei",
+        "description": "付臭措置、気化装置、過圧防止、遮断装置及び安全装置等、ガス工作物に備える法定保安機能を扱う。基礎理論としての付臭は03へ分ける。",
+        "matchingHints": [
+          "付臭",
+          "気化装置",
+          "安全弁",
+          "遮断装置",
+          "過圧"
+        ],
+        "questionCount": 0,
+        "isDeleted": false
+      },
+      {
+        "questionSetId": "gas-shunin-hei_qs02_04_dokan_gassen_seiatsu",
+        "canonicalQuestionSetId": "gas-shunin_qs02_04_dokan_gassen_seiatsu",
+        "sourceSharedQuestionSetId": "gas-shunin_qs02_04_dokan_gassen_seiatsu",
+        "folderId": "gas-shunin-hei_f02_setsubi_gijutsu_kijun",
+        "canonicalFolderId": "gas-shunin_f02_setsubi_gijutsu_kijun",
+        "name": "2-4 導管・ガス栓・整圧器の技術基準",
+        "qualificationId": "gas-shunin-hei",
+        "description": "導管、ガス栓、整圧器及びガス遮断装置の設置・構造に関する法定要件を扱う。供給設備の設計・施工の実務知識は05へ分ける。",
+        "matchingHints": [
+          "導管",
+          "ガス栓",
+          "整圧器",
+          "遮断",
+          "地下室"
+        ],
+        "questionCount": 0,
+        "isDeleted": false
+      },
+      {
+        "questionSetId": "gas-shunin-hei_qs02_05_roei_bogo",
+        "canonicalQuestionSetId": "gas-shunin_qs02_05_roei_bogo",
+        "sourceSharedQuestionSetId": "gas-shunin_qs02_05_roei_bogo",
+        "folderId": "gas-shunin-hei_f02_setsubi_gijutsu_kijun",
+        "canonicalFolderId": "gas-shunin_f02_setsubi_gijutsu_kijun",
+        "name": "2-5 漏えい検査・防護",
+        "qualificationId": "gas-shunin-hei",
+        "description": "導管等の漏えい検査、露出導管の防護、設置場所及び関連する法定検査要件を扱う。供給設備の維持管理は05へ分ける。",
+        "matchingHints": [
+          "漏えい検査",
+          "露出",
+          "防護",
+          "導管等",
+          "設置場所"
+        ],
+        "questionCount": 0,
+        "isDeleted": false
+      },
+      {
+        "questionSetId": "gas-shunin-hei_qs02_06_shohi_kijun",
+        "canonicalQuestionSetId": "gas-shunin_qs02_06_shohi_kijun",
+        "sourceSharedQuestionSetId": "gas-shunin_qs02_06_shohi_kijun",
+        "folderId": "gas-shunin-hei_f02_setsubi_gijutsu_kijun",
+        "canonicalFolderId": "gas-shunin_f02_setsubi_gijutsu_kijun",
+        "name": "2-6 消費機器の技術上の基準",
+        "qualificationId": "gas-shunin-hei",
+        "description": "燃焼器、給排気、消費機器及び関連設備の法令上の構造・設置・安全基準を扱う。機器の仕組みや運転特性は06へ分ける。",
+        "matchingHints": [
+          "消費機器",
+          "燃焼器",
+          "技術上の基準",
+          "給排気",
+          "設置"
+        ],
+        "questionCount": 0,
+        "isDeleted": false
+      },
+      {
+        "questionSetId": "gas-shunin-hei_qs03_01_bussei_bunshitsu",
+        "canonicalQuestionSetId": "gas-shunin_qs03_01_bussei_bunshitsu",
+        "sourceSharedQuestionSetId": "gas-shunin_qs03_01_bussei_bunshitsu",
+        "folderId": "gas-shunin-hei_f03_kiso_riron",
+        "canonicalFolderId": "gas-shunin_f03_kiso_riron",
+        "name": "3-1 物質量・物性",
+        "qualificationId": "gas-shunin-hei",
+        "description": "元素・分子・原子量、物質量、密度、比容積、比重及び気体の質量・体積換算を扱う。燃焼反応を用いる計算は3-5へ分ける。",
+        "matchingHints": [
+          "原子量",
+          "分子量",
+          "物質量",
+          "モル",
+          "密度",
+          "比重"
+        ],
+        "questionCount": 0,
+        "isDeleted": false
+      },
+      {
+        "questionSetId": "gas-shunin-hei_qs03_02_kitaijoho",
+        "canonicalQuestionSetId": "gas-shunin_qs03_02_kitaijoho",
+        "sourceSharedQuestionSetId": "gas-shunin_qs03_02_kitaijoho",
+        "folderId": "gas-shunin-hei_f03_kiso_riron",
+        "canonicalFolderId": "gas-shunin_f03_kiso_riron",
+        "name": "3-2 気体の状態・圧力",
+        "qualificationId": "gas-shunin-hei",
+        "description": "理想気体、温度・圧力・体積の関係、蒸気圧及び気体の状態変化を扱う。導管の圧力損失は05へ分ける。",
+        "matchingHints": [
+          "理想気体",
+          "温度",
+          "圧力",
+          "体積",
+          "蒸気圧"
+        ],
+        "questionCount": 0,
+        "isDeleted": false
+      },
+      {
+        "questionSetId": "gas-shunin-hei_qs03_03_netsu_energy",
+        "canonicalQuestionSetId": "gas-shunin_qs03_03_netsu_energy",
+        "sourceSharedQuestionSetId": "gas-shunin_qs03_03_netsu_energy",
+        "folderId": "gas-shunin-hei_f03_kiso_riron",
+        "canonicalFolderId": "gas-shunin_f03_kiso_riron",
+        "name": "3-3 熱・エネルギー",
+        "qualificationId": "gas-shunin-hei",
+        "description": "比熱、発熱量、熱量計算及び熱・エネルギーの基礎を扱う。製造設備の熱管理や機器の伝熱構造は04または06へ分ける。",
+        "matchingHints": [
+          "比熱",
+          "発熱量",
+          "熱量",
+          "温度上昇",
+          "エネルギー"
+        ],
+        "questionCount": 0,
+        "isDeleted": false
+      },
+      {
+        "questionSetId": "gas-shunin-hei_qs03_04_ryutai",
+        "canonicalQuestionSetId": "gas-shunin_qs03_04_ryutai",
+        "sourceSharedQuestionSetId": "gas-shunin_qs03_04_ryutai",
+        "folderId": "gas-shunin-hei_f03_kiso_riron",
+        "canonicalFolderId": "gas-shunin_f03_kiso_riron",
+        "name": "3-4 流体",
+        "qualificationId": "gas-shunin-hei",
+        "description": "流量、流速、管径、連続の関係及び流体摩擦・損失の基礎を扱う。供給導管の設計式は05へ分ける。",
+        "matchingHints": [
+          "流体",
+          "流量",
+          "流速",
+          "管径",
+          "摩擦損失"
+        ],
+        "questionCount": 0,
+        "isDeleted": false
+      },
+      {
+        "questionSetId": "gas-shunin-hei_qs03_05_nensho_fuel",
+        "canonicalQuestionSetId": "gas-shunin_qs03_05_nensho_fuel",
+        "sourceSharedQuestionSetId": "gas-shunin_qs03_05_nensho_fuel",
+        "folderId": "gas-shunin-hei_f03_kiso_riron",
+        "canonicalFolderId": "gas-shunin_f03_kiso_riron",
+        "name": "3-5 燃焼・燃料・付臭",
+        "qualificationId": "gas-shunin-hei",
+        "description": "燃焼反応、理論空気量、燃焼生成物、燃焼範囲、燃料の性質及び付臭剤の基礎を扱う。機器の燃焼不良は06へ分ける。",
+        "matchingHints": [
+          "燃焼",
+          "理論空気量",
+          "完全燃焼",
+          "燃焼範囲",
+          "燃料",
+          "付臭剤"
+        ],
+        "questionCount": 0,
+        "isDeleted": false
+      },
+      {
+        "questionSetId": "gas-shunin-hei_qs04_01_lpg_hassei",
+        "canonicalQuestionSetId": "gas-shunin_qs04_01_lpg_hassei",
+        "sourceSharedQuestionSetId": "gas-shunin_qs04_01_lpg_hassei",
+        "folderId": "gas-shunin-hei_f04_seizo",
+        "canonicalFolderId": "gas-shunin_f04_seizo",
+        "name": "4-1 LPガス・ガス発生方式",
+        "qualificationId": "gas-shunin-hei",
+        "description": "特定ガス発生設備で用いるLPガスの性質、原料及びガス発生方式を扱う。共通理論としての物性・燃焼は03へ分ける。",
+        "matchingHints": [
+          "LPガス",
+          "液化石油ガス",
+          "プロパン",
+          "ブタン",
+          "ガス発生方式"
+        ],
+        "questionCount": 0,
+        "isDeleted": false
+      },
+      {
+        "questionSetId": "gas-shunin-hei_qs04_02_youki_chosou",
+        "canonicalQuestionSetId": "gas-shunin_qs04_02_youki_chosou",
+        "sourceSharedQuestionSetId": "gas-shunin_qs04_02_youki_chosou",
+        "folderId": "gas-shunin-hei_f04_seizo",
+        "canonicalFolderId": "gas-shunin_f04_seizo",
+        "name": "4-2 容器・貯槽・離隔",
+        "qualificationId": "gas-shunin-hei",
+        "description": "容器、バルク貯槽、貯蔵能力、保安物件との離隔及び貯槽周辺の設備を扱う。法令上の一般構造要件は02へ分ける。",
+        "matchingHints": [
+          "容器",
+          "バルク貯槽",
+          "貯槽",
+          "貯蔵能力",
+          "保安物件",
+          "離隔距離"
+        ],
+        "questionCount": 0,
+        "isDeleted": false
+      },
+      {
+        "questionSetId": "gas-shunin-hei_qs04_03_kika_chosei",
+        "canonicalQuestionSetId": "gas-shunin_qs04_03_kika_chosei",
+        "sourceSharedQuestionSetId": "gas-shunin_qs04_03_kika_chosei",
+        "folderId": "gas-shunin-hei_f04_seizo",
+        "canonicalFolderId": "gas-shunin_f04_seizo",
+        "name": "4-3 気化・調整・製造能力",
+        "qualificationId": "gas-shunin-hei",
+        "description": "気化装置、調整装置及び特定ガス発生設備の製造能力・供給能力の算定を扱う。法定の気化装置要件は02へ分ける。",
+        "matchingHints": [
+          "気化装置",
+          "調整装置",
+          "製造能力",
+          "供給能力"
+        ],
+        "questionCount": 0,
+        "isDeleted": false
+      },
+      {
+        "questionSetId": "gas-shunin-hei_qs04_04_seizo_setsubi",
+        "canonicalQuestionSetId": "gas-shunin_qs04_04_seizo_setsubi",
+        "sourceSharedQuestionSetId": "gas-shunin_qs04_04_seizo_setsubi",
+        "folderId": "gas-shunin-hei_f04_seizo",
+        "canonicalFolderId": "gas-shunin_f04_seizo",
+        "name": "4-4 製造設備・電気設備",
+        "qualificationId": "gas-shunin-hei",
+        "description": "特定製造所の製造設備、電気設備、計装及び運転前の設備確認を扱う。法定技術基準だけを問う問題は02へ分ける。",
+        "matchingHints": [
+          "製造設備",
+          "電気設備",
+          "計装",
+          "運転前",
+          "受入作業"
+        ],
+        "questionCount": 0,
+        "isDeleted": false
+      },
+      {
+        "questionSetId": "gas-shunin-hei_qs04_05_iji_unyo",
+        "canonicalQuestionSetId": "gas-shunin_qs04_05_iji_unyo",
+        "sourceSharedQuestionSetId": "gas-shunin_qs04_05_iji_unyo",
+        "folderId": "gas-shunin-hei_f04_seizo",
+        "canonicalFolderId": "gas-shunin_f04_seizo",
+        "name": "4-5 運転・維持管理",
+        "qualificationId": "gas-shunin-hei",
+        "description": "容器・貯槽・気化装置等の運転、点検、記録保存及び維持管理を扱う。法令の検査制度は01または02へ分ける。",
+        "matchingHints": [
+          "運転",
+          "点検",
+          "維持管理",
+          "記録",
+          "検査"
+        ],
+        "questionCount": 0,
+        "isDeleted": false
+      },
+      {
+        "questionSetId": "gas-shunin-hei_qs04_06_bosai_saigai",
+        "canonicalQuestionSetId": "gas-shunin_qs04_06_bosai_saigai",
+        "sourceSharedQuestionSetId": "gas-shunin_qs04_06_bosai_saigai",
+        "folderId": "gas-shunin-hei_f04_seizo",
+        "canonicalFolderId": "gas-shunin_f04_seizo",
+        "name": "4-6 保安・防災・非常時",
+        "qualificationId": "gas-shunin-hei",
+        "description": "特定製造所の災害対策、非常時の措置、保安設備及び防災運用を扱う。事故報告要件は01へ分ける。",
+        "matchingHints": [
+          "災害対策",
+          "防災",
+          "非常時",
+          "保安",
+          "消火"
+        ],
+        "questionCount": 0,
+        "isDeleted": false
+      },
+      {
+        "questionSetId": "gas-shunin-hei_qs05_01_kyokyu_hoshiki",
+        "canonicalQuestionSetId": "gas-shunin_qs05_01_kyokyu_hoshiki",
+        "sourceSharedQuestionSetId": "gas-shunin_qs05_01_kyokyu_hoshiki",
+        "folderId": "gas-shunin-hei_f05_kyokyu",
+        "canonicalFolderId": "gas-shunin_f05_kyokyu",
+        "name": "5-1 供給方式・供給計画",
+        "qualificationId": "gas-shunin-hei",
+        "description": "供給方式、需要量推定、導管口径・圧力損失及び高低差の考え方を扱う。法令の供給計画届出は01へ分ける。",
+        "matchingHints": [
+          "供給方式",
+          "供給計画",
+          "需要量",
+          "圧力損失",
+          "導管口径",
+          "高低差"
+        ],
+        "questionCount": 0,
+        "isDeleted": false
+      },
+      {
+        "questionSetId": "gas-shunin-hei_qs05_02_seiatsu_meter",
+        "canonicalQuestionSetId": "gas-shunin_qs05_02_seiatsu_meter",
+        "sourceSharedQuestionSetId": "gas-shunin_qs05_02_seiatsu_meter",
+        "folderId": "gas-shunin-hei_f05_kyokyu",
+        "canonicalFolderId": "gas-shunin_f05_kyokyu",
+        "name": "5-2 整圧器・ガスメーター",
+        "qualificationId": "gas-shunin-hei",
+        "description": "LPガス用整圧器、附属装置、能力選定及びルーツメーター等のガスメーターを扱う。法令上の設置基準は02へ分ける。",
+        "matchingHints": [
+          "整圧器",
+          "ガスメーター",
+          "ルーツメーター",
+          "不純物除去",
+          "能力"
+        ],
+        "questionCount": 0,
+        "isDeleted": false
+      },
+      {
+        "questionSetId": "gas-shunin-hei_qs05_03_dokan_seko",
+        "canonicalQuestionSetId": "gas-shunin_qs05_03_dokan_seko",
+        "sourceSharedQuestionSetId": "gas-shunin_qs05_03_dokan_seko",
+        "folderId": "gas-shunin-hei_f05_kyokyu",
+        "canonicalFolderId": "gas-shunin_f05_kyokyu",
+        "name": "5-3 導管の設計・施工・接合",
+        "qualificationId": "gas-shunin-hei",
+        "description": "導管の材料、設計、施工、接合、溶接及び非破壊試験を扱う。技術基準としての導管要件は02へ分ける。",
+        "matchingHints": [
+          "導管",
+          "設計",
+          "施工",
+          "接合",
+          "溶接",
+          "非破壊試験"
+        ],
+        "questionCount": 0,
+        "isDeleted": false
+      },
+      {
+        "questionSetId": "gas-shunin-hei_qs05_04_fushoku_boshoku",
+        "canonicalQuestionSetId": "gas-shunin_qs05_04_fushoku_boshoku",
+        "sourceSharedQuestionSetId": "gas-shunin_qs05_04_fushoku_boshoku",
+        "folderId": "gas-shunin-hei_f05_kyokyu",
+        "canonicalFolderId": "gas-shunin_f05_kyokyu",
+        "name": "5-4 腐食・防食",
+        "qualificationId": "gas-shunin-hei",
+        "description": "埋設ガス導管の腐食、電気防食、局部電池及び防食管理を扱う。法定腐食防止措置は02へ分ける。",
+        "matchingHints": [
+          "腐食",
+          "防食",
+          "電気防食",
+          "陽極",
+          "陰極",
+          "自然電位"
+        ],
+        "questionCount": 0,
+        "isDeleted": false
+      },
+      {
+        "questionSetId": "gas-shunin-hei_qs05_05_roei_iji",
+        "canonicalQuestionSetId": "gas-shunin_qs05_05_roei_iji",
+        "sourceSharedQuestionSetId": "gas-shunin_qs05_05_roei_iji",
+        "folderId": "gas-shunin-hei_f05_kyokyu",
+        "canonicalFolderId": "gas-shunin_f05_kyokyu",
+        "name": "5-5 漏えい・気密試験・維持管理",
+        "qualificationId": "gas-shunin-hei",
+        "description": "導管の気密試験、漏えい検査、供給導管の点検・記録・補修等の維持管理を扱う。法定検査の対象・頻度は02または01へ分ける。",
+        "matchingHints": [
+          "気密試験",
+          "漏えい",
+          "維持管理",
+          "点検",
+          "補修"
+        ],
+        "questionCount": 0,
+        "isDeleted": false
+      },
+      {
+        "questionSetId": "gas-shunin-hei_qs05_06_jishin",
+        "canonicalQuestionSetId": "gas-shunin_qs05_06_jishin",
+        "sourceSharedQuestionSetId": "gas-shunin_qs05_06_jishin",
+        "folderId": "gas-shunin-hei_f05_kyokyu",
+        "canonicalFolderId": "gas-shunin_f05_kyokyu",
+        "name": "5-6 地震対策",
+        "qualificationId": "gas-shunin-hei",
+        "description": "供給導管・供給設備の地震時の被害防止、遮断、復旧及び防災対策を扱う。製造所の災害対策は04-6へ分ける。",
+        "matchingHints": [
+          "地震",
+          "供給停止",
+          "復旧",
+          "防災",
+          "導管"
+        ],
+        "questionCount": 0,
+        "isDeleted": false
+      },
+      {
+        "questionSetId": "gas-shunin-hei_qs06_01_seishitsu_nensho",
+        "canonicalQuestionSetId": "gas-shunin_qs06_01_seishitsu_nensho",
+        "sourceSharedQuestionSetId": "gas-shunin_qs06_01_seishitsu_nensho",
+        "folderId": "gas-shunin-hei_f06_shohi_kiki",
+        "canonicalFolderId": "gas-shunin_f06_shohi_kiki",
+        "name": "6-1 ガスの性質・燃焼・伝熱",
+        "qualificationId": "gas-shunin-hei",
+        "description": "消費機器で扱うガスの性質、燃焼現象、互換性、燃焼不良及び伝熱を扱う。一般理論の基礎問題は03へ分ける。",
+        "matchingHints": [
+          "ガスの性質",
+          "燃焼",
+          "互換性",
+          "不完全燃焼",
+          "リフティング",
+          "伝熱"
+        ],
+        "questionCount": 0,
+        "isDeleted": false
+      },
+      {
+        "questionSetId": "gas-shunin-hei_qs06_02_katei_kiki",
+        "canonicalQuestionSetId": "gas-shunin_qs06_02_katei_kiki",
+        "sourceSharedQuestionSetId": "gas-shunin_qs06_02_katei_kiki",
+        "folderId": "gas-shunin-hei_f06_shohi_kiki",
+        "canonicalFolderId": "gas-shunin_f06_shohi_kiki",
+        "name": "6-2 家庭用ガス機器",
+        "qualificationId": "gas-shunin-hei",
+        "description": "こんろ、給湯器、ファンヒーター、衣類乾燥機、ストーブ等の家庭用機器の構造・機能・燃焼方式を扱う。設置基準は02、安全装置は06-5へ分ける。",
+        "matchingHints": [
+          "家庭用",
+          "こんろ",
+          "給湯器",
+          "ファンヒーター",
+          "衣類乾燥機",
+          "ストーブ"
+        ],
+        "questionCount": 0,
+        "isDeleted": false
+      },
+      {
+        "questionSetId": "gas-shunin-hei_qs06_03_gyomu_cogeneration",
+        "canonicalQuestionSetId": "gas-shunin_qs06_03_gyomu_cogeneration",
+        "sourceSharedQuestionSetId": "gas-shunin_qs06_03_gyomu_cogeneration",
+        "folderId": "gas-shunin-hei_f06_shohi_kiki",
+        "canonicalFolderId": "gas-shunin_f06_shohi_kiki",
+        "name": "6-3 業務用機器・冷暖房・コージェネレーション",
+        "qualificationId": "gas-shunin-hei",
+        "description": "業務用ガス機器、ガス冷暖房、燃料電池及びガスコージェネレーションシステムを扱う。機器一般の構成や安全装置は06-2または06-5へ分ける。",
+        "matchingHints": [
+          "業務用",
+          "ガス冷暖房",
+          "燃料電池",
+          "コージェネレーション"
+        ],
+        "questionCount": 0,
+        "isDeleted": false
+      },
+      {
+        "questionSetId": "gas-shunin-hei_qs06_04_kanki_kyuhaiki_co",
+        "canonicalQuestionSetId": "gas-shunin_qs06_04_kanki_kyuhaiki_co",
+        "sourceSharedQuestionSetId": "gas-shunin_qs06_04_kanki_kyuhaiki_co",
+        "folderId": "gas-shunin-hei_f06_shohi_kiki",
+        "canonicalFolderId": "gas-shunin_f06_shohi_kiki",
+        "name": "6-4 換気・給排気・一酸化炭素",
+        "qualificationId": "gas-shunin-hei",
+        "description": "換気、給排気方式、室内環境、一酸化炭素中毒及び排気の扱いを扱う。法令上の給排気設置基準は02へ分ける。",
+        "matchingHints": [
+          "換気",
+          "給排気",
+          "一酸化炭素",
+          "CO",
+          "室内環境"
+        ],
+        "questionCount": 0,
+        "isDeleted": false
+      },
+      {
+        "questionSetId": "gas-shunin-hei_qs06_05_anzen_seigyo",
+        "canonicalQuestionSetId": "gas-shunin_qs06_05_anzen_seigyo",
+        "sourceSharedQuestionSetId": "gas-shunin_qs06_05_anzen_seigyo",
+        "folderId": "gas-shunin-hei_f06_shohi_kiki",
+        "canonicalFolderId": "gas-shunin_f06_shohi_kiki",
+        "name": "6-5 安全装置・制御装置",
+        "qualificationId": "gas-shunin-hei",
+        "description": "立消え安全装置、不完全燃焼防止装置、過熱防止、点火・制御等、ガス機器の安全装置と制御の働きを扱う。設置義務は02へ分ける。",
+        "matchingHints": [
+          "安全装置",
+          "制御装置",
+          "立消え",
+          "不完全燃焼防止",
+          "過熱防止"
+        ],
+        "questionCount": 0,
+        "isDeleted": false
+      },
+      {
+        "questionSetId": "gas-shunin-hei_qs06_06_gassen_setsuzoku_keihouki",
+        "canonicalQuestionSetId": "gas-shunin_qs06_06_gassen_setsuzoku_keihouki",
+        "sourceSharedQuestionSetId": "gas-shunin_qs06_06_gassen_setsuzoku_keihouki",
+        "folderId": "gas-shunin-hei_f06_shohi_kiki",
+        "canonicalFolderId": "gas-shunin_f06_shohi_kiki",
+        "name": "6-6 ガス栓・接続具・警報器",
+        "qualificationId": "gas-shunin-hei",
+        "description": "ガス栓、接続具、ガス機器との接続及び警報器の種類・機能・設置を扱う。法令上のガス栓基準は02へ分ける。",
+        "matchingHints": [
+          "ガス栓",
+          "接続具",
+          "警報器",
+          "接続",
+          "漏えい"
+        ],
+        "questionCount": 0,
+        "isDeleted": false
+      }
+    ]
+  },
+  "nativeReceipt": {
+    "status": "succeeded",
+    "summary": "対象工程と検証が完了した。",
+    "commands": [
+      {
+        "command": "/Users/yuki/.pyenv/versions/3.14.0/bin/python3.14 scripts/upload/upload_category_to_firestore.py output/gas-shunin-hei/category/category.json",
+        "status": "pass"
+      },
+      {
+        "command": "/Users/yuki/.pyenv/versions/3.14.0/bin/python3.14 scripts/check/check_choice_text_alignment.py --base-dir output/gas-shunin-hei/questions_json --stage merged",
+        "status": "pass"
+      },
+      {
+        "command": "/Users/yuki/.pyenv/versions/3.14.0/bin/python3.14 scripts/check/check_required_fields.py --base-dir output/gas-shunin-hei/questions_json --stage merged",
+        "status": "pass"
+      },
+      {
+        "command": "/Users/yuki/.pyenv/versions/3.14.0/bin/python3.14 scripts/check/check_correct_choice_patch_coverage.py --source output/gas-shunin-hei/questions_json/<year>/00_source/question_<year>_<part>.json --patch output/gas-shunin-hei/pdf_patch_review/verification/canonical-answer-label-view/<year>/question_<year>_<part>.json --require-full（2017〜2025年・27組）",
+        "status": "pass"
+      },
+      {
+        "command": "/Users/yuki/.pyenv/versions/3.14.0/bin/python3.14 scripts/check/check_00_source_immutability.py --check-scrape-refresh --scope output/gas-shunin-hei/questions_json/<year>/00_source（2017〜2025年）",
+        "status": "pass"
+      },
+      {
+        "command": "/Users/yuki/.pyenv/versions/3.14.0/bin/python3.14 category reference/ID/mapping/count validation",
+        "status": "pass"
+      }
+    ],
+    "changedFiles": [
+      "output/gas-shunin-hei/category/category.json",
+      "prompt/qualification_docs/gas-shunin-hei/03_category_preparation.md"
+    ],
+    "resolvedFailedDeltaPaths": []
+  },
+  "sourceBaselineSha256": "778df63adcf854595267d5fbe18355cb8cb5c1085ab90255fb1b1cafef114c9e",
+  "images": {
+    "fileCount": 0,
+    "questionReferenceCount": 0,
+    "choiceReferenceCount": 0,
+    "dryRun": "output/gas-shunin-hei/production/20261027/images-dry-run.log"
+  }
+}

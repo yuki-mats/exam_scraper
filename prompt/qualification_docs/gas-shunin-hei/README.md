@@ -9,7 +9,7 @@
 - 問題PDF: `output/pdf/gas-shunin-official/<year>/q_hei_*.pdf`
 - 解答PDF: `output/pdf/gas-shunin-official/<year>/a_hei_*.pdf`
 - 問題のページ画像: `output/gas-shunin-hei/pdf_review/<year>/mark_sheet_question/page-XX.png`
-- 解答のページ画像: `output/gas-shunin-hei/pdf_review/<year>/mark_sheet_answer/page-01.png`
+- 解答のページ画像: `output/gas-shunin-hei/pdf_review/<year>/answer/page-01.png`
 - 全522問のPDF照合記録: `document/temporary/20261027_gas_shunin_hei_pdf_review.json`
 - 本文・共通注の修正と独立監査: `document/temporary/20261027_gas_shunin_hei_pdf_patches.json`
 
