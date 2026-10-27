@@ -100,7 +100,7 @@ REPORT.with_suffix(".md").write_text(f"""# 丙種の直接整備・途中記録
 
 2017年度の法令1〜8の法令番号・公式参照・別表内位置の表記補完: {"実独立再確認・保存済み" if format_complete else "実独立再確認中"}。保存済み法令問題にも同じ基準を適用する。
 
-対象{len(selected)}問の正答整合性・必須項目・部分patch coverageが成功し、00_source 27ファイルの不変を確認した。実行した固定snapshotの{check.get('snapshotFilesChecked', '未集計')}ファイルはGit objectと一致した。共有checkoutのqualification_runs.pyには並行作業の変更を検出したため、commit・差分・hashを観測記録へ残した。丙種の実行には取り込んでいない。対象検査は現在projectionを私有検査領域へ出したものであり、全年度の公開前検証・正式評価・本番反映は未実施。2017年度の標準mergeは成功したが、同年度の未整備問題に設問意図がなく標準convertが停止した。条件を緩めず、残問整備後に再生成する。
+対象{len(selected)}問の正答整合性・必須項目・部分patch coverageが成功し、00_source 27ファイルの不変を確認した。実行した固定snapshotの{check.get('snapshotFilesChecked', '未集計')}ファイルはGit objectと一致した。共有checkoutのqualification_runs.pyには並行作業の変更を検出したため、commit・差分・hashを観測記録へ残した。丙種の実行には取り込んでいない。対象検査は現在projectionを私有検査領域へ出したものであり、全年度の公開前検証・正式評価・本番反映は未実施。2017年度の標準merge・convertは成功した。その後の標準検査では、同年度の未整備7問に由来するquestionSetIdの空値35件で停止した。quality-gateとupload dry-runは成功していない。条件を緩めず、残問整備後に再生成する。
 
 添付JSONは正式patchの復旧用実値・固定候補・検査証跡を含む途中checkpointであり、仕様又は公開可能判定の代用ではない。残る{522-len(selected)}問と、正式評価、本番反映、全件読み戻しまで継続する。
 """)
