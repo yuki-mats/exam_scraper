@@ -111,7 +111,7 @@
     "sourceJsonFiles": 425,
     "rawImageFiles": 850,
     "all1275FilesUnchanged": true,
-    "verification": "output/eco-kentei/reports/mondai4_54_validation_20261028/protected_source_and_images.json"
+    "verification": "output/eco-kentei/reports/mondai4_55_validation_20261028/protected_source_and_images.json"
   },
   "headerDecision": {
     "sourceRecordRef": "question_mondai4_35.json#0",
@@ -149,8 +149,8 @@
     "trackedCodeOrPromptChanged": true,
     "otherWorktreeChanges": "他作業の変更は保持し、この記録だけをstageする。"
   },
-  "nextAction": "55の構造化された作成時・現行の基準日/法令locator/hashを実読照合済み。公開用変換の本文省略を反映し、6件検査・別session評価・再読込みを行う。",
-  "lastUpdatedAt": "2026-10-27T23:22:46.397169+00:00",
+  "nextAction": "新規mondai4_56を原画像2枚と全データで照合し、必要な整備・検査・別session評価を逐次進める。source差異10件は保留し、35のア〜オは解決済みとして保持。",
+  "lastUpdatedAt": "2026-10-27T23:26:11.869579+00:00",
   "subsequentQuestion51": {
     "sourceRecordRef": "question_mondai4_51.json#0",
     "sourceQuestionKey": "eco-kentei:knoun-2026-mock-4:bb67422eb5e52e9c",
@@ -249,22 +249,22 @@
     "changes": "原画像にないクが共通指示の空欄に入っていた。OCRの照合済み転記をバックアップ付きで訂正し、登録済みsourceは変更しない。05と03でGRI Standards・全4候補の比較を整備。検査・別session評価は合格したが原転記の受入は保留。"
   },
   "latestFullyAcceptedScope": {
-    "sourceRecords": "mondai4_31〜52と54の23件、53は原転記差異保留のため除外",
-    "sourceQuestionCount": 23,
-    "actualLearningQuestionCount": 38,
-    "convertedDocumentCount": 172,
-    "choiceOnlyDocumentCount": 134,
+    "sourceRecords": "mondai4_31〜52と54〜55の24件。53は原転記差異保留のため除外。",
+    "sourceQuestionCount": 24,
+    "actualLearningQuestionCount": 39,
+    "convertedDocumentCount": 176,
+    "choiceOnlyDocumentCount": 137,
     "acceptanceReceipt": {
-      "path": "output/eco-kentei/reports/mondai4_54_validation_20261028/current_acceptance.json",
-      "sha256": "4b232e463df573299510458b340f8951b8a60831985233175a953f536cf7cafd"
+      "path": "output/eco-kentei/reports/mondai4_55_validation_20261028/current_acceptance.json",
+      "sha256": "81a5bb9aaaac6a26350d584f69a87bdb31b8053850e6e0fa56c8b23f410f64b5"
     },
     "uploadReadyArchive": {
-      "path": "output/eco-kentei/reports/mondai4_54_validation_20261028/verified_upload_ready.json",
-      "sha256": "11b43ebe24284d19d10eda4ae9f37d1bf5cce868725847302b6953713e29ec4b"
+      "path": "output/eco-kentei/reports/mondai4_55_validation_20261028/verified_upload_ready.json",
+      "sha256": "ea1ca7d28430948c13674e1f02454388815689110a31ce30e339e41018fb1367"
     },
-    "acceptedCurrentReadbacks": "output/eco-kentei/reports/mondai4_54_validation_20261028/accepted_current_readbacks",
+    "acceptedCurrentReadbacks": "output/eco-kentei/reports/mondai4_55_validation_20261028/accepted_current_readbacks",
     "previousStateHashesEvaluationsAndConvertedDocsUnchanged": true,
-    "scopeLimit": "この23件の受入から全395問の完了又は全体の残問数を推測しない。"
+    "scopeLimit": "この24件の受入から全395問の完了又は全体の残問数を推測しない。"
   },
   "subsequentQuestion54": {
     "sourceRecordRef": "question_mondai4_54.json#0",
@@ -293,7 +293,7 @@
     }
   },
   "schemaFixForAuthoredLawSnapshots": {
-    "status": "live_snapshot_saved_delivery_tests_passed",
+    "status": "live_snapshot_and_hash_only_delivery_accepted",
     "scope": [
       "tools/question_review_console/question_candidate.py",
       "tests/test_law_revision_snapshot_candidate_schema.py",
@@ -313,6 +313,38 @@
       "sha256": "74999d099efaea04dab5bb4d869bc38284bf3f7fde59ac6719ef22b8694b05cf"
     },
     "outboundChange": "中間監査のarticleTextはpatchに保持し、convertは基準日・法令locator・hashを残して本文を省く。",
-    "outboundTargetedTestsPassed": 30
+    "outboundTargetedTestsPassed": 30,
+    "deliveryAcceptance": {
+      "path": "output/eco-kentei/reports/law_snapshot_schema_fix_20261028/delivery_acceptance.json",
+      "sha256": "b95adfc25bc04e69d1c721e7e811a9fc7ca0a359fec79b5c238cd8902298d683"
+    }
+  },
+  "subsequentQuestion55": {
+    "sourceRecordRef": "question_mondai4_55.json#0",
+    "questionId": "9c3a8a9e285d130a615ddd90",
+    "stateHash": "fecf6237b151047335377c205fc2af84640465364b9aa1c3fecf2dfd30e5d39b",
+    "normalRunIds": [
+      "20261028T080203648976-604a962e",
+      "20261028T080254032301-29977309",
+      "20261028T080813177957-fa43d05b",
+      "20261028T081804521454-49b7d0e4"
+    ],
+    "evaluationSessionId": "01a17fad-b210-7f50-a4cb-40f889c4adcf",
+    "verifiedChoiceCount": 4,
+    "explanationScore": 98,
+    "sourceImagesActuallyRead": true,
+    "changes": "原画像とsourceは一致。独自本文に中間貯蔵開始後という30年の起算点を明示し、全4候補の違いを解説。実際の独自問題作成日の判定と現行判定を構造化保存し、印字正答由来の誤った監査説明を解消。候補schemaと公開用変換の責務不一致も修正し、対象検査6件と別session評価を通過。",
+    "receipt": {
+      "path": "output/eco-kentei/reports/turn_receipts/mondai4_55_accepted_20261028.json",
+      "sha256": "cb9bf68deb1e11a5b56f46a702868370b40db139d06c3f7a53ee5eb4f135e9f8"
+    },
+    "evaluationReceipt": {
+      "path": "output/eco-kentei/reports/mondai4_55_evaluation_result_20261028.json",
+      "sha256": "9ade51ec4fd8133f427749e152054503264464d3f8b77c391655d4038e382e62"
+    },
+    "validationReceipt": {
+      "path": "output/eco-kentei/reports/mondai4_55_validation_20261028/current_validation.json",
+      "sha256": "67879a962595d079741362d9e77f63f483a04c1f386a2d419ae7f6efbe309fe5"
+    }
   }
 }
