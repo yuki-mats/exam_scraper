@@ -111,7 +111,7 @@
     "sourceJsonFiles": 425,
     "rawImageFiles": 850,
     "all1275FilesUnchanged": true,
-    "verification": "output/eco-kentei/reports/mondai4_35_context_validation_20261028/protected_source_and_images.json"
+    "verification": "output/eco-kentei/reports/mondai4_54_validation_20261028/protected_source_and_images.json"
   },
   "headerDecision": {
     "sourceRecordRef": "question_mondai4_35.json#0",
@@ -126,12 +126,13 @@
     "knoun-2026-mock-3/question_mondai3_58.json#0",
     "knoun-2026-mock-3/question_mondai3_59.json#0",
     "knoun-2026-mock-3/question_mondai3_60.json#0",
+    "knoun-2026-mock-3/question_mondai3_85.json#0",
     "knoun-2026-mock-3/question_mondai3_73.json#0",
     "knoun-2026-mock-3/question_mondai3_74.json#0",
     "knoun-2026-mock-3/question_mondai3_75.json#0",
-    "knoun-2026-mock-3/question_mondai3_85.json#0"
+    "knoun-2026-mock-4/question_mondai4_53.json#0"
   ],
-  "remainingSourceDifferencePolicy": "先の14件への例外承認を9件へ広げず、sourceの現内容を保持する。",
+  "remainingSourceDifferencePolicy": "先の14件への例外承認を追加10件へ広げずsourceを保持する。35のア〜オはユーザー判断により解決済み。53は内容整備の合格とsource照合の保留を区別し、受入件数へ含めない。",
   "publication": {
     "requested": false,
     "firestoreWrites": 0,
@@ -148,8 +149,8 @@
     "trackedCodeOrPromptChanged": false,
     "otherWorktreeChanges": "他作業の変更は保持し、この記録だけをstageする。"
   },
-  "nextAction": "新規mondai4_52を原画像2枚と全データで照合し、05以降の必要工程・検査・別session評価を逐次進める。9件のsource差異は未承認のまま保持。",
-  "lastUpdatedAt": "2026-10-27T22:28:53.257069+00:00",
+  "nextAction": "新規55は原画像一致と05の起算点明示を確認済み。開始済み通常02a〜04を逐次進め、対象検査と別session評価を行う。source差異10件は保留を維持、35のア〜オは解決済み。",
+  "lastUpdatedAt": "2026-10-27T23:03:10.880770+00:00",
   "subsequentQuestion51": {
     "sourceRecordRef": "question_mondai4_51.json#0",
     "sourceQuestionKey": "eco-kentei:knoun-2026-mock-4:bb67422eb5e52e9c",
@@ -185,6 +186,110 @@
         "question_mondai4_35.json#0"
       ],
       "scopeLimit": "21件の受入であり、395問全体の完了ではない。"
+    }
+  },
+  "subsequentQuestion52": {
+    "sourceRecordRef": "question_mondai4_52.json#0",
+    "questionId": "39273b514c3290496d669599",
+    "stateHash": "754461578a1be6b42e69c47f58244926cba48f3255296cbc4e26aa16325e01f6",
+    "evaluationSessionId": "01a17f81-d6ad-7021-b9ef-5725b491d443",
+    "verifiedChoiceCount": 4,
+    "explanationScore": 100,
+    "sourceImagesActuallyRead": true,
+    "changes": "藻場の定義を海藻・海草の群落として明確にし、4候補の意味と見分け方を共通解説へ保存。対象検査6件と別session評価に合格。",
+    "receipt": {
+      "path": "output/eco-kentei/reports/turn_receipts/mondai4_52_accepted_20261028.json",
+      "sha256": "b5cd6ed212a9d16ffc4a9a6ba632dc910c153d37bbdffe2d6759527b95fbadf2"
+    },
+    "evaluationReceipt": {
+      "path": "output/eco-kentei/reports/mondai4_52_evaluation_result_20261028.json",
+      "sha256": "f8367ec7e06f0c2e56553e3c43a64bf2063b625811aa0954f197414ea88f3eab"
+    },
+    "currentAcceptedScope": {
+      "sourceQuestionCount": 22,
+      "actualLearningQuestionCount": 37,
+      "convertedDocumentCount": 168,
+      "choiceOnlyDocumentCount": 131,
+      "acceptanceReceipt": {
+        "path": "output/eco-kentei/reports/mondai4_52_validation_20261028/current_acceptance.json",
+        "sha256": "b46f8e927dd9aaf74932509b116c779cccba4d2cb8bebb9ec213888ac2138e0e"
+      },
+      "uploadReadyArchive": {
+        "path": "output/eco-kentei/reports/mondai4_52_validation_20261028/verified_upload_ready.json",
+        "sha256": "e72ac39a3090e5504686075d26d9349ef9a417f0f216600a6c698ab5434e3a9e"
+      }
+    }
+  },
+  "subsequentQuestion53": {
+    "sourceRecordRef": "question_mondai4_53.json#0",
+    "questionId": "6cc40aa77d1f108bf2808275",
+    "stateHash": "c31ae1f3b01268eface660bcdeaafb7dca5caed04c0a3ca800ae071810edc93d",
+    "evaluationSessionId": "01a17f8b-60dd-7631-b5c4-545ccd07a261",
+    "verifiedChoiceCount": 4,
+    "explanationScore": 100,
+    "contentMaintenancePassed": true,
+    "sourceReconciliationPassed": false,
+    "allStagesComplete": false,
+    "includedInAcceptedSourceCounts": false,
+    "sourceJsonEdited": false,
+    "ocrVerifiedTextCorrected": true,
+    "ocrRawTextPreserved": true,
+    "receipt": {
+      "path": "output/eco-kentei/reports/turn_receipts/mondai4_53_maintenance_with_source_hold_20261028.json",
+      "sha256": "652ffabe64bfb9e2af421e64272914c7e57c46bdcae8424ad2ee59ee0c6781fa"
+    },
+    "evaluationReceipt": {
+      "path": "output/eco-kentei/reports/mondai4_53_evaluation_result_20261028.json",
+      "sha256": "9f226ccfd6a5d059d04884ba8aa8eb0b79b0a338be6bdeff15413e6bcf506f42"
+    },
+    "sourceCorrectionProposal": {
+      "path": "output/eco-kentei/reports/source_correction_proposal_mondai4_53_header_20261028/proposal.json",
+      "sha256": "729ac4b2048c7d7d17e6dd4e344231eca56c1156a0f5c451bd5d080cfc9ceebb"
+    },
+    "changes": "原画像にないクが共通指示の空欄に入っていた。OCRの照合済み転記をバックアップ付きで訂正し、登録済みsourceは変更しない。05と03でGRI Standards・全4候補の比較を整備。検査・別session評価は合格したが原転記の受入は保留。"
+  },
+  "latestFullyAcceptedScope": {
+    "sourceRecords": "mondai4_31〜52と54の23件、53は原転記差異保留のため除外",
+    "sourceQuestionCount": 23,
+    "actualLearningQuestionCount": 38,
+    "convertedDocumentCount": 172,
+    "choiceOnlyDocumentCount": 134,
+    "acceptanceReceipt": {
+      "path": "output/eco-kentei/reports/mondai4_54_validation_20261028/current_acceptance.json",
+      "sha256": "4b232e463df573299510458b340f8951b8a60831985233175a953f536cf7cafd"
+    },
+    "uploadReadyArchive": {
+      "path": "output/eco-kentei/reports/mondai4_54_validation_20261028/verified_upload_ready.json",
+      "sha256": "11b43ebe24284d19d10eda4ae9f37d1bf5cce868725847302b6953713e29ec4b"
+    },
+    "acceptedCurrentReadbacks": "output/eco-kentei/reports/mondai4_54_validation_20261028/accepted_current_readbacks",
+    "previousStateHashesEvaluationsAndConvertedDocsUnchanged": true,
+    "scopeLimit": "この23件の受入から全395問の完了又は全体の残問数を推測しない。"
+  },
+  "subsequentQuestion54": {
+    "sourceRecordRef": "question_mondai4_54.json#0",
+    "questionId": "4a9d3b2fabbb319740e729dc",
+    "stateHash": "4d3674b9e5adb0502e90ee48f5d5b929c2728c450a9b1a0743c1385d9f0f737f",
+    "normalRunIds": [
+      "20261028T075440335931-c1089356",
+      "20261028T075801804109-1366ff8b"
+    ],
+    "evaluationSessionId": "01a17f96-e8bb-72f3-a959-a0a47e06e5fb",
+    "verifiedChoiceCount": 4,
+    "explanationScore": 100,
+    "sourceImagesActuallyRead": true,
+    "changes": "法令の認定要件ではなく一般用語の名称を問う内容に合わせて02b分類を確定し、03b残存法令根拠を解消。4候補の意味を共通解説へ保存。旧エコファーマー制度の経過とクリーナープロダクションの広い概念を一次資料で確認。対象検査6件と別session評価に合格。",
+    "receipt": {
+      "path": "output/eco-kentei/reports/turn_receipts/mondai4_54_accepted_20261028.json",
+      "sha256": "64e617dabd51f67c354689591ef8293e4540f223763d2d937489294f2c2c2a20"
+    },
+    "evaluationReceipt": {
+      "path": "output/eco-kentei/reports/mondai4_54_evaluation_result_20261028.json",
+      "sha256": "e7316116c4ec11a25ecf8b7edf2d10bc6abdf898c0345af1c6ac838527145b76"
+    },
+    "validationReceipt": {
+      "path": "output/eco-kentei/reports/mondai4_54_validation_20261028/current_validation.json",
+      "sha256": "286fe2124cf02d7c712d5333195fb2730cc5a69147336760e38c2fa5967a35af"
     }
   }
 }
