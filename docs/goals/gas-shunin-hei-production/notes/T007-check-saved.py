@@ -64,10 +64,40 @@ source_changed = [name for name, expected in baseline.items() if hashlib.sha256(
 code = json.loads((RUN / "execution-baseline.json").read_text())["workingCodeUnchanged"]
 paused_code_changed = [name for name, expected in code.items() if name != "scripts/convert/convert_merged_to_firestore.py"
                        and hashlib.sha256((ROOT / name).read_bytes()).hexdigest() != expected]
+observation_path = RUN / "workspace-code-observation.json"
+observation = json.loads(observation_path.read_text()) if observation_path.exists() else {}
+observed_changes = []
+for name in paused_code_changed:
+    if name == observation.get("path") and hashlib.sha256((ROOT / name).read_bytes()).hexdigest() == observation.get("observedSha256"):
+        diff = ROOT / observation["diffPath"]
+        if hashlib.sha256(diff.read_bytes()).hexdigest() == observation.get("diffSha256"):
+            observed_changes.append(name)
+unreviewed_changes = sorted(set(paused_code_changed) - set(observed_changes))
+# 実行するsnapshot自体をGit objectと照合する。並行checkoutの状態とは分ける。
+commit = json.loads((RUN / "execution-baseline.json").read_text())["toolCommit"]
+tree = subprocess.check_output(["git", "ls-tree", "-r", "-z", commit, "--", "scripts", "tools", "config", "prompt", "document"], cwd=ROOT)
+snapshot_changed = []
+snapshot_files = 0
+for entry in tree.split(b"\0"):
+    if not entry:
+        continue
+    metadata, raw_name = entry.split(b"\t", 1)
+    mode, kind, expected = metadata.decode().split()
+    name = raw_name.decode()
+    path = TOOLS / name
+    if kind != "blob":
+        continue
+    snapshot_files += 1
+    data = path.read_bytes() if path.exists() else b""
+    actual = hashlib.sha1(b"blob " + str(len(data)).encode() + b"\0" + data).hexdigest()
+    if not path.exists() or actual != expected:
+        snapshot_changed.append(name)
 summary = {"generatedAt": stamp, "selectedCount": len(selected), "byYear": {year: len(rows) for year, rows in groups.items()},
            "commands": results, "sourceFilesChecked": len(baseline), "sourceChanged": source_changed,
-           "pausedCodeChanged": paused_code_changed, "wholeSystemTests": "not_run_data_only",
-           "pass": all(row["exitCode"] == 0 for row in results) and not source_changed and not paused_code_changed}
+           "pausedCodeChanged": paused_code_changed, "reviewedConcurrentCodeChanges": observed_changes,
+           "unreviewedCodeChanges": unreviewed_changes, "snapshotFilesChecked": snapshot_files,
+           "snapshotChanged": snapshot_changed, "wholeSystemTests": "not_run_data_only",
+           "pass": all(row["exitCode"] == 0 for row in results) and not source_changed and not unreviewed_changes and not snapshot_changed}
 (work / "result.json").write_text(json.dumps(summary, ensure_ascii=False, indent=2) + "\n")
 print("target checks", summary["pass"], "questions", len(selected), "receipt", work)
 sys.exit(0 if summary["pass"] else 1)

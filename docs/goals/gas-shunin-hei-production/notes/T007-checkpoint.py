@@ -2,6 +2,7 @@
 import datetime
 import hashlib
 import json
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[4]
@@ -32,13 +33,25 @@ for p in sorted((ROOT / "output/gas-shunin-hei/questions_json").glob("*/*/*.json
         "18_law_context_prepared", "21_explanationText_added", "22_questionSetId_linked", "23_correctChoiceText_fixed"} or (
         p.parent.name == "24_questionIssueCorrections" and ("direct-note-text" in p.name or "direct-answer" in p.name)):
         formal.append(snapshot(p))
-format_complete = all("_format/" in str(selected.get(f"2017:law:問{n}", {}).get("lawAuditPath", "")) for n in range(1, 9))
+sys.path.insert(0, str(RUN / "tool_snapshot"))
+from tools.question_review_console.inventory import QuestionInventory
+inv = QuestionInventory(ROOT)
+law_display_checks = []
+for n in range(1, 9):
+    item = selected.get(f"2017:law:問{n}")
+    projection = inv.projected_input("gas-shunin-hei", "2017", item["sourceIdentity"]["sourceRecordRef"]) if item else None
+    record = projection.record if projection is not None and not projection.errors else {}
+    law_display_checks.append(bool(record.get("explanationReferences")) and all(
+        ("昭和" in text or "平成" in text or "令和" in text) and "号" in text
+        for text in record.get("explanationText") or []))
+format_complete = all(law_display_checks)
 report = {"schemaVersion": "hei-direct-maintenance-checkpoint/v1",
     "generatedAt": datetime.datetime.now(datetime.timezone.utc).isoformat(), "status": "in_progress",
     "fullOutcomeComplete": False, "productionWritten": False, "systemCodeModified": False,
     "maintenanceServerStarted": False, "sourceQuestionCount": 522, "newDirectSavedQuestionCount": len(selected),
     "remainingDirectReviewQuestionCount": 522 - len(selected), "savedQuestions": selected,
     "latestChecks": {"path": str(check_path.relative_to(ROOT)), "sha256": hashlib.sha256(check_path.read_bytes()).hexdigest(), "summary": check},
+    "concurrentWorkspaceObservation": snapshot(RUN / "workspace-code-observation.json"),
     "restorableFormalPatches": formal,
     "lawAuditSidecars": [snapshot(p) for p in sorted((ROOT / "output/gas-shunin-hei/review/law_revision_audit").glob("*.jsonl"))],
     "primaryDrafts": [snapshot(p) for p in sorted((RUN / "primary").glob("*.json"))],
@@ -65,7 +78,7 @@ REPORT.with_suffix(".md").write_text(f"""# 丙種の直接整備・途中記録
 
 2017年度の法令1〜8の法令番号・公式参照・別表内位置の表記補完: {"実独立再確認・保存済み" if format_complete else "実独立再確認中"}。保存済み法令問題にも同じ基準を適用する。
 
-対象{len(selected)}問の正答整合性・必須項目・部分patch coverageが成功し、00_source 27ファイルと停止中の改修10ファイルの不変を確認した。対象検査は現在projectionを私有検査領域へ出したものであり、全年度の公開前検証・正式評価・本番反映は未実施。2017年度の標準mergeは成功したが、同年度の未整備問題に設問意図がなく標準convertが停止した。条件を緩めず、残問整備後に再生成する。
+対象{len(selected)}問の正答整合性・必須項目・部分patch coverageが成功し、00_source 27ファイルの不変を確認した。実行した固定snapshotの{check.get('snapshotFilesChecked', '未集計')}ファイルはGit objectと一致した。共有checkoutのqualification_runs.pyには並行作業のcommit c5166cdd0による変更を検出したため、差分とhashを観測記録へ残した。丙種の実行には取り込んでいない。対象検査は現在projectionを私有検査領域へ出したものであり、全年度の公開前検証・正式評価・本番反映は未実施。2017年度の標準mergeは成功したが、同年度の未整備問題に設問意図がなく標準convertが停止した。条件を緩めず、残問整備後に再生成する。
 
 添付JSONは正式patchの復旧用実値・固定候補・検査証跡を含む途中checkpointであり、仕様又は公開可能判定の代用ではない。残る{522-len(selected)}問と、正式評価、本番反映、全件読み戻しまで継続する。
 """)
