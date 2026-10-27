@@ -38,6 +38,28 @@ def _law_xml(*, article_text: str, appendix_text: str = "別表本文") -> str:
 
 
 class PrimaryLawEvidenceTests(unittest.TestCase):
+    def test_long_locator_keeps_the_tail_and_its_verifiable_hash(self):
+        import hashlib
+        article = "長い条文" * 4_000 + "条文末尾の例外"
+        appendix = "別表の基準" * 4_000 + "別表末尾の対象事業"
+        snapshot = LawFileSnapshot(
+            law_id="law", as_of="2026-10-28", source_url="url",
+            revision_id="rev", xml_text=_law_xml(
+                article_text=article, appendix_text=appendix),
+        )
+        for kind, number, tail in (
+            ("article", 11, "条文末尾の例外"),
+            ("appendix_table", 3, "別表末尾の対象事業"),
+        ):
+            with self.subTest(kind=kind):
+                result = PrimaryLawEvidenceResolver._snapshot_payload(
+                    snapshot, kind=kind, number=number)
+                self.assertGreater(len(result["text"]), 12_000)
+                self.assertTrue(result["text"].endswith(tail))
+                self.assertFalse(result["textTruncated"])
+                self.assertEqual(result["textHash"], hashlib.sha256(
+                    result["text"].encode("utf-8")).hexdigest())
+
     def test_supplementary_appendix_cannot_replace_main_appendix(self):
         xml = _law_xml(article_text="本則").replace("</LawBody>", '<SupplProvision><AppdxTable Num="3">附則別表</AppdxTable></SupplProvision></LawBody>')
         self.assertNotIn("附則別表", extract_locator_text(xml, "appendix_table", 3))

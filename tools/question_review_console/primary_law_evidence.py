@@ -591,8 +591,10 @@ class PrimaryLawEvidenceResolver:
             ),
             "normalizationVersion": "itertext-whitespace-collapse-utf8-sha256/v1",
             "textHash": _sha256(text),
-            "text": text[:12_000],
-            "textTruncated": len(text) > 12_000,
+            # A locator is the evidence unit: its delivered text must be the
+            # complete provision covered by textHash, including long tables.
+            "text": text,
+            "textTruncated": False,
         }
 
     def resolve(

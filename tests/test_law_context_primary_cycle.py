@@ -103,6 +103,30 @@ class LawContextPrimaryCycleTests(unittest.TestCase):
             self.assertEqual(receipt, self.apply())
         self.assertEqual(len(self.model.calls), 2)
 
+    def test_long_appendix_reaches_regeneration_and_formal_save_in_full(self):
+        tail = '別表末尾の対象事業'
+        long_xml = XML.replace('</LawBody>', '<AppdxTable Num="1">'
+            '<AppdxTableTitle>別表第一</AppdxTableTitle><TableStruct><Table>'
+            '<TableRow><TableColumn>' + '対象事業の要件。' * 2_000 + tail
+            + '</TableColumn></TableRow></Table></TableStruct>'
+            '</AppdxTable></LawBody>')
+        self.model.articles = ['別表第1']
+        self.coordinator.primary_law_evidence = PrimaryLawEvidenceResolver(
+            self.root, fetcher=lambda law_id, as_of: LawFileSnapshot(
+                law_id, as_of,
+                f'https://laws.e-gov.go.jp/api/2/law_file/xml/{law_id}?asof={as_of}',
+                'long-table-revision', long_xml))
+        self.prepare(); plan = self.plan()
+        question = PerQuestionQueueAppServer._candidate_questions(self.model.calls[-1][0])[0]
+        snapshot = question['primaryLawEvidence']['items'][0]['currentSnapshot']
+        self.assertGreater(len(snapshot['text']), 12_000)
+        self.assertTrue(snapshot['text'].endswith(tail))
+        self.assertFalse(snapshot['textTruncated'])
+        self.assertTrue(self.proof(plan)['currentEvidence'])
+        with patch.object(stage, 'verify_independent_approval', return_value={'reviewerSessionId': 'independent'}):
+            self.assertTrue(self.apply()['formalPatchSaved'])
+        self.assertEqual(len(self.model.calls), 2)
+
     def test_explicit_primary_spans_reach_discovery_and_every_regeneration_without_changing_normal_fingerprints(self):
         xml = self.private / 'actual-primary.xml'; self.write(xml, XML.encode())
         metadata = self.private / 'actual-primary-receipt.json'
