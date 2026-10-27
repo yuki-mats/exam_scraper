@@ -111,7 +111,7 @@
     "sourceJsonFiles": 425,
     "rawImageFiles": 850,
     "all1275FilesUnchanged": true,
-    "verification": "output/eco-kentei/reports/mondai4_55_validation_20261028/protected_source_and_images.json"
+    "verification": "output/eco-kentei/reports/mondai4_56_validation_20261028/protected_source_and_images.json"
   },
   "headerDecision": {
     "sourceRecordRef": "question_mondai4_35.json#0",
@@ -149,8 +149,8 @@
     "trackedCodeOrPromptChanged": true,
     "otherWorktreeChanges": "他作業の変更は保持し、この記録だけをstageする。"
   },
-  "nextAction": "新規mondai4_56を原画像2枚と全データで照合し、必要な整備・検査・別session評価を逐次進める。source差異10件は保留し、35のア〜オは解決済みとして保持。",
-  "lastUpdatedAt": "2026-10-27T23:26:11.869579+00:00",
+  "nextAction": "57の原画像対・既存独自図・法令一次を確認し、05の対象範囲明確化を保存済み。開始済み01〜04を一問ずつ進め、検査・画像付き別session評価へ送る。source差異10件は保留、35のア〜オは解決済み。",
+  "lastUpdatedAt": "2026-10-27T23:44:26.041441+00:00",
   "subsequentQuestion51": {
     "sourceRecordRef": "question_mondai4_51.json#0",
     "sourceQuestionKey": "eco-kentei:knoun-2026-mock-4:bb67422eb5e52e9c",
@@ -249,22 +249,22 @@
     "changes": "原画像にないクが共通指示の空欄に入っていた。OCRの照合済み転記をバックアップ付きで訂正し、登録済みsourceは変更しない。05と03でGRI Standards・全4候補の比較を整備。検査・別session評価は合格したが原転記の受入は保留。"
   },
   "latestFullyAcceptedScope": {
-    "sourceRecords": "mondai4_31〜52と54〜55の24件。53は原転記差異保留のため除外。",
-    "sourceQuestionCount": 24,
-    "actualLearningQuestionCount": 39,
-    "convertedDocumentCount": 176,
+    "sourceRecords": "mondai4_31〜52と54〜56の25件。53は原転記差異保留のため除外。",
+    "sourceQuestionCount": 25,
+    "actualLearningQuestionCount": 42,
+    "convertedDocumentCount": 179,
     "choiceOnlyDocumentCount": 137,
     "acceptanceReceipt": {
-      "path": "output/eco-kentei/reports/mondai4_55_validation_20261028/current_acceptance.json",
-      "sha256": "81a5bb9aaaac6a26350d584f69a87bdb31b8053850e6e0fa56c8b23f410f64b5"
+      "path": "output/eco-kentei/reports/mondai4_56_validation_20261028/current_acceptance.json",
+      "sha256": "925daeb32dc1f5a73e326b6ee16676c951966888da722bf97db960218fb64206"
     },
     "uploadReadyArchive": {
-      "path": "output/eco-kentei/reports/mondai4_55_validation_20261028/verified_upload_ready.json",
-      "sha256": "ea1ca7d28430948c13674e1f02454388815689110a31ce30e339e41018fb1367"
+      "path": "output/eco-kentei/reports/mondai4_56_validation_20261028/verified_upload_ready.json",
+      "sha256": "c3f7a0e348fe31ea996d395c57ad898a019f99fcacd1b152053aa7b674c17213"
     },
-    "acceptedCurrentReadbacks": "output/eco-kentei/reports/mondai4_55_validation_20261028/accepted_current_readbacks",
+    "acceptedCurrentReadbacks": "output/eco-kentei/reports/mondai4_56_validation_20261028/accepted_current_readbacks",
     "previousStateHashesEvaluationsAndConvertedDocsUnchanged": true,
-    "scopeLimit": "この24件の受入から全395問の完了又は全体の残問数を推測しない。"
+    "scopeLimit": "この25件の受入から全395問の完了又は全体の残問数を推測しない。"
   },
   "subsequentQuestion54": {
     "sourceRecordRef": "question_mondai4_54.json#0",
@@ -346,5 +346,39 @@
       "path": "output/eco-kentei/reports/mondai4_55_validation_20261028/current_validation.json",
       "sha256": "67879a962595d079741362d9e77f63f483a04c1f386a2d419ae7f6efbe309fe5"
     }
+  },
+  "subsequentQuestion56": {
+    "sourceRecordRef": "question_mondai4_56.json#0",
+    "questionId": "466fb1db33f45a7f8a6ae775",
+    "stateHash": "4c155078613f5accd5b1a954f933d0b5a2b568c0a4dc5d61bf6feff472ee6cf0",
+    "normalRunIds": [
+      "20261028T083208096758-55fced9d",
+      "20261028T083328953348-d9fb9de3",
+      "20261028T083536272134-21bb510c"
+    ],
+    "evaluationSessionId": "01a17fb9-1eed-7c31-a309-58d3cf7dcfc7",
+    "verifiedChoiceCount": 3,
+    "explanationScore": 98,
+    "sourceImagesActuallyRead": true,
+    "changes": "原画像の図表全ラベル・印字数値・本文・全3肢・印字答・解説を照合。原印字の助詞を独自候補で自然に訂正し、海底ごみ観測とMP輸送の根拠混同を解消。暫定推計・調査時点・製造国比推定の範囲を解説に明示。既存独自図の配信bytes・評価時画像入力のhash一致を確認。",
+    "receipt": {
+      "path": "output/eco-kentei/reports/turn_receipts/mondai4_56_accepted_20261028.json",
+      "sha256": "5b47cb2431cc12c3075fba30a95609d1c094bff9fd23d99e34a87fb2af525fe7"
+    },
+    "evaluationReceipt": {
+      "path": "output/eco-kentei/reports/mondai4_56_evaluation_result_20261028.json",
+      "sha256": "c3f9e35970b1bd6a873a149445146f8dc6e662aba4cb2b7d47ee5fed9d74b416"
+    },
+    "independentFigureReadback": {
+      "path": "output/eco-kentei/reports/mondai4_56_existing_independent_figure_readback_20261028.json",
+      "sha256": "ca4b57f451ad24649d7a7f968969a12378d8c1bbfb048cbfc0680b4848ccbd24"
+    },
+    "evaluationImageSha256": "3bc368908ac9739606be33c9ad9180307a5e1ce66d9ac2fe943e85a645c2ff97",
+    "validationReceipt": {
+      "path": "output/eco-kentei/reports/mondai4_56_validation_20261028/current_validation.json",
+      "sha256": "0182d506aa5d4f7d129577815bdb7953683b902e33b8336f2dd042d818bf41b9"
+    },
+    "pdfReadScope": "環境省令和6年度検討結果PDFの4枚目（印字3）と43枚目（印字42）を表示・実読。全58頁を通読したとはしない。",
+    "evaluationEvidenceNote": "第1肢の独立評価引用はPDF4枚目と印字頁番号の区別に表記ゆれがあるが、該当段落・原データを実読し数値と根拠の一致を確認している。正誤・公開解説へ影響しない。"
   }
 }
