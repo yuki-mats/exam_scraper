@@ -1,0 +1,152 @@
+{
+  "schemaVersion": "eco-knoun-private-artifact-checkpoint/v1",
+  "recordedAt": "2026-10-27T22:15:02.584071+00:00",
+  "objective": "残り395問を、原画像との一問ずつの照合、05独自問題化、通常整備、検査、別session評価まで進める。",
+  "goalStatus": "active",
+  "fullGoalComplete": false,
+  "previousGoalTurnClassification": "progress",
+  "thisTurnReworkedSourceRecords": [
+    "question_mondai4_34.json#0",
+    "question_mondai4_32.json#0",
+    "question_mondai4_35.json#0"
+  ],
+  "commonContextFiveQuestions": [
+    {
+      "sourceRecordRef": "question_mondai4_31.json#0",
+      "sourceQuestionKey": "eco-kentei:knoun-2026-mock-4:baebf410672ddd24",
+      "questionId": "05fc34fdadf482a4eae706c5",
+      "stateHash": "b45cb9981c5de3706dbe34e1d1911bc37048404b315f9ef075058d3794177b3c",
+      "evaluationSessionId": "01a17f4a-ba56-7053-9b3d-5ec87bd8c8ec",
+      "verifiedChoiceCount": 12,
+      "explanationScore": 100,
+      "evaluationReceipt": "output/eco-kentei/reports/mondai4_31_context_evaluation_result_20261028.json",
+      "evaluationReceiptSha256": "d961262b9a84cf2cd77f839507e2ba89796b6cf5b0f66c3ae564c52fd0c6ae76"
+    },
+    {
+      "sourceRecordRef": "question_mondai4_32.json#0",
+      "sourceQuestionKey": "eco-kentei:knoun-2026-mock-4:b23f7485de3cebbc",
+      "questionId": "4fd726e33cbc6f3aa44248cd",
+      "stateHash": "789de2c714e5bc2fad08e856df9ffbbe3e3a13eecf7c3248483f54f207882246",
+      "evaluationSessionId": "01a17f65-844f-7cf2-aa6a-7af4702b780a",
+      "verifiedChoiceCount": 12,
+      "explanationScore": 100,
+      "evaluationReceipt": "output/eco-kentei/reports/mondai4_32_context_evaluation_result_20261028.json",
+      "evaluationReceiptSha256": "251d7b9555d3c2c7dd27e2c2f7a057cd4de2339a29037ebed4206fd89e14c3f3"
+    },
+    {
+      "sourceRecordRef": "question_mondai4_33.json#0",
+      "sourceQuestionKey": "eco-kentei:knoun-2026-mock-4:928e301f13949b74",
+      "questionId": "379d3ec10e2b9df5b86421a7",
+      "stateHash": "e82cd629024d3583d4f1d3bd7e726f3c5b25ec285fede416f616db698a04d80a",
+      "evaluationSessionId": "01a17f59-e9be-7d83-a5fc-510102032c70",
+      "verifiedChoiceCount": 12,
+      "explanationScore": 100,
+      "evaluationReceipt": "output/eco-kentei/reports/mondai4_33_context_evaluation_result_20261028.json",
+      "evaluationReceiptSha256": "379468d290eac85c88b8a829726403bfbd79492b0b42d2860418df673b3c5680"
+    },
+    {
+      "sourceRecordRef": "question_mondai4_34.json#0",
+      "sourceQuestionKey": "eco-kentei:knoun-2026-mock-4:83be83260478ad2c",
+      "questionId": "710d3415ae1da0e5d9cb4780",
+      "stateHash": "0cfb0f134afa8f0e37318f51074b0ed7edfaa582c2bf6f83831ce71ab05a010b",
+      "evaluationSessionId": "01a17f5e-d2f1-7c21-ac5b-512f1b8baf41",
+      "verifiedChoiceCount": 12,
+      "explanationScore": 100,
+      "evaluationReceipt": "output/eco-kentei/reports/mondai4_34_context_evaluation_result_20261028.json",
+      "evaluationReceiptSha256": "cf152830b1256d84bb23a2771531a2af65ff13bd1c9ab19177602c6ed4b02c81"
+    },
+    {
+      "sourceRecordRef": "question_mondai4_35.json#0",
+      "sourceQuestionKey": "eco-kentei:knoun-2026-mock-4:1e1d0a9b7b72a6bd",
+      "questionId": "397a9acbc68d722721c4cc2c",
+      "stateHash": "128fc0531e902e4bc5368fb853d7f0b522ac9ac7ccfecc6bd4d5f62966565189",
+      "evaluationSessionId": "01a17f6c-7ea2-7783-b4f4-641a1ab40e19",
+      "verifiedChoiceCount": 12,
+      "explanationScore": 100,
+      "evaluationReceipt": "output/eco-kentei/reports/mondai4_35_context_evaluation_result_20261028.json",
+      "evaluationReceiptSha256": "a84540763923ea09bbb11b83e55d2b8870a2a28e390f94fb8c436f73ae25bde9"
+    }
+  ],
+  "acceptanceScope": {
+    "listGroupId": "knoun-2026-mock-4",
+    "sourceRecords": "mondai4_31〜mondai4_50の20件のみ",
+    "sourceQuestionCount": 20,
+    "actualLearningQuestionCount": 35,
+    "convertedDocumentCount": 160,
+    "choiceOnlyDocumentCount": 125,
+    "acceptanceReceipt": "output/eco-kentei/reports/mondai4_35_context_validation_20261028/context_reworked_twenty_current_acceptance.json",
+    "acceptanceReceiptSha256": "e66c693bdb1e163a1f5a667d92d413bc6835a65fd8bf1af7c4fcadec05639dd8",
+    "openManualContentFindings": [],
+    "pendingCommonContextRecheck": [],
+    "scopeLimit": "この20件の検証から395問全体の完了を主張しない。"
+  },
+  "thisTurnVerification": [
+    {
+      "question": "mondai4_34",
+      "receipt": "output/eco-kentei/reports/turn_receipts/mondai4_34_forest_context_resolved_20261028.json",
+      "receiptSha256": "eb423350f4971e4a91d4f98028aa158165d716604f40231b535204fd99617713",
+      "validationReceipt": "output/eco-kentei/reports/mondai4_34_context_validation_20261028/context_reworked_twenty_validation.json",
+      "validationReceiptSha256": "5ad253e4b44445d78a64cdc914bb70825a502d57a1c194d25f7bc3523c163f69",
+      "targetedChecksPassed": 6
+    },
+    {
+      "question": "mondai4_32",
+      "receipt": "output/eco-kentei/reports/turn_receipts/mondai4_32_forest_context_resolved_20261028.json",
+      "receiptSha256": "9e082788ad0a1c642c3094b9024e3f1afbf4617ec171a1ad09d15d41928ef8c3",
+      "validationReceipt": "output/eco-kentei/reports/mondai4_32_context_validation_20261028/context_reworked_twenty_validation.json",
+      "validationReceiptSha256": "b6495c5d01c39100a407a30d86268fa8084370483ef79b194642be94aec2b4f2",
+      "targetedChecksPassed": 6
+    },
+    {
+      "question": "mondai4_35",
+      "receipt": "output/eco-kentei/reports/turn_receipts/mondai4_35_forest_context_resolved_20261028.json",
+      "receiptSha256": "38eecbc37704b1cf9123bf59e27f61c8feba694ac5f390b4c00ad09572ea5c94",
+      "validationReceipt": "output/eco-kentei/reports/mondai4_35_context_validation_20261028/context_reworked_twenty_validation.json",
+      "validationReceiptSha256": "2e2bd12dbd0434054664c612ae2f65eea59e07e3e1bed0da0621e3f3eeef0f57",
+      "targetedChecksPassed": 6
+    }
+  ],
+  "protection": {
+    "baseline": "output/eco-kentei/reports/runtime_upgrade_20261027.json",
+    "sourceJsonFiles": 425,
+    "rawImageFiles": 850,
+    "all1275FilesUnchanged": true,
+    "verification": "output/eco-kentei/reports/mondai4_35_context_validation_20261028/protected_source_and_images.json"
+  },
+  "headerDecision": {
+    "sourceRecordRef": "question_mondai4_35.json#0",
+    "imageInstruction": "ア〜コ",
+    "registeredInstruction": "ア〜オ",
+    "decision": "問題文に合わせたア〜オを維持するというユーザーの明示判断。解決済み。",
+    "receipt": "output/eco-kentei/reports/manual_content_reviews/mondai4_35_header_user_decision_20261028.json"
+  },
+  "remainingSourceDifferenceHolds": [
+    "knoun-2026-mock-2/question_mondai2_77.json#0",
+    "knoun-2026-mock-3/question_mondai3_56.json#0",
+    "knoun-2026-mock-3/question_mondai3_58.json#0",
+    "knoun-2026-mock-3/question_mondai3_59.json#0",
+    "knoun-2026-mock-3/question_mondai3_60.json#0",
+    "knoun-2026-mock-3/question_mondai3_73.json#0",
+    "knoun-2026-mock-3/question_mondai3_74.json#0",
+    "knoun-2026-mock-3/question_mondai3_75.json#0",
+    "knoun-2026-mock-3/question_mondai3_85.json#0"
+  ],
+  "remainingSourceDifferencePolicy": "先の14件への例外承認を9件へ広げず、sourceの現内容を保持する。",
+  "publication": {
+    "requested": false,
+    "firestoreWrites": 0,
+    "storageUploads": 0,
+    "categorySynced": false,
+    "officialYearManifestChanged": false,
+    "note": "本番公開の依頼前。今回の3問は解答図表なし。模擬問題の2026を公式試験年度に登録しない。"
+  },
+  "execution": {
+    "questionConcurrency": 1,
+    "parallelAgents": false,
+    "browserForeground": false,
+    "fullSuiteRun": false,
+    "trackedCodeOrPromptChanged": false,
+    "otherWorktreeChanges": "他作業の変更は保持し、この記録だけをstageする。"
+  },
+  "nextAction": "新規mondai4_51を原画像・自問の本文・全候補・正答・解説で確認し、必要な工程から逐次整備する。"
+}
