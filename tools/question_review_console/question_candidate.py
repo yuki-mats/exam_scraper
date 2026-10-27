@@ -614,6 +614,22 @@ _LAW_REVISION_FACT_FIELDS = "、".join(sorted(LAW_REVISION_FACT_KEYS))
 _LAW_REVISION_SNAPSHOT_FIELDS = "、".join(
     sorted(LAW_REVISION_SNAPSHOT_KEYS)
 )
+_LAW_REVISION_SNAPSHOT_RULE: dict[str, Any] = {
+    "description": (
+        "正誤を必ず指定し、基準日・法令locator・本文hashは実取得値だけを指定する。"
+        "確認できない任意情報はnullにし、保存時に省略する。推測で補わない。"
+    ),
+    "type": "object",
+    "additionalProperties": False,
+    "required": ["correctChoiceText"],
+    "properties": {
+        key: {
+            "type": "string" if key == "correctChoiceText" else ["string", "null"],
+            "minLength": 1,
+        }
+        for key in sorted(LAW_REVISION_SNAPSHOT_KEYS)
+    },
+}
 _LAW_REVISION_EVIDENCE_SUMMARY_FIELDS = "、".join(
     sorted(LAW_REVISION_EVIDENCE_SUMMARY_KEYS)
 )
@@ -675,22 +691,8 @@ _LAW_REVISION_FACTS_RULE: dict[str, Any] = {
             },
             "reviewState": {"type": "string", "minLength": 1},
             "reconciliationStatus": {"type": "string", "minLength": 1},
-            "examTime": {
-                "type": "object",
-                "additionalProperties": False,
-                "required": ["correctChoiceText"],
-                "properties": {
-                    "correctChoiceText": {"type": "string", "minLength": 1},
-                },
-            },
-            "current": {
-                "type": "object",
-                "additionalProperties": False,
-                "required": ["correctChoiceText"],
-                "properties": {
-                    "correctChoiceText": {"type": "string", "minLength": 1},
-                },
-            },
+            "examTime": _LAW_REVISION_SNAPSHOT_RULE,
+            "current": _LAW_REVISION_SNAPSHOT_RULE,
             "differenceFacts": {
                 "type": "array",
                 "items": {"type": "string"},
@@ -999,6 +1001,21 @@ SERVER_OWNED_LAW_AUDIT_FIELDS = frozenset(
 
 
 def _normalized_candidate_value(field: str, value: Any) -> Any:
+    if field == "lawRevisionFacts":
+        # Strict model output represents absent optional snapshot fields as null.
+        # Persist omission, retaining invalid/unknown fields for validation.
+        normalized = copy.deepcopy(value)
+        facts = normalized if isinstance(normalized, list) else [normalized]
+        for fact in facts:
+            if not isinstance(fact, dict):
+                continue
+            for name in ("examTime", "current"):
+                snapshot = fact.get(name)
+                if isinstance(snapshot, dict):
+                    for key in LAW_REVISION_SNAPSHOT_KEYS - {"correctChoiceText"}:
+                        if key in snapshot and snapshot[key] is None:
+                            del snapshot[key]
+        return normalized
     if field == "explanationReferences":
         return dedupe_exact_explanation_references(value)
     if field != "tertiaryAuditRunId":
@@ -1309,6 +1326,25 @@ def _output_schema_rule(rule: Mapping[str, Any]) -> dict[str, Any]:
         return projected
 
     required = set(projected.get("required") or [])
+    if (
+        required == {"correctChoiceText"}
+        and set(properties) == LAW_REVISION_SNAPSHOT_KEYS
+    ):
+        # Nullable snapshot metadata keeps strict output linear in field count;
+        # enumerating every optional subset would create thousands of variants.
+        projected["required"] = list(properties)
+        return {
+            "description": projected.get("description", ""),
+            "anyOf": [
+                {
+                    "type": "object",
+                    "additionalProperties": False,
+                    "required": ["correctChoiceText"],
+                    "properties": {"correctChoiceText": properties["correctChoiceText"]},
+                },
+                projected,
+            ],
+        }
     optional = sorted(set(properties) - required)
     if not optional:
         projected["required"] = list(properties)
@@ -1471,6 +1507,13 @@ def semantic_fields_must_be_set(
 
 
 def _matches_rule(value: Any, rule: Mapping[str, Any]) -> bool:
+    alternatives = rule.get("anyOf")
+    if isinstance(alternatives, list):
+        return any(
+            _matches_rule(value, variant)
+            for variant in alternatives
+            if isinstance(variant, Mapping)
+        )
     variants = rule.get("oneOf")
     if isinstance(variants, list):
         return sum(
