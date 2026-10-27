@@ -1,13 +1,12 @@
 [
   {
     "explanationText": [
-      "正しい。\n\nアとウは正しく、イとエは誤りである。耐圧性能基準の適用範囲と、低水圧試験が必要な給水用具の種類を区別できるかが判定の軸になる。",
-      "間違い。\n\nこの組合せは、アとイの判定が逆である。1.75MPaの試験水圧は最大水圧を考慮した基準であり、最終の止水機構の流出側にある給水用具は耐圧性能基準の適用外である。",
-      "間違い。\n\nこの組合せは、アとイの判定が逆である。弁類は耐久性能試験後でも耐圧性能を有する必要があるが、イのように流出側給水用具まで一律適用されるわけではない。",
-      "間違い。\n\nこの組合せは、ウとエの判定が逆である。Oリングは装着時の密着力で水密性を確保するため、低水圧試験の対象から除かれる。"
+      "正しい。アとウが正しく、イとエが誤りであるため、1の組合せが該当する。1.75MPaの試験水圧が水撃圧等を考慮した最大水圧として設定されているアと、弁類が10万回の開閉試験後も耐圧性能を要するウは正しい。一方、最終の止水機構の流出側に設置される給水用具には耐圧性能基準が適用されないためイは誤りであり、Oリングは装着時の密着力で水密性を確保でき20kPaの低水圧試験が不要であるためエも誤りである。"
     ],
     "original_question_id": "a86cd82f982f60dd",
-    "question_url": "https://kyuukou.kakomonn.com/questions/36346"
+    "question_url": "https://kyuukou.kakomonn.com/questions/36346",
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "conditions_scope"
   },
   {
     "explanationText": [
@@ -17,17 +16,18 @@
       "正しい。\n\n低温暴露後の確認項目から浸出性能を除くのは、低温暴露によって材質が変化して浸出性能が変わるとは考えにくいためである。耐寒性能は主に凍結による破損や機能低下の有無をみる基準である。"
     ],
     "original_question_id": "b6e5a9f843e191e0",
-    "question_url": "https://kyuukou.kakomonn.com/questions/36348"
+    "question_url": "https://kyuukou.kakomonn.com/questions/36348",
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "conditions_scope"
   },
   {
     "explanationText": [
-      "正しい。\n\n受水槽式給水では、配水系統との縁が切れるのは受水槽入口であり、受水槽容量は計画一日使用水量で定める。受水量が大きく配水管水圧に影響する場合は、定流量弁などで受水を調整する。",
-      "間違い。\n\n誤っているのは、受水槽容量を同時使用水量で定め、ウを減圧弁としている点である。受水槽容量は計画一日使用水量が基準であり、受水調整には定流量弁を用いる。",
-      "間違い。\n\n誤っているのは、配水系統と縁が切れる位置を受水槽出口としている点である。受水槽式では受水槽入口で直結部分が終わり、その先は受水槽系統になる。",
-      "間違い。\n\n誤っているのは、アとイの両方である。縁が切れるのは受水槽入口であり、受水槽容量は同時使用水量ではなく計画一日使用水量で定める。"
+      "正しい。受水槽式給水では受水槽入口（ア）で配水系統と縁が切れ、受水槽の容量は計画一日使用水量（イ）を基準に定める。また、単位時間当たりの受水量が大きく配水管水圧が低下するおそれがある場合には定流量弁（ウ）を設けて受水量を調整する。したがって、1の組合せが該当する。"
     ],
     "original_question_id": "b0fa3ace38bb619d",
-    "question_url": "https://kyuukou.kakomonn.com/questions/36349"
+    "question_url": "https://kyuukou.kakomonn.com/questions/36349",
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "terms_basics"
   },
   {
     "explanationText": [
@@ -37,24 +37,22 @@
       "間違い。\n\n誤っているのは、受水槽式給水の一類型を直圧水槽式としている点である。受水槽式給水には、ポンプ直送式、高置水槽式、圧力水槽式がある。"
     ],
     "original_question_id": "16671c508c43f399",
-    "question_url": "https://kyuukou.kakomonn.com/questions/36350"
+    "question_url": "https://kyuukou.kakomonn.com/questions/36350",
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "differences_relationships"
   },
   {
     "explanationText": [
-      "間違い。\n\n225L/分では小さすぎる。一戸当たり同時使用水量は約33L/分、これに15戸と同時使用戸数率80%を掛けると約396L/分となる。",
-      "間違い。\n\n350L/分では計算結果よりやや小さい。標準化した同時使用水量による計算では、33×15×0.8で約400L/分が適当となる。",
-      "正しい。\n\n一戸当たり同時使用水量約33L/分に、15戸と同時使用戸数率80%を掛けると約396L/分となる。したがって、最も近い400L/分が適当である。",
-      "間違い。\n\n500L/分では大きすぎる。集合住宅の同時使用水量は全戸が最大使用する前提ではなく、同時使用戸数率を掛けて求める点が計算の要点である。"
+      "正しい。標準化した同時使用水量による集合住宅全体の同時使用水量\\(Q\\)は、1戸当たりの同時使用水量\\(q_1\\)、給水戸数\\(N\\)、同時使用戸数率\\(r\\)を用いて次の式で求める。\n\\[Q = q_1 \\times N \\times r\\]\n表より1戸当たりの同時使用水量\\(q_1 \\approx 33\\,\\mathrm{L/min}\\)、戸数\\(N = 15\\)、15戸の同時使用戸数率\\(r = 0.80\\)（80%）を代入すると、\n\\[Q = 33 \\times 15 \\times 0.80 = 396\\,\\mathrm{L/min}\\]\nとなり、最も近い400（L／分）である3が該当する。"
     ],
     "original_question_id": "34bbb4833a791ffe",
-    "question_url": "https://kyuukou.kakomonn.com/questions/36351"
+    "question_url": "https://kyuukou.kakomonn.com/questions/36351",
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "calculation"
   },
   {
     "explanationText": [
-      "間違い。\n\n使う式は、合計水頭＝摩擦損失水頭＋高低差である。36L/分=0.6L/秒、口径20mmの動水勾配を図から約250‰=0.25m/mと読む。摩擦損失水頭は 20m×0.25=5m、高低差は 2m＋1m=3m なので、合計は 5m＋3m=8m。5mは高低差を足していない値である。",
-      "間違い。\n\n摩擦損失水頭は 20m×250‰=20×0.25=5m である。ここに鉛直方向の高低差 2m＋1m=3m を加えるので、合計は 5m＋3m=8m。6mでは不足する。",
-      "正しい。\n\n使う式は、合計水頭＝摩擦損失水頭＋高低差。36L/分=0.6L/秒で、口径20mmの動水勾配は図より約250‰=0.25m/mである。したがって摩擦損失水頭は 20m×0.25=5m、高低差は 2m＋1m=3m。合計は 5m＋3m=8m となる。",
-      "間違い。\n\n管長20m、動水勾配250‰から摩擦損失水頭は 20×0.25=5m。高低差は 2m＋1m=3m なので、求める合計は 5m＋3m=8m である。10mは不要な損失を重ねた値であり、大きすぎる。"
+      "正しい。管路全体の摩擦損失水頭と高低差の合計\\(H\\)は、動水勾配\\(I\\)、管路延長\\(L\\)、高低差\\(h\\)を用いて次の式で求める。\n\\[H = I \\times L + h\\]\n流量\\(36\\,\\mathrm{L/min} = 0.6\\,\\mathrm{L/s}\\)、口径20mmのときの動水勾配を図から読み取ると\\(I = 250\\text{‰} = 0.25\\,\\mathrm{m/m}\\)である。管路A〜Fの全長\\(L = 20\\,\\mathrm{m}\\)、鉛直方向の高低差\\(h = 2 + 1 = 3\\,\\mathrm{m}\\)を代入すると、\n\\[H = 0.25 \\times 20 + 3 = 5 + 3 = 8\\,\\mathrm{m}\\]\nとなり、8mである3が該当する。"
     ],
     "original_question_id": "b24e7ba3685fdbfc",
     "question_url": "https://kyuukou.kakomonn.com/questions/36352",
@@ -71,7 +69,9 @@
         "question": "A〜F間の合計水頭はいくらか。",
         "answer": "摩擦損失5mに高低差3mを加え、5m＋3m=8mとなる。"
       }
-    ]
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "calculation"
   },
   {
     "explanationText": [
@@ -81,17 +81,18 @@
       "正しい。\n\n受水槽式給水の図面は、直結給水部分と受水槽以下の部分を分けて表す。受水槽で系統が分かれるため、図面上でも範囲を明確にすることが重要である。"
     ],
     "original_question_id": "92d9d687e76c658d",
-    "question_url": "https://kyuukou.kakomonn.com/questions/36353"
+    "question_url": "https://kyuukou.kakomonn.com/questions/36353",
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "conditions_scope"
   },
   {
     "explanationText": [
-      "間違い。\n\nこの組合せは、アとイの判定が逆である。主任技術者は事前調査で防食や凍結防止の必要性を確認する一方、性能基準に適合しない資機材は現場判断で使用できない。",
-      "正しい。\n\nアとウは正しく、イとエは誤りである。主任技術者は事前調査や安全配慮を行うが、基準不適合資機材の使用は認められず、竣工検査も必ず本人でなければならないわけではない。",
-      "間違い。\n\nこの組合せは、イとウの判定が逆である。道路下工事では水道以外の埋設物の保安にも配慮が必要である。",
-      "間違い。\n\nこの組合せは、アとエの判定が逆である。事前調査で防食や凍結防止を確認するのは主任技術者の重要な役割である。"
+      "正しい。アとウが正しく、イとエが誤りであるため、2の組合せが該当する。給水装置工事主任技術者が事前調査で防食や凍結防止の要否を調べるアと、道路下工事で通行者の安全や他埋設物の保安に配慮するウは正しい。一方、性能基準に適合しない資機材は施主の指定や現場判断であっても使用できないためイは誤りであり、竣工検査は主任技術者の指導監督のもとで現場従事者に行わせることもできるためエも誤りである。"
     ],
     "original_question_id": "23d373108a6f498c",
-    "question_url": "https://kyuukou.kakomonn.com/questions/36355"
+    "question_url": "https://kyuukou.kakomonn.com/questions/36355",
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "conditions_scope"
   },
   {
     "explanationText": [
@@ -101,27 +102,27 @@
       "間違い。\n\n誤っているのは、記録作成を給水装置工事主任技術者本人に限定している点である。主任技術者の指導監督のもとであれば、他の従業員が記録を作成することもできる。"
     ],
     "original_question_id": "8dc5a1d5a8d62220",
-    "question_url": "https://kyuukou.kakomonn.com/questions/36356"
+    "question_url": "https://kyuukou.kakomonn.com/questions/36356",
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "conditions_scope"
   },
   {
     "explanationText": [
-      "正しい。\n\nアとイは正しく、ウとエは誤りである。事業所ごとの選任、変更届、解任時の届出、複数事業所兼任の例外を区別して押さえると判断しやすい。",
-      "間違い。\n\nこの組合せは、アとイの判定が逆である。主任技術者は事業所ごとに選任し、氏名や免状番号に変更があれば届出が必要である。",
-      "間違い。\n\nこの組合せは、アとエの判定が逆である。複数事業所での選任は、職務遂行に特に支障がない場合には認められる。",
-      "間違い。\n\nこの組合せは、イとウの判定が逆である。選任時だけでなく解任時も届出が必要であり、変更届の対象事項も法令で定められている。"
+      "正しい。アとイが正しく、ウとエが誤りであるため、1の組合せが該当する。事業所ごとに給水装置工事主任技術者を選任するアと、主任技術者の氏名や免状交付番号の変更を水道事業者へ届け出るイは正しい。一方、主任技術者を解任した場合も遅滞なく水道事業者へ届け出なければならないためウは誤りであり、職務遂行に支障がないときは同一の主任技術者を複数の事業所で兼任できるためエも誤りである。"
     ],
     "original_question_id": "d4ecaa215a639aed",
-    "question_url": "https://kyuukou.kakomonn.com/questions/36357"
+    "question_url": "https://kyuukou.kakomonn.com/questions/36357",
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "conditions_scope"
   },
   {
     "explanationText": [
-      "間違い。\n\n誤っているのは、アを操作性としている点である。認証制度で証明するのは給水管や給水用具の基準適合性であり、操作性ではない。",
-      "間違い。\n\n誤っているのは、イとウの位置付けである。基本は製造者等が自ら証明する自己認証であり、第三者認証は希望に応じて利用する客観性の高い方法である。",
-      "正しい。\n\n製造者等が自らの責任で基準適合性を消費者等に証明する自己認証が基本であり、希望に応じて第三者認証も利用できる。認証制度では証明主体と証明方法の違いが重要である。",
-      "間違い。\n\n誤っているのは、自己認証と第三者認証を逆にしている点である。自己認証が基本で、第三者認証は自己認証が困難な場合や客観性を重視する場合に活用される。"
+      "正しい。給水装置の認証制度では、製造者等が自らの責任で基準適合性（ア）を証明する自己認証（イ）を基本とし、自己認証が困難な場合やより高い客観性を求める場合に第三者機関による第三者認証（ウ）が活用される。したがって、3の組合せが該当する。"
     ],
     "original_question_id": "1aa53a643305ad3d",
-    "question_url": "https://kyuukou.kakomonn.com/questions/36358"
+    "question_url": "https://kyuukou.kakomonn.com/questions/36358",
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "differences_relationships"
   },
   {
     "explanationText": [
@@ -131,27 +132,67 @@
       "正しい。\n\n厚生労働省は、基準省令への適合性に関する情報を給水装置データベースとして提供している。施工時にはこのような公的情報も活用して材料の適否を確認する。"
     ],
     "original_question_id": "00ee0259c17ff853",
-    "question_url": "https://kyuukou.kakomonn.com/questions/36359"
+    "question_url": "https://kyuukou.kakomonn.com/questions/36359",
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "conditions_scope"
   },
   {
     "explanationText": [
-      "間違い。\n\n適当な記述は1つではなく3つある。エはリフト式逆止弁の説明であり、ア、イ、ウは給水用具の機能として適当である。",
-      "間違い。\n\n適当な記述は2つではなく3つある。定流量弁、複式逆流防止弁、吸排気弁の説明は正しく、誤っているのはスイング式逆止弁の説明だけである。",
-      "正しい。\n\n適当な記述は3つである。エの説明は弁体がガイドで上下するリフト式逆止弁のもので、スイング式はヒンジを支点に開閉する点が異なる。",
-      "間違い。\n\n適当な記述は4つではない。スイング式逆止弁とリフト式逆止弁の構造差を押さえると誤りを見抜きやすい。"
+      "正しい。定流量弁の構造と機能に関する基本原則である。\n定流量弁は、内部に組み込まれたばね、オリフィス、ニードル式等の流量調整機構によって、一次側の圧力変動にかかわらず通過流量がほぼ一定になるよう自動調整する給水用具である。",
+      "正しい。複式逆流防止弁の構造に関する基本原則である。\n複式逆流防止弁は、個々に独立して作動する2個の逆止弁（逆流防止弁）が直列に組み込まれ、それぞれの弁体がばねによって弁座に押しつけられる二重の安全構造により逆流を確実に防止する。",
+      "正しい。吸排気弁の機能に関する基本原則である。\n吸排気弁は、断水時などに管内に負圧が生じた際に自動的に多量の空気を吸気して負圧を解消するとともに、充水時や通水中に管内に停滞した空気を自動的に排出する機能を併せ持つ給水用具である。",
+      "間違い。弁体が弁箱又は蓋に設けられたガイドによって弁座に対し垂直に作動し、弁体の自重で閉止位置に戻る構造のものは、スイング式逆止弁ではなくリフト式逆止弁である。\nスイング式逆止弁は、弁体がヒンジピンを支点として自重で弁座面に圧着し、通水時に押し開かれ、逆圧によって自動的に閉止する構造となっており、リフト式に比べて損失水頭が小さく立て配管にも使用できる。"
     ],
     "original_question_id": "9ef71b248922f856",
-    "question_url": "https://kyuukou.kakomonn.com/questions/36360"
+    "question_url": "https://kyuukou.kakomonn.com/questions/36360",
+    "suggestedQuestionDetailsByChoice": [
+      {
+        "choiceIndex": 0,
+        "items": [
+          {
+            "question": "ばねやオリフィス等の流量調整機構により、一次側の圧力にかかわらず流量を一定に調整する給水用具を何というか。",
+            "answer": "定流量弁。"
+          }
+        ]
+      },
+      {
+        "choiceIndex": 1,
+        "items": [
+          {
+            "question": "独立して作動する二つの逆流防止弁が直列に組み込まれ、ばねで弁座に押しつけられる二重安全構造の給水用具は何か。",
+            "answer": "複式逆流防止弁。"
+          }
+        ]
+      },
+      {
+        "choiceIndex": 2,
+        "items": [
+          {
+            "question": "管内の負圧時に多量の空気を吸気し、管内に停滞した空気を自動排出する機能を併せ持つ給水用具を何というか。",
+            "answer": "吸排気弁。"
+          }
+        ]
+      },
+      {
+        "choiceIndex": 3,
+        "items": [
+          {
+            "question": "弁体がガイドに沿って弁座に対し垂直に作動し、自重で閉止位置に戻る構造の逆止弁を何というか。",
+            "answer": "リフト式逆止弁。"
+          }
+        ]
+      }
+    ],
+    "questionLearningPatternId": "differences_relationships"
   },
   {
     "explanationText": [
-      "間違い。\n\nこの組合せは、アとイの判定が逆である。貯湯湯沸器の一般的な条件や、瞬間湯沸器の給湯温度の説明は正しい。",
-      "正しい。\n\nア、イ、エは正しく、ウは誤りである。太陽熱利用貯湯湯沸器には二回路式、水道直結式のほかシスターン式もあり、分類を二つに限定できない。",
-      "間違い。\n\nこの組合せは、イとウの判定が逆である。瞬間湯沸器は給湯に連動して作動し、通常は40°C前後で使用される。",
-      "間違い。\n\nこの組合せは、アとウの判定が逆である。太陽熱利用貯湯湯沸器の分類は複数あり、シスターン式を落としてはいけない。"
+      "正しい。ア、イ、エが正しく、ウが誤りであるため、2の組合せが該当する。簡易ボイラーに当たる貯湯湯沸器の構造（ア）、瞬間湯沸器の温度特性（イ）、無圧式の貯蔵湯沸器の特徴（エ）はいずれも正しい。一方、太陽熱利用貯湯湯沸器には二回路式と水道直結式のほかにシスターン式（ボールタップ付補助タンク方式）もあるため、2種類に限定するウは誤りである。"
     ],
     "original_question_id": "dbe1683e38fae071",
-    "question_url": "https://kyuukou.kakomonn.com/questions/36361"
+    "question_url": "https://kyuukou.kakomonn.com/questions/36361",
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "differences_relationships"
   },
   {
     "explanationText": [
@@ -161,17 +202,18 @@
       "正しい。\n\nウォータクーラは、冷却槽で水を一定温度まで冷却し、押ボタン式や足踏式の弁で冷水を射出する。用途と構造を結び付けて覚えると他の給水用具と区別しやすい。"
     ],
     "original_question_id": "c6b1d61cd6378711",
-    "question_url": "https://kyuukou.kakomonn.com/questions/36362"
+    "question_url": "https://kyuukou.kakomonn.com/questions/36362",
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "mechanisms_reasons"
   },
   {
     "explanationText": [
-      "間違い。\n\n誤っているのは、アとイとウの対応である。たて形軸流羽根車式では羽根車は垂直に設置され、水は下方から上方へ迂流して流れる。",
-      "間違い。\n\n誤っているのは、ウとエの対応は合っていても、アとイの向きが逆な点である。たて形軸流羽根車式は垂直配置の羽根車に対して下方から上方へ水が流れる。",
-      "間違い。\n\n誤っているのは、アとイに加え、損失水頭の比較も逆な点である。迂流するため、よこ形軸流羽根車式より損失水頭はやや大きい。",
-      "正しい。\n\nたて形軸流羽根車式は、垂直に設置された羽根車に沿って水が下方から上方へ迂流する構造である。そのため、よこ形軸流羽根車式に比べて損失水頭はやや大きい。"
+      "正しい。たて形軸流羽根車式水道メーターは、垂直（ア）に設置された螺旋状羽根車に沿って水流が下方から上方（イ）へ流れる構造である。水流がメーター内で迂流（ウ）するため、水平方向に流れるよこ形軸流羽根車式に比べて損失水頭がやや大きい（エ）。したがって、4の組合せが該当する。"
     ],
     "original_question_id": "c9e3d9df002c3b8d",
-    "question_url": "https://kyuukou.kakomonn.com/questions/36363"
+    "question_url": "https://kyuukou.kakomonn.com/questions/36363",
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "mechanisms_reasons"
   },
   {
     "explanationText": [
@@ -181,37 +223,36 @@
       "正しい。\n\n複箱式は、メーターケース内に別の計量室を持ち、複数ノズルから羽根車に噴射する構造である。構造名と羽根車への給水方式の対応がポイントである。"
     ],
     "original_question_id": "ada5893abb0fbfed",
-    "question_url": "https://kyuukou.kakomonn.com/questions/36364"
+    "question_url": "https://kyuukou.kakomonn.com/questions/36364",
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "conditions_scope"
   },
   {
     "explanationText": [
-      "間違い。\n\nこの組合せは、イの判定が逆である。ストレーナの異物詰まりでロータンクに水がたまらないことはあり得るので、イは正しい。",
-      "間違い。\n\nこの組合せは、アの判定が逆である。水栓からの漏水原因として弁座の摩耗や損傷は典型的である。",
-      "正しい。\n\nアとイは正しく、ウとエは誤りである。大便器洗浄弁の水撃はピストンゴムパッキン側、小便器洗浄弁の流れっぱなしは開閉ねじの閉め過ぎによる圧力低下が原因の一つである。",
-      "間違い。\n\nこの組合せは、アとイの判定が逆である。給水用具の故障問題では、現象と故障箇所を正しく対応させることが重要である。"
+      "正しい。アとイが正しく、ウとエが誤りであるため、3の組合せが該当する。水栓の漏水原因が弁座の摩耗・損傷であるアと、ロータンクに水が貯まらない原因がストレーナの異物詰まりであるイは正しい。一方、大便器洗浄弁の水撃はピストン部（Uパッキン等）の不良などが原因であり弁座パッキンのビス緩みではないためウは誤り、小便器洗浄弁で多量の水が流れっぱなしになるのは開閉ねじの開け過ぎではなくピストンバルブの小孔詰まり等が原因であるためエも誤りである。"
     ],
     "original_question_id": "24c964f7cbb73b98",
-    "question_url": "https://kyuukou.kakomonn.com/questions/36365"
+    "question_url": "https://kyuukou.kakomonn.com/questions/36365",
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "mechanisms_reasons"
   },
   {
     "explanationText": [
-      "間違い。\n\nこの組合せは、エの判定が逆である。受水槽への注入口までが給水装置であり、受水槽以下は給水装置に当たらない。",
-      "間違い。\n\nこの組合せは、イの判定が逆である。ホースのように容易に取り外せる器具は直結する給水用具に含まれないため、イは正しい。",
-      "正しい。\n\nアとウは誤り、イとエは正しい。他人の給水装置から分岐承諾を得た直結配管も給水装置に当たる一方、給水装置以外の設備へは逆流防止器を付けても直接連結できない。",
-      "間違い。\n\nこの組合せは、イとウの判定が逆である。給水装置の構造基準では、当該給水装置以外の水管や設備に直接連結しないことが求められる。"
+      "正しい。イとエが正しく、アとウが誤りであるため、3の組合せが該当する。他人の給水装置から分岐承諾を得て設けた直結配管も給水装置に該当するためアは誤りであり、給水装置以外の水管や設備には逆流防止装置を設けても直接連結してはならないためウも誤りである。一方、容易に取り外せるホース等を除外する「直結する給水用具」の定義（イ）と、受水槽への注入口までを給水装置とする範囲（エ）は正しい。"
     ],
     "original_question_id": "7f2985e1373d1ba5",
-    "question_url": "https://kyuukou.kakomonn.com/questions/36366"
+    "question_url": "https://kyuukou.kakomonn.com/questions/36366",
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "conditions_scope"
   },
   {
     "explanationText": [
-      "間違い。\n\n誤っているのは、給水装置工事の定義と工事事業者の指定主体である。給水装置工事は設置又は変更の工事であり、指定を行うのは水道事業者である。",
-      "間違い。\n\n誤っているのは、ウとエの対応である。指定制度における主体は厚生労働大臣ではなく水道事業者であり、供給条件の対象は指定給水装置工事事業者である。",
-      "間違い。\n\n誤っているのは、アとイの対応である。給水装置工事の定義は新設又は改造ではなく設置又は変更であり、適正施工の基準は給水装置の構造及び材質の基準である。",
-      "正しい。\n\n給水装置工事は給水装置の設置又は変更の工事であり、適正施工には給水装置の構造及び材質の基準への適合が必要である。水道事業者は指定給水装置工事事業者を指定し、その施工であることを供給条件にできる。"
+      "正しい。水道法における給水装置工事は給水装置の設置又は変更（ア）の工事と定義されており、給水装置の構造及び材質の基準（イ）に適合した施工が求められる。また、水道事業者（ウ）は適正に工事を施行できる者を指定でき、給水装置が水道事業者又は指定給水装置工事事業者（エ）の施行した工事に係るものであることを供給条件とすることができる。したがって、4の組合せが該当する。"
     ],
     "original_question_id": "41d4f4d4670a15b7",
-    "question_url": "https://kyuukou.kakomonn.com/questions/36367"
+    "question_url": "https://kyuukou.kakomonn.com/questions/36367",
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "terms_basics"
   },
   {
     "explanationText": [
@@ -221,46 +262,44 @@
       "間違い。\n\n誤っているのは、銅管は手曲げ配管に適していないとしている点である。銅管は施工性に富み、特に軟質銅管は手曲げ配管や寒冷地での使用にも適する。"
     ],
     "original_question_id": "0c00ff00cf021165",
-    "question_url": "https://kyuukou.kakomonn.com/questions/36368"
+    "question_url": "https://kyuukou.kakomonn.com/questions/36368",
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "differences_relationships"
   },
   {
     "explanationText": [
-      "間違い。\n\n誤っているのは、イとエの対応である。ステンレス鋼鋼管の主な継手はプレス式であり、架橋ポリエチレン管では熱融着式ではなく電気融着式を用いる。",
-      "間違い。\n\n誤っているのは、アとウの対応である。ライニング鋼管のねじ接合には管端防食継手を用い、硬質ポリ塩化ビニル管のゴム輪接合はRR接合である。",
-      "間違い。\n\n誤っているのは、イとウに加え、エも不適切である。EFは硬質ポリ塩化ビニル管の主な接合方法ではなく、架橋ポリエチレン管の融着は電気融着式で表す。",
-      "正しい。\n\nライニング鋼管のねじ接合は管端防食継手、ステンレス鋼鋼管はプレス式継手、硬質ポリ塩化ビニル管はRR接合、架橋ポリエチレン管は電気融着式継手が対応する。管種と接合法の組合せが頻出である。"
+      "正しい。硬質塩化ビニルライニング鋼管のねじ接合には管端防食（ア）継手を使用し、ステンレス鋼鋼管には伸縮可とう式継手やプレス式（イ）継手を用いる。また、硬質ポリ塩化ビニル管にはTS接合とゴム輪によるRR（ウ）接合があり、架橋ポリエチレン管にはメカニカル式継手と電気融着式（エ）継手がある。したがって、4の組合せが該当する。"
     ],
     "original_question_id": "450898bf2a144107",
-    "question_url": "https://kyuukou.kakomonn.com/questions/36369"
+    "question_url": "https://kyuukou.kakomonn.com/questions/36369",
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "differences_relationships"
   },
   {
     "explanationText": [
-      "正しい。\n\nアとイは正しく、ウとエは誤りである。鋳鉄管の分岐では防食コアを装着し、特に重要な水質確認は残留塩素である点を押さえることが施工管理の要点になる。",
-      "間違い。\n\nこの組合せは、イの判定が逆である。配水管が鋳鉄管の場合、穿孔端面の腐食防止のため防食コアを装着するのは正しい。",
-      "間違い。\n\nこの組合せは、アとイの判定が逆である。取付口の離隔30cm以上の確保と防食コア装着は、いずれも配水管分岐工事の基本である。",
-      "間違い。\n\nこの組合せは、アとエの判定が逆である。穿孔後の水道管確認で特に重要なのは濁りではなく残留塩素である。"
+      "正しい。アとイが正しく、ウとエが誤りであるため、1の組合せが該当する。配水管への取付口を他の取付口から30cm以上離すアと、鋳鉄管の穿孔端面に防食コアを装着するイは正しい。一方、鋳鉄管の穿孔ドリルは外面塗装ではなく内面ライニング材の種類（モルタルライニングかエポキシ樹脂粉体塗装か）に適したものを選ぶためウは誤りであり、穿孔後の水質確認で水道管であることの証明として必ず実施するのは濁りではなく残留塩素の確認であるためエも誤りである。"
     ],
     "original_question_id": "8a6aee3b9e1b0911",
-    "question_url": "https://kyuukou.kakomonn.com/questions/36370"
+    "question_url": "https://kyuukou.kakomonn.com/questions/36370",
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "sequence_flow"
   },
   {
     "explanationText": [
-      "間違い。\n\n誤っているのは、イとウの対応である。施工計画書は作業従事者等が常に見られるようにし、個人情報保護の対象は受注者等ではなく発注者等である。",
-      "正しい。\n\n施工計画書は作業従事者等が常に確認できるようにしつつ、付近住民への情報提供も考慮する。発注者等の個人情報は記載せず、責任者が不在でも連絡できる体制を整えることが重要である。",
-      "間違い。\n\n誤っているのは、ウとエの対応である。個人情報保護で配慮すべきは発注者等であり、電話連絡体制を確保すべきなのは責任者である。",
-      "間違い。\n\n誤っているのは、アとイの対応である。工事中看板に吊るしておくのは、通行者や歩行者ではなく作業従事者等が緊急時にも確認できるようにするためである。"
+      "正しい。施工計画書は緊急時を含めて作業従事者等（ア）が常に見ることができるよう、付近住民（イ）への情報提供も考慮して工事中看板等に備え付ける。その際、個人情報保護のため発注者等（ウ）の個人情報は記載せず、責任者（エ）が不在でも電話連絡が図れるようにしておく。したがって、2の組合せが該当する。"
     ],
     "original_question_id": "c61210016a0cb6f5",
-    "question_url": "https://kyuukou.kakomonn.com/questions/36371"
+    "question_url": "https://kyuukou.kakomonn.com/questions/36371",
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "conditions_scope"
   },
   {
     "explanationText": [
-      "正しい。\n\n水道事業者は、災害等による給水装置の損傷防止や迅速な復旧のため、配水管への取付口から水道メーターまでの材料や構造を指定することがある。したがって、この区間の使用材料は水道事業者に確認する必要がある。",
-      "間違い。\n\n誤っているのは、損傷原因を品質不良、区間を宅地内から水道メーターまでとしている点である。指定対象は災害等への備えとして、配水管への取付口から水道メーターまでの区間である。",
-      "間違い。\n\n誤っているのは、確認先と区間の両方である。確認すべき相手は建設業者ではなく水道事業者であり、指定区間は宅地内から末端器具までではない。",
-      "間違い。\n\n誤っているのは、ア、イ、エの対応である。施工管理上の材料指定を行うのは水道事業者であり、対象は配水管への取付口から水道メーターまでである。"
+      "正しい。水道事業者（ア）は、災害等（イ）による損傷防止と迅速な復旧のため、配水管への取付口（ウ）から水道メーター（エ）までの間に用いる給水管及び給水用具の構造・材質等を指定する場合がある。したがって、1の組合せが該当する。"
     ],
     "original_question_id": "2cfe8015f0b53c16",
-    "question_url": "https://kyuukou.kakomonn.com/questions/36372"
+    "question_url": "https://kyuukou.kakomonn.com/questions/36372",
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "conditions_scope"
   }
 ]

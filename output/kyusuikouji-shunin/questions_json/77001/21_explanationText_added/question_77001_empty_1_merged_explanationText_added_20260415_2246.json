@@ -7,14 +7,13 @@
       "正しい。\n\n湯水混合水栓のように同一仕様の止水機構が水側と湯側に付く場合は、いずれか一方の止水機構を試験すればよい。試験の重複を避けつつ同等性を確認する考え方である。"
     ],
     "original_question_id": "26ef72021ebe8b64",
-    "question_url": "https://kyuukou.kakomonn.com/questions/36347"
+    "question_url": "https://kyuukou.kakomonn.com/questions/36347",
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "conditions_scope"
   },
   {
     "explanationText": [
-      "間違い。\n\n比較に使う式は、倍率＝20mm時の総損失水頭÷25mm時の総損失水頭である。図から求めた総損失水頭は20mm時が約6.25m、25mm時が約2.34mなので、6.25÷2.34=2.67倍。したがって1.3倍では小さすぎる。",
-      "間違い。\n\n20mm時の総損失水頭は約6.25m、25mm時は約2.34mである。倍率は 6.25/2.34=2.67倍 なので、1.6倍では計算結果に届かない。",
-      "間違い。\n\n倍率は、20mm時と25mm時の総損失水頭の比で求める。6.25m÷2.34m=2.67倍 となるため、2.1倍も不足している。",
-      "正しい。\n\n20mm時の総損失水頭は約6.25m、25mm時の総損失水頭は約2.34mである。使う式は 倍率=6.25m÷2.34m。計算すると 6.25/2.34=2.67倍 なので、選択肢では2.6倍が最も近い。"
+      "正しい。口径20mm時の総損失水頭\\(H_{20}\\)と口径25mm時の総損失水頭\\(H_{25}\\)の倍率\\(R\\)は、次の式で求める。\n\\[R = \\frac{H_{20}}{H_{25}}\\]\n流量30L/分において、図表から直管の摩擦損失水頭及び分水栓・止水栓・水道メーター・給水栓の各損失水頭を読み取って合計すると、口径20mm時は\\(H_{20} \\approx 6.25\\,\\mathrm{m}\\)、口径25mm時は\\(H_{25} \\approx 2.34\\,\\mathrm{m}\\)となる。これらを代入すると、\n\\[R = \\frac{6.25}{2.34} \\approx 2.67\\text{倍}\\]\nとなり、最も近い2.6倍である4が該当する。"
     ],
     "original_question_id": "59d35c85d6ea2156",
     "question_url": "https://kyuukou.kakomonn.com/questions/36354",
@@ -31,7 +30,9 @@
         "question": "20mm時と25mm時の総損失水頭を代入すると何倍か。",
         "answer": "6.25m÷2.34m=2.67倍で、最も近い2.6倍となる。"
       }
-    ]
+    ],
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "calculation"
   },
   {
     "explanationText": [
@@ -41,7 +42,9 @@
       "間違い。\n\n誤っているのは、建設業の許可の更新期間を3年としている点である。建設業の許可は5年ごとに更新を受けなければ効力を失う。"
     ],
     "original_question_id": "e01954493732d88f",
-    "question_url": "https://kyuukou.kakomonn.com/questions/36377"
+    "question_url": "https://kyuukou.kakomonn.com/questions/36377",
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "conditions_scope"
   },
   {
     "explanationText": [
@@ -51,7 +54,9 @@
       "正しい。\n\n酸素欠乏のおそれが生じたときは、直ちに作業を中止し、労働者を退避させる必要がある。異常発生時の即時退避は労働安全衛生の基本措置である。"
     ],
     "original_question_id": "e3fec26a0f465954",
-    "question_url": "https://kyuukou.kakomonn.com/questions/36378"
+    "question_url": "https://kyuukou.kakomonn.com/questions/36378",
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "conditions_scope"
   },
   {
     "explanationText": [
@@ -61,6 +66,8 @@
       "正しい。\n\n給水タンク上に機器を設ける場合は、飲料水を汚染しないよう衛生上必要な措置を講じる。受水槽まわりでは水質汚染防止が最優先になる。"
     ],
     "original_question_id": "7a24bcb184754f6c",
-    "question_url": "https://kyuukou.kakomonn.com/questions/36379"
+    "question_url": "https://kyuukou.kakomonn.com/questions/36379",
+    "suggestedQuestionDetailsByChoice": [],
+    "questionLearningPatternId": "conditions_scope"
   }
 ]

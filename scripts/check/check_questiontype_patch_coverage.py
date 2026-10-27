@@ -96,9 +96,12 @@ def get_patch_entries(data: Any) -> List[Dict[str, Any]]:
 def compare_entries(
     source_questions: List[Dict[str, Any]],
     patch_entries: List[Dict[str, Any]],
+    *,
+    raw_source_questions: List[Dict[str, Any]] | None = None,
 ) -> Tuple[List[str], List[str]]:
     issues: List[str] = []
     warnings: List[str] = []
+    effective_raw_sources = raw_source_questions or source_questions
 
     matches, identity_errors, identity_warnings = match_patch_entries(
         source_questions,
@@ -110,6 +113,11 @@ def compare_entries(
     for match in matches:
         idx = match.patch_index + 1
         src = match.source
+        raw_src = (
+            effective_raw_sources[match.source_index]
+            if 0 <= match.source_index < len(effective_raw_sources)
+            else src
+        )
         patch = match.patch
         if not isinstance(patch, dict):
             issues.append(f"index {idx}: patch entry is not an object")
@@ -178,7 +186,7 @@ def compare_entries(
                         issues.append(
                             f"index {idx}: approved target must use true_false"
                         )
-                    expected_keys = derived_source_unique_keys(src, normalized)
+                    expected_keys = derived_source_unique_keys(raw_src, normalized)
                     if patch.get("sourceUniqueKeys") != expected_keys:
                         issues.append(
                             f"index {idx}: sourceUniqueKeys mismatch for derived statements"
@@ -214,13 +222,18 @@ def check_pair(source_path: Path, patch_path: Path) -> Tuple[bool, List[str]]:
     source_data = load_json(source_path)
     patch_data = load_json(patch_path)
 
+    raw_source_questions = get_source_questions(source_data)
     source_questions = bind_source_records(
-        get_source_questions(source_data),
+        raw_source_questions,
         source_path,
     )
     patch_entries = get_patch_entries(patch_data)
 
-    issues, warnings = compare_entries(source_questions, patch_entries)
+    issues, warnings = compare_entries(
+        source_questions,
+        patch_entries,
+        raw_source_questions=raw_source_questions,
+    )
     for warn in dict.fromkeys(warnings):
         print(f"[WARN] {warn}")
     if issues:
