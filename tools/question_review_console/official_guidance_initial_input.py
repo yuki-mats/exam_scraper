@@ -115,6 +115,34 @@ def load_initial_input(root, qualification, target, record, *, current_as_of, re
         record=record, scope=scope, resolver=resolver)
 
 
+def load_stage_input(root, qualification, target, record, *, stage_id, current_as_of, resolver=None):
+    """A law owner may replace obsolete adoption with explicitly prepared input.
+
+    Other stages never recover stale binding by themselves. A replacement must
+    independently pass full raw/source/body/choice/date validation before a model
+    can judge it; registering it is neither adoption nor prior-stage approval.
+    """
+    from tools.question_review_console.official_guidance_contract import FIELD, reference_input
+    reference = record.get(FIELD)
+    if reference is not None:
+        try:
+            return reference_input(root, reference, record=record,
+                scope=source_scope(root, qualification, target), resolver=resolver), False
+        except (ValueError, OSError):
+            if stage_id != 'law_context':
+                raise
+            replacement = load_initial_input(root, qualification, target, record,
+                current_as_of=current_as_of, resolver=resolver)
+            if replacement is None:
+                raise
+            return replacement, True
+    if stage_id == 'law_context':
+        supplied = load_initial_input(root, qualification, target, record,
+            current_as_of=current_as_of, resolver=resolver)
+        return supplied, supplied is not None
+    return None, False
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--repo-root', type=Path, default=Path(__file__).resolve().parents[2])

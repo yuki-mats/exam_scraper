@@ -4,7 +4,7 @@ from tools.question_review_console import feedback_task_input as feedback_task
 from tools.question_review_console import supplemental_primary_evidence as supplemental_primary
 
 from tools.question_review_console.official_guidance_contract import (
-    FIELD as GUIDANCE_FIELD, source_scope as official_guidance_scope,
+    FIELD as GUIDANCE_FIELD, source_scope as official_guidance_scope, reference_record_for_save,
     prepare_evidence as prepare_official_guidance, validate_reference as validate_official_guidance,
     has_guidance_basis, refresh_reference as refresh_official_guidance, verify_delivery as verify_guidance_delivery,
 )
@@ -15832,12 +15832,12 @@ class QualificationRunCoordinator:
         if stage_id in {'law_context', 'explanation', 'law_audit'}:
             for question_id, record in records_by_question.items():
                 supplied = single_spec.get('officialGuidanceInput')
-                references = record.get(GUIDANCE_FIELD)
-                if supplied is None and references is None and stage_id == 'law_context':
-                    from tools.question_review_console.official_guidance_initial_input import load_initial_input
-                    supplied = load_initial_input(self.repo_root, qualification, target, record,
+                if supplied is None:
+                    from tools.question_review_console.official_guidance_initial_input import load_stage_input
+                    supplied, initial = load_stage_input(self.repo_root, qualification, target, record,
+                        stage_id=stage_id,
                         current_as_of=str(parent_snapshot.get('startedAt') or _now())[:10])
-                    initial_guidance_loaded = supplied is not None
+                    initial_guidance_loaded = initial_guidance_loaded or initial
                 if supplied is not None:
                     scope = official_guidance_scope(self.repo_root, qualification, target)
                     # Acquisition is genuine. Applicability remains a model judgment.
@@ -15845,10 +15845,6 @@ class QualificationRunCoordinator:
                     OfficialGuidanceEvidenceResolver(self.repo_root).validate(supplied['receipt'],
                         request=supplied['request'], record=record, scope=scope)
                     guidance_inputs[question_id] = copy.deepcopy(supplied)
-                elif references is not None:
-                    from tools.question_review_console.official_guidance_contract import reference_input
-                    guidance_inputs[question_id] = reference_input(self.repo_root, references, record=record,
-                        scope=official_guidance_scope(self.repo_root, qualification, target))
         if guidance_inputs:
             batch_plan['officialGuidanceInputs'] = copy.deepcopy(guidance_inputs)
         supplemental_inputs = {}
@@ -17660,7 +17656,9 @@ class QualificationRunCoordinator:
                         if stage_id not in {'law_context', 'explanation', 'law_audit'}:
                             if proposed_ref != records_by_question[candidate.question_id].get(GUIDANCE_FIELD):
                                 raise QualificationRunError('根拠を所有しない工程は公式制度資料を変更できません。')
-                            validate_official_guidance(self.repo_root, proposed_ref, record=proposed_guidance_record,
+                            validate_official_guidance(self.repo_root, proposed_ref,
+                                record=reference_record_for_save(records_by_question[candidate.question_id],
+                                    proposed_guidance_record, stage_id=stage_id),
                                 scope=official_guidance_scope(self.repo_root, qualification, raw_target_by_question[candidate.question_id]))
                         else:
                             delivered = (batch_plan.get('officialGuidanceInputs') or {}).get(candidate.question_id)

@@ -127,6 +127,20 @@ def load_prepared_evidence(root, request, evidence_ref, *, record, scope, resolv
         'receipt': receipt}
 
 
+def reference_record_for_save(current, proposed, *, stage_id):
+    """05 preserves a downstream adoption as history, not as a new judgment.
+
+    Its own text/choice change makes downstream stages stale. Validate inherited
+    proof against the pre-change version; law owners and publication must still
+    validate against the current whole question. 05 cannot change the reference.
+    """
+    if stage_id != 'originalize':
+        return proposed
+    if proposed.get(FIELD) != current.get(FIELD):
+        raise ValueError('originalization cannot change downstream official references')
+    return current
+
+
 def reference_input(root, value, *, record, scope, resolver=None):
     """Read proof for a new judgment, without adopting a superseded judgment.
 

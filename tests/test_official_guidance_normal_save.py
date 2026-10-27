@@ -29,7 +29,10 @@ class OfficialGuidanceNormalSaveTests(unittest.TestCase):
     def test_normal_model_explicitly_revokes_stale_downstream_adoption(self):
         self._run_real_save(initial_input=False, reclassify=True)
 
-    def _run_real_save(self, *, initial_input, reclassify=False):
+    def test_originalization_reworks_body_then_law_owner_adopts_new_bound_proof(self):
+        self._run_real_save(initial_input=True, reoriginalize=True)
+
+    def _run_real_save(self, *, initial_input, reclassify=False, reoriginalize=False):
         f = normal_fixture.PreparedStageTests(); f.setUp(); self.addCleanup(f.doCleanups)
         # The generic fixture intentionally uses a short source key distinct
         # from its review ID. This provider fixture uses its explicit complete
@@ -134,6 +137,74 @@ class OfficialGuidanceNormalSaveTests(unittest.TestCase):
             self.assertNotIn('officialGuidanceSaveRefresh', classification_receipt['stageEvidence'])
             self.assertNotIn('officialGuidanceInputs', classification_plan['stagePlan'])
             self.assertEqual(classification_receipt, f.apply())
+            if reoriginalize:
+                class Reauthor(Model):
+                    def run_turn(self, prompt, **kwargs):
+                        result = super().run_turn(prompt, **kwargs)
+                        if kwargs['work_type'] != 'maintenance_originalize_candidate': return result
+                        payload = json.loads(result.final_message)
+                        for item in payload['update']['setFields']:
+                            if item['field'] == 'questionBodyText':
+                                item['value'] += ' 使用形態の定義を明確にした。'
+                        return replace(result, final_message=json.dumps(payload, ensure_ascii=False))
+                f.coordinator.app_server = Reauthor()
+                target = f.inventory.group('new-exam', '2026')['questions'][0]
+                f.request['stageId'] = 'originalize'
+                options = {'stage_ids': ['originalize'], 'list_group_ids': ['2026'],
+                    'question_ids': [target['id']], 'question_concurrency': 1}
+                preview = f.coordinator.preview('new-exam', 'originalize', 'refresh', **options)
+                self.assertTrue(preview['canStart'], preview)
+                started = f.coordinator.start('new-exam', 'originalize', 'refresh',
+                    preview['previewToken'], **options)
+                import time
+                deadline = time.monotonic() + 30
+                while True:
+                    run = f.coordinator.store.get('new-exam', started['run']['runId'])
+                    if run['status'] not in ('running', 'pending', 'queued'): break
+                    if time.monotonic() >= deadline: self.fail('normal originalization did not terminate')
+                    time.sleep(.05)
+                self.assertEqual(run['status'], 'succeeded', run)
+                progress = f.coordinator.progress('new-exam', started['run']['runId'])
+                self.assertEqual(progress['blockedWorkItemCount'], 0, progress)
+                self.assertEqual(progress['validatedWorkItemCount'], 1, progress)
+                rewritten_record = reader.projected_input('new-exam', '2026', binding['sourceRecordRef']).record
+                self.assertIn('使用形態の定義', rewritten_record['questionBodyText'])
+                self.assertEqual(rewritten_record[contract.FIELD], proof['reference'])
+                changed_reference = deepcopy(rewritten_record)
+                changed_reference[contract.FIELD]['evidenceRef']['sha256'] = 'b' * 64
+                with self.assertRaises(ValueError):
+                    contract.reference_record_for_save(rewritten_record, changed_reference, stage_id='originalize')
+                self.assertEqual(stage._hash(source_path.read_bytes()), f.request['source']['sha256'])
+                with self.assertRaises(provider.OfficialGuidanceEvidenceError):
+                    contract.validate_reference(f.root, rewritten_record[contract.FIELD],
+                        record=rewritten_record, resolver=resolver)
+                target = f.inventory.group('new-exam', '2026')['questions'][0]
+                # The old initial input also remains stale; no automatic relabel.
+                with self.assertRaises(provider.OfficialGuidanceEvidenceError):
+                    initial.load_stage_input(f.root, 'new-exam', target, rewritten_record,
+                        stage_id='law_context', current_as_of='2026-10-25', resolver=resolver)
+                pointer = initial.input_path(f.root, 'new-exam', target)
+                before = stage._hash(pointer.read_bytes())
+                initial.register_initial_input(f.root, 'new-exam', target, rewritten_record,
+                    request, replace_if_sha=before, resolver=resolver)
+                supplied, from_initial = initial.load_stage_input(f.root, 'new-exam', target,
+                    rewritten_record, stage_id='law_context', current_as_of='2026-10-25', resolver=resolver)
+                self.assertTrue(from_initial)
+                self.assertNotEqual(supplied['evidenceRef'], proof['reference']['evidenceRef'])
+                for stage_id in ('explanation', 'law_audit'):
+                    with self.assertRaises(provider.OfficialGuidanceEvidenceError):
+                        initial.load_stage_input(f.root, 'new-exam', target, rewritten_record,
+                            stage_id=stage_id, current_as_of='2026-10-25', resolver=resolver)
+                f.coordinator.app_server = Model()
+                f.request['stageId'] = 'law_context'
+                f.request_path = f.private / 'rebind-request.json'; f.output = f.private / 'rebind'
+                f.write(f.request_path, f.request)
+                f.prepare(); rebound = f.apply()
+                refreshed = rebound['stageEvidence']['officialGuidanceSaveRefresh']
+                self.assertEqual(refreshed['reference']['evidenceRef'], supplied['evidenceRef'])
+                current = reader.projected_input('new-exam', '2026', binding['sourceRecordRef']).record
+                contract.validate_reference(f.root, current[contract.FIELD], record=current, resolver=resolver)
+                self.assertEqual(rebound, f.apply())
             if reclassify:
                 # Represent an independently saved upstream classification with
                 # an older reference still present in the next stage's input.

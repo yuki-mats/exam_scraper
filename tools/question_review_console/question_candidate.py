@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from tools.question_review_console.official_guidance_contract import (
     FIELD_RULE as OFFICIAL_GUIDANCE_RULE, PROOF_DIRECTORY as OFFICIAL_GUIDANCE_PROOF_DIRECTORY,
-    validate_reference as validate_official_guidance_reference,
+    validate_reference as validate_official_guidance_reference, reference_record_for_save,
 )
 
 import json
@@ -2228,11 +2228,13 @@ def _validate_candidate_content_messages(
                 )
     verified_guidance_choices: set[int] = set()
     if "officialGuidanceReferences" in logical:
-        guidance = logical['officialGuidanceReferences']
-        if logical.get('isLawRelated') is not True or logical.get('lawGroundedExplanationNotNeeded') is not False:
+        guidance_record = reference_record_for_save(projected_record, logical,
+            stage_id='originalize' if any(t.role == 'originalized' for t in target_values) else None)
+        guidance = guidance_record['officialGuidanceReferences']
+        if guidance_record.get('isLawRelated') is not True or guidance_record.get('lawGroundedExplanationNotNeeded') is not False:
             errors.append('制度根拠を採用しない候補は古いofficialGuidanceReferencesを明示unsetしてください。')
         applicability = guidance.get('applicabilityByChoice') if isinstance(guidance, Mapping) else None
-        if (not isinstance(applicability, list) or len(applicability) != len(choices)
+        if (not isinstance(applicability, list) or len(applicability) != len(guidance_record.get('choiceTextList') or [])
                 or any(not isinstance(item, Mapping) or item.get('choiceIndex') != index
                     for index, item in enumerate(applicability))):
             errors.append('公式制度資料の適用判断は原問の全肢と同じ件数・順序で必要です。')
@@ -2243,7 +2245,7 @@ def _validate_candidate_content_messages(
             if not evidence_path.is_absolute():
                 raise ValueError('absolute private official guidance proof required')
             root = evidence_path.parents[len(Path(OFFICIAL_GUIDANCE_PROOF_DIRECTORY).parts)]
-            receipt = validate_official_guidance_reference(root, guidance, record=logical)
+            receipt = validate_official_guidance_reference(root, guidance, record=guidance_record)
             scope = receipt['scope']
             if scope['questionId'] != candidate.question_id:
                 raise ValueError('official guidance proof belongs to another candidate question')
@@ -2254,7 +2256,8 @@ def _validate_candidate_content_messages(
                 path = root / target.path
                 if path.resolve() != path or not path.is_relative_to(group):
                     raise ValueError('official guidance candidate patch scope differs')
-            verified_guidance_choices = {item['choiceIndex'] for item in guidance['applicabilityByChoice']}
+            if guidance_record is logical:
+                verified_guidance_choices = {item['choiceIndex'] for item in guidance['applicabilityByChoice']}
         except (ValueError, OSError, KeyError, TypeError, IndexError) as exc:
             errors.append('公式制度資料の実取得・原問全肢・候補scopeを確認できません: ' + str(exc))
     if "explanationReferences" in changed_fields:
