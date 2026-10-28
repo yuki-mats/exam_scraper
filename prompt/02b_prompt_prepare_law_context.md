@@ -13,6 +13,7 @@
 
 - `isLawRelated=true`: 法令・制度論点（原則`lawGroundedExplanationNotNeeded=false`）。
 - `isLawRelated=false`: 工学・技術・一般知識のみで決まる論点（原則`lawGroundedExplanationNotNeeded=true`、`lawReferences`は入れない）。JISや技術基準が法令へ直接取り込まれていることを確認できない限り、用語の類似だけで法令問題にしない。
+- 政府の戦略・政策文書に載った標語や基本原則の名称を知識として問うだけなら、文書が公式でも`isLawRelated=false`とする。制度資料が権利義務、手続、適用条件又は規範上の判定基準を定め、その内容を肢へ適用する必要がある場合に`true`とする。`officialGuidanceEvidence`の配送や資料の実取得だけから法令関連性を決めない。非法令でも公式資料を解説の出典として使える。
 
 ## `lawReferences`と公式制度資料の扱い
 

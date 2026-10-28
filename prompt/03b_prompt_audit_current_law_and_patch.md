@@ -19,6 +19,7 @@
 法令根拠が見つからないこと自体を理由に、技術問題を`isLawRelated=true`又は`hold`へ変更してはいけません。
 
 - 技術知識や計算だけで正誤が決まる問題は、`isLawRelated=false`、`auditStatus="not_law_related"`、`reviewState="secondary_verified"`とする。03bで技術内容を再判定しない（02aの`correctChoiceText`と03の解説を保持し、古い法令参照だけを除く。構造化候補で必須の技術fieldは現在値を返す）。
+- 政府の戦略・政策文書の標語又は基本原則を名称として問う問題も、権利義務・適用条件・規範上の判定基準を肢に適用しなければ正誤が決まるなら`isLawRelated=false`とする。公式資料を解説の出典に使った事実と法令監査の対象判定を分ける。`true`から`false`へ訂正する場合は古い`officialGuidanceReferences`と法令監査としての差分説明を整理し、正しい既存解説は書き換えない。
 - `false`から`true`へ変える場合は、正誤を直接決める法令名・`lawId`・条番号を確認して`sourceSummary`へ残す。背景として法令名が出るだけの問題は法令問題にしない。
 - 法令肢と技術肢の混在問題は全体を`isLawRelated=true`とし、選択肢別の`lawRevisionFacts`で法令肢（`same_as_current`又は`updated_to_current_law`）と技術肢（`auditStatus="not_law_related"`、`reviewState="secondary_verified"`、`lawReferences=[]`）を独立確定する。全体の`auditStatus`は法令肢に`updated_to_current_law`が1件でもあれば同値、なければ`same_as_current`とする。
 
