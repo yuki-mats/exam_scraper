@@ -1,0 +1,43 @@
+{
+  "schemaVersion": "question-issue-correction/v1",
+  "origin": "user_problem_report",
+  "batchId": "zzzz-hei-direct-figure-2023-shohi-q21-image-r3",
+  "category": "image",
+  "caseIds": [
+    "operator-figure-14d7b4da2141109d"
+  ],
+  "inputCaseHashes": {
+    "operator-figure-14d7b4da2141109d": "abb1a51cc42ef31e0e778af7c1dbd55f76fbfd937f80c3bc428f00a464b23211"
+  },
+  "reviewProtocol": "blind-a-b-challenge/v1",
+  "blindReviewHashes": [
+    "880a514b2b1f518ebd42a3d976a1de50c4b392f9576e9b97ad01dd44bacb4f9a",
+    "26fd5a0632c74e806cf157a8b6745b4697e3bcebe174fa8ff970dcf371a8eb4c"
+  ],
+  "challengeReviewHash": "10fccf319e7a5b4dce218788a982e115a7d6800145112c371e144f0b1998073d",
+  "createdAt": "2026-10-28T03:18:05.101268+00:00",
+  "entries": [
+    {
+      "original_question_id": "14d7b4da2141109d",
+      "sourceQuestionKey": "gas-shunin:hei:2023:shohi:q21",
+      "reviewQuestionId": "14d7b4da2141109d",
+      "sourceRecordRef": "question_2023_3.json#1",
+      "expectedBeforeHash": "8bd674e22fd03c44f018ad95437c57b96efe989ac21a4c60ab0d46d924566742",
+      "changes": {
+        "questionImageStorageUrls": [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fgas-shunin-hei%2Fofficial-source-2023-14d7b4da2141109d-eb5a41e2823c8856.png?alt=media"
+        ]
+      },
+      "rationale": "Independent blind A/B reviews produced identical structured changes for category=image, and the challenge gate bound the correction to their official/primary evidence.",
+      "evidence": [
+        {
+          "sourceClass": "official",
+          "title": "2023年度丙種の公式問題・正答と図",
+          "locator": "output/pdf/gas-shunin-official/2023/q_hei_r5.pdf / PDF 36頁 / 2023:shohi:問21 / 当該図の切出し",
+          "verifiedAt": "2026-10-28T03:18:05.101268+00:00",
+          "contentHash": "b043d9ff4ed6e8c2b918550c8a0d689cf424e025e8540808af839316ca7eada1"
+        }
+      ]
+    }
+  ]
+}
