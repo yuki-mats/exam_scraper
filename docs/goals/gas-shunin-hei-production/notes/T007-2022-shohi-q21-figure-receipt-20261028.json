@@ -1,0 +1,1405 @@
+{
+  "schemaVersion": "hei-figure-patch-verification/v1",
+  "checkedAt": "2026-10-28T03:28:34.026199+00:00",
+  "sourceQuestionId": "2022:shohi:問21",
+  "plan": {
+    "path": "output/gas-shunin-hei/direct_publication/20261027/figure_review/2022-shohi-q21-image-r3/plan.json",
+    "sha256": "7c50fc43d76566aefb5ed1bc6e3c74fb777491ea06448b23eacdf4821427de72",
+    "payload": {
+      "schemaVersion": "gas-shunin-hei-official-correction-review-plan/v1",
+      "year": 2022,
+      "createdAt": "2026-10-28T03:25:01.128135+00:00",
+      "batchId": "zzzz-hei-direct-figure-2022-shohi-q21-image-r3",
+      "category": "image",
+      "items": [
+        {
+          "sourceQuestionId": "2022:shohi:問21",
+          "currentRecord": {
+            "questionBodyText": "ガス機器関連法令等に関する次の記述のうち、誤っているものはどれか。\n\n【(5)の表示】\nひし形の枠内に、上段に「PS」、下段に「LPG」と記した表示。\n\n※液石法とは、「液化石油ガスの保安の確保及び取引の適正化に関する法律」をいう。",
+            "examLabel": "2022年（令和4年）丙種 過去問題・解答解説 消費機器",
+            "questionLabel": "問21",
+            "choiceTextList": [
+              "給湯付ガスふろがまは、給水装置に係る器具等として水道法の対象である。",
+              "国内で販売するガス用品の製造又は輸入の事業を行う者は、経済産業大臣に届け出て、そのガス用品が技術上の基準に適合するようにしなければならない。",
+              "液化石油ガスの消費量が70kW以下の密閉燃焼式液化石油ガス用瞬間湯沸器は、液石法※の特定液化石油ガス器具等に指定されている。",
+              "液化石油ガスの消費量の総和が14kW（ガスオーブンを有するものにあっては21kW）以下のものであって、こんろバーナー1個あたりの液化石油ガスの消費量が5.8kW以下の液化石油ガス用こんろ（液化石油ガスを充てんした容器が部品又は附属品として取り付けられる構造のものを除く。）は、液石法※の特定液化石油ガス器具等に指定されていない。",
+              "LPガス用のガス機器の販売事業者は、液石法※に基づく特定液化石油ガス器具等を販売する場合に、以下の表示のあるものを販売しなければならない。"
+            ],
+            "choiceTextMarkedList": [
+              "給湯付ガスふろがまは、給水装置に係る器具等として水道法の対象である。",
+              "国内で販売するガス用品の製造又は輸入の事業を行う者は、経済産業大臣に届け出て、そのガス用品が技術上の基準に適合するようにしなければならない。",
+              "液化石油ガスの消費量が70kW以下の密閉燃焼式液化石油ガス用瞬間湯沸器は、液石法※の特定液化石油ガス器具等に指定されている。",
+              "液化石油ガスの消費量の総和が14kW（ガスオーブンを有するものにあっては21kW）以下のものであって、こんろバーナー1個あたりの液化石油ガスの消費量が5.8kW以下の液化石油ガス用こんろは、液石法※の特定液化石油ガス器具等に指定されていない。",
+              "LPガス用のガス機器の販売事業者は、液石法※に基づく特定液化石油ガス器具等を販売する場合に、以下の表示のあるものを販売しなければならない。"
+            ],
+            "questionChoiceMarkers": [],
+            "judgeChoiceMarkers": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5"
+            ],
+            "choiceMarkerSource": "judge",
+            "markerAlignmentMode": "judge_only",
+            "markerMismatchDetected": false,
+            "answerResultNumbersRemapped": false,
+            "originalQuestionChoiceImageUrls": [
+              [],
+              [],
+              [],
+              [],
+              []
+            ],
+            "category": "消費機器",
+            "examYear": 2022,
+            "examOccurrenceId": "2022",
+            "list_group_id": "2022",
+            "question_url": "https://gassyunin.com/exam/hei/hei_2022/#shohi-q21",
+            "public_question_id": "4f8f2325c68a3916",
+            "questionImageStorageUrls": [],
+            "questionIntent": "select_incorrect",
+            "correctChoiceText": [
+              "正しい",
+              "正しい",
+              "間違い",
+              "正しい",
+              "正しい"
+            ],
+            "explanation_common_prefix": [],
+            "explanation_common_prefix_inferred_correct_choice": 3,
+            "explanation_common_summary": [],
+            "explanation_choice_snippets": [
+              [],
+              [],
+              [],
+              [],
+              []
+            ],
+            "explanation_choice_correctness": [
+              null,
+              null,
+              null,
+              null,
+              null
+            ],
+            "answer_result_text": "正解は 3 です。",
+            "answer_result_inferred_correct_choice_numbers": [
+              3
+            ],
+            "source_question_id": "2022:shohi:問21",
+            "original_question_id": "4f8f2325c68a3916",
+            "questionType": "true_false",
+            "isCalculationQuestion": false,
+            "isLawRelated": true,
+            "lawGroundedExplanationNotNeeded": false,
+            "lawReferences": [
+              [
+                {
+                  "lawId": "332AC0000000177",
+                  "lawTitle": "水道法",
+                  "article": "第3条第9項",
+                  "role": "current_basis",
+                  "scope": "choice",
+                  "choiceIndex": 0,
+                  "referenceDate": "2026-10-28",
+                  "verificationStatus": "verified",
+                  "source": "https://laws.e-gov.go.jp/law/332AC0000000177"
+                }
+              ],
+              [
+                {
+                  "lawId": "329AC0000000051",
+                  "lawTitle": "ガス事業法",
+                  "article": "第140条",
+                  "role": "current_basis",
+                  "scope": "choice",
+                  "choiceIndex": 1,
+                  "referenceDate": "2026-10-28",
+                  "verificationStatus": "verified",
+                  "source": "https://laws.e-gov.go.jp/law/329AC0000000051"
+                },
+                {
+                  "lawId": "329AC0000000051",
+                  "lawTitle": "ガス事業法",
+                  "article": "第145条",
+                  "role": "current_basis",
+                  "scope": "choice",
+                  "choiceIndex": 1,
+                  "referenceDate": "2026-10-28",
+                  "verificationStatus": "verified",
+                  "source": "https://laws.e-gov.go.jp/law/329AC0000000051"
+                },
+                {
+                  "lawId": "329AC0000000051",
+                  "lawTitle": "ガス事業法",
+                  "article": "第138条",
+                  "role": "current_basis",
+                  "scope": "choice",
+                  "choiceIndex": 1,
+                  "referenceDate": "2026-10-28",
+                  "verificationStatus": "verified",
+                  "source": "https://laws.e-gov.go.jp/law/329AC0000000051"
+                }
+              ],
+              [
+                {
+                  "lawId": "343CO0000000014",
+                  "lawTitle": "液化石油ガスの保安の確保及び取引の適正化に関する法律施行令",
+                  "article": "別表第2第2号",
+                  "role": "current_basis",
+                  "scope": "choice",
+                  "choiceIndex": 2,
+                  "referenceDate": "2026-10-28",
+                  "verificationStatus": "verified",
+                  "source": "https://laws.e-gov.go.jp/law/343CO0000000014"
+                }
+              ],
+              [
+                {
+                  "lawId": "343CO0000000014",
+                  "lawTitle": "液化石油ガスの保安の確保及び取引の適正化に関する法律施行令",
+                  "article": "別表第1第2号",
+                  "role": "current_basis",
+                  "scope": "choice",
+                  "choiceIndex": 3,
+                  "referenceDate": "2026-10-28",
+                  "verificationStatus": "verified",
+                  "source": "https://laws.e-gov.go.jp/law/343CO0000000014"
+                },
+                {
+                  "lawId": "343CO0000000014",
+                  "lawTitle": "液化石油ガスの保安の確保及び取引の適正化に関する法律施行令",
+                  "article": "別表第2第1号",
+                  "role": "current_basis",
+                  "scope": "choice",
+                  "choiceIndex": 3,
+                  "referenceDate": "2026-10-28",
+                  "verificationStatus": "verified",
+                  "source": "https://laws.e-gov.go.jp/law/343CO0000000014"
+                }
+              ],
+              [
+                {
+                  "lawId": "342AC0000000149",
+                  "lawTitle": "液化石油ガスの保安の確保及び取引の適正化に関する法律",
+                  "article": "第39条",
+                  "role": "current_basis",
+                  "scope": "choice",
+                  "choiceIndex": 4,
+                  "referenceDate": "2026-10-28",
+                  "verificationStatus": "verified",
+                  "source": "https://laws.e-gov.go.jp/law/342AC0000000149"
+                },
+                {
+                  "lawId": "342AC0000000149",
+                  "lawTitle": "液化石油ガスの保安の確保及び取引の適正化に関する法律",
+                  "article": "第48条",
+                  "role": "current_basis",
+                  "scope": "choice",
+                  "choiceIndex": 4,
+                  "referenceDate": "2026-10-28",
+                  "verificationStatus": "verified",
+                  "source": "https://laws.e-gov.go.jp/law/342AC0000000149"
+                },
+                {
+                  "lawId": "343M50000400023",
+                  "lawTitle": "液化石油ガス器具等の技術上の基準等に関する省令",
+                  "article": "第20条",
+                  "role": "current_basis",
+                  "scope": "choice",
+                  "choiceIndex": 4,
+                  "referenceDate": "2026-10-28",
+                  "verificationStatus": "verified",
+                  "source": "https://laws.e-gov.go.jp/law/343M50000400023"
+                }
+              ]
+            ],
+            "lawContextForExplanation": "主担当が2022-09-25と2026-10-28のe-Gov公式本文を照合した。水道法3.9、液石令別表1.2と別表2.1/2の対象は同じ。Gas法140/145/138、液石法39/48、製品省令20には外国特定輸入事業者・国内管理人や携帯バーナー追加に伴う項目数等の変更があるが、この問の5完全命題の正誤は変わらない。表示形状の出題時の一次資料は消防庁2021年調査報告の印刷3頁（PDF8）図1-5を主担当が原画像で視認した。実取得PDFとreceiptは output/gas-shunin-hei/direct_publication/20261027/legal/fdma-2021-gas-torch.pdf と .receipt.json。現行製品省令20は特定器具を別表第7様式に対応させ、現行XMLの同別表Figは ./pict/2JH00000215640.jpg。2022XMLのFig srcは空であり、図形をAPIテキストだけから読めたとは扱わない。METI説明ページ及びVer.6 PDFは検索索引では確認できたが実openは403のため一次取得済みとしない。 主担当のr1では第4肢の限定を暗黙に補い、独立内容・法令監査がいずれも拒否した。正誤や監査結果は書き換えず、出題時・現行の一次法令に基づく除外条件を既存24のBlind A/B・Challengeの実fix後に保存した。新候補はその実projectionを対象とし、第4肢を容器取付型除外付きの完全命題として再判定する。24保存receipt=output/gas-shunin-hei/direct_publication/20261027/scope_corrections/2022-shohi-21-r1/reviews/save-result.json。",
+            "questionLearningPatternId": "conditions_scope",
+            "explanationText": [
+              "正しい。給湯付ガスふろがまのうち、水道の給水管に直結する給水用具は、水道法（昭和32年法律第177号）第3条第9項の給水装置に含まれる。ガスを燃やす機器であっても、給水部分には水道法の規制が及ぶ。",
+              "正しい。国内で通常販売するガス用品は、届出と技術基準への適合など、表示のための要件を満たす必要がある。ガス事業法（昭和29年法律第51号）第140条、第145条及び第138条による。出題時も現行もこの基本は同じである。現行法では、外国にある特定輸入事業者の国内管理人などの要件が加わっている。",
+              "間違い。密閉燃焼式の液化石油ガス用瞬間湯沸器は、特定液化石油ガス器具等から除かれる。液化石油ガスの保安の確保及び取引の適正化に関する法律施行令（昭和43年政令第14号）別表第2第2号は、70kW以下のうち、開放燃焼式・密閉燃焼式・屋外式を除くものを対象としている。",
+              "正しい。容器取付型を除いた、この肢のこんろは液化石油ガス器具等に含まれるが、特定液化石油ガス器具等ではない。液化石油ガスの保安の確保及び取引の適正化に関する法律施行令（昭和43年政令第14号）別表第1第2号ロ及び別表第2第1号による。数値条件だけでなく、容器を部品又は附属品として取り付ける構造かどうかも区別する。",
+              "正しい。特定液化石油ガス器具等を通常販売するには、ひし形のPSLPGマークが必要である。液化石油ガスの保安の確保及び取引の適正化に関する法律（昭和42年法律第149号）第39条・第48条と、液化石油ガス器具等の技術上の基準等に関する省令（昭和43年通商産業省令第23号）第20条による。出題時と現行でマークの区別は同じである。現行法では、特定輸入事業者に係る表示の根拠を第48条第2項に分けている。"
+            ],
+            "explanationReferences": [
+              {
+                "title": "水道法（昭和32年法律第177号）",
+                "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/332AC0000000177?asof=2026-10-28",
+                "referenceDate": "2026-10-28"
+              },
+              {
+                "title": "ガス事業法（昭和29年法律第51号）",
+                "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/329AC0000000051?asof=2026-10-28",
+                "referenceDate": "2026-10-28"
+              },
+              {
+                "title": "液化石油ガスの保安の確保及び取引の適正化に関する法律施行令（昭和43年政令第14号）",
+                "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/343CO0000000014?asof=2026-10-28",
+                "referenceDate": "2026-10-28"
+              },
+              {
+                "title": "液化石油ガスの保安の確保及び取引の適正化に関する法律（昭和42年法律第149号）",
+                "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/342AC0000000149?asof=2026-10-28",
+                "referenceDate": "2026-10-28"
+              },
+              {
+                "title": "液化石油ガス器具等の技術上の基準等に関する省令（昭和43年通商産業省令第23号）",
+                "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/343M50000400023?asof=2026-10-28",
+                "referenceDate": "2026-10-28"
+              },
+              {
+                "title": "消防庁 ガストーチに関する調査報告書 図1-5（PSLPG表示）",
+                "sourceUrl": "https://www.fdma.go.jp/laws/tutatsu/items/210318_yobou_1.pdf",
+                "referenceDate": "2026-10-28"
+              }
+            ],
+            "suggestedQuestionDetailsByChoice": [],
+            "lawRevisionFacts": [
+              {
+                "auditStatus": "same_as_current",
+                "reviewState": "secondary_verified",
+                "reconciliationStatus": "reconciled",
+                "differenceFacts": [
+                  "該当する定義又は特定器具の対象に判定を変える差分はない。"
+                ],
+                "answerImpactFacts": [
+                  "出題時・現行とも正しい。"
+                ],
+                "evidenceSummary": {
+                  "verdict": "正しい",
+                  "explanationText": "正しい。給湯付ガスふろがまのうち、水道の給水管に直結する給水用具は、水道法（昭和32年法律第177号）第3条第9項の給水装置に含まれる。ガスを燃やす機器であっても、給水部分には水道法の規制が及ぶ。",
+                  "differenceSummary": "当該命題の法令差分なし。",
+                  "promptContext": "給湯付ガスふろがまは、給水装置に係る器具等として水道法の対象である。",
+                  "refs": [],
+                  "displayRefIds": []
+                },
+                "examTime": {
+                  "correctChoiceText": "正しい",
+                  "lawId": "332AC0000000177",
+                  "lawTitle": "水道法",
+                  "lawRevisionId": "332AC0000000177_20220617_504AC0000000068",
+                  "referenceDate": "2022-09-25",
+                  "article": "第3条第9項",
+                  "verificationStatus": "verified",
+                  "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/332AC0000000177?asof=2022-09-25",
+                  "articleTextHash": "afc3bb15e999c3d4f0e69ff8bc94964e8af36097bcf0abc5b37dce8dbd1dd31e"
+                },
+                "current": {
+                  "correctChoiceText": "正しい",
+                  "lawId": "332AC0000000177",
+                  "lawTitle": "水道法",
+                  "lawRevisionId": "332AC0000000177_20250701_507AC0000000051",
+                  "referenceDate": "2026-10-28",
+                  "article": "第3条第9項",
+                  "verificationStatus": "verified",
+                  "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/332AC0000000177?asof=2026-10-28",
+                  "articleTextHash": "afc3bb15e999c3d4f0e69ff8bc94964e8af36097bcf0abc5b37dce8dbd1dd31e"
+                }
+              },
+              {
+                "auditStatus": "updated_to_current_law",
+                "reviewState": "tertiary_verified",
+                "reconciliationStatus": "reconciled",
+                "differenceFacts": [
+                  "外国特定輸入事業者や国内管理人の要件、表示の参照項が現行で追加・区分された。判定対象の国内販売原則とマークの区別は維持。"
+                ],
+                "answerImpactFacts": [
+                  "出題時・現行とも正しい。"
+                ],
+                "evidenceSummary": {
+                  "verdict": "正しい",
+                  "explanationText": "正しい。国内で通常販売するガス用品は、届出と技術基準への適合など、表示のための要件を満たす必要がある。ガス事業法（昭和29年法律第51号）第140条、第145条及び第138条による。出題時も現行もこの基本は同じである。現行法では、外国にある特定輸入事業者の国内管理人などの要件が加わっている。",
+                  "differenceSummary": "制度改正を解説へ補足し、完全命題の正誤は維持。",
+                  "promptContext": "国内で販売するガス用品の製造又は輸入の事業を行う者は、経済産業大臣に届け出て、そのガス用品が技術上の基準に適合するようにしなければならない。",
+                  "refs": [],
+                  "displayRefIds": []
+                },
+                "examTime": {
+                  "correctChoiceText": "正しい",
+                  "lawId": "329AC0000000051",
+                  "lawTitle": "ガス事業法",
+                  "lawRevisionId": "329AC0000000051_20220901_504AC0000000074",
+                  "referenceDate": "2022-09-25",
+                  "article": "第140条",
+                  "verificationStatus": "verified",
+                  "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/329AC0000000051?asof=2022-09-25",
+                  "articleTextHash": "bda5a6dfeab6e105a28cac992992f98db9b4c91b2d201ab1207a30f72f6991af"
+                },
+                "current": {
+                  "correctChoiceText": "正しい",
+                  "lawId": "329AC0000000051",
+                  "lawTitle": "ガス事業法",
+                  "lawRevisionId": "329AC0000000051_20251225_506AC0000000067",
+                  "referenceDate": "2026-10-28",
+                  "article": "第140条",
+                  "verificationStatus": "verified",
+                  "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/329AC0000000051?asof=2026-10-28",
+                  "articleTextHash": "fc541777ad1e3b4721e921f91251c2a62cf8c15d9f37dfaf36ccf019e8848452"
+                }
+              },
+              {
+                "auditStatus": "same_as_current",
+                "reviewState": "secondary_verified",
+                "reconciliationStatus": "reconciled",
+                "differenceFacts": [
+                  "該当する定義又は特定器具の対象に判定を変える差分はない。"
+                ],
+                "answerImpactFacts": [
+                  "出題時・現行とも間違い。"
+                ],
+                "evidenceSummary": {
+                  "verdict": "間違い",
+                  "explanationText": "間違い。密閉燃焼式の液化石油ガス用瞬間湯沸器は、特定液化石油ガス器具等から除かれる。液化石油ガスの保安の確保及び取引の適正化に関する法律施行令（昭和43年政令第14号）別表第2第2号は、70kW以下のうち、開放燃焼式・密閉燃焼式・屋外式を除くものを対象としている。",
+                  "differenceSummary": "当該命題の法令差分なし。",
+                  "promptContext": "液化石油ガスの消費量が70kW以下の密閉燃焼式液化石油ガス用瞬間湯沸器は、液石法※の特定液化石油ガス器具等に指定されている。",
+                  "refs": [],
+                  "displayRefIds": []
+                },
+                "examTime": {
+                  "correctChoiceText": "間違い",
+                  "lawId": "343CO0000000014",
+                  "lawTitle": "液化石油ガスの保安の確保及び取引の適正化に関する法律施行令",
+                  "lawRevisionId": "343CO0000000014_20191216_501CO0000000183",
+                  "referenceDate": "2022-09-25",
+                  "article": "別表第2第2号",
+                  "verificationStatus": "verified",
+                  "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/343CO0000000014?asof=2022-09-25",
+                  "articleTextHash": "2cf25b0cfe87dfc5164319e72ff213bd4b5cd5b34e7b51f96f37654cd21389c3"
+                },
+                "current": {
+                  "correctChoiceText": "間違い",
+                  "lawId": "343CO0000000014",
+                  "lawTitle": "液化石油ガスの保安の確保及び取引の適正化に関する法律施行令",
+                  "lawRevisionId": "343CO0000000014_20251225_506CO0000000374",
+                  "referenceDate": "2026-10-28",
+                  "article": "別表第2第2号",
+                  "verificationStatus": "verified",
+                  "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/343CO0000000014?asof=2026-10-28",
+                  "articleTextHash": "879855222c2f5ec2e37ac3a7646402d715eba89700552285272a9e4f2862027a"
+                }
+              },
+              {
+                "auditStatus": "same_as_current",
+                "reviewState": "secondary_verified",
+                "reconciliationStatus": "reconciled",
+                "differenceFacts": [
+                  "該当する定義又は特定器具の対象に判定を変える差分はない。"
+                ],
+                "answerImpactFacts": [
+                  "出題時・現行とも正しい。"
+                ],
+                "evidenceSummary": {
+                  "verdict": "正しい",
+                  "explanationText": "正しい。容器取付型を除いた、この肢のこんろは液化石油ガス器具等に含まれるが、特定液化石油ガス器具等ではない。液化石油ガスの保安の確保及び取引の適正化に関する法律施行令（昭和43年政令第14号）別表第1第2号ロ及び別表第2第1号による。数値条件だけでなく、容器を部品又は附属品として取り付ける構造かどうかも区別する。",
+                  "differenceSummary": "当該命題の法令差分なし。",
+                  "promptContext": "液化石油ガスの消費量の総和が14kW（ガスオーブンを有するものにあっては21kW）以下のものであって、こんろバーナー1個あたりの液化石油ガスの消費量が5.8kW以下の液化石油ガス用こんろ（液化石油ガスを充てんした容器が部品又は附属品として取り付けられる構造のものを除く。）は、液石法※の特定液化石油ガス器具等に指定されていない。",
+                  "refs": [],
+                  "displayRefIds": []
+                },
+                "examTime": {
+                  "correctChoiceText": "正しい",
+                  "lawId": "343CO0000000014",
+                  "lawTitle": "液化石油ガスの保安の確保及び取引の適正化に関する法律施行令",
+                  "lawRevisionId": "343CO0000000014_20191216_501CO0000000183",
+                  "referenceDate": "2022-09-25",
+                  "article": "別表第1第2号",
+                  "verificationStatus": "verified",
+                  "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/343CO0000000014?asof=2022-09-25",
+                  "articleTextHash": "4b80c6be85809848064cfcd0352f391f48c137f062392c1c90b2c44ba1d7aa17"
+                },
+                "current": {
+                  "correctChoiceText": "正しい",
+                  "lawId": "343CO0000000014",
+                  "lawTitle": "液化石油ガスの保安の確保及び取引の適正化に関する法律施行令",
+                  "lawRevisionId": "343CO0000000014_20251225_506CO0000000374",
+                  "referenceDate": "2026-10-28",
+                  "article": "別表第1第2号",
+                  "verificationStatus": "verified",
+                  "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/343CO0000000014?asof=2026-10-28",
+                  "articleTextHash": "8c3de6590ece322026157e99cdda01085326417b572dc30d8e19d658fb5de4f9"
+                }
+              },
+              {
+                "auditStatus": "updated_to_current_law",
+                "reviewState": "tertiary_verified",
+                "reconciliationStatus": "reconciled",
+                "differenceFacts": [
+                  "外国特定輸入事業者や国内管理人の要件、表示の参照項が現行で追加・区分された。判定対象の国内販売原則とマークの区別は維持。"
+                ],
+                "answerImpactFacts": [
+                  "出題時・現行とも正しい。"
+                ],
+                "evidenceSummary": {
+                  "verdict": "正しい",
+                  "explanationText": "正しい。特定液化石油ガス器具等を通常販売するには、ひし形のPSLPGマークが必要である。液化石油ガスの保安の確保及び取引の適正化に関する法律（昭和42年法律第149号）第39条・第48条と、液化石油ガス器具等の技術上の基準等に関する省令（昭和43年通商産業省令第23号）第20条による。出題時と現行でマークの区別は同じである。現行法では、特定輸入事業者に係る表示の根拠を第48条第2項に分けている。",
+                  "differenceSummary": "制度改正を解説へ補足し、完全命題の正誤は維持。",
+                  "promptContext": "LPガス用のガス機器の販売事業者は、液石法※に基づく特定液化石油ガス器具等を販売する場合に、以下の表示のあるものを販売しなければならない。",
+                  "refs": [],
+                  "displayRefIds": []
+                },
+                "examTime": {
+                  "correctChoiceText": "正しい",
+                  "lawId": "342AC0000000149",
+                  "lawTitle": "液化石油ガスの保安の確保及び取引の適正化に関する法律",
+                  "lawRevisionId": "342AC0000000149_20220820_504AC0000000044",
+                  "referenceDate": "2022-09-25",
+                  "article": "第39条",
+                  "verificationStatus": "verified",
+                  "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/342AC0000000149?asof=2022-09-25",
+                  "articleTextHash": "1e73cf4adc0d1cb01e4969342637c086c1f4e8746c9fcbb08ea2053241c3365b"
+                },
+                "current": {
+                  "correctChoiceText": "正しい",
+                  "lawId": "342AC0000000149",
+                  "lawTitle": "液化石油ガスの保安の確保及び取引の適正化に関する法律",
+                  "lawRevisionId": "342AC0000000149_20251225_506AC0000000067",
+                  "referenceDate": "2026-10-28",
+                  "article": "第39条",
+                  "verificationStatus": "verified",
+                  "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/342AC0000000149?asof=2026-10-28",
+                  "articleTextHash": "2eb11694b5f2d3b4818f98327d8d75e7474060dee0a5af38c1d25f71e9811c80"
+                }
+              }
+            ],
+            "questionSetId": "gas-shunin-hei_qs01_08_gas_yohin_tokukanho"
+          },
+          "sourceBinding": {
+            "sourceQuestionKey": "gas-shunin:hei:2022:shohi:q21",
+            "reviewQuestionId": "4f8f2325c68a3916",
+            "sourceRecordRef": "question_2022_3.json#1"
+          },
+          "workItem": {
+            "workId": "2022-shohi-q21-figure",
+            "qualificationId": "gas-shunin-hei",
+            "listGroupId": "2022",
+            "questionId": "4f8f2325c68a3916",
+            "originalQuestionId": "4f8f2325c68a3916",
+            "sourceQuestionKey": "gas-shunin:hei:2022:shohi:q21",
+            "reviewQuestionId": "4f8f2325c68a3916",
+            "sourceRecordRef": "question_2022_3.json#1",
+            "caseIds": [
+              "operator-figure-4f8f2325c68a3916"
+            ],
+            "caseInputHashes": {
+              "operator-figure-4f8f2325c68a3916": "b206c6862983cb04265415ca2251ead202e9ada47db2788ff2336c85ab7461fb"
+            },
+            "caseSnapshots": [
+              {
+                "id": "operator-figure-4f8f2325c68a3916",
+                "canonicalSnapshot": {
+                  "qualificationId": "gas-shunin-hei",
+                  "listGroupId": "2022",
+                  "originalQuestionId": "4f8f2325c68a3916",
+                  "officialEvidenceCandidates": [
+                    {
+                      "sourceClass": "official",
+                      "title": "2022年度丙種の公式問題・正答と図",
+                      "locator": "output/pdf/gas-shunin-official/2022/q_hei_r4.pdf / PDF 31頁 / 2022:shohi:問21 / 当該図の切出し",
+                      "verifiedAt": "2026-10-28T03:25:01.128135+00:00",
+                      "contentHash": "1a8a6899bad715d83965f6eccc87588ffb018a3a12c05c3e88f3b9d9a8d7bcfe",
+                      "localSourcePath": "output/pdf/gas-shunin-official/2022/q_hei_r4.pdf",
+                      "localRenderedPagePaths": [
+                        "output/gas-shunin-hei/pdf_review/2022/mark_sheet_question/page-31.png",
+                        "output/gas-shunin-hei/direct_publication/20261027/pdf_figure_candidates/2022-shohi-q21.png",
+                        "output/gas-shunin-hei/pdf_review/2022/answer/page-01.png"
+                      ],
+                      "localRenderedPageHashes": {
+                        "output/gas-shunin-hei/pdf_review/2022/mark_sheet_question/page-31.png": "93b4cbb9e42dbc1f6048cecfc0516699330bbff11e321279c4e6370e2aae1689",
+                        "output/gas-shunin-hei/direct_publication/20261027/pdf_figure_candidates/2022-shohi-q21.png": "862e7978998e189b3ab69492bf61f260cdeec03cae4110660bd9bdaf8b4d4c14",
+                        "output/gas-shunin-hei/pdf_review/2022/answer/page-01.png": "612d193d22904203f6c947a81b8918d81cec16879deca4e2d9058908f54241af"
+                      },
+                      "verifiedTranscription": "【現在の問題本文・全選択肢】\nガス機器関連法令等に関する次の記述のうち、誤っているものはどれか。\n\n【(5)の表示】\nひし形の枠内に、上段に「PS」、下段に「LPG」と記した表示。\n\n※液石法とは、「液化石油ガスの保安の確保及び取引の適正化に関する法律」をいう。\n[\"給湯付ガスふろがまは、給水装置に係る器具等として水道法の対象である。\", \"国内で販売するガス用品の製造又は輸入の事業を行う者は、経済産業大臣に届け出て、そのガス用品が技術上の基準に適合するようにしなければならない。\", \"液化石油ガスの消費量が70kW以下の密閉燃焼式液化石油ガス用瞬間湯沸器は、液石法※の特定液化石油ガス器具等に指定されている。\", \"液化石油ガスの消費量の総和が14kW（ガスオーブンを有するものにあっては21kW）以下のものであって、こんろバーナー1個あたりの液化石油ガスの消費量が5.8kW以下の液化石油ガス用こんろ（液化石油ガスを充てんした容器が部品又は附属品として取り付けられる構造のものを除く。）は、液石法※の特定液化石油ガス器具等に指定されていない。\", \"LPガス用のガス機器の販売事業者は、液石法※に基づく特定液化石油ガス器具等を販売する場合に、以下の表示のあるものを販売しなければならない。\"]\n【図の候補】\noutput/gas-shunin-hei/direct_publication/20261027/pdf_figure_candidates/2022-shohi-q21.png\n【画像URL候補】\nhttps://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fgas-shunin-hei%2Fofficial-source-2022-4f8f2325c68a3916-862e7978998e189b.png?alt=media\nURLは公開先予定であり、Storage未反映。",
+                      "candidateChanges": {
+                        "questionImageStorageUrls": [
+                          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fgas-shunin-hei%2Fofficial-source-2022-4f8f2325c68a3916-862e7978998e189b.png?alt=media"
+                        ]
+                      },
+                      "transcriptionRole": "公式図の切出しを問題全体の図として追加。問題文・選択肢・答えの変更は行わない。"
+                    }
+                  ],
+                  "officialImagePublicationCandidate": {
+                    "localImagePath": "output/gas-shunin-hei/question_images/2022/official-source-2022-4f8f2325c68a3916-862e7978998e189b.png",
+                    "publicUrl": "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fgas-shunin-hei%2Fofficial-source-2022-4f8f2325c68a3916-862e7978998e189b.png?alt=media",
+                    "contentHash": "862e7978998e189b3ab69492bf61f260cdeec03cae4110660bd9bdaf8b4d4c14",
+                    "proposedChanges": {
+                      "questionImageStorageUrls": [
+                        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fgas-shunin-hei%2Fofficial-source-2022-4f8f2325c68a3916-862e7978998e189b.png?alt=media"
+                      ]
+                    }
+                  },
+                  "displayFormatRules": [
+                    "公式PDFの該当問題と図の全記号・接続関係・位置が切出しに残るか照合する。",
+                    "追加先は問題全体の画像。選択肢や答えを変えない。",
+                    "候補URLは未公開の予定値。配信成功を推定しない。"
+                  ]
+                }
+              }
+            ]
+          },
+          "evidence": [
+            {
+              "sourceClass": "official",
+              "title": "2022年度丙種の公式問題・正答と図",
+              "locator": "output/pdf/gas-shunin-official/2022/q_hei_r4.pdf / PDF 31頁 / 2022:shohi:問21 / 当該図の切出し",
+              "verifiedAt": "2026-10-28T03:25:01.128135+00:00",
+              "contentHash": "1a8a6899bad715d83965f6eccc87588ffb018a3a12c05c3e88f3b9d9a8d7bcfe"
+            }
+          ],
+          "imagePaths": [
+            "output/gas-shunin-hei/pdf_review/2022/mark_sheet_question/page-31.png",
+            "output/gas-shunin-hei/direct_publication/20261027/pdf_figure_candidates/2022-shohi-q21.png",
+            "output/gas-shunin-hei/pdf_review/2022/answer/page-01.png"
+          ],
+          "verifiedTranscription": "【現在の問題本文・全選択肢】\nガス機器関連法令等に関する次の記述のうち、誤っているものはどれか。\n\n【(5)の表示】\nひし形の枠内に、上段に「PS」、下段に「LPG」と記した表示。\n\n※液石法とは、「液化石油ガスの保安の確保及び取引の適正化に関する法律」をいう。\n[\"給湯付ガスふろがまは、給水装置に係る器具等として水道法の対象である。\", \"国内で販売するガス用品の製造又は輸入の事業を行う者は、経済産業大臣に届け出て、そのガス用品が技術上の基準に適合するようにしなければならない。\", \"液化石油ガスの消費量が70kW以下の密閉燃焼式液化石油ガス用瞬間湯沸器は、液石法※の特定液化石油ガス器具等に指定されている。\", \"液化石油ガスの消費量の総和が14kW（ガスオーブンを有するものにあっては21kW）以下のものであって、こんろバーナー1個あたりの液化石油ガスの消費量が5.8kW以下の液化石油ガス用こんろ（液化石油ガスを充てんした容器が部品又は附属品として取り付けられる構造のものを除く。）は、液石法※の特定液化石油ガス器具等に指定されていない。\", \"LPガス用のガス機器の販売事業者は、液石法※に基づく特定液化石油ガス器具等を販売する場合に、以下の表示のあるものを販売しなければならない。\"]\n【図の候補】\noutput/gas-shunin-hei/direct_publication/20261027/pdf_figure_candidates/2022-shohi-q21.png\n【画像URL候補】\nhttps://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fgas-shunin-hei%2Fofficial-source-2022-4f8f2325c68a3916-862e7978998e189b.png?alt=media\nURLは公開先予定であり、Storage未反映。",
+          "candidateChanges": {
+            "questionImageStorageUrls": [
+              "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fgas-shunin-hei%2Fofficial-source-2022-4f8f2325c68a3916-862e7978998e189b.png?alt=media"
+            ]
+          },
+          "sourcePath": "output/gas-shunin-hei/questions_json/2022/00_source/question_2022_3.json",
+          "sourceSha256": "f4ae3a3430696d98274e44413186d1da986c6dfea6465301fbb0bedceb802e87",
+          "questionPdfPath": "output/pdf/gas-shunin-official/2022/q_hei_r4.pdf",
+          "questionPdfSha256": "1a8a6899bad715d83965f6eccc87588ffb018a3a12c05c3e88f3b9d9a8d7bcfe"
+        }
+      ]
+    }
+  },
+  "independentReviews": [
+    {
+      "path": "output/gas-shunin-hei/direct_publication/20261027/figure_review/2022-shohi-q21-image-r3/reviews/blind_a-validated.json",
+      "sha256": "933b45811c270793334bb1dc39b2819534f2df21c3b357c44f2ea1c0afc93898",
+      "payload": {
+        "receiptHash": "aa8b921461b8548257a1e100a65537767f3a76fe4508e57d33944eadc4cb2463",
+        "reviews": {
+          "2022:shohi:問21": {
+            "schemaVersion": "question-issue-blind-review/v1",
+            "phase": "blind",
+            "reviewerSlot": "A",
+            "inputHash": "ca338b47db6c8bc20dbb4a73bd2a2116ac9ffe6457514d2b4dbf0add6d6d333b",
+            "workflowContractHashes": [],
+            "conclusion": "problem_found",
+            "proposedChanges": {
+              "questionImageStorageUrls": [
+                "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fgas-shunin-hei%2Fofficial-source-2022-4f8f2325c68a3916-862e7978998e189b.png?alt=media"
+              ]
+            },
+            "findings": [
+              {
+                "field": "questionImageStorageUrls",
+                "observed": "現在値は空配列。",
+                "expected": "公式PDFの問21にあるPSLPG表示図を切り出した公式画像URLを追加する。",
+                "rationale": "公式PDFの問21では、(5)の表示としてひし形枠内に上段PS・下段LPGの図が示されており、候補画像はその形状・文字・配置を保持している。現在の問題画像URLが空のため、図表が欠落している。"
+              }
+            ],
+            "evidence": [
+              {
+                "sourceClass": "official",
+                "title": "2022年度丙種の公式問題・正答と図",
+                "locator": "output/pdf/gas-shunin-official/2022/q_hei_r4.pdf / PDF 31頁 / 2022:shohi:問21 / 当該図の切出し",
+                "verifiedAt": "2026-10-28T03:25:01.128135+00:00",
+                "contentHash": "1a8a6899bad715d83965f6eccc87588ffb018a3a12c05c3e88f3b9d9a8d7bcfe"
+              }
+            ],
+            "appRootCauseKey": null,
+            "reproductionEvidence": []
+          }
+        },
+        "normalizer": "none; exact fixed-evidence equality required"
+      }
+    },
+    {
+      "path": "output/gas-shunin-hei/direct_publication/20261027/figure_review/2022-shohi-q21-image-r3/reviews/blind_b-validated.json",
+      "sha256": "7f282691a644ce0f1e403af5aa576e50947cbfd5104ec571227877d8d6cea433",
+      "payload": {
+        "receiptHash": "b242300f4478d4390ccb93775bfe6bc6b2f2d9858e1f5ff6db72bcd7086c60e9",
+        "reviews": {
+          "2022:shohi:問21": {
+            "schemaVersion": "question-issue-blind-review/v1",
+            "phase": "blind",
+            "reviewerSlot": "B",
+            "inputHash": "ca338b47db6c8bc20dbb4a73bd2a2116ac9ffe6457514d2b4dbf0add6d6d333b",
+            "workflowContractHashes": [],
+            "conclusion": "problem_found",
+            "proposedChanges": {
+              "questionImageStorageUrls": [
+                "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fgas-shunin-hei%2Fofficial-source-2022-4f8f2325c68a3916-862e7978998e189b.png?alt=media"
+              ]
+            },
+            "findings": [
+              {
+                "field": "questionImageStorageUrls",
+                "observed": "現在値は空配列で、問題文中の表示図が画像fieldにない。",
+                "expected": "公式問題冊子に掲載された、ひし形枠内に上段PS・下段LPGを配置した図の公式画像URLを設定する。",
+                "rationale": "公式PDFの問21では第5肢の表示図が解答上必要であり、候補画像は同図の形状・文字・配置を忠実に再現している。"
+              }
+            ],
+            "evidence": [
+              {
+                "sourceClass": "official",
+                "title": "2022年度丙種の公式問題・正答と図",
+                "locator": "output/pdf/gas-shunin-official/2022/q_hei_r4.pdf / PDF 31頁 / 2022:shohi:問21 / 当該図の切出し",
+                "verifiedAt": "2026-10-28T03:25:01.128135+00:00",
+                "contentHash": "1a8a6899bad715d83965f6eccc87588ffb018a3a12c05c3e88f3b9d9a8d7bcfe"
+              }
+            ],
+            "appRootCauseKey": null,
+            "reproductionEvidence": []
+          }
+        },
+        "normalizer": "none; exact fixed-evidence equality required"
+      }
+    },
+    {
+      "path": "output/gas-shunin-hei/direct_publication/20261027/figure_review/2022-shohi-q21-image-r3/reviews/challenge-validated.json",
+      "sha256": "31f7d251edb61a380c9ca94718fd3e616b6a9769c274580ed330108b43d3ca86",
+      "payload": {
+        "receiptHash": "86ff1a01db139009244e43f4ae3bce7a6625051173e1f191ac2d56f10b6287a9",
+        "reviews": {
+          "2022:shohi:問21": {
+            "schemaVersion": "question-issue-challenge-review/v1",
+            "phase": "challenge",
+            "inputHash": "0674e0891d50a28ca836415495ba761bec009adb2711ef884aa072b246e25610",
+            "blindReviewHashes": [
+              "f258171f699c9886fbbccc2dfe00277c56559dba8e75c09e2ecb4eeb12b5db17",
+              "074a4c547c46c27a2e3cfc79be36ef68ddf03cc491d68306ebf0c158ed2b113a"
+            ],
+            "decision": "fix",
+            "rationale": "独立したA/Bの両レビューがproblem_foundで一致し、公式画像に基づく同一の図画像URL追加を提案している。公式PDFの問21第5肢にはPSを上段、LPGを下段に配置したひし形枠の表示図があり、現在の画像URL空配列では当該図が欠落しているため、提案値を採用する。",
+            "changes": {
+              "questionImageStorageUrls": [
+                "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fgas-shunin-hei%2Fofficial-source-2022-4f8f2325c68a3916-862e7978998e189b.png?alt=media"
+              ]
+            },
+            "evidence": [
+              {
+                "sourceClass": "official",
+                "title": "2022年度丙種の公式問題・正答と図",
+                "locator": "output/pdf/gas-shunin-official/2022/q_hei_r4.pdf / PDF 31頁 / 2022:shohi:問21 / 当該図の切出し",
+                "verifiedAt": "2026-10-28T03:25:01.128135+00:00",
+                "contentHash": "1a8a6899bad715d83965f6eccc87588ffb018a3a12c05c3e88f3b9d9a8d7bcfe"
+              }
+            ],
+            "appRootCauseKey": null,
+            "reproductionEvidence": []
+          }
+        },
+        "normalizer": "none; exact fixed-evidence equality required"
+      }
+    }
+  ],
+  "nativeReceipts": [
+    {
+      "path": "output/gas-shunin-hei/direct_publication/20261027/figure_review/2022-shohi-q21-image-r3/reviews/blind_a-received.json",
+      "sha256": "dfbe4eb94d246a2ddee1e29d57f782ef6259e8c2e8974d27d3437227edd2b7d3",
+      "payload": {
+        "inputHash": "18f3730c57870e816def9047d9286d65a2d9ae82c0beaf0c47b7c923352e9c98",
+        "expectedIds": [
+          "2022:shohi:問21"
+        ],
+        "expectedWorkIds": [
+          "2022-shohi-q21-figure"
+        ],
+        "native": {
+          "thread_id": "01a1808a-3bd6-7dc0-9685-192f3552b627",
+          "session_id": "01a1808a-3bd6-7dc0-9685-192f3552b627",
+          "turn_id": "01a1808a-425f-7e01-b2a6-f4bd20a21972",
+          "final_message": "{\"results\":{\"2022-shohi-q21-figure\":{\"schemaVersion\":\"question-issue-blind-review/v1\",\"phase\":\"blind\",\"reviewerSlot\":\"A\",\"inputHash\":\"ca338b47db6c8bc20dbb4a73bd2a2116ac9ffe6457514d2b4dbf0add6d6d333b\",\"workflowContractHashes\":[],\"conclusion\":\"problem_found\",\"proposedChanges\":{\"questionImageStorageUrls\":[\"https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fgas-shunin-hei%2Fofficial-source-2022-4f8f2325c68a3916-862e7978998e189b.png?alt=media\"]},\"findings\":[{\"field\":\"questionImageStorageUrls\",\"observed\":\"現在値は空配列。\",\"expected\":\"公式PDFの問21にあるPSLPG表示図を切り出した公式画像URLを追加する。\",\"rationale\":\"公式PDFの問21では、(5)の表示としてひし形枠内に上段PS・下段LPGの図が示されており、候補画像はその形状・文字・配置を保持している。現在の問題画像URLが空のため、図表が欠落している。\"}],\"evidence\":[{\"sourceClass\":\"official\",\"title\":\"2022年度丙種の公式問題・正答と図\",\"locator\":\"output/pdf/gas-shunin-official/2022/q_hei_r4.pdf / PDF 31頁 / 2022:shohi:問21 / 当該図の切出し\",\"verifiedAt\":\"2026-10-28T03:25:01.128135+00:00\",\"contentHash\":\"1a8a6899bad715d83965f6eccc87588ffb018a3a12c05c3e88f3b9d9a8d7bcfe\"}],\"appRootCauseKey\":null,\"reproductionEvidence\":[]}}}",
+          "model": "gpt-5.6-luna",
+          "service_tier": null,
+          "reasoning_effort": "high",
+          "image_inputs": [
+            {
+              "sourcePath": "output/gas-shunin-hei/pdf_review/2022/mark_sheet_question/page-31.png",
+              "attachmentIndex": 0,
+              "mimeType": "image/png",
+              "byteCount": 332465,
+              "sha256": "93b4cbb9e42dbc1f6048cecfc0516699330bbff11e321279c4e6370e2aae1689"
+            },
+            {
+              "sourcePath": "output/gas-shunin-hei/direct_publication/20261027/pdf_figure_candidates/2022-shohi-q21.png",
+              "attachmentIndex": 1,
+              "mimeType": "image/png",
+              "byteCount": 24144,
+              "sha256": "862e7978998e189b3ab69492bf61f260cdeec03cae4110660bd9bdaf8b4d4c14"
+            },
+            {
+              "sourcePath": "output/gas-shunin-hei/pdf_review/2022/answer/page-01.png",
+              "attachmentIndex": 2,
+              "mimeType": "image/png",
+              "byteCount": 169827,
+              "sha256": "612d193d22904203f6c947a81b8918d81cec16879deca4e2d9058908f54241af"
+            }
+          ],
+          "changed_files": [],
+          "subagent_thread_ids": [],
+          "subagent_models": [],
+          "subagent_reasoning_efforts": [],
+          "completion_mode": "turn_completed",
+          "model_turn_started_at": "2026-10-28T12:25:07.042492+09:00",
+          "model_turn_finished_at": "2026-10-28T12:25:15.333786+09:00",
+          "model_turn_duration_seconds": 8.291607,
+          "model_turn_queue_wait_seconds": 5.646079
+        },
+        "receiptHash": "aa8b921461b8548257a1e100a65537767f3a76fe4508e57d33944eadc4cb2463"
+      }
+    },
+    {
+      "path": "output/gas-shunin-hei/direct_publication/20261027/figure_review/2022-shohi-q21-image-r3/reviews/blind_b-received.json",
+      "sha256": "1ccfb1ae6f473aa1ac8067b16ac4b72ffba04bfe79b189f1c8302a2a43efd91e",
+      "payload": {
+        "inputHash": "b614ddea80f7d5b9184aaba5b54be8308d1759d35a712769ac6c9cc2622fce64",
+        "expectedIds": [
+          "2022:shohi:問21"
+        ],
+        "expectedWorkIds": [
+          "2022-shohi-q21-figure"
+        ],
+        "native": {
+          "thread_id": "01a1808a-71ef-7830-98b6-fa93a6b1c5dd",
+          "session_id": "01a1808a-71ef-7830-98b6-fa93a6b1c5dd",
+          "turn_id": "01a1808a-7f7d-7ce2-952c-700be6c929f9",
+          "final_message": "{\"results\":{\"2022-shohi-q21-figure\":{\"schemaVersion\":\"question-issue-blind-review/v1\",\"phase\":\"blind\",\"reviewerSlot\":\"B\",\"inputHash\":\"ca338b47db6c8bc20dbb4a73bd2a2116ac9ffe6457514d2b4dbf0add6d6d333b\",\"workflowContractHashes\":[],\"conclusion\":\"problem_found\",\"proposedChanges\":{\"questionImageStorageUrls\":[\"https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fgas-shunin-hei%2Fofficial-source-2022-4f8f2325c68a3916-862e7978998e189b.png?alt=media\"]},\"findings\":[{\"field\":\"questionImageStorageUrls\",\"observed\":\"現在値は空配列で、問題文中の表示図が画像fieldにない。\",\"expected\":\"公式問題冊子に掲載された、ひし形枠内に上段PS・下段LPGを配置した図の公式画像URLを設定する。\",\"rationale\":\"公式PDFの問21では第5肢の表示図が解答上必要であり、候補画像は同図の形状・文字・配置を忠実に再現している。\"}],\"evidence\":[{\"sourceClass\":\"official\",\"title\":\"2022年度丙種の公式問題・正答と図\",\"locator\":\"output/pdf/gas-shunin-official/2022/q_hei_r4.pdf / PDF 31頁 / 2022:shohi:問21 / 当該図の切出し\",\"verifiedAt\":\"2026-10-28T03:25:01.128135+00:00\",\"contentHash\":\"1a8a6899bad715d83965f6eccc87588ffb018a3a12c05c3e88f3b9d9a8d7bcfe\"}],\"appRootCauseKey\":null,\"reproductionEvidence\":[]}}}",
+          "model": "gpt-5.6-luna",
+          "service_tier": null,
+          "reasoning_effort": "high",
+          "image_inputs": [
+            {
+              "sourcePath": "output/gas-shunin-hei/pdf_review/2022/mark_sheet_question/page-31.png",
+              "attachmentIndex": 0,
+              "mimeType": "image/png",
+              "byteCount": 332465,
+              "sha256": "93b4cbb9e42dbc1f6048cecfc0516699330bbff11e321279c4e6370e2aae1689"
+            },
+            {
+              "sourcePath": "output/gas-shunin-hei/direct_publication/20261027/pdf_figure_candidates/2022-shohi-q21.png",
+              "attachmentIndex": 1,
+              "mimeType": "image/png",
+              "byteCount": 24144,
+              "sha256": "862e7978998e189b3ab69492bf61f260cdeec03cae4110660bd9bdaf8b4d4c14"
+            },
+            {
+              "sourcePath": "output/gas-shunin-hei/pdf_review/2022/answer/page-01.png",
+              "attachmentIndex": 2,
+              "mimeType": "image/png",
+              "byteCount": 169827,
+              "sha256": "612d193d22904203f6c947a81b8918d81cec16879deca4e2d9058908f54241af"
+            }
+          ],
+          "changed_files": [],
+          "subagent_thread_ids": [],
+          "subagent_models": [],
+          "subagent_reasoning_efforts": [],
+          "completion_mode": "turn_completed",
+          "model_turn_started_at": "2026-10-28T12:25:22.688391+09:00",
+          "model_turn_finished_at": "2026-10-28T12:25:32.656659+09:00",
+          "model_turn_duration_seconds": 9.968679,
+          "model_turn_queue_wait_seconds": 6.239606
+        },
+        "receiptHash": "b242300f4478d4390ccb93775bfe6bc6b2f2d9858e1f5ff6db72bcd7086c60e9"
+      }
+    },
+    {
+      "path": "output/gas-shunin-hei/direct_publication/20261027/figure_review/2022-shohi-q21-image-r3/reviews/challenge-received.json",
+      "sha256": "2eab01010f571f359e9ff928e1cb61e1cddef832923063cc4b93ec984156c2fb",
+      "payload": {
+        "inputHash": "6e250cd7fee091d5b6915ce1864ad93c3057116f6afaa9a897d09cb70f81b733",
+        "expectedIds": [
+          "2022:shohi:問21"
+        ],
+        "expectedWorkIds": [
+          "2022-shohi-q21-figure"
+        ],
+        "native": {
+          "thread_id": "01a1808b-74e7-7062-b65d-2a37981a654c",
+          "session_id": "01a1808b-74e7-7062-b65d-2a37981a654c",
+          "turn_id": "01a1808b-80b5-7430-9b53-f92f39db013a",
+          "final_message": "{\"results\":{\"2022-shohi-q21-figure\":{\"schemaVersion\":\"question-issue-challenge-review/v1\",\"phase\":\"challenge\",\"inputHash\":\"0674e0891d50a28ca836415495ba761bec009adb2711ef884aa072b246e25610\",\"blindReviewHashes\":[\"f258171f699c9886fbbccc2dfe00277c56559dba8e75c09e2ecb4eeb12b5db17\",\"074a4c547c46c27a2e3cfc79be36ef68ddf03cc491d68306ebf0c158ed2b113a\"],\"decision\":\"fix\",\"rationale\":\"独立したA/Bの両レビューがproblem_foundで一致し、公式画像に基づく同一の図画像URL追加を提案している。公式PDFの問21第5肢にはPSを上段、LPGを下段に配置したひし形枠の表示図があり、現在の画像URL空配列では当該図が欠落しているため、提案値を採用する。\",\"changes\":{\"questionImageStorageUrls\":[\"https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fgas-shunin-hei%2Fofficial-source-2022-4f8f2325c68a3916-862e7978998e189b.png?alt=media\"]},\"evidence\":[{\"sourceClass\":\"official\",\"title\":\"2022年度丙種の公式問題・正答と図\",\"locator\":\"output/pdf/gas-shunin-official/2022/q_hei_r4.pdf / PDF 31頁 / 2022:shohi:問21 / 当該図の切出し\",\"verifiedAt\":\"2026-10-28T03:25:01.128135+00:00\",\"contentHash\":\"1a8a6899bad715d83965f6eccc87588ffb018a3a12c05c3e88f3b9d9a8d7bcfe\"}],\"appRootCauseKey\":null,\"reproductionEvidence\":[]}}}",
+          "model": "gpt-5.6-luna",
+          "service_tier": null,
+          "reasoning_effort": "high",
+          "image_inputs": [
+            {
+              "sourcePath": "output/gas-shunin-hei/pdf_review/2022/mark_sheet_question/page-31.png",
+              "attachmentIndex": 0,
+              "mimeType": "image/png",
+              "byteCount": 332465,
+              "sha256": "93b4cbb9e42dbc1f6048cecfc0516699330bbff11e321279c4e6370e2aae1689"
+            },
+            {
+              "sourcePath": "output/gas-shunin-hei/direct_publication/20261027/pdf_figure_candidates/2022-shohi-q21.png",
+              "attachmentIndex": 1,
+              "mimeType": "image/png",
+              "byteCount": 24144,
+              "sha256": "862e7978998e189b3ab69492bf61f260cdeec03cae4110660bd9bdaf8b4d4c14"
+            },
+            {
+              "sourcePath": "output/gas-shunin-hei/pdf_review/2022/answer/page-01.png",
+              "attachmentIndex": 2,
+              "mimeType": "image/png",
+              "byteCount": 169827,
+              "sha256": "612d193d22904203f6c947a81b8918d81cec16879deca4e2d9058908f54241af"
+            }
+          ],
+          "changed_files": [],
+          "subagent_thread_ids": [],
+          "subagent_models": [],
+          "subagent_reasoning_efforts": [],
+          "completion_mode": "turn_completed",
+          "model_turn_started_at": "2026-10-28T12:26:28.539058+09:00",
+          "model_turn_finished_at": "2026-10-28T12:26:36.241051+09:00",
+          "model_turn_duration_seconds": 7.702075,
+          "model_turn_queue_wait_seconds": 5.881389
+        },
+        "receiptHash": "86ff1a01db139009244e43f4ae3bce7a6625051173e1f191ac2d56f10b6287a9"
+      }
+    }
+  ],
+  "saveResult": {
+    "path": "output/gas-shunin-hei/direct_publication/20261027/figure_review/2022-shohi-q21-image-r3/reviews/save-result.json",
+    "sha256": "21b8527aa940dda13109567d3519bc368bb934e9a19d98a7e7c785e809093d57",
+    "payload": {
+      "planSha256": "1d442f5169eaa5a020c3c2ab5d266c3cc4344ef7fdeb0da1c62a9a0ada565c33",
+      "results": [
+        {
+          "sourceQuestionId": "2022:shohi:問21",
+          "decision": "fix",
+          "stagedPath": "output/gas-shunin-hei/direct_publication/20261027/figure_review/2022-shohi-q21-image-r3/reviews/individual/2022-shohi-q21-figure/zzzz-hei-direct-figure-2022-shohi-q21-image-r3_2022-shohi-q21-figure_4f8f2325c68a3916.json",
+          "patchSha256": "1277a8e255ddef3a6dc79e13030e26fda337df159c1762e3783a97704963a0f1",
+          "patchPath": "output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/zzzz-hei-direct-figure-2022-shohi-q21-image-r3_2022-shohi-q21-figure_4f8f2325c68a3916.json"
+        }
+      ]
+    }
+  },
+  "formalPatch": {
+    "path": "output/gas-shunin-hei/questions_json/2022/24_questionIssueCorrections/zzzz-hei-direct-figure-2022-shohi-q21-image-r3_2022-shohi-q21-figure_4f8f2325c68a3916.json",
+    "sha256": "1277a8e255ddef3a6dc79e13030e26fda337df159c1762e3783a97704963a0f1",
+    "payload": {
+      "schemaVersion": "question-issue-correction/v1",
+      "origin": "user_problem_report",
+      "batchId": "zzzz-hei-direct-figure-2022-shohi-q21-image-r3",
+      "category": "image",
+      "caseIds": [
+        "operator-figure-4f8f2325c68a3916"
+      ],
+      "inputCaseHashes": {
+        "operator-figure-4f8f2325c68a3916": "b206c6862983cb04265415ca2251ead202e9ada47db2788ff2336c85ab7461fb"
+      },
+      "reviewProtocol": "blind-a-b-challenge/v1",
+      "blindReviewHashes": [
+        "f258171f699c9886fbbccc2dfe00277c56559dba8e75c09e2ecb4eeb12b5db17",
+        "074a4c547c46c27a2e3cfc79be36ef68ddf03cc491d68306ebf0c158ed2b113a"
+      ],
+      "challengeReviewHash": "e420c41c83c8c9a03bbcf537a1b7e9875e20294e86ddc1d2a1faf0180c87c800",
+      "createdAt": "2026-10-28T03:25:01.128135+00:00",
+      "entries": [
+        {
+          "original_question_id": "4f8f2325c68a3916",
+          "sourceQuestionKey": "gas-shunin:hei:2022:shohi:q21",
+          "reviewQuestionId": "4f8f2325c68a3916",
+          "sourceRecordRef": "question_2022_3.json#1",
+          "expectedBeforeHash": "9d46fd3fff13543b2f2988f8b1dc184dd0e9acee0ed34ac4c9033565d223249c",
+          "changes": {
+            "questionImageStorageUrls": [
+              "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fgas-shunin-hei%2Fofficial-source-2022-4f8f2325c68a3916-862e7978998e189b.png?alt=media"
+            ]
+          },
+          "rationale": "Independent blind A/B reviews produced identical structured changes for category=image, and the challenge gate bound the correction to their official/primary evidence.",
+          "evidence": [
+            {
+              "sourceClass": "official",
+              "title": "2022年度丙種の公式問題・正答と図",
+              "locator": "output/pdf/gas-shunin-official/2022/q_hei_r4.pdf / PDF 31頁 / 2022:shohi:問21 / 当該図の切出し",
+              "verifiedAt": "2026-10-28T03:25:01.128135+00:00",
+              "contentHash": "1a8a6899bad715d83965f6eccc87588ffb018a3a12c05c3e88f3b9d9a8d7bcfe"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "requiredChecks": {
+    "path": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032733Z/result.json",
+    "sha256": "f7f884d1070abd392dedd0635cc6216557ffe8aeb0bbc7f7cb985d0405ca0e29",
+    "payload": {
+      "generatedAt": "20261028T032733Z",
+      "selectedCount": 489,
+      "byYear": {
+        "2017": 55,
+        "2023": 54,
+        "2019": 55,
+        "2024": 56,
+        "2020": 54,
+        "2022": 56,
+        "2018": 54,
+        "2025": 52,
+        "2021": 53
+      },
+      "commands": [
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_choice_text_alignment.py",
+            "--base-dir",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032733Z/gas-shunin-hei/questions_json",
+            "--stage",
+            "merged"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032733Z/check-00.log",
+          "logSha256": "a0a43fc049c21d611775721216fc1fe1f18569576a2440e0f682647409dbe70f"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_required_fields.py",
+            "--base-dir",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032733Z/gas-shunin-hei/questions_json",
+            "--stage",
+            "merged"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032733Z/check-01.log",
+          "logSha256": "aba5ddbabc195b6b3065026bd5dd0bbc689b62d9454c334b5b90e21ac5933b8c"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2017/00_source/question_2017_1.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2017/23_correctChoiceText_fixed/question_2017_1_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2017/10_questionType_fixed/question_2017_1_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032733Z/check-02.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2017/00_source/question_2017_2.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2017/23_correctChoiceText_fixed/question_2017_2_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2017/10_questionType_fixed/question_2017_2_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032733Z/check-03.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2017/00_source/question_2017_3.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2017/23_correctChoiceText_fixed/question_2017_3_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2017/10_questionType_fixed/question_2017_3_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032733Z/check-04.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2023/00_source/question_2023_1.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2023/23_correctChoiceText_fixed/question_2023_1_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2023/10_questionType_fixed/question_2023_1_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032733Z/check-05.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2023/00_source/question_2023_2.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2023/23_correctChoiceText_fixed/question_2023_2_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2023/10_questionType_fixed/question_2023_2_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032733Z/check-06.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2023/00_source/question_2023_3.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2023/23_correctChoiceText_fixed/question_2023_3_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2023/10_questionType_fixed/question_2023_3_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032733Z/check-07.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2019/00_source/question_2019_1.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2019/23_correctChoiceText_fixed/question_2019_1_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2019/10_questionType_fixed/question_2019_1_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032733Z/check-08.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2019/00_source/question_2019_2.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2019/23_correctChoiceText_fixed/question_2019_2_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2019/10_questionType_fixed/question_2019_2_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032733Z/check-09.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2019/00_source/question_2019_3.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2019/23_correctChoiceText_fixed/question_2019_3_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2019/10_questionType_fixed/question_2019_3_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032733Z/check-10.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2024/00_source/question_2024_1.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2024/23_correctChoiceText_fixed/question_2024_1_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2024/10_questionType_fixed/question_2024_1_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032733Z/check-11.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2024/00_source/question_2024_2.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2024/23_correctChoiceText_fixed/question_2024_2_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2024/10_questionType_fixed/question_2024_2_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032733Z/check-12.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2024/00_source/question_2024_3.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2024/23_correctChoiceText_fixed/question_2024_3_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2024/10_questionType_fixed/question_2024_3_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032733Z/check-13.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2020/00_source/question_2020_1.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2020/23_correctChoiceText_fixed/question_2020_1_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2020/10_questionType_fixed/question_2020_1_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032733Z/check-14.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2020/00_source/question_2020_2.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2020/23_correctChoiceText_fixed/question_2020_2_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2020/10_questionType_fixed/question_2020_2_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032733Z/check-15.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2020/00_source/question_2020_3.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2020/23_correctChoiceText_fixed/question_2020_3_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2020/10_questionType_fixed/question_2020_3_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032733Z/check-16.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2022/00_source/question_2022_1.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2022/23_correctChoiceText_fixed/question_2022_1_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2022/10_questionType_fixed/question_2022_1_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032733Z/check-17.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2022/00_source/question_2022_2.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2022/23_correctChoiceText_fixed/question_2022_2_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2022/10_questionType_fixed/question_2022_2_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032733Z/check-18.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2022/00_source/question_2022_3.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2022/23_correctChoiceText_fixed/question_2022_3_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2022/10_questionType_fixed/question_2022_3_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032733Z/check-19.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2018/00_source/question_2018_1.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2018/23_correctChoiceText_fixed/question_2018_1_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2018/10_questionType_fixed/question_2018_1_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032733Z/check-20.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2018/00_source/question_2018_2.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2018/23_correctChoiceText_fixed/question_2018_2_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2018/10_questionType_fixed/question_2018_2_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032733Z/check-21.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2018/00_source/question_2018_3.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2018/23_correctChoiceText_fixed/question_2018_3_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2018/10_questionType_fixed/question_2018_3_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032733Z/check-22.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2025/00_source/question_2025_1.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2025/23_correctChoiceText_fixed/question_2025_1_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2025/10_questionType_fixed/question_2025_1_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032733Z/check-23.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2025/00_source/question_2025_2.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2025/23_correctChoiceText_fixed/question_2025_2_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2025/10_questionType_fixed/question_2025_2_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032733Z/check-24.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2025/00_source/question_2025_3.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2025/23_correctChoiceText_fixed/question_2025_3_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2025/10_questionType_fixed/question_2025_3_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032733Z/check-25.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2021/00_source/question_2021_1.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2021/23_correctChoiceText_fixed/question_2021_1_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2021/10_questionType_fixed/question_2021_1_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032733Z/check-26.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2021/00_source/question_2021_2.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2021/23_correctChoiceText_fixed/question_2021_2_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2021/10_questionType_fixed/question_2021_2_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032733Z/check-27.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2021/00_source/question_2021_3.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2021/23_correctChoiceText_fixed/question_2021_3_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2021/10_questionType_fixed/question_2021_3_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032733Z/check-28.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        }
+      ],
+      "sourceFilesChecked": 27,
+      "sourceChanged": [],
+      "pausedCodeChanged": [
+        "tools/question_review_console/qualification_runs.py",
+        "tools/question_review_console/question_candidate.py"
+      ],
+      "reviewedConcurrentCodeChanges": [
+        "tools/question_review_console/qualification_runs.py",
+        "tools/question_review_console/question_candidate.py"
+      ],
+      "unreviewedCodeChanges": [],
+      "snapshotFilesChecked": 569,
+      "snapshotChanged": [],
+      "wholeSystemTests": "not_run_data_only",
+      "pass": true
+    }
+  },
+  "diagnosticConvert": {
+    "path": "output/gas-shunin-hei/direct_publication/20261027/convert_display/20261028T032802Z/converted-diagnostic.json",
+    "sha256": "2ba49ddb322a1f6d1cbb76c9ababf0d97fc56ac1a05d67e1ed18c9b10aedd0dd",
+    "matchedDocumentIds": [
+      "4f8f2325c68a3916_1",
+      "4f8f2325c68a3916_2",
+      "4f8f2325c68a3916_3",
+      "4f8f2325c68a3916_4",
+      "4f8f2325c68a3916_5"
+    ],
+    "allFiveImageUrlsMatch": true
+  },
+  "productionStorageWritten": false,
+  "productionFirestoreWritten": false,
+  "limits": "画像はローカルのみ。画像の配信と正式評価・全体公開gateは未完。"
+}
