@@ -145,7 +145,7 @@
     "otherWorktreeChanges": "他作業の変更は保持し、この記録だけをstageする。"
   },
   "nextAction": "問50を原画像2枚から照合し整備する。問47は見出し差分、問37は原文差分と法令根拠取得証明待ち。",
-  "lastUpdatedAt": "2026-10-28T15:04:54.178861+00:00",
+  "lastUpdatedAt": "2026-10-28T15:14:28.801340+00:00",
   "subsequentQuestion51": {
     "sourceRecordRef": "question_mondai4_51.json#0",
     "sourceQuestionKey": "eco-kentei:knoun-2026-mock-4:bb67422eb5e52e9c",
@@ -3672,5 +3672,27 @@
     "legalHoldReason": "機器別目標年度の公式資料が取得証明として問題に結び付いていない。資料への直接GETは403。",
     "officialGuidanceAttempt": "output/eco-kentei/reports/mondai5_73_official_guidance_unbound_20261029.json",
     "receipt": "output/eco-kentei/reports/turn_receipts/mondai5_73_source_and_legal_hold_20261029.json"
+  },
+  "inProgressQuestion5_74": {
+    "sourceRecordRef": "question_mondai5_74.json#0",
+    "questionId": "52b3cca6d05fac8e5daad5c8",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": false,
+    "sourceDifferenceProposal": "output/eco-kentei/reports/source_difference_mondai5_74_word_group_heading_20261029/proposal.json",
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai5_74_primary_source_review_20261029.json",
+    "status": "maintenance_passed_source_difference_hold",
+    "nextAction": "原文差分を解決するまで受入しない。問75を照合する。",
+    "originalizeRunId": "20261029T000625696954-e7f9004c",
+    "nativeRunId": "20261029T000719359258-4a1914bd",
+    "stateHash": "5d42babe4bdcde5c03ace3f86dc985d9ed97d751c31013a3e219486ee8726637",
+    "evaluationJobId": "I9pv22D3p3rPTuU2",
+    "targetedChecksPassed": 6,
+    "validationReceipt": "output/eco-kentei/reports/mondai5_74_validation_20261028/current_validation.json",
+    "quarantinedCandidate": "output/eco-kentei/reports/mondai5_74_validation_20261028/quarantined_upload_candidate.json",
+    "evaluationSessionId": "01a18310-1326-73b0-a2d8-24177def0e0b",
+    "verifiedChoiceCount": 4,
+    "explanationScore": 100,
+    "evaluationReceipt": "output/eco-kentei/reports/mondai5_74_evaluation_result_20261029.json",
+    "receipt": "output/eco-kentei/reports/turn_receipts/mondai5_74_maintenance_with_source_hold_20261029.json"
   }
 }
