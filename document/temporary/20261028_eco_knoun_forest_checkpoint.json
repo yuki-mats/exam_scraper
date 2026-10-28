@@ -450,19 +450,19 @@
     "pdfReadScope": "環境省2024年度実績の9頁PDF中、3枚目を画像表示・実読した。全頁を通読したとはしない。",
     "outboundArticleTextOmitted": true
   },
-  "globalRemainingCountObservedAt": "2026-10-28T01:36:08.301383+00:00",
+  "globalRemainingCountObservedAt": "2026-10-28T01:40:30.189862+00:00",
   "globalRemainingStatus": {
     "countUnit": "source question; completion requires current stages and independent evaluation with no known unresolved content or source hold",
     "totalSourceQuestions": 425,
-    "currentStagesAndEvaluationPassed": 45,
-    "completedSourceQuestionCount": 37,
-    "remainingSourceQuestionCount": 388,
+    "currentStagesAndEvaluationPassed": 46,
+    "completedSourceQuestionCount": 38,
+    "remainingSourceQuestionCount": 387,
     "pendingSourceDifferenceCount": 10,
-    "currentQuestion": "mondai4_66",
+    "currentQuestion": "mondai4_67",
     "passedButKnownUnfinishedCount": 8,
     "receipt": {
-      "path": "output/eco-kentei/reports/global_remaining_status_after_65_20261028.json",
-      "sha256": "9a2d4cbe2faffa8ea8699b4b4ed79c0e7f446d17fadbed5f352100fc69f5518e"
+      "path": "output/eco-kentei/reports/global_remaining_status_after_66_20261028.json",
+      "sha256": "35abf11294c188a8b245af3524b6e8ee95b74572249c099a1433fa32a62597a6"
     }
   },
   "subsequentQuestion59": {
@@ -662,6 +662,31 @@
     "validationReceipt": {
       "path": "output/eco-kentei/reports/mondai4_65_validation_20261028/current_validation.json",
       "sha256": "3645bb9c881b1069f4bb7e2e8688ba677bf9ebff1fee5238ef2aa164eebb2b9a"
+    }
+  },
+  "subsequentQuestion66": {
+    "sourceRecordRef": "question_mondai4_66.json#0",
+    "questionId": "ea7f2bfc34ea8c74fda8d237",
+    "stateHash": "a9a7e164a61ba3efc9960d3083b77d8957d3678b091dd3faa18fbdabef8597df",
+    "normalRunIds": [
+      "20261028T103745397030-459689ce"
+    ],
+    "evaluationSessionId": "01a18029-70fd-7580-bbc4-a8e20156be13",
+    "verifiedChoiceCount": 4,
+    "explanationScore": 100,
+    "sourceImagesActuallyRead": true,
+    "changes": "原画像2枚と00_source全文を直視照合し正答②。厚生労働省のテレワーク定義で確認し、05から普及時期の記述を外して定義に集中。03は①文書電子化・③営業時間短縮・④生活時間変更との差を説明。04=事業者の取組。6検査と別session評価で4肢一致・解説100点・重大指摘なし。source/raw無変更。",
+    "receipt": {
+      "path": "output/eco-kentei/reports/turn_receipts/mondai4_66_accepted_20261028.json",
+      "sha256": "76d030d823477f03489ffdc39691f8dde3b948767003549e652474bc71598931"
+    },
+    "evaluationReceipt": {
+      "path": "output/eco-kentei/reports/mondai4_66_evaluation_result_20261028.json",
+      "sha256": "db738c9d16da51a6a418149eedf78bef0ab8b35549a66e9aea7ff910825240c2"
+    },
+    "validationReceipt": {
+      "path": "output/eco-kentei/reports/mondai4_66_validation_20261028/current_validation.json",
+      "sha256": "f8c5fedbd2cc41213ffc6c288f09fd9c37705981f65b2ff00c1fcd8cfcb521f8"
     }
   }
 }
