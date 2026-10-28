@@ -4405,11 +4405,21 @@
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_27_primary_source_review_20261029.json",
-    "status": "maintenance_running",
+    "status": "accepted",
     "questionId": "ae71a519cccb05f58c54c2f7",
     "backup": "output/eco-kentei/reports/mondai1_27_before_rework_20261029",
     "originalizeRunId": "20261029T061225905472-968f1727",
-    "nativeRunId": "20261029T061306402153-e6f08714"
+    "nativeRunId": "20261029T061306402153-e6f08714",
+    "stateHash": "95f4527eb27033fe1e15c08795fec66402813ae065cbaf732f7dbe7be5890100",
+    "evaluationJobId": "KfxX3kmDUfxK3WPE",
+    "uploadReady": "output/eco-kentei/questions_json/upload_to_firestore/knoun-2026-mock-1_firestore_20261029_061528.json",
+    "publicationFollowup": "旧変換のchoice-2・3・4の本番存在を公開時に確認し、必要な整合処理を行う。",
+    "evaluationSessionId": "01a1845e-88cc-7950-85b9-64f097d24d36",
+    "verifiedChoiceCount": 1,
+    "explanationScore": 100,
+    "otherDocumentCountUnchanged": 34,
+    "receipt": "output/eco-kentei/reports/turn_receipts/mondai1_27_accepted_20261029.json",
+    "nextAction": "問28の独自問題化から進める。問31・32・36・37も画像照合済。問23・25・33〜35は転記差分保留。"
   },
   "inProgressQuestion1_28": {
     "sourceRecordRef": "question_mondai1_28.json#0",
@@ -4461,5 +4471,27 @@
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_34_primary_source_review_20261029.json",
     "status": "hold_source_transcription_difference",
     "holdReason": "農業・地下水の文で原画像は「役割を果たしており」、登録文字は「役割を果しており」。"
+  },
+  "inProgressQuestion1_35": {
+    "sourceRecordRef": "question_mondai1_35.json#0",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": false,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_35_primary_source_review_20261029.json",
+    "status": "hold_source_transcription_difference",
+    "holdReason": "炭素貯留の文で原画像は「役割を果しており」、登録文字は「役割を果たしており」。"
+  },
+  "inProgressQuestion1_36": {
+    "sourceRecordRef": "question_mondai1_36.json#0",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": true,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_36_primary_source_review_20261029.json",
+    "status": "source_reviewed_originalization_pending"
+  },
+  "inProgressQuestion1_37": {
+    "sourceRecordRef": "question_mondai1_37.json#0",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": true,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_37_primary_source_review_20261029.json",
+    "status": "source_reviewed_originalization_pending"
   }
 }
