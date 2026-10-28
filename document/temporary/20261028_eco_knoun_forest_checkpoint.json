@@ -4506,12 +4506,21 @@
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_32_primary_source_review_20261029.json",
-    "status": "maintenance_running",
+    "status": "accepted",
     "questionId": "3aff2504afe23f35f052e542",
     "backup": "output/eco-kentei/reports/mondai1_32_before_rework_20261029",
     "originalizeRunId": "20261029T064024587336-b41b7df3",
     "nativeRunId": "20261029T064106930447-d3ab91c2",
-    "sourceStatisticCaveat": "画像の23%はIPCCでは農業・林業・その他土地利用の合計であり、土地利用変化単独の割合として使わない。"
+    "sourceStatisticCaveat": "画像の23%はIPCCでは農業・林業・その他土地利用の合計であり、土地利用変化単独の割合として使わない。",
+    "stateHash": "ac2271a6bb2b452e285358d6276ee241c4ea698365637f26545c9c9eb6f5f654",
+    "evaluationJobId": "zkjol0UVvhgS44zx",
+    "uploadReady": "output/eco-kentei/questions_json/upload_to_firestore/knoun-2026-mock-1_firestore_20261029_064313.json",
+    "evaluationSessionId": "01a18478-2e79-7ff0-83dc-623747d9a869",
+    "verifiedChoiceCount": 1,
+    "explanationScore": 100,
+    "otherDocumentCountUnchanged": 39,
+    "receipt": "output/eco-kentei/reports/turn_receipts/mondai1_32_accepted_20261029.json",
+    "nextAction": "問36の独自問題化から進める。問37・39〜47は画像照合済。問23・25・33〜35・38は転記差分保留。"
   },
   "inProgressQuestion1_33": {
     "sourceRecordRef": "question_mondai1_33.json#0",
@@ -4613,6 +4622,13 @@
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_46_primary_source_review_20261029.json",
+    "status": "source_reviewed_originalization_pending"
+  },
+  "inProgressQuestion1_47": {
+    "sourceRecordRef": "question_mondai1_47.json#0",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": true,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_47_primary_source_review_20261029.json",
     "status": "source_reviewed_originalization_pending"
   }
 }
