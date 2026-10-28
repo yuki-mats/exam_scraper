@@ -145,7 +145,7 @@
     "otherWorktreeChanges": "他作業の変更は保持し、この記録だけをstageする。"
   },
   "nextAction": "問50を原画像2枚から照合し整備する。問47は見出し差分、問37は原文差分と法令根拠取得証明待ち。",
-  "lastUpdatedAt": "2026-10-28T14:09:11.987076+00:00",
+  "lastUpdatedAt": "2026-10-28T14:16:23.201961+00:00",
   "subsequentQuestion51": {
     "sourceRecordRef": "question_mondai4_51.json#0",
     "sourceQuestionKey": "eco-kentei:knoun-2026-mock-4:bb67422eb5e52e9c",
@@ -3517,5 +3517,29 @@
     "explanationScore": 100,
     "evaluationReceipt": "output/eco-kentei/reports/mondai5_66_evaluation_result_20261028.json",
     "receipt": "output/eco-kentei/reports/turn_receipts/mondai5_66_maintenance_with_source_hold_20261028.json"
+  },
+  "inProgressQuestion5_67": {
+    "sourceRecordRef": "question_mondai5_67.json#0",
+    "questionId": "302b4ba2154ea84d2e6b99bd",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": true,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai5_67_primary_source_review_20261028.json",
+    "status": "accepted",
+    "nextAction": "問68を原画像から照合する。",
+    "originalizeRunId": "20261028T231012531350-f6a5739a",
+    "nativeRunId": "20261028T231056717261-2afbabe6",
+    "stateHash": "2b78ca0f58ca9a9aff51fbb4ddaf86b773fbb66d6510eb45455d8d427f9c3284",
+    "evaluationJobId": "1VK2J95zS3CA2xle",
+    "targetedChecksPassed": 6,
+    "validationReceipt": "output/eco-kentei/reports/mondai5_67_validation_20261028/current_validation.json",
+    "priorEvaluationJobId": "jRPdWzv1dOr4_aBr",
+    "reworkReason": "①の解説に相互作用の説明が不足",
+    "priorEvaluationArchive": "output/eco-kentei/reports/mondai5_67_explanation_review_prior_20261028",
+    "evaluationSessionId": "01a182dd-6389-7ec3-9cdf-db24ad6bb6b6",
+    "verifiedChoiceCount": 4,
+    "explanationScore": 100,
+    "evaluationReceipt": "output/eco-kentei/reports/mondai5_67_evaluation_result_20261028.json",
+    "acceptanceReceipt": "output/eco-kentei/reports/mondai5_67_validation_20261028/current_acceptance.json",
+    "receipt": "output/eco-kentei/reports/turn_receipts/mondai5_67_accepted_20261028.json"
   }
 }
