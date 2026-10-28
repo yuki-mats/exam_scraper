@@ -150,7 +150,7 @@
     "otherWorktreeChanges": "他作業の変更は保持し、この記録だけをstageする。"
   },
   "nextAction": "mondai4_61を原画像2枚から一問ずつ再照合し、source/独自化/工程/検査/独立評価を続ける。未解決source差異10件とbinary補正6件は別途保留。",
-  "lastUpdatedAt": "2026-10-28T00:47:58.279972+00:00",
+  "lastUpdatedAt": "2026-10-28T01:47:29.416534+00:00",
   "subsequentQuestion51": {
     "sourceRecordRef": "question_mondai4_51.json#0",
     "sourceQuestionKey": "eco-kentei:knoun-2026-mock-4:bb67422eb5e52e9c",
@@ -450,19 +450,19 @@
     "pdfReadScope": "環境省2024年度実績の9頁PDF中、3枚目を画像表示・実読した。全頁を通読したとはしない。",
     "outboundArticleTextOmitted": true
   },
-  "globalRemainingCountObservedAt": "2026-10-28T01:40:30.189862+00:00",
+  "globalRemainingCountObservedAt": "2026-10-28T01:47:13.888615+00:00",
   "globalRemainingStatus": {
     "countUnit": "source question; completion requires current stages and independent evaluation with no known unresolved content or source hold",
     "totalSourceQuestions": 425,
-    "currentStagesAndEvaluationPassed": 46,
-    "completedSourceQuestionCount": 38,
-    "remainingSourceQuestionCount": 387,
+    "currentStagesAndEvaluationPassed": 47,
+    "completedSourceQuestionCount": 39,
+    "remainingSourceQuestionCount": 386,
     "pendingSourceDifferenceCount": 10,
-    "currentQuestion": "mondai4_67",
+    "currentQuestion": "mondai4_68",
     "passedButKnownUnfinishedCount": 8,
     "receipt": {
-      "path": "output/eco-kentei/reports/global_remaining_status_after_66_20261028.json",
-      "sha256": "35abf11294c188a8b245af3524b6e8ee95b74572249c099a1433fa32a62597a6"
+      "path": "output/eco-kentei/reports/global_remaining_status_after_67_20261028.json",
+      "sha256": "8614f893e46f636391d1aae5dc7c651ea2d62a9236a0b4e203f5c5f6a9ef2cf7"
     }
   },
   "subsequentQuestion59": {
@@ -687,6 +687,31 @@
     "validationReceipt": {
       "path": "output/eco-kentei/reports/mondai4_66_validation_20261028/current_validation.json",
       "sha256": "f8c5fedbd2cc41213ffc6c288f09fd9c37705981f65b2ff00c1fcd8cfcb521f8"
+    }
+  },
+  "subsequentQuestion67": {
+    "sourceRecordRef": "question_mondai4_67.json#0",
+    "questionId": "1127a7f414e6befb2a5c66c3",
+    "stateHash": "9ced698b02924d9ad9dea77d8c5e0d95508d2da436fe15eae7e88dbb76e61e44",
+    "normalRunIds": [
+      "20261028T104322273138-3770a50d"
+    ],
+    "evaluationSessionId": "01a1802f-1111-7ba2-ac1b-236d5493b76e",
+    "verifiedChoiceCount": 4,
+    "explanationScore": 100,
+    "sourceImagesActuallyRead": true,
+    "changes": "原画像2枚と00_sourceを直視照合し正答③。環境省一次資料で2007年の提唱と2010年IPSI発足を区別し、05独自問題と03解説を修正。①自然環境トラスト・②UNEPグリーン経済・④モニタリングサイト1000との差を明記。6検査と別session評価で4肢一致・解説100点・重大指摘なし。source/raw無変更。",
+    "receipt": {
+      "path": "output/eco-kentei/reports/turn_receipts/mondai4_67_accepted_20261028.json",
+      "sha256": "7fed505aab58375bb237ac67a890f982b9db1724e44356881f2fd406d19b239b"
+    },
+    "evaluationReceipt": {
+      "path": "output/eco-kentei/reports/mondai4_67_evaluation_result_20261028.json",
+      "sha256": "58edf70b3eb07722eaa99c305b3b9b136862456529690be914d5dc5ce85ef9d0"
+    },
+    "validationReceipt": {
+      "path": "output/eco-kentei/reports/mondai4_67_validation_20261028/current_validation.json",
+      "sha256": "36e865c6b1599e1dd81f3fff5de1916ffe3fe9caf3e26f067759cf2795613269"
     }
   }
 }
