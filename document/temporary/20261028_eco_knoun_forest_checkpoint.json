@@ -149,8 +149,8 @@
     "trackedCodeOrPromptChanged": true,
     "otherWorktreeChanges": "他作業の変更は保持し、この記録だけをstageする。"
   },
-  "nextAction": "mondai4_85を原画像2枚から一問ずつ再照合し、source/独自化/工程/検査/独立評価を続ける。82は03、64は02b、source差異10件とbinary補正6件は別途保留。",
-  "lastUpdatedAt": "2026-10-28T04:10:52.490338+00:00",
+  "nextAction": "mondai5_1を原画像2枚から一問ずつ再照合し、source/独自化/工程/検査/独立評価を続ける。82は03、64は02b、source差異10件とbinary補正6件は別途保留。",
+  "lastUpdatedAt": "2026-10-28T04:17:46.857575+00:00",
   "subsequentQuestion51": {
     "sourceRecordRef": "question_mondai4_51.json#0",
     "sourceQuestionKey": "eco-kentei:knoun-2026-mock-4:bb67422eb5e52e9c",
@@ -249,22 +249,22 @@
     "changes": "原画像にないクが共通指示の空欄に入っていた。OCRの照合済み転記をバックアップ付きで訂正し、登録済みsourceは変更しない。05と03でGRI Standards・全4候補の比較を整備。検査・別session評価は合格したが原転記の受入は保留。"
   },
   "latestFullyAcceptedScope": {
-    "sourceRecords": "mondai4_31〜52、54〜63、65〜81、83〜84の51件。53は原転記差異、64は02b根拠取込、82は03解説候補の保留により除外。",
-    "sourceQuestionCount": 51,
-    "actualLearningQuestionCount": 87,
-    "convertedDocumentCount": 369,
+    "sourceRecords": "mondai4_31〜52、54〜63、65〜81、83〜85の52件。53は原転記差異、64は02b根拠取込、82は03解説候補の保留により除外。",
+    "sourceQuestionCount": 52,
+    "actualLearningQuestionCount": 91,
+    "convertedDocumentCount": 373,
     "choiceOnlyDocumentCount": 282,
     "acceptanceReceipt": {
-      "path": "output/eco-kentei/reports/mondai4_84_validation_20261028/current_acceptance.json",
-      "sha256": "7585eded62cf17df3a684a25a296f863a3da00600fa6ffeb15eddc71257928c5"
+      "path": "output/eco-kentei/reports/mondai4_85_validation_20261028/current_acceptance.json",
+      "sha256": "eb8b1ea90cab64112d0e4448958ff96ef417c924fe2840e38c7028288eb566d9"
     },
     "uploadReadyArchive": {
-      "path": "output/eco-kentei/reports/mondai4_84_validation_20261028/verified_upload_ready.json",
-      "sha256": "d6b0cf90829503920c0f83670e67ad30778fbb83dd6b5bff517856a2e63a4365"
+      "path": "output/eco-kentei/reports/mondai4_85_validation_20261028/verified_upload_ready.json",
+      "sha256": "1297437f8ac32f3ef7171edc076f3a15572e43a8a020aad274b97548ff3cdfa4"
     },
-    "acceptedCurrentReadbacks": "output/eco-kentei/reports/mondai4_84_validation_20261028/accepted_current_readbacks",
+    "acceptedCurrentReadbacks": "output/eco-kentei/reports/mondai4_85_validation_20261028/accepted_current_readbacks",
     "previousStateHashesEvaluationsAndConvertedDocsUnchanged": true,
-    "scopeLimit": "この51件の受入だけで全425問の完了を推測しない。全5組は別途計数。"
+    "scopeLimit": "この52件の受入だけで全425問の完了を推測しない。全5組は別途計数。"
   },
   "subsequentQuestion54": {
     "sourceRecordRef": "question_mondai4_54.json#0",
@@ -450,19 +450,19 @@
     "pdfReadScope": "環境省2024年度実績の9頁PDF中、3枚目を画像表示・実読した。全頁を通読したとはしない。",
     "outboundArticleTextOmitted": true
   },
-  "globalRemainingCountObservedAt": "2026-10-28T04:10:36.989416+00:00",
+  "globalRemainingCountObservedAt": "2026-10-28T04:17:36.865752+00:00",
   "globalRemainingStatus": {
     "countUnit": "source question; completion requires current stages and independent evaluation with no known unresolved content or source hold",
     "totalSourceQuestions": 425,
-    "currentStagesAndEvaluationPassed": 63,
-    "completedSourceQuestionCount": 55,
-    "remainingSourceQuestionCount": 370,
+    "currentStagesAndEvaluationPassed": 64,
+    "completedSourceQuestionCount": 56,
+    "remainingSourceQuestionCount": 369,
     "pendingSourceDifferenceCount": 10,
-    "currentQuestion": "mondai4_85",
+    "currentQuestion": "mondai5_1",
     "passedButKnownUnfinishedCount": 8,
     "receipt": {
-      "path": "output/eco-kentei/reports/global_remaining_status_after_84_20261028.json",
-      "sha256": "e3a2c132c6e80d536e953dfa972f9da9d0334f9310542130afc94d95e5152fd1"
+      "path": "output/eco-kentei/reports/global_remaining_status_after_85_20261028.json",
+      "sha256": "09dc109f20cd54eb88c36f9a415e0afcf0fe6d61eaf0728ee99a86dc074d4fb4"
     }
   },
   "subsequentQuestion59": {
@@ -1105,7 +1105,7 @@
       "sha256": "db88b340d6621b1e6046658da07ab8e6bbb973b275c305697d2a0d696974b6b1"
     }
   },
-  "latestCountReport": "output/eco-kentei/reports/global_remaining_status_after_84_20261028.json",
+  "latestCountReport": "output/eco-kentei/reports/global_remaining_status_after_85_20261028.json",
   "subsequentQuestion82": {
     "sourceRecordRef": "question_mondai4_82.json#0",
     "questionId": "8ef5b7ffe7a4957538efec78",
@@ -1118,7 +1118,7 @@
     },
     "sourceAndRawUnchanged": true
   },
-  "currentQuestion": "mondai4_85",
+  "currentQuestion": "mondai5_1",
   "subsequentQuestion83": {
     "sourceRecordRef": "question_mondai4_83.json#0",
     "questionId": "68de8eef2e3ec91afaee8787",
@@ -1171,5 +1171,30 @@
       "sha256": "6ac439eeaa77e2770b8158498c709f7bbca24f65db2ac60f7cc755cf6a90aaed"
     },
     "firstEvaluationNeedsRework": "output/eco-kentei/reports/mondai4_84_evaluation_result_first_attempt_20261028.json"
+  },
+  "subsequentQuestion85": {
+    "sourceRecordRef": "question_mondai4_85.json#0",
+    "questionId": "cfe35141367aa533d0f97493",
+    "stateHash": "e6667d5250b876a9e1cb8b3135acd814929b2c4a878ed16cca0ef286e7720c07",
+    "normalRunIds": [
+      "20261028T131328894036-8ebc62c1"
+    ],
+    "evaluationSessionId": "01a180b8-d5ae-7160-94d6-89b98672f037",
+    "verifiedChoiceCount": 4,
+    "explanationScore": 100,
+    "sourceImagesActuallyRead": true,
+    "changes": "原画像2枚・00_source全文・4候補・印字正答④と原解説を直視照合。05で設問と4肢を独自表現にし、原子力は燃料のウランと区別。03の全4肢へ一次資料に基づく正誤理由を追加。03・03b・04を一問指定で実行し、最終全文を再読。6検査と別session評価で4肢一致・解説100点・重大指摘なし。source/raw無変更。",
+    "receipt": {
+      "path": "output/eco-kentei/reports/turn_receipts/mondai4_85_accepted_20261028.json",
+      "sha256": "0290ef897952a7efae1a184589f23be95f010d9fb99fb42af57c62cb9350b8e7"
+    },
+    "evaluationReceipt": {
+      "path": "output/eco-kentei/reports/mondai4_85_evaluation_result_20261028.json",
+      "sha256": "6b5d4656405a29d8f3ba534b7530776aba8c5e1e04aa83572e2d8b8ac2ac1802"
+    },
+    "validationReceipt": {
+      "path": "output/eco-kentei/reports/mondai4_85_validation_20261028/current_validation.json",
+      "sha256": "3389d222d764f87026a1f28200303edfb67f4de0fc7ed3c36ff3ac67c8ca8fa7"
+    }
   }
 }
