@@ -6,7 +6,7 @@
   "fullGoalComplete": false,
   "previousGoalTurnClassification": "progress",
   "thisTurnReworkedSourceRecords": [
-    "question_mondai5_47.json#0"
+    "question_mondai5_48.json#0"
   ],
   "commonContextFiveQuestions": [
     {
@@ -136,8 +136,8 @@
     "trackedCodeOrPromptChanged": false,
     "otherWorktreeChanges": "他作業の変更は保持し、この記録だけをstageする。"
   },
-  "nextAction": "問48を原画像2枚から照合し整備する。問47は見出し差分、問37は原文差分と法令根拠取得証明待ち。",
-  "lastUpdatedAt": "2026-10-28T11:08:52.026297+00:00",
+  "nextAction": "問49を原画像2枚から照合し整備する。問47は見出し差分、問37は原文差分と法令根拠取得証明待ち。",
+  "lastUpdatedAt": "2026-10-28T11:14:55.095004+00:00",
   "subsequentQuestion51": {
     "sourceRecordRef": "question_mondai4_51.json#0",
     "sourceQuestionKey": "eco-kentei:knoun-2026-mock-4:bb67422eb5e52e9c",
@@ -437,8 +437,8 @@
     "pdfReadScope": "環境省2024年度実績の9頁PDF中、3枚目を画像表示・実読した。全頁を通読したとはしない。",
     "outboundArticleTextOmitted": true
   },
-  "globalRemainingCountObservedAt": "2026-10-28T11:08:52.024356+00:00",
-  "globalRemainingStatus": "output/eco-kentei/reports/global_remaining_status_after_mondai5_47_20261028.json",
+  "globalRemainingCountObservedAt": "2026-10-28T11:14:55.092322+00:00",
+  "globalRemainingStatus": "output/eco-kentei/reports/global_remaining_status_after_mondai5_48_20261028.json",
   "subsequentQuestion59": {
     "sourceRecordRef": "question_mondai4_59.json#0",
     "questionId": "682974cd364eed5e430276e5",
@@ -3109,5 +3109,26 @@
     "evaluationReceipt": "output/eco-kentei/reports/mondai5_47_evaluation_result_20261028.json",
     "receipt": "output/eco-kentei/reports/turn_receipts/mondai5_47_maintenance_with_source_hold_20261028.json",
     "quarantinedCandidate": "output/eco-kentei/reports/mondai5_47_validation_20261028/quarantined_upload_candidate.json"
+  },
+  "subsequentQuestion5_48": {
+    "sourceRecordRef": "question_mondai5_48.json#0",
+    "questionId": "e7ab3c82ef798aa6b5e42288",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": true,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai5_48_primary_source_review_20261028.json",
+    "originalizeRunId": "20261028T201050601171-18acbc9b",
+    "nativeRunId": "20261028T201133881821-0adb6e12",
+    "status": "accepted",
+    "nextAction": "問49を原画像から照合する。",
+    "stateHash": "f0d5fd5dbfa0110222966d8b6b64899cd5213d67c99c5eaa59b1aa192615a9d3",
+    "evaluationJobId": "JPd9WC42ePFRnCAD",
+    "targetedChecksPassed": 6,
+    "validationReceipt": "output/eco-kentei/reports/mondai5_48_validation_20261028/current_validation.json",
+    "evaluationSessionId": "01a18236-fa16-7c53-8518-154f30bbb675",
+    "verifiedChoiceCount": 4,
+    "explanationScore": 100,
+    "acceptanceReceipt": "output/eco-kentei/reports/mondai5_48_validation_20261028/current_acceptance.json",
+    "evaluationReceipt": "output/eco-kentei/reports/mondai5_48_evaluation_result_20261028.json",
+    "receipt": "output/eco-kentei/reports/turn_receipts/mondai5_48_accepted_20261028.json"
   }
 }
