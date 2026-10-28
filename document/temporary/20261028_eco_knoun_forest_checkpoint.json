@@ -150,7 +150,7 @@
     "otherWorktreeChanges": "他作業の変更は保持し、この記録だけをstageする。"
   },
   "nextAction": "mondai4_61を原画像2枚から一問ずつ再照合し、source/独自化/工程/検査/独立評価を続ける。未解決source差異10件とbinary補正6件は別途保留。",
-  "lastUpdatedAt": "2026-10-28T02:21:52.623939+00:00",
+  "lastUpdatedAt": "2026-10-28T02:26:50.642156+00:00",
   "subsequentQuestion51": {
     "sourceRecordRef": "question_mondai4_51.json#0",
     "sourceQuestionKey": "eco-kentei:knoun-2026-mock-4:bb67422eb5e52e9c",
@@ -450,19 +450,19 @@
     "pdfReadScope": "環境省2024年度実績の9頁PDF中、3枚目を画像表示・実読した。全頁を通読したとはしない。",
     "outboundArticleTextOmitted": true
   },
-  "globalRemainingCountObservedAt": "2026-10-28T02:21:45.163349+00:00",
+  "globalRemainingCountObservedAt": "2026-10-28T02:26:42.667723+00:00",
   "globalRemainingStatus": {
     "countUnit": "source question; completion requires current stages and independent evaluation with no known unresolved content or source hold",
     "totalSourceQuestions": 425,
-    "currentStagesAndEvaluationPassed": 49,
-    "completedSourceQuestionCount": 41,
-    "remainingSourceQuestionCount": 384,
+    "currentStagesAndEvaluationPassed": 50,
+    "completedSourceQuestionCount": 42,
+    "remainingSourceQuestionCount": 383,
     "pendingSourceDifferenceCount": 10,
-    "currentQuestion": "mondai4_70",
+    "currentQuestion": "mondai4_71",
     "passedButKnownUnfinishedCount": 8,
     "receipt": {
-      "path": "output/eco-kentei/reports/global_remaining_status_after_69_20261028.json",
-      "sha256": "72b5566ab7ab62d2aabbf493372313ee44735398d17de58b81cf11167093f64e"
+      "path": "output/eco-kentei/reports/global_remaining_status_after_70_20261028.json",
+      "sha256": "f318abefc71d051a4f06e5b48407ab303dfce5257581f27371a2e6a1b83d6edb"
     }
   },
   "subsequentQuestion59": {
@@ -778,6 +778,31 @@
     "validationReceipt": {
       "path": "output/eco-kentei/reports/mondai4_69_validation_20261028/current_validation.json",
       "sha256": "c372bc839dbe29192d9c03aacb367efe9914573400ff4149a97e5fab58e29511"
+    }
+  },
+  "subsequentQuestion70": {
+    "sourceRecordRef": "question_mondai4_70.json#0",
+    "questionId": "187fea54a74d2a6135877e05",
+    "stateHash": "d7a53e07082131e451a8df5463fb6e919652cbd2614cd9d7376978ef9de0b8a0",
+    "normalRunIds": [
+      "20261028T112436057168-2df3635d"
+    ],
+    "evaluationSessionId": "01a18053-a71b-7022-b057-5df76156672c",
+    "verifiedChoiceCount": 4,
+    "explanationScore": 96,
+    "sourceImagesActuallyRead": true,
+    "changes": "原画像2枚と00_source全文を直視照合し正答②。05で環境負荷を考慮した購入行動へ独自表現化、③グリーンボンドは債券購入でなく発行による資金調達と明確化。03で①エコファンド・③グリーンボンド・④エコマネーとの差を説明。04=個人の環境配慮行動。6検査と別session評価で4肢一致・解説96点・重大指摘なし。source/raw無変更。",
+    "receipt": {
+      "path": "output/eco-kentei/reports/turn_receipts/mondai4_70_accepted_20261028.json",
+      "sha256": "1789d7a1a462ede5f077ad4fd5b2823972a46546258c3817bf261699f3fbfdda"
+    },
+    "evaluationReceipt": {
+      "path": "output/eco-kentei/reports/mondai4_70_evaluation_result_20261028.json",
+      "sha256": "0f24eb7fa0776ad64682110cb541b17d972618125af527d92cdead07e6281b77"
+    },
+    "validationReceipt": {
+      "path": "output/eco-kentei/reports/mondai4_70_validation_20261028/current_validation.json",
+      "sha256": "92f87bbac9353953c4d85a822683fe478c0c6db6650e4354cd3178c4a1a00282"
     }
   }
 }
