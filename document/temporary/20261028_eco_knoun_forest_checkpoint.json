@@ -142,8 +142,8 @@
     "trackedCodeOrPromptChanged": false,
     "otherWorktreeChanges": "他作業の変更は保持し、この記録だけをstageする。"
   },
-  "nextAction": "mondai5_21を原画像2枚から一問ずつ再照合し、source/独自化/工程/検査/独立評価を続ける。OCR優先のため既存の目視照合記録を活用する。82は03、64は02b、source差異10件とbinary補正6件は別途保留。",
-  "lastUpdatedAt": "2026-10-28T06:59:49.828982+00:00",
+  "nextAction": "問21の既存実行ID 20261028T160827889586-c357c1bd を監視し、終端後に法令監査・本文・全選択肢・正答・解説を確認して検査・独立評価する。",
+  "lastUpdatedAt": "2026-10-28T07:18:34.539405+00:00",
   "subsequentQuestion51": {
     "sourceRecordRef": "question_mondai4_51.json#0",
     "sourceQuestionKey": "eco-kentei:knoun-2026-mock-4:bb67422eb5e52e9c",
@@ -2230,5 +2230,23 @@
       "path": "output/eco-kentei/reports/mondai5_20_validation_20261028/current_acceptance.json",
       "sha256": "82f0b9d739c69ff9a0dc03e81326324a6a042f2d6af9623a6528314bae266aeb"
     }
+  },
+  "inProgressQuestion5_21": {
+    "sourceRecordRef": "question_mondai5_21.json#0",
+    "questionId": "2983f444d618029b1bc49fc8",
+    "originalizeRunId": "20261028T160741724122-e2bcc2c5",
+    "nativeRunId": "20261028T160827889586-c357c1bd",
+    "nativeRunStatus": "running",
+    "nativeRunPhase": "candidate:law_audit",
+    "observedHeartbeat": "2026-10-28T16:18:32+09:00",
+    "completedWorkItems": 5,
+    "totalWorkItems": 7,
+    "independentEvaluation": "not_started",
+    "sourceImagesActuallyRead": true,
+    "sourceAnswer": "②特定外来生物",
+    "lawzilla": "unavailable_before_initialization",
+    "officialEvidence": "e-Gov現行施行版第2条・第4条・第5条および環境省資料を確認。飼養等は原則禁止で許可や一部適用除外がある。",
+    "knownRetry": "法令監査初回は説明文候補の不要な記号とメタ文を検出し、2回目を実行中。",
+    "nextAction": "同じ実行IDを再確認し、終端後に結果を精査する。再起動しない。"
   }
 }
