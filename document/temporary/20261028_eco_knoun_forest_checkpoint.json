@@ -6,7 +6,9 @@
   "fullGoalComplete": false,
   "previousGoalTurnClassification": "progress",
   "thisTurnReworkedSourceRecords": [
-    "question_mondai5_2.json#0"
+    "question_mondai5_1.json#0",
+    "question_mondai5_2.json#0",
+    "question_mondai5_3.json#0"
   ],
   "commonContextFiveQuestions": [
     {
@@ -80,12 +82,13 @@
   },
   "thisTurnVerification": [
     {
-      "question": "mondai5_2",
-      "receipt": "output/eco-kentei/reports/turn_receipts/mondai5_2_accepted_20261028.json",
-      "receiptSha256": "8b83e2d6678cf8bd71975ef646321e1d4f0cf5956c6b7146447bc5583b7243bd",
-      "validationReceipt": "output/eco-kentei/reports/mondai5_2_validation_20261028/current_validation.json",
-      "validationReceiptSha256": "5c8bf11946c69ddf50814f97ee908f9ed5ca4e86ef954ca0773e754ff59a294a",
-      "targetedChecksPassed": 6
+      "scope": "mondai5_1〜3",
+      "acceptanceReceipt": "output/eco-kentei/reports/mondai5_1_3_intent_recheck_validation_20261028/current_acceptance.json",
+      "acceptanceReceiptSha256": "cc938bb9dc8a0b5adb3370169ca8763b200e13ba8d3bd49fa29ab35c98dfc5df",
+      "validationReceipt": "output/eco-kentei/reports/mondai5_1_3_intent_recheck_validation_20261028/current_validation.json",
+      "validationReceiptSha256": "fabc49c119384f21a846d5ef99a5ce4f38992b276fe34b1392d4eb38a214bbde",
+      "targetedChecksPassed": 8,
+      "independentEvaluationCount": 3
     }
   ],
   "protection": {
@@ -93,7 +96,7 @@
     "sourceJsonFiles": 425,
     "rawImageFiles": 850,
     "all1275FilesUnchanged": true,
-    "verification": "output/eco-kentei/reports/mondai5_2_validation_20261028/protected_source_and_images.json"
+    "verification": "output/eco-kentei/reports/mondai5_1_3_intent_recheck_validation_20261028/protected_source_and_images.json"
   },
   "headerDecision": {
     "sourceRecordRef": "question_mondai4_35.json#0",
@@ -131,8 +134,8 @@
     "trackedCodeOrPromptChanged": false,
     "otherWorktreeChanges": "他作業の変更は保持し、この記録だけをstageする。"
   },
-  "nextAction": "mondai5_3を原画像2枚から一問ずつ再照合し、source/独自化/工程/検査/独立評価を続ける。82は03、64は02b、source差異10件とbinary補正6件は別途保留。",
-  "lastUpdatedAt": "2026-10-28T04:41:38.038811+00:00",
+  "nextAction": "mondai5_4を原画像2枚から一問ずつ再照合し、source/独自化/工程/検査/独立評価を続ける。82は03、64は02b、source差異10件とbinary補正6件は別途保留。",
+  "lastUpdatedAt": "2026-10-28T04:55:40.521301+00:00",
   "subsequentQuestion51": {
     "sourceRecordRef": "question_mondai4_51.json#0",
     "sourceQuestionKey": "eco-kentei:knoun-2026-mock-4:bb67422eb5e52e9c",
@@ -231,22 +234,22 @@
     "changes": "原画像にないクが共通指示の空欄に入っていた。OCRの照合済み転記をバックアップ付きで訂正し、登録済みsourceは変更しない。05と03でGRI Standards・全4候補の比較を整備。検査・別session評価は合格したが原転記の受入は保留。"
   },
   "latestFullyAcceptedScope": {
-    "sourceRecords": "knoun-2026-mock-5/question_mondai5_1.json#0 と question_mondai5_2.json#0 の2件。mock-4の52件受入は priorGroup4AcceptedScope に別記。",
-    "sourceQuestionCount": 2,
-    "actualLearningQuestionCount": 2,
-    "convertedDocumentCount": 2,
+    "sourceRecords": "knoun-2026-mock-5/question_mondai5_1.json#0〜question_mondai5_3.json#0 の3件。02設問方向を各問本文から再判定して受入し直した。mock-4の52件受入は priorGroup4AcceptedScope に別記。",
+    "sourceQuestionCount": 3,
+    "actualLearningQuestionCount": 3,
+    "convertedDocumentCount": 3,
     "choiceOnlyDocumentCount": 0,
     "acceptanceReceipt": {
-      "path": "output/eco-kentei/reports/mondai5_2_validation_20261028/current_acceptance.json",
-      "sha256": "fa88fe3df22fbe7d05d17457fadac997abef6ae2439ac2505aa66b58ab3370d4"
+      "path": "output/eco-kentei/reports/mondai5_1_3_intent_recheck_validation_20261028/current_acceptance.json",
+      "sha256": "cc938bb9dc8a0b5adb3370169ca8763b200e13ba8d3bd49fa29ab35c98dfc5df"
     },
     "uploadReadyArchive": {
-      "path": "output/eco-kentei/reports/mondai5_2_validation_20261028/verified_upload_ready.json",
-      "sha256": "000a41f5735b674566bea9ae173540d551c9386d363b67890963dd1a3d16dca3"
+      "path": "output/eco-kentei/reports/mondai5_1_3_intent_recheck_validation_20261028/verified_upload_ready.json",
+      "sha256": "5cc4b7d0a1ec85fe1e7ea3c12de01da3ea5d603e9f0ddd9ed7dc8ed30caaadd6"
     },
-    "acceptedCurrentReadbacks": "output/eco-kentei/reports/mondai5_2_validation_20261028/accepted_current_readbacks",
-    "previousStateHashesEvaluationsAndConvertedDocsUnchanged": true,
-    "scopeLimit": "この2件はmock-5内の受入であり、mock-4の52件とは別。全425問の完了を主張しない。"
+    "acceptedCurrentReadbacks": "output/eco-kentei/reports/mondai5_1_3_intent_recheck_validation_20261028/accepted_current_readbacks",
+    "previousGroup4AcceptedStateHashesAndEvaluationsUnchanged": true,
+    "scopeLimit": "この3件はmock-5内の受入であり、mock-4の52件とは別。全425問の完了を主張しない。"
   },
   "subsequentQuestion54": {
     "sourceRecordRef": "question_mondai4_54.json#0",
@@ -432,19 +435,19 @@
     "pdfReadScope": "環境省2024年度実績の9頁PDF中、3枚目を画像表示・実読した。全頁を通読したとはしない。",
     "outboundArticleTextOmitted": true
   },
-  "globalRemainingCountObservedAt": "2026-10-28T04:41:25.738476+00:00",
+  "globalRemainingCountObservedAt": "2026-10-28T04:55:21.658516+00:00",
   "globalRemainingStatus": {
     "countUnit": "source question; completion requires current stages and independent evaluation with no known unresolved content or source hold",
     "totalSourceQuestions": 425,
-    "currentStagesAndEvaluationPassed": 66,
-    "completedSourceQuestionCount": 58,
-    "remainingSourceQuestionCount": 367,
+    "currentStagesAndEvaluationPassed": 67,
+    "completedSourceQuestionCount": 59,
+    "remainingSourceQuestionCount": 366,
     "pendingSourceDifferenceCount": 10,
-    "currentQuestion": "mondai5_3",
+    "currentQuestion": "mondai5_4",
     "passedButKnownUnfinishedCount": 8,
     "receipt": {
-      "path": "output/eco-kentei/reports/global_remaining_status_after_mondai5_2_20261028.json",
-      "sha256": "3904219b79aa2233cb8a2f356c90e31142fa05b1d0bd55c60765ddd470141ae8"
+      "path": "output/eco-kentei/reports/global_remaining_status_after_mondai5_3_intent_recheck_20261028.json",
+      "sha256": "4ec1f90afb55854c3bffc7c2ca4ba33dc4c6e01c3744ac187983a58f0f6df451"
     }
   },
   "subsequentQuestion59": {
@@ -1087,7 +1090,7 @@
       "sha256": "db88b340d6621b1e6046658da07ab8e6bbb973b275c305697d2a0d696974b6b1"
     }
   },
-  "latestCountReport": "output/eco-kentei/reports/global_remaining_status_after_mondai5_2_20261028.json",
+  "latestCountReport": "output/eco-kentei/reports/global_remaining_status_after_mondai5_3_intent_recheck_20261028.json",
   "subsequentQuestion82": {
     "sourceRecordRef": "question_mondai4_82.json#0",
     "questionId": "8ef5b7ffe7a4957538efec78",
@@ -1100,7 +1103,7 @@
     },
     "sourceAndRawUnchanged": true
   },
-  "currentQuestion": "mondai5_3",
+  "currentQuestion": "mondai5_4",
   "subsequentQuestion83": {
     "sourceRecordRef": "question_mondai4_83.json#0",
     "questionId": "68de8eef2e3ec91afaee8787",
@@ -1228,7 +1231,8 @@
       "path": "output/eco-kentei/reports/mondai5_1_validation_20261028/current_validation.json",
       "sha256": "23a863fa1744f0ae2ae81ab2cb26e6e5bd10ab5745846245994c6add3b074cd5"
     },
-    "targetedChecksPassed": 6
+    "targetedChecksPassed": 6,
+    "supersededBy": "subsequentQuestion5_1IntentRecheck"
   },
   "priorGroup5_1AcceptedScope": {
     "sourceRecords": "knoun-2026-mock-5/question_mondai5_1.json#0 の1件。mock-4の52件受入は priorGroup4AcceptedScope に別記。",
@@ -1274,6 +1278,112 @@
       "path": "output/eco-kentei/reports/mondai5_2_validation_20261028/current_validation.json",
       "sha256": "5c8bf11946c69ddf50814f97ee908f9ed5ca4e86ef954ca0773e754ff59a294a"
     },
-    "targetedChecksPassed": 6
+    "targetedChecksPassed": 6,
+    "supersededBy": "subsequentQuestion5_2IntentRecheck"
+  },
+  "priorGroup5_2AcceptedScope": {
+    "sourceRecords": "knoun-2026-mock-5/question_mondai5_1.json#0 と question_mondai5_2.json#0 の2件。mock-4の52件受入は priorGroup4AcceptedScope に別記。",
+    "sourceQuestionCount": 2,
+    "actualLearningQuestionCount": 2,
+    "convertedDocumentCount": 2,
+    "choiceOnlyDocumentCount": 0,
+    "acceptanceReceipt": {
+      "path": "output/eco-kentei/reports/mondai5_2_validation_20261028/current_acceptance.json",
+      "sha256": "fa88fe3df22fbe7d05d17457fadac997abef6ae2439ac2505aa66b58ab3370d4"
+    },
+    "uploadReadyArchive": {
+      "path": "output/eco-kentei/reports/mondai5_2_validation_20261028/verified_upload_ready.json",
+      "sha256": "000a41f5735b674566bea9ae173540d551c9386d363b67890963dd1a3d16dca3"
+    },
+    "acceptedCurrentReadbacks": "output/eco-kentei/reports/mondai5_2_validation_20261028/accepted_current_readbacks",
+    "previousStateHashesEvaluationsAndConvertedDocsUnchanged": true,
+    "scopeLimit": "この2件はmock-5内の受入であり、mock-4の52件とは別。全425問の完了を主張しない。"
+  },
+  "subsequentQuestion5_1IntentRecheck": {
+    "sourceRecordRef": "question_mondai5_1.json#0",
+    "sourceQuestionKey": "eco-kentei:knoun-2026-mock-5:cb52867dc6167e96",
+    "questionId": "4b860cbb47cc332196d2a106",
+    "stateHash": "9f1f5f532f971881892a03ab4c3f90adcbd54138e8971f55f57303fd7bdc6e6f",
+    "normalRunIds": [
+      "20261028T134825131620-6e8aba63"
+    ],
+    "evaluationSessionId": "01a180db-718f-7443-bd40-c8ed05c5f860",
+    "verifiedChoiceCount": 1,
+    "explanationScore": 100,
+    "sourceImagesActuallyRead": true,
+    "targetedGroupChecksPassed": 8,
+    "evaluationReceipt": {
+      "path": "output/eco-kentei/reports/mondai5_1_intent_rechecked_evaluation_result_20261028.json",
+      "sha256": "27a66bcc9af309a2bfe8f9c6c0e4e72863db0ba876e0d63184f05a45fdcf4ebb"
+    },
+    "validationReceipt": {
+      "path": "output/eco-kentei/reports/mondai5_1_3_intent_recheck_validation_20261028/current_validation.json",
+      "sha256": "fabc49c119384f21a846d5ef99a5ce4f38992b276fe34b1392d4eb38a214bbde"
+    },
+    "acceptanceReceipt": {
+      "path": "output/eco-kentei/reports/mondai5_1_3_intent_recheck_validation_20261028/current_acceptance.json",
+      "sha256": "cc938bb9dc8a0b5adb3370169ca8763b200e13ba8d3bd49fa29ab35c98dfc5df"
+    },
+    "changes": "05本文に「誤りがあるか」を明示して02の設問方向を正答からの逆算なしに再判定。01〜04を再実行、解説を推敲し、8対象検査と新session評価合格。原画像とsource不変。"
+  },
+  "subsequentQuestion5_2IntentRecheck": {
+    "sourceRecordRef": "question_mondai5_2.json#0",
+    "sourceQuestionKey": "eco-kentei:knoun-2026-mock-5:e247c662081cf26a",
+    "questionId": "047f9781754ed8b67233254d",
+    "stateHash": "2bd31866697568f3489a8f525d2afdc50c6ebe25591e53a86897e6c8edc3f697",
+    "normalRunIds": [
+      "20261028T135111447989-e8971af3"
+    ],
+    "evaluationSessionId": "01a180db-e7a5-7ee2-934b-f4cca12f50eb",
+    "verifiedChoiceCount": 1,
+    "explanationScore": 100,
+    "sourceImagesActuallyRead": true,
+    "targetedGroupChecksPassed": 8,
+    "evaluationReceipt": {
+      "path": "output/eco-kentei/reports/mondai5_2_intent_rechecked_evaluation_result_20261028.json",
+      "sha256": "ba4165ff56ad016a98f5ef291cb6b3b21d34da7117474132ba866215d97bcb2d"
+    },
+    "validationReceipt": {
+      "path": "output/eco-kentei/reports/mondai5_1_3_intent_recheck_validation_20261028/current_validation.json",
+      "sha256": "fabc49c119384f21a846d5ef99a5ce4f38992b276fe34b1392d4eb38a214bbde"
+    },
+    "acceptanceReceipt": {
+      "path": "output/eco-kentei/reports/mondai5_1_3_intent_recheck_validation_20261028/current_acceptance.json",
+      "sha256": "cc938bb9dc8a0b5adb3370169ca8763b200e13ba8d3bd49fa29ab35c98dfc5df"
+    },
+    "changes": "05本文に「正しいか」を明示して02の設問方向を正答からの逆算なしに再判定。01〜04を再実行、8対象検査と新session評価合格。原画像とsource不変。"
+  },
+  "subsequentQuestion5_3": {
+    "sourceRecordRef": "question_mondai5_3.json#0",
+    "sourceQuestionKey": "eco-kentei:knoun-2026-mock-5:81eb34da4bd79084",
+    "questionId": "e85462f8fd647cbfaf8b11fa",
+    "stateHash": "6bf705ffc833a54c06cb48fa12c3e52e7708a90e3dc87a911b8679eed3adf727",
+    "normalRunIds": [
+      "20261028T134236397651-b0c78211",
+      "20261028T134323456021-405fc427",
+      "20261028T134501473026-41369836"
+    ],
+    "evaluationSessionId": "01a180dc-3722-76f3-97f4-639cf8bb19c5",
+    "verifiedChoiceCount": 1,
+    "explanationScore": 100,
+    "sourceImagesActuallyRead": true,
+    "targetedGroupChecksPassed": 8,
+    "evaluationReceipt": {
+      "path": "output/eco-kentei/reports/mondai5_3_intent_rechecked_evaluation_result_20261028.json",
+      "sha256": "2bbdb26352bdfa79560e8bdfb6e4b911aa6a5601615d35f8174b5285f85c2711"
+    },
+    "validationReceipt": {
+      "path": "output/eco-kentei/reports/mondai5_1_3_intent_recheck_validation_20261028/current_validation.json",
+      "sha256": "fabc49c119384f21a846d5ef99a5ce4f38992b276fe34b1392d4eb38a214bbde"
+    },
+    "acceptanceReceipt": {
+      "path": "output/eco-kentei/reports/mondai5_1_3_intent_recheck_validation_20261028/current_acceptance.json",
+      "sha256": "cc938bb9dc8a0b5adb3370169ca8763b200e13ba8d3bd49fa29ab35c98dfc5df"
+    },
+    "changes": "原画像2枚と00_source全文を直視照合。1972年人間環境宣言と1992年アジェンダ21を取り違えた一記述へ独自化。最初の02は設問方向の曖昧さで保留、05本文へ「誤りがあるか」を明示して7工程を再実行。国連の一次資料で解説と正答を照合し、8対象検査・新session評価合格。source/raw無変更。",
+    "firstMaintenanceHold": {
+      "path": "output/eco-kentei/reports/mondai5_3_maintenance_progress_20261028.json",
+      "sha256": "e60abd1912c31d78b4a56bdaa887f589c3905be2238b7699c5d7ec349c20ecd4"
+    }
   }
 }
