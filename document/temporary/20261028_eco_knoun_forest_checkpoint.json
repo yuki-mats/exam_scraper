@@ -449,5 +449,38 @@
     "evaluationImageSha256": "3bc368908ac9739606be33c9ad9180307a5e1ce66d9ac2fe943e85a645c2ff97",
     "pdfReadScope": "環境省2024年度実績の9頁PDF中、3枚目を画像表示・実読した。全頁を通読したとはしない。",
     "outboundArticleTextOmitted": true
+  },
+  "globalRemainingCountObservedAt": "2026-10-28T00:23:28.030020+00:00",
+  "globalRemainingStatus": {
+    "countUnit": "source question; completion requires current stages and independent evaluation with no known unresolved content or source hold",
+    "totalSourceQuestions": 425,
+    "currentStagesAndEvaluationPassed": 39,
+    "completedSourceQuestionCount": 31,
+    "remainingSourceQuestionCount": 394,
+    "pendingSourceDifferenceCount": 10,
+    "currentQuestion": "mondai4_59",
+    "modelChanged": false,
+    "passedButKnownUnfinishedCount": 8,
+    "receipt": {
+      "path": "output/eco-kentei/reports/global_remaining_status_20261028.json",
+      "sha256": "044767b1ede93a38b1362d5144edfaf4e836a86c4c3c129fafcff9b8632821ac"
+    }
+  },
+  "nextQuestion59Preparation": {
+    "sourceRecordRef": "question_mondai4_59.json#0",
+    "questionId": "682974cd364eed5e430276e5",
+    "stateHashBefore": "c2e1c7c5b0a671326f1de408e4df28141b9b115297e1465b5170b329ba94ca63",
+    "sourceImagesActuallyRead": true,
+    "sourceVisualReceipt": {
+      "path": "output/eco-kentei/reports/manual_content_reviews/mondai4_59_source_recheck_20261028.json",
+      "sha256": "609422aecdd17e7f57591b93d0623c09ea0cdc4ec7641d6506937e536b77ecdf"
+    },
+    "existingIndependentFigureReadback": {
+      "path": "output/eco-kentei/reports/mondai4_59_existing_independent_figure_readback_20261028.json",
+      "sha256": "4c23a11b650a09346932cd671710a46f48e70744760186e36302c20d5eb7f083"
+    },
+    "newNativeMaintenanceOrEvaluationStarted": false,
+    "countedCompleted": false,
+    "nextAction": "公式一次本文を実読し、HFCの一部用途と石油由来プラスチックの焼却を混同しない解説を確認。必要な通常03/04、6検査、fresh画像添付評価を逐次実施。"
   }
 }
