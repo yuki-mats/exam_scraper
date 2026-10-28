@@ -2236,7 +2236,7 @@
     "lawzilla": "unavailable_before_initialization",
     "officialEvidence": "e-Gov現行施行版第2条・第4条・第5条および環境省資料を確認。飼養等は原則禁止で許可や一部適用除外がある。",
     "knownRetry": "法令監査初回は説明文候補の不要な記号とメタ文を検出し、2回目を実行中。",
-    "nextAction": "候補の責務・出題時点根拠を個別に解決し、入力が変わった後に法令監査を再開する。",
+    "nextAction": "稼働中の同一runを再確認し、終端後に検査と再評価を行う。",
     "explanationDraft": {
       "path": "output/eco-kentei/reports/manual_content_reviews/mondai5_21_explanation_draft_20261028.json",
       "sha256": "8bc5f054e252770e759318a9b8692f655238bb2f7db1c6283f69bfc8297b1281",
@@ -2246,7 +2246,9 @@
     "holdReceipt": {
       "path": "output/eco-kentei/reports/turn_receipts/mondai5_21_hold_20261028.json",
       "sha256": "5ce3f5a1ad760e190ef3474e1cda01072d36e69073bbdc40ccbd4da43bf5ce9d"
-    }
+    },
+    "status": "audit_running",
+    "retryRunId": "20261029T025401544725-778d5848"
   },
   "inProgressQuestion5_22": {
     "sourceRecordRef": "question_mondai5_22.json#0",
@@ -3912,6 +3914,6 @@
     "explanationScore": 98,
     "evaluationReceipt": "output/eco-kentei/reports/mondai5_85_evaluation_result_20261028.json",
     "acceptanceReceipt": "output/eco-kentei/reports/mondai5_85_validation_20261028/current_acceptance.json",
-    "nextAction": "問86を原画像から照合。問83は条約取得証明待ち。"
+    "nextAction": "問21の保留を解消する。模擬問題5は問85まで。"
   }
 }
