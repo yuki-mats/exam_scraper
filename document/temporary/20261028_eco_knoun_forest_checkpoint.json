@@ -4060,5 +4060,27 @@
     "uploadReady": "output/eco-kentei/questions_json/upload_to_firestore/knoun-2026-mock-1_firestore_20261029_042844.json",
     "receipt": "output/eco-kentei/reports/turn_receipts/mondai1_8_accepted_20261029.json",
     "nextAction": "模擬問題1の問9を原画像から確認する。問4・6は根拠取得待ち。"
+  },
+  "inProgressQuestion1_9": {
+    "sourceRecordRef": "question_mondai1_9.json#0",
+    "questionId": "d23b5e660ca77833675f3d9c",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": true,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_9_primary_source_review_20261029.json",
+    "status": "accepted",
+    "backup": "output/eco-kentei/reports/mondai1_9_before_rework_20261029",
+    "note": "既存flash_card変換に同一命題で相反する正誤が出るため一命題に正規化する",
+    "originalizeRunId": "20261029T043109194415-8dd6c614",
+    "nativeRunId": "20261029T043135054255-c715e69a",
+    "stateHash": "61523aa1048cd8808a9239ca78f18c797a6be08a9690ad55c1081480ae2387c8",
+    "evaluationJobId": "bVfCjzpM_wl7AYS3",
+    "evaluationSessionId": "01a18402-40e5-7331-9a8c-627a3342928c",
+    "verifiedChoiceCount": 1,
+    "explanationScore": 98,
+    "otherDocumentCountUnchanged": 23,
+    "uploadReady": "output/eco-kentei/questions_json/upload_to_firestore/knoun-2026-mock-1_firestore_20261029_043446.json",
+    "receipt": "output/eco-kentei/reports/turn_receipts/mondai1_9_accepted_20261029.json",
+    "publicationFollowup": "旧choice-2の本番存在を公開時に確認し、必要な整合処理を行う。",
+    "nextAction": "模擬問題1の問10を原画像から確認する。問4・6は根拠取得待ち。"
   }
 }
