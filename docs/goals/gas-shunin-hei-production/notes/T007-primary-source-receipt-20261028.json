@@ -253,6 +253,89 @@
         20
       ],
       "limitations": "2019-07-01適用のKHK自身の検査判定基準。防消火設備の数値・例外と適用期間を確認。METIの2020年版解釈例原本を取得したとは扱わない。"
+    },
+    {
+      "downloadReceipt": {
+        "url": "https://www.miyairi-valve.co.jp/wp-content/uploads/HM-1035_02.pdf",
+        "fetchedAt": "2026-10-28T02:02:57.716988+00:00",
+        "status": 200,
+        "bytes": 275911,
+        "sha256": "c0b0eadce5ad3769f0ab854db2454b81d41641b3bc5d03879ec5e62b7094b15a",
+        "path": "output/gas-shunin-hei/direct_publication/20261027/legal/miyairi-equalizing-HM1035-r2.pdf"
+      },
+      "receiptPath": "output/gas-shunin-hei/direct_publication/20261027/legal/miyairi-equalizing-HM1035-r2.receipt.json",
+      "receiptSha256": "025b283872a05b382fb568057c95cf7eb2f2307162aee504f4aebd195670e388",
+      "pagesReadByPrimary": [
+        1,
+        3,
+        4,
+        6
+      ],
+      "limitations": "メーカー取扱説明書として均圧弁とカップリングの接続構造を確認。設置基準の法的適用範囲の証拠ではない。"
+    },
+    {
+      "downloadReceipt": {
+        "url": "https://www.miyairi-valve.co.jp/wp/pdf/HM-8062_03.pdf",
+        "fetchedAt": "2026-10-28T02:03:03.900882+00:00",
+        "status": 200,
+        "bytes": 312770,
+        "sha256": "56cd0d89c22acd271aa90cd3b183a827ffa319423c6adfecb3e469ce4cc24397",
+        "path": "output/gas-shunin-hei/direct_publication/20261027/legal/miyairi-equalizing-coupling-HM8062-r3.pdf"
+      },
+      "receiptPath": "output/gas-shunin-hei/direct_publication/20261027/legal/miyairi-equalizing-coupling-HM8062-r3.receipt.json",
+      "receiptSha256": "3deeabfd37666c1a700523bebaffae5ae7720193d29b0052a4bd8e08dea1e0a3",
+      "pagesReadByPrimary": [
+        1,
+        3,
+        4,
+        5,
+        6
+      ],
+      "limitations": "メーカー取扱説明書の構造・機能・取付方法を確認。法定数値の根拠として流用しない。"
+    },
+    {
+      "downloadReceipt": {
+        "url": "https://gasproc.or.jp/keinen_2/files/tateku_13.pdf",
+        "path": "output/gas-shunin-hei/direct_publication/20261027/legal/gasproc-building-class-notice461.pdf",
+        "sha256": "685f66925a105248a2d213149dc7c31ed5bdfb87f1d67bd2a92e5eb295bfb0bf",
+        "acquiredAt": "2026-10-28T02:09:05.646565+00:00"
+      },
+      "receiptPath": "output/gas-shunin-hei/direct_publication/20261027/legal/gasproc-building-class-notice461.receipt.json",
+      "receiptSha256": "479e2f3b0e5b1c95bec47c03c6c6a3012b9cc96ccb6a6853d17677ff16841f95",
+      "pagesReadByPrimary": [
+        1,
+        2
+      ],
+      "limitations": "都市ガス振興センターの公開再掲表。改正注記は平成9年までで、告示の2018/2026時点別本文の代用にはならない。"
+    },
+    {
+      "downloadReceipt": {
+        "url": "https://www.gas.or.jp/pdf/books/notice20200401-4.pdf",
+        "path": "output/gas-shunin-hei/direct_publication/20261027/legal/jga-2020-supply-internal-maintenance-amendments.pdf",
+        "sha256": "4d0a93c3655e9001568698baea5ab1e45ae44679753f712c06546d21c94be856",
+        "acquiredAt": "2026-10-28T02:09:08.657503+00:00"
+      },
+      "receiptPath": "output/gas-shunin-hei/direct_publication/20261027/legal/jga-2020-supply-internal-maintenance-amendments.receipt.json",
+      "receiptSha256": "ef6ff3fe6c8166ee40942a7a5c0468bd31b16925d4967ddcd3044afd895dc1f0",
+      "pagesReadByPrimary": [
+        1,
+        2
+      ],
+      "limitations": "JGAの2020年改訂新旧表の実1〜2頁を確認。引用告示の存続を示すが、建物区分の具体数値本文ではない。"
+    },
+    {
+      "downloadReceipt": {
+        "url": "https://www.gas.or.jp/pdf/iinkai/comment/pc_20240405_10.pdf",
+        "path": "output/gas-shunin-hei/direct_publication/20261027/legal/jga-2024-supply-internal-maintenance-consultation.pdf",
+        "sha256": "62cec8e3d38293eaac9457cdece9bddb477b3b6aac1bf7e7df8c67a57ada6bcb",
+        "acquiredAt": "2026-10-28T02:09:12.290987+00:00"
+      },
+      "receiptPath": "output/gas-shunin-hei/direct_publication/20261027/legal/jga-2024-supply-internal-maintenance-consultation.receipt.json",
+      "receiptSha256": "9bf6e944eceaf2a5be336d0ee10925adb84aaaf687b91a931695c5eca340a139",
+      "pagesReadByPrimary": [
+        15
+      ],
+      "limitations": "JGA意見募集の改定案の表と全注を確認。成立した現行規範とはしない。"
     }
   ],
   "productionWritten": false,
@@ -264,7 +347,7 @@
     "lawAuditDecision": "hold",
     "holdReceipt": "output/gas-shunin-hei/direct_publication/20261027/holds/2021-seizo-03-r1.json"
   },
-  "updatedAt": "2026-10-28T01:53:23.678001+00:00",
+  "updatedAt": "2026-10-28T02:26:32.319958+00:00",
   "newCandidateReviews": [
     {
       "sourceQuestionId": "2018:seizo:問5",
@@ -415,6 +498,12 @@
       "status": 403,
       "bodyRead": false,
       "note": "論文本文は未読。実装元CoolProp公式文書のEOS書誌と実装metadataを確認した。"
+    },
+    {
+      "url": "https://www.meti.go.jp/policy/safety_security/industrial_safety/sangyo/citygas/hourei/tatemonokubun_20170401kaisei.pdf",
+      "status": 403,
+      "bodyRead": false,
+      "note": "Web openが403で失敗。検索要旨を本文の実取得として扱わない。"
     }
   ],
   "nativeReviewEvidence": [
@@ -743,6 +832,373 @@
         "model_turn_queue_wait_seconds": 10.160496
       },
       "receivedInputHash": "60551113dbedc0a0cdc90d605999b74a9da7e6e9696fbc5487cbbcfb612a4aa5"
+    },
+    {
+      "localReceiptPath": "output/gas-shunin-hei/direct_publication/20261027/content_audits/2018_kyokyu_問10/native.json",
+      "localReceiptSha256": "bc778e4dbb9ac7e781561bed76088a08e1841e1ef0354472425936053f98df3b",
+      "nativeResponse": {
+        "thread_id": "01a18047-2300-7ba0-9d67-158cd8e9e3a4",
+        "session_id": "01a18047-2300-7ba0-9d67-158cd8e9e3a4",
+        "turn_id": "01a18047-3086-7373-9718-8a190d52f11d",
+        "final_message": "{\"sourceQuestionId\":\"2018:kyokyu:問10\",\"inputHash\":\"e083a274fec257d67ec38db5c6cb7edbc8d4254f124f9eedc88c2ec75d591038\",\"decision\":\"hold\",\"officialAnswerNumber\":3,\"choiceJudgments\":{\"58462d760cf101621324f395b3876cab979dd8544e2e91b967cc0e231cbd1231\":{\"verdict\":\"間違い\",\"rationale\":\"組合せは100・51・2である。確認資料が示す定義値60・31・2と比較すると、イとロが一致しないため、完全命題として誤りである。\"},\"06da82db96e07cf302c6f4efc5eaf3aa228bb71489ce9917e1ce91ef4b656d03\":{\"verdict\":\"間違い\",\"rationale\":\"組合せは100・31・2である。ロとハは一致するが、超高層建物の高さは60m超であり、イの100が一致しないため、完全命題として誤りである。\"},\"39ba495154098a2d88e9ee96231143d2d722d1c4daedcbb9296450c183099ebf\":{\"verdict\":\"正しい\",\"rationale\":\"組合せ60・31・2は、超高層建物、高層建物及び一般集合住宅について確認できた三つの定義値とすべて一致する。公式正答表でも供給問10の正答は3である。\"},\"ca26264985f38031faa0c44b8331d31b79bff66e4e6840329a439607db256652\":{\"verdict\":\"間違い\",\"rationale\":\"組合せは100・51・3であり、確認資料が示す60・31・2のいずれとも一致しないため、完全命題として誤りである。\"},\"551545f8d852287b1138e03c5507f141e2c8eaf0ab6c196c79be9b3876d98a92\":{\"verdict\":\"間違い\",\"rationale\":\"組合せは60・31・3である。イとロは一致するが、一般集合住宅の使用者数の下限は2であり、ハの3が一致しないため、完全命題として誤りである。\"}},\"explanationScore\":96,\"issues\":[\"公式問題PDFのPDF24頁（印刷23頁）で供給問10の表と全5組を、公式正答表で正答3を確認できる。\",\"候補解説は正答組合せ、境界表現、一般集合住宅に関する追加条件を自然な日本語で説明しており、group_choiceの共通解説として必須の「正しい。」から始まっている。\",\"ただし、数値60・31・2を定める昭和60年通商産業省告示第461号について、2018年9月30日時点及び2026年10月28日時点の一次資料が未取得である。候補自身も、取得資料が古い公開再掲表及び後年の指針資料であり、時点別告示原本ではないと認めている。\",\"primaryLawEvidenceをcomplete、各lawReferencesをverifiedとする根拠はガス事業法施行規則第21条だけである。同条は建物区分を告示へ委ねるが、60・31・2自体を規定していないため、数値に関する時点別法令監査は完了していない。\"],\"classificationApproved\":true,\"classificationRationale\":\"設問は法令が参照する建物区分の定義値を問うため、「1-1 目的・用語の定義」が固定分類の説明に最も適合する。回答操作は組合せから正しいものを選ぶgroup_choice、設問方向はselect_correctであり、計算を要しないためisCalculationQuestion=falseも妥当である。\",\"evidenceSummary\":\"公式冊子ではガス技術の問10〜問18が供給分野であり、PDF24頁の問10に候補記録と同じ建物区分表及び5組が掲載されている。公式正答表の供給問10は3である。公開再掲表等から各組を独立比較すると、正しい値は60・31・2で、各肢の真偽は間違い・間違い・正しい・間違い・間違いとなる。ただし、出題時及び現在の告示一次資料がないため、法令監査はholdとする。\"}",
+        "model": "gpt-5.6-sol",
+        "service_tier": null,
+        "reasoning_effort": "high",
+        "image_inputs": [
+          {
+            "sourcePath": "output/gas-shunin-hei/pdf_review/2018/mark_sheet_question/page-20.png",
+            "attachmentIndex": 0,
+            "mimeType": "image/png",
+            "byteCount": 250301,
+            "sha256": "5194a93b21ba0a36d6838b9c3b70267d97939acc5a4c88e46f094fa82db1af1f"
+          },
+          {
+            "sourcePath": "output/gas-shunin-hei/pdf_review/2018/mark_sheet_question/page-24.png",
+            "attachmentIndex": 1,
+            "mimeType": "image/png",
+            "byteCount": 201719,
+            "sha256": "0427975a477a96a3401fbec61ae4ed59130ab54812e5672309bb10f616d762ed"
+          },
+          {
+            "sourcePath": "output/gas-shunin-hei/pdf_review/2018/answer/page-01.png",
+            "attachmentIndex": 2,
+            "mimeType": "image/png",
+            "byteCount": 98554,
+            "sha256": "dadb3a51a67352b4e6d9a929315472785cb8990ba036fa25a9178d85f4d69d15"
+          }
+        ],
+        "changed_files": [],
+        "subagent_thread_ids": [],
+        "subagent_models": [],
+        "subagent_reasoning_efforts": [],
+        "completion_mode": "turn_completed",
+        "model_turn_started_at": "2026-10-28T11:11:51.560861+09:00",
+        "model_turn_finished_at": "2026-10-28T11:12:27.713325+09:00",
+        "model_turn_duration_seconds": 36.153265,
+        "model_turn_queue_wait_seconds": 5.976519
+      }
+    },
+    {
+      "localReceiptPath": "output/gas-shunin-hei/direct_publication/20261027/law_audits/2018_kyokyu_問10_r1/secondary-native.json",
+      "localReceiptSha256": "0e5170f2c153a938d51b337e6da19e4480e631ba1b4dbfea6697e8c07e1bdf82",
+      "nativeResponse": {
+        "thread_id": "01a18047-2c73-7d43-be1a-a553de587c99",
+        "session_id": "01a18047-2c73-7d43-be1a-a553de587c99",
+        "turn_id": "01a18047-3087-7693-a3a8-92cbc5bcbbc5",
+        "final_message": "{\"schemaVersion\":\"law-audit-verification/v1\",\"questionId\":\"5ead82ea77ef9850\",\"evidenceHash\":\"9bf69e0d8f14a52809aa1e764dfc75b9678c722f26511125222473d66df56ad6\",\"decision\":\"hold\",\"examTimeDecision\":[\"間違い\",\"間違い\",\"正しい\",\"間違い\",\"間違い\"],\"currentLawDecision\":[\"間違い\",\"間違い\",\"正しい\",\"間違い\",\"間違い\"],\"issues\":[\"出題時判定は公式問題・正答3と整合するが、具体値60・31・2を定める「ガスを使用する建物ごとの区分を定める件」について、2018-09-30時点の適用本文が一次資料で確認されていない。\",\"現行の施行規則第21条は建物区分を告示へ委任するだけで、60・31・2を規定していない。候補は全肢のlawReferencesを同条のみでverifiedとしており、具体値の法令locatorとして不足している。\",\"2026-10-28時点の告示本文・改正履歴も未取得であるため、same_as_currentおよび現行法判定を確定する一次法令根拠が不足している。2024年の日本ガス協会資料は数値を裏付ける参考資料だが、成立した現行告示本文の代用にはならない。\"],\"verifiedSourceUrls\":[\"https://laws.e-gov.go.jp/api/2/law_file/xml/345M50000400097?asof=2018-09-30\",\"https://laws.e-gov.go.jp/api/2/law_file/xml/345M50000400097?asof=2026-10-28\",\"https://www.gas.or.jp/pdf/iinkai/comment/pc_20240405_10.pdf\"]}",
+        "model": "gpt-5.6-sol",
+        "service_tier": null,
+        "reasoning_effort": "high",
+        "image_inputs": [
+          {
+            "sourcePath": "output/gas-shunin-hei/pdf_review/2018/mark_sheet_question/page-20.png",
+            "attachmentIndex": 0,
+            "mimeType": "image/png",
+            "byteCount": 250301,
+            "sha256": "5194a93b21ba0a36d6838b9c3b70267d97939acc5a4c88e46f094fa82db1af1f"
+          },
+          {
+            "sourcePath": "output/gas-shunin-hei/pdf_review/2018/mark_sheet_question/page-24.png",
+            "attachmentIndex": 1,
+            "mimeType": "image/png",
+            "byteCount": 201719,
+            "sha256": "0427975a477a96a3401fbec61ae4ed59130ab54812e5672309bb10f616d762ed"
+          },
+          {
+            "sourcePath": "output/gas-shunin-hei/pdf_review/2018/answer/page-01.png",
+            "attachmentIndex": 2,
+            "mimeType": "image/png",
+            "byteCount": 98554,
+            "sha256": "dadb3a51a67352b4e6d9a929315472785cb8990ba036fa25a9178d85f4d69d15"
+          }
+        ],
+        "changed_files": [],
+        "subagent_thread_ids": [],
+        "subagent_models": [],
+        "subagent_reasoning_efforts": [],
+        "completion_mode": "turn_completed",
+        "model_turn_started_at": "2026-10-28T11:11:51.561559+09:00",
+        "model_turn_finished_at": "2026-10-28T11:12:37.457795+09:00",
+        "model_turn_duration_seconds": 45.897222,
+        "model_turn_queue_wait_seconds": 3.888926
+      }
+    },
+    {
+      "localReceiptPath": "output/gas-shunin-hei/direct_publication/20261027/content_audits/2019_law_問10/native.json",
+      "localReceiptSha256": "eb147d2089442db05085c5997acf9571ca74cff3178949d0704489f86b324d9f",
+      "nativeResponse": {
+        "thread_id": "01a18051-42b6-7430-8dd6-6b945414817a",
+        "session_id": "01a18051-42b6-7430-8dd6-6b945414817a",
+        "turn_id": "01a18051-5667-7e53-996e-41f87f5da357",
+        "final_message": "{\"sourceQuestionId\":\"2019:law:問10\",\"inputHash\":\"e8156f9a524ab0cce59c2995352362e90879aee0df8461d0a4785fe04fed700b\",\"decision\":\"hold\",\"officialAnswerNumber\":5,\"choiceJudgments\":{\"71901ab03ee0c5646448a82d363edd28874dc60c00718df6cac6a90d2eb88de2\":{\"verdict\":\"正しい\",\"rationale\":\"ガス出口側がゴム管口又は迅速継手であるガス栓は、告示で定める規格への適合対象であり、細目告示ではJIS S 2120「ガス栓」への適合が求められる。ただし、入力資料には試験時及び現行の細目告示原文がなく、この具体的規格を一次資料で独立確認できていない。\"},\"b9a0d7f07e38dfd77e5b17ee0ad7692a92812dad0ffab1876a2c062f0b6e53ae\":{\"verdict\":\"正しい\",\"rationale\":\"省令第46条は、水のたまるおそれのある導管に適切な水取り器を設けるよう求めており、選択肢の完全命題と一致する。試験時と現行の条文にも差異はない。\"},\"f4c2cf4a2a9fa53cbbb3c92ece955923a78bfb31ab7d1e222f4f6cf3c9cee8fe\":{\"verdict\":\"正しい\",\"rationale\":\"省令第48条第3項により、道路以外の地盤面下に埋設する中圧以上の本支管には掘削等による損傷防止措置が必要であり、他工事による損傷のおそれがないものは除外される。選択肢はこの対象と例外を正しく示している。\"},\"a42a16ec062ae3b42c6acd1546cefcd2eeb78a3339cede7aa79e655be4f4b5a1\":{\"verdict\":\"間違い\",\"rationale\":\"省令第49条第5項が外壁貫通箇所付近の装置と建物内の情報把握場所からの即時遮断を求める対象には、特定地下街等、特定地下室等、超高層建物及び特定大規模建物が挙げられ、高層建物一般は含まれない。高層建物を対象とする同条第3項の一般的な遮断装置義務との混同である。\"},\"c52418ae4d90302600749ea09fab64dbc49eee626002212688147f7a7851ce57\":{\"verdict\":\"間違い\",\"rationale\":\"省令第50条第1項が遮断機能の作動条件として定めるのは、異常なガス圧力の「低下」であり、「上昇」ではない。したがって選択肢の完全命題は誤りである。\"}},\"explanationScore\":96,\"issues\":[\"第1肢の結論に不可欠な細目告示第7条及びJIS S 2120への適合規定について、試験時と現行の告示原文が入力資料に含まれていない。既存の乙種監査記録は補助資料にとどまり、法令の一次根拠確認を代替できないため、資料不足として保留する必要がある。\",\"primaryLawEvidence.statusが「complete」とされているが、第1肢について収録されているのは委任元の省令第45条だけであり、具体的な対象形状とJIS規格を定める細目告示の一次証拠が欠けている。\"],\"classificationApproved\":true,\"classificationRationale\":\"全肢がガス栓、導管の水取り・損傷防止、建物供給導管の遮断装置及び遮断機能付きガスメーターという法定設備要件を扱うため、「2-4 導管・ガス栓・整圧器の技術基準」が適切である。複数の記述を個別に真偽判定するtrue_false、計算を要しないisCalculationQuestion=false、誤っている組合せを選ぶselect_incorrectも公式設問の回答操作と一致する。\",\"evidenceSummary\":\"公式問題頁で法令問10のイからホまでの5記述と、組合せ5が「ニ、ホ」であることを確認した。公式正答表でも丙種・法令・問10の正答は5である。省令第46条、第48条第3項、第49条第3項・第5項及び第50条第1項から、ロとハは正しく、ニとホは誤りと独立に確認でき、組合せ5と整合する。イも内容上は正しいが、具体的なJIS規格を定める試験時及び現行の細目告示原文がないため、法令一次根拠の完全な照合は未完了である。\"}",
+        "model": "gpt-5.6-sol",
+        "service_tier": null,
+        "reasoning_effort": "high",
+        "image_inputs": [
+          {
+            "sourcePath": "output/gas-shunin-hei/pdf_review/2019/mark_sheet_question/page-11.png",
+            "attachmentIndex": 0,
+            "mimeType": "image/png",
+            "byteCount": 261924,
+            "sha256": "bc31bab5a7991008275b2b12084c50db0826069ee4f4ce54179b76765e4c24eb"
+          },
+          {
+            "sourcePath": "output/gas-shunin-hei/pdf_review/2019/answer/page-01.png",
+            "attachmentIndex": 1,
+            "mimeType": "image/png",
+            "byteCount": 97971,
+            "sha256": "48779f0c69a59c3b42b76e941d241ca87ff7f6d3ed20312c74aa8a2f0f67f1c0"
+          }
+        ],
+        "changed_files": [],
+        "subagent_thread_ids": [],
+        "subagent_models": [],
+        "subagent_reasoning_efforts": [],
+        "completion_mode": "turn_completed",
+        "model_turn_started_at": "2026-10-28T11:22:56.617967+09:00",
+        "model_turn_finished_at": "2026-10-28T11:25:01.052784+09:00",
+        "model_turn_duration_seconds": 124.437097,
+        "model_turn_queue_wait_seconds": 9.191672
+      }
+    },
+    {
+      "localReceiptPath": "output/gas-shunin-hei/direct_publication/20261027/law_audits/2019_law_問10_r1/secondary-native.json",
+      "localReceiptSha256": "3c1f662c33cc835d189356f41313e722b2ca89e4fa8c7697d69c1660fd703514",
+      "nativeResponse": {
+        "thread_id": "01a18051-45ef-79c2-8ca8-7b0847174a58",
+        "session_id": "01a18051-45ef-79c2-8ca8-7b0847174a58",
+        "turn_id": "01a18051-599a-70d1-82aa-5ce71ec76e8b",
+        "final_message": "{\"schemaVersion\":\"law-audit-verification/v1\",\"questionId\":\"2efa63768a8b1914\",\"evidenceHash\":\"75f775cd9bf2edd63abc5da843da7adf88a53dbfec63232bfe878dbc7352a410\",\"decision\":\"hold\",\"examTimeDecision\":[\"正しい\",\"正しい\",\"正しい\",\"間違い\",\"間違い\"],\"currentLawDecision\":[\"正しい\",\"正しい\",\"正しい\",\"間違い\",\"間違い\"],\"issues\":[\"第1肢の説明は、細目告示第7条がゴム管口・迅速継手についてJIS S 2120への適合を定めるとするが、確認済み一次本文は省令第45条の委任規定までであり、告示本文は取得されていない。省令第45条だけでは対象形状、JIS規格名及び両時点での適用内容を独立確認できないため、出題時・現行の該当告示本文を公式一次情報で確認するまで候補全体を承認できない。\"],\"verifiedSourceUrls\":[\"https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2019-09-29\",\"https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2026-10-28\"]}",
+        "model": "gpt-5.6-sol",
+        "service_tier": null,
+        "reasoning_effort": "high",
+        "image_inputs": [
+          {
+            "sourcePath": "output/gas-shunin-hei/pdf_review/2019/mark_sheet_question/page-11.png",
+            "attachmentIndex": 0,
+            "mimeType": "image/png",
+            "byteCount": 261924,
+            "sha256": "bc31bab5a7991008275b2b12084c50db0826069ee4f4ce54179b76765e4c24eb"
+          },
+          {
+            "sourcePath": "output/gas-shunin-hei/pdf_review/2019/answer/page-01.png",
+            "attachmentIndex": 1,
+            "mimeType": "image/png",
+            "byteCount": 97971,
+            "sha256": "48779f0c69a59c3b42b76e941d241ca87ff7f6d3ed20312c74aa8a2f0f67f1c0"
+          }
+        ],
+        "changed_files": [],
+        "subagent_thread_ids": [],
+        "subagent_models": [],
+        "subagent_reasoning_efforts": [],
+        "completion_mode": "turn_completed",
+        "model_turn_started_at": "2026-10-28T11:22:57.437057+09:00",
+        "model_turn_finished_at": "2026-10-28T11:23:17.545689+09:00",
+        "model_turn_duration_seconds": 20.109015,
+        "model_turn_queue_wait_seconds": 9.305272
+      }
     }
-  ]
+  ],
+  "directPrimaryReadEvidence": [
+    {
+      "path": "output/gas-shunin-hei/direct_publication/20261027/legal/2023-seizo04-gas12-43-order1-lpg19-direct-read.json",
+      "sha256": "fe070b3a9efb876a5ce6c142f07077d6b9b07c80bed349fd17d18f350cf0971e",
+      "payload": [
+        {
+          "asOf": "2023-09-24",
+          "lawId": "412M50000400111",
+          "revisionId": "412M50000400111_20200626_502M60000400060",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2023-09-24",
+          "article": "12",
+          "text": "（静電気除去） 第十二条 液化ガスを通ずるガス工作物には、当該ガス工作物に生ずる静電気を除去する措置を講じなければならない。 ただし、当該静電気によりガスに引火するおそれがない場合にあっては、この限りでない。",
+          "lawXmlSha256": "4155b00f6560219e4800e396f254c39369e60fc87f3191c67c798c4ee0fda92e"
+        },
+        {
+          "asOf": "2023-09-24",
+          "lawId": "412M50000400111",
+          "revisionId": "412M50000400111_20200626_502M60000400060",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2023-09-24",
+          "article": "43",
+          "text": "（附属設備等） 第四十三条 特定ガス発生設備には、容器の腐食及び転倒並びに容器のバルブの損傷を防止する適切な措置を講じなければならない。 ２ 容器又は容器の設置場所には、容器内の圧力が異常に上昇しないよう適切な温度に維持できる適切な措置を講じなければならない。",
+          "lawXmlSha256": "4155b00f6560219e4800e396f254c39369e60fc87f3191c67c798c4ee0fda92e"
+        },
+        {
+          "asOf": "2023-09-24",
+          "lawId": "329CO0000000068",
+          "revisionId": "329CO0000000068_20230116_505CO0000000002",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/329CO0000000068?asof=2023-09-24",
+          "article": "1",
+          "text": "（特定ガス発生設備） 第一条 ガス事業法（以下「法」という。）第二条第一項の政令で定める簡易なガス発生設備は、高圧ガス保安法（昭和二十六年法律第二百四号）又は液化石油ガスの保安の確保及び取引の適正化に関する法律（昭和四十二年法律第百四十九号）に規定する規格又は技術上の基準に適合する容器（液化天然ガス用保冷容器を除く。）並びに当該容器内において発生するガスの集合装置及び当該容器に附属する気化装置（当該容器内又は当該容器に附属する気化装置内において発生するガスの成分に変更を加える装置を有するものを除く。）とする。",
+          "lawXmlSha256": "44b7d9155c990edd565542fe599ab86d77a954672fd408826593a465515201b8"
+        },
+        {
+          "asOf": "2023-09-24",
+          "lawId": "409M50000400011",
+          "revisionId": "409M50000400011_20230609_505M60000400032",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/409M50000400011?asof=2023-09-24",
+          "article": "19",
+          "text": "ホ 地盤面下に埋設するバルク貯槽は、次に定める基準に適合すること。 （１） バルク貯槽の頂部は、三十センチメートル以上地盤面から下にあること。 （２） バルク貯槽を埋設した場所に自動車等車両が乗り入れることのないような措置を講ずること。 （３） 告示で定めるところにより、地下水による浮き上がりを防止する措置を講ずること。 （４） バルク貯槽の埋設には、石塊等のない土又は砂を用いること。 （５） バルク貯槽の周囲には、告示で定めるところにより、ガス検知用の孔あき管を設置すること。 （６） バルク貯槽の水平投影面の四隅に、埋設後の貯槽の位置を示すための標識杭を設置すること。 （７） プロテクターのふたは、厚さ五センチメートル以上の不燃性の断熱材を裏当てすること。",
+          "lawXmlSha256": "40dc5a5a6ebf00aa69fe5817003ca9ba36aec82a820cd30c7e0d598bb59e76be"
+        },
+        {
+          "asOf": "2026-10-28",
+          "lawId": "412M50000400111",
+          "revisionId": "412M50000400111_20240427_506M60000400035",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2026-10-28",
+          "article": "12",
+          "text": "（静電気除去） 第十二条 液化ガスを通ずるガス工作物には、当該ガス工作物に生ずる静電気を除去する措置を講じなければならない。 ただし、当該静電気によりガスに引火するおそれがない場合にあっては、この限りでない。",
+          "lawXmlSha256": "0d9aa0bfc33559534f05554b86065743547262a88b62a5ade3b11da6d9697140"
+        },
+        {
+          "asOf": "2026-10-28",
+          "lawId": "412M50000400111",
+          "revisionId": "412M50000400111_20240427_506M60000400035",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2026-10-28",
+          "article": "43",
+          "text": "（附属設備等） 第四十三条 特定ガス発生設備には、容器の腐食及び転倒並びに容器のバルブの損傷を防止する適切な措置を講じなければならない。 ２ 容器又は容器の設置場所には、容器内の圧力が異常に上昇しないよう適切な温度に維持できる適切な措置を講じなければならない。",
+          "lawXmlSha256": "0d9aa0bfc33559534f05554b86065743547262a88b62a5ade3b11da6d9697140"
+        },
+        {
+          "asOf": "2026-10-28",
+          "lawId": "329CO0000000068",
+          "revisionId": "329CO0000000068_20251225_506CO0000000374",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/329CO0000000068?asof=2026-10-28",
+          "article": "1",
+          "text": "（特定ガス発生設備） 第一条 ガス事業法（以下「法」という。）第二条第一項の政令で定める簡易なガス発生設備は、高圧ガス保安法（昭和二十六年法律第二百四号）又は液化石油ガスの保安の確保及び取引の適正化に関する法律（昭和四十二年法律第百四十九号）に規定する規格又は技術上の基準に適合する容器（液化天然ガス用保冷容器を除く。）並びに当該容器内において発生するガスの集合装置及び当該容器に附属する気化装置（当該容器内又は当該容器に附属する気化装置内において発生するガスの成分に変更を加える装置を有するものを除く。）とする。",
+          "lawXmlSha256": "f3adef1a6f4012f6a6f1ecd3f62b6188c6ebb3eed1d08300eac0412a84cfec40"
+        },
+        {
+          "asOf": "2026-10-28",
+          "lawId": "409M50000400011",
+          "revisionId": "409M50000400011_20261001_508M60000400072",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/409M50000400011?asof=2026-10-28",
+          "article": "19",
+          "text": "ホ 地盤面下に埋設するバルク貯槽は、次に定める基準に適合すること。 （１） バルク貯槽の頂部は、三十センチメートル以上地盤面から下にあること。 （２） バルク貯槽を埋設した場所に自動車等車両が乗り入れることのないような措置を講ずること。 （３） 告示で定めるところにより、地下水による浮き上がりを防止する措置を講ずること。 （４） バルク貯槽の埋設には、石塊等のない土又は砂を用いること。 （５） バルク貯槽の周囲には、告示で定めるところにより、ガス検知用の孔あき管を設置すること。 （６） バルク貯槽の水平投影面の四隅に、埋設後の貯槽の位置を示すための標識杭を設置すること。 （７） プロテクターのふたは、厚さ五センチメートル以上の不燃性の断熱材を裏当てすること。",
+          "lawXmlSha256": "f58f4cb2580a1ab47b8ee6cdc3d334300ebc540731230861c9a803166702fe3a"
+        }
+      ]
+    },
+    {
+      "path": "output/gas-shunin-hei/direct_publication/20261027/legal/2018-kyokyu10-rule21-direct-read.json",
+      "sha256": "68613730dc51759496c3abc17b67f7c08e3616cdaf9cd42a20bf18907b0a42ef",
+      "payload": [
+        {
+          "asOf": "2018-09-30",
+          "lawId": "345M50000400097",
+          "revisionId": "345M50000400097_20180401_430M60000400008",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/345M50000400097?asof=2018-09-30",
+          "xmlSha256": "8a701375052185162b526cfb85e30bc2464a9231d5a5ab55f40d345115ef786c",
+          "article": "第21条",
+          "text": "（公共の安全の確保上特に重要なガス工作物） 第二十一条 法第二十二条第三項（同条第四項において準用する場合を含む。）の経済産業省令で定めるガス工作物は、告示で定めるガスを使用する建物ごとの区分（以下「建物区分」という。）のうち特定地下街等、特定地下室等、超高層建物、高層建物、特定大規模建物、特定中規模建物、特定公共用建物、工業用建物（木造その他これに類する構造の建物を除く。）、一般業務用建物（木造その他これに類する構造の建物（学校教育法（昭和二十二年法律第二十六号）第一条に規定する学校、同法第百二十四条に規定する専修学校及び同法第百三十四条第一項に規定する各種学校並びに児童福祉法第三十九条第一項に規定する保育所を除く。）を除く。）又は一般集合住宅（木造その他これに類する構造の建物を除く。）に対するガスの供給のために施設するガス工作物とする。"
+        },
+        {
+          "asOf": "2026-10-28",
+          "lawId": "345M50000400097",
+          "revisionId": "345M50000400097_20251225_507M60000400006",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/345M50000400097?asof=2026-10-28",
+          "xmlSha256": "a4b94aceb5651983f8353a65e9bba07d7e72d6b8f8ca09dded88ce05822cb7ee",
+          "article": "第21条",
+          "text": "（公共の安全の確保上特に重要なガス工作物） 第二十一条 法第二十二条第三項（同条第四項において準用する場合を含む。）の経済産業省令で定めるガス工作物は、告示で定めるガスを使用する建物ごとの区分（以下「建物区分」という。）のうち特定地下街等、特定地下室等、超高層建物、高層建物、特定大規模建物、特定中規模建物、特定公共用建物、工業用建物（木造その他これに類する構造の建物を除く。）、一般業務用建物（木造その他これに類する構造の建物（学校教育法（昭和二十二年法律第二十六号）第一条に規定する学校、同法第百二十四条に規定する専修学校及び同法第百三十四条第一項に規定する各種学校並びに児童福祉法第三十九条第一項に規定する保育所を除く。）を除く。）又は一般集合住宅（木造その他これに類する構造の建物を除く。）に対するガスの供給のために施設するガス工作物とする。"
+        }
+      ]
+    },
+    {
+      "path": "output/gas-shunin-hei/direct_publication/20261027/legal/2019-law10-gas45-46-48-49-50-direct-read.json",
+      "sha256": "0f8ad6239e5456af5e1cf7be9186d3bd5dbde8cf3a7b582b65b91a178357ae84",
+      "payload": [
+        {
+          "asOf": "2019-09-29",
+          "lawId": "412M50000400111",
+          "revisionId": "412M50000400111_20180401_430M60000400008",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2019-09-29",
+          "xmlSha256": "5dd32600bc9d2116a6f49662e0c481c2f7e99d1d84efe893ebee29c1e9d9d407",
+          "article": 45,
+          "text": "（ガス栓の形状等） 第四十五条 ガス栓は、次の各号に適合するものでなければならない。 一 ガス出口側の形状は、告示で定めるものにあっては告示で定める規格に適合すること。 その他のものにあっては、適正な管、接続具等を接続した場合に、接続部の気密が確保できるものであること。 二 告示で定める着脱が容易なガス栓は、内部に過流出安全機構を有すること。"
+        },
+        {
+          "asOf": "2019-09-29",
+          "lawId": "412M50000400111",
+          "revisionId": "412M50000400111_20180401_430M60000400008",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2019-09-29",
+          "xmlSha256": "5dd32600bc9d2116a6f49662e0c481c2f7e99d1d84efe893ebee29c1e9d9d407",
+          "article": 46,
+          "text": "（水取り器） 第四十六条 水のたまるおそれのある導管には、適切な水取り器を設けなければならない。"
+        },
+        {
+          "asOf": "2019-09-29",
+          "lawId": "412M50000400111",
+          "revisionId": "412M50000400111_20180401_430M60000400008",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2019-09-29",
+          "xmlSha256": "5dd32600bc9d2116a6f49662e0c481c2f7e99d1d84efe893ebee29c1e9d9d407",
+          "article": 48,
+          "text": "（防護措置） 第四十八条 導管（最高使用圧力が低圧の導管であって、内径が百ミリメートル未満のものを除く。）であって、道路の路面に露出しているものは、車両の接触その他の衝撃により損傷のおそれのある部分に衝撃による損傷を防止するための措置を講じなければならない。 ２ 道路に埋設される本支管（最高使用圧力が五キロパスカル以上のポリエチレン管に限る。）には、掘削等による損傷を防止するための適切な措置を講じなければならない。 ３ 道路以外の地盤面下に埋設される本支管（最高使用圧力が低圧のもの（ポリエチレン管にあっては、最高使用圧力が五キロパスカルを超えないものに限る。）及び他工事による損傷のおそれのないものを除く。）には、掘削等による損傷を防止するための適切な措置を講じなければならない。 ４ 第十五条第一項第七号に掲げるものには、投錨等により導管が損傷を受けるおそれがある場合にあっては、損傷を防止するための適切な措置を講じなければならない。"
+        },
+        {
+          "asOf": "2019-09-29",
+          "lawId": "412M50000400111",
+          "revisionId": "412M50000400111_20180401_430M60000400008",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2019-09-29",
+          "xmlSha256": "5dd32600bc9d2116a6f49662e0c481c2f7e99d1d84efe893ebee29c1e9d9d407",
+          "article": 49,
+          "text": "（ガス遮断装置等） 第四十九条 最高使用圧力が高圧又は中圧の本支管には、危急の場合に、ガスを速やかに遮断することができる適切な装置を適切な場所に設けなければならない。 ２ 最高使用圧力が低圧の本支管であって、特定地下街等へのガスの供給に係るものには、当該特定地下街等において災害が発生した場合に、当該特定地下街等へのガスの供給を、当該災害により妨げられない箇所において、容易に遮断することができる適切な措置を講じなければならない。 ３ ガスの使用場所である次に掲げる建物にガスを供給する導管には、危急の場合にガスを速やかに遮断することができる適切な装置を適切な場所に設けなければならない。 一 超高層建物、高層建物又は特定大規模建物 二 最高使用圧力が中圧の導管でガスを供給する建物（前号に掲げるものを除く。） 三 最高使用圧力が低圧である内径七十ミリメートル（液化石油ガスを原料として発生させ、その成分に変更を加えることなく供給するガスを通ずるものにあっては、四十五ミリメートル）以上の導管でガスを供給する建物（前二号に掲げるものを除く。） ４ ガスの使用場所である地下室、地下街、その他地下であってガスが充満するおそれのある場所（以下「地下室等」という。）にガスを供給する導管には、その地下室等の付近の適切な場所に、危急の場合に当該地下室等へのガスの供給を地上から速やかに遮断することができる適切な装置を設けなければならない。 ５ 特定地下街等、特定地下室等、超高層建物及び特定大規模建物にガスを供給する導管（次項に規定するものを除く。）には、その導管が当該建物の外壁を貫通する箇所の付近に、危急の場合に当該建物へのガスの供給を、当該建物内におけるガス漏れ等の情報を把握できる適切な場所から直ちに遮断することができる適切な装置を設けなければならない。 ６ 最高使用圧力が中圧の導管であって、建物にガスを供給するもの（次の各号に掲げるものを除く。）には、その導管が当該建物の外壁を貫通する箇所の付近に、危急の場合に当該建物へのガスの供給を、当該建物内におけるガス漏れ等の情報を把握できる適切な場所から、直ちに遮断することができる適切な装置を設けなければならない。 一 工場、廃棄物処理場、浄水場、下水処理場その他これらに類する場所に設置されるもの 二 ガスが滞留するおそれのない場所に設置されるもの"
+        },
+        {
+          "asOf": "2019-09-29",
+          "lawId": "412M50000400111",
+          "revisionId": "412M50000400111_20180401_430M60000400008",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2019-09-29",
+          "xmlSha256": "5dd32600bc9d2116a6f49662e0c481c2f7e99d1d84efe893ebee29c1e9d9d407",
+          "article": 50,
+          "text": "（ガス遮断機能を有するガスメーター） 第五十条 ガス事業者又は準用事業者がガスの使用者との取引のために使用するガスメーター（使用最大流量が毎時十六立方メートル以下、使用最大圧力が四キロパスカル以下及び口径二百五十ミリメートル以下のものに限る。以下この条において同じ。）は、ガスが流入している状態において、災害の発生のおそれのある大きさの地震動、過大なガスの流量又は異常なガス圧力の低下を検知した場合に、ガスを速やかに遮断する機能を有するものでなければならない。 ただし、次の各号のいずれかに該当する場合は、この限りでない。 一 当該機能を有するガスメーターを取り付けることにつき、ガスの使用者の承諾を得ることができない場合 二 設置場所の状況により、当該機能が有効に働き得ない場合 ２ 一の団地内における供給地点の数が三百未満の団地であって、当該団地にガスを供給する特定製造所に、二百五十ガルを超える地震動を継続して検知したときに、当該団地に対するガスの供給を速やかに遮断する設備を設置した場合には前項の規定（災害の発生するおそれのある大きさの地震動を検知した場合に係る部分に限る。）は適用しない。"
+        },
+        {
+          "asOf": "2026-10-28",
+          "lawId": "412M50000400111",
+          "revisionId": "412M50000400111_20240427_506M60000400035",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2026-10-28",
+          "xmlSha256": "0d9aa0bfc33559534f05554b86065743547262a88b62a5ade3b11da6d9697140",
+          "article": 45,
+          "text": "（ガス栓の形状等） 第四十五条 ガス栓は、次の各号に適合するものでなければならない。 一 ガス出口側の形状は、告示で定めるものにあっては告示で定める規格に適合すること。 その他のものにあっては、適正な管、接続具等を接続した場合に、接続部の気密が確保できるものであること。 二 告示で定める着脱が容易なガス栓は、内部に過流出安全機構を有すること。"
+        },
+        {
+          "asOf": "2026-10-28",
+          "lawId": "412M50000400111",
+          "revisionId": "412M50000400111_20240427_506M60000400035",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2026-10-28",
+          "xmlSha256": "0d9aa0bfc33559534f05554b86065743547262a88b62a5ade3b11da6d9697140",
+          "article": 46,
+          "text": "（水取り器） 第四十六条 水のたまるおそれのある導管には、適切な水取り器を設けなければならない。"
+        },
+        {
+          "asOf": "2026-10-28",
+          "lawId": "412M50000400111",
+          "revisionId": "412M50000400111_20240427_506M60000400035",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2026-10-28",
+          "xmlSha256": "0d9aa0bfc33559534f05554b86065743547262a88b62a5ade3b11da6d9697140",
+          "article": 48,
+          "text": "（防護措置） 第四十八条 導管（最高使用圧力が低圧の導管であって、内径が百ミリメートル未満のものを除く。）であって、道路の路面に露出しているものは、車両の接触その他の衝撃により損傷のおそれのある部分に衝撃による損傷を防止するための措置を講じなければならない。 ２ 道路に埋設される本支管（最高使用圧力が五キロパスカル以上のポリエチレン管に限る。）には、掘削等による損傷を防止するための適切な措置を講じなければならない。 ３ 道路以外の地盤面下に埋設される本支管（最高使用圧力が低圧のもの（ポリエチレン管にあっては、最高使用圧力が五キロパスカルを超えないものに限る。）及び他工事による損傷のおそれのないものを除く。）には、掘削等による損傷を防止するための適切な措置を講じなければならない。 ４ 第十五条第一項第七号に掲げるものには、投錨等により導管が損傷を受けるおそれがある場合にあっては、損傷を防止するための適切な措置を講じなければならない。"
+        },
+        {
+          "asOf": "2026-10-28",
+          "lawId": "412M50000400111",
+          "revisionId": "412M50000400111_20240427_506M60000400035",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2026-10-28",
+          "xmlSha256": "0d9aa0bfc33559534f05554b86065743547262a88b62a5ade3b11da6d9697140",
+          "article": 49,
+          "text": "（ガス遮断装置等） 第四十九条 最高使用圧力が高圧又は中圧の本支管には、危急の場合に、ガスを速やかに遮断することができる適切な装置を適切な場所に設けなければならない。 ２ 最高使用圧力が低圧の本支管であって、特定地下街等へのガスの供給に係るものには、当該特定地下街等において災害が発生した場合に、当該特定地下街等へのガスの供給を、当該災害により妨げられない箇所において、容易に遮断することができる適切な措置を講じなければならない。 ３ ガスの使用場所である次に掲げる建物にガスを供給する導管には、危急の場合にガスを速やかに遮断することができる適切な装置を適切な場所に設けなければならない。 一 超高層建物、高層建物又は特定大規模建物 二 最高使用圧力が中圧の導管でガスを供給する建物（前号に掲げるものを除く。） 三 最高使用圧力が低圧である内径七十ミリメートル（液化石油ガスを原料として発生させ、その成分に変更を加えることなく供給するガスを通ずるものにあっては、四十五ミリメートル）以上の導管でガスを供給する建物（前二号に掲げるものを除く。） ４ ガスの使用場所である地下室、地下街、その他地下であってガスが充満するおそれのある場所（以下「地下室等」という。）にガスを供給する導管には、その地下室等の付近の適切な場所に、危急の場合に当該地下室等へのガスの供給を地上から速やかに遮断することができる適切な装置を設けなければならない。 ５ 特定地下街等、特定地下室等、超高層建物及び特定大規模建物にガスを供給する導管（次項に規定するものを除く。）には、その導管が当該建物の外壁を貫通する箇所の付近に、危急の場合に当該建物へのガスの供給を、当該建物内におけるガス漏れ等の情報を把握できる適切な場所から直ちに遮断することができる適切な装置を設けなければならない。 ６ 最高使用圧力が中圧の導管であって、建物にガスを供給するもの（次の各号に掲げるものを除く。）には、その導管が当該建物の外壁を貫通する箇所の付近に、危急の場合に当該建物へのガスの供給を、当該建物内におけるガス漏れ等の情報を把握できる適切な場所から、直ちに遮断することができる適切な装置を設けなければならない。 一 工場、廃棄物処理場、浄水場、下水処理場その他これらに類する場所に設置されるもの 二 ガスが滞留するおそれのない場所に設置されるもの"
+        },
+        {
+          "asOf": "2026-10-28",
+          "lawId": "412M50000400111",
+          "revisionId": "412M50000400111_20240427_506M60000400035",
+          "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2026-10-28",
+          "xmlSha256": "0d9aa0bfc33559534f05554b86065743547262a88b62a5ade3b11da6d9697140",
+          "article": 50,
+          "text": "（ガス遮断機能を有するガスメーター） 第五十条 ガス事業者又は準用事業者がガスの使用者との取引のために使用するガスメーター（使用最大流量が毎時十六立方メートル以下、使用最大圧力が四キロパスカル以下及び口径二百五十ミリメートル以下のものに限る。以下この条において同じ。）は、ガスが流入している状態において、災害の発生のおそれのある大きさの地震動、過大なガスの流量又は異常なガス圧力の低下を検知した場合に、ガスを速やかに遮断する機能を有するものでなければならない。 ただし、次の各号のいずれかに該当する場合は、この限りでない。 一 当該機能を有するガスメーターを取り付けることにつき、ガスの使用者の承諾を得ることができない場合 二 設置場所の状況により、当該機能が有効に働き得ない場合 ２ 一の団地内における供給地点の数が三百未満の団地であって、当該団地にガスを供給する特定製造所に、二百五十ガルを超える地震動を継続して検知したときに、当該団地に対するガスの供給を速やかに遮断する設備を設置した場合には前項の規定（災害の発生するおそれのある大きさの地震動を検知した場合に係る部分に限る。）は適用しない。"
+        }
+      ]
+    }
+  ],
+  "crossQualificationReferenceReceipt": "docs/goals/gas-shunin-hei-production/notes/T007-cross-qualification-reference-20261028.json"
 }
