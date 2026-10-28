@@ -4162,5 +4162,43 @@
     "uploadReady": "output/eco-kentei/questions_json/upload_to_firestore/knoun-2026-mock-1_firestore_20261029_045817.json",
     "receipt": "output/eco-kentei/reports/turn_receipts/mondai1_13_accepted_20261029.json",
     "nextAction": "模擬問題1の問14を原画像から確認する。問4・6は根拠取得待ち。"
+  },
+  "inProgressQuestion1_14": {
+    "sourceRecordRef": "question_mondai1_14.json#0",
+    "questionId": "e56dfcb6ce66c69ec241a1e2",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": true,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_14_primary_source_review_20261029.json",
+    "status": "hold_server_verifiable_ordinance_evidence",
+    "backup": "output/eco-kentei/reports/mondai1_14_before_rework_20261029",
+    "originalizeRunId": "20261029T050103501053-6403b691",
+    "nativeRunId": "20261029T050129464637-c11c2346",
+    "holdReason": "02bは東京都条例の一次本文と公式資料についてサーバー照合済み取得証明の未提示により保留。通常のWeb閲覧では同証明の代替にならない。",
+    "primaryOrdinanceUrl": "https://www.reiki.metro.tokyo.lg.jp/ex_file/honban/reiki/reiki_honbun/g101RG00001328.html",
+    "primaryOrdinanceArticle": "第五条の十一",
+    "nextAction": "条例対応の取得証明を準備した後に02bから再開。問15以降は先行する。"
+  },
+  "inProgressQuestion1_15": {
+    "sourceRecordRef": "question_mondai1_15.json#0",
+    "questionId": "72e9ff209a0cf7e93a5f2d3b",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": true,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_15_primary_source_review_20261029.json",
+    "status": "accepted",
+    "backup": "output/eco-kentei/reports/mondai1_15_before_rework_20261029",
+    "originalizeRunId": "20261029T050450605004-393055b3",
+    "nativeRunId": "20261029T050517175166-c9c315d6",
+    "stateHash": "fbc81a433e2c70d72b8b01f695c5e7d021c8cd7d255b78f75e97f7272399d7de",
+    "evaluationJobId": "Ev93ja7ooMVG9PT2",
+    "firstEvaluationStatus": "needs_rework",
+    "firstEvaluationJobId": "ohRql_7Flbb9UBV4",
+    "reworkReason": "解説に実質ゼロの仕組みと表明・達成の違いを加えた",
+    "evaluationSessionId": "01a18421-90d7-7250-9ef5-90a2f49f126b",
+    "verifiedChoiceCount": 1,
+    "explanationScore": 100,
+    "otherDocumentCountUnchanged": 28,
+    "uploadReady": "output/eco-kentei/questions_json/upload_to_firestore/knoun-2026-mock-1_firestore_20261029_050854.json",
+    "receipt": "output/eco-kentei/reports/turn_receipts/mondai1_15_accepted_20261029.json",
+    "nextAction": "模擬問題1の問16を原画像から確認する。問4・6・14は根拠取得証明待ち。"
   }
 }
