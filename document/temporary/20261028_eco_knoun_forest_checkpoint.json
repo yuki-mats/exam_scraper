@@ -6,7 +6,7 @@
   "fullGoalComplete": false,
   "previousGoalTurnClassification": "progress",
   "thisTurnReworkedSourceRecords": [
-    "question_mondai5_50.json#0"
+    "question_mondai5_51.json#0"
   ],
   "commonContextFiveQuestions": [
     {
@@ -3178,5 +3178,20 @@
     "evaluationReceipt": "output/eco-kentei/reports/mondai5_50_evaluation_result_20261028.json",
     "receipt": "output/eco-kentei/reports/turn_receipts/mondai5_50_maintenance_with_source_hold_20261028.json",
     "quarantinedCandidate": "output/eco-kentei/reports/mondai5_50_validation_20261028/quarantined_upload_candidate.json"
+  },
+  "inProgressQuestion5_51": {
+    "sourceRecordRef": "question_mondai5_51.json#0",
+    "questionId": "32e23a444fdd872ceb6f34a8",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": true,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai5_51_primary_source_review_20261028.json",
+    "originalizeRunId": "20261028T204002040767-bf9367bd",
+    "status": "law_context_blocked",
+    "nextAction": "世界遺産資料に対応した正規の取得証明を準備し02bから再開。問52を照合する。",
+    "nativeRunId": "20261028T204031641190-a5820b80",
+    "receipt": "output/eco-kentei/reports/turn_receipts/mondai5_51_official_guidance_hold_20261028.json",
+    "officialEvidenceProvider": "world heritage not supported",
+    "correctChoicePatchCoverage": "passed",
+    "independentEvaluation": "not_run"
   }
 }
