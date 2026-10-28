@@ -144,8 +144,8 @@
     "trackedCodeOrPromptChanged": false,
     "otherWorktreeChanges": "他作業の変更は保持し、この記録だけをstageする。"
   },
-  "nextAction": "問43の独自問題化を再整備し、後続工程と独立評価を行う。問57・59・60は原画像との転記差異を保持して保留。",
-  "lastUpdatedAt": "2026-10-28T17:06:04.226559+00:00",
+  "nextAction": "問43はパリ協定公式一次資料の所定取得が可能になるまで保留し、画像照合済みの問44以降を整備する。",
+  "lastUpdatedAt": "2026-10-28T23:21:41.277284+00:00",
   "subsequentQuestion51": {
     "sourceRecordRef": "question_mondai4_51.json#0",
     "sourceQuestionKey": "eco-kentei:knoun-2026-mock-4:bb67422eb5e52e9c",
@@ -4680,11 +4680,24 @@
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_43_primary_source_review_20261029.json",
-    "status": "hold_originalization_insufficient",
+    "status": "hold_official_treaty_acquisition",
     "questionId": "e8cbb68e0f8120268638c1d0",
     "originalizeRunId": "20261029T081309747152-10e397a5",
     "backup": "output/eco-kentei/reports/mondai1_43_before_rework_20261029",
-    "holdReason": "独自問題化の実行は完了したが、4選択肢が00_sourceの原文と同一で、独自問題としての書き換えが不十分。再整備と後続検証が必要。"
+    "holdReason": "02bで条約一次資料未配送により保留。登録済みパリ協定providerの環境省索引への実GETはHTTP 403。UNFCCCの公式資料は別途確認したが、取得証明の代替にはしない。",
+    "originalizeReworkRunId": "20261029T081528290907-4257b42e",
+    "reviewId": "20261029T081527146899-3b4bf237",
+    "nativeRunId": "20261029T081616163234-accbd611",
+    "maintenanceDetail": "output/eco-kentei/reports/mondai1_43_maintenance_detail_20261029.json",
+    "completedStages": [
+      "question_type",
+      "question_intent",
+      "correct_choice"
+    ],
+    "primaryReferenceUrls": [
+      "https://unfccc.int/process-and-meetings/the-paris-agreement/nationally-determined-contributions-ndcs",
+      "https://unfccc.int/process-and-meetings/the-kyoto-protocol"
+    ]
   },
   "inProgressQuestion1_44": {
     "sourceRecordRef": "question_mondai1_44.json#0",
@@ -4810,5 +4823,33 @@
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_60_primary_source_review_20261029.json",
     "status": "hold_source_transcription_difference",
     "holdReason": "画像の下線部記号は「ⓓ」「ⓔ」で設問は「下線部ⓔ」だが、登録文字は「㋐」「㋔」および「下線部㋔」。"
+  },
+  "inProgressQuestion1_61": {
+    "sourceRecordRef": "question_mondai1_61.json#0",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": true,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_61_primary_source_review_20261029.json",
+    "status": "source_visual_review_complete"
+  },
+  "inProgressQuestion1_62": {
+    "sourceRecordRef": "question_mondai1_62.json#0",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": true,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_62_primary_source_review_20261029.json",
+    "status": "source_visual_review_complete"
+  },
+  "inProgressQuestion1_63": {
+    "sourceRecordRef": "question_mondai1_63.json#0",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": true,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_63_primary_source_review_20261029.json",
+    "status": "source_visual_review_complete"
+  },
+  "inProgressQuestion1_64": {
+    "sourceRecordRef": "question_mondai1_64.json#0",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": true,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_64_primary_source_review_20261029.json",
+    "status": "source_visual_review_complete"
   }
 }
