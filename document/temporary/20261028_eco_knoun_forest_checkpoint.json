@@ -450,19 +450,19 @@
     "pdfReadScope": "環境省2024年度実績の9頁PDF中、3枚目を画像表示・実読した。全頁を通読したとはしない。",
     "outboundArticleTextOmitted": true
   },
-  "globalRemainingCountObservedAt": "2026-10-28T01:16:02.960713+00:00",
+  "globalRemainingCountObservedAt": "2026-10-28T01:26:21.018229+00:00",
   "globalRemainingStatus": {
     "countUnit": "source question; completion requires current stages and independent evaluation with no known unresolved content or source hold",
     "totalSourceQuestions": 425,
-    "currentStagesAndEvaluationPassed": 43,
-    "completedSourceQuestionCount": 35,
-    "remainingSourceQuestionCount": 390,
+    "currentStagesAndEvaluationPassed": 44,
+    "completedSourceQuestionCount": 36,
+    "remainingSourceQuestionCount": 389,
     "pendingSourceDifferenceCount": 10,
-    "currentQuestion": "mondai4_63",
+    "currentQuestion": "mondai4_64",
     "passedButKnownUnfinishedCount": 8,
     "receipt": {
-      "path": "output/eco-kentei/reports/global_remaining_status_after_62_20261028.json",
-      "sha256": "383a994e93b4c2a499e0255d8da6822dedfa93b07378a0132f5bdd40e0cf73ed"
+      "path": "output/eco-kentei/reports/global_remaining_status_after_63_20261028.json",
+      "sha256": "7bf61913f45ff8b2619570812ab15f0bf8557943f14fb769b491bc9653e519f3"
     }
   },
   "subsequentQuestion59": {
@@ -592,5 +592,33 @@
       "sha256": "3f50bfef61c6378d7e80089e9da871f81a4cfa3fc2d0a6a3c0ec78124a601309"
     },
     "earlierEvaluationPreserved": "output/eco-kentei/reports/mondai4_62_evaluation_result_pre_prompt_fix_20261028.json"
+  },
+  "subsequentQuestion63": {
+    "sourceRecordRef": "question_mondai4_63.json#0",
+    "questionId": "7599401719fc264e5188669e",
+    "stateHash": "27da1f86d1e05a39325757f42791c21d29db7426f87abef02979c82889515dd6",
+    "normalRunIds": [
+      "20261028T101832387177-c371f1cf",
+      "20261028T101856991925-a9498c35",
+      "20261028T102323934047-0068e7a0"
+    ],
+    "evaluationSessionId": "01a1801c-28ec-7332-ae00-7f5136e2d3ec",
+    "verifiedChoiceCount": 4,
+    "explanationScore": 100,
+    "sourceImagesActuallyRead": true,
+    "changes": "原画像2枚と00_source全文を実視し正答①を確認。環境省の用語説明に沿って05の捨てられる断定を除去。初回別session評価で③燃え殻/ばいじんと④フレーク/ペレットの混同を指摘されたため、05の誤答と03解説を修正。元評価を保存し、6検査と新session評価で4肢一致・解説100点・重大指摘なし。source/raw無変更。",
+    "receipt": {
+      "path": "output/eco-kentei/reports/turn_receipts/mondai4_63_accepted_20261028.json",
+      "sha256": "cee3a185f1f4658e3ee0cce3fc4fc86784164436b42e41c0686db3c0afff8b33"
+    },
+    "evaluationReceipt": {
+      "path": "output/eco-kentei/reports/mondai4_63_evaluation_result_20261028.json",
+      "sha256": "1ab2ce8951f164777b3ed2790bf74510211767953e0a1651205e90593c37932a"
+    },
+    "validationReceipt": {
+      "path": "output/eco-kentei/reports/mondai4_63_validation_20261028/current_validation.json",
+      "sha256": "d245291a860aeb598d199ecb0619997da1ba66b1771e8614c062e133dcaf0998"
+    },
+    "earlierFailedEvaluationPreserved": "output/eco-kentei/reports/mondai4_63_evaluation_result_pre_rework_20261028.json"
   }
 }
