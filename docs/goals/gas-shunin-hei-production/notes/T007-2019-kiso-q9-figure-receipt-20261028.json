@@ -1,0 +1,1168 @@
+{
+  "schemaVersion": "hei-figure-patch-verification/v1",
+  "checkedAt": "2026-10-28T03:28:31.691742+00:00",
+  "sourceQuestionId": "2019:kiso:問9",
+  "plan": {
+    "path": "output/gas-shunin-hei/direct_publication/20261027/figure_review/2019-kiso-q9-image-r3/plan.json",
+    "sha256": "4b545fb89cb4dcb1c46c21c322becdd3d710c2c2d9b03da0aadff5fbc0d8f89a",
+    "payload": {
+      "schemaVersion": "gas-shunin-hei-official-correction-review-plan/v1",
+      "year": 2019,
+      "createdAt": "2026-10-28T03:25:01.119740+00:00",
+      "batchId": "zzzz-hei-direct-figure-2019-kiso-q9-image-r3",
+      "category": "image",
+      "items": [
+        {
+          "sourceQuestionId": "2019:kiso:問9",
+          "currentRecord": {
+            "questionBodyText": "【科目共通注】\n注 問題文中の「圧力」は、指定がない限り「絶対圧力」のことである。\n\n内径50mmの円管をなめらかに拡げて下流側を内径75mmとした円管に水が流れている。下流側の平均流速が10m/sであるとき、上流側の平均流速（m/s）として最も近い値はどれか。",
+            "examLabel": "2019年（令和元年）丙種 過去問題・解答解説 基礎理論",
+            "questionLabel": "問9",
+            "choiceTextList": [
+              "4.5",
+              "10",
+              "15",
+              "22.5",
+              "30"
+            ],
+            "choiceTextMarkedList": [
+              "4.5",
+              "10",
+              "15",
+              "22.5",
+              "30"
+            ],
+            "questionChoiceMarkers": [],
+            "judgeChoiceMarkers": [],
+            "choiceMarkerSource": "unknown",
+            "markerAlignmentMode": "no_marker_data",
+            "markerMismatchDetected": false,
+            "answerResultNumbersRemapped": false,
+            "originalQuestionChoiceImageUrls": [
+              [],
+              [],
+              [],
+              [],
+              []
+            ],
+            "category": "基礎理論",
+            "examYear": 2019,
+            "examOccurrenceId": "2019",
+            "list_group_id": "2019",
+            "question_url": "https://gassyunin.com/exam/hei/hei_2019/#kiso-q9",
+            "public_question_id": "34cebf90f36eb03a",
+            "questionImageStorageUrls": [],
+            "questionIntent": "select_correct",
+            "correctChoiceText": [
+              "間違い",
+              "間違い",
+              "間違い",
+              "正しい",
+              "間違い"
+            ],
+            "explanation_common_prefix": [],
+            "explanation_common_prefix_inferred_correct_choice": 4,
+            "explanation_common_summary": [],
+            "explanation_choice_snippets": [
+              [],
+              [],
+              [],
+              [],
+              []
+            ],
+            "explanation_choice_correctness": [
+              "不正解",
+              "不正解",
+              "不正解",
+              "正解",
+              "不正解"
+            ],
+            "answer_result_text": "正解は 4 です。",
+            "answer_result_inferred_correct_choice_numbers": [
+              4
+            ],
+            "source_question_id": "2019:kiso:問9",
+            "original_question_id": "34cebf90f36eb03a",
+            "questionType": "flash_card",
+            "isCalculationQuestion": true,
+            "isLawRelated": false,
+            "lawGroundedExplanationNotNeeded": true,
+            "lawReferences": [
+              [],
+              [],
+              [],
+              [],
+              []
+            ],
+            "lawContextForExplanation": "管径と流速の連続の関係を使う流体の計算である。",
+            "questionLearningPatternId": "calculation",
+            "explanationText": [
+              "正しい。定常な水の流れでは、上流と下流を通過する体積流量は等しい。円管の断面積は内径の2乗に比例するため、\n\\[A_1v_1=A_2v_2,\\qquad v_1=v_2\\left(\\frac{D_2}{D_1}\\right)^2\\]\nとなる。Aは管内断面積、vは平均流速、Dは内径であり、添字1・2は上流・下流を表す。同じ単位の内径を使って代入すると、\n\\[v_1=10\\times\\left(\\frac{75}{50}\\right)^2=22.5\\,\\mathrm{m/s}\\]\nである。上流のほうが管が細いため、流速は下流より速くなる。"
+            ],
+            "suggestedQuestionDetailsByChoice": [],
+            "lawRevisionFacts": [
+              {
+                "auditStatus": "not_law_related",
+                "reviewState": "secondary_verified",
+                "examTime": {
+                  "correctChoiceText": "間違い"
+                },
+                "current": {
+                  "correctChoiceText": "間違い"
+                },
+                "differenceFacts": [],
+                "answerImpactFacts": [],
+                "reconciliationStatus": "not_applicable",
+                "evidenceSummary": {
+                  "verdict": "not_law_related",
+                  "explanationText": "管径と流速の連続の関係を使う流体の計算である。",
+                  "differenceSummary": "非法令問題。法令差分は適用しない。",
+                  "promptContext": "4.5",
+                  "refs": [],
+                  "displayRefIds": []
+                },
+                "notes": [
+                  "主担当の直接判定と別sessionの全肢確認が一致。",
+                  "output/gas-shunin-hei/direct_publication/20261027/content_audits/2019_kiso_問9/result.json"
+                ]
+              },
+              {
+                "auditStatus": "not_law_related",
+                "reviewState": "secondary_verified",
+                "examTime": {
+                  "correctChoiceText": "間違い"
+                },
+                "current": {
+                  "correctChoiceText": "間違い"
+                },
+                "differenceFacts": [],
+                "answerImpactFacts": [],
+                "reconciliationStatus": "not_applicable",
+                "evidenceSummary": {
+                  "verdict": "not_law_related",
+                  "explanationText": "管径と流速の連続の関係を使う流体の計算である。",
+                  "differenceSummary": "非法令問題。法令差分は適用しない。",
+                  "promptContext": "10",
+                  "refs": [],
+                  "displayRefIds": []
+                },
+                "notes": [
+                  "主担当の直接判定と別sessionの全肢確認が一致。",
+                  "output/gas-shunin-hei/direct_publication/20261027/content_audits/2019_kiso_問9/result.json"
+                ]
+              },
+              {
+                "auditStatus": "not_law_related",
+                "reviewState": "secondary_verified",
+                "examTime": {
+                  "correctChoiceText": "間違い"
+                },
+                "current": {
+                  "correctChoiceText": "間違い"
+                },
+                "differenceFacts": [],
+                "answerImpactFacts": [],
+                "reconciliationStatus": "not_applicable",
+                "evidenceSummary": {
+                  "verdict": "not_law_related",
+                  "explanationText": "管径と流速の連続の関係を使う流体の計算である。",
+                  "differenceSummary": "非法令問題。法令差分は適用しない。",
+                  "promptContext": "15",
+                  "refs": [],
+                  "displayRefIds": []
+                },
+                "notes": [
+                  "主担当の直接判定と別sessionの全肢確認が一致。",
+                  "output/gas-shunin-hei/direct_publication/20261027/content_audits/2019_kiso_問9/result.json"
+                ]
+              },
+              {
+                "auditStatus": "not_law_related",
+                "reviewState": "secondary_verified",
+                "examTime": {
+                  "correctChoiceText": "正しい"
+                },
+                "current": {
+                  "correctChoiceText": "正しい"
+                },
+                "differenceFacts": [],
+                "answerImpactFacts": [],
+                "reconciliationStatus": "not_applicable",
+                "evidenceSummary": {
+                  "verdict": "not_law_related",
+                  "explanationText": "管径と流速の連続の関係を使う流体の計算である。",
+                  "differenceSummary": "非法令問題。法令差分は適用しない。",
+                  "promptContext": "22.5",
+                  "refs": [],
+                  "displayRefIds": []
+                },
+                "notes": [
+                  "主担当の直接判定と別sessionの全肢確認が一致。",
+                  "output/gas-shunin-hei/direct_publication/20261027/content_audits/2019_kiso_問9/result.json"
+                ]
+              },
+              {
+                "auditStatus": "not_law_related",
+                "reviewState": "secondary_verified",
+                "examTime": {
+                  "correctChoiceText": "間違い"
+                },
+                "current": {
+                  "correctChoiceText": "間違い"
+                },
+                "differenceFacts": [],
+                "answerImpactFacts": [],
+                "reconciliationStatus": "not_applicable",
+                "evidenceSummary": {
+                  "verdict": "not_law_related",
+                  "explanationText": "管径と流速の連続の関係を使う流体の計算である。",
+                  "differenceSummary": "非法令問題。法令差分は適用しない。",
+                  "promptContext": "30",
+                  "refs": [],
+                  "displayRefIds": []
+                },
+                "notes": [
+                  "主担当の直接判定と別sessionの全肢確認が一致。",
+                  "output/gas-shunin-hei/direct_publication/20261027/content_audits/2019_kiso_問9/result.json"
+                ]
+              }
+            ],
+            "questionSetId": "gas-shunin-hei_qs03_04_ryutai"
+          },
+          "sourceBinding": {
+            "sourceQuestionKey": "gas-shunin:hei:2019:kiso:q09",
+            "reviewQuestionId": "34cebf90f36eb03a",
+            "sourceRecordRef": "question_2019_1.json#24"
+          },
+          "workItem": {
+            "workId": "2019-kiso-q9-figure",
+            "qualificationId": "gas-shunin-hei",
+            "listGroupId": "2019",
+            "questionId": "34cebf90f36eb03a",
+            "originalQuestionId": "34cebf90f36eb03a",
+            "sourceQuestionKey": "gas-shunin:hei:2019:kiso:q09",
+            "reviewQuestionId": "34cebf90f36eb03a",
+            "sourceRecordRef": "question_2019_1.json#24",
+            "caseIds": [
+              "operator-figure-34cebf90f36eb03a"
+            ],
+            "caseInputHashes": {
+              "operator-figure-34cebf90f36eb03a": "50a5176412c2d97cb8ed1cf1e58b491d2b13ac485a13109108a258988d7c2767"
+            },
+            "caseSnapshots": [
+              {
+                "id": "operator-figure-34cebf90f36eb03a",
+                "canonicalSnapshot": {
+                  "qualificationId": "gas-shunin-hei",
+                  "listGroupId": "2019",
+                  "originalQuestionId": "34cebf90f36eb03a",
+                  "officialEvidenceCandidates": [
+                    {
+                      "sourceClass": "official",
+                      "title": "2019年度丙種の公式問題・正答と図",
+                      "locator": "output/pdf/gas-shunin-official/2019/q_hei_r1.pdf / PDF 19頁 / 2019:kiso:問9 / 当該図の切出し",
+                      "verifiedAt": "2026-10-28T03:25:01.119740+00:00",
+                      "contentHash": "6682a65b475d9795c7cb87ce94333f114aaeb4b7a5dc1667830fc07bcc894bd1",
+                      "localSourcePath": "output/pdf/gas-shunin-official/2019/q_hei_r1.pdf",
+                      "localRenderedPagePaths": [
+                        "output/gas-shunin-hei/pdf_review/2019/mark_sheet_question/page-19.png",
+                        "output/gas-shunin-hei/direct_publication/20261027/pdf_figure_candidates/2019-kiso-q9.png",
+                        "output/gas-shunin-hei/pdf_review/2019/answer/page-01.png"
+                      ],
+                      "localRenderedPageHashes": {
+                        "output/gas-shunin-hei/pdf_review/2019/mark_sheet_question/page-19.png": "d282e42e05c97f114d38505530911bf63897b8568827374f8e484ffce15c82cd",
+                        "output/gas-shunin-hei/direct_publication/20261027/pdf_figure_candidates/2019-kiso-q9.png": "b66812bd403a4fbaaa20127b5ce470e170251b9c3d97e75aad2c6684606802d4",
+                        "output/gas-shunin-hei/pdf_review/2019/answer/page-01.png": "48779f0c69a59c3b42b76e941d241ca87ff7f6d3ed20312c74aa8a2f0f67f1c0"
+                      },
+                      "verifiedTranscription": "【現在の問題本文・全選択肢】\n【科目共通注】\n注 問題文中の「圧力」は、指定がない限り「絶対圧力」のことである。\n\n内径50mmの円管をなめらかに拡げて下流側を内径75mmとした円管に水が流れている。下流側の平均流速が10m/sであるとき、上流側の平均流速（m/s）として最も近い値はどれか。\n[\"4.5\", \"10\", \"15\", \"22.5\", \"30\"]\n【図の候補】\noutput/gas-shunin-hei/direct_publication/20261027/pdf_figure_candidates/2019-kiso-q9.png\n【画像URL候補】\nhttps://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fgas-shunin-hei%2Fofficial-source-2019-34cebf90f36eb03a-b66812bd403a4fba.png?alt=media\nURLは公開先予定であり、Storage未反映。",
+                      "candidateChanges": {
+                        "questionImageStorageUrls": [
+                          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fgas-shunin-hei%2Fofficial-source-2019-34cebf90f36eb03a-b66812bd403a4fba.png?alt=media"
+                        ]
+                      },
+                      "transcriptionRole": "公式図の切出しを問題全体の図として追加。問題文・選択肢・答えの変更は行わない。"
+                    }
+                  ],
+                  "officialImagePublicationCandidate": {
+                    "localImagePath": "output/gas-shunin-hei/question_images/2019/official-source-2019-34cebf90f36eb03a-b66812bd403a4fba.png",
+                    "publicUrl": "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fgas-shunin-hei%2Fofficial-source-2019-34cebf90f36eb03a-b66812bd403a4fba.png?alt=media",
+                    "contentHash": "b66812bd403a4fbaaa20127b5ce470e170251b9c3d97e75aad2c6684606802d4",
+                    "proposedChanges": {
+                      "questionImageStorageUrls": [
+                        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fgas-shunin-hei%2Fofficial-source-2019-34cebf90f36eb03a-b66812bd403a4fba.png?alt=media"
+                      ]
+                    }
+                  },
+                  "displayFormatRules": [
+                    "公式PDFの該当問題と図の全記号・接続関係・位置が切出しに残るか照合する。",
+                    "追加先は問題全体の画像。選択肢や答えを変えない。",
+                    "候補URLは未公開の予定値。配信成功を推定しない。"
+                  ]
+                }
+              }
+            ]
+          },
+          "evidence": [
+            {
+              "sourceClass": "official",
+              "title": "2019年度丙種の公式問題・正答と図",
+              "locator": "output/pdf/gas-shunin-official/2019/q_hei_r1.pdf / PDF 19頁 / 2019:kiso:問9 / 当該図の切出し",
+              "verifiedAt": "2026-10-28T03:25:01.119740+00:00",
+              "contentHash": "6682a65b475d9795c7cb87ce94333f114aaeb4b7a5dc1667830fc07bcc894bd1"
+            }
+          ],
+          "imagePaths": [
+            "output/gas-shunin-hei/pdf_review/2019/mark_sheet_question/page-19.png",
+            "output/gas-shunin-hei/direct_publication/20261027/pdf_figure_candidates/2019-kiso-q9.png",
+            "output/gas-shunin-hei/pdf_review/2019/answer/page-01.png"
+          ],
+          "verifiedTranscription": "【現在の問題本文・全選択肢】\n【科目共通注】\n注 問題文中の「圧力」は、指定がない限り「絶対圧力」のことである。\n\n内径50mmの円管をなめらかに拡げて下流側を内径75mmとした円管に水が流れている。下流側の平均流速が10m/sであるとき、上流側の平均流速（m/s）として最も近い値はどれか。\n[\"4.5\", \"10\", \"15\", \"22.5\", \"30\"]\n【図の候補】\noutput/gas-shunin-hei/direct_publication/20261027/pdf_figure_candidates/2019-kiso-q9.png\n【画像URL候補】\nhttps://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fgas-shunin-hei%2Fofficial-source-2019-34cebf90f36eb03a-b66812bd403a4fba.png?alt=media\nURLは公開先予定であり、Storage未反映。",
+          "candidateChanges": {
+            "questionImageStorageUrls": [
+              "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fgas-shunin-hei%2Fofficial-source-2019-34cebf90f36eb03a-b66812bd403a4fba.png?alt=media"
+            ]
+          },
+          "sourcePath": "output/gas-shunin-hei/questions_json/2019/00_source/question_2019_1.json",
+          "sourceSha256": "bbdd62c4e77b4ef547986be385abc71cb4da1cf5dac545d0574ccc234ed4b55e",
+          "questionPdfPath": "output/pdf/gas-shunin-official/2019/q_hei_r1.pdf",
+          "questionPdfSha256": "6682a65b475d9795c7cb87ce94333f114aaeb4b7a5dc1667830fc07bcc894bd1"
+        }
+      ]
+    }
+  },
+  "independentReviews": [
+    {
+      "path": "output/gas-shunin-hei/direct_publication/20261027/figure_review/2019-kiso-q9-image-r3/reviews/blind_a-validated.json",
+      "sha256": "e7650b80949ec4d2cf756efbfa52698695e44dc3c908d6231b4499d9d4bc1691",
+      "payload": {
+        "receiptHash": "1b70c7fd3c8e8cd519acd317d72d1c6afc13e6a961d864feafa7ece1c3829a23",
+        "reviews": {
+          "2019:kiso:問9": {
+            "schemaVersion": "question-issue-blind-review/v1",
+            "phase": "blind",
+            "reviewerSlot": "A",
+            "inputHash": "250f417b4478b78028030b49e63fe46d64142de2c77dfb14a4fb236d7ed8cfcf",
+            "workflowContractHashes": [],
+            "conclusion": "problem_found",
+            "proposedChanges": {
+              "questionImageStorageUrls": [
+                "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fgas-shunin-hei%2Fofficial-source-2019-34cebf90f36eb03a-b66812bd403a4fba.png?alt=media"
+              ]
+            },
+            "findings": [
+              {
+                "field": "questionImageStorageUrls",
+                "observed": "現在値は空配列で、問題図の画像URLが登録されていない。",
+                "expected": "公式PDFの問9にある内径50 mm・内径75 mm・10 m/sの管路図を保持した公式図画像URLを登録する。",
+                "rationale": "公式PDF19頁の問9と図候補画像を直接照合し、候補画像は管路、寸法表示、流向矢印、10 m/s表示を含む公式図と一致した。"
+              }
+            ],
+            "evidence": [
+              {
+                "sourceClass": "official",
+                "title": "2019年度丙種の公式問題・正答と図",
+                "locator": "output/pdf/gas-shunin-official/2019/q_hei_r1.pdf / PDF 19頁 / 2019:kiso:問9 / 当該図の切出し",
+                "verifiedAt": "2026-10-28T03:25:01.119740+00:00",
+                "contentHash": "6682a65b475d9795c7cb87ce94333f114aaeb4b7a5dc1667830fc07bcc894bd1"
+              }
+            ],
+            "appRootCauseKey": null,
+            "reproductionEvidence": []
+          }
+        },
+        "normalizer": "none; exact fixed-evidence equality required"
+      }
+    },
+    {
+      "path": "output/gas-shunin-hei/direct_publication/20261027/figure_review/2019-kiso-q9-image-r3/reviews/blind_b-validated.json",
+      "sha256": "b4fdd01d220909b16a59f6f8fb6af240da1375cb87937ad2e3c9750f7104f12a",
+      "payload": {
+        "receiptHash": "09f12f3ba49eabd3e23362d5d79bc72380b023b95a85a025ce6bae0a13da45e4",
+        "reviews": {
+          "2019:kiso:問9": {
+            "schemaVersion": "question-issue-blind-review/v1",
+            "phase": "blind",
+            "reviewerSlot": "B",
+            "inputHash": "250f417b4478b78028030b49e63fe46d64142de2c77dfb14a4fb236d7ed8cfcf",
+            "workflowContractHashes": [],
+            "conclusion": "problem_found",
+            "proposedChanges": {
+              "questionImageStorageUrls": [
+                "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fgas-shunin-hei%2Fofficial-source-2019-34cebf90f36eb03a-b66812bd403a4fba.png?alt=media"
+              ]
+            },
+            "findings": [
+              {
+                "field": "questionImageStorageUrls",
+                "observed": "現在値は空配列で、問題全体に公式図が登録されていない。",
+                "expected": "公式PDFの問9にある、内径50 mm・内径75 mm・10 m/sおよび管路形状を含む図の公開URLを登録する。",
+                "rationale": "公式PDFの該当ページと図の切出しを照合し、候補画像が問9の図の記号・接続関係・位置を保持していることを確認した。"
+              }
+            ],
+            "evidence": [
+              {
+                "sourceClass": "official",
+                "title": "2019年度丙種の公式問題・正答と図",
+                "locator": "output/pdf/gas-shunin-official/2019/q_hei_r1.pdf / PDF 19頁 / 2019:kiso:問9 / 当該図の切出し",
+                "verifiedAt": "2026-10-28T03:25:01.119740+00:00",
+                "contentHash": "6682a65b475d9795c7cb87ce94333f114aaeb4b7a5dc1667830fc07bcc894bd1"
+              }
+            ],
+            "appRootCauseKey": null,
+            "reproductionEvidence": []
+          }
+        },
+        "normalizer": "none; exact fixed-evidence equality required"
+      }
+    },
+    {
+      "path": "output/gas-shunin-hei/direct_publication/20261027/figure_review/2019-kiso-q9-image-r3/reviews/challenge-validated.json",
+      "sha256": "b17d4569b7e8861603ec2a8ca87e51479f835f3584e1615dc1dc5daf4ac244b2",
+      "payload": {
+        "receiptHash": "1ed65a36da8cdee25efdbb2b0bd436153596f6d54c124fda40fc721b1b99e878",
+        "reviews": {
+          "2019:kiso:問9": {
+            "schemaVersion": "question-issue-challenge-review/v1",
+            "phase": "challenge",
+            "inputHash": "00de563c1bfd9c1987e2bf048eb4b9866ece87be106f9a100f7fc142a9ae2128",
+            "blindReviewHashes": [
+              "9ea2709abb41ba35dcf0e894a4492f665fc5cecebc4aabac01a9633003b4a6bb",
+              "01bba5ac73fbe1089905fb6d1c95e09fe8b7569820348db222b4186289d667ea"
+            ],
+            "decision": "fix",
+            "rationale": "両盲検レビューが同一の公式根拠に基づき、現在値に未登録の公式図画像URLを追加する同一変更を提案している。公式PDFの問9の図は、内径50 mm・内径75 mm、流向矢印、10 m/s表示および管路形状を含み、候補画像と一致する。",
+            "changes": {
+              "questionImageStorageUrls": [
+                "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fgas-shunin-hei%2Fofficial-source-2019-34cebf90f36eb03a-b66812bd403a4fba.png?alt=media"
+              ]
+            },
+            "evidence": [
+              {
+                "sourceClass": "official",
+                "title": "2019年度丙種の公式問題・正答と図",
+                "locator": "output/pdf/gas-shunin-official/2019/q_hei_r1.pdf / PDF 19頁 / 2019:kiso:問9 / 当該図の切出し",
+                "verifiedAt": "2026-10-28T03:25:01.119740+00:00",
+                "contentHash": "6682a65b475d9795c7cb87ce94333f114aaeb4b7a5dc1667830fc07bcc894bd1"
+              }
+            ],
+            "appRootCauseKey": null,
+            "reproductionEvidence": []
+          }
+        },
+        "normalizer": "none; exact fixed-evidence equality required"
+      }
+    }
+  ],
+  "nativeReceipts": [
+    {
+      "path": "output/gas-shunin-hei/direct_publication/20261027/figure_review/2019-kiso-q9-image-r3/reviews/blind_a-received.json",
+      "sha256": "4a4a2be8d9b8f5fec49e6a770c6adfa39ae16202cd3ca2b1dbf3b86343380904",
+      "payload": {
+        "inputHash": "855ee56cd189641da3357b4b8e5422af59884fe018f635541d3b4d99f1465d19",
+        "expectedIds": [
+          "2019:kiso:問9"
+        ],
+        "expectedWorkIds": [
+          "2019-kiso-q9-figure"
+        ],
+        "native": {
+          "thread_id": "01a1808a-3ba6-7471-ad71-9631a917c719",
+          "session_id": "01a1808a-3ba6-7471-ad71-9631a917c719",
+          "turn_id": "01a1808a-4266-7c23-b51e-98b1d5e51776",
+          "final_message": "{\"results\":{\"2019-kiso-q9-figure\":{\"schemaVersion\":\"question-issue-blind-review/v1\",\"phase\":\"blind\",\"reviewerSlot\":\"A\",\"inputHash\":\"250f417b4478b78028030b49e63fe46d64142de2c77dfb14a4fb236d7ed8cfcf\",\"workflowContractHashes\":[],\"conclusion\":\"problem_found\",\"proposedChanges\":{\"questionImageStorageUrls\":[\"https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fgas-shunin-hei%2Fofficial-source-2019-34cebf90f36eb03a-b66812bd403a4fba.png?alt=media\"]},\"findings\":[{\"field\":\"questionImageStorageUrls\",\"observed\":\"現在値は空配列で、問題図の画像URLが登録されていない。\",\"expected\":\"公式PDFの問9にある内径50 mm・内径75 mm・10 m/sの管路図を保持した公式図画像URLを登録する。\",\"rationale\":\"公式PDF19頁の問9と図候補画像を直接照合し、候補画像は管路、寸法表示、流向矢印、10 m/s表示を含む公式図と一致した。\"}],\"evidence\":[{\"sourceClass\":\"official\",\"title\":\"2019年度丙種の公式問題・正答と図\",\"locator\":\"output/pdf/gas-shunin-official/2019/q_hei_r1.pdf / PDF 19頁 / 2019:kiso:問9 / 当該図の切出し\",\"verifiedAt\":\"2026-10-28T03:25:01.119740+00:00\",\"contentHash\":\"6682a65b475d9795c7cb87ce94333f114aaeb4b7a5dc1667830fc07bcc894bd1\"}],\"appRootCauseKey\":null,\"reproductionEvidence\":[]}}}",
+          "model": "gpt-5.6-luna",
+          "service_tier": null,
+          "reasoning_effort": "high",
+          "image_inputs": [
+            {
+              "sourcePath": "output/gas-shunin-hei/pdf_review/2019/mark_sheet_question/page-19.png",
+              "attachmentIndex": 0,
+              "mimeType": "image/png",
+              "byteCount": 252138,
+              "sha256": "d282e42e05c97f114d38505530911bf63897b8568827374f8e484ffce15c82cd"
+            },
+            {
+              "sourcePath": "output/gas-shunin-hei/direct_publication/20261027/pdf_figure_candidates/2019-kiso-q9.png",
+              "attachmentIndex": 1,
+              "mimeType": "image/png",
+              "byteCount": 41437,
+              "sha256": "b66812bd403a4fbaaa20127b5ce470e170251b9c3d97e75aad2c6684606802d4"
+            },
+            {
+              "sourcePath": "output/gas-shunin-hei/pdf_review/2019/answer/page-01.png",
+              "attachmentIndex": 2,
+              "mimeType": "image/png",
+              "byteCount": 97971,
+              "sha256": "48779f0c69a59c3b42b76e941d241ca87ff7f6d3ed20312c74aa8a2f0f67f1c0"
+            }
+          ],
+          "changed_files": [],
+          "subagent_thread_ids": [],
+          "subagent_models": [],
+          "subagent_reasoning_efforts": [],
+          "completion_mode": "turn_completed",
+          "model_turn_started_at": "2026-10-28T12:25:07.055024+09:00",
+          "model_turn_finished_at": "2026-10-28T12:25:21.696030+09:00",
+          "model_turn_duration_seconds": 14.64153,
+          "model_turn_queue_wait_seconds": 5.666955
+        },
+        "receiptHash": "1b70c7fd3c8e8cd519acd317d72d1c6afc13e6a961d864feafa7ece1c3829a23"
+      }
+    },
+    {
+      "path": "output/gas-shunin-hei/direct_publication/20261027/figure_review/2019-kiso-q9-image-r3/reviews/blind_b-received.json",
+      "sha256": "29daf79214f6ad1d16e5926c108989893d9a0786181b39a085bc99ce3605d47e",
+      "payload": {
+        "inputHash": "a842cbf8aafe45222765ab6c478e4d6cf4b95b82208dfadd62f6bdde3446c5e8",
+        "expectedIds": [
+          "2019:kiso:問9"
+        ],
+        "expectedWorkIds": [
+          "2019-kiso-q9-figure"
+        ],
+        "native": {
+          "thread_id": "01a1808a-728c-7870-923b-6d8c56cd9541",
+          "session_id": "01a1808a-728c-7870-923b-6d8c56cd9541",
+          "turn_id": "01a1808a-86d5-7723-8c2f-ce0f5d3b0e7a",
+          "final_message": "{\"results\":{\"2019-kiso-q9-figure\":{\"schemaVersion\":\"question-issue-blind-review/v1\",\"phase\":\"blind\",\"reviewerSlot\":\"B\",\"inputHash\":\"250f417b4478b78028030b49e63fe46d64142de2c77dfb14a4fb236d7ed8cfcf\",\"workflowContractHashes\":[],\"conclusion\":\"problem_found\",\"proposedChanges\":{\"questionImageStorageUrls\":[\"https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fgas-shunin-hei%2Fofficial-source-2019-34cebf90f36eb03a-b66812bd403a4fba.png?alt=media\"]},\"findings\":[{\"field\":\"questionImageStorageUrls\",\"observed\":\"現在値は空配列で、問題全体に公式図が登録されていない。\",\"expected\":\"公式PDFの問9にある、内径50 mm・内径75 mm・10 m/sおよび管路形状を含む図の公開URLを登録する。\",\"rationale\":\"公式PDFの該当ページと図の切出しを照合し、候補画像が問9の図の記号・接続関係・位置を保持していることを確認した。\"}],\"evidence\":[{\"sourceClass\":\"official\",\"title\":\"2019年度丙種の公式問題・正答と図\",\"locator\":\"output/pdf/gas-shunin-official/2019/q_hei_r1.pdf / PDF 19頁 / 2019:kiso:問9 / 当該図の切出し\",\"verifiedAt\":\"2026-10-28T03:25:01.119740+00:00\",\"contentHash\":\"6682a65b475d9795c7cb87ce94333f114aaeb4b7a5dc1667830fc07bcc894bd1\"}],\"appRootCauseKey\":null,\"reproductionEvidence\":[]}}}",
+          "model": "gpt-5.6-luna",
+          "service_tier": null,
+          "reasoning_effort": "high",
+          "image_inputs": [
+            {
+              "sourcePath": "output/gas-shunin-hei/pdf_review/2019/mark_sheet_question/page-19.png",
+              "attachmentIndex": 0,
+              "mimeType": "image/png",
+              "byteCount": 252138,
+              "sha256": "d282e42e05c97f114d38505530911bf63897b8568827374f8e484ffce15c82cd"
+            },
+            {
+              "sourcePath": "output/gas-shunin-hei/direct_publication/20261027/pdf_figure_candidates/2019-kiso-q9.png",
+              "attachmentIndex": 1,
+              "mimeType": "image/png",
+              "byteCount": 41437,
+              "sha256": "b66812bd403a4fbaaa20127b5ce470e170251b9c3d97e75aad2c6684606802d4"
+            },
+            {
+              "sourcePath": "output/gas-shunin-hei/pdf_review/2019/answer/page-01.png",
+              "attachmentIndex": 2,
+              "mimeType": "image/png",
+              "byteCount": 97971,
+              "sha256": "48779f0c69a59c3b42b76e941d241ca87ff7f6d3ed20312c74aa8a2f0f67f1c0"
+            }
+          ],
+          "changed_files": [],
+          "subagent_thread_ids": [],
+          "subagent_models": [],
+          "subagent_reasoning_efforts": [],
+          "completion_mode": "turn_completed",
+          "model_turn_started_at": "2026-10-28T12:25:24.575715+09:00",
+          "model_turn_finished_at": "2026-10-28T12:25:35.749254+09:00",
+          "model_turn_duration_seconds": 11.173954,
+          "model_turn_queue_wait_seconds": 8.101951
+        },
+        "receiptHash": "09f12f3ba49eabd3e23362d5d79bc72380b023b95a85a025ce6bae0a13da45e4"
+      }
+    },
+    {
+      "path": "output/gas-shunin-hei/direct_publication/20261027/figure_review/2019-kiso-q9-image-r3/reviews/challenge-received.json",
+      "sha256": "be84070f1a6d80cbbe2adcb2c9022f475b608773af64ac860d7bbafdb7c2152b",
+      "payload": {
+        "inputHash": "1fdc82b16cb56ad6f67ff571abe9497ee559c8e25329222b1623618465ae59ee",
+        "expectedIds": [
+          "2019:kiso:問9"
+        ],
+        "expectedWorkIds": [
+          "2019-kiso-q9-figure"
+        ],
+        "native": {
+          "thread_id": "01a1808b-70f7-7420-86b4-bc5a74527d4d",
+          "session_id": "01a1808b-70f7-7420-86b4-bc5a74527d4d",
+          "turn_id": "01a1808b-7f78-7c00-ba16-485434172b47",
+          "final_message": "{\"results\":{\"2019-kiso-q9-figure\":{\"schemaVersion\":\"question-issue-challenge-review/v1\",\"phase\":\"challenge\",\"inputHash\":\"00de563c1bfd9c1987e2bf048eb4b9866ece87be106f9a100f7fc142a9ae2128\",\"blindReviewHashes\":[\"9ea2709abb41ba35dcf0e894a4492f665fc5cecebc4aabac01a9633003b4a6bb\",\"01bba5ac73fbe1089905fb6d1c95e09fe8b7569820348db222b4186289d667ea\"],\"decision\":\"fix\",\"rationale\":\"両盲検レビューが同一の公式根拠に基づき、現在値に未登録の公式図画像URLを追加する同一変更を提案している。公式PDFの問9の図は、内径50 mm・内径75 mm、流向矢印、10 m/s表示および管路形状を含み、候補画像と一致する。\",\"changes\":{\"questionImageStorageUrls\":[\"https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fgas-shunin-hei%2Fofficial-source-2019-34cebf90f36eb03a-b66812bd403a4fba.png?alt=media\"]},\"evidence\":[{\"sourceClass\":\"official\",\"title\":\"2019年度丙種の公式問題・正答と図\",\"locator\":\"output/pdf/gas-shunin-official/2019/q_hei_r1.pdf / PDF 19頁 / 2019:kiso:問9 / 当該図の切出し\",\"verifiedAt\":\"2026-10-28T03:25:01.119740+00:00\",\"contentHash\":\"6682a65b475d9795c7cb87ce94333f114aaeb4b7a5dc1667830fc07bcc894bd1\"}],\"appRootCauseKey\":null,\"reproductionEvidence\":[]}}}",
+          "model": "gpt-5.6-luna",
+          "service_tier": null,
+          "reasoning_effort": "high",
+          "image_inputs": [
+            {
+              "sourcePath": "output/gas-shunin-hei/pdf_review/2019/mark_sheet_question/page-19.png",
+              "attachmentIndex": 0,
+              "mimeType": "image/png",
+              "byteCount": 252138,
+              "sha256": "d282e42e05c97f114d38505530911bf63897b8568827374f8e484ffce15c82cd"
+            },
+            {
+              "sourcePath": "output/gas-shunin-hei/direct_publication/20261027/pdf_figure_candidates/2019-kiso-q9.png",
+              "attachmentIndex": 1,
+              "mimeType": "image/png",
+              "byteCount": 41437,
+              "sha256": "b66812bd403a4fbaaa20127b5ce470e170251b9c3d97e75aad2c6684606802d4"
+            },
+            {
+              "sourcePath": "output/gas-shunin-hei/pdf_review/2019/answer/page-01.png",
+              "attachmentIndex": 2,
+              "mimeType": "image/png",
+              "byteCount": 97971,
+              "sha256": "48779f0c69a59c3b42b76e941d241ca87ff7f6d3ed20312c74aa8a2f0f67f1c0"
+            }
+          ],
+          "changed_files": [],
+          "subagent_thread_ids": [],
+          "subagent_models": [],
+          "subagent_reasoning_efforts": [],
+          "completion_mode": "turn_completed",
+          "model_turn_started_at": "2026-10-28T12:26:28.220272+09:00",
+          "model_turn_finished_at": "2026-10-28T12:26:37.716200+09:00",
+          "model_turn_duration_seconds": 9.496019,
+          "model_turn_queue_wait_seconds": 5.564053
+        },
+        "receiptHash": "1ed65a36da8cdee25efdbb2b0bd436153596f6d54c124fda40fc721b1b99e878"
+      }
+    }
+  ],
+  "saveResult": {
+    "path": "output/gas-shunin-hei/direct_publication/20261027/figure_review/2019-kiso-q9-image-r3/reviews/save-result.json",
+    "sha256": "b484bb088deba11690fdd9e409b2e1ff87c07e7f39024f028f1ed71c35367f5f",
+    "payload": {
+      "planSha256": "16556be45653cc5dc069c55711eb30be858efb1fae27a62fca2fd8e95a2ec775",
+      "results": [
+        {
+          "sourceQuestionId": "2019:kiso:問9",
+          "decision": "fix",
+          "stagedPath": "output/gas-shunin-hei/direct_publication/20261027/figure_review/2019-kiso-q9-image-r3/reviews/individual/2019-kiso-q9-figure/zzzz-hei-direct-figure-2019-kiso-q9-image-r3_2019-kiso-q9-figure_34cebf90f36eb03a.json",
+          "patchSha256": "4d28b8cbb831c4bd7650ced9907649997c238465b1204a64755c20a852430e75",
+          "patchPath": "output/gas-shunin-hei/questions_json/2019/24_questionIssueCorrections/zzzz-hei-direct-figure-2019-kiso-q9-image-r3_2019-kiso-q9-figure_34cebf90f36eb03a.json"
+        }
+      ]
+    }
+  },
+  "formalPatch": {
+    "path": "output/gas-shunin-hei/questions_json/2019/24_questionIssueCorrections/zzzz-hei-direct-figure-2019-kiso-q9-image-r3_2019-kiso-q9-figure_34cebf90f36eb03a.json",
+    "sha256": "4d28b8cbb831c4bd7650ced9907649997c238465b1204a64755c20a852430e75",
+    "payload": {
+      "schemaVersion": "question-issue-correction/v1",
+      "origin": "user_problem_report",
+      "batchId": "zzzz-hei-direct-figure-2019-kiso-q9-image-r3",
+      "category": "image",
+      "caseIds": [
+        "operator-figure-34cebf90f36eb03a"
+      ],
+      "inputCaseHashes": {
+        "operator-figure-34cebf90f36eb03a": "50a5176412c2d97cb8ed1cf1e58b491d2b13ac485a13109108a258988d7c2767"
+      },
+      "reviewProtocol": "blind-a-b-challenge/v1",
+      "blindReviewHashes": [
+        "9ea2709abb41ba35dcf0e894a4492f665fc5cecebc4aabac01a9633003b4a6bb",
+        "01bba5ac73fbe1089905fb6d1c95e09fe8b7569820348db222b4186289d667ea"
+      ],
+      "challengeReviewHash": "89e23bac9a419755fa6e1d63d5dd2ef29afa8aefa816a86bade4cdd0ee34223b",
+      "createdAt": "2026-10-28T03:25:01.119740+00:00",
+      "entries": [
+        {
+          "original_question_id": "34cebf90f36eb03a",
+          "sourceQuestionKey": "gas-shunin:hei:2019:kiso:q09",
+          "reviewQuestionId": "34cebf90f36eb03a",
+          "sourceRecordRef": "question_2019_1.json#24",
+          "expectedBeforeHash": "c2acdd887a1f538e04280f9d6ba4ee1153082fd82152ded39166c0ada2803f19",
+          "changes": {
+            "questionImageStorageUrls": [
+              "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fgas-shunin-hei%2Fofficial-source-2019-34cebf90f36eb03a-b66812bd403a4fba.png?alt=media"
+            ]
+          },
+          "rationale": "Independent blind A/B reviews produced identical structured changes for category=image, and the challenge gate bound the correction to their official/primary evidence.",
+          "evidence": [
+            {
+              "sourceClass": "official",
+              "title": "2019年度丙種の公式問題・正答と図",
+              "locator": "output/pdf/gas-shunin-official/2019/q_hei_r1.pdf / PDF 19頁 / 2019:kiso:問9 / 当該図の切出し",
+              "verifiedAt": "2026-10-28T03:25:01.119740+00:00",
+              "contentHash": "6682a65b475d9795c7cb87ce94333f114aaeb4b7a5dc1667830fc07bcc894bd1"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "requiredChecks": {
+    "path": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032733Z/result.json",
+    "sha256": "f7f884d1070abd392dedd0635cc6216557ffe8aeb0bbc7f7cb985d0405ca0e29",
+    "payload": {
+      "generatedAt": "20261028T032733Z",
+      "selectedCount": 489,
+      "byYear": {
+        "2017": 55,
+        "2023": 54,
+        "2019": 55,
+        "2024": 56,
+        "2020": 54,
+        "2022": 56,
+        "2018": 54,
+        "2025": 52,
+        "2021": 53
+      },
+      "commands": [
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_choice_text_alignment.py",
+            "--base-dir",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032733Z/gas-shunin-hei/questions_json",
+            "--stage",
+            "merged"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032733Z/check-00.log",
+          "logSha256": "a0a43fc049c21d611775721216fc1fe1f18569576a2440e0f682647409dbe70f"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_required_fields.py",
+            "--base-dir",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032733Z/gas-shunin-hei/questions_json",
+            "--stage",
+            "merged"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032733Z/check-01.log",
+          "logSha256": "aba5ddbabc195b6b3065026bd5dd0bbc689b62d9454c334b5b90e21ac5933b8c"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2017/00_source/question_2017_1.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2017/23_correctChoiceText_fixed/question_2017_1_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2017/10_questionType_fixed/question_2017_1_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032733Z/check-02.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2017/00_source/question_2017_2.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2017/23_correctChoiceText_fixed/question_2017_2_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2017/10_questionType_fixed/question_2017_2_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032733Z/check-03.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2017/00_source/question_2017_3.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2017/23_correctChoiceText_fixed/question_2017_3_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2017/10_questionType_fixed/question_2017_3_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032733Z/check-04.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2023/00_source/question_2023_1.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2023/23_correctChoiceText_fixed/question_2023_1_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2023/10_questionType_fixed/question_2023_1_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032733Z/check-05.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2023/00_source/question_2023_2.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2023/23_correctChoiceText_fixed/question_2023_2_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2023/10_questionType_fixed/question_2023_2_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032733Z/check-06.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2023/00_source/question_2023_3.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2023/23_correctChoiceText_fixed/question_2023_3_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2023/10_questionType_fixed/question_2023_3_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032733Z/check-07.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2019/00_source/question_2019_1.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2019/23_correctChoiceText_fixed/question_2019_1_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2019/10_questionType_fixed/question_2019_1_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032733Z/check-08.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2019/00_source/question_2019_2.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2019/23_correctChoiceText_fixed/question_2019_2_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2019/10_questionType_fixed/question_2019_2_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032733Z/check-09.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2019/00_source/question_2019_3.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2019/23_correctChoiceText_fixed/question_2019_3_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2019/10_questionType_fixed/question_2019_3_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032733Z/check-10.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2024/00_source/question_2024_1.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2024/23_correctChoiceText_fixed/question_2024_1_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2024/10_questionType_fixed/question_2024_1_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032733Z/check-11.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2024/00_source/question_2024_2.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2024/23_correctChoiceText_fixed/question_2024_2_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2024/10_questionType_fixed/question_2024_2_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032733Z/check-12.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2024/00_source/question_2024_3.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2024/23_correctChoiceText_fixed/question_2024_3_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2024/10_questionType_fixed/question_2024_3_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032733Z/check-13.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2020/00_source/question_2020_1.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2020/23_correctChoiceText_fixed/question_2020_1_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2020/10_questionType_fixed/question_2020_1_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032733Z/check-14.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2020/00_source/question_2020_2.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2020/23_correctChoiceText_fixed/question_2020_2_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2020/10_questionType_fixed/question_2020_2_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032733Z/check-15.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2020/00_source/question_2020_3.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2020/23_correctChoiceText_fixed/question_2020_3_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2020/10_questionType_fixed/question_2020_3_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032733Z/check-16.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2022/00_source/question_2022_1.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2022/23_correctChoiceText_fixed/question_2022_1_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2022/10_questionType_fixed/question_2022_1_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032733Z/check-17.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2022/00_source/question_2022_2.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2022/23_correctChoiceText_fixed/question_2022_2_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2022/10_questionType_fixed/question_2022_2_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032733Z/check-18.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2022/00_source/question_2022_3.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2022/23_correctChoiceText_fixed/question_2022_3_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2022/10_questionType_fixed/question_2022_3_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032733Z/check-19.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2018/00_source/question_2018_1.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2018/23_correctChoiceText_fixed/question_2018_1_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2018/10_questionType_fixed/question_2018_1_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032733Z/check-20.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2018/00_source/question_2018_2.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2018/23_correctChoiceText_fixed/question_2018_2_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2018/10_questionType_fixed/question_2018_2_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032733Z/check-21.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2018/00_source/question_2018_3.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2018/23_correctChoiceText_fixed/question_2018_3_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2018/10_questionType_fixed/question_2018_3_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032733Z/check-22.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2025/00_source/question_2025_1.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2025/23_correctChoiceText_fixed/question_2025_1_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2025/10_questionType_fixed/question_2025_1_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032733Z/check-23.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2025/00_source/question_2025_2.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2025/23_correctChoiceText_fixed/question_2025_2_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2025/10_questionType_fixed/question_2025_2_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032733Z/check-24.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2025/00_source/question_2025_3.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2025/23_correctChoiceText_fixed/question_2025_3_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2025/10_questionType_fixed/question_2025_3_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032733Z/check-25.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2021/00_source/question_2021_1.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2021/23_correctChoiceText_fixed/question_2021_1_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2021/10_questionType_fixed/question_2021_1_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032733Z/check-26.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2021/00_source/question_2021_2.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2021/23_correctChoiceText_fixed/question_2021_2_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2021/10_questionType_fixed/question_2021_2_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032733Z/check-27.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2021/00_source/question_2021_3.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2021/23_correctChoiceText_fixed/question_2021_3_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2021/10_questionType_fixed/question_2021_3_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032733Z/check-28.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        }
+      ],
+      "sourceFilesChecked": 27,
+      "sourceChanged": [],
+      "pausedCodeChanged": [
+        "tools/question_review_console/qualification_runs.py",
+        "tools/question_review_console/question_candidate.py"
+      ],
+      "reviewedConcurrentCodeChanges": [
+        "tools/question_review_console/qualification_runs.py",
+        "tools/question_review_console/question_candidate.py"
+      ],
+      "unreviewedCodeChanges": [],
+      "snapshotFilesChecked": 569,
+      "snapshotChanged": [],
+      "wholeSystemTests": "not_run_data_only",
+      "pass": true
+    }
+  },
+  "diagnosticConvert": {
+    "path": "output/gas-shunin-hei/direct_publication/20261027/convert_display/20261028T032802Z/converted-diagnostic.json",
+    "sha256": "2ba49ddb322a1f6d1cbb76c9ababf0d97fc56ac1a05d67e1ed18c9b10aedd0dd",
+    "matchedDocumentIds": [
+      "34cebf90f36eb03a_w1",
+      "34cebf90f36eb03a_w2",
+      "34cebf90f36eb03a_w3",
+      "34cebf90f36eb03a",
+      "34cebf90f36eb03a_w4"
+    ],
+    "allFiveImageUrlsMatch": true
+  },
+  "productionStorageWritten": false,
+  "productionFirestoreWritten": false,
+  "limits": "画像はローカルのみ。画像の配信と正式評価・全体公開gateは未完。"
+}
