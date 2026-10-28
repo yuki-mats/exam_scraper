@@ -4621,11 +4621,21 @@
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_40_primary_source_review_20261029.json",
-    "status": "maintenance_running",
+    "status": "accepted",
     "questionId": "1e8c5748c845b6e0172063f9",
     "backup": "output/eco-kentei/reports/mondai1_40_before_rework_20261029",
     "originalizeRunId": "20261029T072717572254-65d50ee3",
-    "nativeRunId": "20261029T072823688557-74330d3f"
+    "nativeRunId": "20261029T072823688557-74330d3f",
+    "stateHash": "d61cdb6d2e43006b1f1b85e91838f9116618cb16ef2f4d2c0f13ab2d8a1c52f3",
+    "evaluationJobId": "IhXgwCtvMdHwvymf",
+    "uploadReady": "output/eco-kentei/questions_json/upload_to_firestore/knoun-2026-mock-1_firestore_20261029_073356.json",
+    "evaluationSessionId": "01a184a7-2597-7812-8c61-23745fad62a3",
+    "verifiedChoiceCount": 1,
+    "explanationScore": 98,
+    "otherDocumentCountUnchanged": 43,
+    "primaryLawEvidence": "output/eco-kentei/reports/mondai1_40_primary_law_evidence_20261029.json",
+    "receipt": "output/eco-kentei/reports/turn_receipts/mondai1_40_accepted_20261029.json",
+    "nextAction": "問41の独自問題化から進める。問42〜48・50・52・53は画像照合済。問23・25・33〜35・38・49・51・54・55は転記差分保留。"
   },
   "inProgressQuestion1_41": {
     "sourceRecordRef": "question_mondai1_41.json#0",
@@ -4719,5 +4729,21 @@
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_53_primary_source_review_20261029.json",
     "status": "source_reviewed_originalization_pending"
+  },
+  "inProgressQuestion1_54": {
+    "sourceRecordRef": "question_mondai1_54.json#0",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": false,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_54_primary_source_review_20261029.json",
+    "status": "hold_source_transcription_difference",
+    "holdReason": "原画像の「第6問」および小問ラベル「ケ」が登録文字にない。"
+  },
+  "inProgressQuestion1_55": {
+    "sourceRecordRef": "question_mondai1_55.json#0",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": false,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_55_primary_source_review_20261029.json",
+    "status": "hold_source_transcription_difference",
+    "holdReason": "画像にある小問ラベル「コ」が登録文字にない。"
   }
 }
