@@ -1,0 +1,73 @@
+{
+  "schemaVersion": "hei-cross-year-comparison-receipt/v1",
+  "observedAt": "2026-10-28T03:49:57.756591+00:00",
+  "target": "2018:seizo:問9",
+  "primaryExamComparisons": [
+    {
+      "year": 2018,
+      "answer": 3,
+      "observed": "誤りを選ぶ問。第1・第4・第5肢は正答として選ばれず、第3肢が公式正答。第2肢の開放検査を現行基準にそのまま適用できるかは別途確認。"
+    },
+    {
+      "year": 2022,
+      "answer": 1,
+      "observed": "製造問9の正答はイ・ロ。液送ポンプ及びコンプレッサーの検査を1年に1回以上とするロが誤りとして選ばれている。"
+    },
+    {
+      "year": 2023,
+      "answer": 5,
+      "observed": "製造問9の正答はハ・ニ。指定された気化装置について1日に1回以上点検とするホは、公式の誤りの組合せには含まれない。"
+    },
+    {
+      "year": 2024,
+      "answer": 4,
+      "observed": "製造問9では定期自主検査を除く前提で、防消火設備を1年に1回以上検査する第4肢が公式正答。"
+    }
+  ],
+  "comparisonImageHashes": [
+    {
+      "path": "output/gas-shunin-hei/pdf_review/2018/mark_sheet_question/page-23.png",
+      "sha256": "8cbfa9c67659f2eb236260c82e48abe5dcc938dca4325898e5d340e45a1de467"
+    },
+    {
+      "path": "output/gas-shunin-hei/pdf_review/2018/answer/page-01.png",
+      "sha256": "dadb3a51a67352b4e6d9a929315472785cb8990ba036fa25a9178d85f4d69d15"
+    },
+    {
+      "path": "output/gas-shunin-hei/pdf_review/2022/mark_sheet_question/page-26.png",
+      "sha256": "a74fb3eb4b60e05729bba3cc26f1359bd29ec1776148ff2b6025a144d8ee9532"
+    },
+    {
+      "path": "output/gas-shunin-hei/pdf_review/2022/answer/page-01.png",
+      "sha256": "612d193d22904203f6c947a81b8918d81cec16879deca4e2d9058908f54241af"
+    },
+    {
+      "path": "output/gas-shunin-hei/pdf_review/2023/mark_sheet_question/page-30.png",
+      "sha256": "85a3b99472684be6ed5e0e367908448a9e0903cc9393ff96796383c534c5fcf8"
+    },
+    {
+      "path": "output/gas-shunin-hei/pdf_review/2023/answer/page-01.png",
+      "sha256": "4bc9ffdb6a3873f8db12823489cfc020c3bcb85be7a616182b4fc6ace3680c5b"
+    },
+    {
+      "path": "output/gas-shunin-hei/pdf_review/2024/mark_sheet_question/page-26.png",
+      "sha256": "c68f969a1ed5a7bd579c9866fffcd9d7c645835690a36f6f381af4664fff3dc5"
+    },
+    {
+      "path": "output/gas-shunin-hei/pdf_review/2024/answer/page-01.png",
+      "sha256": "3fd17fb1121d884949d92dc8234670f576fe993f180214487aea12b9d09648ed"
+    }
+  ],
+  "operatorExample": {
+    "title": "美唄ガス株式会社 保安規程",
+    "issued": "2019-09",
+    "url": "https://s99e39a08b4ab6685.jimcontent.com/download/version/1579657016/module/14251377532/name/%E4%BF%9D%E5%AE%89%E8%A6%8F%E7%A8%8B.pdf",
+    "localPath": "output/gas-shunin-hei/direct_publication/20261027/legal/bibai-gas-2019-safety-regulation.pdf",
+    "sha256": "17d0ad3b43a68eac085446184184928c0dc510ea1634997ffdc36755f31f4d19",
+    "pdfPage": 21,
+    "observed": "別表第2は、同社の調整装置の巡視・点検を7日に1回以上、検査を1年に1回以上とする。これは同社の規程であり、一般法令や現行の特定製造所設備指針の代替ではない。"
+  },
+  "remaining": "全肢の現行技術基準、2018年第2肢と改正後の開放検査の関係は未確定。独立レビューと正式パッチ保存は未実施。",
+  "formalPatchSaved": false,
+  "productionWritten": false
+}
