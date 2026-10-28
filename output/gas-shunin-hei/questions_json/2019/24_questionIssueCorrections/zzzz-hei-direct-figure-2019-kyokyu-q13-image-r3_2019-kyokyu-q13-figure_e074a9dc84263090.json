@@ -1,0 +1,43 @@
+{
+  "schemaVersion": "question-issue-correction/v1",
+  "origin": "user_problem_report",
+  "batchId": "zzzz-hei-direct-figure-2019-kyokyu-q13-image-r3",
+  "category": "image",
+  "caseIds": [
+    "operator-figure-e074a9dc84263090"
+  ],
+  "inputCaseHashes": {
+    "operator-figure-e074a9dc84263090": "893825a01dc10291e46d56981c2b70dd2056f30df814ee43a6a55f9a4ec2183a"
+  },
+  "reviewProtocol": "blind-a-b-challenge/v1",
+  "blindReviewHashes": [
+    "641fad7ecefe119829c289d50bbe79ffdd4b7fd944742e7c866a17cf9e2bad95",
+    "26a6431eb089e289a0dda0999fc8509a19405105a0fa61c95e5cea7b29f3f11e"
+  ],
+  "challengeReviewHash": "5de06d00a954b1ef6a409f4fec09c730eea3d6d7ef6a2c2faed3b300c9c73350",
+  "createdAt": "2026-10-28T03:25:01.117430+00:00",
+  "entries": [
+    {
+      "original_question_id": "e074a9dc84263090",
+      "sourceQuestionKey": "gas-shunin:hei:2019:kyokyu:q13",
+      "reviewQuestionId": "e074a9dc84263090",
+      "sourceRecordRef": "question_2019_2.json#18",
+      "expectedBeforeHash": "5f358d0a92c904807117d2817373539b949ec40a380101a2a91c61387009a609",
+      "changes": {
+        "questionImageStorageUrls": [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fgas-shunin-hei%2Fofficial-source-2019-e074a9dc84263090-ed27775bda1b6aa4.png?alt=media"
+        ]
+      },
+      "rationale": "Independent blind A/B reviews produced identical structured changes for category=image, and the challenge gate bound the correction to their official/primary evidence.",
+      "evidence": [
+        {
+          "sourceClass": "official",
+          "title": "2019年度丙種の公式問題・正答と図",
+          "locator": "output/pdf/gas-shunin-official/2019/q_hei_r1.pdf / PDF 28頁 / 2019:kyokyu:問13 / 当該図の切出し",
+          "verifiedAt": "2026-10-28T03:25:01.117430+00:00",
+          "contentHash": "6682a65b475d9795c7cb87ce94333f114aaeb4b7a5dc1667830fc07bcc894bd1"
+        }
+      ]
+    }
+  ]
+}
