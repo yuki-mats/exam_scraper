@@ -1,0 +1,42 @@
+[
+  {
+    "sourceQuestionId": "2025:seizo:問4",
+    "questionType": "true_false",
+    "isCalculationQuestion": false,
+    "questionIntent": "select_incorrect",
+    "correctChoiceText": [
+      "間違い",
+      "正しい",
+      "正しい",
+      "正しい",
+      "正しい"
+    ],
+    "explanationText": [
+      "間違い。鎖にかかる力でガスを遮断するのは張力式である。過流式は、配管の損傷などでガスの流量が異常に増えたときにガスの通路を閉じる。",
+      "正しい。該当するバルク貯槽の貯蔵能力は、内容積に常用温度での液密度と0.85を掛けて求める。0.473 kg/Lは、プロパン98％・ブタン2％の液化石油ガスについて40℃の液密度を用いた計算例がある。",
+      "正しい。容器検査に合格した容器には、検査に合格した年月などが刻印される。容器再検査の刻印とは別に確認する。",
+      "正しい。バルク貯槽の安全弁には、所定の高圧ガス設備試験に合格したもの又は大臣認定品を用いる。安全弁は圧力の異常な上昇を抑えるための設備である。",
+      "正しい。地下に設置したバルク貯槽は、周囲10 cm以内にガス検知用の孔あき管を1本以上設置する。漏れたガスを検知するための措置である。"
+    ],
+    "questionSetId": "gas-shunin-hei_qs04_02_youki_chosou",
+    "questionLearningPatternId": "conditions_scope",
+    "isLawRelated": true,
+    "classificationReason": "ガス放出防止器、容器、バルク貯槽と附属設備の構造・基準及び貯蔵能力を問う。",
+    "officialPagesVisuallyReviewed": [
+      26
+    ],
+    "officialAnswerNumber": 1,
+    "evidenceNotes": [
+      "2025公式問題PDF26頁、公式解答表の製造問4。",
+      "滋賀県の特定供給設備申請手引PDF25頁の計算例。岩国地区消防組合の設備工事審査基準の孔あき管。北海道の完成検査要領の安全弁。KHK容器検査マニュアル9-10頁。",
+      "過流式・張力式は経済産業省報告の索引に記載があるが、公式PDFが取得できていないため一次本文を確認する必要がある。",
+      "法令基準及び時点別適用は未監査。発生設備への適用を必ず別途確認する。"
+    ],
+    "evidenceUrls": [
+      "https://www.pref.shiga.lg.jp/file/attachment/5439686.pdf",
+      "https://www.iwakuni-fd.or.jp/follow/reiki_int/reiki_honbun/x8410097001.html",
+      "https://www.pref.hokkaido.lg.jp/fs/2/3/7/4/8/8/9/_/yousiki5-11.pdf",
+      "https://www.khk.or.jp/Portals/0/khk/insp/youki/youki/60102-27.pdf"
+    ]
+  }
+]
