@@ -2269,15 +2269,13 @@
       "sha256": "2d945017075d9e8ac84ab83a8568e4a8b8e3474599b833c92fa72fcab9c9d15f",
       "status": "draft_pending_current_audit"
     },
-    "nextAction": "同一監査の終端を確認し、候補hashが一致すれば解説の形式を修正して再検証する。出題時根拠も別途確認する。",
-    "holdReceipt": {
-      "path": "output/eco-kentei/reports/turn_receipts/mondai5_22_hold_20261028.json",
-      "sha256": "1336ff3fb19c3d4a0ad288c154879ae7d7d7b9e02aa2f4ef58ce9896b6e04ec7"
-    },
-    "status": "audit_restarted_after_explanation_revision",
+    "nextAction": "出題時判定と現行判定の根拠を再整理し、監査候補の必須項目を確定して再検証する。",
+    "holdReceipt": "output/eco-kentei/reports/turn_receipts/mondai5_22_reaudit_hold_20261029.json",
+    "status": "law_audit_blocked",
     "retryRunId": "20261029T030837938005-1dfd3578",
     "additionalLawSourceReview": "output/eco-kentei/reports/manual_content_reviews/mondai5_22_law_source_review_20261029.json",
-    "pendingExplanationProposal": "output/eco-kentei/reports/rework_proposals/mondai5_22_explanation_prefix_20261029.json"
+    "pendingExplanationProposal": "output/eco-kentei/reports/rework_proposals/mondai5_22_explanation_prefix_20261029.json",
+    "checkResults": "既存merged 59件の選択肢整合・必須項目、および問22の正答patchカバレッジは成功。問22のmergedと監査は未完了。"
   },
   "priorGroup5_20AcceptedScope": {
     "sourceRecords": "knoun-2026-mock-5/question_mondai5_1.json#0〜question_mondai5_20.json#0 の20件。mock-4の52件受入は priorGroup4AcceptedScope に別記。",
@@ -3916,5 +3914,19 @@
     "evaluationReceipt": "output/eco-kentei/reports/mondai5_85_evaluation_result_20261028.json",
     "acceptanceReceipt": "output/eco-kentei/reports/mondai5_85_validation_20261028/current_acceptance.json",
     "nextAction": "問21の保留を解消する。模擬問題5は問85まで。"
+  },
+  "inProgressQuestion1_1": {
+    "sourceRecordRef": "question_mondai1_1.json#0",
+    "questionId": "da65ef93f788a6180e8471eb",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": true,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_1_primary_source_review_20261029.json",
+    "status": "isolated_merge_and_checks_passed_evaluation_not_started",
+    "originalizeRunId": "20261029T032434917079-5d658850",
+    "nativeRunId": "20261029T032640747074-036bd966",
+    "priorNativeRunId": "20261029T032522750573-670cf662",
+    "stateHash": "66bd7a7e540a1f06c0d7e6ff35d2290d0051492b256a9f2f4d9ba049c0fda2fc",
+    "receipt": "output/eco-kentei/reports/turn_receipts/mondai1_1_integration_pending_20261029.json",
+    "nextAction": "既存の模擬問題1の他9問を保護しつつ対象をmerge・convert・upload-readyへ反映し、別session評価を実行する。"
   }
 }
