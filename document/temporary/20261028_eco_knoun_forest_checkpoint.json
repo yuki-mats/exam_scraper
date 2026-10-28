@@ -2236,18 +2236,15 @@
     "lawzilla": "unavailable_before_initialization",
     "officialEvidence": "e-Gov現行施行版第2条・第4条・第5条および環境省資料を確認。飼養等は原則禁止で許可や一部適用除外がある。",
     "knownRetry": "法令監査初回は説明文候補の不要な記号とメタ文を検出し、2回目を実行中。",
-    "nextAction": "稼働中の同一runを再確認し、終端後に検査と再評価を行う。",
+    "nextAction": "監査候補生成の異言語混入と肢別根拠の整合を解決してから再監査する。現状の監査不成立のまま受入しない。",
     "explanationDraft": {
       "path": "output/eco-kentei/reports/manual_content_reviews/mondai5_21_explanation_draft_20261028.json",
       "sha256": "8bc5f054e252770e759318a9b8692f655238bb2f7db1c6283f69bfc8297b1281",
       "status": "draft_pending_current_audit"
     },
     "distractorEvidence": "環境省と農林水産省の一次資料で国内由来の外来種、絶滅危惧種、遺伝子組換え技術を確認。各区分は必ずしも排他的ではない。",
-    "holdReceipt": {
-      "path": "output/eco-kentei/reports/turn_receipts/mondai5_21_hold_20261028.json",
-      "sha256": "5ce3f5a1ad760e190ef3474e1cda01072d36e69073bbdc40ccbd4da43bf5ce9d"
-    },
-    "status": "audit_running",
+    "holdReceipt": "output/eco-kentei/reports/turn_receipts/mondai5_21_reaudit_hold_20261029.json",
+    "status": "law_audit_blocked",
     "retryRunId": "20261029T025401544725-778d5848"
   },
   "inProgressQuestion5_22": {
@@ -2272,11 +2269,13 @@
       "sha256": "2d945017075d9e8ac84ab83a8568e4a8b8e3474599b833c92fa72fcab9c9d15f",
       "status": "draft_pending_current_audit"
     },
-    "nextAction": "法令監査候補の各肢と全体の時点判定を一次根拠に基づき是正し、独立監査を再実行する。入力を変えずに再試行しない。",
+    "nextAction": "現行法監査の結果を確認する。",
     "holdReceipt": {
       "path": "output/eco-kentei/reports/turn_receipts/mondai5_22_hold_20261028.json",
       "sha256": "1336ff3fb19c3d4a0ad288c154879ae7d7d7b9e02aa2f4ef58ce9896b6e04ec7"
-    }
+    },
+    "status": "audit_restarted_after_explanation_revision",
+    "retryRunId": "20261029T030837938005-1dfd3578"
   },
   "priorGroup5_20AcceptedScope": {
     "sourceRecords": "knoun-2026-mock-5/question_mondai5_1.json#0〜question_mondai5_20.json#0 の20件。mock-4の52件受入は priorGroup4AcceptedScope に別記。",
