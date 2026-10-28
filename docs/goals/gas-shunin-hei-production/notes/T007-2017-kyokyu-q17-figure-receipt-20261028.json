@@ -1,0 +1,1168 @@
+{
+  "schemaVersion": "hei-figure-patch-verification/v1",
+  "checkedAt": "2026-10-28T03:23:22.729626+00:00",
+  "sourceQuestionId": "2017:kyokyu:問17",
+  "plan": {
+    "path": "output/gas-shunin-hei/direct_publication/20261027/figure_review/2017-kyokyu-q17-image-r3/plan.json",
+    "sha256": "2449efbcef91e4bcae452799b279b6304eb82f6ffe1d7a4b01c41fd8fb81492a",
+    "payload": {
+      "schemaVersion": "gas-shunin-hei-official-correction-review-plan/v1",
+      "year": 2017,
+      "createdAt": "2026-10-28T03:18:05.101750+00:00",
+      "batchId": "zzzz-hei-direct-figure-2017-kyokyu-q17-image-r3",
+      "category": "image",
+      "items": [
+        {
+          "sourceQuestionId": "2017:kyokyu:問17",
+          "currentRecord": {
+            "questionBodyText": "ガス管の防食法の分類に関する次の図において、［　］の中の(イ)〜(ニ)にあてはまる語句の組合せとして最も適切なものはどれか。\n\n【図の内容】\n「ガス管の防食法」は、上から［(イ)］、［(ロ)］、「その他」の3つに分かれる。このうち［(ロ)］は、上から［(ハ)］、［(ニ)］、「選択排流法」、「強制排流法」の4つに分かれる。",
+            "examLabel": "2017年（平成29年）丙種 過去問題・解答解説 供給",
+            "questionLabel": "問17",
+            "choiceTextList": [
+              "(イ): 電気防食、(ロ): 塗覆装、(ハ): 流電陽極法、(ニ): 外部電源法",
+              "(イ): 電気防食、(ロ): 塗覆装、(ハ): 絶縁、(ニ): メッキ",
+              "(イ): 塗覆装、(ロ): 電気防食、(ハ): 外部電源法、(ニ): 絶縁",
+              "(イ): 塗覆装、(ロ): 電気防食、(ハ): 絶縁、(ニ): メッキ",
+              "(イ): 塗覆装、(ロ): 電気防食、(ハ): 流電陽極法、(ニ): 外部電源法"
+            ],
+            "choiceTextMarkedList": [
+              "(イ): 電気防食、(ロ): 塗覆装、(ハ): 流電陽極法、(ニ): 外部電源法",
+              "(イ): 電気防食、(ロ): 塗覆装、(ハ): 絶縁、(ニ): メッキ",
+              "(イ): 塗覆装、(ロ): 電気防食、(ハ): 外部電源法、(ニ): 絶縁",
+              "(イ): 塗覆装、(ロ): 電気防食、(ハ): 絶縁、(ニ): メッキ",
+              "(イ): 塗覆装、(ロ): 電気防食、(ハ): 流電陽極法、(ニ): 外部電源法"
+            ],
+            "questionChoiceMarkers": [],
+            "judgeChoiceMarkers": [],
+            "choiceMarkerSource": "unknown",
+            "markerAlignmentMode": "no_marker_data",
+            "markerMismatchDetected": false,
+            "answerResultNumbersRemapped": false,
+            "originalQuestionChoiceImageUrls": [
+              [],
+              [],
+              [],
+              [],
+              []
+            ],
+            "category": "供給",
+            "examYear": 2017,
+            "examOccurrenceId": "2017",
+            "list_group_id": "2017",
+            "question_url": "https://gassyunin.com/exam/hei/hei_2017/#kyokyu-q17",
+            "public_question_id": "31d20b76e6e3beba",
+            "questionImageStorageUrls": [],
+            "questionIntent": "select_correct",
+            "correctChoiceText": [
+              "間違い",
+              "間違い",
+              "間違い",
+              "間違い",
+              "正しい"
+            ],
+            "explanation_common_prefix": [],
+            "explanation_common_prefix_inferred_correct_choice": 5,
+            "explanation_common_summary": [],
+            "explanation_choice_snippets": [
+              [],
+              [],
+              [],
+              [],
+              []
+            ],
+            "explanation_choice_correctness": [
+              "不正解",
+              "不正解",
+              "不正解",
+              "不正解",
+              "正解"
+            ],
+            "answer_result_text": "正解は 5 です。",
+            "answer_result_inferred_correct_choice_numbers": [
+              5
+            ],
+            "source_question_id": "2017:kyokyu:問17",
+            "original_question_id": "31d20b76e6e3beba",
+            "questionType": "group_choice",
+            "isCalculationQuestion": false,
+            "isLawRelated": false,
+            "lawGroundedExplanationNotNeeded": true,
+            "lawReferences": [
+              [],
+              [],
+              [],
+              [],
+              []
+            ],
+            "lawContextForExplanation": "図の親子関係と各方式の仕組みから、防食方法の技術的分類を確認する。",
+            "questionLearningPatternId": "differences_relationships",
+            "explanationText": [
+              "正しい。空欄は、塗覆装・電気防食・流電陽極法・外部電源法の順に入る。塗覆装は、管の表面を覆って土壌や水などの腐食環境から隔てる方法である。電気防食は、管へ電流を流入させて腐食反応を抑える方法で、流電陽極法、外部電源法、選択排流法、強制排流法が含まれる。流電陽極法は鋼管より溶けやすい金属との電位差を、外部電源法は直流電源を利用する。図で選択排流法と強制排流法を含む枝は電気防食になる。"
+            ],
+            "suggestedQuestionDetailsByChoice": [],
+            "lawRevisionFacts": [
+              {
+                "auditStatus": "not_law_related",
+                "reviewState": "secondary_verified",
+                "examTime": {
+                  "correctChoiceText": "間違い"
+                },
+                "current": {
+                  "correctChoiceText": "間違い"
+                },
+                "differenceFacts": [],
+                "answerImpactFacts": [],
+                "reconciliationStatus": "not_applicable",
+                "evidenceSummary": {
+                  "verdict": "not_law_related",
+                  "explanationText": "図の親子関係と各方式の仕組みから、防食方法の技術的分類を確認する。",
+                  "differenceSummary": "非法令問題。法令差分は適用しない。",
+                  "promptContext": "(イ): 電気防食、(ロ): 塗覆装、(ハ): 流電陽極法、(ニ): 外部電源法",
+                  "refs": [],
+                  "displayRefIds": []
+                },
+                "notes": [
+                  "主担当の直接判定と別sessionの全肢確認が一致。",
+                  "output/gas-shunin-hei/direct_publication/20261027/content_audits/2017_kyokyu_問17/result.json"
+                ]
+              },
+              {
+                "auditStatus": "not_law_related",
+                "reviewState": "secondary_verified",
+                "examTime": {
+                  "correctChoiceText": "間違い"
+                },
+                "current": {
+                  "correctChoiceText": "間違い"
+                },
+                "differenceFacts": [],
+                "answerImpactFacts": [],
+                "reconciliationStatus": "not_applicable",
+                "evidenceSummary": {
+                  "verdict": "not_law_related",
+                  "explanationText": "図の親子関係と各方式の仕組みから、防食方法の技術的分類を確認する。",
+                  "differenceSummary": "非法令問題。法令差分は適用しない。",
+                  "promptContext": "(イ): 電気防食、(ロ): 塗覆装、(ハ): 絶縁、(ニ): メッキ",
+                  "refs": [],
+                  "displayRefIds": []
+                },
+                "notes": [
+                  "主担当の直接判定と別sessionの全肢確認が一致。",
+                  "output/gas-shunin-hei/direct_publication/20261027/content_audits/2017_kyokyu_問17/result.json"
+                ]
+              },
+              {
+                "auditStatus": "not_law_related",
+                "reviewState": "secondary_verified",
+                "examTime": {
+                  "correctChoiceText": "間違い"
+                },
+                "current": {
+                  "correctChoiceText": "間違い"
+                },
+                "differenceFacts": [],
+                "answerImpactFacts": [],
+                "reconciliationStatus": "not_applicable",
+                "evidenceSummary": {
+                  "verdict": "not_law_related",
+                  "explanationText": "図の親子関係と各方式の仕組みから、防食方法の技術的分類を確認する。",
+                  "differenceSummary": "非法令問題。法令差分は適用しない。",
+                  "promptContext": "(イ): 塗覆装、(ロ): 電気防食、(ハ): 外部電源法、(ニ): 絶縁",
+                  "refs": [],
+                  "displayRefIds": []
+                },
+                "notes": [
+                  "主担当の直接判定と別sessionの全肢確認が一致。",
+                  "output/gas-shunin-hei/direct_publication/20261027/content_audits/2017_kyokyu_問17/result.json"
+                ]
+              },
+              {
+                "auditStatus": "not_law_related",
+                "reviewState": "secondary_verified",
+                "examTime": {
+                  "correctChoiceText": "間違い"
+                },
+                "current": {
+                  "correctChoiceText": "間違い"
+                },
+                "differenceFacts": [],
+                "answerImpactFacts": [],
+                "reconciliationStatus": "not_applicable",
+                "evidenceSummary": {
+                  "verdict": "not_law_related",
+                  "explanationText": "図の親子関係と各方式の仕組みから、防食方法の技術的分類を確認する。",
+                  "differenceSummary": "非法令問題。法令差分は適用しない。",
+                  "promptContext": "(イ): 塗覆装、(ロ): 電気防食、(ハ): 絶縁、(ニ): メッキ",
+                  "refs": [],
+                  "displayRefIds": []
+                },
+                "notes": [
+                  "主担当の直接判定と別sessionの全肢確認が一致。",
+                  "output/gas-shunin-hei/direct_publication/20261027/content_audits/2017_kyokyu_問17/result.json"
+                ]
+              },
+              {
+                "auditStatus": "not_law_related",
+                "reviewState": "secondary_verified",
+                "examTime": {
+                  "correctChoiceText": "正しい"
+                },
+                "current": {
+                  "correctChoiceText": "正しい"
+                },
+                "differenceFacts": [],
+                "answerImpactFacts": [],
+                "reconciliationStatus": "not_applicable",
+                "evidenceSummary": {
+                  "verdict": "not_law_related",
+                  "explanationText": "図の親子関係と各方式の仕組みから、防食方法の技術的分類を確認する。",
+                  "differenceSummary": "非法令問題。法令差分は適用しない。",
+                  "promptContext": "(イ): 塗覆装、(ロ): 電気防食、(ハ): 流電陽極法、(ニ): 外部電源法",
+                  "refs": [],
+                  "displayRefIds": []
+                },
+                "notes": [
+                  "主担当の直接判定と別sessionの全肢確認が一致。",
+                  "output/gas-shunin-hei/direct_publication/20261027/content_audits/2017_kyokyu_問17/result.json"
+                ]
+              }
+            ],
+            "questionSetId": "gas-shunin-hei_qs05_04_fushoku_boshoku"
+          },
+          "sourceBinding": {
+            "sourceQuestionKey": "gas-shunin:hei:2017:kyokyu:q17",
+            "reviewQuestionId": "31d20b76e6e3beba",
+            "sourceRecordRef": "question_2017_2.json#22"
+          },
+          "workItem": {
+            "workId": "2017-kyokyu-q17-figure",
+            "qualificationId": "gas-shunin-hei",
+            "listGroupId": "2017",
+            "questionId": "31d20b76e6e3beba",
+            "originalQuestionId": "31d20b76e6e3beba",
+            "sourceQuestionKey": "gas-shunin:hei:2017:kyokyu:q17",
+            "reviewQuestionId": "31d20b76e6e3beba",
+            "sourceRecordRef": "question_2017_2.json#22",
+            "caseIds": [
+              "operator-figure-31d20b76e6e3beba"
+            ],
+            "caseInputHashes": {
+              "operator-figure-31d20b76e6e3beba": "5a119efb51cdc0591c08f63ede828ac95d0348060a273d6ca56fb9a23df424ad"
+            },
+            "caseSnapshots": [
+              {
+                "id": "operator-figure-31d20b76e6e3beba",
+                "canonicalSnapshot": {
+                  "qualificationId": "gas-shunin-hei",
+                  "listGroupId": "2017",
+                  "originalQuestionId": "31d20b76e6e3beba",
+                  "officialEvidenceCandidates": [
+                    {
+                      "sourceClass": "official",
+                      "title": "2017年度丙種の公式問題・正答と図",
+                      "locator": "output/pdf/gas-shunin-official/2017/q_hei_h29.pdf / PDF 23頁 / 2017:kyokyu:問17 / 当該図の切出し",
+                      "verifiedAt": "2026-10-28T03:18:05.101750+00:00",
+                      "contentHash": "af69256f997fad62b338276812bf5c5aa81a3c5ce1d749f5d60424f49988a26a",
+                      "localSourcePath": "output/pdf/gas-shunin-official/2017/q_hei_h29.pdf",
+                      "localRenderedPagePaths": [
+                        "output/gas-shunin-hei/pdf_review/2017/mark_sheet_question/page-23.png",
+                        "output/gas-shunin-hei/direct_publication/20261027/pdf_figure_candidates/2017-kyokyu-q17.png",
+                        "output/gas-shunin-hei/pdf_review/2017/answer/page-01.png"
+                      ],
+                      "localRenderedPageHashes": {
+                        "output/gas-shunin-hei/pdf_review/2017/mark_sheet_question/page-23.png": "861a6bbeb2b9c5623b4d0868af7b676ed3e430a7f17677322a2aaf12448fd006",
+                        "output/gas-shunin-hei/direct_publication/20261027/pdf_figure_candidates/2017-kyokyu-q17.png": "ba09ba5a6c323d487cdf97d70597f9046ec2609d1fb06d35761cba0c32decc00",
+                        "output/gas-shunin-hei/pdf_review/2017/answer/page-01.png": "63d3ab83ed36331acef1ab3cc1fe89e9a292e5cf3825878dd2d66fa16d443638"
+                      },
+                      "verifiedTranscription": "【現在の問題本文・全選択肢】\nガス管の防食法の分類に関する次の図において、［　］の中の(イ)〜(ニ)にあてはまる語句の組合せとして最も適切なものはどれか。\n\n【図の内容】\n「ガス管の防食法」は、上から［(イ)］、［(ロ)］、「その他」の3つに分かれる。このうち［(ロ)］は、上から［(ハ)］、［(ニ)］、「選択排流法」、「強制排流法」の4つに分かれる。\n[\"(イ): 電気防食、(ロ): 塗覆装、(ハ): 流電陽極法、(ニ): 外部電源法\", \"(イ): 電気防食、(ロ): 塗覆装、(ハ): 絶縁、(ニ): メッキ\", \"(イ): 塗覆装、(ロ): 電気防食、(ハ): 外部電源法、(ニ): 絶縁\", \"(イ): 塗覆装、(ロ): 電気防食、(ハ): 絶縁、(ニ): メッキ\", \"(イ): 塗覆装、(ロ): 電気防食、(ハ): 流電陽極法、(ニ): 外部電源法\"]\n【図の候補】\noutput/gas-shunin-hei/direct_publication/20261027/pdf_figure_candidates/2017-kyokyu-q17.png\n【画像URL候補】\nhttps://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fgas-shunin-hei%2Fofficial-source-2017-31d20b76e6e3beba-ba09ba5a6c323d48.png?alt=media\nURLは公開先予定であり、Storage未反映。",
+                      "candidateChanges": {
+                        "questionImageStorageUrls": [
+                          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fgas-shunin-hei%2Fofficial-source-2017-31d20b76e6e3beba-ba09ba5a6c323d48.png?alt=media"
+                        ]
+                      },
+                      "transcriptionRole": "公式図の切出しを問題全体の図として追加。問題文・選択肢・答えの変更は行わない。"
+                    }
+                  ],
+                  "officialImagePublicationCandidate": {
+                    "localImagePath": "output/gas-shunin-hei/question_images/2017/official-source-2017-31d20b76e6e3beba-ba09ba5a6c323d48.png",
+                    "publicUrl": "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fgas-shunin-hei%2Fofficial-source-2017-31d20b76e6e3beba-ba09ba5a6c323d48.png?alt=media",
+                    "contentHash": "ba09ba5a6c323d487cdf97d70597f9046ec2609d1fb06d35761cba0c32decc00",
+                    "proposedChanges": {
+                      "questionImageStorageUrls": [
+                        "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fgas-shunin-hei%2Fofficial-source-2017-31d20b76e6e3beba-ba09ba5a6c323d48.png?alt=media"
+                      ]
+                    }
+                  },
+                  "displayFormatRules": [
+                    "公式PDFの該当問題と図の全記号・接続関係・位置が切出しに残るか照合する。",
+                    "追加先は問題全体の画像。選択肢や答えを変えない。",
+                    "候補URLは未公開の予定値。配信成功を推定しない。"
+                  ]
+                }
+              }
+            ]
+          },
+          "evidence": [
+            {
+              "sourceClass": "official",
+              "title": "2017年度丙種の公式問題・正答と図",
+              "locator": "output/pdf/gas-shunin-official/2017/q_hei_h29.pdf / PDF 23頁 / 2017:kyokyu:問17 / 当該図の切出し",
+              "verifiedAt": "2026-10-28T03:18:05.101750+00:00",
+              "contentHash": "af69256f997fad62b338276812bf5c5aa81a3c5ce1d749f5d60424f49988a26a"
+            }
+          ],
+          "imagePaths": [
+            "output/gas-shunin-hei/pdf_review/2017/mark_sheet_question/page-23.png",
+            "output/gas-shunin-hei/direct_publication/20261027/pdf_figure_candidates/2017-kyokyu-q17.png",
+            "output/gas-shunin-hei/pdf_review/2017/answer/page-01.png"
+          ],
+          "verifiedTranscription": "【現在の問題本文・全選択肢】\nガス管の防食法の分類に関する次の図において、［　］の中の(イ)〜(ニ)にあてはまる語句の組合せとして最も適切なものはどれか。\n\n【図の内容】\n「ガス管の防食法」は、上から［(イ)］、［(ロ)］、「その他」の3つに分かれる。このうち［(ロ)］は、上から［(ハ)］、［(ニ)］、「選択排流法」、「強制排流法」の4つに分かれる。\n[\"(イ): 電気防食、(ロ): 塗覆装、(ハ): 流電陽極法、(ニ): 外部電源法\", \"(イ): 電気防食、(ロ): 塗覆装、(ハ): 絶縁、(ニ): メッキ\", \"(イ): 塗覆装、(ロ): 電気防食、(ハ): 外部電源法、(ニ): 絶縁\", \"(イ): 塗覆装、(ロ): 電気防食、(ハ): 絶縁、(ニ): メッキ\", \"(イ): 塗覆装、(ロ): 電気防食、(ハ): 流電陽極法、(ニ): 外部電源法\"]\n【図の候補】\noutput/gas-shunin-hei/direct_publication/20261027/pdf_figure_candidates/2017-kyokyu-q17.png\n【画像URL候補】\nhttps://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fgas-shunin-hei%2Fofficial-source-2017-31d20b76e6e3beba-ba09ba5a6c323d48.png?alt=media\nURLは公開先予定であり、Storage未反映。",
+          "candidateChanges": {
+            "questionImageStorageUrls": [
+              "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fgas-shunin-hei%2Fofficial-source-2017-31d20b76e6e3beba-ba09ba5a6c323d48.png?alt=media"
+            ]
+          },
+          "sourcePath": "output/gas-shunin-hei/questions_json/2017/00_source/question_2017_2.json",
+          "sourceSha256": "0a7c3d72f8f1ba7c0b07eb0c7bc4fc78ebee5305d09a583ccde50c236fe4306a",
+          "questionPdfPath": "output/pdf/gas-shunin-official/2017/q_hei_h29.pdf",
+          "questionPdfSha256": "af69256f997fad62b338276812bf5c5aa81a3c5ce1d749f5d60424f49988a26a"
+        }
+      ]
+    }
+  },
+  "independentReviews": [
+    {
+      "path": "output/gas-shunin-hei/direct_publication/20261027/figure_review/2017-kyokyu-q17-image-r3/reviews/blind_a-validated.json",
+      "sha256": "4c5c3007375d30c0a55c6227d5ead81de2eea1d24625b4a5c184c2b5ee9a3da8",
+      "payload": {
+        "receiptHash": "dc8e3e7e48b0d1f2c77b7308591a50b4f3208e38f6fcfedce6257908cab4d794",
+        "reviews": {
+          "2017:kyokyu:問17": {
+            "schemaVersion": "question-issue-blind-review/v1",
+            "phase": "blind",
+            "reviewerSlot": "A",
+            "inputHash": "c6884722748182b2e4483a153fc8aa1e401b2e5dfc3d2b1c7c64bd2cd241cfcd",
+            "workflowContractHashes": [],
+            "conclusion": "problem_found",
+            "proposedChanges": {
+              "questionImageStorageUrls": [
+                "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fgas-shunin-hei%2Fofficial-source-2017-31d20b76e6e3beba-ba09ba5a6c323d48.png?alt=media"
+              ]
+            },
+            "findings": [
+              {
+                "field": "questionImageStorageUrls",
+                "observed": "現在値は空配列で、問題全体の図画像が未登録。",
+                "expected": "公式問題冊子の問17にある「ガス管の防食法」の分類図を示す候補URLを登録する。",
+                "rationale": "公式PDFの問17図と候補画像を直接照合し、全ラベル、分岐、接続関係、「選択排流法」「強制排流法」を含む図全体が一致した。"
+              }
+            ],
+            "evidence": [
+              {
+                "sourceClass": "official",
+                "title": "2017年度丙種の公式問題・正答と図",
+                "locator": "output/pdf/gas-shunin-official/2017/q_hei_h29.pdf / PDF 23頁 / 2017:kyokyu:問17 / 当該図の切出し",
+                "verifiedAt": "2026-10-28T03:18:05.101750+00:00",
+                "contentHash": "af69256f997fad62b338276812bf5c5aa81a3c5ce1d749f5d60424f49988a26a"
+              }
+            ],
+            "appRootCauseKey": null,
+            "reproductionEvidence": []
+          }
+        },
+        "normalizer": "none; exact fixed-evidence equality required"
+      }
+    },
+    {
+      "path": "output/gas-shunin-hei/direct_publication/20261027/figure_review/2017-kyokyu-q17-image-r3/reviews/blind_b-validated.json",
+      "sha256": "c77aaf79427abcd825839a77fdd35d206c6490bfd78ef118fb5e2a4093a75646",
+      "payload": {
+        "receiptHash": "cc33c0aeab8da543182d6eb964b4e5a82a670af50d88ec94983df60213d57a47",
+        "reviews": {
+          "2017:kyokyu:問17": {
+            "schemaVersion": "question-issue-blind-review/v1",
+            "phase": "blind",
+            "reviewerSlot": "B",
+            "inputHash": "c6884722748182b2e4483a153fc8aa1e401b2e5dfc3d2b1c7c64bd2cd241cfcd",
+            "workflowContractHashes": [],
+            "conclusion": "problem_found",
+            "proposedChanges": {
+              "questionImageStorageUrls": [
+                "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fgas-shunin-hei%2Fofficial-source-2017-31d20b76e6e3beba-ba09ba5a6c323d48.png?alt=media"
+              ]
+            },
+            "findings": [
+              {
+                "field": "questionImageStorageUrls",
+                "observed": "現在値は空配列で、問題全体の公式図画像が未登録。",
+                "expected": "公式問題冊子の問17に対応する図の画像URLを登録する。",
+                "rationale": "公式画像には「ガス管の防食法」から(イ)、(ロ)、その他へ分岐し、(ロ)から(ハ)、(ニ)、選択排流法、強制排流法へ分岐する図全体が含まれており、候補画像はこの記号・接続関係・位置を保持している。"
+              }
+            ],
+            "evidence": [
+              {
+                "sourceClass": "official",
+                "title": "2017年度丙種の公式問題・正答と図",
+                "locator": "output/pdf/gas-shunin-official/2017/q_hei_h29.pdf / PDF 23頁 / 2017:kyokyu:問17 / 当該図の切出し",
+                "verifiedAt": "2026-10-28T03:18:05.101750+00:00",
+                "contentHash": "af69256f997fad62b338276812bf5c5aa81a3c5ce1d749f5d60424f49988a26a"
+              }
+            ],
+            "appRootCauseKey": null,
+            "reproductionEvidence": []
+          }
+        },
+        "normalizer": "none; exact fixed-evidence equality required"
+      }
+    },
+    {
+      "path": "output/gas-shunin-hei/direct_publication/20261027/figure_review/2017-kyokyu-q17-image-r3/reviews/challenge-validated.json",
+      "sha256": "86129f75a840411375949d1ce7cfdb107935539dea7f19a1f87b939a5815b9da",
+      "payload": {
+        "receiptHash": "d6463d723853481090244c93619e3e3ddcff6d7a8067095e0d25f493f20e64e3",
+        "reviews": {
+          "2017:kyokyu:問17": {
+            "schemaVersion": "question-issue-challenge-review/v1",
+            "phase": "challenge",
+            "inputHash": "a0c1ea60bc259e7116bcee808fe87d90dacac20234c04f10ec2ce87f0cf058d4",
+            "blindReviewHashes": [
+              "42fc069ead347b39ad3645af866fa72d522ca304fb4ed2d977eb94db81479a6e",
+              "ca6316c100de65a99eb8aeac4ad8472fce56d30a506c5f1818cbb056bb97a540"
+            ],
+            "decision": "fix",
+            "rationale": "同一の公式PDF図と候補画像を照合した結果、候補画像は問17の図全体を含み、各ラベル、分岐、接続関係および「選択排流法」「強制排流法」の表示を保持している。現在値は空配列であり、候補の完全値を採用する。",
+            "changes": {
+              "questionImageStorageUrls": [
+                "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fgas-shunin-hei%2Fofficial-source-2017-31d20b76e6e3beba-ba09ba5a6c323d48.png?alt=media"
+              ]
+            },
+            "evidence": [
+              {
+                "sourceClass": "official",
+                "title": "2017年度丙種の公式問題・正答と図",
+                "locator": "output/pdf/gas-shunin-official/2017/q_hei_h29.pdf / PDF 23頁 / 2017:kyokyu:問17 / 当該図の切出し",
+                "verifiedAt": "2026-10-28T03:18:05.101750+00:00",
+                "contentHash": "af69256f997fad62b338276812bf5c5aa81a3c5ce1d749f5d60424f49988a26a"
+              }
+            ],
+            "appRootCauseKey": null,
+            "reproductionEvidence": []
+          }
+        },
+        "normalizer": "none; exact fixed-evidence equality required"
+      }
+    }
+  ],
+  "nativeReceipts": [
+    {
+      "path": "output/gas-shunin-hei/direct_publication/20261027/figure_review/2017-kyokyu-q17-image-r3/reviews/blind_a-received.json",
+      "sha256": "12866468cb83c4508e426ad0d848f0401ae1589293d379ddd4dfc0fd69c79489",
+      "payload": {
+        "inputHash": "fa6e73fb992c90740d5ad296f0ed8e3ec6b444ef95299a0771181217c9d30d45",
+        "expectedIds": [
+          "2017:kyokyu:問17"
+        ],
+        "expectedWorkIds": [
+          "2017-kyokyu-q17-figure"
+        ],
+        "native": {
+          "thread_id": "01a18083-ddaf-7c02-9fcc-cd5199b3c589",
+          "session_id": "01a18083-ddaf-7c02-9fcc-cd5199b3c589",
+          "turn_id": "01a18083-f1a4-7131-8d47-1d8d82bca5eb",
+          "final_message": "{\"results\":{\"2017-kyokyu-q17-figure\":{\"schemaVersion\":\"question-issue-blind-review/v1\",\"phase\":\"blind\",\"reviewerSlot\":\"A\",\"inputHash\":\"c6884722748182b2e4483a153fc8aa1e401b2e5dfc3d2b1c7c64bd2cd241cfcd\",\"workflowContractHashes\":[],\"conclusion\":\"problem_found\",\"proposedChanges\":{\"questionImageStorageUrls\":[\"https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fgas-shunin-hei%2Fofficial-source-2017-31d20b76e6e3beba-ba09ba5a6c323d48.png?alt=media\"]},\"findings\":[{\"field\":\"questionImageStorageUrls\",\"observed\":\"現在値は空配列で、問題全体の図画像が未登録。\",\"expected\":\"公式問題冊子の問17にある「ガス管の防食法」の分類図を示す候補URLを登録する。\",\"rationale\":\"公式PDFの問17図と候補画像を直接照合し、全ラベル、分岐、接続関係、「選択排流法」「強制排流法」を含む図全体が一致した。\"}],\"evidence\":[{\"sourceClass\":\"official\",\"title\":\"2017年度丙種の公式問題・正答と図\",\"locator\":\"output/pdf/gas-shunin-official/2017/q_hei_h29.pdf / PDF 23頁 / 2017:kyokyu:問17 / 当該図の切出し\",\"verifiedAt\":\"2026-10-28T03:18:05.101750+00:00\",\"contentHash\":\"af69256f997fad62b338276812bf5c5aa81a3c5ce1d749f5d60424f49988a26a\"}],\"appRootCauseKey\":null,\"reproductionEvidence\":[]}}}",
+          "model": "gpt-5.6-luna",
+          "service_tier": null,
+          "reasoning_effort": "high",
+          "image_inputs": [
+            {
+              "sourcePath": "output/gas-shunin-hei/pdf_review/2017/mark_sheet_question/page-23.png",
+              "attachmentIndex": 0,
+              "mimeType": "image/png",
+              "byteCount": 240110,
+              "sha256": "861a6bbeb2b9c5623b4d0868af7b676ed3e430a7f17677322a2aaf12448fd006"
+            },
+            {
+              "sourcePath": "output/gas-shunin-hei/direct_publication/20261027/pdf_figure_candidates/2017-kyokyu-q17.png",
+              "attachmentIndex": 1,
+              "mimeType": "image/png",
+              "byteCount": 40153,
+              "sha256": "ba09ba5a6c323d487cdf97d70597f9046ec2609d1fb06d35761cba0c32decc00"
+            },
+            {
+              "sourcePath": "output/gas-shunin-hei/pdf_review/2017/answer/page-01.png",
+              "attachmentIndex": 2,
+              "mimeType": "image/png",
+              "byteCount": 98651,
+              "sha256": "63d3ab83ed36331acef1ab3cc1fe89e9a292e5cf3825878dd2d66fa16d443638"
+            }
+          ],
+          "changed_files": [],
+          "subagent_thread_ids": [],
+          "subagent_models": [],
+          "subagent_reasoning_efforts": [],
+          "completion_mode": "turn_completed",
+          "model_turn_started_at": "2026-10-28T12:18:13.160359+09:00",
+          "model_turn_finished_at": "2026-10-28T12:18:40.249533+09:00",
+          "model_turn_duration_seconds": 27.090086,
+          "model_turn_queue_wait_seconds": 7.836892
+        },
+        "receiptHash": "dc8e3e7e48b0d1f2c77b7308591a50b4f3208e38f6fcfedce6257908cab4d794"
+      }
+    },
+    {
+      "path": "output/gas-shunin-hei/direct_publication/20261027/figure_review/2017-kyokyu-q17-image-r3/reviews/blind_b-received.json",
+      "sha256": "4890e0945fad2aba1f15d423282093a223a20dcdd52d43eeda46e32da15141cd",
+      "payload": {
+        "inputHash": "e4b5d6d1e365a18db697fc4eb2b0463a95825f477499e9b6e522a604d17ad586",
+        "expectedIds": [
+          "2017:kyokyu:問17"
+        ],
+        "expectedWorkIds": [
+          "2017-kyokyu-q17-figure"
+        ],
+        "native": {
+          "thread_id": "01a18084-6fa8-7382-902d-0379c350bcaa",
+          "session_id": "01a18084-6fa8-7382-902d-0379c350bcaa",
+          "turn_id": "01a18084-835e-7251-a432-9b9948298f68",
+          "final_message": "{\"results\":{\"2017-kyokyu-q17-figure\":{\"schemaVersion\":\"question-issue-blind-review/v1\",\"phase\":\"blind\",\"reviewerSlot\":\"B\",\"inputHash\":\"c6884722748182b2e4483a153fc8aa1e401b2e5dfc3d2b1c7c64bd2cd241cfcd\",\"workflowContractHashes\":[],\"conclusion\":\"problem_found\",\"proposedChanges\":{\"questionImageStorageUrls\":[\"https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fgas-shunin-hei%2Fofficial-source-2017-31d20b76e6e3beba-ba09ba5a6c323d48.png?alt=media\"]},\"findings\":[{\"field\":\"questionImageStorageUrls\",\"observed\":\"現在値は空配列で、問題全体の公式図画像が未登録。\",\"expected\":\"公式問題冊子の問17に対応する図の画像URLを登録する。\",\"rationale\":\"公式画像には「ガス管の防食法」から(イ)、(ロ)、その他へ分岐し、(ロ)から(ハ)、(ニ)、選択排流法、強制排流法へ分岐する図全体が含まれており、候補画像はこの記号・接続関係・位置を保持している。\"}],\"evidence\":[{\"sourceClass\":\"official\",\"title\":\"2017年度丙種の公式問題・正答と図\",\"locator\":\"output/pdf/gas-shunin-official/2017/q_hei_h29.pdf / PDF 23頁 / 2017:kyokyu:問17 / 当該図の切出し\",\"verifiedAt\":\"2026-10-28T03:18:05.101750+00:00\",\"contentHash\":\"af69256f997fad62b338276812bf5c5aa81a3c5ce1d749f5d60424f49988a26a\"}],\"appRootCauseKey\":null,\"reproductionEvidence\":[]}}}",
+          "model": "gpt-5.6-luna",
+          "service_tier": null,
+          "reasoning_effort": "high",
+          "image_inputs": [
+            {
+              "sourcePath": "output/gas-shunin-hei/pdf_review/2017/mark_sheet_question/page-23.png",
+              "attachmentIndex": 0,
+              "mimeType": "image/png",
+              "byteCount": 240110,
+              "sha256": "861a6bbeb2b9c5623b4d0868af7b676ed3e430a7f17677322a2aaf12448fd006"
+            },
+            {
+              "sourcePath": "output/gas-shunin-hei/direct_publication/20261027/pdf_figure_candidates/2017-kyokyu-q17.png",
+              "attachmentIndex": 1,
+              "mimeType": "image/png",
+              "byteCount": 40153,
+              "sha256": "ba09ba5a6c323d487cdf97d70597f9046ec2609d1fb06d35761cba0c32decc00"
+            },
+            {
+              "sourcePath": "output/gas-shunin-hei/pdf_review/2017/answer/page-01.png",
+              "attachmentIndex": 2,
+              "mimeType": "image/png",
+              "byteCount": 98651,
+              "sha256": "63d3ab83ed36331acef1ab3cc1fe89e9a292e5cf3825878dd2d66fa16d443638"
+            }
+          ],
+          "changed_files": [],
+          "subagent_thread_ids": [],
+          "subagent_models": [],
+          "subagent_reasoning_efforts": [],
+          "completion_mode": "turn_completed",
+          "model_turn_started_at": "2026-10-28T12:18:50.465216+09:00",
+          "model_turn_finished_at": "2026-10-28T12:18:58.820084+09:00",
+          "model_turn_duration_seconds": 8.355188,
+          "model_turn_queue_wait_seconds": 12.272942
+        },
+        "receiptHash": "cc33c0aeab8da543182d6eb964b4e5a82a670af50d88ec94983df60213d57a47"
+      }
+    },
+    {
+      "path": "output/gas-shunin-hei/direct_publication/20261027/figure_review/2017-kyokyu-q17-image-r3/reviews/challenge-received.json",
+      "sha256": "9bb4c664567d759ae07fb9f4d62afdaba325678271fdba6a40e6f700aef6dc50",
+      "payload": {
+        "inputHash": "ad87f838174d37b0535046d39f259674a40ca5a3d07fb04f2d2c26d07162c220",
+        "expectedIds": [
+          "2017:kyokyu:問17"
+        ],
+        "expectedWorkIds": [
+          "2017-kyokyu-q17-figure"
+        ],
+        "native": {
+          "thread_id": "01a18085-5509-7492-9ef8-074e909dba87",
+          "session_id": "01a18085-5509-7492-9ef8-074e909dba87",
+          "turn_id": "01a18085-68c1-7c52-a8f2-21a6128c04b0",
+          "final_message": "{\"results\":{\"2017-kyokyu-q17-figure\":{\"schemaVersion\":\"question-issue-challenge-review/v1\",\"phase\":\"challenge\",\"inputHash\":\"a0c1ea60bc259e7116bcee808fe87d90dacac20234c04f10ec2ce87f0cf058d4\",\"blindReviewHashes\":[\"42fc069ead347b39ad3645af866fa72d522ca304fb4ed2d977eb94db81479a6e\",\"ca6316c100de65a99eb8aeac4ad8472fce56d30a506c5f1818cbb056bb97a540\"],\"decision\":\"fix\",\"rationale\":\"同一の公式PDF図と候補画像を照合した結果、候補画像は問17の図全体を含み、各ラベル、分岐、接続関係および「選択排流法」「強制排流法」の表示を保持している。現在値は空配列であり、候補の完全値を採用する。\",\"changes\":{\"questionImageStorageUrls\":[\"https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fgas-shunin-hei%2Fofficial-source-2017-31d20b76e6e3beba-ba09ba5a6c323d48.png?alt=media\"]},\"evidence\":[{\"sourceClass\":\"official\",\"title\":\"2017年度丙種の公式問題・正答と図\",\"locator\":\"output/pdf/gas-shunin-official/2017/q_hei_h29.pdf / PDF 23頁 / 2017:kyokyu:問17 / 当該図の切出し\",\"verifiedAt\":\"2026-10-28T03:18:05.101750+00:00\",\"contentHash\":\"af69256f997fad62b338276812bf5c5aa81a3c5ce1d749f5d60424f49988a26a\"}],\"appRootCauseKey\":null,\"reproductionEvidence\":[]}}}",
+          "model": "gpt-5.6-luna",
+          "service_tier": null,
+          "reasoning_effort": "high",
+          "image_inputs": [
+            {
+              "sourcePath": "output/gas-shunin-hei/pdf_review/2017/mark_sheet_question/page-23.png",
+              "attachmentIndex": 0,
+              "mimeType": "image/png",
+              "byteCount": 240110,
+              "sha256": "861a6bbeb2b9c5623b4d0868af7b676ed3e430a7f17677322a2aaf12448fd006"
+            },
+            {
+              "sourcePath": "output/gas-shunin-hei/direct_publication/20261027/pdf_figure_candidates/2017-kyokyu-q17.png",
+              "attachmentIndex": 1,
+              "mimeType": "image/png",
+              "byteCount": 40153,
+              "sha256": "ba09ba5a6c323d487cdf97d70597f9046ec2609d1fb06d35761cba0c32decc00"
+            },
+            {
+              "sourcePath": "output/gas-shunin-hei/pdf_review/2017/answer/page-01.png",
+              "attachmentIndex": 2,
+              "mimeType": "image/png",
+              "byteCount": 98651,
+              "sha256": "63d3ab83ed36331acef1ab3cc1fe89e9a292e5cf3825878dd2d66fa16d443638"
+            }
+          ],
+          "changed_files": [],
+          "subagent_thread_ids": [],
+          "subagent_models": [],
+          "subagent_reasoning_efforts": [],
+          "completion_mode": "turn_completed",
+          "model_turn_started_at": "2026-10-28T12:19:49.189807+09:00",
+          "model_turn_finished_at": "2026-10-28T12:19:56.930107+09:00",
+          "model_turn_duration_seconds": 7.740636,
+          "model_turn_queue_wait_seconds": 6.568016
+        },
+        "receiptHash": "d6463d723853481090244c93619e3e3ddcff6d7a8067095e0d25f493f20e64e3"
+      }
+    }
+  ],
+  "saveResult": {
+    "path": "output/gas-shunin-hei/direct_publication/20261027/figure_review/2017-kyokyu-q17-image-r3/reviews/save-result.json",
+    "sha256": "bcfb3df6ed1bbfb9ef25b09f920ea43b769eb0e23bf47ff62f71be097d661957",
+    "payload": {
+      "planSha256": "21574d6133862b0dd42c29106c741de2b94743061308de5cdef5071ab2eca0c9",
+      "results": [
+        {
+          "sourceQuestionId": "2017:kyokyu:問17",
+          "decision": "fix",
+          "stagedPath": "output/gas-shunin-hei/direct_publication/20261027/figure_review/2017-kyokyu-q17-image-r3/reviews/individual/2017-kyokyu-q17-figure/zzzz-hei-direct-figure-2017-kyokyu-q17-image-r3_2017-kyokyu-q17-figure_31d20b76e6e3beba.json",
+          "patchSha256": "435778cf018ae19b99f554ce5a4c0dd4a59cbeaffe2e93d8d5645dbd7ab06741",
+          "patchPath": "output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/zzzz-hei-direct-figure-2017-kyokyu-q17-image-r3_2017-kyokyu-q17-figure_31d20b76e6e3beba.json"
+        }
+      ]
+    }
+  },
+  "formalPatch": {
+    "path": "output/gas-shunin-hei/questions_json/2017/24_questionIssueCorrections/zzzz-hei-direct-figure-2017-kyokyu-q17-image-r3_2017-kyokyu-q17-figure_31d20b76e6e3beba.json",
+    "sha256": "435778cf018ae19b99f554ce5a4c0dd4a59cbeaffe2e93d8d5645dbd7ab06741",
+    "payload": {
+      "schemaVersion": "question-issue-correction/v1",
+      "origin": "user_problem_report",
+      "batchId": "zzzz-hei-direct-figure-2017-kyokyu-q17-image-r3",
+      "category": "image",
+      "caseIds": [
+        "operator-figure-31d20b76e6e3beba"
+      ],
+      "inputCaseHashes": {
+        "operator-figure-31d20b76e6e3beba": "5a119efb51cdc0591c08f63ede828ac95d0348060a273d6ca56fb9a23df424ad"
+      },
+      "reviewProtocol": "blind-a-b-challenge/v1",
+      "blindReviewHashes": [
+        "42fc069ead347b39ad3645af866fa72d522ca304fb4ed2d977eb94db81479a6e",
+        "ca6316c100de65a99eb8aeac4ad8472fce56d30a506c5f1818cbb056bb97a540"
+      ],
+      "challengeReviewHash": "f2b0c454dfc3a533a98183b02debd9c2afb6bee75536da693e122fb16ab2aa54",
+      "createdAt": "2026-10-28T03:18:05.101750+00:00",
+      "entries": [
+        {
+          "original_question_id": "31d20b76e6e3beba",
+          "sourceQuestionKey": "gas-shunin:hei:2017:kyokyu:q17",
+          "reviewQuestionId": "31d20b76e6e3beba",
+          "sourceRecordRef": "question_2017_2.json#22",
+          "expectedBeforeHash": "1084876c73292b224faba1dbde799efb20dcec83b8ecc36b62845a4bc098737f",
+          "changes": {
+            "questionImageStorageUrls": [
+              "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fgas-shunin-hei%2Fofficial-source-2017-31d20b76e6e3beba-ba09ba5a6c323d48.png?alt=media"
+            ]
+          },
+          "rationale": "Independent blind A/B reviews produced identical structured changes for category=image, and the challenge gate bound the correction to their official/primary evidence.",
+          "evidence": [
+            {
+              "sourceClass": "official",
+              "title": "2017年度丙種の公式問題・正答と図",
+              "locator": "output/pdf/gas-shunin-official/2017/q_hei_h29.pdf / PDF 23頁 / 2017:kyokyu:問17 / 当該図の切出し",
+              "verifiedAt": "2026-10-28T03:18:05.101750+00:00",
+              "contentHash": "af69256f997fad62b338276812bf5c5aa81a3c5ce1d749f5d60424f49988a26a"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "requiredChecks": {
+    "path": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032156Z/result.json",
+    "sha256": "ee302ef3ef19b2276828c8ab927f21ae6930ca168c27128a514ae3050b2b74ca",
+    "payload": {
+      "generatedAt": "20261028T032156Z",
+      "selectedCount": 489,
+      "byYear": {
+        "2017": 55,
+        "2023": 54,
+        "2019": 55,
+        "2024": 56,
+        "2020": 54,
+        "2022": 56,
+        "2018": 54,
+        "2025": 52,
+        "2021": 53
+      },
+      "commands": [
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_choice_text_alignment.py",
+            "--base-dir",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032156Z/gas-shunin-hei/questions_json",
+            "--stage",
+            "merged"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032156Z/check-00.log",
+          "logSha256": "a0a43fc049c21d611775721216fc1fe1f18569576a2440e0f682647409dbe70f"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_required_fields.py",
+            "--base-dir",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032156Z/gas-shunin-hei/questions_json",
+            "--stage",
+            "merged"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032156Z/check-01.log",
+          "logSha256": "aba5ddbabc195b6b3065026bd5dd0bbc689b62d9454c334b5b90e21ac5933b8c"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2017/00_source/question_2017_1.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2017/23_correctChoiceText_fixed/question_2017_1_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2017/10_questionType_fixed/question_2017_1_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032156Z/check-02.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2017/00_source/question_2017_2.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2017/23_correctChoiceText_fixed/question_2017_2_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2017/10_questionType_fixed/question_2017_2_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032156Z/check-03.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2017/00_source/question_2017_3.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2017/23_correctChoiceText_fixed/question_2017_3_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2017/10_questionType_fixed/question_2017_3_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032156Z/check-04.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2023/00_source/question_2023_1.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2023/23_correctChoiceText_fixed/question_2023_1_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2023/10_questionType_fixed/question_2023_1_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032156Z/check-05.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2023/00_source/question_2023_2.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2023/23_correctChoiceText_fixed/question_2023_2_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2023/10_questionType_fixed/question_2023_2_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032156Z/check-06.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2023/00_source/question_2023_3.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2023/23_correctChoiceText_fixed/question_2023_3_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2023/10_questionType_fixed/question_2023_3_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032156Z/check-07.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2019/00_source/question_2019_1.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2019/23_correctChoiceText_fixed/question_2019_1_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2019/10_questionType_fixed/question_2019_1_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032156Z/check-08.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2019/00_source/question_2019_2.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2019/23_correctChoiceText_fixed/question_2019_2_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2019/10_questionType_fixed/question_2019_2_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032156Z/check-09.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2019/00_source/question_2019_3.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2019/23_correctChoiceText_fixed/question_2019_3_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2019/10_questionType_fixed/question_2019_3_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032156Z/check-10.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2024/00_source/question_2024_1.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2024/23_correctChoiceText_fixed/question_2024_1_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2024/10_questionType_fixed/question_2024_1_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032156Z/check-11.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2024/00_source/question_2024_2.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2024/23_correctChoiceText_fixed/question_2024_2_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2024/10_questionType_fixed/question_2024_2_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032156Z/check-12.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2024/00_source/question_2024_3.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2024/23_correctChoiceText_fixed/question_2024_3_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2024/10_questionType_fixed/question_2024_3_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032156Z/check-13.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2020/00_source/question_2020_1.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2020/23_correctChoiceText_fixed/question_2020_1_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2020/10_questionType_fixed/question_2020_1_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032156Z/check-14.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2020/00_source/question_2020_2.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2020/23_correctChoiceText_fixed/question_2020_2_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2020/10_questionType_fixed/question_2020_2_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032156Z/check-15.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2020/00_source/question_2020_3.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2020/23_correctChoiceText_fixed/question_2020_3_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2020/10_questionType_fixed/question_2020_3_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032156Z/check-16.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2022/00_source/question_2022_1.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2022/23_correctChoiceText_fixed/question_2022_1_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2022/10_questionType_fixed/question_2022_1_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032156Z/check-17.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2022/00_source/question_2022_2.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2022/23_correctChoiceText_fixed/question_2022_2_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2022/10_questionType_fixed/question_2022_2_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032156Z/check-18.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2022/00_source/question_2022_3.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2022/23_correctChoiceText_fixed/question_2022_3_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2022/10_questionType_fixed/question_2022_3_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032156Z/check-19.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2018/00_source/question_2018_1.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2018/23_correctChoiceText_fixed/question_2018_1_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2018/10_questionType_fixed/question_2018_1_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032156Z/check-20.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2018/00_source/question_2018_2.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2018/23_correctChoiceText_fixed/question_2018_2_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2018/10_questionType_fixed/question_2018_2_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032156Z/check-21.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2018/00_source/question_2018_3.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2018/23_correctChoiceText_fixed/question_2018_3_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2018/10_questionType_fixed/question_2018_3_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032156Z/check-22.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2025/00_source/question_2025_1.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2025/23_correctChoiceText_fixed/question_2025_1_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2025/10_questionType_fixed/question_2025_1_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032156Z/check-23.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2025/00_source/question_2025_2.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2025/23_correctChoiceText_fixed/question_2025_2_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2025/10_questionType_fixed/question_2025_2_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032156Z/check-24.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2025/00_source/question_2025_3.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2025/23_correctChoiceText_fixed/question_2025_3_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2025/10_questionType_fixed/question_2025_3_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032156Z/check-25.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2021/00_source/question_2021_1.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2021/23_correctChoiceText_fixed/question_2021_1_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2021/10_questionType_fixed/question_2021_1_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032156Z/check-26.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2021/00_source/question_2021_2.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2021/23_correctChoiceText_fixed/question_2021_2_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2021/10_questionType_fixed/question_2021_2_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032156Z/check-27.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        },
+        {
+          "argv": [
+            "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_correct_choice_patch_coverage.py",
+            "--source",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2021/00_source/question_2021_3.json",
+            "--patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2021/23_correctChoiceText_fixed/question_2021_3_merged_correctChoiceText_fixed.json",
+            "--question-type-patch",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2021/10_questionType_fixed/question_2021_3_questionType_fixed.json"
+          ],
+          "exitCode": 0,
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T032156Z/check-28.log",
+          "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
+        }
+      ],
+      "sourceFilesChecked": 27,
+      "sourceChanged": [],
+      "pausedCodeChanged": [
+        "tools/question_review_console/qualification_runs.py",
+        "tools/question_review_console/question_candidate.py"
+      ],
+      "reviewedConcurrentCodeChanges": [
+        "tools/question_review_console/qualification_runs.py",
+        "tools/question_review_console/question_candidate.py"
+      ],
+      "unreviewedCodeChanges": [],
+      "snapshotFilesChecked": 569,
+      "snapshotChanged": [],
+      "wholeSystemTests": "not_run_data_only",
+      "pass": true
+    }
+  },
+  "diagnosticConvert": {
+    "path": "output/gas-shunin-hei/direct_publication/20261027/convert_display/20261028T032300Z/converted-diagnostic.json",
+    "sha256": "2fe83c3126da84e48ea42089ec104bf8bdc426845d91eedafa6e431279662e00",
+    "matchedDocumentIds": [
+      "31d20b76e6e3beba_w1",
+      "31d20b76e6e3beba_w2",
+      "31d20b76e6e3beba_w3",
+      "31d20b76e6e3beba_w4",
+      "31d20b76e6e3beba"
+    ],
+    "allFiveImageUrlsMatch": true
+  },
+  "productionStorageWritten": false,
+  "productionFirestoreWritten": false,
+  "limits": "画像はローカルのみ。画像の配信と正式評価・全体公開gateは未完。"
+}
