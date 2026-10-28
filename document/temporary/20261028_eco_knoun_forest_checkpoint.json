@@ -6,7 +6,7 @@
   "fullGoalComplete": false,
   "previousGoalTurnClassification": "progress",
   "thisTurnReworkedSourceRecords": [
-    "question_mondai5_63.json#0"
+    "question_mondai5_64.json#0"
   ],
   "commonContextFiveQuestions": [
     {
@@ -124,7 +124,8 @@
     "knoun-2026-mock-5/question_mondai5_56.json#0",
     "knoun-2026-mock-5/question_mondai5_57.json#0",
     "knoun-2026-mock-5/question_mondai5_58.json#0",
-    "knoun-2026-mock-5/question_mondai5_59.json#0"
+    "knoun-2026-mock-5/question_mondai5_59.json#0",
+    "knoun-2026-mock-5/question_mondai5_64.json#0"
   ],
   "remainingSourceDifferencePolicy": "先の14件への例外承認を追加14件へ広げずsourceを保持する。原画像との差分が保留の問は内容整備に合格しても受入件数へ含めない。",
   "publication": {
@@ -3450,5 +3451,28 @@
     "officialEvidenceProvider": "Montreal protocol not supported",
     "correctChoicePatchCoverage": "passed",
     "independentEvaluation": "not_run"
+  },
+  "inProgressQuestion5_64": {
+    "sourceRecordRef": "question_mondai5_64.json#0",
+    "questionId": "2d9eb5d866aee09492d716a4",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": false,
+    "sourceDifferenceProposal": "output/eco-kentei/reports/source_difference_mondai5_64_choice_heading_20261028/proposal.json",
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai5_64_primary_source_review_20261028.json",
+    "originalizeRunId": "20261028T223033286265-c37b6ab3",
+    "status": "maintenance_passed_source_difference_hold",
+    "nextAction": "原文差分を解決するまで受入しない。問65を照合する。",
+    "nativeRunId": "20261028T223124074625-c153a207",
+    "stateHash": "99bcc4b4bfff7d048a25c0275bc7182eb269d9da5be997588642a9be1b48c7b2",
+    "evaluationJobId": "WaXW1tUNumVKy5lF",
+    "targetedChecksPassed": 6,
+    "validationReceipt": "output/eco-kentei/reports/mondai5_64_validation_20261028/current_validation.json",
+    "readbackTimeoutRecovered": true,
+    "evaluationSessionId": "01a182c7-4e8b-7521-8cee-d1cb4c186369",
+    "verifiedChoiceCount": 4,
+    "explanationScore": 100,
+    "evaluationReceipt": "output/eco-kentei/reports/mondai5_64_evaluation_result_20261028.json",
+    "receipt": "output/eco-kentei/reports/turn_receipts/mondai5_64_maintenance_with_source_hold_20261028.json",
+    "quarantinedCandidate": "output/eco-kentei/reports/mondai5_64_validation_20261028/quarantined_upload_candidate.json"
   }
 }
