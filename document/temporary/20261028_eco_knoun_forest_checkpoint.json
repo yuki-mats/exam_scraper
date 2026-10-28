@@ -149,8 +149,8 @@
     "trackedCodeOrPromptChanged": true,
     "otherWorktreeChanges": "他作業の変更は保持し、この記録だけをstageする。"
   },
-  "nextAction": "57の原画像対・既存独自図・法令一次を確認し、05の対象範囲明確化を保存済み。開始済み01〜04を一問ずつ進め、検査・画像付き別session評価へ送る。source差異10件は保留、35のア〜オは解決済み。",
-  "lastUpdatedAt": "2026-10-27T23:44:26.041441+00:00",
+  "nextAction": "新規mondai4_58を原画像2枚・全候補・自問正答から照合し、既存工程で整備/検査/別session評価を逐次進める。source差異10件保留。35ア〜オ確定。",
+  "lastUpdatedAt": "2026-10-28T00:06:21.085112+00:00",
   "subsequentQuestion51": {
     "sourceRecordRef": "question_mondai4_51.json#0",
     "sourceQuestionKey": "eco-kentei:knoun-2026-mock-4:bb67422eb5e52e9c",
@@ -249,22 +249,22 @@
     "changes": "原画像にないクが共通指示の空欄に入っていた。OCRの照合済み転記をバックアップ付きで訂正し、登録済みsourceは変更しない。05と03でGRI Standards・全4候補の比較を整備。検査・別session評価は合格したが原転記の受入は保留。"
   },
   "latestFullyAcceptedScope": {
-    "sourceRecords": "mondai4_31〜52と54〜56の25件。53は原転記差異保留のため除外。",
-    "sourceQuestionCount": 25,
-    "actualLearningQuestionCount": 42,
-    "convertedDocumentCount": 179,
-    "choiceOnlyDocumentCount": 137,
+    "sourceRecords": "mondai4_31〜52と54〜57の26件。53は原転記差異保留のため除外。",
+    "sourceQuestionCount": 26,
+    "actualLearningQuestionCount": 43,
+    "convertedDocumentCount": 182,
+    "choiceOnlyDocumentCount": 139,
     "acceptanceReceipt": {
-      "path": "output/eco-kentei/reports/mondai4_56_validation_20261028/current_acceptance.json",
-      "sha256": "925daeb32dc1f5a73e326b6ee16676c951966888da722bf97db960218fb64206"
+      "path": "output/eco-kentei/reports/mondai4_57_validation_20261028/current_acceptance.json",
+      "sha256": "63e33e272bc3717ea5ef7c3b5a3db3f5c1b0f5f2227cd6ec79820870cd7980e5"
     },
     "uploadReadyArchive": {
-      "path": "output/eco-kentei/reports/mondai4_56_validation_20261028/verified_upload_ready.json",
-      "sha256": "c3f7a0e348fe31ea996d395c57ad898a019f99fcacd1b152053aa7b674c17213"
+      "path": "output/eco-kentei/reports/mondai4_57_validation_20261028/verified_upload_ready.json",
+      "sha256": "76023bec558761dbcdb744ca076feae7275252f59d2858d3f9166eb433ad2fc5"
     },
-    "acceptedCurrentReadbacks": "output/eco-kentei/reports/mondai4_56_validation_20261028/accepted_current_readbacks",
+    "acceptedCurrentReadbacks": "output/eco-kentei/reports/mondai4_57_validation_20261028/accepted_current_readbacks",
     "previousStateHashesEvaluationsAndConvertedDocsUnchanged": true,
-    "scopeLimit": "この25件の受入から全395問の完了又は全体の残問数を推測しない。"
+    "scopeLimit": "この26件の受入から全395問の完了又は全体の残問数を推測しない。"
   },
   "subsequentQuestion54": {
     "sourceRecordRef": "question_mondai4_54.json#0",
@@ -380,5 +380,40 @@
     },
     "pdfReadScope": "環境省令和6年度検討結果PDFの4枚目（印字3）と43枚目（印字42）を表示・実読。全58頁を通読したとはしない。",
     "evaluationEvidenceNote": "第1肢の独立評価引用はPDF4枚目と印字頁番号の区別に表記ゆれがあるが、該当段落・原データを実読し数値と根拠の一致を確認している。正誤・公開解説へ影響しない。"
+  },
+  "subsequentQuestion57": {
+    "sourceRecordRef": "question_mondai4_57.json#0",
+    "questionId": "8c5c01bf97ca93d7294d3c00",
+    "stateHash": "24cb69d4fd96706cfd3c2b47cab7653e3acf371b05b7a798c175c91f16769aa8",
+    "normalRunIds": [
+      "20261028T084140807801-37273097",
+      "20261028T084337693253-677e433a",
+      "20261028T084910114344-9bcb281e",
+      "20261028T085315548266-aacb9fb5",
+      "20261028T085739552859-5ec91a53"
+    ],
+    "evaluationSessionId": "01a17fd2-3419-7901-a6b8-80264bba6470",
+    "verifiedChoiceCount": 3,
+    "explanationScore": 100,
+    "sourceImagesActuallyRead": true,
+    "changes": "全3候補を空欄に補い法令本文で正誤を独立確認。独自問題の実作成時と現行時を同日基準として構造化し、条文locatorと全文hashを一致させた。全解説と既存独自図を再読し、6検査・画像付き別session評価に合格。",
+    "receipt": {
+      "path": "output/eco-kentei/reports/turn_receipts/mondai4_57_accepted_20261028.json",
+      "sha256": "ad31a834f1e9c6492fdf52485f002f288bf21c0ce49b3eb941cdada428a8a9bd"
+    },
+    "evaluationReceipt": {
+      "path": "output/eco-kentei/reports/mondai4_57_evaluation_result_20261028.json",
+      "sha256": "1e9e2f1d8bee3dab7aad43b811798553d533aaa8173388ace90d342c1d2fc951"
+    },
+    "validationReceipt": {
+      "path": "output/eco-kentei/reports/mondai4_57_validation_20261028/current_validation.json",
+      "sha256": "7f421d1bc741013b1b13da3d5530b87058eda0d308a0df44299ac3edeab8e248"
+    },
+    "independentFigureReadback": {
+      "path": "output/eco-kentei/reports/mondai4_57_existing_independent_figure_readback_20261028.json",
+      "sha256": "6121b3504a71082d731f147c886bdc7b7034ecce872cd4da60744bbc4a1fbc82"
+    },
+    "evaluationImageSha256": "3bc368908ac9739606be33c9ad9180307a5e1ce66d9ac2fe943e85a645c2ff97",
+    "auditNote": "notesには一次提案段階の文言が残るが、確定状態は別session保存のsecondary_verifiedと実run結果で確認。基準日・根拠hash・正誤と評価は確認済み。"
   }
 }
