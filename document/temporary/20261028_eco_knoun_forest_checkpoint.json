@@ -4642,11 +4642,20 @@
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_41_primary_source_review_20261029.json",
-    "status": "maintenance_running",
+    "status": "accepted",
     "questionId": "b7de77e864eb27d614c88782",
     "backup": "output/eco-kentei/reports/mondai1_41_before_rework_20261029",
     "originalizeRunId": "20261029T074024710014-9584f1d5",
-    "nativeRunId": "20261029T074721534483-531f23c8"
+    "nativeRunId": "20261029T074721534483-531f23c8",
+    "stateHash": "9463368e5d6b202ed30231dcbfe10601c0caebbf69f635c5eb899becbc539115",
+    "evaluationJobId": "BTTvS0Q996mGR41u",
+    "uploadReady": "output/eco-kentei/questions_json/upload_to_firestore/knoun-2026-mock-1_firestore_20261029_075205.json",
+    "evaluationSessionId": "01a184b7-c57f-76f3-bf95-8fd5d533ea84",
+    "verifiedChoiceCount": 1,
+    "explanationScore": 100,
+    "otherDocumentCountUnchanged": 44,
+    "receipt": "output/eco-kentei/reports/turn_receipts/mondai1_41_accepted_20261029.json",
+    "nextAction": "問42の独自問題化から進める。問43〜48・50・52・53・56は画像照合済。問23・25・33〜35・38・49・51・54・55は転記差分保留。"
   },
   "inProgressQuestion1_42": {
     "sourceRecordRef": "question_mondai1_42.json#0",
@@ -4749,5 +4758,12 @@
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_55_primary_source_review_20261029.json",
     "status": "hold_source_transcription_difference",
     "holdReason": "画像にある小問ラベル「コ」が登録文字にない。"
+  },
+  "inProgressQuestion1_56": {
+    "sourceRecordRef": "question_mondai1_56.json#0",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": true,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_56_primary_source_review_20261029.json",
+    "status": "source_reviewed_originalization_pending"
   }
 }
