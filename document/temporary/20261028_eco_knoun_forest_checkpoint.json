@@ -4551,11 +4551,21 @@
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_36_primary_source_review_20261029.json",
-    "status": "maintenance_running",
+    "status": "accepted",
     "questionId": "780cc5a1e9d2d35e982d7f31",
     "backup": "output/eco-kentei/reports/mondai1_36_before_rework_20261029",
     "originalizeRunId": "20261029T064622614633-be3a6d67",
-    "nativeRunId": "20261029T064751654469-20092d81"
+    "nativeRunId": "20261029T064751654469-20092d81",
+    "stateHash": "15be4f86288edafebcb799087b65690c6f4c7db594ca77ced7059ce14a0315c0",
+    "evaluationJobId": "aHACf5qghWLMB7h8",
+    "uploadReady": "output/eco-kentei/questions_json/upload_to_firestore/knoun-2026-mock-1_firestore_20261029_065317.json",
+    "evaluationSessionId": "01a18481-8aca-7dc0-a25d-78b00c37d6b9",
+    "verifiedChoiceCount": 1,
+    "explanationScore": 100,
+    "otherDocumentCountUnchanged": 40,
+    "primaryLawEvidence": "output/eco-kentei/reports/mondai1_36_primary_law_evidence_20261029.json",
+    "receipt": "output/eco-kentei/reports/turn_receipts/mondai1_36_accepted_20261029.json",
+    "nextAction": "問37の独自問題化から進める。問39〜48・50は画像照合済。問23・25・33〜35・38・49は転記差分保留。"
   },
   "inProgressQuestion1_37": {
     "sourceRecordRef": "question_mondai1_37.json#0",
@@ -4633,6 +4643,28 @@
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_47_primary_source_review_20261029.json",
+    "status": "source_reviewed_originalization_pending"
+  },
+  "inProgressQuestion1_48": {
+    "sourceRecordRef": "question_mondai1_48.json#0",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": true,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_48_primary_source_review_20261029.json",
+    "status": "source_reviewed_originalization_pending"
+  },
+  "inProgressQuestion1_49": {
+    "sourceRecordRef": "question_mondai1_49.json#0",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": false,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_49_primary_source_review_20261029.json",
+    "status": "hold_source_transcription_difference",
+    "holdReason": "共通指示の画像は空欄「［ ］」だが登録文字は「［エ］」、画像にある小問ラベル「エ」が登録文字にない。"
+  },
+  "inProgressQuestion1_50": {
+    "sourceRecordRef": "question_mondai1_50.json#0",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": true,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_50_primary_source_review_20261029.json",
     "status": "source_reviewed_originalization_pending"
   }
 }
