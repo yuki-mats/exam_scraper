@@ -139,7 +139,7 @@
     "storageUploads": 0,
     "categorySynced": false,
     "officialYearManifestChanged": false,
-    "note": "本番公開の依頼前。今回の3問は解答図表なし。模擬問題の2026を公式試験年度に登録しない。"
+    "note": "本番公開の依頼前。76問目は解答図表なし。模擬問題の2026を公式試験年度に登録しない。"
   },
   "execution": {
     "questionConcurrency": 1,
@@ -149,8 +149,8 @@
     "trackedCodeOrPromptChanged": true,
     "otherWorktreeChanges": "他作業の変更は保持し、この記録だけをstageする。"
   },
-  "nextAction": "mondai4_76を原画像2枚から一問ずつ再照合し、source/独自化/工程/検査/独立評価を続ける。未解決source差異10件とbinary補正6件は別途保留。",
-  "lastUpdatedAt": "2026-10-28T02:52:34.672356+00:00",
+  "nextAction": "mondai4_77を原画像2枚から一問ずつ再照合し、source/独自化/工程/検査/独立評価を続ける。未解決source差異10件とbinary補正6件は別途保留。",
+  "lastUpdatedAt": "2026-10-28T03:07:45.368593+00:00",
   "subsequentQuestion51": {
     "sourceRecordRef": "question_mondai4_51.json#0",
     "sourceQuestionKey": "eco-kentei:knoun-2026-mock-4:bb67422eb5e52e9c",
@@ -249,22 +249,22 @@
     "changes": "原画像にないクが共通指示の空欄に入っていた。OCRの照合済み転記をバックアップ付きで訂正し、登録済みsourceは変更しない。05と03でGRI Standards・全4候補の比較を整備。検査・別session評価は合格したが原転記の受入は保留。"
   },
   "latestFullyAcceptedScope": {
-    "sourceRecords": "mondai4_31〜52、54〜63、65〜75の43件。53は原転記差異、64は02b根拠取込の保留により除外。",
-    "sourceQuestionCount": 43,
-    "actualLearningQuestionCount": 70,
-    "convertedDocumentCount": 297,
-    "choiceOnlyDocumentCount": 227,
+    "sourceRecords": "mondai4_31〜52、54〜63、65〜76の44件。53は原転記差異、64は02b根拠取込の保留により除外。",
+    "sourceQuestionCount": 44,
+    "actualLearningQuestionCount": 71,
+    "convertedDocumentCount": 309,
+    "choiceOnlyDocumentCount": 238,
     "acceptanceReceipt": {
-      "path": "output/eco-kentei/reports/mondai4_75_validation_20261028/current_acceptance.json",
-      "sha256": "e3e6aaaa49e136f6ea78c199cdbb03e97dae8f4e8dbc2df51701414c858e976e"
+      "path": "output/eco-kentei/reports/mondai4_76_validation_20261028/current_acceptance.json",
+      "sha256": "18a29b8e635fc650357bfc770c154bc15d38c4f92733dd54df967121c5074046"
     },
     "uploadReadyArchive": {
-      "path": "output/eco-kentei/reports/mondai4_75_validation_20261028/verified_upload_ready.json",
-      "sha256": "9186932e155af229c35f7e3eaa4b49ec814d769ce6e4708190b96ac0f42f3b67"
+      "path": "output/eco-kentei/reports/mondai4_76_validation_20261028/verified_upload_ready.json",
+      "sha256": "6fc16aa373d09780a002693c5893f0a6adfe626d67f2814b1a65fe6d8f4dbbb9"
     },
-    "acceptedCurrentReadbacks": "output/eco-kentei/reports/mondai4_75_validation_20261028/accepted_current_readbacks",
+    "acceptedCurrentReadbacks": "output/eco-kentei/reports/mondai4_76_validation_20261028/accepted_current_readbacks",
     "previousStateHashesEvaluationsAndConvertedDocsUnchanged": true,
-    "scopeLimit": "この43件の受入だけで全425問の完了を推測しない。全5組は別途計数。"
+    "scopeLimit": "この44件の受入だけで全425問の完了を推測しない。全5組は別途計数。"
   },
   "subsequentQuestion54": {
     "sourceRecordRef": "question_mondai4_54.json#0",
@@ -450,19 +450,19 @@
     "pdfReadScope": "環境省2024年度実績の9頁PDF中、3枚目を画像表示・実読した。全頁を通読したとはしない。",
     "outboundArticleTextOmitted": true
   },
-  "globalRemainingCountObservedAt": "2026-10-28T02:52:34.672356+00:00",
+  "globalRemainingCountObservedAt": "2026-10-28T03:07:45.368593+00:00",
   "globalRemainingStatus": {
     "countUnit": "source question; completion requires current stages and independent evaluation with no known unresolved content or source hold",
     "totalSourceQuestions": 425,
-    "currentStagesAndEvaluationPassed": 55,
-    "completedSourceQuestionCount": 47,
-    "remainingSourceQuestionCount": 378,
+    "currentStagesAndEvaluationPassed": 56,
+    "completedSourceQuestionCount": 48,
+    "remainingSourceQuestionCount": 377,
     "pendingSourceDifferenceCount": 10,
-    "currentQuestion": "mondai4_76",
+    "currentQuestion": "mondai4_77",
     "passedButKnownUnfinishedCount": 8,
     "receipt": {
-      "path": "output/eco-kentei/reports/global_remaining_status_after_75_20261028.json",
-      "sha256": "c4b54c88f2f4c162ba59711bc14dcdeb9765b8b2105491c7881ee12daef3ca29"
+      "path": "output/eco-kentei/reports/global_remaining_status_after_76_20261028.json",
+      "sha256": "259b7bf2bafc8e299bd6c655d45f8a42d64da74df0efdb7f2f50e6addaa2ffc7"
     }
   },
   "subsequentQuestion59": {
@@ -948,6 +948,31 @@
     "validationReceipt": {
       "path": "output/eco-kentei/reports/mondai4_75_validation_20261028/current_validation.json",
       "sha256": "bbfb58db4edf778eccc52f8ae07ada898203a48981715c0aba7fae37c69eac5e"
+    }
+  },
+  "subsequentQuestion76": {
+    "sourceRecordRef": "question_mondai4_76.json#0",
+    "questionId": "30e33c0fa1b33f06417ad8ca",
+    "stateHash": "81d29cbd4af8b82e5e631b0d4e6db002552dba100f3d30c7cf6b989911e08076",
+    "normalRunIds": [
+      "20261028T120237365695-97c1e2be"
+    ],
+    "evaluationSessionId": "01a18078-8321-72f0-9fc7-823d9a2ff979",
+    "verifiedChoiceCount": 12,
+    "explanationScore": 100,
+    "sourceImagesActuallyRead": true,
+    "changes": "原画像2枚・00_source全文・12候補・印字正答②と原解説を直視照合。05本文を対象空欄［ア］と語群を維持した独自文へ修正、03解説を再構成。MAの公式資料で年次と生態系サービス四分類を確認。6検査と別session評価で12肢一致・重大指摘なし。source/raw無変更。",
+    "receipt": {
+      "path": "output/eco-kentei/reports/turn_receipts/mondai4_76_accepted_20261028.json",
+      "sha256": "7dedd56452d86bfb7d9b7f081d44dc851585364a8e041bd2b5ddb3fbd9879efb"
+    },
+    "evaluationReceipt": {
+      "path": "output/eco-kentei/reports/mondai4_76_evaluation_result_20261028.json",
+      "sha256": "a6769287cc75e3ecafae588de0dc82ad2dc3f60118718248bf5e013738b2e365"
+    },
+    "validationReceipt": {
+      "path": "output/eco-kentei/reports/mondai4_76_validation_20261028/current_validation.json",
+      "sha256": "4511028967b3ed8b98b8161e73f4cc6a0a7ce510b834c0a959ee8e892e85a8b0"
     }
   }
 }
