@@ -1,12 +1,13 @@
 {
   "schemaVersion": "eco-knoun-private-artifact-checkpoint/v1",
-  "recordedAt": "2026-10-28T08:19:35.664403+00:00",
+  "recordedAt": "2026-10-28T08:28:44.387474+00:00",
   "objective": "残り395問を、原画像との一問ずつの照合、05独自問題化、通常整備、検査、別session評価まで進める。",
   "goalStatus": "active",
   "fullGoalComplete": false,
   "previousGoalTurnClassification": "progress",
   "thisTurnReworkedSourceRecords": [
-    "question_mondai5_27.json#0"
+    "question_mondai5_28.json#0",
+    "question_mondai5_29.json#0"
   ],
   "commonContextFiveQuestions": [
     {
@@ -80,11 +81,11 @@
   },
   "thisTurnVerification": [
     {
-      "scope": "mondai5_27",
-      "acceptanceReceipt": "output/eco-kentei/reports/mondai5_27_validation_20261028/current_acceptance.json",
-      "acceptanceReceiptSha256": "2ea68445e300ec77bc4b7a3c933df3e12ba247ba56529c9de991e13d9e9ccaa2",
-      "validationReceipt": "output/eco-kentei/reports/mondai5_27_validation_20261028/current_validation.json",
-      "validationReceiptSha256": "cabd6ad902e722594464596ee64f3d6bb27120218882816cb783c081bf035a77",
+      "scope": "mondai5_29",
+      "acceptanceReceipt": "output/eco-kentei/reports/mondai5_29_validation_20261028/current_acceptance.json",
+      "acceptanceReceiptSha256": "efe8d0108641c445cbdb1c1fd27b1cbb5387a317ae1d9c4d739524d188e4e9ef",
+      "validationReceipt": "output/eco-kentei/reports/mondai5_29_validation_20261028/current_validation.json",
+      "validationReceiptSha256": "f698d702368566a8f60cbe0916dd56b1560eddd03a0d05026337d9455c756c4f",
       "targetedChecksPassed": 6,
       "independentEvaluationCount": 1
     }
@@ -132,8 +133,8 @@
     "trackedCodeOrPromptChanged": false,
     "otherWorktreeChanges": "他作業の変更は保持し、この記録だけをstageする。"
   },
-  "nextAction": "問28を原画像2枚から一問ずつ照合し、source/独自化/工程/検査/独立評価を続ける。問21・22は法令監査保留。",
-  "lastUpdatedAt": "2026-10-28T08:19:35.664403+00:00",
+  "nextAction": "問30を原画像2枚から一問ずつ照合し、source/独自化/工程/検査/独立評価を続ける。問21・22・28は法令根拠または監査保留。",
+  "lastUpdatedAt": "2026-10-28T08:28:44.387474+00:00",
   "subsequentQuestion51": {
     "sourceRecordRef": "question_mondai4_51.json#0",
     "sourceQuestionKey": "eco-kentei:knoun-2026-mock-4:bb67422eb5e52e9c",
@@ -232,22 +233,22 @@
     "changes": "原画像にないクが共通指示の空欄に入っていた。OCRの照合済み転記をバックアップ付きで訂正し、登録済みsourceは変更しない。05と03でGRI Standards・全4候補の比較を整備。検査・別session評価は合格したが原転記の受入は保留。"
   },
   "latestFullyAcceptedScope": {
-    "sourceRecords": "knoun-2026-mock-5の問1〜20、問23〜27。問21・22は法令監査保留。",
-    "sourceQuestionCount": 25,
-    "actualLearningQuestionCount": 25,
-    "convertedDocumentCount": 70,
-    "choiceOnlyDocumentCount": 45,
+    "sourceRecords": "knoun-2026-mock-5の問1〜20、問23〜27、問29。問21・22・28は法令根拠・監査保留。",
+    "sourceQuestionCount": 26,
+    "actualLearningQuestionCount": 26,
+    "convertedDocumentCount": 74,
+    "choiceOnlyDocumentCount": 48,
     "acceptanceReceipt": {
-      "path": "output/eco-kentei/reports/mondai5_27_validation_20261028/current_acceptance.json",
-      "sha256": "2ea68445e300ec77bc4b7a3c933df3e12ba247ba56529c9de991e13d9e9ccaa2"
+      "path": "output/eco-kentei/reports/mondai5_29_validation_20261028/current_acceptance.json",
+      "sha256": "efe8d0108641c445cbdb1c1fd27b1cbb5387a317ae1d9c4d739524d188e4e9ef"
     },
     "uploadReadyArchive": {
-      "path": "output/eco-kentei/reports/mondai5_27_validation_20261028/verified_upload_ready.json",
-      "sha256": "284dd9f72fd786231b343758cd496e3b67424b62d092e7aa7d425e284aff0a74"
+      "path": "output/eco-kentei/reports/mondai5_29_validation_20261028/verified_upload_ready.json",
+      "sha256": "c87b035ea438d749e393a60a23bd9375f525b6d71117bf3e2d63b83740a94cf7"
     },
-    "acceptedCurrentReadbacks": "output/eco-kentei/reports/mondai5_27_validation_20261028/accepted_current_readbacks",
+    "acceptedCurrentReadbacks": "output/eco-kentei/reports/mondai5_29_validation_20261028/accepted_current_readbacks",
     "previousGroup4AcceptedStateHashesAndEvaluationsUnchanged": true,
-    "scopeLimit": "この25件はmock-5内の受入。問21・22と他の未完了問は含めない。"
+    "scopeLimit": "この26件はmock-5内の受入。問21・22・28と他の未完了問は含めない。"
   },
   "subsequentQuestion54": {
     "sourceRecordRef": "question_mondai4_54.json#0",
@@ -437,16 +438,16 @@
   "globalRemainingStatus": {
     "countUnit": "source question; completion requires current stages and independent evaluation with no known unresolved content or source hold",
     "totalSourceQuestions": 425,
-    "currentStagesAndEvaluationPassed": 89,
-    "completedSourceQuestionCount": 81,
-    "remainingSourceQuestionCount": 344,
+    "currentStagesAndEvaluationPassed": 90,
+    "completedSourceQuestionCount": 82,
+    "remainingSourceQuestionCount": 343,
     "pendingSourceDifferenceCount": 10,
-    "currentQuestion": "mondai5_28",
+    "currentQuestion": "mondai5_30",
     "passedButKnownUnfinishedCount": 8,
-    "additionalMaintenanceHolds": 2,
+    "additionalMaintenanceHolds": 3,
     "receipt": {
-      "path": "output/eco-kentei/reports/global_remaining_status_after_mondai5_27_20261028.json",
-      "sha256": "8a8a32cbd94f2d244f70e9c9c48aec69a189fb2634065c55c0a915c500066993"
+      "path": "output/eco-kentei/reports/global_remaining_status_after_mondai5_29_20261028.json",
+      "sha256": "15b1f27f46180f54a23c8b46609eb5ee11aaaff6383cee9e968c94c4bdf75941"
     }
   },
   "subsequentQuestion59": {
@@ -1102,7 +1103,7 @@
     },
     "sourceAndRawUnchanged": true
   },
-  "currentQuestion": "mondai5_28",
+  "currentQuestion": "mondai5_30",
   "subsequentQuestion83": {
     "sourceRecordRef": "question_mondai4_83.json#0",
     "questionId": "68de8eef2e3ec91afaee8787",
@@ -2521,6 +2522,73 @@
     "acceptanceReceipt": {
       "path": "output/eco-kentei/reports/mondai5_27_validation_20261028/current_acceptance.json",
       "sha256": "2ea68445e300ec77bc4b7a3c933df3e12ba247ba56529c9de991e13d9e9ccaa2"
+    }
+  },
+  "inProgressQuestion5_28": {
+    "sourceRecordRef": "question_mondai5_28.json#0",
+    "questionId": "022edc66bf69a337dc415827",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionConfirmed": true,
+    "originalizeRunId": "20261028T172043244760-e1685e2c",
+    "nativeRunId": "20261028T172115532706-ffeb9db7",
+    "status": "law_context_evidence_hold",
+    "lawzilla": "wrapper終了、初期化応答なし。環境省・外務省の会議結果を確認。",
+    "finding": "2023年のCOP5で一般照明用蛍光ランプが廃止対象に追加。種類により期限は2026年末又は2027年末。",
+    "nativeRunStatus": "succeeded_with_blocked_question",
+    "blockedStage": "law_context",
+    "holdReceipt": {
+      "path": "output/eco-kentei/reports/turn_receipts/mondai5_28_hold_20261028.json",
+      "sha256": "d9f4553c2b7c4c271f4c7bd70486a6783813983dee150a210eb2e09af56cd427"
+    },
+    "nextAction": "取得元を登録できる正規の証拠取得手段を確保し、一次資料の内容・時点・対象肢に結び付けた後に02bから再開する。"
+  },
+  "priorGroup5_27AcceptedScope": {
+    "sourceRecords": "knoun-2026-mock-5の問1〜20、問23〜27。問21・22は法令監査保留。",
+    "sourceQuestionCount": 25,
+    "actualLearningQuestionCount": 25,
+    "convertedDocumentCount": 70,
+    "choiceOnlyDocumentCount": 45,
+    "acceptanceReceipt": {
+      "path": "output/eco-kentei/reports/mondai5_27_validation_20261028/current_acceptance.json",
+      "sha256": "2ea68445e300ec77bc4b7a3c933df3e12ba247ba56529c9de991e13d9e9ccaa2"
+    },
+    "uploadReadyArchive": {
+      "path": "output/eco-kentei/reports/mondai5_27_validation_20261028/verified_upload_ready.json",
+      "sha256": "284dd9f72fd786231b343758cd496e3b67424b62d092e7aa7d425e284aff0a74"
+    },
+    "acceptedCurrentReadbacks": "output/eco-kentei/reports/mondai5_27_validation_20261028/accepted_current_readbacks",
+    "previousGroup4AcceptedStateHashesAndEvaluationsUnchanged": true,
+    "scopeLimit": "この25件はmock-5内の受入。問21・22と他の未完了問は含めない。"
+  },
+  "subsequentQuestion5_29": {
+    "sourceRecordRef": "question_mondai5_29.json#0",
+    "sourceQuestionKey": "eco-kentei:knoun-2026-mock-5:90d012e399166fb6",
+    "questionId": "ad77a8507aa0f3d50d0d564d",
+    "stateHash": "78f52230362727050aa67e268c2903e9d2f6722748ad909bf98216fe275b788d",
+    "normalRunIds": [
+      "20261028T172507960836-edbaafb9",
+      "20261028T172536315305-30e62b99"
+    ],
+    "evaluationSessionId": "01a1819f-1c5b-7c93-9726-7648ca463443",
+    "verifiedChoiceCount": 4,
+    "explanationScore": 100,
+    "sourceImagesActuallyRead": true,
+    "changes": "原画像2枚・4選択肢・正答②新興感染症を照合。分類の観点を明確化し、WHO・厚労省資料で人獣共通感染症との重複、再興感染症とパンデミックの違いを確認。",
+    "receipt": {
+      "path": "output/eco-kentei/reports/turn_receipts/mondai5_29_accepted_20261028.json",
+      "sha256": "e8f60beab89340fb008ae316c8f4b7bb016144adc436851fcedffc21e0368a62"
+    },
+    "evaluationReceipt": {
+      "path": "output/eco-kentei/reports/mondai5_29_evaluation_result_20261028.json",
+      "sha256": "4dace9c97e0a004a9f774ea92b09ff0ce9eff2c36d32529ab1a05a067cb57ad3"
+    },
+    "validationReceipt": {
+      "path": "output/eco-kentei/reports/mondai5_29_validation_20261028/current_validation.json",
+      "sha256": "f698d702368566a8f60cbe0916dd56b1560eddd03a0d05026337d9455c756c4f"
+    },
+    "acceptanceReceipt": {
+      "path": "output/eco-kentei/reports/mondai5_29_validation_20261028/current_acceptance.json",
+      "sha256": "efe8d0108641c445cbdb1c1fd27b1cbb5387a317ae1d9c4d739524d188e4e9ef"
     }
   }
 }
