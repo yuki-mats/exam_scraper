@@ -6,7 +6,7 @@
   "fullGoalComplete": false,
   "previousGoalTurnClassification": "progress",
   "thisTurnReworkedSourceRecords": [
-    "question_mondai5_53.json#0"
+    "question_mondai5_54.json#0"
   ],
   "commonContextFiveQuestions": [
     {
@@ -118,7 +118,8 @@
     "knoun-2026-mock-5/question_mondai5_32.json#0",
     "knoun-2026-mock-5/question_mondai5_37.json#0",
     "knoun-2026-mock-5/question_mondai5_47.json#0",
-    "knoun-2026-mock-5/question_mondai5_50.json#0"
+    "knoun-2026-mock-5/question_mondai5_50.json#0",
+    "knoun-2026-mock-5/question_mondai5_54.json#0"
   ],
   "remainingSourceDifferencePolicy": "先の14件への例外承認を追加14件へ広げずsourceを保持する。原画像との差分が保留の問は内容整備に合格しても受入件数へ含めない。",
   "publication": {
@@ -3235,5 +3236,28 @@
     "evaluationReceipt": "output/eco-kentei/reports/mondai5_53_evaluation_result_20261028.json",
     "acceptanceReceipt": "output/eco-kentei/reports/mondai5_53_validation_20261028/current_acceptance.json",
     "receipt": "output/eco-kentei/reports/turn_receipts/mondai5_53_accepted_20261028.json"
+  },
+  "inProgressQuestion5_54": {
+    "sourceRecordRef": "question_mondai5_54.json#0",
+    "questionId": "08d1a433a914eba15a9046f6",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": false,
+    "sourceDifferenceProposal": "output/eco-kentei/reports/source_difference_mondai5_54_answer_punctuation_20261028/proposal.json",
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai5_54_primary_source_review_20261028.json",
+    "originalizeRunId": "20261028T205701854095-9e0062a2",
+    "status": "maintenance_passed_source_difference_hold",
+    "nextAction": "原文差分を解決するまで受入しない。問55を照合する。",
+    "nativeRunId": "20261028T205829743588-e8807753",
+    "stateHash": "b776812e253ea2b1e47fe3884e873d3ff4cb3eb39f51ec9b0fb7d442d80f6c1d",
+    "evaluationJobId": "ZDJMO-3jJxCjVTIG",
+    "targetedChecksPassed": 6,
+    "validationReceipt": "output/eco-kentei/reports/mondai5_54_validation_20261028/current_validation.json",
+    "previousEvaluation": "output/eco-kentei/reports/mondai5_54_explanation_review_prior_20261028/mondai5_54_evaluation_result_20261028.json",
+    "evaluationSessionId": "01a18268-0cb3-7002-831b-7860282e9487",
+    "verifiedChoiceCount": 4,
+    "explanationScore": 100,
+    "evaluationReceipt": "output/eco-kentei/reports/mondai5_54_evaluation_result_20261028.json",
+    "receipt": "output/eco-kentei/reports/turn_receipts/mondai5_54_maintenance_with_source_hold_20261028.json",
+    "quarantinedCandidate": "output/eco-kentei/reports/mondai5_54_validation_20261028/quarantined_upload_candidate.json"
   }
 }
