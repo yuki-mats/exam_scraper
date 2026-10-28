@@ -79,6 +79,9 @@ report = {"schemaVersion": "hei-direct-maintenance-checkpoint/v1",
         if (RUN / "public-editing-notes-readback.json").exists() else None,
     "publicEditingNoteScopedVerification": snapshot(RUN / "public-editing-notes-scoped-verification.json")
         if (RUN / "public-editing-notes-scoped-verification.json").exists() else None,
+    "latestConvertDisplayDiagnostic": snapshot(sorted((RUN / "convert_display").glob("*/result.json"))[-1])
+        if list((RUN / "convert_display").glob("*/result.json")) else None,
+    "holdResolutions": [snapshot(p) for p in sorted((RUN / "hold_resolutions").glob("*.json"))],
     "openContentHolds": [snapshot(p) for p in sorted((RUN / "holds").glob("*.json"))],
     "intentCompletion": {"savedReceipts": intent_receipts, "remainingMissing": intent_missing},
     "commonNoteTextCorrection": {"savedYears": note_saved_years, "questions": note_saved_count, "heldQuestions": note_holds, "meaningUnchanged": True,
