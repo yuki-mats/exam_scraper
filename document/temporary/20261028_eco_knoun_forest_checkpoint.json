@@ -4383,12 +4383,22 @@
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_26_primary_source_review_20261029.json",
-    "status": "maintenance_running",
-    "nextAction": "独自問題化、現行性・正答根拠の確認、各工程と独立評価を実施する。",
+    "status": "accepted",
+    "nextAction": "問27〜30は画像照合済、独自問題化から進める。問31・32も画像照合済。問23・25・33・34は転記差分保留。",
     "questionId": "98057f0de37765cb93f16c15",
     "backup": "output/eco-kentei/reports/mondai1_26_before_rework_20261029",
     "originalizeRunId": "20261029T060252861132-f436912e",
-    "nativeRunId": "20261029T060323278348-027d8be4"
+    "nativeRunId": "20261029T060853621240-625ce861",
+    "previousBlockedRunId": "20261029T060323278348-027d8be4",
+    "stateHash": "90cf53636e084b244aca4e94b6ba4bfd905200f93437e256ea82d9909a74c94f",
+    "evaluationJobId": "6OKyOxJn1dbCSwPi",
+    "uploadReady": "output/eco-kentei/questions_json/upload_to_firestore/knoun-2026-mock-1_firestore_20261029_061111.json",
+    "categoryRestoredSha256": "635d6bc689519d3cd6539237dad8f13db3cc5c9d38b61221bac057a7914db62a",
+    "evaluationSessionId": "01a1845a-8bd2-7843-9e8f-3a706a3a9a46",
+    "verifiedChoiceCount": 1,
+    "explanationScore": 100,
+    "otherDocumentCountUnchanged": 37,
+    "receipt": "output/eco-kentei/reports/turn_receipts/mondai1_26_accepted_20261029.json"
   },
   "inProgressQuestion1_27": {
     "sourceRecordRef": "question_mondai1_27.json#0",
@@ -4417,5 +4427,35 @@
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_30_primary_source_review_20261029.json",
     "status": "source_reviewed_originalization_pending"
+  },
+  "inProgressQuestion1_31": {
+    "sourceRecordRef": "question_mondai1_31.json#0",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": true,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_31_primary_source_review_20261029.json",
+    "status": "source_reviewed_originalization_pending"
+  },
+  "inProgressQuestion1_32": {
+    "sourceRecordRef": "question_mondai1_32.json#0",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": true,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_32_primary_source_review_20261029.json",
+    "status": "source_reviewed_originalization_pending"
+  },
+  "inProgressQuestion1_33": {
+    "sourceRecordRef": "question_mondai1_33.json#0",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": false,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_33_primary_source_review_20261029.json",
+    "status": "hold_source_transcription_difference",
+    "holdReason": "炭素貯留の文で原画像は「役割を果しており」、登録文字は「役割を果たしており」。"
+  },
+  "inProgressQuestion1_34": {
+    "sourceRecordRef": "question_mondai1_34.json#0",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": false,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_34_primary_source_review_20261029.json",
+    "status": "hold_source_transcription_difference",
+    "holdReason": "農業・地下水の文で原画像は「役割を果たしており」、登録文字は「役割を果しており」。"
   }
 }
