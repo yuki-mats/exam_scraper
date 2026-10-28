@@ -3921,12 +3921,19 @@
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_1_primary_source_review_20261029.json",
-    "status": "isolated_merge_and_checks_passed_evaluation_not_started",
+    "status": "accepted",
     "originalizeRunId": "20261029T032434917079-5d658850",
     "nativeRunId": "20261029T032640747074-036bd966",
     "priorNativeRunId": "20261029T032522750573-670cf662",
     "stateHash": "66bd7a7e540a1f06c0d7e6ff35d2290d0051492b256a9f2f4d9ba049c0fda2fc",
-    "receipt": "output/eco-kentei/reports/turn_receipts/mondai1_1_integration_pending_20261029.json",
-    "nextAction": "既存の模擬問題1の他9問を保護しつつ対象をmerge・convert・upload-readyへ反映し、別session評価を実行する。"
+    "receipt": "output/eco-kentei/reports/turn_receipts/mondai1_1_accepted_20261029.json",
+    "nextAction": "模擬問題1の次の一問一答形式を原画像から確認する。",
+    "evaluationJobId": "Clj9t4rLrhGsSiPD",
+    "otherDocumentCountUnchanged": 25,
+    "uploadReady": "output/eco-kentei/questions_json/upload_to_firestore/knoun-2026-mock-1_firestore_20261029_033352.json",
+    "evaluationSessionId": "01a183cb-4150-7392-830e-314aa730b505",
+    "verifiedChoiceCount": 1,
+    "explanationScore": 100,
+    "publicationFollowup": "旧変換にはchoice-2が存在し新変換にはない。本番存在は未確認。公開時に既存ドキュメントの確認と必要な整合処理を行う。"
   }
 }
