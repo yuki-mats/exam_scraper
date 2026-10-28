@@ -147,3 +147,48 @@ class ForestPrinciplesProviderTests(unittest.TestCase):
                 self.f.payloads[self.index] = provider.OfficialGuidanceFetch(html, self.index, 'text/html')
                 with self.assertRaises(ValueError): self.resolve()
         self.assertTrue(all(call[0] == self.index for call in self.f.calls))
+
+
+class PlasticStrategyProviderTests(unittest.TestCase):
+    INDEX = ('<title>「プラスチック資源循環戦略」の策定について</title>'
+        '<span>2019年05月31日</span>'
+        '<a href="/content/900513722.pdf">プラスチック資源循環戦略 [PDF 272 KB]</a>').encode()
+
+    def setUp(self):
+        self.f = fixture.OfficialGuidanceEvidenceTests()
+        self.f.setUp(); self.addCleanup(self.f.doCleanups)
+        self.request = deepcopy(self.f.request)
+        self.request.update(provider=provider.ENV_PLASTIC_STRATEGY_PROVIDER,
+            examAsOf=None, currentPages=[4], historicalDocuments=[],
+            choiceBindings=[{'choiceIndex': n, 'currentPages': [4], 'historicalSelections': []}
+                for n in [0, 1]])
+        self.index = provider.ENV_PLASTIC_STRATEGY_INDEX_URL
+        self.pdf = 'https://www.env.go.jp/content/900513722.pdf'
+        self.f.payloads[self.index] = provider.OfficialGuidanceFetch(self.INDEX, self.index, 'text/html')
+        self.f.payloads[self.pdf] = provider.OfficialGuidanceFetch(b'%PDF-strategy', self.pdf, 'application/pdf')
+        self.f.resolver.extractor = lambda data, pages: [
+            {'page': page, 'text': ('プラスチック資源循環戦略 令和元年５月 31 日'
+                if page == 1 else '２．基本原則 ― ３Ｒ + Renewable （持続可能な資源）')}
+            for page in pages]
+
+    def test_named_strategy_is_acquired_and_bound_to_all_choices(self):
+        receipt = self.f.resolver.resolve(self.request, record=self.f.record, scope=self.f.scope)
+        self.assertEqual(receipt['currentIndex']['publishedRevisionDate'], '2019-05-31')
+        self.assertEqual(receipt['documents'][0]['sourceUrl'], self.pdf)
+        self.assertEqual(receipt['choiceBindings'], self.request['choiceBindings'])
+        self.assertEqual(self.f.resolver.validate(receipt, request=self.request,
+            record=self.f.record, scope=self.f.scope), receipt)
+
+    def test_other_strategy_announcement_or_pdf_is_rejected(self):
+        for index in (self.INDEX.replace(b'2019', b'2020'),
+                self.INDEX.replace(b'900513722', b'900513721'),
+                self.INDEX + self.INDEX, b'\xff\xfe'):
+            with self.subTest(index=index[:30]):
+                self.f.payloads[self.index] = provider.OfficialGuidanceFetch(index, self.index, 'text/html')
+                with self.assertRaises(ValueError):
+                    self.f.resolver.resolve(self.request, record=self.f.record, scope=self.f.scope)
+        self.f.payloads[self.index] = provider.OfficialGuidanceFetch(self.INDEX, self.index, 'text/html')
+        self.f.resolver.extractor = lambda data, pages: [
+            {'page': page, 'text': '別のプラスチック資料'} for page in pages]
+        with self.assertRaises(ValueError):
+            self.f.resolver.resolve(self.request, record=self.f.record, scope=self.f.scope)

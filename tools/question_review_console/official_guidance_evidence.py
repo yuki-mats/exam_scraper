@@ -40,6 +40,8 @@ ENV_BASEL_REFERENCE_PROVIDER = 'env_basel_reference_excerpt'
 ENV_BASEL_REFERENCE_INDEX_URL = 'https://www.env.go.jp/press/103133.html'
 ENV_FOREST_REFERENCE_PROVIDER = 'env_forest_principles_reference'
 ENV_FOREST_REFERENCE_INDEX_URL = 'https://www.env.go.jp/policy/hakusyo/h24/pdf.html'
+ENV_PLASTIC_STRATEGY_PROVIDER = 'env_plastic_circulation_strategy_2019'
+ENV_PLASTIC_STRATEGY_INDEX_URL = 'https://www.env.go.jp/press/106866.html'
 EU_SUP_PROVIDER = 'eu_sup_consolidated_20260812'
 EU_SUP_CELLAR_ID = 'a7d357bb-6f48-11f1-ae88-01aa75ed71a1'
 # Use the publication's observed RDF export instead of its dynamic portal HTML.
@@ -434,6 +436,28 @@ def _forest_reference_link(data, current_as_of):
     return links[0][0], heading + ' / ' + links[0][1], None
 
 
+def _plastic_strategy_link(data, current_as_of):
+    published = date(2019, 5, 31)
+    if _date(current_as_of) < published:
+        raise OfficialGuidanceEvidenceError('plastic strategy was not published on requested date')
+    parser = _PublicationIndex()
+    try:
+        html = data.decode('utf-8')
+        parser.feed(html)
+    except (UnicodeDecodeError, ValueError) as exc:
+        raise OfficialGuidanceEvidenceError('plastic strategy index is not UTF-8 HTML') from exc
+    if ('「プラスチック資源循環戦略」の策定について' not in html
+            or len(re.findall(r'2019年05月31日', html)) != 1):
+        raise OfficialGuidanceEvidenceError('named 2019 official strategy announcement required')
+    links = [urljoin(ENV_PLASTIC_STRATEGY_INDEX_URL, href)
+        for href, label in parser.anchors if href and
+        re.sub(r'\s+', '', label) == 'プラスチック資源循環戦略[PDF272KB]']
+    if len(links) != 1:
+        raise OfficialGuidanceEvidenceError('unique full strategy PDF link required')
+    _official_url(links[0], pdf=True, provider=ENV_PLASTIC_STRATEGY_PROVIDER)
+    return links[0], 'プラスチック資源循環戦略（2019年5月31日策定）', published.isoformat()
+
+
 def _eu_sup_link(data, current_as_of):
     if _date(current_as_of) < date(2026, 8, 12):
         raise OfficialGuidanceEvidenceError('named EU consolidation is after requested date')
@@ -529,6 +553,9 @@ _SOURCES = {
     ENV_FOREST_REFERENCE_PROVIDER: _Source(ENV_FOREST_REFERENCE_INDEX_URL, 'www.env.go.jp',
         r'/policy/hakusyo/h24/pdf/4_term\.pdf', 'actual_official_index_link',
         SOURCE_KIND, _forest_reference_link),
+    ENV_PLASTIC_STRATEGY_PROVIDER: _Source(ENV_PLASTIC_STRATEGY_INDEX_URL, 'www.env.go.jp',
+        r'/content/900513722\.pdf', 'actual_official_index_link',
+        SOURCE_KIND, _plastic_strategy_link),
     EU_SUP_PROVIDER: _Source(EU_SUP_INDEX_URL, 'op.europa.eu',
         r'/resource/cellar/[^/]+/DOC_1', 'actual_official_rdf_and_pdf_identity',
         'official_consolidated_eu_act', _eu_sup_link),
@@ -712,6 +739,14 @@ class OfficialGuidanceEvidenceResolver:
         return fetched
 
     def _document_identity(self, provider, url, data, *, pdf):
+        if provider == ENV_PLASTIC_STRATEGY_PROVIDER and pdf:
+            selected = self._selection(data, [1, 4])
+            cover = re.sub(r'\s+', '', selected[0]['text'])
+            principle = re.sub(r'\s+', '', selected[1]['text'])
+            if ('プラスチック資源循環戦略' not in cover
+                    or '令和元年５月31日' not in cover
+                    or '基本原則―３Ｒ+Renewable' not in principle):
+                raise OfficialGuidanceEvidenceError('named 2019 strategy PDF contents required')
         if provider != EU_SUP_PROVIDER or not pdf:
             return
         first = ' '.join(self._selection(data, [1])[0]['text'].split())
