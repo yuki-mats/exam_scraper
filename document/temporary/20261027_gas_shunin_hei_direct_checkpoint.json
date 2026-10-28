@@ -1,6 +1,6 @@
 {
   "schemaVersion": "hei-direct-maintenance-checkpoint/v1",
-  "generatedAt": "2026-10-28T02:38:54.027901+00:00",
+  "generatedAt": "2026-10-28T02:45:36.461979+00:00",
   "status": "in_progress",
   "fullOutcomeComplete": false,
   "productionWritten": false,
@@ -454479,6 +454479,410 @@
       ]
     },
     {
+      "path": "output/gas-shunin-hei/direct_publication/20261027/primary/2020-law-06-authored-r2.json",
+      "sha256": "dbc0cb645b599197909337ed3f36528fc456f9dc80d368b50fcc303e27ca3787",
+      "payload": [
+        {
+          "sourceQuestionId": "2020:law:問6",
+          "questionType": "true_false",
+          "isCalculationQuestion": false,
+          "questionIntent": "select_correct",
+          "correctChoiceText": [
+            "間違い",
+            "正しい",
+            "間違い",
+            "正しい",
+            "間違い"
+          ],
+          "examTimeDecision": [
+            "間違い",
+            "正しい",
+            "間違い",
+            "正しい",
+            "間違い"
+          ],
+          "currentLawDecision": [
+            "間違い",
+            "正しい",
+            "間違い",
+            "正しい",
+            "間違い"
+          ],
+          "explanationText": [
+            "間違い。保安物件までの距離は、製造所の敷地境界からではなく、特定ガス発生設備に係る容器の外面から測る。ガス工作物の技術上の基準を定める省令第6条第2項は、対象となる容器の外面から保安物件まで告示で定める距離を確保するよう求めている。",
+            "正しい。劇場、映画館、演芸場、公会堂などで収容定員が300人以上の施設は、第1種保安物件に該当する。事業場と同一敷地内の施設は除く。第1種保安物件の具体的な範囲は、ガス工作物の技術上の基準の細目を定める告示第3条で定められている。",
+            "間違い。告示で定める距離の規定によらずに施設するには、経済産業大臣の認可が必要である。単に届け出ただけでは足りない。ガス工作物の技術上の基準を定める省令第6条第4項による。",
+            "正しい。製造所には、漏れたガスが滞留するおそれのある適当な場所に、漏えいを検知して警報する設備を設ける。ガス工作物の技術上の基準を定める省令第9条第2項の措置である。",
+            "間違い。対象設備のガス又は液化ガスを通ずる部分は、安全に置換できる構造とする。液化ガスを廃棄できる構造という記述は、ガス工作物の技術上の基準を定める省令第13条第1項の規定と異なる。同条第4項には毒性ガスを冷媒とする冷凍設備の廃棄に関する別の規定がある。"
+          ],
+          "questionSetId": "gas-shunin-hei_qs02_01_seizo_kijun",
+          "questionLearningPatternId": "conditions_scope",
+          "isLawRelated": true,
+          "classificationReason": "特定ガス発生設備の容器と保安物件の距離、製造所の漏えい警報及びガス置換という法定基準の対象条件を扱う。特定製造所・ガス発生設備と漏えい検知の技術基準を扱う02-01に分類する。",
+          "officialPagesVisuallyReviewed": [
+            7
+          ],
+          "officialAnswerNumber": 4,
+          "currentAsOf": "2026-10-28",
+          "auditStatus": "same_as_current",
+          "lawReferences": [
+            [
+              {
+                "lawId": "412M50000400111",
+                "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                "article": "第6条第2項",
+                "role": "current_basis",
+                "scope": "choice",
+                "choiceIndex": 0,
+                "referenceDate": "2026-10-28",
+                "verificationStatus": "verified",
+                "source": "https://laws.e-gov.go.jp/law/412M50000400111"
+              }
+            ],
+            [
+              {
+                "lawId": "412M50000400111",
+                "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                "article": "第6条第2項",
+                "role": "current_basis",
+                "scope": "choice",
+                "choiceIndex": 1,
+                "referenceDate": "2026-10-28",
+                "verificationStatus": "verified",
+                "source": "https://laws.e-gov.go.jp/law/412M50000400111"
+              }
+            ],
+            [
+              {
+                "lawId": "412M50000400111",
+                "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                "article": "第6条第4項",
+                "role": "current_basis",
+                "scope": "choice",
+                "choiceIndex": 2,
+                "referenceDate": "2026-10-28",
+                "verificationStatus": "verified",
+                "source": "https://laws.e-gov.go.jp/law/412M50000400111"
+              }
+            ],
+            [
+              {
+                "lawId": "412M50000400111",
+                "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                "article": "第9条第2項",
+                "role": "current_basis",
+                "scope": "choice",
+                "choiceIndex": 3,
+                "referenceDate": "2026-10-28",
+                "verificationStatus": "verified",
+                "source": "https://laws.e-gov.go.jp/law/412M50000400111"
+              }
+            ],
+            [
+              {
+                "lawId": "412M50000400111",
+                "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                "article": "第13条第1項",
+                "role": "current_basis",
+                "scope": "choice",
+                "choiceIndex": 4,
+                "referenceDate": "2026-10-28",
+                "verificationStatus": "verified",
+                "source": "https://laws.e-gov.go.jp/law/412M50000400111"
+              }
+            ]
+          ],
+          "sourceSummary": "主担当が2020年度丙種公式問題PDF7頁・印刷6頁と公式正答表を直接目視。イからホの全記述及び5組合せを読み、正答4はロ・ニと確認した。2020-09-27及び2026-10-28の技術省令6・9・13条の全本文をe-Govで直接取得して読み、同じ本文であることを確認した。6条2項は対象容器の外面を基準に保安物件までの距離を定めるが、保安物件の詳細は告示へ委任する。第1肢は敷地境界起点との相違で誤り。第3肢の大臣の認可、4肢の漏えい警報、5肢の安全な置換は各条文から個別に判定した。第2肢は同年度乙種法令問6の同一記述の25_verified_publication及び既存法令監査で告示3条3号により正しいとされている。また日本ガス協会の https://www.gas.or.jp/pdf/iinkai/comment/pc_20240405_02.pdf 実17頁の2.1.2.3を画像と本文で直接読み、300人以上及び同一敷地除外、関連条項として告示3条を明記し、改定コメントが最新告示の反映を示すことを確認した。ただしJGA資料は2024年意見募集の案で、成立した現行規範そのものではない。今回、告示の原本を新たに取得したとは主張しない。JGA資料の初出時点、乙種2020年問題の監査2026-07-28及び当該丙種問題の公式正答表を補助資料として区別して添え、独立内容・法令監査に告示根拠の十分性を判断してもらう。 新たに国立国会図書館の法令沿革 https://hourei.ndl.go.jp/simple/detail?current=-1&lawId=0000087091 を取得し、告示355号が有効であり、出題後は令和7年10月1日告示145号により改正されたことを確認した。法令沿革は告示の本文ではないため、これだけで条文内容を導かない。取得済みのe-Gov公開の令和7年告示145号実官報1頁 https://public-comment.e-gov.go.jp/pcm/download?seqNo=0000287103 を画像及び本文で読み、同告示第2条は細目告示355号の第3条第4号にある障害福祉施設の引用項番号を改正すると確認した。第3号の劇場等は改正対象に掲げられていない。JGAの2024年意見募集案17頁では同3号に対応する劇場等の収容定員300人以上及び同一敷地外の条件が改正表示なく記載され、同資料のコメントは当時の告示反映と説明する。2020年の公式問題及び正答表4はロ・ニを正しい組合せと明示する。以上を別々の資料として突き合わせたものであり、2020年版及び2026年版の細目告示原本を入手したとは述べない。一次資料と時点の不足を含め、別sessionの独立監査で十分性を判断する。",
+          "primaryChoiceLegalJudgments": [
+            {
+              "auditStatus": "same_as_current",
+              "differenceFacts": [
+                "技術省令6条2項の距離の測定基点は出題時と現行で同じ。"
+              ],
+              "answerImpactFacts": [
+                "間違い。容器の外面から保安物件まで測るため、製造所の敷地境界からという記述は技術省令6条2項と異なる。"
+              ],
+              "basisSummary": "間違い。容器の外面から保安物件まで測るため、製造所の敷地境界からという記述は技術省令6条2項と異なる。",
+              "differenceSummary": "技術省令6条2項の距離の測定基点は出題時と現行で同じ。"
+            },
+            {
+              "auditStatus": "same_as_current",
+              "differenceFacts": [
+                "技術省令6条2項の告示への委任は両時点で同じ。告示本文そのものの時点別原本は今回未取得である。",
+                "国会図書館の法令沿革と実官報令和7年告示145号第2条を照合。2020年以降の記載された改正は2025年の第3条第4号であり、劇場等の第3号は当該官報の改正対象でない。2024年JGA案17頁は300人以上を既存記載として示す。"
+              ],
+              "answerImpactFacts": [
+                "正しい。300人以上の劇場等で、事業場と同一敷地内を除く条件は2024年JGA指針案17頁及び同年度乙種の既整備監査と一致する。"
+              ],
+              "basisSummary": "正しい。300人以上の劇場等で、事業場と同一敷地内を除く条件は2024年JGA指針案17頁及び同年度乙種の既整備監査と一致する。",
+              "differenceSummary": "2020公式正答、2024年JGA案の既存記載、2025年官報の改正対象及びNDL沿革を照合。細目告示の全条文原本を入手したわけではない。"
+            },
+            {
+              "auditStatus": "same_as_current",
+              "differenceFacts": [
+                "技術省令6条4項は両時点で同じ。"
+              ],
+              "answerImpactFacts": [
+                "間違い。距離基準によらない施設には届出でなく大臣の認可を要する。"
+              ],
+              "basisSummary": "間違い。距離基準によらない施設には届出でなく大臣の認可を要する。",
+              "differenceSummary": "技術省令6条4項は両時点で同じ。"
+            },
+            {
+              "auditStatus": "same_as_current",
+              "differenceFacts": [
+                "技術省令9条2項は両時点で同じ。"
+              ],
+              "answerImpactFacts": [
+                "正しい。製造所の漏えいガスの滞留のおそれがある場所に検知警報設備を設ける。"
+              ],
+              "basisSummary": "正しい。製造所の漏えいガスの滞留のおそれがある場所に検知警報設備を設ける。",
+              "differenceSummary": "技術省令9条2項は両時点で同じ。"
+            },
+            {
+              "auditStatus": "same_as_current",
+              "differenceFacts": [
+                "技術省令13条1項と4項は両時点で同じ。"
+              ],
+              "answerImpactFacts": [
+                "間違い。ガス又は液化ガスを安全に置換できる構造が必要で、廃棄できる構造ではない。"
+              ],
+              "basisSummary": "間違い。ガス又は液化ガスを安全に置換できる構造が必要で、廃棄できる構造ではない。",
+              "differenceSummary": "技術省令13条1項と4項は両時点で同じ。"
+            }
+          ],
+          "explanationReferences": [
+            {
+              "title": "ガス工作物の技術上の基準を定める省令 第6・9・13条",
+              "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+              "referenceDate": "2026-10-28"
+            },
+            {
+              "title": "日本ガス協会 ガス製造設備指針改定案 第2.1.2.3",
+              "sourceUrl": "https://www.gas.or.jp/pdf/iinkai/comment/pc_20240405_02.pdf",
+              "referenceDate": "2026-10-28"
+            }
+          ],
+          "primaryTechnicalSources": [
+            {
+              "path": "output/gas-shunin-hei/direct_publication/20261027/legal/ndl-gas-technical-notice355-history.html",
+              "sha256": "fdfa4c2db9403c6cdaf8069c5fffd478315aeac969e7ea2d42d587f3b65ff520",
+              "url": "https://hourei.ndl.go.jp/simple/detail?current=-1&lawId=0000087091",
+              "finding": "沿革の10改正と現行効力表示を確認。本文は表示されない。"
+            },
+            {
+              "path": "output/gas-shunin-hei/direct_publication/20261027/legal/egov-meti-notice145-20251001.pdf",
+              "sha256": "a5fcf6e7371d006179d25e4c5709baf47c64734d0fa69df491f04e53e73cc218",
+              "url": "https://public-comment.e-gov.go.jp/pcm/download?seqNo=0000287103",
+              "finding": "実官報の告示145号第2条は細目告示355号第3条第4号の特定文言だけを改正する。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "output/gas-shunin-hei/direct_publication/20261027/primary/2020-law-06-authored-r3.json",
+      "sha256": "435f43db9132be6966bbf2f32f7b7042220685b84a330711e40d86be4b400605",
+      "payload": [
+        {
+          "sourceQuestionId": "2020:law:問6",
+          "questionType": "true_false",
+          "isCalculationQuestion": false,
+          "questionIntent": "select_correct",
+          "correctChoiceText": [
+            "間違い",
+            "正しい",
+            "間違い",
+            "正しい",
+            "間違い"
+          ],
+          "examTimeDecision": [
+            "間違い",
+            "正しい",
+            "間違い",
+            "正しい",
+            "間違い"
+          ],
+          "currentLawDecision": [
+            "間違い",
+            "正しい",
+            "間違い",
+            "正しい",
+            "間違い"
+          ],
+          "explanationText": [
+            "間違い。保安物件までの距離は、製造所の敷地境界からではなく、特定ガス発生設備に係る容器の外面から測る。ガス工作物の技術上の基準を定める省令第6条第2項は、対象となる容器の外面から保安物件まで告示で定める距離を確保するよう求めている。",
+            "正しい。劇場、映画館、演芸場、公会堂などで収容定員が300人以上の施設は、第1種保安物件に該当する。事業場と同一敷地内の施設は除く。第1種保安物件の具体的な範囲は、ガス工作物の技術上の基準の細目を定める告示第3条で定められている。",
+            "間違い。告示で定める距離の規定によらずに施設するには、経済産業大臣の認可が必要である。単に届け出ただけでは足りない。ガス工作物の技術上の基準を定める省令第6条第4項による。",
+            "正しい。製造所には、漏れたガスが滞留するおそれのある適当な場所に、漏えいを検知して警報する設備を設ける。ガス工作物の技術上の基準を定める省令第9条第2項の措置である。",
+            "間違い。対象設備のガス又は液化ガスを通ずる部分は、安全に置換できる構造とする。液化ガスを廃棄できる構造という記述は、ガス工作物の技術上の基準を定める省令第13条第1項の規定と異なる。同条第4項には毒性ガスを冷媒とする冷凍設備の廃棄に関する別の規定がある。"
+          ],
+          "questionSetId": "gas-shunin-hei_qs02_01_seizo_kijun",
+          "questionLearningPatternId": "conditions_scope",
+          "isLawRelated": true,
+          "classificationReason": "特定ガス発生設備の容器と保安物件の距離、製造所の漏えい警報及びガス置換という法定基準の対象条件を扱う。特定製造所・ガス発生設備と漏えい検知の技術基準を扱う02-01に分類する。",
+          "officialPagesVisuallyReviewed": [
+            7
+          ],
+          "officialAnswerNumber": 4,
+          "currentAsOf": "2026-10-28",
+          "auditStatus": "same_as_current",
+          "lawReferences": [
+            [
+              {
+                "lawId": "412M50000400111",
+                "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                "article": "第6条第2項",
+                "role": "current_basis",
+                "scope": "choice",
+                "choiceIndex": 0,
+                "referenceDate": "2026-10-28",
+                "verificationStatus": "verified",
+                "source": "https://laws.e-gov.go.jp/law/412M50000400111"
+              }
+            ],
+            [
+              {
+                "lawId": "412M50000400111",
+                "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                "article": "第6条第2項",
+                "role": "current_basis",
+                "scope": "choice",
+                "choiceIndex": 1,
+                "referenceDate": "2026-10-28",
+                "verificationStatus": "verified",
+                "source": "https://laws.e-gov.go.jp/law/412M50000400111"
+              }
+            ],
+            [
+              {
+                "lawId": "412M50000400111",
+                "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                "article": "第6条第4項",
+                "role": "current_basis",
+                "scope": "choice",
+                "choiceIndex": 2,
+                "referenceDate": "2026-10-28",
+                "verificationStatus": "verified",
+                "source": "https://laws.e-gov.go.jp/law/412M50000400111"
+              }
+            ],
+            [
+              {
+                "lawId": "412M50000400111",
+                "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                "article": "第9条第2項",
+                "role": "current_basis",
+                "scope": "choice",
+                "choiceIndex": 3,
+                "referenceDate": "2026-10-28",
+                "verificationStatus": "verified",
+                "source": "https://laws.e-gov.go.jp/law/412M50000400111"
+              }
+            ],
+            [
+              {
+                "lawId": "412M50000400111",
+                "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                "article": "第13条第1項",
+                "role": "current_basis",
+                "scope": "choice",
+                "choiceIndex": 4,
+                "referenceDate": "2026-10-28",
+                "verificationStatus": "verified",
+                "source": "https://laws.e-gov.go.jp/law/412M50000400111"
+              }
+            ]
+          ],
+          "sourceSummary": "主担当が2020年度丙種公式問題PDF7頁・印刷6頁と公式正答表を直接目視。イからホの全記述及び5組合せを読み、正答4はロ・ニと確認した。2020-09-27及び2026-10-28の技術省令6・9・13条の全本文をe-Govで直接取得して読み、同じ本文であることを確認した。6条2項は対象容器の外面を基準に保安物件までの距離を定めるが、保安物件の詳細は告示へ委任する。第1肢は敷地境界起点との相違で誤り。第3肢の大臣の認可、4肢の漏えい警報、5肢の安全な置換は各条文から個別に判定した。第2肢は同年度乙種法令問6の同一記述の25_verified_publication及び既存法令監査で告示3条3号により正しいとされている。また日本ガス協会の https://www.gas.or.jp/pdf/iinkai/comment/pc_20240405_02.pdf 実17頁の2.1.2.3を画像と本文で直接読み、300人以上及び同一敷地除外、関連条項として告示3条を明記し、改定コメントが最新告示の反映を示すことを確認した。ただしJGA資料は2024年意見募集の案で、成立した現行規範そのものではない。今回、告示の原本を新たに取得したとは主張しない。JGA資料の初出時点、乙種2020年問題の監査2026-07-28及び当該丙種問題の公式正答表を補助資料として区別して添え、独立内容・法令監査に告示根拠の十分性を判断してもらう。 新たに国立国会図書館の法令沿革 https://hourei.ndl.go.jp/simple/detail?current=-1&lawId=0000087091 を取得し、告示355号が有効であり、出題後は令和7年10月1日告示145号により改正されたことを確認した。法令沿革は告示の本文ではないため、これだけで条文内容を導かない。取得済みのe-Gov公開の令和7年告示145号実官報1頁 https://public-comment.e-gov.go.jp/pcm/download?seqNo=0000300201 を画像及び本文で読み、同告示第2条は細目告示355号の第3条第4号にある障害福祉施設の引用項番号を改正すると確認した。第3号の劇場等は改正対象に掲げられていない。JGAの2024年意見募集案17頁では同3号に対応する劇場等の収容定員300人以上及び同一敷地外の条件が改正表示なく記載され、同資料のコメントは当時の告示反映と説明する。2020年の公式問題及び正答表4はロ・ニを正しい組合せと明示する。以上を別々の資料として突き合わせたものであり、2020年版及び2026年版の細目告示原本を入手したとは述べない。一次資料と時点の不足を含め、別sessionの独立監査で十分性を判断する。",
+          "primaryChoiceLegalJudgments": [
+            {
+              "auditStatus": "same_as_current",
+              "differenceFacts": [
+                "技術省令6条2項の距離の測定基点は出題時と現行で同じ。"
+              ],
+              "answerImpactFacts": [
+                "間違い。容器の外面から保安物件まで測るため、製造所の敷地境界からという記述は技術省令6条2項と異なる。"
+              ],
+              "basisSummary": "間違い。容器の外面から保安物件まで測るため、製造所の敷地境界からという記述は技術省令6条2項と異なる。",
+              "differenceSummary": "技術省令6条2項の距離の測定基点は出題時と現行で同じ。"
+            },
+            {
+              "auditStatus": "same_as_current",
+              "differenceFacts": [
+                "技術省令6条2項の告示への委任は両時点で同じ。告示本文そのものの時点別原本は今回未取得である。",
+                "国会図書館の法令沿革と実官報令和7年告示145号第2条を照合。2020年以降の記載された改正は2025年の第3条第4号であり、劇場等の第3号は当該官報の改正対象でない。2024年JGA案17頁は300人以上を既存記載として示す。"
+              ],
+              "answerImpactFacts": [
+                "正しい。300人以上の劇場等で、事業場と同一敷地内を除く条件は2024年JGA指針案17頁及び同年度乙種の既整備監査と一致する。"
+              ],
+              "basisSummary": "正しい。300人以上の劇場等で、事業場と同一敷地内を除く条件は2024年JGA指針案17頁及び同年度乙種の既整備監査と一致する。",
+              "differenceSummary": "2020公式正答、2024年JGA案の既存記載、2025年官報の改正対象及びNDL沿革を照合。細目告示の全条文原本を入手したわけではない。"
+            },
+            {
+              "auditStatus": "same_as_current",
+              "differenceFacts": [
+                "技術省令6条4項は両時点で同じ。"
+              ],
+              "answerImpactFacts": [
+                "間違い。距離基準によらない施設には届出でなく大臣の認可を要する。"
+              ],
+              "basisSummary": "間違い。距離基準によらない施設には届出でなく大臣の認可を要する。",
+              "differenceSummary": "技術省令6条4項は両時点で同じ。"
+            },
+            {
+              "auditStatus": "same_as_current",
+              "differenceFacts": [
+                "技術省令9条2項は両時点で同じ。"
+              ],
+              "answerImpactFacts": [
+                "正しい。製造所の漏えいガスの滞留のおそれがある場所に検知警報設備を設ける。"
+              ],
+              "basisSummary": "正しい。製造所の漏えいガスの滞留のおそれがある場所に検知警報設備を設ける。",
+              "differenceSummary": "技術省令9条2項は両時点で同じ。"
+            },
+            {
+              "auditStatus": "same_as_current",
+              "differenceFacts": [
+                "技術省令13条1項と4項は両時点で同じ。"
+              ],
+              "answerImpactFacts": [
+                "間違い。ガス又は液化ガスを安全に置換できる構造が必要で、廃棄できる構造ではない。"
+              ],
+              "basisSummary": "間違い。ガス又は液化ガスを安全に置換できる構造が必要で、廃棄できる構造ではない。",
+              "differenceSummary": "技術省令13条1項と4項は両時点で同じ。"
+            }
+          ],
+          "explanationReferences": [
+            {
+              "title": "ガス工作物の技術上の基準を定める省令 第6・9・13条",
+              "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+              "referenceDate": "2026-10-28"
+            },
+            {
+              "title": "日本ガス協会 ガス製造設備指針改定案 第2.1.2.3",
+              "sourceUrl": "https://www.gas.or.jp/pdf/iinkai/comment/pc_20240405_02.pdf",
+              "referenceDate": "2026-10-28"
+            }
+          ],
+          "primaryTechnicalSources": [
+            {
+              "path": "output/gas-shunin-hei/direct_publication/20261027/legal/ndl-gas-technical-notice355-history.html",
+              "sha256": "fdfa4c2db9403c6cdaf8069c5fffd478315aeac969e7ea2d42d587f3b65ff520",
+              "url": "https://hourei.ndl.go.jp/simple/detail?current=-1&lawId=0000087091",
+              "finding": "沿革の10改正と現行効力表示を確認。本文は表示されない。"
+            },
+            {
+              "path": "output/gas-shunin-hei/direct_publication/20261027/legal/egov-meti-notice145-20251001.pdf",
+              "sha256": "a5fcf6e7371d006179d25e4c5709baf47c64734d0fa69df491f04e53e73cc218",
+              "url": "https://public-comment.e-gov.go.jp/pcm/download?seqNo=0000300201",
+              "finding": "実官報の告示145号第2条は細目告示355号第3条第4号の特定文言だけを改正する。"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "path": "output/gas-shunin-hei/direct_publication/20261027/primary/2020-law-06-r1.json",
       "sha256": "16fe75beb990e8f9aa3b363eb3c4c3a2078e5d3629c32d20cc75d7ea8050c9c2",
       "payload": [
@@ -455156,6 +455560,1402 @@
           "verificationSummary": "主担当が公式冊子と試験時・現行の公式本文を全肢照合した。独立二次監査は未実施。",
           "lawGroundedExplanationNotNeeded": false,
           "lawContextForExplanation": "主担当が2020年度丙種公式問題PDF7頁・印刷6頁と公式正答表を直接目視。イからホの全記述及び5組合せを読み、正答4はロ・ニと確認した。2020-09-27及び2026-10-28の技術省令6・9・13条の全本文をe-Govで直接取得して読み、同じ本文であることを確認した。6条2項は対象容器の外面を基準に保安物件までの距離を定めるが、保安物件の詳細は告示へ委任する。第1肢は敷地境界起点との相違で誤り。第3肢の大臣の認可、4肢の漏えい警報、5肢の安全な置換は各条文から個別に判定した。第2肢は同年度乙種法令問6の同一記述の25_verified_publication及び既存法令監査で告示3条3号により正しいとされている。また日本ガス協会の https://www.gas.or.jp/pdf/iinkai/comment/pc_20240405_02.pdf 実17頁の2.1.2.3を画像と本文で直接読み、300人以上及び同一敷地除外、関連条項として告示3条を明記し、改定コメントが最新告示の反映を示すことを確認した。ただしJGA資料は2024年意見募集の案で、成立した現行規範そのものではない。今回、告示の原本を新たに取得したとは主張しない。JGA資料の初出時点、乙種2020年問題の監査2026-07-28及び当該丙種問題の公式正答表を補助資料として区別して添え、独立内容・法令監査に告示根拠の十分性を判断してもらう。",
+          "suggestedQuestionDetailsByChoice": []
+        }
+      ]
+    },
+    {
+      "path": "output/gas-shunin-hei/direct_publication/20261027/primary/2020-law-06-r2.json",
+      "sha256": "9215b391545aae7bb8d03ae1018a70acbb9f0b9925c0899e420d1f1a50b23588",
+      "payload": [
+        {
+          "sourceQuestionId": "2020:law:問6",
+          "questionType": "true_false",
+          "isCalculationQuestion": false,
+          "questionIntent": "select_correct",
+          "correctChoiceText": [
+            "間違い",
+            "正しい",
+            "間違い",
+            "正しい",
+            "間違い"
+          ],
+          "examTimeDecision": [
+            "間違い",
+            "正しい",
+            "間違い",
+            "正しい",
+            "間違い"
+          ],
+          "currentLawDecision": [
+            "間違い",
+            "正しい",
+            "間違い",
+            "正しい",
+            "間違い"
+          ],
+          "explanationText": [
+            "間違い。保安物件までの距離は、製造所の敷地境界からではなく、特定ガス発生設備に係る容器の外面から測る。ガス工作物の技術上の基準を定める省令第6条第2項は、対象となる容器の外面から保安物件まで告示で定める距離を確保するよう求めている。",
+            "正しい。劇場、映画館、演芸場、公会堂などで収容定員が300人以上の施設は、第1種保安物件に該当する。事業場と同一敷地内の施設は除く。第1種保安物件の具体的な範囲は、ガス工作物の技術上の基準の細目を定める告示第3条で定められている。",
+            "間違い。告示で定める距離の規定によらずに施設するには、経済産業大臣の認可が必要である。単に届け出ただけでは足りない。ガス工作物の技術上の基準を定める省令第6条第4項による。",
+            "正しい。製造所には、漏れたガスが滞留するおそれのある適当な場所に、漏えいを検知して警報する設備を設ける。ガス工作物の技術上の基準を定める省令第9条第2項の措置である。",
+            "間違い。対象設備のガス又は液化ガスを通ずる部分は、安全に置換できる構造とする。液化ガスを廃棄できる構造という記述は、ガス工作物の技術上の基準を定める省令第13条第1項の規定と異なる。同条第4項には毒性ガスを冷媒とする冷凍設備の廃棄に関する別の規定がある。"
+          ],
+          "questionSetId": "gas-shunin-hei_qs02_01_seizo_kijun",
+          "questionLearningPatternId": "conditions_scope",
+          "isLawRelated": true,
+          "classificationReason": "特定ガス発生設備の容器と保安物件の距離、製造所の漏えい警報及びガス置換という法定基準の対象条件を扱う。特定製造所・ガス発生設備と漏えい検知の技術基準を扱う02-01に分類する。",
+          "officialPagesVisuallyReviewed": [
+            7
+          ],
+          "officialAnswerNumber": 4,
+          "currentAsOf": "2026-10-28",
+          "auditStatus": "same_as_current",
+          "lawReferences": [
+            [
+              {
+                "lawId": "412M50000400111",
+                "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                "article": "第6条第2項",
+                "role": "current_basis",
+                "scope": "choice",
+                "choiceIndex": 0,
+                "referenceDate": "2026-10-28",
+                "verificationStatus": "verified",
+                "source": "https://laws.e-gov.go.jp/law/412M50000400111"
+              }
+            ],
+            [
+              {
+                "lawId": "412M50000400111",
+                "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                "article": "第6条第2項",
+                "role": "current_basis",
+                "scope": "choice",
+                "choiceIndex": 1,
+                "referenceDate": "2026-10-28",
+                "verificationStatus": "verified",
+                "source": "https://laws.e-gov.go.jp/law/412M50000400111"
+              }
+            ],
+            [
+              {
+                "lawId": "412M50000400111",
+                "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                "article": "第6条第4項",
+                "role": "current_basis",
+                "scope": "choice",
+                "choiceIndex": 2,
+                "referenceDate": "2026-10-28",
+                "verificationStatus": "verified",
+                "source": "https://laws.e-gov.go.jp/law/412M50000400111"
+              }
+            ],
+            [
+              {
+                "lawId": "412M50000400111",
+                "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                "article": "第9条第2項",
+                "role": "current_basis",
+                "scope": "choice",
+                "choiceIndex": 3,
+                "referenceDate": "2026-10-28",
+                "verificationStatus": "verified",
+                "source": "https://laws.e-gov.go.jp/law/412M50000400111"
+              }
+            ],
+            [
+              {
+                "lawId": "412M50000400111",
+                "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                "article": "第13条第1項",
+                "role": "current_basis",
+                "scope": "choice",
+                "choiceIndex": 4,
+                "referenceDate": "2026-10-28",
+                "verificationStatus": "verified",
+                "source": "https://laws.e-gov.go.jp/law/412M50000400111"
+              }
+            ]
+          ],
+          "sourceSummary": "主担当が2020年度丙種公式問題PDF7頁・印刷6頁と公式正答表を直接目視。イからホの全記述及び5組合せを読み、正答4はロ・ニと確認した。2020-09-27及び2026-10-28の技術省令6・9・13条の全本文をe-Govで直接取得して読み、同じ本文であることを確認した。6条2項は対象容器の外面を基準に保安物件までの距離を定めるが、保安物件の詳細は告示へ委任する。第1肢は敷地境界起点との相違で誤り。第3肢の大臣の認可、4肢の漏えい警報、5肢の安全な置換は各条文から個別に判定した。第2肢は同年度乙種法令問6の同一記述の25_verified_publication及び既存法令監査で告示3条3号により正しいとされている。また日本ガス協会の https://www.gas.or.jp/pdf/iinkai/comment/pc_20240405_02.pdf 実17頁の2.1.2.3を画像と本文で直接読み、300人以上及び同一敷地除外、関連条項として告示3条を明記し、改定コメントが最新告示の反映を示すことを確認した。ただしJGA資料は2024年意見募集の案で、成立した現行規範そのものではない。今回、告示の原本を新たに取得したとは主張しない。JGA資料の初出時点、乙種2020年問題の監査2026-07-28及び当該丙種問題の公式正答表を補助資料として区別して添え、独立内容・法令監査に告示根拠の十分性を判断してもらう。 新たに国立国会図書館の法令沿革 https://hourei.ndl.go.jp/simple/detail?current=-1&lawId=0000087091 を取得し、告示355号が有効であり、出題後は令和7年10月1日告示145号により改正されたことを確認した。法令沿革は告示の本文ではないため、これだけで条文内容を導かない。取得済みのe-Gov公開の令和7年告示145号実官報1頁 https://public-comment.e-gov.go.jp/pcm/download?seqNo=0000287103 を画像及び本文で読み、同告示第2条は細目告示355号の第3条第4号にある障害福祉施設の引用項番号を改正すると確認した。第3号の劇場等は改正対象に掲げられていない。JGAの2024年意見募集案17頁では同3号に対応する劇場等の収容定員300人以上及び同一敷地外の条件が改正表示なく記載され、同資料のコメントは当時の告示反映と説明する。2020年の公式問題及び正答表4はロ・ニを正しい組合せと明示する。以上を別々の資料として突き合わせたものであり、2020年版及び2026年版の細目告示原本を入手したとは述べない。一次資料と時点の不足を含め、別sessionの独立監査で十分性を判断する。",
+          "primaryChoiceLegalJudgments": [
+            {
+              "auditStatus": "same_as_current",
+              "differenceFacts": [
+                "技術省令6条2項の距離の測定基点は出題時と現行で同じ。"
+              ],
+              "answerImpactFacts": [
+                "間違い。容器の外面から保安物件まで測るため、製造所の敷地境界からという記述は技術省令6条2項と異なる。"
+              ],
+              "basisSummary": "間違い。容器の外面から保安物件まで測るため、製造所の敷地境界からという記述は技術省令6条2項と異なる。",
+              "differenceSummary": "技術省令6条2項の距離の測定基点は出題時と現行で同じ。"
+            },
+            {
+              "auditStatus": "same_as_current",
+              "differenceFacts": [
+                "技術省令6条2項の告示への委任は両時点で同じ。告示本文そのものの時点別原本は今回未取得である。",
+                "国会図書館の法令沿革と実官報令和7年告示145号第2条を照合。2020年以降の記載された改正は2025年の第3条第4号であり、劇場等の第3号は当該官報の改正対象でない。2024年JGA案17頁は300人以上を既存記載として示す。"
+              ],
+              "answerImpactFacts": [
+                "正しい。300人以上の劇場等で、事業場と同一敷地内を除く条件は2024年JGA指針案17頁及び同年度乙種の既整備監査と一致する。"
+              ],
+              "basisSummary": "正しい。300人以上の劇場等で、事業場と同一敷地内を除く条件は2024年JGA指針案17頁及び同年度乙種の既整備監査と一致する。",
+              "differenceSummary": "2020公式正答、2024年JGA案の既存記載、2025年官報の改正対象及びNDL沿革を照合。細目告示の全条文原本を入手したわけではない。"
+            },
+            {
+              "auditStatus": "same_as_current",
+              "differenceFacts": [
+                "技術省令6条4項は両時点で同じ。"
+              ],
+              "answerImpactFacts": [
+                "間違い。距離基準によらない施設には届出でなく大臣の認可を要する。"
+              ],
+              "basisSummary": "間違い。距離基準によらない施設には届出でなく大臣の認可を要する。",
+              "differenceSummary": "技術省令6条4項は両時点で同じ。"
+            },
+            {
+              "auditStatus": "same_as_current",
+              "differenceFacts": [
+                "技術省令9条2項は両時点で同じ。"
+              ],
+              "answerImpactFacts": [
+                "正しい。製造所の漏えいガスの滞留のおそれがある場所に検知警報設備を設ける。"
+              ],
+              "basisSummary": "正しい。製造所の漏えいガスの滞留のおそれがある場所に検知警報設備を設ける。",
+              "differenceSummary": "技術省令9条2項は両時点で同じ。"
+            },
+            {
+              "auditStatus": "same_as_current",
+              "differenceFacts": [
+                "技術省令13条1項と4項は両時点で同じ。"
+              ],
+              "answerImpactFacts": [
+                "間違い。ガス又は液化ガスを安全に置換できる構造が必要で、廃棄できる構造ではない。"
+              ],
+              "basisSummary": "間違い。ガス又は液化ガスを安全に置換できる構造が必要で、廃棄できる構造ではない。",
+              "differenceSummary": "技術省令13条1項と4項は両時点で同じ。"
+            }
+          ],
+          "explanationReferences": [
+            {
+              "title": "ガス工作物の技術上の基準を定める省令 第6・9・13条",
+              "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+              "referenceDate": "2026-10-28"
+            },
+            {
+              "title": "日本ガス協会 ガス製造設備指針改定案 第2.1.2.3",
+              "sourceUrl": "https://www.gas.or.jp/pdf/iinkai/comment/pc_20240405_02.pdf",
+              "referenceDate": "2026-10-28"
+            }
+          ],
+          "primaryTechnicalSources": [
+            {
+              "path": "output/gas-shunin-hei/direct_publication/20261027/legal/ndl-gas-technical-notice355-history.html",
+              "sha256": "fdfa4c2db9403c6cdaf8069c5fffd478315aeac969e7ea2d42d587f3b65ff520",
+              "url": "https://hourei.ndl.go.jp/simple/detail?current=-1&lawId=0000087091",
+              "finding": "沿革の10改正と現行効力表示を確認。本文は表示されない。"
+            },
+            {
+              "path": "output/gas-shunin-hei/direct_publication/20261027/legal/egov-meti-notice145-20251001.pdf",
+              "sha256": "a5fcf6e7371d006179d25e4c5709baf47c64734d0fa69df491f04e53e73cc218",
+              "url": "https://public-comment.e-gov.go.jp/pcm/download?seqNo=0000287103",
+              "finding": "実官報の告示145号第2条は細目告示355号第3条第4号の特定文言だけを改正する。"
+            }
+          ],
+          "primaryLawEvidence": {
+            "schemaVersion": "primary-law-evidence/v2",
+            "status": "complete",
+            "currentAsOf": "2026-10-28",
+            "examAsOf": "2020-09-27",
+            "examAsOfSource": "document/sources/gas-shunin/official_exam_pdf_catalog.json",
+            "items": [
+              {
+                "lawId": "412M50000400111",
+                "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                "role": "current_basis",
+                "scope": "choice",
+                "choiceIndex": 0,
+                "declaredArticle": "第6条第2項",
+                "locator": {
+                  "kind": "article",
+                  "number": 6,
+                  "num": "6"
+                },
+                "resolvedLawTitle": "ガス工作物の技術上の基準を定める省令",
+                "currentSnapshot": {
+                  "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                  "asOf": "2026-10-28",
+                  "revisionId": "412M50000400111_20240427_506M60000400035",
+                  "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2026-10-28",
+                  "locator": {
+                    "kind": "article",
+                    "number": 6,
+                    "num": "6"
+                  },
+                  "xmlHash": "0d9aa0bfc33559534f05554b86065743547262a88b62a5ade3b11da6d9697140",
+                  "extractionRegion": "LawBody/MainProvision/descendant::Article",
+                  "extractionVersion": "egov-main-provision/v2",
+                  "normalizationVersion": "itertext-whitespace-collapse-utf8-sha256/v1",
+                  "textHash": "2c0cb41cf59f37faca49cf6f78de5812ce58ee6117bfccaa102a0717b79e4080",
+                  "text": "（離隔距離） 第六条 ガス発生器及び増熱器（移動式ガス発生設備に属するものを除く。）並びにガス精製設備、排送機、圧送機、ガスホルダー及び附帯設備であって製造設備に属するもの（冷凍設備及び配管を除く。）は、その外面から事業場の境界線（境界線が海、河川、湖沼等に接する場合は、当該海、河川、湖沼等の対岸）に対し、告示で定める距離を有しなければならない。 ただし、災害その他非常の場合において、やむを得ない一時的な工事により設置されたガス発生器及び増熱器並びに附帯設備に属する熱交換器及び容器であって、告示で定める措置を講じたものについては、この限りでない。 ２ 前項に規定するガス工作物（不活性のガス（空気を含む。以下同じ。）又は不活性の液化ガスのみを通ずるものを除く。以下この条から第十一条までにおいて同じ。）、特定ガス発生設備に係る容器及び移動式ガス発生設備（その貯蔵能力が、貯蔵するガスが液化ガスの場合は千キログラム以上、貯蔵するガスが圧縮ガスの場合は千立方メートル以上のものに限る。）に係る容器であって最高使用圧力が高圧のもの及び液化ガスを通ずるものは、その外面から学校、病院その他の告示で定める物件（以下「保安物件」という。）に対し告示で定める距離を有しなければならない。 ３ 前項に規定するガス工作物であって、告示で定める製造所（以下「特定事業所」という。）に設置するもの（告示で定めるものを除く。）は、前項の規定によるほかその外面から当該特定事業所の境界線（当該境界線に連接する海、河川、湖沼その他告示で定める施設若しくは土地がある場合又は当該特定事業所においてガス工作物を設置する者が所有し、若しくは地上権、賃借権その他の土地の使用を目的とする権利を設定している土地がある場合にあっては、その外縁）に対し告示で定める距離を有しなければならない。 ４ ガスの種類、ガス工作物の状況、周囲の状況等の理由により経済産業大臣の認可を受けた場合は、前各項の規定によらないでガス工作物を施設することができる。 ５ 前項の認可を受けようとするときは、その理由及び施設方法を記載した申請書に関係図面を添付して申請しなければならない。 ６ 前項の場合においては、申請書及び関係図面の写しをガス工作物の設置の場所を管轄する産業保安監督部長に提出しなければならない。 ７ 液化ガス用貯槽（不活性の液化ガス用のもの、貯蔵能力が三トン未満のもの及び地盤面下に全部埋設されたものを除く。）の相互間、地盤面下に全部埋設された液化ガス用貯槽（不活性の液化ガス用のものを除く。）の相互間、一のガスホルダー（最高使用圧力が高圧のものであって貯蔵能力が三百立方メートル以上のものに限る。）と他のガスホルダーとの相互間及び液化ガス用貯槽（不活性の液化ガス用のもの、貯蔵能力が三トン未満のもの及び地盤面下に全部埋設されたものを除く。）とガスホルダー（最高使用圧力が高圧のものに限る。）との相互間は、ガス又は液化ガスが漏えいした場合の災害の発生を防止するために、保安上必要な距離を有しなければならない。 ８ 大容量移動式ガス発生設備（移動式ガス発生設備であって貯蔵能力が液化ガスの場合百キログラム、圧縮ガスの場合三十立方メートルを超えるものをいう。第八条において同じ。）による供給を行う場合にあっては、ガス又は液化ガスが漏えいした場合の災害の発生を防止するために、他の移動式ガス発生設備に対し、保安上必要な距離を有しなければならない。",
+                  "textTruncated": false
+                },
+                "examAsOfSource": "document/sources/gas-shunin/official_exam_pdf_catalog.json",
+                "examSnapshot": {
+                  "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                  "asOf": "2020-09-27",
+                  "revisionId": "412M50000400111_20200626_502M60000400060",
+                  "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2020-09-27",
+                  "locator": {
+                    "kind": "article",
+                    "number": 6,
+                    "num": "6"
+                  },
+                  "xmlHash": "4155b00f6560219e4800e396f254c39369e60fc87f3191c67c798c4ee0fda92e",
+                  "extractionRegion": "LawBody/MainProvision/descendant::Article",
+                  "extractionVersion": "egov-main-provision/v2",
+                  "normalizationVersion": "itertext-whitespace-collapse-utf8-sha256/v1",
+                  "textHash": "2c0cb41cf59f37faca49cf6f78de5812ce58ee6117bfccaa102a0717b79e4080",
+                  "text": "（離隔距離） 第六条 ガス発生器及び増熱器（移動式ガス発生設備に属するものを除く。）並びにガス精製設備、排送機、圧送機、ガスホルダー及び附帯設備であって製造設備に属するもの（冷凍設備及び配管を除く。）は、その外面から事業場の境界線（境界線が海、河川、湖沼等に接する場合は、当該海、河川、湖沼等の対岸）に対し、告示で定める距離を有しなければならない。 ただし、災害その他非常の場合において、やむを得ない一時的な工事により設置されたガス発生器及び増熱器並びに附帯設備に属する熱交換器及び容器であって、告示で定める措置を講じたものについては、この限りでない。 ２ 前項に規定するガス工作物（不活性のガス（空気を含む。以下同じ。）又は不活性の液化ガスのみを通ずるものを除く。以下この条から第十一条までにおいて同じ。）、特定ガス発生設備に係る容器及び移動式ガス発生設備（その貯蔵能力が、貯蔵するガスが液化ガスの場合は千キログラム以上、貯蔵するガスが圧縮ガスの場合は千立方メートル以上のものに限る。）に係る容器であって最高使用圧力が高圧のもの及び液化ガスを通ずるものは、その外面から学校、病院その他の告示で定める物件（以下「保安物件」という。）に対し告示で定める距離を有しなければならない。 ３ 前項に規定するガス工作物であって、告示で定める製造所（以下「特定事業所」という。）に設置するもの（告示で定めるものを除く。）は、前項の規定によるほかその外面から当該特定事業所の境界線（当該境界線に連接する海、河川、湖沼その他告示で定める施設若しくは土地がある場合又は当該特定事業所においてガス工作物を設置する者が所有し、若しくは地上権、賃借権その他の土地の使用を目的とする権利を設定している土地がある場合にあっては、その外縁）に対し告示で定める距離を有しなければならない。 ４ ガスの種類、ガス工作物の状況、周囲の状況等の理由により経済産業大臣の認可を受けた場合は、前各項の規定によらないでガス工作物を施設することができる。 ５ 前項の認可を受けようとするときは、その理由及び施設方法を記載した申請書に関係図面を添付して申請しなければならない。 ６ 前項の場合においては、申請書及び関係図面の写しをガス工作物の設置の場所を管轄する産業保安監督部長に提出しなければならない。 ７ 液化ガス用貯槽（不活性の液化ガス用のもの、貯蔵能力が三トン未満のもの及び地盤面下に全部埋設されたものを除く。）の相互間、地盤面下に全部埋設された液化ガス用貯槽（不活性の液化ガス用のものを除く。）の相互間、一のガスホルダー（最高使用圧力が高圧のものであって貯蔵能力が三百立方メートル以上のものに限る。）と他のガスホルダーとの相互間及び液化ガス用貯槽（不活性の液化ガス用のもの、貯蔵能力が三トン未満のもの及び地盤面下に全部埋設されたものを除く。）とガスホルダー（最高使用圧力が高圧のものに限る。）との相互間は、ガス又は液化ガスが漏えいした場合の災害の発生を防止するために、保安上必要な距離を有しなければならない。 ８ 大容量移動式ガス発生設備（移動式ガス発生設備であって貯蔵能力が液化ガスの場合百キログラム、圧縮ガスの場合三十立方メートルを超えるものをいう。第八条において同じ。）による供給を行う場合にあっては、ガス又は液化ガスが漏えいした場合の災害の発生を防止するために、他の移動式ガス発生設備に対し、保安上必要な距離を有しなければならない。",
+                  "textTruncated": false
+                },
+                "examSnapshotStatus": "available",
+                "comparison": "unchanged",
+                "status": "complete"
+              },
+              {
+                "lawId": "412M50000400111",
+                "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                "role": "current_basis",
+                "scope": "choice",
+                "choiceIndex": 1,
+                "declaredArticle": "第6条第2項",
+                "locator": {
+                  "kind": "article",
+                  "number": 6,
+                  "num": "6"
+                },
+                "resolvedLawTitle": "ガス工作物の技術上の基準を定める省令",
+                "currentSnapshot": {
+                  "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                  "asOf": "2026-10-28",
+                  "revisionId": "412M50000400111_20240427_506M60000400035",
+                  "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2026-10-28",
+                  "locator": {
+                    "kind": "article",
+                    "number": 6,
+                    "num": "6"
+                  },
+                  "xmlHash": "0d9aa0bfc33559534f05554b86065743547262a88b62a5ade3b11da6d9697140",
+                  "extractionRegion": "LawBody/MainProvision/descendant::Article",
+                  "extractionVersion": "egov-main-provision/v2",
+                  "normalizationVersion": "itertext-whitespace-collapse-utf8-sha256/v1",
+                  "textHash": "2c0cb41cf59f37faca49cf6f78de5812ce58ee6117bfccaa102a0717b79e4080",
+                  "text": "（離隔距離） 第六条 ガス発生器及び増熱器（移動式ガス発生設備に属するものを除く。）並びにガス精製設備、排送機、圧送機、ガスホルダー及び附帯設備であって製造設備に属するもの（冷凍設備及び配管を除く。）は、その外面から事業場の境界線（境界線が海、河川、湖沼等に接する場合は、当該海、河川、湖沼等の対岸）に対し、告示で定める距離を有しなければならない。 ただし、災害その他非常の場合において、やむを得ない一時的な工事により設置されたガス発生器及び増熱器並びに附帯設備に属する熱交換器及び容器であって、告示で定める措置を講じたものについては、この限りでない。 ２ 前項に規定するガス工作物（不活性のガス（空気を含む。以下同じ。）又は不活性の液化ガスのみを通ずるものを除く。以下この条から第十一条までにおいて同じ。）、特定ガス発生設備に係る容器及び移動式ガス発生設備（その貯蔵能力が、貯蔵するガスが液化ガスの場合は千キログラム以上、貯蔵するガスが圧縮ガスの場合は千立方メートル以上のものに限る。）に係る容器であって最高使用圧力が高圧のもの及び液化ガスを通ずるものは、その外面から学校、病院その他の告示で定める物件（以下「保安物件」という。）に対し告示で定める距離を有しなければならない。 ３ 前項に規定するガス工作物であって、告示で定める製造所（以下「特定事業所」という。）に設置するもの（告示で定めるものを除く。）は、前項の規定によるほかその外面から当該特定事業所の境界線（当該境界線に連接する海、河川、湖沼その他告示で定める施設若しくは土地がある場合又は当該特定事業所においてガス工作物を設置する者が所有し、若しくは地上権、賃借権その他の土地の使用を目的とする権利を設定している土地がある場合にあっては、その外縁）に対し告示で定める距離を有しなければならない。 ４ ガスの種類、ガス工作物の状況、周囲の状況等の理由により経済産業大臣の認可を受けた場合は、前各項の規定によらないでガス工作物を施設することができる。 ５ 前項の認可を受けようとするときは、その理由及び施設方法を記載した申請書に関係図面を添付して申請しなければならない。 ６ 前項の場合においては、申請書及び関係図面の写しをガス工作物の設置の場所を管轄する産業保安監督部長に提出しなければならない。 ７ 液化ガス用貯槽（不活性の液化ガス用のもの、貯蔵能力が三トン未満のもの及び地盤面下に全部埋設されたものを除く。）の相互間、地盤面下に全部埋設された液化ガス用貯槽（不活性の液化ガス用のものを除く。）の相互間、一のガスホルダー（最高使用圧力が高圧のものであって貯蔵能力が三百立方メートル以上のものに限る。）と他のガスホルダーとの相互間及び液化ガス用貯槽（不活性の液化ガス用のもの、貯蔵能力が三トン未満のもの及び地盤面下に全部埋設されたものを除く。）とガスホルダー（最高使用圧力が高圧のものに限る。）との相互間は、ガス又は液化ガスが漏えいした場合の災害の発生を防止するために、保安上必要な距離を有しなければならない。 ８ 大容量移動式ガス発生設備（移動式ガス発生設備であって貯蔵能力が液化ガスの場合百キログラム、圧縮ガスの場合三十立方メートルを超えるものをいう。第八条において同じ。）による供給を行う場合にあっては、ガス又は液化ガスが漏えいした場合の災害の発生を防止するために、他の移動式ガス発生設備に対し、保安上必要な距離を有しなければならない。",
+                  "textTruncated": false
+                },
+                "examAsOfSource": "document/sources/gas-shunin/official_exam_pdf_catalog.json",
+                "examSnapshot": {
+                  "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                  "asOf": "2020-09-27",
+                  "revisionId": "412M50000400111_20200626_502M60000400060",
+                  "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2020-09-27",
+                  "locator": {
+                    "kind": "article",
+                    "number": 6,
+                    "num": "6"
+                  },
+                  "xmlHash": "4155b00f6560219e4800e396f254c39369e60fc87f3191c67c798c4ee0fda92e",
+                  "extractionRegion": "LawBody/MainProvision/descendant::Article",
+                  "extractionVersion": "egov-main-provision/v2",
+                  "normalizationVersion": "itertext-whitespace-collapse-utf8-sha256/v1",
+                  "textHash": "2c0cb41cf59f37faca49cf6f78de5812ce58ee6117bfccaa102a0717b79e4080",
+                  "text": "（離隔距離） 第六条 ガス発生器及び増熱器（移動式ガス発生設備に属するものを除く。）並びにガス精製設備、排送機、圧送機、ガスホルダー及び附帯設備であって製造設備に属するもの（冷凍設備及び配管を除く。）は、その外面から事業場の境界線（境界線が海、河川、湖沼等に接する場合は、当該海、河川、湖沼等の対岸）に対し、告示で定める距離を有しなければならない。 ただし、災害その他非常の場合において、やむを得ない一時的な工事により設置されたガス発生器及び増熱器並びに附帯設備に属する熱交換器及び容器であって、告示で定める措置を講じたものについては、この限りでない。 ２ 前項に規定するガス工作物（不活性のガス（空気を含む。以下同じ。）又は不活性の液化ガスのみを通ずるものを除く。以下この条から第十一条までにおいて同じ。）、特定ガス発生設備に係る容器及び移動式ガス発生設備（その貯蔵能力が、貯蔵するガスが液化ガスの場合は千キログラム以上、貯蔵するガスが圧縮ガスの場合は千立方メートル以上のものに限る。）に係る容器であって最高使用圧力が高圧のもの及び液化ガスを通ずるものは、その外面から学校、病院その他の告示で定める物件（以下「保安物件」という。）に対し告示で定める距離を有しなければならない。 ３ 前項に規定するガス工作物であって、告示で定める製造所（以下「特定事業所」という。）に設置するもの（告示で定めるものを除く。）は、前項の規定によるほかその外面から当該特定事業所の境界線（当該境界線に連接する海、河川、湖沼その他告示で定める施設若しくは土地がある場合又は当該特定事業所においてガス工作物を設置する者が所有し、若しくは地上権、賃借権その他の土地の使用を目的とする権利を設定している土地がある場合にあっては、その外縁）に対し告示で定める距離を有しなければならない。 ４ ガスの種類、ガス工作物の状況、周囲の状況等の理由により経済産業大臣の認可を受けた場合は、前各項の規定によらないでガス工作物を施設することができる。 ５ 前項の認可を受けようとするときは、その理由及び施設方法を記載した申請書に関係図面を添付して申請しなければならない。 ６ 前項の場合においては、申請書及び関係図面の写しをガス工作物の設置の場所を管轄する産業保安監督部長に提出しなければならない。 ７ 液化ガス用貯槽（不活性の液化ガス用のもの、貯蔵能力が三トン未満のもの及び地盤面下に全部埋設されたものを除く。）の相互間、地盤面下に全部埋設された液化ガス用貯槽（不活性の液化ガス用のものを除く。）の相互間、一のガスホルダー（最高使用圧力が高圧のものであって貯蔵能力が三百立方メートル以上のものに限る。）と他のガスホルダーとの相互間及び液化ガス用貯槽（不活性の液化ガス用のもの、貯蔵能力が三トン未満のもの及び地盤面下に全部埋設されたものを除く。）とガスホルダー（最高使用圧力が高圧のものに限る。）との相互間は、ガス又は液化ガスが漏えいした場合の災害の発生を防止するために、保安上必要な距離を有しなければならない。 ８ 大容量移動式ガス発生設備（移動式ガス発生設備であって貯蔵能力が液化ガスの場合百キログラム、圧縮ガスの場合三十立方メートルを超えるものをいう。第八条において同じ。）による供給を行う場合にあっては、ガス又は液化ガスが漏えいした場合の災害の発生を防止するために、他の移動式ガス発生設備に対し、保安上必要な距離を有しなければならない。",
+                  "textTruncated": false
+                },
+                "examSnapshotStatus": "available",
+                "comparison": "unchanged",
+                "status": "complete"
+              },
+              {
+                "lawId": "412M50000400111",
+                "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                "role": "current_basis",
+                "scope": "choice",
+                "choiceIndex": 2,
+                "declaredArticle": "第6条第4項",
+                "locator": {
+                  "kind": "article",
+                  "number": 6,
+                  "num": "6"
+                },
+                "resolvedLawTitle": "ガス工作物の技術上の基準を定める省令",
+                "currentSnapshot": {
+                  "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                  "asOf": "2026-10-28",
+                  "revisionId": "412M50000400111_20240427_506M60000400035",
+                  "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2026-10-28",
+                  "locator": {
+                    "kind": "article",
+                    "number": 6,
+                    "num": "6"
+                  },
+                  "xmlHash": "0d9aa0bfc33559534f05554b86065743547262a88b62a5ade3b11da6d9697140",
+                  "extractionRegion": "LawBody/MainProvision/descendant::Article",
+                  "extractionVersion": "egov-main-provision/v2",
+                  "normalizationVersion": "itertext-whitespace-collapse-utf8-sha256/v1",
+                  "textHash": "2c0cb41cf59f37faca49cf6f78de5812ce58ee6117bfccaa102a0717b79e4080",
+                  "text": "（離隔距離） 第六条 ガス発生器及び増熱器（移動式ガス発生設備に属するものを除く。）並びにガス精製設備、排送機、圧送機、ガスホルダー及び附帯設備であって製造設備に属するもの（冷凍設備及び配管を除く。）は、その外面から事業場の境界線（境界線が海、河川、湖沼等に接する場合は、当該海、河川、湖沼等の対岸）に対し、告示で定める距離を有しなければならない。 ただし、災害その他非常の場合において、やむを得ない一時的な工事により設置されたガス発生器及び増熱器並びに附帯設備に属する熱交換器及び容器であって、告示で定める措置を講じたものについては、この限りでない。 ２ 前項に規定するガス工作物（不活性のガス（空気を含む。以下同じ。）又は不活性の液化ガスのみを通ずるものを除く。以下この条から第十一条までにおいて同じ。）、特定ガス発生設備に係る容器及び移動式ガス発生設備（その貯蔵能力が、貯蔵するガスが液化ガスの場合は千キログラム以上、貯蔵するガスが圧縮ガスの場合は千立方メートル以上のものに限る。）に係る容器であって最高使用圧力が高圧のもの及び液化ガスを通ずるものは、その外面から学校、病院その他の告示で定める物件（以下「保安物件」という。）に対し告示で定める距離を有しなければならない。 ３ 前項に規定するガス工作物であって、告示で定める製造所（以下「特定事業所」という。）に設置するもの（告示で定めるものを除く。）は、前項の規定によるほかその外面から当該特定事業所の境界線（当該境界線に連接する海、河川、湖沼その他告示で定める施設若しくは土地がある場合又は当該特定事業所においてガス工作物を設置する者が所有し、若しくは地上権、賃借権その他の土地の使用を目的とする権利を設定している土地がある場合にあっては、その外縁）に対し告示で定める距離を有しなければならない。 ４ ガスの種類、ガス工作物の状況、周囲の状況等の理由により経済産業大臣の認可を受けた場合は、前各項の規定によらないでガス工作物を施設することができる。 ５ 前項の認可を受けようとするときは、その理由及び施設方法を記載した申請書に関係図面を添付して申請しなければならない。 ６ 前項の場合においては、申請書及び関係図面の写しをガス工作物の設置の場所を管轄する産業保安監督部長に提出しなければならない。 ７ 液化ガス用貯槽（不活性の液化ガス用のもの、貯蔵能力が三トン未満のもの及び地盤面下に全部埋設されたものを除く。）の相互間、地盤面下に全部埋設された液化ガス用貯槽（不活性の液化ガス用のものを除く。）の相互間、一のガスホルダー（最高使用圧力が高圧のものであって貯蔵能力が三百立方メートル以上のものに限る。）と他のガスホルダーとの相互間及び液化ガス用貯槽（不活性の液化ガス用のもの、貯蔵能力が三トン未満のもの及び地盤面下に全部埋設されたものを除く。）とガスホルダー（最高使用圧力が高圧のものに限る。）との相互間は、ガス又は液化ガスが漏えいした場合の災害の発生を防止するために、保安上必要な距離を有しなければならない。 ８ 大容量移動式ガス発生設備（移動式ガス発生設備であって貯蔵能力が液化ガスの場合百キログラム、圧縮ガスの場合三十立方メートルを超えるものをいう。第八条において同じ。）による供給を行う場合にあっては、ガス又は液化ガスが漏えいした場合の災害の発生を防止するために、他の移動式ガス発生設備に対し、保安上必要な距離を有しなければならない。",
+                  "textTruncated": false
+                },
+                "examAsOfSource": "document/sources/gas-shunin/official_exam_pdf_catalog.json",
+                "examSnapshot": {
+                  "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                  "asOf": "2020-09-27",
+                  "revisionId": "412M50000400111_20200626_502M60000400060",
+                  "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2020-09-27",
+                  "locator": {
+                    "kind": "article",
+                    "number": 6,
+                    "num": "6"
+                  },
+                  "xmlHash": "4155b00f6560219e4800e396f254c39369e60fc87f3191c67c798c4ee0fda92e",
+                  "extractionRegion": "LawBody/MainProvision/descendant::Article",
+                  "extractionVersion": "egov-main-provision/v2",
+                  "normalizationVersion": "itertext-whitespace-collapse-utf8-sha256/v1",
+                  "textHash": "2c0cb41cf59f37faca49cf6f78de5812ce58ee6117bfccaa102a0717b79e4080",
+                  "text": "（離隔距離） 第六条 ガス発生器及び増熱器（移動式ガス発生設備に属するものを除く。）並びにガス精製設備、排送機、圧送機、ガスホルダー及び附帯設備であって製造設備に属するもの（冷凍設備及び配管を除く。）は、その外面から事業場の境界線（境界線が海、河川、湖沼等に接する場合は、当該海、河川、湖沼等の対岸）に対し、告示で定める距離を有しなければならない。 ただし、災害その他非常の場合において、やむを得ない一時的な工事により設置されたガス発生器及び増熱器並びに附帯設備に属する熱交換器及び容器であって、告示で定める措置を講じたものについては、この限りでない。 ２ 前項に規定するガス工作物（不活性のガス（空気を含む。以下同じ。）又は不活性の液化ガスのみを通ずるものを除く。以下この条から第十一条までにおいて同じ。）、特定ガス発生設備に係る容器及び移動式ガス発生設備（その貯蔵能力が、貯蔵するガスが液化ガスの場合は千キログラム以上、貯蔵するガスが圧縮ガスの場合は千立方メートル以上のものに限る。）に係る容器であって最高使用圧力が高圧のもの及び液化ガスを通ずるものは、その外面から学校、病院その他の告示で定める物件（以下「保安物件」という。）に対し告示で定める距離を有しなければならない。 ３ 前項に規定するガス工作物であって、告示で定める製造所（以下「特定事業所」という。）に設置するもの（告示で定めるものを除く。）は、前項の規定によるほかその外面から当該特定事業所の境界線（当該境界線に連接する海、河川、湖沼その他告示で定める施設若しくは土地がある場合又は当該特定事業所においてガス工作物を設置する者が所有し、若しくは地上権、賃借権その他の土地の使用を目的とする権利を設定している土地がある場合にあっては、その外縁）に対し告示で定める距離を有しなければならない。 ４ ガスの種類、ガス工作物の状況、周囲の状況等の理由により経済産業大臣の認可を受けた場合は、前各項の規定によらないでガス工作物を施設することができる。 ５ 前項の認可を受けようとするときは、その理由及び施設方法を記載した申請書に関係図面を添付して申請しなければならない。 ６ 前項の場合においては、申請書及び関係図面の写しをガス工作物の設置の場所を管轄する産業保安監督部長に提出しなければならない。 ７ 液化ガス用貯槽（不活性の液化ガス用のもの、貯蔵能力が三トン未満のもの及び地盤面下に全部埋設されたものを除く。）の相互間、地盤面下に全部埋設された液化ガス用貯槽（不活性の液化ガス用のものを除く。）の相互間、一のガスホルダー（最高使用圧力が高圧のものであって貯蔵能力が三百立方メートル以上のものに限る。）と他のガスホルダーとの相互間及び液化ガス用貯槽（不活性の液化ガス用のもの、貯蔵能力が三トン未満のもの及び地盤面下に全部埋設されたものを除く。）とガスホルダー（最高使用圧力が高圧のものに限る。）との相互間は、ガス又は液化ガスが漏えいした場合の災害の発生を防止するために、保安上必要な距離を有しなければならない。 ８ 大容量移動式ガス発生設備（移動式ガス発生設備であって貯蔵能力が液化ガスの場合百キログラム、圧縮ガスの場合三十立方メートルを超えるものをいう。第八条において同じ。）による供給を行う場合にあっては、ガス又は液化ガスが漏えいした場合の災害の発生を防止するために、他の移動式ガス発生設備に対し、保安上必要な距離を有しなければならない。",
+                  "textTruncated": false
+                },
+                "examSnapshotStatus": "available",
+                "comparison": "unchanged",
+                "status": "complete"
+              },
+              {
+                "lawId": "412M50000400111",
+                "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                "role": "current_basis",
+                "scope": "choice",
+                "choiceIndex": 3,
+                "declaredArticle": "第9条第2項",
+                "locator": {
+                  "kind": "article",
+                  "number": 9,
+                  "num": "9"
+                },
+                "resolvedLawTitle": "ガス工作物の技術上の基準を定める省令",
+                "currentSnapshot": {
+                  "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                  "asOf": "2026-10-28",
+                  "revisionId": "412M50000400111_20240427_506M60000400035",
+                  "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2026-10-28",
+                  "locator": {
+                    "kind": "article",
+                    "number": 9,
+                    "num": "9"
+                  },
+                  "xmlHash": "0d9aa0bfc33559534f05554b86065743547262a88b62a5ade3b11da6d9697140",
+                  "extractionRegion": "LawBody/MainProvision/descendant::Article",
+                  "extractionVersion": "egov-main-provision/v2",
+                  "normalizationVersion": "itertext-whitespace-collapse-utf8-sha256/v1",
+                  "textHash": "d6da3cc74a7c2c4f1bb8af9705e79c996f0dcdcdb0c501e218582e9ed37de871",
+                  "text": "（ガスの滞留防止） 第九条 ガス又は液化ガスを通ずるガス工作物を設置する室（製造所及び供給所に存するものに限る。）は、これらのガス又は液化ガスが漏えいしたとき滞留しない構造でなければならない。 ２ 製造所には、ガス又は液化ガスを通ずるガス工作物から漏えいしたガスが滞留するおそれのある製造所内の適当な場所に、当該ガスの漏えいを適切に検知し、かつ、警報する設備を設けなければならない。",
+                  "textTruncated": false
+                },
+                "examAsOfSource": "document/sources/gas-shunin/official_exam_pdf_catalog.json",
+                "examSnapshot": {
+                  "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                  "asOf": "2020-09-27",
+                  "revisionId": "412M50000400111_20200626_502M60000400060",
+                  "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2020-09-27",
+                  "locator": {
+                    "kind": "article",
+                    "number": 9,
+                    "num": "9"
+                  },
+                  "xmlHash": "4155b00f6560219e4800e396f254c39369e60fc87f3191c67c798c4ee0fda92e",
+                  "extractionRegion": "LawBody/MainProvision/descendant::Article",
+                  "extractionVersion": "egov-main-provision/v2",
+                  "normalizationVersion": "itertext-whitespace-collapse-utf8-sha256/v1",
+                  "textHash": "d6da3cc74a7c2c4f1bb8af9705e79c996f0dcdcdb0c501e218582e9ed37de871",
+                  "text": "（ガスの滞留防止） 第九条 ガス又は液化ガスを通ずるガス工作物を設置する室（製造所及び供給所に存するものに限る。）は、これらのガス又は液化ガスが漏えいしたとき滞留しない構造でなければならない。 ２ 製造所には、ガス又は液化ガスを通ずるガス工作物から漏えいしたガスが滞留するおそれのある製造所内の適当な場所に、当該ガスの漏えいを適切に検知し、かつ、警報する設備を設けなければならない。",
+                  "textTruncated": false
+                },
+                "examSnapshotStatus": "available",
+                "comparison": "unchanged",
+                "status": "complete"
+              },
+              {
+                "lawId": "412M50000400111",
+                "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                "role": "current_basis",
+                "scope": "choice",
+                "choiceIndex": 4,
+                "declaredArticle": "第13条第1項",
+                "locator": {
+                  "kind": "article",
+                  "number": 13,
+                  "num": "13"
+                },
+                "resolvedLawTitle": "ガス工作物の技術上の基準を定める省令",
+                "currentSnapshot": {
+                  "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                  "asOf": "2026-10-28",
+                  "revisionId": "412M50000400111_20240427_506M60000400035",
+                  "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2026-10-28",
+                  "locator": {
+                    "kind": "article",
+                    "number": 13,
+                    "num": "13"
+                  },
+                  "xmlHash": "0d9aa0bfc33559534f05554b86065743547262a88b62a5ade3b11da6d9697140",
+                  "extractionRegion": "LawBody/MainProvision/descendant::Article",
+                  "extractionVersion": "egov-main-provision/v2",
+                  "normalizationVersion": "itertext-whitespace-collapse-utf8-sha256/v1",
+                  "textHash": "c3250cff403d0dfdff8c59749b0e372c73a540df2eecaaa9ce2f702ab2d17af9",
+                  "text": "（ガスの置換等） 第十三条 ガス発生設備、ガス精製設備、排送機、圧送機、ガスホルダー及び附帯設備であって製造設備に属するもののガス又は液化ガスを通ずる部分（不活性のガス又は不活性の液化ガスのみを通ずるものを除く。）は、ガス又は液化ガスを安全に置換できる構造でなければならない。 ２ ベントスタックには、放出したガスが周囲に障害を与えるおそれのないように適切な措置を講じなければならない。 ３ フレアースタックには、当該フレアースタックにおいて発生するふく射熱が周囲に障害を与えないよう適切な措置を講じ、かつ、ガスを安全に放出するための適切な措置を講じなければならない。 ４ 毒性ガスを冷媒とする冷凍設備にあっては、冷媒ガスを廃棄する際にそのガスが危険又は損害を他に及ぼすおそれのないように廃棄される構造のものでなければならない。",
+                  "textTruncated": false
+                },
+                "examAsOfSource": "document/sources/gas-shunin/official_exam_pdf_catalog.json",
+                "examSnapshot": {
+                  "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                  "asOf": "2020-09-27",
+                  "revisionId": "412M50000400111_20200626_502M60000400060",
+                  "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2020-09-27",
+                  "locator": {
+                    "kind": "article",
+                    "number": 13,
+                    "num": "13"
+                  },
+                  "xmlHash": "4155b00f6560219e4800e396f254c39369e60fc87f3191c67c798c4ee0fda92e",
+                  "extractionRegion": "LawBody/MainProvision/descendant::Article",
+                  "extractionVersion": "egov-main-provision/v2",
+                  "normalizationVersion": "itertext-whitespace-collapse-utf8-sha256/v1",
+                  "textHash": "c3250cff403d0dfdff8c59749b0e372c73a540df2eecaaa9ce2f702ab2d17af9",
+                  "text": "（ガスの置換等） 第十三条 ガス発生設備、ガス精製設備、排送機、圧送機、ガスホルダー及び附帯設備であって製造設備に属するもののガス又は液化ガスを通ずる部分（不活性のガス又は不活性の液化ガスのみを通ずるものを除く。）は、ガス又は液化ガスを安全に置換できる構造でなければならない。 ２ ベントスタックには、放出したガスが周囲に障害を与えるおそれのないように適切な措置を講じなければならない。 ３ フレアースタックには、当該フレアースタックにおいて発生するふく射熱が周囲に障害を与えないよう適切な措置を講じ、かつ、ガスを安全に放出するための適切な措置を講じなければならない。 ４ 毒性ガスを冷媒とする冷凍設備にあっては、冷媒ガスを廃棄する際にそのガスが危険又は損害を他に及ぼすおそれのないように廃棄される構造のものでなければならない。",
+                  "textTruncated": false
+                },
+                "examSnapshotStatus": "available",
+                "comparison": "unchanged",
+                "status": "complete"
+              }
+            ],
+            "errors": []
+          },
+          "lawRevisionFacts": [
+            {
+              "auditStatus": "same_as_current",
+              "reviewState": "needs_secondary_review",
+              "reconciliationStatus": "pending",
+              "differenceFacts": [
+                "技術省令6条2項の距離の測定基点は出題時と現行で同じ。"
+              ],
+              "answerImpactFacts": [
+                "間違い。容器の外面から保安物件まで測るため、製造所の敷地境界からという記述は技術省令6条2項と異なる。"
+              ],
+              "evidenceSummary": {
+                "verdict": "間違い",
+                "explanationText": "間違い。容器の外面から保安物件まで測るため、製造所の敷地境界からという記述は技術省令6条2項と異なる。",
+                "differenceSummary": "技術省令6条2項の距離の測定基点は出題時と現行で同じ。",
+                "promptContext": "特定ガス発生設備に係る容器であって液化ガスを通ずるものは、その製造所の敷地境界から保安物件に対し告示で定める距離を有しなければならない。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "examTime": {
+                "correctChoiceText": "間違い",
+                "lawId": "412M50000400111",
+                "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                "lawRevisionId": "412M50000400111_20200626_502M60000400060",
+                "referenceDate": "2020-09-27",
+                "article": "第6条第2項",
+                "verificationStatus": "verified",
+                "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2020-09-27",
+                "articleTextHash": "2c0cb41cf59f37faca49cf6f78de5812ce58ee6117bfccaa102a0717b79e4080"
+              },
+              "current": {
+                "correctChoiceText": "間違い",
+                "lawId": "412M50000400111",
+                "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                "lawRevisionId": "412M50000400111_20240427_506M60000400035",
+                "referenceDate": "2026-10-28",
+                "article": "第6条第2項",
+                "verificationStatus": "verified",
+                "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2026-10-28",
+                "articleTextHash": "2c0cb41cf59f37faca49cf6f78de5812ce58ee6117bfccaa102a0717b79e4080"
+              }
+            },
+            {
+              "auditStatus": "same_as_current",
+              "reviewState": "needs_secondary_review",
+              "reconciliationStatus": "pending",
+              "differenceFacts": [
+                "技術省令6条2項の告示への委任は両時点で同じ。告示本文そのものの時点別原本は今回未取得である。",
+                "国会図書館の法令沿革と実官報令和7年告示145号第2条を照合。2020年以降の記載された改正は2025年の第3条第4号であり、劇場等の第3号は当該官報の改正対象でない。2024年JGA案17頁は300人以上を既存記載として示す。"
+              ],
+              "answerImpactFacts": [
+                "正しい。300人以上の劇場等で、事業場と同一敷地内を除く条件は2024年JGA指針案17頁及び同年度乙種の既整備監査と一致する。"
+              ],
+              "evidenceSummary": {
+                "verdict": "正しい",
+                "explanationText": "正しい。300人以上の劇場等で、事業場と同一敷地内を除く条件は2024年JGA指針案17頁及び同年度乙種の既整備監査と一致する。",
+                "differenceSummary": "2020公式正答、2024年JGA案の既存記載、2025年官報の改正対象及びNDL沿革を照合。細目告示の全条文原本を入手したわけではない。",
+                "promptContext": "劇場、映画館、演芸場、公会堂その他これらに類する施設であって、収容定員300人以上のもの（事業場の存する敷地と同一敷地内にあるものを除く。）は、第1種保安物件に該当する。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "examTime": {
+                "correctChoiceText": "正しい",
+                "lawId": "412M50000400111",
+                "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                "lawRevisionId": "412M50000400111_20200626_502M60000400060",
+                "referenceDate": "2020-09-27",
+                "article": "第6条第2項",
+                "verificationStatus": "verified",
+                "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2020-09-27",
+                "articleTextHash": "2c0cb41cf59f37faca49cf6f78de5812ce58ee6117bfccaa102a0717b79e4080"
+              },
+              "current": {
+                "correctChoiceText": "正しい",
+                "lawId": "412M50000400111",
+                "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                "lawRevisionId": "412M50000400111_20240427_506M60000400035",
+                "referenceDate": "2026-10-28",
+                "article": "第6条第2項",
+                "verificationStatus": "verified",
+                "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2026-10-28",
+                "articleTextHash": "2c0cb41cf59f37faca49cf6f78de5812ce58ee6117bfccaa102a0717b79e4080"
+              }
+            },
+            {
+              "auditStatus": "same_as_current",
+              "reviewState": "needs_secondary_review",
+              "reconciliationStatus": "pending",
+              "differenceFacts": [
+                "技術省令6条4項は両時点で同じ。"
+              ],
+              "answerImpactFacts": [
+                "間違い。距離基準によらない施設には届出でなく大臣の認可を要する。"
+              ],
+              "evidenceSummary": {
+                "verdict": "間違い",
+                "explanationText": "間違い。距離基準によらない施設には届出でなく大臣の認可を要する。",
+                "differenceSummary": "技術省令6条4項は両時点で同じ。",
+                "promptContext": "ガスの種類、ガス工作物の状況、周囲の状況等の理由によりあらかじめ経済産業大臣に届け出た場合は、告示で定める距離を有しないでガス工作物を施設することができる。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "examTime": {
+                "correctChoiceText": "間違い",
+                "lawId": "412M50000400111",
+                "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                "lawRevisionId": "412M50000400111_20200626_502M60000400060",
+                "referenceDate": "2020-09-27",
+                "article": "第6条第4項",
+                "verificationStatus": "verified",
+                "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2020-09-27",
+                "articleTextHash": "2c0cb41cf59f37faca49cf6f78de5812ce58ee6117bfccaa102a0717b79e4080"
+              },
+              "current": {
+                "correctChoiceText": "間違い",
+                "lawId": "412M50000400111",
+                "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                "lawRevisionId": "412M50000400111_20240427_506M60000400035",
+                "referenceDate": "2026-10-28",
+                "article": "第6条第4項",
+                "verificationStatus": "verified",
+                "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2026-10-28",
+                "articleTextHash": "2c0cb41cf59f37faca49cf6f78de5812ce58ee6117bfccaa102a0717b79e4080"
+              }
+            },
+            {
+              "auditStatus": "same_as_current",
+              "reviewState": "needs_secondary_review",
+              "reconciliationStatus": "pending",
+              "differenceFacts": [
+                "技術省令9条2項は両時点で同じ。"
+              ],
+              "answerImpactFacts": [
+                "正しい。製造所の漏えいガスの滞留のおそれがある場所に検知警報設備を設ける。"
+              ],
+              "evidenceSummary": {
+                "verdict": "正しい",
+                "explanationText": "正しい。製造所の漏えいガスの滞留のおそれがある場所に検知警報設備を設ける。",
+                "differenceSummary": "技術省令9条2項は両時点で同じ。",
+                "promptContext": "製造所には、液化ガスを通ずるガス工作物から漏えいしたガスが滞留するおそれのある製造所内の適当な場所に、当該ガスの漏えいを適切に検知し、かつ、警報する設備を設けなければならない。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "examTime": {
+                "correctChoiceText": "正しい",
+                "lawId": "412M50000400111",
+                "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                "lawRevisionId": "412M50000400111_20200626_502M60000400060",
+                "referenceDate": "2020-09-27",
+                "article": "第9条第2項",
+                "verificationStatus": "verified",
+                "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2020-09-27",
+                "articleTextHash": "d6da3cc74a7c2c4f1bb8af9705e79c996f0dcdcdb0c501e218582e9ed37de871"
+              },
+              "current": {
+                "correctChoiceText": "正しい",
+                "lawId": "412M50000400111",
+                "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                "lawRevisionId": "412M50000400111_20240427_506M60000400035",
+                "referenceDate": "2026-10-28",
+                "article": "第9条第2項",
+                "verificationStatus": "verified",
+                "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2026-10-28",
+                "articleTextHash": "d6da3cc74a7c2c4f1bb8af9705e79c996f0dcdcdb0c501e218582e9ed37de871"
+              }
+            },
+            {
+              "auditStatus": "same_as_current",
+              "reviewState": "needs_secondary_review",
+              "reconciliationStatus": "pending",
+              "differenceFacts": [
+                "技術省令13条1項と4項は両時点で同じ。"
+              ],
+              "answerImpactFacts": [
+                "間違い。ガス又は液化ガスを安全に置換できる構造が必要で、廃棄できる構造ではない。"
+              ],
+              "evidenceSummary": {
+                "verdict": "間違い",
+                "explanationText": "間違い。ガス又は液化ガスを安全に置換できる構造が必要で、廃棄できる構造ではない。",
+                "differenceSummary": "技術省令13条1項と4項は両時点で同じ。",
+                "promptContext": "ガス発生設備及び附帯設備であって製造設備に属するものの液化ガスを通ずる部分は、液化ガスを廃棄できる構造でなければならない。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "examTime": {
+                "correctChoiceText": "間違い",
+                "lawId": "412M50000400111",
+                "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                "lawRevisionId": "412M50000400111_20200626_502M60000400060",
+                "referenceDate": "2020-09-27",
+                "article": "第13条第1項",
+                "verificationStatus": "verified",
+                "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2020-09-27",
+                "articleTextHash": "c3250cff403d0dfdff8c59749b0e372c73a540df2eecaaa9ce2f702ab2d17af9"
+              },
+              "current": {
+                "correctChoiceText": "間違い",
+                "lawId": "412M50000400111",
+                "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                "lawRevisionId": "412M50000400111_20240427_506M60000400035",
+                "referenceDate": "2026-10-28",
+                "article": "第13条第1項",
+                "verificationStatus": "verified",
+                "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2026-10-28",
+                "articleTextHash": "c3250cff403d0dfdff8c59749b0e372c73a540df2eecaaa9ce2f702ab2d17af9"
+              }
+            }
+          ],
+          "reviewState": "needs_secondary_review",
+          "reconciliationStatus": "pending",
+          "holdReason": "",
+          "reviewNotes": "",
+          "verificationSummary": "主担当が公式冊子と試験時・現行の公式本文を全肢照合した。独立二次監査は未実施。",
+          "lawGroundedExplanationNotNeeded": false,
+          "lawContextForExplanation": "主担当が2020年度丙種公式問題PDF7頁・印刷6頁と公式正答表を直接目視。イからホの全記述及び5組合せを読み、正答4はロ・ニと確認した。2020-09-27及び2026-10-28の技術省令6・9・13条の全本文をe-Govで直接取得して読み、同じ本文であることを確認した。6条2項は対象容器の外面を基準に保安物件までの距離を定めるが、保安物件の詳細は告示へ委任する。第1肢は敷地境界起点との相違で誤り。第3肢の大臣の認可、4肢の漏えい警報、5肢の安全な置換は各条文から個別に判定した。第2肢は同年度乙種法令問6の同一記述の25_verified_publication及び既存法令監査で告示3条3号により正しいとされている。また日本ガス協会の https://www.gas.or.jp/pdf/iinkai/comment/pc_20240405_02.pdf 実17頁の2.1.2.3を画像と本文で直接読み、300人以上及び同一敷地除外、関連条項として告示3条を明記し、改定コメントが最新告示の反映を示すことを確認した。ただしJGA資料は2024年意見募集の案で、成立した現行規範そのものではない。今回、告示の原本を新たに取得したとは主張しない。JGA資料の初出時点、乙種2020年問題の監査2026-07-28及び当該丙種問題の公式正答表を補助資料として区別して添え、独立内容・法令監査に告示根拠の十分性を判断してもらう。 新たに国立国会図書館の法令沿革 https://hourei.ndl.go.jp/simple/detail?current=-1&lawId=0000087091 を取得し、告示355号が有効であり、出題後は令和7年10月1日告示145号により改正されたことを確認した。法令沿革は告示の本文ではないため、これだけで条文内容を導かない。取得済みのe-Gov公開の令和7年告示145号実官報1頁 https://public-comment.e-gov.go.jp/pcm/download?seqNo=0000287103 を画像及び本文で読み、同告示第2条は細目告示355号の第3条第4号にある障害福祉施設の引用項番号を改正すると確認した。第3号の劇場等は改正対象に掲げられていない。JGAの2024年意見募集案17頁では同3号に対応する劇場等の収容定員300人以上及び同一敷地外の条件が改正表示なく記載され、同資料のコメントは当時の告示反映と説明する。2020年の公式問題及び正答表4はロ・ニを正しい組合せと明示する。以上を別々の資料として突き合わせたものであり、2020年版及び2026年版の細目告示原本を入手したとは述べない。一次資料と時点の不足を含め、別sessionの独立監査で十分性を判断する。",
+          "suggestedQuestionDetailsByChoice": []
+        }
+      ]
+    },
+    {
+      "path": "output/gas-shunin-hei/direct_publication/20261027/primary/2020-law-06-r3.json",
+      "sha256": "7d5bd0ee6ef993b551e96bd7a11e53d23b7656ad611d8f590fc9b3810efb8b7e",
+      "payload": [
+        {
+          "sourceQuestionId": "2020:law:問6",
+          "questionType": "true_false",
+          "isCalculationQuestion": false,
+          "questionIntent": "select_correct",
+          "correctChoiceText": [
+            "間違い",
+            "正しい",
+            "間違い",
+            "正しい",
+            "間違い"
+          ],
+          "examTimeDecision": [
+            "間違い",
+            "正しい",
+            "間違い",
+            "正しい",
+            "間違い"
+          ],
+          "currentLawDecision": [
+            "間違い",
+            "正しい",
+            "間違い",
+            "正しい",
+            "間違い"
+          ],
+          "explanationText": [
+            "間違い。保安物件までの距離は、製造所の敷地境界からではなく、特定ガス発生設備に係る容器の外面から測る。ガス工作物の技術上の基準を定める省令第6条第2項は、対象となる容器の外面から保安物件まで告示で定める距離を確保するよう求めている。",
+            "正しい。劇場、映画館、演芸場、公会堂などで収容定員が300人以上の施設は、第1種保安物件に該当する。事業場と同一敷地内の施設は除く。第1種保安物件の具体的な範囲は、ガス工作物の技術上の基準の細目を定める告示第3条で定められている。",
+            "間違い。告示で定める距離の規定によらずに施設するには、経済産業大臣の認可が必要である。単に届け出ただけでは足りない。ガス工作物の技術上の基準を定める省令第6条第4項による。",
+            "正しい。製造所には、漏れたガスが滞留するおそれのある適当な場所に、漏えいを検知して警報する設備を設ける。ガス工作物の技術上の基準を定める省令第9条第2項の措置である。",
+            "間違い。対象設備のガス又は液化ガスを通ずる部分は、安全に置換できる構造とする。液化ガスを廃棄できる構造という記述は、ガス工作物の技術上の基準を定める省令第13条第1項の規定と異なる。同条第4項には毒性ガスを冷媒とする冷凍設備の廃棄に関する別の規定がある。"
+          ],
+          "questionSetId": "gas-shunin-hei_qs02_01_seizo_kijun",
+          "questionLearningPatternId": "conditions_scope",
+          "isLawRelated": true,
+          "classificationReason": "特定ガス発生設備の容器と保安物件の距離、製造所の漏えい警報及びガス置換という法定基準の対象条件を扱う。特定製造所・ガス発生設備と漏えい検知の技術基準を扱う02-01に分類する。",
+          "officialPagesVisuallyReviewed": [
+            7
+          ],
+          "officialAnswerNumber": 4,
+          "currentAsOf": "2026-10-28",
+          "auditStatus": "same_as_current",
+          "lawReferences": [
+            [
+              {
+                "lawId": "412M50000400111",
+                "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                "article": "第6条第2項",
+                "role": "current_basis",
+                "scope": "choice",
+                "choiceIndex": 0,
+                "referenceDate": "2026-10-28",
+                "verificationStatus": "verified",
+                "source": "https://laws.e-gov.go.jp/law/412M50000400111"
+              }
+            ],
+            [
+              {
+                "lawId": "412M50000400111",
+                "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                "article": "第6条第2項",
+                "role": "current_basis",
+                "scope": "choice",
+                "choiceIndex": 1,
+                "referenceDate": "2026-10-28",
+                "verificationStatus": "verified",
+                "source": "https://laws.e-gov.go.jp/law/412M50000400111"
+              }
+            ],
+            [
+              {
+                "lawId": "412M50000400111",
+                "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                "article": "第6条第4項",
+                "role": "current_basis",
+                "scope": "choice",
+                "choiceIndex": 2,
+                "referenceDate": "2026-10-28",
+                "verificationStatus": "verified",
+                "source": "https://laws.e-gov.go.jp/law/412M50000400111"
+              }
+            ],
+            [
+              {
+                "lawId": "412M50000400111",
+                "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                "article": "第9条第2項",
+                "role": "current_basis",
+                "scope": "choice",
+                "choiceIndex": 3,
+                "referenceDate": "2026-10-28",
+                "verificationStatus": "verified",
+                "source": "https://laws.e-gov.go.jp/law/412M50000400111"
+              }
+            ],
+            [
+              {
+                "lawId": "412M50000400111",
+                "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                "article": "第13条第1項",
+                "role": "current_basis",
+                "scope": "choice",
+                "choiceIndex": 4,
+                "referenceDate": "2026-10-28",
+                "verificationStatus": "verified",
+                "source": "https://laws.e-gov.go.jp/law/412M50000400111"
+              }
+            ]
+          ],
+          "sourceSummary": "主担当が2020年度丙種公式問題PDF7頁・印刷6頁と公式正答表を直接目視。イからホの全記述及び5組合せを読み、正答4はロ・ニと確認した。2020-09-27及び2026-10-28の技術省令6・9・13条の全本文をe-Govで直接取得して読み、同じ本文であることを確認した。6条2項は対象容器の外面を基準に保安物件までの距離を定めるが、保安物件の詳細は告示へ委任する。第1肢は敷地境界起点との相違で誤り。第3肢の大臣の認可、4肢の漏えい警報、5肢の安全な置換は各条文から個別に判定した。第2肢は同年度乙種法令問6の同一記述の25_verified_publication及び既存法令監査で告示3条3号により正しいとされている。また日本ガス協会の https://www.gas.or.jp/pdf/iinkai/comment/pc_20240405_02.pdf 実17頁の2.1.2.3を画像と本文で直接読み、300人以上及び同一敷地除外、関連条項として告示3条を明記し、改定コメントが最新告示の反映を示すことを確認した。ただしJGA資料は2024年意見募集の案で、成立した現行規範そのものではない。今回、告示の原本を新たに取得したとは主張しない。JGA資料の初出時点、乙種2020年問題の監査2026-07-28及び当該丙種問題の公式正答表を補助資料として区別して添え、独立内容・法令監査に告示根拠の十分性を判断してもらう。 新たに国立国会図書館の法令沿革 https://hourei.ndl.go.jp/simple/detail?current=-1&lawId=0000087091 を取得し、告示355号が有効であり、出題後は令和7年10月1日告示145号により改正されたことを確認した。法令沿革は告示の本文ではないため、これだけで条文内容を導かない。取得済みのe-Gov公開の令和7年告示145号実官報1頁 https://public-comment.e-gov.go.jp/pcm/download?seqNo=0000300201 を画像及び本文で読み、同告示第2条は細目告示355号の第3条第4号にある障害福祉施設の引用項番号を改正すると確認した。第3号の劇場等は改正対象に掲げられていない。JGAの2024年意見募集案17頁では同3号に対応する劇場等の収容定員300人以上及び同一敷地外の条件が改正表示なく記載され、同資料のコメントは当時の告示反映と説明する。2020年の公式問題及び正答表4はロ・ニを正しい組合せと明示する。以上を別々の資料として突き合わせたものであり、2020年版及び2026年版の細目告示原本を入手したとは述べない。一次資料と時点の不足を含め、別sessionの独立監査で十分性を判断する。",
+          "primaryChoiceLegalJudgments": [
+            {
+              "auditStatus": "same_as_current",
+              "differenceFacts": [
+                "技術省令6条2項の距離の測定基点は出題時と現行で同じ。"
+              ],
+              "answerImpactFacts": [
+                "間違い。容器の外面から保安物件まで測るため、製造所の敷地境界からという記述は技術省令6条2項と異なる。"
+              ],
+              "basisSummary": "間違い。容器の外面から保安物件まで測るため、製造所の敷地境界からという記述は技術省令6条2項と異なる。",
+              "differenceSummary": "技術省令6条2項の距離の測定基点は出題時と現行で同じ。"
+            },
+            {
+              "auditStatus": "same_as_current",
+              "differenceFacts": [
+                "技術省令6条2項の告示への委任は両時点で同じ。告示本文そのものの時点別原本は今回未取得である。",
+                "国会図書館の法令沿革と実官報令和7年告示145号第2条を照合。2020年以降の記載された改正は2025年の第3条第4号であり、劇場等の第3号は当該官報の改正対象でない。2024年JGA案17頁は300人以上を既存記載として示す。"
+              ],
+              "answerImpactFacts": [
+                "正しい。300人以上の劇場等で、事業場と同一敷地内を除く条件は2024年JGA指針案17頁及び同年度乙種の既整備監査と一致する。"
+              ],
+              "basisSummary": "正しい。300人以上の劇場等で、事業場と同一敷地内を除く条件は2024年JGA指針案17頁及び同年度乙種の既整備監査と一致する。",
+              "differenceSummary": "2020公式正答、2024年JGA案の既存記載、2025年官報の改正対象及びNDL沿革を照合。細目告示の全条文原本を入手したわけではない。"
+            },
+            {
+              "auditStatus": "same_as_current",
+              "differenceFacts": [
+                "技術省令6条4項は両時点で同じ。"
+              ],
+              "answerImpactFacts": [
+                "間違い。距離基準によらない施設には届出でなく大臣の認可を要する。"
+              ],
+              "basisSummary": "間違い。距離基準によらない施設には届出でなく大臣の認可を要する。",
+              "differenceSummary": "技術省令6条4項は両時点で同じ。"
+            },
+            {
+              "auditStatus": "same_as_current",
+              "differenceFacts": [
+                "技術省令9条2項は両時点で同じ。"
+              ],
+              "answerImpactFacts": [
+                "正しい。製造所の漏えいガスの滞留のおそれがある場所に検知警報設備を設ける。"
+              ],
+              "basisSummary": "正しい。製造所の漏えいガスの滞留のおそれがある場所に検知警報設備を設ける。",
+              "differenceSummary": "技術省令9条2項は両時点で同じ。"
+            },
+            {
+              "auditStatus": "same_as_current",
+              "differenceFacts": [
+                "技術省令13条1項と4項は両時点で同じ。"
+              ],
+              "answerImpactFacts": [
+                "間違い。ガス又は液化ガスを安全に置換できる構造が必要で、廃棄できる構造ではない。"
+              ],
+              "basisSummary": "間違い。ガス又は液化ガスを安全に置換できる構造が必要で、廃棄できる構造ではない。",
+              "differenceSummary": "技術省令13条1項と4項は両時点で同じ。"
+            }
+          ],
+          "explanationReferences": [
+            {
+              "title": "ガス工作物の技術上の基準を定める省令 第6・9・13条",
+              "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+              "referenceDate": "2026-10-28"
+            },
+            {
+              "title": "日本ガス協会 ガス製造設備指針改定案 第2.1.2.3",
+              "sourceUrl": "https://www.gas.or.jp/pdf/iinkai/comment/pc_20240405_02.pdf",
+              "referenceDate": "2026-10-28"
+            }
+          ],
+          "primaryTechnicalSources": [
+            {
+              "path": "output/gas-shunin-hei/direct_publication/20261027/legal/ndl-gas-technical-notice355-history.html",
+              "sha256": "fdfa4c2db9403c6cdaf8069c5fffd478315aeac969e7ea2d42d587f3b65ff520",
+              "url": "https://hourei.ndl.go.jp/simple/detail?current=-1&lawId=0000087091",
+              "finding": "沿革の10改正と現行効力表示を確認。本文は表示されない。"
+            },
+            {
+              "path": "output/gas-shunin-hei/direct_publication/20261027/legal/egov-meti-notice145-20251001.pdf",
+              "sha256": "a5fcf6e7371d006179d25e4c5709baf47c64734d0fa69df491f04e53e73cc218",
+              "url": "https://public-comment.e-gov.go.jp/pcm/download?seqNo=0000300201",
+              "finding": "実官報の告示145号第2条は細目告示355号第3条第4号の特定文言だけを改正する。"
+            }
+          ],
+          "primaryLawEvidence": {
+            "schemaVersion": "primary-law-evidence/v2",
+            "status": "complete",
+            "currentAsOf": "2026-10-28",
+            "examAsOf": "2020-09-27",
+            "examAsOfSource": "document/sources/gas-shunin/official_exam_pdf_catalog.json",
+            "items": [
+              {
+                "lawId": "412M50000400111",
+                "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                "role": "current_basis",
+                "scope": "choice",
+                "choiceIndex": 0,
+                "declaredArticle": "第6条第2項",
+                "locator": {
+                  "kind": "article",
+                  "number": 6,
+                  "num": "6"
+                },
+                "resolvedLawTitle": "ガス工作物の技術上の基準を定める省令",
+                "currentSnapshot": {
+                  "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                  "asOf": "2026-10-28",
+                  "revisionId": "412M50000400111_20240427_506M60000400035",
+                  "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2026-10-28",
+                  "locator": {
+                    "kind": "article",
+                    "number": 6,
+                    "num": "6"
+                  },
+                  "xmlHash": "0d9aa0bfc33559534f05554b86065743547262a88b62a5ade3b11da6d9697140",
+                  "extractionRegion": "LawBody/MainProvision/descendant::Article",
+                  "extractionVersion": "egov-main-provision/v2",
+                  "normalizationVersion": "itertext-whitespace-collapse-utf8-sha256/v1",
+                  "textHash": "2c0cb41cf59f37faca49cf6f78de5812ce58ee6117bfccaa102a0717b79e4080",
+                  "text": "（離隔距離） 第六条 ガス発生器及び増熱器（移動式ガス発生設備に属するものを除く。）並びにガス精製設備、排送機、圧送機、ガスホルダー及び附帯設備であって製造設備に属するもの（冷凍設備及び配管を除く。）は、その外面から事業場の境界線（境界線が海、河川、湖沼等に接する場合は、当該海、河川、湖沼等の対岸）に対し、告示で定める距離を有しなければならない。 ただし、災害その他非常の場合において、やむを得ない一時的な工事により設置されたガス発生器及び増熱器並びに附帯設備に属する熱交換器及び容器であって、告示で定める措置を講じたものについては、この限りでない。 ２ 前項に規定するガス工作物（不活性のガス（空気を含む。以下同じ。）又は不活性の液化ガスのみを通ずるものを除く。以下この条から第十一条までにおいて同じ。）、特定ガス発生設備に係る容器及び移動式ガス発生設備（その貯蔵能力が、貯蔵するガスが液化ガスの場合は千キログラム以上、貯蔵するガスが圧縮ガスの場合は千立方メートル以上のものに限る。）に係る容器であって最高使用圧力が高圧のもの及び液化ガスを通ずるものは、その外面から学校、病院その他の告示で定める物件（以下「保安物件」という。）に対し告示で定める距離を有しなければならない。 ３ 前項に規定するガス工作物であって、告示で定める製造所（以下「特定事業所」という。）に設置するもの（告示で定めるものを除く。）は、前項の規定によるほかその外面から当該特定事業所の境界線（当該境界線に連接する海、河川、湖沼その他告示で定める施設若しくは土地がある場合又は当該特定事業所においてガス工作物を設置する者が所有し、若しくは地上権、賃借権その他の土地の使用を目的とする権利を設定している土地がある場合にあっては、その外縁）に対し告示で定める距離を有しなければならない。 ４ ガスの種類、ガス工作物の状況、周囲の状況等の理由により経済産業大臣の認可を受けた場合は、前各項の規定によらないでガス工作物を施設することができる。 ５ 前項の認可を受けようとするときは、その理由及び施設方法を記載した申請書に関係図面を添付して申請しなければならない。 ６ 前項の場合においては、申請書及び関係図面の写しをガス工作物の設置の場所を管轄する産業保安監督部長に提出しなければならない。 ７ 液化ガス用貯槽（不活性の液化ガス用のもの、貯蔵能力が三トン未満のもの及び地盤面下に全部埋設されたものを除く。）の相互間、地盤面下に全部埋設された液化ガス用貯槽（不活性の液化ガス用のものを除く。）の相互間、一のガスホルダー（最高使用圧力が高圧のものであって貯蔵能力が三百立方メートル以上のものに限る。）と他のガスホルダーとの相互間及び液化ガス用貯槽（不活性の液化ガス用のもの、貯蔵能力が三トン未満のもの及び地盤面下に全部埋設されたものを除く。）とガスホルダー（最高使用圧力が高圧のものに限る。）との相互間は、ガス又は液化ガスが漏えいした場合の災害の発生を防止するために、保安上必要な距離を有しなければならない。 ８ 大容量移動式ガス発生設備（移動式ガス発生設備であって貯蔵能力が液化ガスの場合百キログラム、圧縮ガスの場合三十立方メートルを超えるものをいう。第八条において同じ。）による供給を行う場合にあっては、ガス又は液化ガスが漏えいした場合の災害の発生を防止するために、他の移動式ガス発生設備に対し、保安上必要な距離を有しなければならない。",
+                  "textTruncated": false
+                },
+                "examAsOfSource": "document/sources/gas-shunin/official_exam_pdf_catalog.json",
+                "examSnapshot": {
+                  "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                  "asOf": "2020-09-27",
+                  "revisionId": "412M50000400111_20200626_502M60000400060",
+                  "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2020-09-27",
+                  "locator": {
+                    "kind": "article",
+                    "number": 6,
+                    "num": "6"
+                  },
+                  "xmlHash": "4155b00f6560219e4800e396f254c39369e60fc87f3191c67c798c4ee0fda92e",
+                  "extractionRegion": "LawBody/MainProvision/descendant::Article",
+                  "extractionVersion": "egov-main-provision/v2",
+                  "normalizationVersion": "itertext-whitespace-collapse-utf8-sha256/v1",
+                  "textHash": "2c0cb41cf59f37faca49cf6f78de5812ce58ee6117bfccaa102a0717b79e4080",
+                  "text": "（離隔距離） 第六条 ガス発生器及び増熱器（移動式ガス発生設備に属するものを除く。）並びにガス精製設備、排送機、圧送機、ガスホルダー及び附帯設備であって製造設備に属するもの（冷凍設備及び配管を除く。）は、その外面から事業場の境界線（境界線が海、河川、湖沼等に接する場合は、当該海、河川、湖沼等の対岸）に対し、告示で定める距離を有しなければならない。 ただし、災害その他非常の場合において、やむを得ない一時的な工事により設置されたガス発生器及び増熱器並びに附帯設備に属する熱交換器及び容器であって、告示で定める措置を講じたものについては、この限りでない。 ２ 前項に規定するガス工作物（不活性のガス（空気を含む。以下同じ。）又は不活性の液化ガスのみを通ずるものを除く。以下この条から第十一条までにおいて同じ。）、特定ガス発生設備に係る容器及び移動式ガス発生設備（その貯蔵能力が、貯蔵するガスが液化ガスの場合は千キログラム以上、貯蔵するガスが圧縮ガスの場合は千立方メートル以上のものに限る。）に係る容器であって最高使用圧力が高圧のもの及び液化ガスを通ずるものは、その外面から学校、病院その他の告示で定める物件（以下「保安物件」という。）に対し告示で定める距離を有しなければならない。 ３ 前項に規定するガス工作物であって、告示で定める製造所（以下「特定事業所」という。）に設置するもの（告示で定めるものを除く。）は、前項の規定によるほかその外面から当該特定事業所の境界線（当該境界線に連接する海、河川、湖沼その他告示で定める施設若しくは土地がある場合又は当該特定事業所においてガス工作物を設置する者が所有し、若しくは地上権、賃借権その他の土地の使用を目的とする権利を設定している土地がある場合にあっては、その外縁）に対し告示で定める距離を有しなければならない。 ４ ガスの種類、ガス工作物の状況、周囲の状況等の理由により経済産業大臣の認可を受けた場合は、前各項の規定によらないでガス工作物を施設することができる。 ５ 前項の認可を受けようとするときは、その理由及び施設方法を記載した申請書に関係図面を添付して申請しなければならない。 ６ 前項の場合においては、申請書及び関係図面の写しをガス工作物の設置の場所を管轄する産業保安監督部長に提出しなければならない。 ７ 液化ガス用貯槽（不活性の液化ガス用のもの、貯蔵能力が三トン未満のもの及び地盤面下に全部埋設されたものを除く。）の相互間、地盤面下に全部埋設された液化ガス用貯槽（不活性の液化ガス用のものを除く。）の相互間、一のガスホルダー（最高使用圧力が高圧のものであって貯蔵能力が三百立方メートル以上のものに限る。）と他のガスホルダーとの相互間及び液化ガス用貯槽（不活性の液化ガス用のもの、貯蔵能力が三トン未満のもの及び地盤面下に全部埋設されたものを除く。）とガスホルダー（最高使用圧力が高圧のものに限る。）との相互間は、ガス又は液化ガスが漏えいした場合の災害の発生を防止するために、保安上必要な距離を有しなければならない。 ８ 大容量移動式ガス発生設備（移動式ガス発生設備であって貯蔵能力が液化ガスの場合百キログラム、圧縮ガスの場合三十立方メートルを超えるものをいう。第八条において同じ。）による供給を行う場合にあっては、ガス又は液化ガスが漏えいした場合の災害の発生を防止するために、他の移動式ガス発生設備に対し、保安上必要な距離を有しなければならない。",
+                  "textTruncated": false
+                },
+                "examSnapshotStatus": "available",
+                "comparison": "unchanged",
+                "status": "complete"
+              },
+              {
+                "lawId": "412M50000400111",
+                "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                "role": "current_basis",
+                "scope": "choice",
+                "choiceIndex": 1,
+                "declaredArticle": "第6条第2項",
+                "locator": {
+                  "kind": "article",
+                  "number": 6,
+                  "num": "6"
+                },
+                "resolvedLawTitle": "ガス工作物の技術上の基準を定める省令",
+                "currentSnapshot": {
+                  "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                  "asOf": "2026-10-28",
+                  "revisionId": "412M50000400111_20240427_506M60000400035",
+                  "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2026-10-28",
+                  "locator": {
+                    "kind": "article",
+                    "number": 6,
+                    "num": "6"
+                  },
+                  "xmlHash": "0d9aa0bfc33559534f05554b86065743547262a88b62a5ade3b11da6d9697140",
+                  "extractionRegion": "LawBody/MainProvision/descendant::Article",
+                  "extractionVersion": "egov-main-provision/v2",
+                  "normalizationVersion": "itertext-whitespace-collapse-utf8-sha256/v1",
+                  "textHash": "2c0cb41cf59f37faca49cf6f78de5812ce58ee6117bfccaa102a0717b79e4080",
+                  "text": "（離隔距離） 第六条 ガス発生器及び増熱器（移動式ガス発生設備に属するものを除く。）並びにガス精製設備、排送機、圧送機、ガスホルダー及び附帯設備であって製造設備に属するもの（冷凍設備及び配管を除く。）は、その外面から事業場の境界線（境界線が海、河川、湖沼等に接する場合は、当該海、河川、湖沼等の対岸）に対し、告示で定める距離を有しなければならない。 ただし、災害その他非常の場合において、やむを得ない一時的な工事により設置されたガス発生器及び増熱器並びに附帯設備に属する熱交換器及び容器であって、告示で定める措置を講じたものについては、この限りでない。 ２ 前項に規定するガス工作物（不活性のガス（空気を含む。以下同じ。）又は不活性の液化ガスのみを通ずるものを除く。以下この条から第十一条までにおいて同じ。）、特定ガス発生設備に係る容器及び移動式ガス発生設備（その貯蔵能力が、貯蔵するガスが液化ガスの場合は千キログラム以上、貯蔵するガスが圧縮ガスの場合は千立方メートル以上のものに限る。）に係る容器であって最高使用圧力が高圧のもの及び液化ガスを通ずるものは、その外面から学校、病院その他の告示で定める物件（以下「保安物件」という。）に対し告示で定める距離を有しなければならない。 ３ 前項に規定するガス工作物であって、告示で定める製造所（以下「特定事業所」という。）に設置するもの（告示で定めるものを除く。）は、前項の規定によるほかその外面から当該特定事業所の境界線（当該境界線に連接する海、河川、湖沼その他告示で定める施設若しくは土地がある場合又は当該特定事業所においてガス工作物を設置する者が所有し、若しくは地上権、賃借権その他の土地の使用を目的とする権利を設定している土地がある場合にあっては、その外縁）に対し告示で定める距離を有しなければならない。 ４ ガスの種類、ガス工作物の状況、周囲の状況等の理由により経済産業大臣の認可を受けた場合は、前各項の規定によらないでガス工作物を施設することができる。 ５ 前項の認可を受けようとするときは、その理由及び施設方法を記載した申請書に関係図面を添付して申請しなければならない。 ６ 前項の場合においては、申請書及び関係図面の写しをガス工作物の設置の場所を管轄する産業保安監督部長に提出しなければならない。 ７ 液化ガス用貯槽（不活性の液化ガス用のもの、貯蔵能力が三トン未満のもの及び地盤面下に全部埋設されたものを除く。）の相互間、地盤面下に全部埋設された液化ガス用貯槽（不活性の液化ガス用のものを除く。）の相互間、一のガスホルダー（最高使用圧力が高圧のものであって貯蔵能力が三百立方メートル以上のものに限る。）と他のガスホルダーとの相互間及び液化ガス用貯槽（不活性の液化ガス用のもの、貯蔵能力が三トン未満のもの及び地盤面下に全部埋設されたものを除く。）とガスホルダー（最高使用圧力が高圧のものに限る。）との相互間は、ガス又は液化ガスが漏えいした場合の災害の発生を防止するために、保安上必要な距離を有しなければならない。 ８ 大容量移動式ガス発生設備（移動式ガス発生設備であって貯蔵能力が液化ガスの場合百キログラム、圧縮ガスの場合三十立方メートルを超えるものをいう。第八条において同じ。）による供給を行う場合にあっては、ガス又は液化ガスが漏えいした場合の災害の発生を防止するために、他の移動式ガス発生設備に対し、保安上必要な距離を有しなければならない。",
+                  "textTruncated": false
+                },
+                "examAsOfSource": "document/sources/gas-shunin/official_exam_pdf_catalog.json",
+                "examSnapshot": {
+                  "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                  "asOf": "2020-09-27",
+                  "revisionId": "412M50000400111_20200626_502M60000400060",
+                  "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2020-09-27",
+                  "locator": {
+                    "kind": "article",
+                    "number": 6,
+                    "num": "6"
+                  },
+                  "xmlHash": "4155b00f6560219e4800e396f254c39369e60fc87f3191c67c798c4ee0fda92e",
+                  "extractionRegion": "LawBody/MainProvision/descendant::Article",
+                  "extractionVersion": "egov-main-provision/v2",
+                  "normalizationVersion": "itertext-whitespace-collapse-utf8-sha256/v1",
+                  "textHash": "2c0cb41cf59f37faca49cf6f78de5812ce58ee6117bfccaa102a0717b79e4080",
+                  "text": "（離隔距離） 第六条 ガス発生器及び増熱器（移動式ガス発生設備に属するものを除く。）並びにガス精製設備、排送機、圧送機、ガスホルダー及び附帯設備であって製造設備に属するもの（冷凍設備及び配管を除く。）は、その外面から事業場の境界線（境界線が海、河川、湖沼等に接する場合は、当該海、河川、湖沼等の対岸）に対し、告示で定める距離を有しなければならない。 ただし、災害その他非常の場合において、やむを得ない一時的な工事により設置されたガス発生器及び増熱器並びに附帯設備に属する熱交換器及び容器であって、告示で定める措置を講じたものについては、この限りでない。 ２ 前項に規定するガス工作物（不活性のガス（空気を含む。以下同じ。）又は不活性の液化ガスのみを通ずるものを除く。以下この条から第十一条までにおいて同じ。）、特定ガス発生設備に係る容器及び移動式ガス発生設備（その貯蔵能力が、貯蔵するガスが液化ガスの場合は千キログラム以上、貯蔵するガスが圧縮ガスの場合は千立方メートル以上のものに限る。）に係る容器であって最高使用圧力が高圧のもの及び液化ガスを通ずるものは、その外面から学校、病院その他の告示で定める物件（以下「保安物件」という。）に対し告示で定める距離を有しなければならない。 ３ 前項に規定するガス工作物であって、告示で定める製造所（以下「特定事業所」という。）に設置するもの（告示で定めるものを除く。）は、前項の規定によるほかその外面から当該特定事業所の境界線（当該境界線に連接する海、河川、湖沼その他告示で定める施設若しくは土地がある場合又は当該特定事業所においてガス工作物を設置する者が所有し、若しくは地上権、賃借権その他の土地の使用を目的とする権利を設定している土地がある場合にあっては、その外縁）に対し告示で定める距離を有しなければならない。 ４ ガスの種類、ガス工作物の状況、周囲の状況等の理由により経済産業大臣の認可を受けた場合は、前各項の規定によらないでガス工作物を施設することができる。 ５ 前項の認可を受けようとするときは、その理由及び施設方法を記載した申請書に関係図面を添付して申請しなければならない。 ６ 前項の場合においては、申請書及び関係図面の写しをガス工作物の設置の場所を管轄する産業保安監督部長に提出しなければならない。 ７ 液化ガス用貯槽（不活性の液化ガス用のもの、貯蔵能力が三トン未満のもの及び地盤面下に全部埋設されたものを除く。）の相互間、地盤面下に全部埋設された液化ガス用貯槽（不活性の液化ガス用のものを除く。）の相互間、一のガスホルダー（最高使用圧力が高圧のものであって貯蔵能力が三百立方メートル以上のものに限る。）と他のガスホルダーとの相互間及び液化ガス用貯槽（不活性の液化ガス用のもの、貯蔵能力が三トン未満のもの及び地盤面下に全部埋設されたものを除く。）とガスホルダー（最高使用圧力が高圧のものに限る。）との相互間は、ガス又は液化ガスが漏えいした場合の災害の発生を防止するために、保安上必要な距離を有しなければならない。 ８ 大容量移動式ガス発生設備（移動式ガス発生設備であって貯蔵能力が液化ガスの場合百キログラム、圧縮ガスの場合三十立方メートルを超えるものをいう。第八条において同じ。）による供給を行う場合にあっては、ガス又は液化ガスが漏えいした場合の災害の発生を防止するために、他の移動式ガス発生設備に対し、保安上必要な距離を有しなければならない。",
+                  "textTruncated": false
+                },
+                "examSnapshotStatus": "available",
+                "comparison": "unchanged",
+                "status": "complete"
+              },
+              {
+                "lawId": "412M50000400111",
+                "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                "role": "current_basis",
+                "scope": "choice",
+                "choiceIndex": 2,
+                "declaredArticle": "第6条第4項",
+                "locator": {
+                  "kind": "article",
+                  "number": 6,
+                  "num": "6"
+                },
+                "resolvedLawTitle": "ガス工作物の技術上の基準を定める省令",
+                "currentSnapshot": {
+                  "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                  "asOf": "2026-10-28",
+                  "revisionId": "412M50000400111_20240427_506M60000400035",
+                  "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2026-10-28",
+                  "locator": {
+                    "kind": "article",
+                    "number": 6,
+                    "num": "6"
+                  },
+                  "xmlHash": "0d9aa0bfc33559534f05554b86065743547262a88b62a5ade3b11da6d9697140",
+                  "extractionRegion": "LawBody/MainProvision/descendant::Article",
+                  "extractionVersion": "egov-main-provision/v2",
+                  "normalizationVersion": "itertext-whitespace-collapse-utf8-sha256/v1",
+                  "textHash": "2c0cb41cf59f37faca49cf6f78de5812ce58ee6117bfccaa102a0717b79e4080",
+                  "text": "（離隔距離） 第六条 ガス発生器及び増熱器（移動式ガス発生設備に属するものを除く。）並びにガス精製設備、排送機、圧送機、ガスホルダー及び附帯設備であって製造設備に属するもの（冷凍設備及び配管を除く。）は、その外面から事業場の境界線（境界線が海、河川、湖沼等に接する場合は、当該海、河川、湖沼等の対岸）に対し、告示で定める距離を有しなければならない。 ただし、災害その他非常の場合において、やむを得ない一時的な工事により設置されたガス発生器及び増熱器並びに附帯設備に属する熱交換器及び容器であって、告示で定める措置を講じたものについては、この限りでない。 ２ 前項に規定するガス工作物（不活性のガス（空気を含む。以下同じ。）又は不活性の液化ガスのみを通ずるものを除く。以下この条から第十一条までにおいて同じ。）、特定ガス発生設備に係る容器及び移動式ガス発生設備（その貯蔵能力が、貯蔵するガスが液化ガスの場合は千キログラム以上、貯蔵するガスが圧縮ガスの場合は千立方メートル以上のものに限る。）に係る容器であって最高使用圧力が高圧のもの及び液化ガスを通ずるものは、その外面から学校、病院その他の告示で定める物件（以下「保安物件」という。）に対し告示で定める距離を有しなければならない。 ３ 前項に規定するガス工作物であって、告示で定める製造所（以下「特定事業所」という。）に設置するもの（告示で定めるものを除く。）は、前項の規定によるほかその外面から当該特定事業所の境界線（当該境界線に連接する海、河川、湖沼その他告示で定める施設若しくは土地がある場合又は当該特定事業所においてガス工作物を設置する者が所有し、若しくは地上権、賃借権その他の土地の使用を目的とする権利を設定している土地がある場合にあっては、その外縁）に対し告示で定める距離を有しなければならない。 ４ ガスの種類、ガス工作物の状況、周囲の状況等の理由により経済産業大臣の認可を受けた場合は、前各項の規定によらないでガス工作物を施設することができる。 ５ 前項の認可を受けようとするときは、その理由及び施設方法を記載した申請書に関係図面を添付して申請しなければならない。 ６ 前項の場合においては、申請書及び関係図面の写しをガス工作物の設置の場所を管轄する産業保安監督部長に提出しなければならない。 ７ 液化ガス用貯槽（不活性の液化ガス用のもの、貯蔵能力が三トン未満のもの及び地盤面下に全部埋設されたものを除く。）の相互間、地盤面下に全部埋設された液化ガス用貯槽（不活性の液化ガス用のものを除く。）の相互間、一のガスホルダー（最高使用圧力が高圧のものであって貯蔵能力が三百立方メートル以上のものに限る。）と他のガスホルダーとの相互間及び液化ガス用貯槽（不活性の液化ガス用のもの、貯蔵能力が三トン未満のもの及び地盤面下に全部埋設されたものを除く。）とガスホルダー（最高使用圧力が高圧のものに限る。）との相互間は、ガス又は液化ガスが漏えいした場合の災害の発生を防止するために、保安上必要な距離を有しなければならない。 ８ 大容量移動式ガス発生設備（移動式ガス発生設備であって貯蔵能力が液化ガスの場合百キログラム、圧縮ガスの場合三十立方メートルを超えるものをいう。第八条において同じ。）による供給を行う場合にあっては、ガス又は液化ガスが漏えいした場合の災害の発生を防止するために、他の移動式ガス発生設備に対し、保安上必要な距離を有しなければならない。",
+                  "textTruncated": false
+                },
+                "examAsOfSource": "document/sources/gas-shunin/official_exam_pdf_catalog.json",
+                "examSnapshot": {
+                  "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                  "asOf": "2020-09-27",
+                  "revisionId": "412M50000400111_20200626_502M60000400060",
+                  "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2020-09-27",
+                  "locator": {
+                    "kind": "article",
+                    "number": 6,
+                    "num": "6"
+                  },
+                  "xmlHash": "4155b00f6560219e4800e396f254c39369e60fc87f3191c67c798c4ee0fda92e",
+                  "extractionRegion": "LawBody/MainProvision/descendant::Article",
+                  "extractionVersion": "egov-main-provision/v2",
+                  "normalizationVersion": "itertext-whitespace-collapse-utf8-sha256/v1",
+                  "textHash": "2c0cb41cf59f37faca49cf6f78de5812ce58ee6117bfccaa102a0717b79e4080",
+                  "text": "（離隔距離） 第六条 ガス発生器及び増熱器（移動式ガス発生設備に属するものを除く。）並びにガス精製設備、排送機、圧送機、ガスホルダー及び附帯設備であって製造設備に属するもの（冷凍設備及び配管を除く。）は、その外面から事業場の境界線（境界線が海、河川、湖沼等に接する場合は、当該海、河川、湖沼等の対岸）に対し、告示で定める距離を有しなければならない。 ただし、災害その他非常の場合において、やむを得ない一時的な工事により設置されたガス発生器及び増熱器並びに附帯設備に属する熱交換器及び容器であって、告示で定める措置を講じたものについては、この限りでない。 ２ 前項に規定するガス工作物（不活性のガス（空気を含む。以下同じ。）又は不活性の液化ガスのみを通ずるものを除く。以下この条から第十一条までにおいて同じ。）、特定ガス発生設備に係る容器及び移動式ガス発生設備（その貯蔵能力が、貯蔵するガスが液化ガスの場合は千キログラム以上、貯蔵するガスが圧縮ガスの場合は千立方メートル以上のものに限る。）に係る容器であって最高使用圧力が高圧のもの及び液化ガスを通ずるものは、その外面から学校、病院その他の告示で定める物件（以下「保安物件」という。）に対し告示で定める距離を有しなければならない。 ３ 前項に規定するガス工作物であって、告示で定める製造所（以下「特定事業所」という。）に設置するもの（告示で定めるものを除く。）は、前項の規定によるほかその外面から当該特定事業所の境界線（当該境界線に連接する海、河川、湖沼その他告示で定める施設若しくは土地がある場合又は当該特定事業所においてガス工作物を設置する者が所有し、若しくは地上権、賃借権その他の土地の使用を目的とする権利を設定している土地がある場合にあっては、その外縁）に対し告示で定める距離を有しなければならない。 ４ ガスの種類、ガス工作物の状況、周囲の状況等の理由により経済産業大臣の認可を受けた場合は、前各項の規定によらないでガス工作物を施設することができる。 ５ 前項の認可を受けようとするときは、その理由及び施設方法を記載した申請書に関係図面を添付して申請しなければならない。 ６ 前項の場合においては、申請書及び関係図面の写しをガス工作物の設置の場所を管轄する産業保安監督部長に提出しなければならない。 ７ 液化ガス用貯槽（不活性の液化ガス用のもの、貯蔵能力が三トン未満のもの及び地盤面下に全部埋設されたものを除く。）の相互間、地盤面下に全部埋設された液化ガス用貯槽（不活性の液化ガス用のものを除く。）の相互間、一のガスホルダー（最高使用圧力が高圧のものであって貯蔵能力が三百立方メートル以上のものに限る。）と他のガスホルダーとの相互間及び液化ガス用貯槽（不活性の液化ガス用のもの、貯蔵能力が三トン未満のもの及び地盤面下に全部埋設されたものを除く。）とガスホルダー（最高使用圧力が高圧のものに限る。）との相互間は、ガス又は液化ガスが漏えいした場合の災害の発生を防止するために、保安上必要な距離を有しなければならない。 ８ 大容量移動式ガス発生設備（移動式ガス発生設備であって貯蔵能力が液化ガスの場合百キログラム、圧縮ガスの場合三十立方メートルを超えるものをいう。第八条において同じ。）による供給を行う場合にあっては、ガス又は液化ガスが漏えいした場合の災害の発生を防止するために、他の移動式ガス発生設備に対し、保安上必要な距離を有しなければならない。",
+                  "textTruncated": false
+                },
+                "examSnapshotStatus": "available",
+                "comparison": "unchanged",
+                "status": "complete"
+              },
+              {
+                "lawId": "412M50000400111",
+                "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                "role": "current_basis",
+                "scope": "choice",
+                "choiceIndex": 3,
+                "declaredArticle": "第9条第2項",
+                "locator": {
+                  "kind": "article",
+                  "number": 9,
+                  "num": "9"
+                },
+                "resolvedLawTitle": "ガス工作物の技術上の基準を定める省令",
+                "currentSnapshot": {
+                  "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                  "asOf": "2026-10-28",
+                  "revisionId": "412M50000400111_20240427_506M60000400035",
+                  "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2026-10-28",
+                  "locator": {
+                    "kind": "article",
+                    "number": 9,
+                    "num": "9"
+                  },
+                  "xmlHash": "0d9aa0bfc33559534f05554b86065743547262a88b62a5ade3b11da6d9697140",
+                  "extractionRegion": "LawBody/MainProvision/descendant::Article",
+                  "extractionVersion": "egov-main-provision/v2",
+                  "normalizationVersion": "itertext-whitespace-collapse-utf8-sha256/v1",
+                  "textHash": "d6da3cc74a7c2c4f1bb8af9705e79c996f0dcdcdb0c501e218582e9ed37de871",
+                  "text": "（ガスの滞留防止） 第九条 ガス又は液化ガスを通ずるガス工作物を設置する室（製造所及び供給所に存するものに限る。）は、これらのガス又は液化ガスが漏えいしたとき滞留しない構造でなければならない。 ２ 製造所には、ガス又は液化ガスを通ずるガス工作物から漏えいしたガスが滞留するおそれのある製造所内の適当な場所に、当該ガスの漏えいを適切に検知し、かつ、警報する設備を設けなければならない。",
+                  "textTruncated": false
+                },
+                "examAsOfSource": "document/sources/gas-shunin/official_exam_pdf_catalog.json",
+                "examSnapshot": {
+                  "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                  "asOf": "2020-09-27",
+                  "revisionId": "412M50000400111_20200626_502M60000400060",
+                  "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2020-09-27",
+                  "locator": {
+                    "kind": "article",
+                    "number": 9,
+                    "num": "9"
+                  },
+                  "xmlHash": "4155b00f6560219e4800e396f254c39369e60fc87f3191c67c798c4ee0fda92e",
+                  "extractionRegion": "LawBody/MainProvision/descendant::Article",
+                  "extractionVersion": "egov-main-provision/v2",
+                  "normalizationVersion": "itertext-whitespace-collapse-utf8-sha256/v1",
+                  "textHash": "d6da3cc74a7c2c4f1bb8af9705e79c996f0dcdcdb0c501e218582e9ed37de871",
+                  "text": "（ガスの滞留防止） 第九条 ガス又は液化ガスを通ずるガス工作物を設置する室（製造所及び供給所に存するものに限る。）は、これらのガス又は液化ガスが漏えいしたとき滞留しない構造でなければならない。 ２ 製造所には、ガス又は液化ガスを通ずるガス工作物から漏えいしたガスが滞留するおそれのある製造所内の適当な場所に、当該ガスの漏えいを適切に検知し、かつ、警報する設備を設けなければならない。",
+                  "textTruncated": false
+                },
+                "examSnapshotStatus": "available",
+                "comparison": "unchanged",
+                "status": "complete"
+              },
+              {
+                "lawId": "412M50000400111",
+                "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                "role": "current_basis",
+                "scope": "choice",
+                "choiceIndex": 4,
+                "declaredArticle": "第13条第1項",
+                "locator": {
+                  "kind": "article",
+                  "number": 13,
+                  "num": "13"
+                },
+                "resolvedLawTitle": "ガス工作物の技術上の基準を定める省令",
+                "currentSnapshot": {
+                  "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                  "asOf": "2026-10-28",
+                  "revisionId": "412M50000400111_20240427_506M60000400035",
+                  "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2026-10-28",
+                  "locator": {
+                    "kind": "article",
+                    "number": 13,
+                    "num": "13"
+                  },
+                  "xmlHash": "0d9aa0bfc33559534f05554b86065743547262a88b62a5ade3b11da6d9697140",
+                  "extractionRegion": "LawBody/MainProvision/descendant::Article",
+                  "extractionVersion": "egov-main-provision/v2",
+                  "normalizationVersion": "itertext-whitespace-collapse-utf8-sha256/v1",
+                  "textHash": "c3250cff403d0dfdff8c59749b0e372c73a540df2eecaaa9ce2f702ab2d17af9",
+                  "text": "（ガスの置換等） 第十三条 ガス発生設備、ガス精製設備、排送機、圧送機、ガスホルダー及び附帯設備であって製造設備に属するもののガス又は液化ガスを通ずる部分（不活性のガス又は不活性の液化ガスのみを通ずるものを除く。）は、ガス又は液化ガスを安全に置換できる構造でなければならない。 ２ ベントスタックには、放出したガスが周囲に障害を与えるおそれのないように適切な措置を講じなければならない。 ３ フレアースタックには、当該フレアースタックにおいて発生するふく射熱が周囲に障害を与えないよう適切な措置を講じ、かつ、ガスを安全に放出するための適切な措置を講じなければならない。 ４ 毒性ガスを冷媒とする冷凍設備にあっては、冷媒ガスを廃棄する際にそのガスが危険又は損害を他に及ぼすおそれのないように廃棄される構造のものでなければならない。",
+                  "textTruncated": false
+                },
+                "examAsOfSource": "document/sources/gas-shunin/official_exam_pdf_catalog.json",
+                "examSnapshot": {
+                  "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                  "asOf": "2020-09-27",
+                  "revisionId": "412M50000400111_20200626_502M60000400060",
+                  "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2020-09-27",
+                  "locator": {
+                    "kind": "article",
+                    "number": 13,
+                    "num": "13"
+                  },
+                  "xmlHash": "4155b00f6560219e4800e396f254c39369e60fc87f3191c67c798c4ee0fda92e",
+                  "extractionRegion": "LawBody/MainProvision/descendant::Article",
+                  "extractionVersion": "egov-main-provision/v2",
+                  "normalizationVersion": "itertext-whitespace-collapse-utf8-sha256/v1",
+                  "textHash": "c3250cff403d0dfdff8c59749b0e372c73a540df2eecaaa9ce2f702ab2d17af9",
+                  "text": "（ガスの置換等） 第十三条 ガス発生設備、ガス精製設備、排送機、圧送機、ガスホルダー及び附帯設備であって製造設備に属するもののガス又は液化ガスを通ずる部分（不活性のガス又は不活性の液化ガスのみを通ずるものを除く。）は、ガス又は液化ガスを安全に置換できる構造でなければならない。 ２ ベントスタックには、放出したガスが周囲に障害を与えるおそれのないように適切な措置を講じなければならない。 ３ フレアースタックには、当該フレアースタックにおいて発生するふく射熱が周囲に障害を与えないよう適切な措置を講じ、かつ、ガスを安全に放出するための適切な措置を講じなければならない。 ４ 毒性ガスを冷媒とする冷凍設備にあっては、冷媒ガスを廃棄する際にそのガスが危険又は損害を他に及ぼすおそれのないように廃棄される構造のものでなければならない。",
+                  "textTruncated": false
+                },
+                "examSnapshotStatus": "available",
+                "comparison": "unchanged",
+                "status": "complete"
+              }
+            ],
+            "errors": []
+          },
+          "lawRevisionFacts": [
+            {
+              "auditStatus": "same_as_current",
+              "reviewState": "needs_secondary_review",
+              "reconciliationStatus": "pending",
+              "differenceFacts": [
+                "技術省令6条2項の距離の測定基点は出題時と現行で同じ。"
+              ],
+              "answerImpactFacts": [
+                "間違い。容器の外面から保安物件まで測るため、製造所の敷地境界からという記述は技術省令6条2項と異なる。"
+              ],
+              "evidenceSummary": {
+                "verdict": "間違い",
+                "explanationText": "間違い。容器の外面から保安物件まで測るため、製造所の敷地境界からという記述は技術省令6条2項と異なる。",
+                "differenceSummary": "技術省令6条2項の距離の測定基点は出題時と現行で同じ。",
+                "promptContext": "特定ガス発生設備に係る容器であって液化ガスを通ずるものは、その製造所の敷地境界から保安物件に対し告示で定める距離を有しなければならない。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "examTime": {
+                "correctChoiceText": "間違い",
+                "lawId": "412M50000400111",
+                "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                "lawRevisionId": "412M50000400111_20200626_502M60000400060",
+                "referenceDate": "2020-09-27",
+                "article": "第6条第2項",
+                "verificationStatus": "verified",
+                "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2020-09-27",
+                "articleTextHash": "2c0cb41cf59f37faca49cf6f78de5812ce58ee6117bfccaa102a0717b79e4080"
+              },
+              "current": {
+                "correctChoiceText": "間違い",
+                "lawId": "412M50000400111",
+                "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                "lawRevisionId": "412M50000400111_20240427_506M60000400035",
+                "referenceDate": "2026-10-28",
+                "article": "第6条第2項",
+                "verificationStatus": "verified",
+                "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2026-10-28",
+                "articleTextHash": "2c0cb41cf59f37faca49cf6f78de5812ce58ee6117bfccaa102a0717b79e4080"
+              }
+            },
+            {
+              "auditStatus": "same_as_current",
+              "reviewState": "needs_secondary_review",
+              "reconciliationStatus": "pending",
+              "differenceFacts": [
+                "技術省令6条2項の告示への委任は両時点で同じ。告示本文そのものの時点別原本は今回未取得である。",
+                "国会図書館の法令沿革と実官報令和7年告示145号第2条を照合。2020年以降の記載された改正は2025年の第3条第4号であり、劇場等の第3号は当該官報の改正対象でない。2024年JGA案17頁は300人以上を既存記載として示す。"
+              ],
+              "answerImpactFacts": [
+                "正しい。300人以上の劇場等で、事業場と同一敷地内を除く条件は2024年JGA指針案17頁及び同年度乙種の既整備監査と一致する。"
+              ],
+              "evidenceSummary": {
+                "verdict": "正しい",
+                "explanationText": "正しい。300人以上の劇場等で、事業場と同一敷地内を除く条件は2024年JGA指針案17頁及び同年度乙種の既整備監査と一致する。",
+                "differenceSummary": "2020公式正答、2024年JGA案の既存記載、2025年官報の改正対象及びNDL沿革を照合。細目告示の全条文原本を入手したわけではない。",
+                "promptContext": "劇場、映画館、演芸場、公会堂その他これらに類する施設であって、収容定員300人以上のもの（事業場の存する敷地と同一敷地内にあるものを除く。）は、第1種保安物件に該当する。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "examTime": {
+                "correctChoiceText": "正しい",
+                "lawId": "412M50000400111",
+                "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                "lawRevisionId": "412M50000400111_20200626_502M60000400060",
+                "referenceDate": "2020-09-27",
+                "article": "第6条第2項",
+                "verificationStatus": "verified",
+                "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2020-09-27",
+                "articleTextHash": "2c0cb41cf59f37faca49cf6f78de5812ce58ee6117bfccaa102a0717b79e4080"
+              },
+              "current": {
+                "correctChoiceText": "正しい",
+                "lawId": "412M50000400111",
+                "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                "lawRevisionId": "412M50000400111_20240427_506M60000400035",
+                "referenceDate": "2026-10-28",
+                "article": "第6条第2項",
+                "verificationStatus": "verified",
+                "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2026-10-28",
+                "articleTextHash": "2c0cb41cf59f37faca49cf6f78de5812ce58ee6117bfccaa102a0717b79e4080"
+              }
+            },
+            {
+              "auditStatus": "same_as_current",
+              "reviewState": "needs_secondary_review",
+              "reconciliationStatus": "pending",
+              "differenceFacts": [
+                "技術省令6条4項は両時点で同じ。"
+              ],
+              "answerImpactFacts": [
+                "間違い。距離基準によらない施設には届出でなく大臣の認可を要する。"
+              ],
+              "evidenceSummary": {
+                "verdict": "間違い",
+                "explanationText": "間違い。距離基準によらない施設には届出でなく大臣の認可を要する。",
+                "differenceSummary": "技術省令6条4項は両時点で同じ。",
+                "promptContext": "ガスの種類、ガス工作物の状況、周囲の状況等の理由によりあらかじめ経済産業大臣に届け出た場合は、告示で定める距離を有しないでガス工作物を施設することができる。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "examTime": {
+                "correctChoiceText": "間違い",
+                "lawId": "412M50000400111",
+                "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                "lawRevisionId": "412M50000400111_20200626_502M60000400060",
+                "referenceDate": "2020-09-27",
+                "article": "第6条第4項",
+                "verificationStatus": "verified",
+                "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2020-09-27",
+                "articleTextHash": "2c0cb41cf59f37faca49cf6f78de5812ce58ee6117bfccaa102a0717b79e4080"
+              },
+              "current": {
+                "correctChoiceText": "間違い",
+                "lawId": "412M50000400111",
+                "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                "lawRevisionId": "412M50000400111_20240427_506M60000400035",
+                "referenceDate": "2026-10-28",
+                "article": "第6条第4項",
+                "verificationStatus": "verified",
+                "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2026-10-28",
+                "articleTextHash": "2c0cb41cf59f37faca49cf6f78de5812ce58ee6117bfccaa102a0717b79e4080"
+              }
+            },
+            {
+              "auditStatus": "same_as_current",
+              "reviewState": "needs_secondary_review",
+              "reconciliationStatus": "pending",
+              "differenceFacts": [
+                "技術省令9条2項は両時点で同じ。"
+              ],
+              "answerImpactFacts": [
+                "正しい。製造所の漏えいガスの滞留のおそれがある場所に検知警報設備を設ける。"
+              ],
+              "evidenceSummary": {
+                "verdict": "正しい",
+                "explanationText": "正しい。製造所の漏えいガスの滞留のおそれがある場所に検知警報設備を設ける。",
+                "differenceSummary": "技術省令9条2項は両時点で同じ。",
+                "promptContext": "製造所には、液化ガスを通ずるガス工作物から漏えいしたガスが滞留するおそれのある製造所内の適当な場所に、当該ガスの漏えいを適切に検知し、かつ、警報する設備を設けなければならない。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "examTime": {
+                "correctChoiceText": "正しい",
+                "lawId": "412M50000400111",
+                "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                "lawRevisionId": "412M50000400111_20200626_502M60000400060",
+                "referenceDate": "2020-09-27",
+                "article": "第9条第2項",
+                "verificationStatus": "verified",
+                "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2020-09-27",
+                "articleTextHash": "d6da3cc74a7c2c4f1bb8af9705e79c996f0dcdcdb0c501e218582e9ed37de871"
+              },
+              "current": {
+                "correctChoiceText": "正しい",
+                "lawId": "412M50000400111",
+                "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                "lawRevisionId": "412M50000400111_20240427_506M60000400035",
+                "referenceDate": "2026-10-28",
+                "article": "第9条第2項",
+                "verificationStatus": "verified",
+                "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2026-10-28",
+                "articleTextHash": "d6da3cc74a7c2c4f1bb8af9705e79c996f0dcdcdb0c501e218582e9ed37de871"
+              }
+            },
+            {
+              "auditStatus": "same_as_current",
+              "reviewState": "needs_secondary_review",
+              "reconciliationStatus": "pending",
+              "differenceFacts": [
+                "技術省令13条1項と4項は両時点で同じ。"
+              ],
+              "answerImpactFacts": [
+                "間違い。ガス又は液化ガスを安全に置換できる構造が必要で、廃棄できる構造ではない。"
+              ],
+              "evidenceSummary": {
+                "verdict": "間違い",
+                "explanationText": "間違い。ガス又は液化ガスを安全に置換できる構造が必要で、廃棄できる構造ではない。",
+                "differenceSummary": "技術省令13条1項と4項は両時点で同じ。",
+                "promptContext": "ガス発生設備及び附帯設備であって製造設備に属するものの液化ガスを通ずる部分は、液化ガスを廃棄できる構造でなければならない。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "examTime": {
+                "correctChoiceText": "間違い",
+                "lawId": "412M50000400111",
+                "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                "lawRevisionId": "412M50000400111_20200626_502M60000400060",
+                "referenceDate": "2020-09-27",
+                "article": "第13条第1項",
+                "verificationStatus": "verified",
+                "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2020-09-27",
+                "articleTextHash": "c3250cff403d0dfdff8c59749b0e372c73a540df2eecaaa9ce2f702ab2d17af9"
+              },
+              "current": {
+                "correctChoiceText": "間違い",
+                "lawId": "412M50000400111",
+                "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                "lawRevisionId": "412M50000400111_20240427_506M60000400035",
+                "referenceDate": "2026-10-28",
+                "article": "第13条第1項",
+                "verificationStatus": "verified",
+                "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2026-10-28",
+                "articleTextHash": "c3250cff403d0dfdff8c59749b0e372c73a540df2eecaaa9ce2f702ab2d17af9"
+              }
+            }
+          ],
+          "reviewState": "needs_secondary_review",
+          "reconciliationStatus": "pending",
+          "holdReason": "",
+          "reviewNotes": "",
+          "verificationSummary": "主担当が公式冊子と試験時・現行の公式本文を全肢照合した。独立二次監査は未実施。",
+          "lawGroundedExplanationNotNeeded": false,
+          "lawContextForExplanation": "主担当が2020年度丙種公式問題PDF7頁・印刷6頁と公式正答表を直接目視。イからホの全記述及び5組合せを読み、正答4はロ・ニと確認した。2020-09-27及び2026-10-28の技術省令6・9・13条の全本文をe-Govで直接取得して読み、同じ本文であることを確認した。6条2項は対象容器の外面を基準に保安物件までの距離を定めるが、保安物件の詳細は告示へ委任する。第1肢は敷地境界起点との相違で誤り。第3肢の大臣の認可、4肢の漏えい警報、5肢の安全な置換は各条文から個別に判定した。第2肢は同年度乙種法令問6の同一記述の25_verified_publication及び既存法令監査で告示3条3号により正しいとされている。また日本ガス協会の https://www.gas.or.jp/pdf/iinkai/comment/pc_20240405_02.pdf 実17頁の2.1.2.3を画像と本文で直接読み、300人以上及び同一敷地除外、関連条項として告示3条を明記し、改定コメントが最新告示の反映を示すことを確認した。ただしJGA資料は2024年意見募集の案で、成立した現行規範そのものではない。今回、告示の原本を新たに取得したとは主張しない。JGA資料の初出時点、乙種2020年問題の監査2026-07-28及び当該丙種問題の公式正答表を補助資料として区別して添え、独立内容・法令監査に告示根拠の十分性を判断してもらう。 新たに国立国会図書館の法令沿革 https://hourei.ndl.go.jp/simple/detail?current=-1&lawId=0000087091 を取得し、告示355号が有効であり、出題後は令和7年10月1日告示145号により改正されたことを確認した。法令沿革は告示の本文ではないため、これだけで条文内容を導かない。取得済みのe-Gov公開の令和7年告示145号実官報1頁 https://public-comment.e-gov.go.jp/pcm/download?seqNo=0000300201 を画像及び本文で読み、同告示第2条は細目告示355号の第3条第4号にある障害福祉施設の引用項番号を改正すると確認した。第3号の劇場等は改正対象に掲げられていない。JGAの2024年意見募集案17頁では同3号に対応する劇場等の収容定員300人以上及び同一敷地外の条件が改正表示なく記載され、同資料のコメントは当時の告示反映と説明する。2020年の公式問題及び正答表4はロ・ニを正しい組合せと明示する。以上を別々の資料として突き合わせたものであり、2020年版及び2026年版の細目告示原本を入手したとは述べない。一次資料と時点の不足を含め、別sessionの独立監査で十分性を判断する。",
           "suggestedQuestionDetailsByChoice": []
         }
       ]
@@ -700859,6 +702659,1110 @@
                 "nativePath": "output/gas-shunin-hei/direct_publication/20261027/law_audits/2020_law_問6_r1/secondary-native.json",
                 "nativeSha256": "5e173d36fc69213bb522ddd3f1106d7f19cbc09dd14299a666b80afb7325e94b",
                 "promptHash": "59ff64b9b3e6cfb1bf4ab1ddcdf1bcd16152be45b4411c5c1f7674405fbd477a"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "path": "output/gas-shunin-hei/direct_publication/20261027/holds/2020-law-06-r3.json",
+      "sha256": "113fcf14d768966320ffc271393297f40c24c237be8e6770c0b4043aed0a95f3",
+      "payload": {
+        "schemaVersion": "hei-independent-hold-receipt/v1",
+        "sourceQuestionId": "2020:law:問6",
+        "revision": "r3",
+        "recordedAt": "2026-10-28T02:45:29.508012+00:00",
+        "formalPatchSaved": false,
+        "productionWritten": false,
+        "contentAudit": {
+          "inputHash": "f252d728dc3cdd261fa2564a831b8a826180885f133aafed2c1052ceb02a05cd",
+          "accepted": false,
+          "review": {
+            "sourceQuestionId": "2020:law:問6",
+            "inputHash": "f252d728dc3cdd261fa2564a831b8a826180885f133aafed2c1052ceb02a05cd",
+            "decision": "hold",
+            "officialAnswerNumber": 4,
+            "choiceJudgments": {
+              "f622dd75f3bc7e4d07cc3b9815bcb9b2781dedbbfa8dc20833e4741de5f09220": {
+                "verdict": "間違い",
+                "rationale": "技術省令第6条第2項は、特定ガス発生設備に係る対象容器の外面から保安物件までの距離を求める。製造所の敷地境界を測定基点とする記述は誤りである。"
+              },
+              "418b3b33aed6f469d05339cb54d5e27df48c1c6c0f81bd5091dd1087cb549411": {
+                "verdict": "正しい",
+                "rationale": "劇場等について、収容定員300人以上かつ事業場と同一敷地内にないものを第1種保安物件とする内容は、公式正答の組合せ及び日本ガス協会資料に示された告示第3条対応内容と一致する。ただし、監査資料には出題時及び現行の細目告示第3条本文の一次資料がない。"
+              },
+              "628f6230592b7cbdce096b5d27a1fb26eaaa1b56ec7a755397d78e6420a1c1fc": {
+                "verdict": "間違い",
+                "rationale": "技術省令第6条第4項が求めるのは経済産業大臣への届出ではなく、経済産業大臣の認可である。"
+              },
+              "ee0c09a7980a706259f3c03dfad2ec35c4c9368a1af66f30dab09e0a010e220c": {
+                "verdict": "正しい",
+                "rationale": "技術省令第9条第2項は、製造所内で漏えいガスが滞留するおそれのある適当な場所に、漏えいを検知して警報する設備を設けるよう求めている。液化ガスを通ずるガス工作物も対象に含まれる。"
+              },
+              "5bc5daea2122a0b87bf3cc98d4c5f651ce1b4101a49bee7c00e0e97de2b63537": {
+                "verdict": "間違い",
+                "rationale": "技術省令第13条第1項は、対象部分をガス又は液化ガスが安全に置換できる構造とするよう求めており、液化ガスを廃棄できる構造とは規定していない。廃棄に関する同条第4項は毒性ガスを冷媒とする冷凍設備の別規定である。"
+              }
+            },
+            "explanationScore": 97,
+            "issues": [
+              "第2肢の直接の根拠となる「ガス工作物の技術上の基準の細目を定める告示」第3条について、出題時及び現行の条文本文を示す一次資料が監査資料にない。公式正答、法令沿革、2024年の日本ガス協会意見募集案及び2025年改正告示から内容を強く裏付けられるが、指定された法令監査条件を満たさないためholdとする。",
+              "第2肢のlawReferencesは技術省令第6条第2項だけであり、「劇場等・収容定員300人以上・第1種保安物件」という具体的要件の直接根拠である細目告示第3条を収録していない。",
+              "auditStatusをsame_as_currentとして確定するには、細目告示第3条の出題時及び現行の一次本文による時点別照合が必要である。"
+            ],
+            "classificationApproved": true,
+            "classificationRationale": "全肢は、特定ガス発生設備の容器と保安物件との離隔、保安物件の区分、離隔規定の認可例外、製造所の漏えい検知警報及び製造設備内のガス置換を扱う。固定分類の「2-1 製造所・ガス発生設備の技術基準」の説明に合致し、運転・保全を主題とする製造分野ではない。questionType=true_false、isCalculationQuestion=false、questionIntent=select_correctも、投影された各記述を独立判定する回答操作、計算不要の内容及び設問方向に合致する。",
+            "evidenceSummary": "公式問題PDFの法令問6は、イからホの記述と組合せ表が入力記録に一致する。公式正答表では法令問6の正答は4であり、組合せはロ・ニである。技術省令第6条、第9条及び第13条の出題時・現行本文から、イ、ハ、ニ、ホはそれぞれ間違い、間違い、正しい、間違いと独立に確認できる。ロも資料間では正しい内容として整合するが、その直接根拠である細目告示第3条の時点別一次本文が不足している。"
+          },
+          "nativePath": "output/gas-shunin-hei/direct_publication/20261027/content_audits/2020_law_問6_r3/native.json",
+          "nativeSha256": "9bcc8a1f18f188c950e13a408ec3336912267038b1747c7304d3caca057c2d20"
+        },
+        "lawAudit": {
+          "candidateHash": "784380198cc683d97fa338c87cacba11166b44d7c741b1f494fe9b635bacc81a",
+          "promoted": {
+            "question_id": "a72fc6e5e3f20a93",
+            "status": "blocked",
+            "summary": "独立現行法監査で未確定: 第2肢の300人以上の劇場等及び同一敷地内除外を直接定めるのは細目告示第3条だが、lawReferences及びproposedPrimaryLawEvidenceには委任元の技術省令第6条第2項しか収録されていない。同項だけでは当該分類要件を確認できず、法令locatorが不足している。 / 第2肢について、候補自身が2020年版及び2026年版の細目告示本文を未取得と明記している。出題時・現行双方の適用本文が一次資料として独立確認されていないため、正誤値は公式正答等と整合するものの候補全体を承認できない。",
+            "updates": []
+          },
+          "verification": {
+            "evidenceHash": "852a0d3bff6fb20aafe130fe9e8d0def85b978375c42aa2bec6ef92595f4ef65",
+            "bundle": {
+              "question": {
+                "questionId": "a72fc6e5e3f20a93",
+                "currentRecord": {
+                  "questionBodyText": "【科目共通注】\n注1 問題文中の「法令」 「ガス事業関係法令（ガス事業法及びこれに基づく政令、省令等）」のことである。\n注2 問題文中の「技術基準」 「ガス工作物の技術上の基準を定める省令」及び「ガス工作物の技術上の基準の細目を定める告示」のことである。\n注3 問題文中の「消費機器の技術上の基準」 「ガス事業法施行規則第202条の消費機器の技術上の基準」のことである。\n注4 問題文中の「圧力」 「ゲージ圧力」のことである。\n\nガス工作物及び保安物件に関する次の記述のうち、いずれも技術基準で規定されているものの組合せはどれか。ただし、ガス工作物は、不活性のガス（空気を含む。）又は不活性の液化ガスのみを通ずるものではない。",
+                  "examLabel": "2020年（令和2年）丙種 過去問題・解答解説 法令",
+                  "questionLabel": "問6",
+                  "choiceTextList": [
+                    "特定ガス発生設備に係る容器であって液化ガスを通ずるものは、その製造所の敷地境界から保安物件に対し告示で定める距離を有しなければならない。",
+                    "劇場、映画館、演芸場、公会堂その他これらに類する施設であって、収容定員300人以上のもの（事業場の存する敷地と同一敷地内にあるものを除く。）は、第1種保安物件に該当する。",
+                    "ガスの種類、ガス工作物の状況、周囲の状況等の理由によりあらかじめ経済産業大臣に届け出た場合は、告示で定める距離を有しないでガス工作物を施設することができる。",
+                    "製造所には、液化ガスを通ずるガス工作物から漏えいしたガスが滞留するおそれのある製造所内の適当な場所に、当該ガスの漏えいを適切に検知し、かつ、警報する設備を設けなければならない。",
+                    "ガス発生設備及び附帯設備であって製造設備に属するものの液化ガスを通ずる部分は、液化ガスを廃棄できる構造でなければならない。"
+                  ],
+                  "choiceTextMarkedList": [
+                    "特定ガス発生設備に係る容器であって液化ガスを通ずるものは、その製造所の敷地境界から保安物件に対し告示で定める距離を有しなければならない。",
+                    "劇場、映画館、演芸場、公会堂その他これらに類する施設であって、収容定員300人以上のもの（事業場の存する敷地と同一敷地内にあるものを除く。）は、第1種保安物件に該当する。",
+                    "ガスの種類、ガス工作物の状況、周囲の状況等の理由によりあらかじめ経済産業大臣に届け出た場合は、告示で定める距離を有しないでガス工作物を施設することができる。",
+                    "製造所には、液化ガスを通ずるガス工作物から漏えいしたガスが滞留するおそれのある製造所内の適当な場所に、当該ガスの漏えいを適切に検知し、かつ、警報する設備を設けなければならない。",
+                    "ガス発生設備及び附帯設備であって製造設備に属するものの液化ガスを通ずる部分は、液化ガスを廃棄できる構造でなければならない。"
+                  ],
+                  "questionChoiceMarkers": [],
+                  "judgeChoiceMarkers": [
+                    "イ",
+                    "ロ",
+                    "ハ",
+                    "ニ",
+                    "ホ"
+                  ],
+                  "choiceMarkerSource": "judge",
+                  "markerAlignmentMode": "judge_only",
+                  "markerMismatchDetected": false,
+                  "answerResultNumbersRemapped": false,
+                  "originalQuestionChoiceImageUrls": [
+                    [],
+                    [],
+                    [],
+                    [],
+                    []
+                  ],
+                  "category": "法令",
+                  "examYear": 2020,
+                  "examOccurrenceId": "2020",
+                  "list_group_id": "2020",
+                  "question_url": "https://gassyunin.com/exam/hei/hei_2020/#law-q6",
+                  "public_question_id": "a72fc6e5e3f20a93",
+                  "questionImageStorageUrls": [],
+                  "questionIntent": "select_correct",
+                  "correctChoiceText": [
+                    "間違い",
+                    "正しい",
+                    "間違い",
+                    "正しい",
+                    "間違い"
+                  ],
+                  "explanation_common_prefix": [],
+                  "explanation_common_prefix_inferred_correct_choice": 4,
+                  "explanation_common_summary": [],
+                  "explanation_choice_snippets": [
+                    [],
+                    [],
+                    [],
+                    [],
+                    []
+                  ],
+                  "explanation_choice_correctness": [
+                    null,
+                    null,
+                    null,
+                    null,
+                    null
+                  ],
+                  "answer_result_text": "正解は 4 です。",
+                  "answer_result_inferred_correct_choice_numbers": [
+                    4
+                  ],
+                  "source_question_id": "2020:law:問6",
+                  "original_question_id": "a72fc6e5e3f20a93",
+                  "questionType": "true_false",
+                  "isCalculationQuestion": false
+                },
+                "primaryLawEvidence": {
+                  "schemaVersion": "primary-law-evidence/v2",
+                  "status": "complete",
+                  "currentAsOf": "2026-10-28",
+                  "examAsOf": "2020-09-27",
+                  "examAsOfSource": "document/sources/gas-shunin/official_exam_pdf_catalog.json",
+                  "items": [
+                    {
+                      "lawId": "412M50000400111",
+                      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                      "role": "current_basis",
+                      "scope": "choice",
+                      "choiceIndex": 0,
+                      "declaredArticle": "第6条第2項",
+                      "locator": {
+                        "kind": "article",
+                        "number": 6,
+                        "num": "6"
+                      },
+                      "resolvedLawTitle": "ガス工作物の技術上の基準を定める省令",
+                      "currentSnapshot": {
+                        "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                        "asOf": "2026-10-28",
+                        "revisionId": "412M50000400111_20240427_506M60000400035",
+                        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2026-10-28",
+                        "locator": {
+                          "kind": "article",
+                          "number": 6,
+                          "num": "6"
+                        },
+                        "xmlHash": "0d9aa0bfc33559534f05554b86065743547262a88b62a5ade3b11da6d9697140",
+                        "extractionRegion": "LawBody/MainProvision/descendant::Article",
+                        "extractionVersion": "egov-main-provision/v2",
+                        "normalizationVersion": "itertext-whitespace-collapse-utf8-sha256/v1",
+                        "textHash": "2c0cb41cf59f37faca49cf6f78de5812ce58ee6117bfccaa102a0717b79e4080",
+                        "text": "（離隔距離） 第六条 ガス発生器及び増熱器（移動式ガス発生設備に属するものを除く。）並びにガス精製設備、排送機、圧送機、ガスホルダー及び附帯設備であって製造設備に属するもの（冷凍設備及び配管を除く。）は、その外面から事業場の境界線（境界線が海、河川、湖沼等に接する場合は、当該海、河川、湖沼等の対岸）に対し、告示で定める距離を有しなければならない。 ただし、災害その他非常の場合において、やむを得ない一時的な工事により設置されたガス発生器及び増熱器並びに附帯設備に属する熱交換器及び容器であって、告示で定める措置を講じたものについては、この限りでない。 ２ 前項に規定するガス工作物（不活性のガス（空気を含む。以下同じ。）又は不活性の液化ガスのみを通ずるものを除く。以下この条から第十一条までにおいて同じ。）、特定ガス発生設備に係る容器及び移動式ガス発生設備（その貯蔵能力が、貯蔵するガスが液化ガスの場合は千キログラム以上、貯蔵するガスが圧縮ガスの場合は千立方メートル以上のものに限る。）に係る容器であって最高使用圧力が高圧のもの及び液化ガスを通ずるものは、その外面から学校、病院その他の告示で定める物件（以下「保安物件」という。）に対し告示で定める距離を有しなければならない。 ３ 前項に規定するガス工作物であって、告示で定める製造所（以下「特定事業所」という。）に設置するもの（告示で定めるものを除く。）は、前項の規定によるほかその外面から当該特定事業所の境界線（当該境界線に連接する海、河川、湖沼その他告示で定める施設若しくは土地がある場合又は当該特定事業所においてガス工作物を設置する者が所有し、若しくは地上権、賃借権その他の土地の使用を目的とする権利を設定している土地がある場合にあっては、その外縁）に対し告示で定める距離を有しなければならない。 ４ ガスの種類、ガス工作物の状況、周囲の状況等の理由により経済産業大臣の認可を受けた場合は、前各項の規定によらないでガス工作物を施設することができる。 ５ 前項の認可を受けようとするときは、その理由及び施設方法を記載した申請書に関係図面を添付して申請しなければならない。 ６ 前項の場合においては、申請書及び関係図面の写しをガス工作物の設置の場所を管轄する産業保安監督部長に提出しなければならない。 ７ 液化ガス用貯槽（不活性の液化ガス用のもの、貯蔵能力が三トン未満のもの及び地盤面下に全部埋設されたものを除く。）の相互間、地盤面下に全部埋設された液化ガス用貯槽（不活性の液化ガス用のものを除く。）の相互間、一のガスホルダー（最高使用圧力が高圧のものであって貯蔵能力が三百立方メートル以上のものに限る。）と他のガスホルダーとの相互間及び液化ガス用貯槽（不活性の液化ガス用のもの、貯蔵能力が三トン未満のもの及び地盤面下に全部埋設されたものを除く。）とガスホルダー（最高使用圧力が高圧のものに限る。）との相互間は、ガス又は液化ガスが漏えいした場合の災害の発生を防止するために、保安上必要な距離を有しなければならない。 ８ 大容量移動式ガス発生設備（移動式ガス発生設備であって貯蔵能力が液化ガスの場合百キログラム、圧縮ガスの場合三十立方メートルを超えるものをいう。第八条において同じ。）による供給を行う場合にあっては、ガス又は液化ガスが漏えいした場合の災害の発生を防止するために、他の移動式ガス発生設備に対し、保安上必要な距離を有しなければならない。",
+                        "textTruncated": false
+                      },
+                      "examAsOfSource": "document/sources/gas-shunin/official_exam_pdf_catalog.json",
+                      "examSnapshot": {
+                        "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                        "asOf": "2020-09-27",
+                        "revisionId": "412M50000400111_20200626_502M60000400060",
+                        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2020-09-27",
+                        "locator": {
+                          "kind": "article",
+                          "number": 6,
+                          "num": "6"
+                        },
+                        "xmlHash": "4155b00f6560219e4800e396f254c39369e60fc87f3191c67c798c4ee0fda92e",
+                        "extractionRegion": "LawBody/MainProvision/descendant::Article",
+                        "extractionVersion": "egov-main-provision/v2",
+                        "normalizationVersion": "itertext-whitespace-collapse-utf8-sha256/v1",
+                        "textHash": "2c0cb41cf59f37faca49cf6f78de5812ce58ee6117bfccaa102a0717b79e4080",
+                        "text": "（離隔距離） 第六条 ガス発生器及び増熱器（移動式ガス発生設備に属するものを除く。）並びにガス精製設備、排送機、圧送機、ガスホルダー及び附帯設備であって製造設備に属するもの（冷凍設備及び配管を除く。）は、その外面から事業場の境界線（境界線が海、河川、湖沼等に接する場合は、当該海、河川、湖沼等の対岸）に対し、告示で定める距離を有しなければならない。 ただし、災害その他非常の場合において、やむを得ない一時的な工事により設置されたガス発生器及び増熱器並びに附帯設備に属する熱交換器及び容器であって、告示で定める措置を講じたものについては、この限りでない。 ２ 前項に規定するガス工作物（不活性のガス（空気を含む。以下同じ。）又は不活性の液化ガスのみを通ずるものを除く。以下この条から第十一条までにおいて同じ。）、特定ガス発生設備に係る容器及び移動式ガス発生設備（その貯蔵能力が、貯蔵するガスが液化ガスの場合は千キログラム以上、貯蔵するガスが圧縮ガスの場合は千立方メートル以上のものに限る。）に係る容器であって最高使用圧力が高圧のもの及び液化ガスを通ずるものは、その外面から学校、病院その他の告示で定める物件（以下「保安物件」という。）に対し告示で定める距離を有しなければならない。 ３ 前項に規定するガス工作物であって、告示で定める製造所（以下「特定事業所」という。）に設置するもの（告示で定めるものを除く。）は、前項の規定によるほかその外面から当該特定事業所の境界線（当該境界線に連接する海、河川、湖沼その他告示で定める施設若しくは土地がある場合又は当該特定事業所においてガス工作物を設置する者が所有し、若しくは地上権、賃借権その他の土地の使用を目的とする権利を設定している土地がある場合にあっては、その外縁）に対し告示で定める距離を有しなければならない。 ４ ガスの種類、ガス工作物の状況、周囲の状況等の理由により経済産業大臣の認可を受けた場合は、前各項の規定によらないでガス工作物を施設することができる。 ５ 前項の認可を受けようとするときは、その理由及び施設方法を記載した申請書に関係図面を添付して申請しなければならない。 ６ 前項の場合においては、申請書及び関係図面の写しをガス工作物の設置の場所を管轄する産業保安監督部長に提出しなければならない。 ７ 液化ガス用貯槽（不活性の液化ガス用のもの、貯蔵能力が三トン未満のもの及び地盤面下に全部埋設されたものを除く。）の相互間、地盤面下に全部埋設された液化ガス用貯槽（不活性の液化ガス用のものを除く。）の相互間、一のガスホルダー（最高使用圧力が高圧のものであって貯蔵能力が三百立方メートル以上のものに限る。）と他のガスホルダーとの相互間及び液化ガス用貯槽（不活性の液化ガス用のもの、貯蔵能力が三トン未満のもの及び地盤面下に全部埋設されたものを除く。）とガスホルダー（最高使用圧力が高圧のものに限る。）との相互間は、ガス又は液化ガスが漏えいした場合の災害の発生を防止するために、保安上必要な距離を有しなければならない。 ８ 大容量移動式ガス発生設備（移動式ガス発生設備であって貯蔵能力が液化ガスの場合百キログラム、圧縮ガスの場合三十立方メートルを超えるものをいう。第八条において同じ。）による供給を行う場合にあっては、ガス又は液化ガスが漏えいした場合の災害の発生を防止するために、他の移動式ガス発生設備に対し、保安上必要な距離を有しなければならない。",
+                        "textTruncated": false
+                      },
+                      "examSnapshotStatus": "available",
+                      "comparison": "unchanged",
+                      "status": "complete"
+                    },
+                    {
+                      "lawId": "412M50000400111",
+                      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                      "role": "current_basis",
+                      "scope": "choice",
+                      "choiceIndex": 1,
+                      "declaredArticle": "第6条第2項",
+                      "locator": {
+                        "kind": "article",
+                        "number": 6,
+                        "num": "6"
+                      },
+                      "resolvedLawTitle": "ガス工作物の技術上の基準を定める省令",
+                      "currentSnapshot": {
+                        "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                        "asOf": "2026-10-28",
+                        "revisionId": "412M50000400111_20240427_506M60000400035",
+                        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2026-10-28",
+                        "locator": {
+                          "kind": "article",
+                          "number": 6,
+                          "num": "6"
+                        },
+                        "xmlHash": "0d9aa0bfc33559534f05554b86065743547262a88b62a5ade3b11da6d9697140",
+                        "extractionRegion": "LawBody/MainProvision/descendant::Article",
+                        "extractionVersion": "egov-main-provision/v2",
+                        "normalizationVersion": "itertext-whitespace-collapse-utf8-sha256/v1",
+                        "textHash": "2c0cb41cf59f37faca49cf6f78de5812ce58ee6117bfccaa102a0717b79e4080",
+                        "text": "（離隔距離） 第六条 ガス発生器及び増熱器（移動式ガス発生設備に属するものを除く。）並びにガス精製設備、排送機、圧送機、ガスホルダー及び附帯設備であって製造設備に属するもの（冷凍設備及び配管を除く。）は、その外面から事業場の境界線（境界線が海、河川、湖沼等に接する場合は、当該海、河川、湖沼等の対岸）に対し、告示で定める距離を有しなければならない。 ただし、災害その他非常の場合において、やむを得ない一時的な工事により設置されたガス発生器及び増熱器並びに附帯設備に属する熱交換器及び容器であって、告示で定める措置を講じたものについては、この限りでない。 ２ 前項に規定するガス工作物（不活性のガス（空気を含む。以下同じ。）又は不活性の液化ガスのみを通ずるものを除く。以下この条から第十一条までにおいて同じ。）、特定ガス発生設備に係る容器及び移動式ガス発生設備（その貯蔵能力が、貯蔵するガスが液化ガスの場合は千キログラム以上、貯蔵するガスが圧縮ガスの場合は千立方メートル以上のものに限る。）に係る容器であって最高使用圧力が高圧のもの及び液化ガスを通ずるものは、その外面から学校、病院その他の告示で定める物件（以下「保安物件」という。）に対し告示で定める距離を有しなければならない。 ３ 前項に規定するガス工作物であって、告示で定める製造所（以下「特定事業所」という。）に設置するもの（告示で定めるものを除く。）は、前項の規定によるほかその外面から当該特定事業所の境界線（当該境界線に連接する海、河川、湖沼その他告示で定める施設若しくは土地がある場合又は当該特定事業所においてガス工作物を設置する者が所有し、若しくは地上権、賃借権その他の土地の使用を目的とする権利を設定している土地がある場合にあっては、その外縁）に対し告示で定める距離を有しなければならない。 ４ ガスの種類、ガス工作物の状況、周囲の状況等の理由により経済産業大臣の認可を受けた場合は、前各項の規定によらないでガス工作物を施設することができる。 ５ 前項の認可を受けようとするときは、その理由及び施設方法を記載した申請書に関係図面を添付して申請しなければならない。 ６ 前項の場合においては、申請書及び関係図面の写しをガス工作物の設置の場所を管轄する産業保安監督部長に提出しなければならない。 ７ 液化ガス用貯槽（不活性の液化ガス用のもの、貯蔵能力が三トン未満のもの及び地盤面下に全部埋設されたものを除く。）の相互間、地盤面下に全部埋設された液化ガス用貯槽（不活性の液化ガス用のものを除く。）の相互間、一のガスホルダー（最高使用圧力が高圧のものであって貯蔵能力が三百立方メートル以上のものに限る。）と他のガスホルダーとの相互間及び液化ガス用貯槽（不活性の液化ガス用のもの、貯蔵能力が三トン未満のもの及び地盤面下に全部埋設されたものを除く。）とガスホルダー（最高使用圧力が高圧のものに限る。）との相互間は、ガス又は液化ガスが漏えいした場合の災害の発生を防止するために、保安上必要な距離を有しなければならない。 ８ 大容量移動式ガス発生設備（移動式ガス発生設備であって貯蔵能力が液化ガスの場合百キログラム、圧縮ガスの場合三十立方メートルを超えるものをいう。第八条において同じ。）による供給を行う場合にあっては、ガス又は液化ガスが漏えいした場合の災害の発生を防止するために、他の移動式ガス発生設備に対し、保安上必要な距離を有しなければならない。",
+                        "textTruncated": false
+                      },
+                      "examAsOfSource": "document/sources/gas-shunin/official_exam_pdf_catalog.json",
+                      "examSnapshot": {
+                        "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                        "asOf": "2020-09-27",
+                        "revisionId": "412M50000400111_20200626_502M60000400060",
+                        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2020-09-27",
+                        "locator": {
+                          "kind": "article",
+                          "number": 6,
+                          "num": "6"
+                        },
+                        "xmlHash": "4155b00f6560219e4800e396f254c39369e60fc87f3191c67c798c4ee0fda92e",
+                        "extractionRegion": "LawBody/MainProvision/descendant::Article",
+                        "extractionVersion": "egov-main-provision/v2",
+                        "normalizationVersion": "itertext-whitespace-collapse-utf8-sha256/v1",
+                        "textHash": "2c0cb41cf59f37faca49cf6f78de5812ce58ee6117bfccaa102a0717b79e4080",
+                        "text": "（離隔距離） 第六条 ガス発生器及び増熱器（移動式ガス発生設備に属するものを除く。）並びにガス精製設備、排送機、圧送機、ガスホルダー及び附帯設備であって製造設備に属するもの（冷凍設備及び配管を除く。）は、その外面から事業場の境界線（境界線が海、河川、湖沼等に接する場合は、当該海、河川、湖沼等の対岸）に対し、告示で定める距離を有しなければならない。 ただし、災害その他非常の場合において、やむを得ない一時的な工事により設置されたガス発生器及び増熱器並びに附帯設備に属する熱交換器及び容器であって、告示で定める措置を講じたものについては、この限りでない。 ２ 前項に規定するガス工作物（不活性のガス（空気を含む。以下同じ。）又は不活性の液化ガスのみを通ずるものを除く。以下この条から第十一条までにおいて同じ。）、特定ガス発生設備に係る容器及び移動式ガス発生設備（その貯蔵能力が、貯蔵するガスが液化ガスの場合は千キログラム以上、貯蔵するガスが圧縮ガスの場合は千立方メートル以上のものに限る。）に係る容器であって最高使用圧力が高圧のもの及び液化ガスを通ずるものは、その外面から学校、病院その他の告示で定める物件（以下「保安物件」という。）に対し告示で定める距離を有しなければならない。 ３ 前項に規定するガス工作物であって、告示で定める製造所（以下「特定事業所」という。）に設置するもの（告示で定めるものを除く。）は、前項の規定によるほかその外面から当該特定事業所の境界線（当該境界線に連接する海、河川、湖沼その他告示で定める施設若しくは土地がある場合又は当該特定事業所においてガス工作物を設置する者が所有し、若しくは地上権、賃借権その他の土地の使用を目的とする権利を設定している土地がある場合にあっては、その外縁）に対し告示で定める距離を有しなければならない。 ４ ガスの種類、ガス工作物の状況、周囲の状況等の理由により経済産業大臣の認可を受けた場合は、前各項の規定によらないでガス工作物を施設することができる。 ５ 前項の認可を受けようとするときは、その理由及び施設方法を記載した申請書に関係図面を添付して申請しなければならない。 ６ 前項の場合においては、申請書及び関係図面の写しをガス工作物の設置の場所を管轄する産業保安監督部長に提出しなければならない。 ７ 液化ガス用貯槽（不活性の液化ガス用のもの、貯蔵能力が三トン未満のもの及び地盤面下に全部埋設されたものを除く。）の相互間、地盤面下に全部埋設された液化ガス用貯槽（不活性の液化ガス用のものを除く。）の相互間、一のガスホルダー（最高使用圧力が高圧のものであって貯蔵能力が三百立方メートル以上のものに限る。）と他のガスホルダーとの相互間及び液化ガス用貯槽（不活性の液化ガス用のもの、貯蔵能力が三トン未満のもの及び地盤面下に全部埋設されたものを除く。）とガスホルダー（最高使用圧力が高圧のものに限る。）との相互間は、ガス又は液化ガスが漏えいした場合の災害の発生を防止するために、保安上必要な距離を有しなければならない。 ８ 大容量移動式ガス発生設備（移動式ガス発生設備であって貯蔵能力が液化ガスの場合百キログラム、圧縮ガスの場合三十立方メートルを超えるものをいう。第八条において同じ。）による供給を行う場合にあっては、ガス又は液化ガスが漏えいした場合の災害の発生を防止するために、他の移動式ガス発生設備に対し、保安上必要な距離を有しなければならない。",
+                        "textTruncated": false
+                      },
+                      "examSnapshotStatus": "available",
+                      "comparison": "unchanged",
+                      "status": "complete"
+                    },
+                    {
+                      "lawId": "412M50000400111",
+                      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                      "role": "current_basis",
+                      "scope": "choice",
+                      "choiceIndex": 2,
+                      "declaredArticle": "第6条第4項",
+                      "locator": {
+                        "kind": "article",
+                        "number": 6,
+                        "num": "6"
+                      },
+                      "resolvedLawTitle": "ガス工作物の技術上の基準を定める省令",
+                      "currentSnapshot": {
+                        "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                        "asOf": "2026-10-28",
+                        "revisionId": "412M50000400111_20240427_506M60000400035",
+                        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2026-10-28",
+                        "locator": {
+                          "kind": "article",
+                          "number": 6,
+                          "num": "6"
+                        },
+                        "xmlHash": "0d9aa0bfc33559534f05554b86065743547262a88b62a5ade3b11da6d9697140",
+                        "extractionRegion": "LawBody/MainProvision/descendant::Article",
+                        "extractionVersion": "egov-main-provision/v2",
+                        "normalizationVersion": "itertext-whitespace-collapse-utf8-sha256/v1",
+                        "textHash": "2c0cb41cf59f37faca49cf6f78de5812ce58ee6117bfccaa102a0717b79e4080",
+                        "text": "（離隔距離） 第六条 ガス発生器及び増熱器（移動式ガス発生設備に属するものを除く。）並びにガス精製設備、排送機、圧送機、ガスホルダー及び附帯設備であって製造設備に属するもの（冷凍設備及び配管を除く。）は、その外面から事業場の境界線（境界線が海、河川、湖沼等に接する場合は、当該海、河川、湖沼等の対岸）に対し、告示で定める距離を有しなければならない。 ただし、災害その他非常の場合において、やむを得ない一時的な工事により設置されたガス発生器及び増熱器並びに附帯設備に属する熱交換器及び容器であって、告示で定める措置を講じたものについては、この限りでない。 ２ 前項に規定するガス工作物（不活性のガス（空気を含む。以下同じ。）又は不活性の液化ガスのみを通ずるものを除く。以下この条から第十一条までにおいて同じ。）、特定ガス発生設備に係る容器及び移動式ガス発生設備（その貯蔵能力が、貯蔵するガスが液化ガスの場合は千キログラム以上、貯蔵するガスが圧縮ガスの場合は千立方メートル以上のものに限る。）に係る容器であって最高使用圧力が高圧のもの及び液化ガスを通ずるものは、その外面から学校、病院その他の告示で定める物件（以下「保安物件」という。）に対し告示で定める距離を有しなければならない。 ３ 前項に規定するガス工作物であって、告示で定める製造所（以下「特定事業所」という。）に設置するもの（告示で定めるものを除く。）は、前項の規定によるほかその外面から当該特定事業所の境界線（当該境界線に連接する海、河川、湖沼その他告示で定める施設若しくは土地がある場合又は当該特定事業所においてガス工作物を設置する者が所有し、若しくは地上権、賃借権その他の土地の使用を目的とする権利を設定している土地がある場合にあっては、その外縁）に対し告示で定める距離を有しなければならない。 ４ ガスの種類、ガス工作物の状況、周囲の状況等の理由により経済産業大臣の認可を受けた場合は、前各項の規定によらないでガス工作物を施設することができる。 ５ 前項の認可を受けようとするときは、その理由及び施設方法を記載した申請書に関係図面を添付して申請しなければならない。 ６ 前項の場合においては、申請書及び関係図面の写しをガス工作物の設置の場所を管轄する産業保安監督部長に提出しなければならない。 ７ 液化ガス用貯槽（不活性の液化ガス用のもの、貯蔵能力が三トン未満のもの及び地盤面下に全部埋設されたものを除く。）の相互間、地盤面下に全部埋設された液化ガス用貯槽（不活性の液化ガス用のものを除く。）の相互間、一のガスホルダー（最高使用圧力が高圧のものであって貯蔵能力が三百立方メートル以上のものに限る。）と他のガスホルダーとの相互間及び液化ガス用貯槽（不活性の液化ガス用のもの、貯蔵能力が三トン未満のもの及び地盤面下に全部埋設されたものを除く。）とガスホルダー（最高使用圧力が高圧のものに限る。）との相互間は、ガス又は液化ガスが漏えいした場合の災害の発生を防止するために、保安上必要な距離を有しなければならない。 ８ 大容量移動式ガス発生設備（移動式ガス発生設備であって貯蔵能力が液化ガスの場合百キログラム、圧縮ガスの場合三十立方メートルを超えるものをいう。第八条において同じ。）による供給を行う場合にあっては、ガス又は液化ガスが漏えいした場合の災害の発生を防止するために、他の移動式ガス発生設備に対し、保安上必要な距離を有しなければならない。",
+                        "textTruncated": false
+                      },
+                      "examAsOfSource": "document/sources/gas-shunin/official_exam_pdf_catalog.json",
+                      "examSnapshot": {
+                        "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                        "asOf": "2020-09-27",
+                        "revisionId": "412M50000400111_20200626_502M60000400060",
+                        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2020-09-27",
+                        "locator": {
+                          "kind": "article",
+                          "number": 6,
+                          "num": "6"
+                        },
+                        "xmlHash": "4155b00f6560219e4800e396f254c39369e60fc87f3191c67c798c4ee0fda92e",
+                        "extractionRegion": "LawBody/MainProvision/descendant::Article",
+                        "extractionVersion": "egov-main-provision/v2",
+                        "normalizationVersion": "itertext-whitespace-collapse-utf8-sha256/v1",
+                        "textHash": "2c0cb41cf59f37faca49cf6f78de5812ce58ee6117bfccaa102a0717b79e4080",
+                        "text": "（離隔距離） 第六条 ガス発生器及び増熱器（移動式ガス発生設備に属するものを除く。）並びにガス精製設備、排送機、圧送機、ガスホルダー及び附帯設備であって製造設備に属するもの（冷凍設備及び配管を除く。）は、その外面から事業場の境界線（境界線が海、河川、湖沼等に接する場合は、当該海、河川、湖沼等の対岸）に対し、告示で定める距離を有しなければならない。 ただし、災害その他非常の場合において、やむを得ない一時的な工事により設置されたガス発生器及び増熱器並びに附帯設備に属する熱交換器及び容器であって、告示で定める措置を講じたものについては、この限りでない。 ２ 前項に規定するガス工作物（不活性のガス（空気を含む。以下同じ。）又は不活性の液化ガスのみを通ずるものを除く。以下この条から第十一条までにおいて同じ。）、特定ガス発生設備に係る容器及び移動式ガス発生設備（その貯蔵能力が、貯蔵するガスが液化ガスの場合は千キログラム以上、貯蔵するガスが圧縮ガスの場合は千立方メートル以上のものに限る。）に係る容器であって最高使用圧力が高圧のもの及び液化ガスを通ずるものは、その外面から学校、病院その他の告示で定める物件（以下「保安物件」という。）に対し告示で定める距離を有しなければならない。 ３ 前項に規定するガス工作物であって、告示で定める製造所（以下「特定事業所」という。）に設置するもの（告示で定めるものを除く。）は、前項の規定によるほかその外面から当該特定事業所の境界線（当該境界線に連接する海、河川、湖沼その他告示で定める施設若しくは土地がある場合又は当該特定事業所においてガス工作物を設置する者が所有し、若しくは地上権、賃借権その他の土地の使用を目的とする権利を設定している土地がある場合にあっては、その外縁）に対し告示で定める距離を有しなければならない。 ４ ガスの種類、ガス工作物の状況、周囲の状況等の理由により経済産業大臣の認可を受けた場合は、前各項の規定によらないでガス工作物を施設することができる。 ５ 前項の認可を受けようとするときは、その理由及び施設方法を記載した申請書に関係図面を添付して申請しなければならない。 ６ 前項の場合においては、申請書及び関係図面の写しをガス工作物の設置の場所を管轄する産業保安監督部長に提出しなければならない。 ７ 液化ガス用貯槽（不活性の液化ガス用のもの、貯蔵能力が三トン未満のもの及び地盤面下に全部埋設されたものを除く。）の相互間、地盤面下に全部埋設された液化ガス用貯槽（不活性の液化ガス用のものを除く。）の相互間、一のガスホルダー（最高使用圧力が高圧のものであって貯蔵能力が三百立方メートル以上のものに限る。）と他のガスホルダーとの相互間及び液化ガス用貯槽（不活性の液化ガス用のもの、貯蔵能力が三トン未満のもの及び地盤面下に全部埋設されたものを除く。）とガスホルダー（最高使用圧力が高圧のものに限る。）との相互間は、ガス又は液化ガスが漏えいした場合の災害の発生を防止するために、保安上必要な距離を有しなければならない。 ８ 大容量移動式ガス発生設備（移動式ガス発生設備であって貯蔵能力が液化ガスの場合百キログラム、圧縮ガスの場合三十立方メートルを超えるものをいう。第八条において同じ。）による供給を行う場合にあっては、ガス又は液化ガスが漏えいした場合の災害の発生を防止するために、他の移動式ガス発生設備に対し、保安上必要な距離を有しなければならない。",
+                        "textTruncated": false
+                      },
+                      "examSnapshotStatus": "available",
+                      "comparison": "unchanged",
+                      "status": "complete"
+                    },
+                    {
+                      "lawId": "412M50000400111",
+                      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                      "role": "current_basis",
+                      "scope": "choice",
+                      "choiceIndex": 3,
+                      "declaredArticle": "第9条第2項",
+                      "locator": {
+                        "kind": "article",
+                        "number": 9,
+                        "num": "9"
+                      },
+                      "resolvedLawTitle": "ガス工作物の技術上の基準を定める省令",
+                      "currentSnapshot": {
+                        "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                        "asOf": "2026-10-28",
+                        "revisionId": "412M50000400111_20240427_506M60000400035",
+                        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2026-10-28",
+                        "locator": {
+                          "kind": "article",
+                          "number": 9,
+                          "num": "9"
+                        },
+                        "xmlHash": "0d9aa0bfc33559534f05554b86065743547262a88b62a5ade3b11da6d9697140",
+                        "extractionRegion": "LawBody/MainProvision/descendant::Article",
+                        "extractionVersion": "egov-main-provision/v2",
+                        "normalizationVersion": "itertext-whitespace-collapse-utf8-sha256/v1",
+                        "textHash": "d6da3cc74a7c2c4f1bb8af9705e79c996f0dcdcdb0c501e218582e9ed37de871",
+                        "text": "（ガスの滞留防止） 第九条 ガス又は液化ガスを通ずるガス工作物を設置する室（製造所及び供給所に存するものに限る。）は、これらのガス又は液化ガスが漏えいしたとき滞留しない構造でなければならない。 ２ 製造所には、ガス又は液化ガスを通ずるガス工作物から漏えいしたガスが滞留するおそれのある製造所内の適当な場所に、当該ガスの漏えいを適切に検知し、かつ、警報する設備を設けなければならない。",
+                        "textTruncated": false
+                      },
+                      "examAsOfSource": "document/sources/gas-shunin/official_exam_pdf_catalog.json",
+                      "examSnapshot": {
+                        "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                        "asOf": "2020-09-27",
+                        "revisionId": "412M50000400111_20200626_502M60000400060",
+                        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2020-09-27",
+                        "locator": {
+                          "kind": "article",
+                          "number": 9,
+                          "num": "9"
+                        },
+                        "xmlHash": "4155b00f6560219e4800e396f254c39369e60fc87f3191c67c798c4ee0fda92e",
+                        "extractionRegion": "LawBody/MainProvision/descendant::Article",
+                        "extractionVersion": "egov-main-provision/v2",
+                        "normalizationVersion": "itertext-whitespace-collapse-utf8-sha256/v1",
+                        "textHash": "d6da3cc74a7c2c4f1bb8af9705e79c996f0dcdcdb0c501e218582e9ed37de871",
+                        "text": "（ガスの滞留防止） 第九条 ガス又は液化ガスを通ずるガス工作物を設置する室（製造所及び供給所に存するものに限る。）は、これらのガス又は液化ガスが漏えいしたとき滞留しない構造でなければならない。 ２ 製造所には、ガス又は液化ガスを通ずるガス工作物から漏えいしたガスが滞留するおそれのある製造所内の適当な場所に、当該ガスの漏えいを適切に検知し、かつ、警報する設備を設けなければならない。",
+                        "textTruncated": false
+                      },
+                      "examSnapshotStatus": "available",
+                      "comparison": "unchanged",
+                      "status": "complete"
+                    },
+                    {
+                      "lawId": "412M50000400111",
+                      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                      "role": "current_basis",
+                      "scope": "choice",
+                      "choiceIndex": 4,
+                      "declaredArticle": "第13条第1項",
+                      "locator": {
+                        "kind": "article",
+                        "number": 13,
+                        "num": "13"
+                      },
+                      "resolvedLawTitle": "ガス工作物の技術上の基準を定める省令",
+                      "currentSnapshot": {
+                        "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                        "asOf": "2026-10-28",
+                        "revisionId": "412M50000400111_20240427_506M60000400035",
+                        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2026-10-28",
+                        "locator": {
+                          "kind": "article",
+                          "number": 13,
+                          "num": "13"
+                        },
+                        "xmlHash": "0d9aa0bfc33559534f05554b86065743547262a88b62a5ade3b11da6d9697140",
+                        "extractionRegion": "LawBody/MainProvision/descendant::Article",
+                        "extractionVersion": "egov-main-provision/v2",
+                        "normalizationVersion": "itertext-whitespace-collapse-utf8-sha256/v1",
+                        "textHash": "c3250cff403d0dfdff8c59749b0e372c73a540df2eecaaa9ce2f702ab2d17af9",
+                        "text": "（ガスの置換等） 第十三条 ガス発生設備、ガス精製設備、排送機、圧送機、ガスホルダー及び附帯設備であって製造設備に属するもののガス又は液化ガスを通ずる部分（不活性のガス又は不活性の液化ガスのみを通ずるものを除く。）は、ガス又は液化ガスを安全に置換できる構造でなければならない。 ２ ベントスタックには、放出したガスが周囲に障害を与えるおそれのないように適切な措置を講じなければならない。 ３ フレアースタックには、当該フレアースタックにおいて発生するふく射熱が周囲に障害を与えないよう適切な措置を講じ、かつ、ガスを安全に放出するための適切な措置を講じなければならない。 ４ 毒性ガスを冷媒とする冷凍設備にあっては、冷媒ガスを廃棄する際にそのガスが危険又は損害を他に及ぼすおそれのないように廃棄される構造のものでなければならない。",
+                        "textTruncated": false
+                      },
+                      "examAsOfSource": "document/sources/gas-shunin/official_exam_pdf_catalog.json",
+                      "examSnapshot": {
+                        "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                        "asOf": "2020-09-27",
+                        "revisionId": "412M50000400111_20200626_502M60000400060",
+                        "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2020-09-27",
+                        "locator": {
+                          "kind": "article",
+                          "number": 13,
+                          "num": "13"
+                        },
+                        "xmlHash": "4155b00f6560219e4800e396f254c39369e60fc87f3191c67c798c4ee0fda92e",
+                        "extractionRegion": "LawBody/MainProvision/descendant::Article",
+                        "extractionVersion": "egov-main-provision/v2",
+                        "normalizationVersion": "itertext-whitespace-collapse-utf8-sha256/v1",
+                        "textHash": "c3250cff403d0dfdff8c59749b0e372c73a540df2eecaaa9ce2f702ab2d17af9",
+                        "text": "（ガスの置換等） 第十三条 ガス発生設備、ガス精製設備、排送機、圧送機、ガスホルダー及び附帯設備であって製造設備に属するもののガス又は液化ガスを通ずる部分（不活性のガス又は不活性の液化ガスのみを通ずるものを除く。）は、ガス又は液化ガスを安全に置換できる構造でなければならない。 ２ ベントスタックには、放出したガスが周囲に障害を与えるおそれのないように適切な措置を講じなければならない。 ３ フレアースタックには、当該フレアースタックにおいて発生するふく射熱が周囲に障害を与えないよう適切な措置を講じ、かつ、ガスを安全に放出するための適切な措置を講じなければならない。 ４ 毒性ガスを冷媒とする冷凍設備にあっては、冷媒ガスを廃棄する際にそのガスが危険又は損害を他に及ぼすおそれのないように廃棄される構造のものでなければならない。",
+                        "textTruncated": false
+                      },
+                      "examSnapshotStatus": "available",
+                      "comparison": "unchanged",
+                      "status": "complete"
+                    }
+                  ],
+                  "errors": []
+                },
+                "statementJudgmentGuidance": {
+                  "schemaVersion": "statement-judgment-guidance/v1",
+                  "sourceRef": "prompt/02a_prompt_review_correctChoiceText.md",
+                  "sourceSha256": "5415ec4a6943fd098c8da3115d529f6f898f91b50ca8de47c70baba7d01170eb",
+                  "sectionHeading": "## 判定基準",
+                  "sectionText": "## 判定基準\n\n`correctChoiceText`は、問題文と各選択肢から作る完全な命題の正誤です。`select_incorrect`の問題でも、記述が誤っていれば`間違い`、正しければ`正しい`と記録します。\n\n1. **完全命題の構成**:\n   - **完結した記述**: その記述自体を判定命題とする。「誤っているものを選べ」などの指示は選択方向にだけ使い、記述の真偽を反転しない。事実だけを述べる肢に問題文が「登録拒否事由に該当するか」等の共通関係を与える場合は、肯定形の共通述語と条項、列挙範囲、時点又は分類の限定を補う（「該当しないものを選べ」の否定は選択方向であり、各肢へ補って反転しない）。\n   - **断片肢**（名詞句・設備名・数値等）: 問題文の述語を否定語も含めて一度だけ補い（例：「Xは検査項目に含まれない」）、成立すれば`正しい`とする。\n   - **下線部番号肢**: 番号は本文中の語句又は記述へのポインタであり、参照先の内容自体の正誤を記録する（「下線部Nは誤っている」を補って逆転させない）。\n   - **並列述語の末尾否定**（「Aし、又はBしていない」等）: 句読点・助詞・法令上の並列関係を確認し、否定がAとBの双方に掛かるのかBだけに掛かるのかを先に確定する。全体否定は`A又はBを満たさないもの`と正規化し、条文の肯定条件`A又はBを満たすもの`の補集合と照合する。元解説の肯定形言い換えは元の問題文を訂正した証拠ではありません。\n2. **根拠との照合**:\n   - 用途・回路・運転状態など問題文の対象系の条件を先に固定し、別用途の一般論で反転させない。\n   - 元解説の訂正文（例：選択肢「大きい」に対し解説「小さい」）は資料矛盾ではなく誤り訂正として読む。公式解答と訂正文が整合する場合、資料名と具体的内容を示せないモデル内部の記憶だけで覆さない。\n   - 原本に「順不同」が明示された名前付き空欄（`unorderedAnswerEvidence`）は、共通条件を満たす全候補を`正しい`とする。\n   - `aggregateAnswerDecomposition`でa〜d等の記述へ分解した問題は、元の組合せ肢4件の判定を転記せず、現在の`choiceTextList`にある抽出記述順の真偽（例：a・c・dが正しければ`[\"正しい\", \"間違い\", \"正しい\", \"正しい\"]`）を出力する。「適切なものはいくつあるか」等の個数問題では、公式解答の数字は正しい記述の**個数**です（誤り個数を問う設問は誤った記述の個数）。個数と照合し、特定肢へ機械的に自動割当しません。「選択肢(N)はすべて正しい」の明示規約（`count_choice_index_with_all_correct_sentinel`）ではNを件数ではなく全記述成立として照合する。\n   - 法令問題では出題時点の正誤を確定する。出題時の公式解答と現行条文が異なる可能性だけを02aの衝突や`hold`にせず、現行法差分の確認は02b・03bへ送る（03bで三次確定した場合のみ`23_correctChoiceText_fixed`を更新する）。\n3. **最終整合確認**:\n   - 全肢の独立判定後にだけ、02の`questionIntent`及び`answer_result_text`（公式解答）との整合を確認する。不整合があれば自動補正せず`hold`にし、確認した資料名と食い違いを明記する。\n\n",
+                  "sectionSha256": "1c89a3dcf1ba17ba9d536b9daa1c41e98ca2108ec25c4ff0e5961e0bfb6a7843",
+                  "guidanceHash": "7bcc2c6b2f9ca50ed8b2412d5f423dd313d8da8aafaaa2a8e4528d9bce590154"
+                },
+                "officialQuestionPdf": {
+                  "path": "output/pdf/gas-shunin-official/2020/q_hei_r2.pdf",
+                  "sha256": "2adec8ee2f523d7ab9d4f3ff384712ca8f1ea5daf8a677cc53e572419976feeb"
+                },
+                "officialAnswerPdf": {
+                  "path": "output/pdf/gas-shunin-official/2020/a_hei_r2.pdf",
+                  "sha256": "e94d32a68750247963c603448af3b9d4f1c367e960ddcb077a788b69592f6462"
+                },
+                "sourceIdentity": {
+                  "sourceQuestionKey": "gas-shunin:hei:2020:law:q06",
+                  "reviewQuestionId": "a72fc6e5e3f20a93",
+                  "sourceRecordRef": "question_2020_1.json#5"
+                },
+                "officialAnswerNumber": 4
+              },
+              "proposedFields": {
+                "correctChoiceText": [
+                  "間違い",
+                  "正しい",
+                  "間違い",
+                  "正しい",
+                  "間違い"
+                ],
+                "explanationText": [
+                  "間違い。保安物件までの距離は、製造所の敷地境界からではなく、特定ガス発生設備に係る容器の外面から測る。ガス工作物の技術上の基準を定める省令第6条第2項は、対象となる容器の外面から保安物件まで告示で定める距離を確保するよう求めている。",
+                  "正しい。劇場、映画館、演芸場、公会堂などで収容定員が300人以上の施設は、第1種保安物件に該当する。事業場と同一敷地内の施設は除く。第1種保安物件の具体的な範囲は、ガス工作物の技術上の基準の細目を定める告示第3条で定められている。",
+                  "間違い。告示で定める距離の規定によらずに施設するには、経済産業大臣の認可が必要である。単に届け出ただけでは足りない。ガス工作物の技術上の基準を定める省令第6条第4項による。",
+                  "正しい。製造所には、漏れたガスが滞留するおそれのある適当な場所に、漏えいを検知して警報する設備を設ける。ガス工作物の技術上の基準を定める省令第9条第2項の措置である。",
+                  "間違い。対象設備のガス又は液化ガスを通ずる部分は、安全に置換できる構造とする。液化ガスを廃棄できる構造という記述は、ガス工作物の技術上の基準を定める省令第13条第1項の規定と異なる。同条第4項には毒性ガスを冷媒とする冷凍設備の廃棄に関する別の規定がある。"
+                ],
+                "lawReferences": [
+                  [
+                    {
+                      "lawId": "412M50000400111",
+                      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                      "article": "第6条第2項",
+                      "role": "current_basis",
+                      "scope": "choice",
+                      "choiceIndex": 0,
+                      "referenceDate": "2026-10-28",
+                      "verificationStatus": "verified",
+                      "source": "https://laws.e-gov.go.jp/law/412M50000400111"
+                    }
+                  ],
+                  [
+                    {
+                      "lawId": "412M50000400111",
+                      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                      "article": "第6条第2項",
+                      "role": "current_basis",
+                      "scope": "choice",
+                      "choiceIndex": 1,
+                      "referenceDate": "2026-10-28",
+                      "verificationStatus": "verified",
+                      "source": "https://laws.e-gov.go.jp/law/412M50000400111"
+                    }
+                  ],
+                  [
+                    {
+                      "lawId": "412M50000400111",
+                      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                      "article": "第6条第4項",
+                      "role": "current_basis",
+                      "scope": "choice",
+                      "choiceIndex": 2,
+                      "referenceDate": "2026-10-28",
+                      "verificationStatus": "verified",
+                      "source": "https://laws.e-gov.go.jp/law/412M50000400111"
+                    }
+                  ],
+                  [
+                    {
+                      "lawId": "412M50000400111",
+                      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                      "article": "第9条第2項",
+                      "role": "current_basis",
+                      "scope": "choice",
+                      "choiceIndex": 3,
+                      "referenceDate": "2026-10-28",
+                      "verificationStatus": "verified",
+                      "source": "https://laws.e-gov.go.jp/law/412M50000400111"
+                    }
+                  ],
+                  [
+                    {
+                      "lawId": "412M50000400111",
+                      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                      "article": "第13条第1項",
+                      "role": "current_basis",
+                      "scope": "choice",
+                      "choiceIndex": 4,
+                      "referenceDate": "2026-10-28",
+                      "verificationStatus": "verified",
+                      "source": "https://laws.e-gov.go.jp/law/412M50000400111"
+                    }
+                  ]
+                ],
+                "lawRevisionFacts": [
+                  {
+                    "auditStatus": "same_as_current",
+                    "reviewState": "needs_secondary_review",
+                    "reconciliationStatus": "pending",
+                    "differenceFacts": [
+                      "技術省令6条2項の距離の測定基点は出題時と現行で同じ。"
+                    ],
+                    "answerImpactFacts": [
+                      "間違い。容器の外面から保安物件まで測るため、製造所の敷地境界からという記述は技術省令6条2項と異なる。"
+                    ],
+                    "evidenceSummary": {
+                      "verdict": "間違い",
+                      "explanationText": "間違い。容器の外面から保安物件まで測るため、製造所の敷地境界からという記述は技術省令6条2項と異なる。",
+                      "differenceSummary": "技術省令6条2項の距離の測定基点は出題時と現行で同じ。",
+                      "promptContext": "特定ガス発生設備に係る容器であって液化ガスを通ずるものは、その製造所の敷地境界から保安物件に対し告示で定める距離を有しなければならない。",
+                      "refs": [],
+                      "displayRefIds": []
+                    },
+                    "examTime": {
+                      "correctChoiceText": "間違い",
+                      "lawId": "412M50000400111",
+                      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                      "lawRevisionId": "412M50000400111_20200626_502M60000400060",
+                      "referenceDate": "2020-09-27",
+                      "article": "第6条第2項",
+                      "verificationStatus": "verified",
+                      "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2020-09-27",
+                      "articleTextHash": "2c0cb41cf59f37faca49cf6f78de5812ce58ee6117bfccaa102a0717b79e4080"
+                    },
+                    "current": {
+                      "correctChoiceText": "間違い",
+                      "lawId": "412M50000400111",
+                      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                      "lawRevisionId": "412M50000400111_20240427_506M60000400035",
+                      "referenceDate": "2026-10-28",
+                      "article": "第6条第2項",
+                      "verificationStatus": "verified",
+                      "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2026-10-28",
+                      "articleTextHash": "2c0cb41cf59f37faca49cf6f78de5812ce58ee6117bfccaa102a0717b79e4080"
+                    }
+                  },
+                  {
+                    "auditStatus": "same_as_current",
+                    "reviewState": "needs_secondary_review",
+                    "reconciliationStatus": "pending",
+                    "differenceFacts": [
+                      "技術省令6条2項の告示への委任は両時点で同じ。告示本文そのものの時点別原本は今回未取得である。",
+                      "国会図書館の法令沿革と実官報令和7年告示145号第2条を照合。2020年以降の記載された改正は2025年の第3条第4号であり、劇場等の第3号は当該官報の改正対象でない。2024年JGA案17頁は300人以上を既存記載として示す。"
+                    ],
+                    "answerImpactFacts": [
+                      "正しい。300人以上の劇場等で、事業場と同一敷地内を除く条件は2024年JGA指針案17頁及び同年度乙種の既整備監査と一致する。"
+                    ],
+                    "evidenceSummary": {
+                      "verdict": "正しい",
+                      "explanationText": "正しい。300人以上の劇場等で、事業場と同一敷地内を除く条件は2024年JGA指針案17頁及び同年度乙種の既整備監査と一致する。",
+                      "differenceSummary": "2020公式正答、2024年JGA案の既存記載、2025年官報の改正対象及びNDL沿革を照合。細目告示の全条文原本を入手したわけではない。",
+                      "promptContext": "劇場、映画館、演芸場、公会堂その他これらに類する施設であって、収容定員300人以上のもの（事業場の存する敷地と同一敷地内にあるものを除く。）は、第1種保安物件に該当する。",
+                      "refs": [],
+                      "displayRefIds": []
+                    },
+                    "examTime": {
+                      "correctChoiceText": "正しい",
+                      "lawId": "412M50000400111",
+                      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                      "lawRevisionId": "412M50000400111_20200626_502M60000400060",
+                      "referenceDate": "2020-09-27",
+                      "article": "第6条第2項",
+                      "verificationStatus": "verified",
+                      "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2020-09-27",
+                      "articleTextHash": "2c0cb41cf59f37faca49cf6f78de5812ce58ee6117bfccaa102a0717b79e4080"
+                    },
+                    "current": {
+                      "correctChoiceText": "正しい",
+                      "lawId": "412M50000400111",
+                      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                      "lawRevisionId": "412M50000400111_20240427_506M60000400035",
+                      "referenceDate": "2026-10-28",
+                      "article": "第6条第2項",
+                      "verificationStatus": "verified",
+                      "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2026-10-28",
+                      "articleTextHash": "2c0cb41cf59f37faca49cf6f78de5812ce58ee6117bfccaa102a0717b79e4080"
+                    }
+                  },
+                  {
+                    "auditStatus": "same_as_current",
+                    "reviewState": "needs_secondary_review",
+                    "reconciliationStatus": "pending",
+                    "differenceFacts": [
+                      "技術省令6条4項は両時点で同じ。"
+                    ],
+                    "answerImpactFacts": [
+                      "間違い。距離基準によらない施設には届出でなく大臣の認可を要する。"
+                    ],
+                    "evidenceSummary": {
+                      "verdict": "間違い",
+                      "explanationText": "間違い。距離基準によらない施設には届出でなく大臣の認可を要する。",
+                      "differenceSummary": "技術省令6条4項は両時点で同じ。",
+                      "promptContext": "ガスの種類、ガス工作物の状況、周囲の状況等の理由によりあらかじめ経済産業大臣に届け出た場合は、告示で定める距離を有しないでガス工作物を施設することができる。",
+                      "refs": [],
+                      "displayRefIds": []
+                    },
+                    "examTime": {
+                      "correctChoiceText": "間違い",
+                      "lawId": "412M50000400111",
+                      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                      "lawRevisionId": "412M50000400111_20200626_502M60000400060",
+                      "referenceDate": "2020-09-27",
+                      "article": "第6条第4項",
+                      "verificationStatus": "verified",
+                      "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2020-09-27",
+                      "articleTextHash": "2c0cb41cf59f37faca49cf6f78de5812ce58ee6117bfccaa102a0717b79e4080"
+                    },
+                    "current": {
+                      "correctChoiceText": "間違い",
+                      "lawId": "412M50000400111",
+                      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                      "lawRevisionId": "412M50000400111_20240427_506M60000400035",
+                      "referenceDate": "2026-10-28",
+                      "article": "第6条第4項",
+                      "verificationStatus": "verified",
+                      "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2026-10-28",
+                      "articleTextHash": "2c0cb41cf59f37faca49cf6f78de5812ce58ee6117bfccaa102a0717b79e4080"
+                    }
+                  },
+                  {
+                    "auditStatus": "same_as_current",
+                    "reviewState": "needs_secondary_review",
+                    "reconciliationStatus": "pending",
+                    "differenceFacts": [
+                      "技術省令9条2項は両時点で同じ。"
+                    ],
+                    "answerImpactFacts": [
+                      "正しい。製造所の漏えいガスの滞留のおそれがある場所に検知警報設備を設ける。"
+                    ],
+                    "evidenceSummary": {
+                      "verdict": "正しい",
+                      "explanationText": "正しい。製造所の漏えいガスの滞留のおそれがある場所に検知警報設備を設ける。",
+                      "differenceSummary": "技術省令9条2項は両時点で同じ。",
+                      "promptContext": "製造所には、液化ガスを通ずるガス工作物から漏えいしたガスが滞留するおそれのある製造所内の適当な場所に、当該ガスの漏えいを適切に検知し、かつ、警報する設備を設けなければならない。",
+                      "refs": [],
+                      "displayRefIds": []
+                    },
+                    "examTime": {
+                      "correctChoiceText": "正しい",
+                      "lawId": "412M50000400111",
+                      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                      "lawRevisionId": "412M50000400111_20200626_502M60000400060",
+                      "referenceDate": "2020-09-27",
+                      "article": "第9条第2項",
+                      "verificationStatus": "verified",
+                      "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2020-09-27",
+                      "articleTextHash": "d6da3cc74a7c2c4f1bb8af9705e79c996f0dcdcdb0c501e218582e9ed37de871"
+                    },
+                    "current": {
+                      "correctChoiceText": "正しい",
+                      "lawId": "412M50000400111",
+                      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                      "lawRevisionId": "412M50000400111_20240427_506M60000400035",
+                      "referenceDate": "2026-10-28",
+                      "article": "第9条第2項",
+                      "verificationStatus": "verified",
+                      "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2026-10-28",
+                      "articleTextHash": "d6da3cc74a7c2c4f1bb8af9705e79c996f0dcdcdb0c501e218582e9ed37de871"
+                    }
+                  },
+                  {
+                    "auditStatus": "same_as_current",
+                    "reviewState": "needs_secondary_review",
+                    "reconciliationStatus": "pending",
+                    "differenceFacts": [
+                      "技術省令13条1項と4項は両時点で同じ。"
+                    ],
+                    "answerImpactFacts": [
+                      "間違い。ガス又は液化ガスを安全に置換できる構造が必要で、廃棄できる構造ではない。"
+                    ],
+                    "evidenceSummary": {
+                      "verdict": "間違い",
+                      "explanationText": "間違い。ガス又は液化ガスを安全に置換できる構造が必要で、廃棄できる構造ではない。",
+                      "differenceSummary": "技術省令13条1項と4項は両時点で同じ。",
+                      "promptContext": "ガス発生設備及び附帯設備であって製造設備に属するものの液化ガスを通ずる部分は、液化ガスを廃棄できる構造でなければならない。",
+                      "refs": [],
+                      "displayRefIds": []
+                    },
+                    "examTime": {
+                      "correctChoiceText": "間違い",
+                      "lawId": "412M50000400111",
+                      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                      "lawRevisionId": "412M50000400111_20200626_502M60000400060",
+                      "referenceDate": "2020-09-27",
+                      "article": "第13条第1項",
+                      "verificationStatus": "verified",
+                      "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2020-09-27",
+                      "articleTextHash": "c3250cff403d0dfdff8c59749b0e372c73a540df2eecaaa9ce2f702ab2d17af9"
+                    },
+                    "current": {
+                      "correctChoiceText": "間違い",
+                      "lawId": "412M50000400111",
+                      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                      "lawRevisionId": "412M50000400111_20240427_506M60000400035",
+                      "referenceDate": "2026-10-28",
+                      "article": "第13条第1項",
+                      "verificationStatus": "verified",
+                      "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2026-10-28",
+                      "articleTextHash": "c3250cff403d0dfdff8c59749b0e372c73a540df2eecaaa9ce2f702ab2d17af9"
+                    }
+                  }
+                ],
+                "auditStatus": "same_as_current",
+                "reviewState": "needs_secondary_review",
+                "sourceSummary": "主担当が2020年度丙種公式問題PDF7頁・印刷6頁と公式正答表を直接目視。イからホの全記述及び5組合せを読み、正答4はロ・ニと確認した。2020-09-27及び2026-10-28の技術省令6・9・13条の全本文をe-Govで直接取得して読み、同じ本文であることを確認した。6条2項は対象容器の外面を基準に保安物件までの距離を定めるが、保安物件の詳細は告示へ委任する。第1肢は敷地境界起点との相違で誤り。第3肢の大臣の認可、4肢の漏えい警報、5肢の安全な置換は各条文から個別に判定した。第2肢は同年度乙種法令問6の同一記述の25_verified_publication及び既存法令監査で告示3条3号により正しいとされている。また日本ガス協会の https://www.gas.or.jp/pdf/iinkai/comment/pc_20240405_02.pdf 実17頁の2.1.2.3を画像と本文で直接読み、300人以上及び同一敷地除外、関連条項として告示3条を明記し、改定コメントが最新告示の反映を示すことを確認した。ただしJGA資料は2024年意見募集の案で、成立した現行規範そのものではない。今回、告示の原本を新たに取得したとは主張しない。JGA資料の初出時点、乙種2020年問題の監査2026-07-28及び当該丙種問題の公式正答表を補助資料として区別して添え、独立内容・法令監査に告示根拠の十分性を判断してもらう。 新たに国立国会図書館の法令沿革 https://hourei.ndl.go.jp/simple/detail?current=-1&lawId=0000087091 を取得し、告示355号が有効であり、出題後は令和7年10月1日告示145号により改正されたことを確認した。法令沿革は告示の本文ではないため、これだけで条文内容を導かない。取得済みのe-Gov公開の令和7年告示145号実官報1頁 https://public-comment.e-gov.go.jp/pcm/download?seqNo=0000300201 を画像及び本文で読み、同告示第2条は細目告示355号の第3条第4号にある障害福祉施設の引用項番号を改正すると確認した。第3号の劇場等は改正対象に掲げられていない。JGAの2024年意見募集案17頁では同3号に対応する劇場等の収容定員300人以上及び同一敷地外の条件が改正表示なく記載され、同資料のコメントは当時の告示反映と説明する。2020年の公式問題及び正答表4はロ・ニを正しい組合せと明示する。以上を別々の資料として突き合わせたものであり、2020年版及び2026年版の細目告示原本を入手したとは述べない。一次資料と時点の不足を含め、別sessionの独立監査で十分性を判断する。",
+                "verificationSummary": "主担当が公式冊子と試験時・現行の公式本文を全肢照合した。独立二次監査は未実施。",
+                "reconciliationStatus": "pending",
+                "holdReason": "",
+                "reviewNotes": "",
+                "isLawRelated": true,
+                "lawGroundedExplanationNotNeeded": false,
+                "lawContextForExplanation": "主担当が2020年度丙種公式問題PDF7頁・印刷6頁と公式正答表を直接目視。イからホの全記述及び5組合せを読み、正答4はロ・ニと確認した。2020-09-27及び2026-10-28の技術省令6・9・13条の全本文をe-Govで直接取得して読み、同じ本文であることを確認した。6条2項は対象容器の外面を基準に保安物件までの距離を定めるが、保安物件の詳細は告示へ委任する。第1肢は敷地境界起点との相違で誤り。第3肢の大臣の認可、4肢の漏えい警報、5肢の安全な置換は各条文から個別に判定した。第2肢は同年度乙種法令問6の同一記述の25_verified_publication及び既存法令監査で告示3条3号により正しいとされている。また日本ガス協会の https://www.gas.or.jp/pdf/iinkai/comment/pc_20240405_02.pdf 実17頁の2.1.2.3を画像と本文で直接読み、300人以上及び同一敷地除外、関連条項として告示3条を明記し、改定コメントが最新告示の反映を示すことを確認した。ただしJGA資料は2024年意見募集の案で、成立した現行規範そのものではない。今回、告示の原本を新たに取得したとは主張しない。JGA資料の初出時点、乙種2020年問題の監査2026-07-28及び当該丙種問題の公式正答表を補助資料として区別して添え、独立内容・法令監査に告示根拠の十分性を判断してもらう。 新たに国立国会図書館の法令沿革 https://hourei.ndl.go.jp/simple/detail?current=-1&lawId=0000087091 を取得し、告示355号が有効であり、出題後は令和7年10月1日告示145号により改正されたことを確認した。法令沿革は告示の本文ではないため、これだけで条文内容を導かない。取得済みのe-Gov公開の令和7年告示145号実官報1頁 https://public-comment.e-gov.go.jp/pcm/download?seqNo=0000300201 を画像及び本文で読み、同告示第2条は細目告示355号の第3条第4号にある障害福祉施設の引用項番号を改正すると確認した。第3号の劇場等は改正対象に掲げられていない。JGAの2024年意見募集案17頁では同3号に対応する劇場等の収容定員300人以上及び同一敷地外の条件が改正表示なく記載され、同資料のコメントは当時の告示反映と説明する。2020年の公式問題及び正答表4はロ・ニを正しい組合せと明示する。以上を別々の資料として突き合わせたものであり、2020年版及び2026年版の細目告示原本を入手したとは述べない。一次資料と時点の不足を含め、別sessionの独立監査で十分性を判断する。",
+                "suggestedQuestionDetailsByChoice": [],
+                "examTimeDecision": [
+                  "間違い",
+                  "正しい",
+                  "間違い",
+                  "正しい",
+                  "間違い"
+                ],
+                "currentLawDecision": [
+                  "間違い",
+                  "正しい",
+                  "間違い",
+                  "正しい",
+                  "間違い"
+                ],
+                "explanationReferences": [
+                  {
+                    "title": "ガス工作物の技術上の基準を定める省令 第6・9・13条",
+                    "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+                    "referenceDate": "2026-10-28"
+                  },
+                  {
+                    "title": "日本ガス協会 ガス製造設備指針改定案 第2.1.2.3",
+                    "sourceUrl": "https://www.gas.or.jp/pdf/iinkai/comment/pc_20240405_02.pdf",
+                    "referenceDate": "2026-10-28"
+                  }
+                ]
+              },
+              "statementJudgmentGuidanceHash": "7bcc2c6b2f9ca50ed8b2412d5f423dd313d8da8aafaaa2a8e4528d9bce590154",
+              "qualificationReferenceGuidance": "# ガス主任技術者丙種の法令根拠方針\n\nガス事業法、同施行令・施行規則、技術省令等の短縮表記、根拠候補の扱い、出題当時と現行法の分離は、[乙種の法令根拠方針](../gas-shunin-otsu/01_law_reference_policy.md)に示す同一法令の対応と共通判断を適用する。乙種の適用範囲や正誤を引き継ぐ意味ではない。\n\n丙種では特定ガス発生設備、ガス小売事業、液化石油ガス、消費機器の保安等を、設問と各記述が指定する設備・事業・対象範囲に即して確認する。「ガス事業法」と「液化石油ガスの保安の確保及び取引の適正化に関する法律」の適用関係を名称の類似で置き換えない。\n\n「特監法」「特定ガス消費機器」は、特定ガス消費機器の設置工事の監督に関する法律と同施行令・施行規則の正式名称・lawId・該当条項を一次資料から確認する。短縮表記や既存解説から条番号を推測しない。設置場所、給排気方式、出力、工事内容などの適用条件を省略しない。\n\n02bの候補探索では、利用可能なLawzillaを補助にできる。03bの監査は[現行法監査の正本](../../../document/operations/current_law_question_maintenance_workflow.md)に従い、serverが取得したe-Gov等の公的一次資料を使う。03bでは外部MCP、Lawzilla、Firestore条文検索を使わない。正式条文・revision・取得時点を既存証跡契約に従って確認し、法令本文を問題documentへ長文転載しない。\n\n全選択肢について出題当時の公式正答との関係を確定してから、現行法との一致又は差分を審査する。未確認の条項、適用範囲、改正差分を推測で埋めない。\n\n## LPガスの容器充塡における着臭\n\n一般に使用されるLPガスの着臭基準と工業用の扱いを問う場合は、高圧ガス保安法に基づく液化石油ガス保安規則（昭和41年通商産業省令第52号、lawId `341M50000400052`）第6条第2項第2号を確認する。同号は、工業用の「工業用無臭」の表示と、それ以外の容器充塡時に空気中の混入比率が容量で千分の一の場合に感知できる臭いを求める規定である。液化石油ガス法施行規則の条文や、ガス事業法上の供給時の付臭措置と取り違えない。気化・検知の物理的説明だけを問う肢には、着臭基準の法令参照を広げない。\n\n## 丙種の導管工事で確認する道路関係法令\n\n道路占用許可と道路使用許可の区別を問う場合は、次の法令を対象に含める。施工方法そのものの技術判断とは分けて、設問が指定する許可とその権限者を確認する。\n\n| 法令名 | lawId | 確認箇所 |\n| --- | --- | --- |\n| 道路法（昭和27年法律第180号） | `327AC1000000180` | 第32条第1項第2号のガス管の占用許可、第4項の警察署長経由の申請。申請経路と許可権者を混同しない。 |\n| 道路法施行令（昭和27年政令第479号） | `327CO0000000479` | 第11条の3第1項第2号の水管・ガス管の占用場所。浅層埋設を扱う場合は、国土交通省が公表する平成11年3月31日道政発第32号・道国発第5号通知の対象管種・管径、舗装厚さ及び最低深さも照合し、政令本文と通知の運用基準を区別する。 |\n| 道路交通法（昭和35年法律第105号） | `335AC0000000105` | 第77条第1項第1号の道路工事・作業に係る道路使用許可。 |\n",
+              "proposedPrimaryLawEvidence": {
+                "schemaVersion": "primary-law-evidence/v2",
+                "status": "complete",
+                "currentAsOf": "2026-10-28",
+                "examAsOf": "2020-09-27",
+                "examAsOfSource": "document/sources/gas-shunin/official_exam_pdf_catalog.json",
+                "items": [
+                  {
+                    "lawId": "412M50000400111",
+                    "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                    "role": "current_basis",
+                    "scope": "choice",
+                    "choiceIndex": 0,
+                    "declaredArticle": "第6条第2項",
+                    "locator": {
+                      "kind": "article",
+                      "number": 6,
+                      "num": "6"
+                    },
+                    "resolvedLawTitle": "ガス工作物の技術上の基準を定める省令",
+                    "currentSnapshot": {
+                      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                      "asOf": "2026-10-28",
+                      "revisionId": "412M50000400111_20240427_506M60000400035",
+                      "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2026-10-28",
+                      "locator": {
+                        "kind": "article",
+                        "number": 6,
+                        "num": "6"
+                      },
+                      "xmlHash": "0d9aa0bfc33559534f05554b86065743547262a88b62a5ade3b11da6d9697140",
+                      "extractionRegion": "LawBody/MainProvision/descendant::Article",
+                      "extractionVersion": "egov-main-provision/v2",
+                      "normalizationVersion": "itertext-whitespace-collapse-utf8-sha256/v1",
+                      "textHash": "2c0cb41cf59f37faca49cf6f78de5812ce58ee6117bfccaa102a0717b79e4080",
+                      "text": "（離隔距離） 第六条 ガス発生器及び増熱器（移動式ガス発生設備に属するものを除く。）並びにガス精製設備、排送機、圧送機、ガスホルダー及び附帯設備であって製造設備に属するもの（冷凍設備及び配管を除く。）は、その外面から事業場の境界線（境界線が海、河川、湖沼等に接する場合は、当該海、河川、湖沼等の対岸）に対し、告示で定める距離を有しなければならない。 ただし、災害その他非常の場合において、やむを得ない一時的な工事により設置されたガス発生器及び増熱器並びに附帯設備に属する熱交換器及び容器であって、告示で定める措置を講じたものについては、この限りでない。 ２ 前項に規定するガス工作物（不活性のガス（空気を含む。以下同じ。）又は不活性の液化ガスのみを通ずるものを除く。以下この条から第十一条までにおいて同じ。）、特定ガス発生設備に係る容器及び移動式ガス発生設備（その貯蔵能力が、貯蔵するガスが液化ガスの場合は千キログラム以上、貯蔵するガスが圧縮ガスの場合は千立方メートル以上のものに限る。）に係る容器であって最高使用圧力が高圧のもの及び液化ガスを通ずるものは、その外面から学校、病院その他の告示で定める物件（以下「保安物件」という。）に対し告示で定める距離を有しなければならない。 ３ 前項に規定するガス工作物であって、告示で定める製造所（以下「特定事業所」という。）に設置するもの（告示で定めるものを除く。）は、前項の規定によるほかその外面から当該特定事業所の境界線（当該境界線に連接する海、河川、湖沼その他告示で定める施設若しくは土地がある場合又は当該特定事業所においてガス工作物を設置する者が所有し、若しくは地上権、賃借権その他の土地の使用を目的とする権利を設定している土地がある場合にあっては、その外縁）に対し告示で定める距離を有しなければならない。 ４ ガスの種類、ガス工作物の状況、周囲の状況等の理由により経済産業大臣の認可を受けた場合は、前各項の規定によらないでガス工作物を施設することができる。 ５ 前項の認可を受けようとするときは、その理由及び施設方法を記載した申請書に関係図面を添付して申請しなければならない。 ６ 前項の場合においては、申請書及び関係図面の写しをガス工作物の設置の場所を管轄する産業保安監督部長に提出しなければならない。 ７ 液化ガス用貯槽（不活性の液化ガス用のもの、貯蔵能力が三トン未満のもの及び地盤面下に全部埋設されたものを除く。）の相互間、地盤面下に全部埋設された液化ガス用貯槽（不活性の液化ガス用のものを除く。）の相互間、一のガスホルダー（最高使用圧力が高圧のものであって貯蔵能力が三百立方メートル以上のものに限る。）と他のガスホルダーとの相互間及び液化ガス用貯槽（不活性の液化ガス用のもの、貯蔵能力が三トン未満のもの及び地盤面下に全部埋設されたものを除く。）とガスホルダー（最高使用圧力が高圧のものに限る。）との相互間は、ガス又は液化ガスが漏えいした場合の災害の発生を防止するために、保安上必要な距離を有しなければならない。 ８ 大容量移動式ガス発生設備（移動式ガス発生設備であって貯蔵能力が液化ガスの場合百キログラム、圧縮ガスの場合三十立方メートルを超えるものをいう。第八条において同じ。）による供給を行う場合にあっては、ガス又は液化ガスが漏えいした場合の災害の発生を防止するために、他の移動式ガス発生設備に対し、保安上必要な距離を有しなければならない。",
+                      "textTruncated": false
+                    },
+                    "examAsOfSource": "document/sources/gas-shunin/official_exam_pdf_catalog.json",
+                    "examSnapshot": {
+                      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                      "asOf": "2020-09-27",
+                      "revisionId": "412M50000400111_20200626_502M60000400060",
+                      "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2020-09-27",
+                      "locator": {
+                        "kind": "article",
+                        "number": 6,
+                        "num": "6"
+                      },
+                      "xmlHash": "4155b00f6560219e4800e396f254c39369e60fc87f3191c67c798c4ee0fda92e",
+                      "extractionRegion": "LawBody/MainProvision/descendant::Article",
+                      "extractionVersion": "egov-main-provision/v2",
+                      "normalizationVersion": "itertext-whitespace-collapse-utf8-sha256/v1",
+                      "textHash": "2c0cb41cf59f37faca49cf6f78de5812ce58ee6117bfccaa102a0717b79e4080",
+                      "text": "（離隔距離） 第六条 ガス発生器及び増熱器（移動式ガス発生設備に属するものを除く。）並びにガス精製設備、排送機、圧送機、ガスホルダー及び附帯設備であって製造設備に属するもの（冷凍設備及び配管を除く。）は、その外面から事業場の境界線（境界線が海、河川、湖沼等に接する場合は、当該海、河川、湖沼等の対岸）に対し、告示で定める距離を有しなければならない。 ただし、災害その他非常の場合において、やむを得ない一時的な工事により設置されたガス発生器及び増熱器並びに附帯設備に属する熱交換器及び容器であって、告示で定める措置を講じたものについては、この限りでない。 ２ 前項に規定するガス工作物（不活性のガス（空気を含む。以下同じ。）又は不活性の液化ガスのみを通ずるものを除く。以下この条から第十一条までにおいて同じ。）、特定ガス発生設備に係る容器及び移動式ガス発生設備（その貯蔵能力が、貯蔵するガスが液化ガスの場合は千キログラム以上、貯蔵するガスが圧縮ガスの場合は千立方メートル以上のものに限る。）に係る容器であって最高使用圧力が高圧のもの及び液化ガスを通ずるものは、その外面から学校、病院その他の告示で定める物件（以下「保安物件」という。）に対し告示で定める距離を有しなければならない。 ３ 前項に規定するガス工作物であって、告示で定める製造所（以下「特定事業所」という。）に設置するもの（告示で定めるものを除く。）は、前項の規定によるほかその外面から当該特定事業所の境界線（当該境界線に連接する海、河川、湖沼その他告示で定める施設若しくは土地がある場合又は当該特定事業所においてガス工作物を設置する者が所有し、若しくは地上権、賃借権その他の土地の使用を目的とする権利を設定している土地がある場合にあっては、その外縁）に対し告示で定める距離を有しなければならない。 ４ ガスの種類、ガス工作物の状況、周囲の状況等の理由により経済産業大臣の認可を受けた場合は、前各項の規定によらないでガス工作物を施設することができる。 ５ 前項の認可を受けようとするときは、その理由及び施設方法を記載した申請書に関係図面を添付して申請しなければならない。 ６ 前項の場合においては、申請書及び関係図面の写しをガス工作物の設置の場所を管轄する産業保安監督部長に提出しなければならない。 ７ 液化ガス用貯槽（不活性の液化ガス用のもの、貯蔵能力が三トン未満のもの及び地盤面下に全部埋設されたものを除く。）の相互間、地盤面下に全部埋設された液化ガス用貯槽（不活性の液化ガス用のものを除く。）の相互間、一のガスホルダー（最高使用圧力が高圧のものであって貯蔵能力が三百立方メートル以上のものに限る。）と他のガスホルダーとの相互間及び液化ガス用貯槽（不活性の液化ガス用のもの、貯蔵能力が三トン未満のもの及び地盤面下に全部埋設されたものを除く。）とガスホルダー（最高使用圧力が高圧のものに限る。）との相互間は、ガス又は液化ガスが漏えいした場合の災害の発生を防止するために、保安上必要な距離を有しなければならない。 ８ 大容量移動式ガス発生設備（移動式ガス発生設備であって貯蔵能力が液化ガスの場合百キログラム、圧縮ガスの場合三十立方メートルを超えるものをいう。第八条において同じ。）による供給を行う場合にあっては、ガス又は液化ガスが漏えいした場合の災害の発生を防止するために、他の移動式ガス発生設備に対し、保安上必要な距離を有しなければならない。",
+                      "textTruncated": false
+                    },
+                    "examSnapshotStatus": "available",
+                    "comparison": "unchanged",
+                    "status": "complete"
+                  },
+                  {
+                    "lawId": "412M50000400111",
+                    "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                    "role": "current_basis",
+                    "scope": "choice",
+                    "choiceIndex": 1,
+                    "declaredArticle": "第6条第2項",
+                    "locator": {
+                      "kind": "article",
+                      "number": 6,
+                      "num": "6"
+                    },
+                    "resolvedLawTitle": "ガス工作物の技術上の基準を定める省令",
+                    "currentSnapshot": {
+                      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                      "asOf": "2026-10-28",
+                      "revisionId": "412M50000400111_20240427_506M60000400035",
+                      "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2026-10-28",
+                      "locator": {
+                        "kind": "article",
+                        "number": 6,
+                        "num": "6"
+                      },
+                      "xmlHash": "0d9aa0bfc33559534f05554b86065743547262a88b62a5ade3b11da6d9697140",
+                      "extractionRegion": "LawBody/MainProvision/descendant::Article",
+                      "extractionVersion": "egov-main-provision/v2",
+                      "normalizationVersion": "itertext-whitespace-collapse-utf8-sha256/v1",
+                      "textHash": "2c0cb41cf59f37faca49cf6f78de5812ce58ee6117bfccaa102a0717b79e4080",
+                      "text": "（離隔距離） 第六条 ガス発生器及び増熱器（移動式ガス発生設備に属するものを除く。）並びにガス精製設備、排送機、圧送機、ガスホルダー及び附帯設備であって製造設備に属するもの（冷凍設備及び配管を除く。）は、その外面から事業場の境界線（境界線が海、河川、湖沼等に接する場合は、当該海、河川、湖沼等の対岸）に対し、告示で定める距離を有しなければならない。 ただし、災害その他非常の場合において、やむを得ない一時的な工事により設置されたガス発生器及び増熱器並びに附帯設備に属する熱交換器及び容器であって、告示で定める措置を講じたものについては、この限りでない。 ２ 前項に規定するガス工作物（不活性のガス（空気を含む。以下同じ。）又は不活性の液化ガスのみを通ずるものを除く。以下この条から第十一条までにおいて同じ。）、特定ガス発生設備に係る容器及び移動式ガス発生設備（その貯蔵能力が、貯蔵するガスが液化ガスの場合は千キログラム以上、貯蔵するガスが圧縮ガスの場合は千立方メートル以上のものに限る。）に係る容器であって最高使用圧力が高圧のもの及び液化ガスを通ずるものは、その外面から学校、病院その他の告示で定める物件（以下「保安物件」という。）に対し告示で定める距離を有しなければならない。 ３ 前項に規定するガス工作物であって、告示で定める製造所（以下「特定事業所」という。）に設置するもの（告示で定めるものを除く。）は、前項の規定によるほかその外面から当該特定事業所の境界線（当該境界線に連接する海、河川、湖沼その他告示で定める施設若しくは土地がある場合又は当該特定事業所においてガス工作物を設置する者が所有し、若しくは地上権、賃借権その他の土地の使用を目的とする権利を設定している土地がある場合にあっては、その外縁）に対し告示で定める距離を有しなければならない。 ４ ガスの種類、ガス工作物の状況、周囲の状況等の理由により経済産業大臣の認可を受けた場合は、前各項の規定によらないでガス工作物を施設することができる。 ５ 前項の認可を受けようとするときは、その理由及び施設方法を記載した申請書に関係図面を添付して申請しなければならない。 ６ 前項の場合においては、申請書及び関係図面の写しをガス工作物の設置の場所を管轄する産業保安監督部長に提出しなければならない。 ７ 液化ガス用貯槽（不活性の液化ガス用のもの、貯蔵能力が三トン未満のもの及び地盤面下に全部埋設されたものを除く。）の相互間、地盤面下に全部埋設された液化ガス用貯槽（不活性の液化ガス用のものを除く。）の相互間、一のガスホルダー（最高使用圧力が高圧のものであって貯蔵能力が三百立方メートル以上のものに限る。）と他のガスホルダーとの相互間及び液化ガス用貯槽（不活性の液化ガス用のもの、貯蔵能力が三トン未満のもの及び地盤面下に全部埋設されたものを除く。）とガスホルダー（最高使用圧力が高圧のものに限る。）との相互間は、ガス又は液化ガスが漏えいした場合の災害の発生を防止するために、保安上必要な距離を有しなければならない。 ８ 大容量移動式ガス発生設備（移動式ガス発生設備であって貯蔵能力が液化ガスの場合百キログラム、圧縮ガスの場合三十立方メートルを超えるものをいう。第八条において同じ。）による供給を行う場合にあっては、ガス又は液化ガスが漏えいした場合の災害の発生を防止するために、他の移動式ガス発生設備に対し、保安上必要な距離を有しなければならない。",
+                      "textTruncated": false
+                    },
+                    "examAsOfSource": "document/sources/gas-shunin/official_exam_pdf_catalog.json",
+                    "examSnapshot": {
+                      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                      "asOf": "2020-09-27",
+                      "revisionId": "412M50000400111_20200626_502M60000400060",
+                      "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2020-09-27",
+                      "locator": {
+                        "kind": "article",
+                        "number": 6,
+                        "num": "6"
+                      },
+                      "xmlHash": "4155b00f6560219e4800e396f254c39369e60fc87f3191c67c798c4ee0fda92e",
+                      "extractionRegion": "LawBody/MainProvision/descendant::Article",
+                      "extractionVersion": "egov-main-provision/v2",
+                      "normalizationVersion": "itertext-whitespace-collapse-utf8-sha256/v1",
+                      "textHash": "2c0cb41cf59f37faca49cf6f78de5812ce58ee6117bfccaa102a0717b79e4080",
+                      "text": "（離隔距離） 第六条 ガス発生器及び増熱器（移動式ガス発生設備に属するものを除く。）並びにガス精製設備、排送機、圧送機、ガスホルダー及び附帯設備であって製造設備に属するもの（冷凍設備及び配管を除く。）は、その外面から事業場の境界線（境界線が海、河川、湖沼等に接する場合は、当該海、河川、湖沼等の対岸）に対し、告示で定める距離を有しなければならない。 ただし、災害その他非常の場合において、やむを得ない一時的な工事により設置されたガス発生器及び増熱器並びに附帯設備に属する熱交換器及び容器であって、告示で定める措置を講じたものについては、この限りでない。 ２ 前項に規定するガス工作物（不活性のガス（空気を含む。以下同じ。）又は不活性の液化ガスのみを通ずるものを除く。以下この条から第十一条までにおいて同じ。）、特定ガス発生設備に係る容器及び移動式ガス発生設備（その貯蔵能力が、貯蔵するガスが液化ガスの場合は千キログラム以上、貯蔵するガスが圧縮ガスの場合は千立方メートル以上のものに限る。）に係る容器であって最高使用圧力が高圧のもの及び液化ガスを通ずるものは、その外面から学校、病院その他の告示で定める物件（以下「保安物件」という。）に対し告示で定める距離を有しなければならない。 ３ 前項に規定するガス工作物であって、告示で定める製造所（以下「特定事業所」という。）に設置するもの（告示で定めるものを除く。）は、前項の規定によるほかその外面から当該特定事業所の境界線（当該境界線に連接する海、河川、湖沼その他告示で定める施設若しくは土地がある場合又は当該特定事業所においてガス工作物を設置する者が所有し、若しくは地上権、賃借権その他の土地の使用を目的とする権利を設定している土地がある場合にあっては、その外縁）に対し告示で定める距離を有しなければならない。 ４ ガスの種類、ガス工作物の状況、周囲の状況等の理由により経済産業大臣の認可を受けた場合は、前各項の規定によらないでガス工作物を施設することができる。 ５ 前項の認可を受けようとするときは、その理由及び施設方法を記載した申請書に関係図面を添付して申請しなければならない。 ６ 前項の場合においては、申請書及び関係図面の写しをガス工作物の設置の場所を管轄する産業保安監督部長に提出しなければならない。 ７ 液化ガス用貯槽（不活性の液化ガス用のもの、貯蔵能力が三トン未満のもの及び地盤面下に全部埋設されたものを除く。）の相互間、地盤面下に全部埋設された液化ガス用貯槽（不活性の液化ガス用のものを除く。）の相互間、一のガスホルダー（最高使用圧力が高圧のものであって貯蔵能力が三百立方メートル以上のものに限る。）と他のガスホルダーとの相互間及び液化ガス用貯槽（不活性の液化ガス用のもの、貯蔵能力が三トン未満のもの及び地盤面下に全部埋設されたものを除く。）とガスホルダー（最高使用圧力が高圧のものに限る。）との相互間は、ガス又は液化ガスが漏えいした場合の災害の発生を防止するために、保安上必要な距離を有しなければならない。 ８ 大容量移動式ガス発生設備（移動式ガス発生設備であって貯蔵能力が液化ガスの場合百キログラム、圧縮ガスの場合三十立方メートルを超えるものをいう。第八条において同じ。）による供給を行う場合にあっては、ガス又は液化ガスが漏えいした場合の災害の発生を防止するために、他の移動式ガス発生設備に対し、保安上必要な距離を有しなければならない。",
+                      "textTruncated": false
+                    },
+                    "examSnapshotStatus": "available",
+                    "comparison": "unchanged",
+                    "status": "complete"
+                  },
+                  {
+                    "lawId": "412M50000400111",
+                    "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                    "role": "current_basis",
+                    "scope": "choice",
+                    "choiceIndex": 2,
+                    "declaredArticle": "第6条第4項",
+                    "locator": {
+                      "kind": "article",
+                      "number": 6,
+                      "num": "6"
+                    },
+                    "resolvedLawTitle": "ガス工作物の技術上の基準を定める省令",
+                    "currentSnapshot": {
+                      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                      "asOf": "2026-10-28",
+                      "revisionId": "412M50000400111_20240427_506M60000400035",
+                      "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2026-10-28",
+                      "locator": {
+                        "kind": "article",
+                        "number": 6,
+                        "num": "6"
+                      },
+                      "xmlHash": "0d9aa0bfc33559534f05554b86065743547262a88b62a5ade3b11da6d9697140",
+                      "extractionRegion": "LawBody/MainProvision/descendant::Article",
+                      "extractionVersion": "egov-main-provision/v2",
+                      "normalizationVersion": "itertext-whitespace-collapse-utf8-sha256/v1",
+                      "textHash": "2c0cb41cf59f37faca49cf6f78de5812ce58ee6117bfccaa102a0717b79e4080",
+                      "text": "（離隔距離） 第六条 ガス発生器及び増熱器（移動式ガス発生設備に属するものを除く。）並びにガス精製設備、排送機、圧送機、ガスホルダー及び附帯設備であって製造設備に属するもの（冷凍設備及び配管を除く。）は、その外面から事業場の境界線（境界線が海、河川、湖沼等に接する場合は、当該海、河川、湖沼等の対岸）に対し、告示で定める距離を有しなければならない。 ただし、災害その他非常の場合において、やむを得ない一時的な工事により設置されたガス発生器及び増熱器並びに附帯設備に属する熱交換器及び容器であって、告示で定める措置を講じたものについては、この限りでない。 ２ 前項に規定するガス工作物（不活性のガス（空気を含む。以下同じ。）又は不活性の液化ガスのみを通ずるものを除く。以下この条から第十一条までにおいて同じ。）、特定ガス発生設備に係る容器及び移動式ガス発生設備（その貯蔵能力が、貯蔵するガスが液化ガスの場合は千キログラム以上、貯蔵するガスが圧縮ガスの場合は千立方メートル以上のものに限る。）に係る容器であって最高使用圧力が高圧のもの及び液化ガスを通ずるものは、その外面から学校、病院その他の告示で定める物件（以下「保安物件」という。）に対し告示で定める距離を有しなければならない。 ３ 前項に規定するガス工作物であって、告示で定める製造所（以下「特定事業所」という。）に設置するもの（告示で定めるものを除く。）は、前項の規定によるほかその外面から当該特定事業所の境界線（当該境界線に連接する海、河川、湖沼その他告示で定める施設若しくは土地がある場合又は当該特定事業所においてガス工作物を設置する者が所有し、若しくは地上権、賃借権その他の土地の使用を目的とする権利を設定している土地がある場合にあっては、その外縁）に対し告示で定める距離を有しなければならない。 ４ ガスの種類、ガス工作物の状況、周囲の状況等の理由により経済産業大臣の認可を受けた場合は、前各項の規定によらないでガス工作物を施設することができる。 ５ 前項の認可を受けようとするときは、その理由及び施設方法を記載した申請書に関係図面を添付して申請しなければならない。 ６ 前項の場合においては、申請書及び関係図面の写しをガス工作物の設置の場所を管轄する産業保安監督部長に提出しなければならない。 ７ 液化ガス用貯槽（不活性の液化ガス用のもの、貯蔵能力が三トン未満のもの及び地盤面下に全部埋設されたものを除く。）の相互間、地盤面下に全部埋設された液化ガス用貯槽（不活性の液化ガス用のものを除く。）の相互間、一のガスホルダー（最高使用圧力が高圧のものであって貯蔵能力が三百立方メートル以上のものに限る。）と他のガスホルダーとの相互間及び液化ガス用貯槽（不活性の液化ガス用のもの、貯蔵能力が三トン未満のもの及び地盤面下に全部埋設されたものを除く。）とガスホルダー（最高使用圧力が高圧のものに限る。）との相互間は、ガス又は液化ガスが漏えいした場合の災害の発生を防止するために、保安上必要な距離を有しなければならない。 ８ 大容量移動式ガス発生設備（移動式ガス発生設備であって貯蔵能力が液化ガスの場合百キログラム、圧縮ガスの場合三十立方メートルを超えるものをいう。第八条において同じ。）による供給を行う場合にあっては、ガス又は液化ガスが漏えいした場合の災害の発生を防止するために、他の移動式ガス発生設備に対し、保安上必要な距離を有しなければならない。",
+                      "textTruncated": false
+                    },
+                    "examAsOfSource": "document/sources/gas-shunin/official_exam_pdf_catalog.json",
+                    "examSnapshot": {
+                      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                      "asOf": "2020-09-27",
+                      "revisionId": "412M50000400111_20200626_502M60000400060",
+                      "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2020-09-27",
+                      "locator": {
+                        "kind": "article",
+                        "number": 6,
+                        "num": "6"
+                      },
+                      "xmlHash": "4155b00f6560219e4800e396f254c39369e60fc87f3191c67c798c4ee0fda92e",
+                      "extractionRegion": "LawBody/MainProvision/descendant::Article",
+                      "extractionVersion": "egov-main-provision/v2",
+                      "normalizationVersion": "itertext-whitespace-collapse-utf8-sha256/v1",
+                      "textHash": "2c0cb41cf59f37faca49cf6f78de5812ce58ee6117bfccaa102a0717b79e4080",
+                      "text": "（離隔距離） 第六条 ガス発生器及び増熱器（移動式ガス発生設備に属するものを除く。）並びにガス精製設備、排送機、圧送機、ガスホルダー及び附帯設備であって製造設備に属するもの（冷凍設備及び配管を除く。）は、その外面から事業場の境界線（境界線が海、河川、湖沼等に接する場合は、当該海、河川、湖沼等の対岸）に対し、告示で定める距離を有しなければならない。 ただし、災害その他非常の場合において、やむを得ない一時的な工事により設置されたガス発生器及び増熱器並びに附帯設備に属する熱交換器及び容器であって、告示で定める措置を講じたものについては、この限りでない。 ２ 前項に規定するガス工作物（不活性のガス（空気を含む。以下同じ。）又は不活性の液化ガスのみを通ずるものを除く。以下この条から第十一条までにおいて同じ。）、特定ガス発生設備に係る容器及び移動式ガス発生設備（その貯蔵能力が、貯蔵するガスが液化ガスの場合は千キログラム以上、貯蔵するガスが圧縮ガスの場合は千立方メートル以上のものに限る。）に係る容器であって最高使用圧力が高圧のもの及び液化ガスを通ずるものは、その外面から学校、病院その他の告示で定める物件（以下「保安物件」という。）に対し告示で定める距離を有しなければならない。 ３ 前項に規定するガス工作物であって、告示で定める製造所（以下「特定事業所」という。）に設置するもの（告示で定めるものを除く。）は、前項の規定によるほかその外面から当該特定事業所の境界線（当該境界線に連接する海、河川、湖沼その他告示で定める施設若しくは土地がある場合又は当該特定事業所においてガス工作物を設置する者が所有し、若しくは地上権、賃借権その他の土地の使用を目的とする権利を設定している土地がある場合にあっては、その外縁）に対し告示で定める距離を有しなければならない。 ４ ガスの種類、ガス工作物の状況、周囲の状況等の理由により経済産業大臣の認可を受けた場合は、前各項の規定によらないでガス工作物を施設することができる。 ５ 前項の認可を受けようとするときは、その理由及び施設方法を記載した申請書に関係図面を添付して申請しなければならない。 ６ 前項の場合においては、申請書及び関係図面の写しをガス工作物の設置の場所を管轄する産業保安監督部長に提出しなければならない。 ７ 液化ガス用貯槽（不活性の液化ガス用のもの、貯蔵能力が三トン未満のもの及び地盤面下に全部埋設されたものを除く。）の相互間、地盤面下に全部埋設された液化ガス用貯槽（不活性の液化ガス用のものを除く。）の相互間、一のガスホルダー（最高使用圧力が高圧のものであって貯蔵能力が三百立方メートル以上のものに限る。）と他のガスホルダーとの相互間及び液化ガス用貯槽（不活性の液化ガス用のもの、貯蔵能力が三トン未満のもの及び地盤面下に全部埋設されたものを除く。）とガスホルダー（最高使用圧力が高圧のものに限る。）との相互間は、ガス又は液化ガスが漏えいした場合の災害の発生を防止するために、保安上必要な距離を有しなければならない。 ８ 大容量移動式ガス発生設備（移動式ガス発生設備であって貯蔵能力が液化ガスの場合百キログラム、圧縮ガスの場合三十立方メートルを超えるものをいう。第八条において同じ。）による供給を行う場合にあっては、ガス又は液化ガスが漏えいした場合の災害の発生を防止するために、他の移動式ガス発生設備に対し、保安上必要な距離を有しなければならない。",
+                      "textTruncated": false
+                    },
+                    "examSnapshotStatus": "available",
+                    "comparison": "unchanged",
+                    "status": "complete"
+                  },
+                  {
+                    "lawId": "412M50000400111",
+                    "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                    "role": "current_basis",
+                    "scope": "choice",
+                    "choiceIndex": 3,
+                    "declaredArticle": "第9条第2項",
+                    "locator": {
+                      "kind": "article",
+                      "number": 9,
+                      "num": "9"
+                    },
+                    "resolvedLawTitle": "ガス工作物の技術上の基準を定める省令",
+                    "currentSnapshot": {
+                      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                      "asOf": "2026-10-28",
+                      "revisionId": "412M50000400111_20240427_506M60000400035",
+                      "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2026-10-28",
+                      "locator": {
+                        "kind": "article",
+                        "number": 9,
+                        "num": "9"
+                      },
+                      "xmlHash": "0d9aa0bfc33559534f05554b86065743547262a88b62a5ade3b11da6d9697140",
+                      "extractionRegion": "LawBody/MainProvision/descendant::Article",
+                      "extractionVersion": "egov-main-provision/v2",
+                      "normalizationVersion": "itertext-whitespace-collapse-utf8-sha256/v1",
+                      "textHash": "d6da3cc74a7c2c4f1bb8af9705e79c996f0dcdcdb0c501e218582e9ed37de871",
+                      "text": "（ガスの滞留防止） 第九条 ガス又は液化ガスを通ずるガス工作物を設置する室（製造所及び供給所に存するものに限る。）は、これらのガス又は液化ガスが漏えいしたとき滞留しない構造でなければならない。 ２ 製造所には、ガス又は液化ガスを通ずるガス工作物から漏えいしたガスが滞留するおそれのある製造所内の適当な場所に、当該ガスの漏えいを適切に検知し、かつ、警報する設備を設けなければならない。",
+                      "textTruncated": false
+                    },
+                    "examAsOfSource": "document/sources/gas-shunin/official_exam_pdf_catalog.json",
+                    "examSnapshot": {
+                      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                      "asOf": "2020-09-27",
+                      "revisionId": "412M50000400111_20200626_502M60000400060",
+                      "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2020-09-27",
+                      "locator": {
+                        "kind": "article",
+                        "number": 9,
+                        "num": "9"
+                      },
+                      "xmlHash": "4155b00f6560219e4800e396f254c39369e60fc87f3191c67c798c4ee0fda92e",
+                      "extractionRegion": "LawBody/MainProvision/descendant::Article",
+                      "extractionVersion": "egov-main-provision/v2",
+                      "normalizationVersion": "itertext-whitespace-collapse-utf8-sha256/v1",
+                      "textHash": "d6da3cc74a7c2c4f1bb8af9705e79c996f0dcdcdb0c501e218582e9ed37de871",
+                      "text": "（ガスの滞留防止） 第九条 ガス又は液化ガスを通ずるガス工作物を設置する室（製造所及び供給所に存するものに限る。）は、これらのガス又は液化ガスが漏えいしたとき滞留しない構造でなければならない。 ２ 製造所には、ガス又は液化ガスを通ずるガス工作物から漏えいしたガスが滞留するおそれのある製造所内の適当な場所に、当該ガスの漏えいを適切に検知し、かつ、警報する設備を設けなければならない。",
+                      "textTruncated": false
+                    },
+                    "examSnapshotStatus": "available",
+                    "comparison": "unchanged",
+                    "status": "complete"
+                  },
+                  {
+                    "lawId": "412M50000400111",
+                    "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                    "role": "current_basis",
+                    "scope": "choice",
+                    "choiceIndex": 4,
+                    "declaredArticle": "第13条第1項",
+                    "locator": {
+                      "kind": "article",
+                      "number": 13,
+                      "num": "13"
+                    },
+                    "resolvedLawTitle": "ガス工作物の技術上の基準を定める省令",
+                    "currentSnapshot": {
+                      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                      "asOf": "2026-10-28",
+                      "revisionId": "412M50000400111_20240427_506M60000400035",
+                      "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2026-10-28",
+                      "locator": {
+                        "kind": "article",
+                        "number": 13,
+                        "num": "13"
+                      },
+                      "xmlHash": "0d9aa0bfc33559534f05554b86065743547262a88b62a5ade3b11da6d9697140",
+                      "extractionRegion": "LawBody/MainProvision/descendant::Article",
+                      "extractionVersion": "egov-main-provision/v2",
+                      "normalizationVersion": "itertext-whitespace-collapse-utf8-sha256/v1",
+                      "textHash": "c3250cff403d0dfdff8c59749b0e372c73a540df2eecaaa9ce2f702ab2d17af9",
+                      "text": "（ガスの置換等） 第十三条 ガス発生設備、ガス精製設備、排送機、圧送機、ガスホルダー及び附帯設備であって製造設備に属するもののガス又は液化ガスを通ずる部分（不活性のガス又は不活性の液化ガスのみを通ずるものを除く。）は、ガス又は液化ガスを安全に置換できる構造でなければならない。 ２ ベントスタックには、放出したガスが周囲に障害を与えるおそれのないように適切な措置を講じなければならない。 ３ フレアースタックには、当該フレアースタックにおいて発生するふく射熱が周囲に障害を与えないよう適切な措置を講じ、かつ、ガスを安全に放出するための適切な措置を講じなければならない。 ４ 毒性ガスを冷媒とする冷凍設備にあっては、冷媒ガスを廃棄する際にそのガスが危険又は損害を他に及ぼすおそれのないように廃棄される構造のものでなければならない。",
+                      "textTruncated": false
+                    },
+                    "examAsOfSource": "document/sources/gas-shunin/official_exam_pdf_catalog.json",
+                    "examSnapshot": {
+                      "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                      "asOf": "2020-09-27",
+                      "revisionId": "412M50000400111_20200626_502M60000400060",
+                      "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2020-09-27",
+                      "locator": {
+                        "kind": "article",
+                        "number": 13,
+                        "num": "13"
+                      },
+                      "xmlHash": "4155b00f6560219e4800e396f254c39369e60fc87f3191c67c798c4ee0fda92e",
+                      "extractionRegion": "LawBody/MainProvision/descendant::Article",
+                      "extractionVersion": "egov-main-provision/v2",
+                      "normalizationVersion": "itertext-whitespace-collapse-utf8-sha256/v1",
+                      "textHash": "c3250cff403d0dfdff8c59749b0e372c73a540df2eecaaa9ce2f702ab2d17af9",
+                      "text": "（ガスの置換等） 第十三条 ガス発生設備、ガス精製設備、排送機、圧送機、ガスホルダー及び附帯設備であって製造設備に属するもののガス又は液化ガスを通ずる部分（不活性のガス又は不活性の液化ガスのみを通ずるものを除く。）は、ガス又は液化ガスを安全に置換できる構造でなければならない。 ２ ベントスタックには、放出したガスが周囲に障害を与えるおそれのないように適切な措置を講じなければならない。 ３ フレアースタックには、当該フレアースタックにおいて発生するふく射熱が周囲に障害を与えないよう適切な措置を講じ、かつ、ガスを安全に放出するための適切な措置を講じなければならない。 ４ 毒性ガスを冷媒とする冷凍設備にあっては、冷媒ガスを廃棄する際にそのガスが危険又は損害を他に及ぼすおそれのないように廃棄される構造のものでなければならない。",
+                      "textTruncated": false
+                    },
+                    "examSnapshotStatus": "available",
+                    "comparison": "unchanged",
+                    "status": "complete"
+                  }
+                ],
+                "errors": []
+              },
+              "evidenceHash": "852a0d3bff6fb20aafe130fe9e8d0def85b978375c42aa2bec6ef92595f4ef65"
+            },
+            "reviews": [
+              {
+                "phase": "secondary",
+                "executionId": "01a18063-e49a-75a2-89ed-e27d5507e482:01a18063-eea2-7383-93fc-ff346972d71a",
+                "threadId": "01a18063-e49a-75a2-89ed-e27d5507e482",
+                "turnId": "01a18063-eea2-7383-93fc-ff346972d71a",
+                "model": "gpt-5.6-sol",
+                "review": {
+                  "schemaVersion": "law-audit-verification/v1",
+                  "questionId": "a72fc6e5e3f20a93",
+                  "evidenceHash": "852a0d3bff6fb20aafe130fe9e8d0def85b978375c42aa2bec6ef92595f4ef65",
+                  "decision": "hold",
+                  "examTimeDecision": [
+                    "間違い",
+                    "正しい",
+                    "間違い",
+                    "正しい",
+                    "間違い"
+                  ],
+                  "currentLawDecision": [
+                    "間違い",
+                    "正しい",
+                    "間違い",
+                    "正しい",
+                    "間違い"
+                  ],
+                  "issues": [
+                    "第2肢の300人以上の劇場等及び同一敷地内除外を直接定めるのは細目告示第3条だが、lawReferences及びproposedPrimaryLawEvidenceには委任元の技術省令第6条第2項しか収録されていない。同項だけでは当該分類要件を確認できず、法令locatorが不足している。",
+                    "第2肢について、候補自身が2020年版及び2026年版の細目告示本文を未取得と明記している。出題時・現行双方の適用本文が一次資料として独立確認されていないため、正誤値は公式正答等と整合するものの候補全体を承認できない。"
+                  ],
+                  "verifiedSourceUrls": [
+                    "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2020-09-27",
+                    "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2026-10-28"
+                  ]
+                },
+                "nativePath": "output/gas-shunin-hei/direct_publication/20261027/law_audits/2020_law_問6_r3/secondary-native.json",
+                "nativeSha256": "5686de6b9ad57871823bf839e7016fd05c70d527741ee3be40cd7a2612744c51",
+                "promptHash": "52a3ef31064ab7d39c34ac9351b82da3b9293eb6b5bf1f9cf52c0cf4c65046c1"
               }
             ]
           }

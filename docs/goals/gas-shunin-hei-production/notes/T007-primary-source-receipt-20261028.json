@@ -352,6 +352,18 @@
         239
       ],
       "limitations": "2022年の当機構の工事仕様。告示本文ではなく、自らの工事にJIS S 2120を使うという資料。"
+    },
+    {
+      "downloadReceipt": {
+        "url": "https://hourei.ndl.go.jp/simple/detail?current=-1&lawId=0000087091",
+        "sha256": "fdfa4c2db9403c6cdaf8069c5fffd478315aeac969e7ea2d42d587f3b65ff520",
+        "date": "2026-10-28T02:41:30.429064+00:00",
+        "scope": "国立国会図書館の法令基本情報・改正沿革。告示条文本体ではない。"
+      },
+      "receiptPath": "output/gas-shunin-hei/direct_publication/20261027/legal/ndl-gas-technical-notice355-history.receipt.json",
+      "receiptSha256": "bac12e73f8b9dddf711b79de1e328fe9e68d1bcd7960d026c47c7cb7a724096f",
+      "pagesReadByPrimary": [],
+      "limitations": "国立国会図書館の告示355号法令沿革。2020年以降の記載改正を確認したが告示本文ではない。"
     }
   ],
   "productionWritten": false,
@@ -363,7 +375,7 @@
     "lawAuditDecision": "hold",
     "holdReceipt": "output/gas-shunin-hei/direct_publication/20261027/holds/2021-seizo-03-r1.json"
   },
-  "updatedAt": "2026-10-28T02:38:47.575866+00:00",
+  "updatedAt": "2026-10-28T02:45:29.508012+00:00",
   "newCandidateReviews": [
     {
       "sourceQuestionId": "2018:seizo:問5",
@@ -405,6 +417,17 @@
       "contentAudit": "output/gas-shunin-hei/direct_publication/20261027/content_audits/2020_law_問6/result.json",
       "lawAudit": "output/gas-shunin-hei/direct_publication/20261027/law_audits/2020_law_問6_r1/result.json",
       "decision": "hold: 告示第3条の出題時・現行の一次本文が未取得"
+    },
+    {
+      "sourceQuestionId": "2020:law:問6",
+      "revision": "r3",
+      "candidatePath": "output/gas-shunin-hei/direct_publication/20261027/primary/2020-law-06-r3.json",
+      "formalPatchSaved": false,
+      "newEvidence": "NDLの告示改正沿革と令和7年告示145号の実官報画像を確認。2025年の改正箇所は細目告示第3条第4号で、第3号の劇場等は当該改正箇所でない。2024年JGA意見募集案の既存記載・2020年公式正答と併せて確認したが、対象告示の各時点原本は未取得。",
+      "contentAudit": "output/gas-shunin-hei/direct_publication/20261027/content_audits/2020_law_問6_r3/result.json",
+      "lawAudit": "output/gas-shunin-hei/direct_publication/20261027/law_audits/2020_law_問6_r3/result.json",
+      "decision": "hold: 内容・法令両監査で細目告示3条の出題時・現行の一次本文不足を確認。",
+      "candidateRevisionNote": "r2候補はe-Gov取得元URLを誤記したため監査に使わず、正しい取得記録URLをr3へ記載。"
     }
   ],
   "thermophysicalCalculation": {
@@ -1117,6 +1140,82 @@
         "model_turn_finished_at": "2026-10-28T11:38:06.022486+09:00",
         "model_turn_duration_seconds": 120.560241,
         "model_turn_queue_wait_seconds": 4.278883
+      }
+    },
+    {
+      "localReceiptPath": "output/gas-shunin-hei/direct_publication/20261027/content_audits/2020_law_問6_r3/native.json",
+      "localReceiptSha256": "9bcc8a1f18f188c950e13a408ec3336912267038b1747c7304d3caca057c2d20",
+      "nativeResponse": {
+        "thread_id": "01a18063-db90-7e11-b477-613426d37a58",
+        "session_id": "01a18063-db90-7e11-b477-613426d37a58",
+        "turn_id": "01a18063-ec9a-7890-8ba7-dca81c3645b7",
+        "final_message": "{\"sourceQuestionId\":\"2020:law:問6\",\"inputHash\":\"f252d728dc3cdd261fa2564a831b8a826180885f133aafed2c1052ceb02a05cd\",\"decision\":\"hold\",\"officialAnswerNumber\":4,\"choiceJudgments\":{\"f622dd75f3bc7e4d07cc3b9815bcb9b2781dedbbfa8dc20833e4741de5f09220\":{\"verdict\":\"間違い\",\"rationale\":\"技術省令第6条第2項は、特定ガス発生設備に係る対象容器の外面から保安物件までの距離を求める。製造所の敷地境界を測定基点とする記述は誤りである。\"},\"418b3b33aed6f469d05339cb54d5e27df48c1c6c0f81bd5091dd1087cb549411\":{\"verdict\":\"正しい\",\"rationale\":\"劇場等について、収容定員300人以上かつ事業場と同一敷地内にないものを第1種保安物件とする内容は、公式正答の組合せ及び日本ガス協会資料に示された告示第3条対応内容と一致する。ただし、監査資料には出題時及び現行の細目告示第3条本文の一次資料がない。\"},\"628f6230592b7cbdce096b5d27a1fb26eaaa1b56ec7a755397d78e6420a1c1fc\":{\"verdict\":\"間違い\",\"rationale\":\"技術省令第6条第4項が求めるのは経済産業大臣への届出ではなく、経済産業大臣の認可である。\"},\"ee0c09a7980a706259f3c03dfad2ec35c4c9368a1af66f30dab09e0a010e220c\":{\"verdict\":\"正しい\",\"rationale\":\"技術省令第9条第2項は、製造所内で漏えいガスが滞留するおそれのある適当な場所に、漏えいを検知して警報する設備を設けるよう求めている。液化ガスを通ずるガス工作物も対象に含まれる。\"},\"5bc5daea2122a0b87bf3cc98d4c5f651ce1b4101a49bee7c00e0e97de2b63537\":{\"verdict\":\"間違い\",\"rationale\":\"技術省令第13条第1項は、対象部分をガス又は液化ガスが安全に置換できる構造とするよう求めており、液化ガスを廃棄できる構造とは規定していない。廃棄に関する同条第4項は毒性ガスを冷媒とする冷凍設備の別規定である。\"}},\"explanationScore\":97,\"issues\":[\"第2肢の直接の根拠となる「ガス工作物の技術上の基準の細目を定める告示」第3条について、出題時及び現行の条文本文を示す一次資料が監査資料にない。公式正答、法令沿革、2024年の日本ガス協会意見募集案及び2025年改正告示から内容を強く裏付けられるが、指定された法令監査条件を満たさないためholdとする。\",\"第2肢のlawReferencesは技術省令第6条第2項だけであり、「劇場等・収容定員300人以上・第1種保安物件」という具体的要件の直接根拠である細目告示第3条を収録していない。\",\"auditStatusをsame_as_currentとして確定するには、細目告示第3条の出題時及び現行の一次本文による時点別照合が必要である。\"],\"classificationApproved\":true,\"classificationRationale\":\"全肢は、特定ガス発生設備の容器と保安物件との離隔、保安物件の区分、離隔規定の認可例外、製造所の漏えい検知警報及び製造設備内のガス置換を扱う。固定分類の「2-1 製造所・ガス発生設備の技術基準」の説明に合致し、運転・保全を主題とする製造分野ではない。questionType=true_false、isCalculationQuestion=false、questionIntent=select_correctも、投影された各記述を独立判定する回答操作、計算不要の内容及び設問方向に合致する。\",\"evidenceSummary\":\"公式問題PDFの法令問6は、イからホの記述と組合せ表が入力記録に一致する。公式正答表では法令問6の正答は4であり、組合せはロ・ニである。技術省令第6条、第9条及び第13条の出題時・現行本文から、イ、ハ、ニ、ホはそれぞれ間違い、間違い、正しい、間違いと独立に確認できる。ロも資料間では正しい内容として整合するが、その直接根拠である細目告示第3条の時点別一次本文が不足している。\"}",
+        "model": "gpt-5.6-sol",
+        "service_tier": null,
+        "reasoning_effort": "high",
+        "image_inputs": [
+          {
+            "sourcePath": "output/gas-shunin-hei/pdf_review/2020/mark_sheet_question/page-07.png",
+            "attachmentIndex": 0,
+            "mimeType": "image/png",
+            "byteCount": 229420,
+            "sha256": "0cd13ee8266f88a15af1feb0cb9cc9e456b3053d93c4a8afe9e334cb29355fc5"
+          },
+          {
+            "sourcePath": "output/gas-shunin-hei/pdf_review/2020/answer/page-01.png",
+            "attachmentIndex": 1,
+            "mimeType": "image/png",
+            "byteCount": 203462,
+            "sha256": "dd9f06009f167a94184c65ffd1dfade70a1d0b9da5f83528f2c2ef7ea958ffa4"
+          }
+        ],
+        "changed_files": [],
+        "subagent_thread_ids": [],
+        "subagent_models": [],
+        "subagent_reasoning_efforts": [],
+        "completion_mode": "turn_completed",
+        "model_turn_started_at": "2026-10-28T11:43:14.719356+09:00",
+        "model_turn_finished_at": "2026-10-28T11:44:51.243250+09:00",
+        "model_turn_duration_seconds": 96.525367,
+        "model_turn_queue_wait_seconds": 7.783405
+      }
+    },
+    {
+      "localReceiptPath": "output/gas-shunin-hei/direct_publication/20261027/law_audits/2020_law_問6_r3/secondary-native.json",
+      "localReceiptSha256": "5686de6b9ad57871823bf839e7016fd05c70d527741ee3be40cd7a2612744c51",
+      "nativeResponse": {
+        "thread_id": "01a18063-e49a-75a2-89ed-e27d5507e482",
+        "session_id": "01a18063-e49a-75a2-89ed-e27d5507e482",
+        "turn_id": "01a18063-eea2-7383-93fc-ff346972d71a",
+        "final_message": "{\"schemaVersion\":\"law-audit-verification/v1\",\"questionId\":\"a72fc6e5e3f20a93\",\"evidenceHash\":\"852a0d3bff6fb20aafe130fe9e8d0def85b978375c42aa2bec6ef92595f4ef65\",\"decision\":\"hold\",\"examTimeDecision\":[\"間違い\",\"正しい\",\"間違い\",\"正しい\",\"間違い\"],\"currentLawDecision\":[\"間違い\",\"正しい\",\"間違い\",\"正しい\",\"間違い\"],\"issues\":[\"第2肢の300人以上の劇場等及び同一敷地内除外を直接定めるのは細目告示第3条だが、lawReferences及びproposedPrimaryLawEvidenceには委任元の技術省令第6条第2項しか収録されていない。同項だけでは当該分類要件を確認できず、法令locatorが不足している。\",\"第2肢について、候補自身が2020年版及び2026年版の細目告示本文を未取得と明記している。出題時・現行双方の適用本文が一次資料として独立確認されていないため、正誤値は公式正答等と整合するものの候補全体を承認できない。\"],\"verifiedSourceUrls\":[\"https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2020-09-27\",\"https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2026-10-28\"]}",
+        "model": "gpt-5.6-sol",
+        "service_tier": null,
+        "reasoning_effort": "high",
+        "image_inputs": [
+          {
+            "sourcePath": "output/gas-shunin-hei/pdf_review/2020/mark_sheet_question/page-07.png",
+            "attachmentIndex": 0,
+            "mimeType": "image/png",
+            "byteCount": 229420,
+            "sha256": "0cd13ee8266f88a15af1feb0cb9cc9e456b3053d93c4a8afe9e334cb29355fc5"
+          },
+          {
+            "sourcePath": "output/gas-shunin-hei/pdf_review/2020/answer/page-01.png",
+            "attachmentIndex": 1,
+            "mimeType": "image/png",
+            "byteCount": 203462,
+            "sha256": "dd9f06009f167a94184c65ffd1dfade70a1d0b9da5f83528f2c2ef7ea958ffa4"
+          }
+        ],
+        "changed_files": [],
+        "subagent_thread_ids": [],
+        "subagent_models": [],
+        "subagent_reasoning_efforts": [],
+        "completion_mode": "turn_completed",
+        "model_turn_started_at": "2026-10-28T11:43:15.240502+09:00",
+        "model_turn_finished_at": "2026-10-28T11:45:09.853045+09:00",
+        "model_turn_duration_seconds": 114.6143,
+        "model_turn_queue_wait_seconds": 6.647453
       }
     }
   ],
