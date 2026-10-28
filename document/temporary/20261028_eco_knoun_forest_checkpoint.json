@@ -6,7 +6,7 @@
   "fullGoalComplete": false,
   "previousGoalTurnClassification": "progress",
   "thisTurnReworkedSourceRecords": [
-    "question_mondai5_52.json#0"
+    "question_mondai5_53.json#0"
   ],
   "commonContextFiveQuestions": [
     {
@@ -3214,5 +3214,26 @@
     "evaluationReceipt": "output/eco-kentei/reports/mondai5_52_evaluation_result_20261028.json",
     "acceptanceReceipt": "output/eco-kentei/reports/mondai5_52_validation_20261028/current_acceptance.json",
     "receipt": "output/eco-kentei/reports/turn_receipts/mondai5_52_accepted_20261028.json"
+  },
+  "inProgressQuestion5_53": {
+    "sourceRecordRef": "question_mondai5_53.json#0",
+    "questionId": "2ab2e8860456d33de928fef4",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": true,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai5_53_primary_source_review_20261028.json",
+    "originalizeRunId": "20261028T204921347719-4713468c",
+    "status": "accepted",
+    "nextAction": "問54を原画像から照合する。",
+    "nativeRunId": "20261028T204949352445-701d3e8b",
+    "stateHash": "94abd0a24f54ddf42d50a4149f9e0f65440036d8e235d73d90e24bdd342dd0b2",
+    "evaluationJobId": "Wc5DiJQt6jnM1qaT",
+    "targetedChecksPassed": 6,
+    "validationReceipt": "output/eco-kentei/reports/mondai5_53_validation_20261028/current_validation.json",
+    "evaluationSessionId": "01a1825b-7da6-76d1-bc6f-2801d63ae55f",
+    "verifiedChoiceCount": 4,
+    "explanationScore": 100,
+    "evaluationReceipt": "output/eco-kentei/reports/mondai5_53_evaluation_result_20261028.json",
+    "acceptanceReceipt": "output/eco-kentei/reports/mondai5_53_validation_20261028/current_acceptance.json",
+    "receipt": "output/eco-kentei/reports/turn_receipts/mondai5_53_accepted_20261028.json"
   }
 }
