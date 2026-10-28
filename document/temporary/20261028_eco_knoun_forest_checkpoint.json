@@ -1,6 +1,6 @@
 {
   "schemaVersion": "eco-knoun-private-artifact-checkpoint/v1",
-  "recordedAt": "2026-10-27T22:15:02.584071+00:00",
+  "recordedAt": "2026-10-28T03:47:23.235442+00:00",
   "objective": "残り395問を、原画像との一問ずつの照合、05独自問題化、通常整備、検査、別session評価まで進める。",
   "goalStatus": "active",
   "fullGoalComplete": false,
@@ -1104,5 +1104,19 @@
       "path": "output/eco-kentei/reports/mondai4_81_r1_validation_20261028/current_validation.json",
       "sha256": "db88b340d6621b1e6046658da07ab8e6bbb973b275c305697d2a0d696974b6b1"
     }
-  }
+  },
+  "latestCountReport": "output/eco-kentei/reports/global_remaining_status_after_81_20261028.json",
+  "subsequentQuestion82": {
+    "sourceRecordRef": "question_mondai4_82.json#0",
+    "questionId": "8ef5b7ffe7a4957538efec78",
+    "status": "hold_not_counted",
+    "runId": "20261028T124318697199-a74e4fe4",
+    "candidateModelObserved": "gpt-5.6-luna",
+    "receipt": {
+      "path": "output/eco-kentei/reports/turn_receipts/mondai4_82_explanation_hold_20261028.json",
+      "sha256": "0b4e686d027b643578c6515d08e1875760fa7ab3b4adec6dda1ee2794794c2b1"
+    },
+    "sourceAndRawUnchanged": true
+  },
+  "currentQuestion": "mondai4_83"
 }
