@@ -144,7 +144,7 @@
     "trackedCodeOrPromptChanged": false,
     "otherWorktreeChanges": "他作業の変更は保持し、この記録だけをstageする。"
   },
-  "nextAction": "問50を原画像2枚から照合し整備する。問47は見出し差分、問37は原文差分と法令根拠取得証明待ち。",
+  "nextAction": "問43の原画像照合と独自問題化から整備を継続する。問57・59は転記差異のため保留。",
   "lastUpdatedAt": "2026-10-28T17:06:04.226559+00:00",
   "subsequentQuestion51": {
     "sourceRecordRef": "question_mondai4_51.json#0",
@@ -4662,11 +4662,18 @@
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_42_primary_source_review_20261029.json",
-    "status": "maintenance_running",
+    "status": "accepted",
     "questionId": "257ad05f035f38080b622c47",
     "backup": "output/eco-kentei/reports/mondai1_42_before_rework_20261029",
     "originalizeRunId": "20261029T075842513135-4a84bce0",
-    "nativeRunId": "20261029T080029521815-bd167c7c"
+    "nativeRunId": "20261029T080029521815-bd167c7c",
+    "stateHash": "a8c4fc33680275a6c2025a07baba4e53a846adf83d76ec8fd9e6a1842a612bd0",
+    "evaluationJobId": "m4OJFZtKEfuI4q-s",
+    "uploadReadyCandidate": "output/eco-kentei/questions_json/upload_to_firestore/knoun-2026-mock-1_firestore_20261029_080813.json",
+    "primaryLawEvidence": "output/eco-kentei/reports/mondai1_42_primary_law_evidence_20261029.json",
+    "evaluationSessionId": "01a184c5-f81b-7573-b5d9-85e6dd13604f",
+    "receipt": "output/eco-kentei/reports/turn_receipts/mondai1_42_accepted_20261029.json",
+    "otherDocumentCountUnchanged": 45
   },
   "inProgressQuestion1_43": {
     "sourceRecordRef": "question_mondai1_43.json#0",
@@ -4769,5 +4776,27 @@
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_56_primary_source_review_20261029.json",
     "status": "source_reviewed_originalization_pending"
+  },
+  "inProgressQuestion1_57": {
+    "sourceRecordRef": "question_mondai1_57.json#0",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": false,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_57_primary_source_review_20261029.json",
+    "status": "hold_source_transcription_difference",
+    "holdReason": "画像の下線部記号は「ⓑ」「ⓒ」で設問は「下線部ⓑ」だが、登録文字は「㋑」「㋒」および「下線部㋑」。"
+  },
+  "inProgressQuestion1_58": {
+    "sourceRecordRef": "question_mondai1_58.json#0",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": true,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_58_primary_source_review_20261029.json",
+    "status": "source_visual_review_complete"
+  },
+  "inProgressQuestion1_59": {
+    "sourceRecordRef": "question_mondai1_59.json#0",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": false,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_59_primary_source_review_20261029.json",
+    "status": "hold_source_transcription_difference"
   }
 }
