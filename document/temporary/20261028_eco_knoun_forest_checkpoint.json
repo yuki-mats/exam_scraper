@@ -145,7 +145,7 @@
     "otherWorktreeChanges": "他作業の変更は保持し、この記録だけをstageする。"
   },
   "nextAction": "問50を原画像2枚から照合し整備する。問47は見出し差分、問37は原文差分と法令根拠取得証明待ち。",
-  "lastUpdatedAt": "2026-10-28T14:52:32.826574+00:00",
+  "lastUpdatedAt": "2026-10-28T15:04:54.178861+00:00",
   "subsequentQuestion51": {
     "sourceRecordRef": "question_mondai4_51.json#0",
     "sourceQuestionKey": "eco-kentei:knoun-2026-mock-4:bb67422eb5e52e9c",
@@ -3654,5 +3654,23 @@
     "evaluationReceipt": "output/eco-kentei/reports/mondai5_72_evaluation_result_20261028.json",
     "acceptanceReceipt": "output/eco-kentei/reports/mondai5_72_validation_20261028/current_acceptance.json",
     "receipt": "output/eco-kentei/reports/turn_receipts/mondai5_72_accepted_20261028.json"
+  },
+  "inProgressQuestion5_73": {
+    "sourceRecordRef": "question_mondai5_73.json#0",
+    "questionId": "e969d1e0ba35fdbfb68cee1a",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": false,
+    "sourceDifferenceProposal": "output/eco-kentei/reports/source_difference_mondai5_73_word_group_heading_20261028/proposal.json",
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai5_73_primary_source_review_20261028.json",
+    "status": "source_difference_and_law_evidence_hold",
+    "nextAction": "公式資料の取得証明が利用可能になれば法令監査を再開。問74の照合を進める。",
+    "originalizeRunId": "20261028T235643373055-e1615dec",
+    "eGovEvidence": "output/eco-kentei/reports/mondai5_73_egov_evidence_20261028.json",
+    "lawzilla": "初期化前に終了",
+    "nativeRunId": "20261028T235748778052-9a2273b6",
+    "nativeProgress": "output/eco-kentei/reports/mondai5_73_native_progress_20261028.json",
+    "legalHoldReason": "機器別目標年度の公式資料が取得証明として問題に結び付いていない。資料への直接GETは403。",
+    "officialGuidanceAttempt": "output/eco-kentei/reports/mondai5_73_official_guidance_unbound_20261029.json",
+    "receipt": "output/eco-kentei/reports/turn_receipts/mondai5_73_source_and_legal_hold_20261029.json"
   }
 }
