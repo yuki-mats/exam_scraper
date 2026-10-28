@@ -150,7 +150,7 @@
     "otherWorktreeChanges": "他作業の変更は保持し、この記録だけをstageする。"
   },
   "nextAction": "mondai4_61を原画像2枚から一問ずつ再照合し、source/独自化/工程/検査/独立評価を続ける。未解決source差異10件とbinary補正6件は別途保留。",
-  "lastUpdatedAt": "2026-10-28T02:17:41.180946+00:00",
+  "lastUpdatedAt": "2026-10-28T02:21:52.623939+00:00",
   "subsequentQuestion51": {
     "sourceRecordRef": "question_mondai4_51.json#0",
     "sourceQuestionKey": "eco-kentei:knoun-2026-mock-4:bb67422eb5e52e9c",
@@ -450,19 +450,19 @@
     "pdfReadScope": "環境省2024年度実績の9頁PDF中、3枚目を画像表示・実読した。全頁を通読したとはしない。",
     "outboundArticleTextOmitted": true
   },
-  "globalRemainingCountObservedAt": "2026-10-28T02:17:31.783711+00:00",
+  "globalRemainingCountObservedAt": "2026-10-28T02:21:45.163349+00:00",
   "globalRemainingStatus": {
     "countUnit": "source question; completion requires current stages and independent evaluation with no known unresolved content or source hold",
     "totalSourceQuestions": 425,
-    "currentStagesAndEvaluationPassed": 48,
-    "completedSourceQuestionCount": 40,
-    "remainingSourceQuestionCount": 385,
+    "currentStagesAndEvaluationPassed": 49,
+    "completedSourceQuestionCount": 41,
+    "remainingSourceQuestionCount": 384,
     "pendingSourceDifferenceCount": 10,
-    "currentQuestion": "mondai4_69",
+    "currentQuestion": "mondai4_70",
     "passedButKnownUnfinishedCount": 8,
     "receipt": {
-      "path": "output/eco-kentei/reports/global_remaining_status_after_68_20261028.json",
-      "sha256": "3085bd5379ada50b1bf161e89ae558bc2510f2314459a369ea447692fbd8d9ca"
+      "path": "output/eco-kentei/reports/global_remaining_status_after_69_20261028.json",
+      "sha256": "72b5566ab7ab62d2aabbf493372313ee44735398d17de58b81cf11167093f64e"
     }
   },
   "subsequentQuestion59": {
@@ -754,5 +754,30 @@
         "sha256": "4776d74ab04c6eb10365bf080ee0d3eb7d73885f0048b2fb5fe625a05363e4ca"
       }
     ]
+  },
+  "subsequentQuestion69": {
+    "sourceRecordRef": "question_mondai4_69.json#0",
+    "questionId": "70d31ad56867bc56c39832d9",
+    "stateHash": "9a500b522253584815537dcb2154379a3803caeace0eaecb23933ae290f946da",
+    "normalRunIds": [
+      "20261028T111949577230-8f64759b"
+    ],
+    "evaluationSessionId": "01a1804f-33bf-7730-87c0-3bcb89e2a84b",
+    "verifiedChoiceCount": 4,
+    "explanationScore": 100,
+    "sourceImagesActuallyRead": true,
+    "changes": "原画像2枚と00_source全文を直視照合し正答③。05で体内/体外の線源を区別する事例へ独自問題化し、施設内部・作業場所だけでは判断できない曖昧さを除去。01=true_false、03=4肢別解説、04=放射性物質。環境省一次資料で照合し、6検査と別session評価で4肢一致・解説100点・重大指摘なし。source/raw無変更。",
+    "receipt": {
+      "path": "output/eco-kentei/reports/turn_receipts/mondai4_69_accepted_20261028.json",
+      "sha256": "9e3f5e8a404efc36bcb7428d9a453147d0092a70cafc31aecf9287a284a978f9"
+    },
+    "evaluationReceipt": {
+      "path": "output/eco-kentei/reports/mondai4_69_evaluation_result_20261028.json",
+      "sha256": "def100fcfcb8f0ac3fadc6d53c7ab8ee423dc1a14d0fa5ecd6f07fb494ae2b72"
+    },
+    "validationReceipt": {
+      "path": "output/eco-kentei/reports/mondai4_69_validation_20261028/current_validation.json",
+      "sha256": "c372bc839dbe29192d9c03aacb367efe9914573400ff4149a97e5fab58e29511"
+    }
   }
 }
