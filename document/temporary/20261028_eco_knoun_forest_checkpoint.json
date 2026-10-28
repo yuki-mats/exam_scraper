@@ -144,7 +144,7 @@
     "trackedCodeOrPromptChanged": false,
     "otherWorktreeChanges": "他作業の変更は保持し、この記録だけをstageする。"
   },
-  "nextAction": "問45の独自問題化から整備を進める。問43は条約資料取得の403で保留。問71〜75は図の構造を確認する。",
+  "nextAction": "問46の独自問題化から整備を進める。問43は条約資料取得の403で保留。問71〜75は図の構造を確認する。",
   "lastUpdatedAt": "2026-10-28T23:21:41.277284+00:00",
   "subsequentQuestion51": {
     "sourceRecordRef": "question_mondai4_51.json#0",
@@ -4727,7 +4727,17 @@
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_45_primary_source_review_20261029.json",
-    "status": "source_reviewed_originalization_pending"
+    "status": "accepted",
+    "questionId": "c946e0fa80a6cad5ef237297",
+    "originalizeRunId": "20261029T083718872775-61791df3",
+    "backup": "output/eco-kentei/reports/mondai1_45_before_rework_20261029",
+    "nativeRunId": "20261029T083830846244-a977ccf5",
+    "stateHash": "771d5ca13082ed5306ec095f275067a7a90bf2d7efdbfe75c42d9c56a037ad3d",
+    "evaluationJobId": "XEvyXhzoKWLJB0WU",
+    "uploadReadyCandidate": "output/eco-kentei/questions_json/upload_to_firestore/knoun-2026-mock-1_firestore_20261029_084242.json",
+    "evaluationSessionId": "01a184e5-f062-77c2-b4b7-fc54631c4aca",
+    "receipt": "output/eco-kentei/reports/turn_receipts/mondai1_45_accepted_20261029.json",
+    "otherDocumentCountUnchanged": 46
   },
   "inProgressQuestion1_46": {
     "sourceRecordRef": "question_mondai1_46.json#0",
@@ -4955,6 +4965,42 @@
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_76_primary_source_review_20261029.json",
+    "status": "source_visual_review_complete"
+  },
+  "inProgressQuestion1_77": {
+    "sourceRecordRef": "question_mondai1_77.json#0",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": true,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_77_primary_source_review_20261029.json",
+    "status": "source_visual_review_complete"
+  },
+  "inProgressQuestion1_78": {
+    "sourceRecordRef": "question_mondai1_78.json#0",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": true,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_78_primary_source_review_20261029.json",
+    "status": "source_visual_review_complete"
+  },
+  "inProgressQuestion1_79": {
+    "sourceRecordRef": "question_mondai1_79.json#0",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": true,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_79_primary_source_review_20261029.json",
+    "status": "source_visual_review_complete"
+  },
+  "inProgressQuestion1_80": {
+    "sourceRecordRef": "question_mondai1_80.json#0",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": false,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_80_primary_source_review_20261029.json",
+    "status": "hold_source_transcription_difference",
+    "holdReason": "画像の末尾の入力指示は「［オ］にあてはまる」だが、登録文字は「「オ」にあてはまる」。"
+  },
+  "inProgressQuestion1_81": {
+    "sourceRecordRef": "question_mondai1_81.json#0",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": true,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_81_primary_source_review_20261029.json",
     "status": "source_visual_review_complete"
   }
 }
