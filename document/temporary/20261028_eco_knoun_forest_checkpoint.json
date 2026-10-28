@@ -144,7 +144,7 @@
     "trackedCodeOrPromptChanged": false,
     "otherWorktreeChanges": "他作業の変更は保持し、この記録だけをstageする。"
   },
-  "nextAction": "問43の原画像照合と独自問題化から整備を継続する。問57・59は転記差異のため保留。",
+  "nextAction": "問43の独自問題化を再整備し、後続工程と独立評価を行う。問57・59・60は原画像との転記差異を保持して保留。",
   "lastUpdatedAt": "2026-10-28T17:06:04.226559+00:00",
   "subsequentQuestion51": {
     "sourceRecordRef": "question_mondai4_51.json#0",
@@ -4680,7 +4680,11 @@
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_43_primary_source_review_20261029.json",
-    "status": "source_reviewed_originalization_pending"
+    "status": "hold_originalization_insufficient",
+    "questionId": "e8cbb68e0f8120268638c1d0",
+    "originalizeRunId": "20261029T081309747152-10e397a5",
+    "backup": "output/eco-kentei/reports/mondai1_43_before_rework_20261029",
+    "holdReason": "独自問題化の実行は完了したが、4選択肢が00_sourceの原文と同一で、独自問題としての書き換えが不十分。再整備と後続検証が必要。"
   },
   "inProgressQuestion1_44": {
     "sourceRecordRef": "question_mondai1_44.json#0",
@@ -4798,5 +4802,13 @@
     "sourceTranscriptionMatchesImages": false,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_59_primary_source_review_20261029.json",
     "status": "hold_source_transcription_difference"
+  },
+  "inProgressQuestion1_60": {
+    "sourceRecordRef": "question_mondai1_60.json#0",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": false,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_60_primary_source_review_20261029.json",
+    "status": "hold_source_transcription_difference",
+    "holdReason": "画像の下線部記号は「ⓓ」「ⓔ」で設問は「下線部ⓔ」だが、登録文字は「㋐」「㋔」および「下線部㋔」。"
   }
 }
