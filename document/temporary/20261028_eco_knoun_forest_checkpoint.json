@@ -145,7 +145,7 @@
     "otherWorktreeChanges": "他作業の変更は保持し、この記録だけをstageする。"
   },
   "nextAction": "問50を原画像2枚から照合し整備する。問47は見出し差分、問37は原文差分と法令根拠取得証明待ち。",
-  "lastUpdatedAt": "2026-10-28T16:12:28.456750+00:00",
+  "lastUpdatedAt": "2026-10-28T16:52:59.260333+00:00",
   "subsequentQuestion51": {
     "sourceRecordRef": "question_mondai4_51.json#0",
     "sourceQuestionKey": "eco-kentei:knoun-2026-mock-4:bb67422eb5e52e9c",
@@ -3775,5 +3775,30 @@
     "evaluationReceipt": "output/eco-kentei/reports/mondai5_78_evaluation_result_20261028.json",
     "acceptanceReceipt": "output/eco-kentei/reports/mondai5_78_validation_20261028/current_acceptance.json",
     "receipt": "output/eco-kentei/reports/turn_receipts/mondai5_78_accepted_20261029.json"
+  },
+  "inProgressQuestion5_79": {
+    "sourceRecordRef": "question_mondai5_79.json#0",
+    "questionId": "4a6d382cfe5133745af83007",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": true,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai5_79_primary_source_review_20261029.json",
+    "status": "accepted",
+    "nextAction": "問80を原画像から照合する。",
+    "originalizeRunId": "20261029T012749829661-0634c1cf",
+    "nativeRunId": "20261029T013103199947-231c7b25",
+    "stateHash": "264a9f1d4715d68efe5a81d4fe84b3de57c82fe94a1ebcbb7ff78a75f1ab0bd0",
+    "evaluationJobId": "ndnOkqhQo9e_fq8u",
+    "targetedChecksPassed": 6,
+    "validationReceipt": "output/eco-kentei/reports/mondai5_79_validation_20261028/current_validation.json",
+    "priorValidationArchive": "output/eco-kentei/reports/mondai5_79_type_patch_review_prior_20261029",
+    "priorEvaluationJobId": "aH9jXmfwYQxZ9wMH",
+    "reworkReason": "解説の具体性と誤りの理由が不足",
+    "priorEvaluationArchive": "output/eco-kentei/reports/mondai5_79_explanation_review_prior_20261029",
+    "evaluationSessionId": "01a1836c-1338-7042-ae3a-237d60bdb3ff",
+    "verifiedChoiceCount": 4,
+    "explanationScore": 100,
+    "evaluationReceipt": "output/eco-kentei/reports/mondai5_79_evaluation_result_20261028.json",
+    "acceptanceReceipt": "output/eco-kentei/reports/mondai5_79_validation_20261028/current_acceptance.json",
+    "receipt": "output/eco-kentei/reports/turn_receipts/mondai5_79_accepted_20261029.json"
   }
 }
