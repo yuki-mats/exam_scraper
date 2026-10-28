@@ -150,7 +150,7 @@
     "otherWorktreeChanges": "他作業の変更は保持し、この記録だけをstageする。"
   },
   "nextAction": "mondai4_61を原画像2枚から一問ずつ再照合し、source/独自化/工程/検査/独立評価を続ける。未解決source差異10件とbinary補正6件は別途保留。",
-  "lastUpdatedAt": "2026-10-28T01:47:29.416534+00:00",
+  "lastUpdatedAt": "2026-10-28T02:17:41.180946+00:00",
   "subsequentQuestion51": {
     "sourceRecordRef": "question_mondai4_51.json#0",
     "sourceQuestionKey": "eco-kentei:knoun-2026-mock-4:bb67422eb5e52e9c",
@@ -450,19 +450,19 @@
     "pdfReadScope": "環境省2024年度実績の9頁PDF中、3枚目を画像表示・実読した。全頁を通読したとはしない。",
     "outboundArticleTextOmitted": true
   },
-  "globalRemainingCountObservedAt": "2026-10-28T01:47:13.888615+00:00",
+  "globalRemainingCountObservedAt": "2026-10-28T02:17:31.783711+00:00",
   "globalRemainingStatus": {
     "countUnit": "source question; completion requires current stages and independent evaluation with no known unresolved content or source hold",
     "totalSourceQuestions": 425,
-    "currentStagesAndEvaluationPassed": 47,
-    "completedSourceQuestionCount": 39,
-    "remainingSourceQuestionCount": 386,
+    "currentStagesAndEvaluationPassed": 48,
+    "completedSourceQuestionCount": 40,
+    "remainingSourceQuestionCount": 385,
     "pendingSourceDifferenceCount": 10,
-    "currentQuestion": "mondai4_68",
+    "currentQuestion": "mondai4_69",
     "passedButKnownUnfinishedCount": 8,
     "receipt": {
-      "path": "output/eco-kentei/reports/global_remaining_status_after_67_20261028.json",
-      "sha256": "8614f893e46f636391d1aae5dc7c651ea2d62a9236a0b4e203f5c5f6a9ef2cf7"
+      "path": "output/eco-kentei/reports/global_remaining_status_after_68_20261028.json",
+      "sha256": "3085bd5379ada50b1bf161e89ae558bc2510f2314459a369ea447692fbd8d9ca"
     }
   },
   "subsequentQuestion59": {
@@ -713,5 +713,46 @@
       "path": "output/eco-kentei/reports/mondai4_67_validation_20261028/current_validation.json",
       "sha256": "36e865c6b1599e1dd81f3fff5de1916ffe3fe9caf3e26f067759cf2795613269"
     }
+  },
+  "subsequentQuestion68": {
+    "sourceRecordRef": "question_mondai4_68.json#0",
+    "questionId": "f1127a57489e49f8c0d8aeb0",
+    "stateHash": "df6fd84ffb8e3aa724b6cf72d84d11cc8a3ee749a2ca1eb55be3a9a50e259a4f",
+    "normalRunIds": [
+      "20261028T105012477894-b8fc0915",
+      "20261028T105551646367-6e375fce",
+      "20261028T110245119343-7c268dee"
+    ],
+    "evaluationSessionId": "01a18049-b840-7160-ab5a-13a6c0089c44",
+    "verifiedChoiceCount": 4,
+    "explanationScore": 98,
+    "sourceImagesActuallyRead": true,
+    "changes": "原画像2枚と00_source全文を直視照合し正答④。05で4法の制度差へ独自問題化、2024年448種の時点依存値を除外。01=true_falseと03=4肢解説へ連動修正。e-Gov現行XMLで③外来生物法の輸入第7条、防除第10条の2・第11条を確認し、02b/03bの条項参照を訂正。失敗した独立評価3件は別ファイルに保存。6検査と別session評価で4肢一致・解説98点・重大指摘なし。source/raw無変更。",
+    "receipt": {
+      "path": "output/eco-kentei/reports/turn_receipts/mondai4_68_accepted_20261028.json",
+      "sha256": "df05409443f9f474db9221bbb719e08dda2cda7764b53c1e9a454049c7bffb20"
+    },
+    "evaluationReceipt": {
+      "path": "output/eco-kentei/reports/mondai4_68_evaluation_result_20261028.json",
+      "sha256": "59f57884091eba9a8c4dd6284933b5a2997d2017a86db6b8359a983a586386ea"
+    },
+    "validationReceipt": {
+      "path": "output/eco-kentei/reports/mondai4_68_validation_20261028/current_validation.json",
+      "sha256": "9f38f57516e99b6be882772fd77fb09636144f77aeacf804086e129bf6c7c9ad"
+    },
+    "priorFailedEvaluations": [
+      {
+        "path": "output/eco-kentei/reports/mondai4_68_evaluation_result_pre_rework_20261028.json",
+        "sha256": "6a403ec1bef0deb76cc71b8e38fd6d3998a967c498cac40c9a81aed565214c05"
+      },
+      {
+        "path": "output/eco-kentei/reports/mondai4_68_evaluation_result_pre_law_ref_rework_20261028.json",
+        "sha256": "41f5839da1e6f80fba022d96d7dc51b40c1a549065e76ef97f66b466f0bbe8ba"
+      },
+      {
+        "path": "output/eco-kentei/reports/mondai4_68_evaluation_result_pre_explanation_locator_rework_20261028.json",
+        "sha256": "4776d74ab04c6eb10365bf080ee0d3eb7d73885f0048b2fb5fe625a05363e4ca"
+      }
+    ]
   }
 }
