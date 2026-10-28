@@ -145,7 +145,7 @@
     "otherWorktreeChanges": "他作業の変更は保持し、この記録だけをstageする。"
   },
   "nextAction": "問50を原画像2枚から照合し整備する。問47は見出し差分、問37は原文差分と法令根拠取得証明待ち。",
-  "lastUpdatedAt": "2026-10-28T14:45:00.001535+00:00",
+  "lastUpdatedAt": "2026-10-28T14:52:32.826574+00:00",
   "subsequentQuestion51": {
     "sourceRecordRef": "question_mondai4_51.json#0",
     "sourceQuestionKey": "eco-kentei:knoun-2026-mock-4:bb67422eb5e52e9c",
@@ -3633,5 +3633,26 @@
     "explanationScore": 100,
     "evaluationReceipt": "output/eco-kentei/reports/mondai5_71_evaluation_result_20261028.json",
     "receipt": "output/eco-kentei/reports/turn_receipts/mondai5_71_maintenance_with_source_hold_20261028.json"
+  },
+  "inProgressQuestion5_72": {
+    "sourceRecordRef": "question_mondai5_72.json#0",
+    "questionId": "6c527f64680483560e113104",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": true,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai5_72_primary_source_review_20261028.json",
+    "status": "accepted",
+    "nextAction": "問73を原画像から照合する。",
+    "originalizeRunId": "20261028T234644344149-380a5a16",
+    "nativeRunId": "20261028T234738546501-0fc4198f",
+    "stateHash": "50ac7a1d6f0b53566a9d463ab241a84d71ff151e116848e6937541588b931e60",
+    "evaluationJobId": "TdJlbcmqgff0bfWr",
+    "targetedChecksPassed": 6,
+    "validationReceipt": "output/eco-kentei/reports/mondai5_72_validation_20261028/current_validation.json",
+    "evaluationSessionId": "01a182fe-3c54-7cd3-962d-f880cd3ffdf4",
+    "verifiedChoiceCount": 4,
+    "explanationScore": 100,
+    "evaluationReceipt": "output/eco-kentei/reports/mondai5_72_evaluation_result_20261028.json",
+    "acceptanceReceipt": "output/eco-kentei/reports/mondai5_72_validation_20261028/current_acceptance.json",
+    "receipt": "output/eco-kentei/reports/turn_receipts/mondai5_72_accepted_20261028.json"
   }
 }
