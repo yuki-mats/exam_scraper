@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "question-issue-challenge-review/v1",
+  "phase": "challenge",
+  "inputHash": "ef4ba90832e5fe1d2d1131bcb473519c16d5685aa69273506efba1f36e115190",
+  "blindReviewHashes": [
+    "cd1c603958c6d100e030e2c41a7f66d62f31199dc4b99bac023beb98b3ef418f",
+    "9f9db1f83cfaef7799392e5e6625a1a25efeb1c10c6bbec1eea2923ccf072786"
+  ],
+  "decision": "fix",
+  "rationale": "Blind A/Bがともに問題を確認し、公式PDFの問12に掲載された解答に必要なLPガス導管口径早見表と候補画像の内容が一致しており、現在値の画像URL空配列を補完する変更が完全一致しているため。",
+  "changes": {
+    "questionImageStorageUrls": [
+      "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fgas-shunin-hei%2Fofficial-source-2018-1271cbbeadfdddbe-fb0e9976c6f2d2f4.png?alt=media"
+    ]
+  },
+  "evidence": [
+    {
+      "sourceClass": "official",
+      "title": "2018年度丙種の公式問題・正答と図",
+      "locator": "output/pdf/gas-shunin-official/2018/q_hei_h30.pdf / PDF 25頁 / 2018:kyokyu:問12 / 当該図の切出し",
+      "verifiedAt": "2026-10-28T04:02:03.385579+00:00",
+      "contentHash": "eeed220e1a516e96ca55feefedfb040113a173b9a10c5cb1a20f1b338eba17a1"
+    }
+  ],
+  "appRootCauseKey": null,
+  "reproductionEvidence": []
+}

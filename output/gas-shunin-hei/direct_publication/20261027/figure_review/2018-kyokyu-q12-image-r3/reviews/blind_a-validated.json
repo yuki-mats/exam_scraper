@@ -1,0 +1,38 @@
+{
+  "receiptHash": "264b0629657650818a060cead3ba7437e009c606f548a4516095d82d3b03fa0f",
+  "reviews": {
+    "2018:kyokyu:問12": {
+      "schemaVersion": "question-issue-blind-review/v1",
+      "phase": "blind",
+      "reviewerSlot": "A",
+      "inputHash": "da5d75c84fcf5dca4c840c9eee9434dbed720dee3f203937aab4a555e44114eb",
+      "workflowContractHashes": [],
+      "conclusion": "problem_found",
+      "proposedChanges": {
+        "questionImageStorageUrls": [
+          "https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fgas-shunin-hei%2Fofficial-source-2018-1271cbbeadfdddbe-fb0e9976c6f2d2f4.png?alt=media"
+        ]
+      },
+      "findings": [
+        {
+          "field": "questionImageStorageUrls",
+          "observed": "現在値は空配列で、問題全体の画像URLがない。",
+          "expected": "公式問題冊子の問12には、解答に必要なLPガス導管口径早見表が掲載されており、その図表を保持した公式画像URLを追加する。",
+          "rationale": "公式PDFの問12ページと候補画像を照合した結果、候補画像には導管長さ、圧力損失、口径別ガス流量の必要な図表の関係・位置が保持されている。現在画像がないため、候補URLを採用する。"
+        }
+      ],
+      "evidence": [
+        {
+          "sourceClass": "official",
+          "title": "2018年度丙種の公式問題・正答と図",
+          "locator": "output/pdf/gas-shunin-official/2018/q_hei_h30.pdf / PDF 25頁 / 2018:kyokyu:問12 / 当該図の切出し",
+          "verifiedAt": "2026-10-28T04:02:03.385579+00:00",
+          "contentHash": "eeed220e1a516e96ca55feefedfb040113a173b9a10c5cb1a20f1b338eba17a1"
+        }
+      ],
+      "appRootCauseKey": null,
+      "reproductionEvidence": []
+    }
+  },
+  "normalizer": "none; exact fixed-evidence equality required"
+}

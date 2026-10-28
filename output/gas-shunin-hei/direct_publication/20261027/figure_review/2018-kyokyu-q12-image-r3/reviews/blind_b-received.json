@@ -1,0 +1,51 @@
+{
+  "inputHash": "9214ce88544b181f43e4fd90bff29db093b54730e51768a648a6a171ab4ffa14",
+  "expectedIds": [
+    "2018:kyokyu:問12"
+  ],
+  "expectedWorkIds": [
+    "2018-kyokyu-q12-figure"
+  ],
+  "native": {
+    "thread_id": "01a180ac-7709-72e1-a78e-bae0d1a75876",
+    "session_id": "01a180ac-7709-72e1-a78e-bae0d1a75876",
+    "turn_id": "01a180ac-8ac3-78b2-b7b1-407b7748bff0",
+    "final_message": "{\"results\":{\"2018-kyokyu-q12-figure\":{\"schemaVersion\":\"question-issue-blind-review/v1\",\"phase\":\"blind\",\"reviewerSlot\":\"B\",\"inputHash\":\"da5d75c84fcf5dca4c840c9eee9434dbed720dee3f203937aab4a555e44114eb\",\"workflowContractHashes\":[],\"conclusion\":\"problem_found\",\"proposedChanges\":{\"questionImageStorageUrls\":[\"https://firebasestorage.googleapis.com/v0/b/repaso-rbaqy4.appspot.com/o/question_images%2Fofficial%2Fgas-shunin-hei%2Fofficial-source-2018-1271cbbeadfdddbe-fb0e9976c6f2d2f4.png?alt=media\"]},\"findings\":[{\"field\":\"questionImageStorageUrls\",\"observed\":\"現在値は空配列で、問題の解答に必要なLPガス導管口径早見表の画像が登録されていない。\",\"expected\":\"公式問題冊子に掲載された当該早見表の切出し画像を指定URLで追加する。\",\"rationale\":\"公式問題画像と候補画像を照合し、候補画像に問題12の早見表全体、圧力損失・ガス流量の対応関係、口径行および数値が保持されていることを確認した。\"}],\"evidence\":[{\"sourceClass\":\"official\",\"title\":\"2018年度丙種の公式問題・正答と図\",\"locator\":\"output/pdf/gas-shunin-official/2018/q_hei_h30.pdf / PDF 25頁 / 2018:kyokyu:問12 / 当該図の切出し\",\"verifiedAt\":\"2026-10-28T04:02:03.385579+00:00\",\"contentHash\":\"eeed220e1a516e96ca55feefedfb040113a173b9a10c5cb1a20f1b338eba17a1\"}],\"appRootCauseKey\":null,\"reproductionEvidence\":[]}}}",
+    "model": "gpt-5.6-luna",
+    "service_tier": null,
+    "reasoning_effort": "high",
+    "image_inputs": [
+      {
+        "sourcePath": "output/gas-shunin-hei/pdf_review/2018/mark_sheet_question/page-25.png",
+        "attachmentIndex": 0,
+        "mimeType": "image/png",
+        "byteCount": 368366,
+        "sha256": "445ac2c02686292b7f976ed49380789c17079bf849298f64dd731f1d4efe05f9"
+      },
+      {
+        "sourcePath": "output/gas-shunin-hei/direct_publication/20261027/pdf_figure_candidates/2018-kyokyu-q12.png",
+        "attachmentIndex": 1,
+        "mimeType": "image/png",
+        "byteCount": 371948,
+        "sha256": "fb0e9976c6f2d2f4fdddcf8c0d046b79e89bc5b474f33cd8b8ae8ca1aab087f9"
+      },
+      {
+        "sourcePath": "output/gas-shunin-hei/pdf_review/2018/answer/page-01.png",
+        "attachmentIndex": 2,
+        "mimeType": "image/png",
+        "byteCount": 98554,
+        "sha256": "dadb3a51a67352b4e6d9a929315472785cb8990ba036fa25a9178d85f4d69d15"
+      }
+    ],
+    "changed_files": [],
+    "subagent_thread_ids": [],
+    "subagent_models": [],
+    "subagent_reasoning_efforts": [],
+    "completion_mode": "turn_completed",
+    "model_turn_started_at": "2026-10-28T13:02:33.798604+09:00",
+    "model_turn_finished_at": "2026-10-28T13:03:04.397519+09:00",
+    "model_turn_duration_seconds": 30.599141,
+    "model_turn_queue_wait_seconds": 7.592414
+  },
+  "receiptHash": "8dbe887a45db5a1682d99b72cf5a220d88825aba6f7a8a7ae8578698083da0c3"
+}
