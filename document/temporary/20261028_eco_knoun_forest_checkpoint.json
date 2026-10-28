@@ -1,13 +1,13 @@
 {
   "schemaVersion": "eco-knoun-private-artifact-checkpoint/v1",
-  "recordedAt": "2026-10-28T09:22:54.757322+00:00",
+  "recordedAt": "2026-10-28T09:42:52.402045+00:00",
   "objective": "残り395問を、原画像との一問ずつの照合、05独自問題化、通常整備、検査、別session評価まで進める。",
   "goalStatus": "active",
   "fullGoalComplete": false,
   "previousGoalTurnClassification": "progress",
   "thisTurnReworkedSourceRecords": [
-    "question_mondai5_32.json#0",
-    "question_mondai5_33.json#0"
+    "question_mondai5_34.json#0",
+    "question_mondai5_35.json#0"
   ],
   "commonContextFiveQuestions": [
     {
@@ -81,19 +81,20 @@
   },
   "thisTurnVerification": [
     {
-      "scope": "mondai5_32",
-      "validationReceipt": "output/eco-kentei/reports/mondai5_32_validation_20261028/current_validation.json",
-      "validationReceiptSha256": "f505d7d540083a75f3cc1300092fa7fcfb87c612a6b428ea55fa0f737b8cf688",
+      "scope": "mondai5_34",
+      "acceptanceReceipt": "output/eco-kentei/reports/mondai5_34_validation_20261028/current_acceptance.json",
+      "acceptanceReceiptSha256": "ad09f98917eadaed21deab1bd360b7d6f4676276c1a26c7ff9141d46e41bd109",
+      "validationReceipt": "output/eco-kentei/reports/mondai5_34_validation_20261028/current_validation.json",
+      "validationReceiptSha256": "ebad12458e2d04a6f867e8d42ab4c0d9fc1aa76361007b0a854457bf95a0f8ae",
       "targetedChecksPassed": 6,
-      "independentEvaluationCount": 3,
-      "sourceHold": true
+      "independentEvaluationCount": 1
     },
     {
-      "scope": "mondai5_33",
-      "acceptanceReceipt": "output/eco-kentei/reports/mondai5_33_validation_20261028/current_acceptance.json",
-      "acceptanceReceiptSha256": "647b16ab304008ccb555226a2bcfc1734b583471b02561efaa03cafe0fb14e4d",
-      "validationReceipt": "output/eco-kentei/reports/mondai5_33_validation_20261028/current_validation.json",
-      "validationReceiptSha256": "88aeaecf03342828f424d5372ceb56c969032e4c842ff47e91a008161d4f6d6f",
+      "scope": "mondai5_35",
+      "acceptanceReceipt": "output/eco-kentei/reports/mondai5_35_validation_20261028/current_acceptance.json",
+      "acceptanceReceiptSha256": "f2176f786e9b148517102f78fa71399353de433902d0fc2b6668257ad4326cc2",
+      "validationReceipt": "output/eco-kentei/reports/mondai5_35_validation_20261028/current_validation.json",
+      "validationReceiptSha256": "7b5179ccfa127af80be511ce02109c7ca5678e4e5d63e4480b81bc2fe74c69e1",
       "targetedChecksPassed": 6,
       "independentEvaluationCount": 1
     }
@@ -143,8 +144,8 @@
     "trackedCodeOrPromptChanged": false,
     "otherWorktreeChanges": "他作業の変更は保持し、この記録だけをstageする。"
   },
-  "nextAction": "問34を原画像2枚から一問ずつ照合し、source/独自化/工程/検査/独立評価を続ける。問21・22・28は法令関連、問30・32はsource差分保留。",
-  "lastUpdatedAt": "2026-10-28T09:22:54.757322+00:00",
+  "nextAction": "問36を原画像2枚から一問ずつ照合し、source/独自化/工程/検査/独立評価を続ける。問21・22・28は法令関連、問30・32はsource差分保留。",
+  "lastUpdatedAt": "2026-10-28T09:42:52.402045+00:00",
   "subsequentQuestion51": {
     "sourceRecordRef": "question_mondai4_51.json#0",
     "sourceQuestionKey": "eco-kentei:knoun-2026-mock-4:bb67422eb5e52e9c",
@@ -243,22 +244,22 @@
     "changes": "原画像にないクが共通指示の空欄に入っていた。OCRの照合済み転記をバックアップ付きで訂正し、登録済みsourceは変更しない。05と03でGRI Standards・全4候補の比較を整備。検査・別session評価は合格したが原転記の受入は保留。"
   },
   "latestFullyAcceptedScope": {
-    "sourceRecords": "knoun-2026-mock-5の問1〜20、問23〜27、問29、問31、問33。問21・22・28・30・32は保留。",
-    "sourceQuestionCount": 28,
-    "actualLearningQuestionCount": 28,
-    "convertedDocumentCount": 82,
-    "choiceOnlyDocumentCount": 54,
+    "sourceRecords": "knoun-2026-mock-5の問1〜20、問23〜27、問29、問31、問33〜35。問21・22・28・30・32は保留。",
+    "sourceQuestionCount": 30,
+    "actualLearningQuestionCount": 33,
+    "convertedDocumentCount": 90,
+    "choiceOnlyDocumentCount": 57,
     "acceptanceReceipt": {
-      "path": "output/eco-kentei/reports/mondai5_33_validation_20261028/current_acceptance.json",
-      "sha256": "647b16ab304008ccb555226a2bcfc1734b583471b02561efaa03cafe0fb14e4d"
+      "path": "output/eco-kentei/reports/mondai5_35_validation_20261028/current_acceptance.json",
+      "sha256": "f2176f786e9b148517102f78fa71399353de433902d0fc2b6668257ad4326cc2"
     },
     "uploadReadyArchive": {
-      "path": "output/eco-kentei/reports/mondai5_33_validation_20261028/verified_upload_ready.json",
-      "sha256": "f9143961e6bfbe8c86f135b1b3274cf41875c65d2ec68034ed1fafdbab4a2471"
+      "path": "output/eco-kentei/reports/mondai5_35_validation_20261028/verified_upload_ready.json",
+      "sha256": "533b159697d20ebeba4c74c8d7e4358544f44e1ae14037143aa3b614319862a6"
     },
-    "acceptedCurrentReadbacks": "output/eco-kentei/reports/mondai5_33_validation_20261028/accepted_current_readbacks",
+    "acceptedCurrentReadbacks": "output/eco-kentei/reports/mondai5_35_validation_20261028/accepted_current_readbacks",
     "previousGroup4AcceptedStateHashesAndEvaluationsUnchanged": true,
-    "scopeLimit": "この28件はmock-5内の受入。問21・22・28・30・32と他の未完了問は含めない。"
+    "scopeLimit": "この30件はmock-5内の受入。問21・22・28・30・32と他の未完了問は含めない。"
   },
   "subsequentQuestion54": {
     "sourceRecordRef": "question_mondai4_54.json#0",
@@ -448,16 +449,16 @@
   "globalRemainingStatus": {
     "countUnit": "source question; completion requires current stages and independent evaluation with no known unresolved content or source hold",
     "totalSourceQuestions": 425,
-    "currentStagesAndEvaluationPassed": 94,
-    "completedSourceQuestionCount": 84,
-    "remainingSourceQuestionCount": 341,
+    "currentStagesAndEvaluationPassed": 96,
+    "completedSourceQuestionCount": 86,
+    "remainingSourceQuestionCount": 339,
     "pendingSourceDifferenceCount": 12,
-    "currentQuestion": "mondai5_34",
+    "currentQuestion": "mondai5_36",
     "passedButKnownUnfinishedCount": 10,
     "additionalMaintenanceHolds": 3,
     "receipt": {
-      "path": "output/eco-kentei/reports/global_remaining_status_after_mondai5_33_20261028.json",
-      "sha256": "18e5e59e2a405a14a325434f929bfaab33b468c0c5b71c650b2fd7208141de96"
+      "path": "output/eco-kentei/reports/global_remaining_status_after_mondai5_35_20261028.json",
+      "sha256": "6c76d3fc4857bcd938e00786b961c9a0d7c7fc55d963587c6739b56202b3e637"
     }
   },
   "subsequentQuestion59": {
@@ -1113,7 +1114,7 @@
     },
     "sourceAndRawUnchanged": true
   },
-  "currentQuestion": "mondai5_34",
+  "currentQuestion": "mondai5_36",
   "subsequentQuestion83": {
     "sourceRecordRef": "question_mondai4_83.json#0",
     "questionId": "68de8eef2e3ec91afaee8787",
@@ -2747,6 +2748,104 @@
     "acceptanceReceipt": {
       "path": "output/eco-kentei/reports/mondai5_33_validation_20261028/current_acceptance.json",
       "sha256": "647b16ab304008ccb555226a2bcfc1734b583471b02561efaa03cafe0fb14e4d"
+    }
+  },
+  "priorGroup5_33AcceptedScope": {
+    "sourceRecords": "knoun-2026-mock-5の問1〜20、問23〜27、問29、問31、問33。問21・22・28・30・32は保留。",
+    "sourceQuestionCount": 28,
+    "actualLearningQuestionCount": 28,
+    "convertedDocumentCount": 82,
+    "choiceOnlyDocumentCount": 54,
+    "acceptanceReceipt": {
+      "path": "output/eco-kentei/reports/mondai5_33_validation_20261028/current_acceptance.json",
+      "sha256": "647b16ab304008ccb555226a2bcfc1734b583471b02561efaa03cafe0fb14e4d"
+    },
+    "uploadReadyArchive": {
+      "path": "output/eco-kentei/reports/mondai5_33_validation_20261028/verified_upload_ready.json",
+      "sha256": "f9143961e6bfbe8c86f135b1b3274cf41875c65d2ec68034ed1fafdbab4a2471"
+    },
+    "acceptedCurrentReadbacks": "output/eco-kentei/reports/mondai5_33_validation_20261028/accepted_current_readbacks",
+    "previousGroup4AcceptedStateHashesAndEvaluationsUnchanged": true,
+    "scopeLimit": "この28件はmock-5内の受入。問21・22・28・30・32と他の未完了問は含めない。"
+  },
+  "subsequentQuestion5_34": {
+    "sourceRecordRef": "question_mondai5_34.json#0",
+    "sourceQuestionKey": "eco-kentei:knoun-2026-mock-5:a699be6e85e14641",
+    "questionId": "fb2f7e0e6b31b02819c194c2",
+    "stateHash": "46a2167f20e1cbfd50a1443c67efe83a2ba72c90f4e217ee0c4d7beabe7dbe6a",
+    "normalRunIds": [
+      "20261028T182518055149-b905c253",
+      "20261028T182703730696-b6f190cb"
+    ],
+    "evaluationSessionId": "01a181d9-9793-7a43-bc92-e2ec94b3f311",
+    "verifiedChoiceCount": 4,
+    "explanationScore": 100,
+    "sourceImagesActuallyRead": true,
+    "changes": "原画像2枚・12語・正答⑩光化学スモッグを照合。光化学オキシダントが高濃度となる現象を問う独自4択を整え、環境省の一次資料で各候補を確認。",
+    "receipt": {
+      "path": "output/eco-kentei/reports/turn_receipts/mondai5_34_accepted_20261028.json",
+      "sha256": "6b3f05cbaf26d7ea30956c5788702925af311baf04e035c3b727f57062b93db3"
+    },
+    "evaluationReceipt": {
+      "path": "output/eco-kentei/reports/mondai5_34_evaluation_result_20261028.json",
+      "sha256": "8fb7b894d0acd0f0209ee7465ae98c1c90f9a9a9fce6080529d3dc8cc209c30d"
+    },
+    "validationReceipt": {
+      "path": "output/eco-kentei/reports/mondai5_34_validation_20261028/current_validation.json",
+      "sha256": "ebad12458e2d04a6f867e8d42ab4c0d9fc1aa76361007b0a854457bf95a0f8ae"
+    },
+    "acceptanceReceipt": {
+      "path": "output/eco-kentei/reports/mondai5_34_validation_20261028/current_acceptance.json",
+      "sha256": "ad09f98917eadaed21deab1bd360b7d6f4676276c1a26c7ff9141d46e41bd109"
+    }
+  },
+  "priorGroup5_34AcceptedScope": {
+    "sourceRecords": "knoun-2026-mock-5の問1〜20、問23〜27、問29、問31、問33〜34。問21・22・28・30・32は保留。",
+    "sourceQuestionCount": 29,
+    "actualLearningQuestionCount": 29,
+    "convertedDocumentCount": 86,
+    "choiceOnlyDocumentCount": 57,
+    "acceptanceReceipt": {
+      "path": "output/eco-kentei/reports/mondai5_34_validation_20261028/current_acceptance.json",
+      "sha256": "ad09f98917eadaed21deab1bd360b7d6f4676276c1a26c7ff9141d46e41bd109"
+    },
+    "uploadReadyArchive": {
+      "path": "output/eco-kentei/reports/mondai5_34_validation_20261028/verified_upload_ready.json",
+      "sha256": "d2dce7a27035be52a818156a58acc141a7ecb853e9aa7eb3ae799f69bb02518f"
+    },
+    "acceptedCurrentReadbacks": "output/eco-kentei/reports/mondai5_34_validation_20261028/accepted_current_readbacks",
+    "previousGroup4AcceptedStateHashesAndEvaluationsUnchanged": true,
+    "scopeLimit": "この29件はmock-5内の受入。問21・22・28・30・32と他の未完了問は含めない。"
+  },
+  "subsequentQuestion5_35": {
+    "sourceRecordRef": "question_mondai5_35.json#0",
+    "sourceQuestionKey": "eco-kentei:knoun-2026-mock-5:15d77408eec3bf56",
+    "questionId": "a6fdf607f863e14e9545f314",
+    "stateHash": "ad142c4e687ace38b7cb29326471bd6d226dbc46a529a0c07d38d4ada252668c",
+    "normalRunIds": [
+      "20261028T183511767813-44d0e3dc",
+      "20261028T183632405766-2dcad567"
+    ],
+    "evaluationSessionId": "01a181e0-fce7-7720-acaa-d683a3ec9d0a",
+    "verifiedChoiceCount": 4,
+    "explanationScore": 98,
+    "sourceImagesActuallyRead": true,
+    "changes": "原画像2枚・12語・正答①黄砂を照合。黄砂の発生と輸送、および光化学スモッグ・酸性雨・ヒートアイランドの区別を問う独自4肢と各解説を整え、気象庁・環境省の一次資料を確認。",
+    "receipt": {
+      "path": "output/eco-kentei/reports/turn_receipts/mondai5_35_accepted_20261028.json",
+      "sha256": "8486cc571f686754ada36c33f2d290402d55e5516b2fcdb28d808cc5a044af52"
+    },
+    "evaluationReceipt": {
+      "path": "output/eco-kentei/reports/mondai5_35_evaluation_result_20261028.json",
+      "sha256": "2b22fb9058658d961c5ef93d8a3331ac85c081a998aa35981642b3a6204434e7"
+    },
+    "validationReceipt": {
+      "path": "output/eco-kentei/reports/mondai5_35_validation_20261028/current_validation.json",
+      "sha256": "7b5179ccfa127af80be511ce02109c7ca5678e4e5d63e4480b81bc2fe74c69e1"
+    },
+    "acceptanceReceipt": {
+      "path": "output/eco-kentei/reports/mondai5_35_validation_20261028/current_acceptance.json",
+      "sha256": "f2176f786e9b148517102f78fa71399353de433902d0fc2b6668257ad4326cc2"
     }
   }
 }
