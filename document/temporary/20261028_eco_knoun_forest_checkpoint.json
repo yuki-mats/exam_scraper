@@ -450,19 +450,19 @@
     "pdfReadScope": "環境省2024年度実績の9頁PDF中、3枚目を画像表示・実読した。全頁を通読したとはしない。",
     "outboundArticleTextOmitted": true
   },
-  "globalRemainingCountObservedAt": "2026-10-28T01:26:21.018229+00:00",
+  "globalRemainingCountObservedAt": "2026-10-28T01:36:08.301383+00:00",
   "globalRemainingStatus": {
     "countUnit": "source question; completion requires current stages and independent evaluation with no known unresolved content or source hold",
     "totalSourceQuestions": 425,
-    "currentStagesAndEvaluationPassed": 44,
-    "completedSourceQuestionCount": 36,
-    "remainingSourceQuestionCount": 389,
+    "currentStagesAndEvaluationPassed": 45,
+    "completedSourceQuestionCount": 37,
+    "remainingSourceQuestionCount": 388,
     "pendingSourceDifferenceCount": 10,
-    "currentQuestion": "mondai4_64",
+    "currentQuestion": "mondai4_66",
     "passedButKnownUnfinishedCount": 8,
     "receipt": {
-      "path": "output/eco-kentei/reports/global_remaining_status_after_63_20261028.json",
-      "sha256": "7bf61913f45ff8b2619570812ab15f0bf8557943f14fb769b491bc9653e519f3"
+      "path": "output/eco-kentei/reports/global_remaining_status_after_65_20261028.json",
+      "sha256": "9a2d4cbe2faffa8ea8699b4b4ed79c0e7f446d17fadbed5f352100fc69f5518e"
     }
   },
   "subsequentQuestion59": {
@@ -620,5 +620,48 @@
       "sha256": "d245291a860aeb598d199ecb0619997da1ba66b1771e8614c062e133dcaf0998"
     },
     "earlierFailedEvaluationPreserved": "output/eco-kentei/reports/mondai4_63_evaluation_result_pre_rework_20261028.json"
+  },
+  "subsequentQuestion64": {
+    "sourceRecordRef": "question_mondai4_64.json#0",
+    "questionId": "c961b8a47a60029a42292d53",
+    "sourceImagesActuallyRead": true,
+    "sourceMatched": true,
+    "normalRunId": "20261028T102842230172-1945fcc1",
+    "status": "02b_blocked_not_counted",
+    "changes": "原画像2枚と00_sourceを直視照合し正答①を確認。UNEP議定書本文にあるHCFC限定用途例外を踏まえ、05の全廃断定を段階的削減へ変更。④は南極条約の環境保護議定書の内容へ調整。02bで全肢のシステム実取得証跡が揃わず保留。",
+    "holdReceipt": {
+      "path": "output/eco-kentei/reports/mondai4_64_hold_20261028.json",
+      "sha256": "fb0197b7b42d7593ec05bfe62ba6fb5ac2d5cc3a808df6c3e7572b725f8ffb3b"
+    },
+    "primarySourceReview": {
+      "path": "output/eco-kentei/reports/mondai4_64_primary_source_review_20261028.json",
+      "sha256": "3fe3fdc110af7541ce683a7ed45be3238103e7c5e3fc6fc06affdaa064a31659"
+    }
+  },
+  "subsequentQuestion65": {
+    "sourceRecordRef": "question_mondai4_65.json#0",
+    "questionId": "59eee6d4d91f0f2d46d92b97",
+    "stateHash": "a090fad15f251cebfe43442a2224cecfed72596716f99c65a2a6b91d9d3e43d5",
+    "normalRunIds": [
+      "20261028T103244136297-5a5bc951",
+      "20261028T103418293856-ab1a6da5"
+    ],
+    "evaluationSessionId": "01a18025-7ea3-7100-9cfa-f03ebb4987c9",
+    "verifiedChoiceCount": 4,
+    "explanationScore": 100,
+    "sourceImagesActuallyRead": true,
+    "changes": "原画像2枚と00_source全文を直視照合して正答①。05で③地中熱・④ヒートポンプの説明を公的資料に沿って明確化し、03に②〜④との差を追加。04=エネルギー。6検査と新session評価で4肢一致・解説100点・重大指摘なし。source/raw無変更。",
+    "receipt": {
+      "path": "output/eco-kentei/reports/turn_receipts/mondai4_65_accepted_20261028.json",
+      "sha256": "0bbfd68ca73aeaa1314c10601e1fc54d16e1e1438bfec47630a4cb051d4d6077"
+    },
+    "evaluationReceipt": {
+      "path": "output/eco-kentei/reports/mondai4_65_evaluation_result_20261028.json",
+      "sha256": "5352ac69af0bca4a7a34ff85b105d2574e8a103e43bc2403c0e5d0a13d4f0fb4"
+    },
+    "validationReceipt": {
+      "path": "output/eco-kentei/reports/mondai4_65_validation_20261028/current_validation.json",
+      "sha256": "3645bb9c881b1069f4bb7e2e8688ba677bf9ebff1fee5238ef2aa164eebb2b9a"
+    }
   }
 }
