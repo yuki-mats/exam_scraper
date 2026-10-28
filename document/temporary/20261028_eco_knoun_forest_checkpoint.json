@@ -450,19 +450,19 @@
     "pdfReadScope": "環境省2024年度実績の9頁PDF中、3枚目を画像表示・実読した。全頁を通読したとはしない。",
     "outboundArticleTextOmitted": true
   },
-  "globalRemainingCountObservedAt": "2026-10-28T00:47:46.664269+00:00",
+  "globalRemainingCountObservedAt": "2026-10-28T00:56:50.873392+00:00",
   "globalRemainingStatus": {
     "countUnit": "source question; completion requires current stages and independent evaluation with no known unresolved content or source hold",
     "totalSourceQuestions": 425,
-    "currentStagesAndEvaluationPassed": 41,
-    "completedSourceQuestionCount": 33,
-    "remainingSourceQuestionCount": 392,
+    "currentStagesAndEvaluationPassed": 42,
+    "completedSourceQuestionCount": 34,
+    "remainingSourceQuestionCount": 391,
     "pendingSourceDifferenceCount": 10,
-    "currentQuestion": "mondai4_61",
+    "currentQuestion": "mondai4_62",
     "passedButKnownUnfinishedCount": 8,
     "receipt": {
-      "path": "output/eco-kentei/reports/global_remaining_status_after_60_20261028.json",
-      "sha256": "201efe06de23f9c2b137caf11a96d6ade402e60958e256f593465aab98b05fac"
+      "path": "output/eco-kentei/reports/global_remaining_status_after_61_20261028.json",
+      "sha256": "bd2c8cdb4d127c6b375f132ba3ace53a43b55668eb4557909d6afd8f4375dbba"
     }
   },
   "subsequentQuestion59": {
@@ -532,5 +532,35 @@
     },
     "evaluationImageSha256": "3bc368908ac9739606be33c9ad9180307a5e1ce66d9ac2fe943e85a645c2ff97",
     "earlierFailedEvaluationPreserved": "output/eco-kentei/reports/mondai4_60_evaluation_result_pre_classification_fix_20261028.json"
+  },
+  "subsequentQuestion61": {
+    "sourceRecordRef": "question_mondai4_61.json#0",
+    "questionId": "482d43a187b77497a7b6181f",
+    "stateHash": "70b0e6482cd26c946f3b20d9628f15d769bc0b1f5cd88a18461f6f5ceccd59b6",
+    "normalRunIds": [
+      "20261028T095040022568-fb8b0d74",
+      "20261028T095212449517-8989b932"
+    ],
+    "evaluationSessionId": "01a17fff-c8bb-74b0-a817-b25516b9003e",
+    "verifiedChoiceCount": 4,
+    "explanationScore": 96,
+    "sourceImagesActuallyRead": true,
+    "changes": "原画像2枚の全設問・4択・印字答①・解説を実視しsource一致。NEDOの定義と経産省教材で正答を確認。05設問文を自然な独自表現へ修正し04まで更新。6検査と別session評価合格。評価本文の3参照に404/403/内容不一致を検出し、別途直接開いた一次情報で4択を再確認して根拠を置換した。",
+    "receipt": {
+      "path": "output/eco-kentei/reports/turn_receipts/mondai4_61_accepted_20261028.json",
+      "sha256": "95aa6dc49e2ed331923e06357719034af60036cecf933edde082cb7d820e6035"
+    },
+    "evaluationReceipt": {
+      "path": "output/eco-kentei/reports/mondai4_61_evaluation_result_20261028.json",
+      "sha256": "91d50946b4ba918796e0ed8677c72d021cc572e107a89fb33e80182c078f557c"
+    },
+    "validationReceipt": {
+      "path": "output/eco-kentei/reports/mondai4_61_validation_20261028/current_validation.json",
+      "sha256": "348cca4a4c42775022a6e729132379951a68d77be89e9dfd1b0d4d19921f91ef"
+    },
+    "evaluationCitationAudit": {
+      "path": "output/eco-kentei/reports/mondai4_61_primary_source_review_20261028.json",
+      "sha256": "ca5958209e1686350589ca388fdda302ed4140908781bb23ea0bc67bd279a775"
+    }
   }
 }
