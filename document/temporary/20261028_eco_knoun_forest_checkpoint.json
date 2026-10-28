@@ -4572,12 +4572,20 @@
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_37_primary_source_review_20261029.json",
-    "status": "maintenance_succeeded_merge_pending",
+    "status": "accepted",
     "questionId": "e61c8f78183f98fe94f8422a",
     "backup": "output/eco-kentei/reports/mondai1_37_before_rework_20261029",
     "originalizeRunId": "20261029T070250680199-ba291f36",
     "nativeRunId": "20261029T070413701899-e8ff60a7",
-    "nextAction": "汚染農地対策の一次資料と解説を照合済。既存問題を保全してmerge、必須検査、独立評価を行う。"
+    "nextAction": "問39の独自問題化から進める。問40〜48・50は画像照合済。問23・25・33〜35・38・49・51は転記差分保留。",
+    "stateHash": "64c7b86de89aa8cb8b9a4b129276ee9a8097f9b20261262145eed378c042b2a6",
+    "evaluationJobId": "mEKlLRQHWQEL9hFS",
+    "uploadReady": "output/eco-kentei/questions_json/upload_to_firestore/knoun-2026-mock-1_firestore_20261029_070929.json",
+    "evaluationSessionId": "01a18490-6e7c-7b92-8d27-2f12d2bbe7b4",
+    "verifiedChoiceCount": 1,
+    "explanationScore": 100,
+    "otherDocumentCountUnchanged": 41,
+    "receipt": "output/eco-kentei/reports/turn_receipts/mondai1_37_accepted_20261029.json"
   },
   "inProgressQuestion1_38": {
     "sourceRecordRef": "question_mondai1_38.json#0",
@@ -4671,5 +4679,13 @@
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_50_primary_source_review_20261029.json",
     "status": "source_reviewed_originalization_pending"
+  },
+  "inProgressQuestion1_51": {
+    "sourceRecordRef": "question_mondai1_51.json#0",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": false,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_51_primary_source_review_20261029.json",
+    "status": "hold_source_transcription_difference",
+    "holdReason": "原画像の見出しは「第6問」に続いて共通指示を表示するが、登録文字では共通指示の後に「第6問」がある。"
   }
 }
