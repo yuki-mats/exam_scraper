@@ -1,0 +1,46 @@
+{
+  "schemaVersion": "hei-production-readonly-preflight/v1",
+  "observedAt": "2026-10-28T03:42:25.908832+00:00",
+  "projectId": "repaso-rbaqy4",
+  "database": "(default)",
+  "databaseEdition": "STANDARD",
+  "targetQualification": "gas-shunin-hei",
+  "queries": {
+    "questions": {
+      "field": "qualificationId",
+      "equals": "gas-shunin-hei",
+      "count": 0
+    },
+    "folders": {
+      "field": "qualificationId",
+      "equals": "gas-shunin-hei",
+      "count": 0
+    },
+    "questionSets": {
+      "field": "qualificationId",
+      "equals": "gas-shunin-hei",
+      "count": 0
+    }
+  },
+  "officialExamYearManifest": {
+    "path": "config/08zYvCuKUcvGTNYqehrm",
+    "field": "official_exam_years_by_qualification",
+    "heiKeyPresent": false,
+    "otsuYears": [
+      2025,
+      2024,
+      2023,
+      2022,
+      2021,
+      2020,
+      2019,
+      2018,
+      2017
+    ]
+  },
+  "limitations": [
+    "単一フィールド完全一致の読み取りであり、別の資格IDや別名を用いたデータの不存在を保証しない。",
+    "公開前の観測であり、本番書込、公開後読み戻し、品質合格の証拠ではない。"
+  ],
+  "productionWritten": false
+}
