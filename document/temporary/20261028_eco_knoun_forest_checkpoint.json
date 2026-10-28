@@ -6,7 +6,7 @@
   "fullGoalComplete": false,
   "previousGoalTurnClassification": "progress",
   "thisTurnReworkedSourceRecords": [
-    "question_mondai5_60.json#0"
+    "question_mondai5_61.json#0"
   ],
   "commonContextFiveQuestions": [
     {
@@ -3396,5 +3396,28 @@
     "evaluationReceipt": "output/eco-kentei/reports/mondai5_60_evaluation_result_20261028.json",
     "acceptanceReceipt": "output/eco-kentei/reports/mondai5_60_validation_20261028/current_acceptance.json",
     "receipt": "output/eco-kentei/reports/turn_receipts/mondai5_60_accepted_20261028.json"
+  },
+  "inProgressQuestion5_61": {
+    "sourceRecordRef": "question_mondai5_61.json#0",
+    "questionId": "f331431a09da9245a111d366",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": true,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai5_61_primary_source_review_20261028.json",
+    "originalizeRunId": "20261028T215834980979-5b955536",
+    "status": "accepted_with_lawzilla_unavailable_disclosed",
+    "nextAction": "問62を原画像から照合する。",
+    "nativeRunId": "20261028T215926406134-8c4d04f7",
+    "stateHash": "b8c5bdd572570a9111fabb63e98d4c1d3797d1819f6518f098b2457c0305646a",
+    "evaluationJobId": "1fMYxmK1Hb3cIRy_",
+    "targetedChecksPassed": 6,
+    "validationReceipt": "output/eco-kentei/reports/mondai5_61_validation_20261028/current_validation.json",
+    "eGovEvidence": "output/eco-kentei/reports/mondai5_61_egov_evidence_20261028.json",
+    "lawzilla": "初期化応答なし",
+    "evaluationSessionId": "01a182a2-af6d-7c13-8627-24817e3d3104",
+    "verifiedChoiceCount": 4,
+    "explanationScore": 98,
+    "evaluationReceipt": "output/eco-kentei/reports/mondai5_61_evaluation_result_20261028.json",
+    "acceptanceReceipt": "output/eco-kentei/reports/mondai5_61_validation_20261028/current_acceptance.json",
+    "receipt": "output/eco-kentei/reports/turn_receipts/mondai5_61_accepted_20261028.json"
   }
 }
