@@ -143,7 +143,7 @@
     "otherWorktreeChanges": "他作業の変更は保持し、この記録だけをstageする。"
   },
   "nextAction": "問21の既存実行ID 20261028T160827889586-c357c1bd を監視し、終端後に法令監査・本文・全選択肢・正答・解説を確認して検査・独立評価する。",
-  "lastUpdatedAt": "2026-10-28T07:18:34.539405+00:00",
+  "lastUpdatedAt": "2026-10-28T07:22:05.502850+00:00",
   "subsequentQuestion51": {
     "sourceRecordRef": "question_mondai4_51.json#0",
     "sourceQuestionKey": "eco-kentei:knoun-2026-mock-4:bb67422eb5e52e9c",
@@ -2247,6 +2247,12 @@
     "lawzilla": "unavailable_before_initialization",
     "officialEvidence": "e-Gov現行施行版第2条・第4条・第5条および環境省資料を確認。飼養等は原則禁止で許可や一部適用除外がある。",
     "knownRetry": "法令監査初回は説明文候補の不要な記号とメタ文を検出し、2回目を実行中。",
-    "nextAction": "同じ実行IDを再確認し、終端後に結果を精査する。再起動しない。"
+    "nextAction": "同じ実行IDを再確認し、終端後に結果を精査する。再起動しない。",
+    "explanationDraft": {
+      "path": "output/eco-kentei/reports/manual_content_reviews/mondai5_21_explanation_draft_20261028.json",
+      "sha256": "8bc5f054e252770e759318a9b8692f655238bb2f7db1c6283f69bfc8297b1281",
+      "status": "draft_pending_current_audit"
+    },
+    "distractorEvidence": "環境省と農林水産省の一次資料で国内由来の外来種、絶滅危惧種、遺伝子組換え技術を確認。各区分は必ずしも排他的ではない。"
   }
 }
