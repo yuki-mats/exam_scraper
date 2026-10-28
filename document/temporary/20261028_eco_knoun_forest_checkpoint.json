@@ -450,19 +450,19 @@
     "pdfReadScope": "環境省2024年度実績の9頁PDF中、3枚目を画像表示・実読した。全頁を通読したとはしない。",
     "outboundArticleTextOmitted": true
   },
-  "globalRemainingCountObservedAt": "2026-10-28T00:56:50.873392+00:00",
+  "globalRemainingCountObservedAt": "2026-10-28T01:16:02.960713+00:00",
   "globalRemainingStatus": {
     "countUnit": "source question; completion requires current stages and independent evaluation with no known unresolved content or source hold",
     "totalSourceQuestions": 425,
-    "currentStagesAndEvaluationPassed": 42,
-    "completedSourceQuestionCount": 34,
-    "remainingSourceQuestionCount": 391,
+    "currentStagesAndEvaluationPassed": 43,
+    "completedSourceQuestionCount": 35,
+    "remainingSourceQuestionCount": 390,
     "pendingSourceDifferenceCount": 10,
-    "currentQuestion": "mondai4_62",
+    "currentQuestion": "mondai4_63",
     "passedButKnownUnfinishedCount": 8,
     "receipt": {
-      "path": "output/eco-kentei/reports/global_remaining_status_after_61_20261028.json",
-      "sha256": "bd2c8cdb4d127c6b375f132ba3ace53a43b55668eb4557909d6afd8f4375dbba"
+      "path": "output/eco-kentei/reports/global_remaining_status_after_62_20261028.json",
+      "sha256": "383a994e93b4c2a499e0255d8da6822dedfa93b07378a0132f5bdd40e0cf73ed"
     }
   },
   "subsequentQuestion59": {
@@ -562,5 +562,35 @@
       "path": "output/eco-kentei/reports/mondai4_61_primary_source_review_20261028.json",
       "sha256": "ca5958209e1686350589ca388fdda302ed4140908781bb23ea0bc67bd279a775"
     }
+  },
+  "subsequentQuestion62": {
+    "sourceRecordRef": "question_mondai4_62.json#0",
+    "questionId": "621fccfa30114f3fd50479ab",
+    "stateHash": "70ebc34fdc7513499eb92651b71898a425362d99420231242c823d03a28eafa1",
+    "normalRunIds": [
+      "20261028T100014781537-8a0d7f58",
+      "20261028T100204114096-ae7cba4b",
+      "20261028T100532277410-d6401e45",
+      "20261028T100720323704-492b0c67",
+      "20261028T100829142583-273ebe89"
+    ],
+    "evaluationSessionId": "01a18012-4f1d-7180-b8cd-20c76ecaafa1",
+    "verifiedChoiceCount": 4,
+    "explanationScore": 98,
+    "sourceImagesActuallyRead": true,
+    "changes": "原画像2枚と00_source全文を実視し正答③を確認。05で紙マニフェストを明示し、e-Gov第12条の3と環境省資料に沿って交付・写し・確認の記述を修正。03bの独自問題の同日再確定基準を一般化し、二次監査完了。6検査成功。最初の評価要約の番号誤記/改正ID不一致を発見して評価promptを改善し、元評価を保存して新sessionで③・4肢・解説98点を確認。",
+    "receipt": {
+      "path": "output/eco-kentei/reports/turn_receipts/mondai4_62_accepted_20261028.json",
+      "sha256": "993d25a395c481424e7d70aa7a3fbc45fd2658fe6ad277588bd0b4a50c77d940"
+    },
+    "evaluationReceipt": {
+      "path": "output/eco-kentei/reports/mondai4_62_evaluation_result_20261028.json",
+      "sha256": "c72ef74570c2387b4f79abbb050ba22f38f3bb107288e1caab2845d732da5ec1"
+    },
+    "validationReceipt": {
+      "path": "output/eco-kentei/reports/mondai4_62_validation_20261028/current_validation.json",
+      "sha256": "3f50bfef61c6378d7e80089e9da871f81a4cfa3fc2d0a6a3c0ec78124a601309"
+    },
+    "earlierEvaluationPreserved": "output/eco-kentei/reports/mondai4_62_evaluation_result_pre_prompt_fix_20261028.json"
   }
 }

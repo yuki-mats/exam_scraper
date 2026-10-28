@@ -12,6 +12,7 @@
 
 1. **判定命題の確定**: [02aの判定基準](02a_prompt_review_correctChoiceText.md#判定基準)（`statementJudgmentGuidance.sectionText`）に従い、候補値を追認せず各肢の完全命題を確定して出題時・現行時の根拠へ照合する。個数問題は本文中のa〜d等を一件ずつ判定してから件数を数え、公式解答番号（選択肢位置）と照合する。
 2. **時点根拠の照合**: 現行法の法令名、`lawId`、条・項・号、基準日、本文を一次情報で確認する。`primaryLawEvidence`が`status=complete`かつ`comparison=unchanged`なら`current_basis`だけで`hold`にしない。2017年4月1日前等で出題時本文がない場合は、公式元正答を`examTime`、確認済み現行本文を`current`の根拠として独立に使い（本文不変とは書かず、未参照理由を残す）、公式元正答又は現行本文を確認できない場合や衝突する場合だけ保留する。`examAsOfSource`の日付を推測で変えない。
+   - `examSource="独自問題"`で05の現在の問題文・全選択肢を03bで現行法に照らして再確定する場合、過去の公式試験日は存在しない。`primaryLawEvidence`の全法令肢が`status=complete`なら、`currentAsOf`の日付をこの独自問題の**今回の再確定基準日**とし、各肢を現行本文から独立に判定する。過去の試験日を示す`examAsOfSource`がないことや`comparison=current_only`だけを理由に保留しない。schema上の`examTimeDecision`と`lawRevisionFacts.examTime`には今回の再確定基準日での判定を記録し、`currentLawDecision`と一致させる。`sourceSummary`には独自問題の再確定基準日・歴史的試験日がないこと・過去の法令本文が不変だったとは主張しないことを明記する。元の民間模擬問題の年度や印字正答を歴史的法令根拠にしない。05の現在本文を現行法で再確定できない場合、又は過去の独自問題の作成時点との比較を明示的に求められる場合にその時点の一次資料がないときは保留する。
 3. **段階的検証**: 一次・二次監査を行い、正答変更・不一致・高リスク判断は三次確定へ回す。`auditVerificationContract`がある構造化候補では一次提案として法令肢を`needs_secondary_review`で返し、別sessionの二次・三次確認をserverへ委ねる。
 
 ### 法令関連性と混在問題の扱い

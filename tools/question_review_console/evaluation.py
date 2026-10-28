@@ -2692,6 +2692,7 @@ class QuestionEvaluationService:
 4. 根拠が足りない選択肢はinsufficient_evidenceとし、推測で合格にしない。
 5. `placeholder`、`N/A`、`invalid`、`test`、`wrong channel`、`確認中`などの仮値は根拠にも評価結果にも使わない。隔離workspaceにはrepository fileがないため、`rg`又は`find`でローカル資料を探さず、一次情報の取得と問題の評価に時間を使う。
 6. choiceEvaluations[].verdictは選択肢の記述自体が事実として正しければtrue、誤っていればfalseとする。現在値との一致可否をverdictへ入れない。
+6a. choiceEvaluations[].choiceIndexは0始まりの内部番号である。summary、reason、criticalIssuesなど人が読む文章で選択肢の位置を示すときは、問題に表示される①②③…と対応させる。choiceIndex=2を「選択肢2」と書かず「③」又は「選択肢3」と書き、最終JSONの正誤配列と文章中の番号を照合する。
 7. 現在の正誤対応との比較はPython serverが行う。推測して出力へ加えない。
 8. questionTypeがtrue_falseの場合、各選択肢は公開時に独立した○×問題になる。元問題のquestionIntentや「どれか」という表現から正しい肢・誤った肢の個数を一つへ制限せず、各命題を独立に判定する。複数のtrue又はfalseがあることだけをcriticalIssuesや要再整備理由にしない。
 9. 公式問題のquestionTypeはtrue_false、flash_card、group_choiceの3分類だけを使う。single_choiceとfill_in_blankはユーザー作成問題用なので、公式問題の再整備候補として提案しない。
@@ -2707,7 +2708,7 @@ class QuestionEvaluationService:
 16b. true_falseの間違いの選択肢は、`間違い。`だけでは合格にしない。まず、`正しくは、〜。`に相当する完全な訂正文として、成立する値、範囲、場合分け、主体、対象又は条件を不足なく示す。その後に理由と選択肢との差を説明する。用語の一般的な意味だけを説明し、訂正文の一部を欠く解説は要再整備にする。
 16c. 抽象的な語句の比較は、最小限の具体例を使った方が一度で理解できる場合、その例を含めて採点する。完了時期や成立条件など、問題を読んだ利用者が最初に知りたくなる情報は基本解説に含める。基本解説と同じ内容を尋ねる補足は減点し、基本解説で完結していれば補足0件を適切とする。
 16d. 計算問題は、currentExplanationTextを計算の根拠にせず、問題文・図表から対象範囲、起点、式、途中結果を独立に導いた後、解説の各前提と理由を照合する。最終値が正答と同じでも、通常条件の数え方、例外の適用理由、単位又は依存関係が誤っていればcriticalIssuesと03のreworkItemsへ記録し、needs_reworkとする。期間の長さと両端を含む対象数を区別し、通常例と例外例をそれぞれ確かめる。矢印図では始点・終点・向き・値から接続を確認し、図に実在する経路だけを使って変更前後の最長経路を比較する。正答との数値一致だけを解説合格の根拠にしない。
-17. 法令問題は出題時と現行法を区別し、条・項・号と基準日又はrevisionをlocatorへ含める。計算問題は一般式、数値の代入、途中計算、最終値、単位、丸めを確認する。03正本と同じく、独立した途中計算はflutter_math_fork対応の表示用数式`\\[...\\]`又は`$$...$$`で、文中の短い数式は`\\(...\\)`又は`$...$`で囲む。数式の役割と文章の読みやすさを確認し、文中の短い数式をinline形式にしたことだけでは減点しない。再整備feedbackは表示用数式が必要な途中計算を具体的に示し、文中の短い式まで一律に表示用へ変更する指示にしない。数式内で文字サイズを変えず、横幅超過はアプリの横スクロールに任せる。
+17. 法令問題は出題時と現行法を区別し、条・項・号と基準日又はrevisionをlocatorへ含める。revision IDを書く場合は実際に取得した公式本文のmetadataと一致させ、取得・確認できないIDを推測で書かず基準日を示す。計算問題は一般式、数値の代入、途中計算、最終値、単位、丸めを確認する。03正本と同じく、独立した途中計算はflutter_math_fork対応の表示用数式`\\[...\\]`又は`$$...$$`で、文中の短い数式は`\\(...\\)`又は`$...$`で囲む。数式の役割と文章の読みやすさを確認し、文中の短い数式をinline形式にしたことだけでは減点しない。再整備feedbackは表示用数式が必要な途中計算を具体的に示し、文中の短い式まで一律に表示用へ変更する指示にしない。数式内で文字サイズを変えず、横幅超過はアプリの横スクロールに任せる。
 18. 法令問題は入力済みlawReferencesのlawIdと条番号を探索の入口にする。現行法本文は公式e-Gov API v2の https://laws.e-gov.go.jp/api/2/law_data/{{lawId}}?response_format=json を取得し、JSON内でtagがArticleかつattr.Numが対象条番号に一致するobjectを抽出する。例えば第45条なら `curl -L --fail --silent --show-error --retry 3 --retry-all-errors --retry-delay 1 --max-time 30 'https://laws.e-gov.go.jp/api/2/law_data/{{lawId}}?response_format=json' | jq -c '.. | objects | select(.tag? == "Article" and .attr.Num? == "45")'` とし、jq式全体を一組のsingle quote内に保つ。別の条では最後の`"45"`だけを対象条番号へ置き換える。`head`で法令JSONの先頭だけを読んで確認完了にしない。入力済みlawReferencesはその公式本文と一致した場合だけ根拠として使う。
 19. e-Gov法令APIのlaws.e-gov.go.jpで一時的な名前解決又は接続失敗が起きた場合は、上記curlの自動再試行後に、同じlawIdを使える公式e-LAWSの https://elaws.e-gov.go.jp/document?lawid={{lawId}} も確認する。一つの公式URLへの一時的な通信失敗だけでinsufficient_evidenceにせず、別の公式経路を確認する。
 20. 法令問題の間違い解説は、正しい定義・基準と条文位置を自然な一文で示し、その後に選択肢との差を示す構成を基本として採点する。法令名を機械的に主語へ置いた定型反復や、差を示さず「点が誤り」だけで終わる説明は高得点にしない。
