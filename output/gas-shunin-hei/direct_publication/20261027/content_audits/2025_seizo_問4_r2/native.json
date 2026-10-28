@@ -1,0 +1,34 @@
+{
+  "thread_id": "01a180d4-882d-7c02-9049-4be641acdba9",
+  "session_id": "01a180d4-882d-7c02-9049-4be641acdba9",
+  "turn_id": "01a180d4-8854-70f0-a828-1bfa70204134",
+  "final_message": "{\"sourceQuestionId\":\"2025:seizo:問4\",\"inputHash\":\"2a95f848c63990ac68a10a90027f60dbd75c8ddd5d4d82957a9c7d5beb742fbb\",\"decision\":\"hold\",\"officialAnswerNumber\":1,\"choiceJudgments\":{\"0b0afb75dc8cac9a601fe10dad5cd3789a5653985e0a73efcb400909c1342950\":{\"verdict\":\"間違い\",\"rationale\":\"鎖等に所定以上の荷重が加わると閉止するものは張力式である。過流式は、配管の破損等によって流量が異常に増加したときに作動するため、方式名が誤っている。\"},\"0d03215911c684894ca2a19aedc3dcdb25a981232ce99d9da37ff7b42cee0943\":{\"verdict\":\"正しい\",\"rationale\":\"対象となるバルク貯槽の貯蔵能力は、内容積と常用温度における液密度を用いてW＝0.85wV₁で算出する。地盤面下に設置され、かつ内容積が2000L以上のものは別の算式となるため、除外条件も整合する。\"},\"102be09b06f3216e6c6bc58d817488174d2dbaf31c639a78f5b5c6d46881c6df\":{\"verdict\":\"正しい\",\"rationale\":\"一般の50kg容器には、容器検査に合格した年月を刻印する。年月日まで刻印するのは内容積4000L以上の容器など、容器保安規則が別に定める種類である。\"},\"0cb7f66b50567ac3abf1106962afb4985db6a3e2ee8ec512b2200b9588f651b1\":{\"verdict\":\"正しい\",\"rationale\":\"バルク貯槽には、内部圧力が許容圧力を超えた場合に直ちに許容圧力以下へ戻せる安全弁が必要であり、記述された適合品の要件とも整合する。ただし、高圧ガス設備試験合格品又は大臣認定品という二者択一の要件を直接示す出題時及び現行の一次資料が入力資料内で確定していない。\"},\"46f9bf8abd67bc6e7feba8745a4931f903abdf68d391d02ccff14f74aa4b65d4\":{\"verdict\":\"正しい\",\"rationale\":\"地下設置式バルク貯槽では、漏えい検知のため、貯槽の周囲10cm以内に孔あき管を1本以上設置する。確認できたKHK検査基準は貯蔵能力3t未満を対象としているため、解説にはこの適用範囲を明示する必要がある。\"}},\"explanationScore\":82,\"issues\":[\"第4肢の「高圧ガス設備試験に合格したもの又は大臣認定品」という個別要件について、候補自身も一次資料による確認未了としている。法令問題の承認に必要な出題時及び現行の一次根拠が不足しているため保留とする。\",\"第5肢の解説は「地下に設置したバルク貯槽」全般へ一般化しているが、確認資料の判定基準は貯蔵能力3t未満を対象としている。問題の適用範囲との関係を明示すべきである。\",\"各肢の解説に法令名・条項又は告示上の根拠がなく、法令関連問題の解説仕様を満たしていない。\",\"第2肢の0.473kg/Lを「40℃のプロパン主体のLPガス」の例とする補足は、入力された一次資料から直接確認できず、公式記述を超える補足として根拠が弱い。\"],\"classificationApproved\":true,\"classificationRationale\":\"回答操作は各記述の正誤判定でありtrue_false、設問方向は誤りを一つ選ぶselect_incorrectである。式の算出方法を判断する肢はあるが数値計算を求めないためisCalculationQuestion=falseが適切である。容器、バルク貯槽、貯蔵能力及び附属設備を扱うためquestionSetIdは「4-2 容器・貯槽・離隔」に適合し、複数の適用条件を見分けるconditions_scopeも妥当である。\",\"evidenceSummary\":\"公式問題PDFの該当頁は2025年丙種・ガス技術「製造」の問4で、入力された問題文及び5肢と一致する。公式正答表では製造問4の正解は1である。各肢を独立に確認すると、第1肢は過流式と張力式の取り違えで誤り、第2肢は貯蔵能力算式、第3肢は容器検査年月の刻印、第5肢は地下設置式バルク貯槽の検知管基準と整合する。一方、第4肢の認定要件を直接裏付ける出題時・現行の一次資料が不足しており、候補の承認には至らない。\"}",
+  "model": "gpt-5.6-sol",
+  "service_tier": null,
+  "reasoning_effort": "high",
+  "image_inputs": [
+    {
+      "sourcePath": "output/gas-shunin-hei/pdf_review/2025/mark_sheet_question/page-26.png",
+      "attachmentIndex": 0,
+      "mimeType": "image/png",
+      "byteCount": 223617,
+      "sha256": "f9cacdadf61401a82b1f897b07f28c518dabd1398c359dc82ac4597b8d995b77"
+    },
+    {
+      "sourcePath": "output/gas-shunin-hei/pdf_review/2025/answer/page-01.png",
+      "attachmentIndex": 1,
+      "mimeType": "image/png",
+      "byteCount": 98045,
+      "sha256": "959239246f26cd00d7ce1c5d439d401c0b42bdd3f43d10af981b7f33d19da672"
+    }
+  ],
+  "changed_files": [],
+  "subagent_thread_ids": [],
+  "subagent_models": [],
+  "subagent_reasoning_efforts": [],
+  "completion_mode": "turn_completed",
+  "model_turn_started_at": "2026-10-28T13:46:14.614394+09:00",
+  "model_turn_finished_at": "2026-10-28T13:51:05.771611+09:00",
+  "model_turn_duration_seconds": 291.156083,
+  "model_turn_queue_wait_seconds": 1.682308
+}
