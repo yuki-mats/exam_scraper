@@ -1,14 +1,14 @@
 {
   "schemaVersion": "hei-direct-maintenance-checkpoint/v1",
-  "generatedAt": "2026-10-28T00:59:09.379460+00:00",
+  "generatedAt": "2026-10-28T01:17:25.897245+00:00",
   "status": "in_progress",
   "fullOutcomeComplete": false,
   "productionWritten": false,
   "systemCodeModified": false,
   "maintenanceServerStarted": false,
   "sourceQuestionCount": 522,
-  "newDirectSavedQuestionCount": 486,
-  "remainingDirectReviewQuestionCount": 36,
+  "newDirectSavedQuestionCount": 487,
+  "remainingDirectReviewQuestionCount": 35,
   "savedQuestions": {
     "2017:kiso:問1": {
       "sourceQuestionId": "2017:kiso:問1",
@@ -6025,18 +6025,30 @@
       "nativeSha256": "62a09a7c173e455e1607aa2ba142cbe34ace933ad155148d73b4cc994461be23",
       "lawAuditPath": "output/gas-shunin-hei/direct_publication/20261027/law_audits/2019_seizo_問7_r1/result.json",
       "saveReceipt": "output/gas-shunin-hei/direct_publication/20261027/saved/2019-seizo-07-r1.json"
+    },
+    "2019:seizo:問4": {
+      "sourceQuestionId": "2019:seizo:問4",
+      "sourceIdentity": {
+        "sourceQuestionKey": "gas-shunin:hei:2019:seizo:q04",
+        "reviewQuestionId": "2cf47d14d6471496",
+        "sourceRecordRef": "question_2019_2.json#9"
+      },
+      "candidateHash": "58ca66607aa96900217d422ad16197edf84deed0b9b821527e9a4ef7f97e774d",
+      "auditPath": "output/gas-shunin-hei/direct_publication/20261027/content_audits/2019_seizo_問4/result.json",
+      "nativeSha256": "aefe6950a483a8353fd8b9939b817fdcf06a953659387b2b810cf2a3f8f484eb",
+      "saveReceipt": "output/gas-shunin-hei/direct_publication/20261027/saved/2019-seizo-04-r1.json"
     }
   },
   "latestChecks": {
-    "path": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T005745Z/result.json",
-    "sha256": "e9275c54aa2ef024189b4c229e1362e8c76137e523e1348ad50bd943461acbc4",
+    "path": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T010950Z/result.json",
+    "sha256": "519d3a3a20c2fe887f8abb587629a3961a02c81d578ffc18250d8a95bb5323a7",
     "summary": {
-      "generatedAt": "20261028T005745Z",
-      "selectedCount": 486,
+      "generatedAt": "20261028T010950Z",
+      "selectedCount": 487,
       "byYear": {
         "2017": 55,
         "2023": 54,
-        "2019": 54,
+        "2019": 55,
         "2024": 56,
         "2020": 53,
         "2022": 56,
@@ -6050,12 +6062,12 @@
             "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_choice_text_alignment.py",
             "--base-dir",
-            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/checks/20261028T005745Z/gas-shunin-hei/questions_json",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/checks/20261028T010950Z/gas-shunin-hei/questions_json",
             "--stage",
             "merged"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T005745Z/check-00.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T010950Z/check-00.log",
           "logSha256": "a0a43fc049c21d611775721216fc1fe1f18569576a2440e0f682647409dbe70f"
         },
         {
@@ -6063,12 +6075,12 @@
             "/Users/yuki/.pyenv/versions/3.14.0/bin/python3",
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/tool_snapshot/scripts/check/check_required_fields.py",
             "--base-dir",
-            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/checks/20261028T005745Z/gas-shunin-hei/questions_json",
+            "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/direct_publication/20261027/checks/20261028T010950Z/gas-shunin-hei/questions_json",
             "--stage",
             "merged"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T005745Z/check-01.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T010950Z/check-01.log",
           "logSha256": "aba5ddbabc195b6b3065026bd5dd0bbc689b62d9454c334b5b90e21ac5933b8c"
         },
         {
@@ -6083,7 +6095,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2017/10_questionType_fixed/question_2017_1_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T005745Z/check-02.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T010950Z/check-02.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -6098,7 +6110,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2017/10_questionType_fixed/question_2017_2_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T005745Z/check-03.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T010950Z/check-03.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -6113,7 +6125,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2017/10_questionType_fixed/question_2017_3_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T005745Z/check-04.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T010950Z/check-04.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -6128,7 +6140,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2023/10_questionType_fixed/question_2023_1_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T005745Z/check-05.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T010950Z/check-05.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -6143,7 +6155,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2023/10_questionType_fixed/question_2023_2_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T005745Z/check-06.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T010950Z/check-06.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -6158,7 +6170,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2023/10_questionType_fixed/question_2023_3_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T005745Z/check-07.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T010950Z/check-07.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -6173,7 +6185,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2019/10_questionType_fixed/question_2019_1_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T005745Z/check-08.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T010950Z/check-08.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -6188,7 +6200,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2019/10_questionType_fixed/question_2019_2_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T005745Z/check-09.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T010950Z/check-09.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -6203,7 +6215,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2019/10_questionType_fixed/question_2019_3_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T005745Z/check-10.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T010950Z/check-10.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -6218,7 +6230,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2024/10_questionType_fixed/question_2024_1_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T005745Z/check-11.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T010950Z/check-11.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -6233,7 +6245,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2024/10_questionType_fixed/question_2024_2_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T005745Z/check-12.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T010950Z/check-12.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -6248,7 +6260,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2024/10_questionType_fixed/question_2024_3_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T005745Z/check-13.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T010950Z/check-13.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -6263,7 +6275,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2020/10_questionType_fixed/question_2020_1_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T005745Z/check-14.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T010950Z/check-14.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -6278,7 +6290,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2020/10_questionType_fixed/question_2020_2_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T005745Z/check-15.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T010950Z/check-15.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -6293,7 +6305,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2020/10_questionType_fixed/question_2020_3_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T005745Z/check-16.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T010950Z/check-16.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -6308,7 +6320,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2022/10_questionType_fixed/question_2022_1_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T005745Z/check-17.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T010950Z/check-17.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -6323,7 +6335,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2022/10_questionType_fixed/question_2022_2_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T005745Z/check-18.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T010950Z/check-18.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -6338,7 +6350,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2022/10_questionType_fixed/question_2022_3_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T005745Z/check-19.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T010950Z/check-19.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -6353,7 +6365,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2018/10_questionType_fixed/question_2018_1_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T005745Z/check-20.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T010950Z/check-20.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -6368,7 +6380,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2018/10_questionType_fixed/question_2018_2_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T005745Z/check-21.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T010950Z/check-21.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -6383,7 +6395,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2018/10_questionType_fixed/question_2018_3_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T005745Z/check-22.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T010950Z/check-22.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -6398,7 +6410,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2025/10_questionType_fixed/question_2025_1_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T005745Z/check-23.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T010950Z/check-23.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -6413,7 +6425,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2025/10_questionType_fixed/question_2025_2_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T005745Z/check-24.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T010950Z/check-24.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -6428,7 +6440,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2025/10_questionType_fixed/question_2025_3_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T005745Z/check-25.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T010950Z/check-25.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -6443,7 +6455,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2021/10_questionType_fixed/question_2021_1_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T005745Z/check-26.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T010950Z/check-26.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -6458,7 +6470,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2021/10_questionType_fixed/question_2021_2_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T005745Z/check-27.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T010950Z/check-27.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         },
         {
@@ -6473,7 +6485,7 @@
             "/Users/yuki/development/exam_scraper_work/output/gas-shunin-hei/questions_json/2021/10_questionType_fixed/question_2021_3_questionType_fixed.json"
           ],
           "exitCode": 0,
-          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T005745Z/check-28.log",
+          "log": "output/gas-shunin-hei/direct_publication/20261027/checks/20261028T010950Z/check-28.log",
           "logSha256": "1f7b1dd72239289f8a60438ed8e023aef8bafa071c2600af83a3f0edec81e00a"
         }
       ],
@@ -57640,7 +57652,7 @@
     },
     {
       "path": "output/gas-shunin-hei/questions_json/2019/15_correctChoiceText_fixed/question_2019_2_merged_correctChoiceText_fixed.json",
-      "sha256": "6782c1878ac97bcc7580d305a539dafdc9c3c1f610b567d3823121e34ec4f301",
+      "sha256": "0f32aa2b87e73ceb73d630767cfc6e0f973445ada3cd5cae68d0b35ac7c4129c",
       "payload": [
         {
           "questionIntent_changed": true,
@@ -57681,6 +57693,16 @@
           "sourceQuestionKey": "gas-shunin:hei:2019:kiso:q14",
           "reviewQuestionId": "e3d44883c0246bf7",
           "sourceRecordRef": "question_2019_2.json#4"
+        },
+        {
+          "questionIntent_changed": false,
+          "questionIntent_change_detail": "",
+          "original_question_id": "2cf47d14d6471496",
+          "questionIntent": "select_incorrect",
+          "questionIntent_change_reason": "",
+          "sourceQuestionKey": "gas-shunin:hei:2019:seizo:q04",
+          "reviewQuestionId": "2cf47d14d6471496",
+          "sourceRecordRef": "question_2019_2.json#9"
         },
         {
           "questionIntent_changed": false,
@@ -63739,7 +63761,7 @@
     },
     {
       "path": "output/gas-shunin-hei/questions_json/2019/18_law_context_prepared/question_2019_2_merged_lawContext_prepared.json",
-      "sha256": "d581d103944e001fb57137db44313f533805e1f2731bc32046817c809513e68c",
+      "sha256": "8f88030822f386b1a665fe0ebcd53ca2482f2668ac8ad4c8a3d5d245ffb5af1a",
       "payload": [
         {
           "isLawRelated": false,
@@ -64892,6 +64914,150 @@
           "sourceQuestionKey": "gas-shunin:hei:2019:seizo:q02",
           "reviewQuestionId": "17e5fd1c0c8840f4",
           "sourceRecordRef": "question_2019_2.json#7"
+        },
+        {
+          "isLawRelated": false,
+          "lawGroundedExplanationNotNeeded": true,
+          "original_question_id": "2cf47d14d6471496",
+          "question_url": "https://gassyunin.com/exam/hei/hei_2019/#seizo-q4",
+          "lawReferences": [
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "lawRevisionFacts": [
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "間違い"
+              },
+              "current": {
+                "correctChoiceText": "間違い"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "地上設置式バルク貯槽の具体的な施工・保全事例について、放出管の位置、基礎への固定、防食塗装の補修、液位計測と過充てん防止及び液流出の遮断を判断する技術問題である。条文の定義や法定の容量区分・許認可を選ぶ設問ではなく、機器メーカーの設置・取扱資料及び装置の構造と機能を使って各事例を判断する。設備が法令で規制され得ることだけでは法令問題へ変更しない資格方針に従う。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "地上設置式バルク貯槽の安全弁に放出管を設け、その開口部の位置は、貯槽頂部の高さとした。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2019_seizo_問4/result.json"
+              ]
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "正しい"
+              },
+              "current": {
+                "correctChoiceText": "正しい"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "地上設置式バルク貯槽の具体的な施工・保全事例について、放出管の位置、基礎への固定、防食塗装の補修、液位計測と過充てん防止及び液流出の遮断を判断する技術問題である。条文の定義や法定の容量区分・許認可を選ぶ設問ではなく、機器メーカーの設置・取扱資料及び装置の構造と機能を使って各事例を判断する。設備が法令で規制され得ることだけでは法令問題へ変更しない資格方針に従う。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "バルク貯槽が貯槽自重、積載荷重、風圧力その他外力によって動かないようにアンカーボルトで堅固に固定した。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2019_seizo_問4/result.json"
+              ]
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "正しい"
+              },
+              "current": {
+                "correctChoiceText": "正しい"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "地上設置式バルク貯槽の具体的な施工・保全事例について、放出管の位置、基礎への固定、防食塗装の補修、液位計測と過充てん防止及び液流出の遮断を判断する技術問題である。条文の定義や法定の容量区分・許認可を選ぶ設問ではなく、機器メーカーの設置・取扱資料及び装置の構造と機能を使って各事例を判断する。設備が法令で規制され得ることだけでは法令問題へ変更しない資格方針に従う。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "バルク貯槽を運搬中に防食塗装が損傷したので、損傷部を補修した。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2019_seizo_問4/result.json"
+              ]
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "正しい"
+              },
+              "current": {
+                "correctChoiceText": "正しい"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "地上設置式バルク貯槽の具体的な施工・保全事例について、放出管の位置、基礎への固定、防食塗装の補修、液位計測と過充てん防止及び液流出の遮断を判断する技術問題である。条文の定義や法定の容量区分・許認可を選ぶ設問ではなく、機器メーカーの設置・取扱資料及び装置の構造と機能を使って各事例を判断する。設備が法令で規制され得ることだけでは法令問題へ変更しない資格方針に従う。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "液面計と過充てん防止装置にフロート式のものを用いた。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2019_seizo_問4/result.json"
+              ]
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "正しい"
+              },
+              "current": {
+                "correctChoiceText": "正しい"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "地上設置式バルク貯槽の具体的な施工・保全事例について、放出管の位置、基礎への固定、防食塗装の補修、液位計測と過充てん防止及び液流出の遮断を判断する技術問題である。条文の定義や法定の容量区分・許認可を選ぶ設問ではなく、機器メーカーの設置・取扱資料及び装置の構造と機能を使って各事例を判断する。設備が法令で規制され得ることだけでは法令問題へ変更しない資格方針に従う。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "液取出弁からLPガスを送り出すための液配管に緊急遮断装置を取り付けた。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2019_seizo_問4/result.json"
+              ]
+            }
+          ],
+          "lawContextForExplanation": "地上設置式バルク貯槽の具体的な施工・保全事例について、放出管の位置、基礎への固定、防食塗装の補修、液位計測と過充てん防止及び液流出の遮断を判断する技術問題である。条文の定義や法定の容量区分・許認可を選ぶ設問ではなく、機器メーカーの設置・取扱資料及び装置の構造と機能を使って各事例を判断する。設備が法令で規制され得ることだけでは法令問題へ変更しない資格方針に従う。",
+          "sourceQuestionKey": "gas-shunin:hei:2019:seizo:q04",
+          "reviewQuestionId": "2cf47d14d6471496",
+          "sourceRecordRef": "question_2019_2.json#9"
         },
         {
           "isLawRelated": true,
@@ -74447,7 +74613,7 @@
     },
     {
       "path": "output/gas-shunin-hei/questions_json/2019/21_explanationText_added/question_2019_2_merged_explanationText_added.json",
-      "sha256": "0ed90b729285c90acf65fb8c8f4765ce766f2cc8d71f0189ae8f433fbc4849a0",
+      "sha256": "9573f5b0e0cdc11a41e403bbef4b4bd4d844f39db90b6cf1c6e9b04afda63070",
       "payload": [
         {
           "explanationText": [
@@ -75652,6 +75818,158 @@
           "sourceQuestionKey": "gas-shunin:hei:2019:seizo:q02",
           "reviewQuestionId": "17e5fd1c0c8840f4",
           "sourceRecordRef": "question_2019_2.json#7"
+        },
+        {
+          "explanationText": [
+            "間違い。放出管の開口部は、バルク貯槽の頂部より10cm以上高い位置とする。頂部と同じ高さでは足りない。開口部は上向きとし、雨水が入らないようにする。",
+            "正しい。バルク貯槽は、アンカーボルトなどで基礎に堅固に固定する。風圧やその他の外力によって貯槽が移動すると、接続された配管や弁類が損傷するおそれがある。基礎の不同沈下などで貯槽に有害なひずみが生じないことも確認する。",
+            "正しい。防食塗装の損傷部は、放置せずに補修する。塗膜が失われた部分では鋼材が水分などに触れやすくなり、腐食が進むおそれがある。運搬時だけでなく、設置後の点検でも塗装の状態を確認する。",
+            "正しい。フロート式液面計は、液面に浮くフロートの位置から液位を示す。フロート式の過充てん防止装置は、液面の上昇に伴うフロートの動きを利用し、所定の液位に達すると充てんする液の流れを止める。両方ともフロートを使うが、液位の表示と充てん停止という役割は異なる。",
+            "正しい。液を送り出す配管には、漏えい時に液の流れを速やかに止める緊急遮断装置を設ける。貯槽内の液化ガスが流出すると、気化して漏えいが拡大するおそれがあるためである。液を受け入れるためだけの配管に用いる逆止弁とは役割を区別する。"
+          ],
+          "suggestedQuestionDetailsByChoice": [],
+          "original_question_id": "2cf47d14d6471496",
+          "question_url": "https://gassyunin.com/exam/hei/hei_2019/#seizo-q4",
+          "questionLearningPatternId": "scenario_application",
+          "lawReferences": [
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "isLawRelated": false,
+          "lawGroundedExplanationNotNeeded": true,
+          "lawRevisionFacts": [
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "間違い"
+              },
+              "current": {
+                "correctChoiceText": "間違い"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "地上設置式バルク貯槽の具体的な施工・保全事例について、放出管の位置、基礎への固定、防食塗装の補修、液位計測と過充てん防止及び液流出の遮断を判断する技術問題である。条文の定義や法定の容量区分・許認可を選ぶ設問ではなく、機器メーカーの設置・取扱資料及び装置の構造と機能を使って各事例を判断する。設備が法令で規制され得ることだけでは法令問題へ変更しない資格方針に従う。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "地上設置式バルク貯槽の安全弁に放出管を設け、その開口部の位置は、貯槽頂部の高さとした。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2019_seizo_問4/result.json"
+              ]
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "正しい"
+              },
+              "current": {
+                "correctChoiceText": "正しい"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "地上設置式バルク貯槽の具体的な施工・保全事例について、放出管の位置、基礎への固定、防食塗装の補修、液位計測と過充てん防止及び液流出の遮断を判断する技術問題である。条文の定義や法定の容量区分・許認可を選ぶ設問ではなく、機器メーカーの設置・取扱資料及び装置の構造と機能を使って各事例を判断する。設備が法令で規制され得ることだけでは法令問題へ変更しない資格方針に従う。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "バルク貯槽が貯槽自重、積載荷重、風圧力その他外力によって動かないようにアンカーボルトで堅固に固定した。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2019_seizo_問4/result.json"
+              ]
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "正しい"
+              },
+              "current": {
+                "correctChoiceText": "正しい"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "地上設置式バルク貯槽の具体的な施工・保全事例について、放出管の位置、基礎への固定、防食塗装の補修、液位計測と過充てん防止及び液流出の遮断を判断する技術問題である。条文の定義や法定の容量区分・許認可を選ぶ設問ではなく、機器メーカーの設置・取扱資料及び装置の構造と機能を使って各事例を判断する。設備が法令で規制され得ることだけでは法令問題へ変更しない資格方針に従う。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "バルク貯槽を運搬中に防食塗装が損傷したので、損傷部を補修した。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2019_seizo_問4/result.json"
+              ]
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "正しい"
+              },
+              "current": {
+                "correctChoiceText": "正しい"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "地上設置式バルク貯槽の具体的な施工・保全事例について、放出管の位置、基礎への固定、防食塗装の補修、液位計測と過充てん防止及び液流出の遮断を判断する技術問題である。条文の定義や法定の容量区分・許認可を選ぶ設問ではなく、機器メーカーの設置・取扱資料及び装置の構造と機能を使って各事例を判断する。設備が法令で規制され得ることだけでは法令問題へ変更しない資格方針に従う。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "液面計と過充てん防止装置にフロート式のものを用いた。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2019_seizo_問4/result.json"
+              ]
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "secondary_verified",
+              "examTime": {
+                "correctChoiceText": "正しい"
+              },
+              "current": {
+                "correctChoiceText": "正しい"
+              },
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "reconciliationStatus": "not_applicable",
+              "evidenceSummary": {
+                "verdict": "not_law_related",
+                "explanationText": "地上設置式バルク貯槽の具体的な施工・保全事例について、放出管の位置、基礎への固定、防食塗装の補修、液位計測と過充てん防止及び液流出の遮断を判断する技術問題である。条文の定義や法定の容量区分・許認可を選ぶ設問ではなく、機器メーカーの設置・取扱資料及び装置の構造と機能を使って各事例を判断する。設備が法令で規制され得ることだけでは法令問題へ変更しない資格方針に従う。",
+                "differenceSummary": "非法令問題。法令差分は適用しない。",
+                "promptContext": "液取出弁からLPガスを送り出すための液配管に緊急遮断装置を取り付けた。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "notes": [
+                "主担当の直接判定と別sessionの全肢確認が一致。",
+                "output/gas-shunin-hei/direct_publication/20261027/content_audits/2019_seizo_問4/result.json"
+              ]
+            }
+          ],
+          "sourceQuestionKey": "gas-shunin:hei:2019:seizo:q04",
+          "reviewQuestionId": "2cf47d14d6471496",
+          "sourceRecordRef": "question_2019_2.json#9"
         },
         {
           "explanationText": [
@@ -79381,7 +79699,7 @@
     },
     {
       "path": "output/gas-shunin-hei/questions_json/2019/22_questionSetId_linked/question_2019_2_merged_questionSetId_linked.json",
-      "sha256": "1f97450fed6505194237870136b6fbd1f410fb8337f5e4ef9afc1b3ab38c00e4",
+      "sha256": "8e7a0bbf0b0b5b12b1885079e4e21c33efc4719634132b31e93659020bb18713",
       "payload": [
         {
           "questionSetId": "gas-shunin-hei_qs03_02_kitaijoho",
@@ -79446,6 +79764,14 @@
           "sourceQuestionKey": "gas-shunin:hei:2019:seizo:q02",
           "reviewQuestionId": "17e5fd1c0c8840f4",
           "sourceRecordRef": "question_2019_2.json#7"
+        },
+        {
+          "questionSetId": "gas-shunin-hei_qs04_02_youki_chosou",
+          "original_question_id": "2cf47d14d6471496",
+          "question_url": "https://gassyunin.com/exam/hei/hei_2019/#seizo-q4",
+          "sourceQuestionKey": "gas-shunin:hei:2019:seizo:q04",
+          "reviewQuestionId": "2cf47d14d6471496",
+          "sourceRecordRef": "question_2019_2.json#9"
         },
         {
           "questionSetId": "gas-shunin-hei_qs04_03_kika_chosei",
@@ -80215,7 +80541,7 @@
     },
     {
       "path": "output/gas-shunin-hei/questions_json/2019/23_correctChoiceText_fixed/question_2019_2_merged_correctChoiceText_fixed.json",
-      "sha256": "db097e2b15b18ae030f250a90ffec3ab1ef36bdd87a811b3e681b2516c0117b8",
+      "sha256": "ad652ccd7d4793999fb0dac0cf38ad12d09bf3d60e28338b2e9b7ca7a81fc48b",
       "payload": [
         {
           "correctChoiceText_changed": true,
@@ -80408,6 +80734,30 @@
           "sourceQuestionKey": "gas-shunin:hei:2019:seizo:q02",
           "reviewQuestionId": "17e5fd1c0c8840f4",
           "sourceRecordRef": "question_2019_2.json#7"
+        },
+        {
+          "correctChoiceText_changed": false,
+          "correctChoiceText_change_detail": "",
+          "correctChoiceText_change_reason": "",
+          "correctChoiceText": [
+            "間違い",
+            "正しい",
+            "正しい",
+            "正しい",
+            "正しい"
+          ],
+          "explanation_choice_snippets": [
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "original_question_id": "2cf47d14d6471496",
+          "question_url": "https://gassyunin.com/exam/hei/hei_2019/#seizo-q4",
+          "sourceQuestionKey": "gas-shunin:hei:2019:seizo:q04",
+          "reviewQuestionId": "2cf47d14d6471496",
+          "sourceRecordRef": "question_2019_2.json#9"
         },
         {
           "correctChoiceText_changed": false,
@@ -427107,6 +427457,82 @@
       ]
     },
     {
+      "path": "output/gas-shunin-hei/direct_publication/20261027/primary/2019-seizo-04-r1.json",
+      "sha256": "2cb8b230d168c8970391f45c4fa38ab6fb4857612e2f9423363ed50983c2078b",
+      "payload": [
+        {
+          "sourceQuestionId": "2019:seizo:問4",
+          "questionType": "true_false",
+          "isCalculationQuestion": false,
+          "questionIntent": "select_incorrect",
+          "correctChoiceText": [
+            "間違い",
+            "正しい",
+            "正しい",
+            "正しい",
+            "正しい"
+          ],
+          "explanationText": [
+            "間違い。放出管の開口部は、バルク貯槽の頂部より10cm以上高い位置とする。頂部と同じ高さでは足りない。開口部は上向きとし、雨水が入らないようにする。",
+            "正しい。バルク貯槽は、アンカーボルトなどで基礎に堅固に固定する。風圧やその他の外力によって貯槽が移動すると、接続された配管や弁類が損傷するおそれがある。基礎の不同沈下などで貯槽に有害なひずみが生じないことも確認する。",
+            "正しい。防食塗装の損傷部は、放置せずに補修する。塗膜が失われた部分では鋼材が水分などに触れやすくなり、腐食が進むおそれがある。運搬時だけでなく、設置後の点検でも塗装の状態を確認する。",
+            "正しい。フロート式液面計は、液面に浮くフロートの位置から液位を示す。フロート式の過充てん防止装置は、液面の上昇に伴うフロートの動きを利用し、所定の液位に達すると充てんする液の流れを止める。両方ともフロートを使うが、液位の表示と充てん停止という役割は異なる。",
+            "正しい。液を送り出す配管には、漏えい時に液の流れを速やかに止める緊急遮断装置を設ける。貯槽内の液化ガスが流出すると、気化して漏えいが拡大するおそれがあるためである。液を受け入れるためだけの配管に用いる逆止弁とは役割を区別する。"
+          ],
+          "questionSetId": "gas-shunin-hei_qs04_02_youki_chosou",
+          "questionLearningPatternId": "scenario_application",
+          "isLawRelated": false,
+          "lawGroundedExplanationNotNeeded": true,
+          "lawReferences": [
+            [],
+            [],
+            [],
+            [],
+            []
+          ],
+          "classificationReason": "地上設置式バルク貯槽の具体的な施工・保全事例について、放出管の位置、基礎への固定、防食塗装の補修、液位計測と過充てん防止及び液流出の遮断を判断する技術問題である。条文の定義や法定の容量区分・許認可を選ぶ設問ではなく、機器メーカーの設置・取扱資料及び装置の構造と機能を使って各事例を判断する。設備が法令で規制され得ることだけでは法令問題へ変更しない資格方針に従う。",
+          "officialPagesVisuallyReviewed": [
+            23
+          ],
+          "officialAnswerNumber": 1,
+          "sourceSummary": "主担当が2019年度丙種の公式問題PDF23頁・印刷22頁の製造問4の原設問と全5肢、公式正答表の製造問4=1を直接目視した。第1肢は貯槽頂部と同じ高さなので不適切と判定した。矢崎のLPガス機器プロダクトガイド実PDF128頁・印刷127頁の地上式横型バルク貯槽設置図では、放出管は頂部から10cm以上・上向き・雨水侵入防止と明記されている。同図の貯蔵能力1000kg未満という対象を確認し、他の大型液化ガス用貯槽の5m/2mの値を転用していない。固定と塗装修復はエスケーシリンダー2019図面集実PDF37頁の設置・維持管理説明を全文読んで照合した。第4肢は宮入バルブのFG-7及びCOC-80V製品本文、同社COC-80AS取扱説明書実PDF6・7頁の原理図を直接読んで、液位によるフロート上昇と充てん停止を確認した。液配管の流出遮断はガス工作物技術基準の解釈例第93条実PDF89頁を技術上の機能の補助として実読した。各肢の真偽は公式番号から残りを補完せず、それぞれの機能・設置方法を確認した。",
+          "primaryTechnicalSources": [
+            {
+              "url": "https://gas.yazaki-group.com/pdf/catalog/GA060ZF.pdf",
+              "finding": "実PDF128頁・印刷127頁の図と本文を目視。地上式横型バルク貯槽1000kg未満の放出管は頂部から10cm以上、開口上向き、雨水侵入防止と明記。アンカーボルト固定の図示も確認した。"
+            },
+            {
+              "url": "https://www.skcylinder.co.jp/data/doc-bulk6_0628.pdf",
+              "finding": "令和元年7月現在のメーカー図面集。実PDF37頁・印刷68/69頁の設置・維持管理を全読し、アンカーボルト固定と不同沈下防止、運搬時の塗装損傷の補修及び定期確認を確認した。"
+            },
+            {
+              "url": "https://www.miyairi-valve.co.jp/products/fg-7/",
+              "finding": "メーカー自身のLPGバルク貯槽用フロート式液面計FG-7の本文、用途と材質のFloatを直接確認。"
+            },
+            {
+              "url": "https://www.miyairi-valve.co.jp/products/coc-80v/",
+              "finding": "メーカー自身のLPGバルク貯槽用過充填防止装置COC-80Vの本文及び材質のFloatを直接確認。"
+            },
+            {
+              "url": "https://www.miyairi-valve.co.jp/wp-content/uploads/HM-2117_01.pdf",
+              "finding": "実PDF6・7頁・印刷5/6頁の原理図と本文を直接目視。液面上昇でフロートと背圧弁が動き、作動液面に達すると遊動弁が閉じて充てん流を遮断することを確認。"
+            },
+            {
+              "url": "https://www.khk.or.jp/Portals/0/khk/h2/committee/pipeline/02/20250219_pipeline_02-ref05.pdf",
+              "finding": "実PDF89頁第93条の液化ガスを送り出す配管の遮断と、受入専用配管の代替を全文読んで区別。全設備へ同じ法的適用を一般化せず、液流出を止める機能を確認。"
+            }
+          ],
+          "explanationReferences": [
+            {
+              "title": "LPガス機器プロダクトガイド（バルク貯槽の設置基準）",
+              "sourceUrl": "https://gas.yazaki-group.com/pdf/catalog/GA060ZF.pdf",
+              "referenceDate": "2026-10-28"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "path": "output/gas-shunin-hei/direct_publication/20261027/primary/2019-seizo-05-r2-authored.json",
       "sha256": "4afb2e238c9c61eb5a5fc86c2aa41d4778702bd339266607f99af831ea0610d2",
       "payload": [
@@ -516215,6 +516641,675 @@
               "finding": "国土交通省の液状化Q&A p10で粘土・礫地盤は基本的に液状化しにくい一方、粘土地盤中の砂の埋土・盛土には注意が必要と明示。"
             }
           ]
+        }
+      ]
+    },
+    {
+      "path": "output/gas-shunin-hei/direct_publication/20261027/primary/2021-seizo-03-authored-r1.json",
+      "sha256": "e344a59c3b7b553b629368d9bac183ce6fa74e4a97511c5b907b521d76569686",
+      "payload": [
+        {
+          "sourceQuestionId": "2021:seizo:問3",
+          "questionType": "true_false",
+          "isCalculationQuestion": false,
+          "questionIntent": "select_incorrect",
+          "correctChoiceText": [
+            "正しい",
+            "正しい",
+            "正しい",
+            "正しい",
+            "間違い"
+          ],
+          "examTimeDecision": [
+            "正しい",
+            "正しい",
+            "正しい",
+            "正しい",
+            "間違い"
+          ],
+          "currentLawDecision": [
+            "正しい",
+            "正しい",
+            "正しい",
+            "正しい",
+            "間違い"
+          ],
+          "explanationText": [
+            "正しい。急傾斜地では、斜面の崩壊によって容器、貯槽や配管が損傷するおそれがある。設置場所の地形や地盤の状態を確認し、崩壊を防ぐための措置を講じる。斜面の崩壊による設備の損傷やガス漏えいを防ぐための対策である。",
+            "正しい。障壁構造のボンベハウスで設備を囲み、入口を施錠できるようにすれば、公衆の立入りを防止できる。この条件では、ボンベハウスとは別に塀を設ける必要はない。ガス工作物の技術上の基準を定める省令（平成12年通商産業省令第111号）第4条第1項は、公衆がみだりに立ち入らないように適切な措置を求めている。単に設備を屋内に置くだけでよいという意味ではない。",
+            "正しい。立入禁止の表示は、出入口付近など、公衆が見やすい場所に掲げる。関係者以外が入れない場所であることを知らせるためである。ガス工作物の技術上の基準を定める省令（平成12年通商産業省令第111号）第4条第1項の立入防止措置として、表示と柵・塀、出入口の施錠などを組み合わせる。",
+            "正しい。特定製造所の表示に、ガス主任技術者の自宅住所を記載する必要はない。異常を発見した人が連絡できるよう、ガス事業者名や緊急連絡先などを分かりやすく示す。事業者への連絡先と主任技術者個人の自宅住所を混同しない。",
+            "間違い。地下に埋設したバルク貯槽でも、LPガスを貯蔵していることが外部から分かるように表示する。ガス工作物の技術上の基準を定める省令（平成12年通商産業省令第111号）第34条は、不活性の液化ガス用を除く液化ガス用貯槽又はその付近に、外部から見やすい表示を求めている。地下設置であることを理由に表示を省略することはできない。"
+          ],
+          "questionSetId": "gas-shunin-hei_qs02_01_seizo_kijun",
+          "questionLearningPatternId": "scenario_application",
+          "isLawRelated": true,
+          "classificationReason": "第2・3肢は公衆の立入防止措置、第5肢は地下設置でも省略できない貯槽表示という法定技術基準を直接判断する。第1肢の斜面崩壊防止と第4肢の表示上の連絡先は設置・保安上の技術判断として個別に扱い、無関係な法令参照を付けない。製造所の法定の立入防止・表示を中心とするため02-01に紐付ける。",
+          "officialPagesVisuallyReviewed": [
+            20,
+            21
+          ],
+          "officialAnswerNumber": 5,
+          "currentAsOf": "2026-10-28",
+          "auditStatus": "same_as_current",
+          "lawReferences": [
+            [],
+            [
+              {
+                "lawId": "412M50000400111",
+                "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                "article": "第4条第1項",
+                "role": "current_basis",
+                "scope": "choice",
+                "choiceIndex": 1,
+                "referenceDate": "2026-10-28",
+                "verificationStatus": "verified",
+                "source": "https://laws.e-gov.go.jp/law/412M50000400111"
+              }
+            ],
+            [
+              {
+                "lawId": "412M50000400111",
+                "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                "article": "第4条第1項",
+                "role": "current_basis",
+                "scope": "choice",
+                "choiceIndex": 2,
+                "referenceDate": "2026-10-28",
+                "verificationStatus": "verified",
+                "source": "https://laws.e-gov.go.jp/law/412M50000400111"
+              }
+            ],
+            [],
+            [
+              {
+                "lawId": "412M50000400111",
+                "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                "article": "第34条",
+                "role": "current_basis",
+                "scope": "choice",
+                "choiceIndex": 4,
+                "referenceDate": "2026-10-28",
+                "verificationStatus": "verified",
+                "source": "https://laws.e-gov.go.jp/law/412M50000400111"
+              }
+            ]
+          ],
+          "sourceSummary": "主担当が2021年度丙種の公式問題PDF20頁・印刷19頁の製造問3の原設問・全5肢、正答表の5を直接目視した。次頁21頁も読み、問3と問4の境界を確認した。e-Gov公式APIの技術省令4条と34条を、2021-09-26及び2026-10-28の実XMLから直接抽出して全文を読み、立入り防止措置と液化ガス用貯槽の表示に判定を変える差がないことを確認した。4条は塀そのものを一律義務付けず、適切な立入防止措置を求めているため、障壁構造の建物と入口の施錠を一つの措置として判断する。KHK特定ガス工作物使用前検査マニュアル実PDF16頁では、公衆の立入防止、見やすい禁止表示、柵・塀等と入口施錠を直接確認した。第5肢は省令34条に地下埋設除外がないことと、メーカーのバルク貯槽取扱説明書実PDF37頁で貯槽外面又は周囲の見やすい位置にLPガス・火気厳禁と緊急連絡先を表示する指示を直接確認した。第1肢は斜面崩壊による設備損傷の防止、第4肢は事業者の緊急連絡先と主任技術者個人の自宅住所の区別として独立に判断した。第4肢について全国共通表示板の掲載事項一覧の原本を取得したとは主張しない。",
+          "primaryChoiceLegalJudgments": [
+            {
+              "auditStatus": "not_law_related",
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "basisSummary": "正しい。急傾斜地では斜面の崩壊から設備を保護し、容器や配管の破損及びガス漏えいを防ぐための措置を講じる。",
+              "differenceSummary": "地形に応じた災害防止という技術判断。"
+            },
+            {
+              "auditStatus": "same_as_current",
+              "differenceFacts": [
+                "技術省令4条1項の適切な立入防止措置という規定は当時・現行とも同じ。"
+              ],
+              "answerImpactFacts": [
+                "第2肢は当時・現行とも正しい。"
+              ],
+              "basisSummary": "正しい。障壁構造のボンベハウスと入口の施錠で公衆の立入りを防ぐ。省令4条1項は適切な措置を求め、別に塀を設ける方法だけを指定してはいない。",
+              "differenceSummary": "本肢の立入防止の判定を変える差はない。"
+            },
+            {
+              "auditStatus": "same_as_current",
+              "differenceFacts": [
+                "技術省令4条1項の立入防止措置は当時・現行で同じ。"
+              ],
+              "answerImpactFacts": [
+                "第3肢は当時・現行とも正しい。"
+              ],
+              "basisSummary": "正しい。立入禁止を公衆に見やすく知らせる表示を出入口付近へ掲げ、柵・塀や施錠等の物理的措置と組み合わせる。",
+              "differenceSummary": "本肢の表示を含む立入防止措置に判定を変える差はない。"
+            },
+            {
+              "auditStatus": "not_law_related",
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "basisSummary": "正しい。公衆への表示で明示すべき事業者の緊急連絡先と、ガス主任技術者の個人の自宅住所は別であり、自宅住所の掲示を要するものではない。",
+              "differenceSummary": "保安上の連絡先表示の技術判断。"
+            },
+            {
+              "auditStatus": "same_as_current",
+              "differenceFacts": [
+                "省令34条は当時・現行とも不活性を除く液化ガス用貯槽の外から見える表示を求め、地下埋設を除外していない。"
+              ],
+              "answerImpactFacts": [
+                "第5肢は当時・現行とも間違い。"
+              ],
+              "basisSummary": "間違い。LPガスの貯槽が地下設置式でも、貯槽又はその付近に外から見やすい表示をする。埋設を理由に表示を省略できない。",
+              "differenceSummary": "表示義務と地下埋設の扱いに判定を変える差はない。"
+            }
+          ],
+          "primaryTechnicalSources": [
+            {
+              "url": "https://www.khk.or.jp/Portals/0/khk/insp/gyoumu/2026/70502-22.pdf",
+              "finding": "実PDF16頁・印刷12頁を全文読み、立入禁止表示、柵・塀等、出入口施錠と技術省令4条との対応を確認した。"
+            },
+            {
+              "url": "https://www.skcylinder.co.jp/data/doc-bulk6_0628.pdf",
+              "finding": "実PDF37頁・印刷68/69頁の維持管理上の表示指示を全読。LPガス・火気厳禁と緊急連絡先の表示を確認した。全国共通の表示板の掲載事項一覧そのものではない。"
+            }
+          ],
+          "explanationReferences": [
+            {
+              "title": "ガス工作物の技術上の基準を定める省令 第4条・第34条",
+              "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+              "referenceDate": "2026-10-28"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "output/gas-shunin-hei/direct_publication/20261027/primary/2021-seizo-03-r1.json",
+      "sha256": "0694063ea07bd68147d8a93c4c392a82dc6d09f56abb90d3f6eb4070164f92ea",
+      "payload": [
+        {
+          "sourceQuestionId": "2021:seizo:問3",
+          "questionType": "true_false",
+          "isCalculationQuestion": false,
+          "questionIntent": "select_incorrect",
+          "correctChoiceText": [
+            "正しい",
+            "正しい",
+            "正しい",
+            "正しい",
+            "間違い"
+          ],
+          "examTimeDecision": [
+            "正しい",
+            "正しい",
+            "正しい",
+            "正しい",
+            "間違い"
+          ],
+          "currentLawDecision": [
+            "正しい",
+            "正しい",
+            "正しい",
+            "正しい",
+            "間違い"
+          ],
+          "explanationText": [
+            "正しい。急傾斜地では、斜面の崩壊によって容器、貯槽や配管が損傷するおそれがある。設置場所の地形や地盤の状態を確認し、崩壊を防ぐための措置を講じる。斜面の崩壊による設備の損傷やガス漏えいを防ぐための対策である。",
+            "正しい。障壁構造のボンベハウスで設備を囲み、入口を施錠できるようにすれば、公衆の立入りを防止できる。この条件では、ボンベハウスとは別に塀を設ける必要はない。ガス工作物の技術上の基準を定める省令（平成12年通商産業省令第111号）第4条第1項は、公衆がみだりに立ち入らないように適切な措置を求めている。単に設備を屋内に置くだけでよいという意味ではない。",
+            "正しい。立入禁止の表示は、出入口付近など、公衆が見やすい場所に掲げる。関係者以外が入れない場所であることを知らせるためである。ガス工作物の技術上の基準を定める省令（平成12年通商産業省令第111号）第4条第1項の立入防止措置として、表示と柵・塀、出入口の施錠などを組み合わせる。",
+            "正しい。特定製造所の表示に、ガス主任技術者の自宅住所を記載する必要はない。異常を発見した人が連絡できるよう、ガス事業者名や緊急連絡先などを分かりやすく示す。事業者への連絡先と主任技術者個人の自宅住所を混同しない。",
+            "間違い。地下に埋設したバルク貯槽でも、LPガスを貯蔵していることが外部から分かるように表示する。ガス工作物の技術上の基準を定める省令（平成12年通商産業省令第111号）第34条は、不活性の液化ガス用を除く液化ガス用貯槽又はその付近に、外部から見やすい表示を求めている。地下設置であることを理由に表示を省略することはできない。"
+          ],
+          "questionSetId": "gas-shunin-hei_qs02_01_seizo_kijun",
+          "questionLearningPatternId": "scenario_application",
+          "isLawRelated": true,
+          "classificationReason": "第2・3肢は公衆の立入防止措置、第5肢は地下設置でも省略できない貯槽表示という法定技術基準を直接判断する。第1肢の斜面崩壊防止と第4肢の表示上の連絡先は設置・保安上の技術判断として個別に扱い、無関係な法令参照を付けない。製造所の法定の立入防止・表示を中心とするため02-01に紐付ける。",
+          "officialPagesVisuallyReviewed": [
+            20,
+            21
+          ],
+          "officialAnswerNumber": 5,
+          "currentAsOf": "2026-10-28",
+          "auditStatus": "same_as_current",
+          "lawReferences": [
+            [],
+            [
+              {
+                "lawId": "412M50000400111",
+                "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                "article": "第4条第1項",
+                "role": "current_basis",
+                "scope": "choice",
+                "choiceIndex": 1,
+                "referenceDate": "2026-10-28",
+                "verificationStatus": "verified",
+                "source": "https://laws.e-gov.go.jp/law/412M50000400111"
+              }
+            ],
+            [
+              {
+                "lawId": "412M50000400111",
+                "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                "article": "第4条第1項",
+                "role": "current_basis",
+                "scope": "choice",
+                "choiceIndex": 2,
+                "referenceDate": "2026-10-28",
+                "verificationStatus": "verified",
+                "source": "https://laws.e-gov.go.jp/law/412M50000400111"
+              }
+            ],
+            [],
+            [
+              {
+                "lawId": "412M50000400111",
+                "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                "article": "第34条",
+                "role": "current_basis",
+                "scope": "choice",
+                "choiceIndex": 4,
+                "referenceDate": "2026-10-28",
+                "verificationStatus": "verified",
+                "source": "https://laws.e-gov.go.jp/law/412M50000400111"
+              }
+            ]
+          ],
+          "sourceSummary": "主担当が2021年度丙種の公式問題PDF20頁・印刷19頁の製造問3の原設問・全5肢、正答表の5を直接目視した。次頁21頁も読み、問3と問4の境界を確認した。e-Gov公式APIの技術省令4条と34条を、2021-09-26及び2026-10-28の実XMLから直接抽出して全文を読み、立入り防止措置と液化ガス用貯槽の表示に判定を変える差がないことを確認した。4条は塀そのものを一律義務付けず、適切な立入防止措置を求めているため、障壁構造の建物と入口の施錠を一つの措置として判断する。KHK特定ガス工作物使用前検査マニュアル実PDF16頁では、公衆の立入防止、見やすい禁止表示、柵・塀等と入口施錠を直接確認した。第5肢は省令34条に地下埋設除外がないことと、メーカーのバルク貯槽取扱説明書実PDF37頁で貯槽外面又は周囲の見やすい位置にLPガス・火気厳禁と緊急連絡先を表示する指示を直接確認した。第1肢は斜面崩壊による設備損傷の防止、第4肢は事業者の緊急連絡先と主任技術者個人の自宅住所の区別として独立に判断した。第4肢について全国共通表示板の掲載事項一覧の原本を取得したとは主張しない。",
+          "primaryChoiceLegalJudgments": [
+            {
+              "auditStatus": "not_law_related",
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "basisSummary": "正しい。急傾斜地では斜面の崩壊から設備を保護し、容器や配管の破損及びガス漏えいを防ぐための措置を講じる。",
+              "differenceSummary": "地形に応じた災害防止という技術判断。"
+            },
+            {
+              "auditStatus": "same_as_current",
+              "differenceFacts": [
+                "技術省令4条1項の適切な立入防止措置という規定は当時・現行とも同じ。"
+              ],
+              "answerImpactFacts": [
+                "第2肢は当時・現行とも正しい。"
+              ],
+              "basisSummary": "正しい。障壁構造のボンベハウスと入口の施錠で公衆の立入りを防ぐ。省令4条1項は適切な措置を求め、別に塀を設ける方法だけを指定してはいない。",
+              "differenceSummary": "本肢の立入防止の判定を変える差はない。"
+            },
+            {
+              "auditStatus": "same_as_current",
+              "differenceFacts": [
+                "技術省令4条1項の立入防止措置は当時・現行で同じ。"
+              ],
+              "answerImpactFacts": [
+                "第3肢は当時・現行とも正しい。"
+              ],
+              "basisSummary": "正しい。立入禁止を公衆に見やすく知らせる表示を出入口付近へ掲げ、柵・塀や施錠等の物理的措置と組み合わせる。",
+              "differenceSummary": "本肢の表示を含む立入防止措置に判定を変える差はない。"
+            },
+            {
+              "auditStatus": "not_law_related",
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "basisSummary": "正しい。公衆への表示で明示すべき事業者の緊急連絡先と、ガス主任技術者の個人の自宅住所は別であり、自宅住所の掲示を要するものではない。",
+              "differenceSummary": "保安上の連絡先表示の技術判断。"
+            },
+            {
+              "auditStatus": "same_as_current",
+              "differenceFacts": [
+                "省令34条は当時・現行とも不活性を除く液化ガス用貯槽の外から見える表示を求め、地下埋設を除外していない。"
+              ],
+              "answerImpactFacts": [
+                "第5肢は当時・現行とも間違い。"
+              ],
+              "basisSummary": "間違い。LPガスの貯槽が地下設置式でも、貯槽又はその付近に外から見やすい表示をする。埋設を理由に表示を省略できない。",
+              "differenceSummary": "表示義務と地下埋設の扱いに判定を変える差はない。"
+            }
+          ],
+          "primaryTechnicalSources": [
+            {
+              "url": "https://www.khk.or.jp/Portals/0/khk/insp/gyoumu/2026/70502-22.pdf",
+              "finding": "実PDF16頁・印刷12頁を全文読み、立入禁止表示、柵・塀等、出入口施錠と技術省令4条との対応を確認した。"
+            },
+            {
+              "url": "https://www.skcylinder.co.jp/data/doc-bulk6_0628.pdf",
+              "finding": "実PDF37頁・印刷68/69頁の維持管理上の表示指示を全読。LPガス・火気厳禁と緊急連絡先の表示を確認した。全国共通の表示板の掲載事項一覧そのものではない。"
+            }
+          ],
+          "explanationReferences": [
+            {
+              "title": "ガス工作物の技術上の基準を定める省令 第4条・第34条",
+              "sourceUrl": "https://laws.e-gov.go.jp/law/412M50000400111",
+              "referenceDate": "2026-10-28"
+            }
+          ],
+          "primaryLawEvidence": {
+            "schemaVersion": "primary-law-evidence/v2",
+            "status": "complete",
+            "currentAsOf": "2026-10-28",
+            "examAsOf": "2021-09-26",
+            "examAsOfSource": "document/sources/gas-shunin/official_exam_pdf_catalog.json",
+            "items": [
+              {
+                "lawId": "412M50000400111",
+                "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                "role": "current_basis",
+                "scope": "choice",
+                "choiceIndex": 1,
+                "declaredArticle": "第4条第1項",
+                "locator": {
+                  "kind": "article",
+                  "number": 4,
+                  "num": "4"
+                },
+                "resolvedLawTitle": "ガス工作物の技術上の基準を定める省令",
+                "currentSnapshot": {
+                  "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                  "asOf": "2026-10-28",
+                  "revisionId": "412M50000400111_20240427_506M60000400035",
+                  "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2026-10-28",
+                  "locator": {
+                    "kind": "article",
+                    "number": 4,
+                    "num": "4"
+                  },
+                  "xmlHash": "0d9aa0bfc33559534f05554b86065743547262a88b62a5ade3b11da6d9697140",
+                  "extractionRegion": "LawBody/MainProvision/descendant::Article",
+                  "extractionVersion": "egov-main-provision/v2",
+                  "normalizationVersion": "itertext-whitespace-collapse-utf8-sha256/v1",
+                  "textHash": "054d288a753568e418b0bda269b437e03e117ca596357acfede15e71a882f682",
+                  "text": "（立ち入りの防止等） 第四条 製造所及び供給所には、構内に公衆がみだりに立ち入らないよう、適切な措置を講じなければならない。 ただし、周囲の状況により公衆が立ち入るおそれがない場合は、この限りでない。 ２ 移動式ガス発生設備及び整圧器（一の使用者にガスを供給するためのものを除く。）は、公衆がみだりに操作しないよう、適切な措置を講じなければならない。",
+                  "textTruncated": false
+                },
+                "examAsOfSource": "document/sources/gas-shunin/official_exam_pdf_catalog.json",
+                "examSnapshot": {
+                  "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                  "asOf": "2021-09-26",
+                  "revisionId": "412M50000400111_20200626_502M60000400060",
+                  "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2021-09-26",
+                  "locator": {
+                    "kind": "article",
+                    "number": 4,
+                    "num": "4"
+                  },
+                  "xmlHash": "4155b00f6560219e4800e396f254c39369e60fc87f3191c67c798c4ee0fda92e",
+                  "extractionRegion": "LawBody/MainProvision/descendant::Article",
+                  "extractionVersion": "egov-main-provision/v2",
+                  "normalizationVersion": "itertext-whitespace-collapse-utf8-sha256/v1",
+                  "textHash": "054d288a753568e418b0bda269b437e03e117ca596357acfede15e71a882f682",
+                  "text": "（立ち入りの防止等） 第四条 製造所及び供給所には、構内に公衆がみだりに立ち入らないよう、適切な措置を講じなければならない。 ただし、周囲の状況により公衆が立ち入るおそれがない場合は、この限りでない。 ２ 移動式ガス発生設備及び整圧器（一の使用者にガスを供給するためのものを除く。）は、公衆がみだりに操作しないよう、適切な措置を講じなければならない。",
+                  "textTruncated": false
+                },
+                "examSnapshotStatus": "available",
+                "comparison": "unchanged",
+                "status": "complete"
+              },
+              {
+                "lawId": "412M50000400111",
+                "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                "role": "current_basis",
+                "scope": "choice",
+                "choiceIndex": 2,
+                "declaredArticle": "第4条第1項",
+                "locator": {
+                  "kind": "article",
+                  "number": 4,
+                  "num": "4"
+                },
+                "resolvedLawTitle": "ガス工作物の技術上の基準を定める省令",
+                "currentSnapshot": {
+                  "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                  "asOf": "2026-10-28",
+                  "revisionId": "412M50000400111_20240427_506M60000400035",
+                  "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2026-10-28",
+                  "locator": {
+                    "kind": "article",
+                    "number": 4,
+                    "num": "4"
+                  },
+                  "xmlHash": "0d9aa0bfc33559534f05554b86065743547262a88b62a5ade3b11da6d9697140",
+                  "extractionRegion": "LawBody/MainProvision/descendant::Article",
+                  "extractionVersion": "egov-main-provision/v2",
+                  "normalizationVersion": "itertext-whitespace-collapse-utf8-sha256/v1",
+                  "textHash": "054d288a753568e418b0bda269b437e03e117ca596357acfede15e71a882f682",
+                  "text": "（立ち入りの防止等） 第四条 製造所及び供給所には、構内に公衆がみだりに立ち入らないよう、適切な措置を講じなければならない。 ただし、周囲の状況により公衆が立ち入るおそれがない場合は、この限りでない。 ２ 移動式ガス発生設備及び整圧器（一の使用者にガスを供給するためのものを除く。）は、公衆がみだりに操作しないよう、適切な措置を講じなければならない。",
+                  "textTruncated": false
+                },
+                "examAsOfSource": "document/sources/gas-shunin/official_exam_pdf_catalog.json",
+                "examSnapshot": {
+                  "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                  "asOf": "2021-09-26",
+                  "revisionId": "412M50000400111_20200626_502M60000400060",
+                  "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2021-09-26",
+                  "locator": {
+                    "kind": "article",
+                    "number": 4,
+                    "num": "4"
+                  },
+                  "xmlHash": "4155b00f6560219e4800e396f254c39369e60fc87f3191c67c798c4ee0fda92e",
+                  "extractionRegion": "LawBody/MainProvision/descendant::Article",
+                  "extractionVersion": "egov-main-provision/v2",
+                  "normalizationVersion": "itertext-whitespace-collapse-utf8-sha256/v1",
+                  "textHash": "054d288a753568e418b0bda269b437e03e117ca596357acfede15e71a882f682",
+                  "text": "（立ち入りの防止等） 第四条 製造所及び供給所には、構内に公衆がみだりに立ち入らないよう、適切な措置を講じなければならない。 ただし、周囲の状況により公衆が立ち入るおそれがない場合は、この限りでない。 ２ 移動式ガス発生設備及び整圧器（一の使用者にガスを供給するためのものを除く。）は、公衆がみだりに操作しないよう、適切な措置を講じなければならない。",
+                  "textTruncated": false
+                },
+                "examSnapshotStatus": "available",
+                "comparison": "unchanged",
+                "status": "complete"
+              },
+              {
+                "lawId": "412M50000400111",
+                "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                "role": "current_basis",
+                "scope": "choice",
+                "choiceIndex": 4,
+                "declaredArticle": "第34条",
+                "locator": {
+                  "kind": "article",
+                  "number": 34,
+                  "num": "34"
+                },
+                "resolvedLawTitle": "ガス工作物の技術上の基準を定める省令",
+                "currentSnapshot": {
+                  "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                  "asOf": "2026-10-28",
+                  "revisionId": "412M50000400111_20240427_506M60000400035",
+                  "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2026-10-28",
+                  "locator": {
+                    "kind": "article",
+                    "number": 34,
+                    "num": "34"
+                  },
+                  "xmlHash": "0d9aa0bfc33559534f05554b86065743547262a88b62a5ade3b11da6d9697140",
+                  "extractionRegion": "LawBody/MainProvision/descendant::Article",
+                  "extractionVersion": "egov-main-provision/v2",
+                  "normalizationVersion": "itertext-whitespace-collapse-utf8-sha256/v1",
+                  "textHash": "f56bf44ca2b1ea8b8730554327bbc34ccfb812e20dc4341da20d7ddff257e856",
+                  "text": "（表示） 第三十四条 液化ガス用貯槽（不活性の液化ガス用のものを除く。）及びガスホルダー又はこれらの付近には、その外部から見やすいように液化ガス用貯槽又はガスホルダーである旨の表示をしなければならない。",
+                  "textTruncated": false
+                },
+                "examAsOfSource": "document/sources/gas-shunin/official_exam_pdf_catalog.json",
+                "examSnapshot": {
+                  "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                  "asOf": "2021-09-26",
+                  "revisionId": "412M50000400111_20200626_502M60000400060",
+                  "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2021-09-26",
+                  "locator": {
+                    "kind": "article",
+                    "number": 34,
+                    "num": "34"
+                  },
+                  "xmlHash": "4155b00f6560219e4800e396f254c39369e60fc87f3191c67c798c4ee0fda92e",
+                  "extractionRegion": "LawBody/MainProvision/descendant::Article",
+                  "extractionVersion": "egov-main-provision/v2",
+                  "normalizationVersion": "itertext-whitespace-collapse-utf8-sha256/v1",
+                  "textHash": "f56bf44ca2b1ea8b8730554327bbc34ccfb812e20dc4341da20d7ddff257e856",
+                  "text": "（表示） 第三十四条 液化ガス用貯槽（不活性の液化ガス用のものを除く。）及びガスホルダー又はこれらの付近には、その外部から見やすいように液化ガス用貯槽又はガスホルダーである旨の表示をしなければならない。",
+                  "textTruncated": false
+                },
+                "examSnapshotStatus": "available",
+                "comparison": "unchanged",
+                "status": "complete"
+              }
+            ],
+            "errors": []
+          },
+          "lawRevisionFacts": [
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "needs_secondary_review",
+              "reconciliationStatus": "pending",
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "evidenceSummary": {
+                "verdict": "正しい",
+                "explanationText": "正しい。急傾斜地では斜面の崩壊から設備を保護し、容器や配管の破損及びガス漏えいを防ぐための措置を講じる。",
+                "differenceSummary": "地形に応じた災害防止という技術判断。",
+                "promptContext": "特定製造所の設置場所が急傾斜地であるため、急傾斜地の崩壊を防止する措置を講じた。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "examTime": {
+                "correctChoiceText": "正しい"
+              },
+              "current": {
+                "correctChoiceText": "正しい"
+              }
+            },
+            {
+              "auditStatus": "same_as_current",
+              "reviewState": "needs_secondary_review",
+              "reconciliationStatus": "pending",
+              "differenceFacts": [
+                "技術省令4条1項の適切な立入防止措置という規定は当時・現行とも同じ。"
+              ],
+              "answerImpactFacts": [
+                "第2肢は当時・現行とも正しい。"
+              ],
+              "evidenceSummary": {
+                "verdict": "正しい",
+                "explanationText": "正しい。障壁構造のボンベハウスと入口の施錠で公衆の立入りを防ぐ。省令4条1項は適切な措置を求め、別に塀を設ける方法だけを指定してはいない。",
+                "differenceSummary": "本肢の立入防止の判定を変える差はない。",
+                "promptContext": "特定ガス発生設備と調整装置が障壁構造のボンベハウス内に設置され、入口を施錠できるようにしたので、塀を設けなかった。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "examTime": {
+                "correctChoiceText": "正しい",
+                "lawId": "412M50000400111",
+                "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                "lawRevisionId": "412M50000400111_20200626_502M60000400060",
+                "referenceDate": "2021-09-26",
+                "article": "第4条第1項",
+                "verificationStatus": "verified",
+                "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2021-09-26",
+                "articleTextHash": "054d288a753568e418b0bda269b437e03e117ca596357acfede15e71a882f682"
+              },
+              "current": {
+                "correctChoiceText": "正しい",
+                "lawId": "412M50000400111",
+                "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                "lawRevisionId": "412M50000400111_20240427_506M60000400035",
+                "referenceDate": "2026-10-28",
+                "article": "第4条第1項",
+                "verificationStatus": "verified",
+                "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2026-10-28",
+                "articleTextHash": "054d288a753568e418b0bda269b437e03e117ca596357acfede15e71a882f682"
+              }
+            },
+            {
+              "auditStatus": "same_as_current",
+              "reviewState": "needs_secondary_review",
+              "reconciliationStatus": "pending",
+              "differenceFacts": [
+                "技術省令4条1項の立入防止措置は当時・現行で同じ。"
+              ],
+              "answerImpactFacts": [
+                "第3肢は当時・現行とも正しい。"
+              ],
+              "evidenceSummary": {
+                "verdict": "正しい",
+                "explanationText": "正しい。立入禁止を公衆に見やすく知らせる表示を出入口付近へ掲げ、柵・塀や施錠等の物理的措置と組み合わせる。",
+                "differenceSummary": "本肢の表示を含む立入防止措置に判定を変える差はない。",
+                "promptContext": "特定製造所の出入口付近の公衆の見やすい場所に、立入禁止の表示を掲げた。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "examTime": {
+                "correctChoiceText": "正しい",
+                "lawId": "412M50000400111",
+                "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                "lawRevisionId": "412M50000400111_20200626_502M60000400060",
+                "referenceDate": "2021-09-26",
+                "article": "第4条第1項",
+                "verificationStatus": "verified",
+                "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2021-09-26",
+                "articleTextHash": "054d288a753568e418b0bda269b437e03e117ca596357acfede15e71a882f682"
+              },
+              "current": {
+                "correctChoiceText": "正しい",
+                "lawId": "412M50000400111",
+                "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                "lawRevisionId": "412M50000400111_20240427_506M60000400035",
+                "referenceDate": "2026-10-28",
+                "article": "第4条第1項",
+                "verificationStatus": "verified",
+                "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2026-10-28",
+                "articleTextHash": "054d288a753568e418b0bda269b437e03e117ca596357acfede15e71a882f682"
+              }
+            },
+            {
+              "auditStatus": "not_law_related",
+              "reviewState": "needs_secondary_review",
+              "reconciliationStatus": "pending",
+              "differenceFacts": [],
+              "answerImpactFacts": [],
+              "evidenceSummary": {
+                "verdict": "正しい",
+                "explanationText": "正しい。公衆への表示で明示すべき事業者の緊急連絡先と、ガス主任技術者の個人の自宅住所は別であり、自宅住所の掲示を要するものではない。",
+                "differenceSummary": "保安上の連絡先表示の技術判断。",
+                "promptContext": "特定製造所の表示に、ガス主任技術者の自宅住所を記載しなかった。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "examTime": {
+                "correctChoiceText": "正しい"
+              },
+              "current": {
+                "correctChoiceText": "正しい"
+              }
+            },
+            {
+              "auditStatus": "same_as_current",
+              "reviewState": "needs_secondary_review",
+              "reconciliationStatus": "pending",
+              "differenceFacts": [
+                "省令34条は当時・現行とも不活性を除く液化ガス用貯槽の外から見える表示を求め、地下埋設を除外していない。"
+              ],
+              "answerImpactFacts": [
+                "第5肢は当時・現行とも間違い。"
+              ],
+              "evidenceSummary": {
+                "verdict": "間違い",
+                "explanationText": "間違い。LPガスの貯槽が地下設置式でも、貯槽又はその付近に外から見やすい表示をする。埋設を理由に表示を省略できない。",
+                "differenceSummary": "表示義務と地下埋設の扱いに判定を変える差はない。",
+                "promptContext": "地下設置式バルク貯槽なので、LPガスを貯蔵している旨を表示しなかった。",
+                "refs": [],
+                "displayRefIds": []
+              },
+              "examTime": {
+                "correctChoiceText": "間違い",
+                "lawId": "412M50000400111",
+                "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                "lawRevisionId": "412M50000400111_20200626_502M60000400060",
+                "referenceDate": "2021-09-26",
+                "article": "第34条",
+                "verificationStatus": "verified",
+                "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2021-09-26",
+                "articleTextHash": "f56bf44ca2b1ea8b8730554327bbc34ccfb812e20dc4341da20d7ddff257e856"
+              },
+              "current": {
+                "correctChoiceText": "間違い",
+                "lawId": "412M50000400111",
+                "lawTitle": "ガス工作物の技術上の基準を定める省令",
+                "lawRevisionId": "412M50000400111_20240427_506M60000400035",
+                "referenceDate": "2026-10-28",
+                "article": "第34条",
+                "verificationStatus": "verified",
+                "sourceUrl": "https://laws.e-gov.go.jp/api/2/law_file/xml/412M50000400111?asof=2026-10-28",
+                "articleTextHash": "f56bf44ca2b1ea8b8730554327bbc34ccfb812e20dc4341da20d7ddff257e856"
+              }
+            }
+          ],
+          "reviewState": "needs_secondary_review",
+          "reconciliationStatus": "pending",
+          "holdReason": "",
+          "reviewNotes": "",
+          "verificationSummary": "主担当が公式冊子と試験時・現行の公式本文を全肢照合した。独立二次監査は未実施。",
+          "lawGroundedExplanationNotNeeded": false,
+          "lawContextForExplanation": "主担当が2021年度丙種の公式問題PDF20頁・印刷19頁の製造問3の原設問・全5肢、正答表の5を直接目視した。次頁21頁も読み、問3と問4の境界を確認した。e-Gov公式APIの技術省令4条と34条を、2021-09-26及び2026-10-28の実XMLから直接抽出して全文を読み、立入り防止措置と液化ガス用貯槽の表示に判定を変える差がないことを確認した。4条は塀そのものを一律義務付けず、適切な立入防止措置を求めているため、障壁構造の建物と入口の施錠を一つの措置として判断する。KHK特定ガス工作物使用前検査マニュアル実PDF16頁では、公衆の立入防止、見やすい禁止表示、柵・塀等と入口施錠を直接確認した。第5肢は省令34条に地下埋設除外がないことと、メーカーのバルク貯槽取扱説明書実PDF37頁で貯槽外面又は周囲の見やすい位置にLPガス・火気厳禁と緊急連絡先を表示する指示を直接確認した。第1肢は斜面崩壊による設備損傷の防止、第4肢は事業者の緊急連絡先と主任技術者個人の自宅住所の区別として独立に判断した。第4肢について全国共通表示板の掲載事項一覧の原本を取得したとは主張しない。",
+          "suggestedQuestionDetailsByChoice": []
         }
       ]
     },
@@ -688422,11 +689517,11 @@
     }
   },
   "latestConvertDisplayDiagnostic": {
-    "path": "output/gas-shunin-hei/direct_publication/20261027/convert_display/20261028T005750Z/result.json",
-    "sha256": "b1e84afccd082307f76af461df21cbe2fbfbfc1e6b616c4426e5e3e1c04e2084",
+    "path": "output/gas-shunin-hei/direct_publication/20261027/convert_display/20261028T011632Z/result.json",
+    "sha256": "13550da74757b8aaa6d20297974fb72219642dd283026df717d9cf9c6185d70e",
     "payload": {
       "schemaVersion": "hei-current-projection-convert-display-check/v1",
-      "checkedAt": "2026-10-28T00:57:50.527746+00:00",
+      "checkedAt": "2026-10-28T01:16:32.261535+00:00",
       "scope": "全522原問の現在projectionのconvert診断。全工程版・法令監査・標準独立評価・品質gateは代替しない。公開用upload-readyではない。",
       "sourceQuestionCount": 522,
       "convertedDocumentCount": 2610,
@@ -688581,7 +689676,7 @@
         "2019:seizo:問1": "3667fe50efd4a27385a47a1abee1bb1775c9dfafbb5c2b74281f77d8942822bd",
         "2019:seizo:問2": "f93519dea9620423dd46147824993b5e2e95c8f9770a74b07190e4e44ebd4dcb",
         "2019:seizo:問3": "51ccd66be01fb108c4304859cd8ea792097dc58ab8dc390bf35fc7e22b3b8981",
-        "2019:seizo:問4": "eb3c0f0d6896f6fc521b46c02cd4bd5358d629835a3f6294b45784f25cecfed9",
+        "2019:seizo:問4": "60b7ab32c5f9aaa4de50bc3a343161b1f2e7b765e07a0ad1607a53af501a09da",
         "2019:seizo:問5": "dfceeff86f815b5601c9991268b7f41d40ff06de314abcbd9a81fb4bb2699afd",
         "2019:seizo:問6": "b780ff650647b95a833722291e22114df36b6899de94f55d8ca9eed5dcacc168",
         "2019:seizo:問7": "5266c218eca6017f544527161339e666bbd4e8525575ff579cef7a071dc57004",
@@ -688958,8 +690053,8 @@
       "duplicateQuestionIds": [],
       "publicProcessNoteHits": [],
       "sourceChanges": [],
-      "convertedPath": "output/gas-shunin-hei/direct_publication/20261027/convert_display/20261028T005750Z/converted-diagnostic.json",
-      "convertedSha256": "b1a5670e5b05b907ef152d48282fe8c40bc3282bd1512b5b9b48a6b51479ed8b",
+      "convertedPath": "output/gas-shunin-hei/direct_publication/20261027/convert_display/20261028T011632Z/converted-diagnostic.json",
+      "convertedSha256": "892098ef072973d0597a37ae2ccd6d14e4488b8272df88aa42dc7dffc2a014c2",
       "productionWritten": false,
       "systemCodeModified": false,
       "pass": true
@@ -689247,6 +690342,36 @@
         "sourcePreserved": true,
         "primaryAuthored": false,
         "createdAt": "2026-10-27T18:16:17.607882+00:00"
+      }
+    },
+    {
+      "path": "output/gas-shunin-hei/direct_publication/20261027/holds/2021-seizo-03-r1.json",
+      "sha256": "45a62c09c308fe3126efaeaf03b9149633ab261a70edca6c978c54a27d59969c",
+      "payload": {
+        "schemaVersion": "hei-direct-question-hold/v1",
+        "sourceQuestionId": "2021:seizo:問3",
+        "revision": "r1",
+        "createdAt": "2026-10-28T01:16:16.785775+00:00",
+        "status": "hold",
+        "formalPatchSaved": false,
+        "lawAuditResult": "output/gas-shunin-hei/direct_publication/20261027/law_audits/2021_seizo_問3_r1/result.json",
+        "lawAuditResultSha256": "a97b2ec1611797a62b475d9c47fbfc1e2a5beee2b506065798edc2d17eb1af68",
+        "issues": [
+          "第1肢は公式正答から出題時の「正しい」は確認できるが、急傾斜地における具体的措置を裏付ける一次資料・法令locatorが提示されておらず、現行時点の説明まで独立確認できない。",
+          "第2肢・第3肢について、技術省令第4条第1項は「適切な措置」という性能要件を定めるにとどまる。障壁構造のボンベハウスと施錠で別途の塀が不要となること、及び見やすい立入禁止表示の具体的要件を裏付けるとされたKHKマニュアルの取得本文・公式URLが証拠bundleにないため、候補の具体的解説を承認できない。",
+          "第4肢は公式正答から出題時の「正しい」は確認できるが、特定製造所の表示事項を定める一次資料がなく、ガス主任技術者の自宅住所が不要であることや事業者名・緊急連絡先を表示するとの解説を現行制度について独立確認できない。",
+          "公式正答5及び技術省令第34条により第5肢の判定は整合するが、第1肢から第4肢までの根拠不足が残るため、全肢確認を要するapproveの条件を満たさない。"
+        ],
+        "nextEvidenceNeeded": [
+          "急傾斜地の保全措置を具体的に裏付ける一次資料",
+          "障壁構造ボンベハウスと施錠により別途の塀を要しないことを示す一次資料",
+          "特定製造所の表示事項一覧の一次資料（個人自宅住所と事業者緊急連絡先を区別する根拠）"
+        ],
+        "alreadyObserved": [
+          "技術省令4条・34条の2021-09-26及び2026-10-28の本文は確認済み",
+          "KHK検査マニュアル実16頁とメーカー取扱説明書実37頁は直接読んだが、原本の表示事項一覧や具体的代替条件の全てを証明しない"
+        ],
+        "productionWritten": false
       }
     },
     {

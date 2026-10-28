@@ -1,0 +1,117 @@
+{
+  "schemaVersion": "hei-primary-source-receipt/v1",
+  "createdAt": "2026-10-28T01:15:23.231663+00:00",
+  "scope": "主担当が公開一次資料を直接取得して必要頁を確認した記録。正式整備・法令監査・本番反映の完了証明とは分ける。",
+  "sources": [
+    {
+      "downloadReceipt": {
+        "url": "https://gas.yazaki-group.com/pdf/catalog/GA060ZF.pdf",
+        "fetchedAt": "2026-10-28T01:06:50.356398+00:00",
+        "status": 200,
+        "bytes": 21093379,
+        "sha256": "03149f25c323874462a299e7025ee4430a24f447e5f02b872122460a9eab1a19",
+        "path": "output/gas-shunin-hei/direct_publication/20261027/legal/yazaki-LPG-product-guide-v6.pdf"
+      },
+      "receiptPath": "output/gas-shunin-hei/direct_publication/20261027/legal/yazaki-LPG-product-guide-v6.receipt.json",
+      "receiptSha256": "bd5f980ca3fd8976f75c73ae7a2ef9c7041f5897c8572166e70ebd5cf525c402",
+      "pagesReadByPrimary": [
+        128
+      ],
+      "limitations": "参照した設置図は貯蔵能力1000kg未満の地上式横型バルク貯槽。大型液化ガス用貯槽へ10cmの数値を一般化しない。"
+    },
+    {
+      "downloadReceipt": {
+        "url": "https://www.miyairi-valve.co.jp/wp-content/uploads/HM-2117_01.pdf",
+        "fetchedAt": "2026-10-28T01:06:52.852703+00:00",
+        "status": 200,
+        "bytes": 381637,
+        "sha256": "5c276a20607a991ac61276289b66eda4befd21e606680ec00527e0308b929f4b",
+        "path": "output/gas-shunin-hei/direct_publication/20261027/legal/miyairi-overfill-HM2117-r1.pdf"
+      },
+      "receiptPath": "output/gas-shunin-hei/direct_publication/20261027/legal/miyairi-overfill-HM2117-r1.receipt.json",
+      "receiptSha256": "3263b1914b8e87e3d51a89c724edb2e4238096a4bd8ddd4ebf859f80aa49a626",
+      "pagesReadByPrimary": [
+        1,
+        3,
+        6,
+        7
+      ],
+      "limitations": "COC-80AS固有の説明書。フロートによる充てん停止の実構造の確認に用い、別機種へ操作手順を流用しない。"
+    },
+    {
+      "downloadReceipt": {
+        "url": "https://www.jcga-page.or.jp/struct/wp-content/uploads/200527rinjikeikakukai.pdf",
+        "fetchedAt": "2026-10-28T01:06:55.207907+00:00",
+        "status": 200,
+        "bytes": 140051,
+        "sha256": "fd0e84ef22ef3c754cd7439eb37ab5119522f8692faf9220b1b39277c8f30c6a",
+        "path": "output/gas-shunin-hei/direct_publication/20261027/legal/jcga-2020-temporary-plan-example.pdf"
+      },
+      "receiptPath": "output/gas-shunin-hei/direct_publication/20261027/legal/jcga-2020-temporary-plan-example.receipt.json",
+      "receiptSha256": "4c9ec72f2f27ef6b07c75ab9cf8d63567626b7207f96fefbb13829e2cc87a2d4",
+      "pagesReadByPrimary": [
+        1
+      ],
+      "limitations": "保安規程モデルの臨時計画例。変更前欄の通常頻度と、変更後欄の臨時例を区別する。全ての設備の点検頻度表ではない。"
+    },
+    {
+      "downloadReceipt": {
+        "url": "https://www.jcga-page.or.jp/struct/wp-content/uploads/200527tuutibunkai.pdf",
+        "fetchedAt": "2026-10-28T01:06:57.560592+00:00",
+        "status": 200,
+        "bytes": 151843,
+        "sha256": "a8ae5c13b9007ff449b60800377636d966b6f9e08c5c955f1b3b911f6b8a7f05",
+        "path": "output/gas-shunin-hei/direct_publication/20261027/legal/jcga-2020-temporary-plan-notice.pdf"
+      },
+      "receiptPath": "output/gas-shunin-hei/direct_publication/20261027/legal/jcga-2020-temporary-plan-notice.receipt.json",
+      "receiptSha256": "db5d45f73fb248b19077248438b7281b60838223417ab5a8f8c4440e70420208",
+      "pagesReadByPrimary": [
+        1,
+        2,
+        3
+      ],
+      "limitations": "災害等で巡視・点検が困難な場合の臨時計画手続。法定事項はその取扱いによる。恒久的な一般周期の変更とは扱わない。"
+    },
+    {
+      "downloadReceipt": {
+        "url": "https://public-comment.e-gov.go.jp/pcm/download?seqNo=0000247098",
+        "fetchedAt": "2026-10-28T01:16:47.729656+00:00",
+        "status": 200,
+        "bytes": 2008104,
+        "sha256": "e520e3bfc9b9e3d737d8008582fd3f673ff66b718a5f7dbef41e6599c4535c28",
+        "path": "output/gas-shunin-hei/direct_publication/20261027/legal/egov-gas-interpretation-amendment-draft-247098.pdf"
+      },
+      "receiptPath": "output/gas-shunin-hei/direct_publication/20261027/legal/egov-gas-interpretation-amendment-draft-247098.receipt.json",
+      "receiptSha256": "f736373e81e123d2388414012b8a21a36038000814ea34972b844a1db045ddef",
+      "pagesReadByPrimary": [
+        1
+      ],
+      "limitations": "新旧対照表の改正案。実PDF1頁の表紙・7条・13条・18条のみ本文を読んだ。右欄は2021-03-24改正版を示す。案を施行済み法令又は全39頁確認済みとは扱わない。"
+    },
+    {
+      "downloadReceipt": {
+        "url": "https://public-comment.e-gov.go.jp/pcm/download?seqNo=0000300201",
+        "fetchedAt": "2026-10-28T01:16:51.049204+00:00",
+        "status": 200,
+        "bytes": 45544,
+        "sha256": "a5fcf6e7371d006179d25e4c5709baf47c64734d0fa69df491f04e53e73cc218",
+        "path": "output/gas-shunin-hei/direct_publication/20261027/legal/egov-meti-notice145-20251001.pdf"
+      },
+      "receiptPath": "output/gas-shunin-hei/direct_publication/20261027/legal/egov-meti-notice145-20251001.receipt.json",
+      "receiptSha256": "7fef2a852361d490f71921f9f9d8c01d2c9323ec1da61135355522920c717d91",
+      "pagesReadByPrimary": [
+        1
+      ],
+      "limitations": "実PDF1頁の本文・官報画像を直接確認。令和7年経済産業省告示145号（2025-10-01）。第2条がガス技術細目告示355号の第3条第4号の福祉施設引用条項を改正。検索要約の告示45号・改正条番号や基礎告示番号は実画像と不一致なので採用しない。基礎告示の全条文を証明する資料ではない。"
+    }
+  ],
+  "productionWritten": false,
+  "systemCodeModified": false,
+  "heldCandidate": {
+    "sourceQuestionId": "2021:seizo:問3",
+    "formalPatchSaved": false,
+    "contentAuditAccepted": true,
+    "lawAuditDecision": "hold",
+    "holdReceipt": "output/gas-shunin-hei/direct_publication/20261027/holds/2021-seizo-03-r1.json"
+  }
+}
