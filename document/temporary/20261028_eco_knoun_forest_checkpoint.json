@@ -149,8 +149,8 @@
     "trackedCodeOrPromptChanged": true,
     "otherWorktreeChanges": "他作業の変更は保持し、この記録だけをstageする。"
   },
-  "nextAction": "mondai4_74を原画像2枚から一問ずつ再照合し、source/独自化/工程/検査/独立評価を続ける。未解決source差異10件とbinary補正6件は別途保留。",
-  "lastUpdatedAt": "2026-10-28T02:42:41.366589+00:00",
+  "nextAction": "mondai4_75を原画像2枚から一問ずつ再照合し、source/独自化/工程/検査/独立評価を続ける。未解決source差異10件とbinary補正6件は別途保留。",
+  "lastUpdatedAt": "2026-10-28T02:48:09.487291+00:00",
   "subsequentQuestion51": {
     "sourceRecordRef": "question_mondai4_51.json#0",
     "sourceQuestionKey": "eco-kentei:knoun-2026-mock-4:bb67422eb5e52e9c",
@@ -249,22 +249,22 @@
     "changes": "原画像にないクが共通指示の空欄に入っていた。OCRの照合済み転記をバックアップ付きで訂正し、登録済みsourceは変更しない。05と03でGRI Standards・全4候補の比較を整備。検査・別session評価は合格したが原転記の受入は保留。"
   },
   "latestFullyAcceptedScope": {
-    "sourceRecords": "mondai4_31〜52、54〜63、65〜73の41件。53は原転記差異、64は02b根拠取込の保留により除外。",
-    "sourceQuestionCount": 41,
-    "actualLearningQuestionCount": 68,
-    "convertedDocumentCount": 269,
-    "choiceOnlyDocumentCount": 201,
+    "sourceRecords": "mondai4_31〜52、54〜63、65〜74の42件。53は原転記差異、64は02b根拠取込の保留により除外。",
+    "sourceQuestionCount": 42,
+    "actualLearningQuestionCount": 69,
+    "convertedDocumentCount": 283,
+    "choiceOnlyDocumentCount": 214,
     "acceptanceReceipt": {
-      "path": "output/eco-kentei/reports/mondai4_73_validation_20261028/current_acceptance.json",
-      "sha256": "34752c8399b37a68c7916583d4773839f0c515b20263c41efb67223b073965cd"
+      "path": "output/eco-kentei/reports/mondai4_74_validation_20261028/current_acceptance.json",
+      "sha256": "49ab929dc4bfa174a22f03c0e336fff849f052b892d4b8a489140fd47f9fdb06"
     },
     "uploadReadyArchive": {
-      "path": "output/eco-kentei/reports/mondai4_73_validation_20261028/verified_upload_ready.json",
-      "sha256": "02904239e88a319f2635b5a9a3cf0aec4d625fd3cc6b877eb73eb157e56c9aad"
+      "path": "output/eco-kentei/reports/mondai4_74_validation_20261028/verified_upload_ready.json",
+      "sha256": "7688e5575f7f553d2aa879bdc6c4af6cf1effa8f0ba9070a934c438ea012d8ba"
     },
-    "acceptedCurrentReadbacks": "output/eco-kentei/reports/mondai4_73_validation_20261028/accepted_current_readbacks",
+    "acceptedCurrentReadbacks": "output/eco-kentei/reports/mondai4_74_validation_20261028/accepted_current_readbacks",
     "previousStateHashesEvaluationsAndConvertedDocsUnchanged": true,
-    "scopeLimit": "この41件の受入だけで全425問の完了を推測しない。全5組は別途計数。"
+    "scopeLimit": "この42件の受入だけで全425問の完了を推測しない。全5組は別途計数。"
   },
   "subsequentQuestion54": {
     "sourceRecordRef": "question_mondai4_54.json#0",
@@ -450,19 +450,19 @@
     "pdfReadScope": "環境省2024年度実績の9頁PDF中、3枚目を画像表示・実読した。全頁を通読したとはしない。",
     "outboundArticleTextOmitted": true
   },
-  "globalRemainingCountObservedAt": "2026-10-28T02:42:41.366589+00:00",
+  "globalRemainingCountObservedAt": "2026-10-28T02:48:09.487291+00:00",
   "globalRemainingStatus": {
     "countUnit": "source question; completion requires current stages and independent evaluation with no known unresolved content or source hold",
     "totalSourceQuestions": 425,
-    "currentStagesAndEvaluationPassed": 53,
-    "completedSourceQuestionCount": 45,
-    "remainingSourceQuestionCount": 380,
+    "currentStagesAndEvaluationPassed": 54,
+    "completedSourceQuestionCount": 46,
+    "remainingSourceQuestionCount": 379,
     "pendingSourceDifferenceCount": 10,
-    "currentQuestion": "mondai4_74",
+    "currentQuestion": "mondai4_75",
     "passedButKnownUnfinishedCount": 8,
     "receipt": {
-      "path": "output/eco-kentei/reports/global_remaining_status_after_73_20261028.json",
-      "sha256": "e74918fa3214ef2b678abc0e9098003dc18817e1babc189cb7a65acd452ddba7"
+      "path": "output/eco-kentei/reports/global_remaining_status_after_74_20261028.json",
+      "sha256": "c3a17bb593384746dadd2a0bca51730f20bce70a347b1dc28f958ca7a79218cc"
     }
   },
   "subsequentQuestion59": {
@@ -890,6 +890,35 @@
     "validationReceipt": {
       "path": "output/eco-kentei/reports/mondai4_73_validation_20261028/current_validation.json",
       "sha256": "0f1b959f4c5e23b4a22db969495a31c2ce500f9688c97100738c195fa1a74efc"
+    }
+  },
+  "subsequentQuestion74": {
+    "sourceRecordRef": "question_mondai4_74.json#0",
+    "questionId": "1047a09a0c6fc115638da2c7",
+    "stateHash": "b6aeb227e90dceaba4f2cc258737f08f5460736703b8e84cb5a6b5bc4fb10d14",
+    "normalRunIds": [
+      "20261028T114419787083-486396b1"
+    ],
+    "evaluationSessionId": "01a18066-32a0-7730-82e2-695921d95488",
+    "verifiedChoiceCount": 14,
+    "explanationScore": 100,
+    "sourceImagesActuallyRead": true,
+    "independentFigureVerification": {
+      "path": "output/eco-kentei/reports/mondai4_74_independent_figure_verification_20261028.json",
+      "sha256": "6e8da591090623b76f3e82127e26c6a91b3b2df52be9d0b8c5dc530b0325cfd3"
+    },
+    "changes": "原画像2枚・00_source全文・14候補・印字正答②を直視照合。05独自本文・独自階層図、03目標16と環境の関係、04持続可能な社会。国連目標16とUNFCCC一次資料で気候・移住・社会安定の間接的関係を確認。独自図Storage HTTP200/SHA一致、別session評価の画像入力hash一致。6検査と別session評価で14肢一致・解説100点・重大指摘なし。source/raw無変更。",
+    "receipt": {
+      "path": "output/eco-kentei/reports/turn_receipts/mondai4_74_accepted_20261028.json",
+      "sha256": "60962df1203d5440f1be61712a767fe8b5122188e1abc6860a8f6f93587094bd"
+    },
+    "evaluationReceipt": {
+      "path": "output/eco-kentei/reports/mondai4_74_evaluation_result_20261028.json",
+      "sha256": "3b200a1232c1e01ba65febf1f20480410422cb353d6c78a5e4219a18155785f0"
+    },
+    "validationReceipt": {
+      "path": "output/eco-kentei/reports/mondai4_74_validation_20261028/current_validation.json",
+      "sha256": "4de78061659150ea6e134f4b38c5ce5427c5cd6df863ff9456913ef7ccd544ec"
     }
   }
 }
