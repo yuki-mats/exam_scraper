@@ -182,6 +182,12 @@
 | 共有元問題ID | `sourceSharedQuestionId` | string | 任意 | 任意 | 原則omit | app では admin only / immutable。 | app / migration | 同上。 |
 | メモ件数 | `memoCount` | number/int | 任意 | 任意 | 原則omit | non-negative int。app では admin only / immutable。 | app | `exam_scraper` が更新しない。 |
 
+### 公開文面と内部の整備記録
+
+`questionBodyText`、`questionText`、選択肢及び`explanationText`には、受験者が問題を解き、根拠を理解するための内容を記載する。正誤を決める対象範囲・前提条件や、出題当時と現行法で学習上の扱いが変わる場合の説明は表示文面に残す。
+
+PDFとの照合結果、編集補足を加えた経緯、取得・目視・独立監査の実施状況など、運営側の作業説明はreview sidecar、correction patchの根拠欄又は実行receiptへ保存する。「公式PDFには印字されていない」などの作業説明を問題本文へ混在させない。公式原文との差は内部記録に保持し、補足を公式原文そのものだと表示しない。公開前にはmergedだけでなく、実際に表示へ使われるconvertの`questionText`と解説も読み戻して確認する。
+
 ## 公開区分の組合せ
 
 公開区分を表すfieldは`isOfficial`だけです。`contentOriginType`は追加しません。公式過去問と独自問題は、既存の`examYear`と`examSource`の組合せで扱います。
