@@ -6,7 +6,7 @@
   "fullGoalComplete": false,
   "previousGoalTurnClassification": "progress",
   "thisTurnReworkedSourceRecords": [
-    "question_mondai5_46.json#0"
+    "question_mondai5_47.json#0"
   ],
   "commonContextFiveQuestions": [
     {
@@ -116,9 +116,10 @@
     "knoun-2026-mock-4/question_mondai4_53.json#0",
     "knoun-2026-mock-5/question_mondai5_30.json#0",
     "knoun-2026-mock-5/question_mondai5_32.json#0",
-    "knoun-2026-mock-5/question_mondai5_37.json#0"
+    "knoun-2026-mock-5/question_mondai5_37.json#0",
+    "knoun-2026-mock-5/question_mondai5_47.json#0"
   ],
-  "remainingSourceDifferencePolicy": "先の14件への例外承認を追加13件へ広げずsourceを保持する。原画像との差分が保留の問は内容整備に合格しても受入件数へ含めない。",
+  "remainingSourceDifferencePolicy": "先の14件への例外承認を追加14件へ広げずsourceを保持する。原画像との差分が保留の問は内容整備に合格しても受入件数へ含めない。",
   "publication": {
     "requested": false,
     "firestoreWrites": 0,
@@ -135,8 +136,8 @@
     "trackedCodeOrPromptChanged": false,
     "otherWorktreeChanges": "他作業の変更は保持し、この記録だけをstageする。"
   },
-  "nextAction": "問47を原画像2枚から照合し整備する。問37は原文差分と法令根拠取得証明待ち。",
-  "lastUpdatedAt": "2026-10-28T11:02:06.648466+00:00",
+  "nextAction": "問48を原画像2枚から照合し整備する。問47は見出し差分、問37は原文差分と法令根拠取得証明待ち。",
+  "lastUpdatedAt": "2026-10-28T11:08:52.026297+00:00",
   "subsequentQuestion51": {
     "sourceRecordRef": "question_mondai4_51.json#0",
     "sourceQuestionKey": "eco-kentei:knoun-2026-mock-4:bb67422eb5e52e9c",
@@ -436,8 +437,8 @@
     "pdfReadScope": "環境省2024年度実績の9頁PDF中、3枚目を画像表示・実読した。全頁を通読したとはしない。",
     "outboundArticleTextOmitted": true
   },
-  "globalRemainingCountObservedAt": "2026-10-28T11:02:06.646309+00:00",
-  "globalRemainingStatus": "output/eco-kentei/reports/global_remaining_status_after_mondai5_46_20261028.json",
+  "globalRemainingCountObservedAt": "2026-10-28T11:08:52.024356+00:00",
+  "globalRemainingStatus": "output/eco-kentei/reports/global_remaining_status_after_mondai5_47_20261028.json",
   "subsequentQuestion59": {
     "sourceRecordRef": "question_mondai4_59.json#0",
     "questionId": "682974cd364eed5e430276e5",
@@ -3086,5 +3087,27 @@
     "acceptanceReceipt": "output/eco-kentei/reports/mondai5_46_validation_20261028/current_acceptance.json",
     "evaluationReceipt": "output/eco-kentei/reports/mondai5_46_evaluation_result_20261028.json",
     "receipt": "output/eco-kentei/reports/turn_receipts/mondai5_46_accepted_20261028.json"
+  },
+  "inProgressQuestion5_47": {
+    "sourceRecordRef": "question_mondai5_47.json#0",
+    "questionId": "642fa6e7fb8a2301cb53be0a",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": false,
+    "sourceDifferenceProposal": "output/eco-kentei/reports/source_difference_mondai5_47_header_20261028/proposal.json",
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai5_47_primary_source_review_20261028.json",
+    "originalizeRunId": "20261028T200328365202-ab405f45",
+    "nativeRunId": "20261028T200417237763-d0b904a9",
+    "status": "maintenance_passed_source_difference_hold",
+    "nextAction": "原文差分を解決するまで受入しない。",
+    "stateHash": "495a59fafa172b93b50428bcae04d0fe86a22a8be97fe882bc1941d6808dd1f1",
+    "evaluationJobId": "UT61B2y7ytcLr7ey",
+    "targetedChecksPassed": 6,
+    "validationReceipt": "output/eco-kentei/reports/mondai5_47_validation_20261028/current_validation.json",
+    "evaluationSessionId": "01a18231-5477-7251-b308-d3412c7e136c",
+    "verifiedChoiceCount": 4,
+    "explanationScore": 100,
+    "evaluationReceipt": "output/eco-kentei/reports/mondai5_47_evaluation_result_20261028.json",
+    "receipt": "output/eco-kentei/reports/turn_receipts/mondai5_47_maintenance_with_source_hold_20261028.json",
+    "quarantinedCandidate": "output/eco-kentei/reports/mondai5_47_validation_20261028/quarantined_upload_candidate.json"
   }
 }
