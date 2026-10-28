@@ -4426,11 +4426,20 @@
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_28_primary_source_review_20261029.json",
-    "status": "maintenance_running",
+    "status": "accepted",
     "questionId": "5207a7f563c3b092da9b3ddd",
     "backup": "output/eco-kentei/reports/mondai1_28_before_rework_20261029",
     "originalizeRunId": "20261029T061653292338-d697a80c",
-    "nativeRunId": "20261029T061736313811-c08aef1e"
+    "nativeRunId": "20261029T061736313811-c08aef1e",
+    "stateHash": "9be5b2819331b8cdb29cfbb2ef64106dac70f3f209af39871eff485017a3cc45",
+    "evaluationJobId": "suf0xHBjTWONgfkW",
+    "uploadReady": "output/eco-kentei/questions_json/upload_to_firestore/knoun-2026-mock-1_firestore_20261029_061929.json",
+    "evaluationSessionId": "01a18462-5b6c-74a0-ae7f-f4fa279aee49",
+    "verifiedChoiceCount": 1,
+    "explanationScore": 100,
+    "otherDocumentCountUnchanged": 35,
+    "receipt": "output/eco-kentei/reports/turn_receipts/mondai1_28_accepted_20261029.json",
+    "nextAction": "問29の独自問題化から進める。問31・32・36・37・39も画像照合済。問23・25・33〜35・38は転記差分保留。"
   },
   "inProgressQuestion1_29": {
     "sourceRecordRef": "question_mondai1_29.json#0",
@@ -4496,6 +4505,21 @@
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_37_primary_source_review_20261029.json",
+    "status": "source_reviewed_originalization_pending"
+  },
+  "inProgressQuestion1_38": {
+    "sourceRecordRef": "question_mondai1_38.json#0",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": false,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_38_primary_source_review_20261029.json",
+    "status": "hold_source_transcription_difference",
+    "holdReason": "画像末尾の指示は「［ク］」だが、登録文字は「「ク」」。"
+  },
+  "inProgressQuestion1_39": {
+    "sourceRecordRef": "question_mondai1_39.json#0",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": true,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_39_primary_source_review_20261029.json",
     "status": "source_reviewed_originalization_pending"
   }
 }
