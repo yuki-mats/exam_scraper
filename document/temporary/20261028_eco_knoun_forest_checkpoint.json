@@ -145,7 +145,7 @@
     "otherWorktreeChanges": "他作業の変更は保持し、この記録だけをstageする。"
   },
   "nextAction": "問50を原画像2枚から照合し整備する。問47は見出し差分、問37は原文差分と法令根拠取得証明待ち。",
-  "lastUpdatedAt": "2026-10-28T15:43:29.890997+00:00",
+  "lastUpdatedAt": "2026-10-28T15:53:14.186530+00:00",
   "subsequentQuestion51": {
     "sourceRecordRef": "question_mondai4_51.json#0",
     "sourceQuestionKey": "eco-kentei:knoun-2026-mock-4:bb67422eb5e52e9c",
@@ -3737,5 +3737,22 @@
     "evaluationReceipt": "output/eco-kentei/reports/mondai5_76_evaluation_result_20261028.json",
     "acceptanceReceipt": "output/eco-kentei/reports/mondai5_76_validation_20261028/current_acceptance.json",
     "receipt": "output/eco-kentei/reports/turn_receipts/mondai5_76_accepted_20261029.json"
+  },
+  "inProgressQuestion5_77": {
+    "sourceRecordRef": "question_mondai5_77.json#0",
+    "questionId": "b3289f8caab7e78943f2f8de",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": false,
+    "sourceDifferenceProposal": "output/eco-kentei/reports/source_difference_mondai5_77_word_group_heading_20261029/proposal.json",
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai5_77_primary_source_review_20261029.json",
+    "status": "source_difference_and_law_evidence_hold",
+    "nextAction": "選択肢4へ第3条の取得証明を正規工程で結び付けて監査を再開。問78を照合する。",
+    "originalizeRunId": "20261029T004726374780-032569ba",
+    "eGovEvidence": "output/eco-kentei/reports/mondai5_77_egov_evidence_20261029.json",
+    "lawzilla": "初期化前に終了",
+    "nativeRunId": "20261029T004912446739-a78f7607",
+    "nativeProgress": "output/eco-kentei/reports/mondai5_77_native_progress_20261029.json",
+    "legalHoldReason": "選択肢4に必要な第3条の取得証明が法令根拠工程へ結び付いていない。",
+    "receipt": "output/eco-kentei/reports/turn_receipts/mondai5_77_source_and_legal_hold_20261029.json"
   }
 }
