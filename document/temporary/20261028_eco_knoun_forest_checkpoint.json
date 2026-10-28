@@ -149,8 +149,8 @@
     "trackedCodeOrPromptChanged": true,
     "otherWorktreeChanges": "他作業の変更は保持し、この記録だけをstageする。"
   },
-  "nextAction": "mondai4_82を原画像2枚から一問ずつ再照合し、source/独自化/工程/検査/独立評価を続ける。未解決source差異10件とbinary補正6件は別途保留。",
-  "lastUpdatedAt": "2026-10-28T03:37:06.500660+00:00",
+  "nextAction": "mondai4_85を原画像2枚から一問ずつ再照合し、source/独自化/工程/検査/独立評価を続ける。82は03、64は02b、source差異10件とbinary補正6件は別途保留。",
+  "lastUpdatedAt": "2026-10-28T04:10:52.490338+00:00",
   "subsequentQuestion51": {
     "sourceRecordRef": "question_mondai4_51.json#0",
     "sourceQuestionKey": "eco-kentei:knoun-2026-mock-4:bb67422eb5e52e9c",
@@ -249,22 +249,22 @@
     "changes": "原画像にないクが共通指示の空欄に入っていた。OCRの照合済み転記をバックアップ付きで訂正し、登録済みsourceは変更しない。05と03でGRI Standards・全4候補の比較を整備。検査・別session評価は合格したが原転記の受入は保留。"
   },
   "latestFullyAcceptedScope": {
-    "sourceRecords": "mondai4_31〜52、54〜63、65〜81、83の50件。53は原転記差異、64は02b根拠取込、82は03解説候補の保留により除外。",
-    "sourceQuestionCount": 50,
-    "actualLearningQuestionCount": 83,
-    "convertedDocumentCount": 365,
+    "sourceRecords": "mondai4_31〜52、54〜63、65〜81、83〜84の51件。53は原転記差異、64は02b根拠取込、82は03解説候補の保留により除外。",
+    "sourceQuestionCount": 51,
+    "actualLearningQuestionCount": 87,
+    "convertedDocumentCount": 369,
     "choiceOnlyDocumentCount": 282,
     "acceptanceReceipt": {
-      "path": "output/eco-kentei/reports/mondai4_83_validation_20261028/current_acceptance.json",
-      "sha256": "72d9d2969fc08df0c058566174159caed1997b3c73a6a9e1888942da50320765"
+      "path": "output/eco-kentei/reports/mondai4_84_validation_20261028/current_acceptance.json",
+      "sha256": "7585eded62cf17df3a684a25a296f863a3da00600fa6ffeb15eddc71257928c5"
     },
     "uploadReadyArchive": {
-      "path": "output/eco-kentei/reports/mondai4_83_validation_20261028/verified_upload_ready.json",
-      "sha256": "2f3612c8094b25e547e25035e5595e92b335ea43102d2665d2371cd310acbb7d"
+      "path": "output/eco-kentei/reports/mondai4_84_validation_20261028/verified_upload_ready.json",
+      "sha256": "d6b0cf90829503920c0f83670e67ad30778fbb83dd6b5bff517856a2e63a4365"
     },
-    "acceptedCurrentReadbacks": "output/eco-kentei/reports/mondai4_83_validation_20261028/accepted_current_readbacks",
+    "acceptedCurrentReadbacks": "output/eco-kentei/reports/mondai4_84_validation_20261028/accepted_current_readbacks",
     "previousStateHashesEvaluationsAndConvertedDocsUnchanged": true,
-    "scopeLimit": "この50件の受入だけで全425問の完了を推測しない。全5組は別途計数。"
+    "scopeLimit": "この51件の受入だけで全425問の完了を推測しない。全5組は別途計数。"
   },
   "subsequentQuestion54": {
     "sourceRecordRef": "question_mondai4_54.json#0",
@@ -450,19 +450,19 @@
     "pdfReadScope": "環境省2024年度実績の9頁PDF中、3枚目を画像表示・実読した。全頁を通読したとはしない。",
     "outboundArticleTextOmitted": true
   },
-  "globalRemainingCountObservedAt": "2026-10-28T03:54:41.805600+00:00",
+  "globalRemainingCountObservedAt": "2026-10-28T04:10:36.989416+00:00",
   "globalRemainingStatus": {
     "countUnit": "source question; completion requires current stages and independent evaluation with no known unresolved content or source hold",
     "totalSourceQuestions": 425,
-    "currentStagesAndEvaluationPassed": 62,
-    "completedSourceQuestionCount": 54,
-    "remainingSourceQuestionCount": 371,
+    "currentStagesAndEvaluationPassed": 63,
+    "completedSourceQuestionCount": 55,
+    "remainingSourceQuestionCount": 370,
     "pendingSourceDifferenceCount": 10,
-    "currentQuestion": "mondai4_84",
+    "currentQuestion": "mondai4_85",
     "passedButKnownUnfinishedCount": 8,
     "receipt": {
-      "path": "output/eco-kentei/reports/global_remaining_status_after_83_20261028.json",
-      "sha256": "baf2f5927166f92436f6f6a6cdfa24ec070529e6ad9616b3f9ac216641e084bb"
+      "path": "output/eco-kentei/reports/global_remaining_status_after_84_20261028.json",
+      "sha256": "e3a2c132c6e80d536e953dfa972f9da9d0334f9310542130afc94d95e5152fd1"
     }
   },
   "subsequentQuestion59": {
@@ -1105,7 +1105,7 @@
       "sha256": "db88b340d6621b1e6046658da07ab8e6bbb973b275c305697d2a0d696974b6b1"
     }
   },
-  "latestCountReport": "output/eco-kentei/reports/global_remaining_status_after_83_20261028.json",
+  "latestCountReport": "output/eco-kentei/reports/global_remaining_status_after_84_20261028.json",
   "subsequentQuestion82": {
     "sourceRecordRef": "question_mondai4_82.json#0",
     "questionId": "8ef5b7ffe7a4957538efec78",
@@ -1118,7 +1118,7 @@
     },
     "sourceAndRawUnchanged": true
   },
-  "currentQuestion": "mondai4_84",
+  "currentQuestion": "mondai4_85",
   "subsequentQuestion83": {
     "sourceRecordRef": "question_mondai4_83.json#0",
     "questionId": "68de8eef2e3ec91afaee8787",
@@ -1144,5 +1144,32 @@
       "path": "output/eco-kentei/reports/mondai4_83_validation_20261028/current_validation.json",
       "sha256": "ac3cdd12a04f4e7ea70c95a623135b0a51f92d01ac621e9593ccc72cf48d69bf"
     }
+  },
+  "subsequentQuestion84": {
+    "sourceRecordRef": "question_mondai4_84.json#0",
+    "questionId": "2591fb60131e73bbd3b923c2",
+    "stateHash": "2993b6cf273ce1555a85e6d7767f70a96abf7ffad559b68dd97f547ba297aae0",
+    "normalRunIds": [
+      "20261028T125706302371-0a16879f",
+      "20261028T130508560087-5501ff1e"
+    ],
+    "evaluationSessionId": "01a180b2-550c-7033-9a9e-b362a31377b0",
+    "verifiedChoiceCount": 4,
+    "explanationScore": 100,
+    "sourceImagesActuallyRead": true,
+    "changes": "原画像2枚・00_source全文・4候補・印字正答④を直視照合。05で②の会議名を一次資料に従い2002年世界首脳会議へ修正。03の全4肢を根拠付きで整備。初回独立評価は②の学習情報不足で再整備判定。文部科学省資料に基づき2002年の国連総会採択とユネスコ推進を補い、03・03b・04を一問指定で再実行。6検査と新しい別session評価で4肢一致・解説100点・重大指摘なし。source/raw無変更。",
+    "receipt": {
+      "path": "output/eco-kentei/reports/turn_receipts/mondai4_84_accepted_20261028.json",
+      "sha256": "665d4719187bec8d1a5ce3a288715aea850f589a35f8dc2b7cf007c6e9d61a62"
+    },
+    "evaluationReceipt": {
+      "path": "output/eco-kentei/reports/mondai4_84_evaluation_result_20261028.json",
+      "sha256": "46bc820b496de30faf6afcc11a522fbab765f684e69493a89b3dd885cc0e0644"
+    },
+    "validationReceipt": {
+      "path": "output/eco-kentei/reports/mondai4_84_validation_20261028/current_validation.json",
+      "sha256": "6ac439eeaa77e2770b8158498c709f7bbca24f65db2ac60f7cc755cf6a90aaed"
+    },
+    "firstEvaluationNeedsRework": "output/eco-kentei/reports/mondai4_84_evaluation_result_first_attempt_20261028.json"
   }
 }
