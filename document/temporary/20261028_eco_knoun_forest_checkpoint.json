@@ -8158,14 +8158,15 @@
   },
   "choiceIdentityHold1_12_20261030": {
     "sourceRecordRef": "question_mondai1_12.json#0",
-    "status": "hold_source_choice_projection",
+    "status": "accepted",
     "reason": "原画像の複数選択肢と各正誤を05の単一命題へ置換。独自化正本との不整合を個別目視確認。",
     "candidateReceipt": "output/eco-kentei/reports/all425_source_05_choice_projection_candidates_20261030.json",
     "independentReview": "原画像・00_source・05・10を1問ずつ照合。正式な復旧と再検証が必要。",
     "identityRepairBackup": "output/eco-kentei/reports/mondai1_12_before_15_choice_restore_20261030/",
-    "workflowStatus": "正式投影・ローカルmerge/convert/upload-readyと3検査完了。独立評価待ちでhold維持。",
+    "workflowStatus": "原肢復旧・正式投影・必須検査・独立評価を確認。Firestore未公開。",
     "integrationReceipt": "output/eco-kentei/reports/mondai1_12_15_fixed_baseline_trial_20261030/apply_receipt.json",
-    "convertRepairReceipt": "output/eco-kentei/reports/mondai1_12_15_fixed_baseline_trial_20261030/40_repair_receipt.json"
+    "convertRepairReceipt": "output/eco-kentei/reports/mondai1_12_15_fixed_baseline_trial_20261030/40_repair_receipt.json",
+    "acceptanceReceipt": "output/eco-kentei/reports/mondai1_12_15_acceptance_20261030.json"
   },
   "choiceIdentityHold1_21_20261030": {
     "sourceRecordRef": "question_mondai1_21.json#0",
@@ -8185,15 +8186,16 @@
   },
   "choiceIdentityHold1_15_20261030": {
     "sourceRecordRef": "question_mondai1_15.json#0",
-    "status": "hold_source_choice_projection",
+    "status": "accepted",
     "reason": "原画像の複数肢・各判断が05単一命題で失われる。各問の原画像とsourceを個別に確認。",
     "receipt": "output/eco-kentei/reports/mondai1_15_16_17_independent_choice_review_20261030.json",
     "note": "公開先ID確認・原肢の復旧・正式再整備を実施するまで受入保留。",
     "identityRepairBackup": "output/eco-kentei/reports/mondai1_15_before_identity_repair_20261030/",
     "identityReadback": "output/eco-kentei/reports/mondai1_15_projection_firestore_readback_20261030.json",
-    "workflowStatus": "正式投影・ローカルmerge/convert/upload-readyと3検査完了。独立評価待ちでhold維持。",
+    "workflowStatus": "原肢復旧・正式投影・必須検査・独立評価を確認。Firestore未公開。",
     "integrationReceipt": "output/eco-kentei/reports/mondai1_12_15_fixed_baseline_trial_20261030/apply_receipt.json",
-    "convertRepairReceipt": "output/eco-kentei/reports/mondai1_12_15_fixed_baseline_trial_20261030/40_repair_receipt.json"
+    "convertRepairReceipt": "output/eco-kentei/reports/mondai1_12_15_fixed_baseline_trial_20261030/40_repair_receipt.json",
+    "acceptanceReceipt": "output/eco-kentei/reports/mondai1_12_15_acceptance_20261030.json"
   },
   "choiceIdentityHold1_16_20261030": {
     "sourceRecordRef": "question_mondai1_16.json#0",
@@ -8597,12 +8599,13 @@
   },
   "choiceRestorationEvaluation1_12_15_20261030": {
     "jobId": "93VLNyVElMwSWPZy",
-    "status": "running",
+    "status": "succeeded_accepted",
     "questionRefs": [
       "question_mondai1_12.json#0",
       "question_mondai1_15.json#0"
     ],
     "startReceipt": "output/eco-kentei/reports/mondai1_12_15_evaluation_start_20261030.json",
-    "note": "sourceと最終投影の個別照合・ローカル統合・必須検査完了。別session独立評価の結果までhold。"
+    "note": "sourceと最終投影の個別照合・ローカル統合・必須検査完了。別session独立評価の結果までhold。",
+    "acceptanceReceipt": "output/eco-kentei/reports/mondai1_12_15_acceptance_20261030.json"
   }
 }
