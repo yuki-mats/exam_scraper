@@ -39,6 +39,14 @@ class Source:
 
 
 SOURCES = {
+    'env_nature_site_2026_overview': Source(
+        'https://policies.env.go.jp/nature/biodiversity/30by30alliance/documents/lowBio/30by30site-NinteiMeritActivities.pdf',
+        '自然共生サイトについて 認定のメリットや取組事例', (2, 3, 5),
+        '2026年の制度説明と事例。認定数の基準時点と現行法の認定対象を区別する。'),
+    'env_nature_site_2024_transition': Source(
+        'https://www.env.go.jp/content/000238484.pdf',
+        '生物多様性増進活動促進法の施行後の自然共生サイト制度の扱い', (2, 3, 4),
+        '2024年7月の新法施行予定と旧制度の移行に関する説明。施行後の現行法とは区別する。'),
     'cbd_cartagena_protocol_2000': Source(
         'https://www.cbd.int/doc/legal/cartagena-protocol-en.pdf',
         'Cartagena Protocol on Biosafety to the Convention on Biological Diversity', (4, 5, 6, 7),
