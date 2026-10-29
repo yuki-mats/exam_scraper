@@ -5790,29 +5790,57 @@
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_15_primary_source_review_20261029.json",
-    "status": "source_visual_review_complete"
+    "status": "accepted",
+    "questionId": "46e9a547a932a99c5739bfaf",
+    "nativeRunId": "20261029T200830069874-74ce0414",
+    "backup": "output/eco-kentei/reports/mondai2_15_before_originalization_20261029.json",
+    "parallelism": 2,
+    "evaluationJobId": "1WFNPjoYakChgW5u",
+    "stateHash": "932681cd38f100508d3c218fe2373c0d8077aa5b9448476e4b36188f5c64a6fe",
+    "uploadReadyCandidate": "output/eco-kentei/questions_json/upload_to_firestore/knoun-2026-mock-2_firestore_20261029_201329.json",
+    "evaluationParallelSeparateSessions": true,
+    "evaluationSessionId": "01a18761-bf65-7d20-b4f5-e80c83c8d6e8",
+    "verifiedChoiceCount": 14,
+    "explanationScore": 100,
+    "evaluationReceipt": "output/eco-kentei/reports/mondai2_15_evaluation_result_20261029.json",
+    "receipt": "output/eco-kentei/reports/turn_receipts/mondai2_15_accepted_20261029.json"
   },
   "inProgressQuestion2_16": {
     "sourceRecordRef": "question_mondai2_16.json#0",
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": false,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_16_primary_source_review_20261029.json",
-    "status": "hold_source_transcription_difference",
-    "holdReason": "画像の共通指示は「下記の語群から1つ選びなさい」と続くが、登録文では「語群」と「から」の間にIBT・CBT過去出題問題と配点が挿入されている。"
+    "status": "hold_choice_order_binding_check",
+    "holdReason": "画像の共通指示は「下記の語群から1つ選びなさい」と続くが、登録文では「語群」と「から」の間にIBT・CBT過去出題問題と配点が挿入されている。",
+    "note": "既存05の選択肢順が画像・00_sourceと異なり、選択肢IDの既存束縛を検証中。"
   },
   "inProgressQuestion2_17": {
     "sourceRecordRef": "question_mondai2_17.json#0",
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_17_primary_source_review_20261029.json",
-    "status": "source_visual_review_complete"
+    "status": "accepted",
+    "questionId": "e74aa8cf98351e4ae15f2cc6",
+    "nativeRunId": "20261029T200830069874-74ce0414",
+    "backup": "output/eco-kentei/reports/mondai2_17_before_originalization_20261029.json",
+    "parallelism": 2,
+    "evaluationJobId": "1WFNPjoYakChgW5u",
+    "stateHash": "4a4f49d72271941bb16833babf109b358e260de261b10f764f123a6d14e3b664",
+    "uploadReadyCandidate": "output/eco-kentei/questions_json/upload_to_firestore/knoun-2026-mock-2_firestore_20261029_201329.json",
+    "evaluationParallelSeparateSessions": true,
+    "evaluationSessionId": "01a18761-bf65-7d20-b4f5-e815104a0db3",
+    "verifiedChoiceCount": 15,
+    "explanationScore": 98,
+    "evaluationReceipt": "output/eco-kentei/reports/mondai2_17_evaluation_result_20261029.json",
+    "receipt": "output/eco-kentei/reports/turn_receipts/mondai2_17_accepted_20261029.json"
   },
   "inProgressQuestion2_18": {
     "sourceRecordRef": "question_mondai2_18.json#0",
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_18_primary_source_review_20261029.json",
-    "status": "source_visual_review_complete"
+    "status": "hold_choice_order_binding_check",
+    "note": "既存05の選択肢順が画像・00_sourceと異なり、選択肢IDの既存束縛を検証中。"
   },
   "inProgressQuestion2_19": {
     "sourceRecordRef": "question_mondai2_19.json#0",
