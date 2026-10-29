@@ -144,7 +144,7 @@
     "trackedCodeOrPromptChanged": false,
     "otherWorktreeChanges": "他作業の変更は保持し、この記録だけをstageする。"
   },
-  "nextAction": "問70の共有分類工程runが終端するまで稼働状態と変更を監視し、結果を確認する。serverへ追加catalogを読込後、02b以降を対象の1問に限定して再実行し、実配送と独立評価を確認する。",
+  "nextAction": "問71の後続工程runの結果を確認し、必要な統合・検証・独立評価を行う。問70の現行条約根拠は保留。",
   "lastUpdatedAt": "2026-10-29T13:55:09.761562+09:00",
   "subsequentQuestion51": {
     "sourceRecordRef": "question_mondai4_51.json#0",
@@ -5135,13 +5135,13 @@
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_70_primary_source_review_20261029.json",
-    "status": "downstream_running_law_context_blocked",
+    "status": "hold_law_context_after_evidence_delivery",
     "questionId": "c5d7bf40ad5efde13b2f9757",
     "originalizeRunId": "20261029T135838332148-9fee7ddd",
     "backup": "output/eco-kentei/reports/mondai1_70_before_manual_originalization_20261029.json",
     "note": "生成された案が取得元とほぼ同文だったため、論点を保ち本文と各選択肢を独自に再構成。事前通告・同意の一次資料確認済み。",
     "nativeRunId": "20261029T140025720995-0206225d",
-    "blocker": "現行法本文・正式識別子・取得検証済み一次根拠が工程に渡らず02bが保留。03以降も未完了。run全体はcategory_setup実行中。",
+    "blocker": "補助一次資料はcandidate payloadに含まれたが、現行条約本文と正式locatorを伴うverifiedな法令根拠および公式資料取得証明の確定ができず02bで保留。03以降未完了。",
     "sourceReference": "https://www.env.go.jp/recycle/yugai/conf/basel_r060430/r060430_02.pdf",
     "verification": "既存merged対象の選択肢整合性・必須項目は成功。問70の23パッチcoverage成功。問70は未merge・未評価。",
     "primaryEvidenceAcquisition": {
@@ -5157,15 +5157,26 @@
       "sourceCount": 4,
       "applicabilityStatus": "unreviewed",
       "note": "条約・制度資料を専用補助入力へ固定。稼働中serverには追加catalogが未読込のため、現run終端後に再起動して02b以降の配送を検証する。"
-    }
+    },
+    "evidenceRunId": "20261029T141116220872-6f303d7e",
+    "categoryGeneratedCandidate": "output/eco-kentei/reports/mondai1_70_shared_category_generated_20261029.md",
+    "lastRunStatus": "succeeded_with_one_question_blocked"
   },
   "inProgressQuestion1_71": {
     "sourceRecordRef": "question_mondai1_71.json#0",
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_71_primary_source_review_20261029.json",
-    "status": "source_visual_review_complete_figure_layout_pending",
-    "figureRequiresLayoutReview": true
+    "status": "downstream_running",
+    "figureRequiresLayoutReview": false,
+    "figureLayoutReviewed": true,
+    "figurePath": "output/eco-kentei/question_images/knoun-2026-mock-1/05_originalized/originalized_ad841ecd0787e71c_waste_priority_1.png",
+    "figureSha256": "83209a1af0e3a993b4f7ebc432fd4894d9ce03392af2c64387bfc660fe310879",
+    "figureReview": "元図と独自図を確認。5段階の優先順位・資源投入から処分への流れ・原材料への循環表現を確認。解答候補15肢の独自問題化と後続検証は未完了。",
+    "originalizeRunId": "20261029T141457170978-0cca42c9",
+    "backup": "output/eco-kentei/reports/mondai1_71_originalize_before_20261029.json",
+    "note": "元の問題文に近い生成結果を、図を参照する独自の問いへ再構成。選択肢15肢と正答③、対応IDを保持。",
+    "nativeRunId": "20261029T141606121880-099c3eae"
   },
   "inProgressQuestion1_72": {
     "sourceRecordRef": "question_mondai1_72.json#0",
