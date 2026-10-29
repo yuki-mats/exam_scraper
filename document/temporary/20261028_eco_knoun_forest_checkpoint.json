@@ -144,7 +144,7 @@
     "trackedCodeOrPromptChanged": false,
     "otherWorktreeChanges": "他作業の変更は保持し、この記録だけをstageする。"
   },
-  "nextAction": "問73の後続工程を確認し、統合・検証・独立評価を行う。問70の現行条約根拠は保留。",
+  "nextAction": "問70は現行条約根拠の正式な検証と配送が必要。模擬問題1の問74を原画像と図から照合し独自問題化する。",
   "lastUpdatedAt": "2026-10-29T13:55:09.761562+09:00",
   "subsequentQuestion51": {
     "sourceRecordRef": "question_mondai4_51.json#0",
@@ -5221,7 +5221,7 @@
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_73_primary_source_review_20261029.json",
-    "status": "evaluation_running",
+    "status": "accepted",
     "figureRequiresLayoutReview": false,
     "figureLayoutReviewed": true,
     "figurePath": "output/eco-kentei/question_images/knoun-2026-mock-1/05_originalized/originalized_b323d548f20739b8_waste_priority_1.png",
@@ -5233,7 +5233,13 @@
     "stateHash": "abf0306f89dca57abbda2b95963948a7ed74282d0a77d6a2516b9f135824ef57",
     "evaluationJobId": "jvlQNoeZJOFMFlhK",
     "uploadReadyCandidate": "output/eco-kentei/questions_json/upload_to_firestore/knoun-2026-mock-1_firestore_20261029_143600.json",
-    "otherDocumentsExactlyUnchanged": 138
+    "otherDocumentsExactlyUnchanged": 138,
+    "evaluationSessionId": "01a18629-461d-7b81-90f8-ea3ee52326cb",
+    "verifiedChoiceCount": 15,
+    "explanationScore": 96,
+    "evaluationReceipt": "output/eco-kentei/reports/mondai1_73_evaluation_result_20261029.json",
+    "receipt": "output/eco-kentei/reports/turn_receipts/mondai1_73_accepted_20261029.json",
+    "imageInputHashMatched": true
   },
   "inProgressQuestion1_74": {
     "sourceRecordRef": "question_mondai1_74.json#0",
