@@ -4177,7 +4177,9 @@
     "primaryOrdinanceUrl": "https://www.reiki.metro.tokyo.lg.jp/ex_file/honban/reiki/reiki_honbun/g101RG00001328.html",
     "primaryOrdinanceArticle": "第五条の十一",
     "nextAction": "条例対応の取得証明を準備した後に02bから再開。問15以降は先行する。",
-    "choiceProjectionReview": "原15肢から単一true_false命題への変換とsourceUniqueKeysの対応を調査中。現行公開IDと許容条件の確認前に受入不可。"
+    "choiceProjectionReview": "原15肢から単一true_false命題への変換とsourceUniqueKeysの対応を調査中。現行公開IDと許容条件の確認前に受入不可。",
+    "identityReadback": "output/eco-kentei/reports/mondai1_14_projection_id_readback_20261030.json",
+    "repairProposal": "output/eco-kentei/reports/mondai1_14_independent_review_proposal_20261030.json"
   },
   "inProgressQuestion1_15": {
     "sourceRecordRef": "question_mondai1_15.json#0",
@@ -6278,7 +6280,8 @@
     "sourceDifferenceProposal": "output/eco-kentei/reports/source_differences_mondai2_20261029/mondai2_45.json",
     "holdReason": "answer_result_text: 画像と登録内容に差。",
     "originalizationRevision": "output/eco-kentei/reports/mondai2_45_before_radioactive_originalization_20261030/",
-    "workflowStatus": "prepared_pending_formal_law_audit_and_independent_evaluation"
+    "workflowStatus": "prepared_pending_formal_law_audit_and_independent_evaluation",
+    "independentContentReview": "pass_by_independent_agent_formal_law_audit_and_session_evaluation_pending"
   },
   "inProgressQuestion2_46": {
     "sourceRecordRef": "question_mondai2_46.json#0",
@@ -7382,9 +7385,11 @@
     "sourceRecordRef": "question_mondai3_52.json#0",
     "questionId": "dc829cabffbe2d222706c6ed",
     "nativeRunId": "20261029T231922181433-97414966",
-    "status": "native_maintenance_running",
+    "status": "law_audit_blocked",
     "imageReviewReceipt": "output/eco-kentei/reports/mondai3_52_rework_intake_20261029.json",
-    "nativeRunTerminal": false
+    "nativeRunTerminal": true,
+    "terminalReceipt": "output/eco-kentei/reports/mondai3_52_rework_result_20261030.json",
+    "holdReason": "03b独立監査で解説形式、特別管理廃棄物の説明、指定廃棄物の第17条根拠を要修正。"
   },
   "inProgressQuestion3_82": {
     "sourceRecordRef": "question_mondai3_82.json#0",
