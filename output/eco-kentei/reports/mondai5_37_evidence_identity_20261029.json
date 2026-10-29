@@ -1,0 +1,29 @@
+{
+  "recordedAt": "2026-10-29T23:59:05.601184+09:00",
+  "sourceRecordRef": "question_mondai5_37.json#0",
+  "inputSha256": {
+    "output/eco-kentei/questions_json/knoun-2026-mock-5/00_source/question_mondai5_37.json": "fe7dd97668df75613fa449e656928a3c1d561e8569a29ae2c1db77f7f17abe4c",
+    "output/eco-kentei/questions_json/knoun-2026-mock-5/05_originalized/question_mondai5_37_originalized.json": "3eb07e2afdad5c3f2019721690418e3b4721beaee95dc9c1723493335a314aeb",
+    "output/eco-kentei/question_images/knoun-2026-mock-5/raw/mondai5_37.png": "4dfab139517ed4f56edc9f905c052825a231efac2e2c83f0588f54cdb55a8216",
+    "output/eco-kentei/question_images/knoun-2026-mock-5/raw/comment5_37.png": "5927ab9d2ae524dd00740f9ce5bc9782bfebc3da72a05b7526f443e77dc5bf64"
+  },
+  "imageReview": "1979年に採択された越境大気汚染の条約について問う。語群⑬〜㉔のうち画像正答は⑱長距離越境大気汚染条約、12肢中6番目。画像の㉒はグリーンウオッシュ、sourceはグリーンウォッシュ。語群見出しの字形差も既存保留。",
+  "current05": "独自問題は長距離越境大気汚染条約を①、ラムサール条約・バーゼル条約・モントリオール議定書を②〜④にした4肢。元の12肢との意味上の対応・選択肢IDへの影響を確認する。",
+  "evidence": {
+    "url": "https://www.env.go.jp/policy/hakusyo/h16/20555_k219_r621.html",
+    "status": 200,
+    "sha256": "b91f5c865bcb958bc973e06d6e45385909c212df0db5e661172f474d14a1cb0e",
+    "summary": "1979年の条約による情報交換・共同研究・監視と、硫黄・窒素酸化物の排出抑制を定める1985年・1988年の議定書を区別。",
+    "limitations": "単独の直接GETは正式な取得証明入力ではなく、条約の法令根拠や正誤の承認を代替しない。"
+  },
+  "unece": "UNECE公表ページは直接GET 403。検索経由の表示を正式取得証明として扱わない。",
+  "nextAction": "00_sourceを守り、元選択肢の意味と安定IDに注意して独自化を再検討し、条約について現行の取得証明が対応する工程で実際に配送できるか確認する。",
+  "sourceDifferenceHoldRemains": true,
+  "firestoreWritten": false,
+  "patchChanged": false,
+  "reviewRegistration": {
+    "id": "20261029T235912602553-9a48a616",
+    "path": "output/question_review_console/eco-kentei/knoun-2026-mock-5/reviews/20261029T235912602553-9a48a616.json",
+    "status": "needs_review"
+  }
+}
