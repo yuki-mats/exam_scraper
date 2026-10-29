@@ -8607,5 +8607,16 @@
     "startReceipt": "output/eco-kentei/reports/mondai1_12_15_evaluation_start_20261030.json",
     "note": "sourceと最終投影の個別照合・ローカル統合・必須検査完了。別session独立評価の結果までhold。",
     "acceptanceReceipt": "output/eco-kentei/reports/mondai1_12_15_acceptance_20261030.json"
+  },
+  "choiceRestorationEvaluation1_18_20_20261030": {
+    "jobId": "AGrJW_KrWWMeW8jC",
+    "status": "running",
+    "questionRefs": [
+      "question_mondai1_18.json#0",
+      "question_mondai1_20.json#0"
+    ],
+    "startReceipt": "output/eco-kentei/reports/mondai1_18_20_evaluation_start_20261030.json",
+    "integrationReceipt": "output/eco-kentei/reports/mondai1_18_20_fixed_baseline_trial_20261030/apply_receipt.json",
+    "note": "原画像・最終投影の個別照合、ローカル統合・必須検査完了。別session独立評価の結果までhold。"
   }
 }
