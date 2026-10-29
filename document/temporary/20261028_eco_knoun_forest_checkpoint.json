@@ -145,7 +145,7 @@
     "otherWorktreeChanges": "他作業の変更は保持し、この記録だけをstageする。"
   },
   "nextAction": "保留問を維持し、次の原画像照合済み候補の通常整備と独立評価を進める。",
-  "lastUpdatedAt": "2026-10-29T21:36:20.467558+09:00",
+  "lastUpdatedAt": "2026-10-29T21:39:37.575686+09:00",
   "subsequentQuestion51": {
     "sourceRecordRef": "question_mondai4_51.json#0",
     "sourceQuestionKey": "eco-kentei:knoun-2026-mock-4:bb67422eb5e52e9c",
@@ -7438,5 +7438,46 @@
     "firestoreWrites": 0,
     "qualityGate": "passed for groups 2 and 3",
     "existingUploadDocsUnchanged": true
+  },
+  "parallel12Revalidation": {
+    "runId": "20261029T213721007085-e2dd1862",
+    "questionIds": [
+      "ab34630bd526d6048cac25d4",
+      "c44a3df1b7e230a1439709ef",
+      "7738696c559af76c1c14bdcf",
+      "6066b08341ae087bf4bb6ba1",
+      "cb8b6b30f7aff6ed1f8c43c3",
+      "5b4d6c29c41b22b3a1a44a67",
+      "bb5ecc404cd87fa880f055d4",
+      "b77ae0b68ce68754b2160d53",
+      "564a1ac11117673aaed9706c",
+      "6f68f769494e54980e280f0e",
+      "a6295a5970a773713f351da7",
+      "6260ca3abe5f82b5434dfb5c"
+    ],
+    "stageIds": [
+      "law_audit",
+      "question_set"
+    ],
+    "status": "running",
+    "productionWrite": false
+  },
+  "globalCountCorrection20261029": {
+    "status": "corrected_by_unique_source_and_current_readback",
+    "previouslyReportedRemaining312": "incorrect; the historical accepted set was not fully included",
+    "total": 425,
+    "accepted": 227,
+    "remaining": 198,
+    "acceptedByGroup": {
+      "mondai1": 63,
+      "mondai2": 30,
+      "mondai3": 19,
+      "mondai4": 56,
+      "mondai5": 59
+    },
+    "observedAt": "2026-10-29T21:39:37.360848+09:00",
+    "receipt": "output/eco-kentei/reports/global_source_recount_20261029.json",
+    "reproducibleCommand": "PYTHONPATH=. .venv/bin/python output/eco-kentei/reports/recount_current_sources_20261029.py",
+    "inProgressExcluded": true
   }
 }
