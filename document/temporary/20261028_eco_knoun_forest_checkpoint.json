@@ -144,7 +144,7 @@
     "trackedCodeOrPromptChanged": false,
     "otherWorktreeChanges": "他作業の変更は保持し、この記録だけをstageする。"
   },
-  "nextAction": "問70は現行条約根拠、問75は03b判定の不一致を保留。模擬問題1の問79を原画像から照合し独自問題化する。",
+  "nextAction": "問70は現行条約根拠、問75は03b判定の不一致を保留。模擬問題1の問80の転記差を確認し、次の問題も順次進める。",
   "lastUpdatedAt": "2026-10-29T13:55:09.761562+09:00",
   "subsequentQuestion51": {
     "sourceRecordRef": "question_mondai4_51.json#0",
@@ -5359,7 +5359,23 @@
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_79_primary_source_review_20261029.json",
-    "status": "source_visual_review_complete"
+    "status": "accepted",
+    "backup": "output/eco-kentei/reports/mondai1_79_before_originalization_20261029.json",
+    "note": "原画像では⑩産地直送・⑪地産地消、正答⑪。未受入05で両肢が逆転し正答⑩となっていたためsource順と正答⑪に戻した。数値3肢は用語に置換し、識別子を保持。",
+    "evidence": "https://www.maff.go.jp/j/seisan/gizyutu/tisan_tisyo/pdf/chisuishin.pdf",
+    "questionId": "f202820107b4c45e4716131d",
+    "nativeRunId": "20261029T154417425505-04c7618c",
+    "auditRunId": "20261029T154630914484-abccddee",
+    "explanationBackup": "output/eco-kentei/reports/mondai1_79_explanation_before_clarification_20261029.json",
+    "stateHash": "972ce1ad8b6ba1f97f670412d57ad68eb4e9c31d8f4fc7cbc5666c5a577d733f",
+    "evaluationJobId": "q02e1Hz9QIqKtXg5",
+    "uploadReadyCandidate": "output/eco-kentei/questions_json/upload_to_firestore/knoun-2026-mock-1_firestore_20261029_155130.json",
+    "otherDocumentsExactlyUnchanged": 213,
+    "evaluationSessionId": "01a1866f-3268-7851-996e-4d895257af71",
+    "verifiedChoiceCount": 15,
+    "explanationScore": 100,
+    "evaluationReceipt": "output/eco-kentei/reports/mondai1_79_evaluation_result_20261029.json",
+    "receipt": "output/eco-kentei/reports/turn_receipts/mondai1_79_accepted_20261029.json"
   },
   "inProgressQuestion1_80": {
     "sourceRecordRef": "question_mondai1_80.json#0",
