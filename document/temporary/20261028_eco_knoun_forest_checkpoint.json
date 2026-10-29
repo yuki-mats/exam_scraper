@@ -8170,12 +8170,17 @@
   },
   "choiceIdentityHold1_21_20261030": {
     "sourceRecordRef": "question_mondai1_21.json#0",
-    "status": "hold_source_choice_projection",
+    "status": "accepted",
     "reason": "原画像の複数選択肢と各正誤を05の単一命題へ置換。独自化正本との不整合を個別目視確認。",
     "candidateReceipt": "output/eco-kentei/reports/all425_source_05_choice_projection_candidates_20261030.json",
     "independentReview": "原画像・00_source・05・10を1問ずつ照合。正式な復旧と再検証が必要。",
     "identityRepairBackup": "output/eco-kentei/reports/mondai1_21_before_four_choice_repair_20261030/",
-    "workflowStatus": "原肢順へ復旧済み。旧10・23・監査factsの再判定・評価まで保留。"
+    "workflowStatus": "原肢順へ復旧済み。旧10・23・監査factsの再判定・評価まで保留。",
+    "stateHash": "5b19e4745879323da22788a7f881ab60c600bbf1f7d72e4eead242b969579705",
+    "evaluationJobId": "QNgAHgL-9DxFq9Zs",
+    "evaluationSessionId": "01a188dd-6e8e-7580-9d61-60e22914c18e",
+    "acceptanceReceipt": "output/eco-kentei/reports/mondai1_21_24_27_evaluation_review_20261030.json",
+    "integrationReceipt": "output/eco-kentei/reports/mondai1_21_24_27_baseline_waiting_review_20261030/apply_receipt.json"
   },
   "choiceIdentityHold1_41_20261030": {
     "sourceRecordRef": "question_mondai1_41.json#0",
@@ -8270,13 +8275,18 @@
   },
   "choiceIdentityHold1_24_20261030": {
     "sourceRecordRef": "question_mondai1_24.json#0",
-    "status": "hold_source_choice_projection",
+    "status": "accepted",
     "reason": "原画像の複数肢・各判断が05単一命題で失われる。各問の原画像とsourceを個別に確認。",
     "receipt": "output/eco-kentei/reports/mondai1_22_24_26_projection_individual_review_20261030.json",
     "note": "公開先ID確認・原肢の復旧・正式再整備を実施するまで受入保留。",
     "identityRepairBackup": "output/eco-kentei/reports/mondai1_24_before_four_choice_repair_20261030/",
     "identityReadback": "output/eco-kentei/reports/mondai1_24_projection_firestore_readback_20261030.json",
-    "workflowStatus": "4肢復旧。旧10・23の正式再判定待ちでcoverage未達。"
+    "workflowStatus": "4肢復旧。旧10・23の正式再判定待ちでcoverage未達。",
+    "stateHash": "9edddb61178eb0215c8913337f53d047a59b55187692f7110b5e060d24c38a03",
+    "evaluationJobId": "QNgAHgL-9DxFq9Zs",
+    "evaluationSessionId": "01a188dd-6e8e-7580-9d61-60b6957764f3",
+    "acceptanceReceipt": "output/eco-kentei/reports/mondai1_21_24_27_evaluation_review_20261030.json",
+    "integrationReceipt": "output/eco-kentei/reports/mondai1_21_24_27_baseline_waiting_review_20261030/apply_receipt.json"
   },
   "choiceIdentityHold1_26_20261030": {
     "sourceRecordRef": "question_mondai1_26.json#0",
@@ -8290,13 +8300,18 @@
   },
   "choiceIdentityHold1_27_20261030": {
     "sourceRecordRef": "question_mondai1_27.json#0",
-    "status": "hold_source_choice_projection",
+    "status": "accepted",
     "reason": "原画像の複数肢・各判断が05単一命題で失われる。各問の原画像とsourceを個別に確認。",
     "receipt": "output/eco-kentei/reports/mondai1_27_28_29_independent_choice_review_20261030.json",
     "note": "公開先ID確認・原肢の復旧・正式再整備を実施するまで受入保留。",
     "identityRepairBackup": "output/eco-kentei/reports/mondai1_27_before_four_choice_repair_20261030/",
     "identityReadback": "output/eco-kentei/reports/mondai1_27_projection_firestore_readback_20261030.json",
-    "workflowStatus": "4肢復旧。旧10・23の正式再判定と独立評価待ち。"
+    "workflowStatus": "4肢復旧。旧10・23の正式再判定と独立評価待ち。",
+    "stateHash": "c90f25ba894e6ab11ade650e671114ef308a3199754a3eee713b1dff1da74741",
+    "evaluationJobId": "QNgAHgL-9DxFq9Zs",
+    "evaluationSessionId": "01a188dd-6e8d-7d20-a2dc-e0a0c6f0857c",
+    "acceptanceReceipt": "output/eco-kentei/reports/mondai1_21_24_27_evaluation_review_20261030.json",
+    "integrationReceipt": "output/eco-kentei/reports/mondai1_21_24_27_baseline_waiting_review_20261030/apply_receipt.json"
   },
   "choiceIdentityHold1_28_20261030": {
     "sourceRecordRef": "question_mondai1_28.json#0",
