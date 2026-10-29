@@ -144,7 +144,7 @@
     "trackedCodeOrPromptChanged": false,
     "otherWorktreeChanges": "他作業の変更は保持し、この記録だけをstageする。"
   },
-  "nextAction": "問70は現行条約根拠、問75は03b判定、問80はsource括弧差を保留。模擬問題1の問83を原画像から照合し独自問題化する。",
+  "nextAction": "問70は現行条約根拠、問75は03b判定、問80はsource括弧差を保留。模擬問題1の問84を原画像から照合し独自問題化する。",
   "lastUpdatedAt": "2026-10-29T13:55:09.761562+09:00",
   "subsequentQuestion51": {
     "sourceRecordRef": "question_mondai4_51.json#0",
@@ -5449,7 +5449,27 @@
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_83_primary_source_review_20261029.json",
-    "status": "source_visual_review_complete"
+    "status": "accepted",
+    "backup": "output/eco-kentei/reports/mondai1_83_before_originalization_20261029.json",
+    "note": "原画像の正答②を照合。②の予防原則と源流対策原則の混同を正確に保持し、4肢を独自の文へ再構成。選択肢順と正誤を維持。",
+    "evidence": "https://www.env.go.jp/council/content/i_01/000221699.pdf",
+    "questionId": "ab301b2808a1338e0ece3882",
+    "nativeRunId": "20261029T164623963575-04192220",
+    "auditRunId": "20261029T165426720067-f629ee6b",
+    "explanationBackup": "output/eco-kentei/reports/mondai1_83_explanation_before_revision_20261029.json",
+    "priorAuditRunId": "20261029T165058296249-02300dfa",
+    "reason": "①の解説が選択肢の言い換えと判定されたため、費用の価格への反映を補足。",
+    "stateHash": "ba488ad096236d3739be69b9dccf5e3871ff817c7994bc4df32b4e9ff175f741",
+    "evaluationJobId": "T6XDKFAjhlk-NIDm",
+    "uploadReadyCandidate": "output/eco-kentei/questions_json/upload_to_firestore/knoun-2026-mock-1_firestore_20261029_170853.json",
+    "otherDocumentsExactlyUnchanged": 247,
+    "priorEvaluationReceipt": "output/eco-kentei/reports/mondai1_83_prior_evaluation_20261029.json",
+    "reworkAuditRunId": "20261029T170416546925-a9ce43b3",
+    "evaluationSessionId": "01a186b7-b803-7a52-bce4-03d17fca0d31",
+    "verifiedChoiceCount": 4,
+    "explanationScore": 98,
+    "evaluationReceipt": "output/eco-kentei/reports/mondai1_83_evaluation_result_20261029.json",
+    "receipt": "output/eco-kentei/reports/turn_receipts/mondai1_83_accepted_20261029.json"
   },
   "inProgressQuestion1_84": {
     "sourceRecordRef": "question_mondai1_84.json#0",
