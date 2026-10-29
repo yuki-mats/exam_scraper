@@ -6732,7 +6732,10 @@
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": false,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_80_primary_source_review_20261029.json",
-    "status": "hold_source_transcription_difference"
+    "status": "hold_source_transcription_difference",
+    "preparationReceipt": "output/eco-kentei/reports/mondai2_80_sprawl_repair_20261030/receipt.json",
+    "independentPreparationReview": "output/eco-kentei/reports/mondai2_80_sprawl_independent_review_20261030.json",
+    "workflowStatus": "画像/sourceの語形と独自版の用語修正を区別し、source表記差holdを保持。 正式再整備・merge・独立評価待ち。"
   },
   "inProgressQuestion2_81": {
     "sourceRecordRef": "question_mondai2_81.json#0",
@@ -8602,14 +8605,18 @@
     "status": "hold_true_false_instruction_mismatch",
     "reason": "各肢単独のtrue_false文書に最も不適切なものを選ぶ指示が残る。原画像と各派生文書を個別に照合。",
     "receipt": "output/eco-kentei/reports/mondai2_81_82_83_truefalse_instruction_review_20261030.json",
-    "workflowStatus": "05指示修正を進行中。正式再投影・独立評価待ち。"
+    "workflowStatus": "単独正誤画面の指示と旧10の正式投影確認待ち。 正式再整備・merge・独立評価待ち。",
+    "preparationReceipt": "output/eco-kentei/reports/mondai2_81_mutual_aid_reference_20261030/receipt.json",
+    "independentPreparationReview": "output/eco-kentei/reports/mondai2_81_mutual_aid_reference_independent_review_20261030.json"
   },
   "instructionHold2_82_20261030": {
     "sourceRecordRef": "question_mondai2_82.json#0",
     "status": "hold_true_false_instruction_mismatch",
     "reason": "各肢単独のtrue_false文書に最も不適切なものを選ぶ指示が残る。原画像と各派生文書を個別に照合。",
     "receipt": "output/eco-kentei/reports/mondai2_81_82_83_truefalse_instruction_review_20261030.json",
-    "workflowStatus": "05指示修正を進行中。正式再投影・独立評価待ち。"
+    "workflowStatus": "RE100証書の条件と2027年からの要件を区別。単独正誤画面の指示と旧10の正式投影確認待ち。 正式再整備・merge・独立評価待ち。",
+    "preparationReceipt": "output/eco-kentei/reports/mondai2_82_eac_explanation_20261030/receipt.json",
+    "independentPreparationReview": "output/eco-kentei/reports/mondai2_82_re100_eac_independent_review_20261030.json"
   },
   "instructionHold2_83_20261030": {
     "sourceRecordRef": "question_mondai2_83.json#0",
