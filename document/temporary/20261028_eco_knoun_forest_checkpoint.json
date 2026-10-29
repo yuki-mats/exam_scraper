@@ -8143,7 +8143,7 @@
   },
   "parallel3ContentRevalidation20261030": {
     "nativeRunId": "20261030T004642872039-21111c28",
-    "status": "running",
+    "status": "native_validated_pending_evidence_review_and_independent_evaluation",
     "questionRefs": [
       "question_mondai3_42.json#0",
       "question_mondai3_83.json#0",
@@ -8151,7 +8151,8 @@
     ],
     "previewReceipt": "output/eco-kentei/reports/content_revalidation_3_preview_20261030.json",
     "startReceipt": "output/eco-kentei/reports/content_revalidation_3_start_20261030.json",
-    "note": "現在稼働中のserverは法令証拠hash guardの再起動前。validatedでも受入前に新validatorで独立照合が必要。"
+    "note": "現在稼働中のserverは法令証拠hash guardの再起動前。validatedでも受入前に新validatorで独立照合が必要。",
+    "resultReceipt": "output/eco-kentei/reports/content_revalidation_3_result_20261030.json"
   },
   "choiceIdentityHold1_12_20261030": {
     "sourceRecordRef": "question_mondai1_12.json#0",
