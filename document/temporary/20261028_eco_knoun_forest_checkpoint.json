@@ -144,8 +144,8 @@
     "trackedCodeOrPromptChanged": false,
     "otherWorktreeChanges": "他作業の変更は保持し、この記録だけをstageする。"
   },
-  "nextAction": "問65は条約一次資料を取得済み。新しいサーバーで監査入力の配送を確認し、法令根拠以降を再整備する。",
-  "lastUpdatedAt": "2026-10-29T12:56:01.270689+09:00",
+  "nextAction": "問65は現行条約本文とカルタヘナ法第1条・第2条の監査への一次本文配送を確認して再整備する。問66以降の画像照合済み問題も順次整備する。",
+  "lastUpdatedAt": "2026-10-29T12:58:12.621193+09:00",
   "subsequentQuestion51": {
     "sourceRecordRef": "question_mondai4_51.json#0",
     "sourceQuestionKey": "eco-kentei:knoun-2026-mock-4:bb67422eb5e52e9c",
@@ -5034,7 +5034,7 @@
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_65_primary_source_review_20261029.json",
-    "status": "domestic_law_reaudit_running",
+    "status": "hold_current_treaty_and_domestic_law_delivery",
     "questionId": "79eb0e9039817790ecd52d3a",
     "originalizeRunId": "20261029T121607433716-0dcaa1f8",
     "backup": "output/eco-kentei/reports/mondai1_65_before_rework_20261029",
@@ -5045,7 +5045,8 @@
     "supplementalInputHash": "fb851e2e108837c4a126a13af3a339140bf0c515d6cbb0f2c2ac96cc540c7593",
     "supplementalReauditRunId": "20261029T125320397891-2cbb32f2",
     "domesticLawReviewId": "20261029T125532386555-37c93853",
-    "domesticLawReauditRunId": "20261029T125601221214-2cf4880e"
+    "domesticLawReauditRunId": "20261029T125601221214-2cf4880e",
+    "holdReason": "条約原文は補助資料として登録済みだが、監査は現行条約本文と国内法第1条・第2条の一次本文配送不足を検出。"
   },
   "inProgressQuestion1_66": {
     "sourceRecordRef": "question_mondai1_66.json#0",
