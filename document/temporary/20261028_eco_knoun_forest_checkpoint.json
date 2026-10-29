@@ -6715,7 +6715,7 @@
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_85_primary_source_review_20261029.json",
-    "status": "independent_evaluation_needs_rework",
+    "status": "hold_law_evidence_fact_hash_mismatch",
     "questionId": "f664296a182191a7346be538",
     "nativeRunId": "20261029T222734708656-667933f9",
     "imageReviewReceipt": "output/eco-kentei/reports/parallel9_next_intake_20261029.json",
@@ -6731,7 +6731,9 @@
       "decision": "approve",
       "evidenceHash": "1610a75ab4e5d351d9aa17f6050c913f2166ae93e3c89d379178739f9895a542"
     },
-    "evaluationResult": "output/eco-kentei/reports/parallel2_law_evaluation_result_20261029.json"
+    "evaluationResult": "output/eco-kentei/reports/parallel2_law_evaluation_result_20261029.json",
+    "holdReason": "03b証拠本文とlawRevisionFacts本文の実hashが不一致。validatedと二次承認のみでは受入不可。",
+    "evidenceReceipt": "output/question_review_console/eco-kentei/knoun-2026-mock-2/attempt_payloads/e8/e8422209b44c825d331aaef5c700f3c5b073f34c975cdbbe8bcc5a04837ecb19.json"
   },
   "inProgressQuestion3_1": {
     "sourceRecordRef": "question_mondai3_1.json#0",
@@ -7395,7 +7397,8 @@
     "imageReviewReceipt": "output/eco-kentei/reports/mondai3_52_rework_intake_20261029.json",
     "nativeRunTerminal": true,
     "terminalReceipt": "output/eco-kentei/reports/mondai3_52_rework_result_20261030.json",
-    "holdReason": "03b独立監査で解説形式、特別管理廃棄物の説明、指定廃棄物の第17条根拠を要修正。"
+    "holdReason": "03b独立監査で解説形式、特別管理廃棄物の説明、指定廃棄物の第17条根拠を要修正。",
+    "explanationRevision": "output/eco-kentei/reports/mondai3_52_before_explanation_repair_20261030.json"
   },
   "inProgressQuestion3_82": {
     "sourceRecordRef": "question_mondai3_82.json#0",
@@ -8055,7 +8058,7 @@
   },
   "parallel3LawRevalidation20261030": {
     "nativeRunId": "20261030T000656497423-ea55bcbb",
-    "status": "running",
+    "status": "terminal_one_validated_two_blocked",
     "questionRefs": [
       "question_mondai2_51.json#0",
       "question_mondai2_85.json#0",
@@ -8063,6 +8066,7 @@
     ],
     "previewReceipt": "output/eco-kentei/reports/law_revalidation_3_preview_20261030.json",
     "startReceipt": "output/eco-kentei/reports/law_revalidation_3_start_20261030.json",
-    "note": "同一資格の正式runは1件。3問を各02b・03b・04で再整備し、根拠と独立評価が済むまで受入しない。"
+    "note": "同一資格の正式runは1件。3問を各02b・03b・04で再整備し、根拠と独立評価が済むまで受入しない。",
+    "resultReceipt": "output/eco-kentei/reports/law_revalidation_3_result_20261030.json"
   }
 }
