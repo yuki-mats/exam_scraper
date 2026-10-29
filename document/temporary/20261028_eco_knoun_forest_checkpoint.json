@@ -144,7 +144,7 @@
     "trackedCodeOrPromptChanged": false,
     "otherWorktreeChanges": "他作業の変更は保持し、この記録だけをstageする。"
   },
-  "nextAction": "問70は現行条約根拠、問75は03b判定、問80はsource括弧差を保留。模擬問題1の問84を原画像から照合し独自問題化する。",
+  "nextAction": "問70は現行条約根拠、問75は03b判定、問80はsource括弧差を保留。模擬問題1の問85を原画像から照合し独自問題化する。",
   "lastUpdatedAt": "2026-10-29T13:55:09.761562+09:00",
   "subsequentQuestion51": {
     "sourceRecordRef": "question_mondai4_51.json#0",
@@ -5476,7 +5476,21 @@
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_84_primary_source_review_20261029.json",
-    "status": "source_visual_review_complete"
+    "status": "accepted",
+    "backup": "output/eco-kentei/reports/mondai1_84_before_originalization_20261029.json",
+    "note": "原画像の正答②を照合。第一種・第二種の区別、方法書、評価と計画段階の4論点を保持し独自表現へ再構成。2026年時点の法令と改正動向を確認。",
+    "evidence": "https://laws.e-gov.go.jp/law/409AC0000000081/20260401_507AC0000000073",
+    "questionId": "7dd9f31f5df5b183b165c7f1",
+    "nativeRunId": "20261029T171806729946-42e6a375",
+    "stateHash": "1ef3f5073bddf13602b75f78f5a3f7095be05b490a62d169225a0895a4a8957d",
+    "evaluationJobId": "_CI8DTBXXV4ISNYM",
+    "uploadReadyCandidate": "output/eco-kentei/questions_json/upload_to_firestore/knoun-2026-mock-1_firestore_20261029_172548.json",
+    "otherDocumentsExactlyUnchanged": 251,
+    "evaluationSessionId": "01a186c5-5ceb-7e51-a3d3-bbd3d140366a",
+    "verifiedChoiceCount": 4,
+    "explanationScore": 98,
+    "evaluationReceipt": "output/eco-kentei/reports/mondai1_84_evaluation_result_20261029.json",
+    "receipt": "output/eco-kentei/reports/turn_receipts/mondai1_84_accepted_20261029.json"
   },
   "inProgressQuestion1_85": {
     "sourceRecordRef": "question_mondai1_85.json#0",
