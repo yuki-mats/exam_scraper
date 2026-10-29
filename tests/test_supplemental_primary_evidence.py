@@ -11,6 +11,8 @@ from tests import test_official_guidance_evidence as fixture
 
 
 HTML = b'<html><div id="main_content"><h1>Official policy</h1>Four business categories, not households.</div></html>'
+PARIS_HTML = ('<html><body><p>2015年12月12日、COP21でパリ協定が採択された。</p>'
+    '<p>他の文章</p></body></html>').encode('utf-8')
 
 
 class SupplementalEvidenceTests(unittest.TestCase):
@@ -39,6 +41,36 @@ class SupplementalEvidenceTests(unittest.TestCase):
     def test_absent_input_does_not_fetch_or_change_any_question(self):
         self.assertIsNone(self.load())
         self.assertFalse(self.path.parent.exists())
+
+    def test_paris_adoption_selector_and_scope_binding_reject_tampering(self):
+        self.ids = ['env_paris_agreement_adoption_2015']
+        source = evidence.SOURCES[self.ids[0]]
+        result = evidence.register(self.f.root, self.qual, self.target, self.record, self.ids,
+            fetcher=lambda url: (PARIS_HTML, 'text/html'))
+        value = self.load(); doc = value['documents'][0]
+        self.assertEqual(result['inputHash'], value['inputHash'])
+        self.assertEqual(doc['sourceUrl'], source.url)
+        self.assertEqual(doc['extraction']['selector'], source.region)
+        self.assertIn('2015年12月12日', doc['spans'][0]['text'])
+        self.assertIn('パリ協定が採択', doc['spans'][0]['text'])
+        self.assertIn('2017年版', doc['temporalScope'])
+        self.assertEqual(value['applicabilityStatus'], 'unreviewed')
+        for kind in ('url', 'text'):
+            with self.subTest(kind=kind):
+                changed = deepcopy(value)
+                if kind == 'url': changed['documents'][0]['sourceUrl'] = 'https://example.test/other'
+                else: changed['documents'][0]['spans'][0]['text'] += ' 改変'
+                changed['inputHash'] = evidence._hash(evidence._bytes(
+                    {k: v for k, v in changed.items() if k != 'inputHash'}))
+                with self.assertRaises(ValueError):
+                    evidence.validate(self.f.root, changed, record=self.record, question_id=self.target['id'])
+        with self.assertRaises(ValueError):
+            evidence.validate(self.f.root, value, record=self.record, question_id='other-question')
+        self.record['questionBodyText'] += ' 他の問題'
+        with self.assertRaises(ValueError): self.load()
+        with self.assertRaises(ValueError): evidence._fetch('https://example.test/other')
+        for raw in (b'<html><body><p>different body</p></body></html>', PARIS_HTML.replace(b'</body>', b'<p>2015\xe5\xb9\xb412\xe6\x9c\x8812\xe6\x97\xa5 \xe3\x83\x91\xe3\x83\xaa\xe5\x8d\x94\xe5\xae\x9a \xe6\x8e\xa1\xe6\x8a\x9e</p></body>')):
+            with self.assertRaises(ValueError): evidence._extract_source(self.ids[0], raw, 'text/html')
 
     def test_raw_html_text_and_unreviewed_binding_survive_without_adopting_a_verdict(self):
         result = self.register(); value = self.load()

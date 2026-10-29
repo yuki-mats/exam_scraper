@@ -39,6 +39,11 @@ class Source:
 
 
 SOURCES = {
+    'env_paris_agreement_adoption_2015': Source(
+        'https://www.env.go.jp/policy/hakusyo/h29/html/hj17010201.html',
+        '平成29年版環境・循環型社会・生物多様性白書 第1部第2章第1節 パリ協定に至る国際社会の動向',
+        'body > p:-soup-contains("2015年12月12日"):-soup-contains("パリ協定"):-soup-contains("採択")',
+        '2015年12月12日のパリ協定採択についての2017年版白書の記述。発効日・現行条約本文・国内法の適用は別途確認する。'),
     'env_basel_overview_2024': Source(
         'https://www.env.go.jp/recycle/yugai/conf/basel_r060430/r060430_02.pdf',
         'バーゼル条約について', (3,),
