@@ -4161,7 +4161,9 @@
     "otherDocumentCountUnchanged": 27,
     "uploadReady": "output/eco-kentei/questions_json/upload_to_firestore/knoun-2026-mock-1_firestore_20261029_045817.json",
     "receipt": "output/eco-kentei/reports/turn_receipts/mondai1_13_accepted_20261029.json",
-    "nextAction": "模擬問題1の問14を原画像から確認する。問4・6は根拠取得待ち。"
+    "nextAction": "模擬問題1の問14を原画像から確認する。問4・6は根拠取得待ち。",
+    "identityRepairBackup": "output/eco-kentei/reports/mondai1_13_before_identity_repair_20261030/",
+    "workflowStatus": "15肢復旧。旧10・23の正式再判定と監査hash再検証待ち。"
   },
   "inProgressQuestion1_14": {
     "sourceRecordRef": "question_mondai1_14.json#0",
@@ -8136,5 +8138,17 @@
     "reason": "正式保存factの第5条本文が要約で、宣言hashは条文全文。出題時証拠も未確認。",
     "receipt": "output/eco-kentei/reports/accepted_03b_article_binding_receipt_selection_20261030.json",
     "independentReview": "正式commit済みbundleと現行21の対応、実hashと一次evidenceを独立照合済み。正式再監査が必要。"
+  },
+  "parallel3ContentRevalidation20261030": {
+    "nativeRunId": "20261030T004642872039-21111c28",
+    "status": "running",
+    "questionRefs": [
+      "question_mondai3_42.json#0",
+      "question_mondai3_83.json#0",
+      "question_mondai4_17.json#0"
+    ],
+    "previewReceipt": "output/eco-kentei/reports/content_revalidation_3_preview_20261030.json",
+    "startReceipt": "output/eco-kentei/reports/content_revalidation_3_start_20261030.json",
+    "note": "現在稼働中のserverは法令証拠hash guardの再起動前。validatedでも受入前に新validatorで独立照合が必要。"
   }
 }
