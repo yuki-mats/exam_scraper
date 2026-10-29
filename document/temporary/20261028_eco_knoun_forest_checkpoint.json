@@ -144,7 +144,7 @@
     "trackedCodeOrPromptChanged": false,
     "otherWorktreeChanges": "他作業の変更は保持し、この記録だけをstageする。"
   },
-  "nextAction": "問70の実行中runを確認。取得した4件の一次資料について工程へ配送する登録方法と現行性を確認し、未完了工程を再開。他の未整備問題も進める。",
+  "nextAction": "問70の共有分類工程runが終端するまで稼働状態と変更を監視し、結果を確認する。serverへ追加catalogを読込後、02b以降を対象の1問に限定して再実行し、実配送と独立評価を確認する。",
   "lastUpdatedAt": "2026-10-29T13:55:09.761562+09:00",
   "subsequentQuestion51": {
     "sourceRecordRef": "question_mondai4_51.json#0",
@@ -5149,6 +5149,14 @@
       "sha256": "c841b2f6d81055e3027c25b85043131b4cd3e02f798dd6f8fc9f59e788e53d1a",
       "documents": 4,
       "note": "条約本文・環境省資料を実取得。根拠候補であり、現行性の確定とnative工程への登録・配送は未完了。"
+    },
+    "supplementalEvidence": {
+      "path": "output/question_review_console/eco-kentei/knoun-2026-mock-1/supplemental_primary_inputs/c5d7bf40ad5efde13b2f9757.json",
+      "sha256": "aafaa40f0af52f47f2fd2490ad027298f2ff45f18d46cef068d4d532fb82597b",
+      "inputHash": "e98344c554e87141607738f9245ba1c7e9924998c1a4566b1b4f41866667bbb7",
+      "sourceCount": 4,
+      "applicabilityStatus": "unreviewed",
+      "note": "条約・制度資料を専用補助入力へ固定。稼働中serverには追加catalogが未読込のため、現run終端後に再起動して02b以降の配送を検証する。"
     }
   },
   "inProgressQuestion1_71": {
@@ -6004,6 +6012,13 @@
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai3_20_primary_source_review_20261029.json",
+    "status": "source_visual_review_complete"
+  },
+  "inProgressQuestion3_21": {
+    "sourceRecordRef": "question_mondai3_21.json#0",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": true,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai3_21_primary_source_review_20261029.json",
     "status": "source_visual_review_complete"
   }
 }

@@ -39,6 +39,22 @@ class Source:
 
 
 SOURCES = {
+    'env_basel_overview_2024': Source(
+        'https://www.env.go.jp/recycle/yugai/conf/basel_r060430/r060430_02.pdf',
+        'バーゼル条約について', (3,),
+        '2024年の条約制度概要。現在の条約本文と国内法の適用は別途確認する。'),
+    'unesco_world_heritage_convention': Source(
+        'https://whc.unesco.org/archive/convention-en.pdf',
+        'Convention concerning the Protection of the World Cultural and Natural Heritage', (4,),
+        '採択時の条約原文の第4条。現行性と締約国の適用は別途確認する。'),
+    'unccd_convention_objective': Source(
+        'https://www.unccd.int/sites/default/files/2022-02/UNCCD_Convention_ENG_0_0.pdf',
+        'United Nations Convention to Combat Desertification', (5,),
+        '条約第2条の目的。現行性と締約国の適用は別途確認する。'),
+    'env_minamata_convention_overview': Source(
+        'https://www.env.go.jp/chemi/tmms/index.html',
+        '水俣条約について', 'main#main',
+        '水銀のライフサイクルに関する環境省の概要。現行の条約本文と国内法は別途確認する。'),
     'env_nature_site_2026_overview': Source(
         'https://policies.env.go.jp/nature/biodiversity/30by30alliance/documents/lowBio/30by30site-NinteiMeritActivities.pdf',
         '自然共生サイトについて 認定のメリットや取組事例', (2, 3, 5),
