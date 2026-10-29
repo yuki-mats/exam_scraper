@@ -8029,9 +8029,11 @@
   "inProgressQuestion3_42": {
     "sourceRecordRef": "question_mondai3_42.json#0",
     "questionId": "26029677d5c220f3",
-    "status": "originalization_prepared_pending_formal_audit_and_independent_evaluation",
+    "status": "hold_instruction_revalidation",
     "evidenceReceipt": "output/eco-kentei/reports/mondai3_42_rework_20261029/expression_revision_receipt.json",
-    "sourceTranscriptionUncertainty": null
+    "sourceTranscriptionUncertainty": null,
+    "holdReason": "true_false単問で旧複数肢選択指示が残ったため05を修正。旧run・merge trialは現行入力に適用できず、正式再整備と新規trial・評価が必要。",
+    "instructionBackup": "output/eco-kentei/reports/mondai3_42_before_instruction_fix_20261030/question_mondai3_42_originalized.json"
   },
   "inProgressQuestion3_83": {
     "sourceRecordRef": "question_mondai3_83.json#0",
@@ -8251,7 +8253,10 @@
     "status": "hold_source_choice_projection",
     "reason": "原画像の複数肢・各判断が05単一命題で失われる。各問の原画像とsourceを個別に確認。",
     "receipt": "output/eco-kentei/reports/mondai1_22_24_26_projection_individual_review_20261030.json",
-    "note": "公開先ID確認・原肢の復旧・正式再整備を実施するまで受入保留。"
+    "note": "公開先ID確認・原肢の復旧・正式再整備を実施するまで受入保留。",
+    "identityRepairBackup": "output/eco-kentei/reports/mondai1_24_before_four_choice_repair_20261030/",
+    "identityReadback": "output/eco-kentei/reports/mondai1_24_projection_firestore_readback_20261030.json",
+    "workflowStatus": "4肢復旧。旧10・23の正式再判定待ちでcoverage未達。"
   },
   "choiceIdentityHold1_26_20261030": {
     "sourceRecordRef": "question_mondai1_26.json#0",
