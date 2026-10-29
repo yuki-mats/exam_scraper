@@ -4817,7 +4817,10 @@
     "lawContextReworkRunId": "20261029T101206021318-3d416c30",
     "holdReason": "03bは誤答3法令の一次本文不足で保留。各法令の第1条を特定して02bを再実行したが、server取得本文が配送されず再び保留。初期根拠の正規投入方法を調べる必要がある。",
     "lawContextReworkDetail": "output/eco-kentei/reports/mondai1_50_law_context_rework_detail_20261029.json",
-    "choiceIdentityIssue": "05の選択肢順とsourceUniqueKeys元順の対応に不一致。外部ID read-only確認と独立検証を経るまで保留。"
+    "choiceIdentityIssue": "05の選択肢順とsourceUniqueKeys元順の対応に不一致。外部ID read-only確認と独立検証を経るまで保留。",
+    "identityRepairBackup": "output/eco-kentei/reports/mondai1_50_before_identity_repair_20261029/",
+    "identityReadback": "output/eco-kentei/reports/mondai1_50_identity_readback_20261029.json",
+    "identityRepairNote": "05/21/23修復済み。10と18は旧順のため正式工程の刷新と独立確認が必要。"
   },
   "inProgressQuestion1_51": {
     "sourceRecordRef": "question_mondai1_51.json#0",
@@ -6135,7 +6138,9 @@
     "questionId": "3f45e6334ca1866975d14e03",
     "nativeRunId": "20261029T202255770603-c0702129",
     "backup": "output/eco-kentei/reports/mondai2_35_before_originalization_20261029.json",
-    "parallelism": 13
+    "parallelism": 13,
+    "explanationRevision": "output/eco-kentei/reports/mondai2_35_before_water_reference_repair_20261029/",
+    "independentContentReview": "pass_by_independent_agent_formal_law_audit_and_session_evaluation_pending"
   },
   "inProgressQuestion2_36": {
     "sourceRecordRef": "question_mondai2_36.json#0",
@@ -6186,7 +6191,9 @@
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_39_primary_source_review_20261029.json",
     "status": "hold_source_transcription_difference",
     "sourceDifferenceProposal": "output/eco-kentei/reports/source_differences_mondai2_20261029/mondai2_39.json",
-    "holdReason": "解答画像と登録データの正答区切りに文字種差。"
+    "holdReason": "解答画像と登録データの正答区切りに文字種差。",
+    "originalizationRevision": "output/eco-kentei/reports/mondai2_39_before_coverage_originalization_20261029/",
+    "independentContentReview": "pass_by_independent_agent_formal_workflow_and_session_evaluation_pending"
   },
   "inProgressQuestion2_40": {
     "sourceRecordRef": "question_mondai2_40.json#0",
