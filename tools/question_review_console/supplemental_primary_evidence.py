@@ -39,6 +39,10 @@ class Source:
 
 
 SOURCES = {
+    'cbd_cartagena_protocol_2000': Source(
+        'https://www.cbd.int/doc/legal/cartagena-protocol-en.pdf',
+        'Cartagena Protocol on Biosafety to the Convention on Biological Diversity', (4, 5, 6, 7),
+        '2000年採択時の条約原文。現行の締約状況・国内法の適用は別途確認する。'),
     'env_fit_purchase_transition_2017': Source(
         'https://www.env.go.jp/recycle/waste/lc_manual/kaisei-denki-jigyou-qa.pdf',
         '改正電気事業法に係るごみ焼却施設Q&A', (80, 96),
