@@ -4806,7 +4806,7 @@
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_50_primary_source_review_20261029.json",
-    "status": "hold_law_evidence_not_delivered",
+    "status": "hold_choice_identity_mismatch_and_law_audit",
     "questionId": "85dfe157ce994b99535b3ca2",
     "originalizeRunId": "20261029T092837743398-5fbf46ec",
     "backup": "output/eco-kentei/reports/mondai1_50_before_rework_20261029",
@@ -4816,7 +4816,8 @@
     "lawContextReviewId": "20261029T101204739982-3b52567c",
     "lawContextReworkRunId": "20261029T101206021318-3d416c30",
     "holdReason": "03bは誤答3法令の一次本文不足で保留。各法令の第1条を特定して02bを再実行したが、server取得本文が配送されず再び保留。初期根拠の正規投入方法を調べる必要がある。",
-    "lawContextReworkDetail": "output/eco-kentei/reports/mondai1_50_law_context_rework_detail_20261029.json"
+    "lawContextReworkDetail": "output/eco-kentei/reports/mondai1_50_law_context_rework_detail_20261029.json",
+    "choiceIdentityIssue": "05の選択肢順とsourceUniqueKeys元順の対応に不一致。外部ID read-only確認と独立検証を経るまで保留。"
   },
   "inProgressQuestion1_51": {
     "sourceRecordRef": "question_mondai1_51.json#0",
