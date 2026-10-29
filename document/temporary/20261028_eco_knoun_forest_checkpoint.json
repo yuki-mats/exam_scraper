@@ -6313,7 +6313,9 @@
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_48_primary_source_review_20261029.json",
     "status": "hold_source_transcription_difference",
     "sourceDifferenceProposal": "output/eco-kentei/reports/source_differences_mondai2_20261029/mondai2_48.json",
-    "holdReason": "questionBodyText: 画像と登録内容に差。"
+    "holdReason": "questionBodyText: 画像と登録内容に差。",
+    "originalizationRevision": "output/eco-kentei/reports/mondai2_48_before_fossil_fuel_originalization_20261030/",
+    "workflowStatus": "prepared_pending_formal_audit_and_independent_evaluation"
   },
   "inProgressQuestion2_49": {
     "sourceRecordRef": "question_mondai2_49.json#0",
@@ -8068,5 +8070,17 @@
     "startReceipt": "output/eco-kentei/reports/law_revalidation_3_start_20261030.json",
     "note": "同一資格の正式runは1件。3問を各02b・03b・04で再整備し、根拠と独立評価が済むまで受入しない。",
     "resultReceipt": "output/eco-kentei/reports/law_revalidation_3_result_20261030.json"
+  },
+  "inProgressQuestion4_21": {
+    "sourceRecordRef": "question_mondai4_21.json#0",
+    "status": "originalization_prepared_pending_formal_audit_and_independent_evaluation",
+    "evidenceReceipt": "output/eco-kentei/reports/mondai4_21_before_rework_20261030/",
+    "sourceTranscriptionUncertainty": "原解答の三点文字種は画像から判別困難。番号は一致。"
+  },
+  "lawEvidenceIntegrityIssue20261030": {
+    "status": "fix_in_progress",
+    "example": "question_mondai2_85.json#0",
+    "designReceipt": "output/eco-kentei/reports/mondai2_85_article_binding_design_20261030.json",
+    "note": "一次証拠とfact本文・hashの不整合を正式保存前に検出する修正を検討中。実行中serverには再起動まで未反映。"
   }
 }
