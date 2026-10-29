@@ -144,7 +144,7 @@
     "trackedCodeOrPromptChanged": false,
     "otherWorktreeChanges": "他作業の変更は保持し、この記録だけをstageする。"
   },
-  "nextAction": "問70は現行条約根拠、問75は03b判定の不一致を保留。模擬問題1の問77を原画像から照合し独自問題化する。",
+  "nextAction": "問70は現行条約根拠、問75は03b判定の不一致を保留。模擬問題1の問78を原画像から照合し独自問題化する。",
   "lastUpdatedAt": "2026-10-29T13:55:09.761562+09:00",
   "subsequentQuestion51": {
     "sourceRecordRef": "question_mondai4_51.json#0",
@@ -5313,7 +5313,23 @@
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_77_primary_source_review_20261029.json",
-    "status": "source_visual_review_complete"
+    "status": "accepted",
+    "backup": "output/eco-kentei/reports/mondai1_77_before_originalization_20261029.json",
+    "note": "原画像の正答④と輸送量×距離を照合。無関係な数値3肢を用語に置換し、15選択肢・識別子と正答④を保持。輸送手段等を含む環境負荷の直接測定ではなく目安と表現。",
+    "evidence": "https://www.maff.go.jp/j/syouan/keikaku/soukatu/okome_majime/content/environment.html",
+    "questionId": "b83d9d87df1b6f5edc72e84a",
+    "nativeRunId": "20261029T151633157257-1fa14159",
+    "auditRunId": "20261029T151923890708-2b6c4ba2",
+    "explanationBackup": "output/eco-kentei/reports/mondai1_77_explanation_before_clarification_20261029.json",
+    "stateHash": "1ead052318a154128d4c84b8a294df6d83d0e0ab1e3fc65b5c2447c99cbdb629",
+    "evaluationJobId": "fw_NvIbVovSOGMH5",
+    "uploadReadyCandidate": "output/eco-kentei/questions_json/upload_to_firestore/knoun-2026-mock-1_firestore_20261029_152223.json",
+    "otherDocumentsExactlyUnchanged": 183,
+    "evaluationSessionId": "01a18654-7660-7a92-82cc-c9edd4aa3777",
+    "verifiedChoiceCount": 15,
+    "explanationScore": 100,
+    "evaluationReceipt": "output/eco-kentei/reports/mondai1_77_evaluation_result_20261029.json",
+    "receipt": "output/eco-kentei/reports/turn_receipts/mondai1_77_accepted_20261029.json"
   },
   "inProgressQuestion1_78": {
     "sourceRecordRef": "question_mondai1_78.json#0",
