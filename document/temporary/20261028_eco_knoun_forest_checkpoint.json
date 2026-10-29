@@ -137,7 +137,7 @@
     "note": "本番公開の依頼前。模擬問題の2026を公式試験年度に登録しない。"
   },
   "execution": {
-    "questionConcurrency": 4,
+    "questionConcurrency": 2,
     "parallelAgents": true,
     "browserForeground": false,
     "fullSuiteRun": false,
@@ -145,7 +145,7 @@
     "otherWorktreeChanges": "他作業の変更は保持し、この記録だけをstageする。"
   },
   "nextAction": "保留問を維持し、次の原画像照合済み候補の通常整備と独立評価を進める。",
-  "lastUpdatedAt": "2026-10-29T22:19:35.331114+09:00",
+  "lastUpdatedAt": "2026-10-29T22:27:34.775943+09:00",
   "subsequentQuestion51": {
     "sourceRecordRef": "question_mondai4_51.json#0",
     "sourceQuestionKey": "eco-kentei:knoun-2026-mock-4:bb67422eb5e52e9c",
@@ -445,7 +445,7 @@
     "pdfReadScope": "環境省2024年度実績の9頁PDF中、3枚目を画像表示・実読した。全頁を通読したとはしない。",
     "outboundArticleTextOmitted": true
   },
-  "globalRemainingCountObservedAt": "2026-10-29T22:19:00.698364+09:00",
+  "globalRemainingCountObservedAt": "2026-10-29T22:27:14.885547+09:00",
   "globalRemainingStatus": "output/eco-kentei/reports/global_remaining_status_after_mondai5_49_20261028.json",
   "subsequentQuestion59": {
     "sourceRecordRef": "question_mondai4_59.json#0",
@@ -6473,11 +6473,18 @@
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_72_primary_source_review_20261029.json",
-    "status": "native_maintenance_running",
+    "status": "source_to_independent_evaluation_accepted",
     "questionId": "47824446bc04692d6ab00a58",
     "nativeRunId": "20261029T221935273205-5bf77404",
     "imageReviewReceipt": "output/eco-kentei/reports/parallel2_figure_rework_intake_20261029.json",
-    "nextAction": "図に存在しない空欄参照を05から除去。独自図HTTP200/hash一致済み。"
+    "nextAction": "図に存在しない空欄参照を05から除去。独自図HTTP200/hash一致済み。",
+    "evaluationJobId": "-9jB7H8uEIUsGMFP",
+    "stateHash": "f13fbd3c96400daee52e10dc145e4341aedfbfb4efe779c3f1b053c4be025a49",
+    "nativeRunTerminal": true,
+    "validation": "output/eco-kentei/reports/parallel2_figure_trial_20261029",
+    "evaluationSessionId": "01a187d6-0a1a-7e33-aad8-23c7a296b24e",
+    "acceptanceReceipt": "output/eco-kentei/reports/turn_receipts/mondai2_72_accepted_20261029.json",
+    "evaluationImageReceipt": "output/eco-kentei/reports/mondai2_72_evaluation_image_receipt_20261029.json"
   },
   "inProgressQuestion2_73": {
     "sourceRecordRef": "question_mondai2_73.json#0",
@@ -6524,9 +6531,11 @@
   "inProgressQuestion2_79": {
     "sourceRecordRef": "question_mondai2_79.json#0",
     "sourceImagesActuallyRead": true,
-    "sourceTranscriptionMatchesImages": true,
+    "sourceTranscriptionMatchesImages": false,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_79_primary_source_review_20261029.json",
-    "status": "source_visual_review_complete"
+    "status": "hold_source_transcription_difference",
+    "sourceDifferenceProposal": "output/eco-kentei/reports/mondai2_79_source_choice_difference_20261029.json",
+    "holdReason": "原画像11肢はスプロープ化、00_sourceはスプロール化。正答⑨は一致。"
   },
   "inProgressQuestion2_80": {
     "sourceRecordRef": "question_mondai2_80.json#0",
@@ -6540,21 +6549,30 @@
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_81_primary_source_review_20261029.json",
-    "status": "source_visual_review_complete"
+    "status": "native_maintenance_running",
+    "questionId": "051637da30dded40e8d7aab2",
+    "nativeRunId": "20261029T222734708656-667933f9",
+    "imageReviewReceipt": "output/eco-kentei/reports/parallel9_next_intake_20261029.json"
   },
   "inProgressQuestion2_82": {
     "sourceRecordRef": "question_mondai2_82.json#0",
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_82_primary_source_review_20261029.json",
-    "status": "source_visual_review_complete"
+    "status": "native_maintenance_running",
+    "questionId": "a8f3f6199bc7c34b6074c6fc",
+    "nativeRunId": "20261029T222734708656-667933f9",
+    "imageReviewReceipt": "output/eco-kentei/reports/parallel9_next_intake_20261029.json"
   },
   "inProgressQuestion2_83": {
     "sourceRecordRef": "question_mondai2_83.json#0",
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_83_primary_source_review_20261029.json",
-    "status": "source_visual_review_complete"
+    "status": "native_maintenance_running",
+    "questionId": "def7537b81019188728951a6",
+    "nativeRunId": "20261029T222734708656-667933f9",
+    "imageReviewReceipt": "output/eco-kentei/reports/parallel9_next_intake_20261029.json"
   },
   "inProgressQuestion2_84": {
     "sourceRecordRef": "question_mondai2_84.json#0",
@@ -6568,14 +6586,20 @@
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_85_primary_source_review_20261029.json",
-    "status": "source_visual_review_complete"
+    "status": "native_maintenance_running",
+    "questionId": "f664296a182191a7346be538",
+    "nativeRunId": "20261029T222734708656-667933f9",
+    "imageReviewReceipt": "output/eco-kentei/reports/parallel9_next_intake_20261029.json"
   },
   "inProgressQuestion3_1": {
     "sourceRecordRef": "question_mondai3_1.json#0",
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai3_1_primary_source_review_20261029.json",
-    "status": "source_visual_review_complete"
+    "status": "native_maintenance_running",
+    "questionId": "c39946784dbbc2de5f8b7525",
+    "nativeRunId": "20261029T222734708656-667933f9",
+    "imageReviewReceipt": "output/eco-kentei/reports/parallel9_next_intake_20261029.json"
   },
   "inProgressQuestion3_2": {
     "sourceRecordRef": "question_mondai3_2.json#0",
@@ -6589,7 +6613,10 @@
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai3_3_primary_source_review_20261029.json",
-    "status": "source_visual_review_complete"
+    "status": "native_maintenance_running",
+    "questionId": "e58b8ba9aed053c9bc319ce6",
+    "nativeRunId": "20261029T222734708656-667933f9",
+    "imageReviewReceipt": "output/eco-kentei/reports/parallel9_next_intake_20261029.json"
   },
   "inProgressQuestion3_4": {
     "sourceRecordRef": "question_mondai3_4.json#0",
@@ -6610,7 +6637,10 @@
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai3_6_primary_source_review_20261029.json",
-    "status": "source_visual_review_complete"
+    "status": "native_maintenance_running",
+    "questionId": "e2e260fcf030289be1d8d434",
+    "nativeRunId": "20261029T222734708656-667933f9",
+    "imageReviewReceipt": "output/eco-kentei/reports/parallel9_next_intake_20261029.json"
   },
   "inProgressQuestion3_7": {
     "sourceRecordRef": "question_mondai3_7.json#0",
@@ -6624,7 +6654,10 @@
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai3_8_primary_source_review_20261029.json",
-    "status": "source_visual_review_complete"
+    "status": "native_maintenance_running",
+    "questionId": "ce0183992a739643f2b4be73",
+    "nativeRunId": "20261029T222734708656-667933f9",
+    "imageReviewReceipt": "output/eco-kentei/reports/parallel9_next_intake_20261029.json"
   },
   "inProgressQuestion3_9": {
     "sourceRecordRef": "question_mondai3_9.json#0",
@@ -6638,7 +6671,10 @@
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai3_10_primary_source_review_20261029.json",
-    "status": "source_visual_review_complete"
+    "status": "native_maintenance_running",
+    "questionId": "5a50abd03d4acb9852ae4628",
+    "nativeRunId": "20261029T222734708656-667933f9",
+    "imageReviewReceipt": "output/eco-kentei/reports/parallel9_next_intake_20261029.json"
   },
   "inProgressQuestion3_11": {
     "sourceRecordRef": "question_mondai3_11.json#0",
@@ -7512,11 +7548,17 @@
     "sourceRecordRef": "question_mondai4_7.json#0",
     "questionId": "b66942ad7a87f132bb91e96f",
     "nativeRunId": "20261029T221935273205-5bf77404",
-    "status": "native_maintenance_running",
+    "status": "source_to_independent_evaluation_accepted",
     "imageReviewReceipt": "output/eco-kentei/reports/parallel2_figure_rework_intake_20261029.json",
     "nativeRunTerminal": true,
     "blockedReason": "本文は完結した断定文ですが、入力された選択肢は「正しい／誤っている」という判定ラベルのみで、どちらのラベルを選ばせる設問指示がありません。questionIntentを一意に確定できないため保留します。",
-    "nextAction": "source正誤ラベルを単一命題に投影する修正後、正常runと法令監査が必要。"
+    "nextAction": "source正誤ラベルを単一命題に投影する修正後、正常runと法令監査が必要。",
+    "evaluationJobId": "-9jB7H8uEIUsGMFP",
+    "stateHash": "2a548687d5f5a69f2e128b4863525e3d66e77ad952f22c2c4768e6bde526e791",
+    "validation": "output/eco-kentei/reports/parallel2_figure_trial_20261029",
+    "evaluationSessionId": "01a187d6-0a1a-7e33-aad8-23be27c7171a",
+    "acceptanceReceipt": "output/eco-kentei/reports/turn_receipts/mondai4_7_accepted_20261029.json",
+    "independentSecondaryAuditReceipt": "output/question_review_console/eco-kentei/attempt_payloads/1b/1bdc4999cf3838ba2de961a2e2ae3214b004c4532ee1b38c35ba4e54615aff17.json"
   },
   "parallel7Acceptance": {
     "acceptedCount": 7,
@@ -7566,17 +7608,17 @@
     "status": "corrected_by_unique_source_and_current_readback",
     "previouslyReportedRemaining312": "incorrect; the historical accepted set was not fully included",
     "total": 425,
-    "accepted": 241,
-    "remaining": 184,
+    "accepted": 243,
+    "remaining": 182,
     "acceptedByGroup": {
       "mondai1": 63,
-      "mondai2": 31,
+      "mondai2": 32,
       "mondai3": 28,
-      "mondai4": 60,
+      "mondai4": 61,
       "mondai5": 59
     },
-    "observedAt": "2026-10-29T22:19:03.792431+09:00",
-    "receipt": "output/eco-kentei/reports/global_source_recount_after_3_81_20261029.json",
+    "observedAt": "2026-10-29T22:27:20.257814+09:00",
+    "receipt": "output/eco-kentei/reports/global_source_recount_after_figure_20261029.json",
     "reproducibleCommand": "PYTHONPATH=. .venv/bin/python output/eco-kentei/reports/recount_current_sources_20261029.py",
     "inProgressExcluded": true
   },
@@ -7671,6 +7713,19 @@
       "question_mondai3_81.json#0"
     ],
     "evaluationJobId": "XBq2frxaEHzGK7cQ",
+    "firestoreWrites": 0,
+    "qualityGate": "passed for groups 2 and 3",
+    "existingUploadDocsUnchanged": true
+  },
+  "parallel2FigureAcceptance": {
+    "acceptedCount": 2,
+    "needsReworkCount": 0,
+    "previousRecountRemaining": 184,
+    "acceptedSourceRefs": [
+      "question_mondai2_72.json#0",
+      "question_mondai4_7.json#0"
+    ],
+    "evaluationJobId": "-9jB7H8uEIUsGMFP",
     "firestoreWrites": 0,
     "qualityGate": "passed for groups 2 and 3",
     "existingUploadDocsUnchanged": true
