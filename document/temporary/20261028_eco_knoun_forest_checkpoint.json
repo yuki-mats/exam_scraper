@@ -144,7 +144,7 @@
     "trackedCodeOrPromptChanged": false,
     "otherWorktreeChanges": "他作業の変更は保持し、この記録だけをstageする。"
   },
-  "nextAction": "問82の後続工程を確認し、各肢の根拠・統合・独立評価を行う。問70・75と問80のsource表記差は保留。",
+  "nextAction": "問70は現行条約根拠、問75は03b判定、問80はsource括弧差を保留。模擬問題1の問83を原画像から照合し独自問題化する。",
   "lastUpdatedAt": "2026-10-29T13:55:09.761562+09:00",
   "subsequentQuestion51": {
     "sourceRecordRef": "question_mondai4_51.json#0",
@@ -5428,12 +5428,21 @@
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_82_primary_source_review_20261029.json",
-    "status": "downstream_running",
+    "status": "accepted",
     "backup": "output/eco-kentei/reports/mondai1_82_before_originalization_20261029.json",
     "note": "原画像の正答③と4論点を照合。費用の一律比較は根拠が不十分なため、③をトップランナー基準の事実を問う明確な誤記述へ独自化。順序・IDと正誤を保持。",
     "evidence": "https://wwws.meti.go.jp/enecho/saveenergy2/enterprise/faq/qa01.html",
     "questionId": "d9e3a785c74ed1037dccf4e7",
-    "nativeRunId": "20261029T162844810699-76dad8d7"
+    "nativeRunId": "20261029T162844810699-76dad8d7",
+    "stateHash": "fc5b83f4ab0a11f278e7f249ba8ee0079a08d50eb859fa1215cbe6e8496647b1",
+    "evaluationJobId": "XOx6Qwz1aAP-_YXT",
+    "uploadReadyCandidate": "output/eco-kentei/questions_json/upload_to_firestore/knoun-2026-mock-1_firestore_20261029_163754.json",
+    "otherDocumentsExactlyUnchanged": 243,
+    "evaluationSessionId": "01a18699-783b-7f70-8c7d-c65d820630c9",
+    "verifiedChoiceCount": 4,
+    "explanationScore": 100,
+    "evaluationReceipt": "output/eco-kentei/reports/mondai1_82_evaluation_result_20261029.json",
+    "receipt": "output/eco-kentei/reports/turn_receipts/mondai1_82_accepted_20261029.json"
   },
   "inProgressQuestion1_83": {
     "sourceRecordRef": "question_mondai1_83.json#0",
