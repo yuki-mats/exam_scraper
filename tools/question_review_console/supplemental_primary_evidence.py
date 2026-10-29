@@ -39,6 +39,10 @@ class Source:
 
 
 SOURCES = {
+    'env_fit_purchase_transition_2017': Source(
+        'https://www.env.go.jp/recycle/waste/lc_manual/kaisei-denki-jigyou-qa.pdf',
+        '改正電気事業法に係るごみ焼却施設Q&A', (80, 96),
+        '2017年4月1日以降のFIT特定契約の買取義務者変更についての当時の説明。現行法の適用条件は別途照合する。'),
     'maff_food_recycling_targets': Source(
         'https://www.maff.go.jp/j/shokusan/recycle/syokuhin/s_info/saiseiriyo_mokuhyou.html',
         '食品廃棄物等の再生利用等実施率目標', '#main_content',
