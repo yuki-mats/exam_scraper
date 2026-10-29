@@ -144,8 +144,8 @@
     "trackedCodeOrPromptChanged": false,
     "otherWorktreeChanges": "他作業の変更は保持し、この記録だけをstageする。"
   },
-  "nextAction": "問65の現行条約・国内法の根拠配送は保留。模擬問題1の問69は画像照合済みで、独自問題化から整備する。",
-  "lastUpdatedAt": "2026-10-29T13:47:32.013856+09:00",
+  "nextAction": "問65の現行条約・国内法の根拠配送は保留。模擬問題1の問70を原画像から照合する。",
+  "lastUpdatedAt": "2026-10-29T13:55:09.761562+09:00",
   "subsequentQuestion51": {
     "sourceRecordRef": "question_mondai4_51.json#0",
     "sourceQuestionKey": "eco-kentei:knoun-2026-mock-4:bb67422eb5e52e9c",
@@ -5115,7 +5115,20 @@
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_69_primary_source_review_20261029.json",
-    "status": "source_visual_review_complete"
+    "status": "accepted",
+    "questionId": "360355747f29d1e1731f5e3f",
+    "originalizeRunId": "20261029T134910689217-03405e96",
+    "backup": "output/eco-kentei/reports/mondai1_69_before_rework_20261029",
+    "nativeRunId": "20261029T135111228833-cc233fd8",
+    "stateHash": "d103326ab9dd6767552e6e33afd5cb5228bec5e6541c169063c0a34ef0d28a15",
+    "evaluationJobId": "GnNjIooVWF0DW5qo",
+    "uploadReadyCandidate": "output/eco-kentei/questions_json/upload_to_firestore/knoun-2026-mock-1_firestore_20261029_135443.json",
+    "evaluationSessionId": "01a18603-1365-7510-9781-1d1f8935c557",
+    "verifiedChoiceCount": 4,
+    "explanationScore": 100,
+    "evaluationReceipt": "output/eco-kentei/reports/mondai1_69_evaluation_result_20261029.json",
+    "receipt": "output/eco-kentei/reports/turn_receipts/mondai1_69_accepted_20261029.json",
+    "otherDocumentsExactlyUnchanged": 104
   },
   "inProgressQuestion1_70": {
     "sourceRecordRef": "question_mondai1_70.json#0",
@@ -5926,6 +5939,27 @@
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai3_13_primary_source_review_20261029.json",
+    "status": "source_visual_review_complete"
+  },
+  "inProgressQuestion3_14": {
+    "sourceRecordRef": "question_mondai3_14.json#0",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": false,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai3_14_primary_source_review_20261029.json",
+    "status": "hold_source_transcription_difference"
+  },
+  "inProgressQuestion3_15": {
+    "sourceRecordRef": "question_mondai3_15.json#0",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": false,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai3_15_primary_source_review_20261029.json",
+    "status": "hold_source_transcription_difference"
+  },
+  "inProgressQuestion3_16": {
+    "sourceRecordRef": "question_mondai3_16.json#0",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": true,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai3_16_primary_source_review_20261029.json",
     "status": "source_visual_review_complete"
   }
 }
