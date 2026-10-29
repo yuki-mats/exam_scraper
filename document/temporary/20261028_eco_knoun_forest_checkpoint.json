@@ -5282,7 +5282,8 @@
     "nativeRunId": "20261029T145453879938-7bf03d62",
     "blocker": "03bで試験時判定と各肢判定の不一致、その後必須候補field不足により保留。04・統合・独立評価は未完了。",
     "verification": "既存57問のmerged選択肢整合性・必須項目、および問75の正答patch coverageは成功。問75自体のmerged検証は未実施。",
-    "evidence": "https://laws.e-gov.go.jp/law/412AC0000000110"
+    "evidence": "https://laws.e-gov.go.jp/law/412AC0000000110",
+    "explanationRevision": "output/eco-kentei/reports/mondai1_75_before_explanation_20261029/"
   },
   "inProgressQuestion1_76": {
     "sourceRecordRef": "question_mondai1_76.json#0",
@@ -6120,7 +6121,9 @@
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_34_primary_source_review_20261029.json",
     "status": "hold_source_transcription_difference",
     "sourceDifferenceProposal": "output/eco-kentei/reports/source_differences_mondai2_20261029/mondai2_34.json",
-    "holdReason": "answer_result_text: 画像と登録内容に差。"
+    "holdReason": "answer_result_text: 画像と登録内容に差。",
+    "originalizationRevision": "output/eco-kentei/reports/mondai2_34_before_aoko_originalization_20261029/",
+    "independentContentReview": "pass_by_independent_agent_formal_workflow_and_evaluation_pending"
   },
   "inProgressQuestion2_35": {
     "sourceRecordRef": "question_mondai2_35.json#0",
