@@ -1,0 +1,28 @@
+{
+  "recordedAt": "2026-10-29T23:57:13.403584+09:00",
+  "sourceRecordRef": "question_mondai5_21.json#0",
+  "inputSha256": {
+    "output/eco-kentei/questions_json/knoun-2026-mock-5/00_source/question_mondai5_21.json": "4a58675d29417650a60e6654cacf7469fc34cafbc3dc4600dc71f68f2af18f53",
+    "output/eco-kentei/questions_json/knoun-2026-mock-5/05_originalized/question_mondai5_21_originalized.json": "a0d3daa928dbb6cafd32afe411ba1e84a0f00c985812dd23b75dfeaea212431c",
+    "output/eco-kentei/question_images/knoun-2026-mock-5/raw/mondai5_21.png": "5ff08a6f198287e61a9c1e92b3f95474c8d543a8117c30b9680b06542e6e7d28",
+    "output/eco-kentei/question_images/knoun-2026-mock-5/raw/comment5_21.png": "4dce86cecfbb2e62bc4dcad4431da1655e90384df25e1c665f50bc3792eb4e4f"
+  },
+  "imageReview": "画像と00_sourceの正答は②特定外来生物。元の語群は①遺伝子組換え生物、②特定外来生物、③絶滅のおそれのある野生動植物、④ジビエ。",
+  "current05": "現行05の語群は①特定外来生物、②国内由来の外来種、③絶滅危惧種、④遺伝子組換え生物。正答は①。",
+  "identityInvestigation": "sourceUniqueKeysは元の4肢順。convert_merged_to_firestore.pyのsource_unique_key_for_choiceは配列位置からIDを求めるため、論理投影の選択肢・sourceUniqueKeysと、既存配信docの対応を正規工程で個別に検証する。実際の配信不一致は未確認で、推測で断定しない。",
+  "statute": {
+    "url": "https://laws.e-gov.go.jp/api/2/law_data/416AC0000000078",
+    "status": 200,
+    "sha256": "8de14d8e530f7157eb6de606049eba9ca44783dca73b0e0491740510d4a31e42",
+    "revision": "416AC0000000078_20250601_504AC0000000068",
+    "basis": "第2条。通常監査への取得証明・肢別判断は未完了。"
+  },
+  "nextAction": "原画像とsourceの意味上の選択肢順に対応する独自問題を通常05で検討し、後続工程と既存IDの対応を検証する。公開先を書き換えない。",
+  "firestoreWritten": false,
+  "patchChanged": false,
+  "reviewRegistration": {
+    "id": "20261029T235719061265-9ceee96d",
+    "path": "output/question_review_console/eco-kentei/knoun-2026-mock-5/reviews/20261029T235719061265-9ceee96d.json",
+    "status": "needs_review"
+  }
+}
