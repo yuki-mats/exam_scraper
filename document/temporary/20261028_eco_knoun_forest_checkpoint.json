@@ -6612,9 +6612,12 @@
   "inProgressQuestion2_71": {
     "sourceRecordRef": "question_mondai2_71.json#0",
     "sourceImagesActuallyRead": true,
-    "sourceTranscriptionMatchesImages": false,
+    "sourceTranscriptionMatchesImages": null,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_71_primary_source_review_20261029.json",
-    "status": "hold_source_transcription_difference"
+    "status": "hold_formal_maintenance_glyph_encoding_ambiguous",
+    "holdReason": "解答画像とsourceの正答区切りは視覚上点3個で、文字コードは画像から判別不能。sourceは変更せず、PDCA図の対応・正式整備・独立評価を確認する。",
+    "sourceGlyphVisualReview": "output/eco-kentei/reports/mondai2_71_73_source_hold_recheck_20261030.json",
+    "workflowStatus": "画像上の字形を再照合済み。符号化は未確定として記録し、図の配置・矢印の対応、正式再整備と独立評価を待つ。"
   },
   "inProgressQuestion2_72": {
     "sourceRecordRef": "question_mondai2_72.json#0",
@@ -6637,9 +6640,12 @@
   "inProgressQuestion2_73": {
     "sourceRecordRef": "question_mondai2_73.json#0",
     "sourceImagesActuallyRead": true,
-    "sourceTranscriptionMatchesImages": false,
+    "sourceTranscriptionMatchesImages": null,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_73_primary_source_review_20261029.json",
-    "status": "hold_source_transcription_difference"
+    "status": "hold_formal_maintenance_glyph_encoding_ambiguous",
+    "holdReason": "解答画像とsourceの正答区切りは視覚上点3個で、文字コードは画像から判別不能。sourceは変更せず、PDCA図の対応・正式整備・独立評価を確認する。",
+    "sourceGlyphVisualReview": "output/eco-kentei/reports/mondai2_71_73_source_hold_recheck_20261030.json",
+    "workflowStatus": "画像上の字形を再照合済み。符号化は未確定として記録し、図の配置・矢印の対応、正式再整備と独立評価を待つ。"
   },
   "inProgressQuestion2_74": {
     "sourceRecordRef": "question_mondai2_74.json#0",
