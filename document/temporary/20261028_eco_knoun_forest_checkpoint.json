@@ -144,7 +144,7 @@
     "trackedCodeOrPromptChanged": false,
     "otherWorktreeChanges": "他作業の変更は保持し、この記録だけをstageする。"
   },
-  "nextAction": "問70は現行条約根拠、問75は03b判定の不一致を保留。模擬問題1の問80の転記差を確認し、次の問題も順次進める。",
+  "nextAction": "問80は独自問題の評価合格、sourceの括弧差は未修正。問70は現行条約根拠、問75は03b判定を保留。次の画像照合済み問題を順次整備する。",
   "lastUpdatedAt": "2026-10-29T13:55:09.761562+09:00",
   "subsequentQuestion51": {
     "sourceRecordRef": "question_mondai4_51.json#0",
@@ -5382,8 +5382,23 @@
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": false,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_80_primary_source_review_20261029.json",
-    "status": "hold_source_transcription_difference",
-    "holdReason": "画像の末尾の入力指示は「［オ］にあてはまる」だが、登録文字は「「オ」にあてはまる」。"
+    "status": "evaluation_passed_source_transcription_difference_pending",
+    "holdReason": "画像の末尾の入力指示は「［オ］にあてはまる」だが、登録文字は「「オ」にあてはまる」。",
+    "backup": "output/eco-kentei/reports/mondai1_80_before_originalization_20261029.json",
+    "note": "原画像の正答⑭と意味を照合。末尾指示の括弧の転記差は00_sourceに残すが、解答対象は同じオであり、独自問題文では入力指示自体を用いない。15選択肢のIDと正答⑭を保持し、数値3肢を用語に置換。",
+    "evidence": "https://ondankataisaku.env.go.jp/coolchoice/pdf/glp_guideline_202209.pdf",
+    "questionId": "85e625af8ca9eb654d284c29",
+    "nativeRunId": "20261029T155825309337-2e5c5f66",
+    "stateHash": "934afd06a70d586bb5723b59417ca7ef021fd38ab18cdc47d4dc97a9623b3f7d",
+    "evaluationJobId": "-ad0Jh1Memh8NuFo",
+    "uploadReadyCandidate": "output/eco-kentei/questions_json/upload_to_firestore/knoun-2026-mock-1_firestore_20261029_160536.json",
+    "otherDocumentsExactlyUnchanged": 228,
+    "evaluationSessionId": "01a1867c-cd19-7cd1-8c82-79ba22e60004",
+    "verifiedChoiceCount": 15,
+    "explanationScore": 100,
+    "evaluationReceipt": "output/eco-kentei/reports/mondai1_80_evaluation_result_20261029.json",
+    "receipt": "output/eco-kentei/reports/turn_receipts/mondai1_80_evaluated_source_difference_20261029.json",
+    "correctedTranscriptionCandidate": "output/eco-kentei/reports/manual_content_reviews/mondai1_80_corrected_transcription_20261029.json"
   },
   "inProgressQuestion1_81": {
     "sourceRecordRef": "question_mondai1_81.json#0",
