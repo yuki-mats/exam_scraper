@@ -8651,5 +8651,12 @@
     "integrationReceipt": "output/eco-kentei/reports/mondai1_17_19_fixed_baseline_trial_20261030/apply_receipt.json",
     "note": "04入力再照合・ローカル統合・必須検査完了。別session独立評価までhold。",
     "acceptanceReceipt": "output/eco-kentei/reports/mondai1_17_19_acceptance_20261030.json"
+  },
+  "instructionHold1_84_20261030": {
+    "sourceRecordRef": "question_mondai1_84.json#0",
+    "status": "hold_true_false_instruction_mismatch",
+    "reason": "04とupload-readyの各単独true_false文書に複数肢から誤りを選ぶ指示が残る。原画像と4派生文書およびアプリ表示コードを照合。",
+    "receipt": "output/eco-kentei/reports/mondai1_84_single_choice_instruction_independent_review_20261030.json",
+    "workflowStatus": "05指示・正式再整備・再投影・独立評価待ち。"
   }
 }
