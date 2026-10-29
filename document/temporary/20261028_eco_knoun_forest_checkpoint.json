@@ -4173,13 +4173,16 @@
     "backup": "output/eco-kentei/reports/mondai1_14_before_rework_20261029",
     "originalizeRunId": "20261029T050103501053-6403b691",
     "nativeRunId": "20261029T050129464637-c11c2346",
-    "holdReason": "02bは東京都条例の一次本文と公式資料についてサーバー照合済み取得証明の未提示により保留。通常のWeb閲覧では同証明の代替にならない。",
+    "holdReason": "05を原15肢に復旧。10・23は旧1肢形式のためcoverage失敗中。正式01・02a再判定と検証まで保留。",
     "primaryOrdinanceUrl": "https://www.reiki.metro.tokyo.lg.jp/ex_file/honban/reiki/reiki_honbun/g101RG00001328.html",
     "primaryOrdinanceArticle": "第五条の十一",
     "nextAction": "条例対応の取得証明を準備した後に02bから再開。問15以降は先行する。",
     "choiceProjectionReview": "原15肢から単一true_false命題への変換とsourceUniqueKeysの対応を調査中。現行公開IDと許容条件の確認前に受入不可。",
     "identityReadback": "output/eco-kentei/reports/mondai1_14_projection_id_readback_20261030.json",
-    "repairProposal": "output/eco-kentei/reports/mondai1_14_independent_review_proposal_20261030.json"
+    "repairProposal": "output/eco-kentei/reports/mondai1_14_independent_review_proposal_20261030.json",
+    "identityRepairBackup": "output/eco-kentei/reports/mondai1_14_before_identity_repair_20261030/",
+    "identityRepairEvidence": "output/eco-kentei/reports/mondai1_14_identity_repair_evidence_20261030.json",
+    "independentContentReview": "pass_05_21_only_old_10_23_coverage_failed_formal_regeneration_required"
   },
   "inProgressQuestion1_15": {
     "sourceRecordRef": "question_mondai1_15.json#0",
@@ -6291,7 +6294,8 @@
     "status": "hold_source_transcription_difference",
     "holdReason": "画像の出題表示「IBT・CBT過去出題問題」の直前に開き括弧はないが、登録文には余分な「（」がある。",
     "originalizationRevision": "output/eco-kentei/reports/mondai2_46_before_environment_plan_originalization_20261030/",
-    "workflowStatus": "prepared_pending_formal_audit_and_independent_evaluation"
+    "workflowStatus": "prepared_pending_formal_audit_and_independent_evaluation",
+    "independentContentReview": "pass_by_independent_agent_formal_law_audit_and_session_evaluation_pending"
   },
   "inProgressQuestion2_47": {
     "sourceRecordRef": "question_mondai2_47.json#0",
