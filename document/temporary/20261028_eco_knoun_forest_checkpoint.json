@@ -6376,7 +6376,9 @@
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_52_primary_source_review_20261029.json",
     "status": "hold_source_transcription_difference",
     "sourceDifferenceProposal": "output/eco-kentei/reports/mondai2_15_source_difference_proposal_20261029.json",
-    "holdReason": "IBT・CBTラベル欠落という先の観察は誤り。本文の空欄括弧が画像では【キ】に見えるが文字種を確定できず要確認。"
+    "holdReason": "IBT・CBTラベル欠落という先の観察は誤り。本文の空欄括弧が画像では【キ】に見えるが文字種を確定できず要確認。",
+    "originalizationRevision": "output/eco-kentei/reports/mondai2_52_before_implementation_20261030/receipt.json",
+    "independentContentReview": "pass_by_independent_agent_formal_workflow_and_session_evaluation_pending"
   },
   "inProgressQuestion2_53": {
     "sourceRecordRef": "question_mondai2_53.json#0",
@@ -8092,5 +8094,12 @@
     "designReceipt": "output/eco-kentei/reports/mondai2_85_article_binding_design_20261030.json",
     "note": "一次証拠とfact本文・hashの不整合を正式保存前に検出する修正を検討中。実行中serverには再起動まで未反映。",
     "verification": "対象57テスト成功。模擬2-85の実bundle不一致を検出。法別試験日overrideも独立レビュー済み。稼働serverへの反映と既存候補の再監査は未実施。"
+  },
+  "inProgressQuestion4_24": {
+    "sourceRecordRef": "question_mondai4_24.json#0",
+    "status": "originalization_prepared_pending_formal_audit_and_independent_evaluation",
+    "evidenceReceipt": "output/eco-kentei/reports/mondai4_24_before_rework_20261030/",
+    "independentContentReview": "pass_by_independent_agent",
+    "sourceTranscriptionUncertainty": "解答の三点記号の文字種は画像から確定困難。番号は一致。"
   }
 }
