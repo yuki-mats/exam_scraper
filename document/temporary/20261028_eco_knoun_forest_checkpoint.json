@@ -3987,7 +3987,10 @@
     "originalizeRunId": "20261029T035348243223-1efed522",
     "nativeRunId": "20261029T035433853363-2ab821c5",
     "holdReceipt": "output/eco-kentei/reports/turn_receipts/mondai1_4_evidence_hold_20261029.json",
-    "nextAction": "正規取得証明を対象の新1肢に結び付けて通常工程を再開する。模擬問題1の問5を先に照合する。"
+    "nextAction": "正規取得証明を対象の新1肢に結び付けて通常工程を再開する。模擬問題1の問5を先に照合する。",
+    "officialGuidanceRequest": "output/eco-kentei/reports/mondai1_4_paris_initial_request_20261030.json",
+    "officialGuidanceInitialInput": "output/question_review_console/eco-kentei/knoun-2026-mock-1/official_guidance_inputs/28e5015fbf3280f8df5f76b2.json",
+    "workflowStatus": "現単一命題に条約第4条・第7条の公式資料を再取得。出題時点未確定、02b/03bの適用性監査・再投影・独立評価待ち。"
   },
   "inProgressQuestion1_5": {
     "sourceRecordRef": "question_mondai1_5.json#0",
@@ -6791,9 +6794,14 @@
   "inProgressQuestion2_84": {
     "sourceRecordRef": "question_mondai2_84.json#0",
     "sourceImagesActuallyRead": true,
-    "sourceTranscriptionMatchesImages": false,
+    "sourceTranscriptionMatchesImages": null,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_84_primary_source_review_20261029.json",
-    "status": "hold_source_transcription_difference"
+    "status": "hold_formal_maintenance_glyph_encoding_ambiguous",
+    "holdReason": "解答画像とsourceの正答①と点3個は視覚的に対応するが、符号化や字間は画像から確定不能。sourceを変更せず正式整備・評価待ち。",
+    "sourceGlyphVisualReview": "output/eco-kentei/reports/mondai2_84_source_glyph_recheck_20261030.json",
+    "preparationReceipt": "output/eco-kentei/reports/mondai2_84_climate_references_20261030/receipt.json",
+    "independentPreparationReview": "output/eco-kentei/reports/mondai2_84_references_independent_review_20261030.json",
+    "workflowStatus": "気候の緩和・適応に関する参考資料を準備・個別照合。単独正誤指示・旧10・正式評価待ち。"
   },
   "inProgressQuestion2_85": {
     "sourceRecordRef": "question_mondai2_85.json#0",
