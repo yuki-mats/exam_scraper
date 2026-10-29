@@ -144,8 +144,8 @@
     "trackedCodeOrPromptChanged": false,
     "otherWorktreeChanges": "他作業の変更は保持し、この記録だけをstageする。"
   },
-  "nextAction": "問57は転記差異で保留し、画像照合済みの問58を独自問題化から整備する。問50は一次根拠の配送不足により保留。",
-  "lastUpdatedAt": "2026-10-29T11:00:17.921298+09:00",
+  "nextAction": "問58は英国の現行方針により正答が一意でない可能性があり、一次資料を踏まえ独自化と正答を再整備する。問57・59・60は転記差異で保留。",
+  "lastUpdatedAt": "2026-10-29T11:02:32.858772+09:00",
   "subsequentQuestion51": {
     "sourceRecordRef": "question_mondai4_51.json#0",
     "sourceQuestionKey": "eco-kentei:knoun-2026-mock-4:bb67422eb5e52e9c",
@@ -4911,7 +4911,11 @@
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_58_primary_source_review_20261029.json",
-    "status": "source_visual_review_complete"
+    "status": "hold_current_policy_and_answer_ambiguity",
+    "questionId": "49910b73d6c840be547fbd15",
+    "originalizeRunId": "20261029T110130447655-f09d5340",
+    "backup": "output/eco-kentei/reports/mondai1_58_before_rework_20261029",
+    "holdReport": "output/eco-kentei/reports/mondai1_58_current_policy_hold_20261029.json"
   },
   "inProgressQuestion1_59": {
     "sourceRecordRef": "question_mondai1_59.json#0",
