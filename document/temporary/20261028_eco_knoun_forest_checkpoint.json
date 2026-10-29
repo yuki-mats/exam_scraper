@@ -144,7 +144,7 @@
     "trackedCodeOrPromptChanged": false,
     "otherWorktreeChanges": "他作業の変更は保持し、この記録だけをstageする。"
   },
-  "nextAction": "問70は現行条約根拠、問75は03b判定、問80はsource括弧差を保留。模擬問題1の問85を原画像から照合し独自問題化する。",
+  "nextAction": "問85の再整備runを確認し、②の法定除外を含む状態で統合・独立再評価する。問70・75・80は保留。",
   "lastUpdatedAt": "2026-10-29T13:55:09.761562+09:00",
   "subsequentQuestion51": {
     "sourceRecordRef": "question_mondai4_51.json#0",
@@ -5497,7 +5497,26 @@
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_85_primary_source_review_20261029.json",
-    "status": "source_visual_review_complete"
+    "status": "accepted",
+    "backup": "output/eco-kentei/reports/mondai1_85_before_originalization_20261029.json",
+    "note": "原画像の正答④と4論点を照合。事業活動由来でも事業系一般廃棄物があることを問う明確な誤記述へ再構成。順序・IDと正誤を保持。",
+    "evidence": "https://tohoku.env.go.jp/content/900180649.pdf",
+    "questionId": "d2fad07a431956f3f693e465",
+    "nativeRunId": "20261029T173536913896-bcac29de",
+    "auditRunId": "20261029T174331354766-d4b48d70",
+    "explanationBackup": "output/eco-kentei/reports/mondai1_85_explanation_before_clarification_20261029.json",
+    "stateHash": "9d6ed3f35d03babec742c886a3fb521a532ae1da3296e854c9cd1cd8a16e67ae",
+    "evaluationJobId": "xw7DM9B7aIPVu2Xm",
+    "uploadReadyCandidate": "output/eco-kentei/questions_json/upload_to_firestore/knoun-2026-mock-1_firestore_20261029_180207.json",
+    "otherDocumentsExactlyUnchanged": 255,
+    "priorEvaluationReceipt": "output/eco-kentei/reports/mondai1_85_prior_evaluation_20261029.json",
+    "reason": "②の廃棄物定義に法定の放射性物質等の除外が欠け、誤りが2肢になると判定。法第2条第1項の例外を②に追加。",
+    "reworkNativeRunId": "20261029T175721339971-8ba5a668",
+    "evaluationSessionId": "01a186e5-b2a2-7a12-9430-6dacb514673f",
+    "verifiedChoiceCount": 4,
+    "explanationScore": 100,
+    "evaluationReceipt": "output/eco-kentei/reports/mondai1_85_evaluation_result_20261029.json",
+    "receipt": "output/eco-kentei/reports/turn_receipts/mondai1_85_accepted_20261029.json"
   },
   "inProgressQuestion2_1": {
     "sourceRecordRef": "question_mondai2_1.json#0",
