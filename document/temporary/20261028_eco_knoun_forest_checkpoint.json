@@ -4121,7 +4121,9 @@
     "otherDocumentCountUnchanged": 25,
     "uploadReady": "output/eco-kentei/questions_json/upload_to_firestore/knoun-2026-mock-1_firestore_20261029_044448.json",
     "receipt": "output/eco-kentei/reports/turn_receipts/mondai1_11_accepted_20261029.json",
-    "nextAction": "模擬問題1の問12を原画像から確認する。問4・6は根拠取得待ち。"
+    "nextAction": "模擬問題1の問12を原画像から確認する。問4・6は根拠取得待ち。",
+    "identityRepairBackup": "output/eco-kentei/reports/mondai1_11_before_15_choice_restore_20261030/",
+    "workflowStatus": "15肢を復旧。旧10・23と監査factsの正式再判定待ち。"
   },
   "inProgressQuestion1_12": {
     "sourceRecordRef": "question_mondai1_12.json#0",
@@ -8150,5 +8152,26 @@
     "previewReceipt": "output/eco-kentei/reports/content_revalidation_3_preview_20261030.json",
     "startReceipt": "output/eco-kentei/reports/content_revalidation_3_start_20261030.json",
     "note": "現在稼働中のserverは法令証拠hash guardの再起動前。validatedでも受入前に新validatorで独立照合が必要。"
+  },
+  "choiceIdentityHold1_12_20261030": {
+    "sourceRecordRef": "question_mondai1_12.json#0",
+    "status": "hold_source_choice_projection",
+    "reason": "原画像の複数選択肢と各正誤を05の単一命題へ置換。独自化正本との不整合を個別目視確認。",
+    "candidateReceipt": "output/eco-kentei/reports/all425_source_05_choice_projection_candidates_20261030.json",
+    "independentReview": "原画像・00_source・05・10を1問ずつ照合。正式な復旧と再検証が必要。"
+  },
+  "choiceIdentityHold1_21_20261030": {
+    "sourceRecordRef": "question_mondai1_21.json#0",
+    "status": "hold_source_choice_projection",
+    "reason": "原画像の複数選択肢と各正誤を05の単一命題へ置換。独自化正本との不整合を個別目視確認。",
+    "candidateReceipt": "output/eco-kentei/reports/all425_source_05_choice_projection_candidates_20261030.json",
+    "independentReview": "原画像・00_source・05・10を1問ずつ照合。正式な復旧と再検証が必要。"
+  },
+  "choiceIdentityHold1_41_20261030": {
+    "sourceRecordRef": "question_mondai1_41.json#0",
+    "status": "hold_source_choice_projection",
+    "reason": "原画像の複数選択肢と各正誤を05の単一命題へ置換。独自化正本との不整合を個別目視確認。",
+    "candidateReceipt": "output/eco-kentei/reports/all425_source_05_choice_projection_candidates_20261030.json",
+    "independentReview": "原画像・00_source・05・10を1問ずつ照合。正式な復旧と再検証が必要。"
   }
 }
