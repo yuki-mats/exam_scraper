@@ -144,8 +144,8 @@
     "trackedCodeOrPromptChanged": false,
     "otherWorktreeChanges": "他作業の変更は保持し、この記録だけをstageする。"
   },
-  "nextAction": "問64・65は一次資料を取得・保存済みだが稼働中サーバーが新catalogを未読込。監査への配送と再監査を確認する。問66以降の画像照合済み問題は順次整備可能。",
-  "lastUpdatedAt": "2026-10-29T12:48:27.486983+09:00",
+  "nextAction": "問65は条約一次資料を取得済み。新しいサーバーで監査入力の配送を確認し、法令根拠以降を再整備する。",
+  "lastUpdatedAt": "2026-10-29T12:51:36.359700+09:00",
   "subsequentQuestion51": {
     "sourceRecordRef": "question_mondai4_51.json#0",
     "sourceQuestionKey": "eco-kentei:knoun-2026-mock-4:bb67422eb5e52e9c",
@@ -5009,7 +5009,7 @@
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_64_primary_source_review_20261029.json",
-    "status": "evaluation_running",
+    "status": "accepted",
     "questionId": "d8c192e3af41d5160766f172",
     "originalizeRunId": "20261029T115540599794-1ea960f0",
     "backup": "output/eco-kentei/reports/mondai1_64_before_rework_20261029",
@@ -5024,7 +5024,10 @@
     "currentLawReauditRunId": "20261029T124052651685-dc38076e",
     "stateHash": "b966f44d73302e4fa14ac5e3e7281d5c9d991c1adb783201442dd4586d5f734a",
     "evaluationJobId": "kfFLotEa1yIiF6bl",
-    "uploadReadyCandidate": "output/eco-kentei/questions_json/upload_to_firestore/knoun-2026-mock-1_firestore_20261029_124753.json"
+    "uploadReadyCandidate": "output/eco-kentei/questions_json/upload_to_firestore/knoun-2026-mock-1_firestore_20261029_124753.json",
+    "evaluationSessionId": "01a185c5-ffca-7050-81a4-0b0db2bfe887",
+    "receipt": "output/eco-kentei/reports/turn_receipts/mondai1_64_accepted_20261029.json",
+    "otherDocumentCountUnchanged": 88
   },
   "inProgressQuestion1_65": {
     "sourceRecordRef": "question_mondai1_65.json#0",
