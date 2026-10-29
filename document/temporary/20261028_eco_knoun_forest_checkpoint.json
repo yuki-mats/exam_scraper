@@ -8344,7 +8344,10 @@
     "status": "hold_source_choice_projection",
     "reason": "原画像の複数肢・各判断が05単一命題で失われる。各問の原画像とsourceを個別に確認。",
     "receipt": "output/eco-kentei/reports/mondai1_36_37_39_projection_individual_review_20261030.json",
-    "note": "公開先ID確認・原肢の復旧・正式再整備を実施するまで受入保留。"
+    "note": "公開先ID確認・原肢の復旧・正式再整備を実施するまで受入保留。",
+    "identityRepairBackup": "output/eco-kentei/reports/mondai1_37_before_fifteen_choice_repair_20261030/",
+    "identityReadback": "output/eco-kentei/reports/mondai1_37_canonical_firestore_readback_20261030.json",
+    "workflowStatus": "15肢復旧。旧10・23の正式再判定待ちでcoverage未達。"
   },
   "choiceIdentityHold1_39_20261030": {
     "sourceRecordRef": "question_mondai1_39.json#0",
