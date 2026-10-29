@@ -8560,7 +8560,7 @@
   },
   "parallelNextFiveChoiceRevalidation20261030": {
     "nativeRunId": "20261030T014629785896-2acecba1",
-    "status": "running",
+    "status": "terminal_four_validated_one_blocked",
     "questionRefs": [
       "question_mondai1_16.json#0",
       "question_mondai1_17.json#0",
@@ -8570,7 +8570,8 @@
     ],
     "previewReceipt": "output/eco-kentei/reports/choice_restoration_next5_preview_20261030.json",
     "startReceipt": "output/eco-kentei/reports/choice_restoration_next5_start_20261030.json",
-    "note": "serverは証拠hash guard反映前。成功しても新validator・最終投影・独立評価まで保留。"
+    "note": "serverは証拠hash guard反映前。成功しても新validator・最終投影・独立評価まで保留。",
+    "resultReceipt": "output/eco-kentei/reports/choice_restoration_next5_result_20261030.json"
   },
   "canonicalSourceKeyReadback20261030": {
     "status": "read_only_complete",
