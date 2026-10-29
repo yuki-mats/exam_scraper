@@ -144,7 +144,7 @@
     "trackedCodeOrPromptChanged": false,
     "otherWorktreeChanges": "他作業の変更は保持し、この記録だけをstageする。"
   },
-  "nextAction": "問80は独自問題の評価合格、sourceの括弧差は未修正。問70は現行条約根拠、問75は03b判定を保留。次の画像照合済み問題を順次整備する。",
+  "nextAction": "問70は現行条約根拠、問75は03b判定、問80はsource括弧差を保留。模擬問題1の問82を原画像から照合し独自問題化する。",
   "lastUpdatedAt": "2026-10-29T13:55:09.761562+09:00",
   "subsequentQuestion51": {
     "sourceRecordRef": "question_mondai4_51.json#0",
@@ -5405,7 +5405,23 @@
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_81_primary_source_review_20261029.json",
-    "status": "source_visual_review_complete"
+    "status": "accepted",
+    "backup": "output/eco-kentei/reports/mondai1_81_before_originalization_20261029.json",
+    "note": "原画像の正答④を照合。除染・被ばく・下水汚泥・仮置場の4論点を保持して独自表現へ再構成。選択肢の順序・IDと正誤を保持。",
+    "evidence": "https://www.env.go.jp/chemi/rhm/current/09-01-04.html",
+    "questionId": "f5cc5bb309cf43c33ac2be00",
+    "nativeRunId": "20261029T161626545557-ad23cbad",
+    "priorNativeRunId": "20261029T161445309919-b50b2f72",
+    "reason": "設問意図を明確にするため誤っている記述を選ぶと明記。",
+    "stateHash": "d416a96ac86751be74c49fc03d8bd0335851f9e4c61819511d9cb00e0fc49c8a",
+    "evaluationJobId": "OEuO7fpqhMIGp8Gq",
+    "uploadReadyCandidate": "output/eco-kentei/questions_json/upload_to_firestore/knoun-2026-mock-1_firestore_20261029_162243.json",
+    "otherDocumentsExactlyUnchanged": 239,
+    "evaluationSessionId": "01a1868b-74e1-70d3-a056-5d393d86a156",
+    "verifiedChoiceCount": 4,
+    "explanationScore": 98,
+    "evaluationReceipt": "output/eco-kentei/reports/mondai1_81_evaluation_result_20261029.json",
+    "receipt": "output/eco-kentei/reports/turn_receipts/mondai1_81_accepted_20261029.json"
   },
   "inProgressQuestion1_82": {
     "sourceRecordRef": "question_mondai1_82.json#0",
