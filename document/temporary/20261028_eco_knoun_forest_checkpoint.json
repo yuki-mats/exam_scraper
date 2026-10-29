@@ -144,7 +144,7 @@
     "trackedCodeOrPromptChanged": false,
     "otherWorktreeChanges": "他作業の変更は保持し、この記録だけをstageする。"
   },
-  "nextAction": "問70は現行条約根拠の正式な検証と配送が必要。模擬問題1の問74を原画像と図から照合し独自問題化する。",
+  "nextAction": "問70は現行条約根拠の正式な検証と配送が必要。模擬問題1の問75を原画像と図から照合し独自問題化する。",
   "lastUpdatedAt": "2026-10-29T13:55:09.761562+09:00",
   "subsequentQuestion51": {
     "sourceRecordRef": "question_mondai4_51.json#0",
@@ -5246,8 +5246,25 @@
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_74_primary_source_review_20261029.json",
-    "status": "source_visual_review_complete_figure_layout_pending",
-    "figureRequiresLayoutReview": true
+    "status": "accepted",
+    "figureRequiresLayoutReview": false,
+    "figureLayoutReviewed": true,
+    "figurePath": "output/eco-kentei/question_images/knoun-2026-mock-1/05_originalized/originalized_4c03a04acdd4a024_waste_priority_1.png",
+    "figureSha256": "83209a1af0e3a993b4f7ebc432fd4894d9ce03392af2c64387bfc660fe310879",
+    "backup": "output/eco-kentei/reports/mondai1_74_before_originalization_20261029.json",
+    "note": "原画像と独自図の優先順位、正答⑫を照合。三つの取組の呼び名を問う表現に再構成し、15選択肢・識別子を保持。",
+    "questionId": "c2126f0117de9505b41f10d4",
+    "nativeRunId": "20261029T144630501412-bdf2d618",
+    "stateHash": "c7f16d4b7e57190c9160cb69e76b7fc81c5fb29633d96d0828c19550a89334fe",
+    "evaluationJobId": "EbSuclHRMyDxR78q",
+    "uploadReadyCandidate": "output/eco-kentei/questions_json/upload_to_firestore/knoun-2026-mock-1_firestore_20261029_144947.json",
+    "otherDocumentsExactlyUnchanged": 153,
+    "evaluationSessionId": "01a18636-2acb-7543-85b8-ab297f9bc9ad",
+    "verifiedChoiceCount": 15,
+    "explanationScore": 100,
+    "evaluationReceipt": "output/eco-kentei/reports/mondai1_74_evaluation_result_20261029.json",
+    "receipt": "output/eco-kentei/reports/turn_receipts/mondai1_74_accepted_20261029.json",
+    "imageInputHashMatched": true
   },
   "inProgressQuestion1_75": {
     "sourceRecordRef": "question_mondai1_75.json#0",
