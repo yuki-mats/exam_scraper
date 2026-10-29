@@ -8206,13 +8206,17 @@
   },
   "choiceIdentityHold1_16_20261030": {
     "sourceRecordRef": "question_mondai1_16.json#0",
-    "status": "hold_source_choice_projection",
+    "status": "accepted",
     "reason": "原画像の複数肢・各判断が05単一命題で失われる。各問の原画像とsourceを個別に確認。",
     "receipt": "output/eco-kentei/reports/mondai1_15_16_17_independent_choice_review_20261030.json",
     "note": "公開先ID確認・原肢の復旧・正式再整備を実施するまで受入保留。",
     "identityRepairBackup": "output/eco-kentei/reports/mondai1_16_before_fifteen_choice_repair_20261030/",
     "identityReadback": "output/eco-kentei/reports/mondai1_16_projection_firestore_readback_20261030.json",
-    "workflowStatus": "15肢復旧。旧10・23の正式再判定待ちでcoverage未達。"
+    "workflowStatus": "15肢復旧。旧10・23の正式再判定待ちでcoverage未達。",
+    "stateHash": "7f4b845d20c1422746ef3a4e77551179af04be4c637739ba397a26c8a8d469b0",
+    "evaluationJobId": "UTUzzJWrzAbyUkua",
+    "acceptanceReceipt": "output/eco-kentei/reports/mondai1_16_26_evaluation_review_20261030.json",
+    "integrationReceipt": "output/eco-kentei/reports/mondai1_16_fixed_baseline_trial_20261030/apply_receipt.json"
   },
   "choiceIdentityHold1_17_20261030": {
     "sourceRecordRef": "question_mondai1_17.json#0",
@@ -8290,13 +8294,17 @@
   },
   "choiceIdentityHold1_26_20261030": {
     "sourceRecordRef": "question_mondai1_26.json#0",
-    "status": "hold_source_choice_projection",
+    "status": "accepted",
     "reason": "原画像の複数肢・各判断が05単一命題で失われる。各問の原画像とsourceを個別に確認。",
     "receipt": "output/eco-kentei/reports/mondai1_22_24_26_projection_individual_review_20261030.json",
     "note": "公開先ID確認・原肢の復旧・正式再整備を実施するまで受入保留。",
     "identityRepairBackup": "output/eco-kentei/reports/mondai1_26_before_four_choice_repair_20261030/",
     "identityReadback": "output/eco-kentei/reports/mondai1_26_projection_firestore_readback_20261030.json",
-    "workflowStatus": "4肢復旧。旧10・23の正式再判定・独立評価待ち。"
+    "workflowStatus": "4肢復旧。旧10・23の正式再判定・独立評価待ち。",
+    "stateHash": "47ce23c44a58262c810ca4fe9a85c44018ff4c4dd9dce4134b4841dd5d0fc534",
+    "evaluationJobId": "UTUzzJWrzAbyUkua",
+    "acceptanceReceipt": "output/eco-kentei/reports/mondai1_16_26_evaluation_review_20261030.json",
+    "integrationReceipt": "output/eco-kentei/reports/mondai1_26_fixed_baseline_trial_20261030/apply_receipt.json"
   },
   "choiceIdentityHold1_27_20261030": {
     "sourceRecordRef": "question_mondai1_27.json#0",
