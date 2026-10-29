@@ -5587,7 +5587,20 @@
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_4_primary_source_review_20261029.json",
-    "status": "source_visual_review_complete"
+    "status": "evaluation_passed_law_audit_pending",
+    "questionId": "5bdee00f8adefd315c6efb09",
+    "nativeRunId": "20261029T183555452867-13048e47",
+    "backup": "output/eco-kentei/reports/mondai2_4_before_originalization_20261029.json",
+    "evidence": "https://www.env.go.jp/nature/intro/1law/regulation.html",
+    "evaluationJobId": "upN7HnrwowGxF206",
+    "stateHash": "15dac709aa72383c478f2ee7506474477fbb55be84f5f5c65f1de8f8337a9880",
+    "uploadReadyCandidate": "output/eco-kentei/questions_json/upload_to_firestore/knoun-2026-mock-2_firestore_20261029_184011.json",
+    "note": "lawRevisionFactsのreviewStateがsecondary_verifiedだがnotesに二次確認前とある。出題時法令本文も未取得で、適用時点及び二次確認の証跡を確定する必要がある。",
+    "evaluationSessionId": "01a18709-3dda-79b2-a3a0-de815d05efad",
+    "verifiedChoiceCount": 2,
+    "explanationScore": 96,
+    "evaluationReceipt": "output/eco-kentei/reports/mondai2_4_evaluation_result_20261029.json",
+    "receipt": "output/eco-kentei/reports/turn_receipts/mondai2_4_evaluation_passed_law_audit_pending_20261029.json"
   },
   "inProgressQuestion2_5": {
     "sourceRecordRef": "question_mondai2_5.json#0",
