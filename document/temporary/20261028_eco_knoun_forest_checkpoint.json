@@ -6558,7 +6558,10 @@
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": false,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_66_primary_source_review_20261029.json",
-    "status": "hold_source_transcription_difference"
+    "status": "hold_source_transcription_difference",
+    "preparationReceipt": "output/eco-kentei/reports/mondai2_66_condition_reference_repair_20261030/receipt.json",
+    "independentPreparationReview": "output/eco-kentei/reports/mondai2_66_condition_reference_independent_review_20261030.json",
+    "workflowStatus": "05④と21の塩類集積条件・根拠を準備し個別照合済み。source表記差と単独正誤表示の指示を保留し、正式再整備・評価待ち。"
   },
   "inProgressQuestion2_67": {
     "sourceRecordRef": "question_mondai2_67.json#0",
@@ -6659,16 +6662,22 @@
   "inProgressQuestion2_74": {
     "sourceRecordRef": "question_mondai2_74.json#0",
     "sourceImagesActuallyRead": true,
-    "sourceTranscriptionMatchesImages": false,
+    "sourceTranscriptionMatchesImages": null,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_74_primary_source_review_20261029.json",
-    "status": "hold_source_transcription_difference"
+    "status": "hold_formal_maintenance_glyph_encoding_ambiguous",
+    "holdReason": "画像とsourceは正答区切りの点3個が視覚的に対応。符号化は画像から判別不能でsourceは変更しない。正式整備・独立評価は未完了。",
+    "sourceGlyphVisualReview": "output/eco-kentei/reports/mondai2_74_75_76_individual_readonly_review_20261030.json",
+    "workflowStatus": "画像上の字形を再照合済み。符号化は未確定として記録し、正式再整備・再投影・独立評価を待つ。"
   },
   "inProgressQuestion2_75": {
     "sourceRecordRef": "question_mondai2_75.json#0",
     "sourceImagesActuallyRead": true,
-    "sourceTranscriptionMatchesImages": false,
+    "sourceTranscriptionMatchesImages": null,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_75_primary_source_review_20261029.json",
-    "status": "hold_source_transcription_difference"
+    "status": "hold_formal_maintenance_glyph_encoding_ambiguous",
+    "holdReason": "画像とsourceは正答区切りの点3個が視覚的に対応。符号化は画像から判別不能でsourceは変更しない。正式整備・独立評価は未完了。",
+    "sourceGlyphVisualReview": "output/eco-kentei/reports/mondai2_74_75_76_individual_readonly_review_20261030.json",
+    "workflowStatus": "画像上の字形を再照合済み。符号化は未確定として記録し、正式再整備・再投影・独立評価を待つ。"
   },
   "inProgressQuestion2_76": {
     "sourceRecordRef": "question_mondai2_76.json#0",
