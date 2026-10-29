@@ -4697,7 +4697,10 @@
     "primaryReferenceUrls": [
       "https://unfccc.int/process-and-meetings/the-paris-agreement/nationally-determined-contributions-ndcs",
       "https://unfccc.int/process-and-meetings/the-kyoto-protocol"
-    ]
+    ],
+    "originalizationRevision": "output/eco-kentei/reports/mondai1_43_before_originalization_20261030/",
+    "evidenceReceipt": "output/eco-kentei/reports/mondai1_43_originalization_evidence_20261030.json",
+    "workflowStatus": "prepared_pending_formal_treaty_audit_and_independent_evaluation"
   },
   "inProgressQuestion1_44": {
     "sourceRecordRef": "question_mondai1_44.json#0",
@@ -6258,7 +6261,12 @@
     "figureRequiresLayoutReview": true,
     "explanationRevision": "output/eco-kentei/reports/mondai2_44_before_label_explanation_20261029/",
     "workflowStatus": "prepared_pending_formal_workflow_image_receipt_and_independent_evaluation",
-    "referenceAvailabilityHold": "資源エネルギー庁の説明参照はHTTP 403。公式代替資料の取得確認が必要。"
+    "referenceAvailabilityHold": "403参照を環境省の取得可能な公式資料へ差し替え済み。正式評価と画像receiptは未完了。",
+    "verifiedReference": {
+      "url": "https://ondankataisaku.env.go.jp/shinkyusan/knowledge04.html",
+      "sha256": "ac16872df051750d86b18c3eb48148d6e98e322a1890beb3c8ce9784a73e69a6",
+      "status": "HTTP 200"
+    }
   },
   "inProgressQuestion2_45": {
     "sourceRecordRef": "question_mondai2_45.json#0",
