@@ -145,7 +145,7 @@
     "otherWorktreeChanges": "他作業の変更は保持し、この記録だけをstageする。"
   },
   "nextAction": "保留問を維持し、次の原画像照合済み候補の通常整備と独立評価を進める。",
-  "lastUpdatedAt": "2026-10-29T21:22:14.715687+09:00",
+  "lastUpdatedAt": "2026-10-29T21:23:08.427796+09:00",
   "subsequentQuestion51": {
     "sourceRecordRef": "question_mondai4_51.json#0",
     "sourceQuestionKey": "eco-kentei:knoun-2026-mock-4:bb67422eb5e52e9c",
@@ -6073,7 +6073,10 @@
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_32_primary_source_review_20261029.json",
-    "status": "source_visual_review_complete"
+    "status": "native_maintenance_running",
+    "questionId": "f52a43fc0291e7967f20a144",
+    "nativeRunId": "20261029T212308209357-99035b72",
+    "imageReviewReceipt": "output/eco-kentei/reports/parallel19_native_preview_20261029.json"
   },
   "inProgressQuestion2_33": {
     "sourceRecordRef": "question_mondai2_33.json#0",
@@ -6125,7 +6128,10 @@
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_37_primary_source_review_20261029.json",
-    "status": "source_visual_review_complete"
+    "status": "native_maintenance_running",
+    "questionId": "7d5780ac76c1ed666682c9a0",
+    "nativeRunId": "20261029T212308209357-99035b72",
+    "imageReviewReceipt": "output/eco-kentei/reports/parallel19_native_preview_20261029.json"
   },
   "inProgressQuestion2_38": {
     "sourceRecordRef": "question_mondai2_38.json#0",
@@ -7253,5 +7259,124 @@
     "firestoreWrites": 0,
     "qualityGate": "passed for groups 2 and 3",
     "existingUploadDocsUnchanged": true
+  },
+  "inProgressQuestion3_39": {
+    "sourceRecordRef": "question_mondai3_39.json#0",
+    "questionId": "9a8e40ad2154988f754fa527",
+    "nativeRunId": "20261029T212308209357-99035b72",
+    "status": "native_maintenance_running",
+    "imageReviewReceipt": "output/eco-kentei/reports/parallel19_native_preview_20261029.json"
+  },
+  "inProgressQuestion3_41": {
+    "sourceRecordRef": "question_mondai3_41.json#0",
+    "questionId": "c44a3df1b7e230a1439709ef",
+    "nativeRunId": "20261029T212308209357-99035b72",
+    "status": "native_maintenance_running",
+    "imageReviewReceipt": "output/eco-kentei/reports/parallel19_native_preview_20261029.json"
+  },
+  "inProgressQuestion3_47": {
+    "sourceRecordRef": "question_mondai3_47.json#0",
+    "questionId": "7738696c559af76c1c14bdcf",
+    "nativeRunId": "20261029T212308209357-99035b72",
+    "status": "native_maintenance_running",
+    "imageReviewReceipt": "output/eco-kentei/reports/parallel19_native_preview_20261029.json"
+  },
+  "inProgressQuestion3_48": {
+    "sourceRecordRef": "question_mondai3_48.json#0",
+    "questionId": "19e9f5683a04d453db8c5948",
+    "nativeRunId": "20261029T212308209357-99035b72",
+    "status": "native_maintenance_running",
+    "imageReviewReceipt": "output/eco-kentei/reports/parallel19_native_preview_20261029.json"
+  },
+  "inProgressQuestion3_62": {
+    "sourceRecordRef": "question_mondai3_62.json#0",
+    "questionId": "6066b08341ae087bf4bb6ba1",
+    "nativeRunId": "20261029T212308209357-99035b72",
+    "status": "native_maintenance_running",
+    "imageReviewReceipt": "output/eco-kentei/reports/parallel19_native_preview_20261029.json"
+  },
+  "inProgressQuestion3_61": {
+    "sourceRecordRef": "question_mondai3_61.json#0",
+    "questionId": "e6c8b0bcd02cc5913fd32425",
+    "nativeRunId": "20261029T212308209357-99035b72",
+    "status": "native_maintenance_running",
+    "imageReviewReceipt": "output/eco-kentei/reports/parallel19_native_preview_20261029.json"
+  },
+  "inProgressQuestion3_26": {
+    "sourceRecordRef": "question_mondai3_26.json#0",
+    "questionId": "16a0777b73a095bd1296c1b7",
+    "nativeRunId": "20261029T212308209357-99035b72",
+    "status": "native_maintenance_running",
+    "imageReviewReceipt": "output/eco-kentei/reports/parallel19_native_preview_20261029.json"
+  },
+  "inProgressQuestion4_29": {
+    "sourceRecordRef": "question_mondai4_29.json#0",
+    "questionId": "87d81c544b0127df5b34ec25",
+    "nativeRunId": "20261029T212308209357-99035b72",
+    "status": "native_maintenance_running",
+    "imageReviewReceipt": "output/eco-kentei/reports/parallel19_native_preview_20261029.json"
+  },
+  "inProgressQuestion4_30": {
+    "sourceRecordRef": "question_mondai4_30.json#0",
+    "questionId": "6260ca3abe5f82b5434dfb5c",
+    "nativeRunId": "20261029T212308209357-99035b72",
+    "status": "native_maintenance_running",
+    "imageReviewReceipt": "output/eco-kentei/reports/parallel19_native_preview_20261029.json"
+  },
+  "inProgressQuestion4_15": {
+    "sourceRecordRef": "question_mondai4_15.json#0",
+    "questionId": "a801c4d47e97a4e698a34d1d",
+    "nativeRunId": "20261029T212308209357-99035b72",
+    "status": "native_maintenance_running",
+    "imageReviewReceipt": "output/eco-kentei/reports/parallel19_native_preview_20261029.json"
+  },
+  "inProgressQuestion4_22": {
+    "sourceRecordRef": "question_mondai4_22.json#0",
+    "questionId": "a6295a5970a773713f351da7",
+    "nativeRunId": "20261029T212308209357-99035b72",
+    "status": "native_maintenance_running",
+    "imageReviewReceipt": "output/eco-kentei/reports/parallel19_native_preview_20261029.json"
+  },
+  "inProgressQuestion4_23": {
+    "sourceRecordRef": "question_mondai4_23.json#0",
+    "questionId": "633e4e11cce16fe34a791c65",
+    "nativeRunId": "20261029T212308209357-99035b72",
+    "status": "native_maintenance_running",
+    "imageReviewReceipt": "output/eco-kentei/reports/parallel19_native_preview_20261029.json"
+  },
+  "inProgressQuestion4_26": {
+    "sourceRecordRef": "question_mondai4_26.json#0",
+    "questionId": "9f3f8411129db0078fa749d3",
+    "nativeRunId": "20261029T212308209357-99035b72",
+    "status": "native_maintenance_running",
+    "imageReviewReceipt": "output/eco-kentei/reports/parallel19_native_preview_20261029.json"
+  },
+  "inProgressQuestion4_13": {
+    "sourceRecordRef": "question_mondai4_13.json#0",
+    "questionId": "09648d23b071eb754bda29b6",
+    "nativeRunId": "20261029T212308209357-99035b72",
+    "status": "native_maintenance_running",
+    "imageReviewReceipt": "output/eco-kentei/reports/parallel19_native_preview_20261029.json"
+  },
+  "inProgressQuestion4_14": {
+    "sourceRecordRef": "question_mondai4_14.json#0",
+    "questionId": "e137851a508b4e688781e66b",
+    "nativeRunId": "20261029T212308209357-99035b72",
+    "status": "native_maintenance_running",
+    "imageReviewReceipt": "output/eco-kentei/reports/parallel19_native_preview_20261029.json"
+  },
+  "inProgressQuestion4_11": {
+    "sourceRecordRef": "question_mondai4_11.json#0",
+    "questionId": "5890585847b07b53b66839d2",
+    "nativeRunId": "20261029T212308209357-99035b72",
+    "status": "native_maintenance_running",
+    "imageReviewReceipt": "output/eco-kentei/reports/parallel19_native_preview_20261029.json"
+  },
+  "inProgressQuestion4_7": {
+    "sourceRecordRef": "question_mondai4_7.json#0",
+    "questionId": "b66942ad7a87f132bb91e96f",
+    "nativeRunId": "20261029T212308209357-99035b72",
+    "status": "native_maintenance_running",
+    "imageReviewReceipt": "output/eco-kentei/reports/parallel19_native_preview_20261029.json"
   }
 }
