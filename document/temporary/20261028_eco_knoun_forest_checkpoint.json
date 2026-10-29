@@ -145,7 +145,7 @@
     "otherWorktreeChanges": "他作業の変更は保持し、この記録だけをstageする。"
   },
   "nextAction": "保留問を維持し、次の原画像照合済み候補の通常整備と独立評価を進める。",
-  "lastUpdatedAt": "2026-10-29T23:21:30.952689+09:00",
+  "lastUpdatedAt": "2026-10-29T23:31:17.917232+09:00",
   "subsequentQuestion51": {
     "sourceRecordRef": "question_mondai4_51.json#0",
     "sourceQuestionKey": "eco-kentei:knoun-2026-mock-4:bb67422eb5e52e9c",
@@ -6131,9 +6131,11 @@
   "inProgressQuestion2_36": {
     "sourceRecordRef": "question_mondai2_36.json#0",
     "sourceImagesActuallyRead": true,
-    "sourceTranscriptionMatchesImages": true,
+    "sourceTranscriptionMatchesImages": false,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_36_primary_source_review_20261029.json",
-    "status": "source_visual_review_complete"
+    "status": "hold_source_transcription_difference",
+    "sourceDifferenceProposal": "output/eco-kentei/reports/source_differences_mondai2_20261029/mondai2_36.json",
+    "holdReason": "解答画像と登録データの正答区切りに文字種差。"
   },
   "inProgressQuestion2_37": {
     "sourceRecordRef": "question_mondai2_37.json#0",
@@ -6171,23 +6173,29 @@
   "inProgressQuestion2_39": {
     "sourceRecordRef": "question_mondai2_39.json#0",
     "sourceImagesActuallyRead": true,
-    "sourceTranscriptionMatchesImages": true,
+    "sourceTranscriptionMatchesImages": false,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_39_primary_source_review_20261029.json",
-    "status": "source_visual_review_complete"
+    "status": "hold_source_transcription_difference",
+    "sourceDifferenceProposal": "output/eco-kentei/reports/source_differences_mondai2_20261029/mondai2_39.json",
+    "holdReason": "解答画像と登録データの正答区切りに文字種差。"
   },
   "inProgressQuestion2_40": {
     "sourceRecordRef": "question_mondai2_40.json#0",
     "sourceImagesActuallyRead": true,
-    "sourceTranscriptionMatchesImages": true,
+    "sourceTranscriptionMatchesImages": false,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_40_primary_source_review_20261029.json",
-    "status": "source_visual_review_complete"
+    "status": "hold_source_transcription_difference",
+    "sourceDifferenceProposal": "output/eco-kentei/reports/source_differences_mondai2_20261029/mondai2_40.json",
+    "holdReason": "解答画像と登録データの正答区切りに文字種差。"
   },
   "inProgressQuestion2_41": {
     "sourceRecordRef": "question_mondai2_41.json#0",
     "sourceImagesActuallyRead": true,
-    "sourceTranscriptionMatchesImages": true,
+    "sourceTranscriptionMatchesImages": false,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_41_primary_source_review_20261029.json",
-    "status": "source_visual_review_complete"
+    "status": "hold_source_transcription_difference",
+    "sourceDifferenceProposal": "output/eco-kentei/reports/source_differences_mondai2_20261029/mondai2_41.json",
+    "holdReason": "解答画像と登録データの正答区切りに文字種差。"
   },
   "inProgressQuestion2_42": {
     "sourceRecordRef": "question_mondai2_42.json#0",
@@ -6235,9 +6243,11 @@
   "inProgressQuestion2_47": {
     "sourceRecordRef": "question_mondai2_47.json#0",
     "sourceImagesActuallyRead": true,
-    "sourceTranscriptionMatchesImages": true,
+    "sourceTranscriptionMatchesImages": false,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_47_primary_source_review_20261029.json",
-    "status": "source_visual_review_complete"
+    "status": "hold_source_transcription_difference",
+    "sourceDifferenceProposal": "output/eco-kentei/reports/source_differences_mondai2_20261029/mondai2_47.json",
+    "holdReason": "画像の試験ラベルにない括弧と正答区切りの文字種差。"
   },
   "inProgressQuestion2_48": {
     "sourceRecordRef": "question_mondai2_48.json#0",
@@ -6299,8 +6309,8 @@
     "sourceTranscriptionMatchesImages": false,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_52_primary_source_review_20261029.json",
     "status": "hold_source_transcription_difference",
-    "sourceDifferenceProposal": "output/eco-kentei/reports/mondai2_52_source_header_difference_20261029.json",
-    "holdReason": "画像にないIBT・CBT見出しが登録データに追加。"
+    "sourceDifferenceProposal": "output/eco-kentei/reports/mondai2_15_source_difference_proposal_20261029.json",
+    "holdReason": "IBT・CBTラベル欠落という先の観察は誤り。本文の空欄括弧が画像では【キ】に見えるが文字種を確定できず要確認。"
   },
   "inProgressQuestion2_53": {
     "sourceRecordRef": "question_mondai2_53.json#0",
