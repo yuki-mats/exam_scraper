@@ -8632,5 +8632,16 @@
     "inputHoldReceipt": "output/eco-kentei/reports/mondai1_17_19_04_input_identification_hold_20261030.json",
     "note": "旧04の入力を一意に確認できなかったため現行入力で04を正式再実行。再merge・独立評価は未実施。",
     "resultReceipt": "output/eco-kentei/reports/mondai1_17_19_question_set_result_20261030.json"
+  },
+  "choiceRestorationEvaluation1_17_19_20261030": {
+    "jobId": "aADxjY4tSvtL9bzB",
+    "status": "running",
+    "questionRefs": [
+      "question_mondai1_17.json#0",
+      "question_mondai1_19.json#0"
+    ],
+    "startReceipt": "output/eco-kentei/reports/mondai1_17_19_evaluation_start_20261030.json",
+    "integrationReceipt": "output/eco-kentei/reports/mondai1_17_19_fixed_baseline_trial_20261030/apply_receipt.json",
+    "note": "04入力再照合・ローカル統合・必須検査完了。別session独立評価までhold。"
   }
 }
