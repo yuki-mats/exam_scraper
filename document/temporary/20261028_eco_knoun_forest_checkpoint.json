@@ -8805,7 +8805,8 @@
     "status": "hold_originalized_source_label_in_display",
     "reason": "独自問題の単独表示に取得元の問題番号・配点・小問記号等が残存。原画像・05・公開用文書を個別照合。 選択肢順とsource keysに不整合もある。",
     "receipt": "output/eco-kentei/reports/mondai4_46_49_source_headers_choice_readonly_20261030.json",
-    "workflowStatus": "05表示文・必要な選択肢対応の整備、再投影・独立評価待ち。"
+    "workflowStatus": "05の原順と正答は修復済み。旧23との不一致は正式02a・再投影・独立評価待ち。",
+    "repairReceipt": "output/eco-kentei/reports/mondai4_46_source_order_repair_20261030/receipt.json"
   },
   "originalizedDisplayHold4_47_20261030": {
     "sourceRecordRef": "question_mondai4_47.json#0",
@@ -8861,6 +8862,31 @@
     "status": "hold_source_choice_projection",
     "reason": "原画像・sourceの①〜③を05で並べ替えたが元sourceUniqueKeysが位置順のままで、各キーと選択肢の意味が一致しない。",
     "receipt": "output/eco-kentei/reports/mondai5_29_choice_permutation_independent_review_20261030.json",
-    "workflowStatus": "限定readback・選択肢とキーの対応修復・正式再整備・独立評価待ち。"
+    "workflowStatus": "05の原順と正答は修復済み。旧23との不一致は正式02a・再投影・独立評価待ち。",
+    "repairReceipt": "output/eco-kentei/reports/mondai5_29_choice_identity_restore_20261030/receipt.json"
+  },
+  "choiceIdentityHold3_34_20261030": {
+    "sourceRecordRef": "question_mondai3_34.json#0",
+    "status": "hold_source_choice_projection",
+    "reason": "元画像とキーに対応する05順序・正答を修復済み。旧10/23は修復前で05と正答不一致。",
+    "repairReceipt": "output/eco-kentei/reports/mondai3_34_identity_restore_before_20261030/receipt.json",
+    "independentReview": "output/eco-kentei/reports/mondai3_34_nuclear_two_references_independent_review_20261030.json",
+    "workflowStatus": "正式02a・関連工程・merge・必須検査・独立評価待ち。"
+  },
+  "choiceIdentityHold3_71_20261030": {
+    "sourceRecordRef": "question_mondai3_71.json#0",
+    "status": "hold_source_choice_projection",
+    "reason": "元画像とキーに対応する05順序・正答を修復済み。旧10/23は修復前で05と正答不一致。",
+    "repairReceipt": "output/eco-kentei/reports/mondai3_71_76_source_order_repair_20261030/receipt.json",
+    "independentReview": "output/eco-kentei/reports/mondai3_71_76_standalone_independent_review_20261030.json",
+    "workflowStatus": "正式02a・関連工程・merge・必須検査・独立評価待ち。"
+  },
+  "choiceIdentityHold3_76_20261030": {
+    "sourceRecordRef": "question_mondai3_76.json#0",
+    "status": "hold_source_choice_projection",
+    "reason": "元画像とキーに対応する05順序・正答を修復済み。旧10/23は修復前で05と正答不一致。",
+    "repairReceipt": "output/eco-kentei/reports/mondai3_71_76_source_order_repair_20261030/receipt.json",
+    "independentReview": "output/eco-kentei/reports/mondai3_71_76_standalone_independent_review_20261030.json",
+    "workflowStatus": "正式02a・関連工程・merge・必須検査・独立評価待ち。"
   }
 }
