@@ -6337,7 +6337,11 @@
     "sourceTranscriptionMatchesImages": false,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_50_primary_source_review_20261029.json",
     "status": "hold_source_transcription_difference",
-    "holdReason": "画像にある小問ラベル「オ」が登録済み問題文にない。"
+    "holdReason": "原画像に独立小問記号「オ」があるが、sourceのquestionBodyTextとsourceTranscription.questionTextに欠落。正答番号①は一致。",
+    "differenceEvidence": "output/eco-kentei/reports/mondai2_50_saf_readonly_proposal_20261030.json",
+    "originalizationRevision": "output/eco-kentei/reports/mondai2_50_before_saf_originalization_20261030/",
+    "independentContentReview": "05_21_content_pass_old_law_context_and_formal_evaluation_pending",
+    "metadataHold": "旧lawContextForExplanationがSAF全般をバイオ燃料に限定。正式02b再生成が必要。"
   },
   "inProgressQuestion2_51": {
     "sourceRecordRef": "question_mondai2_51.json#0",
@@ -6737,7 +6741,8 @@
     },
     "evaluationResult": "output/eco-kentei/reports/parallel2_law_evaluation_result_20261029.json",
     "holdReason": "03b証拠本文とlawRevisionFacts本文の実hashが不一致。validatedと二次承認のみでは受入不可。",
-    "evidenceReceipt": "output/question_review_console/eco-kentei/knoun-2026-mock-2/attempt_payloads/e8/e8422209b44c825d331aaef5c700f3c5b073f34c975cdbbe8bcc5a04837ecb19.json"
+    "evidenceReceipt": "output/question_review_console/workflow_runs/eco-kentei/20261030T000656497423-ea55bcbb/attempt_payloads/e8/e8422209b44c825d331aaef5c700f3c5b073f34c975cdbbe8bcc5a04837ecb19.json",
+    "bindingInvestigation": "output/eco-kentei/reports/mondai2_85_article_hash_investigation_20261030.json"
   },
   "inProgressQuestion3_1": {
     "sourceRecordRef": "question_mondai3_1.json#0",
@@ -8077,7 +8082,8 @@
     "sourceRecordRef": "question_mondai4_21.json#0",
     "status": "originalization_prepared_pending_formal_audit_and_independent_evaluation",
     "evidenceReceipt": "output/eco-kentei/reports/mondai4_21_before_rework_20261030/",
-    "sourceTranscriptionUncertainty": "原解答の三点文字種は画像から判別困難。番号は一致。"
+    "sourceTranscriptionUncertainty": "原解答の三点文字種は画像から判別困難。番号は一致。",
+    "explanationRevision": "output/eco-kentei/reports/mondai4_21_before_toprunner_explanation_20261030/"
   },
   "lawEvidenceIntegrityIssue20261030": {
     "status": "fix_in_progress",
