@@ -5896,7 +5896,9 @@
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_20_primary_source_review_20261029.json",
     "status": "hold_source_transcription_difference",
     "sourceDifferenceProposal": "output/eco-kentei/reports/source_differences_mondai2_20261029/mondai2_20.json",
-    "holdReason": "answer_result_text: 画像と登録内容に差。"
+    "holdReason": "answer_result_text: 画像と登録内容に差。",
+    "explanationRevision": "output/eco-kentei/reports/mondai2_20_before_cleanwood_explanation_20261029/",
+    "headerReviewCorrection": "画像にIBT・CBT表示あり。ヘッダーはsourceと一致。解答区切り文字の既存保留は維持。"
   },
   "inProgressQuestion2_21": {
     "sourceRecordRef": "question_mondai2_21.json#0",
@@ -7008,7 +7010,9 @@
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai3_23_primary_source_review_20261029.json",
-    "status": "source_visual_review_complete"
+    "status": "originalization_prepared_pending_formal_audit_and_independent_evaluation",
+    "questionId": "8319a97e61fc0191",
+    "evidenceReceipt": "output/eco-kentei/reports/mondai3_23_originalization_evidence_20261029.json"
   },
   "inProgressQuestion3_24": {
     "sourceRecordRef": "question_mondai3_24.json#0",
@@ -7966,5 +7970,10 @@
     "status": "originalization_prepared_pending_formal_audit_and_independent_evaluation",
     "evidenceReceipt": "output/eco-kentei/reports/mondai4_16_lifecycle_readonly_proposal_20261029.json",
     "sourceTranscriptionUncertainty": "原画像の正答区切り文字は判読困難。画像とsourceの正答番号は一致。"
+  },
+  "inProgressQuestion4_17": {
+    "sourceRecordRef": "question_mondai4_17.json#0",
+    "status": "originalization_prepared_pending_formal_audit_and_independent_evaluation",
+    "evidenceReceipt": "output/eco-kentei/reports/mondai4_17_before_implementation_20261029/receipt.json"
   }
 }
