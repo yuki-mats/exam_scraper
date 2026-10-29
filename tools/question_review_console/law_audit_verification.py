@@ -15,6 +15,9 @@ from dataclasses import replace
 from typing import Any, Mapping
 
 from tools.question_review_console.question_candidate import QuestionCandidate
+from tools.question_review_console.primary_law_evidence import (
+    PrimaryLawEvidenceResolver, _flatten_references, locator_parts,
+)
 
 
 SCHEMA_VERSION = 'law-audit-verification/v1'
@@ -22,6 +25,108 @@ JUDGMENT_GUIDANCE_SCHEMA = 'statement-judgment-guidance/v1'
 JUDGMENT_GUIDANCE_SOURCE = 'prompt/02a_prompt_review_correctChoiceText.md'
 JUDGMENT_GUIDANCE_HEADING = '## 判定基準'
 _UNSPECIFIED_SUPPLEMENTAL = object()
+
+
+def _exam_item_date(bundle: Mapping[str, Any], record: Mapping[str, Any], item: Mapping[str, Any], repo_root: Path) -> str | None:
+    """Resolve provider's per-reference exam date against its actual inputs."""
+    evidence = bundle.get('proposedPrimaryLawEvidence') or {}
+    source = item.get('examAsOfSource')
+    identity = str((bundle.get('question', {}).get('sourceIdentity') or {}).get('sourceQuestionKey') or '').split(':')
+    if len(identity) < 3 or not all(identity[:3]):
+        return None
+    qualification, group = identity[0], identity[1]
+    resolver = PrimaryLawEvidenceResolver(repo_root)
+    default_date, default_source = resolver._default_exam_date(
+        record, qualification=qualification, list_group_id=group)
+    if (evidence.get('examAsOf') != (default_date or None)
+            or evidence.get('examAsOfSource') != (default_source or None)):
+        return None
+    refs = []
+    for ref in _flatten_references(record.get('lawReferences')):
+        if (ref.get('lawId') == item.get('lawId')
+                and (ref.get('role') or 'current_basis') == item.get('role')
+                and (ref.get('scope') or '') == (item.get('scope') or '')
+                and ref.get('choiceIndex') == item.get('choiceIndex')
+                and any(kind == (item.get('locator') or {}).get('kind')
+                        and ('_'.join(str(x) for x in number) if isinstance(number, tuple) else str(number))
+                        == str((item.get('locator') or {}).get('num'))
+                        for kind, number in locator_parts(ref.get('article')))):
+            refs.append(ref)
+    if not refs:
+        return None
+    if source == 'lawReference.referenceDate':
+        dates = {str(ref.get('referenceDate') or '')[:10] for ref in refs
+                 if ref.get('role') == 'exam_time_basis' and ref.get('referenceDate')}
+        return next(iter(dates)) if len(dates) == 1 else None
+    if any(ref.get('role') == 'exam_time_basis' and ref.get('referenceDate') for ref in refs):
+        return None
+    if qualification and group:
+        override = resolver._law_basis_overrides.get((qualification, group, str(item.get('lawId') or '')))
+        if override:
+            return override[0] if source == override[1] else None
+    if source != evidence.get('examAsOfSource'):
+        return None
+    return evidence.get('examAsOf')
+
+
+def _validate_fact_article_binding(bundle: Mapping[str, Any], record: Mapping[str, Any], repo_root: Path) -> None:
+    """Bind any intermediate fact article body to the delivered full locator text."""
+    facts = record.get('lawRevisionFacts')
+    per_choice = isinstance(facts, list)
+    facts = facts if per_choice else [facts]
+    evidence = bundle.get('proposedPrimaryLawEvidence') or {}
+    items = evidence.get('items') or []
+    for index, fact in enumerate(facts):
+        if not isinstance(fact, Mapping):
+            continue
+        for period, evidence_key in (('current', 'currentSnapshot'), ('examTime', 'examSnapshot')):
+            snapshot = fact.get(period)
+            if not isinstance(snapshot, Mapping) or 'articleText' not in snapshot:
+                continue  # Existing minimal and hash-only snapshots remain valid.
+            text = snapshot['articleText']
+            declared_hash = snapshot.get('articleTextHash')
+            if (not isinstance(text, str) or not text or not isinstance(declared_hash, str)
+                    or hashlib.sha256(text.encode('utf-8')).hexdigest() != declared_hash):
+                raise ValueError('法令fact本文とarticleTextHashが一致しません。')
+            parts = locator_parts(snapshot.get('article'))
+            law_id = snapshot.get('lawId')
+            if not law_id or len(parts) != 1:
+                raise ValueError('法令fact本文の法令ID又は条文範囲を特定できません。')
+            kind, number = parts[0]
+            number_key = '_'.join(str(part) for part in number) if isinstance(number, tuple) else str(number)
+            matches = []
+            for item in items:
+                if not isinstance(item, Mapping) or item.get('lawId') != law_id:
+                    continue
+                if item.get('scope') == 'choice' and per_choice and item.get('choiceIndex') != index:
+                    continue
+                locator = item.get('locator') or {}
+                if locator.get('kind') != kind or str(locator.get('num')) != number_key:
+                    continue
+                official = item.get(evidence_key)
+                if not isinstance(official, Mapping) or item.get('status') != 'complete':
+                    continue
+                expected_date = (evidence.get('currentAsOf') if period == 'current'
+                                 else _exam_item_date(bundle, record, item, repo_root))
+                if (not isinstance(expected_date, str) or not expected_date
+                        or official.get('asOf') != expected_date
+                        or not isinstance(official.get('revisionId'), str)
+                        or not official['revisionId']):
+                    continue
+                if snapshot.get('referenceDate') and snapshot['referenceDate'] != official.get('asOf'):
+                    continue
+                if snapshot.get('lawRevisionId') and snapshot['lawRevisionId'] != official.get('revisionId'):
+                    continue
+                matches.append((item, official))
+            if not matches:
+                raise ValueError('法令fact本文に対応する一次根拠の法令・時点・条文を確認できません。')
+            for item, official in matches:
+                official_text = official.get('text')
+                if (official.get('locator') != item.get('locator')
+                        or official.get('textTruncated') is not False or not isinstance(official_text, str)
+                        or hashlib.sha256(official_text.encode('utf-8')).hexdigest() != official.get('textHash')
+                        or official_text != text or official.get('textHash') != declared_hash):
+                    raise ValueError('法令fact本文と同一範囲の一次根拠本文・hashが一致しません。')
 
 
 def _json_hash(value):
@@ -81,6 +186,7 @@ def validate_verification_bundle(bundle: Mapping[str, Any], *, repo_root=None,
             record=bundle['question']['currentRecord'], question_id=bundle['question']['questionId'],
             require_selected=True)
     for field in bundle.get('proposedUnsetFields', []): proposed_record.pop(field, None)
+    _validate_fact_article_binding(bundle, proposed_record, Path(repo_root or Path(__file__).resolve().parents[2]))
     references = proposed_record.get(GUIDANCE_FIELD)
     if official is not None or references is not None:
         actual = validate_guidance(repo_root or Path(__file__).resolve().parents[2], references,

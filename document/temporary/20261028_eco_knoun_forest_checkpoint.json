@@ -6329,7 +6329,8 @@
     "nativeRunId": "20261029T225039741075-871f0780",
     "imageReviewReceipt": "output/eco-kentei/reports/parallel3_next_intake_20261029.json",
     "sourceDifferenceProposal": "output/eco-kentei/reports/mondai2_49_source_header_difference_20261029.json",
-    "holdReason": "原画像ラベルにない括弧が00_sourceにある。"
+    "holdReason": "原画像ラベルにない括弧が00_sourceにある。",
+    "independentContentReview": "pass_05_21_old_10_and_formal_evaluation_pending"
   },
   "inProgressQuestion2_50": {
     "sourceRecordRef": "question_mondai2_50.json#0",
@@ -8086,9 +8087,10 @@
     "explanationRevision": "output/eco-kentei/reports/mondai4_21_before_toprunner_explanation_20261030/"
   },
   "lawEvidenceIntegrityIssue20261030": {
-    "status": "fix_in_progress",
+    "status": "fix_tested_independently_reviewed_server_restart_pending",
     "example": "question_mondai2_85.json#0",
     "designReceipt": "output/eco-kentei/reports/mondai2_85_article_binding_design_20261030.json",
-    "note": "一次証拠とfact本文・hashの不整合を正式保存前に検出する修正を検討中。実行中serverには再起動まで未反映。"
+    "note": "一次証拠とfact本文・hashの不整合を正式保存前に検出する修正を検討中。実行中serverには再起動まで未反映。",
+    "verification": "対象57テスト成功。模擬2-85の実bundle不一致を検出。法別試験日overrideも独立レビュー済み。稼働serverへの反映と既存候補の再監査は未実施。"
   }
 }
