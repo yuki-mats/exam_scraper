@@ -144,7 +144,7 @@
     "trackedCodeOrPromptChanged": false,
     "otherWorktreeChanges": "他作業の変更は保持し、この記録だけをstageする。"
   },
-  "nextAction": "問70のrun状態を確認し、条約及び全肢の一次資料の取得検証済み根拠を工程へ渡す方法を調査する。他の未整備問題も順次進める。",
+  "nextAction": "問70の実行中runを確認。取得した4件の一次資料について工程へ配送する登録方法と現行性を確認し、未完了工程を再開。他の未整備問題も進める。",
   "lastUpdatedAt": "2026-10-29T13:55:09.761562+09:00",
   "subsequentQuestion51": {
     "sourceRecordRef": "question_mondai4_51.json#0",
@@ -5143,7 +5143,13 @@
     "nativeRunId": "20261029T140025720995-0206225d",
     "blocker": "現行法本文・正式識別子・取得検証済み一次根拠が工程に渡らず02bが保留。03以降も未完了。run全体はcategory_setup実行中。",
     "sourceReference": "https://www.env.go.jp/recycle/yugai/conf/basel_r060430/r060430_02.pdf",
-    "verification": "既存merged対象の選択肢整合性・必須項目は成功。問70の23パッチcoverage成功。問70は未merge・未評価。"
+    "verification": "既存merged対象の選択肢整合性・必須項目は成功。問70の23パッチcoverage成功。問70は未merge・未評価。",
+    "primaryEvidenceAcquisition": {
+      "path": "output/eco-kentei/reports/mondai1_70_primary_evidence_20261029/acquisition.json",
+      "sha256": "c841b2f6d81055e3027c25b85043131b4cd3e02f798dd6f8fc9f59e788e53d1a",
+      "documents": 4,
+      "note": "条約本文・環境省資料を実取得。根拠候補であり、現行性の確定とnative工程への登録・配送は未完了。"
+    }
   },
   "inProgressQuestion1_71": {
     "sourceRecordRef": "question_mondai1_71.json#0",
@@ -5973,24 +5979,31 @@
   "inProgressQuestion3_17": {
     "sourceRecordRef": "question_mondai3_17.json#0",
     "sourceImagesActuallyRead": true,
-    "sourceTranscriptionMatchesImages": false,
+    "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai3_17_primary_source_review_20261029.json",
-    "status": "hold_source_transcription_difference",
-    "reason": "見出しの区切りは原画像「2-2」、登録文は「2－2」（ハイフンの字体差）。問題文・語群・正答⑤は一致。"
+    "status": "source_visual_review_complete",
+    "reason": "見出しの記号の文字コードは画像から判別不能。内容は一致。"
   },
   "inProgressQuestion3_18": {
     "sourceRecordRef": "question_mondai3_18.json#0",
     "sourceImagesActuallyRead": true,
-    "sourceTranscriptionMatchesImages": false,
+    "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai3_18_primary_source_review_20261029.json",
-    "status": "hold_source_transcription_difference",
-    "reason": "見出しの区切りは原画像「2-2」、登録文は「2－2」（ハイフンの字体差）。問題文・語群・正答⑥・解説の内容は一致。"
+    "status": "source_visual_review_complete",
+    "reason": "見出しの記号の文字コードは画像から判別不能。内容は一致。"
   },
   "inProgressQuestion3_19": {
     "sourceRecordRef": "question_mondai3_19.json#0",
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai3_19_primary_source_review_20261029.json",
+    "status": "source_visual_review_complete"
+  },
+  "inProgressQuestion3_20": {
+    "sourceRecordRef": "question_mondai3_20.json#0",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": true,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai3_20_primary_source_review_20261029.json",
     "status": "source_visual_review_complete"
   }
 }
