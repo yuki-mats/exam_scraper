@@ -8129,5 +8129,12 @@
     "reason": "出題時本文として記録された現行本文を裏付ける出題時証拠がない。",
     "receipt": "output/eco-kentei/reports/accepted_03b_article_binding_readonly_20261030.json",
     "independentReview": "actual bundle, saved facts and evidence independently checked; formal reaudit required"
+  },
+  "lawEvidenceHold4_12_20261030": {
+    "sourceRecordRef": "question_mondai4_12.json#0",
+    "status": "hold_law_evidence_binding",
+    "reason": "正式保存factの第5条本文が要約で、宣言hashは条文全文。出題時証拠も未確認。",
+    "receipt": "output/eco-kentei/reports/accepted_03b_article_binding_receipt_selection_20261030.json",
+    "independentReview": "正式commit済みbundleと現行21の対応、実hashと一次evidenceを独立照合済み。正式再監査が必要。"
   }
 }
