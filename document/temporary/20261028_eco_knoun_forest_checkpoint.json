@@ -8594,5 +8594,15 @@
     "note": "05・10・23を元identityで照合し正式投影に対してcoverageを確認する明示optionを追加。既存呼出しへの自動接続は未実施。正答の意味は別途1問ずつ目視。",
     "review": "別ID・URL・key混入と肢欠落の拒否、正当な正誤ラベルの互換を独立確認。",
     "trial": "output/eco-kentei/reports/mondai1_12_15_reintegration_trial_20261030/integration_trial_summary.json"
+  },
+  "choiceRestorationEvaluation1_12_15_20261030": {
+    "jobId": "93VLNyVElMwSWPZy",
+    "status": "running",
+    "questionRefs": [
+      "question_mondai1_12.json#0",
+      "question_mondai1_15.json#0"
+    ],
+    "startReceipt": "output/eco-kentei/reports/mondai1_12_15_evaluation_start_20261030.json",
+    "note": "sourceと最終投影の個別照合・ローカル統合・必須検査完了。別session独立評価の結果までhold。"
   }
 }
