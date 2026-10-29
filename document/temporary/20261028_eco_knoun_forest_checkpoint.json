@@ -8341,5 +8341,47 @@
     "reason": "原画像の複数肢・各判断が05単一命題で失われる。原画像とsourceを個別に確認。",
     "receipt": "output/eco-kentei/reports/mondai1_40_42_independent_choice_review_20261030.json",
     "note": "公開先ID確認・原肢の復旧・正式再整備を実施するまで受入保留。"
+  },
+  "instructionHold1_44_20261030": {
+    "sourceRecordRef": "question_mondai1_44.json#0",
+    "status": "hold_true_false_instruction_mismatch",
+    "reason": "各肢を単独true_falseで答える文書に、4肢から不適切な1つを選ぶ指示が残る。原画像と各派生文書を個別照合済み。",
+    "receipt": "output/eco-kentei/reports/mondai1_44_45_true_false_instruction_review_20261030.json"
+  },
+  "instructionHold1_45_20261030": {
+    "sourceRecordRef": "question_mondai1_45.json#0",
+    "status": "hold_true_false_instruction_mismatch",
+    "reason": "各肢を単独true_falseで答える文書に、4肢から不適切な1つを選ぶ指示が残る。原画像と各派生文書を個別照合済み。",
+    "receipt": "output/eco-kentei/reports/mondai1_44_45_true_false_instruction_review_20261030.json"
+  },
+  "instructionHold4_41_20261030": {
+    "sourceRecordRef": "question_mondai4_41.json#0",
+    "status": "hold_true_false_instruction_mismatch",
+    "reason": "各肢を単独true_falseで答える文書に、4肢から不適切な1つを選ぶ指示が残る。原画像と各派生文書を個別照合済み。",
+    "receipt": "output/eco-kentei/reports/mondai4_41_42_43_truefalse_instruction_review_20261030.json"
+  },
+  "instructionHold4_42_20261030": {
+    "sourceRecordRef": "question_mondai4_42.json#0",
+    "status": "hold_true_false_instruction_mismatch",
+    "reason": "各肢を単独true_falseで答える文書に、4肢から不適切な1つを選ぶ指示が残る。原画像と各派生文書を個別照合済み。",
+    "receipt": "output/eco-kentei/reports/mondai4_41_42_43_truefalse_instruction_review_20261030.json"
+  },
+  "instructionHold4_43_20261030": {
+    "sourceRecordRef": "question_mondai4_43.json#0",
+    "status": "hold_true_false_instruction_mismatch",
+    "reason": "各肢を単独true_falseで答える文書に、4肢から不適切な1つを選ぶ指示が残る。原画像と各派生文書を個別照合済み。",
+    "receipt": "output/eco-kentei/reports/mondai4_41_42_43_truefalse_instruction_review_20261030.json"
+  },
+  "instructionHold4_44_20261030": {
+    "sourceRecordRef": "question_mondai4_44.json#0",
+    "status": "hold_true_false_instruction_mismatch",
+    "reason": "各肢を単独true_falseで答える文書に、4肢から不適切な1つを選ぶ指示が残る。原画像と各派生文書を個別照合済み。",
+    "receipt": "output/eco-kentei/reports/mondai4_44_45_true_false_instruction_independent_review_20261030.json"
+  },
+  "instructionHold4_45_20261030": {
+    "sourceRecordRef": "question_mondai4_45.json#0",
+    "status": "hold_true_false_instruction_mismatch",
+    "reason": "各肢を単独true_falseで答える文書に、4肢から不適切な1つを選ぶ指示が残る。原画像と各派生文書を個別照合済み。",
+    "receipt": "output/eco-kentei/reports/mondai4_44_45_true_false_instruction_independent_review_20261030.json"
   }
 }
