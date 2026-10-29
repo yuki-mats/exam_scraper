@@ -8221,15 +8221,16 @@
   },
   "choiceIdentityHold1_18_20261030": {
     "sourceRecordRef": "question_mondai1_18.json#0",
-    "status": "hold_source_choice_projection",
+    "status": "accepted",
     "reason": "原画像の複数肢・各判断が05単一命題で失われる。各問の原画像とsourceを個別に確認。",
     "receipt": "output/eco-kentei/reports/mondai1_18_19_20_originalization_independent_review_20261030.json",
     "note": "公開先ID確認・原肢の復旧・正式再整備を実施するまで受入保留。",
     "identityRepairBackup": "output/eco-kentei/reports/mondai1_18_before_fifteen_choice_repair_20261030/",
     "identityReadback": "output/eco-kentei/reports/mondai1_18_projection_firestore_readback_20261030.json",
-    "workflowStatus": "15肢復旧。旧10・23の正式再判定待ち。",
+    "workflowStatus": "原肢復旧・正式投影・必須検査・独立評価を確認。Firestore未公開。",
     "tenPatchCleanup": "旧単一本文・肢のみ除去済み。05を含む正式mergeとcoverage・独立評価待ち。",
-    "independentContentReview": "原画像15肢・正答・04投影を確認。受入は保留。"
+    "independentContentReview": "原画像15肢・正答・04投影を確認。受入は保留。",
+    "acceptanceReceipt": "output/eco-kentei/reports/mondai1_18_20_acceptance_20261030.json"
   },
   "choiceIdentityHold1_19_20261030": {
     "sourceRecordRef": "question_mondai1_19.json#0",
@@ -8244,15 +8245,16 @@
   },
   "choiceIdentityHold1_20_20261030": {
     "sourceRecordRef": "question_mondai1_20.json#0",
-    "status": "hold_source_choice_projection",
+    "status": "accepted",
     "reason": "原画像の複数肢・各判断が05単一命題で失われる。各問の原画像とsourceを個別に確認。",
     "receipt": "output/eco-kentei/reports/mondai1_18_19_20_originalization_independent_review_20261030.json",
     "note": "公開先ID確認・原肢の復旧・正式再整備を実施するまで受入保留。",
     "identityRepairBackup": "output/eco-kentei/reports/mondai1_20_before_fifteen_choice_repair_20261030/",
     "identityReadback": "output/eco-kentei/reports/mondai1_20_projection_firestore_readback_20261030.json",
-    "workflowStatus": "15肢復旧。旧10・23の正式再判定待ちでcoverage未達。",
+    "workflowStatus": "原肢復旧・正式投影・必須検査・独立評価を確認。Firestore未公開。",
     "tenPatchCleanup": "旧単一本文・肢のみ除去済み。05を含む正式mergeとcoverage・独立評価待ち。",
-    "independentContentReview": "原画像15肢・正答・04投影を確認。受入は保留。"
+    "independentContentReview": "原画像15肢・正答・04投影を確認。受入は保留。",
+    "acceptanceReceipt": "output/eco-kentei/reports/mondai1_18_20_acceptance_20261030.json"
   },
   "choiceIdentityHold1_22_20261030": {
     "sourceRecordRef": "question_mondai1_22.json#0",
@@ -8610,14 +8612,15 @@
   },
   "choiceRestorationEvaluation1_18_20_20261030": {
     "jobId": "AGrJW_KrWWMeW8jC",
-    "status": "running",
+    "status": "succeeded_accepted",
     "questionRefs": [
       "question_mondai1_18.json#0",
       "question_mondai1_20.json#0"
     ],
     "startReceipt": "output/eco-kentei/reports/mondai1_18_20_evaluation_start_20261030.json",
     "integrationReceipt": "output/eco-kentei/reports/mondai1_18_20_fixed_baseline_trial_20261030/apply_receipt.json",
-    "note": "原画像・最終投影の個別照合、ローカル統合・必須検査完了。別session独立評価の結果までhold。"
+    "note": "原画像・最終投影の個別照合、ローカル統合・必須検査完了。別session独立評価の結果までhold。",
+    "acceptanceReceipt": "output/eco-kentei/reports/mondai1_18_20_acceptance_20261030.json"
   },
   "questionSetInputRevalidation1_17_19_20261030": {
     "nativeRunId": "20261030T023705945902-4b47ac0d",
