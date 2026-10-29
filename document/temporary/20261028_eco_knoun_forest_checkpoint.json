@@ -144,8 +144,8 @@
     "trackedCodeOrPromptChanged": false,
     "otherWorktreeChanges": "他作業の変更は保持し、この記録だけをstageする。"
   },
-  "nextAction": "問58は英国の現行方針により正答が一意でない可能性があり、一次資料を踏まえ独自化と正答を再整備する。問57・59・60は転記差異で保留。",
-  "lastUpdatedAt": "2026-10-29T11:02:32.858772+09:00",
+  "nextAction": "問57・59・60は転記差異で保留し、画像照合済みの問61を独自問題化から整備する。",
+  "lastUpdatedAt": "2026-10-29T11:12:22.585032+09:00",
   "subsequentQuestion51": {
     "sourceRecordRef": "question_mondai4_51.json#0",
     "sourceQuestionKey": "eco-kentei:knoun-2026-mock-4:bb67422eb5e52e9c",
@@ -4911,11 +4911,20 @@
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_58_primary_source_review_20261029.json",
-    "status": "hold_current_policy_and_answer_ambiguity",
+    "status": "accepted",
     "questionId": "49910b73d6c840be547fbd15",
     "originalizeRunId": "20261029T110130447655-f09d5340",
     "backup": "output/eco-kentei/reports/mondai1_58_before_rework_20261029",
-    "holdReport": "output/eco-kentei/reports/mondai1_58_current_policy_hold_20261029.json"
+    "holdReport": "output/eco-kentei/reports/mondai1_58_current_policy_hold_20261029.json",
+    "currentPolicyReviewId": "20261029T110400545480-1fb5afe9",
+    "originalizationReworkRunId": "20261029T110416734373-e140f6bd",
+    "nativeReworkRunId": "20261029T110515650376-9ae2502c",
+    "stateHash": "1fd65cd9ed260919b665e9ac860f97fa4e100b3e8fd71aa59ee840f81599b8a6",
+    "evaluationJobId": "fXZJvAZTUJVUo0mN",
+    "uploadReadyCandidate": "output/eco-kentei/questions_json/upload_to_firestore/knoun-2026-mock-1_firestore_20261029_110952.json",
+    "evaluationSessionId": "01a1856c-223a-7b00-b9a7-b45997eff41e",
+    "receipt": "output/eco-kentei/reports/turn_receipts/mondai1_58_accepted_20261029.json",
+    "otherDocumentCountUnchanged": 73
   },
   "inProgressQuestion1_59": {
     "sourceRecordRef": "question_mondai1_59.json#0",
@@ -5476,5 +5485,40 @@
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_51_primary_source_review_20261029.json",
     "status": "source_visual_review_complete"
+  },
+  "inProgressQuestion2_52": {
+    "sourceRecordRef": "question_mondai2_52.json#0",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": true,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_52_primary_source_review_20261029.json",
+    "status": "source_visual_review_complete"
+  },
+  "inProgressQuestion2_53": {
+    "sourceRecordRef": "question_mondai2_53.json#0",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": false,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_53_primary_source_review_20261029.json",
+    "status": "hold_source_transcription_difference"
+  },
+  "inProgressQuestion2_54": {
+    "sourceRecordRef": "question_mondai2_54.json#0",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": false,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_54_primary_source_review_20261029.json",
+    "status": "hold_source_transcription_difference"
+  },
+  "inProgressQuestion2_55": {
+    "sourceRecordRef": "question_mondai2_55.json#0",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": false,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_55_primary_source_review_20261029.json",
+    "status": "hold_source_transcription_difference"
+  },
+  "inProgressQuestion2_56": {
+    "sourceRecordRef": "question_mondai2_56.json#0",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": false,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_56_primary_source_review_20261029.json",
+    "status": "hold_source_transcription_difference"
   }
 }
