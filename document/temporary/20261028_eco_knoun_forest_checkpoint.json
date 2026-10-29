@@ -144,7 +144,7 @@
     "trackedCodeOrPromptChanged": false,
     "otherWorktreeChanges": "他作業の変更は保持し、この記録だけをstageする。"
   },
-  "nextAction": "問70は現行条約根拠、問75は03b判定の不一致を保留。模擬問題1の問78を原画像から照合し独自問題化する。",
+  "nextAction": "問70は現行条約根拠、問75は03b判定の不一致を保留。模擬問題1の問79を原画像から照合し独自問題化する。",
   "lastUpdatedAt": "2026-10-29T13:55:09.761562+09:00",
   "subsequentQuestion51": {
     "sourceRecordRef": "question_mondai4_51.json#0",
@@ -5336,7 +5336,23 @@
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_78_primary_source_review_20261029.json",
-    "status": "source_visual_review_complete"
+    "status": "accepted",
+    "backup": "output/eco-kentei/reports/mondai1_78_before_originalization_20261029.json",
+    "note": "原画像の正答⑨を照合。輸入国での仮想的な生産を明示し、数値3肢を用語に置換。15選択肢の識別子と正答⑨を保持。",
+    "evidence": "https://www.env.go.jp/water/virtual_water/",
+    "questionId": "ab1a1b5bc78791c84887c99f",
+    "nativeRunId": "20261029T152920995636-1aa69d64",
+    "auditRunId": "20261029T153153264337-de2281ab",
+    "explanationBackup": "output/eco-kentei/reports/mondai1_78_explanation_before_clarification_20261029.json",
+    "stateHash": "0f4e4e0ce7722f36fb56fd703637508ab1316d658942bc35ef657ce8bec779bd",
+    "evaluationJobId": "uIq_SsTxYpW1bdSs",
+    "uploadReadyCandidate": "output/eco-kentei/questions_json/upload_to_firestore/knoun-2026-mock-1_firestore_20261029_153524.json",
+    "otherDocumentsExactlyUnchanged": 198,
+    "evaluationSessionId": "01a18662-735f-7b60-92f2-3d9e01c4b445",
+    "verifiedChoiceCount": 15,
+    "explanationScore": 100,
+    "evaluationReceipt": "output/eco-kentei/reports/mondai1_78_evaluation_result_20261029.json",
+    "receipt": "output/eco-kentei/reports/turn_receipts/mondai1_78_accepted_20261029.json"
   },
   "inProgressQuestion1_79": {
     "sourceRecordRef": "question_mondai1_79.json#0",
