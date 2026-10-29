@@ -8509,5 +8509,19 @@
     "reason": "単独true_false文書に複数肢から選ぶ指示が残る。原画像と派生文書を個別照合。",
     "receipt": "output/eco-kentei/reports/mondai4_58_59_81_true_false_instruction_independent_review_20261030.json",
     "workflowStatus": "05の正誤指示修正済み。旧10の刷新、正式再投影・独立評価待ち。"
+  },
+  "parallelFiveChoiceRevalidation20261030": {
+    "nativeRunId": "20261030T013143274334-d8074ee6",
+    "status": "running",
+    "questionRefs": [
+      "question_mondai1_11.json#0",
+      "question_mondai1_12.json#0",
+      "question_mondai1_13.json#0",
+      "question_mondai1_14.json#0",
+      "question_mondai1_15.json#0"
+    ],
+    "previewReceipt": "output/eco-kentei/reports/choice_restoration_5_preview_20261030.json",
+    "startReceipt": "output/eco-kentei/reports/choice_restoration_5_start_20261030.json",
+    "note": "serverは証拠hash guard反映前。正式run成功でも新validator・最終投影・独立評価を経るまで受入しない。"
   }
 }
