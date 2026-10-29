@@ -1,0 +1,27 @@
+{
+  "recordedAt": "2026-10-29T23:55:28.469037+09:00",
+  "sourceRecordRef": "question_mondai5_73.json#0",
+  "files": {
+    "output/eco-kentei/questions_json/knoun-2026-mock-5/00_source/question_mondai5_73.json": "4eef658e1a8717b554a17121265f7dea102f3d900dc15f5850b1d1c914286533",
+    "output/eco-kentei/questions_json/knoun-2026-mock-5/05_originalized/question_mondai5_73_originalized.json": "23c0531503807bdcc79e9d6888bcc9b54b1faef05e17795fba71207b453badf2",
+    "output/eco-kentei/question_images/knoun-2026-mock-5/raw/mondai5_73.png": "000bf03d8914b902939335b4ca2ea5164fb36483713039228b748f711d3b8e1e",
+    "output/eco-kentei/question_images/knoun-2026-mock-5/raw/comment5_73.png": "0310fac8473373fa8a0b38484d56e084f14d3a347354d773e9fa84398cec8ca7"
+  },
+  "eGov": {
+    "url": "https://laws.e-gov.go.jp/api/2/law_data/354AC0000000049",
+    "status": 200,
+    "sha256": "81c2535e90eb3e6504f1a38d530cab3c0ccb803270b7b45f98a8d8d481b77193",
+    "revision": "354AC0000000049_20250601_504AC0000000068",
+    "candidateArticles": [
+      "149条1項",
+      "149条2項",
+      "150条1項"
+    ],
+    "limitations": "直接取得した調査資料であり、通常工程の取得証明や肢別根拠の採用ではない。"
+  },
+  "guidance": "画像の語群問題はトップランナー制度を正答とする。現在の独自問題は制度全般について4肢で問う。出題の全肢を改めて現行条文と正式取得済み資料で独立に確認する。4肢目に特定機器の目標年度の数値はないため、個別照明器具資料が本当に必要か通常工程で判断する。",
+  "providerStatus": "資源エネルギー庁の旧取得先と概要資料は直接GET 403。検索表示は正式取得証明として扱わない。",
+  "sourceDifferenceHoldRemains": true,
+  "patchChanged": false,
+  "firestoreWritten": false
+}
