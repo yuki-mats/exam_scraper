@@ -76,6 +76,8 @@ source-TFの最終独立評価にも、検証済みunitから再構成した安�
 
 このcontextは独立した分解A/Bや対応表監査を完了しません。`officialMappingApproved`・`machineReady`・`publicationReady`・`checkpointRecorded`・`evaluationPerformed`・`formalPatchSaved`・`FirestoreWritten`はすべてfalseです。旧形式向けの正式保存、全工程、独立評価、checker、全siblingの読取条件を守る限定公開・readbackのadapterは引き続き未対応として追跡し、この読取処理の追加だけで公開可能とは扱いません。
 
+組合せの選択肢を保持する既存`flash_card`・`group_choice`には、読取専用の`tools.question_bank.feedback_question_level_read_set`を使います。`prepare --repo-root <repo> --db <既存台帳> --candidate <private候補> --candidate-sha256 <hash> --output <新規private directory>`で、保全manifest・完全なsource binding・原問本文・全選択肢の完全一致と、同資格・整数年度・原問の全active文書を照合し、`isChoiceOnly=true`も含む読取集合を固定します。IDは観測値と原肢全文で対応させ、配列位置やID末尾から作りません。安全なfield mask、全件のexact更新時刻・値・presence、候補の実変更field、台帳要件、一次資料、実装hashを`context.json`・`receipt.json`へ保存します。台帳は読取専用で開きます。`inspect`は同じ固定入力を再検証し、本番の新観測は行いません。同一`prepare`の再送はfresh読取が同じ場合だけ受理し、競合・入力変更・不完全な保存は上書きせず停止します。この処理は通常01の集約分解・形式・正答の承認や、正式保存・工程完了・独立評価・Firestore公開を実行しません。通常工程入力と正式保存・限定公開へ接続するadapterは引き続き未対応です。
+
 通常sourceのTFには専用CLI `tools.question_bank.feedback_source_tf_delivery`を追加しています。通常工程の保存receipt・work version・checkpointを使い、公式原文と中立表示を分けた正式unitから通常の独立評価、read-set v3の限定公開・readbackへ接続します。固定案件のmanifestやガス25専用schemaには読み替えません。CLI、正式unitと各証跡の契約は[artifact契約](artifact_contract.md#通常sourceのtf公開unit)を正本とします。
 
 正常工程の履歴検証では、保存されたartifactの許可fieldと、通常mergeで有効になるfieldを分けます。各保存時のbytes・真正な承認・候補・workVersion・checkpoint、現在のartifactと最後の真正な保存履歴との一致を検証したうえで、通常mergeのfield定義と優先順位に従って有効な投影を照合します。21に保存される法令context等のmirrorを18の正本と同じ意味で比較せず、18の法令context、21の解説本文等の有効fieldと最終投影の検査を維持します。未監査の変更や履歴の不一致を許すものではありません。
