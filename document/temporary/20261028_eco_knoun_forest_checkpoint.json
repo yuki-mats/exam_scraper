@@ -144,7 +144,7 @@
     "trackedCodeOrPromptChanged": false,
     "otherWorktreeChanges": "他作業の変更は保持し、この記録だけをstageする。"
   },
-  "nextAction": "問71の後続工程runの結果を確認し、必要な統合・検証・独立評価を行う。問70の現行条約根拠は保留。",
+  "nextAction": "問70は現行条約根拠の正式な検証と配送が必要。模擬問題1の問72を原画像と図から照合し独自問題化する。",
   "lastUpdatedAt": "2026-10-29T13:55:09.761562+09:00",
   "subsequentQuestion51": {
     "sourceRecordRef": "question_mondai4_51.json#0",
@@ -5167,7 +5167,7 @@
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_71_primary_source_review_20261029.json",
-    "status": "downstream_running",
+    "status": "accepted",
     "figureRequiresLayoutReview": false,
     "figureLayoutReviewed": true,
     "figurePath": "output/eco-kentei/question_images/knoun-2026-mock-1/05_originalized/originalized_ad841ecd0787e71c_waste_priority_1.png",
@@ -5176,7 +5176,18 @@
     "originalizeRunId": "20261029T141457170978-0cca42c9",
     "backup": "output/eco-kentei/reports/mondai1_71_originalize_before_20261029.json",
     "note": "元の問題文に近い生成結果を、図を参照する独自の問いへ再構成。選択肢15肢と正答③、対応IDを保持。",
-    "nativeRunId": "20261029T141606121880-099c3eae"
+    "nativeRunId": "20261029T141606121880-099c3eae",
+    "questionId": "8b9ce5dcad71be86b6b3c9de",
+    "stateHash": "d2033c2f84bffd5e724c153cdb1bb55d7c2f7c4317c79f99832b8c46ad5a7ec2",
+    "evaluationJobId": "63nOAeZjO6JxR4Su",
+    "uploadReadyCandidate": "output/eco-kentei/questions_json/upload_to_firestore/knoun-2026-mock-1_firestore_20261029_142101.json",
+    "otherDocumentsExactlyUnchanged": 108,
+    "evaluationSessionId": "01a1861c-b576-7340-b69d-174dc8b46e17",
+    "verifiedChoiceCount": 15,
+    "explanationScore": 100,
+    "evaluationReceipt": "output/eco-kentei/reports/mondai1_71_evaluation_result_20261029.json",
+    "receipt": "output/eco-kentei/reports/turn_receipts/mondai1_71_accepted_20261029.json",
+    "imageInputHashMatched": true
   },
   "inProgressQuestion1_72": {
     "sourceRecordRef": "question_mondai1_72.json#0",
