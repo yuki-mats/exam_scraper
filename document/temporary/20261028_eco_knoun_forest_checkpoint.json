@@ -144,7 +144,7 @@
     "trackedCodeOrPromptChanged": false,
     "otherWorktreeChanges": "他作業の変更は保持し、この記録だけをstageする。"
   },
-  "nextAction": "問48の独自問題化から整備を進める。問43は条約資料取得の403で保留。問71〜75は図の構造を確認する。",
+  "nextAction": "問49は原画像転記差異で保留し、問50の独自問題化から整備する。問43は条約資料取得の403で保留。問71〜75は図の構造を確認する。",
   "lastUpdatedAt": "2026-10-28T23:21:41.277284+00:00",
   "subsequentQuestion51": {
     "sourceRecordRef": "question_mondai4_51.json#0",
@@ -4778,7 +4778,20 @@
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_48_primary_source_review_20261029.json",
-    "status": "source_reviewed_originalization_pending"
+    "status": "accepted",
+    "questionId": "d50b5e9a9a66edbce330cfe1",
+    "originalizeRunId": "20261029T091228363544-9ac48895",
+    "backup": "output/eco-kentei/reports/mondai1_48_before_rework_20261029",
+    "nativeRunId": "20261029T091438631648-0c473eca",
+    "reviewId": "20261029T091719542660-9f7465e8",
+    "originalizeReworkRunId": "20261029T091725467354-e148dcc9",
+    "nativeReworkRunId": "20261029T091912089125-bfe5c4cf",
+    "stateHash": "ff104d9e1289e632f205c73084edfd59d6d4eb3f41fe66e685587c965d006830",
+    "evaluationJobId": "Y--e3pT5mxa6GpTk",
+    "uploadReadyCandidate": "output/eco-kentei/questions_json/upload_to_firestore/knoun-2026-mock-1_firestore_20261029_092203.json",
+    "evaluationSessionId": "01a18509-f716-7981-b69e-3ecb9e133a4f",
+    "receipt": "output/eco-kentei/reports/turn_receipts/mondai1_48_accepted_20261029.json",
+    "otherDocumentCountUnchanged": 58
   },
   "inProgressQuestion1_49": {
     "sourceRecordRef": "question_mondai1_49.json#0",
@@ -5078,5 +5091,48 @@
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_4_primary_source_review_20261029.json",
     "status": "source_visual_review_complete"
+  },
+  "inProgressQuestion2_5": {
+    "sourceRecordRef": "question_mondai2_5.json#0",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": true,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_5_primary_source_review_20261029.json",
+    "status": "source_visual_review_complete"
+  },
+  "inProgressQuestion2_6": {
+    "sourceRecordRef": "question_mondai2_6.json#0",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": true,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_6_primary_source_review_20261029.json",
+    "status": "source_visual_review_complete"
+  },
+  "inProgressQuestion2_7": {
+    "sourceRecordRef": "question_mondai2_7.json#0",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": true,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_7_primary_source_review_20261029.json",
+    "status": "source_visual_review_complete"
+  },
+  "inProgressQuestion2_8": {
+    "sourceRecordRef": "question_mondai2_8.json#0",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": true,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_8_primary_source_review_20261029.json",
+    "status": "source_visual_review_complete"
+  },
+  "inProgressQuestion2_9": {
+    "sourceRecordRef": "question_mondai2_9.json#0",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": true,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_9_primary_source_review_20261029.json",
+    "status": "source_visual_review_complete"
+  },
+  "inProgressQuestion2_10": {
+    "sourceRecordRef": "question_mondai2_10.json#0",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": false,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_10_primary_source_review_20261029.json",
+    "status": "hold_source_transcription_difference",
+    "holdReason": "画像の小問ラベル「コ」が登録済み問題文にない。"
   }
 }
