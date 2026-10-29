@@ -8432,5 +8432,26 @@
     "reason": "各肢を単独true_falseで答える文書に、複数肢から1つ選ぶ指示が残る。原画像と各派生文書を個別照合済み。",
     "receipt": "output/eco-kentei/reports/mondai4_84_85_true_false_instruction_independent_review_20261030.json",
     "workflowStatus": "05の指示修正を進行中。正式再投影・独立評価待ち。"
+  },
+  "instructionHold2_81_20261030": {
+    "sourceRecordRef": "question_mondai2_81.json#0",
+    "status": "hold_true_false_instruction_mismatch",
+    "reason": "各肢単独のtrue_false文書に最も不適切なものを選ぶ指示が残る。原画像と各派生文書を個別に照合。",
+    "receipt": "output/eco-kentei/reports/mondai2_81_82_83_truefalse_instruction_review_20261030.json",
+    "workflowStatus": "05指示修正を進行中。正式再投影・独立評価待ち。"
+  },
+  "instructionHold2_82_20261030": {
+    "sourceRecordRef": "question_mondai2_82.json#0",
+    "status": "hold_true_false_instruction_mismatch",
+    "reason": "各肢単独のtrue_false文書に最も不適切なものを選ぶ指示が残る。原画像と各派生文書を個別に照合。",
+    "receipt": "output/eco-kentei/reports/mondai2_81_82_83_truefalse_instruction_review_20261030.json",
+    "workflowStatus": "05指示修正を進行中。正式再投影・独立評価待ち。"
+  },
+  "instructionHold2_83_20261030": {
+    "sourceRecordRef": "question_mondai2_83.json#0",
+    "status": "hold_true_false_instruction_mismatch",
+    "reason": "各肢単独のtrue_false文書に最も不適切なものを選ぶ指示が残る。原画像と各派生文書を個別に照合。",
+    "receipt": "output/eco-kentei/reports/mondai2_81_82_83_truefalse_instruction_review_20261030.json",
+    "workflowStatus": "05指示修正を進行中。正式再投影・独立評価待ち。"
   }
 }
