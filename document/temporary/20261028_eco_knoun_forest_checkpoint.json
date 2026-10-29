@@ -8624,12 +8624,13 @@
   },
   "questionSetInputRevalidation1_17_19_20261030": {
     "nativeRunId": "20261030T023705945902-4b47ac0d",
-    "status": "running",
+    "status": "native_validated_input_receipt_pending_independent_review",
     "questionRefs": [
       "question_mondai1_17.json#0",
       "question_mondai1_19.json#0"
     ],
     "inputHoldReceipt": "output/eco-kentei/reports/mondai1_17_19_04_input_identification_hold_20261030.json",
-    "note": "旧04の入力を一意に確認できなかったため現行入力で04を正式再実行。再merge・独立評価は未実施。"
+    "note": "旧04の入力を一意に確認できなかったため現行入力で04を正式再実行。再merge・独立評価は未実施。",
+    "resultReceipt": "output/eco-kentei/reports/mondai1_17_19_question_set_result_20261030.json"
   }
 }
