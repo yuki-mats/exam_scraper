@@ -8101,5 +8101,33 @@
     "evidenceReceipt": "output/eco-kentei/reports/mondai4_24_before_rework_20261030/",
     "independentContentReview": "pass_by_independent_agent",
     "sourceTranscriptionUncertainty": "解答の三点記号の文字種は画像から確定困難。番号は一致。"
+  },
+  "lawEvidenceHold1_13_20261030": {
+    "sourceRecordRef": "question_mondai1_13.json#0",
+    "status": "hold_law_evidence_binding",
+    "reason": "fact本文が抜粋である一方、宣言hashは条文全体。",
+    "receipt": "output/eco-kentei/reports/accepted_03b_article_binding_readonly_20261030.json",
+    "independentReview": "actual bundle, saved facts and evidence independently checked; formal reaudit required"
+  },
+  "lawEvidenceHold1_11_20261030": {
+    "sourceRecordRef": "question_mondai1_11.json#0",
+    "status": "hold_law_evidence_binding",
+    "reason": "fact本文は第1項のみで、宣言hashは条文全体。",
+    "receipt": "output/eco-kentei/reports/accepted_03b_article_binding_readonly_20261030.json",
+    "independentReview": "actual bundle, saved facts and evidence independently checked; formal reaudit required"
+  },
+  "lawEvidenceHold2_7_20261030": {
+    "sourceRecordRef": "question_mondai2_7.json#0",
+    "status": "hold_law_evidence_binding",
+    "reason": "fact本文が要約である一方、宣言hashは条文全体。",
+    "receipt": "output/eco-kentei/reports/accepted_03b_article_binding_readonly_20261030.json",
+    "independentReview": "actual bundle, saved facts and evidence independently checked; formal reaudit required"
+  },
+  "lawEvidenceHold3_81_20261030": {
+    "sourceRecordRef": "question_mondai3_81.json#0",
+    "status": "hold_law_evidence_binding",
+    "reason": "出題時本文として記録された現行本文を裏付ける出題時証拠がない。",
+    "receipt": "output/eco-kentei/reports/accepted_03b_article_binding_readonly_20261030.json",
+    "independentReview": "actual bundle, saved facts and evidence independently checked; formal reaudit required"
   }
 }
