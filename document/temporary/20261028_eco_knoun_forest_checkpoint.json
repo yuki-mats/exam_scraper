@@ -8474,5 +8474,35 @@
     "reason": "各肢単独のtrue_false文書に複数肢から選ぶ指示が残る。原画像と各派生文書を個別照合。",
     "receipt": "output/eco-kentei/reports/mondai3_41_66_82_true_false_instruction_review_20261030.json",
     "workflowStatus": "05指示修正を進行中。正式再投影・独立評価待ち。"
+  },
+  "instructionHold1_56_20261030": {
+    "sourceRecordRef": "question_mondai1_56.json#0",
+    "status": "hold_true_false_instruction_mismatch",
+    "reason": "単独true_false文書に複数肢から選ぶ指示が残る。原画像と派生文書を個別照合。",
+    "receipt": "output/eco-kentei/reports/mondai1_56_58_truefalse_instruction_review_20261030.json"
+  },
+  "instructionHold1_58_20261030": {
+    "sourceRecordRef": "question_mondai1_58.json#0",
+    "status": "hold_true_false_instruction_mismatch",
+    "reason": "単独true_false文書に複数肢から選ぶ指示が残る。原画像と派生文書を個別照合。",
+    "receipt": "output/eco-kentei/reports/mondai1_56_58_truefalse_instruction_review_20261030.json"
+  },
+  "instructionHold4_58_20261030": {
+    "sourceRecordRef": "question_mondai4_58.json#0",
+    "status": "hold_true_false_instruction_mismatch",
+    "reason": "単独true_false文書に複数肢から選ぶ指示が残る。原画像と派生文書を個別照合。",
+    "receipt": "output/eco-kentei/reports/mondai4_58_59_81_true_false_instruction_independent_review_20261030.json"
+  },
+  "instructionHold4_59_20261030": {
+    "sourceRecordRef": "question_mondai4_59.json#0",
+    "status": "hold_true_false_instruction_mismatch",
+    "reason": "単独true_false文書に複数肢から選ぶ指示が残る。原画像と派生文書を個別照合。",
+    "receipt": "output/eco-kentei/reports/mondai4_58_59_81_true_false_instruction_independent_review_20261030.json"
+  },
+  "instructionHold4_81_20261030": {
+    "sourceRecordRef": "question_mondai4_81.json#0",
+    "status": "hold_true_false_instruction_mismatch",
+    "reason": "単独true_false文書に複数肢から選ぶ指示が残る。原画像と派生文書を個別照合。",
+    "receipt": "output/eco-kentei/reports/mondai4_58_59_81_true_false_instruction_independent_review_20261030.json"
   }
 }
