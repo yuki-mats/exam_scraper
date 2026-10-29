@@ -144,8 +144,8 @@
     "trackedCodeOrPromptChanged": false,
     "otherWorktreeChanges": "他作業の変更は保持し、この記録だけをstageする。"
   },
-  "nextAction": "問54・55は転記差異で保留し、問56の独自問題化から整備する。問50はserver一次根拠の配送不足により保留。",
-  "lastUpdatedAt": "2026-10-28T23:21:41.277284+00:00",
+  "nextAction": "問57は転記差異で保留し、画像照合済みの問58を独自問題化から整備する。問50は一次根拠の配送不足により保留。",
+  "lastUpdatedAt": "2026-10-29T11:00:17.921298+09:00",
   "subsequentQuestion51": {
     "sourceRecordRef": "question_mondai4_51.json#0",
     "sourceQuestionKey": "eco-kentei:knoun-2026-mock-4:bb67422eb5e52e9c",
@@ -4881,7 +4881,22 @@
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_56_primary_source_review_20261029.json",
-    "status": "source_reviewed_originalization_pending"
+    "status": "accepted",
+    "questionId": "e50f22f9c3e7ca73e61dfae7",
+    "originalizeRunId": "20261029T103932978817-05572a1c",
+    "backup": "output/eco-kentei/reports/mondai1_56_before_rework_20261029",
+    "nativeRunId": "20261029T104155218004-6c1266f9",
+    "runDetail": "output/eco-kentei/reports/mondai1_56_run_detail_20261029.json",
+    "lawContextReviewId": "20261029T104732969418-b1eb95dd",
+    "lawContextReworkRunId": "20261029T104734576966-86e3e12e",
+    "nativeReworkRunId": "20261029T105000391363-527e6fdb",
+    "stateHash": "60879d3f2a6c6da3371cb45896bbe71dad6b4597d82b19b0f152ab31dd7fc404",
+    "evaluationJobId": "bjdPr0a883QX5b7C",
+    "uploadReadyCandidate": "output/eco-kentei/questions_json/upload_to_firestore/knoun-2026-mock-1_firestore_20261029_105446.json",
+    "primaryLawEvidence": "output/eco-kentei/reports/mondai1_56_primary_law_evidence_20261029.json",
+    "evaluationSessionId": "01a1855f-6f8b-7b72-afbd-fc9d2f1d49b7",
+    "receipt": "output/eco-kentei/reports/turn_receipts/mondai1_56_accepted_20261029.json",
+    "otherDocumentCountUnchanged": 70
   },
   "inProgressQuestion1_57": {
     "sourceRecordRef": "question_mondai1_57.json#0",
@@ -5406,5 +5421,56 @@
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_44_primary_source_review_20261029.json",
     "status": "hold_figure_detail_review",
     "figureRequiresLayoutReview": true
+  },
+  "inProgressQuestion2_45": {
+    "sourceRecordRef": "question_mondai2_45.json#0",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": true,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_45_primary_source_review_20261029.json",
+    "status": "source_visual_review_complete"
+  },
+  "inProgressQuestion2_46": {
+    "sourceRecordRef": "question_mondai2_46.json#0",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": false,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_46_primary_source_review_20261029.json",
+    "status": "hold_source_transcription_difference",
+    "holdReason": "画像の出題表示「IBT・CBT過去出題問題」の直前に開き括弧はないが、登録文には余分な「（」がある。"
+  },
+  "inProgressQuestion2_47": {
+    "sourceRecordRef": "question_mondai2_47.json#0",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": true,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_47_primary_source_review_20261029.json",
+    "status": "source_visual_review_complete"
+  },
+  "inProgressQuestion2_48": {
+    "sourceRecordRef": "question_mondai2_48.json#0",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": true,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_48_primary_source_review_20261029.json",
+    "status": "source_visual_review_complete"
+  },
+  "inProgressQuestion2_49": {
+    "sourceRecordRef": "question_mondai2_49.json#0",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": true,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_49_primary_source_review_20261029.json",
+    "status": "source_visual_review_complete"
+  },
+  "inProgressQuestion2_50": {
+    "sourceRecordRef": "question_mondai2_50.json#0",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": false,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_50_primary_source_review_20261029.json",
+    "status": "hold_source_transcription_difference",
+    "holdReason": "画像にある小問ラベル「オ」が登録済み問題文にない。"
+  },
+  "inProgressQuestion2_51": {
+    "sourceRecordRef": "question_mondai2_51.json#0",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": true,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_51_primary_source_review_20261029.json",
+    "status": "source_visual_review_complete"
   }
 }
