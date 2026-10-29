@@ -4169,14 +4169,15 @@
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_14_primary_source_review_20261029.json",
-    "status": "hold_server_verifiable_ordinance_evidence",
+    "status": "hold_choice_projection_and_law_evidence",
     "backup": "output/eco-kentei/reports/mondai1_14_before_rework_20261029",
     "originalizeRunId": "20261029T050103501053-6403b691",
     "nativeRunId": "20261029T050129464637-c11c2346",
     "holdReason": "02bは東京都条例の一次本文と公式資料についてサーバー照合済み取得証明の未提示により保留。通常のWeb閲覧では同証明の代替にならない。",
     "primaryOrdinanceUrl": "https://www.reiki.metro.tokyo.lg.jp/ex_file/honban/reiki/reiki_honbun/g101RG00001328.html",
     "primaryOrdinanceArticle": "第五条の十一",
-    "nextAction": "条例対応の取得証明を準備した後に02bから再開。問15以降は先行する。"
+    "nextAction": "条例対応の取得証明を準備した後に02bから再開。問15以降は先行する。",
+    "choiceProjectionReview": "原15肢から単一true_false命題への変換とsourceUniqueKeysの対応を調査中。現行公開IDと許容条件の確認前に受入不可。"
   },
   "inProgressQuestion1_15": {
     "sourceRecordRef": "question_mondai1_15.json#0",
@@ -6275,7 +6276,9 @@
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_45_primary_source_review_20261029.json",
     "status": "hold_source_transcription_difference",
     "sourceDifferenceProposal": "output/eco-kentei/reports/source_differences_mondai2_20261029/mondai2_45.json",
-    "holdReason": "answer_result_text: 画像と登録内容に差。"
+    "holdReason": "answer_result_text: 画像と登録内容に差。",
+    "originalizationRevision": "output/eco-kentei/reports/mondai2_45_before_radioactive_originalization_20261030/",
+    "workflowStatus": "prepared_pending_formal_law_audit_and_independent_evaluation"
   },
   "inProgressQuestion2_46": {
     "sourceRecordRef": "question_mondai2_46.json#0",
