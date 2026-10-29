@@ -5166,7 +5166,9 @@
     },
     "evidenceRunId": "20261029T141116220872-6f303d7e",
     "categoryGeneratedCandidate": "output/eco-kentei/reports/mondai1_70_shared_category_generated_20261029.md",
-    "lastRunStatus": "succeeded_with_one_question_blocked"
+    "lastRunStatus": "succeeded_with_one_question_blocked",
+    "originalizationRevision": "output/eco-kentei/reports/mondai1_70_before_originalization_20261029/",
+    "workflowStatus": "prepared_pending_formal_audit_and_independent_evaluation"
   },
   "inProgressQuestion1_71": {
     "sourceRecordRef": "question_mondai1_71.json#0",
@@ -6227,7 +6229,9 @@
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_42_primary_source_review_20261029.json",
     "status": "hold_source_transcription_difference",
     "sourceDifferenceProposal": "output/eco-kentei/reports/source_differences_mondai2_20261029/mondai2_42.json",
-    "holdReason": "answer_result_text: 画像と登録内容に差。"
+    "holdReason": "answer_result_text: 画像と登録内容に差。",
+    "originalizationRevision": "output/eco-kentei/reports/mondai2_42_before_marine_originalization_20261029/",
+    "workflowStatus": "prepared_pending_formal_audit_and_independent_evaluation"
   },
   "inProgressQuestion2_43": {
     "sourceRecordRef": "question_mondai2_43.json#0",
@@ -8002,5 +8006,11 @@
     "status": "explanation_prepared_pending_formal_audit_and_independent_evaluation",
     "evidenceReceipt": "output/eco-kentei/reports/mondai4_18_explanation_before_20261029/receipt.json",
     "independentContentReview": "pass_by_independent_agent_formal_workflow_and_session_evaluation_pending"
+  },
+  "inProgressQuestion4_19": {
+    "sourceRecordRef": "question_mondai4_19.json#0",
+    "status": "originalization_prepared_pending_formal_audit_and_independent_evaluation",
+    "evidenceReceipt": "output/eco-kentei/reports/mondai4_19_before_implementation_20261029/receipt.json",
+    "sourceTranscriptionUncertainty": "原解答の三点文字種は画像から判別困難。番号は一致。"
   }
 }
