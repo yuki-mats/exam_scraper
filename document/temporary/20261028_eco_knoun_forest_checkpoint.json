@@ -137,7 +137,7 @@
     "note": "本番公開の依頼前。模擬問題の2026を公式試験年度に登録しない。"
   },
   "execution": {
-    "questionConcurrency": 2,
+    "questionConcurrency": 5,
     "parallelAgents": true,
     "browserForeground": false,
     "fullSuiteRun": false,
@@ -145,7 +145,7 @@
     "otherWorktreeChanges": "他作業の変更は保持し、この記録だけをstageする。"
   },
   "nextAction": "保留問を維持し、次の原画像照合済み候補の通常整備と独立評価を進める。",
-  "lastUpdatedAt": "2026-10-29T22:27:34.775943+09:00",
+  "lastUpdatedAt": "2026-10-29T22:50:39.793112+09:00",
   "subsequentQuestion51": {
     "sourceRecordRef": "question_mondai4_51.json#0",
     "sourceQuestionKey": "eco-kentei:knoun-2026-mock-4:bb67422eb5e52e9c",
@@ -445,7 +445,7 @@
     "pdfReadScope": "環境省2024年度実績の9頁PDF中、3枚目を画像表示・実読した。全頁を通読したとはしない。",
     "outboundArticleTextOmitted": true
   },
-  "globalRemainingCountObservedAt": "2026-10-29T22:27:14.885547+09:00",
+  "globalRemainingCountObservedAt": "2026-10-29T22:50:19.964893+09:00",
   "globalRemainingStatus": "output/eco-kentei/reports/global_remaining_status_after_mondai5_49_20261028.json",
   "subsequentQuestion59": {
     "sourceRecordRef": "question_mondai4_59.json#0",
@@ -6239,7 +6239,10 @@
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_49_primary_source_review_20261029.json",
-    "status": "source_visual_review_complete"
+    "status": "native_maintenance_running",
+    "questionId": "d9845c9f5eec58c7827fa780",
+    "nativeRunId": "20261029T225039741075-871f0780",
+    "imageReviewReceipt": "output/eco-kentei/reports/parallel3_next_intake_20261029.json"
   },
   "inProgressQuestion2_50": {
     "sourceRecordRef": "question_mondai2_50.json#0",
@@ -6259,9 +6262,11 @@
   "inProgressQuestion2_52": {
     "sourceRecordRef": "question_mondai2_52.json#0",
     "sourceImagesActuallyRead": true,
-    "sourceTranscriptionMatchesImages": true,
+    "sourceTranscriptionMatchesImages": false,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_52_primary_source_review_20261029.json",
-    "status": "source_visual_review_complete"
+    "status": "hold_source_transcription_difference",
+    "sourceDifferenceProposal": "output/eco-kentei/reports/mondai2_52_source_header_difference_20261029.json",
+    "holdReason": "画像にないIBT・CBT見出しが登録データに追加。"
   },
   "inProgressQuestion2_53": {
     "sourceRecordRef": "question_mondai2_53.json#0",
@@ -6549,30 +6554,51 @@
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_81_primary_source_review_20261029.json",
-    "status": "native_maintenance_running",
+    "status": "source_to_independent_evaluation_accepted",
     "questionId": "051637da30dded40e8d7aab2",
     "nativeRunId": "20261029T222734708656-667933f9",
-    "imageReviewReceipt": "output/eco-kentei/reports/parallel9_next_intake_20261029.json"
+    "imageReviewReceipt": "output/eco-kentei/reports/parallel9_next_intake_20261029.json",
+    "evaluationJobId": "K4CfJvPqhPHz_Dem",
+    "stateHash": "f1a05d8dd21edd513c4b45ede801d0c63ccdfe32f637d9893ebcb2df44f731c9",
+    "nativeRunTerminal": true,
+    "validation": "output/eco-kentei/reports/mondai2_81_trial_20261029",
+    "evaluationSessionId": "01a187eb-1e2e-7d40-9ac7-6dc6a137d174",
+    "acceptanceReceipt": "output/eco-kentei/reports/turn_receipts/mondai2_81_accepted_20261029.json"
   },
   "inProgressQuestion2_82": {
     "sourceRecordRef": "question_mondai2_82.json#0",
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_82_primary_source_review_20261029.json",
-    "status": "native_maintenance_running",
+    "status": "source_to_independent_evaluation_accepted",
     "questionId": "a8f3f6199bc7c34b6074c6fc",
     "nativeRunId": "20261029T222734708656-667933f9",
-    "imageReviewReceipt": "output/eco-kentei/reports/parallel9_next_intake_20261029.json"
+    "imageReviewReceipt": "output/eco-kentei/reports/parallel9_next_intake_20261029.json",
+    "evaluationJobId": "e8fkkuPB9oNT8iKA",
+    "stateHash": "8b4ec0ab5637fe4e637603cc1372aad5d3543d4e48232f0d36f03f56c2edaa09",
+    "nativeRunTerminal": true,
+    "validation": "output/eco-kentei/reports/parallel4_next_trial_20261029",
+    "evaluationSessionId": "01a187e1-a5d6-78e1-b85a-4e333a12ed37",
+    "acceptanceReceipt": "output/eco-kentei/reports/turn_receipts/mondai2_82_accepted_20261029.json"
   },
   "inProgressQuestion2_83": {
     "sourceRecordRef": "question_mondai2_83.json#0",
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_83_primary_source_review_20261029.json",
-    "status": "native_maintenance_running",
+    "status": "source_to_independent_evaluation_accepted",
     "questionId": "def7537b81019188728951a6",
     "nativeRunId": "20261029T222734708656-667933f9",
-    "imageReviewReceipt": "output/eco-kentei/reports/parallel9_next_intake_20261029.json"
+    "imageReviewReceipt": "output/eco-kentei/reports/parallel9_next_intake_20261029.json",
+    "evaluationJobId": "K4CfJvPqhPHz_Dem",
+    "stateHash": "602253be470cb0e67866e2966623f168fe8568680660126c45f66db117298099",
+    "nativeRunTerminal": true,
+    "validation": "output/eco-kentei/reports/existing_83_3_repair_trial_20261029",
+    "findings": [
+      "②の解説は、選択肢の内容をほぼそのまま言い換えているだけで、選択肢にない判断基準・仕組み・比較などを示していない。自己完結した正しい肢なら「正しい。」だけで足りるが、説明を続ける場合の要件を満たしていない。"
+    ],
+    "evaluationSessionId": "01a187eb-1e2e-7d40-9ac7-6def06bf98bc",
+    "acceptanceReceipt": "output/eco-kentei/reports/turn_receipts/mondai2_83_accepted_20261029.json"
   },
   "inProgressQuestion2_84": {
     "sourceRecordRef": "question_mondai2_84.json#0",
@@ -6586,10 +6612,11 @@
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_85_primary_source_review_20261029.json",
-    "status": "native_maintenance_running",
+    "status": "manual_correction_pending_revalidation",
     "questionId": "f664296a182191a7346be538",
     "nativeRunId": "20261029T222734708656-667933f9",
-    "imageReviewReceipt": "output/eco-kentei/reports/parallel9_next_intake_20261029.json"
+    "imageReviewReceipt": "output/eco-kentei/reports/parallel9_next_intake_20261029.json",
+    "nextAction": "法令説明の参照URLを本文から参照欄へ移し、再監査が必要。"
   },
   "inProgressQuestion3_1": {
     "sourceRecordRef": "question_mondai3_1.json#0",
@@ -6598,8 +6625,9 @@
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai3_1_primary_source_review_20261029.json",
     "status": "native_maintenance_running",
     "questionId": "c39946784dbbc2de5f8b7525",
-    "nativeRunId": "20261029T222734708656-667933f9",
-    "imageReviewReceipt": "output/eco-kentei/reports/parallel9_next_intake_20261029.json"
+    "nativeRunId": "20261029T225039741075-871f0780",
+    "imageReviewReceipt": "output/eco-kentei/reports/parallel3_next_intake_20261029.json",
+    "nextAction": "2024年国連推計の時点と根拠を明示し、後続再整備が必要。"
   },
   "inProgressQuestion3_2": {
     "sourceRecordRef": "question_mondai3_2.json#0",
@@ -6613,10 +6641,19 @@
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai3_3_primary_source_review_20261029.json",
-    "status": "native_maintenance_running",
+    "status": "source_to_independent_evaluation_accepted",
     "questionId": "e58b8ba9aed053c9bc319ce6",
     "nativeRunId": "20261029T222734708656-667933f9",
-    "imageReviewReceipt": "output/eco-kentei/reports/parallel9_next_intake_20261029.json"
+    "imageReviewReceipt": "output/eco-kentei/reports/parallel9_next_intake_20261029.json",
+    "evaluationJobId": "K4CfJvPqhPHz_Dem",
+    "stateHash": "dfd91d02d43e677a7dbe5977dd0cbd560733c2016eca9d49471d4fcbc029436b",
+    "nativeRunTerminal": true,
+    "validation": "output/eco-kentei/reports/existing_83_3_repair_trial_20261029",
+    "findings": [
+      "①の解説は、選択肢の「本業を通じた水源保全が社会・環境課題への貢献となり得る」という内容をほぼ言い換えただけで、判断を支える仕組みや具体例を示していない。説明を続ける場合に表面的な言い換えを不可とする基準を満たさない。"
+    ],
+    "evaluationSessionId": "01a187eb-1e2e-7d40-9ac7-6dda51dd2aec",
+    "acceptanceReceipt": "output/eco-kentei/reports/turn_receipts/mondai3_3_accepted_20261029.json"
   },
   "inProgressQuestion3_4": {
     "sourceRecordRef": "question_mondai3_4.json#0",
@@ -6637,10 +6674,16 @@
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai3_6_primary_source_review_20261029.json",
-    "status": "native_maintenance_running",
+    "status": "source_to_independent_evaluation_accepted",
     "questionId": "e2e260fcf030289be1d8d434",
     "nativeRunId": "20261029T222734708656-667933f9",
-    "imageReviewReceipt": "output/eco-kentei/reports/parallel9_next_intake_20261029.json"
+    "imageReviewReceipt": "output/eco-kentei/reports/parallel9_next_intake_20261029.json",
+    "evaluationJobId": "e8fkkuPB9oNT8iKA",
+    "stateHash": "e6db20e7872662d527f77cd95ab5a87ebf46ca9dcc0c7fced3e79ba2822040c7",
+    "nativeRunTerminal": true,
+    "validation": "output/eco-kentei/reports/mondai3_3_6_trial_20261029",
+    "evaluationSessionId": "01a187e1-a5d6-78e1-b85a-4e1dda3cc6c3",
+    "acceptanceReceipt": "output/eco-kentei/reports/turn_receipts/mondai3_6_accepted_20261029.json"
   },
   "inProgressQuestion3_7": {
     "sourceRecordRef": "question_mondai3_7.json#0",
@@ -6656,8 +6699,9 @@
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai3_8_primary_source_review_20261029.json",
     "status": "native_maintenance_running",
     "questionId": "ce0183992a739643f2b4be73",
-    "nativeRunId": "20261029T222734708656-667933f9",
-    "imageReviewReceipt": "output/eco-kentei/reports/parallel9_next_intake_20261029.json"
+    "nativeRunId": "20261029T225039741075-871f0780",
+    "imageReviewReceipt": "output/eco-kentei/reports/parallel3_next_intake_20261029.json",
+    "nextAction": "2023年度の全国公害苦情統計に対象を限定し、後続再整備が必要。"
   },
   "inProgressQuestion3_9": {
     "sourceRecordRef": "question_mondai3_9.json#0",
@@ -6671,10 +6715,25 @@
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai3_10_primary_source_review_20261029.json",
-    "status": "native_maintenance_running",
+    "status": "independent_evaluation_needs_rework",
     "questionId": "5a50abd03d4acb9852ae4628",
     "nativeRunId": "20261029T222734708656-667933f9",
-    "imageReviewReceipt": "output/eco-kentei/reports/parallel9_next_intake_20261029.json"
+    "imageReviewReceipt": "output/eco-kentei/reports/parallel9_next_intake_20261029.json",
+    "lawAuditSecondaryReview": {
+      "status": "verified_independent_secondary_approved",
+      "primaryThreadId": "01a187dc-8b21-7d62-90d9-09195b21dc6e",
+      "secondaryThreadId": "01a187dd-47bb-7471-8b1f-cdb0d9790333",
+      "decision": "approve",
+      "evidenceHash": "ad395d31ba4387db8f61ee3e348e815b2916c530bd56832c5b948df379dce55e",
+      "receipt": "output/question_review_console/workflow_runs/eco-kentei/20261029T222734708656-667933f9/questions/17dfb26c722222e4252b4bde5dedac4a4781a56f7f40ef4fdf01486b1b092af8.json"
+    },
+    "evaluationJobId": "K4CfJvPqhPHz_Dem",
+    "stateHash": "3996c56815aafc1a8f4a2e27f70f297f1025c17e66b0931268d8589e7354110f",
+    "nativeRunTerminal": true,
+    "validation": "output/eco-kentei/reports/mondai3_10_trial_20261029",
+    "findings": [
+      "①の解説は再商品化義務を負う主体から特定容器製造等事業者（第12条）を脱落させており、法定の三主体を正確に示していない。また、第23条は契約締結・委託料金収受に関する業務の一部を所定の団体へ委託できる旨の規定であり、現在の説明は同条の内容を不正確に要約している。"
+    ]
   },
   "inProgressQuestion3_11": {
     "sourceRecordRef": "question_mondai3_11.json#0",
@@ -7608,17 +7667,17 @@
     "status": "corrected_by_unique_source_and_current_readback",
     "previouslyReportedRemaining312": "incorrect; the historical accepted set was not fully included",
     "total": 425,
-    "accepted": 243,
-    "remaining": 182,
+    "accepted": 248,
+    "remaining": 177,
     "acceptedByGroup": {
       "mondai1": 63,
-      "mondai2": 32,
-      "mondai3": 28,
+      "mondai2": 35,
+      "mondai3": 30,
       "mondai4": 61,
       "mondai5": 59
     },
-    "observedAt": "2026-10-29T22:27:20.257814+09:00",
-    "receipt": "output/eco-kentei/reports/global_source_recount_after_figure_20261029.json",
+    "observedAt": "2026-10-29T22:50:26.873250+09:00",
+    "receipt": "output/eco-kentei/reports/global_source_recount_after_repaired4_20261029.json",
     "reproducibleCommand": "PYTHONPATH=. .venv/bin/python output/eco-kentei/reports/recount_current_sources_20261029.py",
     "inProgressExcluded": true
   },
@@ -7726,6 +7785,48 @@
       "question_mondai4_7.json#0"
     ],
     "evaluationJobId": "-9jB7H8uEIUsGMFP",
+    "firestoreWrites": 0,
+    "qualityGate": "passed for groups 2 and 3",
+    "existingUploadDocsUnchanged": true
+  },
+  "parallel4NextAcceptance": {
+    "acceptedCount": 2,
+    "needsReworkCount": 2,
+    "previousRecountRemaining": 182,
+    "acceptedSourceRefs": [
+      "question_mondai2_82.json#0",
+      "question_mondai3_6.json#0"
+    ],
+    "evaluationJobId": "e8fkkuPB9oNT8iKA",
+    "firestoreWrites": 0,
+    "qualityGate": "passed for groups 2 and 3",
+    "existingUploadDocsUnchanged": true
+  },
+  "parallel5ExplanationRevalidation": {
+    "runId": "20261029T223954638322-583f658f",
+    "questionIds": [
+      "def7537b81019188728951a6",
+      "f664296a182191a7346be538",
+      "051637da30dded40e8d7aab2",
+      "e58b8ba9aed053c9bc319ce6",
+      "c39946784dbbc2de5f8b7525"
+    ],
+    "status": "succeeded",
+    "productionWrite": false,
+    "completedQuestionCount": 5,
+    "blockedQuestionCount": 0,
+    "result": "output/eco-kentei/reports/parallel5_explanation_revalidation_result_20261029.json"
+  },
+  "parallel4RepairedAcceptance": {
+    "acceptedCount": 3,
+    "needsReworkCount": 1,
+    "previousRecountRemaining": 180,
+    "acceptedSourceRefs": [
+      "question_mondai2_83.json#0",
+      "question_mondai2_81.json#0",
+      "question_mondai3_3.json#0"
+    ],
+    "evaluationJobId": "K4CfJvPqhPHz_Dem",
     "firestoreWrites": 0,
     "qualityGate": "passed for groups 2 and 3",
     "existingUploadDocsUnchanged": true
