@@ -1,0 +1,43 @@
+{
+  "recordedAt": "2026-10-29T23:51:30.673796+09:00",
+  "sourceRecordRef": "question_mondai5_77.json#0",
+  "questionId": "b3289f8caab7e78943f2f8de",
+  "sourceAndPatchHashes": {
+    "output/eco-kentei/questions_json/knoun-2026-mock-5/00_source/question_mondai5_77.json": "310cf8ae983bfa3ae7b7ed7c56729b34b39911ce1c372c23e624f8b2123b999b",
+    "output/eco-kentei/questions_json/knoun-2026-mock-5/05_originalized/question_mondai5_77_originalized.json": "0d32fdc823a42d81264807ef1260cca7cdd82539bc0e62c3c2a8b1931d410909",
+    "output/eco-kentei/questions_json/knoun-2026-mock-5/18_law_context_prepared/question_mondai5_77_merged_lawContext_prepared.json": "610c8693d82030b8dbe8ac2fcb832f5731f51e01bd394a68edeb9c7dc5073ffb",
+    "output/eco-kentei/questions_json/knoun-2026-mock-5/21_explanationText_added/question_mondai5_77_merged_explanationText_added.json": "06414bd037e70be9185bf24d23d0b24568ac41eeabf6fbaa3e84d18c0353548c"
+  },
+  "eGovRead": {
+    "url": "https://laws.e-gov.go.jp/api/2/law_data/419AC1000000105",
+    "httpStatus": 200,
+    "sha256": "411c0d94deb63e8e96b269942f1b0ac84c627d368631efcc1b9e3178d21f3835",
+    "revision": "419AC1000000105_20110830_423AC0000000105",
+    "note": "直接読み取りによる調査であり、02bの取得証明・採用済み根拠ではない。"
+  },
+  "choiceEvidenceCandidate": [
+    "第1条: 自然環境の保全",
+    "第1条: 地域の創意工夫を生かした観光の振興",
+    "第3条4項: 環境教育の場としての活用に配慮。否定文は誤り",
+    "第3条3項: 地域の多様な主体の連携と地域社会・経済の健全な発展"
+  ],
+  "observedInventory": {
+    "stateHash": "844a9b10657d42477252f084b36a9ce78a7ef73e083fbd0fcfb2875d04984e9a",
+    "choices": 4,
+    "explanations": 1,
+    "issues": [
+      "identity_mismatch",
+      "required_field_missing",
+      "law_audit_metadata_incomplete",
+      "merge_stale"
+    ],
+    "unrecorded": [
+      "law_audit",
+      "question_set"
+    ]
+  },
+  "nextAction": "同資格の実行中run終了後に対象問だけの02b→03→03b→04を通常工程で実行し、source差異保留と投影・変換・評価を別々に確認。",
+  "sourceDifferenceHoldRemains": true,
+  "independentEvaluation": false,
+  "firestoreWritten": false
+}
