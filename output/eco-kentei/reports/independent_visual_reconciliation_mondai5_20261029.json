@@ -1,0 +1,835 @@
+{
+  "title": "eco検定 模擬問題5 原画像と00_sourceの表記差レビュー",
+  "reviewedAt": "2026-10-29T23:25:32.532909+09:00",
+  "scope": "チェックポイントの表記差保留19問。本文、全選択肢、正答、数値、解説画像を各問で照合。改行・字幅・上付き下付き等の表示形式は本質的な差として自動一律変換しない。",
+  "checkpoint": "document/temporary/20261028_eco_knoun_forest_checkpoint.json",
+  "parallelBoundary": "別チャットの通常整備・評価とは分離。同じ画像照合依頼を受けた別チャットでも問73・74・75・77が並行して照合されていたため、その成果を突き合わせた。",
+  "records": [
+    {
+      "sourceRecordRef": "question_mondai5_30.json#0",
+      "source": {
+        "path": "output/eco-kentei/questions_json/knoun-2026-mock-5/00_source/question_mondai5_30.json",
+        "sha256": "b3b68bdcfe2eb3bad8cd1d664a8d10bac9afb0787de1e1dde568832d37603318"
+      },
+      "questionImage": {
+        "path": "output/eco-kentei/question_images/knoun-2026-mock-5/raw/mondai5_30.png",
+        "sha256": "4b3c3eb7931d8c0ae0a41d677fa472340ab717638b4f2572586a6a9e8bb57086"
+      },
+      "explanationImage": {
+        "path": "output/eco-kentei/question_images/knoun-2026-mock-5/raw/comment5_30.png",
+        "sha256": "833b70f196ee3efe6290541af64d9b331e7fee8be267f7bccb75016b17a15a73"
+      },
+      "existingProposal": {
+        "path": "output/eco-kentei/reports/source_difference_mondai5_30_header_20261028/proposal.json",
+        "sha256": "56697cd7803b9f64e253c7e5f1fdb1f6c1ce225227ad99a0555ecae8d733c6ae"
+      },
+      "visualReview": {
+        "question_and_all_choices": "画像と00_sourceを一問単位で照合。差はdifferencesに記載。",
+        "explanation_and_answer": "解説画像の正答とsourceの選択肢・推定正答を照合。",
+        "numeric_points_checked": "1954年10月6日、2003年、100万人、各1点×10",
+        "source_answer_result_text": "正答…③グローバルフェスタJAPAN〈テキスト外〉",
+        "source_answer_position_1_based": 3,
+        "source_selected_choice": "グローバルフェスタJAPAN",
+        "choice_count": 4
+      },
+      "differences": [
+        {
+          "field": "questionBodyText / sourceTranscription.questionText",
+          "source_before": "第3問 → コ → 共通指示 → （各1点×10）",
+          "image_observed_after": "第3問 → 共通指示 → （各1点×10） → コ",
+          "note": "配置の転記順"
+        }
+      ],
+      "answerImpact": "正答番号・選択肢の対応は変わらない。",
+      "proposedDisposition": "原画像の表記を記録した提案。00_sourceの直接編集は行わず、適用先と取扱いを後続レビューで決定する。"
+    },
+    {
+      "sourceRecordRef": "question_mondai5_32.json#0",
+      "source": {
+        "path": "output/eco-kentei/questions_json/knoun-2026-mock-5/00_source/question_mondai5_32.json",
+        "sha256": "90701ad91ac9c978865a4d6fa5f75c86a054d56d46fdab81846c0fe4aa9027c9"
+      },
+      "questionImage": {
+        "path": "output/eco-kentei/question_images/knoun-2026-mock-5/raw/mondai5_32.png",
+        "sha256": "11bb2d6b1f72c2bb04703ffcfa95f28febac26b44fd28488b5e3557641439607"
+      },
+      "explanationImage": {
+        "path": "output/eco-kentei/question_images/knoun-2026-mock-5/raw/comment5_32.png",
+        "sha256": "8e1292c0e0b73ea24abb29b61b6ead1bed3a4fb44cde3143a7448e5dba4df0e6"
+      },
+      "existingProposal": {
+        "path": "output/eco-kentei/reports/source_difference_mondai5_32_explanation_20261028/proposal.json",
+        "sha256": "b7d1a096ab8c1e6ecf6d5d0946af3559a11dd406def89e9be9a1c17fa85b9524"
+      },
+      "visualReview": {
+        "question_and_all_choices": "画像と00_sourceを一問単位で照合。差はdifferencesに記載。",
+        "explanation_and_answer": "解説画像の正答とsourceの選択肢・推定正答を照合。",
+        "numeric_points_checked": "各1点×10、SOx、NOx",
+        "source_answer_result_text": "正答・・・⑤溶解被害",
+        "source_answer_position_1_based": 5,
+        "source_selected_choice": "溶解被害",
+        "choice_count": 12
+      },
+      "differences": [
+        {
+          "field": "explanation_common_prefix / sourceTranscription.explanationText",
+          "source_before": "被害などもたらす。",
+          "image_observed_after": "被害などももたらす。",
+          "note": ""
+        },
+        {
+          "field": "sourceTranscription.questionText",
+          "source_before": "［語群］",
+          "image_observed_after": "【語群】",
+          "note": "画像の字形・配置を表す観察。Unicodeや転記方式は画像だけでは確定できない。"
+        }
+      ],
+      "answerImpact": "正答番号・選択肢の対応は変わらない。",
+      "proposedDisposition": "原画像の表記を記録した提案。00_sourceの直接編集は行わず、適用先と取扱いを後続レビューで決定する。"
+    },
+    {
+      "sourceRecordRef": "question_mondai5_37.json#0",
+      "source": {
+        "path": "output/eco-kentei/questions_json/knoun-2026-mock-5/00_source/question_mondai5_37.json",
+        "sha256": "fe7dd97668df75613fa449e656928a3c1d561e8569a29ae2c1db77f7f17abe4c"
+      },
+      "questionImage": {
+        "path": "output/eco-kentei/question_images/knoun-2026-mock-5/raw/mondai5_37.png",
+        "sha256": "4dfab139517ed4f56edc9f905c052825a231efac2e2c83f0588f54cdb55a8216"
+      },
+      "explanationImage": {
+        "path": "output/eco-kentei/question_images/knoun-2026-mock-5/raw/comment5_37.png",
+        "sha256": "5927ab9d2ae524dd00740f9ce5bc9782bfebc3da72a05b7526f443e77dc5bf64"
+      },
+      "existingProposal": {
+        "path": "output/eco-kentei/reports/source_difference_mondai5_37_choice_20261028/proposal.json",
+        "sha256": "8e2deef4a01c59aaf88ed02834d2fe6495e9abb26b205843a8776b34a530ece2"
+      },
+      "visualReview": {
+        "question_and_all_choices": "画像と00_sourceを一問単位で照合。差はdifferencesに記載。",
+        "explanation_and_answer": "解説画像の正答とsourceの選択肢・推定正答を照合。",
+        "numeric_points_checked": "1970年代、1979年、PM2.5、SO₂、NH₃、各1点×10",
+        "source_answer_result_text": "正答…⑱長距離越境大気汚染条約",
+        "source_answer_position_1_based": 6,
+        "source_selected_choice": "長距離越境大気汚染条約",
+        "choice_count": 12
+      },
+      "differences": [
+        {
+          "field": "choiceTextList[9] / sourceTranscription.questionText",
+          "source_before": "グリーンウォッシュ",
+          "image_observed_after": "グリーンウオッシュ",
+          "note": "㉒、誤答候補"
+        },
+        {
+          "field": "sourceTranscription.questionText",
+          "source_before": "［語群］",
+          "image_observed_after": "【語群】",
+          "note": "画像の字形・配置を表す観察。Unicodeや転記方式は画像だけでは確定できない。"
+        }
+      ],
+      "answerImpact": "正答番号・選択肢の対応は変わらない。 ㉒は誤答候補であり、正答は⑱（配列6番目）。法令根拠の別保留は残る。",
+      "proposedDisposition": "原画像の表記を記録した提案。00_sourceの直接編集は行わず、適用先と取扱いを後続レビューで決定する。"
+    },
+    {
+      "sourceRecordRef": "question_mondai5_47.json#0",
+      "source": {
+        "path": "output/eco-kentei/questions_json/knoun-2026-mock-5/00_source/question_mondai5_47.json",
+        "sha256": "64dff7fd32adf718a148db9eea0fb7a8a3e7a44a8d033b40f69b8d9def036c78"
+      },
+      "questionImage": {
+        "path": "output/eco-kentei/question_images/knoun-2026-mock-5/raw/mondai5_47.png",
+        "sha256": "c69840e11eb795731d5650e3f2b98c982dd1f21f21748dbfed1e253332ec6d11"
+      },
+      "explanationImage": {
+        "path": "output/eco-kentei/question_images/knoun-2026-mock-5/raw/comment5_47.png",
+        "sha256": "f2f94dfa372e98c8205910fda168943d65c79519bd74b32a05b3514b061b6637"
+      },
+      "existingProposal": {
+        "path": "output/eco-kentei/reports/source_difference_mondai5_47_header_20261028/proposal.json",
+        "sha256": "4fd37c666ba94866de3e8bdca844f7d822fce96093a8c1faa792ccb7050e0f07"
+      },
+      "visualReview": {
+        "question_and_all_choices": "画像と00_sourceを一問単位で照合。差はdifferencesに記載。",
+        "explanation_and_answer": "解説画像の正答とsourceの選択肢・推定正答を照合。",
+        "numeric_points_checked": "各1点×10",
+        "source_answer_result_text": "正答…①中間支援機能",
+        "source_answer_position_1_based": 1,
+        "source_selected_choice": "中間支援機能",
+        "choice_count": 4
+      },
+      "differences": [
+        {
+          "field": "questionBodyText / sourceTranscription.questionText",
+          "source_before": "次の文章の［イ］の部分にあてはまる最も適切な語句を、下記の中から1つ選びなさい。",
+          "image_observed_after": "第6問\n次の文章の［ ］の部分にあてはまる最も適切な語句を、下記の中から1つ選びなさい。",
+          "note": "空欄イは本文の［イ］に存在。見出しと共通指示の差 画像の字形・配置を表す観察。Unicodeや転記方式は画像だけでは確定できない。"
+        }
+      ],
+      "answerImpact": "正答番号・選択肢の対応は変わらない。",
+      "proposedDisposition": "原画像の表記を記録した提案。00_sourceの直接編集は行わず、適用先と取扱いを後続レビューで決定する。"
+    },
+    {
+      "sourceRecordRef": "question_mondai5_50.json#0",
+      "source": {
+        "path": "output/eco-kentei/questions_json/knoun-2026-mock-5/00_source/question_mondai5_50.json",
+        "sha256": "d43a0fbbc5930de1598c0ce5c9d7e34ca54f5bb9e3e0ed77b1bba2a6a9288f0a"
+      },
+      "questionImage": {
+        "path": "output/eco-kentei/question_images/knoun-2026-mock-5/raw/mondai5_50.png",
+        "sha256": "477596259be0d582b9808fdcc3c53266e5a3e3f432fa5917921bb109a87f6447"
+      },
+      "explanationImage": {
+        "path": "output/eco-kentei/question_images/knoun-2026-mock-5/raw/comment5_50.png",
+        "sha256": "6022ddd32aad592bacdd11dbb97a1ba5745f313c525faa5d4c50329778a922a4"
+      },
+      "existingProposal": {
+        "path": "output/eco-kentei/reports/source_difference_mondai5_50_header_20261028/proposal.json",
+        "sha256": "59d854c1eb2d1f8e39243a2a768466b5da9a869d704b647e74345247729f22e9"
+      },
+      "visualReview": {
+        "question_and_all_choices": "画像と00_sourceを一問単位で照合。差はdifferencesに記載。",
+        "explanation_and_answer": "解説画像の正答とsourceの選択肢・推定正答を照合。",
+        "numeric_points_checked": "各1点×10、ZEH・ZEB・ZEV",
+        "source_answer_result_text": "正答…③ZEH",
+        "source_answer_position_1_based": 3,
+        "source_selected_choice": "ZEH",
+        "choice_count": 4
+      },
+      "differences": [
+        {
+          "field": "questionBodyText / sourceTranscription.questionText",
+          "source_before": "IBT・CBT過去出題問題）（各1点×10）",
+          "image_observed_after": "IBT・CBT過去出題問題（各1点×10）",
+          "note": ""
+        }
+      ],
+      "answerImpact": "正答番号・選択肢の対応は変わらない。",
+      "proposedDisposition": "原画像の表記を記録した提案。00_sourceの直接編集は行わず、適用先と取扱いを後続レビューで決定する。"
+    },
+    {
+      "sourceRecordRef": "question_mondai5_54.json#0",
+      "source": {
+        "path": "output/eco-kentei/questions_json/knoun-2026-mock-5/00_source/question_mondai5_54.json",
+        "sha256": "a84faee3be748a4d1af494280d09b104671feb8922ffc173899144037d8abcb9"
+      },
+      "questionImage": {
+        "path": "output/eco-kentei/question_images/knoun-2026-mock-5/raw/mondai5_54.png",
+        "sha256": "a4dd15e075a00966eeb2717eb6235d39b5b3963517cbaa67ef83bde27c4a8b70"
+      },
+      "explanationImage": {
+        "path": "output/eco-kentei/question_images/knoun-2026-mock-5/raw/comment5_54.png",
+        "sha256": "654cf1f4198325dca669f8993e6de4db62b91445d8298a8ba328d101d28effaf"
+      },
+      "existingProposal": {
+        "path": "output/eco-kentei/reports/source_difference_mondai5_54_answer_punctuation_20261028/proposal.json",
+        "sha256": "ca00489884fd9fde6a5385090e1cf4f345322bc046e93aff78f815f7548e645a"
+      },
+      "visualReview": {
+        "question_and_all_choices": "画像と00_sourceを一問単位で照合。差はdifferencesに記載。",
+        "explanation_and_answer": "解説画像の正答とsourceの選択肢・推定正答を照合。",
+        "numeric_points_checked": "1972年、選択肢3・4・5・6月5日、正答6月5日",
+        "source_answer_result_text": "正答…・④6月5日",
+        "source_answer_position_1_based": 4,
+        "source_selected_choice": "6月5日",
+        "choice_count": 4
+      },
+      "differences": [
+        {
+          "field": "answer_result_text / sourceTranscription.explanationText",
+          "source_before": "正答…・④6月5日",
+          "image_observed_after": "正答…④6月5日",
+          "note": "点が1つ余分"
+        }
+      ],
+      "answerImpact": "正答番号・選択肢の対応は変わらない。",
+      "proposedDisposition": "原画像の表記を記録した提案。00_sourceの直接編集は行わず、適用先と取扱いを後続レビューで決定する。"
+    },
+    {
+      "sourceRecordRef": "question_mondai5_55.json#0",
+      "source": {
+        "path": "output/eco-kentei/questions_json/knoun-2026-mock-5/00_source/question_mondai5_55.json",
+        "sha256": "74dda7ace1be1c925af640ff05572967e85735e945ca9335f27c19311df49f33"
+      },
+      "questionImage": {
+        "path": "output/eco-kentei/question_images/knoun-2026-mock-5/raw/mondai5_55.png",
+        "sha256": "303590fb19c450f4756ff8b82a8aa1fe8529ce266a6e45430b41970661fea55d"
+      },
+      "explanationImage": {
+        "path": "output/eco-kentei/question_images/knoun-2026-mock-5/raw/comment5_55.png",
+        "sha256": "b68f2bce00b870cc33d9473684a4357ffa9c03eb6889e57d021b1033b26a6790"
+      },
+      "existingProposal": {
+        "path": "output/eco-kentei/reports/source_difference_mondai5_55_label_20261028/proposal.json",
+        "sha256": "cf7cfcecea4f7109f46905d81a95c753c69ff80712f84a237846f304bdbcf254"
+      },
+      "visualReview": {
+        "question_and_all_choices": "画像と00_sourceを一問単位で照合。差はdifferencesに記載。",
+        "explanation_and_answer": "解説画像の正答とsourceの選択肢・推定正答を照合。",
+        "numeric_points_checked": "各1点×10",
+        "source_answer_result_text": "正答…③合流式下水道",
+        "source_answer_position_1_based": 3,
+        "source_selected_choice": "合流式下水道",
+        "choice_count": 4
+      },
+      "differences": [
+        {
+          "field": "questionBodyText / sourceTranscription.questionText",
+          "source_before": "［コ］",
+          "image_observed_after": "コ",
+          "note": "冒頭の小問ラベル。本文中の［コ］は維持 画像の字形・配置を表す観察。Unicodeや転記方式は画像だけでは確定できない。"
+        }
+      ],
+      "answerImpact": "正答番号・選択肢の対応は変わらない。",
+      "proposedDisposition": "原画像の表記を記録した提案。00_sourceの直接編集は行わず、適用先と取扱いを後続レビューで決定する。"
+    },
+    {
+      "sourceRecordRef": "question_mondai5_56.json#0",
+      "source": {
+        "path": "output/eco-kentei/questions_json/knoun-2026-mock-5/00_source/question_mondai5_56.json",
+        "sha256": "31cdcecf87f4b13d211ffa2e30bff14ab2d15005521564cf39a8cbd95d013524"
+      },
+      "questionImage": {
+        "path": "output/eco-kentei/question_images/knoun-2026-mock-5/raw/mondai5_56.png",
+        "sha256": "1269868687c84303edef5035ebee8ad406a894baa4ead8c2a2f478ec45ac269d"
+      },
+      "explanationImage": {
+        "path": "output/eco-kentei/question_images/knoun-2026-mock-5/raw/comment5_56.png",
+        "sha256": "a7cd7c7c4701d0b24ae9055644fbfc692aee3d316e88314ebecbe7459e809517"
+      },
+      "existingProposal": {
+        "path": "output/eco-kentei/reports/source_difference_mondai5_56_heading_20261028/proposal.json",
+        "sha256": "af2771f3d73961fed6be1431874f9a2b0962ee21372ba292be34fb2841446a9a"
+      },
+      "visualReview": {
+        "question_and_all_choices": "画像と00_sourceを一問単位で照合。差はdifferencesに記載。",
+        "explanation_and_answer": "解説画像の正答とsourceの選択肢・推定正答を照合。",
+        "numeric_points_checked": "1960年代、1970年、各2点×5",
+        "source_answer_result_text": "正答…①",
+        "source_answer_position_1_based": 1,
+        "source_selected_choice": "水俣病の原因は、工業用排水に含まれていた有機水銀である。",
+        "choice_count": 3
+      },
+      "differences": [
+        {
+          "field": "questionBodyText / sourceTranscription.questionText",
+          "source_before": "「企業に求められる社会的責任」",
+          "image_observed_after": "第7問\n「企業に求められる社会的責任」",
+          "note": "見出しの欠落"
+        },
+        {
+          "field": "questionBodyText / sourceTranscription.questionText",
+          "source_before": "［設問ア］",
+          "image_observed_after": "【設問ア】",
+          "note": "画像の字形・配置を表す観察。Unicodeや転記方式は画像だけでは確定できない。"
+        }
+      ],
+      "answerImpact": "正答番号・選択肢の対応は変わらない。",
+      "proposedDisposition": "原画像の表記を記録した提案。00_sourceの直接編集は行わず、適用先と取扱いを後続レビューで決定する。"
+    },
+    {
+      "sourceRecordRef": "question_mondai5_57.json#0",
+      "source": {
+        "path": "output/eco-kentei/questions_json/knoun-2026-mock-5/00_source/question_mondai5_57.json",
+        "sha256": "960f84349498e4a4d203d76a64a50a25c34e18966b1e17d4826bc6106b3a8486"
+      },
+      "questionImage": {
+        "path": "output/eco-kentei/question_images/knoun-2026-mock-5/raw/mondai5_57.png",
+        "sha256": "4e939ed7335200278701c55b917f068079020c30d3230bb57dd35b59f834e36a"
+      },
+      "explanationImage": {
+        "path": "output/eco-kentei/question_images/knoun-2026-mock-5/raw/comment5_57.png",
+        "sha256": "82d2215175a912ce438fb8714626bc3c70707dfa0ac52b1ce361ee1ca2fdb8f1"
+      },
+      "existingProposal": {
+        "path": "output/eco-kentei/reports/source_difference_mondai5_57_underline_marker_20261028/proposal.json",
+        "sha256": "4c73bcbf6436c463057b441adb9a041428a0e786d611bed54897bc533e14c4cb"
+      },
+      "visualReview": {
+        "question_and_all_choices": "画像と00_sourceを一問単位で照合。差はdifferencesに記載。",
+        "explanation_and_answer": "解説画像の正答とsourceの選択肢・推定正答を照合。",
+        "numeric_points_checked": "1973年、1980年代、各2点×5",
+        "source_answer_result_text": "正答・・・③",
+        "source_answer_position_1_based": 3,
+        "source_selected_choice": "メセナ活動",
+        "choice_count": 3
+      },
+      "differences": [
+        {
+          "field": "questionBodyText / sourceTranscription.questionText",
+          "source_before": "⑥",
+          "image_observed_after": "ⓑ",
+          "note": "本文・設問の下線部参照、各1か所"
+        },
+        {
+          "field": "questionBodyText / sourceTranscription.questionText",
+          "source_before": "［設問イ］",
+          "image_observed_after": "【設問イ】",
+          "note": "画像の字形・配置を表す観察。Unicodeや転記方式は画像だけでは確定できない。"
+        }
+      ],
+      "answerImpact": "正答番号・選択肢の対応は変わらない。 ただし下線部の参照記号を選択肢番号と混同しないよう、本文と設問を一組で扱う。",
+      "proposedDisposition": "原画像の表記を記録した提案。00_sourceの直接編集は行わず、適用先と取扱いを後続レビューで決定する。"
+    },
+    {
+      "sourceRecordRef": "question_mondai5_58.json#0",
+      "source": {
+        "path": "output/eco-kentei/questions_json/knoun-2026-mock-5/00_source/question_mondai5_58.json",
+        "sha256": "61b1c78b8862fb3e27436b7362b28ee07aa0fac14d5b306866413bee51291004"
+      },
+      "questionImage": {
+        "path": "output/eco-kentei/question_images/knoun-2026-mock-5/raw/mondai5_58.png",
+        "sha256": "7a5ff7e77990a54886734c2cc77ab5c4e0b471f6e98bf82af59cb22587605466"
+      },
+      "explanationImage": {
+        "path": "output/eco-kentei/question_images/knoun-2026-mock-5/raw/comment5_58.png",
+        "sha256": "5983b37f29b06dc30b7cdac079a41ec199ce6c105c02a77e3f7d8bb62126837f"
+      },
+      "existingProposal": {
+        "path": "output/eco-kentei/reports/source_difference_mondai5_58_underline_marker_20261028/proposal.json",
+        "sha256": "e1eaaa4647999674b3ca0646f2ee46ac9e9998993b3f5a594a980e5924ed517f"
+      },
+      "visualReview": {
+        "question_and_all_choices": "画像と00_sourceを一問単位で照合。差はdifferencesに記載。",
+        "explanation_and_answer": "解説画像の正答とsourceの選択肢・推定正答を照合。",
+        "numeric_points_checked": "1990年代、1991年、1996年、ISO14001、各2点×5",
+        "source_answer_result_text": "正答…②",
+        "source_answer_position_1_based": 2,
+        "source_selected_choice": "環境報告書",
+        "choice_count": 3
+      },
+      "differences": [
+        {
+          "field": "questionBodyText / sourceTranscription.questionText",
+          "source_before": "©",
+          "image_observed_after": "ⓒ",
+          "note": "本文・設問の下線部参照、各1か所。字形が近いが意味が異なる"
+        },
+        {
+          "field": "questionBodyText / sourceTranscription.questionText",
+          "source_before": "［設問ウ］",
+          "image_observed_after": "【設問ウ】",
+          "note": "画像の字形・配置を表す観察。Unicodeや転記方式は画像だけでは確定できない。"
+        }
+      ],
+      "answerImpact": "正答番号・選択肢の対応は変わらない。 ただし下線部の参照記号を選択肢番号と混同しないよう、本文と設問を一組で扱う。",
+      "proposedDisposition": "原画像の表記を記録した提案。00_sourceの直接編集は行わず、適用先と取扱いを後続レビューで決定する。"
+    },
+    {
+      "sourceRecordRef": "question_mondai5_59.json#0",
+      "source": {
+        "path": "output/eco-kentei/questions_json/knoun-2026-mock-5/00_source/question_mondai5_59.json",
+        "sha256": "f33b8f0060a436beba2c41fed77bb2f9120433552b69f6ca13459c3e761ac748"
+      },
+      "questionImage": {
+        "path": "output/eco-kentei/question_images/knoun-2026-mock-5/raw/mondai5_59.png",
+        "sha256": "bb4fbfd7eae68cfead5f8d477088432e7ef475752e65516cbac4d5676ef54868"
+      },
+      "explanationImage": {
+        "path": "output/eco-kentei/question_images/knoun-2026-mock-5/raw/comment5_59.png",
+        "sha256": "da4026d256d8e148bc3c855a1dc825ab2b9ee2b85c90227a4e92c18c922d4ee1"
+      },
+      "existingProposal": {
+        "path": "output/eco-kentei/reports/source_difference_mondai5_59_underline_marker_20261028/proposal.json",
+        "sha256": "ca4d113cf976ecd461745d0d556a9196ac5e18292b2975072ec5bda8dd4271c5"
+      },
+      "visualReview": {
+        "question_and_all_choices": "画像と00_sourceを一問単位で照合。差はdifferencesに記載。",
+        "explanation_and_answer": "解説画像の正答とsourceの選択肢・推定正答を照合。",
+        "numeric_points_checked": "1997年、3分野、各2点×5",
+        "source_answer_result_text": "正答・・・③",
+        "source_answer_position_1_based": 3,
+        "source_selected_choice": "環境面、経済面、社会面",
+        "choice_count": 3
+      },
+      "differences": [
+        {
+          "field": "questionBodyText / sourceTranscription.questionText",
+          "source_before": "④",
+          "image_observed_after": "ⓓ",
+          "note": "本文・設問の下線部参照、各1か所。選択肢番号ではない"
+        }
+      ],
+      "answerImpact": "正答番号・選択肢の対応は変わらない。 ただし下線部の参照記号を選択肢番号と混同しないよう、本文と設問を一組で扱う。",
+      "proposedDisposition": "原画像の表記を記録した提案。00_sourceの直接編集は行わず、適用先と取扱いを後続レビューで決定する。"
+    },
+    {
+      "sourceRecordRef": "question_mondai5_64.json#0",
+      "source": {
+        "path": "output/eco-kentei/questions_json/knoun-2026-mock-5/00_source/question_mondai5_64.json",
+        "sha256": "b61e4fc120fe34966bfe373839c53b1af19110cdb846adfe834f3c4ff67e7606"
+      },
+      "questionImage": {
+        "path": "output/eco-kentei/question_images/knoun-2026-mock-5/raw/mondai5_64.png",
+        "sha256": "f9f75e637d70e8460f23cfb60926dba4e84166fb17b06f018719f2ebf4dee254"
+      },
+      "explanationImage": {
+        "path": "output/eco-kentei/question_images/knoun-2026-mock-5/raw/comment5_64.png",
+        "sha256": "3b1f293b0e90ea7771bbb244c6f3e161c8f0dda36397decdf54ed5a53bc73541"
+      },
+      "existingProposal": {
+        "path": "output/eco-kentei/reports/source_difference_mondai5_64_choice_heading_20261028/proposal.json",
+        "sha256": "45bd3eed30b0a3015003aaec26c4c99832d3546a2d1e90723befed6c1536c041"
+      },
+      "visualReview": {
+        "question_and_all_choices": "画像と00_sourceを一問単位で照合。差はdifferencesに記載。",
+        "explanation_and_answer": "解説画像の正答とsourceの選択肢・推定正答を照合。",
+        "numeric_points_checked": "2001年、各1点×10",
+        "source_answer_result_text": "正答…②",
+        "source_answer_position_1_based": 2,
+        "source_selected_choice": "商品を購入する際に、価格、品質、機能、デザインといった使用時の条件だけでなく、環境にも配慮して商品やサービスを選ぶこと。",
+        "choice_count": 4
+      },
+      "differences": [
+        {
+          "field": "questionBodyText / sourceTranscription.questionText",
+          "source_before": "［選択肢］",
+          "image_observed_after": "【選択肢】",
+          "note": "画像の字形・配置を表す観察。Unicodeや転記方式は画像だけでは確定できない。"
+        }
+      ],
+      "answerImpact": "正答番号・選択肢の対応は変わらない。",
+      "proposedDisposition": "原画像の表記を記録した提案。00_sourceの直接編集は行わず、適用先と取扱いを後続レビューで決定する。"
+    },
+    {
+      "sourceRecordRef": "question_mondai5_66.json#0",
+      "source": {
+        "path": "output/eco-kentei/questions_json/knoun-2026-mock-5/00_source/question_mondai5_66.json",
+        "sha256": "5de63204400d5664b5d684b6eb4289b0e7d1c84ab63816accc1431c645a4e921"
+      },
+      "questionImage": {
+        "path": "output/eco-kentei/question_images/knoun-2026-mock-5/raw/mondai5_66.png",
+        "sha256": "3eaba8ea637ec5f325ad02bb2fc8b177e7340df6f257e013e59a190681837ff3"
+      },
+      "explanationImage": {
+        "path": "output/eco-kentei/question_images/knoun-2026-mock-5/raw/comment5_66.png",
+        "sha256": "99d412a809417fc825a242e76754faf2ae7c3258a9424266087b24100fee6b17"
+      },
+      "existingProposal": {
+        "path": "output/eco-kentei/reports/source_difference_mondai5_66_choice_heading_20261028/proposal.json",
+        "sha256": "3c61c285ff733d3b59e37457279bf137a77b2e3d1049c450d4550a2a3f6af8a8"
+      },
+      "visualReview": {
+        "question_and_all_choices": "画像と00_sourceを一問単位で照合。差はdifferencesに記載。",
+        "explanation_and_answer": "解説画像の正答とsourceの選択肢・推定正答を照合。",
+        "numeric_points_checked": "約10年分、2022年度9.0%、2022年95.2%、2000年代後半",
+        "source_answer_result_text": "正答・・・②",
+        "source_answer_position_1_based": 2,
+        "source_selected_choice": "輸送時には低温にして液化し、専用のタンカーでオーストラリア、マレーシア、カタール、ロシアなどから輸入している。石油とは異なり、2022年度における中東からの輸入割合は9.0%に留まっている。",
+        "choice_count": 4
+      },
+      "differences": [
+        {
+          "field": "questionBodyText / sourceTranscription.questionText",
+          "source_before": "［選択肢］",
+          "image_observed_after": "【選択肢】",
+          "note": "画像の字形・配置を表す観察。Unicodeや転記方式は画像だけでは確定できない。"
+        }
+      ],
+      "answerImpact": "正答番号・選択肢の対応は変わらない。",
+      "proposedDisposition": "原画像の表記を記録した提案。00_sourceの直接編集は行わず、適用先と取扱いを後続レビューで決定する。"
+    },
+    {
+      "sourceRecordRef": "question_mondai5_70.json#0",
+      "source": {
+        "path": "output/eco-kentei/questions_json/knoun-2026-mock-5/00_source/question_mondai5_70.json",
+        "sha256": "836b9a77b2bf1e08bbd0e34d0cdd632605157b53cef1ab1404e7713f79dd2b68"
+      },
+      "questionImage": {
+        "path": "output/eco-kentei/question_images/knoun-2026-mock-5/raw/mondai5_70.png",
+        "sha256": "6534d1f48de6120c382994659c0fbe070127cb2e2f830d0e2149ebff3a81c343"
+      },
+      "explanationImage": {
+        "path": "output/eco-kentei/question_images/knoun-2026-mock-5/raw/comment5_70.png",
+        "sha256": "3ca73078d4b88be71e644f8a1a0eb60f01d94ace01865ad966dfdbb1ec3044cb"
+      },
+      "existingProposal": {
+        "path": "output/eco-kentei/reports/source_difference_mondai5_70_choice_heading_20261028/proposal.json",
+        "sha256": "b62f2f096f0aa67ae478f367dec6c8b912b506c89d5ff539025f7a0698ab814f"
+      },
+      "visualReview": {
+        "question_and_all_choices": "画像と00_sourceを一問単位で照合。差はdifferencesに記載。",
+        "explanation_and_answer": "解説画像の正答とsourceの選択肢・推定正答を照合。",
+        "numeric_points_checked": "1次＋2次＋3次、1次×2次×3次＝6次、1988年、1998年、30年以上、P.119、235百万トン",
+        "source_answer_result_text": "正答・・・③",
+        "source_answer_position_1_based": 3,
+        "source_selected_choice": "農林漁業者が生産だけでなく加工・流通販売を自ら一体的に行ったり、農林漁業者と加工業者、流通販売業者と連携して事業を展開したりすること。",
+        "choice_count": 4
+      },
+      "differences": [
+        {
+          "field": "questionBodyText / sourceTranscription.questionText",
+          "source_before": "［選択肢］",
+          "image_observed_after": "【選択肢】",
+          "note": "画像の字形・配置を表す観察。Unicodeや転記方式は画像だけでは確定できない。"
+        }
+      ],
+      "answerImpact": "正答番号・選択肢の対応は変わらない。",
+      "proposedDisposition": "原画像の表記を記録した提案。00_sourceの直接編集は行わず、適用先と取扱いを後続レビューで決定する。"
+    },
+    {
+      "sourceRecordRef": "question_mondai5_71.json#0",
+      "source": {
+        "path": "output/eco-kentei/questions_json/knoun-2026-mock-5/00_source/question_mondai5_71.json",
+        "sha256": "6b34f1614d83dbef86a2186ea8c75d66770548f2ded0539b599aaf142c50fc14"
+      },
+      "questionImage": {
+        "path": "output/eco-kentei/question_images/knoun-2026-mock-5/raw/mondai5_71.png",
+        "sha256": "151726ec0caf36e901bcbc4ffc8844b43c6f3893e1ec260643939b5e2c7705dd"
+      },
+      "explanationImage": {
+        "path": "output/eco-kentei/question_images/knoun-2026-mock-5/raw/comment5_71.png",
+        "sha256": "92cc95ad967d58dc168622ab05aff7df573121d0b398b744b98bfe45b370bf30"
+      },
+      "existingProposal": {
+        "path": "output/eco-kentei/reports/source_difference_mondai5_71_word_group_heading_20261028/proposal.json",
+        "sha256": "2daae9de784a7e2cbceec6cf4f6c5b9dbd78ab443e8f905ad93eb7c85844f6fd"
+      },
+      "visualReview": {
+        "question_and_all_choices": "画像と00_sourceを一問単位で照合。差はdifferencesに記載。",
+        "explanation_and_answer": "解説画像の正答とsourceの選択肢・推定正答を照合。",
+        "numeric_points_checked": "9-1、各1点×5",
+        "source_answer_result_text": "正答・・・①製品ライフサイクル",
+        "source_answer_position_1_based": 1,
+        "source_selected_choice": "製品ライフサイクル",
+        "choice_count": 15
+      },
+      "differences": [
+        {
+          "field": "sourceTranscription.questionText",
+          "source_before": "［語群］",
+          "image_observed_after": "【語群】",
+          "note": "画像の字形・配置を表す観察。Unicodeや転記方式は画像だけでは確定できない。"
+        }
+      ],
+      "answerImpact": "正答番号・選択肢の対応は変わらない。",
+      "proposedDisposition": "原画像の表記を記録した提案。00_sourceの直接編集は行わず、適用先と取扱いを後続レビューで決定する。"
+    },
+    {
+      "sourceRecordRef": "question_mondai5_73.json#0",
+      "source": {
+        "path": "output/eco-kentei/questions_json/knoun-2026-mock-5/00_source/question_mondai5_73.json",
+        "sha256": "4eef658e1a8717b554a17121265f7dea102f3d900dc15f5850b1d1c914286533"
+      },
+      "questionImage": {
+        "path": "output/eco-kentei/question_images/knoun-2026-mock-5/raw/mondai5_73.png",
+        "sha256": "000bf03d8914b902939335b4ca2ea5164fb36483713039228b748f711d3b8e1e"
+      },
+      "explanationImage": {
+        "path": "output/eco-kentei/question_images/knoun-2026-mock-5/raw/comment5_73.png",
+        "sha256": "0310fac8473373fa8a0b38484d56e084f14d3a347354d773e9fa84398cec8ca7"
+      },
+      "existingProposal": {
+        "path": "output/eco-kentei/reports/source_difference_mondai5_73_word_group_heading_20261028/proposal.json",
+        "sha256": "0e250b165e6f82a190b8dbac3e6737d38cd23d8c792f740e405c7e4a5c236368"
+      },
+      "visualReview": {
+        "question_and_all_choices": "画像と00_sourceを一問単位で照合。差はdifferencesに記載。",
+        "explanation_and_answer": "解説画像の正答とsourceの選択肢・推定正答を照合。",
+        "numeric_points_checked": "9-1、CO₂、各1点×5",
+        "source_answer_result_text": "正答・・・⑦トップランナー",
+        "source_answer_position_1_based": 7,
+        "source_selected_choice": "トップランナー",
+        "choice_count": 15
+      },
+      "differences": [
+        {
+          "field": "sourceTranscription.questionText",
+          "source_before": "［語群］",
+          "image_observed_after": "【語群】",
+          "note": "画像の字形・配置を表す観察。Unicodeや転記方式は画像だけでは確定できない。"
+        }
+      ],
+      "answerImpact": "正答番号・選択肢の対応は変わらない。 法令根拠の別保留は残る。",
+      "proposedDisposition": "原画像の表記を記録した提案。00_sourceの直接編集は行わず、適用先と取扱いを後続レビューで決定する。",
+      "additionalObservations": [
+        {
+          "field": "questionBodyText / sourceTranscription.questionText",
+          "source_before": "［イ］、［ウ］",
+          "image_appearance": "【イ】、【ウ】",
+          "note": "本文の穴の画像字形。Unicode文字の同定ではない。"
+        },
+        {
+          "field": "questionBodyText / sourceTranscription.questionText",
+          "source_before": "［ウ］",
+          "image_appearance": "「ウ」",
+          "note": "末尾の赤字指定の見え方。Unicode文字の同定ではない。"
+        }
+      ]
+    },
+    {
+      "sourceRecordRef": "question_mondai5_74.json#0",
+      "source": {
+        "path": "output/eco-kentei/questions_json/knoun-2026-mock-5/00_source/question_mondai5_74.json",
+        "sha256": "d8d2d6358af157002f56a2391d86353d0aa3bd6f7fd244f131bd93128ab3049a"
+      },
+      "questionImage": {
+        "path": "output/eco-kentei/question_images/knoun-2026-mock-5/raw/mondai5_74.png",
+        "sha256": "d1c323c30fcf9da15f878d6ecad0b5f5670ebe74e69246c7c994878063eddffc"
+      },
+      "explanationImage": {
+        "path": "output/eco-kentei/question_images/knoun-2026-mock-5/raw/comment5_74.png",
+        "sha256": "4f13efc0765fad604be15600104f7d591f1cee23a8f0440f94be7bb7a4c9f28c"
+      },
+      "existingProposal": {
+        "path": "output/eco-kentei/reports/source_difference_mondai5_74_word_group_heading_20261029/proposal.json",
+        "sha256": "4025c27bfdb6b7e99c90cd4b10f2a409f44aa2ef7d9f6b5c109d77b3ba4dc1a7"
+      },
+      "visualReview": {
+        "question_and_all_choices": "画像と00_sourceを一問単位で照合。差はdifferencesに記載。",
+        "explanation_and_answer": "解説画像の正答とsourceの選択肢・推定正答を照合。",
+        "numeric_points_checked": "9-1、CO₂、各1点×5",
+        "source_answer_result_text": "正答・・・⑪環境ラベル",
+        "source_answer_position_1_based": 11,
+        "source_selected_choice": "環境ラベル",
+        "choice_count": 15
+      },
+      "differences": [
+        {
+          "field": "sourceTranscription.questionText",
+          "source_before": "［語群］",
+          "image_observed_after": "【語群】",
+          "note": "画像の字形・配置を表す観察。Unicodeや転記方式は画像だけでは確定できない。"
+        }
+      ],
+      "answerImpact": "正答番号・選択肢の対応は変わらない。",
+      "proposedDisposition": "原画像の表記を記録した提案。00_sourceの直接編集は行わず、適用先と取扱いを後続レビューで決定する。",
+      "additionalObservations": [
+        {
+          "field": "questionBodyText / sourceTranscription.questionText",
+          "source_before": "［エ］",
+          "image_appearance": "【エ】",
+          "note": "本文の穴の画像字形。Unicode文字の同定ではない。"
+        },
+        {
+          "field": "questionBodyText / sourceTranscription.questionText",
+          "source_before": "［エ］",
+          "image_appearance": "「エ」",
+          "note": "末尾の赤字指定の見え方。Unicode文字の同定ではない。"
+        }
+      ]
+    },
+    {
+      "sourceRecordRef": "question_mondai5_75.json#0",
+      "source": {
+        "path": "output/eco-kentei/questions_json/knoun-2026-mock-5/00_source/question_mondai5_75.json",
+        "sha256": "2d8e305868c767c515739f048f2a1868f287c7e130ff4b9495195ba506922d33"
+      },
+      "questionImage": {
+        "path": "output/eco-kentei/question_images/knoun-2026-mock-5/raw/mondai5_75.png",
+        "sha256": "635f38809696e5e508c85c1d968647aed8159d0cf79268d9c195a4ff61418781"
+      },
+      "explanationImage": {
+        "path": "output/eco-kentei/question_images/knoun-2026-mock-5/raw/comment5_75.png",
+        "sha256": "a6c933d82c6db7ccba89da447101a0a79b662c7c7e4e556cb0eb71476d3be7f0"
+      },
+      "existingProposal": {
+        "path": "output/eco-kentei/reports/source_difference_mondai5_75_word_group_heading_20261029/proposal.json",
+        "sha256": "c052d2443d7c787f480b752a216376c8ded1f33330bc14303293818bb3df7fb7"
+      },
+      "visualReview": {
+        "question_and_all_choices": "画像と00_sourceを一問単位で照合。差はdifferencesに記載。",
+        "explanation_and_answer": "解説画像の正答とsourceの選択肢・推定正答を照合。",
+        "numeric_points_checked": "9-1、各1点×5",
+        "source_answer_result_text": "正答・・・⑮グリーンコンシューマー",
+        "source_answer_position_1_based": 15,
+        "source_selected_choice": "グリーンコンシューマー",
+        "choice_count": 15
+      },
+      "differences": [
+        {
+          "field": "sourceTranscription.questionText",
+          "source_before": "［語群］",
+          "image_observed_after": "【語群】",
+          "note": "画像の字形・配置を表す観察。Unicodeや転記方式は画像だけでは確定できない。"
+        }
+      ],
+      "answerImpact": "正答番号・選択肢の対応は変わらない。",
+      "proposedDisposition": "原画像の表記を記録した提案。00_sourceの直接編集は行わず、適用先と取扱いを後続レビューで決定する。",
+      "additionalObservations": [
+        {
+          "field": "questionBodyText / sourceTranscription.questionText",
+          "source_before": "［オ］",
+          "image_appearance": "【オ】",
+          "note": "本文の穴の画像字形。Unicode文字の同定ではない。"
+        },
+        {
+          "field": "questionBodyText / sourceTranscription.questionText",
+          "source_before": "［オ］",
+          "image_appearance": "「オ」",
+          "note": "末尾の赤字指定の見え方。Unicode文字の同定ではない。"
+        }
+      ]
+    },
+    {
+      "sourceRecordRef": "question_mondai5_77.json#0",
+      "source": {
+        "path": "output/eco-kentei/questions_json/knoun-2026-mock-5/00_source/question_mondai5_77.json",
+        "sha256": "310cf8ae983bfa3ae7b7ed7c56729b34b39911ce1c372c23e624f8b2123b999b"
+      },
+      "questionImage": {
+        "path": "output/eco-kentei/question_images/knoun-2026-mock-5/raw/mondai5_77.png",
+        "sha256": "e8139705fb93e3d25e388191c1fd7ebefc12aaf0d674890f02f6b5659b0630af"
+      },
+      "explanationImage": {
+        "path": "output/eco-kentei/question_images/knoun-2026-mock-5/raw/comment5_77.png",
+        "sha256": "4ec8b1e92bee947dc0ffbfb097b9f0d5dbd90edc5cffb3444fdf617ff74d9938"
+      },
+      "existingProposal": {
+        "path": "output/eco-kentei/reports/source_difference_mondai5_77_word_group_heading_20261029/proposal.json",
+        "sha256": "f234d447adebc28506ccae363bbc96777757b36135961752125e4ff5c10e421e"
+      },
+      "visualReview": {
+        "question_and_all_choices": "画像と00_sourceを一問単位で照合。差はdifferencesに記載。",
+        "explanation_and_answer": "解説画像の正答とsourceの選択肢・推定正答を照合。",
+        "numeric_points_checked": "9-2、2008年4月、20、2024年8月、各1点×5",
+        "source_answer_result_text": "正答・・・④環境教育",
+        "source_answer_position_1_based": 4,
+        "source_selected_choice": "環境教育",
+        "choice_count": 12
+      },
+      "differences": [
+        {
+          "field": "sourceTranscription.questionText",
+          "source_before": "［語群］",
+          "image_observed_after": "【語群】",
+          "note": "画像の字形・配置を表す観察。Unicodeや転記方式は画像だけでは確定できない。"
+        }
+      ],
+      "answerImpact": "正答番号・選択肢の対応は変わらない。 法令根拠の別保留は残る。",
+      "proposedDisposition": "原画像の表記を記録した提案。00_sourceの直接編集は行わず、適用先と取扱いを後続レビューで決定する。",
+      "additionalObservations": [
+        {
+          "field": "questionBodyText / sourceTranscription.questionText",
+          "source_before": "［ア］（3か所）、［イ］",
+          "image_appearance": "【ア】（3か所）、【イ】",
+          "note": "本文の穴の画像字形。Unicode文字の同定ではない。"
+        },
+        {
+          "field": "questionBodyText / sourceTranscription.questionText",
+          "source_before": "［イ］",
+          "image_appearance": "「イ」",
+          "note": "末尾の赤字指定の見え方。Unicode文字の同定ではない。"
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "原画像との転記照合であり、法律・統計の現行性や正答の事実正確性を独立検証したものではない。",
+    "画像の書体・配置をプレーンテキストに移す方法は後続レビューで判断する。",
+    "source、patch、checkpointの変更、整備run、独立評価、Firestore書き込みは行っていない。",
+    "括弧や点の差は画像上の字形の観察であり、Unicodeコードポイントや、画像化前の原文文字列の確定を意味しない。見出し、本文の穴、指定文それぞれを保存目的に応じて判断する。"
+  ],
+  "reviewedAtSupplement": "2026-10-29T23:40:39.341847+09:00",
+  "crossReview": {
+    "path": "output/eco-kentei/reports/mondai5_73_74_75_77_image_comparison_20261029.md",
+    "sha256": "0d674eb04ba625758eb5c40c05525051208aa45958554790588ad86e476d0743",
+    "questions": [
+      73,
+      74,
+      75,
+      77
+    ],
+    "note": "4問は別チャットと重複して確認した。同チャットの追加観察を参照し、本文の穴と末尾の指定の見え方を以下に補足した。"
+  }
+}
