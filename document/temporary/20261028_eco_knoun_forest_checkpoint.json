@@ -6289,7 +6289,9 @@
     "sourceTranscriptionMatchesImages": false,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_46_primary_source_review_20261029.json",
     "status": "hold_source_transcription_difference",
-    "holdReason": "画像の出題表示「IBT・CBT過去出題問題」の直前に開き括弧はないが、登録文には余分な「（」がある。"
+    "holdReason": "画像の出題表示「IBT・CBT過去出題問題」の直前に開き括弧はないが、登録文には余分な「（」がある。",
+    "originalizationRevision": "output/eco-kentei/reports/mondai2_46_before_environment_plan_originalization_20261030/",
+    "workflowStatus": "prepared_pending_formal_audit_and_independent_evaluation"
   },
   "inProgressQuestion2_47": {
     "sourceRecordRef": "question_mondai2_47.json#0",
@@ -8046,5 +8048,17 @@
     "evidenceReceipt": "output/eco-kentei/reports/mondai4_20_before_implementation_20261029/receipt.json",
     "sourceTranscriptionUncertainty": "原解答の三点文字種は画像から判別困難。番号は一致。",
     "independentContentReview": "pass_by_independent_agent_formal_law_audit_and_session_evaluation_pending"
+  },
+  "parallel3LawRevalidation20261030": {
+    "nativeRunId": "20261030T000656497423-ea55bcbb",
+    "status": "running",
+    "questionRefs": [
+      "question_mondai2_51.json#0",
+      "question_mondai2_85.json#0",
+      "question_mondai3_10.json#0"
+    ],
+    "previewReceipt": "output/eco-kentei/reports/law_revalidation_3_preview_20261030.json",
+    "startReceipt": "output/eco-kentei/reports/law_revalidation_3_start_20261030.json",
+    "note": "同一資格の正式runは1件。3問を各02b・03b・04で再整備し、根拠と独立評価が済むまで受入しない。"
   }
 }
