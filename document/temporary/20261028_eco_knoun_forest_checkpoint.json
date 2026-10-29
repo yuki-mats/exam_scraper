@@ -8163,7 +8163,9 @@
     "candidateReceipt": "output/eco-kentei/reports/all425_source_05_choice_projection_candidates_20261030.json",
     "independentReview": "原画像・00_source・05・10を1問ずつ照合。正式な復旧と再検証が必要。",
     "identityRepairBackup": "output/eco-kentei/reports/mondai1_12_before_15_choice_restore_20261030/",
-    "workflowStatus": "原肢順へ復旧済み。旧10・23・監査factsの再判定・評価まで保留。"
+    "workflowStatus": "正式投影・ローカルmerge/convert/upload-readyと3検査完了。独立評価待ちでhold維持。",
+    "integrationReceipt": "output/eco-kentei/reports/mondai1_12_15_fixed_baseline_trial_20261030/apply_receipt.json",
+    "convertRepairReceipt": "output/eco-kentei/reports/mondai1_12_15_fixed_baseline_trial_20261030/40_repair_receipt.json"
   },
   "choiceIdentityHold1_21_20261030": {
     "sourceRecordRef": "question_mondai1_21.json#0",
@@ -8189,7 +8191,9 @@
     "note": "公開先ID確認・原肢の復旧・正式再整備を実施するまで受入保留。",
     "identityRepairBackup": "output/eco-kentei/reports/mondai1_15_before_identity_repair_20261030/",
     "identityReadback": "output/eco-kentei/reports/mondai1_15_projection_firestore_readback_20261030.json",
-    "workflowStatus": "15肢復旧済み。旧10・23・監査factsの正式再判定待ち。"
+    "workflowStatus": "正式投影・ローカルmerge/convert/upload-readyと3検査完了。独立評価待ちでhold維持。",
+    "integrationReceipt": "output/eco-kentei/reports/mondai1_12_15_fixed_baseline_trial_20261030/apply_receipt.json",
+    "convertRepairReceipt": "output/eco-kentei/reports/mondai1_12_15_fixed_baseline_trial_20261030/40_repair_receipt.json"
   },
   "choiceIdentityHold1_16_20261030": {
     "sourceRecordRef": "question_mondai1_16.json#0",
