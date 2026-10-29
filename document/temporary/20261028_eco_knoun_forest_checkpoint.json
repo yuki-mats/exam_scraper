@@ -6245,7 +6245,9 @@
     "sourceDifferenceProposal": "output/eco-kentei/reports/source_differences_mondai2_20261029/mondai2_43.json",
     "holdReason": "answer_result_text: 画像と登録内容に差。",
     "originalizationRevision": "output/eco-kentei/reports/mondai2_43_before_pcb_originalization_20261029/",
-    "workflowStatus": "prepared_pending_formal_audit_and_independent_evaluation"
+    "workflowStatus": "prepared_pending_formal_audit_and_independent_evaluation",
+    "independentContentReview": "pass_by_independent_agent_formal_law_audit_and_session_evaluation_pending",
+    "jescoExplanationRepairBackup": "output/eco-kentei/reports/mondai2_43_before_jesco_timing_repair_20261029/"
   },
   "inProgressQuestion2_44": {
     "sourceRecordRef": "question_mondai2_44.json#0",
@@ -6253,7 +6255,9 @@
     "sourceTranscriptionMatchesImages": null,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_44_primary_source_review_20261029.json",
     "status": "hold_figure_detail_review",
-    "figureRequiresLayoutReview": true
+    "figureRequiresLayoutReview": true,
+    "explanationRevision": "output/eco-kentei/reports/mondai2_44_before_label_explanation_20261029/",
+    "workflowStatus": "prepared_pending_formal_workflow_image_receipt_and_independent_evaluation"
   },
   "inProgressQuestion2_45": {
     "sourceRecordRef": "question_mondai2_45.json#0",
@@ -8016,6 +8020,13 @@
     "sourceRecordRef": "question_mondai4_19.json#0",
     "status": "originalization_prepared_pending_formal_audit_and_independent_evaluation",
     "evidenceReceipt": "output/eco-kentei/reports/mondai4_19_before_implementation_20261029/receipt.json",
+    "sourceTranscriptionUncertainty": "原解答の三点文字種は画像から判別困難。番号は一致。",
+    "independentContentReview": "pass_by_independent_agent_formal_workflow_and_session_evaluation_pending"
+  },
+  "inProgressQuestion4_20": {
+    "sourceRecordRef": "question_mondai4_20.json#0",
+    "status": "originalization_prepared_pending_formal_audit_and_independent_evaluation",
+    "evidenceReceipt": "output/eco-kentei/reports/mondai4_20_before_implementation_20261029/receipt.json",
     "sourceTranscriptionUncertainty": "原解答の三点文字種は画像から判別困難。番号は一致。"
   }
 }
