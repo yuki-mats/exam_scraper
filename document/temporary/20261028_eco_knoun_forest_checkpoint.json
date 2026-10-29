@@ -137,7 +137,7 @@
     "note": "本番公開の依頼前。模擬問題の2026を公式試験年度に登録しない。"
   },
   "execution": {
-    "questionConcurrency": 19,
+    "questionConcurrency": 12,
     "parallelAgents": true,
     "browserForeground": false,
     "fullSuiteRun": false,
@@ -145,7 +145,7 @@
     "otherWorktreeChanges": "他作業の変更は保持し、この記録だけをstageする。"
   },
   "nextAction": "保留問を維持し、次の原画像照合済み候補の通常整備と独立評価を進める。",
-  "lastUpdatedAt": "2026-10-29T21:39:37.575686+09:00",
+  "lastUpdatedAt": "2026-10-29T21:54:27.095029+09:00",
   "subsequentQuestion51": {
     "sourceRecordRef": "question_mondai4_51.json#0",
     "sourceQuestionKey": "eco-kentei:knoun-2026-mock-4:bb67422eb5e52e9c",
@@ -445,7 +445,7 @@
     "pdfReadScope": "環境省2024年度実績の9頁PDF中、3枚目を画像表示・実読した。全頁を通読したとはしない。",
     "outboundArticleTextOmitted": true
   },
-  "globalRemainingCountObservedAt": "2026-10-29T21:36:20.467545+09:00",
+  "globalRemainingCountObservedAt": "2026-10-29T21:54:27.095017+09:00",
   "globalRemainingStatus": "output/eco-kentei/reports/global_remaining_status_after_mondai5_49_20261028.json",
   "subsequentQuestion59": {
     "sourceRecordRef": "question_mondai4_59.json#0",
@@ -6134,10 +6134,12 @@
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_37_primary_source_review_20261029.json",
-    "status": "native_maintenance_running",
+    "status": "native_blocked_pending_rework",
     "questionId": "7d5780ac76c1ed666682c9a0",
     "nativeRunId": "20261029T212308209357-99035b72",
-    "imageReviewReceipt": "output/eco-kentei/reports/parallel19_native_preview_20261029.json"
+    "imageReviewReceipt": "output/eco-kentei/reports/parallel19_native_preview_20261029.json",
+    "nativeRunTerminal": true,
+    "blockedReason": "出題時点の公式元正答・試験日または出題時法令本文を独立確認できないため、examTimeDecisionと現行法との差分を確定できない。問題文は「IBT・CBT過去出題問題」と明記され、primaryLawEvidenceはcurrent_onlyでexamAsOfSourceもなく、currentRecordのanswer_result_textだけでは公式元正答の独立確認にならない。"
   },
   "inProgressQuestion2_38": {
     "sourceRecordRef": "question_mondai2_38.json#0",
@@ -6340,14 +6342,19 @@
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_62_primary_source_review_20261029.json",
-    "status": "manual_or_law_hold_pending_revalidation",
+    "status": "source_to_independent_evaluation_accepted",
     "questionId": "ab34630bd526d6048cac25d4",
     "nativeRunId": "20261029T211052183817-1e150fd6",
     "backup": "output/eco-kentei/reports/mondai2_62_before_originalization_20261029.json",
     "parallelism": 30,
     "visualReviewReceipt": "output/eco-kentei/reports/parallel_candidate_intake_20261029.json",
     "nativeRunTerminal": true,
-    "imageReviewReceipt": "output/eco-kentei/reports/parallel17_native_preview_20261029.json"
+    "imageReviewReceipt": "output/eco-kentei/reports/parallel17_native_preview_20261029.json",
+    "evaluationJobId": "YdykfwuSfTyM02M8",
+    "stateHash": "e8141c4a8df61135b2b5eab2dc38f8a1224293f27865a733aebf02232570055b",
+    "validation": "output/eco-kentei/reports/parallel10_repair_trial_20261029",
+    "evaluationSessionId": "01a187b7-fc8e-75b2-8612-5ce37f63d644",
+    "acceptanceReceipt": "output/eco-kentei/reports/turn_receipts/mondai2_62_accepted_20261029.json"
   },
   "inProgressQuestion2_63": {
     "sourceRecordRef": "question_mondai2_63.json#0",
@@ -7152,9 +7159,14 @@
     "sourceRecordRef": "question_mondai3_82.json#0",
     "questionId": "6f68f769494e54980e280f0e",
     "nativeRunId": "20261029T211052183817-1e150fd6",
-    "status": "manual_or_law_hold_pending_revalidation",
+    "status": "source_to_independent_evaluation_accepted",
     "imageReviewReceipt": "output/eco-kentei/reports/parallel17_native_preview_20261029.json",
-    "nativeRunTerminal": true
+    "nativeRunTerminal": true,
+    "evaluationJobId": "YdykfwuSfTyM02M8",
+    "stateHash": "c4d1a67e622d0dd5f560861835e6fa4f47251dc0a43db0ca5f32ba540823817c",
+    "validation": "output/eco-kentei/reports/parallel10_repair_trial_20261029",
+    "evaluationSessionId": "01a187b7-fc90-7e10-9481-e5945f73b470",
+    "acceptanceReceipt": "output/eco-kentei/reports/turn_receipts/mondai3_82_accepted_20261029.json"
   },
   "inProgressQuestion3_80": {
     "sourceRecordRef": "question_mondai3_80.json#0",
@@ -7175,19 +7187,26 @@
     "nativeRunId": "20261029T211052183817-1e150fd6",
     "status": "independent_evaluation_needs_rework",
     "imageReviewReceipt": "output/eco-kentei/reports/parallel17_native_preview_20261029.json",
-    "evaluationJobId": "kY2bqA97E9dZ41Vs",
-    "stateHash": "53a70232eae610fdc524ac000a021487284aae9c0cedb37d912c410d33038067",
+    "evaluationJobId": "YdykfwuSfTyM02M8",
+    "stateHash": "72610d6679298818aac876984265f7cc1f137c0b734b6fab285cd5d69b6f5007",
     "nativeRunTerminal": true,
-    "validation": "output/eco-kentei/reports/parallel9_trial_20261029",
-    "findings": []
+    "validation": "output/eco-kentei/reports/mondai3_81_repair_trial_20261029",
+    "findings": [
+      "④は「政府や企業の求める方策を打ち出す」と述べているため誤りである。公式資料が示すNPOの役割は、政府・企業から独立した立場で、国民や市民の視点から政府・企業に施策を提言・要請することである。現解説は助詞「の」を「に」に置き換えた別の命題を説明し、冒頭も「正しい。」としている。"
+    ]
   },
   "inProgressQuestion3_78": {
     "sourceRecordRef": "question_mondai3_78.json#0",
     "questionId": "564a1ac11117673aaed9706c",
     "nativeRunId": "20261029T211052183817-1e150fd6",
-    "status": "manual_or_law_hold_pending_revalidation",
+    "status": "source_to_independent_evaluation_accepted",
     "imageReviewReceipt": "output/eco-kentei/reports/parallel17_native_preview_20261029.json",
-    "nativeRunTerminal": true
+    "nativeRunTerminal": true,
+    "evaluationJobId": "YdykfwuSfTyM02M8",
+    "stateHash": "a6424452545b0fdfb5b0b631b3ab1bd4d8f6a563277c393abf94b84353e6f40c",
+    "validation": "output/eco-kentei/reports/parallel10_repair_trial_20261029",
+    "evaluationSessionId": "01a187b7-fc8f-7443-af34-dfb18452d2ce",
+    "acceptanceReceipt": "output/eco-kentei/reports/turn_receipts/mondai3_78_accepted_20261029.json"
   },
   "inProgressQuestion3_77": {
     "sourceRecordRef": "question_mondai3_77.json#0",
@@ -7206,17 +7225,27 @@
     "sourceRecordRef": "question_mondai3_65.json#0",
     "questionId": "5b4d6c29c41b22b3a1a44a67",
     "nativeRunId": "20261029T211052183817-1e150fd6",
-    "status": "manual_or_law_hold_pending_revalidation",
+    "status": "source_to_independent_evaluation_accepted",
     "imageReviewReceipt": "output/eco-kentei/reports/parallel17_native_preview_20261029.json",
-    "nativeRunTerminal": true
+    "nativeRunTerminal": true,
+    "evaluationJobId": "YdykfwuSfTyM02M8",
+    "stateHash": "bc7fa8be4e54aa3d549e67c9ed70a20dcd1937b788fe9359857f24c83f5caa61",
+    "validation": "output/eco-kentei/reports/parallel10_repair_trial_20261029",
+    "evaluationSessionId": "01a187b7-fc8f-7443-af34-e004ad951f14",
+    "acceptanceReceipt": "output/eco-kentei/reports/turn_receipts/mondai3_65_accepted_20261029.json"
   },
   "inProgressQuestion3_67": {
     "sourceRecordRef": "question_mondai3_67.json#0",
     "questionId": "b77ae0b68ce68754b2160d53",
     "nativeRunId": "20261029T211052183817-1e150fd6",
-    "status": "manual_or_law_hold_pending_revalidation",
+    "status": "source_to_independent_evaluation_accepted",
     "imageReviewReceipt": "output/eco-kentei/reports/parallel17_native_preview_20261029.json",
-    "nativeRunTerminal": true
+    "nativeRunTerminal": true,
+    "evaluationJobId": "YdykfwuSfTyM02M8",
+    "stateHash": "a9b6d62a076761c4eaf2b3990939068f61bef162c44cc31791dc06001cee8570",
+    "validation": "output/eco-kentei/reports/parallel10_repair_trial_20261029",
+    "evaluationSessionId": "01a187b7-fc8d-70c0-8a38-401133e8e69f",
+    "acceptanceReceipt": "output/eco-kentei/reports/turn_receipts/mondai3_67_accepted_20261029.json"
   },
   "inProgressQuestion3_69": {
     "sourceRecordRef": "question_mondai3_69.json#0",
@@ -7235,9 +7264,16 @@
     "sourceRecordRef": "question_mondai3_66.json#0",
     "questionId": "bb5ecc404cd87fa880f055d4",
     "nativeRunId": "20261029T211052183817-1e150fd6",
-    "status": "manual_or_law_hold_pending_revalidation",
+    "status": "independent_evaluation_needs_rework",
     "imageReviewReceipt": "output/eco-kentei/reports/parallel17_native_preview_20261029.json",
-    "nativeRunTerminal": true
+    "nativeRunTerminal": true,
+    "evaluationJobId": "YdykfwuSfTyM02M8",
+    "stateHash": "2d7f7ae5deac10deff5014a9abd84ddcff3d85c39df6dc89cd0b145ed50c1cdf",
+    "validation": "output/eco-kentei/reports/parallel10_repair_trial_20261029",
+    "findings": [
+      "各肢に共通述語を補って独立に適否を判定する問題であり、正本上の形式はtrue_falseである。入力のquestionType=flash_cardは回答操作と一致しない。",
+      "currentExplanationTextは③の正しさを説明する1件だけで、true_falseに必要な①②④の「間違い。」から始まる完全な訂正文がない。特に②は、3RイニシアティブがG7ではなく2004年のG8サミットで合意された点も訂正できていない。"
+    ]
   },
   "inProgressQuestion3_68": {
     "sourceRecordRef": "question_mondai3_68.json#0",
@@ -7270,22 +7306,36 @@
     "sourceRecordRef": "question_mondai3_39.json#0",
     "questionId": "9a8e40ad2154988f754fa527",
     "nativeRunId": "20261029T212308209357-99035b72",
-    "status": "native_maintenance_running",
-    "imageReviewReceipt": "output/eco-kentei/reports/parallel19_native_preview_20261029.json"
+    "status": "native_blocked_pending_rework",
+    "imageReviewReceipt": "output/eco-kentei/reports/parallel19_native_preview_20261029.json",
+    "nativeRunTerminal": true,
+    "blockedReason": "一次根拠が気候変動適応法第1条に限られており、設問の「地方公共団体は地域の気候変動適応計画の策定に努める」という命題を直接確認する第12条等の現行本文が入力にありません。全15肢の現行法判定、verified根拠、lawRevisionFactsを確定できないため、部分更新を返さず保留します。"
   },
   "inProgressQuestion3_41": {
     "sourceRecordRef": "question_mondai3_41.json#0",
     "questionId": "c44a3df1b7e230a1439709ef",
     "nativeRunId": "20261029T212308209357-99035b72",
-    "status": "native_maintenance_running",
-    "imageReviewReceipt": "output/eco-kentei/reports/parallel19_native_preview_20261029.json"
+    "status": "source_to_independent_evaluation_accepted",
+    "imageReviewReceipt": "output/eco-kentei/reports/parallel19_native_preview_20261029.json",
+    "evaluationJobId": "YdykfwuSfTyM02M8",
+    "stateHash": "a23b79706be1be567953d570e1f5627227e69b85be49261186e65437ab3b2b29",
+    "nativeRunTerminal": true,
+    "validation": "output/eco-kentei/reports/parallel10_repair_trial_20261029",
+    "evaluationSessionId": "01a187b7-fc8e-75b2-8612-5d489e7e986b",
+    "acceptanceReceipt": "output/eco-kentei/reports/turn_receipts/mondai3_41_accepted_20261029.json"
   },
   "inProgressQuestion3_47": {
     "sourceRecordRef": "question_mondai3_47.json#0",
     "questionId": "7738696c559af76c1c14bdcf",
     "nativeRunId": "20261029T212308209357-99035b72",
-    "status": "native_maintenance_running",
-    "imageReviewReceipt": "output/eco-kentei/reports/parallel19_native_preview_20261029.json"
+    "status": "source_to_independent_evaluation_accepted",
+    "imageReviewReceipt": "output/eco-kentei/reports/parallel19_native_preview_20261029.json",
+    "evaluationJobId": "YdykfwuSfTyM02M8",
+    "stateHash": "8fc6f01d3c91a8e3b5caca8193efa1cbfe3bd5f9ebec067c619ea7fd580bff92",
+    "nativeRunTerminal": true,
+    "validation": "output/eco-kentei/reports/parallel10_repair_trial_20261029",
+    "evaluationSessionId": "01a187b7-fc8e-75b2-8612-5cfe8f279d53",
+    "acceptanceReceipt": "output/eco-kentei/reports/turn_receipts/mondai3_47_accepted_20261029.json"
   },
   "inProgressQuestion3_48": {
     "sourceRecordRef": "question_mondai3_48.json#0",
@@ -7304,8 +7354,14 @@
     "sourceRecordRef": "question_mondai3_62.json#0",
     "questionId": "6066b08341ae087bf4bb6ba1",
     "nativeRunId": "20261029T212308209357-99035b72",
-    "status": "native_maintenance_running",
-    "imageReviewReceipt": "output/eco-kentei/reports/parallel19_native_preview_20261029.json"
+    "status": "source_to_independent_evaluation_accepted",
+    "imageReviewReceipt": "output/eco-kentei/reports/parallel19_native_preview_20261029.json",
+    "evaluationJobId": "YdykfwuSfTyM02M8",
+    "stateHash": "d2ee72c061639778ecfcfd50ed1830bd65e3b2eeedaf0479b600f33f3cbca58d",
+    "nativeRunTerminal": true,
+    "validation": "output/eco-kentei/reports/parallel10_repair_trial_20261029",
+    "evaluationSessionId": "01a187b7-fc8f-7443-af34-df7a982eec65",
+    "acceptanceReceipt": "output/eco-kentei/reports/turn_receipts/mondai3_62_accepted_20261029.json"
   },
   "inProgressQuestion3_61": {
     "sourceRecordRef": "question_mondai3_61.json#0",
@@ -7324,22 +7380,26 @@
     "sourceRecordRef": "question_mondai3_26.json#0",
     "questionId": "16a0777b73a095bd1296c1b7",
     "nativeRunId": "20261029T212308209357-99035b72",
-    "status": "native_maintenance_running",
-    "imageReviewReceipt": "output/eco-kentei/reports/parallel19_native_preview_20261029.json"
+    "status": "native_blocked_pending_rework",
+    "imageReviewReceipt": "output/eco-kentei/reports/parallel19_native_preview_20261029.json",
+    "nativeRunTerminal": true,
+    "blockedReason": "ラムサール条約に関する制度論点として法令関連性は判定可能だが、現行の一次本文と照合済みの法令locator、および公式制度資料の実取得証明が提示されていないため、lawReferencesまたはofficialGuidanceReferencesを確定できない。"
   },
   "inProgressQuestion4_29": {
     "sourceRecordRef": "question_mondai4_29.json#0",
     "questionId": "87d81c544b0127df5b34ec25",
     "nativeRunId": "20261029T212308209357-99035b72",
-    "status": "native_maintenance_running",
-    "imageReviewReceipt": "output/eco-kentei/reports/parallel19_native_preview_20261029.json"
+    "status": "native_validated_pending_review_or_evaluation",
+    "imageReviewReceipt": "output/eco-kentei/reports/parallel19_native_preview_20261029.json",
+    "nativeRunTerminal": true
   },
   "inProgressQuestion4_30": {
     "sourceRecordRef": "question_mondai4_30.json#0",
     "questionId": "6260ca3abe5f82b5434dfb5c",
     "nativeRunId": "20261029T212308209357-99035b72",
-    "status": "native_maintenance_running",
-    "imageReviewReceipt": "output/eco-kentei/reports/parallel19_native_preview_20261029.json"
+    "status": "native_validated_pending_review_or_evaluation",
+    "imageReviewReceipt": "output/eco-kentei/reports/parallel19_native_preview_20261029.json",
+    "nativeRunTerminal": true
   },
   "inProgressQuestion4_15": {
     "sourceRecordRef": "question_mondai4_15.json#0",
@@ -7358,8 +7418,14 @@
     "sourceRecordRef": "question_mondai4_22.json#0",
     "questionId": "a6295a5970a773713f351da7",
     "nativeRunId": "20261029T212308209357-99035b72",
-    "status": "native_maintenance_running",
-    "imageReviewReceipt": "output/eco-kentei/reports/parallel19_native_preview_20261029.json"
+    "status": "source_to_independent_evaluation_accepted",
+    "imageReviewReceipt": "output/eco-kentei/reports/parallel19_native_preview_20261029.json",
+    "evaluationJobId": "YdykfwuSfTyM02M8",
+    "stateHash": "edcf6d486331af34cd4da1fe8cd753f8fe28d884a3870d2eda232c9434fcb573",
+    "nativeRunTerminal": true,
+    "validation": "output/eco-kentei/reports/parallel10_repair_trial_20261029",
+    "evaluationSessionId": "01a187b7-fc8f-7443-af34-e032a3215d14",
+    "acceptanceReceipt": "output/eco-kentei/reports/turn_receipts/mondai4_22_accepted_20261029.json"
   },
   "inProgressQuestion4_23": {
     "sourceRecordRef": "question_mondai4_23.json#0",
@@ -7391,15 +7457,19 @@
     "sourceRecordRef": "question_mondai4_13.json#0",
     "questionId": "09648d23b071eb754bda29b6",
     "nativeRunId": "20261029T212308209357-99035b72",
-    "status": "native_maintenance_running",
-    "imageReviewReceipt": "output/eco-kentei/reports/parallel19_native_preview_20261029.json"
+    "status": "native_blocked_pending_rework",
+    "imageReviewReceipt": "output/eco-kentei/reports/parallel19_native_preview_20261029.json",
+    "nativeRunTerminal": true,
+    "blockedReason": "独立現行法監査で未確定: 森林法第25条により正答が「保安林」であることと全肢の正誤は確認できるが、候補のexplanationTextは全肢分を1要素へ不自然に連結し、選択肢6「自然公園法」の説明を欠落させている。選択肢との対応が明確になるよう解説を修正する必要がある。"
   },
   "inProgressQuestion4_14": {
     "sourceRecordRef": "question_mondai4_14.json#0",
     "questionId": "e137851a508b4e688781e66b",
     "nativeRunId": "20261029T212308209357-99035b72",
-    "status": "native_maintenance_running",
-    "imageReviewReceipt": "output/eco-kentei/reports/parallel19_native_preview_20261029.json"
+    "status": "native_blocked_pending_rework",
+    "imageReviewReceipt": "output/eco-kentei/reports/parallel19_native_preview_20261029.json",
+    "nativeRunTerminal": true,
+    "blockedReason": "基本解説: 法令名・条文を機械的に文頭の主語へ置かず、正しい内容を主語にしてください。 / 候補のexplanationTextは、現在値が通過している書式・数式の検査条件を満たさなくなっています。この機械検査は、事実や計算根拠の正しさを保証しません。問題文と根拠から内容を独立に確認し、必要な事実訂正を行ったうえで、読みやすい説明と計算過程を示してください。計算問題では、正しい数式、数値代入、等号、途中計算及び結果を保持又は再構成してください。"
   },
   "inProgressQuestion4_11": {
     "sourceRecordRef": "question_mondai4_11.json#0",
@@ -7418,8 +7488,10 @@
     "sourceRecordRef": "question_mondai4_7.json#0",
     "questionId": "b66942ad7a87f132bb91e96f",
     "nativeRunId": "20261029T212308209357-99035b72",
-    "status": "native_maintenance_running",
-    "imageReviewReceipt": "output/eco-kentei/reports/parallel19_native_preview_20261029.json"
+    "status": "native_blocked_pending_rework",
+    "imageReviewReceipt": "output/eco-kentei/reports/parallel19_native_preview_20261029.json",
+    "nativeRunTerminal": true,
+    "blockedReason": "本文は完結した断定文ですが、入力された選択肢は「正しい／誤っている」という判定ラベルのみで、どちらのラベルを選ばせる設問指示がありません。questionIntentを一意に確定できないため保留します。"
   },
   "parallel7Acceptance": {
     "acceptedCount": 7,
@@ -7459,25 +7531,48 @@
       "law_audit",
       "question_set"
     ],
-    "status": "running",
-    "productionWrite": false
+    "status": "succeeded",
+    "productionWrite": false,
+    "completedQuestionCount": 12,
+    "blockedQuestionCount": 0,
+    "result": "output/eco-kentei/reports/parallel12_revalidation_result_20261029.json"
   },
   "globalCountCorrection20261029": {
     "status": "corrected_by_unique_source_and_current_readback",
     "previouslyReportedRemaining312": "incorrect; the historical accepted set was not fully included",
     "total": 425,
-    "accepted": 227,
-    "remaining": 198,
+    "accepted": 236,
+    "remaining": 189,
     "acceptedByGroup": {
       "mondai1": 63,
-      "mondai2": 30,
-      "mondai3": 19,
-      "mondai4": 56,
+      "mondai2": 31,
+      "mondai3": 26,
+      "mondai4": 57,
       "mondai5": 59
     },
-    "observedAt": "2026-10-29T21:39:37.360848+09:00",
-    "receipt": "output/eco-kentei/reports/global_source_recount_20261029.json",
+    "observedAt": "2026-10-29T21:54:30.400300+09:00",
+    "receipt": "output/eco-kentei/reports/global_source_recount_after_parallel11_20261029.json",
     "reproducibleCommand": "PYTHONPATH=. .venv/bin/python output/eco-kentei/reports/recount_current_sources_20261029.py",
     "inProgressExcluded": true
+  },
+  "parallel11Acceptance": {
+    "acceptedCount": 9,
+    "needsReworkCount": 2,
+    "previousRecountRemaining": 198,
+    "acceptedSourceRefs": [
+      "question_mondai2_62.json#0",
+      "question_mondai3_41.json#0",
+      "question_mondai3_47.json#0",
+      "question_mondai3_62.json#0",
+      "question_mondai3_65.json#0",
+      "question_mondai3_67.json#0",
+      "question_mondai3_78.json#0",
+      "question_mondai3_82.json#0",
+      "question_mondai4_22.json#0"
+    ],
+    "evaluationJobId": "YdykfwuSfTyM02M8",
+    "firestoreWrites": 0,
+    "qualityGate": "passed for groups 2 and 3",
+    "existingUploadDocsUnchanged": true
   }
 }
