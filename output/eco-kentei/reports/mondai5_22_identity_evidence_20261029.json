@@ -1,0 +1,28 @@
+{
+  "recordedAt": "2026-10-29T23:57:58.974187+09:00",
+  "sourceRecordRef": "question_mondai5_22.json#0",
+  "inputSha256": {
+    "output/eco-kentei/questions_json/knoun-2026-mock-5/00_source/question_mondai5_22.json": "bb8809fffe090ef5adb33fe31f2effab0990f62fd163958b7cf591d86a1988a5",
+    "output/eco-kentei/questions_json/knoun-2026-mock-5/05_originalized/question_mondai5_22_originalized.json": "cd12a0769d02a811827a129409bf916948863fd4a916d20afc7fe71201233182",
+    "output/eco-kentei/question_images/knoun-2026-mock-5/raw/mondai5_22.png": "3a58d4874aa13852506bc3446ab90056b93ea570eefe00597250dc9cc00b202f",
+    "output/eco-kentei/question_images/knoun-2026-mock-5/raw/comment5_22.png": "2979930f6c76c60ba47fd1b25635008fcf4cfcf61882628a4a5557045bb6eb5c"
+  },
+  "imageReview": "画像と00_sourceは市街化区域等の低炭素まちづくり計画を問う。画像選択肢は①建築物省エネ法、②改正土地基本法、③再生可能エネルギー特別措置法、④エコまち法。正答は④。解説画像に正式名称が示される。",
+  "current05": "現行05の選択肢は①都市の低炭素化の促進に関する法律、②建築物のエネルギー消費性能の向上等に関する法律、③地球温暖化対策の推進に関する法律、④再生可能エネルギー電気の利用の促進に関する特別措置法。正答は①。",
+  "identityInvestigation": "sourceUniqueKeysは元の選択肢順で、変換は配列位置からIDを求める。実際の公開先不一致は未確認。原画像・sourceの選択肢と独自化後の意味、既存公開IDを一問ごとに確認する。",
+  "statute": {
+    "url": "https://laws.e-gov.go.jp/api/2/law_data/424AC0000000084",
+    "status": 200,
+    "sha256": "624f008f102de71b7a5b954f5b2ebb97744443652091bd7b608c8b63337c74fd",
+    "revision": "424AC0000000084_20250601_504AC0000000068",
+    "basis": "第1条・第2条・第7条を確認対象とする。取得そのものは正式監査の完了ではない。"
+  },
+  "nextAction": "原問の学習内容と安定IDの意味を保つ独自化を通常工程で検討し、各法律の根拠、出題時判断と現行判断を後続監査で検証。",
+  "firestoreWritten": false,
+  "patchChanged": false,
+  "reviewRegistration": {
+    "id": "20261029T235804003973-a60d2344",
+    "path": "output/question_review_console/eco-kentei/knoun-2026-mock-5/reviews/20261029T235804003973-a60d2344.json",
+    "status": "needs_review"
+  }
+}
