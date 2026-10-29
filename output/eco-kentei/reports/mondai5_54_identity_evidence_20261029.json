@@ -1,0 +1,27 @@
+{
+  "recordedAt": "2026-10-30T00:00:03.929139+09:00",
+  "sourceRecordRef": "question_mondai5_54.json#0",
+  "inputSha256": {
+    "output/eco-kentei/questions_json/knoun-2026-mock-5/00_source/question_mondai5_54.json": "a84faee3be748a4d1af494280d09b104671feb8922ffc173899144037d8abcb9",
+    "output/eco-kentei/questions_json/knoun-2026-mock-5/05_originalized/question_mondai5_54_originalized.json": "b2eabf21278c5aea7387d6b96df5a9057436db27cc83b1f1e603f617d380786b",
+    "output/eco-kentei/question_images/knoun-2026-mock-5/raw/mondai5_54.png": "a4dd15e075a00966eeb2717eb6235d39b5b3963517cbaa67ef83bde27c4a8b70",
+    "output/eco-kentei/question_images/knoun-2026-mock-5/raw/comment5_54.png": "654cf1f4198325dca669f8993e6de4db62b91445d8298a8ba328d101d28effaf"
+  },
+  "imageReview": "1972年ストックホルム国連人間環境会議を記念する世界環境デーの日付。語群は3月5日、4月5日、5月5日、6月5日で、画像の正答は④6月5日。日本では6月が環境月間。",
+  "current05": "現行05は世界環境デーの由来など4文の正誤問題で、地球サミット由来とする②が誤り。元の4個の日付と異なる内容で、選択肢別IDの対応確認が必要。",
+  "evidence": {
+    "url": "https://www.env.go.jp/guide/envmonth/index.html",
+    "status": 200,
+    "sha256": "c07a80024f399c19932c363c26dd3633b8031de47c2046b6c62334bdae8bb05c",
+    "summary": "世界環境デーは6月5日、国内の環境月間は6月。",
+    "limitations": "調査メモであり通常工程への取得証明・評価ではない。"
+  },
+  "nextAction": "日付判断と原問の選択肢の意味・IDの対応を維持する独自化を検討し、出題上の正答と各肢の正誤を独立に確定。画像とsourceの正答表示の句読点差は保留する。",
+  "firestoreWritten": false,
+  "sourceDifferenceHoldRemains": true,
+  "reviewRegistration": {
+    "id": "20261030T000012179744-f347adf0",
+    "path": "output/question_review_console/eco-kentei/knoun-2026-mock-5/reviews/20261030T000012179744-f347adf0.json",
+    "status": "needs_review"
+  }
+}
