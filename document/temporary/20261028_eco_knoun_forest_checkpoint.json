@@ -8546,5 +8546,24 @@
     "startReceipt": "output/eco-kentei/reports/choice_restoration_5_start_20261030.json",
     "note": "serverは証拠hash guard反映前。正式run成功でも新validator・最終投影・独立評価を経るまで受入しない。",
     "resultReceipt": "output/eco-kentei/reports/choice_restoration_5_result_20261030.json"
+  },
+  "parallelNextFiveChoiceRevalidation20261030": {
+    "nativeRunId": "20261030T014629785896-2acecba1",
+    "status": "running",
+    "questionRefs": [
+      "question_mondai1_16.json#0",
+      "question_mondai1_17.json#0",
+      "question_mondai1_18.json#0",
+      "question_mondai1_19.json#0",
+      "question_mondai1_20.json#0"
+    ],
+    "previewReceipt": "output/eco-kentei/reports/choice_restoration_next5_preview_20261030.json",
+    "startReceipt": "output/eco-kentei/reports/choice_restoration_next5_start_20261030.json",
+    "note": "serverは証拠hash guard反映前。成功しても新validator・最終投影・独立評価まで保留。"
+  },
+  "canonicalSourceKeyReadback20261030": {
+    "status": "read_only_complete",
+    "receipt": "output/eco-kentei/reports/mondai1_11_32_canonical_id_readback_reaudit_20261030.json",
+    "note": "default DB questions内の指定20問444 IDとoriginalQuestionId等値検索。異なるDB・collection・ID方式は対象外。"
   }
 }
