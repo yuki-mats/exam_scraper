@@ -8855,5 +8855,12 @@
     "reason": "独自問題の単独表示に取得元の問題番号・配点・小問記号等が残存。原画像・05・公開用文書を個別照合。",
     "receipt": "output/eco-kentei/reports/mondai4_51_52_54_55_label_identity_review_20261030.json",
     "workflowStatus": "05表示文・必要な選択肢対応の整備、再投影・独立評価待ち。"
+  },
+  "choiceIdentityHold5_29_20261030": {
+    "sourceRecordRef": "question_mondai5_29.json#0",
+    "status": "hold_source_choice_projection",
+    "reason": "原画像・sourceの①〜③を05で並べ替えたが元sourceUniqueKeysが位置順のままで、各キーと選択肢の意味が一致しない。",
+    "receipt": "output/eco-kentei/reports/mondai5_29_choice_permutation_independent_review_20261030.json",
+    "workflowStatus": "限定readback・選択肢とキーの対応修復・正式再整備・独立評価待ち。"
   }
 }
