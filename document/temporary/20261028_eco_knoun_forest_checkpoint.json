@@ -144,7 +144,7 @@
     "trackedCodeOrPromptChanged": false,
     "otherWorktreeChanges": "他作業の変更は保持し、この記録だけをstageする。"
   },
-  "nextAction": "問70は現行条約根拠の正式な検証と配送が必要。模擬問題1の問72を原画像と図から照合し独自問題化する。",
+  "nextAction": "問70は現行条約根拠の正式な検証と配送が必要。模擬問題1の問73を原画像と図から照合し独自問題化する。",
   "lastUpdatedAt": "2026-10-29T13:55:09.761562+09:00",
   "subsequentQuestion51": {
     "sourceRecordRef": "question_mondai4_51.json#0",
@@ -5194,8 +5194,27 @@
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_72_primary_source_review_20261029.json",
-    "status": "source_visual_review_complete_figure_layout_pending",
-    "figureRequiresLayoutReview": true
+    "status": "accepted",
+    "figureRequiresLayoutReview": false,
+    "figureLayoutReviewed": true,
+    "figurePath": "output/eco-kentei/question_images/knoun-2026-mock-1/05_originalized/originalized_1df37f1afd0e0237_waste_priority_1.png",
+    "figureSha256": "83209a1af0e3a993b4f7ebc432fd4894d9ce03392af2c64387bfc660fe310879",
+    "backup": "output/eco-kentei/reports/mondai1_72_before_originalization_20261029.json",
+    "note": "原画像と独自図を直視し、優先順位と正答⑤を照合。15選択肢と識別子を維持し、本文を独自の問いへ再構成。",
+    "questionId": "1b46eee9014917601ed26e65",
+    "nativeRunId": "20261029T142725662395-a272a31f",
+    "priorNativeRunId": "20261029T142551500499-56d0f21d",
+    "reason": "リペアと判断が重なる可能性を避け、図の最優先に位置する3Rを問う表現へ修正。",
+    "stateHash": "87c909d0ac9600dca4bc9c22f106786adcc6177c5890b5df0d49b6e6b496642d",
+    "evaluationJobId": "QZhkTpr38GDBEo5R",
+    "uploadReadyCandidate": "output/eco-kentei/questions_json/upload_to_firestore/knoun-2026-mock-1_firestore_20261029_142944.json",
+    "otherDocumentsExactlyUnchanged": 123,
+    "evaluationSessionId": "01a18623-78f7-7952-99aa-00c3ccb113f6",
+    "verifiedChoiceCount": 15,
+    "explanationScore": 100,
+    "evaluationReceipt": "output/eco-kentei/reports/mondai1_72_evaluation_result_20261029.json",
+    "receipt": "output/eco-kentei/reports/turn_receipts/mondai1_72_accepted_20261029.json",
+    "imageInputHashMatched": true
   },
   "inProgressQuestion1_73": {
     "sourceRecordRef": "question_mondai1_73.json#0",
