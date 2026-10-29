@@ -144,8 +144,8 @@
     "trackedCodeOrPromptChanged": false,
     "otherWorktreeChanges": "他作業の変更は保持し、この記録だけをstageする。"
   },
-  "nextAction": "問57・59・60は転記差異で保留し、画像照合済みの問61を独自問題化から整備する。",
-  "lastUpdatedAt": "2026-10-29T11:12:22.585032+09:00",
+  "nextAction": "模擬問題1の問62は画像照合済み。独自問題化から整備する。",
+  "lastUpdatedAt": "2026-10-29T11:27:59.387720+09:00",
   "subsequentQuestion51": {
     "sourceRecordRef": "question_mondai4_51.json#0",
     "sourceQuestionKey": "eco-kentei:knoun-2026-mock-4:bb67422eb5e52e9c",
@@ -4946,7 +4946,21 @@
     "sourceImagesActuallyRead": true,
     "sourceTranscriptionMatchesImages": true,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai1_61_primary_source_review_20261029.json",
-    "status": "source_visual_review_complete"
+    "status": "accepted",
+    "questionId": "749f08ed5537739938f449b8",
+    "originalizeRunId": "20261029T111309926010-f0a41c30",
+    "backup": "output/eco-kentei/reports/mondai1_61_before_rework_20261029",
+    "originalizationReviewId": "20261029T111404777676-e16df39b",
+    "originalizationReworkRunId": "20261029T111419888922-2f1eae96",
+    "nativeRunId": "20261029T111548296497-c57ab69b",
+    "explanationReviewId": "20261029T111954891662-a39d58dd",
+    "explanationReworkRunId": "20261029T112009591936-405fc743",
+    "stateHash": "34c079b72509cf0d4ce60957c4f7777e898f5b9c0c7127bebcb30f15755c15c5",
+    "evaluationJobId": "gG5kDdYwAruUdchB",
+    "uploadReadyCandidate": "output/eco-kentei/questions_json/upload_to_firestore/knoun-2026-mock-1_firestore_20261029_112514.json",
+    "evaluationSessionId": "01a1857a-3931-7210-80f9-3c7299e8370c",
+    "receipt": "output/eco-kentei/reports/turn_receipts/mondai1_61_accepted_20261029.json",
+    "otherDocumentCountUnchanged": 76
   },
   "inProgressQuestion1_62": {
     "sourceRecordRef": "question_mondai1_62.json#0",
@@ -5520,5 +5534,47 @@
     "sourceTranscriptionMatchesImages": false,
     "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_56_primary_source_review_20261029.json",
     "status": "hold_source_transcription_difference"
+  },
+  "inProgressQuestion2_57": {
+    "sourceRecordRef": "question_mondai2_57.json#0",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": false,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_57_primary_source_review_20261029.json",
+    "status": "hold_source_transcription_difference"
+  },
+  "inProgressQuestion2_58": {
+    "sourceRecordRef": "question_mondai2_58.json#0",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": false,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_58_primary_source_review_20261029.json",
+    "status": "hold_source_transcription_difference"
+  },
+  "inProgressQuestion2_59": {
+    "sourceRecordRef": "question_mondai2_59.json#0",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": false,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_59_primary_source_review_20261029.json",
+    "status": "hold_source_transcription_difference"
+  },
+  "inProgressQuestion2_60": {
+    "sourceRecordRef": "question_mondai2_60.json#0",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": true,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_60_primary_source_review_20261029.json",
+    "status": "source_visual_review_complete"
+  },
+  "inProgressQuestion2_61": {
+    "sourceRecordRef": "question_mondai2_61.json#0",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": false,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_61_primary_source_review_20261029.json",
+    "status": "hold_source_transcription_difference"
+  },
+  "inProgressQuestion2_62": {
+    "sourceRecordRef": "question_mondai2_62.json#0",
+    "sourceImagesActuallyRead": true,
+    "sourceTranscriptionMatchesImages": true,
+    "primaryReview": "output/eco-kentei/reports/manual_content_reviews/mondai2_62_primary_source_review_20261029.json",
+    "status": "source_visual_review_complete"
   }
 }
