@@ -16,7 +16,7 @@ import os
 from pathlib import Path
 import re
 import tempfile
-from urllib.parse import urljoin, urlsplit
+from urllib.parse import urlencode, urljoin, urlsplit
 import urllib.request
 import xml.etree.ElementTree as ET
 
@@ -58,6 +58,26 @@ EU_SUP_ORIGINAL_PDF_URL = ('https://publications.europa.eu/resource/cellar/'
 EU_SUP_TITLE = ('Directive (EU) 2019/904 of the European Parliament and of the Council of '
     '5 June 2019 on the reduction of the impact of certain plastic products on the environment '
     '(Text with EEA relevance)')
+EU_ROHS_PROVIDER = 'eu_rohs_consolidated_20260701'
+EU_ROHS_CELLAR_ID = 'a3485ccc-53c4-11f1-b3e2-01aa75ed71a1'
+EU_ROHS_INDEX_URL = EU_SUP_INDEX_URL.replace(EU_SUP_CELLAR_ID, EU_ROHS_CELLAR_ID)
+EU_ROHS_PDF_URL = ('https://publications.europa.eu/resource/cellar/'
+    + EU_ROHS_CELLAR_ID + '.0006.03/DOC_1')
+EU_ROHS_ORIGINAL_PDF_URL = ('https://publications.europa.eu/resource/cellar/'
+    '6be9a15c-0644-4f7d-9911-462a649b5c0c.0006.02/DOC_1')
+# This fixed query lists every consolidated version of this directive.  The
+# response is retained and replayed independently of the fixed PDF metadata.
+EU_ROHS_VERSIONS_QUERY = (
+    'PREFIX cdm: <http://publications.europa.eu/ontology/cdm#> '
+    'SELECT DISTINCT ?work ?celex ?date WHERE { '
+    '?work cdm:resource_legal_id_celex ?celex; cdm:act_consolidated_date ?date. '
+    'FILTER (STRSTARTS(STR(?celex), "02011L0065-")) } '
+    'ORDER BY DESC(?date) ASC(?celex) ASC(?work)')
+EU_ROHS_VERSIONS_URL = ('https://publications.europa.eu/webapi/rdf/sparql?'
+    + urlencode({'query': EU_ROHS_VERSIONS_QUERY, 'format': 'application/sparql-results+json'}))
+EU_ROHS_TITLE = ('Directive 2011/65/EU of the European Parliament and of the Council of '
+    '8 June 2011 on the restriction of the use of certain hazardous substances in electrical '
+    'and electronic equipment (recast) (Text with EEA relevance)')
 ENV_BASEL_REFERENCE_SECTION = (
     '中央環境審議会循環型社会部会特定有害廃棄物等の輸出入等の規制の在り方に関する専門委員会、'
     '産業構造審議会産業技術環境分科会廃棄物・リサイクル小委員会'
@@ -138,12 +158,15 @@ def _pages(value):
 
 def _official_url(url, *, pdf=False, provider=PROVIDER):
     source = _source(provider)
-    if provider == EU_SUP_PROVIDER:
+    if provider in (EU_SUP_PROVIDER, EU_ROHS_PROVIDER):
         # The publication office's normal download link uses a query. Allow
         # only the two observed documents, never arbitrary portal parameters,
         # languages, publication IDs or redirects. Existing providers keep
         # their query-free HTTPS contract.
-        allowed = {EU_SUP_PDF_URL, EU_SUP_ORIGINAL_PDF_URL} if pdf else {EU_SUP_INDEX_URL}
+        if provider == EU_SUP_PROVIDER:
+            allowed = {EU_SUP_PDF_URL, EU_SUP_ORIGINAL_PDF_URL} if pdf else {EU_SUP_INDEX_URL}
+        else:
+            allowed = {EU_ROHS_PDF_URL, EU_ROHS_ORIGINAL_PDF_URL} if pdf else {EU_ROHS_INDEX_URL}
         if _text(url) not in allowed:
             raise OfficialGuidanceEvidenceError('named English EU publication URL required')
         return url
@@ -523,6 +546,128 @@ def _eu_sup_link(data, current_as_of):
     return url, 'Directive (EU) 2019/904 — consolidation as at 12 August 2026', None
 
 
+def _eu_rohs_versions(data, current_as_of):
+    reference = _date(current_as_of)
+
+    def unique_object(pairs):
+        result = {}
+        for key, value in pairs:
+            if key in result:
+                raise OfficialGuidanceEvidenceError('duplicate SPARQL JSON field')
+            result[key] = value
+        return result
+
+    try:
+        result = json.loads(data.decode('utf-8'), object_pairs_hook=unique_object)
+    except (UnicodeError, json.JSONDecodeError) as exc:
+        raise OfficialGuidanceEvidenceError('official RoHS SPARQL JSON required') from exc
+    if (not isinstance(result, dict) or set(result) != {'head', 'results'}
+            or not isinstance(result['head'], dict)
+            or set(result['head']) != {'link', 'vars'} or result['head']['link'] != []
+            or result['head'].get('vars') != ['work', 'celex', 'date']
+            or not isinstance(result['results'], dict)
+            or set(result['results']) != {'distinct', 'ordered', 'bindings'}
+            or result['results']['distinct'] is not False or result['results']['ordered'] is not True
+            or not isinstance(result['results'].get('bindings'), list)):
+        raise OfficialGuidanceEvidenceError('official RoHS SPARQL result structure differs')
+    rows = result['results']['bindings']
+    if not rows or len(rows) > 10000:
+        raise OfficialGuidanceEvidenceError('complete bounded RoHS version list required')
+    versions = {}
+    for row in rows:
+        _exact(row, {'work', 'celex', 'date'}, 'RoHS version result')
+        for name, kind in (('work', 'uri'), ('celex', 'literal'), ('date', 'literal')):
+            if not isinstance(row[name], dict) or row[name].get('type') != kind:
+                raise OfficialGuidanceEvidenceError('RoHS version binding type differs')
+        work, celex, day = (row[name].get('value') for name in ('work', 'celex', 'date'))
+        if (not isinstance(work, str) or not re.fullmatch(
+                r'http://publications\.europa\.eu/resource/cellar/[a-f0-9]{8}-(?:[a-f0-9]{4}-){3}[a-f0-9]{12}', work)
+                or not isinstance(celex, str) or not re.fullmatch(r'02011L0065-[0-9]{8}', celex)
+                or not isinstance(day, str) or celex != '02011L0065-' + day.replace('-', '')
+                or row['celex'].get('datatype') != 'http://www.w3.org/2001/XMLSchema#string'
+                or row['date'].get('datatype') != 'http://www.w3.org/2001/XMLSchema#date'):
+            raise OfficialGuidanceEvidenceError('RoHS version identity differs')
+        day = _date(day)
+        if day in versions:
+            raise OfficialGuidanceEvidenceError('duplicate or ambiguous RoHS version date')
+        versions[day] = work
+    applicable = [day for day in versions if day <= reference]
+    if not applicable or max(applicable) != date(2026, 7, 1):
+        raise OfficialGuidanceEvidenceError('fixed RoHS consolidation is not newest on reference date')
+    if versions[date(2026, 7, 1)] != 'http://publications.europa.eu/resource/cellar/' + EU_ROHS_CELLAR_ID:
+        raise OfficialGuidanceEvidenceError('latest RoHS version does not match fixed RDF')
+
+
+def _eu_rohs_link(data, current_as_of, versions=None):
+    if not isinstance(versions, bytes):
+        raise OfficialGuidanceEvidenceError('fresh RoHS version index required')
+    _eu_rohs_versions(versions, current_as_of)
+    if b'<!DOCTYPE' in data.upper() or b'<!ENTITY' in data.upper():
+        raise OfficialGuidanceEvidenceError('plain official RDF metadata required')
+    try:
+        root = ET.fromstring(data)
+    except ET.ParseError as exc:
+        raise OfficialGuidanceEvidenceError('official publication RDF required') from exc
+    rdf = '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}'
+    cdm = '{http://publications.europa.eu/ontology/cdm#}'
+    owl = '{http://www.w3.org/2002/07/owl#}'
+    if root.tag != rdf + 'RDF':
+        raise OfficialGuidanceEvidenceError('official publication RDF root required')
+    nodes = {}
+    for node in root:
+        subject = node.get(rdf + 'about')
+        if node.tag != rdf + 'Description' or not subject or subject in nodes:
+            raise OfficialGuidanceEvidenceError('unique RDF publication subjects required')
+        nodes[subject] = node
+
+    def values(node, property):
+        return [child.get(rdf + 'resource', child.text or '')
+            for child in node.findall(property)]
+
+    work = 'http://publications.europa.eu/resource/consolidation/2011L0065%2F20260701'
+    work_node = nodes.get(work)
+    if (work_node is None or values(work_node, cdm + 'act_consolidated_date') != ['2026-07-01']
+            or values(work_node, cdm + 'act_consolidated_based_on_resource_legal')
+            != ['http://publications.europa.eu/resource/celex/32011L0065']):
+        raise OfficialGuidanceEvidenceError('named directive consolidation identity differs')
+    expressions = [(subject, node) for subject, node in nodes.items()
+        if values(node, cdm + 'expression_belongs_to_work') == [work]
+        and values(node, cdm + 'expression_uses_language')
+        == ['http://publications.europa.eu/resource/authority/language/ENG']]
+    if len(expressions) != 1:
+        raise OfficialGuidanceEvidenceError('unique English EU expression required')
+    expression, node = expressions[0]
+    titles = values(node, cdm + 'expression_title')
+    if len(titles) != 1 or ' '.join(titles[0].split()) != EU_ROHS_TITLE:
+        raise OfficialGuidanceEvidenceError('actual English directive title differs')
+    manifestations = [subject for subject, node in nodes.items()
+        if values(node, cdm + 'manifestation_manifests_expression') == [expression]
+        and values(node, cdm + 'manifestation_type') == ['pdfa2a']]
+    if len(manifestations) != 1:
+        raise OfficialGuidanceEvidenceError('unique English PDF manifestation required')
+    aliases = [subject for subject, node in nodes.items()
+        if manifestations[0] in values(node, owl + 'sameAs')]
+    if aliases != [EU_ROHS_PDF_URL.rsplit('/', 1)[0].replace('https:', 'http:')]:
+        raise OfficialGuidanceEvidenceError('unique English PDF Cellar identity required')
+    alias_node = nodes[aliases[0]]
+    if set(values(alias_node, owl + 'sameAs')) != {manifestations[0],
+            'http://publications.europa.eu/resource/celex/02011L0065-20260701.ENG.pdfa2a'}:
+        raise OfficialGuidanceEvidenceError('RoHS CELEX and PDF aliases differ')
+    items = [subject for subject, node in nodes.items()
+        if values(node, cdm + 'item_belongs_to_manifestation') == aliases
+        and values(node, cdm + 'item_identifier') == ['DOC_1']]
+    if len(items) != 1:
+        raise OfficialGuidanceEvidenceError('unique English PDF item required')
+    url = items[0].replace('http://publications.europa.eu/',
+        'https://publications.europa.eu/', 1)
+    _official_url(url, pdf=True, provider=EU_ROHS_PROVIDER)
+    if url != EU_ROHS_PDF_URL:
+        raise OfficialGuidanceEvidenceError('current EU item must be the named consolidation')
+    # Fixed consolidation, not latest-edition discovery. The PDF independently
+    # confirms the date; retrieval/date-of-consolidation is not publication day.
+    return url, 'Directive 2011/65/EU — consolidation as at 1 July 2026; documentation tool without legal effect', None
+
+
 @dataclass(frozen=True)
 class _Source:
     index_url: str
@@ -556,6 +701,9 @@ _SOURCES = {
     ENV_PLASTIC_STRATEGY_PROVIDER: _Source(ENV_PLASTIC_STRATEGY_INDEX_URL, 'www.env.go.jp',
         r'/content/900513722\.pdf', 'actual_official_index_link',
         SOURCE_KIND, _plastic_strategy_link),
+    EU_ROHS_PROVIDER: _Source(EU_ROHS_INDEX_URL, 'op.europa.eu',
+        r'/resource/cellar/[^/]+/DOC_1', 'actual_official_rdf_and_pdf_identity',
+        'official_consolidated_eu_act', _eu_rohs_link),
     EU_SUP_PROVIDER: _Source(EU_SUP_INDEX_URL, 'op.europa.eu',
         r'/resource/cellar/[^/]+/DOC_1', 'actual_official_rdf_and_pdf_identity',
         'official_consolidated_eu_act', _eu_sup_link),
@@ -730,11 +878,37 @@ class OfficialGuidanceEvidenceResolver:
             raise OfficialGuidanceEvidenceError('actual retrieval response required')
         _official_url(fetched.resolved_url, pdf=pdf, provider=provider)
         expected = ('application/pdf' if pdf else
-            'application/rdf+xml' if provider == EU_SUP_PROVIDER else 'text/html')
+            'application/rdf+xml' if provider in (EU_SUP_PROVIDER, EU_ROHS_PROVIDER) else 'text/html')
         if (not fetched.data or len(fetched.data) > maximum or fetched.content_type != expected
                 or (pdf and not fetched.data.startswith(b'%PDF-'))):
             raise OfficialGuidanceEvidenceError('official response type/size/content differs')
         self._document_identity(provider, url, fetched.data, pdf=pdf)
+        self._store(fetched.data)
+        return fetched
+
+    def _get_rohs_versions(self):
+        # The query, endpoint, response type and final URL are fixed; no caller
+        # input can alter SPARQL or redirect it to another resource.
+        if self.fetcher is not None:
+            fetched = self.fetcher(EU_ROHS_VERSIONS_URL, MAX_INDEX_BYTES)
+        else:
+            class FixedRedirect(urllib.request.HTTPRedirectHandler):
+                def redirect_request(self, req, fp, code, msg, headers, newurl):
+                    if urljoin(req.full_url, newurl) != EU_ROHS_VERSIONS_URL:
+                        raise OfficialGuidanceEvidenceError('RoHS version index redirect differs')
+                    return super().redirect_request(req, fp, code, msg, headers, newurl)
+            opener = urllib.request.build_opener(IPv4HTTPSHandler(), FixedRedirect())
+            req = urllib.request.Request(EU_ROHS_VERSIONS_URL, headers={
+                'User-Agent': 'Repaso-OfficialGuidanceEvidence/1.0',
+                'Accept': 'application/sparql-results+json'})
+            with opener.open(req, timeout=30) as response:
+                fetched = OfficialGuidanceFetch(response.read(MAX_INDEX_BYTES + 1),
+                    response.url, response.headers.get_content_type())
+        if (not isinstance(fetched, OfficialGuidanceFetch) or not isinstance(fetched.data, bytes)
+                or fetched.resolved_url != EU_ROHS_VERSIONS_URL
+                or fetched.content_type != 'application/sparql-results+json'
+                or not fetched.data or len(fetched.data) > MAX_INDEX_BYTES):
+            raise OfficialGuidanceEvidenceError('official RoHS version response differs')
         self._store(fetched.data)
         return fetched
 
@@ -747,6 +921,19 @@ class OfficialGuidanceEvidenceResolver:
                     or '令和元年５月31日' not in cover
                     or '基本原則―３Ｒ+Renewable' not in principle):
                 raise OfficialGuidanceEvidenceError('named 2019 strategy PDF contents required')
+        if provider == EU_ROHS_PROVIDER and pdf:
+            first = ' '.join(self._selection(data, [1])[0]['text'].split())
+            if 'DIRECTIVE 2011/65/EU' not in first.upper():
+                raise OfficialGuidanceEvidenceError('actual RoHS directive title missing from PDF')
+            if url == EU_ROHS_PDF_URL:
+                if (not re.search(r'02011L0065\s*[—-]\s*EN\s*[—-]\s*01\.07\.2026', first)
+                        or 'documentation tool and has no legal effect' not in first):
+                    raise OfficialGuidanceEvidenceError('actual RoHS English consolidation date or status differs')
+            elif ('02011L0065' in first or '8 June 2011' not in first
+                    or 'Official Journal of the European Union' not in first
+                    or not re.search(r'L\s*174/88', first)):
+                raise OfficialGuidanceEvidenceError('actual original RoHS Official Journal text required')
+            return
         if provider != EU_SUP_PROVIDER or not pdf:
             return
         first = ' '.join(self._selection(data, [1])[0]['text'].split())
@@ -779,7 +966,12 @@ class OfficialGuidanceEvidenceResolver:
         if request['currentAsOf'] != _reference_date(self.now()):
             raise OfficialGuidanceEvidenceError('current official guidance requires actual current date')
         index = self._get(source.index_url, pdf=False, provider=request['provider'])
-        url, revision, published = source.select(index.data, request['currentAsOf'])
+        version_index = None
+        if request['provider'] == EU_ROHS_PROVIDER:
+            version_index = self._get_rohs_versions()
+            url, revision, published = _eu_rohs_link(index.data, request['currentAsOf'], version_index.data)
+        else:
+            url, revision, published = source.select(index.data, request['currentAsOf'])
         specifications = [{'kind': 'current', 'sourceUrl': url, 'revisionLabel': revision,
             'revisionLabelOrigin': source.label_origin, 'pages': request['currentPages']}]
         specifications += [{'kind': 'historical', **document,
@@ -802,6 +994,10 @@ class OfficialGuidanceEvidenceResolver:
                 'byteHash': _hash(index.data), 'currentPdfUrl': url, 'publishedRevisionDate': published},
             'documents': documents, 'choiceBindings': request['choiceBindings'],
             'applicabilityStatus': 'unreviewed', 'historicalCompleteness': 'unreviewed'}
+        if version_index is not None:
+            content['currentIndex']['versionIndex'] = {
+                'sourceUrl': EU_ROHS_VERSIONS_URL, 'resolvedUrl': version_index.resolved_url,
+                'byteHash': _hash(version_index.data)}
         completed = self.now()
         if _reference_date(completed) != request['currentAsOf']:
             raise OfficialGuidanceEvidenceError('date changed during retrieval; new current request required')
@@ -846,11 +1042,22 @@ class OfficialGuidanceEvidenceResolver:
         if _reference_date(receipt['retrievalCompletedAt']) != receipt['currentAsOf']:
             raise OfficialGuidanceEvidenceError('retrieval date differs from current-as-of')
         index = receipt['currentIndex']
-        _exact(index, {'sourceUrl', 'resolvedUrl', 'byteHash', 'currentPdfUrl', 'publishedRevisionDate'}, 'index receipt')
+        index_fields = {'sourceUrl', 'resolvedUrl', 'byteHash', 'currentPdfUrl', 'publishedRevisionDate'}
+        if request['provider'] == EU_ROHS_PROVIDER:
+            index_fields.add('versionIndex')
+        _exact(index, index_fields, 'index receipt')
         if index['sourceUrl'] != source.index_url:
             raise OfficialGuidanceEvidenceError('fixed official index required')
         _official_url(index['resolvedUrl'], provider=request['provider'])
-        url, revision, published = source.select(self._bytes(index['byteHash']), receipt['currentAsOf'])
+        if request['provider'] == EU_ROHS_PROVIDER:
+            version = index['versionIndex']
+            _exact(version, {'sourceUrl', 'resolvedUrl', 'byteHash'}, 'RoHS version index receipt')
+            if version['sourceUrl'] != EU_ROHS_VERSIONS_URL or version['resolvedUrl'] != EU_ROHS_VERSIONS_URL:
+                raise OfficialGuidanceEvidenceError('fixed official RoHS version query required')
+            url, revision, published = _eu_rohs_link(self._bytes(index['byteHash']),
+                receipt['currentAsOf'], self._bytes(version['byteHash']))
+        else:
+            url, revision, published = source.select(self._bytes(index['byteHash']), receipt['currentAsOf'])
         if index['currentPdfUrl'] != url or index['publishedRevisionDate'] != published:
             raise OfficialGuidanceEvidenceError('official index link/revision changed')
         documents = receipt['documents']
