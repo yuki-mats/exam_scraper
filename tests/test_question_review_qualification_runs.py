@@ -11044,6 +11044,8 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 json.loads((root / path).read_text(encoding="utf-8"))
                 for path in projected_paths
             ]
+            actual = coordinator.store._question_attempt_context('new-exam', child['runId'])[3]
+            envelope = actual['preparedCandidate']
 
             self.assertEqual(
                 set(inventory.projected_calls),
@@ -11145,6 +11147,15 @@ class QualificationQueueSafetyRegressionTests(QualificationRunTestSupport):
                 for payload in payloads
             )
         )
+        type_prompt = next(prompt for qid, prompt, kwargs in app_server.calls
+            if qid == child_question_id and kwargs['work_type'] == 'maintenance_question_type_candidate')
+        delivered = PerQuestionQueueAppServer._candidate_questions(type_prompt)[0]['currentRecord']
+        self.assertEqual(delivered['choiceTextList'], listed_source_text.splitlines())
+        self.assertEqual(delivered['aggregateAnswerDecomposition']['classification'], 'target')
+        self.assertEqual(actual['aggregateTypeCandidatePrompt'], type_prompt)
+        proof = envelope['content']['executionMetadata']['aggregateTypeProjectionDelivery']
+        self.assertEqual(proof['promptHash'], hashlib.sha256(type_prompt.encode()).hexdigest())
+        self.assertNotIn(proof['threadId'], child['aggregateReviewThreadIds'])
 
     def test_hold_deactivates_a_stale_aggregate_target_without_validating_stage(self):
         source_text = "A　原文一。\nB　原文二。"

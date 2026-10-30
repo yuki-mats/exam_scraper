@@ -2202,10 +2202,77 @@ def _prepared_primary_evidence_prompt(store, qualification, run_id):
     # Question attempts store their immutable prompt in attemptArtifacts, not
     # promptPath (the latter is only the legacy/manual run prompt contract).
     _parent_path, _parent, _question_id, attempt = store._question_attempt_context(qualification, run_id)
-    value = attempt.get('prompt')
+    value = attempt.get('aggregateTypeCandidatePrompt') or attempt.get('prompt')
     if not isinstance(value, str) or not value:
         raise QualificationRunError('根拠付きcandidateの実保存promptがありません。')
     return value
+
+
+def _aggregate_type_candidate_prompt(prompt, source_records, review_pairs, consensus):
+    """Project approved source spans before the separate format judgment turn."""
+    projections = {}
+    for qid, decision in consensus.items():
+        if decision.get('classification') != 'target' or decision.get('decision') != 'approve':
+            continue
+        projection = materialize_decomposition(source_records[qid], review_pairs[qid])
+        if projection.get('aggregateAnswerDecomposition') != decision:
+            raise QualificationRunError('集約回答の投影と独立レビューの採用結果が一致しません。')
+        projection['questionBodyText'] = source_records[qid]['questionBodyText']
+        projections[qid] = projection
+    if not projections:
+        return prompt, projections
+    lines = prompt.splitlines()
+    for index in range(len(lines) - 1, -1, -1):
+        try:
+            questions = json.loads(lines[index])
+        except json.JSONDecodeError:
+            continue
+        if not isinstance(questions, list) or not all(
+            isinstance(item, dict) and 'questionId' in item for item in questions
+        ):
+            continue
+        found = set()
+        for question in questions:
+            qid = question['questionId']
+            if qid not in projections:
+                continue
+            if qid in found or not isinstance(question.get('currentRecord'), dict):
+                raise QualificationRunError('形式判定の投影先問題を一意に確認できません。')
+            found.add(qid)
+            question['currentRecord'].update(copy.deepcopy(projections[qid]))
+        if found != set(projections):
+            raise QualificationRunError('形式判定の投影先問題が欠落しています。')
+        lines[index] = json.dumps(questions, ensure_ascii=False, separators=(',', ':'))
+        return '\n'.join(lines), projections
+    raise QualificationRunError('形式判定へ渡す問題一覧がありません。')
+
+
+def _validate_aggregate_type_candidates(candidates, projections, targets_by_question):
+    """The writer must never replace a different model-owned classification."""
+    by_id = {candidate.question_id: candidate for candidate in candidates}
+    for qid, projection in projections.items():
+        candidate = by_id.get(qid)
+        if candidate is None or candidate.status != 'candidate':
+            continue  # Existing blocked/hold handling cannot write a candidate.
+        targets = {target.target_id: target for target in targets_by_question[qid]}
+        values = [update.set_fields.get('questionType') for update in candidate.updates
+            if targets[update.target_id].role == 'question_type'
+            and 'questionType' in update.set_fields]
+        if not values or any(value != projection['questionType'] for value in values):
+            raise QualificationRunError('集約回答の投影と実形式判定が不一致です。再調査が必要です。')
+
+
+def _validate_aggregate_type_delivery(actual_prompt, expected_prompt, projections, proof,
+        input_fingerprint, projected_input_hash, review_threads):
+    if (actual_prompt != expected_prompt
+            or proof.get('schemaVersion') != 'aggregate-type-projection-delivery/v1'
+            or proof.get('promptHash') != hashlib.sha256(expected_prompt.encode()).hexdigest()
+            or proof.get('projectionsHash') != sha256_json(projections)
+            or proof.get('inputFingerprint') != input_fingerprint
+            or proof.get('projectedInputHash') != projected_input_hash
+            or not proof.get('threadId') or not proof.get('turnId')
+            or proof['threadId'] in review_threads):
+        raise QualificationRunError('形式判定への投影入力と実配送receiptが一致しません。')
 
 def _validate_prepared_primary_evidence(repo_root, bundle, *, qualification, stage_id, target,
         input_fingerprint, projected_input_hash, policy_fingerprint, record):
@@ -17092,6 +17159,21 @@ class QualificationRunCoordinator:
                 prepared_execution_metadata = copy.deepcopy(
                     dict(raw_execution)
                 )
+                if stage_id == 'question_type':
+                    original_prompt = self.store._question_attempt_context(
+                        qualification, run_id)[3]['prompt']
+                    expected_prompt, type_projections = _aggregate_type_candidate_prompt(
+                        _filter_structured_candidate_prompt(original_prompt, set(candidate_question_ids)),
+                        aggregate_source_records, aggregate_review_pairs,
+                        {qid: value for qid, value in aggregate_consensus.items()
+                            if qid in candidate_question_ids})
+                    if type_projections:
+                        actual_prompt = _prepared_primary_evidence_prompt(self.store, qualification, run_id)
+                        proof = prepared_execution_metadata.get('aggregateTypeProjectionDelivery') or {}
+                        _validate_aggregate_type_delivery(actual_prompt, expected_prompt, type_projections,
+                            proof, input_fingerprint_value, projected_input_hash,
+                            child.get('aggregateReviewThreadIds', []))
+                    _validate_aggregate_type_candidates(candidates, type_projections, targets_by_question)
                 if stage_id == 'law_audit':
                     delivery = prepared_execution_metadata.get('lawAuditJudgmentGuidance') or {}
                     guidance = statement_judgment_guidance(self.repo_root)
@@ -17171,6 +17253,18 @@ class QualificationRunCoordinator:
                         prompt,
                         set(candidate_question_ids),
                     )
+                    type_projections = {}
+                    if stage_id == 'question_type':
+                        candidate_prompt, type_projections = _aggregate_type_candidate_prompt(
+                            candidate_prompt, aggregate_source_records, aggregate_review_pairs,
+                            {qid: value for qid, value in aggregate_consensus.items()
+                                if qid in candidate_question_ids})
+                        if type_projections:
+                            changes = {'aggregateTypeCandidatePrompt': candidate_prompt}
+                            if prepared_primary_evidence is not None:
+                                changes['preparedPrimaryEvidencePromptHash'] = hashlib.sha256(
+                                    candidate_prompt.encode()).hexdigest()
+                            child = self.store.update(qualification, run_id, **changes)
                     if prepared_primary_evidence is not None:
                         if (law_question_inputs(candidate_prompt)[question_ids[0]].get('preparedPrimaryEvidence') != prepared_primary_evidence
                                 or hashlib.sha256(candidate_prompt.encode('utf-8')).hexdigest() != child.get('preparedPrimaryEvidencePromptHash')):
@@ -17251,6 +17345,18 @@ class QualificationRunCoordinator:
                             result, "model_turn_queue_wait_seconds", None
                         ),
                     }
+                    if type_projections:
+                        if (not result.thread_id or not result.turn_id
+                                or result.thread_id in child.get('aggregateReviewThreadIds', [])):
+                            raise QualificationRunError('形式判定は集約レビューとは別turnで実行する必要があります。')
+                        _validate_aggregate_type_candidates(candidates, type_projections, targets_by_question)
+                        prepared_execution_metadata['aggregateTypeProjectionDelivery'] = {
+                            'schemaVersion': 'aggregate-type-projection-delivery/v1',
+                            'promptHash': hashlib.sha256(candidate_prompt.encode()).hexdigest(),
+                            'projectionsHash': sha256_json(type_projections),
+                            'threadId': result.thread_id, 'turnId': result.turn_id,
+                            'inputFingerprint': input_fingerprint_value,
+                            'projectedInputHash': projected_input_hash}
                     for task_question in law_question_inputs(candidate_prompt).values():
                         task_input = task_question.get('feedbackTaskRequirement')
                         if task_input is not None:
@@ -17949,10 +18055,10 @@ class QualificationRunCoordinator:
                                 )
                             )
                             server_set_fields.update(
-                                materialize_decomposition(
+                                {field: value for field, value in materialize_decomposition(
                                     aggregate_source_records[question_id],
                                     aggregate_review_pairs[question_id],
-                                )
+                                ).items() if field != 'questionType'}
                             )
                             # Existing 10 rows may still contain the body from
                             # before a source refresh. Bind newly approved spans

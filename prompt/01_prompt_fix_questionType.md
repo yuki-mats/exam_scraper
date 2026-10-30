@@ -38,6 +38,8 @@
 3. serverが二者の結果を照合し、完全一致した`target/approve`だけを採用して原文spanから`choiceTextList`と派生`sourceUniqueKeys`を切り出す（AIが抽出文を生成する経路は設けない）。
 4. 投影後の`logicalProjection`を入力として、別turnで通常の問題形式候補（対象確定時は`questionType=true_false`）を生成する。
 
+通常実行では、採用spanを含む実配送prompt、投影hash、分類turnの識別子を保存する。保存・再送・中断復元時も同じ投影入力との一致を確認し、分類候補と保存予定の形式が異なる場合は停止する。writerが分類結果を投影側の形式へ上書きして整合させてはならない。
+
 二者の不一致、hash・範囲不整合、命題と前提の境界不明は問題単位の`hold`とします。分解後の正答・解説は後続工程で全記述分を独立に確定し、元の回答候補は`originalAggregateAnswerEvidence`へ分離保持します。
 
 ## 出力と検証
