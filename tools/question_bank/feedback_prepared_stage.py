@@ -44,6 +44,10 @@ from tools.question_review_console.qualification_runs import (
 from tools.question_review_console.question_patch_proposal import assert_target_resolvable
 
 REQUEST = 'feedback-prepared-stage-request/v1'
+QUESTION_LEVEL_REQUEST = 'feedback-prepared-question-level-type-request/v1'
+QUESTION_LEVEL_PLAN = 'feedback-prepared-question-level-type-plan/v1'
+QUESTION_LEVEL_PREVIEW = 'feedback-prepared-question-level-type-preview/v1'
+QUESTION_LEVEL_SAVED = 'feedback-prepared-question-level-type-save/v1'
 PLAN = 'feedback-prepared-stage-plan/v1'
 PREVIEW = 'feedback-prepared-stage-preview-receipt/v1'
 SAVED = 'feedback-prepared-stage-save-receipt/v1'
@@ -81,11 +85,72 @@ def _requirements(connection, authority):
         cursor.close()
 
 
-def _request(root, path, files):
+def _versions(request):
+    if request.get('schemaVersion') == REQUEST:
+        return PLAN, PREVIEW, SAVED, 'feedback-prepared-stage-independent-scope/v1', 'save_one_normal_source_bound_stage'
+    if request.get('schemaVersion') == QUESTION_LEVEL_REQUEST and request.get('stageId') == 'question_type':
+        return (QUESTION_LEVEL_PLAN, QUESTION_LEVEL_PREVIEW, QUESTION_LEVEL_SAVED,
+            'feedback-prepared-question-level-type-independent-scope/v1', 'save_one_normal_question_level_type_stage')
+    raise ValueError('unsupported prepared-stage request/owner stage')
+
+
+def _question_level_context(root, request, files, connection):
+    from tools.question_bank import feedback_question_level_read_set as level
+    if connection is None or root is None:
+        raise ValueError('question-level input requires explicit root and task connection')
+    reference = request['questionLevelReadSet']
+    receipt = _ref(root, reference, files, private=True)
+    path = _inside(root, reference['ref'], private=True)
+    # The stage CLI intentionally leaves Connection.row_factory unchanged.
+    # The read-set API consumes named rows; isolate that setting to its cursor.
+    with closing(connection.cursor()) as read_cursor:
+        read_cursor.row_factory = sqlite3.Row
+        verified_receipt = level.inspect(root, path.parent, connection=read_cursor)
+    if (path.name != 'receipt.json' or receipt.get('reader') != 'production-fresh-read'
+            or receipt != verified_receipt):
+        raise ValueError('verified question-level read-set receipt required')
+    context_bytes = _read(root, path.parent / 'context.json', files, private=True)
+    if _hash(context_bytes) != receipt['contextSha256']:
+        raise ValueError('question-level captured context hash differs from verified receipt')
+    context = _json(context_bytes)
+    candidate = _ref(root, receipt['candidate'], files, private=True)
+    for relative, digest in receipt['inputs'].items():
+        if _hash(_read(root, root / relative, files)) != digest:
+            raise ValueError('question-level fixed input drift')
+    source = context['sourceBinding']; live = request['live']
+    requirement = _requirements(connection, request['authority'])
+    unit = {'qualificationId': live['qualificationId'], 'examYear': live['examYear'],
+        'originalQuestionId': live['originalQuestionId']}
+    if (request['authority'] != {'kind': 'improvement', 'taskId': context['task']['taskId']}
+            or context['task'] != feedback_task.safe_requirement(requirement)
+            or context['publicationUnit'] != unit
+            or request['qualification'] != unit['qualificationId']
+            or request['source'] != {'ref': source['sourceFile'], 'sha256': source['sourceSha256'], 'binding': source['binding']}
+            or live['questionIds'] != sorted(context['readSet']) or live['readFields'] != context['readFields']
+            or request['primaryEvidence'] != [{k: entry[k] for k in ('ref', 'sha256')} for entry in candidate['primaryEvidence']]):
+        raise ValueError('same question-level source/task/unit/mask/evidence required')
+    return context
+
+
+def _membership(request):
+    spec = request['live']
+    if request['schemaVersion'] == QUESTION_LEVEL_REQUEST:
+        return 'feedback_question_level_read_set._production_reader', {
+            'qualificationId': spec['qualificationId'], 'examYear': spec['examYear'],
+            'originalQuestionId': spec['originalQuestionId'], 'isDeleted': False, 'includeChoiceOnly': True}
+    return 'feedback_verified_save._snapshots', {
+        'originalQuestionId': spec['originalQuestionId'], 'isDeleted': False, 'isChoiceOnly': False}
+
+
+def _request(root, path, files, *, connection=None):
     value = _json(_read(root, path, files, private=True))
-    _object(value, {'schemaVersion', 'qualification', 'listGroupId', 'questionId', 'stageId', 'source',
-                    'authority', 'live', 'primaryEvidence'}, {'retryFromFailure', 'primaryEvidenceSelections', 'officialGuidanceRequest'})
-    if value['schemaVersion'] != REQUEST or value['stageId'] not in STAGES:
+    question_level = value.get('schemaVersion') == QUESTION_LEVEL_REQUEST
+    required = {'schemaVersion', 'qualification', 'listGroupId', 'questionId', 'stageId', 'source',
+                'authority', 'live', 'primaryEvidence'}
+    if question_level: required.add('questionLevelReadSet')
+    _object(value, required, {'retryFromFailure', 'primaryEvidenceSelections', 'officialGuidanceRequest'})
+    _versions(value)
+    if value['stageId'] not in STAGES:
         raise ValueError('dedicated single-stage request required')
     for field in ('qualification', 'listGroupId', 'questionId'):
         _text(value[field])
@@ -124,7 +189,10 @@ def _request(root, path, files):
             raise ValueError('source reader bytes drift')
     if _hash(source_data) != value['source']['sha256']:
         raise ValueError('source bytes changed')
-    live = _object(value['live'], {'originalQuestionId', 'qualificationId', 'questionIds', 'readFields'})
+    live = _object(value['live'], {'originalQuestionId', 'qualificationId', 'questionIds', 'readFields'}
+        | ({'examYear'} if question_level else set()))
+    if question_level and (type(live['examYear']) is not int or not 1900 <= live['examYear'] <= 2200):
+        raise ValueError('exact integer question-level exam year required')
     for field in ('originalQuestionId', 'qualificationId'):
         _text(live[field])
     for field in ('questionIds', 'readFields'):
@@ -149,6 +217,8 @@ def _request(root, path, files):
         raise ValueError('official guidance acquisition belongs to 02b/03/03b only')
     if 'retryFromFailure' in value:
         _ref(root, value['retryFromFailure'], files, private=True, decode=False)
+    if question_level:
+        _question_level_context(root, value, files, connection)
     return value
 
 
@@ -285,9 +355,9 @@ def _work_version_inputs_before(root, coordinator, qualification, stage_plan):
 def _hold_inputs(root, fixed, *, coordinator, connection):
     _require_question_set_category_input(root, fixed)
     _unchanged(root, fixed['inputFiles'])
-    request = _request(root, root / fixed['requestPath'], {})
+    request = _request(root, root / fixed['requestPath'], {}, connection=connection)
     if (request != fixed['request'] or _requirements(connection, request['authority']) != fixed['taskRequirement']
-            or _live(request) != fixed['liveSnapshots']
+            or _live(request, root=root, connection=connection) != fixed['liveSnapshots']
             or not coordinator._phase_plan_policy_is_current(fixed['qualification'], fixed['stagePlan'], fixed['stageId'])):
         raise ValueError('held preparation request/task/live/current policy changed')
     _authority_matches(request, fixed['taskRequirement'])
@@ -429,7 +499,7 @@ def _retry_context(root, request, files, *, coordinator, connection, _consumed_b
             raise ValueError('failure input binding conflicts')
         files[relative] = digest
     if (_requirements(connection, request['authority']) != fixed['taskRequirement']
-            or _live(request) != fixed['liveSnapshots']
+            or _live(request, root=root, connection=connection) != fixed['liveSnapshots']
             or not coordinator._phase_plan_policy_is_current(fixed['qualification'], fixed['stagePlan'], fixed['stageId'])):
         raise ValueError('failed preparation task/live/current policy changed')
     _canonical_before(root, {'transactionBefore': fixed['canonicalInputsBefore']})
@@ -477,8 +547,15 @@ def _require_retry_claim(root, plan, *, files=None):
         raise ValueError('same fixed retry failure/claim required')
 
 
-def _live(request):
+def _live(request, *, root=None, connection=None):
     spec = request['live']
+    if request['schemaVersion'] == QUESTION_LEVEL_REQUEST:
+        from tools.question_bank import feedback_question_level_read_set as level
+        context = _question_level_context(root, request, {}, connection)
+        snapshots = level._production_reader(context['publicationUnit'], context['readFields'])
+        if snapshots != context['readSet']:
+            raise ValueError('question-level complete read-set/presence/exact time changed')
+        return snapshots
     snapshots = _snapshots(sorted(spec['questionIds']), sorted(spec['readFields']))
     if set(snapshots) != set(spec['questionIds']):
         raise ValueError('all live siblings required')
@@ -594,10 +671,10 @@ def prepare(root, request_path, destination, *, coordinator, connection):
             return load_hold(root, destination / 'hold-receipt.json', request_path,
                 coordinator=coordinator, connection=connection)
         raise ValueError('exclusive new private plan directory required')
-    files = {}; request = _request(root, request_path, files)
+    files = {}; request = _request(root, request_path, files, connection=connection)
     requirement = _requirements(connection, request['authority']); _authority_matches(request, requirement)
     retry = _retry_context(root, request, files, coordinator=coordinator, connection=connection)
-    live = _live(request)
+    live = _live(request, root=root, connection=connection)
     qualification, stage = request['qualification'], request['stageId']
     plan = coordinator._plan(qualification, stage, 'refresh', None, stage_ids=[stage],
         list_group_ids=[request['listGroupId']], question_ids=[request['questionId']])
@@ -691,13 +768,13 @@ def prepare(root, request_path, destination, *, coordinator, connection):
             prepared_targets=prepared['candidateTargetsByQuestion'], model=prepared['requestedModel'],
             maintenance_attempt=prepared.get('attemptRoute'), reasoning_effort=prepared['requestedReasoningEffort'],
             input_fingerprint_value=prepared['inputFingerprint'], projected_input_hash=prepared['projectedInputHash'], prepare_only=True)
-        fixed = {'schemaVersion': PLAN, 'qualification': qualification, 'stageId': stage,
+        membership_reader, membership_predicate = _membership(request)
+        fixed = {'schemaVersion': _versions(request)[0], 'qualification': qualification, 'stageId': stage,
             'parentRunId': parent['runId'], 'childRunId': prepared['childId'],
             'inputFingerprint': prepared['inputFingerprint'], 'projectedInputHash': prepared['projectedInputHash'],
             'request': request, 'requestPath': str(Path(request_path).relative_to(root)), 'taskRequirement': requirement,
-            'liveSnapshots': live, 'liveMembershipReader': 'feedback_verified_save._snapshots',
-            'liveMembershipPredicate': {'originalQuestionId': request['live']['originalQuestionId'],
-                                        'isDeleted': False, 'isChoiceOnly': False},
+            'liveSnapshots': live, 'liveMembershipReader': membership_reader,
+            'liveMembershipPredicate': membership_predicate,
             'sourceToLiveMappingApproved': False, 'stagePlan': prepared['batchPlan'], 'inputFiles': files,
             'groupInputSelection': selected_files, 'canonicalInputsBefore': canonical_inputs_before,
             'workVersionInputsBefore': work_version_inputs_before,
@@ -726,7 +803,7 @@ def prepare(root, request_path, destination, *, coordinator, connection):
         coordinator.store.update(qualification, prepared['childId'], preparedStagePreparation=fixed['preparationBinding'])
         output = _run(coordinator, fixed, preview=True)
         if not output.get('preview') or output['preview'].get('recordWorkVersion') is not True:
-            if _requirements(connection, request['authority']) != requirement or _live(request) != live:
+            if _requirements(connection, request['authority']) != requirement or _live(request, root=root, connection=connection) != live:
                 raise ValueError('task/live inputs changed during failed preparation')
             if _hold_candidate(fixed):
                 return _save_hold(root, destination, fixed, output, coordinator=coordinator, connection=connection)
@@ -734,7 +811,7 @@ def prepare(root, request_path, destination, *, coordinator, connection):
         fixed['commitView'] = output['preview']
         _unchanged(root, files)
         _canonical_before(root, {'transactionBefore': canonical_inputs_before})
-        if _requirements(connection, request['authority']) != requirement or _live(request) != live:
+        if _requirements(connection, request['authority']) != requirement or _live(request, root=root, connection=connection) != live:
             raise ValueError('task/live inputs changed during preparation')
         fixed['planHash'] = sha256_json(fixed)
         destination.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
@@ -752,7 +829,7 @@ def prepare(root, request_path, destination, *, coordinator, connection):
 
 
 def _preview_receipt(plan):
-    receipt = {'schemaVersion': PREVIEW, 'planHash': plan['planHash'], 'formalPatchSaved': False,
+    receipt = {'schemaVersion': _versions(plan['request'])[1], 'planHash': plan['planHash'], 'formalPatchSaved': False,
         'workVersionRecorded': False, 'checkpointRecorded': False, 'FirestoreWritten': False,
         'prospectivePatchHashes': {p['path']: p['afterSha256'] for p in plan['commitView']['patches']}}
     if plan.get('preparationBinding', {}).get('primaryEvidenceBundleHash'):
@@ -816,19 +893,19 @@ def verify_task_input(coordinator, plan):
 def load_plan(root, path, *, coordinator, connection, saved=False):
     root = _physical(root); path = _inside(root, path, private=True)
     plan = _json(_read(root, path, {}, private=True))
-    if plan.get('schemaVersion') != PLAN or sha256_json({k: v for k, v in plan.items() if k != 'planHash'}) != plan.get('planHash'):
+    if plan.get('schemaVersion') != _versions(plan['request'])[0] or sha256_json({k: v for k, v in plan.items() if k != 'planHash'}) != plan.get('planHash'):
         raise ValueError('fixed prepared-stage plan differs')
+    membership_reader, membership_predicate = _membership(plan['request'])
     if (plan.get('formalPatchSaved') is not False or plan.get('FirestoreWritten') is not False
             or plan.get('sourceToLiveMappingApproved') is not False
-            or plan.get('liveMembershipReader') != 'feedback_verified_save._snapshots'
-            or plan.get('liveMembershipPredicate') != {'originalQuestionId': plan['request']['live']['originalQuestionId'],
-                'isDeleted': False, 'isChoiceOnly': False}):
+            or plan.get('liveMembershipReader') != membership_reader
+            or plan.get('liveMembershipPredicate') != membership_predicate):
         raise ValueError('preview must not claim a save/publication')
     if _json(_read(root, path.parent / 'preview-receipt.json', {}, private=True)) != _preview_receipt(plan):
         raise ValueError('complete exact preview receipt required')
     _require_question_set_category_input(root, plan)
     _unchanged(root, plan['inputFiles'])
-    checked = _request(root, root / plan['requestPath'], {})
+    checked = _request(root, root / plan['requestPath'], {}, connection=connection)
     if checked != plan['request'] or _requirements(connection, checked['authority']) != plan['taskRequirement']:
         raise ValueError('fixed request/task/report-case requirement changed')
     _authority_matches(checked, plan['taskRequirement'])
@@ -887,7 +964,7 @@ def _scope_data(root, path, plan, connection):
     _require_question_set_category_input(root, plan)
     command = ' '.join(shlex.quote(s) for s in [sys.executable, '-m', 'tools.question_bank.feedback_prepared_stage',
         '--repo-root', str(root), '--db', _ledger_path(connection), 'scope', '--plan', str(path)])
-    return {'schemaVersion': 'feedback-prepared-stage-independent-scope/v1', 'action': 'save_one_normal_source_bound_stage',
+    scope = {'schemaVersion': _versions(plan['request'])[3], 'action': _versions(plan['request'])[4],
         'planPath': str(path), 'planHash': plan['planHash'], 'candidateHash': plan['preparedCandidate']['contentHash'],
         'taskRequirement': plan['taskRequirement'], 'sourceBinding': plan['request']['source']['binding'],
         'stageId': plan['stageId'], 'liveSnapshotsHash': sha256_json(plan['liveSnapshots']),
@@ -897,6 +974,9 @@ def _scope_data(root, path, plan, connection):
             'max_output_tokens': 12000, 'yield_time_ms': 30000}, ensure_ascii=False)
             + ');let out=r.output;while(r.session_id){r=await tools.write_stdin({session_id:r.session_id,chars:"",yield_time_ms:1000,max_output_tokens:12000});out+=r.output;}'
             + 'if(r.exit_code!==0)throw new Error("scope creation failed");text(out);\n'}
+    if plan['request']['schemaVersion'] == QUESTION_LEVEL_REQUEST:
+        scope['questionLevelReadSet'] = plan['request']['questionLevelReadSet']
+    return scope
 
 
 def _ledger_path(connection):
@@ -1029,7 +1109,7 @@ def apply(root, path, approval_path, *, coordinator, connection):
         expected = _save_receipt(plan, approval_ref, binding, _saved_files(root, plan), _stage_evidence(coordinator, plan))
         if _json(_read(root, intent_path, {}, private=True)) != intent or receipt != expected:
             raise ValueError('saved retransmission evidence drift')
-        if _live(plan['request']) != plan['liveSnapshots']:
+        if _live(plan['request'], root=root, connection=connection) != plan['liveSnapshots']:
             raise ValueError('live read-set changed after formal save')
         return receipt
     if intent_path.exists():
@@ -1037,7 +1117,7 @@ def apply(root, path, approval_path, *, coordinator, connection):
     _exclusive(intent_path, _bytes(intent))
     def guard(view):
         load_plan(root, path, coordinator=coordinator, connection=connection)
-        if view != plan['commitView'] or _live(plan['request']) != plan['liveSnapshots']:
+        if view != plan['commitView'] or _live(plan['request'], root=root, connection=connection) != plan['liveSnapshots']:
             raise ValueError('locked prospective patch/live read-set changed')
         if _read(root, approval_path, {}, private=True) != approval_raw:
             raise ValueError('approval input bytes changed')
@@ -1070,7 +1150,7 @@ def apply(root, path, approval_path, *, coordinator, connection):
 
 
 def _save_receipt(plan, approval_ref, binding, actual_files, evidence):
-    return {'schemaVersion': SAVED, 'planHash': plan['planHash'], 'approval': approval_ref,
+    return {'schemaVersion': _versions(plan['request'])[2], 'planHash': plan['planHash'], 'approval': approval_ref,
         'nativeBinding': binding, 'actualFiles': actual_files, 'stageEvidence': evidence,
         'formalPatchSaved': True, 'workVersionRecorded': True, 'checkpointRecorded': True, 'FirestoreWritten': False,
         'publicationReady': False, 'evaluationPerformed': False, 'sourceToLiveMappingApproved': False}
@@ -1114,7 +1194,7 @@ def main(argv=None):
         connection.execute('PRAGMA query_only=ON')
         if args.command == 'prepare':
             result = prepare(root, args.request, args.output, coordinator=coordinator, connection=connection)
-            if result.get('schemaVersion') == PREVIEW: result = {**result, 'status': 'prepared'}
+            if result.get('schemaVersion') in {PREVIEW, QUESTION_LEVEL_PREVIEW}: result = {**result, 'status': 'prepared'}
         elif args.command == 'scope':
             result = approval_scope(root, args.plan, coordinator=coordinator, connection=connection)
             print(scope_marker(result, creation=True)); return 0
